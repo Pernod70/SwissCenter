@@ -80,20 +80,6 @@ function make_abs_file( $fsp, $dir )
 }
 
 //-------------------------------------------------------------------------------------------------
-// Makes the given filepath acceptable to the webserver (\ become /)
-//-------------------------------------------------------------------------------------------------
-
-function make_url_path( $fsp )
-{
-  $parts = split('/',str_replace('\\','/',$fsp));
-  for ($i=0; $i<count($parts); $i++)
-    $parts[$i] = rawurlencode($parts[$i]);    
-
-  return join('/',$parts);
-}
-
-
-//-------------------------------------------------------------------------------------------------
 // OS path returns the given path with all occurances of '/' and '\' changed to the
 // approrpiate form for the current OS. If $addslash is true, then a trailing slash
 // or backslash is added as appropriate.
