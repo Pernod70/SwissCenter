@@ -83,6 +83,23 @@ function down_link( $url)
 
 function page_header( $title, $tagline = "", $focus="1", $meta = "")
 {
+  if     ($_SESSION["opts"]["screen"] == 'NTSC')
+  {
+    $logo                   = '';
+    $headings               = '<td height="30px" align="center"><b>'.$title.'</b> : '.$tagline.'&nbsp;</td>';
+    $background_image       = style_img("NTSC_BACKGROUND");
+    $heading_padding_top    = 0;
+    $heading_padding_bottom = 14;
+  }
+  else
+  {
+    $logo                   = '<td width="160px" height="92px" ><img src="/images/logo.gif" width="160" height="92"></td>';
+    $headings               = '<td height="92px" align="center"><h2>'.$title.'&nbsp;</h2>'.$tagline.'&nbsp;</td>';
+    $background_image = style_img("PAL_BACKGROUND");
+    $heading_padding_top    = 4;
+    $heading_padding_bottom = 14;
+  }
+  
   echo '<html>
         <head>'.$meta.'
         <meta SYABAS-FULLSCREEN>
@@ -96,32 +113,31 @@ function page_header( $title, $tagline = "", $focus="1", $meta = "")
         </style>
         </head>
         <body  onLoadSet="'.$focus.'"
-               background="'.  style_img("PAGE_BACKGROUND").'"
+               background="'.  $background_image .'"
                FOCUSCOLOR="'.  style_col("PAGE_FOCUS_COLOUR").'"
                FOCUSTEXT="'.   style_col("PAGE_FOCUS_TEXT").'"
                text="'.        style_col("PAGE_TEXT").'"
                vlink="'.       style_col("PAGE_VLINK").'"
                bgcolor="'.     style_col("PAGE_BGCOLOUR").'"
-               TOPMARGIN="0" LEFTMARGIN="0" MARGINHEIGHT="0" MARGINWIDTH="0">
+               TOPMARGIN="0" LEFTMARGIN="0" MARGINHEIGHT="0" MARGINWIDTH="0">';
+  
+  if ($margin_top >0)
+  {
+    echo '<table width="'.SCREEN_WIDTH.'px" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="'.SCREEN_WIDTH.'px" height="'.$heading_padding_top.'px"></td>
+            </tr>
+          </table>';
+  }
 
-        <table width="'.SCREEN_WIDTH.'px" border="0" cellpadding="0" cellspacing="0">
-          <tr>
-            <td width="'.SCREEN_WIDTH.'px" height="4px"></td>
+  echo '<table width="'.SCREEN_WIDTH.'px" border="0" cellpadding="0" cellspacing="0">
+          <tr>'.$logo.
+                $headings.'
           </tr>
         </table>
         <table width="'.SCREEN_WIDTH.'px" border="0" cellpadding="0" cellspacing="0">
           <tr>
-            <td width="160px"  height="92px" ><img src="/images/logo.gif" width="160" height="92">
-            </td>
-            <td align="center">
-              <h2>'.$title.'&nbsp;</h2>
-            '.$tagline.'&nbsp;
-            </td>
-          </tr>
-        </table>
-        <table width="'.SCREEN_WIDTH.'px" border="0" cellpadding="0" cellspacing="0">
-          <tr>
-            <td width="'.SCREEN_WIDTH.'px" height="14px"></td>
+            <td width="'.SCREEN_WIDTH.'px" height="'.$heading_padding_bottom.'px"></td>
           </tr>
         </table>
         <table width="'.SCREEN_WIDTH.'px" border="0" cellpadding="0" cellspacing="0">
