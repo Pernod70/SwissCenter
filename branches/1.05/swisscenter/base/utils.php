@@ -6,9 +6,60 @@
 require_once("file.php");
 require_once("sched.php");
 
-//
+// ----------------------------------------------------------------------------------
+// If the given $text is empty or NULL (from MySQL) then this function returns the $default
+// string. Otherwise, it returns the $text passed in.
+// ----------------------------------------------------------------------------------
+
+function nvl($text,$default = '&lt;Unknown&gt;')
+{
+  if (empty($text) || is_null($text))
+    return $default;
+  else 
+    return $text;   
+}
+
+// ----------------------------------------------------------------------------------
+// Returns the text between two given strings
+// ----------------------------------------------------------------------------------
+
+function substr_between_strings( &$string, $startstr, $endstr)
+{
+  $start  = strpos($string,$startstr);
+  $end    = strpos($string,$endstr)-1;
+
+  if ($start === false || $end === false)
+  {
+    return '';
+  }
+  else
+  {
+    $text  = strip_tags(substr($string,$start+strlen($startstr),$end-$start-strlen($startstr)));
+
+    if (strpos($text,'>') === false)
+      return ltrim(rtrim($text));
+    else 
+      return ltrim(rtrim(substr($text,strpos($text,'>')+1)));
+  }
+}
+
+// ----------------------------------------------------------------------------------
+// Returns all the hyperlinks is the given string
+// ----------------------------------------------------------------------------------
+
+function get_urls_from_html ($string) 
+{
+  preg_match_all ('/<a.*href="(view_dvd[^"]*)"[^>]*>(.*)<\/a>/i', $string, &$matches);
+  
+  for ($i = 0; $i<count($matches[2]); $i++)
+    $matches[2][$i] = preg_replace('/<[^>]*>/','',$matches[2][$i]);
+
+  return $matches;
+}
+
+// ----------------------------------------------------------------------------------
 // Returns the outcome of a system command
-// 
+// ----------------------------------------------------------------------------------
 
 function syscall($command)
 {
@@ -22,14 +73,19 @@ function syscall($command)
   }
 }
   
+// ----------------------------------------------------------------------------------
 // Returns whether the search string is in the array (case-insensitive)
+// ----------------------------------------------------------------------------------
 
 function in_array_ci($search, $array)
 {
   return preg_grep('/^'.preg_quote(strtolower($search), '/').'$/i', $array);
 }
 
+// ----------------------------------------------------------------------------------
 // Adds the given character onto the end of the given string, if it is not already present.
+// ----------------------------------------------------------------------------------
+
 function str_suffix( $string, $char)
 {
   if (empty($string))
@@ -40,7 +96,10 @@ function str_suffix( $string, $char)
     return $string.$char;
 }
 
+// ----------------------------------------------------------------------------------
 // Returns the null device (/dev/null in UNIX, :null in windows.
+// ----------------------------------------------------------------------------------
+
 function os_null()
 {
   if ( substr(PHP_OS,0,3)=='WIN' )
@@ -49,14 +108,19 @@ function os_null()
     return '/dev/null';
 }
 
+// ----------------------------------------------------------------------------------
 // Returns the last value in an array without removing it
+// ----------------------------------------------------------------------------------
+
 function array_last( &$array )
 {
   return $array[count($array)-1];
 }
 
+// ----------------------------------------------------------------------------------
 // Checks to see if the PHP option "Magic Quotes" is turned on, and if it is then this
 // function strips the slashes from the input.
+// ----------------------------------------------------------------------------------
 
 function un_magic_quote( $text )
 {
@@ -66,8 +130,10 @@ function un_magic_quote( $text )
     return $text;
 }
 
+// ----------------------------------------------------------------------------------
 // this function will return the value of a given variable which is stored in a text string
 // of the following format (eg: an SQL statement): ^.*variable='value'.* variable='value'...
+// ----------------------------------------------------------------------------------
 
 function var_in_string( $string, $var)
 {
@@ -76,7 +142,9 @@ function var_in_string( $string, $var)
   return $results[1];
 }
 
+// ----------------------------------------------------------------------------------
 // Takes an amount in seconds, and returns a string reading "x Hours, Y Minutes, Z seconds"
+// ----------------------------------------------------------------------------------
 
 function hhmmss( $secs )
 {
@@ -103,11 +171,11 @@ function hhmmss( $secs )
   return $str.'1s';
 }
 
-//
+// ----------------------------------------------------------------------------------
 // Gets the details of the image, and adjusts the $X and $Y parameters to reflect the
 // true image size if the image was resized to fit within the $Xx$Y rectangle, whilst
 // maintaining the aspect ratio.
-//
+// ----------------------------------------------------------------------------------
 
 function image_resized_xy( $filename, &$x, &$y )
 {
@@ -124,9 +192,9 @@ function image_resized_xy( $filename, &$x, &$y )
 
 }
 
-//
+// ----------------------------------------------------------------------------------
 // Sets the status of the "New Media" indicator light on the showcenter box
-//
+// ----------------------------------------------------------------------------------
 
 function media_indicator( $status )
 {
@@ -143,9 +211,9 @@ function media_indicator( $status )
   }
 }
 
-//
+// ----------------------------------------------------------------------------------
 // Sorts an array of arrays based on the given key in the nested array.
-//
+// ----------------------------------------------------------------------------------
 
 function array_sort( &$array, $key ) 
 { 
@@ -164,9 +232,9 @@ function array_sort( &$array, $key )
   } 
 }
 
-//
+// ----------------------------------------------------------------------------------
 // Makes an array contain unique values for the given key within in the nested array.
-//
+// ----------------------------------------------------------------------------------
 
 function arrayUnique( $array, $key ) 
 { 
@@ -186,10 +254,10 @@ function arrayUnique( $array, $key )
   return $rArray;
 }
 
-//
+// ----------------------------------------------------------------------------------
 // Truncates a string to the given width (in pixels), and adds an ellipse to 
 // indicate it has been shortened
-//
+// ----------------------------------------------------------------------------------
 
 function shorten( $text, $trunc, $font_size = 1, $lines = 1 )
 {
@@ -237,10 +305,10 @@ function shorten( $text, $trunc, $font_size = 1, $lines = 1 )
   return $short_string;
 }
 
-//
+// ----------------------------------------------------------------------------------
 // Returns true if the page request came from a showcenter box (rather than a web browser 
 // on a PC).
-//
+// ----------------------------------------------------------------------------------
 
 function is_showcenter()
 {
@@ -250,9 +318,9 @@ function is_showcenter()
     return false;
 }
 
-//
+// ----------------------------------------------------------------------------------
 // Adds the given paramter/value pair to the given URL
-//
+// ----------------------------------------------------------------------------------
 
 function url_add_param($url, $param, $value)
 {
@@ -273,9 +341,9 @@ function url_add_param($url, $param, $value)
   }
 }
 
-//
+// ----------------------------------------------------------------------------------
 // Returns true if SwissCenter is running on a MS Windows OS
-//
+// ----------------------------------------------------------------------------------
 
 function is_windows()
 {
@@ -285,9 +353,9 @@ function is_windows()
     return false;
 }
 
-//
+// ----------------------------------------------------------------------------------
 // Returns the full URL (SCRIPT_NAME + QUERY_STRING) of the current page
-//
+// ----------------------------------------------------------------------------------
 
 function current_url()
 {
@@ -297,44 +365,32 @@ function current_url()
     return $_SERVER["SCRIPT_NAME"].(empty($_SERVER["QUERY_STRING"]) ? "" : "?".$_SERVER["QUERY_STRING"]);
 }
 
-//
+// ----------------------------------------------------------------------------------
 // Returns the webserver type
-//
+// ----------------------------------------------------------------------------------
 
 function get_server_type()
 {
   $server_type = "UNKNOWN";
   
   if(strpos($_SERVER["SERVER_SOFTWARE"], "Apache") !== false )
-  {
     $server_type = "APACHE";
-  }
   else if(strpos($_SERVER["SERVER_SOFTWARE"], "IIS") !== false)
-  {
     $server_type = "IIS";
-  }
   else
-  {
     $server_type = "SIMESE";
-  }
   
   return $server_type;
 }
 
 function is_server_iis()
-{
-  return get_server_type() == "IIS";
-}
+{ return get_server_type() == "IIS"; }
 
 function is_server_apache()
-{
-  return get_server_type() == "APACHE";
-}
+{ return get_server_type() == "APACHE"; }
 
 function is_server_simese()
-{
-  return get_server_type() == "SIMESE";
-}
+{ return get_server_type() == "SIMESE"; }
 
 /**************************************************************************************************
                                                End of file
