@@ -53,17 +53,12 @@ CREATE TABLE messages (
   title           varchar(255),
   added           varchar(20) NOT NULL,
   message_text    text,
-  status          int unsigned
+  deleted         int(10) unsigned
   ,
   PRIMARY KEY  (message_id)
 ) TYPE=MyISAM;
 
-ALTER TABLE messages ALTER status SET DEFAULT 0;
-
-INSERT INTO messages (message_id, title, added, message_text)
-  VALUES ( 1 ,'Welcome to the Swisscenter' ,now()
-         , 'This is the messages section, where you will be informed of new features and updates to the SwissCenter interface whenever you perform an automatic update.'
-         );
+insert into messages (title,message_text,added) values ('Welcome to the Swisscenter','This is the messages section, where you will be informed of new features and updates to the SwissCenter interface whenever you perform an automatic update.',curdate());
 
 -- -------------------------------------------------------------------------------------------------
 -- Table structure for table `ratings`
@@ -118,15 +113,13 @@ INSERT INTO art_files (filename) VALUES ('folder.png');
 -- Table structure for table `clients`
 -- -------------------------------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS clients;
-
 CREATE TABLE clients (
   ip_address   varchar(100) NOT NULL default '',
   box_id       varchar(100),
-  user_id      int(10) unsigned
+  current_user int unsigned
   ,
   PRIMARY KEY  (ip_address),
-  FOREIGN KEY (user_id) references users (user_id)
+  FOREIGN KEY (current_user) references users (user_id)
 ) TYPE=MyISAM;
 
 -- -------------------------------------------------------------------------------------------------
