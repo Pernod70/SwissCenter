@@ -131,7 +131,14 @@
         foreach (dir_to_array('../database','update_[0-9.]*.sql') as $file)
           db_sqlfile($file);            
 
+        // Write an ini file with the database parameters in it
         write_ini ( $_REQUEST["host"], $_REQUEST["username"], $_REQUEST["password"], $_REQUEST["dbname"] );
+        
+        // If the media_search.php script is not scheduled, then schedule it now!
+        $sched = syscall('at');
+        if ( strstr($sched,os_path(SC_LOCATION.'media_search.php')) === false)
+          run_background('media_search.php','M,T,W,Th,F,S,Su','12:00');  
+
         header('Location: index.php');
       }
       else
@@ -196,16 +203,6 @@
                 a LINUX system it might be <em>"/home/Robert/Music"</em>');
     form_submit('Add Location',2);
     form_end();
-
-    // Removes all scheduled calls to the old xxx_db_update.php scripts
-    $sched = syscall('at');
-    foreach(explode("\n",$sched) as $line)
-      if (strstr($line,'db_update.php'))
-         syscall('at '.substr(ltrim($line),0,strpos(ltrim($line),' ')).' /delete');
-
-    // If the media_search.php script is not scheduled, then schedule it now!
-    if ( strstr($sched,'media_search.php') === false)
-        run_background('media_search.php','M,T,W,Th,F,S,Su');  
   }
    
   //
@@ -542,7 +539,7 @@
       // Get the current schedule information
       $sched = syscall('at');
       foreach(explode("\n",$sched) as $line)
-        if (strpos($line,'media_search.php') && strpos($line,'Each '))
+        if (strpos($line,os_path(SC_LOCATION.'media_search.php')) && strpos($line,'Each '))
         {
            $at_days = explode(' ',trim(substr($line,17,19)));
            $at_hrs  = trim(substr($line,36,2));
@@ -614,7 +611,7 @@
         // Find and remove old schedule entry
         $sched = syscall('at');
         foreach(explode("\n",$sched) as $line)
-          if (strpos($line,'media_search.php') && strpos($line,'Each '))
+          if (strpos($line,os_path(SC_LOCATION.'media_search.php')) && strpos($line,'Each '))
            syscall('at '.substr(ltrim($line),0,strpos(ltrim($line),' ')).' /delete');
 
         if (count($days)>0)
@@ -852,10 +849,24 @@
    }
    else 
    {
+     // The user has not specified an action, so try to work out which page they should be viewing
     if ($db_stat != 'OK')
+    {
+      // No database - this must be their first visit. Prompt for them to create a database
       install_display();
+    }
     else
-      dirs_display();  
+    {
+      // Database is OK - Remove any old databsae update scripts that are still hanging around
+      // and then display all the categories that they have defined.
+      
+      $sched = syscall('at');
+      foreach(explode("\n",$sched) as $line)
+        if (strstr($line,'db_update.php'))
+           syscall('at '.substr(ltrim($line),0,strpos(ltrim($line),' ')).' /delete');
+
+      category_display();  
+    }
    }
  }
 
