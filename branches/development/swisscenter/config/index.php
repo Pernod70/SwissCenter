@@ -755,6 +755,7 @@
     $selected_ids = form_select_table_vals('cat_ids');
     $edit_id = form_select_table_edit('cat_ids', 'cats');
     $update_data = form_select_table_update('cat_ids', 'cats');
+    $default_cat = db_value('select cat_name from categories where cat_id=1');
     
     if(!empty($edit_id))
     {
@@ -765,19 +766,12 @@
       $category_name = db_escape_str($update_data["CATEGORY"]);
       $id = $update_data["CAT_IDS"];
       
-      if($id != 1)
-      {
-        if(empty($category_name))
-          category_display("!Please enter a category name");
-        else
-        {
-          db_sqlcommand("update categories set cat_name='$category_name' where cat_id=$id");
-          category_display('Category information updated');
-        }
-      }
+      if(empty($category_name))
+        category_display("!Please enter a category name");
       else
       {
-        category_display("!Category 'uncategorised' cannot be modified");
+        db_sqlcommand("update categories set cat_name='$category_name' where cat_id=$id");
+        category_display('Category information updated');
       }
     }
     elseif(!empty($selected_ids))
@@ -793,7 +787,7 @@
           db_sqlcommand("delete from categories where cat_id=$cat_id");
         }
         else
-          $message = '!The uncategorised category cannot be removed';
+          $message = "!The '$default_cat' category cannot be removed";
       }
   
       category_display($message);
