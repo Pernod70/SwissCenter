@@ -6,12 +6,6 @@
   require_once("base/page.php");
   require_once("messages_db.php");
 
-  function delete_message($delete_id)
-  {
-    // Delete the message from the database
-    $success = db_sqlcommand("UPDATE messages SET status=".MESSAGE_STATUS_DELETED." WHERE message_id=".$delete_id);
-  }
-  
   function list_messages()
   {
     // Display a message if there are no messages to display, otherwise list them
@@ -39,7 +33,7 @@
         $page = 0;
       
       // Get the data from the database for the current page
-      $data = get_new_and_unread_messages();
+      $data = get_new_and_unread_messages( $page );
 
       // List all of the messages in a menu
       $menu = new menu();
