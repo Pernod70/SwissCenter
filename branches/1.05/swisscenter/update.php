@@ -3,10 +3,13 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
+  $update_location = 'http://update.swisscenter.co.uk/release/';
+
   require_once("base/page.php");
   require_once("base/utils.php");
   require_once("base/file.php");
   require_once("base/prefs.php");
+  set_time_limit(60*25);
 
   function chksum_files($pre, $dir, &$files)
   {
@@ -24,27 +27,25 @@
     }
   }
 
- function set_last_update()
+ function set_last_update($release_dir)
  {
-   $last_update = file_get_contents('http://update.swisscenter.co.uk/release/last_update.txt');
+   $last_update = file_get_contents($release_dir.'last_update.txt');
    set_sys_pref('last_update',$last_update);
    $_SESSION["update"]["available"] = false;
  }
    
 //*************************************************************************************************
 // Main Code
-//*************************************************************************************************
-  
-  set_time_limit(60*25);
+//*************************************************************************************************  
+    
   $local   = array();
   $update  = array();
   $actions = array();
-  $upd_loc = 'http://update.swisscenter.co.uk/release/';
   $errors  = 0;
   $updated = false;
   
   // Get file checksums from the online update file  
-  $file_contents = file_get_contents($upd_loc.'filelist.txt');
+  $file_contents = file_get_contents($update_location.'filelist.txt');
   $update = unserialize($file_contents);
   
   if ($file_contents === false)
@@ -83,7 +84,7 @@
         else
         {
           // New or changed file
-          $file_contents = file_get_contents($upd_loc.$filename);
+          $file_contents = file_get_contents($update_location.$filename);
           send_to_log($tmp_file." - downloading");
   
           if ($file_contents === false)
@@ -172,7 +173,7 @@
       $out = fopen("filelist.txt", "w");
       fwrite($out, serialize($update["files"]));
       fclose($out);   
-      set_last_update();
+      set_last_update($update_location);
       send_to_log("Update complete");
 
       header("Location: /update_outcome.php?status=UPDATED");
