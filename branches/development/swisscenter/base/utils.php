@@ -193,13 +193,13 @@ function hhmmss( $secs )
 
   if ($secs > 86400)
   {
-    $str = floor($secs/86400).'d : ';
+    $str .= floor($secs/86400).'d : ';
     $secs = $secs % 86400;
   }
 
   if ($secs > 3600)
   {
-    $str = floor($secs/3600).'h : ';
+    $str .= floor($secs/3600).'h : ';
     $secs = $secs % 3600;
   }
 
