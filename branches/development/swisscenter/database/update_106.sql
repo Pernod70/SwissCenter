@@ -69,6 +69,17 @@ ALTER TABLE photos ADD FOREIGN KEY (location_id) REFERENCES media_locations (loc
 ALTER TABLE movies ADD COLUMN (location_id INT UNSIGNED);
 ALTER TABLE movies ADD FOREIGN KEY (location_id) REFERENCES media_locations (location_id) ON DELETE CASCADE;
 
+UPDATE mp3s m, media_locations l
+   SET m.location_id = l.location_id
+ WHERE l.name = left(m.dirname,length(l.name)) AND l.media_type = 1;
+
+UPDATE photos p, media_locations l
+   SET p.location_id = l.location_id
+ WHERE l.name = left(p.dirname,length(l.name)) AND l.media_type = 2;
+
+UPDATE movies m, media_locations l
+   SET m.location_id = l.location_id
+ WHERE l.name = left(m.dirname,length(l.name)) AND l.media_type = 3;
 
 -- -------------------------------------------------------------------------------------------------
 -- Remove duplicate entries from the media tables and then enforce DIRNAME and FILENAME to be unique
