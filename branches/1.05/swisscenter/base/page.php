@@ -243,13 +243,7 @@ function debug( $item )
 //-------------------------------------------------------------------------------------------------
 
 send_to_log("------------------------------------------------------------------------------");
-
-if (!empty($_ENV["SCRIPT_NAME"]))
-  send_to_log("Page Requested : ".$_ENV["SCRIPT_NAME"]);
-
-if (!empty($_ENV["QUERY_STRING"]))
-  send_to_log("Parameters : ".$_ENV["QUERY_STRING"]);
-
+send_to_log("Page Requested : ".current_url());
 
 /**************************************************************************************************
                                                End of file
