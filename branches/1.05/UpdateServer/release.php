@@ -93,7 +93,9 @@
   	echo '<p>Please enter the version number for this release:
   	      <dir>
   	      <form enctype="multipart/form-data" action="release.php" method="post">
-  	      <input size=10 name="version" value=""> &nbsp;
+  	      Version : <input size=10 name="version" value="">
+  	      Release Dir : <input size=20 name="dir" value="">
+  	      <p>
   	      <input type="submit" value=" Go ">
   	      </form>
   	      </dir>
@@ -106,17 +108,19 @@
     @mkdir('release');
     
     $files = array();
+    $release = $_REQUEST["dir"].'/';
+    
     echo '<h1>Releasing version '.$_REQUEST["version"].'</h1>';
     echo '<p>Checksuming Files';
     chksum_files( 'source/','',$files, $dirs);
     echo '<p>Writing the filelist';
-    write_filelist('release/filelist.txt',$files,$dirs);
+    write_filelist($release.'filelist.txt',$files,$dirs);
     echo '<p>Writing the last update file';
-    $out = fopen('release/last_update.txt', "w");
+    $out = fopen($release.'last_update.txt', "w");
     fwrite($out, $_REQUEST["version"]);
     fclose($out);
     echo '<p>Compressing the files';
-    zip_files('source/','release/',$files,$dirs);
+    zip_files('source/',$release, $files,$dirs);
   }
 
 /**************************************************************************************************
