@@ -87,8 +87,6 @@
     $buttons[] = array('id'=>'A', 'text'=>'Switch to Metric', 'url'=>'weather_fc.php?units=m&loc='.$loc_id );
 
   page_footer('weather_cc.php?loc='.$loc_id, $buttons);
-
-  debug($_SESSION);
   
 /**************************************************************************************************
                                                End of file
