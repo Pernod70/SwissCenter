@@ -12,7 +12,7 @@
 
   $menu = new menu();
   $menu->add_item("Change User Interface Style",'style.php',true);
-  $menu->add_item("Search for new media",'do_refresh.php');
+  $menu->add_item("Search For New Media",'do_refresh.php');
   $menu->add_item("Change Screen Format",'config_screen.php',true);
 
   // Does the User have internet connectivity?
