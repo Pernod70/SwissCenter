@@ -201,6 +201,10 @@
   
   function dirs_display($delete = '', $new = '')
   {
+    // Ensure that on Linux/Unix systems there is a "media" directory present for symbolic links to go in.
+    if (!is_windows() && !file_exists($_SESSION["opts"]["sc_location"].'media'))
+      mkdir($_SESSION["opts"]["sc_location"].'media');
+    
     $data = db_toarray("select location_id, name 'Directory' ,media_name 'Type' from media_locations ml, media_types mt where mt.media_id = ml.media_type order by name");
      
     echo "<h1>Current Media Locations</h1>";
@@ -245,7 +249,12 @@
     $selected = form_select_table_vals('loc_id');
     
     foreach ($selected as $id)
+    {
+      if (! is_windows() )
+        unlink($_SESSION["opts"]["sc_location"].'media/'.$id);
+
       db_sqlcommand("delete from media_locations where location_id=".$id);
+    }
   
     dirs_display('The selected directories have been removed.');
   }
@@ -275,6 +284,11 @@
       }
       else
       {
+        $id = db_value("select location_id from media_locations where name='$dir' and media_type=".$_REQUEST["type"]);
+        
+        if (! is_windows() )
+          symlink($dir,$_SESSION["opts"]["sc_location"].'media/'.$id);
+        
         dirs_display('Media Location Added');
       }
     }
