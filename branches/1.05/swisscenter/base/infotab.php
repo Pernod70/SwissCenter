@@ -27,7 +27,7 @@ class infotab
 
   function add_item( $title, $text)
   {
-    if (! is_null($text))
+    if (! is_null($text) && ! empty($text))
       $this->items[] = array( "title"=>$title, "text"=>$text );
   }
 
@@ -36,7 +36,7 @@ class infotab
     $this->cols[$col][$param] = $val;
   }
 
-  function display( $trunc=400 )
+  function display( $trunc=400, $lines=1 )
   {
     $col_opts = array();
 
@@ -49,7 +49,7 @@ class infotab
       echo '<center><table cellpadding=0 cellspacing=0 border=0>';
       foreach ($this->items as $item)
       {
-        $text = shorten($item["text"],$trunc);
+        $text = shorten($item["text"],$trunc*$lines);
           
         if (!is_null( $item["text"]))
           echo '<tr><td'.$col_opts[1].'><font color="'.style_col("TITLE_COLOUR").'">'.$item["title"].'</font></td><td width="6"></td><td'.$col_opts[2].'>'.$text.'</td></tr>';
