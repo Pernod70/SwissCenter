@@ -224,6 +224,16 @@
                 a LINUX system it might be <em>"/home/Robert/Music"</em>');
     form_submit('Add Location',2);
     form_end();
+
+    // Removes all scheduled calls to the old xxx_db_update.php scripts
+    $sched = syscall('at');
+    foreach(explode("\n",$sched) as $line)
+      if (strstr($line,'db_update.php'))
+         syscall('at '.substr(ltrim($line),0,strpos(ltrim($line),' ')).' /delete');
+
+    // If the media_search.php script is not scheduled, then schedule it now!
+    if ( strstr($sched,'media_search.php') === false)
+        run_background('media_search.php','M,T,W,Th,F,S,Su');  
   }
    
   //
@@ -246,15 +256,6 @@
   
   function dirs_new()
   {
-    // Check to see if an update to the database is scheduled for every 1 hour...
-    $sched = syscall('at');
-    
-    if ( strstr($sched,'music_db_update.php') === false)
-        run_background('music_db_update.php','M,T,W,Th,F,S,Su');
-  
-    if ( strstr($sched,'video_db_update.php') === false)
-        run_background('video_db_update.php','M,T,W,Th,F,S,Su');
-  
     // Process the directory passed in
     $dir = rtrim(str_replace('\\','/',un_magic_quote($_REQUEST["location"])),'/');
     
