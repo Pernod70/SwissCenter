@@ -279,7 +279,7 @@ function is_windows()
 
 function current_url()
 {
-  return $_SERVER["SCRIPT_NAME"].(empty($_SERVER["QUERY_STRING"]) ? '' : '?'.$_SERVER["QUERY_STRING"]);
+    return "http://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
 }
 
 /**************************************************************************************************
