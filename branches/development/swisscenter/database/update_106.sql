@@ -91,14 +91,6 @@ CREATE UNIQUE INDEX mp3s_fsp_u1   ON mp3s (dirname(800),filename(200));
 CREATE UNIQUE INDEX movies_fsp_u1 ON movies (dirname(800),filename(200));
 CREATE UNIQUE INDEX photos_fsp_u1 ON photos (dirname(800),filename(200));
 
--- -------------------------------------------------------------------------------------------------
--- Add columns to the media tables to track the number of viewings
--- -------------------------------------------------------------------------------------------------
-
-ALTER TABLE mp3s   ADD COLUMN (viewings INT UNSIGNED NOT NULL DEFAULT 0);
-ALTER TABLE movies ADD COLUMN (viewings INT UNSIGNED NOT NULL DEFAULT 0);
-ALTER TABLE photos ADD COLUMN (viewings INT UNSIGNED NOT NULL DEFAULT 0);
-
 -- *************************************************************************************************
 --   SWISScenter Source                                                              Robert Taylor
 -- *************************************************************************************************
