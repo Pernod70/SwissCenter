@@ -89,7 +89,7 @@
     echo '<tr><td colspan="2">&nbsp;</td></tr>';
     echo '<tr><td colspan="2" align="center"><font color="'.$_SESSION["opts"]["style"]["TITLE_COLOUR"].'">'
           .$data["TITLE"].'</font></td></tr>';
-    echo '<tr><td colspan="2"><font color="'.$_SESSION["opts"]["style"]["TEXT_COLOR"].'">'
+    echo '<tr><td colspan="2"><font color="'.$_SESSION["opts"]["style"]["PAGE_TEXT"].'">'
           .$data["MESSAGE_TEXT"].'</font></td></tr>';
     echo '</table><p>';
 
