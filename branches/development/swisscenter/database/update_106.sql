@@ -25,12 +25,12 @@ INSERT INTO categories (cat_id, cat_name)
 
 INSERT INTO categories (cat_name)
   VALUES (
-    'Music'
+    'Music Videos'
   );
 
 INSERT INTO categories (cat_name)
   VALUES (
-    'Internet Radio'
+    'Audio Books'
   );
 
 INSERT INTO categories (cat_name)
@@ -40,7 +40,12 @@ INSERT INTO categories (cat_name)
 
 INSERT INTO categories (cat_name)
   VALUES (
-    'Photos'
+    'Language Learning'
+  );
+
+INSERT INTO categories (cat_name)
+  VALUES (
+    'TV Series'
   );
 
 -- -------------------------------------------------------------------------------------------------
