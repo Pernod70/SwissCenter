@@ -77,7 +77,7 @@
         if (file_exists($tmp_file))
         {
           // File was already downloaded (previous failed update attempt?)
-          $actions[] = array("old"=>$tmp_file, "new"=>$test["filename"]);
+          $actions[] = array("downloaded"=>$tmp_file, "existing"=>$test["filename"]);
           send_to_log( $tmp_file." - already downloaded");
         }
         else
@@ -113,7 +113,7 @@
               else
               {
                 send_to_log($tmp_file." - stored on disk ready for rename");
-                $actions[] = array("old"=>$tmp_file, "new"=>$test["filename"]);
+                $actions[] = array("downloaded"=>$tmp_file, "existing"=>$test["filename"]);
               }
             }          
           }
@@ -147,14 +147,14 @@
     {
       foreach($actions as $a)
       {
-        unlink($a["new"]);
-        rename($a["old"],$a["new"]);
-        send_to_log("'".$a["new"]."' updated");
+        unlink($a["existing"]);
+        rename($a["downloaded"],$a["existing"]);
+        send_to_log("'".$a["existing"]."' updated");
 
-        // If the file that has been updated is an SQL file, then apply it to the database
-        if (strtolower(file_ext($a["new"])) == 'sql')
+        // If the file that has been updated is a database update, then apply it to the database
+        if ( preg_match('/.*update_[0-9]*.sql/',$a["existing"]) )
         {
-          foreach ( split(";",implode(" ",file($a["new"]))) as $sql)
+          foreach ( split(";",implode(" ",file($a["existing"]))) as $sql)
             if ( strlen(trim($sql)) > 0 ) 
             {
               if (db_sqlcommand($sql))
