@@ -46,9 +46,7 @@
           $image = ImageCreateFromGif($filename);
           break;
         case 'sql':
-          header("Content-type: image");
-          echo substr(db_value(substr($filename,0,-4)),0);
-          exit;
+          header("Content-type: image/jpeg");
           $image = ImageCreateFromString( db_value(substr($filename,0,-4)) );
           break;
       }
@@ -73,6 +71,7 @@
         // Output the image to the browser
         switch ($format)
         {
+          case 'sql';
           case 'jpg':
           case 'jpeg':
                 header("Content-type: image/jpeg");

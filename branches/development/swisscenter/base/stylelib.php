@@ -24,6 +24,12 @@ function load_style()
     $details["name"]     = 'Default';
   }
   
+  // Ensure the display for audio will be in the correct place...
+  if (get_screen_type() == 'PAL')
+    $dummy = @file_get_contents('http://'.client_ip().':2020/pod_audio_info.cgi?x=210&y=464');  
+  else
+    $dummy = @file_get_contents('http://'.client_ip().':2020/pod_audio_info.cgi?x=210&y=369');  
+         
   // Cache the style parameters in the session
   $_SESSION["style"] = $details;
 }

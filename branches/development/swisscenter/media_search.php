@@ -53,7 +53,7 @@
         if (isset($id3["id3v2"]["APIC"][0]["data"]))
         {
           $file_id = db_value("select file_id from mp3s where concat(dirname,filename)='".$dir.$file."'");
-          db_insert_row('mp3_albumart',array("file_id"=>$file_id, "image"=>$id3["id3v2"]["APIC"][0]["data"] ));
+          db_insert_row('mp3_albumart',array("file_id"=>$file_id, "image"=>addslashes($id3["id3v2"]["APIC"][0]["data"]) ));
           send_to_log("Image found within ID3 tag - will use as album art");
         }
           

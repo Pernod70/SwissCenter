@@ -25,7 +25,7 @@ function array_toupper( &$array )
 
 function db_escape_str( $text )
 {
-  return str_replace("'","\'",$text);
+  return mysql_real_escape_string($text);
 }
 
 #-------------------------------------------------------------------------------------------------
@@ -235,7 +235,7 @@ function db_insert_row( $table, $fields )
       $vlist = $vlist.",null";
     elseif (is_string($value))
     {
-      $vlist = $vlist.",'".db_escape_str( stripslashes($value))."'";
+      $vlist = $vlist.",'".db_escape_str( un_magic_quote($value))."'";
     }
     else
       $vlist = $vlist.",$value";

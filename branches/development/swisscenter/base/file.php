@@ -403,11 +403,11 @@ function file_thumbnail( $fsp )
 {
   $tn_image  = '';
 
-  if     (is_file($fsp))
+  if (is_file($fsp))
   {
     $id3_image = db_value("select m.file_id from mp3s m,mp3_albumart ma where m.file_id = ma.file_id and concat(m.dirname,m.filename) = '$fsp'");
     if (!empty($id3_image))
-      $tn_image = $id3_image;
+      $tn_image = 'select image from mp3_albumart where file_id='.$id3_image.'.sql';
     else 
     {
       $image_files = array( file_noext(basename($fsp)).'.jpg');
@@ -442,12 +442,17 @@ function file_albumart( $fsp )
     // need to do something with the albumart image if it is present!
     $id3_image = db_value("select file_id from mp3s m,mp3_albumart ma where m.file_id = ma.file_id and concat(m.dirname,m.filename) = '$fsp'");
     
-    foreach ( array('gif','jpg','jpeg','png') as $type)
-      if ( $return = find_in_dir( dirname($fsp),file_noext($fsp).'.'.$type))
-        break;
-        
-    if ($return == '')
-      $return = find_in_dir(dirname($fsp), db_col_to_list("select filename from art_files"));
+    if ( !empty($id3_image) )
+      $return = 'select image from mp3_albumart where file_id='.$id3_image.'.sql';
+    else 
+    {
+      foreach ( array('gif','jpg','jpeg','png') as $type)
+        if ( $return = find_in_dir( dirname($fsp),file_noext($fsp).'.'.$type))
+          break;
+          
+      if ($return == '')
+        $return = find_in_dir(dirname($fsp), db_col_to_list("select filename from art_files"));
+    }
   }
   elseif ( is_dir($fsp) )
   {

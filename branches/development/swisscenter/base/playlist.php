@@ -24,12 +24,6 @@ function pl_link( $type, $spec= '', $media = 'playlist')
   switch ($media)
   {
     case 'audio' :
-          // Ensure the display for audio will be in the correct place...
-          if (get_screen_type() == 'PAL')
-            $dummy = @file_get_contents('http://'.client_ip().':2020/pod_audio_info.cgi?x=210&y=464');  
-          else
-            $dummy = @file_get_contents('http://'.client_ip().':2020/pod_audio_info.cgi?x=210&y=369');  
-         
           // Build link
           $link .= 'href="gen_playlist.php?shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&spec='.rawurlencode($spec).'" ';
           $link .= 'pod="3,1,'.$server.'playing_list.php?shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&spec='.rawurlencode($spec).'" ';
