@@ -18,93 +18,10 @@
     return '!Unable to access the database - are your <i>Database Config</i> settings correct?';
   }
   
-  //*************************************************************************************************
-  // INSTALL section
-  //*************************************************************************************************
-  
   //
-  // Install form - get MySQL root password from user
-  //
-  
-  function install_display($message = '')
-  {
-    echo '<h1>Create Database</h1>
-          <p>This screen allows you to create and populate the SwissCenter database in MySQL. The parameters
-             that will be used to build the database are shown below. 
-    
-         <p><table align="center" width="300" class="form_select_tab">
-            <tr><th> Paramter Name </th><th> Value </th></tr>
-            <tr><td> Machine Name  </td><td> localhost   </td></tr>
-            <tr><td> Database Name </td><td> swiss       </td></tr>
-            <tr><td> Username      </td><td> swisscenter </td></tr>
-            <tr><td> Password      </td><td> swisscenter </td></tr>
-            </table>
-             
-          <p>Please enter the <em>"Root"</em> password for your MySQL installation into the field below and click on
-             <em>"Create database"</em> to continue.';
-  
-    message($message);
-    form_start('index.php');
-    form_hidden('section','INSTALL');
-    form_hidden('action','RUN');
-    form_input('password','"Root" Password',15,'',$_REQUEST["password"]);
-    form_label('Unless you entered a value for the <em>root</em> password during the installation of MySQL, then it is 
-                probably not set and you should leave this field blank.
-                <p><em>Please Note: Creating the database can take several minutes to complete. Please be patient. </em>');
-    form_submit('Create Database');
-    form_end();
-  }
-  
-  //
-  // Install form - get MySQL root password from user
-  //
-  
-  function install_run()
-  {
-    $pass=un_magic_quote($_REQUEST["password"]);
-    $db_stat = test_db('localhost','root',$pass,'swiss');
-    
-    if (!defined('DB_HOST'))
-    {
-      define('DB_HOST','localhost');
-      define('DB_USERNAME','swisscenter');
-      define('DB_PASSWORD','swisscenter');
-      define('DB_DATABASE','swiss');
-    }
-
-    if     ( db_root_sqlcommand($pass,"Create database swiss") == false && $db_stat != 'OK')
-      install_display('!Unable to create database - Is your MySQL "Root" password correct?');
-    elseif ( db_root_sqlcommand($pass,"Grant all on swiss.* to swisscenter@'localhost' identified by 'swisscenter'") == false)
-      install_display('!Unable to create user - Is your MySQL "Root" password correct?');
-    else 
-    {
-      // Fix for MySQL 4.1 and above (the authentication method changed and PHP 4.x uses an older uncompatible MySQL client).
-      if (substr(db_value("select version()"),0,3) >= 4.1)
-        db_root_sqlcommand($pass,"set password for swisscenter@'localhost' = OLD_PASSWORD('swisscenter')");  
-            
-      // Open the setup.sql file
-      if ( file_exists('../setup.sql') )
-      {
-        // Run the setup file and all database update files
-        db_sqlfile('../setup.sql');
-        foreach (dir_to_array('../database','update_[0-9.]*.sql') as $file)
-          db_sqlfile($file);            
-
-        write_ini ( 'localhost', 'swisscenter', 'swisscenter', 'swiss' );
-        header('Location: index.php');
-      }
-      else
-      {
-        install_display('!The "Setup.sql" file in the ShowCenter directory is missing.');
-      }
-    }
-  }
-  
-  //*************************************************************************************************
-  // DATABASE section
-  //*************************************************************************************************
-  
   // Write config file to disk.
+  //
+  
   function write_ini ( $host, $user, $pass, $name )
   {
      $str = ";************************************************************************* ".newline().
@@ -137,44 +54,93 @@
     }       
   }
   
+  //*************************************************************************************************
+  // INSTALL section
+  //*************************************************************************************************
+  
   //
-  // Display current config
+  // Install form - get MySQL root password from user
   //
   
-  function db_display( $message = '')
+  function install_display($message = '')
   {
     $host = (!empty($_REQUEST["host"])     ? $_REQUEST["host"]     : (defined('DB_HOST')     ? DB_HOST : 'localhost'));
     $name = (!empty($_REQUEST["username"]) ? $_REQUEST["username"] : (defined('DB_USERNAME') ? DB_USERNAME : 'swisscenter'));
     $pass = (!empty($_REQUEST["password"]) ? $_REQUEST["password"] : (defined('DB_PASSWORD') ? DB_PASSWORD : 'swisscenter'));
     $db   = (!empty($_REQUEST["dbname"])   ? $_REQUEST["dbname"]   : (defined('DB_DATABASE') ? DB_DATABASE : 'swiss'));
     
-    
-    echo "<h1>Database Configuration</h1>";
+    echo "<h1>Create Database</h1>";
+     
     message($message);
     form_start('index.php');
-    form_hidden('section','DB');
-    form_hidden('action','UPDATE');
+    form_hidden('section','INSTALL');
+    form_hidden('action','RUN');
+
+    echo '<p>This screen allows you to create and populate the SwissCenter database. The parameters
+             that will be used to build the database are shown below.<p>';
+    
     form_input('host','Machine Name',15,'',$host);
-    form_label('This should be set to "localhost" if MySQL and Apache are installed on the same machine');
     form_input('dbname','Database Name',15,'',$db);
     form_input('username','Username',15,'',$name);
     form_input('password','Password',15,'',$pass);
-    form_submit();
+             
+    form_input('root_password','"Root" Password',15,'',$_REQUEST["password"]);
+    form_label('Unless you entered a value for the <em>root</em> password during the installation of MySQL, then it is 
+                probably not set and you should leave this field blank.
+                <p><em>Please Note: Creating the database can take several minutes to complete. Please be patient. </em>');
+    form_submit('Create Database');
     form_end();
   }
-   
+  
   //
-  // Save new parameters
+  // Install form - get MySQL root password from user
   //
   
-  function db_update()
+  function install_run()
   {
-    if (write_ini ( $_REQUEST["host"], $_REQUEST["username"], $_REQUEST["password"], $_REQUEST["dbname"] ))
-      db_display('Settings written to the configuration file.');
+    set_time_limit(86400);
+    
+    
+    
+    
+    define('DB_HOST',     (!empty($_REQUEST["host"])     ? $_REQUEST["host"]     : 'localhost'));
+    define('DB_USERNAME', (!empty($_REQUEST["username"]) ? $_REQUEST["username"] : 'swisscenter'));
+    define('DB_PASSWORD', (!empty($_REQUEST["password"]) ? $_REQUEST["password"] : 'swisscenter'));
+    define('DB_DATABASE', (!empty($_REQUEST["dbname"])   ? $_REQUEST["dbname"]   : 'swiss'));
+
+    $pass=un_magic_quote($_REQUEST["root_password"]);
+    $db_stat = test_db(DB_HOST,'root',$pass,DB_DATABASE);
+
+    if ($db_stat == 'OK')     
+      db_root_sqlcommand($pass,"Drop database ".DB_DATABASE);
+    
+    if     ( db_root_sqlcommand($pass,"Create database ".DB_DATABASE) == false)
+      install_display('!Unable to create database - Is your MySQL "Root" password correct?');
+    elseif ( db_root_sqlcommand($pass,"Grant all on ".DB_DATABASE.".* to ".DB_USERNAME."@'".DB_HOST."' identified by '".DB_PASSWORD."'") == false)
+      install_display('!Unable to create user - Is your MySQL "Root" password correct?');
     else 
-      db_display('!Unable to write to configuration file.');
+    {
+      // Fix for MySQL 4.1 and above (the authentication method changed and PHP 4.x uses an older uncompatible MySQL client).
+      @db_root_sqlcommand($pass,"set password for ".DB_USERNAME."@'".DB_HOST."' = OLD_PASSWORD('".DB_PASSWORD."')");  
+            
+      // Open the setup.sql file
+      if ( file_exists('../setup.sql') )
+      {
+        // Run the setup file and all database update files
+        db_sqlfile('../setup.sql');
+        foreach (dir_to_array('../database','update_[0-9.]*.sql') as $file)
+          db_sqlfile($file);            
+
+        write_ini ( $_REQUEST["host"], $_REQUEST["username"], $_REQUEST["password"], $_REQUEST["dbname"] );
+        header('Location: index.php');
+      }
+      else
+      {
+        install_display('!The "Setup.sql" file in the ShowCenter directory is missing.');
+      }
+    }
   }
-  
+   
   //*************************************************************************************************
   // USERS section
   //*************************************************************************************************
@@ -320,7 +286,7 @@
         if (! is_windows() )
           symlink($dir,$_SESSION["opts"]["sc_location"].'media/'.$id);
         
-        dirs_display('Media Location Added');
+        dirs_display('','Media Location Added');
       }
     }
   }
@@ -705,17 +671,16 @@
 
   echo '<table width="160">';
      menu_item('Create Database','section=INSTALL&action=DISPLAY','menu_bgr2.png');
-     menu_item('Database Config','section=DB&action=DISPLAY');
      if ($db_stat == 'OK')
      {
-       menu_item('User Management','section=USERS&action=DISPLAY');
-       menu_item('Media Locations','section=DIRS&action=DISPLAY');
        menu_item('Categories','section=CATEGORY&action=DISPLAY');
+       menu_item('Media Locations','section=DIRS&action=DISPLAY');
        menu_item('Album/Film Art','section=ART&action=DISPLAY');
        menu_item('Playlists Location','section=PLAYLISTS&action=DISPLAY');
        menu_item('Image Cache','section=CACHE&action=DISPLAY');
+//       menu_item('User Management','section=USERS&action=DISPLAY');
+       menu_item('Support Info','section=SUPPORT&action=DISPLAY','menu_bgr2.png');
      }
-     menu_item('Support Info','section=SUPPORT&action=DISPLAY','menu_bgr2.png');
    echo '</table>';
  }
  
@@ -758,7 +723,7 @@
 // then execute the template file
 //*************************************************************************************************
 
-  if (file_exists('swisscenter.ini'))
+  if ($_REQUEST["section"]!='INSTALL' && file_exists('swisscenter.ini'))
   {
     foreach( parse_ini_file('swisscenter.ini') as $k => $v)
       if (!empty($v))
