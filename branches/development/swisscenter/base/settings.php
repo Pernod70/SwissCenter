@@ -100,9 +100,25 @@ function fatal_error($heading,$text)
 
   if (internet_available() && (!isset($_SESSION["update"]["timeout"]) || $_SESSION["update"]["timeout"] < time() ))
   {
+    // Check for program update
     $new_update_version = file_get_contents('http://update.swisscenter.co.uk/release/last_update.txt');
     $_SESSION["update"]["available"] = ($new_update_version > get_sys_pref('last_update') );
-    $_SESSION["update"]["timeout"]   = time()+86400; //Check again in 24 hours
+    
+    // Check for new messages
+    $last_update = db_value("select max(added) from messages");
+    $messages = file_get_contents("http://update.swisscenter.co.uk/messages.php?last_check=".urlencode($last_update));
+    
+    if (!empty($messages))
+    {
+      foreach (unserialize($messages) as $mesg)
+      {
+        unset ($mesg["MESSAGE_ID"]);
+        db_insert_row('messages',$mesg);
+      }
+    }
+    
+    // Check again in 24 hours
+    $_SESSION["update"]["timeout"]   = time()+86400; 
   }
 
 /**************************************************************************************************
