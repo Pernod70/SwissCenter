@@ -140,19 +140,6 @@ CREATE TABLE mp3_albumart (
   FOREIGN KEY (file_id) references mp3s (file_id)
   ) TYPE=MyISAM;
 
--- -------------------------------------------------------------------------------------------------
--- Messages for this release
--- -------------------------------------------------------------------------------------------------
-
-INSERT INTO messages (title, added, message_text)
-  VALUES
-  (
-    'Media categories'
-    ,now()
-    ,'You can now catogorise all media in a media location. See the config pages to configure categories.<p><b>NOTE:</b> Does not work with filesystem browsing yet.'
-  );
-
-
 -- *************************************************************************************************
 --   SWISScenter Source                                                              Robert Taylor
 -- *************************************************************************************************
