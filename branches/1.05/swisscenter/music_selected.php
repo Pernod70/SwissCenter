@@ -27,18 +27,21 @@
   // Function that checks to see if the supplied SQL contains a filter for the specified type.
   // If it doesn't, then we can output a menu item which allows the user to filter on that type.
 
-  function check_filter ( $filter, $newsql, &$menu )
+  function check_filters ( $filter_list, $newsql, &$menu )
   {
-    $num_rows  = db_value("select count(distinct $filter) from mp3s where ".substr($newsql,5));
-    if ($num_rows>1)
+    foreach ($filter_list as $filter)
     {
-      switch ($filter)
+      $num_rows  = db_value("select count(distinct $filter) from mp3s where ".substr($newsql,5));
+      if ($num_rows>1)
       {
-        case 'artist': $menu->add_item("Refine by Artist Name","music_search.php?sort=artist",true); break;
-        case 'album' : $menu->add_item("Refine by Album Name","music_search.php?sort=album",true);   break;
-        case 'year'  : $menu->add_item("Refine by Year","music_search.php?sort=year",true);          break;
-        case 'title' : $menu->add_item("Refine by Track Name","music_search.php?sort=title",true);   break;
-        case 'genre' : $menu->add_item("Refine by Genre Name","music_search.php?sort=genre",true);   break;
+        switch ($filter)
+        {
+          case 'artist': $menu->add_item("Refine by Artist Name","music_search.php?sort=artist",true); break;
+          case 'album' : $menu->add_item("Refine by Album Name","music_search.php?sort=album",true);   break;
+          case 'year'  : $menu->add_item("Refine by Year","music_search.php?sort=year",true);          break;
+          case 'title' : $menu->add_item("Refine by Track Name","music_search.php?sort=title",true);   break;
+          case 'genre' : $menu->add_item("Refine by Genre Name","music_search.php?sort=genre",true);   break;
+        }
       }
     }
   }
@@ -51,7 +54,6 @@
 
   $name      = un_magic_quote(rawurldecode($_REQUEST["name"]));
   $type      = un_magic_quote($_REQUEST["type"]);
-  $title     = un_magic_quote($name);
   $back_url  = $_SESSION["history"][count($_SESSION["history"])-1]["url"];
   $post_sql  = $_SESSION["history"][count($_SESSION["history"])-1]["sql"];
   $newsql    = $post_sql." and $type like '".db_escape_str(str_replace('_','\_',$name))."'";
@@ -60,8 +62,6 @@
   
   if (isset($_REQUEST["shuffle"]))
     $_SESSION["shuffle"] = $_REQUEST["shuffle"];
-
-  $title = shorten($title,40);
 
   if (isset($_REQUEST["add"]) && strtoupper($_REQUEST["add"]) == 'Y')
     $_SESSION["history"][] = array("url"=> str_replace('add=Y','add=N',url_add_param(current_url(),'p_del','Y')), "sql"=>$newsql);
@@ -113,11 +113,7 @@
     if (pl_enabled())
       $menu->add_item('Add to your playlist','add_playlist.php?sql='.rawurlencode('select * from mp3s where '.substr($newsql,5)." order by album,track,title"),true);
 
-    check_filter( 'artist', $newsql, $menu);
-    check_filter( 'album', $newsql, $menu);
-    check_filter( 'title', $newsql, $menu);
-    check_filter( 'genre', $newsql, $menu);
-    check_filter( 'year', $newsql, $menu);
+    check_filters( array('artist','album','title','genre','year'), $newsql, $menu);
   }
 
   // Is there a picture for us to display?
