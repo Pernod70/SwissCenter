@@ -165,7 +165,7 @@ function file_noext( $filename )
 {
   $parts = explode( '.' , $filename);
   unset($parts[count($parts)-1]);
-  return implode('.',$parts);
+  return basename(implode('.',$parts));
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -442,7 +442,6 @@ function file_albumart( $fsp )
   }
   elseif ( is_dir($fsp) )
   {
-    echo 'x';
     $return = find_in_dir($fsp,$_SESSION["opts"]["art_files"]);
   } 
 
