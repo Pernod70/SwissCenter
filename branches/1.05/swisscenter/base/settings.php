@@ -3,6 +3,7 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
+session_start();
 require_once("utils.php");
 require_once("mysql.php");
 
