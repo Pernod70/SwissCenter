@@ -36,7 +36,7 @@
 
   // Display the page content
     
-  page_header( "Homepage", '','LOGO_HOME');
+  page_header( "Main Menu", '','LOGO_HOME');
   echo '<center>Please select an option from the list:</center><p>';
   $menu->display();
   page_footer('', '', $icons);  
