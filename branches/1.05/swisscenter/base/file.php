@@ -95,9 +95,8 @@ function os_path( $path, $addslash=false )
   }
   else
   {
-    // Change suggested by stomper98 - "bug reports" forum. (needs testing)
     if ($addslash)
-      return str_suffic(preg_replace('/\//', '/', $path),'/');
+      return str_suffix(preg_replace('/\//', '/', $path),'/');
     else
       return preg_replace('/\//', '/', $path);
   }
