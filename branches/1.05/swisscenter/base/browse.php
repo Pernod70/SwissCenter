@@ -224,9 +224,8 @@
     }
     
     // Should we present a link to select all files?
-// TODO
-//    if ($all_link!='')
-//      $buttons[] = array('text'=>'Select All', 'url'=>$all_link.'&dir='.rawurlencode($dir) );
+    if ($all_link!='')
+      $buttons[] = array('text'=>'Select All', 'url'=>$all_link.'&dir='.rawurlencode($dir) );
     
     // Output ABC buttons if appropriate
     if ( empty($dir) )
