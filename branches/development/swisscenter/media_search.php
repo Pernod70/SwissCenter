@@ -45,7 +45,8 @@
                      ,"album"        => array_last($id3["comments"]["album"])
                      ,"year"         => array_last($id3["comments"]["year"])
                      ,"track"        => array_last($id3["comments"]["track"])
-                     ,"genre"        => array_last($id3["comments"]["genre"]) );
+                     ,"genre"        => array_last($id3["comments"]["genre"])
+                     ,"discovered"   =>  );
                      
         if (!db_insert_row( "mp3s", $data))
           send_to_log('Unable to add MP3 to the database');
@@ -100,7 +101,7 @@
                      ,"height"         => $id3["video"]["resolution_y"]
                      ,"date_modified"  => filemtime($filepath)
                      ,"date_created"   => 0
-                     ,"verified"       => 'Y' );
+                     ,"verified"       => db_datestrig() );
 
         if (!db_insert_row( "photos", $data))
           send_to_log('Unable to add PHOTO to the database');

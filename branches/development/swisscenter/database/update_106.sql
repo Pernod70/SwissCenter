@@ -55,6 +55,14 @@ INSERT INTO categories (cat_name)
 ALTER TABLE media_locations ADD COLUMN (cat_id INT UNSIGNED NOT NULL DEFAULT 1);
 ALTER TABLE media_locations ADD FOREIGN KEY (cat_id) REFERENCES categories (cat_id) ON DELETE SET DEFAULT;
 
+-- -------------------------------------------------------------------------------------------------
+-- Adds the date than new media was discovered to the media tables
+--   NOTE: I had to set the default to NULL, because you can't use now() as the default
+-- -------------------------------------------------------------------------------------------------
+
+ALTER TABLE mp3s   ADD COLUMN (discovered DATETIME DEFAULT null );
+ALTER TABLE movies ADD COLUMN (discovered DATETIME DEFAULT null );
+ALTER TABLE photos ADD COLUMN (discovered DATETIME DEFAULT null );
 
 -- -------------------------------------------------------------------------------------------------
 -- Update the media tables (mp3s, photos, movies) to reference the locations they were found in
