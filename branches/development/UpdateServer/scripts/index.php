@@ -187,7 +187,7 @@
         define (strtoupper($k),$v);
   }
 
-  $page_title = 'SwissCenter Configuration Utility';
+  $page_title = 'SwissCenter ONLINE Configuration Utility';
   $page_width = '750px';
   include("config_template.php");
 
