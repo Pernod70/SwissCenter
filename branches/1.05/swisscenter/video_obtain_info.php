@@ -106,14 +106,20 @@
     if ($accuracy >= 75)
     {
       $details = substr_between_strings($html,"Recommend DVD","MEMBER RATINGS");
-      $columns = array ( "YEAR"              => get_attrib($details,"Year:") 
-                       , "RATING"            => get_attrib($details,"Certificate:")
+      $columns = array ( "YEAR"              => array_pop(get_attrib($details,"Year:"))
+                       , "RATING"            => array_pop(get_attrib($details,"Certificate:"))
                        , "MATCH_PC"          => $accuracy
                        , "DETAILS_AVAILABLE" => 'Y');
-                       
+
       scdb_add_directors     (array($file_id), get_attrib($details,"Director:"));
       scdb_add_actors        (array($file_id), get_attrib($details,"Starring:"));
       scdb_add_genres        (array($file_id), get_attrib($details,"Genre\(s\):"));    
+      scdb_set_movie_attribs (array($file_id), $columns);
+    }
+    else 
+    {
+      // Mark the file as attempted to get details, but none available
+      $columns = array ( "MATCH_PC" => $accuracy, "DETAILS_AVAILABLE" => 'N');
       scdb_set_movie_attribs (array($file_id), $columns);
     }
   }
@@ -126,8 +132,7 @@
   function extra_get_all_movie_details ()
   {
     send_to_log('Checking online for extra movie information');
-    $data = db_toarray("select file_id, filename from movies");
-    //  $data = db_toarray("select file_id, filename from movies where details_available is null");
+    $data = db_toarray("select file_id, filename from movies where details_available is null");
   
     // Process each movie
     foreach ($data as $row)
