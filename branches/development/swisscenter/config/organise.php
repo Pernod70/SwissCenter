@@ -29,7 +29,7 @@
   
   function options_display( $message = '')
   {
-    $per_page = (empty($_SESSION["opts"]["pc_pagination"]) ? 10 : $_SESSION["opts"]["pc_pagination"]);
+    $per_page = get_user_pref('PC_PAGINATION',10);
     $opts     = array(10=>"10" , 25=>"25" , 50=>"50" , 100=>"100");
   
     echo '<p><h1>Options<p>';
@@ -45,8 +45,7 @@
   
   function options_set()
   {
-    set_sys_pref("pc_pagination",$_REQUEST["items"]);
-    $_SESSION["opts"]["pc_pagination"] = $_REQUEST["items"];
+    set_user_pref('PC_PAGINATION',$_REQUEST["items"]);
     options_display('Settings Saved');
   }  
   
@@ -56,7 +55,7 @@
   
   function movie_display( $message = '')
   {
-    $per_page    = (empty($_SESSION["opts"]["pc_pagination"]) ? 10 : $_SESSION["opts"]["pc_pagination"]);
+    $per_page    = get_user_pref('PC_PAGINATION',10);
     $page        = (empty($_REQUEST["page"]) ? 1 : $_REQUEST["page"]);
     $start       = ($page-1)*$per_page;
     $movie_list  = db_toarray("select * from movies order by title limit $start,$per_page");

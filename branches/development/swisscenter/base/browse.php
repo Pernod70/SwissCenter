@@ -189,10 +189,7 @@
 
     // Switching Thumbnail/Details view?
     if ( !empty($_REQUEST["thumbs"]) )
-    {
-      $_SESSION["opts"]["display_thumbs"] = ($_REQUEST["thumbs"] == "yes");
-      set_user_pref('display_thumbs',$_SESSION["opts"]["display_thumbs"]);
-    }
+      set_user_pref('DISPLAY_THUMBS',strtoupper($_REQUEST["thumbs"]));
 
     // Get a list of files/dirs from the filesystem.      
     foreach ($pre as $path)
@@ -212,15 +209,15 @@
     $start     = $page * (MAX_PER_PAGE);
     $end       = min(count($dir_list)+count($file_list) , $start+MAX_PER_PAGE);
 
-    if ( $_SESSION["opts"]["display_thumbs"] == false )
+    if ( get_user_pref("DISPLAY_THUMBS") != "YES" )
     {
       display_names ($url, $dir, $dir_list, $file_list, $start, $end, $page, ($page > 0), ($end < count($dir_list)+count($file_list)));
-      $buttons[] = array('text'=>'Thumbnail View', 'url'=>$url.'?thumbs=yes&DIR='.rawurlencode($dir) );
+      $buttons[] = array('text'=>'Thumbnail View', 'url'=>$url.'?thumbs=YES&DIR='.rawurlencode($dir) );
     }
     else
     {
       display_thumbs ($url, $dir, $dir_list, $file_list, $start, $end, $page, ($page > 0), ($end < count($dir_list)+count($file_list)));
-      $buttons[] = array('text'=>'List View', 'url'=>$url.'?thumbs=no&DIR='.rawurlencode($dir) );
+      $buttons[] = array('text'=>'List View', 'url'=>$url.'?thumbs=NO&DIR='.rawurlencode($dir) );
     }
     
     // Should we present a link to select all files?
