@@ -49,9 +49,11 @@ INSERT INTO categories (cat_name)
   );
 
 -- -------------------------------------------------------------------------------------------------
--- Update the media locations to have categories
+-- Update the media locations to have categories & a flag to indicate if extra info should be
+-- downloaded for items within this location.
 -- -------------------------------------------------------------------------------------------------
 
+ALTER TABLE media_locations ADD COLUMN (download_info char(1) DEFAULT 'Y');
 ALTER TABLE media_locations ADD COLUMN (cat_id INT UNSIGNED NOT NULL DEFAULT 1);
 ALTER TABLE media_locations ADD FOREIGN KEY (cat_id) REFERENCES categories (cat_id) ON DELETE SET DEFAULT;
 

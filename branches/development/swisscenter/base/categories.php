@@ -13,7 +13,8 @@
   {
     echo '<center>Please select a category from the list:</center><p>';
     
-    $special    = array( array("CAT_NAME"=>"All Categories","CAT_ID"=>CAT_ALL) );
+    $special    = array( array("CAT_NAME"=>"All Categories","CAT_ID"=>CAT_ALL)
+                       , array("CAT_NAME"=>"Recently Added","CAT_ID"=>CAT_NEW) );
     $categories = db_toarray("select distinct c.cat_id,c.cat_name from categories c,media_locations ml where c.cat_id=ml.cat_id and ml.media_type=$media_type order by c.cat_name ASC");     
     $cats       = array_merge( $special , $categories);
     $page       = (isset($_REQUEST["cat_page"]) ? $_REQUEST["cat_page"] : 1);
@@ -51,7 +52,7 @@
     }
     elseif($cat_id == CAT_NEW)
     {
-      // TODO: New media SQL
+      $sql = " and discovered > ('".db_datestr()."' - interval 7 day)";
     }
     // No sql needed for CAT_ALL
     

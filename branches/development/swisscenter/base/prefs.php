@@ -44,7 +44,7 @@
  function set_sys_pref( $name, $value)
  {
    db_sqlcommand("delete from system_prefs where name='".strtoupper($name)."'");
-   $result = db_insert_row('system_prefs', array("NAME"=>strtolower($name), "VALUE"=>$value) );
+   $result = db_insert_row('system_prefs', array("NAME"=>strtoupper($name), "VALUE"=>$value) );
 
    if (!$result)
      send_to_log("Unable to store system preference '$name' = '$value'");

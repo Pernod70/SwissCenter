@@ -791,7 +791,67 @@
   }
   
 
+  //*************************************************************************************************
+  // Connection options 
+  //*************************************************************************************************
+  
+  function connect_display($message = '')
+  {
+    $list = array('Enabled'=>'YES','Disabled'=>'NO');
+    
+    echo "<h1>Connection Options</h1>";
+    message($message);
+    
+    echo '<p>There are a number of features within the SwissCenter interface that make use of an 
+             internet connection either to retrieve information (eg: Weather Forecasts) and or
+             to periodically poll for information (eg: New Updates).';
 
+    form_start('index.php', 150, 'conn');
+    form_hidden('section', 'CONNECT');
+    form_hidden('action', 'MODIFY');
+
+    form_radio_static('radio','Internet Radio',$list,get_sys_pref('radio_enabled','YES'),false,true);
+    form_label('Connections to individual Internet Radio stations are made directly from the ShowCenter box when 
+                requested by the user. If your ShowCenter does not have direct access to the internet then you should
+                disable this feature.');
+
+    form_radio_static('weather','Weather Forecasts',$list,get_sys_pref('weather_enabled','YES'),false,true);
+    form_label('Information on the current weather conditions (or 5 day forecast) is downloaded from 
+               <a href="http://www.weather.com">The Weather Channel</a> on demand.');
+    
+    form_radio_static('update','SwissCenter Updates',$list,get_sys_pref('updates_enabled','YES'),false,true);
+    form_label('A daily check is made to the <a href="http://www.swisscenter.co.uk">SwissCenter.co.uk</a> website to
+                determine if a new version of the SwissCenter is available. If it is, then an icon will appear
+                on the main menu to indicate this.');
+
+    form_radio_static('messages','SwissCenter Messages',$list,get_sys_pref('messages_enabled','YES'),false,true);
+    form_label('A daily check is made for important messages regarding the SwissCenter interface. If new messages
+                are available then an icon will appear on the main menu to indicate that they are available for
+                you to view.');
+    /*
+    form_radio_static('movie_indo','Movie Info Downloads',$list,get_sys_pref('movie_check_enabled','YES'),false,true);
+    form_label('When new video items are discovered during a "new media search", the SwissCenter will use the filename
+                of the video file to search for, and download, additional movie information (eg: Actors, Directors, etc)
+                from the online movie rental site <a href=""http://www.lovefilm.com">www.lovefilem.com</a>.');
+    */
+    form_submit('Store Settings', 2);
+    form_end();
+    
+  }
+  
+  //
+  // Saves the new parameters
+  //
+  
+  function connect_modify()
+  {
+    set_sys_pref('radio_enabled',$_REQUEST["radio"]);
+    set_sys_pref('weather_enabled',$_REQUEST["weather"]);
+    set_sys_pref('updates_enabled',$_REQUEST["update"]);
+    set_sys_pref('messages_enabled',$_REQUEST["messages"]);
+    connect_display('Settings Saved');
+  }
+  
   //*************************************************************************************************
   // Populate main sections of the webpage
   //*************************************************************************************************
@@ -811,6 +871,7 @@
        menu_item('Categories','section=CATEGORY&action=DISPLAY');
        menu_item('Media Locations','section=DIRS&action=DISPLAY');
        menu_item('Scheduled Tasks','section=SCHED&action=DISPLAY');
+       menu_item('Connectivity','section=CONNECT&action=DISPLAY');
        menu_item('Album/Film Art','section=ART&action=DISPLAY');
        menu_item('Playlists Location','section=PLAYLISTS&action=DISPLAY');
        menu_item('Image Cache','section=CACHE&action=DISPLAY');

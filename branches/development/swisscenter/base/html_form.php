@@ -195,13 +195,16 @@ function form_list_static( $param, $prompt, $list, $value = "", $opt = false,  $
 # $list - an array of values to display with radio buttons
 #-------------------------------------------------------------------------------------------------
 
-function form_radio_static( $param, $prompt, $list, $value = "", $opt = false )
+function form_radio_static( $param, $prompt, $list, $value = "", $opt = false, $horiz = false )
 {
   echo '<tr><td valign="top">'.form_prompt($prompt,$opt).'</td>
         <td>';
 
   while( list($akey,$avalue) = each($list) )
-    echo '<input type="radio" name="'.$param.'" '.( $avalue == $value ? 'checked ' : '').'value="'.$avalue.'">'.$akey.'<br>';
+  {
+    echo '<input type="radio" name="'.$param.'" '.( $avalue == $value ? 'checked ' : '').'value="'.$avalue.'">'.$akey;
+    echo ( $horiz ? '&nbsp; &nbsp;' : '<br>');
+  }
 
   echo '  </td></tr>';
 }

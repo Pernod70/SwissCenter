@@ -15,12 +15,12 @@
   $menu->add_item("Watch A Movie",'video.php',true);
   $menu->add_item("Listen to Music",'music.php',true);
 
-  if (internet_available())
+  if (internet_available() && get_sys_pref('radio_enabled','YES') == 'YES')
     $menu->add_item("Listen to Internet Radio","music_radio.php",true);
 
   $menu->add_item("View Photographs",'photo.php',true);
   
-  if (internet_available())
+  if (internet_available() && get_sys_pref('weather_enabled','YES') == 'YES')
     $menu->add_item("View Weather Forecasts",'weather_cc.php',true);
 
   if (pl_enabled())
