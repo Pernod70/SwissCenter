@@ -49,11 +49,26 @@ INSERT INTO categories (cat_name)
   );
 
 -- -------------------------------------------------------------------------------------------------
--- Update the media tables (mp3s, photos, movies) to have categories
+-- Update the media locations to have categories
 -- -------------------------------------------------------------------------------------------------
-ALTER TABLE media_locations ADD COLUMN (cat_id INT UNSIGNED NOT NULL DEFAULT 1);
 
+ALTER TABLE media_locations ADD COLUMN (cat_id INT UNSIGNED NOT NULL DEFAULT 1);
 ALTER TABLE media_locations ADD FOREIGN KEY (cat_id) REFERENCES categories (cat_id) ON DELETE SET DEFAULT;
+
+
+-- -------------------------------------------------------------------------------------------------
+-- Update the media tables (mp3s, photos, movies) to reference the locations they were found in
+-- -------------------------------------------------------------------------------------------------
+
+ALTER TABLE mp3s ADD COLUMN (location_id INT UNSIGNED);
+ALTER TABLE mp3s ADD FOREIGN KEY (location_id) REFERENCES media_locations (location_id) ON DELETE CASCADE;
+
+ALTER TABLE photos ADD COLUMN (location_id INT UNSIGNED);
+ALTER TABLE photos ADD FOREIGN KEY (location_id) REFERENCES media_locations (location_id) ON DELETE CASCADE;
+
+ALTER TABLE movies ADD COLUMN (location_id INT UNSIGNED);
+ALTER TABLE movies ADD FOREIGN KEY (location_id) REFERENCES media_locations (location_id) ON DELETE CASCADE;
+
 
 -- -------------------------------------------------------------------------------------------------
 -- Remove duplicate entries from the media tables and then enforce DIRNAME and FILENAME to be unique
@@ -90,6 +105,7 @@ DELETE FROM photos USING photos, photos_del WHERE photos.file_id = photos_del.fi
 CREATE UNIQUE INDEX mp3s_fsp_u1   ON mp3s (dirname(800),filename(200));
 CREATE UNIQUE INDEX movies_fsp_u1 ON movies (dirname(800),filename(200));
 CREATE UNIQUE INDEX photos_fsp_u1 ON photos (dirname(800),filename(200));
+
 
 -- *************************************************************************************************
 --   SWISScenter Source                                                              Robert Taylor

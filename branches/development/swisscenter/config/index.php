@@ -176,10 +176,10 @@
      
     echo "<h1>Current Media Locations</h1>";
     message($delete);
-    form_start('index.php');
+    form_start('index.php', 150, 'dirs');
     form_hidden('section','DIRS');
     form_hidden('action','MODIFY');
-    form_select_table('loc_id',$data,array('class'=>'form_select_tab','width'=>'100%'),'location_id', array('DIRECTORY'=>'','TYPE'=>'select media_id,media_name from media_types order by 2','CATEGORY'=>'select cat_id,cat_name from categories order by cat_name'), $edit);
+    form_select_table('loc_id',$data,array('class'=>'form_select_tab','width'=>'100%'),'location_id', array('DIRECTORY'=>'','TYPE'=>'select media_id,media_name from media_types order by 2','CATEGORY'=>'select cat_id,cat_name from categories order by cat_name'), $edit, 'dirs');
     form_submit('Remove Selected Locations',1,'center');
     form_end();
   
@@ -215,18 +215,18 @@
   function dirs_modify()
   {
     $selected = form_select_table_vals('loc_id');     // Get the selected items
-    $edit = form_select_table_edit('loc_id');         // Get the id of the edited row
-    $update = form_select_table_update('loc_id');     // Get the updates from an edit
+    $edit = form_select_table_edit('loc_id', 'dirs');         // Get the id of the edited row
+    $update = form_select_table_update('loc_id', 'dirs');     // Get the updates from an edit
     
     if(!empty($edit))
     {
       // There was an edit, display the dirs with the table in edit mode on the selected row
       dirs_display('', '', $edit);
     }
-    else if(!empty($update))
+    elseif(!empty($update))
     {
       // Update the row given in the database and redisplay the dirs
-      $dir = mysql_escape_string($update["DIRECTORY"]);
+      $dir = db_escape_str($update["DIRECTORY"]);
       $type_id = $update["TYPE"];
       $cat_id = $update["CATEGORY"];
       $id = $update["LOC_ID"];
@@ -241,7 +241,7 @@
         dirs_display('Updated media location information.');
       }
     }
-    else if($_REQUEST["submit_action"] == " Remove Selected Locations ")
+    elseif($_REQUEST["submit_action"] == " Remove Selected Locations ")
     {
       // Delete the selected directories
       foreach ($selected as $id)
@@ -254,6 +254,8 @@
 
       dirs_display('The selected directories have been removed.');
     }
+    else
+      dirs_display();
   }
   
   //
@@ -299,7 +301,7 @@
   // Display current config
   //
   
-  function art_display($delete = '', $new = '')
+  function art_display($delete = '', $new = '', $edit_id = '')
   {
     $data = db_toarray("select filename, filename 'Name' from art_files order by 1");
     
@@ -310,10 +312,11 @@
                     album or film.
                  <p>If any of the files you specify here are found within a directory, then the first one to be found will 
                     be displayed on the Swisscenter interface.');
-    form_start('index.php');
+    form_start('index.php', 150, 'art');
     form_hidden('section','ART');
-    form_hidden('action','DELETE');
-    form_select_table('filename',$data,array('class'=>'form_select_tab','width'=>'100%'),'filename');
+    form_hidden('action','MODIFY');
+    form_select_table('filename',$data,array('class'=>'form_select_tab','width'=>'100%'),'filename',
+                      array('NAME'=>''), $edit_id, 'art');
     form_submit('Remove Selected files',1,'center');
     form_end();
   
@@ -333,14 +336,45 @@
   // Delete an existing location
   //
   
-  function art_delete()
+  function art_modify()
   {
     $selected = form_select_table_vals('filename');
+    $edit_id = form_select_table_edit('filename', 'art');
+    $update_data = form_select_table_update('filename', 'art');
     
-    foreach ($selected as $id)
-      db_sqlcommand("delete from art_files where filename='".$id."'");
-  
-    art_display('The selected files have been removed.');
+    if(!empty($edit_id))
+    {
+      art_display('', '', $edit_id);
+    }
+    else if(!empty($update_data))
+    {
+      
+      $name = $update_data["NAME"];
+      $oldname = $update_data["FILENAME"];
+      
+      if (empty($name))
+        art_display("!Please enter a filename");
+      elseif ( strpos($name,"'") !== false || strpos($name,'"') !== false)
+        art_display("!Filenames must not contain quote characters.");
+      elseif ( strpos($name,"/") !== false || strpos($name,"\\") !== false)
+        art_display("!Filenames cannot contain directory references");
+      elseif ( !in_array(strtolower(file_ext($name)), array('jpg','jpeg','gif','png')) )
+        art_display("!Only files ending in JPG, JPEG, GIF or PNG are valid filenames");
+      else
+      {
+        db_sqlcommand("update art_files set filename='".db_escape_str($name)."' where filename='".db_escape_str($oldname)."'");
+        art_display('Art information updated');
+      }
+    }
+    else if(!empty($selected))
+    {
+      foreach ($selected as $id)
+        db_sqlcommand("delete from art_files where filename='".$id."'");
+
+      art_display('The selected files have been removed.');
+    }
+    else
+      art_display();
   }
   
   //
@@ -569,11 +603,11 @@
       
       echo "<h1>Current Categories</h1>";
       message($del_message);
-      form_start('index.php');
+      form_start('index.php', 150, 'cats');
       form_hidden('section', 'CATEGORY');
       form_hidden('action', 'MODIFY');
       form_select_table('cat_ids', $data, array('class'=>'form_select_tab','width'=>'100%'), 'cat_id',
-                        array('CATEGORY'=>''), $edit_id);
+                        array('CATEGORY'=>''), $edit_id, 'cats');
       form_submit('Remove Selected Categories', 1, 'center');
       form_end();
       
@@ -596,7 +630,7 @@
       category_display('', '!Please enter a category name');
     else
     {
-      $exists = db_value("select count(*) from categories where cat_name='" . mysql_escape_string($cat) . "'");
+      $exists = db_value("select count(*) from categories where cat_name='" . db_escape_str($cat) . "'");
       
       if($exists != 0)
         category_display('', '!Category name already exists');
@@ -613,29 +647,34 @@
   function category_modify()
   {
     $selected_ids = form_select_table_vals('cat_ids');
-    $edit_id = form_select_table_edit('cat_ids');
-    $update_data = form_select_table_update('cat_ids');
+    $edit_id = form_select_table_edit('cat_ids', 'cats');
+    $update_data = form_select_table_update('cat_ids', 'cats');
     
     if(!empty($edit_id))
     {
       category_display('', '', $edit_id);
     }
-    else if(!empty($update_data))
+    elseif(!empty($update_data))
     {
-      $category_name = mysql_escape_string($update_data["CATEGORY"]);
+      $category_name = db_escape_str($update_data["CATEGORY"]);
       $id = $update_data["CAT_IDS"];
       
       if($id != 1)
       {
-        db_sqlcommand("update categories set cat_name='$category_name' where cat_id=$id");
-        category_display('Category information updated');
+        if(empty($category_name))
+          category_display("!Please enter a category name");
+        else
+        {
+          db_sqlcommand("update categories set cat_name='$category_name' where cat_id=$id");
+          category_display('Category information updated');
+        }
       }
       else
       {
         category_display("!Category 'uncategorised' cannot be modified");
       }
     }
-    else if(!empty($selected_ids))
+    elseif(!empty($selected_ids))
     {
       $message = 'The selected categories have been removed.';
 
@@ -653,6 +692,8 @@
   
       category_display($message);
     }
+    else
+      category_display();
   }
   
 

@@ -38,9 +38,9 @@ function form_prompt( $prompt, $opt )
 # $width  - [opt] the width of the column displaying prompts to the user
 #-------------------------------------------------------------------------------------------------
 
-function form_start( $url, $width = 150 )
+function form_start( $url, $width = 150, $name = '' )
 {
-  echo '<form enctype="multipart/form-data" action="'.$url.'" method="post">
+  echo '<form name="'.$name.'" enctype="multipart/form-data" action="'.$url.'" method="post">
         <p><table border=0 class="stdform" width="100%" cellspacing=4>
         <tr><td width="'.$width.'"></td><td></td></tr>';
 }
@@ -244,7 +244,7 @@ function form_submit( $text = "Submit", $col = 2, $align = 'left' )
 # To retrieve the results of an edit call form_select_table_update()
 #-------------------------------------------------------------------------------------------------
 
-function form_select_table ( $param, $table_contents, $table_params, $id_col, $edit_options = array(), $edit = 0)
+function form_select_table ( $param, $table_contents, $table_params, $id_col, $edit_options = array(), $edit = 0, $formname = '')
 {
   // Process the paramters in the table 
   $editable = (count($edit_options) > 0);
@@ -270,7 +270,18 @@ function form_select_table ( $param, $table_contents, $table_params, $id_col, $e
     }
 
     if($editable)
+    {
       echo '<th>&nbsp;</th>';
+      
+      echo "<script language='javascript'><!--\r\n";
+      echo "function edit_".$formname."(val){document.forms.".$formname.".".$formname."_".$param."_edit.value=val;document.forms.".$formname.".submit();}\r\n";
+      echo "function update_".$formname."(val){document.forms.".$formname.".".$formname."_".$param."_update.value=val;document.forms.".$formname.".submit();}\r\n";
+      echo "function cancel_".$formname."(){document.forms.".$formname.".submit();}\r\n";
+      echo "-->\r\n";
+      echo "</script>";
+      echo '<input type="hidden" name="'.$formname.'_'.$param.'_edit" value="">';
+      echo '<input type="hidden" name="'.$formname.'_'.$param.'_update" value="">';
+    }
 
     echo '</tr>';
     
@@ -284,7 +295,7 @@ function form_select_table ( $param, $table_contents, $table_params, $id_col, $e
         if ($cell_name != strtoupper($id_col))
         {
           echo '<td>';
-          
+
           if($editable && ($row[strtoupper($id_col)] == $edit))
           {
             // Check the edit options to see if there are choices for this column or not
@@ -324,10 +335,13 @@ function form_select_table ( $param, $table_contents, $table_params, $id_col, $e
       
       if($editable)
       {
-        if($edit == 0)
-          echo '<td align="center" width="80"><input type="submit" name="'.$param.'_EDIT:'.$row[strtoupper($id_col)].'" value=" Edit "></td>';
+        if(empty($edit))
+          echo '<td align="center" width="60"><a href="javascript:edit_'.$formname.'(\''.$row[strtoupper($id_col)].'\');"><img alt="Edit" title="Edit" src="ico_edit.gif" border="0"></a></td>';
         else if($row[strtoupper($id_col)] == $edit)
-          echo '<td align="center" width="80"><input type="submit" name="'.$param.'_UPDATE_ID:'.$row[strtoupper($id_col)].'" value=" Update "></td>';
+        {
+          echo '<td align="center" width="60"><a href="javascript:update_'.$formname.'(\''.$row[strtoupper($id_col)].'\');"><img alt="Ok" title="Ok" src="ico_tick.gif" border="0"></a>';
+          echo '&nbsp;&nbsp;<a href="javascript:cancel_'.$formname.'();"><img alt="Cancel" title="Cancel" src="ico_cross.gif" border="0"></a></td>';
+        }
         else
           echo '<td>&nbsp;</td>';
       }  
@@ -357,35 +371,31 @@ function form_select_table_vals( $id_col )
   return $result;
 }
 
-function form_select_table_edit( $param_name )
+function form_select_table_edit( $param_name, $formname )
 {
-  foreach($_REQUEST as $key => $val)
-  {
-    if(strtoupper(substr($key, 0, strlen($param_name)+6)) == strtoupper($param_name).'_EDIT:')
-    {
-      $result = strtoupper(substr($key, strlen($param_name)+6));
-      break;
-    }
-  }
-
+  if(!empty($_REQUEST[$formname.'_'.$param_name.'_edit']))
+    $result = $_REQUEST[$formname.'_'.$param_name.'_edit'];
+    
   return $result;
 }
 
-function form_select_table_update( $param_name )
+function form_select_table_update( $param_name, $formname )
 {
   $result = array();
-  
-  foreach($_REQUEST as $key => $val)
+
+  if(!empty($_REQUEST[$formname.'_'.$param_name.'_update']))
   {
-    if(strtoupper(substr($key, 0, strlen($param_name)+8)) == strtoupper($param_name).'_UPDATE:')
+    $result[strtoupper($param_name)] = $_REQUEST[$formname.'_'.$param_name.'_update'];
+  
+    foreach($_REQUEST as $key => $val)
     {
-      $result[substr($key, strlen($param_name)+8)] = $val;
-    }
-    else if(strtoupper(substr($key, 0, strlen($param_name)+11)) == strtoupper($param_name).'_UPDATE_ID:')
-    {
-      $result[strtoupper($param_name)] = substr($key, strlen($param_name)+11);
+      if(strtoupper(substr($key, 0, strlen($param_name)+8)) == strtoupper($param_name).'_UPDATE:')
+      {
+        $result[substr($key, strlen($param_name)+8)] = $val;
+      }
     }
   }
+  
 
   return $result;
 }
