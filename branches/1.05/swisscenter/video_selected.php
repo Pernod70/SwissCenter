@@ -56,18 +56,12 @@
   
   switch ($type)
   {
-    case "title":
-    case "year":
-      $column = $type;
-      break;
-    case "genre":
-    case "actor":
-    case "director":
-      $column = $type."_name";
-      break;
-    case "certificate":
-      $column = "rating";
-      break;
+    case "title":        $column = 'title';         break;
+    case "year":         $column = 'year';          break;
+    case "genre":        $column = 'genre_name';    break;
+    case "actor":        $column = 'actor_name';    break;
+    case "director":     $column = 'director_name'; break;
+    case "certificate":  $column = 'rating';        break;
   }
 
   $sql_table  = "movies m 
@@ -82,8 +76,7 @@
   $back_url  = $_SESSION["history"][count($_SESSION["history"])-1]["url"];
   $post_sql  = $_SESSION["history"][count($_SESSION["history"])-1]["sql"];
   $newsql    = $post_sql." and $column like '".db_escape_str(str_replace('_','\_',$name))."'";  
-  $playtime  = db_value("select sum(length) from $sql_table where ".substr($newsql,5));
-  $num_rows  = db_value("select count($column) from $sql_table where ".substr($newsql,5));
+  $num_rows  = db_value("select count( distinct $column) from $sql_table where ".substr($newsql,5));
 
   if (isset($_REQUEST["shuffle"]))
     $_SESSION["shuffle"] = $_REQUEST["shuffle"];
@@ -98,7 +91,7 @@
     
   if ($num_rows == 1)
   {
-    page_header('1 Track Found');
+    page_header('1 Item Found');
     // Single match, so get the details from the database and display them
     if ( ($data = db_toarray("select m.*, a.actor_name, d.director_name, g.genre_name from $sql_table where ".substr($newsql,5))) === false)
       page_error('A database error occurred');
@@ -127,9 +120,9 @@
 
   // More than one track matches, so output filter details and menu options to add new filters
     if ($num_rows ==1)
-      page_header($num_rows.' Track Found');
+      page_header($num_rows.' Items Found');
     else
-      page_header($num_rows.' Tracks Found');
+      page_header($num_rows.' Items Found');
 
     if ( ($data = db_toarray("select dirname from $sql_table where ".substr($newsql,5)." group by dirname")) === false )
       page_error('A database error occurred');
@@ -141,7 +134,6 @@
     $info->add_item('Title', distinct_info('title',$sql_table, $newsql));
     $info->add_item('Year', distinct_info('year',$sql_table, $newsql));
     $info->add_item('Certificate',distinct_info('rating',$sql_table, $newsql));
-    $info->add_item('Play Time' ,hhmmss($playtime));
     $menu->add_item('Play now'  , pl_link('sql','select * from $sql_table where '.substr($newsql,5)." order by title"));
 
     if (pl_enabled())
@@ -157,7 +149,7 @@
     echo '<p><table width="100%" cellpadding=0 cellspacing=0 border=0>
           <tr><td valign=top width="170px" align="center">
               <table width="100%"><tr><td height="10px"></td></tr><tr><td valign=top>
-                <center>'.img_gen($folder_img,150,200).'</center>
+                <center>'.img_gen($folder_img,150,150).'</center>
               </td></tr></table></td>
               <td valign="top">';
               $menu->display(320);
