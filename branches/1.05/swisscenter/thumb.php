@@ -11,7 +11,6 @@
   require_once("base/file.php");
 
   // Parameters to the script. Need to do more extensive checking on them!
-
   $filename   = un_magic_quote(rawurldecode($_REQUEST["src"]));
   $x          = $_REQUEST["x"];
   $y          = $_REQUEST["y"];
@@ -52,7 +51,7 @@
       fpassthru($fp);
       fclose($fp);
     }  
-    else
+    elseif ( file_exists($filename) )
     {
   
       // Work out the actual dimensions of the image to keep it within the specifed res,
@@ -88,8 +87,14 @@
   
       // If a cache directory has been defined, then store the cached file into it.
       if (!empty($_SESSION["opts"]["cache_dir"]))
-        ImagePng($im2, $cache_file);
-  
+        ImagePng($im2, $cache_file);  
+    }
+    else 
+    {
+      header("Content-Type: image/gif");
+      $fp = fopen($_SESSION["opts"]["sc_location"].'/images/dot.gif', 'rb')  ;
+      fpassthru($fp);
+      fclose($fp);
     }
   }
 
