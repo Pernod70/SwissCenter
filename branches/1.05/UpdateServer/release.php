@@ -61,21 +61,21 @@
 
   function zip_files($from, $to, $files, $dirs)
   {
-  	for ($i=0; $i<count($files); $i++)
-    {
+     foreach ($files as $fsp)
+     {
      // Compress the file
-      $file_contents = file_get_contents($from.$files[$i]["filename"]);
+      $file_contents = file_get_contents($from.$fsp["filename"]);
        
       if ( $file_contents === false)
-        echo "Unable to read contents of file : ".$files[$i]["filename"];
+        echo "Unable to read contents of file : ".$fsp["filename"];
       else
       {
         $str = gzcompress($file_contents);
         if ($str === false)
-          echo "Unable to compress file : ".$files[$i]["filename"];
+          echo "Unable to compress file : ".$fsp["filename"];
         else
         {
-          $tmp_file = $to.md5( $files[$i]["filename"].$files[$i]["checksum"]).'.bin';
+          $tmp_file = $to.md5( $fsp["filename"].$fsp["checksum"]).'.bin';
           $out = fopen($tmp_file, "w");
           fwrite($out, $str);
           fclose($out);
