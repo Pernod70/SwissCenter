@@ -350,7 +350,8 @@ function is_showcenter()
 {
   // return true; // DEBUG
   
-  if ( !isset($_SERVER["HTTP_USER_AGENT"]) || strpos($_SERVER["HTTP_USER_AGENT"],'Syabas') !== false)
+  if (  !isset($_SERVER["HTTP_USER_AGENT"]) || empty($_SERVER["HTTP_USER_AGENT"]) 
+        || strpos($_SERVER["HTTP_USER_AGENT"],'Syabas') !== false )
     return true;
   else
     return false;
