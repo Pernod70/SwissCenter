@@ -10,9 +10,70 @@ require_once("mysql.php");
 require_once("page.php");
 require_once("ext/getid3/getid3.php");
 
-function pl_link( $type, $spec= '', $media='' )
+//
+// Returns the correct link to cause the showcenter to start obtaining playlists and displaying/play 
+// media.
+//
+
+function pl_link( $type, $spec= '', $media = 'playlist')
 {
-  return 'href="gen_playlist.php?type='.$type.'&media=' . $media .'&spec='.rawurlencode($spec).'" vod="playlist" ';
+  $link   = '';
+  $seed   = mt_rand();
+  $server = $_SESSION["opts"]["server_address"];
+
+  switch ($media)
+  {
+    case 'audio' :
+          // Ensure the display for audio will be in the correct place...
+          if ($_SESSION["opts"]["screen"] == 'PAL')
+            $dummy = @file_get_contents('http://'.$_SESSION["opts"]["current_client"].':2020/pod_audio_info.cgi?x=210&y=464');  
+          else
+            $dummy = @file_get_contents('http://'.$_SESSION["opts"]["current_client"].':2020/pod_audio_info.cgi?x=210&y=369');  
+         
+          // Build link
+          $link .= 'href="gen_playlist.php?shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&spec='.rawurlencode($spec).'" ';
+          $link .= 'pod="3,1,http://'.$server.'/playing_list.php?shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&spec='.rawurlencode($spec).'" ';
+          break;
+    case 'photo':
+          $link .= 'href="MUTE" ';
+          $link .= 'pod="1,1,http://'.$server.'/gen_photolist.php?shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&spec='.rawurlencode($spec).'" ';
+          break;
+    default :
+          $link .= 'href="gen_playlist.php?shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&spec='.rawurlencode($spec).'" ';
+          $link .= 'vod="playlist" ';
+          break;
+  }
+  
+  return $link;
+}
+
+//
+// Generates the array of tracks to play for the current playlist
+//
+
+function pl_tracklist($type, $spec, $shuffle = false, $seed = 0)
+{
+  switch ($type)
+  {
+    case 'playlist':
+          $array = $_SESSION["playlist"];
+          break;
+    case 'sql':
+          $array = db_toarray($spec);
+          break;
+    case 'file':
+          $array = array(array("FILENAME"=>$spec));
+          break;
+    case 'dir':
+          foreach ($_SESSION["opts"]["dirs"][substr_between_strings($spec,'from ',' where')] as $path) 
+            $array = array_merge($array,db_toarray(str_replace('MEDIA_LOCATION',$path,$spec))); 
+          break;
+  }
+
+  if ($shuffle && count($array)>1)
+    shuffle_fisherYates($array,$seed);
+
+  return $array;
 }
 
 //
