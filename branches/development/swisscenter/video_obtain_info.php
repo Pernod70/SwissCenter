@@ -52,6 +52,7 @@
 
     $site_url    = 'http://www.lovefilm.com/';
     $search_url  = $site_url.'search.php?searchtype=title&dvdsearch=';
+    $file_path   = db_value("select dirname from movies where file_id = $file_id");
     $file_name   = db_value("select filename from movies where file_id = $file_id");
     $film_title  = ucwords(strip_title( $file_name ));
     $html        = file_get_contents($search_url.str_replace(' ','+',$film_title));
@@ -98,13 +99,32 @@
     }
     else 
     {
-      $accuracy = 100;
-      send_to_log("Single Match found.");      
+      //
+      similar_text(str_replace('&nbsp;','',substr_between_strings($html,'-- main body','-- Recommend')),$film_title,$accuracy);
+      if ($accuracy > 75)
+        send_to_log('Single Match found ('.$accuracy.'%)');      
+      else 
+        send_to_log('Single Match found, but not > 75%');
     }
 
     // Determine attributes for the movie and update the database
     if ($accuracy >= 75)
     {
+      // Download and store Albumart if there is none present.
+      if ( file_albumart($file_path.$file_name) == '')
+      {
+        $matches = get_images_from_html($html);
+        foreach ($matches[1] as $url)
+          if (strpos($url,'boxcover')>0)
+          {
+            $out = fopen($file_path.file_noext($file_name).'.jpg', "wb");
+            fwrite($out, file_get_contents($site_url.$url));
+            fclose($out);
+            send_to_log('AlbumArt downloaded for '.$film_title);
+            break;
+          }
+      }
+      
       $details = substr_between_strings($html,"Recommend DVD","MEMBER RATINGS");
       $columns = array ( "YEAR"              => array_pop(get_attrib($details,"Year:"))
                        , "RATING"            => array_pop(get_attrib($details,"Certificate:"))
