@@ -14,6 +14,10 @@
   
   $menu->add_item("Watch A Movie",'video.php',true);
   $menu->add_item("Listen to Music",'music.php',true);
+
+  if (internet_available())
+    $menu->add_item("Listen to Internet Radio","music_radio.php",true);
+
   $menu->add_item("View Photographs",'photo.php',true);
   
   if (internet_available())
