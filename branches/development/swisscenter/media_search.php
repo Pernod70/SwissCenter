@@ -46,7 +46,7 @@
                      ,"year"         => array_last($id3["comments"]["year"])
                      ,"track"        => array_last($id3["comments"]["track"])
                      ,"genre"        => array_last($id3["comments"]["genre"])
-                     ,"discovered"   =>  );
+                     ,"discovered"   => db_datestr() );
                      
         if (!db_insert_row( "mp3s", $data))
           send_to_log('Unable to add MP3 to the database');
@@ -101,7 +101,8 @@
                      ,"height"         => $id3["video"]["resolution_y"]
                      ,"date_modified"  => filemtime($filepath)
                      ,"date_created"   => 0
-                     ,"verified"       => db_datestrig() );
+                     ,"verified"     => 'Y'
+                     ,"discovered"   => db_datestr() );
 
         if (!db_insert_row( "photos", $data))
           send_to_log('Unable to add PHOTO to the database');
@@ -148,7 +149,10 @@
                      ,"title"        => file_noext($file)
                      ,"size"         => $id3["filesize"]
                      ,"length"       => floor($id3["playtime_seconds"])
-                     ,"lengthstring" => $id4["playtime_string"] );
+                     ,"lengthstring" => $id3["playtime_string"] 
+                     ,"verified"     => 'Y'
+                     ,"discovered"   => db_datestr() );
+                     
         if ( db_insert_row( "movies", $data) === false )
           send_to_log('Unable to add movie to the database');
       }

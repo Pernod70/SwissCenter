@@ -17,7 +17,7 @@
 
   browse_fs( 'Internet Radio'
            , db_col_to_list("select name from media_locations where media_type=4")
-           , 'music.php'
+           , 'index.php'
            , array('url')
            , ''
            , ''

@@ -42,7 +42,6 @@
   if(empty($cat_id))
     $number_of_cats = categories_count(3);
   
-  
   if(($number_of_cats == 1) || !empty($cat_id))
     display_video_menu($cat_id);
   else

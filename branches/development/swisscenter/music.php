@@ -19,9 +19,6 @@
 
     $menu = new menu();
 
-    if (internet_available())
-      $menu->add_item("Listen to Internet Radio","music_radio.php",true);
-
     $menu->add_item("Browse Music by Artist Name","music_search.php?sort=artist",true);
     $menu->add_item("Browse Music by Album Name","music_search.php?sort=album",true);
     $menu->add_item("Browse Music by Track Name","music_search.php?sort=title",true);
@@ -47,7 +44,6 @@
   $cat_id = $_REQUEST["cat"];
   if(empty($cat_id))
     $number_of_cats = categories_count(1);
-  
   
   if(($number_of_cats == 1) || !empty($cat_id))
     display_music_menu($cat_id);
