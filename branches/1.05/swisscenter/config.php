@@ -4,6 +4,7 @@
  *************************************************************************************************/
 
   require_once("base/page.php");
+  require_once("messages_db.php");
 
   page_header( "Preferences and Setup" );
 
@@ -20,12 +21,13 @@
   }
 
   // Are there any new messages to display to the user?
-  $num = db_value("select count(*) from messages where deleted is null");
-  if ($num >0)
+  $num_read = count_messages_with_status(MESSAGE_STATUS_READ);
+  $num_new = count_messages_with_status(MESSAGE_STATUS_NEW);
+  if(($num_read + $num_new) > 0)
   {
-    $menu->add_item("View Messages (".$num.")",'messages.php',true);
+    $menu->add_item("View Messages (".$num_new." new, ".$num_read." read)",'messages.php',true);
   }
-   
+
   $menu->display();
 
   page_footer( 'index.php' );
