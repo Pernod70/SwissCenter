@@ -136,6 +136,16 @@
         if ( strstr($sched,os_path(SC_LOCATION.'media_search.php')) === false)
           run_background('media_search.php','M,T,W,Th,F,S,Su','12:00');  
 
+        // Store default cache settings
+        set_sys_pref('CACHE_MAXSIZE_MB',10); // Default 10 Mb cache size
+
+        if (!file_exists(SC_LOCATION.'cache'))
+          mkdir(SC_LOCATION.'cache');
+
+        if (file_exists(SC_LOCATION.'cache') && is_dir(SC_LOCATION.'cache'))
+          set_sys_pref('CACHE_DIR',SC_LOCATION.'cache');
+          
+        // Display the config page
         header('Location: index.php');
       }
       else
@@ -295,17 +305,20 @@
   // Display current config
   //
   
-  function art_display($delete = '', $new = '', $edit_id = '')
+  function art_display($delete = '', $new = '', $opt = '', $edit_id = '')
   {
+    $list = array('Enabled'=>'YES','Disabled'=>'NO');
     $data = db_toarray("select filename, filename 'Name' from art_files order by 1");
     
     echo "<h1>Album/Film Art files</h1>";
-    message($delete);
     echo('<em>Album/Film Art</em> files are the names of image files that the SwissCenter should look for when it is
                     displaying a browse function (Browse Movies, Browse Music by folder, etc) or when you have selected an
                     album or film.
                  <p>If any of the files you specify here are found within a directory, then the first one to be found will 
                     be displayed on the Swisscenter interface.');
+
+    echo '<p><h1>Update/Remove Filenames<p>';
+    message($delete);
     form_start('index.php', 150, 'art');
     form_hidden('section','ART');
     form_hidden('action','MODIFY');
@@ -319,13 +332,36 @@
     form_start('index.php');
     form_hidden('section','ART');
     form_hidden('action','NEW');
-    form_input('name','Filename',30,'',un_magic_quote($_REQUEST['name']));
+    form_input('name','Filename',60,'',un_magic_quote($_REQUEST['name']));
     form_label('Please specify the name of any image file that should be used as album/film art if it is found 
                 to be within a media directory.');
     form_submit('Add filename',2);
     form_end();
+    
+    echo '<p><h1>Options<p>';
+    message($opt);
+    form_start('index.php', 150, 'conn');
+    form_hidden('section', 'ART');
+    form_hidden('action', 'OPTIONS');
+
+    form_radio_static('id3','ID3-Tag Covers',$list,get_sys_pref('radio_enabled','YES'),false,true);
+    form_label('If Album Art is present within the ID3-Tag of a music file, then it will be extracted and stored in the
+                database as the preferred art to use on the SwissCenter interface. However, as this can cause the database
+                to grow quite large you may disable this feature here if you wish.');
+    form_submit('Store Settings', 2);
+    form_end();
+    }   
+    
+  //
+  // Stores the albumart options
+  //
+  
+  function art_options()
+  {
+    set_sys_pref('USE_ID3_ART',$_REQUEST["id3"]);
+    art_display('','','Options Stored');
   }
-   
+    
   //
   // Delete an existing location
   //
@@ -338,7 +374,7 @@
     
     if(!empty($edit_id))
     {
-      art_display('', '', $edit_id);
+      art_display('', '', '', $edit_id);
     }
     else if(!empty($update_data))
     {
@@ -675,17 +711,9 @@
       cache_display("!Please enter a fully qualified directory path.");
     else 
     {
-      db_sqlcommand("delete from system_prefs where name='CACHE_DIR'");
-      db_sqlcommand("delete from system_prefs where name='CACHE_MAXSIZE_MB'");
-      if ( (db_insert_row('system_prefs',array("name"=>"CACHE_DIR","value"=>$dir)) === false) ||
-           (db_insert_row('system_prefs',array("name"=>"CACHE_MAXSIZE_MB","value"=>$size)) === false) )
-      {
-        cache_display(db_error());
-      }
-      else
-      {
-        cache_display('Cache configuration updated');
-      }
+      set_sys_pref('CACHE_DIR',$dir);
+      set_sys_pref('CACHE_MAXSIZE_MB',$size);
+      cache_display('Cache configuration updated');
     }
   }
 
@@ -819,23 +847,43 @@
     form_label('Information on the current weather conditions (or 5 day forecast) is downloaded from 
                <a href="http://www.weather.com">The Weather Channel</a> on demand.');
     
-    form_radio_static('update','SwissCenter Updates',$list,get_sys_pref('updates_enabled','YES'),false,true);
+    form_radio_static('update','Update Check',$list,get_sys_pref('updates_enabled','YES'),false,true);
     form_label('A daily check is made to the <a href="http://www.swisscenter.co.uk">SwissCenter.co.uk</a> website to
                 determine if a new version of the SwissCenter is available. If it is, then an icon will appear
                 on the main menu to indicate this.');
 
-    form_radio_static('messages','SwissCenter Messages',$list,get_sys_pref('messages_enabled','YES'),false,true);
+    form_radio_static('messages','New Messages',$list,get_sys_pref('messages_enabled','YES'),false,true);
     form_label('A daily check is made for important messages regarding the SwissCenter interface. If new messages
                 are available then an icon will appear on the main menu to indicate that they are available for
                 you to view.');
-    /*
-    form_radio_static('movie_indo','Movie Info Downloads',$list,get_sys_pref('movie_check_enabled','YES'),false,true);
+
+    form_radio_static('movie_info','Movie Info Downloads',$list,get_sys_pref('movie_check_enabled','YES'),false,true);
     form_label('When new video items are discovered during a "new media search", the SwissCenter will use the filename
                 of the video file to search for, and download, additional movie information (eg: Actors, Directors, etc)
                 from the online movie rental site <a href=""http://www.lovefilm.com">www.lovefilem.com</a>.');
-    */
+ 
     form_submit('Store Settings', 2);
     form_end();
+    
+    ?>
+    <h1>Privacy Policy</h1>
+     <p><b>Data Collection</b>
+     <p>Information relating to the media files on your machine is collected and stored in a MySQL database located on
+        the PC on which the SwissCenter software is installed. This information is used for the sole purpose of 
+        providing you with an interface to your media files on such devices as the Pinnacle Showcenter. At no point is 
+        this of any other information transmitted in any form to the authors of the SwissCenter, or to any other third party.
+     <p>There is one exception to the above statemnet :- To obtain extra information regarding video/movies files (such as actors, 
+        directors, etc) the filename is submitted as part of a search query to the www.lovefilm.com website. If
+        you would prefer that this informationis not transmitted then you should disable the "Movie Info Download" feature in
+        the form above.
+     <p><b>Unsolicited Email/Messages</b>
+     <p><ul>
+        <li>We will never send you unsolicited email.
+        <li>Messages downloaded to the SwissCenter interface will relate only to the capabilities and operation of the 
+            interface. If you wish you may prevent even these messages from being downloaded by disabling the "Messages" 
+            feature in the form above.
+        </ul>
+    <?
     
   }
   
@@ -849,6 +897,7 @@
     set_sys_pref('weather_enabled',$_REQUEST["weather"]);
     set_sys_pref('updates_enabled',$_REQUEST["update"]);
     set_sys_pref('messages_enabled',$_REQUEST["messages"]);
+    set_sys_pref('movie_check_enabled',$_REQUEST["movie_info"]);
     connect_display('Settings Saved');
   }
   
@@ -944,7 +993,7 @@
   $page_title = 'SwissCenter Configuration Utility';
   $page_width = '750px';
   include("config_template.php");
-
+  
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/

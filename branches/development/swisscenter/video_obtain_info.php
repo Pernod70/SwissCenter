@@ -151,14 +151,19 @@
 
   function extra_get_all_movie_details ()
   {
-    send_to_log('Checking online for extra movie information');
-    $data = db_toarray("select file_id, filename from movies where details_available is null");
-  
-    // Process each movie
-    foreach ($data as $row)
-      extra_get_movie_details( $row["FILE_ID"] );
-        
-    send_to_log('Online movie check complete');
+    if (get_sys_pref('movie_check_enabled','YES') == 'YES')
+    {
+      send_to_log('Checking online for extra movie information');
+      $data = db_toarray("select file_id, filename from movies where details_available is null");
+    
+      // Process each movie
+      foreach ($data as $row)
+        extra_get_movie_details( $row["FILE_ID"] );
+          
+      send_to_log('Online movie check complete');
+    }
+    else 
+      send_to_log('Online movie check is DISABLED');
   }   
 
 /**************************************************************************************************

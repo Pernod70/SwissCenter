@@ -51,7 +51,7 @@
         if (!db_insert_row( "mp3s", $data))
           send_to_log('Unable to add MP3 to the database');
           
-        if (isset($id3["id3v2"]["APIC"][0]["data"]))
+        if ( get_sys_pref('USE_ID3_ART','YES') == 'YES' && isset($id3["id3v2"]["APIC"][0]["data"]))
         {
           $file_id = db_value("select file_id from mp3s where concat(dirname,filename)='".$dir.$file."'");
           db_insert_row('mp3_albumart',array("file_id"=>$file_id, "image"=>addslashes($id3["id3v2"]["APIC"][0]["data"]) ));
