@@ -68,7 +68,7 @@
 
   if ($num_rows == 1)
   {
-    page_header('1 Track Found');
+    page_header('1 Track Found', '', 'LOGO_MUSIC');
     // Single match, so get the details from the database and display them
     if ( ($data = db_toarray("select * from mp3s where ".substr($newsql,5))) === false)
       page_error('A database error occurred');
@@ -92,9 +92,9 @@
   {
     // More than one track matches, so output filter details and menu options to add new filters
     if ($num_rows ==1)
-      page_header($num_rows.' Track Found');
+      page_header($num_rows.' Track Found', '', 'LOGO_MUSIC');
     else
-      page_header($num_rows.' Tracks Found');
+      page_header($num_rows.' Tracks Found', '', 'LOGO_MUSIC');
 
     if ( ($data = db_toarray("select dirname from mp3s where ".substr($newsql,5)." group by dirname")) === false )
       page_error('A database error occurred');
@@ -108,10 +108,10 @@
     distinct_info('Genre'      ,'genre' ,$newsql, $info);
     distinct_info('Year'       ,'year'  ,$newsql, $info);
     $info->add_item('Play Time',  hhmmss($playtime));
-    $menu->add_item('Play now',   pl_link('sql','select * from mp3s where '.substr($newsql,5)." order by album,track,title",'audio'));
+    $menu->add_item('Play now',   pl_link('sql','select * from mp3s where '.substr($newsql,5)." order by album,lpad(track,10,'0'),title",'audio'));
 
     if (pl_enabled())
-      $menu->add_item('Add to your playlist','add_playlist.php?sql='.rawurlencode('select * from mp3s where '.substr($newsql,5)." order by album,track,title"),true);
+      $menu->add_item('Add to your playlist','add_playlist.php?sql='.rawurlencode('select * from mp3s where '.substr($newsql,5)." order by album,lpad(track,10,'0'),title"),true);
 
     check_filters( array('artist','album','title','genre','year'), $newsql, $menu);
   }

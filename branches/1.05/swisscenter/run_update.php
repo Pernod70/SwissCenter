@@ -5,7 +5,7 @@
 
   require_once("base/page.php");
    
-  page_header("Updating...","","1",'<meta http-equiv="refresh" content="1;URL=update.php">');
+  page_header("Updating...","","LOGO_CONFIG",'<meta http-equiv="refresh" content="1;URL=update.php">');
   echo "<p>&nbsp;<p>&nbsp;<p><center>Updating - Please Wait</center>";
   page_footer('/');  
   ob_end_flush();

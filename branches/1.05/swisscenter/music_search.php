@@ -10,7 +10,7 @@
 
   function search_page( $title, $sort, $this_url, $prefix, $search, $page)
   {
-    page_header('Music', 'Browse by '.$title.' : '.$search, (empty($_REQUEST["last"]) ? 'KEY_SPC' : $_REQUEST["last"] ) );
+    page_header('Music', 'Browse by '.$title.' : '.$search, 'LOGO_MUSIC', '', (empty($_REQUEST["last"]) ? 'KEY_SPC' : $_REQUEST["last"] ) );
 
     $menu      = new menu();
     $data      = array();

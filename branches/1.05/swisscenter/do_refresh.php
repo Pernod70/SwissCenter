@@ -14,7 +14,7 @@
   $menu = new menu();
 
   run_background('media_search.php');
-  page_header( "Refresh All Databases" );
+  page_header( "Refresh All Databases", '', 'LOGO_CONFIG' );
 
 // At some point in the future, this will take you back to the media refresh screen (via a redirect).
 // the media refresh screen will then show the status of the current refresh.

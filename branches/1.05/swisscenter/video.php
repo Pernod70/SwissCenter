@@ -7,7 +7,7 @@
 
   $_SESSION["history"] = array(array("url"=>"video.php"));
 
-  page_header("Watch A Movie");
+  page_header("Watch A Movie",'','LOGO_MOVIE');
   echo '<center>Please select an option from the list:</center><p>';
 
   $menu = new menu();

@@ -9,7 +9,7 @@
 
   function search_page( $this_url, $prefix, $search, $page)
   {
-    page_header('Cities', 'Select City : '.$search, (empty($_REQUEST["last"]) ? 'KEY_SPC' : $_REQUEST["last"] ) );
+    page_header('Cities', 'Select City : '.$search,'LOGO_WEATHER','', (empty($_REQUEST["last"]) ? 'KEY_SPC' : $_REQUEST["last"] ) );
 
     $menu      = new menu();
     $data      = array();

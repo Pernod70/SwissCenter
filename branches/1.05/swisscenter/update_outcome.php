@@ -5,7 +5,7 @@
 
   require_once("base/page.php");
    
-  page_header("Updating...","","1",'<meta http-equiv="refresh" content="3;URL=index.php">');
+  page_header("Updating...","",'LOGO_CONFIG','<meta http-equiv="refresh" content="3;URL=index.php">');
   echo '<p>&nbsp;<p>&nbsp;<p><center>';
   switch ($_REQUEST["status"])
   {

@@ -7,7 +7,7 @@
   require_once("base/utils.php");
   require_once('base/az_picker.php');
 
-  page_header('Save Playlist', '', (empty($_REQUEST["last"]) ? 'KEY_SPC' : $_REQUEST["last"] ) );
+  page_header('Save Playlist', '','','', (empty($_REQUEST["last"]) ? 'KEY_SPC' : $_REQUEST["last"] ) );
 
   $menu      = new menu();
   $search    = $_REQUEST["search"];

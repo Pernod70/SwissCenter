@@ -14,7 +14,7 @@
 
     if($num == 0)
     {
-      page_header( "Messages", "", "1", '<meta http-equiv="refresh" content="2;URL=config.php">');
+      page_header( "Messages", "", 'LOGO_CONFIG', '<meta http-equiv="refresh" content="2;URL=config.php">');
       
       // No messages to display
       echo '<center><font color="'.$_SESSION["opts"]["style"]["PAGE_TEXT"].
@@ -22,7 +22,7 @@
     }
     else
     {
-      page_header( "Messages" );
+      page_header( "Messages", "", 'LOGO_CONFIG' );
       // Display a list of all the outstanding messages
       echo '<center><font color="'.$_SESSION["opts"]["style"]["PAGE_TEXT"].
             '">Please select a message to view</font></center></br>';
@@ -74,7 +74,7 @@
   
   function display_message($id)
   {
-    page_header( "Messages" );
+    page_header( "Messages", "", 'LOGO_CONFIG' );
 
     global $message_status_string;
     $menu = new menu();

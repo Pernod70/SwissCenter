@@ -175,7 +175,7 @@
   // individual file
   // ----------------------------------------------------------------------------------
 
-  function browse_fs($heading, $default_dir, $back_url, $filetypes, $all_link='', $sql_filelist='' )
+  function browse_fs($heading, $default_dir, $back_url, $filetypes, $all_link='', $sql_filelist='', $logo='' )
   {
     // Check page parameters, and if not set then assign default values.
     $url           = $_SERVER["PHP_SELF"];
@@ -207,7 +207,7 @@
     }
     
     // Now that we have a list of files to work with, we can output the page (maximum MAX_PER_PAGE items per page).
-    page_header( $heading, substr($dir,0,-1) );
+    page_header( $heading, substr($dir,0,-1), $logo );
     tidy_lists ( $dir_list, $file_list );
     $start     = $page * (MAX_PER_PAGE);
     $end       = min(count($dir_list)+count($file_list) , $start+MAX_PER_PAGE);

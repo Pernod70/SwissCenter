@@ -84,8 +84,13 @@ function down_link( $url)
 
 // background-attachment:fixed;
 
-function page_header( $title, $tagline = "", $focus="1", $meta = "")
+function page_header( $title, $tagline = "",  $logo = "", $meta = "", $focus="1")
 {
+  if (empty($logo))
+    $logo = '/images/logo.gif';
+  else 
+    $logo = style_img($logo);
+
   if     ($_SESSION["opts"]["screen"] == 'NTSC')
   {
     $logo                   = '';
@@ -96,7 +101,7 @@ function page_header( $title, $tagline = "", $focus="1", $meta = "")
   }
   else
   {
-    $logo                   = '<td width="160px" height="92px" ><img src="/images/logo.gif" width="160" height="92"></td>';
+    $logo                   = '<td width="160px" height="92px" valign="center" align="center"><img src="'.$logo.'"></td>';
     $headings               = '<td height="92px" align="center"><h2>'.$title.'&nbsp;</h2>'.$tagline.'&nbsp;</td>';
     $background_image       = style_img("PAL_BACKGROUND");
     $heading_padding_top    = 4;

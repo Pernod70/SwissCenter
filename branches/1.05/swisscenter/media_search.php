@@ -223,10 +223,10 @@
 
   media_indicator('BLINK');
   
-  process_media_dirs('music','mp3s', array('mp3'));
-  process_media_dirs('video','movies', array('avi','mpg','mpeg'));
+  process_media_dirs('music','mp3s',   explode(',' ,MEDIA_EXT_MUSIC));
+  process_media_dirs('video','movies', explode(',' ,MEDIA_EXT_MOVIE));
   extra_get_all_movie_details();
-  process_media_dirs('photo','photos', array('jpeg','jpg','gif'));
+  process_media_dirs('photo','photos', explode(',' ,MEDIA_EXT_PHOTOS));
      
   media_indicator('OFF');
 

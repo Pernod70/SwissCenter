@@ -65,7 +65,7 @@
   $menu->add_item('Choose Another Location','weather_city_list.php',true);
 
   // Display Weather Icon and statistics
-  page_header($xml_cc[$loc_id]["dnam"]);
+  page_header($xml_cc[$loc_id]["dnam"],'','LOGO_WEATHER');
 
   echo '<table cellspacing=0 border=0 cellpadding=0 width="100%">
           <tr>

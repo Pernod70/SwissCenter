@@ -10,7 +10,7 @@
 
   function search_page( $title, $column, $sort, $this_url, $prefix, $search, $page)
   {
-    page_header('Video', $title.' : '.$search, (empty($_REQUEST["last"]) ? 'KEY_SPC' : $_REQUEST["last"] ) );
+    page_header('Video', $title.' : '.$search,'LOGO_MOVIE','', (empty($_REQUEST["last"]) ? 'KEY_SPC' : $_REQUEST["last"] ) );
 
     $menu      = new menu();
     $data      = array();

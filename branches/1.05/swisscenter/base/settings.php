@@ -57,6 +57,12 @@ function load_style($base_dir, $user_id)
   define( 'THUMB_W',        150 );
   define( 'THUMB_H',        225 );
   
+  // Define media file extentsions
+  
+  define( 'MEDIA_EXT_MOVIE',  'avi,mpg,mpeg,vob' );
+  define( 'MEDIA_EXT_MUSIC',  'mp3' );
+  define( 'MEDIA_EXT_PHOTOS', 'jpeg,jpg,gif' );
+  
   // Where is the SwissCenter installed?
   $sc_location = str_replace('\\','/',os_path($_ENV["DOCUMENT_ROOT"],true));
 

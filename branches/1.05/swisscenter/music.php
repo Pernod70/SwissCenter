@@ -5,7 +5,7 @@
 
   require_once("base/page.php");
 
-  page_header("Listen to Music");
+  page_header("Listen to Music", '', 'LOGO_MUSIC');
 
   $_SESSION["history"] = array(array("url"=>"music.php"));
 

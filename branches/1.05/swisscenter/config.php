@@ -6,7 +6,7 @@
   require_once("base/page.php");
   require_once("messages_db.php");
   
-  page_header( "Preferences and Setup" );
+  page_header( "Preferences and Setup", '', 'LOGO_CONFIG' );
 
   echo '<p align="center">Please select an option from the list:';
   $menu = new menu();

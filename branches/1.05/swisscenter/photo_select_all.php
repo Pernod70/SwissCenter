@@ -24,7 +24,7 @@
   $menu->add_item("Start Slideshow",pl_link('dir',$spec,'photo'));
 
   // Display Page
-  page_header("Slideshow",'/'.$dir);
+  page_header("Slideshow",'/'.$dir,'LOGO_PHOTO');
   $info->display();
   $menu->display();
   page_footer( 'photo_browse.php?DIR='.$_REQUEST["dir"] );

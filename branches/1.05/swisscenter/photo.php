@@ -5,7 +5,7 @@
 
   require_once("base/page.php");
 
-  page_header("View Photographs");
+  page_header("View Photographs",'', 'LOGO_PHOTO');
 
   echo '<center>Please select an option from the list:</center><p>';
 

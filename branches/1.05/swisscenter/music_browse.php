@@ -14,7 +14,7 @@
     return pl_link('sql','select * from mp3s where file_id='.$id,'audio');
   }
 
-  browse_fs('Browse Music', $_SESSION["opts"]["dirs"]["music"], 'music.php', array('mp3'), '', 'select filename,dirname from mp3s where dirname' );
+  browse_fs('Browse Music', $_SESSION["opts"]["dirs"]["music"], 'music.php', array('mp3'), '', 'select filename,dirname from mp3s where dirname','LOGO_MUSIC' );
 
 /**************************************************************************************************
                                                End of file

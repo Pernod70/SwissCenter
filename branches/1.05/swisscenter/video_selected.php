@@ -91,7 +91,7 @@
     
   if ($num_rows == 1)
   {
-    page_header('1 Item Found');
+    page_header('1 Item Found','','LOGO_MOVIE');
     // Single match, so get the details from the database and display them
     if ( ($data = db_toarray("select m.*, a.actor_name, d.director_name, g.genre_name from $sql_table where ".substr($newsql,5))) === false)
       page_error('A database error occurred');
@@ -120,9 +120,9 @@
 
   // More than one track matches, so output filter details and menu options to add new filters
     if ($num_rows ==1)
-      page_header($num_rows.' Items Found');
+      page_header($num_rows.' Items Found','','LOGO_MOVIE');
     else
-      page_header($num_rows.' Items Found');
+      page_header($num_rows.' Items Found','','LOGO_MOVIE');
 
     if ( ($data = db_toarray("select dirname from $sql_table where ".substr($newsql,5)." group by dirname")) === false )
       page_error('A database error occurred');
