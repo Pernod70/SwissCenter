@@ -93,12 +93,32 @@ function db_col_to_list( $sql)
 # Returns TRUE if the query completed successfully, otherwise the funtions returns FALSE 
 #-------------------------------------------------------------------------------------------------
 
-function db_sqlcommand( $sql)
+function db_sqlcommand ($sql)
 {
   $recs     = new db_query( $sql);
   $success  = $recs->db_success();
   $recs->destroy();
   return ($success ? true : false );
+}
+
+#-------------------------------------------------------------------------------------------------
+# Executes all the SQL commands contained within the file specified, returning the number of 
+# errors that were encountered.
+#-------------------------------------------------------------------------------------------------
+
+function db_sqlfile ($fsp)
+{
+  $errors = 0;
+  if ($contents = @file($fsp))
+  {
+    $commands = split(";",implode(" ",$contents));
+    foreach ($commands as $sql)
+      if ( strlen(trim($sql)) > 0 ) 
+        if (!db_sqlcommand($sql))
+          $errors++;
+  }
+
+  return $errors;
 }
 
 #-------------------------------------------------------------------------------------------------
