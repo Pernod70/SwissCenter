@@ -9,7 +9,7 @@
   require_once("messages_db.php");
 
   $menu = new menu();
-  $icons = new iconbar(200);
+  $icons = new iconbar(400);
 
   // Menu Items
   
@@ -23,8 +23,6 @@
   if (pl_enabled())
     $menu->add_item("Manage Playlists",'manage_pl.php',true);
 
-  $menu->add_item("Preferences and Setup",'config.php',true);
-
   // Icons
   
   if ($_SESSION["internet"] && $_SESSION["update"]["available"])
@@ -33,6 +31,8 @@
   $num_new = count_messages_with_status(MESSAGE_STATUS_NEW);
   if(($num_new) > 0)
     $icons->add_icon("ICON_MAIL","New","messages.php?return=".current_url());
+    
+  $icons->add_icon("ICON_SETUP","Setup","config.php");
 
   // Display the page content
     
