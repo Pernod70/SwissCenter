@@ -83,7 +83,7 @@ function load_style($base_dir, $user_id)
     $opts["dirs"]             = $dirs;
     
     // Load the user preferences
-    $opts["user_id"]          = db_value("select current_user from clients where ip_address='".$opts['current_client']."'");
+    $opts["user_id"]          = db_value("select user_id from clients where ip_address='".$opts['current_client']."'");
 
     if ( empty($opts["user_id"]) )
     { 
@@ -101,7 +101,7 @@ function load_style($base_dir, $user_id)
     $box_id = db_value("select box_id from clients where ip_address='".$opts["current_client"]."'");
     if (!empty($box_id) && $box_id != $_ENV["something"])
     {
-      $row = array('IP_ADDRESS'=>$opts["current_client"], 'BOX_ID'=>$_ENV["something"], 'CURRENT_USER'=>$opts["user_id"]);
+      $row = array('IP_ADDRESS'=>$opts["current_client"], 'BOX_ID'=>$_ENV["something"], 'USER_ID'=>$opts["user_id"]);
       db_sqlcommand("delete from clients where ip_address='".$opts["current_client"]."'");
       db_insert_row('clients',$row);
     }
