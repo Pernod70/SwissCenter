@@ -30,14 +30,14 @@
 
     // Get the matching records from the database.
     $data = db_toarray("select distinct $column display $sql $column !='' and $column like '".$prefix.db_escape_str(str_replace('_','\_',$search))."%' ".$post_sql." order by 1 limit ".(($page*MAX_PER_PAGE)).",".MAX_PER_PAGE);
-    $num_rows = db_value("select distinct ($column) $sql $column !='' and $column like '".$prefix.db_escape_str(str_replace('_','\_',$search))."%' ".$post_sql);
+    $num_rows = db_value("select count(distinct $column) $sql $column !='' and $column like '".$prefix.db_escape_str(str_replace('_','\_',$search))."%' ".$post_sql);
 
     if ( $data === false || $num_rows === false)
       page_error('A database error occurred');
 
     if (empty($data))
     {
-      echo 'There are no files that match your search.';
+      echo 'There are no items that match your search.';
     }
     else
     {
