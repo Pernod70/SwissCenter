@@ -14,7 +14,7 @@
   $menu = new menu();
   $menu->add_item("Watch A Movie",'video.php',true);
   $menu->add_item("Listen to Music",'music.php',true);
-//  $menu->add_item("View Photographs",'',true);
+  $menu->add_item("View Photographs",'photo.php',true);
   
   if ($_SESSION["internet"])
     $menu->add_item("View Weather Forecasts",'weather_cc.php',true);
@@ -31,6 +31,8 @@
 
   $menu->display();
   page_footer('');
+  
+//  debug($GLOBALS);
 
 /**************************************************************************************************
                                                End of file
