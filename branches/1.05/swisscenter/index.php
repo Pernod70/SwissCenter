@@ -6,6 +6,7 @@
   require_once("base/page.php");
   require_once("base/playlist.php");
   require_once("base/file.php");
+  require_once("messages_db.php");
 
   page_header( "Homepage");
 
@@ -30,7 +31,16 @@
   }
 
   $menu->display();
-  page_footer('');
+
+  // Create the iconbar to add to the footer  
+  $icons = new iconbar();
+  
+  $num_new = count_messages_with_status(MESSAGE_STATUS_NEW);
+  if(($num_new) > 0)
+    $icons->add_icon("MAIL", "messages.php?return=".current_url());
+  
+
+  page_footer('', '', $icons);
   
 //  debug($GLOBALS);
 

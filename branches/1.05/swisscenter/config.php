@@ -26,7 +26,7 @@
   $num_new = count_messages_with_status(MESSAGE_STATUS_NEW);
   if(($num_read + $num_new) > 0)
   {
-    $menu->add_item("View Messages (".$num_new." new, ".$num_read." read)",'messages.php',true);
+    $menu->add_item("View Messages (".$num_new." new, ".$num_read." read)",'messages.php?return='.current_url(),true);
   }
 
   $menu->display();

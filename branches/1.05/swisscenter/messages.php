@@ -55,17 +55,17 @@
 
         // Add a link to display the message, this includes the pages that should be displayed
         // if the keep or delete options are chosen
-        $menu->add_item($message_text,'messages.php?id='.$row["MESSAGE_ID"].'&pagekeep='.$page
+        $menu->add_item($message_text,'messages.php?return='.$_REQUEST["return"].'&id='.$row["MESSAGE_ID"].'&pagekeep='.$page
               .'&pagedel='.$pagedel);
       }
 
       // Add up/down buttons as needed for prev/next page      
       if ($page > 0)
-        $menu->add_up( $this_url.'?page='.($page-1));
+        $menu->add_up( $this_url.'?return='.$_REQUEST["return"].'&page='.($page-1));
 
       // We are not on the last page, so output a link to go "down" a page of entries.
       if (($page+1)*MAX_PER_PAGE < $num)
-        $menu->add_down( $this_url.'?page='.($page+1));
+        $menu->add_down( $this_url.'?return='.$_REQUEST["return"].'&page='.($page+1));
       
       // Render the menu
       $menu->display();
@@ -96,14 +96,15 @@
     // Add the keep and delete links, if there was a keep or delete page to return
     // to then ensure that the link returns the user to the correct page
     if(!empty($_REQUEST["pagekeep"]))
-      $menu->add_item('Keep this message','messages.php?page='.$_REQUEST["pagekeep"]);
+      $menu->add_item('Keep this message','messages.php?return='.$_REQUEST["return"].'&page='.$_REQUEST["pagekeep"]);
     else
-      $menu->add_item('Keep this message','messages.php');
+      $menu->add_item('Keep this message','messages.php?return='.$_REQUEST["return"]);
 
     if(!empty($_REQUEST["pagedel"]))
-      $menu->add_item('Delete this message','messages.php?delete='.$id.'&page='.$_REQUEST["pagedel"]);
+      $menu->add_item('Delete this message','messages.php?return='.$_REQUEST["return"].
+                      '&delete='.$id.'&page='.$_REQUEST["pagedel"]);
     else
-      $menu->add_item('Delete this message','messages.php?delete='.$id);
+      $menu->add_item('Delete this message','messages.php?return='.$_REQUEST["return"].'&delete='.$id);
       
     $menu->display();
     
@@ -131,7 +132,7 @@
     list_messages();
   }
    
-  page_footer( 'config.php' );
+  page_footer( empty($_REQUEST["return"]) ? 'config.php' : $_REQUEST["return"]);
 
 /**************************************************************************************************
                                                End of file

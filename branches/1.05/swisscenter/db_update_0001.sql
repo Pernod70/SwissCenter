@@ -9,6 +9,7 @@ CREATE TABLE clients (
   FOREIGN KEY (user_id) references users (user_id)
 ) TYPE=MyISAM;
 
+
 DELETE FROM messages;
 ALTER TABLE messages CHANGE deleted status int;
 ALTER TABLE messages ALTER status SET DEFAULT 0;

@@ -10,6 +10,7 @@ require_once("settings.php");
 require_once("menu.php");
 require_once("infotab.php");
 require_once("utils.php");
+require_once("base/iconbar.php");
 
 //-------------------------------------------------------------------------------------------------
 // Returns a given image paramter from the Style settings.
@@ -173,9 +174,10 @@ function img_gen( $filename, $x, $y, $name = '')
 
 //-------------------------------------------------------------------------------------------------
 // Finishes the page layout, including the formatting of any ABC buttons that have been defined.
+// Adds an iconbar if there is one but only if there are no buttons
 //-------------------------------------------------------------------------------------------------
 
-function page_footer( $back, $buttons= array() )
+function page_footer( $back, $buttons= '', $iconbar = 0 )
 {
   echo '    </td>
             <td width="35px"></td>
@@ -185,28 +187,38 @@ function page_footer( $back, $buttons= array() )
           <tr>
             <td width="40px"></td>';
 
-  for ($i=0; $i<count($buttons); $i++)
+  if(!empty($buttons))
   {
-    // Assign to a Remote Control Button
-    $button_id = substr('ABC',$i,1);
-
-    if (! empty($buttons[$i]["url"]) )
+    for ($i=0; $i<count($buttons); $i++)
     {
-      $link = $buttons[$i]["url"];
-      if (substr($link,0,5) != 'href=')
-        $link = 'href="'.$link.'"';
+      // Assign to a Remote Control Button
+      $button_id = substr('ABC',$i,1);
 
-      // Output the link slightly different for the showcenter browser.
-      if ( is_showcenter() )
-        $link = $buttons[$i]["text"].'<a '.$link.' TVID="key_'.strtolower($button_id).'"></a>';
+      if (! empty($buttons[$i]["url"]) )
+      {
+        $link = $buttons[$i]["url"];
+        if (substr($link,0,5) != 'href=')
+          $link = 'href="'.$link.'"';
+
+        // Output the link slightly different for the showcenter browser.
+        if ( is_showcenter() )
+          $link = $buttons[$i]["text"].'<a '.$link.' TVID="key_'.strtolower($button_id).'"></a>';
+        else
+          $link = '<a '.$link.' TVID="key_'.strtolower($button_id).'">'.$buttons[$i]["text"].'</a>';
+      }
       else
-        $link = '<a '.$link.' TVID="key_'.strtolower($button_id).'">'.$buttons[$i]["text"].'</a>';
-    }
-    else
-      $link = $buttons[$i]["text"];
-
+        $link = $buttons[$i]["text"];
+      
       echo '<td align="center"><img src="'.style_img("IMG_".$button_id).'">'.$link.'</td>';
+    }
   }
+  else if(!empty($iconbar))
+  {
+    echo '<td align="center">';
+    $iconbar->display();
+    echo '</td>';
+  }
+  
 
   echo '    <td width="35px"></td>
           </tr>
