@@ -9,7 +9,7 @@
   {
     echo '<center>Please select a category from the list:</center><p>';
     
-    $cats = db_toarray("select c.cat_id,c.cat_name from categories c,media_locations ml where c.cat_id=ml.cat_id and ml.media_type=$media_type order by c.cat_name ASC"); 
+    $cats = db_toarray("select distinct c.cat_id,c.cat_name from categories c,media_locations ml where c.cat_id=ml.cat_id and ml.media_type=$media_type order by c.cat_name ASC"); 
 
     $menu = new menu();
     
