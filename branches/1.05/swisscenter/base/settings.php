@@ -56,19 +56,37 @@ function load_style($base_dir, $user_id)
   define( 'SCREEN_WIDTH',   620 );
   define( 'THUMB_W',        150 );
   define( 'THUMB_H',        225 );
+  
+  // Where is the SwissCenter installed?
+  $sc_location = str_replace('\\','/',os_path($_ENV["DOCUMENT_ROOT"],true));
 
-  // Load the settings from the database only if they are not stored in the user's session.
-  if (! isset($_SESSION["opts"]) || $_SESSION["opts"]["reload"])
+  // Load the settings from the database if (a) the don't exist or (b) we need to reload them or (c) we've switched installations
+  if (! isset($_SESSION["opts"]) || $_SESSION["opts"]["reload"] || $sc_location != $opts["sc_location"])
   {
     $opts = array();
     $user = array();
     $dirs = array();
     
     // Determine the current SwissCenter client & configuration
-    $opts["current_client"]   = str_replace('\\\\','\\',$_ENV["REMOTE_ADDR"]);
-    $opts["php_location"]     = str_replace('\\\\','\\',$_ENV["SCRIPT_FILENAME"]);
-    $opts["sc_location"]      = str_replace('\\\\','\\',os_path($_ENV["DOCUMENT_ROOT"],true));
-    
+    $opts["current_client"]   = str_replace('\\','/',$_ENV["REMOTE_ADDR"]);
+    $opts["php_location"]     = str_replace('\\','/',$_ENV["SCRIPT_FILENAME"]);
+    $opts["sc_location"]      = $sc_location;
+    $opts["server_address"]   = $_SERVER['SERVER_ADDR'].":".$_SERVER['SERVER_PORT'];
+
+    // Get the current screen type (PAL or NTSC)
+    if (is_showcenter())
+    {
+      $text = @file_get_contents('http://'.$opts["current_client"].':2020/readsyb_options_page.cgi');  
+      if (substr_between_strings($text, 'HasPAL','/HasPAL') == 1)
+        $opts["screen"] = 'PAL';
+      else
+        $opts["screen"] = 'NTSC';
+    }
+    else 
+    {
+      $opts["screen"] = 'PAL';
+    }
+          
     // Ensure a logfile location is defined
     if ( !empty($opts["sc_location"]) && !defined('LOGFILE'))
     {
@@ -98,15 +116,16 @@ function load_style($base_dir, $user_id)
     $opts["art_files"]        = db_col_to_list('select * from art_files');
     $opts["style"]            = load_style( $opts["sc_location"] , $opts["user_id"] );    
       
+/*    
     // Showcenter clients...
     $box_id = db_value("select box_id from clients where ip_address='".$opts["current_client"]."'");
-    if (!empty($box_id) && $box_id != $_ENV["something"])
+    if (empty($box_id))
     {
       $row = array('IP_ADDRESS'=>$opts["current_client"], 'BOX_ID'=>$_ENV["something"], 'USER_ID'=>$opts["user_id"]);
       db_sqlcommand("delete from clients where ip_address='".$opts["current_client"]."'");
       db_insert_row('clients',$row);
     }
-    
+*/    
     // Assign the settings array to the session.
     $_SESSION["opts"]         = $opts;  
   }
