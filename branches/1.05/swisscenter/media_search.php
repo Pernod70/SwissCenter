@@ -167,7 +167,7 @@
   // Recursive scan through the directory, finding all the MP3 files.
   // ----------------------------------------------------------------------------------
 
-  function scan_dirs( $dir, $table )
+  function scan_dirs( $dir, $table, $file_exts )
   {
     send_to_log('Scanning : '.$dir);
     if ($dh = opendir($dir))
@@ -178,9 +178,9 @@
         {
           // Regular directory, so recurse and get files.
           if (($file) !='.' && ($file) !='..')
-            scan_dirs( $dir.$file.'/');
+            scan_dirs( $dir.$file.'/', $table, $file_exts);
         }
-        elseif ( file_ext($file) == 'mp3')
+        elseif ( in_array(strtolower(file_ext($file)),$file_exts) )
         {
           // Is this file already in the database?
           $cnt = db_value("select count(*) from $table where dirname='".db_escape_str($dir)."' and filename='".db_escape_str($file)."'");
@@ -201,7 +201,7 @@
     }
   }
 
-  function process_media_dirs( $dirname, $table)
+  function process_media_dirs( $dirname, $table, $types)
   {
     $dirs = $_SESSION["opts"]["dirs"][$dirname];
     send_to_log('Refreshing '.strtoupper($dirname).' database');
@@ -211,7 +211,7 @@
       $dirs = array(dirs);
       
     foreach ($dirs as $directory)
-      scan_dirs( str_suffix($directory,'/'), $table  );
+      scan_dirs( str_suffix($directory,'/'), $table, $types );
         
     db_sqlcommand("delete from $table where verified ='N'");
     send_to_log('Completed refreshing '.strtoupper($dirname).' database');
@@ -223,10 +223,10 @@
 
   media_indicator('BLINK');
   
-  process_media_dirs('music','mp3s');
-  process_media_dirs('video','movies');
+  process_media_dirs('music','mp3s', array('mp3'));
+  process_media_dirs('video','movies', array('avi','mpg','mpeg'));
   extra_get_all_movie_details();
-  process_media_dirs('photo','photos');
+  process_media_dirs('photo','photos', array('jpeg','jpg','gif'));
      
   media_indicator('OFF');
 
