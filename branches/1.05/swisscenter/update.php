@@ -70,6 +70,18 @@
    
    return $errors;
  }
+ 
+ 
+ function find_fileinfo($file_info_array, $filename)
+ {
+   foreach($file_info_array as $file_info)
+   {
+     if($file_info["filename"] == $filename)
+       return &$file_info;
+   }
+   
+   return 0;
+ }
    
 //*************************************************************************************************
 // Main Code
@@ -80,9 +92,11 @@
   $update  = array();
   $actions = array();
   $sql_files = array();
+  $upd_script_name = "update.php";
   $upd_loc = 'http://update.swisscenter.co.uk/release/';
   $errors  = 0;
   $updated = false;
+  $update_updatefile_only = false;
   $current_sql_version = $_SESSION["opts"]["database_vn"];
   
   // Get file checksums from the online update file  
@@ -107,6 +121,19 @@
     {
       mkdir('updates');
     }
+    
+    // Check to see if there is an update to the update script (update.php)
+    $remote_update_file = find_fileinfo($update["files"], $upd_script_name);
+    $local_update_file = find_fileinfo($local, $upd_script_name);
+    if(($remote_update_file != 0) && ($local_update_file != 0) 
+       && ($remote_update_file["checksum"] != $local_update_file["checksum"]))
+    {
+      // There is a new update file, ensure that it is the only thing downloaded
+      send_to_log($upd_script_name." has changed, updating that file only and restarting update");
+      $update = array("files" => array("filename"=>$upd_script_name, "checksum"=>$remote_update_file["checksum"]));
+      $update_updatefile_only = true;
+    }
+    
     
     // Download the required files    
     foreach ($update["files"] as $test)
@@ -225,12 +252,33 @@
 
       // Update complete, so save file list for comparison to new updates
       $out = fopen("filelist.txt", "w");
-      fwrite($out, serialize($update["files"]));
+      
+      // If this was an update of the updatefile only then, update the local filelist to
+      // have the new update file in it
+      if($update_updatefile_only)
+      {
+        $local_update_file["checksum"] = $remote_update_file["checksum"];
+        fwrite($out, serialize($local));
+      }
+      else
+        fwrite($out, serialize($update["files"]));
+        
       fclose($out);   
       set_last_update();
       send_to_log("Update complete");
 
-      header("Location: /update_outcome.php?status=UPDATED");
+      
+      if($update_updatefile_only)
+      {
+        // Re-run the update with the new script
+        send_to_log("Update script changed, restarting update with new script");
+        header("Location: /update.php");
+      }
+      else
+      {
+        // The update is complete
+        header("Location: /update_outcome.php?status=UPDATED");
+      }
    }
    else 
    {
