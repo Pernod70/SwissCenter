@@ -206,15 +206,17 @@
     if (!is_windows() && !file_exists($_SESSION["opts"]["sc_location"].'media'))
       mkdir($_SESSION["opts"]["sc_location"].'media');
     
-    $data = db_toarray("select location_id, name 'Directory' ,media_name 'Type' from media_locations ml, media_types mt where mt.media_id = ml.media_type order by name");
+    $data = db_toarray("select location_id, name 'Directory' ,media_name 'Type', cat_name 'Category' from media_locations ml, media_types mt, categories cat where mt.media_id = ml.media_type and ml.cat_id = cat.cat_id order by name");
      
     echo "<h1>Current Media Locations</h1>";
     message($delete);
     form_start('index.php');
     form_hidden('section','DIRS');
-    form_hidden('action','DELETE');
+    form_hidden('action','MODIFY');
     form_select_table('loc_id',$data,array('class'=>'form_select_tab','width'=>'100%'),'location_id');
     form_submit('Remove Selected Locations',1,'center');
+    form_list_dynamic('change_cat', 'Change Category To', "select cat_id,cat_name from categories order by cat_name", $_REQUEST['change_cat']);
+    form_submit('Change Selected Categories',1,'center');
     form_end();
   
     echo '<p><h1>Add A New Location<p>';
@@ -223,6 +225,7 @@
     form_hidden('section','DIRS');
     form_hidden('action','NEW');
     form_list_dynamic('type','Media Type',"select media_id,media_name from media_types order by 2",$_REQUEST['type']);
+    form_list_dynamic('cat', 'Category',"select cat_id,cat_name from categories order by cat_name", $_REQUEST['cat']);
     form_input('location','Location',70,'',un_magic_quote($_REQUEST['location']));
     form_label('Please specify the fully qualified directory path where the media can be found <p>For example: 
                 On Windows this might be <em>"C:\Documents and Settings\Robert\My Documents\My Music"</em> or on 
@@ -245,19 +248,32 @@
   // Delete an existing location
   //
   
-  function dirs_delete()
+  function dirs_modify()
   {
     $selected = form_select_table_vals('loc_id');
-    
-    foreach ($selected as $id)
-    {
-      if (! is_windows() )
-        unlink($_SESSION["opts"]["sc_location"].'media/'.$id);
 
-      db_sqlcommand("delete from media_locations where location_id=".$id);
+    if($_REQUEST["submit_action"] == " Remove Selected Locations ")
+    {
+      foreach ($selected as $id)
+      {
+        if (! is_windows() )
+          unlink($_SESSION["opts"]["sc_location"].'media/'.$id);
+
+        db_sqlcommand("delete from media_locations where location_id=".$id);
+      }
+
+      dirs_display('The selected directories have been removed.');
     }
-  
-    dirs_display('The selected directories have been removed.');
+    else if($_REQUEST["submit_action"] == " Change Selected Categories ")
+    {
+      $cat_id = $_REQUEST["change_cat"];
+      foreach($selected as $id)
+      {
+        db_sqlcommand("update media_locations set cat_id=$cat_id where location_id=$id");
+      }
+      
+      dirs_display('The category has been changed for the selected directories.');
+    }
   }
   
   //
@@ -279,7 +295,7 @@
       dirs_display('',"!Please enter a fully qualified directory path.");
     else 
     {
-      if ( db_insert_row('media_locations',array('name'=>$dir,'media_type'=>$_REQUEST["type"])) === false)
+      if ( db_insert_row('media_locations',array('name'=>$dir,'media_type'=>$_REQUEST["type"],'cat_id'=>$_REQUEST["cat"])) === false)
       {
         dirs_display(db_error());
       }
@@ -560,6 +576,84 @@
   }
 
   //*************************************************************************************************
+  // Category section
+  //*************************************************************************************************
+  function category_display($del_message = '', $add_message = '')
+  {
+    $cat = $_REQUEST["cat"];
+    
+    if(empty($cat))
+    {
+      // Get a list of all of the cats from the database and display them
+      $data = db_toarray("select cat_id,cat_name 'Category' from categories order by Category");
+      
+      echo "<h1>Current Categories</h1>";
+      message($del_message);
+      form_start('index.php');
+      form_hidden('section', 'CATEGORY');
+      form_hidden('action', 'DELETE');
+      form_select_table('cat_ids', $data, array('class'=>'form_select_tab','width'=>'100%'), 'cat_id');
+      form_submit('Remove Selected Categories', 1, 'center');
+      form_end();
+      
+      echo "<p><h1>Add A New Category</h1>";
+      message($add_message);
+      form_start('index.php');
+      form_hidden('section', 'CATEGORY');
+      form_hidden('action', 'ADD');
+      form_input('cat_name', 'Name', 70, 100, un_magic_quote($_REQUEST["cat_name"]));
+      form_submit('Add Category', 2, 'left');
+      form_end();
+    }
+  }
+  
+  function category_add()
+  {
+    $cat = rtrim(un_magic_quote($_REQUEST["cat_name"]));
+    
+    if(empty($cat))
+      category_display('', '!Please enter a category name');
+    else
+    {
+      $exists = db_value("select count(*) from categories where cat_name='" . mysql_escape_string($cat) . "'");
+      
+      if($exists != 0)
+        category_display('', '!Category name already exists');
+      else
+      {
+        if(db_insert_row('categories', array('cat_name'=>$cat)) === false)
+          category_display('', db_error());
+        else
+          category_display('', 'Category added');
+      }
+    }
+    
+    phpinfo();
+  }
+  
+  function category_delete()
+  {
+    $cat_ids = form_select_table_vals('cat_ids');
+    $message = 'The selected categories have been removed.';
+    
+    foreach($cat_ids as $cat_id)
+    {
+      if($cat_id != 1)
+      {
+        // Ensure that the existing media_locations are updated with no category
+        db_sqlcommand("update media_locations set cat_id=1 where cat_id=$cat_id");
+        db_sqlcommand("delete from categories where cat_id=$cat_id");
+      }
+      else
+        $message = '!The uncategorised category cannot be removed';
+    }
+
+    category_display($message);
+  }
+  
+
+
+  //*************************************************************************************************
   // Populate main sections of the webpage
   //*************************************************************************************************
 
@@ -578,6 +672,7 @@
      {
        menu_item('User Management','section=USERS&action=DISPLAY');
        menu_item('Media Locations','section=DIRS&action=DISPLAY');
+       menu_item('Categories','section=CATEGORY&action=DISPLAY');
        menu_item('Album/Film Art','section=ART&action=DISPLAY');
        menu_item('Playlists Location','section=PLAYLISTS&action=DISPLAY');
        menu_item('Image Cache','section=CACHE&action=DISPLAY');

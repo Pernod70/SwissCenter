@@ -88,7 +88,7 @@ function load_style($base_dir, $user_id)
 #-------------------------------------------------------------------------------------------------
 
   // Defines the database parameters
-  if (file_exists('config/swisscenter.ini'))
+  if (file_exists($sc_location. '/config/swisscenter.ini'))
   {
     // Read file
     foreach( parse_ini_file('config/swisscenter.ini') as $k => $v)
