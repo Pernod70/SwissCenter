@@ -135,10 +135,10 @@
     $info->add_item('Starring', distinct_info('actor_name',$sql_table, $newsql));
     $info->add_item('Year', distinct_info('year',$sql_table, $newsql));
     $info->add_item('Certificate',distinct_info('rating',$sql_table, $newsql));
-    $menu->add_item('Play now'  , pl_link('sql','select * from $sql_table where '.substr($newsql,5)." order by title"));
+    $menu->add_item('Play now'  , pl_link('sql',"select * from $sql_table where ".substr($newsql,5)." order by title"));
 
     if (pl_enabled())
-      $menu->add_item('Add to your playlist','add_playlist.php?sql='.rawurlencode('select * from $sql_table where '.substr($newsql,5)." order by title"),true);
+      $menu->add_item('Add to your playlist','add_playlist.php?sql='.rawurlencode("select * from $sql_table where ".substr($newsql,5)." order by title"),true);
 
     check_filters( array('title','year','rating','genre_name','actor_name','director_name'), $sql_table, $newsql, $menu);
   }
