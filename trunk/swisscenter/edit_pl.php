@@ -10,9 +10,8 @@
   $page          = ( !isset($_REQUEST["page"]) ? 0 : $_REQUEST["page"]);
   $highlight     = ( !isset($_REQUEST["hl"]) ? '1' : $_REQUEST["hl"]);
   $width         = 340;
-  $trunc         = 40;
 
-  $back_img      = style_img("IMG_MENU");
+  $back_img      = style_img("IMG_HIDDEN");
   $navup_img     = style_img("IMG_PGUP");
   $navdown_img   = style_img("IMG_PGDN");
   $up_img        = style_img("IMG_PLAYLIST_UP");
@@ -78,20 +77,20 @@
     $down_link     = 'edit_pl.php?down='.$i;
     $del_link      = 'edit_pl.php?del='.$i;
     
-    $text = shorten( $items[$i]["TITLE"], $trunc );
+    $text = $items[$i]["TITLE"];
 
     echo '<tr>'.
            '<td valign="middle" width="'.$width.'px" height="25px" background="'.$back_img.'">'.
            '  &nbsp;&nbsp;&nbsp;<a '.$play_link.' TVID="'.$i.'" name="'.$i.'">'.$text.'</a>'.
            '</td>'.
            '<td valign="middle" width="15px" height="20px" background="'.$back_img.'">'.
-           '  <a href="'.$up_link.'" name="'.$i.'u"><img border=0 src="'.$up_img.'"></a>'.
+           '<a href="'.$up_link.'" name="'.$i.'u"><img border=0 src="'.$up_img.'"></a>'.
            '</td>'.
            '<td valign="middle" width="15px" height="20px" background="'.$back_img.'">'.
-           '  <a href="'.$down_link.'" name="'.$i.'d"><img border=0 src="'.$down_img.'"></a>'.
+           '<a href="'.$down_link.'" name="'.$i.'d"><img border=0 src="'.$down_img.'"></a>'.
            '</td>'.
            '<td valign="middle" width="15px" height="20px" background="'.$back_img.'">'.
-           '  <a href="'.$del_link.'" name="'.$i.'x"><img border=0 src="'.$del_img.'"></a>'.
+           '<a href="'.$del_link.'" name="'.$i.'x"><img border=0 src="'.$del_img.'"></a>'.
            '</td>'.
          '</tr>';
   }

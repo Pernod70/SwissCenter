@@ -3,10 +3,13 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
+  $update_location = 'http://update.swisscenter.co.uk/release/';
+
   require_once("base/page.php");
   require_once("base/utils.php");
   require_once("base/file.php");
   require_once("base/prefs.php");
+  set_time_limit(60*25);
 
   function chksum_files($pre, $dir, &$files)
   {
@@ -24,27 +27,25 @@
     }
   }
 
- function set_last_update()
+ function set_last_update($release_dir)
  {
-   $last_update = file_get_contents('http://update.swisscenter.co.uk/release/last_update.txt');
+   $last_update = file_get_contents($release_dir.'last_update.txt');
    set_sys_pref('last_update',$last_update);
    $_SESSION["update"]["available"] = false;
  }
    
 //*************************************************************************************************
 // Main Code
-//*************************************************************************************************
-  
-  set_time_limit(60*25);
+//*************************************************************************************************  
+    
   $local   = array();
   $update  = array();
   $actions = array();
-  $upd_loc = 'http://update.swisscenter.co.uk/release/';
   $errors  = 0;
   $updated = false;
   
   // Get file checksums from the online update file  
-  $file_contents = file_get_contents($upd_loc.'filelist.txt');
+  $file_contents = file_get_contents($update_location.'filelist.txt');
   $update = unserialize($file_contents);
   
   if ($file_contents === false)
@@ -77,13 +78,13 @@
         if (file_exists($tmp_file))
         {
           // File was already downloaded (previous failed update attempt?)
-          $actions[] = array("old"=>$tmp_file, "new"=>$test["filename"]);
+          $actions[] = array("downloaded"=>$tmp_file, "existing"=>$test["filename"]);
           send_to_log( $tmp_file." - already downloaded");
         }
         else
         {
           // New or changed file
-          $file_contents = file_get_contents($upd_loc.$filename);
+          $file_contents = file_get_contents($update_location.$filename);
           send_to_log($tmp_file." - downloading");
   
           if ($file_contents === false)
@@ -113,7 +114,7 @@
               else
               {
                 send_to_log($tmp_file." - stored on disk ready for rename");
-                $actions[] = array("old"=>$tmp_file, "new"=>$test["filename"]);
+                $actions[] = array("downloaded"=>$tmp_file, "existing"=>$test["filename"]);
               }
             }          
           }
@@ -137,7 +138,7 @@
   // Any errors so far?
   if ($errors !=0)
   {
-    send_to_log("There were errrors during the update process : ".$errtxt);
+    send_to_log("There were errors during the update process : ".$errtxt);
     header("Location: /update_outcome.php?status=ERROR");
   }
   else
@@ -147,14 +148,14 @@
     {
       foreach($actions as $a)
       {
-        unlink($a["new"]);
-        rename($a["old"],$a["new"]);
-        send_to_log("'".$a["new"]."' updated");
+        unlink($a["existing"]);
+        rename($a["downloaded"],$a["existing"]);
+        send_to_log("'".$a["existing"]."' updated");
 
-        // If the file that has been updated is an SQL file, then apply it to the database
-        if (strtolower(file_ext($a["new"])) == 'sql')
+        // If the file that has been updated is a database update, then apply it to the database
+        if ( preg_match('/.*update_[0-9]*.sql/',$a["existing"]) )
         {
-          foreach ( split(";",implode(" ",file($a["new"]))) as $sql)
+          foreach ( split(";",implode(" ",file($a["existing"]))) as $sql)
             if ( strlen(trim($sql)) > 0 ) 
             {
               if (db_sqlcommand($sql))
@@ -172,7 +173,7 @@
       $out = fopen("filelist.txt", "w");
       fwrite($out, serialize($update["files"]));
       fclose($out);   
-      set_last_update();
+      set_last_update($update_location);
       send_to_log("Update complete");
 
       header("Location: /update_outcome.php?status=UPDATED");

@@ -11,11 +11,47 @@
   require_once("prefs.php");
   
   // ----------------------------------------------------------------------------------
+  // Does the following to the list of directories and files...
+  // - Removes duplicate directory entries
+  // - Sorts the files list and directories list alphabetically
+  // - Removes unwanted files/directories from the list depending on the OS
+  // ----------------------------------------------------------------------------------
+
+  function tidy_lists( &$dir_list, &$file_list)
+  {
+    // Remove duplicate directory entries (we want to merge directories from different media locations).
+    $dir_list = arrayUnique($dir_list,'filename');
+        
+    // What directories do we want to exclude?
+    if (is_windows())
+      $exclude = array('/RECYCLER/i','/System Volume Information/i','/^\./');
+    else 
+      $exclude = array('/^\./');
+      
+    // Check for excluded directories
+    foreach( $exclude as $preg)
+    {
+      for ($i=0; $i<count($dir_list); $i++)
+        if ( preg_match($preg,$dir_list[$i]['filename']) != 0)
+          unset($dir_list[$i]);
+
+      // Check for excluded files
+      for ($i=0; $i<count($file_list); $i++)
+        if ( preg_match($preg,$file_list[$i]['filename']) != 0)
+          unset($file_list[$i]);
+    }
+
+    // Sort the arrays into alphabetical order.
+    @array_sort($dir_list,'filename');
+    @array_sort($file_list,'filename');
+  }
+  
+  // ----------------------------------------------------------------------------------
   // Fills the two arrays with the directory and file names to be found in the given
   // directory. The array $filetypes specified which file extensions are to be allowed.
   // ----------------------------------------------------------------------------------
 
-  function dir_contents( $dir, $filetypes, &$dir_list, &$file_list, &$thumb_list, &$image, $db_files_only)
+  function dir_contents( $dir, $filetypes, &$dir_list, &$file_list, &$image, $db_files_only)
   {
     if (($dh = @opendir($dir)) !== false)
     {
@@ -23,12 +59,12 @@
       {
         if (is_dir($dir.$name) && $name != '.' && $name != '..')
         {
-          // Look to see if there is afile within the directory to use as a thumbnail
-          $thumb_list[$name] = ifile_in_dir($dir.$name, $_SESSION["opts"]["art_files"]);
-          $dir_list[] = $name;          
+          $dir_list[]  = array("filename"=>$name, "image"=> file_thumbnail($dir.$name));          
         }
         elseif ( !$db_files_only && in_array(file_ext(strtolower($name)), $filetypes))
-          $file_list[] = array("dirname" => $dir, "filename" => $name);
+        {
+          $file_list[] = array("dirname" => $dir, "filename" => $name, "image"=> file_thumbnail($dir.$name));
+        }
         elseif ( in_array_ci(strtolower($name),$_SESSION["opts"]["art_files"]))
           $image = $dir.$name;
       }
@@ -47,7 +83,7 @@
     {
       foreach ($db_data as $row)
       {
-        $file_list[] = array("dirname" => $row["DIRNAME"], "filename" => $row["FILENAME"]);
+        $file_list[] = array("dirname" => $row["DIRNAME"], "filename" => $row["FILENAME"], "image"=> file_thumbnail($row["DIRNAME"].$row["FILENAME"]));
       }
     }
   }
@@ -72,7 +108,7 @@
       if ($i < count($dir_list))
       {
         // Output a link to call this page again, but passing in the selected directory.
-        $menu->add_item($dir_list[$i],$url.'?DIR='.rawurlencode($dir.$dir_list[$i].'/'), true);
+        $menu->add_item($dir_list[$i]["filename"],$url.'?DIR='.rawurlencode($dir.$dir_list[$i]["filename"].'/'), true);
       }
       else
       {
@@ -93,19 +129,18 @@
                   <center>'.img_gen($image,150,200).'</center>
                 </td></tr></table></td>
                 <td valign="top">';
-                $menu->display(350,28);
+                $menu->display(350);
      echo '     </td></td></table>';
     }
     else
-      $menu->display(400, 32);
+      $menu->display(400);
    }
 
   // ----------------------------------------------------------------------------------
-  // Displays the dirs/files to the user in "text menu" format (with an optional image
-  // to the left hand side).
+  // Displays the dirs/files to the user in "thumbnail" format 
   // ----------------------------------------------------------------------------------
 
-  function display_thumbs ($url, $dir, $dir_list, $file_list, $thumb_list, $start, $end, $page, $image, $up, $down)
+  function display_thumbs ($url, $dir, $dir_list, $file_list, $start, $end, $page, $image, $up, $down)
   {
     $tlist = new thumb_list(550);
 
@@ -115,16 +150,14 @@
       if ($i < count($dir_list))
       {
         // Directory Icon or thumbnail for the directory if one exists
-        $thumb_pic = $thumb_list[$dir_list[$i]];
-        $img =  ($thumb_pic == '' ? dir_icon() : $thumb_pic);
-        $tlist->add_item($img, $dir_list[$i], $url.'?DIR='.rawurlencode($dir.$dir_list[$i].'/') );
+        $tlist->add_item($dir_list[$i]["image"], $dir_list[$i]["filename"], $url.'?DIR='.rawurlencode($dir.$dir_list[$i]["filename"].'/') );
       }
       else
       {
         // Output a link to cause the specified playlist to be loaded into the session
-        $details = $file_list[$i-count($dir_list)];  
+        $details   = $file_list[$i-count($dir_list)];  
         eval('$link_url = output_link( "'.$details["dirname"].$details["filename"].'" );');
-        $tlist->add_item(file_icon($details["filename"]), file_noext($details["filename"]), $link_url);
+        $tlist->add_item($details["image"], file_noext($details["filename"]), $link_url);
       }
     }
 
@@ -148,20 +181,13 @@
     $url           = $_SERVER["PHP_SELF"];
     $dir           = ( empty($_REQUEST["DIR"]) ? '' : un_magic_quote(rawurldecode($_REQUEST["DIR"])));
     $page          = ( !isset($_REQUEST["page"]) ? 0 : $_REQUEST["page"]);
-    $pre           = $default_dir;
-    $db_files_only = ($sql_filelist != '' ? true : false);
+    $pre           = ( is_array($default_dir) ? $default_dir : array($default_dir));
+    $db_files_only = ( $sql_filelist != '' ? true : false);
     $dir_list      = array();
     $file_list     = array();
-    $thumb_list    = array();
     $buttons       = array();
-    $n_per_page    = MAX_PER_PAGE;
 
-    // Should we present a link to select all files?
-// TODO
-//    if ($all_link!='')
-//      $buttons[] = array('text'=>'Select All', 'url'=>$all_link.'&dir='.rawurlencode($dir) );
-    
-    // Swistching Thumbnail/Details view?
+    // Switching Thumbnail/Details view?
     if ( !empty($_REQUEST["thumbs"]) )
     {
       $_SESSION["opts"]["display_thumbs"] = ($_REQUEST["thumbs"] == "yes");
@@ -169,62 +195,43 @@
     }
 
     // Get a list of files/dirs from the filesystem.      
-    if ( is_array($pre) )
-      foreach ($pre as $path)
-        dir_contents(str_suffix($path,'/').$dir, $filetypes, $dir_list, $file_list, $thumb_list, $image, $db_files_only);
-    else
-      dir_contents(str_suffix($pre,'/').$dir, $filetypes, $dir_list, $file_list, $thumb_list, $image, $db_files_only);
-    
+    foreach ($pre as $path)
+      dir_contents(str_suffix($path,'/').$dir, $filetypes, $dir_list, $file_list, $image, $db_files_only);
+          
     // If the function was called with a SQL statement for the filelist, then query the
-    // dataase for the files within the current directory.
+    // dataase for the files within the current directory (instead of relying on the filesystem);
     if ($db_files_only)
     {
-      if ( is_array($pre) )
-        foreach ($pre as $path)
-          file_list_from_db( $sql_filelist."='".db_escape_str(str_suffix($path,'/').$dir)."'", $file_list);
-      else
-          file_list_from_db( $sql_filelist."='".db_escape_str(str_suffix($pre,'/').$dir)."'", $file_list);
+      foreach ($pre as $path)
+        file_list_from_db( $sql_filelist."='".db_escape_str(str_suffix($path,'/').$dir)."'", $file_list);
     }
-
-    // Sort the arrays into alphabetical order, and discard the directories "." and ".." (we will use a
-    // remote control key for navigating back up a directory.
-    $dir_list = @array_unique($dir_list);
-    @sort($dir_list);
-    @array_sort($file_list,'filename');
-
+    
     // Now that we have a list of files to work with, we can output the page (maximum MAX_PER_PAGE items per page).
+    page_header( $heading, substr($dir,0,-1) );
+    tidy_lists ( $dir_list, $file_list );
+    $start     = $page * (MAX_PER_PAGE);
+    $end       = min(count($dir_list)+count($file_list) , $start+MAX_PER_PAGE);
 
-    page_header( $heading, substr($dir,0,-1));
-
-    $start = $page * ($n_per_page);
-    $end   = min( count($dir_list)+count($file_list) , $start+$n_per_page);
-
-    if ( count($thumb_list)==0 && !empty($image) )
-    {
-      display_names ($url, $dir, $dir_list, $file_list, $start, $end, $page, $image, ($page > 0), ($end < count($dir_list)+count($file_list)));
-    }
-    elseif ( $_SESSION["opts"]["display_thumbs"] == false )
+    if ( $_SESSION["opts"]["display_thumbs"] == false )
     {
       display_names ($url, $dir, $dir_list, $file_list, $start, $end, $page, $image, ($page > 0), ($end < count($dir_list)+count($file_list)));
       $buttons[] = array('text'=>'Thumbnail View', 'url'=>$url.'?thumbs=yes&DIR='.rawurlencode($dir) );
     }
     else
     {
-      display_thumbs ($url, $dir, $dir_list, $file_list, $thumb_list, $start, $end, $page, $image, ($page > 0), ($end < count($dir_list)+count($file_list)));
+      display_thumbs ($url, $dir, $dir_list, $file_list, $start, $end, $page, $image, ($page > 0), ($end < count($dir_list)+count($file_list)));
       $buttons[] = array('text'=>'List View', 'url'=>$url.'?thumbs=no&DIR='.rawurlencode($dir) );
     }
     
-    // Show an A-Z for quick jumping through a large list.
-//    for ($i=0; $i<26; $i++)
-//      echo chr(65+$i).'&nbsp; ';
-    
+    // Should we present a link to select all files?
+    if ($all_link!='')
+      $buttons[] = array('text'=>'Select All', 'url'=>$all_link.'&dir='.rawurlencode($dir) );
     
     // Output ABC buttons if appropriate
     if ( empty($dir) )
       page_footer( $back_url, $buttons );
     else
       page_footer( $url.'?DIR='.rawurlencode(parent_dir($dir)), $buttons );
-
   }
 
   

@@ -13,10 +13,8 @@
 
   $menu = new menu();
 
-    run_background('music_db_update.php');
-    run_background('video_db_update.php');
-//      run_background('photo_db_update.php');
-    page_header( "Refresh All Databases" );
+  run_background('media_search.php');
+  page_header( "Refresh All Databases" );
 
 // At some point in the future, this will take you back to the media refresh screen (via a redirect).
 // the media refresh screen will then show the status of the current refresh.

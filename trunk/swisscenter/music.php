@@ -21,7 +21,7 @@
   $menu->add_item("Browse Music by Track Name","music_search.php?sort=title",true);
   $menu->add_item("Browse Music by Genre","music_search.php?sort=genre",true);
   $menu->add_item("Browse Music by Year","music_search.php?sort=year",true);
-  $menu->add_item("Browse Music by Folder","music_browse.php",true);
+  $menu->add_item("Browse Filesystem","music_browse.php",true);
   $menu->display();
   page_footer( 'index.php' );
 

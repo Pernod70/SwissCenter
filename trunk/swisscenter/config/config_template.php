@@ -69,7 +69,7 @@
                           font-weight        : bold; }
                           
 </style>
-<table width="750px" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="eeeeee">
+<table width="<?php echo $page_width; ?>" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="eeeeee">
 <tr>
   <td width="6" bgcolor="#FFFFFF">
   <img src="../images/dot.gif" width="1" height="1" alt="spacer" />
@@ -83,7 +83,7 @@
     </tr>
     <tr height="50">
       <td valign="middle">
-        <p><font class="title">SwissCenter Configuration Utility</font></p>
+        <p><font class="title"><?php echo $page_title; ?></font></p>
       </td>
     </tr>
     <tr>

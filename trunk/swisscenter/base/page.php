@@ -10,18 +10,21 @@ require_once("settings.php");
 require_once("menu.php");
 require_once("infotab.php");
 require_once("utils.php");
+require_once("base/iconbar.php");
 
 //-------------------------------------------------------------------------------------------------
 // Returns a given image paramter from the Style settings.
 //-------------------------------------------------------------------------------------------------
 
-function style_img ($name)
+function style_img ($name, $ext_url = false)
 {
-  $file = $_SESSION["opts"]["style"]["location"].$_SESSION["opts"]["style"][strtoupper($name)];
-  if ( file_exists($_SESSION["opts"]["sc_location"].$file) )
-    return $file;
+  $path   = substr($_SESSION["opts"]["sc_location"],0,-1);
+  $file   = $_SESSION["opts"]["style"]["location"].$_SESSION["opts"]["style"][strtoupper($name)];
+
+  if ( file_exists($path.$file) )
+    return ($ext_url ? $path : '').$file;
   else 
-    return '/images/dot.gif';
+    return ($ext_url ? $path : '').'/images/dot.gif';
 }
 
 function style_col ($name)
@@ -34,7 +37,7 @@ function style_col ($name)
 }
 
 //-------------------------------------------------------------------------------------------------
-// Procedures to ouput up/down links
+// Procedures to output up/down links
 //-------------------------------------------------------------------------------------------------
 
 function up_link( $url)
@@ -50,7 +53,7 @@ function down_link( $url)
 }
 
 //-------------------------------------------------------------------------------------------------
-// Procedures to ouput a multi-column display
+// Procedures to output a multi-column display
 //-------------------------------------------------------------------------------------------------
 
  function multi_col_start ( $col_size = "" )
@@ -83,6 +86,23 @@ function down_link( $url)
 
 function page_header( $title, $tagline = "", $focus="1", $meta = "")
 {
+  if     ($_SESSION["opts"]["screen"] == 'NTSC')
+  {
+    $logo                   = '';
+    $headings               = '<td height="30px" align="center"><b>'.$title.'</b> : '.$tagline.'&nbsp;</td>';
+    $background_image       = style_img("NTSC_BACKGROUND");
+    $heading_padding_top    = 0;
+    $heading_padding_bottom = 14;
+  }
+  else
+  {
+    $logo                   = '<td width="160px" height="92px" ><img src="/images/logo.gif" width="160" height="92"></td>';
+    $headings               = '<td height="92px" align="center"><h2>'.$title.'&nbsp;</h2>'.$tagline.'&nbsp;</td>';
+    $background_image       = style_img("PAL_BACKGROUND");
+    $heading_padding_top    = 4;
+    $heading_padding_bottom = 14;
+  }
+  
   echo '<html>
         <head>'.$meta.'
         <meta SYABAS-FULLSCREEN>
@@ -96,32 +116,31 @@ function page_header( $title, $tagline = "", $focus="1", $meta = "")
         </style>
         </head>
         <body  onLoadSet="'.$focus.'"
-               background="'.  style_img("PAGE_BACKGROUND").'"
+               background="'.  $background_image .'"
                FOCUSCOLOR="'.  style_col("PAGE_FOCUS_COLOUR").'"
                FOCUSTEXT="'.   style_col("PAGE_FOCUS_TEXT").'"
                text="'.        style_col("PAGE_TEXT").'"
                vlink="'.       style_col("PAGE_VLINK").'"
                bgcolor="'.     style_col("PAGE_BGCOLOUR").'"
-               TOPMARGIN="0" LEFTMARGIN="0" MARGINHEIGHT="0" MARGINWIDTH="0">
+               TOPMARGIN="0" LEFTMARGIN="0" MARGINHEIGHT="0" MARGINWIDTH="0">';
+  
+  if ($margin_top >0)
+  {
+    echo '<table width="'.SCREEN_WIDTH.'px" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="'.SCREEN_WIDTH.'px" height="'.$heading_padding_top.'px"></td>
+            </tr>
+          </table>';
+  }
 
-        <table width="'.SCREEN_WIDTH.'px" border="0" cellpadding="0" cellspacing="0">
-          <tr>
-            <td width="'.SCREEN_WIDTH.'px" height="4px"></td>
+  echo '<table width="'.SCREEN_WIDTH.'px" border="0" cellpadding="0" cellspacing="0">
+          <tr>'.$logo.
+                $headings.'
           </tr>
         </table>
         <table width="'.SCREEN_WIDTH.'px" border="0" cellpadding="0" cellspacing="0">
           <tr>
-            <td width="160px"  height="92px" ><img src="/images/logo.gif" width="160" height="92">
-            </td>
-            <td align="center">
-              <h2>'.$title.'&nbsp;</h2>
-            '.$tagline.'&nbsp;
-            </td>
-          </tr>
-        </table>
-        <table width="'.SCREEN_WIDTH.'px" border="0" cellpadding="0" cellspacing="0">
-          <tr>
-            <td width="'.SCREEN_WIDTH.'px" height="14px"></td>
+            <td width="'.SCREEN_WIDTH.'px" height="'.$heading_padding_bottom.'px"></td>
           </tr>
         </table>
         <table width="'.SCREEN_WIDTH.'px" border="0" cellpadding="0" cellspacing="0">
@@ -157,9 +176,10 @@ function img_gen( $filename, $x, $y, $name = '')
 
 //-------------------------------------------------------------------------------------------------
 // Finishes the page layout, including the formatting of any ABC buttons that have been defined.
+// Adds an iconbar if there is one but only if there are no buttons
 //-------------------------------------------------------------------------------------------------
 
-function page_footer( $back, $buttons= array() )
+function page_footer( $back, $buttons= '', $iconbar = 0 )
 {
   echo '    </td>
             <td width="35px"></td>
@@ -169,28 +189,38 @@ function page_footer( $back, $buttons= array() )
           <tr>
             <td width="40px"></td>';
 
-  for ($i=0; $i<count($buttons); $i++)
+  if(!empty($buttons))
   {
-    // Assign to a Remote Control Button
-    $button_id = substr('ABC',$i,1);
-
-    if (! empty($buttons[$i]["url"]) )
+    for ($i=0; $i<count($buttons); $i++)
     {
-      $link = $buttons[$i]["url"];
-      if (substr($link,0,5) != 'href=')
-        $link = 'href="'.$link.'"';
+      // Assign to a Remote Control Button
+      $button_id = substr('ABC',$i,1);
 
-      // Output the link slightly different for the showcenter browser.
-      if ( is_showcenter() )
-        $link = $buttons[$i]["text"].'<a '.$link.' TVID="key_'.strtolower($button_id).'"></a>';
+      if (! empty($buttons[$i]["url"]) )
+      {
+        $link = $buttons[$i]["url"];
+        if (substr($link,0,5) != 'href=')
+          $link = 'href="'.$link.'"';
+
+        // Output the link slightly different for the showcenter browser.
+        if ( is_showcenter() )
+          $link = $buttons[$i]["text"].'<a '.$link.' TVID="key_'.strtolower($button_id).'"></a>';
+        else
+          $link = '<a '.$link.' TVID="key_'.strtolower($button_id).'">'.$buttons[$i]["text"].'</a>';
+      }
       else
-        $link = '<a '.$link.' TVID="key_'.strtolower($button_id).'">'.$buttons[$i]["text"].'</a>';
+        $link = $buttons[$i]["text"];
+      
+      echo '<td align="center"><img src="'.style_img('IMG_'.$button_id).'">'.$link.'</td>';
     }
-    else
-      $link = $buttons[$i]["text"];
-
-      echo '<td align="center"><img src="'.style_img("IMG_".$button_id).'">'.$link.'</td>';
   }
+  elseif(!empty($iconbar))
+  {
+    echo '<td align="center">';
+    $iconbar->display();
+    echo '</td>';
+  }
+  
 
   echo '    <td width="35px"></td>
           </tr>
@@ -198,13 +228,13 @@ function page_footer( $back, $buttons= array() )
   
   // Test the browser, and if the user is viewing from a browser other than the one on the
   // showcenter then output a "Back" Button (as this would normally be a IR remote button).
-  if (strpos($_ENV["HTTP_USER_AGENT"],'Syabas') === false)
+  if (strpos($_SERVER["HTTP_USER_AGENT"],'Syabas') === false)
     echo '<a href="'.$back.'"><img src="/images/dot.gif" width="'.SCREEN_WIDTH.'" height="30" border=0></a>';
   
   echo '<a href="'.$back.'" TVID="backspace"></a>
         <a href="music.php" TVID="music"></a>
-        <a href="video.php" TVID="movie"></a>';
-//        <a href="photo.php" TVID="photo"></a>';
+        <a href="video.php" TVID="movie"></a>
+        <a href="photo.php" TVID="photo"></a>';
 
   echo '</body>
         </html>';
@@ -227,13 +257,7 @@ function debug( $item )
 //-------------------------------------------------------------------------------------------------
 
 send_to_log("------------------------------------------------------------------------------");
-
-if (!empty($_ENV["SCRIPT_NAME"]))
-  send_to_log("Page Requested : ".$_ENV["SCRIPT_NAME"]);
-
-if (!empty($_ENV["QUERY_STRING"]))
-  send_to_log("Parameters : ".$_ENV["QUERY_STRING"]);
-
+send_to_log("Page Requested : ".current_url());
 
 /**************************************************************************************************
                                                End of file

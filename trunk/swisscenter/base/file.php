@@ -18,6 +18,41 @@ function newline()
 }
 
 //-------------------------------------------------------------------------------------------------
+// Returns an array containing the names of all files and subdirectories within the specified
+// directory (returns an empty array if the specified directory does not exist or is not readable)
+//-------------------------------------------------------------------------------------------------
+
+define ('DIR_TO_ARRAY_SHOW_FILES',1);
+define ('DIR_TO_ARRAY_SHOW_DIRS', 2);
+define ('DIR_TO_ARRAY_FULL_PATH',4);
+
+function dir_to_array ($dir, $pattern = '.*', $opts = 7 )
+{
+  $dir = os_path($dir,true);
+
+  $contents = array();
+  if ($dh = opendir($dir))
+  {
+    while (($file = readdir($dh)) !== false)
+    {
+      if ( preg_match('/'.$pattern.'/',$file) && 
+           (  (is_dir($dir.$file)  && ($opts & DIR_TO_ARRAY_SHOW_DIRS))
+           || (is_file($dir.$file) && ($opts & DIR_TO_ARRAY_SHOW_FILES)) ) )
+      {
+        if ($opts & DIR_TO_ARRAY_FULL_PATH)
+          $contents[] = os_path($dir.$file);
+        else 
+          $contents[] = $file;
+      }
+    }
+    closedir($dh);
+  }
+  
+  sort($contents);
+  return $contents;
+}
+
+//-------------------------------------------------------------------------------------------------
 // Routine to add a message and (optionally) the contents of a variable to the swisscenter logfile.
 // NOTE: If the logfile has become more than 1Mb in size then it is archived and a new log is 
 //       started. Only one generation of logs is archived (so current log and old log only)
@@ -80,20 +115,6 @@ function make_abs_file( $fsp, $dir )
 }
 
 //-------------------------------------------------------------------------------------------------
-// Makes the given filepath acceptable to the webserver (\ become /)
-//-------------------------------------------------------------------------------------------------
-
-function make_url_path( $fsp )
-{
-  $parts = split('/',str_replace('\\','/',$fsp));
-  for ($i=0; $i<count($parts); $i++)
-    $parts[$i] = rawurlencode($parts[$i]);    
-
-  return join('/',$parts);
-}
-
-
-//-------------------------------------------------------------------------------------------------
 // OS path returns the given path with all occurances of '/' and '\' changed to the
 // approrpiate form for the current OS. If $addslash is true, then a trailing slash
 // or backslash is added as appropriate.
@@ -109,9 +130,8 @@ function os_path( $path, $addslash=false )
   }
   else
   {
-    // Change suggested by stomper98 - "bug reports" forum. (needs testing)
     if ($addslash)
-      return str_suffic(preg_replace('/\//', '/', $path),'/');
+      return str_suffix(preg_replace('/\//', '/', $path),'/');
     else
       return preg_replace('/\//', '/', $path);
   }
@@ -143,7 +163,9 @@ function file_ext( $filename )
 
 function file_noext( $filename )
 {
-  return array_shift(explode( '.' , $filename));
+  $parts = explode( '.' , $filename);
+  unset($parts[count($parts)-1]);
+  return implode($parts);
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -183,7 +205,6 @@ function dir_size($dir, $subdirs = false)
    return $totalsize;
 }
 
-
 //-------------------------------------------------------------------------------------------------
 // Searches the given directory for the given filename (case insensitive) and if the
 // file exists then the actual case of the filename is returned. If $filename is an
@@ -191,7 +212,7 @@ function dir_size($dir, $subdirs = false)
 // the first one it finds.
 //-------------------------------------------------------------------------------------------------
 
-function ifile_in_dir($dir, $filename)
+function find_in_dir($dir, $filename)
 {
   $actual='';
   if ($dh = opendir($dir))
@@ -207,7 +228,7 @@ function ifile_in_dir($dir, $filename)
   }
   
   if (empty($actual))
-    return '';
+    return false;
   else
     return os_path(str_suffix($dir,'/')).$actual;
 }
@@ -290,16 +311,24 @@ function file_icon( $fsp )
   $sc_location = $_SESSION["opts"]["sc_location"];
   $name = 'filetype_'.file_ext($fsp).'.gif';
   
-  if (file_exists( $sc_location.$_SESSION["opts"]["style"]["location"].$name))
+  if (in_array(file_ext(strtolower($fsp)),array('jpg','gif','png','jpeg')))
   {
+    // The file is actually an image, so generate it as a thumbnail
+    return $fsp;
+  }
+  elseif (file_exists( $sc_location.$_SESSION["opts"]["style"]["location"].$name))
+  {
+    // There is an icon within the selected style for this filetype
     return $sc_location.$_SESSION["opts"]["style"]["location"].$name;
   }
   elseif (file_exists( $sc_location.'images/'.$name))
   {
+    // There is a generic icon for this filetype
     return $sc_location.'images/'.$name;
   }
   else
   {
+    // Display an "unknown" filetype in the selected style, or failing that, the generic one.
     if (file_exists( $sc_location.$_SESSION["opts"]["style"]["location"].'filetype_unknown.gif'))
       return $sc_location.$_SESSION["opts"]["style"]["location"].'filetype_unknown.gif';
     else
@@ -350,6 +379,74 @@ function force_rmdir($dir)
 
   // Final check to see if it all worked.
   return file_exists($dir);
+}
+
+//-------------------------------------------------------------------------------------------------
+// Given the path to either a folder or a file, this routine will return the full path to a
+// thumbnail file based on the following (the first matching rule is used):
+//
+// FILES
+//
+// - If the file is an image file, then it will be used
+// - If an image file with the same name (but different extension) exists, then it will be used.
+// - If an icon for the filetype exists in the current style, it will be used.
+// - If an icon for the filetype exists in the default style, it will be used.
+//
+// FOLDERS
+//
+// - If a file named as specified in the "Art Files" configuration is foumd then it will be used.
+// - If an folder icon exists in the current stlye, it will be used.
+// - If an folder icon exists in the default stlye, it will be used.
+//-------------------------------------------------------------------------------------------------
+
+function file_thumbnail( $fsp )
+{
+  $tn_image = '';
+
+  if     (is_file($fsp))
+  {
+    $image_files = array( file_noext(basename($fsp)).'.jpg');
+    $tn_image = find_in_dir(dirname($fsp), $image_files);
+    if (empty($tn_image))
+      $tn_image = file_icon($fsp);
+  }
+  elseif (is_dir($fsp))
+  {
+    $tn_image = find_in_dir($fsp, $_SESSION["opts"]["art_files"]);
+    if (empty($tn_image))
+      $tn_image = dir_icon();      
+  }
+  else  
+    echo "Parameter incorrect";  
+
+  return $tn_image;
+}
+
+//-------------------------------------------------------------------------------------------------
+// Given a filename or folder, this function will return the filename of the album art associated
+// with it.
+//-------------------------------------------------------------------------------------------------
+
+function file_albumart( $fsp )
+{
+  $return = '';
+
+  if ( is_file($fsp) )
+  {
+    foreach ( array('gif','jpg','jpeg','png') as $type)
+      if ( $return = find_in_dir( dirname($fsp),file_noext($fsp).'.'.$type))
+        break;
+        
+    if ($return == '')
+      $return = find_in_dir(dirname($fsp),$_SESSION["opts"]["art_files"]);
+  }
+  elseif ( is_dir($fsp) )
+  {
+    echo 'x';
+    $return = find_in_dir($fsp,$_SESSION["opts"]["art_files"]);
+  } 
+
+  return $return;
 }
 
 /**************************************************************************************************

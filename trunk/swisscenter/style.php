@@ -99,7 +99,6 @@
   
     $tlist->set_num_cols(2);
     $tlist->set_thumbnail_size(120,100);
-    $tlist->set_title_length(40);  
     $tlist->display();
   }
 

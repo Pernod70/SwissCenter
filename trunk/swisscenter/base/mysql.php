@@ -93,7 +93,7 @@ function db_col_to_list( $sql)
 # Returns TRUE if the query completed successfully, otherwise the funtions returns FALSE 
 #-------------------------------------------------------------------------------------------------
 
-function db_sqlcommand( $sql)
+function db_sqlcommand ($sql)
 {
   $recs     = new db_query( $sql);
   $success  = $recs->db_success();
@@ -102,8 +102,28 @@ function db_sqlcommand( $sql)
 }
 
 #-------------------------------------------------------------------------------------------------
+# Executes all the SQL commands contained within the file specified, returning the number of 
+# errors that were encountered.
+#-------------------------------------------------------------------------------------------------
+
+function db_sqlfile ($fsp)
+{
+  $errors = 0;
+  if ($contents = @file($fsp))
+  {
+    $commands = split(";",implode(" ",$contents));
+    foreach ($commands as $sql)
+      if ( strlen(trim($sql)) > 0 ) 
+        if (!db_sqlcommand($sql))
+          $errors++;
+  }
+
+  return $errors;
+}
+
+#-------------------------------------------------------------------------------------------------
 # Function to run a SQL command as the "root" user in MySQL (for building databases, etc)
-# Reutnrs TRUE is the query completed successfully, otherwise returns FALSE
+# Returns TRUE is the query completed successfully, otherwise returns FALSE
 #-------------------------------------------------------------------------------------------------
 
 function db_root_sqlcommand( $root_password, $sql )
@@ -128,7 +148,7 @@ function db_root_sqlcommand( $root_password, $sql )
 # row in the result set.
 #
 # NOTE: This function should be used when the SQL is expected to return only one value, such
-#       as a S"ELECT COUNT(*) FROM tablename;" statement
+#       as a "SELECT COUNT(*) FROM tablename;" statement
 #-------------------------------------------------------------------------------------------------
 
 function db_value( $sql)
@@ -144,6 +164,28 @@ function db_value( $sql)
   $recs->destroy();
 
   return ($success ? $result : false );
+}
+
+#-------------------------------------------------------------------------------------------------
+# Takes the elements passed in the array and converts them to the SET section of a SQL update
+# command (taking into account the type of variable)
+#-------------------------------------------------------------------------------------------------
+
+function db_array_to_set_list( $array)
+{
+  $columns = array();
+
+  foreach( $array as $key => $value )
+  {
+    if     (!is_numeric($value) and empty($value))
+      $columns[] = $key."=null";
+    elseif (is_string($value))
+      $columns[] = $key ."='".db_escape_str(stripslashes($value))."'";
+    else
+      $columns[] = $key."=".$value;
+  }
+
+  return implode(', ',$columns);
 }
 
 #-------------------------------------------------------------------------------------------------

@@ -35,7 +35,7 @@ class menu
 
   function add_item( $text, $url="", $right=false )
   {
-    if (! is_null($text))
+    if (! is_null($text) && !empty($text))
       $this->menu_items[] = array( "text"=>$text, "url"=>$url,
                                    "right"=> ($right == true ? '</td><td><img src="'.style_img("IMG_RIGHT").'">' : '') );
   }
@@ -50,7 +50,7 @@ class menu
     $this->down = $url;
   }
 
-  function display( $size=400, $trunc=400 )
+  function display( $size=400 )
   {
     $i=0;
     $link="";
@@ -71,7 +71,7 @@ class menu
     {
       foreach ($this->menu_items as $item)
       {
-        $text = shorten($item["text"],$trunc);
+        $text = shorten($item["text"],$size - 50);
 
         $link = $item["url"];
         if (substr($link,0,5) != 'href=')

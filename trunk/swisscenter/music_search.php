@@ -45,8 +45,7 @@
 
       foreach ($data as $row)
       {
-        $display = shorten($row["DISPLAY"],22);
-        $menu->add_item($display,'music_selected.php?add=Y&type='.$sort.'&name='.rawurlencode($row["DISPLAY"]),true);
+        $menu->add_item($row["DISPLAY"],'music_selected.php?add=Y&type='.$sort.'&name='.rawurlencode($row["DISPLAY"]),true);
       }
       $menu->display( "300" );
     }

@@ -11,8 +11,8 @@
   require_once("base/file.php");
 
   // Parameters to the script. Need to do more extensive checking on them!
-
   $filename   = un_magic_quote(rawurldecode($_REQUEST["src"]));
+  $format     = strtolower(file_ext($filename));
   $x          = $_REQUEST["x"];
   $y          = $_REQUEST["y"];
   $cache_file = str_suffix($_SESSION["opts"]["cache_dir"],'/').'SwissC'.md5($filename.'_x'.$x.'y'.$y).'.png';
@@ -52,7 +52,7 @@
       fpassthru($fp);
       fclose($fp);
     }  
-    else
+    elseif ( file_exists($filename) )
     {
   
       // Work out the actual dimensions of the image to keep it within the specifed res,
@@ -83,13 +83,33 @@
       imagecopyResampled ($im2, $image, 0, 0, 0, 0, $x, $y, $imagedata[0], $imagedata[1]);
   
       // Output the image to the browser
-      header("Content-type: image/png");
-      ImagePng($im2);
+      switch ($format)
+      {
+        case 'jpg':
+        case 'jpeg':
+              header("Content-type: image/jpeg");
+              ImageJpeg($im2);
+              break;
+        case 'gif':
+              header("Content-type: image/gif");
+              ImageGif($im2);
+              break;
+        case 'png';
+              header("Content-type: image/png");
+              ImagePng($im2);
+              break;
+      }
   
       // If a cache directory has been defined, then store the cached file into it.
       if (!empty($_SESSION["opts"]["cache_dir"]))
-        ImagePng($im2, $cache_file);
-  
+        ImagePng($im2, $cache_file);  
+    }
+    else 
+    {
+      header("Content-Type: image/gif");
+      $fp = fopen($_SESSION["opts"]["sc_location"].'/images/dot.gif', 'rb')  ;
+      fpassthru($fp);
+      fclose($fp);
     }
   }
 

@@ -26,7 +26,14 @@
 
     if (empty($data))
     {
-      echo 'No cities can be found matching "'.$search.'".';
+      echo 'There are no cities that match your search for <font color="'.style_col("TITLE_COLOUR").'">'.$search.'</font> in the SwissCenter database.
+            <p> Would you like to search <font color="'.style_col("TITLE_COLOUR").'">The Weather Channel</font> for possible matches anyway? 
+               (enter the city name in full before searching)<p>';
+
+      $menu->add_item("Yes, Search Anyway",'city_selected.php?name='.rawurlencode($search),true);
+      $menu->add_item("No, Start A New Search",$this_url.'?sort='.$sort.'&any='.$prefix,true);
+      $menu->display( "300" );
+ 
     }
     else
     {
@@ -40,13 +47,8 @@
         $menu->add_down( $this_url.'?search='.rawurlencode($search).'&any='.$prefix.'&page='.($page+1));
 
       foreach ($data as $row)
-      {
-        $display = $row["NAME"];
-        if (strlen($display) > 22)
-          $display = substr($display,0,22)."...";
+        $menu->add_item($row["NAME"],'city_selected.php?name='.rawurlencode($row["NAME"]),true);
 
-        $menu->add_item($display,'city_selected.php?name='.rawurlencode($row["NAME"]),true);
-      }
       $menu->display( "300" );
     }
 
