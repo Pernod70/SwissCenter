@@ -183,7 +183,6 @@ function dir_size($dir, $subdirs = false)
    return $totalsize;
 }
 
-
 //-------------------------------------------------------------------------------------------------
 // Searches the given directory for the given filename (case insensitive) and if the
 // file exists then the actual case of the filename is returned. If $filename is an
@@ -191,7 +190,7 @@ function dir_size($dir, $subdirs = false)
 // the first one it finds.
 //-------------------------------------------------------------------------------------------------
 
-function ifile_in_dir($dir, $filename)
+function find_in_dir($dir, $filename)
 {
   $actual='';
   if ($dh = opendir($dir))
@@ -290,16 +289,24 @@ function file_icon( $fsp )
   $sc_location = $_SESSION["opts"]["sc_location"];
   $name = 'filetype_'.file_ext($fsp).'.gif';
   
-  if (file_exists( $sc_location.$_SESSION["opts"]["style"]["location"].$name))
+  if (in_array(file_ext(strtolower($fsp)),array('jpg','gif','png','jpeg')))
   {
+    // The file is actually an image, so generate it as a thumbnail
+    return $fsp;
+  }
+  elseif (file_exists( $sc_location.$_SESSION["opts"]["style"]["location"].$name))
+  {
+    // There is an icon within the selected style for this filetype
     return $sc_location.$_SESSION["opts"]["style"]["location"].$name;
   }
   elseif (file_exists( $sc_location.'images/'.$name))
   {
+    // There is a generic icon for this filetype
     return $sc_location.'images/'.$name;
   }
   else
   {
+    // Display an "unknown" filetype in the selected style, or failing that, the generic one.
     if (file_exists( $sc_location.$_SESSION["opts"]["style"]["location"].'filetype_unknown.gif'))
       return $sc_location.$_SESSION["opts"]["style"]["location"].'filetype_unknown.gif';
     else
@@ -350,6 +357,47 @@ function force_rmdir($dir)
 
   // Final check to see if it all worked.
   return file_exists($dir);
+}
+
+//-------------------------------------------------------------------------------------------------
+// Given the path to either a folder or a file, this routine will return the full path to a
+// thumbnail file based on the following (the first matching rule is used):
+//
+// FILES
+//
+// - If the file is an image file, thenit will be used
+// - If an image file with the same name (but different extension) exists, then it will be used.
+// - If an icon for the filetype exists in the current style, it will be used.
+// - If an icon for the filetype exists in the default style, it will be used.
+//
+// FOLDERS
+//
+// - If a file named as specified in the "Art Files" configuration is foumd then it will be used.
+// - If an folder icon exists in the current stlye, it will be used.
+// - If an folder icon exists in the default stlye, it will be used.
+//-------------------------------------------------------------------------------------------------
+
+function file_thumbnail( $fsp )
+{
+  $tn_image = '';
+
+  if     (is_file($fsp))
+  {
+    $image_files = array( file_noext(basename($fsp)).'.jpg');
+    $tn_image = find_in_dir(dirname($fsp), $image_files);
+    if (empty($tn_image))
+      $tn_image = file_icon($fsp);
+  }
+  elseif (is_dir($fsp))
+  {
+    $tn_image = find_in_dir($fsp, $_SESSION["opts"]["art_files"]);
+    if (empty($tn_image))
+      $tn_image = dir_icon();      
+  }
+  else  
+    echo "Parameter incorrect";  
+
+  return $tn_image;
 }
 
 /**************************************************************************************************
