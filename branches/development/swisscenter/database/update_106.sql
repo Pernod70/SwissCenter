@@ -20,7 +20,7 @@ CREATE TABLE categories (
 INSERT INTO categories (cat_id, cat_name)
   VALUES (
     1,
-    'Uncategorised'
+    'General'
   );
 
 INSERT INTO categories (cat_name)
