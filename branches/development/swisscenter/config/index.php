@@ -200,7 +200,7 @@
   // Display current config
   //
   
-  function dirs_display($delete = '', $new = '')
+  function dirs_display($delete = '', $new = '', $edit = 0)
   {
     // Ensure that on Linux/Unix systems there is a "media" directory present for symbolic links to go in.
     if (!is_windows() && !file_exists($_SESSION["opts"]["sc_location"].'media'))
@@ -213,10 +213,8 @@
     form_start('index.php');
     form_hidden('section','DIRS');
     form_hidden('action','MODIFY');
-    form_select_table('loc_id',$data,array('class'=>'form_select_tab','width'=>'100%'),'location_id');
+    form_select_table('loc_id',$data,array('class'=>'form_select_tab','width'=>'100%'),'location_id', array('DIRECTORY'=>'','TYPE'=>'select media_id,media_name from media_types order by 2','CATEGORY'=>'select cat_id,cat_name from categories order by cat_name'), $edit);
     form_submit('Remove Selected Locations',1,'center');
-    form_list_dynamic('change_cat', 'Change Category To', "select cat_id,cat_name from categories order by cat_name", $_REQUEST['change_cat']);
-    form_submit('Change Selected Categories',1,'center');
     form_end();
   
     echo '<p><h1>Add A New Location<p>';
@@ -250,10 +248,36 @@
   
   function dirs_modify()
   {
-    $selected = form_select_table_vals('loc_id');
-
-    if($_REQUEST["submit_action"] == " Remove Selected Locations ")
+    $selected = form_select_table_vals('loc_id');     // Get the selected items
+    $edit = form_select_table_edit('loc_id');         // Get the id of the edited row
+    $update = form_select_table_update('loc_id');     // Get the updates from an edit
+    
+    if(!empty($edit))
     {
+      // There was an edit, display the dirs with the table in edit mode on the selected row
+      dirs_display('', '', $edit);
+    }
+    else if(!empty($update))
+    {
+      // Update the row given in the database and redisplay the dirs
+      $dir = mysql_escape_string($update["DIRECTORY"]);
+      $type_id = $update["TYPE"];
+      $cat_id = $update["CATEGORY"];
+      $id = $update["LOC_ID"];
+
+      if (!file_exists($dir))
+        dirs_display("!I'm sorry, the directory you specified does not exist");
+      elseif ( ($dir[0] != '/' && $dir[1] != ':') || $dir=='..' || $dir=='.')
+        dirs_display("!Please enter a fully qualified directory path.");
+      else
+      {
+        db_sqlcommand("update media_locations set name='$dir',media_type=$type_id,cat_id=$cat_id where location_id=$id");
+        dirs_display('Updated media location information.');
+      }
+    }
+    else if($_REQUEST["submit_action"] == " Remove Selected Locations ")
+    {
+      // Delete the selected directories
       foreach ($selected as $id)
       {
         if (! is_windows() )
@@ -263,16 +287,6 @@
       }
 
       dirs_display('The selected directories have been removed.');
-    }
-    else if($_REQUEST["submit_action"] == " Change Selected Categories ")
-    {
-      $cat_id = $_REQUEST["change_cat"];
-      foreach($selected as $id)
-      {
-        db_sqlcommand("update media_locations set cat_id=$cat_id where location_id=$id");
-      }
-      
-      dirs_display('The category has been changed for the selected directories.');
     }
   }
   

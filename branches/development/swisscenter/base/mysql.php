@@ -64,6 +64,26 @@ function db_toarray( $sql)
 }
 
 #-------------------------------------------------------------------------------------------------
+# Selects the results of the query ($sql) into the specified array (&$data).
+#
+# Returns an array of columns for the first row returned by the sql,
+# otherwise the function returns FALSE 
+#-------------------------------------------------------------------------------------------------
+
+function db_row($sql)
+{
+  $recs    = new db_query( $sql );
+  $success = $recs->db_success();
+
+  if($success && ($row = $recs->db_fetch_row()))
+      $data = $row;
+
+  $recs->destroy();
+  return ($success ? $data : false );
+}
+
+
+#-------------------------------------------------------------------------------------------------
 # Uses the results of the query ($sql) to build an array (&$data) where each entry in the array
 # is the value of the first column selected by the query.
 # 

@@ -225,11 +225,29 @@ function form_submit( $text = "Submit", $col = 2, $align = 'left' )
 # Outputs a table containing the data in the $table_contents array (except for the column that
 # is indicated by the $id_col variable - this column will instead be used to pass an identifier
 # to the form as to which rows in the table were selected by the user.
+#
+# Additionally you may pass an associative array of edit options. The keys in the array and the
+# names of the table headings and must be all uppercase. The values can be one of three things:
+#   * An empty string - This indicates a text editable field
+#   * A string - This is a sql statement that returns exactly 2 columns, the first an ID that will
+#     be used as the value of the selected item, and the second a string to display. This will be
+#     displayed as a drop down list
+#   * An array - This array is an array of arrays, each element of the outer array is a single row
+#     in a table, the child arrays are column name/value pairs
+#
+# If an array of edit options is passed then an edit button will be placed on each row. It can
+# be determined if the edit button was clicked and for which row by calling form_select_table_edit()
+# 
+# To display the table in edit mode, pass the edit options with the $edit variable set to the
+# value of the ID column that is to be edited, usually obtained from form_select_table_edit
+#
+# To retrieve the results of an edit call form_select_table_update()
 #-------------------------------------------------------------------------------------------------
 
-function form_select_table ( $param, $table_contents, $table_params, $id_col)
+function form_select_table ( $param, $table_contents, $table_params, $id_col, $edit_options = array(), $edit = 0)
 {
   // Process the paramters in the table 
+  $editable = (count($edit_options) > 0);
   $param_str ='';
   if (is_array($table_params) && count($table_params) >0)
   {
@@ -250,6 +268,10 @@ function form_select_table ( $param, $table_contents, $table_params, $id_col)
       if ($heading != strtoupper($id_col))
         echo '<th>'.ucwords(str_replace('_',' ',strtolower($heading))).'</th>';
     }
+
+    if($editable)
+      echo '<th>&nbsp;</th>';
+
     echo '</tr>';
     
     // Display the rows in the dataset
@@ -262,10 +284,54 @@ function form_select_table ( $param, $table_contents, $table_params, $id_col)
         if ($cell_name != strtoupper($id_col))
         {
           echo '<td>';
-          echo $cell_value;
+          
+          if($editable && ($row[strtoupper($id_col)] == $edit))
+          {
+            // Check the edit options to see if there are choices for this column or not
+            $element_name = strtoupper($param.'_update:'.$cell_name);
+            $cell_edit_options = $edit_options[$cell_name];
+            if(empty($cell_edit_options))
+            {
+              echo "<input type='text' name='".$element_name."' value='".$cell_value."'>";
+            }
+            else
+            {
+              if(is_array($cell_edit_options))
+                $options = $cell_edit_options;
+              else
+                $options = db_toarray($cell_edit_options);
+                
+              echo "<select name='".$element_name."'>";
+              
+              foreach($options as $option)
+              {
+                $option_data = array_values($option);
+                echo "<option value='".$option_data[0]."'";
+                if(strtoupper($cell_value) == strtoupper($option_data[1]))
+                  echo " selected='selected'";
+                  
+                echo ">".$option_data[1]."</option>";
+              }
+              echo "</select>";
+            }
+          }
+          else
+            echo $cell_value;
+            
           echo '</td>';
         }
       }
+      
+      if($editable)
+      {
+        if($edit == 0)
+          echo '<td align="center"><input type="submit" name="'.$param.'_EDIT:'.$row[strtoupper($id_col)].'" value=" Edit "></td>';
+        else if($row[strtoupper($id_col)] == $edit)
+          echo '<td align="center"><input type="submit" name="'.$param.'_UPDATE_ID:'.$row[strtoupper($id_col)].'" value=" Update "></td>';
+        else
+          echo '<td>&nbsp;</td>';
+      }  
+
       echo '</tr>';
     }
     
@@ -288,6 +354,39 @@ function form_select_table_vals( $id_col )
     if (strtoupper(substr($key,0,strlen($id_col)+1)) == strtoupper($id_col).':')
       $result[] = $val;
   }
+  return $result;
+}
+
+function form_select_table_edit( $param_name )
+{
+  foreach($_REQUEST as $key => $val)
+  {
+    if(strtoupper(substr($key, 0, strlen($param_name)+6)) == strtoupper($param_name).'_EDIT:')
+    {
+      $result = strtoupper(substr($key, strlen($param_name)+6));
+      break;
+    }
+  }
+
+  return $result;
+}
+
+function form_select_table_update( $param_name )
+{
+  $result = array();
+  
+  foreach($_REQUEST as $key => $val)
+  {
+    if(strtoupper(substr($key, 0, strlen($param_name)+8)) == strtoupper($param_name).'_UPDATE:')
+    {
+      $result[substr($key, strlen($param_name)+8)] = $val;
+    }
+    else if(strtoupper(substr($key, 0, strlen($param_name)+11)) == strtoupper($param_name).'_UPDATE_ID:')
+    {
+      $result[strtoupper($param_name)] = substr($key, strlen($param_name)+11);
+    }
+  }
+
   return $result;
 }
 
