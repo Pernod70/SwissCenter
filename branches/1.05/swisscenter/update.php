@@ -30,6 +30,46 @@
    set_sys_pref('last_update',$last_update);
    $_SESSION["update"]["available"] = false;
  }
+ 
+ function run_sql_files($sql_files)
+ {
+   $errors = 0;
+   
+   if(count($sql_files) > 0)
+   {
+     $last_sql_file_processed = $_SESSION["opts"]["database_vn"];
+
+     // Key sort to ensure they are in the correct order
+     ksort($sql_files, SORT_NUMERIC);
+
+     foreach($sql_files as $sql_file_num => $sql_file)
+     {
+       send_to_log("Processing SQL file ".$sql_file_num);
+       foreach ( split(";",implode(" ",file($sql_file))) as $sql)
+       {
+         if ( strlen(trim($sql)) > 0 ) 
+         {
+           if (db_sqlcommand($sql))
+             send_to_log("SQL command executed : ".$sql);
+           else 
+           {
+             send_to_log("SQL command failed : ".$sql);
+             $errors++;
+             // Exit the sql update procedure at this point as further files may depend on these changes
+             break 2;
+           }
+         }
+       }
+
+       $last_sql_file_processed = $sql_file_num;
+     }
+
+     // Update the db with the last applied file
+     db_sqlcommand("UPDATE system_prefs SET value='".$last_sql_file_processed."' WHERE name='DATABASE_VN'");
+   }
+   
+   return $errors;
+ }
    
 //*************************************************************************************************
 // Main Code
@@ -39,9 +79,11 @@
   $local   = array();
   $update  = array();
   $actions = array();
+  $sql_files = array();
   $upd_loc = 'http://update.swisscenter.co.uk/release/';
   $errors  = 0;
   $updated = false;
+  $current_sql_version = $_SESSION["opts"]["database_vn"];
   
   // Get file checksums from the online update file  
   $file_contents = file_get_contents($upd_loc.'filelist.txt');
@@ -71,8 +113,25 @@
     {   
       $filename = md5( $test["filename"].$test["checksum"]).'.bin';
       $tmp_file = 'updates/'.md5( $test["filename"].$test["checksum"]).'.update';
+      $skip_file = false;
   
-      if (!in_array($test,$local) )
+      if(file_ext($test["filename"]) == 'sql')
+      {
+        // Its an SQL file, check the file number and ignore files that we've already applied
+        // The file number is expected to be between the last _ and the . of the extension
+        $file_num = substr(strrchr($test["filename"], "_"), 1);
+        $file_num = substr($file_num,0,strpos($file_num,"."));
+
+        // If we couldn't get the file number or the file is <= the current version then skip        
+        if(($file_num === false) || ($file_num <= $current_sql_version) || !is_numeric($file_num))
+          $skip_file = true;
+        else
+          $sql_files[$file_num] = $tmp_file;
+      }
+  
+      // Don't download files that we've alread got or that we've been told to skip
+      // I.e. SQL files that are older than the current DB vn or invalid
+      if (!in_array($test,$local) && !$skip_file)
       {
         if (file_exists($tmp_file))
         {
@@ -147,23 +206,19 @@
     {
       foreach($actions as $a)
       {
-        unlink($a["new"]);
-        rename($a["old"],$a["new"]);
-        send_to_log("'".$a["new"]."' updated");
-
-        // If the file that has been updated is an SQL file, then apply it to the database
-        if (strtolower(file_ext($a["new"])) == 'sql')
+        // If the file is a sql file then skip it for now, we'll process them after the renames
+        if(!in_array($a["old"], $sql_files))
         {
-          foreach ( split(";",implode(" ",file($a["new"]))) as $sql)
-            if ( strlen(trim($sql)) > 0 ) 
-            {
-              if (db_sqlcommand($sql))
-                send_to_log("SQL command executed : ".$sql);
-              else 
-                send_to_log("SQL command failed : ".$sql);
-            }
-        } 
+          unlink($a["new"]);
+          rename($a["old"],$a["new"]);
+          send_to_log("'".$a["new"]."' updated");
+        }
+        else
+          send_to_log("'".$a["new"]."' rename skipped, is a SQL file");
       }
+      
+      // Run the SQL
+      $errors += run_sql_files($sql_files);
 
       $updated = true;
       force_rmdir('updates');
