@@ -624,7 +624,7 @@ function cache_update()
    }
    
    
-   if ($_ENV["REMOTE_ADDR"] != '127.0.0.1' && $_ENV["REMOTE_ADDR"] != $_ENV["SERVER_ADDR"] )
+   if ($_SERVER["REMOTE_ADDR"] != $_SERVER["SERVER_ADDR"] )
    {
      echo '<br><h1>Access Denied</h1>
            <p align="center">Remote access to the <i>\'SwissCenter Configuration Utility\'</i> is disabled for security reasons.';
