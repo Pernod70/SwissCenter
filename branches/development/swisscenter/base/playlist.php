@@ -110,8 +110,8 @@ function build_pl($server, $sql)
 
   echo 'The tracks you selected have been added to the playlist.
         <p> To start playing the tracks in your playlist or to modify the playlist
-            at any time, press the <font color="'.style_col("BUTTON_DESC_COLOUR").'">HOME</font>
-            button on your remote control and then select the <font color="'.style_col("MENU_OPTION_REF_COLOUR").'">
+            at any time, press the <font color="'.style_value("BUTTON_DESC_COLOUR".'#FFFFFF').'">HOME</font>
+            button on your remote control and then select the <font color="'.style_value("MENU_OPTION_REF_COLOUR",'#FFFFFF').'">
             "Manage Playlists"</font> option.';
   $menu = new menu();
   $menu->add_item('Manage Playlists','manage_pl.php');

@@ -27,13 +27,13 @@ function style_img ($name, $ext_url = false)
     return ($ext_url ? $path : '').'/images/dot.gif';
 }
 
-function style_col ($name)
+function style_value ( $name, $default )
 {
-  $col = $_SESSION["opts"]["style"][strtoupper($name)];
-  if ( !isset($col) || empty($col) )
-    return '#000000';
-  else 
-    return $col;
+  $val = $_SESSION["opts"]["style"][strtoupper($name)];
+  if ( !isset($val) || empty($val) )
+    return $default;
+  else
+    return $val;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -117,16 +117,16 @@ function page_header( $title, $tagline = "",  $logo = "", $meta = "", $focus="1"
         <title>'.$title.'</title>
         <style>
           body {font-family: arial; font-size: 14px; background-repeat: no-repeat; }
-          a {color:'.style_col("PAGE_LINK").'; text-decoration: none;}
+          a {color:'.style_value("PAGE_LINK",'#FFFFFF').'; text-decoration: none;}
         </style>
         </head>
         <body  onLoadSet="'.$focus.'"
                background="'.  $background_image .'"
-               FOCUSCOLOR="'.  style_col("PAGE_FOCUS_COLOUR").'"
-               FOCUSTEXT="'.   style_col("PAGE_FOCUS_TEXT").'"
-               text="'.        style_col("PAGE_TEXT").'"
-               vlink="'.       style_col("PAGE_VLINK").'"
-               bgcolor="'.     style_col("PAGE_BGCOLOUR").'"
+               FOCUSCOLOR="'.  style_value("PAGE_FOCUS_COLOUR",'#FFFFFF').'"
+               FOCUSTEXT="'.   style_value("PAGE_FOCUS_TEXT",'#FFFFFF').'"
+               text="'.        style_value("PAGE_TEXT",'#FFFFFF').'"
+               vlink="'.       style_value("PAGE_VLINK",'#FFFFFF').'"
+               bgcolor="'.     style_value("PAGE_BGCOLOUR",'#FFFFFF').'"
                TOPMARGIN="0" LEFTMARGIN="0" MARGINHEIGHT="0" MARGINWIDTH="0">';
   
   if ($margin_top >0)

@@ -79,7 +79,7 @@ class menu
 
         echo '<tr><td valign="middle" width="'.$size.'px" height="25px" background="'.
               style_img("IMG_MENU").'">&nbsp;&nbsp;&nbsp;'.
-              '<font color="'.style_col("TITLE_COLOUR").'">'.++$i.'.</font> <a '.$link.' TVID="'.$i.
+              '<font color="'.style_value("TITLE_COLOUR",'#FFFFFF').'">'.++$i.'.</font> <a '.$link.' TVID="'.$i.
               '" name="'.$i.'">'.$text.'</a>'.$item["right"].'</td></tr>';
       }
     }

@@ -26,8 +26,8 @@
 
     if (empty($data))
     {
-      echo 'There are no cities that match your search for <font color="'.style_col("TITLE_COLOUR").'">'.$search.'</font> in the SwissCenter database.
-            <p> Would you like to search <font color="'.style_col("TITLE_COLOUR").'">The Weather Channel</font> for possible matches anyway? 
+      echo 'There are no cities that match your search for <font color="'.style_value("TITLE_COLOUR",'#FFFFFF').'">'.$search.'</font> in the SwissCenter database.
+            <p> Would you like to search <font color="'.style_value("TITLE_COLOUR",'#FFFFFF').'">The Weather Channel</font> for possible matches anyway? 
                (enter the city name in full before searching)<p>';
 
       $menu->add_item("Yes, Search Anyway",'city_selected.php?name='.rawurlencode($search),true);
