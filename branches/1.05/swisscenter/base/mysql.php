@@ -147,6 +147,28 @@ function db_value( $sql)
 }
 
 #-------------------------------------------------------------------------------------------------
+# Takes the elements passed in the array and converts them to the SET section of a SQL update
+# command (taking into account the type of variable)
+#-------------------------------------------------------------------------------------------------
+
+function db_array_to_set_list( $array)
+{
+  $columns = array();
+
+  foreach( $array as $key => $value )
+  {
+    if     (!is_numeric($value) and empty($value))
+      $columns[] = $key."=null";
+    elseif (is_string($value))
+      $columns[] = $key ."='".db_escape_str(stripslashes($value))."'";
+    else
+      $columns[] = $key."=".$value;
+  }
+
+  return implode(', ',$columns);
+}
+
+#-------------------------------------------------------------------------------------------------
 # Inserts row into the database.
 #
 # Note that the fields are given as an associative array. Each KEY value in the
