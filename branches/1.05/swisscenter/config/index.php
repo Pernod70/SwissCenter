@@ -50,7 +50,7 @@
     form_input('password','"Root" Password',15,'',$_REQUEST["password"]);
     form_label('Unless you entered a value for the <em>root</em> password during the installation of MySQL, then it is 
                 probably not set and you should leave this field blank.
-                <p><em>Plase Note: The database creation can take a couple of minutes to complete. Please be patient. </em>');
+                <p><em>Please Note: Creating the database can take several minutes to complete. Please be patient. </em>');
     form_submit('Create Database');
     form_end();
   }
