@@ -100,9 +100,6 @@
   {
     set_time_limit(86400);
     
-    
-    
-    
     define('DB_HOST',     (!empty($_REQUEST["host"])     ? $_REQUEST["host"]     : 'localhost'));
     define('DB_USERNAME', (!empty($_REQUEST["username"]) ? $_REQUEST["username"] : 'swisscenter'));
     define('DB_PASSWORD', (!empty($_REQUEST["password"]) ? $_REQUEST["password"] : 'swisscenter'));
@@ -179,7 +176,7 @@
     if (!is_windows() && !file_exists(SC_LOCATION.'media'))
       mkdir(SC_LOCATION.'media');
     
-    $data = db_toarray("select location_id, name 'Directory' ,media_name 'Type', cat_name 'Category' from media_locations ml, media_types mt, categories cat where mt.media_id = ml.media_type and ml.cat_id = cat.cat_id order by name");
+    $data = db_toarray("select location_id,media_name 'Type', cat_name 'Category', name 'Directory'  from media_locations ml, media_types mt, categories cat where mt.media_id = ml.media_type and ml.cat_id = cat.cat_id order by 2,3,4");
      
     echo "<h1>Current Media Locations</h1>";
     message($delete);
