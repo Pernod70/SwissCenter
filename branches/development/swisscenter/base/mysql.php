@@ -23,7 +23,7 @@ function array_toupper( &$array )
 # Returns the given UNIX timestamp (or current time if not specified) as a MySQL compatible date
 #-------------------------------------------------------------------------------------------------
 
-function db_dateestr_now( $time = '')
+function db_dateestr( $time = '')
 {
   return date('Y-m-d H:i:s',(empty($time) ? time() : $time));
 }
