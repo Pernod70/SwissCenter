@@ -190,6 +190,28 @@ function array_sort( &$array, $key )
 }
 
 //
+// Makes an array contain unique values for the given key within in the nested array.
+//
+
+function arrayUnique( $array, $key ) 
+{ 
+  $rArray = array();
+  if (is_array($array) && sizeof($array) > 0)
+  {
+    $keys   = array();
+    for ($i = 0; $i < sizeof($array); $i++)
+    {
+      if (!in_array($array[$i][$key],$keys))
+      {
+        $rArray[] = $array[$i];
+        $keys[]   = $$array[$i][$key];
+      }
+    }
+  } 
+  return $rArray;
+}
+
+//
 // Truncates a string to the given number of characters, and adds an ellipse to 
 // indicate it has been shortened
 //
