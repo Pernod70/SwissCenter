@@ -16,13 +16,15 @@ require_once("base/iconbar.php");
 // Returns a given image paramter from the Style settings.
 //-------------------------------------------------------------------------------------------------
 
-function style_img ($name)
+function style_img ($name, $ext_url = false)
 {
-  $file = $_SESSION["opts"]["style"]["location"].$_SESSION["opts"]["style"][strtoupper($name)];
-  if ( file_exists($_SESSION["opts"]["sc_location"].$file) )
-    return $file;
+  $path   = substr($_SESSION["opts"]["sc_location"],0,-1);
+  $file   = $_SESSION["opts"]["style"]["location"].$_SESSION["opts"]["style"][strtoupper($name)];
+
+  if ( file_exists($path.$file) )
+    return ($ext_url ? $path : '').$file;
   else 
-    return '/images/dot.gif';
+    return ($ext_url ? $path : '').'/images/dot.gif';
 }
 
 function style_col ($name)
@@ -96,7 +98,7 @@ function page_header( $title, $tagline = "", $focus="1", $meta = "")
   {
     $logo                   = '<td width="160px" height="92px" ><img src="/images/logo.gif" width="160" height="92"></td>';
     $headings               = '<td height="92px" align="center"><h2>'.$title.'&nbsp;</h2>'.$tagline.'&nbsp;</td>';
-    $background_image = style_img("PAL_BACKGROUND");
+    $background_image       = style_img("PAL_BACKGROUND");
     $heading_padding_top    = 4;
     $heading_padding_bottom = 14;
   }
@@ -209,10 +211,10 @@ function page_footer( $back, $buttons= '', $iconbar = 0 )
       else
         $link = $buttons[$i]["text"];
       
-      echo '<td align="center"><img src="'.style_img("IMG_".$button_id).'">'.$link.'</td>';
+      echo '<td align="center"><img src="'.style_img('IMG_'.$button_id).'">'.$link.'</td>';
     }
   }
-  else if(!empty($iconbar))
+  elseif(!empty($iconbar))
   {
     echo '<td align="center">';
     $iconbar->display();
