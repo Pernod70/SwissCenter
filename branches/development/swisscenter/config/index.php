@@ -129,7 +129,7 @@
           db_sqlfile($file);            
 
         // Write an ini file with the database parameters in it
-        write_ini ( $_REQUEST["host"], $_REQUEST["username"], $_REQUEST["password"], $_REQUEST["dbname"] );
+        write_ini ( DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE );
         
         // If the media_search.php script is not scheduled, then schedule it now!
         $sched = syscall('at');
