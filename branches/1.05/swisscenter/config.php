@@ -5,7 +5,7 @@
 
   require_once("base/page.php");
   require_once("messages_db.php");
-
+  
   page_header( "Preferences and Setup" );
 
   echo '<p>Please select an option from the list:';
@@ -13,6 +13,7 @@
   $menu = new menu();
   $menu->add_item("Change User Interface Style",'style.php',true);
   $menu->add_item("Search for new media",'do_refresh.php');
+  $menu->add_item("Change Screen Format",'config_screen.php',true);
 
   // Does the User have internet connectivity?
   if ($_SESSION["internet"])
