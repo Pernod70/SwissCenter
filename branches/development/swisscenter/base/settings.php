@@ -64,7 +64,7 @@ function load_style($base_dir, $user_id)
   define( 'MEDIA_EXT_PHOTOS', 'jpeg,jpg,gif' );
   
   // Where is the SwissCenter installed?
-  $sc_location = str_replace('\\','/',os_path($_ENV["DOCUMENT_ROOT"],true));
+  $sc_location = str_replace('\\','/',os_path($_SERVER["DOCUMENT_ROOT"],true));
 
   // Load the settings from the database if (a) the don't exist or (b) we need to reload them or (c) we've switched installations
   if (! isset($_SESSION["opts"]) || $_SESSION["opts"]["reload"] || $sc_location != $opts["sc_location"])
@@ -73,10 +73,15 @@ function load_style($base_dir, $user_id)
     $user = array();
     $dirs = array();
     
+    // Determein PHP location
+    if ( is_windows() )
+      $opts["php_location"]     = str_replace('\\','/',$_SERVER["SCRIPT_FILENAME"]);
+    else
+      $opts["php_location"]     = trim(syscall('which php'));
+    
     // Determine the current SwissCenter client & configuration
-    $opts["current_client"]   = str_replace('\\','/',$_ENV["REMOTE_ADDR"]);
-    $opts["php_location"]     = str_replace('\\','/',$_ENV["SCRIPT_FILENAME"]);
     $opts["sc_location"]      = $sc_location;
+    $opts["current_client"]   = str_replace('\\','/',$_SERVER["REMOTE_ADDR"]);
     $opts["server_address"]   = $_SERVER['SERVER_ADDR'].":".$_SERVER['SERVER_PORT'];
 
     // Get the current screen type (PAL or NTSC)
