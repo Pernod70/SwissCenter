@@ -76,7 +76,7 @@
   $back_url  = $_SESSION["history"][count($_SESSION["history"])-1]["url"];
   $post_sql  = $_SESSION["history"][count($_SESSION["history"])-1]["sql"];
   $newsql    = $post_sql." and $column like '".db_escape_str(str_replace('_','\_',$name))."'";  
-  $num_rows  = db_value("select count( distinct $column) from $sql_table where ".substr($newsql,5));
+  $num_rows  = db_value("select count( distinct file_id) from $sql_table where ".substr($newsql,5));
 
   if (isset($_REQUEST["shuffle"]))
     $_SESSION["shuffle"] = $_REQUEST["shuffle"];
@@ -132,6 +132,7 @@
 
 
     $info->add_item('Title', distinct_info('title',$sql_table, $newsql));
+    $info->add_item('Starring', distinct_info('actor_name',$sql_table, $newsql));
     $info->add_item('Year', distinct_info('year',$sql_table, $newsql));
     $info->add_item('Certificate',distinct_info('rating',$sql_table, $newsql));
     $menu->add_item('Play now'  , pl_link('sql','select * from $sql_table where '.substr($newsql,5)." order by title"));
