@@ -14,10 +14,7 @@
 
   // Change between standard/metric measurements.
   if (!empty($_REQUEST["units"]))
-  {
-    $_SESSION["opts"]["weather_units"] = $_REQUEST["units"];
     set_user_pref('WEATHER_UNITS',$_REQUEST["units"]);
-  }
 
   // Get XML data (from DB or from weather.com)
   purge_weather();
@@ -81,7 +78,7 @@
   //
   // Display ABC buttons as necessary
   //
-  if ($_SESSION["opts"]["weather_units"] == 'm')
+  if (get_user_pref("weather_units") == 'm')
     $buttons[] = array('id'=>'A', 'text'=>'Switch to Imperial', 'url'=>'weather_fc.php?units=s&loc='.$loc_id );
   else
     $buttons[] = array('id'=>'A', 'text'=>'Switch to Metric', 'url'=>'weather_fc.php?units=m&loc='.$loc_id );

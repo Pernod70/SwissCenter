@@ -83,7 +83,7 @@ function purge_weather()
 
 function get_weather_xml( $loc, $type, $val )
 {
-  $units  = $_SESSION["opts"]["weather_units"];
+  $units  = get_user_pref("weather_units");
   $url    = 'http://xoap.weather.com/weather/local/'.$loc.'?unit='.$units.'&prod=xoap&par='.PARTNER_ID.'&key='.LICENSE_KEY;
   $xml    = db_value("select xml from weather where url='$url' and type='$type'");
 
@@ -109,9 +109,9 @@ function get_weather_xml( $loc, $type, $val )
 
 function weather_home()
 {
-  if ( !empty($_SESSION["opts"]["weather_home"]) )
+  if ( get_user_pref("weather_home") != '' )
   {
-    $id = $_SESSION["opts"]["weather_home"];
+    $id = get_user_pref("weather_home");
     $code = db_value("select twc_code from cities where twc_code='$id' or name='$id'");
     if (!empty($code))
       return $code;

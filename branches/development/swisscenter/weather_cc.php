@@ -34,10 +34,7 @@
   
   // Change between standard/metric measurements.
   if (!empty($_REQUEST["units"]))
-  {
-    $_SESSION["opts"]["weather_units"] = $_REQUEST["units"];
     set_user_pref('WEATHER_UNITS',$_REQUEST["units"]);
-  }
 
   // Get XML data (from DB or from weather.com)
   purge_weather();
@@ -91,7 +88,7 @@
           </tr>
         </table>';
 
-  if ($_SESSION["opts"]["weather_units"] == 'm')
+  if ( get_user_pref("weather_units") == 'm')
     $buttons[] = array('text'=>'Switch to Imperial', 'url'=>'weather_cc.php?units=s' );
   else
     $buttons[] = array('text'=>'Switch to Metric', 'url'=>'weather_cc.php?units=m' );
