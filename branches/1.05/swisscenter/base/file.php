@@ -18,6 +18,41 @@ function newline()
 }
 
 //-------------------------------------------------------------------------------------------------
+// Returns an array containing the names of all files and subdirectories within the specified
+// directory (returns an empty array if the specified directory does not exist or is not readable)
+//-------------------------------------------------------------------------------------------------
+
+define ('DIR_TO_ARRAY_SHOW_FILES',1);
+define ('DIR_TO_ARRAY_SHOW_DIRS', 2);
+define ('DIR_TO_ARRAY_FULL_PATH',4);
+
+function dir_to_array ($dir, $pattern = '.*', $opts = 7 )
+{
+  $dir = os_path($dir,true);
+
+  $contents = array();
+  if ($dh = opendir($dir))
+  {
+    while (($file = readdir($dh)) !== false)
+    {
+      if ( preg_match('/'.$pattern.'/',$file) && 
+           (  (is_dir($dir.$file)  && ($opts & DIR_TO_ARRAY_SHOW_DIRS))
+           || (is_file($dir.$file) && ($opts & DIR_TO_ARRAY_SHOW_FILES)) ) )
+      {
+        if ($opts & DIR_TO_ARRAY_FULL_PATH)
+          $contents[] = os_path($dir.$file);
+        else 
+          $contents[] = $file;
+      }
+    }
+    closedir($dh);
+  }
+  
+  sort($contents);
+  return $contents;
+}
+
+//-------------------------------------------------------------------------------------------------
 // Routine to add a message and (optionally) the contents of a variable to the swisscenter logfile.
 // NOTE: If the logfile has become more than 1Mb in size then it is archived and a new log is 
 //       started. Only one generation of logs is archived (so current log and old log only)
