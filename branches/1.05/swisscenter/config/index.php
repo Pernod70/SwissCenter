@@ -87,7 +87,7 @@
       {
         // Run the setup file and all database update files
         db_sqlfile('../setup.sql');
-        foreach (dir_to_array('..','db_update_[0-9]*.sql') as $file)
+        foreach (dir_to_array('../database','update_[0-9.]*.sql') as $file)
           db_sqlfile($file);            
 
         write_ini ( 'localhost', 'swisscenter', 'swisscenter', 'swiss' );
