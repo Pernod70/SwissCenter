@@ -216,9 +216,9 @@ function form_radio_static( $param, $prompt, $list, $value = "", $opt = false )
 function form_submit( $text = "Submit", $col = 2, $align = 'left' )
 {
   if ($col == 1)
-    echo '<tr><td align="'.$align.'" colspan="2"><input type="submit" value=" '.$text.' "></td></tr>';
+    echo '<tr><td align="'.$align.'" colspan="2"><input type="submit" name="submit_action" value=" '.$text.' "></td></tr>';
   else 
-    echo '<tr><td>&nbsp;</td><td align="'.$align.'"><input type="submit" value=" '.$text.' "></td></tr>';
+    echo '<tr><td>&nbsp;</td><td align="'.$align.'"><input type="submit" name="submit_action" value=" '.$text.' "></td></tr>';
 }
 
 #-------------------------------------------------------------------------------------------------
