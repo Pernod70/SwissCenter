@@ -8,7 +8,7 @@
   
   page_header( "Preferences and Setup" );
 
-  echo '<p>Please select an option from the list:';
+  echo '<p align="center">Please select an option from the list:';
 
   $menu = new menu();
   $menu->add_item("Change User Interface Style",'style.php',true);

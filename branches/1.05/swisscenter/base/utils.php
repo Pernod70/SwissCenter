@@ -216,12 +216,50 @@ function arrayUnique( $array, $key )
 // indicate it has been shortened
 //
 
-function shorten( $text, $trunc )
+function shorten( $text, $trunc, $font_size = 1, $lines = 1 )
 {
-  if (strlen($text) > $trunc)
-    return substr($text,0,$trunc).'...';
-  else
+  if(empty($text))
     return $text;
+    
+  $char_widths = array(   "A" => 16,  "B" => 12,  "C" => 15,  "D" => 14,  "E" => 14,  "F" => 14,  "G" => 15,  "H" => 15,
+                          "I" => 4,   "J" => 10,  "K" => 14,  "L" => 11,  "M" => 16,  "N" => 15,  "O" => 16,  "P" => 14,
+                          "Q" => 16,  "R" => 15,  "S" => 12,  "T" => 15,  "U" => 14,  "V" => 16,  "W" => 20,  "X" => 16,
+                          "Y" => 15,  "Z" => 15,  "[" => 6,   "\\" => 7,  "]" => 6,   "^" => 9,   "_" => 12,  "`" => 6,
+                          "a" => 11,  "b" => 11,  "c" => 11,  "d" => 11,  "e" => 11,  "f" => 6,   "g" => 11,  "h" => 11,
+                          "i" => 4,   "j" => 5,   "k" => 10,  "l" => 4,   "m" => 16,  "n" => 11,  "o" => 11,  "p" => 11,
+                          "q" => 11,  "r" => 7,   "s" => 9,   "t" => 6,   "u" => 11,  "v" => 11,  "w" => 16,  "x" => 12,
+                          "y" => 11,  "z" => 11,  "{" => 7,   "|" => 4,   "}" => 7,   "~" => 11,  "!" => 4,   "\"" => 7,
+                          "#" => 10,  "$" => 11,  "%" => 16,  "&" => 15,  "'" => 4,   "/" => 7,   ")" => 6,   "(" => 6,
+                          "*" => 7,   "+" => 12,  "," => 4,   "-" => 8,   "." => 4,   "0" => 11,  "1" => 7,   "2" => 11,
+                          "3" => 11,  "4" => 11,  "5" => 11,  "6" => 11,  "7" => 11,  "8" => 11,  "9" => 11,  ":" => 4,
+                          ";" => 4,   "=" => 12,  ">" => 12,  "?" => 11,  "@" => 19,  "<" => 12,  " " => 7,  );
+
+  $len = 0;
+  $short_string = "";
+  $max_len = (int)((($trunc / $font_size) * $lines) - (12 * $font_size));
+
+  for($index = 0; $index < strlen($text); $index++)
+  {
+    $current_char = $text[$index];
+
+    if(!array_key_exists($current_char, $char_widths))
+      $char_len = 7;
+    else
+      $char_len = $char_widths[$current_char];
+
+    if(($len + $char_len) < $max_len)
+    {
+      $len += $char_len;
+      $short_string .= $current_char;
+    }
+    else
+    {
+      $short_string .= "...";
+      break;
+    }
+  }
+
+  return $short_string;
 }
 
 //
@@ -258,7 +296,6 @@ function url_add_param($url, $param, $value)
     // Paramters present, and there is already a value for this paramter
     return preg_replace('/([?&]'.$param.'=)[^&]*/','\1'.$value,$url); 
   }
-
 }
 
 //
@@ -279,7 +316,49 @@ function is_windows()
 
 function current_url()
 {
+  if(is_server_apache() || is_server_iis())
     return "http://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
+  else 
+    return $_SERVER["SCRIPT_NAME"].(empty($_SERVER["QUERY_STRING"]) ? "" : "?".$_SERVER["QUERY_STRING"]);
+}
+
+//
+// Returns the webserver type
+//
+
+function get_server_type()
+{
+  $server_type = "UNKNOWN";
+  
+  if(strpos($_SERVER["SERVER_SOFTWARE"], "Apache") === 0)
+  {
+    $server_type = "APACHE";
+  }
+  else if(strpos($_SERVER["SERVER_SOFTWARE"], "IIS") === 0)
+  {
+    $server_type = "IIS";
+  }
+  else
+  {
+    $server_type = "SIMESE";
+  }
+  
+  return $server_type;
+}
+
+function is_server_iis()
+{
+  return get_server_type() == "IIS";
+}
+
+function is_server_apache()
+{
+  return get_server_type() == "APACHE";
+}
+
+function is_server_simese()
+{
+  return get_server_type() == "SIMESE";
 }
 
 /**************************************************************************************************

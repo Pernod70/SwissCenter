@@ -27,7 +27,7 @@
   $time      = split(' ',$xml_fc["dayf"]["lsup"]);
 
   // Display Weather Icon and statistics
-  page_header($xml_fc[$loc_id]["dnam"],'Weather data provided by <a href="'.weather_link().'"><font color="'.$GLOBALS["STYLE"]["TITLE_COLOUR"].'">weather.com'.chr(174).'<font></a>');
+  page_header($xml_fc[$loc_id]["dnam"]);
 
   $menu = new menu();
   $menu->add_item('Current Conditions','weather_cc.php?loc='.$loc_id);
@@ -58,9 +58,9 @@
     $day = date('D',time()+$i*86400);
 
     echo '<td><center>
-          <font color="'.$GLOBALS["STYLE"]["TITLE_COLOUR"].'" size="4">'.$day.'</font><p>
+          <font color="'.$_SESSION["opts"]["style"]["TITLE_COLOUR"].'" size="4">'.$day.'</font><p>
           <img width="64px" height="64px" src="weather/small/'.$xml_fc["dayf"][$i]["d"]["icon"].'.gif"><br>';
-          $fc->display(10);
+          $fc->display(100);
     echo '<img width="64px" height="64px" src="weather/small/'.$xml_fc["dayf"][$i]["n"]["icon"].'.gif"><br>
           </center><p></td>';
   }

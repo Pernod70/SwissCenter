@@ -36,7 +36,7 @@ class infotab
     $this->cols[$col][$param] = $val;
   }
 
-  function display( $trunc=40 )
+  function display( $trunc=400 )
   {
     $col_opts = array();
 

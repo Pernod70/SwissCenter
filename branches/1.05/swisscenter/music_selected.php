@@ -81,7 +81,7 @@
     $info->add_item('Play Time', hhmmss($playtime));
     $menu->add_item("Play now",pl_link('file',$data[0]["DIRNAME"].$data[0]["FILENAME"]));
 
-    $folder_img = ifile_in_dir($data[0]["DIRNAME"],$_SESSION["opts"]["art_files"]);
+    $folder_img = find_in_dir($data[0]["DIRNAME"],$_SESSION["opts"]["art_files"]);
 
     if (pl_enabled())
       $menu->add_item("Add to your playlist",'add_playlist.php?sql='.rawurlencode('select * from mp3s where file_id='.$data[0]["FILE_ID"]),true);
@@ -100,7 +100,7 @@
       page_error('A database error occurred');
 
     if ( count($data)==1)
-      $folder_img = ifile_in_dir($data[0]["DIRNAME"],$_SESSION["opts"]["art_files"]);
+      $folder_img = find_in_dir($data[0]["DIRNAME"],$_SESSION["opts"]["art_files"]);
 
     distinct_info('Track Name' ,'title' ,$newsql, $info);
     distinct_info('Album'      ,'album' ,$newsql, $info);
@@ -130,7 +130,7 @@
                 <center>'.img_gen($folder_img,150,200).'</center>
               </td></tr></table></td>
               <td valign="top">';
-              $menu->display(320,28);
+              $menu->display(320);
     echo '    </td></td></table>';
   }
   else

@@ -50,7 +50,7 @@ class menu
     $this->down = $url;
   }
 
-  function display( $size=400, $trunc=400 )
+  function display( $size=400 )
   {
     $i=0;
     $link="";
@@ -71,7 +71,7 @@ class menu
     {
       foreach ($this->menu_items as $item)
       {
-        $text = shorten($item["text"],$trunc);
+        $text = shorten($item["text"],$size - 50);
 
         $link = $item["url"];
         if (substr($link,0,5) != 'href=')

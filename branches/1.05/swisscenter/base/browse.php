@@ -93,11 +93,11 @@
                   <center>'.img_gen($image,150,200).'</center>
                 </td></tr></table></td>
                 <td valign="top">';
-                $menu->display(350,28);
+                $menu->display(350);
      echo '     </td></td></table>';
     }
     else
-      $menu->display(400, 32);
+      $menu->display(400);
    }
 
   // ----------------------------------------------------------------------------------

@@ -86,7 +86,7 @@
           .'Date:'.$data["ADDED"].'</td>'
           .'<td align="right"><font color="'.$_SESSION["opts"]["style"]["TITLE_COLOUR"].'">'
           .'Status:'.$message_status_string[$data["STATUS"]].'</td></tr>';
-    echo '<tr><td colspan="2">&nbsp;</td></tr>';
+    echo '<tr><td height="8" colspan="2"><img src="/images/dot.gif"></td></tr>';
     echo '<tr><td colspan="2" align="center"><font color="'.$_SESSION["opts"]["style"]["TITLE_COLOUR"].'">'
           .$data["TITLE"].'</font></td></tr>';
     echo '<tr><td colspan="2"><font color="'.$_SESSION["opts"]["style"]["PAGE_TEXT"].'">'

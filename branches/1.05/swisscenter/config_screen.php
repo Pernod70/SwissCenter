@@ -18,7 +18,7 @@
     page_header('Configure Screen');
   	$menu->add_item("PAL","config_screen.php?SCREEN=Pal",true);
   	$menu->add_item("NTSC","config_screen.php?SCREEN=NTSC",true);
-    $menu->display(320,28);
+    $menu->display(320);
     page_footer( 'config.php', $buttons );
   }
   
