@@ -11,6 +11,42 @@
   require_once("prefs.php");
   
   // ----------------------------------------------------------------------------------
+  // Does the following to the list of directories and files...
+  // - Removes duplicate directory entries
+  // - Sorts the files list and directories list alphabetically
+  // - Removes unwanted files/directories from the list depending on the OS
+  // ----------------------------------------------------------------------------------
+
+  function tidy_lists( &$dir_list, &$file_list)
+  {
+    // Remove duplicate directory entries (we want to merge directories from different media locations).
+    $dir_list = arrayUnique($dir_list,'filename');
+        
+    // What directories do we want to exclude?
+    if (is_windows())
+      $exclude = array('/RECYCLER/i','/System Volume Information/i','/^\./');
+    else 
+      $exclude = array('/^\./');
+      
+    // Check for excluded directories
+    foreach( $exclude as $preg)
+    {
+      for ($i=0; $i<count($dir_list); $i++)
+        if ( preg_match($preg,$dir_list[$i]['filename']) != 0)
+          unset($dir_list[$i]);
+
+      // Check for excluded files
+      for ($i=0; $i<count($file_list); $i++)
+        if ( preg_match($preg,$file_list[$i]['filename']) != 0)
+          unset($file_list[$i]);
+    }
+
+    // Sort the arrays into alphabetical order.
+    @array_sort($dir_list,'filename');
+    @array_sort($file_list,'filename');
+  }
+  
+  // ----------------------------------------------------------------------------------
   // Fills the two arrays with the directory and file names to be found in the given
   // directory. The array $filetypes specified which file extensions are to be allowed.
   // ----------------------------------------------------------------------------------
@@ -145,17 +181,12 @@
     $url           = $_SERVER["PHP_SELF"];
     $dir           = ( empty($_REQUEST["DIR"]) ? '' : un_magic_quote(rawurldecode($_REQUEST["DIR"])));
     $page          = ( !isset($_REQUEST["page"]) ? 0 : $_REQUEST["page"]);
-    $pre           = $default_dir;
-    $db_files_only = ($sql_filelist != '' ? true : false);
+    $pre           = ( is_array($default_dir) ? $default_dir : array($default_dir));
+    $db_files_only = ( $sql_filelist != '' ? true : false);
     $dir_list      = array();
     $file_list     = array();
     $buttons       = array();
-    $n_per_page    = MAX_PER_PAGE;
-    // Should we present a link to select all files?
-// TODO
-//    if ($all_link!='')
-//      $buttons[] = array('text'=>'Select All', 'url'=>$all_link.'&dir='.rawurlencode($dir) );
-    
+
     // Switching Thumbnail/Details view?
     if ( !empty($_REQUEST["thumbs"]) )
     {
@@ -164,35 +195,22 @@
     }
 
     // Get a list of files/dirs from the filesystem.      
-    if ( is_array($pre) )
-      foreach ($pre as $path)
-        dir_contents(str_suffix($path,'/').$dir, $filetypes, $dir_list, $file_list, $image, $db_files_only);
-    else
-      dir_contents(str_suffix($pre,'/').$dir, $filetypes, $dir_list, $file_list, $image, $db_files_only);
+    foreach ($pre as $path)
+      dir_contents(str_suffix($path,'/').$dir, $filetypes, $dir_list, $file_list, $image, $db_files_only);
           
-      // If the function was called with a SQL statement for the filelist, then query the
-    // dataase for the files within the current directory.
+    // If the function was called with a SQL statement for the filelist, then query the
+    // dataase for the files within the current directory (instead of relying on the filesystem);
     if ($db_files_only)
     {
-      if ( is_array($pre) )
-        foreach ($pre as $path)
-          file_list_from_db( $sql_filelist."='".db_escape_str(str_suffix($path,'/').$dir)."'", $file_list);
-      else
-          file_list_from_db( $sql_filelist."='".db_escape_str(str_suffix($pre,'/').$dir)."'", $file_list);
+      foreach ($pre as $path)
+        file_list_from_db( $sql_filelist."='".db_escape_str(str_suffix($path,'/').$dir)."'", $file_list);
     }
-
-    // Sort the arrays into alphabetical order, and discard the directories "." and ".." (we will use a
-    // remote control key for navigating back up a directory.
-    $dir_list = arrayUnique($dir_list,'filename');
-    @array_sort($dir_list,'filename');
-    @array_sort($file_list,'filename');
-
+    
     // Now that we have a list of files to work with, we can output the page (maximum MAX_PER_PAGE items per page).
-
-    page_header( $heading, substr($dir,0,-1));
-
-    $start = $page * ($n_per_page);
-    $end   = min( count($dir_list)+count($file_list) , $start+$n_per_page);
+    page_header( $heading, substr($dir,0,-1) );
+    tidy_lists ( $dir_list, $file_list );
+    $start     = $page * (MAX_PER_PAGE);
+    $end       = min(count($dir_list)+count($file_list) , $start+MAX_PER_PAGE);
 
     if ( $_SESSION["opts"]["display_thumbs"] == false )
     {
@@ -205,17 +223,16 @@
       $buttons[] = array('text'=>'List View', 'url'=>$url.'?thumbs=no&DIR='.rawurlencode($dir) );
     }
     
-    // Show an A-Z for quick jumping through a large list.
-//    for ($i=0; $i<26; $i++)
-//      echo chr(65+$i).'&nbsp; ';
-    
+    // Should we present a link to select all files?
+// TODO
+//    if ($all_link!='')
+//      $buttons[] = array('text'=>'Select All', 'url'=>$all_link.'&dir='.rawurlencode($dir) );
     
     // Output ABC buttons if appropriate
     if ( empty($dir) )
       page_footer( $back_url, $buttons );
     else
       page_footer( $url.'?DIR='.rawurlencode(parent_dir($dir)), $buttons );
-
   }
 
   
