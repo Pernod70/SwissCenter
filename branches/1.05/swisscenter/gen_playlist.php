@@ -8,17 +8,25 @@
   require_once("base/utils.php");
   require_once("base/file.php");
 
-  $server     = 'http://'.$_SERVER['SERVER_ADDR'].":".$_SERVER['SERVER_PORT'].'/';
   $data       = array();
   $type       = un_magic_quote($_REQUEST["type"]);
   $spec       = un_magic_quote($_REQUEST["spec"]);
   $item_count = 0;
 
   //
+  // Returns the URL for the given file (streamed)
+  //
+  
+  function stream_file_url( $fsp )
+  {
+    return 'http://'.$_SERVER['SERVER_ADDR'].":".$_SERVER['SERVER_PORT'].'/stream.php?file='.rawurlencode($fsp);
+  }
+ 
+  //
   // Retuns a single line of a playlist in the format that the showcenter expects
   //
 
-  function pl_entry( $server, $row )
+  function pl_entry( $row, $media = '' )
   {
     global $item_count;
 
@@ -28,16 +36,30 @@
 
     if ($item_count < 4000)
     {
-      if ( is_null($row["TITLE"]) )
-        $title = rtrim(file_noext(basename($row["DIRNAME"].$row["FILENAME"])));
-      else
-        $title = rtrim($row["ARTIST"]).' - '.rtrim($row["ALBUM"]).' - '.rtrim($row["TITLE"]);
-
-      if (is_showcenter())
-        echo  $title.'|0|0|'.$server.make_url_path(ucfirst($row["DIRNAME"]).$row["FILENAME"])."|\n";
-      else
-        echo  $server.make_url_path(ucfirst($row["DIRNAME"]).$row["FILENAME"]).newline();
-
+      $slide_delay = $_SESSION["PHOTO_TIME"];
+      switch ( $media ) 
+      {
+        case "":
+          if ( is_null($row["TITLE"]) )
+            $title = rtrim(file_noext(basename($row["DIRNAME"].$row["FILENAME"])));
+          else
+            $title = rtrim($row["ARTIST"]).' - '.rtrim($row["ALBUM"]).' - '.rtrim($row["TITLE"]);
+          
+          if (is_showcenter())
+            echo  $title.'|0|0|'.stream_file_url($row["DIRNAME"].$row["FILENAME"])."|\n";
+          else
+            echo  stream_file_url($row["DIRNAME"].$row["FILENAME"]).newline();
+          break;
+          
+        case "photo":
+          $title = rtrim($row["ALBUM"]).' - '.rtrim($row["TITLE"]);
+          
+          if (is_showcenter())
+            echo  $title.'|'. $slide_delay .'|0|'. stream_file_url($row["DIRNAME"].$row["FILENAME"]) . "|\n";
+          else
+            echo  stream_file_url($row["DIRNAME"].$row["FILENAME"]).newline();
+          break;
+      } 
       $item_count++;
     }
   }
@@ -46,7 +68,8 @@
 //*************************************************************************************************
 // Main logic
 //*************************************************************************************************
-
+  $media       = un_magic_quote($_REQUEST["media"]);
+ 
   if ($type == "playlist")
   {
     $array = $_SESSION["playlist"];
@@ -55,7 +78,7 @@
       shuffle($array);
 
     foreach ( $array as $row)
-      pl_entry($server, $row);
+      pl_entry($row, $media);
   }
   elseif ($type == "sql")
   {
@@ -65,13 +88,13 @@
         shuffle($data);
 
       foreach ($data as $row)
-        pl_entry($server, $row);
+        pl_entry($row, $media);
     }
   }
   elseif ($type == "file")
   {
     $row = array("FILENAME"=>$spec);
-    pl_entry($server, $row);
+    pl_entry($row, $media);
   }
 
   // Ifthis is a non-showcenter browser then we need to output some headers
