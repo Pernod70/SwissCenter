@@ -64,7 +64,10 @@ function load_style($base_dir, $user_id)
   define( 'MEDIA_EXT_PHOTOS', 'jpeg,jpg,gif' );
   
   // Where is the SwissCenter installed?
-  $sc_location = str_replace('\\','/',os_path($_SERVER["DOCUMENT_ROOT"],true));
+  if (!empty($_SERVER['DOCUMENT_ROOT']))
+    $sc_location = str_replace('\\','/',os_path($_SERVER["DOCUMENT_ROOT"],true));
+  else 
+    $sc_location = dirname($_SERVER['PHP_SELF']).'/';
 
   // Load the settings from the database if (a) the don't exist or (b) we need to reload them or (c) we've switched installations
   if (! isset($_SESSION["opts"]) || $_SESSION["opts"]["reload"] || $sc_location != $opts["sc_location"])
@@ -102,7 +105,7 @@ function load_style($base_dir, $user_id)
     if ( !empty($opts["sc_location"]) && !defined('LOGFILE'))
     {
       define('LOGFILE',os_path($opts["sc_location"].'log/support.log'));
-      update_ini('config/swisscenter.ini','LOGFILE',LOGFILE);
+      update_ini(os_path($opts["sc_location"].'config/swisscenter.ini'),'LOGFILE',LOGFILE);
     }
     
     // Directory locations

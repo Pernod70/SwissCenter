@@ -104,10 +104,18 @@ class CImage
   // Outputs some text onto the image (using truetype fonts).
   // -------------------------------------------------------------------------------------------------
   
-  function text ($text, $x = 0, $y = 0, $colour, $size = 14, $font = 'Arial', $angle = 0 )
+  function text ($text, $x = 0, $y = 0, $colour, $size = 14, $font = '', $angle = 0 )
   {
+    if (empty($font))
+    {
+      if (is_windows())
+        $font = 'Arial';
+      else
+        $font = 'luxisr';
+    }
+    
     if ($this->image !== false)
-      imagettftext ($this->image,$size,$angle,$x,$y,$colour,$font,$text);  
+      @imagettftext ($this->image,$size,$angle,$x,$y,$colour,$font,$text);  
   }
   
   // -------------------------------------------------------------------------------------------------
