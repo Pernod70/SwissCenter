@@ -165,7 +165,7 @@ function file_noext( $filename )
 {
   $parts = explode( '.' , $filename);
   unset($parts[count($parts)-1]);
-  return implode($parts);
+  return implode('.',$parts);
 }
 
 //-------------------------------------------------------------------------------------------------
