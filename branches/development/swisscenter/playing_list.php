@@ -18,7 +18,7 @@
   foreach ($data as $row)
   {
     // Showcenter has a maximum playlist size of 4000 entries
-    if ($item_count >= 4000)
+    if ($item_count++ >= 4000)
       break;
       
     echo "3600|8| |".$server."playing_image.php?music_id=".$row["FILE_ID"]."|\n";
