@@ -10,9 +10,9 @@ require_once("mysql.php");
 require_once("page.php");
 require_once("ext/getid3/getid3.php");
 
-function pl_link( $type, $spec= '' )
+function pl_link( $type, $spec= '', $media='' )
 {
-  return 'href="gen_playlist.php?type='.$type.'&spec='.rawurlencode($spec).'" vod="playlist" ';
+  return 'href="gen_playlist.php?type='.$type.'&media=' . $media .'&spec='.rawurlencode($spec).'" vod="playlist" ';
 }
 
 //
@@ -124,9 +124,9 @@ function load_pl ($file, $action)
         $info_music = db_toarray("select * from mp3s where dirname = '".db_escape_str(str_suffix(dirname($fsp),'/'))."' and filename='".db_escape_str(basename($fsp))."' ");
         $info_movie = db_toarray("select * from movies where dirname = '".db_escape_str(str_suffix(dirname($fsp),'/'))."' and filename='".db_escape_str(basename($fsp))."' ");
 // TO-DO: uncomment and subsequent line once photos have been added to the system (or at least the table!).
-//        $info_photo = db_toarray("select * from photos where dirname = '".db_escape_str(str_suffix(dirname($fsp),'/'))."' and filename='".db_escape_str(basename($fsp))."' ");      
-//        $all = $info_movie + $info_music + $info_photo;
-        $all = $info_movie + $info_music;
+        $info_photo = db_toarray("select * from photos where dirname = '".db_escape_str(str_suffix(dirname($fsp),'/'))."' and filename='".db_escape_str(basename($fsp))."' ");      
+        $all = $info_movie + $info_music + $info_photo;
+//        $all = $info_movie + $info_music;
         
         if ( count($all) == 1)
           $_SESSION["playlist"][] = array_pop($all);
