@@ -13,7 +13,7 @@
     return pl_link('file',$file);
   }
 
-  browse_fs('Browse Movies', $_SESSION["opts"]["dirs"]["video"], 'video.php', array('avi','mpg','mpeg'), 'movie_select_all.php?', 'select filename,dirname from movies where dirname' );
+  browse_fs('Browse Movies', $_SESSION["opts"]["dirs"]["video"], 'video.php', array('avi','mpg','mpeg'), '', 'select filename,dirname from movies where dirname' );
 
 /**************************************************************************************************
                                                End of file
