@@ -9,11 +9,13 @@
 //       in one minute using "at". (also, $days can be set to "M,T,W,Th,F,S,su" to repeat execution
 //       on every day of the week).
 
-function run_background ( $command, $days = '' )
+function run_background ( $command, $days = '', $soon ='' )
 {
   if ( substr(PHP_OS,0,3)=='WIN' )
   {
-    $soon = date('H:i',time()+70);
+    if (empty($soon))
+      $soon = date('H:i',time()+70);
+
     if (!empty($days)) 
       $soon.= ' /every:'.$days;
       
