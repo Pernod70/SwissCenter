@@ -8,6 +8,7 @@
   require_once("base/utils.php");
   require_once("base/file.php");
   require_once("ext/getid3/getid3.php");
+  require_once("video_obtain_info.php");
 
   set_time_limit(86400);
 
@@ -120,7 +121,9 @@
   db_sqlcommand("delete from movies where verified ='N'");
   send_to_log('Completed refreshing VIDEO database');
   media_indicator('OFF');
-      
+
+  // Obtain extra movie information
+  extra_get_all_movie_details();
 
 /**************************************************************************************************
                                                End of file
