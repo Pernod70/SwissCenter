@@ -1,3 +1,14 @@
+DROP TABLE IF EXISTS clients:
+
+CREATE TABLE clients (
+  ip_address   varchar(100) NOT NULL default '',
+  box_id       varchar(100),
+  user_id      int(10) unsigned
+  ,
+  PRIMARY KEY  (ip_address),
+  FOREIGN KEY (user_id) references users (user_id)
+) TYPE=MyISAM;
+
 DELETE FROM messages;
 ALTER TABLE messages CHANGE deleted status int;
 ALTER TABLE messages ALTER status SET DEFAULT 0;
