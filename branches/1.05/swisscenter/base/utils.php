@@ -269,7 +269,7 @@ function shorten( $text, $trunc, $font_size = 1, $lines = 1 )
 
 function is_showcenter()
 {
-  if (strpos($_ENV["HTTP_USER_AGENT"],'Syabas') !== false)
+  if (strpos($_SERVER["HTTP_USER_AGENT"],'Syabas') !== false)
     return true;
   else
     return false;
