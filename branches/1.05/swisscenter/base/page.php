@@ -203,8 +203,8 @@ function page_footer( $back, $buttons= array() )
   
   echo '<a href="'.$back.'" TVID="backspace"></a>
         <a href="music.php" TVID="music"></a>
-        <a href="video.php" TVID="movie"></a>';
-//        <a href="photo.php" TVID="photo"></a>';
+        <a href="video.php" TVID="movie"></a>
+        <a href="photo.php" TVID="photo"></a>';
 
   echo '</body>
         </html>';
