@@ -118,6 +118,19 @@ CREATE UNIQUE INDEX movies_fsp_u1 ON movies (dirname(800),filename(200));
 CREATE UNIQUE INDEX photos_fsp_u1 ON photos (dirname(800),filename(200));
 
 
+-- -------------------------------------------------------------------------------------------------
+-- Messages for this release
+-- -------------------------------------------------------------------------------------------------
+
+INSERT INTO messages (title, added, message_text)
+  VALUES
+  (
+    'Media categories'
+    ,now()
+    ,'You can now catogorise all media in a media location. See the config pages to configure categories.<p><b>NOTE:</b> Does not work with filesystem browsing yet.'
+  );
+
+
 -- *************************************************************************************************
 --   SWISScenter Source                                                              Robert Taylor
 -- *************************************************************************************************
