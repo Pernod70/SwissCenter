@@ -7,7 +7,7 @@ require_once("file.php");
 
 //
 // Returns the outcome of a system command
-//
+// 
 
 function syscall($command)
 {
@@ -159,12 +159,12 @@ function media_indicator( $status )
     echo "Status wrong for new media indicator - should be ON, OFF or BLINK";
   else
   {
-  	$boxes = db_col_to_list("select ip_address from clients where box_id is not null");
-  	if (count($boxes)>0)
-  	{
+    $boxes = db_col_to_list("select ip_address from clients where box_id is not null");
+    if (count($boxes)>0)
+    {
       foreach($boxes as $ip)
         $dummy = @file_get_contents('http://'.$ip.':2020/LED_indicate.cgi?%7FStatusLED='.$status);
-  	}
+    }
   }
 }
 
