@@ -229,14 +229,21 @@
   // Main script logic
   //===========================================================================================
 
+  // Do the update
   media_indicator('BLINK');
-  
   process_media_dirs( db_toarray("select * from media_locations where media_type=1") ,'mp3s',   explode(',' ,MEDIA_EXT_MUSIC));
   process_media_dirs( db_toarray("select * from media_locations where media_type=3") ,'movies', explode(',' ,MEDIA_EXT_MOVIE));
   extra_get_all_movie_details();
   process_media_dirs( db_toarray("select * from media_locations where media_type=2") ,'photos', explode(',' ,MEDIA_EXT_PHOTOS));
-     
   media_indicator('OFF');
+     
+  // Eliminate duplicate entries in the database. (in case the unique index hasn't been enforced)
+  @db_sqlcommand('CREATE TEMPORARY TABLE mp3s_del   AS SELECT max(file_id) file_id FROM mp3s   GROUP BY dirname,filename HAVING count(*)>1');
+  @db_sqlcommand('CREATE TEMPORARY TABLE movies_del AS SELECT max(file_id) file_id FROM movies GROUP BY dirname,filename HAVING count(*)>1');
+  @db_sqlcommand('CREATE TEMPORARY TABLE photos_del AS SELECT max(file_id) file_id FROM photos GROUP BY dirname,filename HAVING count(*)>1');
+  @db_sqlcommand('DELETE FROM mp3s   USING mp3s, mp3s_del     WHERE mp3s.file_id = mp3s_del.file_id');
+  @db_sqlcommand('DELETE FROM movies USING movies, movies_del WHERE movies.file_id = movies_del.file_id');
+  @db_sqlcommand('DELETE FROM photos USING photos, photos_del WHERE photos.file_id = photos_del.file_id');
 
 /**************************************************************************************************
                                                End of file
