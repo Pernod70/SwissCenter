@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS clients:
+DROP TABLE IF EXISTS clients;
 
 CREATE TABLE clients (
   ip_address   varchar(100) NOT NULL default '',
