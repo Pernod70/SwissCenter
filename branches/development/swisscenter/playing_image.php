@@ -48,21 +48,20 @@
   # Build the "Now Playing" image
   # ------------------------------------------------------------------------------------------------
 
-  $image->load_from_file(style_img(strtoupper(get_screen_type().'_PLAYING',true) ));
-
+  $image->load_from_file(style_img(strtoupper(get_screen_type()).'_PLAYING',true) );
+  
   // Album Art
   $art_fsp   = file_albumart($info[0]["DIRNAME"].$info[0]["FILENAME"]);
 
   if ($art_fsp == '')
     $artfile->load_from_file( style_img('IMG_ART_MISSING',true) );
-  elseif ( file_ext($art_fsp == 'sql' ))
+  elseif ( file_ext($art_fsp) == 'sql' )
     $artfile->load_from_database( substr($art_fsp,0,-4) );
   else
     $artfile->load_from_file( $art_fsp );
 
   $artfile->resize( ($art_right-$art_left),($art_bottom-$art_top), $art_bg_colour );
   $image->copy($artfile,$art_left,$art_top);
-
   
   //Track Information
   if (!empty($info[0]["TITLE"]))

@@ -440,7 +440,7 @@ function file_albumart( $fsp )
   if ( is_file($fsp) )
   {
     // need to do something with the albumart image if it is present!
-    $id3_image = db_value("select file_id from mp3s m,mp3_albumart ma where m.file_id = ma.file_id and concat(m.dirname,m.filename) = '$fsp'");
+    $id3_image = db_value("select m.file_id from mp3s m,mp3_albumart ma where m.file_id = ma.file_id and concat(m.dirname,m.filename) = '$fsp'");
     
     if ( !empty($id3_image) )
       $return = 'select image from mp3_albumart where file_id='.$id3_image.'.sql';

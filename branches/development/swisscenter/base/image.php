@@ -80,7 +80,7 @@ class CImage
       $this->image = false;
     }
 
-    $this->image = ImageCreateFromString( db_value(substr($filename,0,-4)) );
+    $this->image = ImageCreateFromString( db_value($sql) );
     $this->update_sizes();
   }
 
