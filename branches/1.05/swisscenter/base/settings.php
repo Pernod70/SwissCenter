@@ -108,8 +108,6 @@ function load_style($base_dir, $user_id)
     
     // Assign the settings array to the session.
     $_SESSION["opts"]         = $opts;  
-    send_to_log("------------------------------------------------------------------------------");
-    send_to_log('Global settings loaded ',$opts);
   }
     
   // Check for internet connectivity
@@ -119,7 +117,6 @@ function load_style($base_dir, $user_id)
     $socket = @fsockopen('www.google.com', 80, $temp, $temp, 1); 
     $_SESSION["internet_check_timeout"] = time()+300; // 5 mins
     $_SESSION["internet"] = ($socket ? true : false);
-    send_to_log('Internet Connectivity : '.($socket ? 'Connected' : 'Disconnected'));
   }
   
   // Check for new update
