@@ -10,8 +10,8 @@
   set_time_limit(60*5);
 
   $style    = rawurldecode($_REQUEST["name"]);
-  $dir      = $_SESSION["opts"]["sc_location"].'styles/'.$style.'/';
-  $filename = $_SESSION["opts"]["sc_location"].'_tmp_style.zip';
+  $dir      = SC_LOCATION.'styles/'.$style.'/';
+  $filename = SC_LOCATION.'_tmp_style.zip';
   
   // First attempt to get the style
   if ( ($zip = file_get_contents('http://update.swisscenter.co.uk/styles/'.$style.'.zip')) !== false)

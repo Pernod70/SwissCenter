@@ -8,7 +8,7 @@
   require_once("base/infotab.php");
     
   $dir   = un_magic_quote(rawurldecode($_REQUEST["dir"]));
-  $spec  = "select * from photos where dirname like 'MEDIA_LOCATION/$dir%'";
+  $spec  = "select * from photos where dirname like '<<Photo>>/$dir%'";
   $data  = pl_tracklist('dir', $spec);
   $count = count($data);
   $info  = new infotab();

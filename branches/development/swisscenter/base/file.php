@@ -308,7 +308,7 @@ function update_ini( $file, $var, $value )
 
 function file_icon( $fsp )
 {
-  $sc_location = $_SESSION["opts"]["sc_location"];
+  $sc_location = SC_LOCATION;
   $name = 'filetype_'.file_ext($fsp).'.gif';
   
   if (in_array(file_ext(strtolower($fsp)),array('jpg','gif','png','jpeg')))
@@ -316,10 +316,10 @@ function file_icon( $fsp )
     // The file is actually an image, so generate it as a thumbnail
     return $fsp;
   }
-  elseif (file_exists( $sc_location.$_SESSION["opts"]["style"]["location"].$name))
+  elseif (file_exists( $sc_location.style_value("location").$name))
   {
     // There is an icon within the selected style for this filetype
-    return $sc_location.$_SESSION["opts"]["style"]["location"].$name;
+    return $sc_location.style_value("location").$name;
   }
   elseif (file_exists( $sc_location.'images/'.$name))
   {
@@ -329,8 +329,8 @@ function file_icon( $fsp )
   else
   {
     // Display an "unknown" filetype in the selected style, or failing that, the generic one.
-    if (file_exists( $sc_location.$_SESSION["opts"]["style"]["location"].'filetype_unknown.gif'))
-      return $sc_location.$_SESSION["opts"]["style"]["location"].'filetype_unknown.gif';
+    if (file_exists( $sc_location.style_value("location").'filetype_unknown.gif'))
+      return $sc_location.style_value("location").'filetype_unknown.gif';
     else
       return $sc_location.'images/filetype_unknown.gif';
   }
@@ -343,10 +343,10 @@ function file_icon( $fsp )
 
 function dir_icon()
 {
-  if (file_exists( $_SESSION["opts"]["sc_location"].$_SESSION["opts"]["style"]["location"]."filetype_directory.gif"))
-    return $_SESSION["opts"]["sc_location"].$_SESSION["opts"]["style"]["location"]."filetype_directory.gif";
+  if (file_exists( SC_LOCATION.style_value("location")."filetype_directory.gif"))
+    return SC_LOCATION.style_value("location")."filetype_directory.gif";
   else
-    return $_SESSION["opts"]["sc_location"]."images/filetype_directory.gif";
+    return SC_LOCATION."images/filetype_directory.gif";
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -401,7 +401,7 @@ function force_rmdir($dir)
 
 function file_thumbnail( $fsp )
 {
-  $tn_image = '';
+  $tn_image  = '';
 
   if     (is_file($fsp))
   {
@@ -412,7 +412,7 @@ function file_thumbnail( $fsp )
   }
   elseif (is_dir($fsp))
   {
-    $tn_image = find_in_dir($fsp, $_SESSION["opts"]["art_files"]);
+    $tn_image = find_in_dir($fsp, db_col_to_list("select filename from art_files"));
     if (empty($tn_image))
       $tn_image = dir_icon();      
   }
@@ -429,7 +429,7 @@ function file_thumbnail( $fsp )
 
 function file_albumart( $fsp )
 {
-  $return = '';
+  $return    = '';
 
   if ( is_file($fsp) )
   {
@@ -438,11 +438,11 @@ function file_albumart( $fsp )
         break;
         
     if ($return == '')
-      $return = find_in_dir(dirname($fsp),$_SESSION["opts"]["art_files"]);
+      $return = find_in_dir(dirname($fsp), db_col_to_list("select filename from art_files"));
   }
   elseif ( is_dir($fsp) )
   {
-    $return = find_in_dir($fsp,$_SESSION["opts"]["art_files"]);
+    $return = find_in_dir($fsp, db_col_to_list("select filename from art_files"));
   } 
 
   return $return;

@@ -15,9 +15,9 @@
   $format     = strtolower(file_ext($filename));
   $x          = $_REQUEST["x"];
   $y          = $_REQUEST["y"];
-  $cache_file = str_suffix($_SESSION["opts"]["cache_dir"],'/').'SwissC'.md5($filename.'_x'.$x.'y'.$y).'.png';
+  $cache_file = str_suffix(get_sys_pref("cache_dir"),'/').'SwissC'.md5($filename.'_x'.$x.'y'.$y).'.png';
 
-  if ( !empty($_SESSION["opts"]["cache_dir"]) && file_exists($cache_file) )
+  if ( !empty(get_sys_pref("cache_dir")) && file_exists($cache_file) )
   {
     // There is a cached version of the image available... so use it!
     header("Content-Type: image/png");
@@ -101,23 +101,23 @@
       }
   
       // If a cache directory has been defined, then store the cached file into it.
-      if (!empty($_SESSION["opts"]["cache_dir"]))
+      if (!empty(get_sys_pref("cache_dir")))
         ImagePng($im2, $cache_file);  
     }
     else 
     {
       header("Content-Type: image/gif");
-      $fp = fopen($_SESSION["opts"]["sc_location"].'/images/dot.gif', 'rb')  ;
+      $fp = fopen(SC_LOCATION.'/images/dot.gif', 'rb')  ;
       fpassthru($fp);
       fclose($fp);
     }
   }
 
   // Check to see if the CACHE_MAXSIZE_MB has been reached, and if so, delete the older files.
-  if (file_exists($_SESSION["opts"]["cache_dir"]) && !empty($_SESSION["opts"]["cache_maxsize_mb"]) )
+  if (file_exists(get_sys_pref("cache_dir")) && !empty(get_sys_pref("cache_maxsize_mb")) )
   {
-    $dir      = $_SESSION["opts"]["cache_dir"];
-    $max_size = $_SESSION["opts"]["cache_maxsize_mb"] * 1048576;
+    $dir      = get_sys_pref("cache_dir");
+    $max_size = get_sys_pref("cache_maxsize_mb") * 1048576;
     $dir_size = 0;
     
     // Calculate sum of images filesizes, and maintain an array of images.

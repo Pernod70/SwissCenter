@@ -169,8 +169,8 @@
   function dirs_display($delete = '', $new = '', $edit = 0)
   {
     // Ensure that on Linux/Unix systems there is a "media" directory present for symbolic links to go in.
-    if (!is_windows() && !file_exists($_SESSION["opts"]["sc_location"].'media'))
-      mkdir($_SESSION["opts"]["sc_location"].'media');
+    if (!is_windows() && !file_exists(SC_LOCATION.'media'))
+      mkdir(SC_LOCATION.'media');
     
     $data = db_toarray("select location_id, name 'Directory' ,media_name 'Type', cat_name 'Category' from media_locations ml, media_types mt, categories cat where mt.media_id = ml.media_type and ml.cat_id = cat.cat_id order by name");
      
@@ -247,7 +247,7 @@
       foreach ($selected as $id)
       {
         if (! is_windows() )
-          unlink($_SESSION["opts"]["sc_location"].'media/'.$id);
+          unlink(SC_LOCATION.'media/'.$id);
 
         db_sqlcommand("delete from media_locations where location_id=".$id);
       }
@@ -286,7 +286,7 @@
         $id = db_value("select location_id from media_locations where name='$dir' and media_type=".$_REQUEST["type"]);
         
         if (! is_windows() )
-          symlink($dir,$_SESSION["opts"]["sc_location"].'media/'.$id);
+          symlink($dir,SC_LOCATION.'media/'.$id);
         
         dirs_display('','Media Location Added');
       }
@@ -477,8 +477,8 @@
           <p>All or some of the information shown below may be requested to help troubleshoot your problem.";
     
     echo "<h2>Program Locations</h2>";
-    $opts = array( array('Program'=>'PHP','Location'=>$_SESSION["opts"]["php_location"]),
-                   array('Program'=>'Swisscenter','Location'=>$_SESSION["opts"]["sc_location"]),
+    $opts = array( array('Program'=>'PHP','Location'=>PHP_LOCATION),
+                   array('Program'=>'Swisscenter','Location'=>SC_LOCATION),
                  );
     array_to_table($opts);
   

@@ -15,7 +15,13 @@
     return $url;
   }
 
-  browse_fs('Internet Radio', $_SESSION["opts"]["dirs"]["radio"], 'music.php', array('url'),'','','LOGO_MUSIC' )
+  browse_fs( 'Internet Radio'
+           , db_col_to_list("select name from media_locations where media_type=4")
+           , 'music.php'
+           , array('url')
+           , ''
+           , ''
+           , 'LOGO_MUSIC' )
 
 
 /**************************************************************************************************

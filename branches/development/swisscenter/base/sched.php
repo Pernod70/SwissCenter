@@ -21,15 +21,15 @@ function run_background ( $command, $days = '', $soon ='' )
       
     // Windows, so use the "Start" command to run it in another process.
     // Change recommended by Marco : http://www.swisscenter.co.uk/component/option,com_simpleboard/Itemid,42/func,view/id,29/catid,10/
-    exec('at '.$soon.' CMD /C """"'.os_path($_SESSION["opts"]["php_location"]).'" "'.os_path($_SESSION["opts"]["sc_location"].$command).'""""');
+    exec('at '.$soon.' CMD /C """"'.os_path(PHP_LOCATION).'" "'.os_path(SC_LOCATION.$command).'""""');
 
   }
   else
   {
-    $log = (is_null($logfile) ? '/dev/null' : os_path($_SESSION["opts"]["sc_location"].$logfile));
+    $log = (is_null($logfile) ? '/dev/null' : os_path(SC_LOCATION.$logfile));
 
     // UNIX, so run with '&' to force it to the background.
-    exec( '"'.os_path($_SESSION["opts"]["php_location"]).'" "'.os_path($_SESSION["opts"]["sc_location"].$command).'" > "'.$log.'" &' );
+    exec( '"'.os_path(PHP_LOCATION).'" "'.os_path(SC_LOCATION.$command).'" > "'.$log.'" &' );
   }
 }
 

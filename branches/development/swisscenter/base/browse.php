@@ -51,7 +51,7 @@
   // directory. The array $filetypes specified which file extensions are to be allowed.
   // ----------------------------------------------------------------------------------
 
-  function dir_contents( $dir, $filetypes, &$dir_list, &$file_list, &$image, $db_files_only)
+  function dir_contents( $dir, $filetypes, &$dir_list, &$file_list, $db_files_only)
   {
     if (($dh = @opendir($dir)) !== false)
     {
@@ -65,8 +65,6 @@
         {
           $file_list[] = array("dirname" => $dir, "filename" => $name, "image"=> file_thumbnail($dir.$name));
         }
-        elseif ( in_array_ci(strtolower($name),$_SESSION["opts"]["art_files"]))
-          $image = $dir.$name;
       }
       closedir($dh);
     }
@@ -93,7 +91,7 @@
   // to the left hand side).
   // ----------------------------------------------------------------------------------
 
-  function display_names ($url, $dir, $dir_list, $file_list, $start, $end, $page, $image, $up, $down)
+  function display_names ($url, $dir, $dir_list, $file_list, $start, $end, $page, $up, $down)
   {
     $menu = new menu();
 
@@ -118,6 +116,8 @@
       }
     }
 
+    // Does this folder have an albumart file? If so, display it
+    $image = file_albumart($dir);
     if (! empty($image))
     {
       $x = 150;
@@ -140,7 +140,7 @@
   // Displays the dirs/files to the user in "thumbnail" format 
   // ----------------------------------------------------------------------------------
 
-  function display_thumbs ($url, $dir, $dir_list, $file_list, $start, $end, $page, $image, $up, $down)
+  function display_thumbs ($url, $dir, $dir_list, $file_list, $start, $end, $page, $up, $down)
   {
     $tlist = new thumb_list(550);
 
@@ -196,7 +196,7 @@
 
     // Get a list of files/dirs from the filesystem.      
     foreach ($pre as $path)
-      dir_contents(str_suffix($path,'/').$dir, $filetypes, $dir_list, $file_list, $image, $db_files_only);
+      dir_contents(str_suffix($path,'/').$dir, $filetypes, $dir_list, $file_list, $db_files_only);
           
     // If the function was called with a SQL statement for the filelist, then query the
     // dataase for the files within the current directory (instead of relying on the filesystem);
@@ -214,12 +214,12 @@
 
     if ( $_SESSION["opts"]["display_thumbs"] == false )
     {
-      display_names ($url, $dir, $dir_list, $file_list, $start, $end, $page, $image, ($page > 0), ($end < count($dir_list)+count($file_list)));
+      display_names ($url, $dir, $dir_list, $file_list, $start, $end, $page, ($page > 0), ($end < count($dir_list)+count($file_list)));
       $buttons[] = array('text'=>'Thumbnail View', 'url'=>$url.'?thumbs=yes&DIR='.rawurlencode($dir) );
     }
     else
     {
-      display_thumbs ($url, $dir, $dir_list, $file_list, $start, $end, $page, $image, ($page > 0), ($end < count($dir_list)+count($file_list)));
+      display_thumbs ($url, $dir, $dir_list, $file_list, $start, $end, $page, ($page > 0), ($end < count($dir_list)+count($file_list)));
       $buttons[] = array('text'=>'List View', 'url'=>$url.'?thumbs=no&DIR='.rawurlencode($dir) );
     }
     

@@ -104,7 +104,7 @@
     $info->add_item('Genre', $data[0]["GENRE_NAME"]);
     
     $menu->add_item("Play now",pl_link('file',$data[0]["DIRNAME"].$data[0]["FILENAME"]));
-    $folder_img = find_in_dir($data[0]["DIRNAME"],$_SESSION["opts"]["art_files"]);
+    $folder_img = file_albumart($data[0]["DIRNAME"].$data[0]["FILENAME"]);
 
     if (pl_enabled())
       $menu->add_item("Add to your playlist",'add_playlist.php?sql='.rawurlencode('select * from movies where file_id='.$data[0]["FILE_ID"]),true);
@@ -128,7 +128,7 @@
       page_error('A database error occurred');
 
     if ( count($data)==1)
-      $folder_img = find_in_dir($data[0]["DIRNAME"],$_SESSION["opts"]["art_files"]);
+      $folder_img = file_albumart($data[0]["DIRNAME"]);
 
 
     $info->add_item('Title', distinct_info('title',$sql_table, $newsql));

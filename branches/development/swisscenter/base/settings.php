@@ -36,43 +36,6 @@ function fatal_error($heading,$text)
   exit;
 }
   
-/**************************************************************************************************
- * @return Array
- * @param Directory $base_dir
- * @param Number $user_id
- * @desc If there is no style information stored in the session, then this procedure will load the
-         details. If however the details for the chosen style are invalid (the style.ini doesn't exist)
-         then the default style is used.
- *************************************************************************************************/
-
-function load_style($base_dir, $user_id)
-{
-  $style = db_value("select value from user_prefs where user_id=".$user_id." and name='STYLE'");
-  if (!empty($style) && file_exists($base_dir.'styles/'.$style.'/style.ini'))
-  {
-    $details = parse_ini_file($base_dir.'styles/'.$style.'/style.ini');
-    $details["location"] = '/styles/'.$style.'/';
-    $details["name"]     = $style;
-  }
-  else 
-  {
-    $details = parse_ini_file($base_dir.'images/style.ini');
-    $details["location"] = '/images/';
-    $details["name"]     = 'Default';
-  }
-  return $details;
-}
- 
-#-------------------------------------------------------------------------------------------------
-# Determine the install location of the SwissCenter software
-#-------------------------------------------------------------------------------------------------
-
-  // Where is the SwissCenter installed?
-  if (!empty($_SERVER['DOCUMENT_ROOT']))
-    $sc_location = str_replace('\\','/',os_path($_SERVER["DOCUMENT_ROOT"],true));
-  else 
-    $sc_location = dirname($_SERVER['PHP_SELF']).'/';
-  
 #-------------------------------------------------------------------------------------------------
 # Check that the correct versions of PHP is present on the system.
 #-------------------------------------------------------------------------------------------------
@@ -82,16 +45,39 @@ function load_style($base_dir, $user_id)
   if ( !version_compare(phpversion(),'4.3.9','>='))
     fatal_error('Your PHP version is too old.','You must have at least version 4.3.9 installed.');
 
+  // Determein PHP location
+  if ( is_windows() )
+    define ('PHP_LOCATION', str_replace('\\','/',$_SERVER["SCRIPT_FILENAME"]));
+  else
+    define ('PHP_LOCATION', trim(syscall('which php')));
+
+#-------------------------------------------------------------------------------------------------
+# Determine the location of the SwissCenter installation, and required files.
+#-------------------------------------------------------------------------------------------------
+
+  // Where is the SwissCenter installed?
+  if (!empty($_SERVER['DOCUMENT_ROOT']))
+    define ('SC_LOCATION',str_replace('\\','/',os_path($_SERVER["DOCUMENT_ROOT"],true)));
+  else 
+    define ('SC_LOCATION', dirname($_SERVER['PHP_SELF']).'/');
+  
+  // Ensure a logfile location is defined
+  if ( !defined('LOGFILE'))
+  {
+    define('LOGFILE',os_path(SC_LOCATION.'log/support.log'));
+    update_ini(os_path(SC_LOCATION.'config/swisscenter.ini'),'LOGFILE',LOGFILE);
+  }
+
 #-------------------------------------------------------------------------------------------------
 # Process the SwissCenter configuration file which contains the MySQL database connection details
 # and location of the support log file.
 #-------------------------------------------------------------------------------------------------
 
   // Defines the database parameters
-  if (file_exists($sc_location.'/config/swisscenter.ini'))
+  if (file_exists(SC_LOCATION.'/config/swisscenter.ini'))
   {
     // Read file
-    foreach( parse_ini_file($sc_location.'config/swisscenter.ini') as $k => $v)
+    foreach( parse_ini_file(SC_LOCATION.'config/swisscenter.ini') as $k => $v)
       if (!empty($v))
         define (strtoupper($k),$v);
   }
@@ -104,26 +90,26 @@ function load_style($base_dir, $user_id)
   }
   
 #-------------------------------------------------------------------------------------------------
+# Determine the current user (currently, only one user is supported).
+#-------------------------------------------------------------------------------------------------
+
+  define ('CURRENT_USER',1);
+
+#-------------------------------------------------------------------------------------------------
 # Load the settings from the database if 
 #  (a) the don't exist 
 #  (b) we need to reload them or
 #  (c) we've switched installations
 #-------------------------------------------------------------------------------------------------
 
-  if (! isset($_SESSION["opts"]) || $_SESSION["opts"]["reload"] || $sc_location != $opts["sc_location"])
+  if (! isset($_SESSION["opts"]) || $_SESSION["opts"]["reload"])
   {
     $opts = array();
     $user = array();
     $dirs = array();
     
-    // Determein PHP location
-    if ( is_windows() )
-      $opts["php_location"]   = str_replace('\\','/',$_SERVER["SCRIPT_FILENAME"]);
-    else
-      $opts["php_location"]   = trim(syscall('which php'));
     
     // Determine the current SwissCenter client & configuration
-    $opts["sc_location"]      = $sc_location;
     $opts["current_client"]   = str_replace('\\','/',$_SERVER["REMOTE_ADDR"]);
     $opts["server_address"]   = $_SERVER['SERVER_ADDR'].":".$_SERVER['SERVER_PORT'];
 
@@ -141,33 +127,6 @@ function load_style($base_dir, $user_id)
       $opts["screen"] = 'PAL';
     }
           
-    // Ensure a logfile location is defined
-    if ( !empty($opts["sc_location"]) && !defined('LOGFILE'))
-    {
-      define('LOGFILE',os_path($opts["sc_location"].'log/support.log'));
-      update_ini(os_path($opts["sc_location"].'config/swisscenter.ini'),'LOGFILE',LOGFILE);
-    }
-    
-    // Directory locations
-    $dirs["music"]     = db_col_to_list("select name from media_locations where media_type=1");
-    $dirs["photo"]     = db_col_to_list("select name from media_locations where media_type=2");
-    $dirs["video"]     = db_col_to_list("select name from media_locations where media_type=3");
-    $dirs["radio"]     = db_col_to_list("select name from media_locations where media_type=4");
-    $opts["dirs"]      = $dirs;
-    
-    // Load the user preferences
-    $opts["user_id"]   = db_value("select user_id from clients where ip_address='".$opts['current_client']."'");
-
-    if ( empty($opts["user_id"]) )
-      $opts["user_id"] = 1; 
-            
-    // Load settings from the USER_PREFS and SYSTEM_PREFS tables
-    foreach (db_toarray("select name,value from user_prefs where user_id=".$opts["user_id"]." union select name,value from system_prefs") as $row)
-      $opts[strtolower($row["NAME"])] = $row["VALUE"];
-
-    $opts["art_files"]        = db_col_to_list('select * from art_files');
-    $opts["style"]            = load_style( $opts["sc_location"] , $opts["user_id"] );    
-      
 /*    
     // Showcenter clients...
     $box_id = db_value("select box_id from clients where ip_address='".$opts["current_client"]."'");
@@ -182,6 +141,7 @@ function load_style($base_dir, $user_id)
     $_SESSION["opts"]         = $opts;  
   }
     
+
 #-------------------------------------------------------------------------------------------------
 # Check for internet connectivity
 #-------------------------------------------------------------------------------------------------

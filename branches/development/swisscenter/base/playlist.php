@@ -65,8 +65,9 @@ function pl_tracklist($type, $spec, $shuffle = false, $seed = 0)
           $array = array(array("FILENAME"=>$spec));
           break;
     case 'dir':
-          foreach ($_SESSION["opts"]["dirs"][substr_between_strings($spec,'from ',' where')] as $path) 
-            $array = array_merge($array,db_toarray(str_replace('MEDIA_LOCATION',$path,$spec))); 
+          $media_type = substr_between_strings($spec,'<<','>>');
+          foreach ( db_col_to_list("select name from media_types, media_locations where media_id = media_type and media_name='".$media_type."'") as $path) 
+            $array = array_merge($array,db_toarray(str_replace('<<'.$media_type.'>>',$path,$spec))); 
           break;
   }
 
@@ -83,7 +84,7 @@ function pl_tracklist($type, $spec, $shuffle = false, $seed = 0)
 
 function pl_enabled()
 {
-  return (is_readable(os_path($_SESSION["opts"]["playlists"])) && is_writeable(os_path($_SESSION["opts"]["playlists"])));
+  return (is_readable(os_path(get_sys_pref("playlists"))) && is_writeable(os_path(get_sys_pref("playlists"))));
 }
 
 //
@@ -181,7 +182,7 @@ function load_pl ($file, $action)
       $fsp = rtrim($l);
       if (!empty($fsp) && $fsp[0]!='#')
       {
-        $fsp = str_replace('\\','/',make_abs_file($fsp,$_SESSION["opts"]["playlists"]));       
+        $fsp = str_replace('\\','/',make_abs_file($fsp,get_sys_pref("playlists")));       
         $info_music = db_toarray("select * from mp3s where dirname = '".db_escape_str(str_suffix(dirname($fsp),'/'))."' and filename='".db_escape_str(basename($fsp))."' ");
         $info_movie = db_toarray("select * from movies where dirname = '".db_escape_str(str_suffix(dirname($fsp),'/'))."' and filename='".db_escape_str(basename($fsp))."' ");
 // TO-DO: uncomment and subsequent line once photos have been added to the system (or at least the table!).

@@ -201,10 +201,9 @@
     }
   }
 
-  function process_media_dirs( $dirname, $table, $types)
+  function process_media_dirs( $dirs, $table, $types)
   {
-    $dirs = $_SESSION["opts"]["dirs"][$dirname];
-    send_to_log('Refreshing '.strtoupper($dirname).' database');
+    send_to_log('Refreshing '.strtoupper($table).' database');
     db_sqlcommand("update $table set verified ='N'");
   
     if (is_string($dirs))
@@ -214,7 +213,7 @@
       scan_dirs( str_suffix($directory,'/'), $table, $types );
         
     db_sqlcommand("delete from $table where verified ='N'");
-    send_to_log('Completed refreshing '.strtoupper($dirname).' database');
+    send_to_log('Completed refreshing '.strtoupper($table).' database');
   }
   
   //===========================================================================================
@@ -223,10 +222,14 @@
 
   media_indicator('BLINK');
   
-  process_media_dirs('music','mp3s',   explode(',' ,MEDIA_EXT_MUSIC));
-  process_media_dirs('video','movies', explode(',' ,MEDIA_EXT_MOVIE));
+  $music_dirs = db_col_to_list("select name from media_locations where media_type=1");
+  $photo_dirs = db_col_to_list("select name from media_locations where media_type=2");
+  $video_dirs = db_col_to_list("select name from media_locations where media_type=3");
+  
+  process_media_dirs($music_dirs,'mp3s',   explode(',' ,MEDIA_EXT_MUSIC));
+  process_media_dirs($video_dirs,'movies', explode(',' ,MEDIA_EXT_MOVIE));
   extra_get_all_movie_details();
-  process_media_dirs('photo','photos', explode(',' ,MEDIA_EXT_PHOTOS));
+  process_media_dirs($photo_dirs,'photos', explode(',' ,MEDIA_EXT_PHOTOS));
      
   media_indicator('OFF');
 

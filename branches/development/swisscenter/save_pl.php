@@ -13,7 +13,7 @@
   $search    = $_REQUEST["search"];
   $case      = $_REQUEST["case"];
   $this_url  = 'save_pl.php';
-  $base_dir  = str_suffix($_SESSION["opts"]["playlists"],'/');
+  $base_dir  = str_suffix(get_sys_pref("playlists"),'/');
 
   echo '<table border=0 height="320px" width="100%"><tr><td width="200px" valign="top">';
   show_picker( $this_url.'?case='.$case.'&search=', $search, $case);

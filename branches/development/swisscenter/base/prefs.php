@@ -5,6 +5,16 @@
  
  require_once("mysql.php");
  
+ function get_user_pref( $pref )
+ {
+   return db_value("select value from user_prefs where user_id = ".CURRENT_USER." and name='".$pref."'");
+ }
+ 
+ function get_sys_pref( $pref )
+ {
+   return db_value("select value from system_prefs where name='".$pref."'");
+ }
+ 
  function set_user_pref( $name, $value, $user = '')
  {
    if ($user == '')

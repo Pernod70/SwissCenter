@@ -7,34 +7,12 @@ session_start();
 ob_start();
 
 require_once("settings.php");
+require_once("prefs.php");
+require_once("stylelib.php");
 require_once("menu.php");
 require_once("infotab.php");
 require_once("utils.php");
-require_once("base/iconbar.php");
-
-//-------------------------------------------------------------------------------------------------
-// Returns a given image paramter from the Style settings.
-//-------------------------------------------------------------------------------------------------
-
-function style_img ($name, $ext_url = false)
-{
-  $path   = substr($_SESSION["opts"]["sc_location"],0,-1);
-  $file   = $_SESSION["opts"]["style"]["location"].$_SESSION["opts"]["style"][strtoupper($name)];
-
-  if ( file_exists($path.$file) )
-    return ($ext_url ? $path : '').$file;
-  else 
-    return ($ext_url ? $path : '').'/images/dot.gif';
-}
-
-function style_value ( $name, $default )
-{
-  $val = $_SESSION["opts"]["style"][strtoupper($name)];
-  if ( !isset($val) || empty($val) )
-    return $default;
-  else
-    return $val;
-}
+require_once("iconbar.php");
 
 //-------------------------------------------------------------------------------------------------
 // Procedures to output up/down links

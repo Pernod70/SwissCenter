@@ -99,10 +99,10 @@
     }
     else 
     {
-      //
-      similar_text(str_replace('&nbsp;','',substr_between_strings($html,'-- main body','-- Recommend')),$film_title,$accuracy);
+      $title = str_replace('&nbsp;','',substr_between_strings($html,'-- main body','-- Recommend'));
+      similar_text($film_title, strip_title($film_title), $accuracy);
       if ($accuracy > 75)
-        send_to_log('Single Match found ('.$accuracy.'%)');      
+        send_to_log('Single Match found : '.$title);      
       else 
         send_to_log('Single Match found, but not > 75%');
     }

@@ -58,7 +58,7 @@
     $day = date('D',time()+$i*86400);
 
     echo '<td><center>
-          <font color="'.$_SESSION["opts"]["style"]["TITLE_COLOUR"].'" size="4">'.$day.'</font><p>
+          <font color="'.style_value("TITLE_COLOUR").'" size="4">'.$day.'</font><p>
           <img width="64px" height="64px" src="weather/small/'.$xml_fc["dayf"][$i]["d"]["icon"].'.gif"><br>';
           $fc->display(100);
     echo '<img width="64px" height="64px" src="weather/small/'.$xml_fc["dayf"][$i]["n"]["icon"].'.gif"><br>

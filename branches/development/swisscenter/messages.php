@@ -17,14 +17,14 @@
       page_header( "Messages", "", 'LOGO_CONFIG', '<meta http-equiv="refresh" content="2;URL=config.php">');
       
       // No messages to display
-      echo '<center><font color="'.$_SESSION["opts"]["style"]["PAGE_TEXT"].
+      echo '<center><font color="'.style_value("PAGE_TEXT").
             '">There are no messages to display</font></center></br>';
     }
     else
     {
       page_header( "Messages", "", 'LOGO_CONFIG' );
       // Display a list of all the outstanding messages
-      echo '<center><font color="'.$_SESSION["opts"]["style"]["PAGE_TEXT"].
+      echo '<center><font color="'.style_value("PAGE_TEXT").
             '">Please select a message to view</font></center></br>';
 
       // Find out what page we are on, default to page 0 (first page)      
@@ -82,14 +82,14 @@
     
     // Render the message
     echo '<table align="center" width="80%">';
-    echo '<tr><td><font color="'.$_SESSION["opts"]["style"]["TITLE_COLOUR"].'">'
+    echo '<tr><td><font color="'.style_value("TITLE_COLOUR").'">'
           .'Date:'.$data["ADDED"].'</td>'
-          .'<td align="right"><font color="'.$_SESSION["opts"]["style"]["TITLE_COLOUR"].'">'
+          .'<td align="right"><font color="'.style_value("TITLE_COLOUR").'">'
           .'Status:'.$message_status_string[$data["STATUS"]].'</td></tr>';
     echo '<tr><td height="8" colspan="2"><img src="/images/dot.gif"></td></tr>';
-    echo '<tr><td colspan="2" align="center"><font color="'.$_SESSION["opts"]["style"]["TITLE_COLOUR"].'">'
+    echo '<tr><td colspan="2" align="center"><font color="'.style_value("TITLE_COLOUR").'">'
           .$data["TITLE"].'</font></td></tr>';
-    echo '<tr><td colspan="2"><font color="'.$_SESSION["opts"]["style"]["PAGE_TEXT"].'">'
+    echo '<tr><td colspan="2"><font color="'.style_value("PAGE_TEXT").'">'
           .$data["MESSAGE_TEXT"].'</font></td></tr>';
     echo '</table><p>';
 

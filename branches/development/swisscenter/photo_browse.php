@@ -13,7 +13,13 @@
     return pl_link('file',$file,'photo');
   }
 
-  browse_fs('Browse Photographs', $_SESSION["opts"]["dirs"]["photo"], 'photo.php', array('gif','png','jpg','jpeg'), 'photo_select_all.php?', 'select filename,dirname from photos where dirname','LOGO_PHOTO' );
+  browse_fs( 'Browse Photographs'
+           , db_col_to_list("select name from media_locations where media_type=2")
+           , 'photo.php'
+           , array('gif','png','jpg','jpeg')
+           , 'photo_select_all.php?'
+           , 'select filename,dirname from photos where dirname'
+           , 'LOGO_PHOTO' );
 
 /**************************************************************************************************
                                                End of file
