@@ -14,9 +14,13 @@
   if (count($matches) == 0)
   {
     page_header("Matching Cities",'Cities that match your search');
-    echo 'I\'m sorry, <font color="'.style_col("MENU_OPTION_REF_COLOUR").'">The Weather Channel</font> does not provide 
-          forecast information for the city of <font color="'.style_col("MENU_OPTION_REF_COLOUR").'">'.$_REQUEST["name"].'</font> 
-          at this time.';
+    echo '&nbsp;<center><p>I\'m sorry, but <font color="'.style_col("MENU_OPTION_REF_COLOUR").'">The Weather Channel</font>
+          does not provide forecast information for the city of <font color="'.style_col("MENU_OPTION_REF_COLOUR").'">'.$_REQUEST["name"].'</font>
+          at this time.<p></center>';
+
+    $menu = new menu();
+    $menu->add_item("Back To Search Page",'weather_city_list.php',true);
+    $menu->display();    
     page_footer("weather_cc.php");
   }
   elseif (count($matches) == 1)
