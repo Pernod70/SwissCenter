@@ -4,6 +4,7 @@
  *************************************************************************************************/
 
 require_once("file.php");
+require_once("sched.php");
 
 //
 // Returns the outcome of a system command
@@ -21,32 +22,6 @@ function syscall($command)
   }
 }
   
-//
-// Runs a job in the background.
-//
-
-function run_background ( $command, $days = '' )
-{
-  if ( substr(PHP_OS,0,3)=='WIN' )
-  {
-    $soon = date('H:i',time()+70);
-    if (!empty($days)) 
-      $soon.= ' /every:'.$days;
-      
-    // Windows, so use the "Start" command to run it in another process.
-    // Change recommended by Marco : http://www.swisscenter.co.uk/component/option,com_simpleboard/Itemid,42/func,view/id,29/catid,10/
-    exec('at '.$soon.' CMD /C """"'.os_path($_SESSION["opts"]["php_location"]).'" "'.os_path($_SESSION["opts"]["sc_location"].$command).'""""');
-
-  }
-  else
-  {
-    $log = (is_null($logfile) ? '/dev/null' : os_path($_SESSION["opts"]["sc_location"].$logfile));
-
-    // UNIX, so run with '&' to force it to the background.
-    exec( '"'.os_path($_SESSION["opts"]["php_location"]).'" "'.os_path($_SESSION["opts"]["sc_location"].$command).'" > "'.$log.'" &' );
-  }
-}
-
 // Returns whether the search string is in the array (case-insensitive)
 
 function in_array_ci($search, $array)
@@ -212,7 +187,7 @@ function arrayUnique( $array, $key )
 }
 
 //
-// Truncates a string to the given number of characters, and adds an ellipse to 
+// Truncates a string to the given width (in pixels), and adds an ellipse to 
 // indicate it has been shortened
 //
 
@@ -330,11 +305,11 @@ function get_server_type()
 {
   $server_type = "UNKNOWN";
   
-  if(strpos($_SERVER["SERVER_SOFTWARE"], "Apache") === 0)
+  if(strpos($_SERVER["SERVER_SOFTWARE"], "Apache") !== false )
   {
     $server_type = "APACHE";
   }
-  else if(strpos($_SERVER["SERVER_SOFTWARE"], "IIS") === 0)
+  else if(strpos($_SERVER["SERVER_SOFTWARE"], "IIS") !== false)
   {
     $server_type = "IIS";
   }
