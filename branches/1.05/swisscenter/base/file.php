@@ -163,7 +163,9 @@ function file_ext( $filename )
 
 function file_noext( $filename )
 {
-  return array_shift(explode( '.' , $filename));
+  $parts = explode( '.' , $filename);
+  unset($parts[count($parts)-1]);
+  return implode($parts);
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -226,7 +228,7 @@ function find_in_dir($dir, $filename)
   }
   
   if (empty($actual))
-    return '';
+    return false;
   else
     return os_path(str_suffix($dir,'/')).$actual;
 }
@@ -385,7 +387,7 @@ function force_rmdir($dir)
 //
 // FILES
 //
-// - If the file is an image file, thenit will be used
+// - If the file is an image file, then it will be used
 // - If an image file with the same name (but different extension) exists, then it will be used.
 // - If an icon for the filetype exists in the current style, it will be used.
 // - If an icon for the filetype exists in the default style, it will be used.
@@ -418,6 +420,33 @@ function file_thumbnail( $fsp )
     echo "Parameter incorrect";  
 
   return $tn_image;
+}
+
+//-------------------------------------------------------------------------------------------------
+// Given a filename or folder, this function will return the filename of the album art associated
+// with it.
+//-------------------------------------------------------------------------------------------------
+
+function file_albumart( $fsp )
+{
+  $return = '';
+
+  if ( is_file($fsp) )
+  {
+    foreach ( array('gif','jpg','jpeg','png') as $type)
+      if ( $return = find_in_dir( dirname($fsp),file_noext($fsp).'.'.$type))
+        break;
+        
+    if ($return == '')
+      $return = find_in_dir(dirname($fsp),$_SESSION["opts"]["art_files"]);
+  }
+  elseif ( is_dir($fsp) )
+  {
+    echo 'x';
+    $return = find_in_dir($fsp,$_SESSION["opts"]["art_files"]);
+  } 
+
+  return $return;
 }
 
 /**************************************************************************************************
