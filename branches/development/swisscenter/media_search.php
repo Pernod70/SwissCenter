@@ -16,7 +16,7 @@
   // MUSIC
   // ----------------------------------------------------------------------------------
 
-  function process_mp3( $dir, $file)
+  function process_mp3( $dir, $id, $file)
   {
     send_to_log('New MP3 found : '.$file);
     $filepath = os_path($dir.$file);
@@ -33,6 +33,7 @@
         // ID3 data successfully obtained, so enter it into the database
         $data = array("dirname"      => $dir
                      ,"filename"     => $file
+                     ,"location_id"  => $id
                      ,"verified"     => 'Y'
                      ,"size"         => $id3["filesize"]
                      ,"length"       => floor($id3["playtime_seconds"])
@@ -69,7 +70,7 @@
   // PHOTOS
   // ----------------------------------------------------------------------------------
 
-  function process_photo( $dir, $file)
+  function process_photo( $dir, $id, $file)
   {
     send_to_log('New Photo found : '.$file);
     $filepath = os_path($dir.$file);
@@ -84,6 +85,7 @@
         // File Info successfully obtained, so enter it into the database
         $data = array("dirname"        => $dir
                      ,"filename"       => $file
+                     ,"location_id"  => $id
                      ,"size"           => $id3["filesize"]
                      ,"width"          => $id3["video"]["resolution_x"]
                      ,"height"         => $id3["video"]["resolution_y"]
@@ -114,7 +116,7 @@
   // MOVIES
   // ----------------------------------------------------------------------------------
 
-  function process_movie( $dir, $file)
+  function process_movie( $dir, $id, $file)
   {
     send_to_log('New movie found : '.$file);
     $types    = array('riff','mpeg');
@@ -132,6 +134,7 @@
         // Tag data successfully obtained, so enter it into the database
         $data = array("dirname"      => $dir
                      ,"filename"     => $file
+                     ,"location_id"  => $id
                      ,"title"        => file_noext($file)
                      ,"size"         => $id3["filesize"]
                      ,"length"       => floor($id3["playtime_seconds"])
@@ -167,7 +170,7 @@
   // Recursive scan through the directory, finding all the MP3 files.
   // ----------------------------------------------------------------------------------
 
-  function scan_dirs( $dir, $table, $file_exts )
+  function scan_dirs( $dir, $id, $table, $file_exts )
   {
     send_to_log('Scanning : '.$dir);
     if ($dh = opendir($dir))
@@ -178,7 +181,7 @@
         {
           // Regular directory, so recurse and get files.
           if (($file) !='.' && ($file) !='..')
-            scan_dirs( $dir.$file.'/', $table, $file_exts);
+            scan_dirs( $dir.$file.'/', $id, $table, $file_exts);
         }
         elseif ( in_array(strtolower(file_ext($file)),$file_exts) )
         {
@@ -188,9 +191,9 @@
           {
             switch ($table)
             {
-              case 'mp3s'   : process_mp3(   $dir, $file);  break;
-              case 'movies' : process_movie( $dir, $file);  break;
-              case 'photos' : process_photo( $dir, $file);  break;
+              case 'mp3s'   : process_mp3(   $dir, $id, $file);  break;
+              case 'movies' : process_movie( $dir, $id, $file);  break;
+              case 'photos' : process_photo( $dir, $id, $file);  break;
             }
           }
           else
@@ -201,16 +204,13 @@
     }
   }
 
-  function process_media_dirs( $dirs, $table, $types)
+  function process_media_dirs( $media_locations, $table, $types)
   {
     send_to_log('Refreshing '.strtoupper($table).' database');
     db_sqlcommand("update $table set verified ='N'");
   
-    if (is_string($dirs))
-      $dirs = array(dirs);
-      
-    foreach ($dirs as $directory)
-      scan_dirs( str_suffix($directory,'/'), $table, $types );
+    foreach ($media_locations as $location)
+      scan_dirs( str_suffix($location["NAME"],'/'), $location["LOCATION_ID"], $table, $types );
         
     db_sqlcommand("delete from $table where verified ='N'");
     send_to_log('Completed refreshing '.strtoupper($table).' database');
@@ -222,14 +222,10 @@
 
   media_indicator('BLINK');
   
-  $music_dirs = db_col_to_list("select name from media_locations where media_type=1");
-  $photo_dirs = db_col_to_list("select name from media_locations where media_type=2");
-  $video_dirs = db_col_to_list("select name from media_locations where media_type=3");
-  
-  process_media_dirs($music_dirs,'mp3s',   explode(',' ,MEDIA_EXT_MUSIC));
-  process_media_dirs($video_dirs,'movies', explode(',' ,MEDIA_EXT_MOVIE));
+  process_media_dirs( db_toarray("select * from media_locations where media_type=1") ,'mp3s',   explode(',' ,MEDIA_EXT_MUSIC));
+  process_media_dirs( db_toarray("select * from media_locations where media_type=3") ,'movies', explode(',' ,MEDIA_EXT_MOVIE));
   extra_get_all_movie_details();
-  process_media_dirs($photo_dirs,'photos', explode(',' ,MEDIA_EXT_PHOTOS));
+  process_media_dirs( db_toarray("select * from media_locations where media_type=2") ,'photos', explode(',' ,MEDIA_EXT_PHOTOS));
      
   media_indicator('OFF');
 
