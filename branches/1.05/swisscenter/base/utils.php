@@ -233,7 +233,7 @@ function array_sort( &$array, $key )
 }
 
 // ----------------------------------------------------------------------------------
-// Makes an array contain unique values for the given key within in the nested array.
+// Makes an array contain unique values for the given key within the nested array.
 // ----------------------------------------------------------------------------------
 
 function arrayUnique( $array, $key ) 
@@ -247,10 +247,11 @@ function arrayUnique( $array, $key )
       if (!in_array($array[$i][$key],$keys))
       {
         $rArray[] = $array[$i];
-        $keys[]   = $$array[$i][$key];
+        $keys[]   = $array[$i][$key];
       }
     }
   } 
+
   return $rArray;
 }
 
