@@ -10,8 +10,7 @@
 
   function output_link( $file )
   {
-//    return 'video_selected.php?load='.rawurlencode($file);
-    return pl_link('file',$file);
+    return pl_link('file',$file,'photo');
   }
 
   browse_fs('Browse Photographs', $_SESSION["opts"]["dirs"]["photo"], 'photo.php', array('gif','png','jpg','jpeg'), 'photo_select_all.php?', 'select filename,dirname from photos where dirname' );
