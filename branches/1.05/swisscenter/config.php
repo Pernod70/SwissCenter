@@ -19,14 +19,12 @@
     $menu->add_item("Update SwissCenter",'run_update.php');  
   }
 
-/* TODO
   // Are there any new messages to display to the user?
   $num = db_value("select count(*) from messages where deleted is null");
   if ($num >0)
   {
     $menu->add_item("View Messages (".$num.")",'messages.php',true);
   }
-*/
    
   $menu->display();
 

@@ -34,7 +34,7 @@ function style_col ($name)
 }
 
 //-------------------------------------------------------------------------------------------------
-// Procedures to ouput up/down links
+// Procedures to output up/down links
 //-------------------------------------------------------------------------------------------------
 
 function up_link( $url)
@@ -50,7 +50,7 @@ function down_link( $url)
 }
 
 //-------------------------------------------------------------------------------------------------
-// Procedures to ouput a multi-column display
+// Procedures to output a multi-column display
 //-------------------------------------------------------------------------------------------------
 
  function multi_col_start ( $col_size = "" )

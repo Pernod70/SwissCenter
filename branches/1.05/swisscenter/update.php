@@ -137,7 +137,7 @@
   // Any errors so far?
   if ($errors !=0)
   {
-    send_to_log("There were errrors during the update process : ".$errtxt);
+    send_to_log("There were errors during the update process : ".$errtxt);
     header("Location: /update_outcome.php?status=ERROR");
   }
   else

@@ -103,7 +103,7 @@ function db_sqlcommand( $sql)
 
 #-------------------------------------------------------------------------------------------------
 # Function to run a SQL command as the "root" user in MySQL (for building databases, etc)
-# Reutnrs TRUE is the query completed successfully, otherwise returns FALSE
+# Returns TRUE is the query completed successfully, otherwise returns FALSE
 #-------------------------------------------------------------------------------------------------
 
 function db_root_sqlcommand( $root_password, $sql )
@@ -128,7 +128,7 @@ function db_root_sqlcommand( $root_password, $sql )
 # row in the result set.
 #
 # NOTE: This function should be used when the SQL is expected to return only one value, such
-#       as a S"ELECT COUNT(*) FROM tablename;" statement
+#       as a "SELECT COUNT(*) FROM tablename;" statement
 #-------------------------------------------------------------------------------------------------
 
 function db_value( $sql)
