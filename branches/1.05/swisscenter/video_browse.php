@@ -10,7 +10,6 @@
 
   function output_link( $file )
   {
-//    return 'video_selected.php?load='.rawurlencode($file);
     return pl_link('file',$file);
   }
 
