@@ -35,7 +35,7 @@ class menu
 
   function add_item( $text, $url="", $right=false )
   {
-    if (! is_null($text))
+    if (! is_null($text) && !empty($text))
       $this->menu_items[] = array( "text"=>$text, "url"=>$url,
                                    "right"=> ($right == true ? '</td><td><img src="'.style_img("IMG_RIGHT").'">' : '') );
   }
