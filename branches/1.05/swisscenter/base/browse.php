@@ -28,7 +28,9 @@
           $dir_list[] = $name;          
         }
         elseif ( !$db_files_only && in_array(file_ext(strtolower($name)), $filetypes))
+        {
           $file_list[] = array("dirname" => $dir, "filename" => $name);
+        }
         elseif ( in_array_ci(strtolower($name),$_SESSION["opts"]["art_files"]))
           $image = $dir.$name;
       }
@@ -124,7 +126,7 @@
         // Output a link to cause the specified playlist to be loaded into the session
         $details = $file_list[$i-count($dir_list)];  
         eval('$link_url = output_link( "'.$details["dirname"].$details["filename"].'" );');
-        $tlist->add_item(file_icon($details["filename"]), file_noext($details["filename"]), $link_url);
+        $tlist->add_item(file_icon($details["dirname"].$details["filename"]), file_noext($details["filename"]), $link_url);
       }
     }
 
@@ -155,13 +157,12 @@
     $thumb_list    = array();
     $buttons       = array();
     $n_per_page    = MAX_PER_PAGE;
-
     // Should we present a link to select all files?
 // TODO
 //    if ($all_link!='')
 //      $buttons[] = array('text'=>'Select All', 'url'=>$all_link.'&dir='.rawurlencode($dir) );
     
-    // Swistching Thumbnail/Details view?
+    // Switching Thumbnail/Details view?
     if ( !empty($_REQUEST["thumbs"]) )
     {
       $_SESSION["opts"]["display_thumbs"] = ($_REQUEST["thumbs"] == "yes");
