@@ -360,22 +360,6 @@ function shorten( $text, $trunc, $font_size = 1, $lines = 1, $dots = true )
 }
 
 // ----------------------------------------------------------------------------------
-// Returns true if the page request came from a showcenter box (rather than a web browser 
-// on a PC).
-// ----------------------------------------------------------------------------------
-
-function is_showcenter()
-{
-  // return true; // DEBUG
-  
-  if (  !isset($_SERVER["HTTP_USER_AGENT"]) || empty($_SERVER["HTTP_USER_AGENT"]) 
-        || strpos($_SERVER["HTTP_USER_AGENT"],'Syabas') !== false )
-    return true;
-  else
-    return false;
-}
-
-// ----------------------------------------------------------------------------------
 // Adds the given paramter/value pair to the given URL
 // ----------------------------------------------------------------------------------
 
@@ -397,57 +381,6 @@ function url_add_param($url, $param, $value)
     return preg_replace('/([?&]'.$param.'=)[^&]*/','\1'.$value,$url); 
   }
 }
-
-// ----------------------------------------------------------------------------------
-// Returns true if SwissCenter is running on a MS Windows OS
-// ----------------------------------------------------------------------------------
-
-function is_windows()
-{
-  if ( substr(PHP_OS,0,3)=='WIN' )
-    return true;
-  else
-    return false;
-}
-
-// ----------------------------------------------------------------------------------
-// Returns the full URL (SCRIPT_NAME + QUERY_STRING) of the current page
-// ----------------------------------------------------------------------------------
-
-function current_url()
-{
-  if(is_server_apache() || is_server_iis())
-    return "http://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
-  else 
-    return $_SERVER["SCRIPT_NAME"].(empty($_SERVER["QUERY_STRING"]) ? "" : "?".$_SERVER["QUERY_STRING"]);
-}
-
-// ----------------------------------------------------------------------------------
-// Returns the webserver type
-// ----------------------------------------------------------------------------------
-
-function get_server_type()
-{
-  $server_type = "UNKNOWN";
-  
-  if(strpos($_SERVER["SERVER_SOFTWARE"], "Apache") !== false )
-    $server_type = "APACHE";
-  else if(strpos($_SERVER["SERVER_SOFTWARE"], "IIS") !== false)
-    $server_type = "IIS";
-  else
-    $server_type = "SIMESE";
-  
-  return $server_type;
-}
-
-function is_server_iis()
-{ return get_server_type() == "IIS"; }
-
-function is_server_apache()
-{ return get_server_type() == "APACHE"; }
-
-function is_server_simese()
-{ return get_server_type() == "SIMESE"; }
 
 /**************************************************************************************************
                                                End of file

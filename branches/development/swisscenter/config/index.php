@@ -520,7 +520,7 @@
       echo '</table>';
     }
     
-    if ( $_SESSION["internet"])
+    if ( internet_available() )
       echo '<h2>Internet</h2><p>Internet Connection detected - Internet specific features enabled';  
   }
   

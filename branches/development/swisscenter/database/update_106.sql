@@ -117,6 +117,20 @@ CREATE UNIQUE INDEX mp3s_fsp_u1   ON mp3s (dirname(800),filename(200));
 CREATE UNIQUE INDEX movies_fsp_u1 ON movies (dirname(800),filename(200));
 CREATE UNIQUE INDEX photos_fsp_u1 ON photos (dirname(800),filename(200));
 
+-- -------------------------------------------------------------------------------------------------
+-- Create a table to store AlbumArt which has been extracted from mp3s.
+-- 
+-- Note: I'm using a seperate table because there are numerous places within the existing code where
+--       all columns in the "mp3s" table are retrieved into an array. We don't want the overhead of
+--       fetching BLOBs unless they are actually needed.
+-- -------------------------------------------------------------------------------------------------
+
+CREATE TABLE mp3_albumart (
+  file_id      int unsigned   NOT NULL,
+  image        mediumblob     NOT NULL
+  ,
+  FOREIGN KEY (file_id) references mp3s (file_id)
+  ) TYPE=MyISAM;
 
 -- -------------------------------------------------------------------------------------------------
 -- Messages for this release

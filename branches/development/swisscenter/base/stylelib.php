@@ -10,6 +10,7 @@
 function load_style()
 {
   $style = db_value("select value from user_prefs where user_id=".CURRENT_USER." and name='STYLE'");
+  
   if (!empty($style) && file_exists(SC_LOCATION.'styles/'.$style.'/style.ini'))
   {
     $details = parse_ini_file(SC_LOCATION.'styles/'.$style.'/style.ini');
@@ -22,7 +23,9 @@ function load_style()
     $details["location"] = '/images/';
     $details["name"]     = 'Default';
   }
-  return $details;
+  
+  // Cache the style parameters in the session
+  $_SESSION["style"] = $details;
 }
  
 //-------------------------------------------------------------------------------------------------
@@ -31,6 +34,9 @@ function load_style()
 
 function style_img ($name, $ext_url = false)
 {
+  if ( !isset($_SESSION["style"]))
+    load_style();
+
   $path   = substr(SC_LOCATION,0,-1);
   $file   = $_SESSION["style"]["location"].$_SESSION["style"][strtoupper($name)];
 
@@ -40,8 +46,11 @@ function style_img ($name, $ext_url = false)
     return ($ext_url ? $path : '').'/images/dot.gif';
 }
 
-function style_value ( $name, $default )
+function style_value ( $name, $default = '')
 {
+  if ( !isset($_SESSION["style"]))
+    load_style();
+
   $val = $_SESSION["style"][strtoupper($name)];
   if ( !isset($val) || empty($val) )
     return $default;
@@ -49,12 +58,6 @@ function style_value ( $name, $default )
     return $val;
 }
 
-//-------------------------------------------------------------------------------------------------
-// If the current session does not have a cached copy of the current style, then load it.
-//-------------------------------------------------------------------------------------------------
-
- if (! isset($_SESSION["style"]))
-   $_SESSION["style"] = load_style();
    
 /**************************************************************************************************
                                                End of file

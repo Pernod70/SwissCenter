@@ -48,7 +48,7 @@
   # Build the "Now Playing" image
   # ------------------------------------------------------------------------------------------------
 
-  $image->load_from_file( style_img(strtoupper($_SESSION["opts"]["screen"]).'_PLAYING',true) );
+  $image->load_from_file( style_img(strtoupper(get_screen_type().'_PLAYING',true) );
 
   // Album Art
   $art_fsp   = file_albumart($info[0]["DIRNAME"].$info[0]["FILENAME"]);

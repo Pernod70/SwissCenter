@@ -17,7 +17,7 @@
   // anyone to sit and listen to!). However, the user shouldn't notice as shuffle is done 
   // before the truncate of the playlist (if the user has selected shuffle).
 
-  $server     = 'http://'.$_SESSION["opts"]["server_address"].'/';
+  $server     = server_address();
   $type       = un_magic_quote($_REQUEST["type"]);
   $spec       = un_magic_quote($_REQUEST["spec"]);
   $seed       = $_REQUEST["seed"];
@@ -25,7 +25,7 @@
   $item_count = 0;
   $data       = pl_tracklist($type, $spec, $shuffle, $seed);
   $x          = 625;
-  $y          = ($_SESSION["opts"]["screen"] == 'PAL' ? 500 : 418);
+  $y          = ( get_screen_type() == 'PAL' ? 500 : 418);
   $thumb_url  = $server.'thumb.php?x='.$x.'&y='.$y.'&src='; 
   
   $effect = 8; 

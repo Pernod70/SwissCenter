@@ -19,24 +19,24 @@ function pl_link( $type, $spec= '', $media = 'playlist')
 {
   $link   = '';
   $seed   = mt_rand();
-  $server = $_SESSION["opts"]["server_address"];
+  $server = server_address();
 
   switch ($media)
   {
     case 'audio' :
           // Ensure the display for audio will be in the correct place...
-          if ($_SESSION["opts"]["screen"] == 'PAL')
-            $dummy = @file_get_contents('http://'.$_SESSION["opts"]["current_client"].':2020/pod_audio_info.cgi?x=210&y=464');  
+          if (get_screen_type() == 'PAL')
+            $dummy = @file_get_contents('http://'.client_ip().':2020/pod_audio_info.cgi?x=210&y=464');  
           else
-            $dummy = @file_get_contents('http://'.$_SESSION["opts"]["current_client"].':2020/pod_audio_info.cgi?x=210&y=369');  
+            $dummy = @file_get_contents('http://'.client_ip().':2020/pod_audio_info.cgi?x=210&y=369');  
          
           // Build link
           $link .= 'href="gen_playlist.php?shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&spec='.rawurlencode($spec).'" ';
-          $link .= 'pod="3,1,http://'.$server.'/playing_list.php?shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&spec='.rawurlencode($spec).'" ';
+          $link .= 'pod="3,1,'.$server.'playing_list.php?shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&spec='.rawurlencode($spec).'" ';
           break;
     case 'photo':
           $link .= 'href="MUTE" ';
-          $link .= 'pod="1,1,http://'.$server.'/gen_photolist.php?shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&spec='.rawurlencode($spec).'" ';
+          $link .= 'pod="1,1,'.$server.'gen_photolist.php?shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&spec='.rawurlencode($spec).'" ';
           break;
     default :
           $link .= 'href="gen_playlist.php?shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&spec='.rawurlencode($spec).'" ';
@@ -91,7 +91,7 @@ function pl_enabled()
 // Stores the details of the current music selection in the SESSION playlist.
 //
 
-function build_pl($server, $sql)
+function build_pl($sql)
 {
   $back_url  = $_SESSION["history"][count($_SESSION["history"])-1]["url"];
   $data      = array();

@@ -4,11 +4,12 @@
  *************************************************************************************************/
 
   // Do not report any errors at all for the thumbnail generator.
-  error_reporting(0);
+//  error_reporting(0);
 
   include_once('base/settings.php');
   include_once('base/utils.php');
   require_once("base/file.php");
+  require_once("base/prefs.php");
 
   // Parameters to the script. Need to do more extensive checking on them!
   $filename   = un_magic_quote(rawurldecode($_REQUEST["src"]));
@@ -17,7 +18,7 @@
   $y          = $_REQUEST["y"];
   $cache_file = str_suffix(get_sys_pref("cache_dir"),'/').'SwissC'.md5($filename.'_x'.$x.'y'.$y).'.png';
 
-  if ( !empty(get_sys_pref("cache_dir")) && file_exists($cache_file) )
+  if ( get_sys_pref("cache_dir") != '' && file_exists($cache_file) )
   {
     // There is a cached version of the image available... so use it!
     header("Content-Type: image/png");
@@ -28,42 +29,10 @@
   }
   else
   {
-    // Get the Image size on disk, and check to see if it should be streamed directly,
-    // or resized first.
-    $imagedata  = getimagesize($filename);
-    if ($x == $imagedata[0] && $y == $imagedata[1])
-    {
-      //  Load the image 
-      switch (strtolower(file_ext($filename)))
-      {
-        case 'jpg':
-        case 'jpeg':
-          header("Content-type: image/jpeg");
-          break;
-        case 'png':
-          header("Content-type: image/png");
-          break;
-        case 'gif':
-          header("Content-type: image/gif");
-          break;
-      }
-  
-      $fp = fopen($filename, 'rb');
-      fpassthru($fp);
-      fclose($fp);
-    }  
-    elseif ( file_exists($filename) )
+    if ( strtolower(file_ext($filename)) == 'sql' || file_exists($filename) )
     {
   
-      // Work out the actual dimensions of the image to keep it within the specifed res,
-      // but still maintain the aspect ratio.
-  
-      if ($x && ($imagedata[0] < $imagedata[1]))
-        $x = floor(($y / $imagedata[1]) * $imagedata[0]);
-      else
-        $y = floor(($x / $imagedata[0]) * $imagedata[1]);
-  
-      //  Load the image (pity there's 3 version of the call depending on the file format!)
+      //  Load the image (pity there's 4 versions of the call depending on the file format!)
       switch (strtolower(file_ext($filename)))
       {
         case 'jpg':
@@ -76,32 +45,58 @@
         case 'gif':
           $image = ImageCreateFromGif($filename);
           break;
+        case 'sql':
+          header("Content-type: image");
+          echo substr(db_value(substr($filename,0,-4)),0);
+          exit;
+          $image = ImageCreateFromString( db_value(substr($filename,0,-4)) );
+          break;
       }
   
-      // Create an empty image, then resize the image on the filesystem into the new image.
-      $im2 = ImageCreateTrueColor($x,$y);
-      imagecopyResampled ($im2, $image, 0, 0, 0, 0, $x, $y, $imagedata[0], $imagedata[1]);
+      $imagedata[0] = imagesx($image);
+      $imagedata[1] = imagesy($image);
+      
+      if ($x != $imagedata[0] || $y != $imagedata[1])
+      {      
+        // Work out the actual dimensions of the image to keep it within the specifed res,
+        // but still maintain the aspect ratio.
+    
+        if ($x && ($imagedata[0] < $imagedata[1]))
+          $x = floor(($y / $imagedata[1]) * $imagedata[0]);
+        else
+          $y = floor(($x / $imagedata[0]) * $imagedata[1]);
   
-      // Output the image to the browser
-      switch ($format)
+          // Create an empty image, then resize the image on the filesystem into the new image.
+        $im2 = ImageCreateTrueColor($x,$y);
+        imagecopyResampled ($im2, $image, 0, 0, 0, 0, $x, $y, $imagedata[0], $imagedata[1]);
+    
+        // Output the image to the browser
+        switch ($format)
+        {
+          case 'jpg':
+          case 'jpeg':
+                header("Content-type: image/jpeg");
+                ImageJpeg($im2);
+                break;
+          case 'gif':
+                header("Content-type: image/gif");
+                ImageGif($im2);
+                break;
+          case 'png';
+                header("Content-type: image/png");
+                ImagePng($im2);
+                break;
+        }
+      }
+      else 
       {
-        case 'jpg':
-        case 'jpeg':
-              header("Content-type: image/jpeg");
-              ImageJpeg($im2);
-              break;
-        case 'gif':
-              header("Content-type: image/gif");
-              ImageGif($im2);
-              break;
-        case 'png';
-              header("Content-type: image/png");
-              ImagePng($im2);
-              break;
+        // Image does not need resizing, so just output it
+        header("Content-type: image/png");
+        ImagePng($image);
       }
   
       // If a cache directory has been defined, then store the cached file into it.
-      if (!empty(get_sys_pref("cache_dir")))
+      if ( get_sys_pref("cache_dir") != '' )
         ImagePng($im2, $cache_file);  
     }
     else 
@@ -114,7 +109,7 @@
   }
 
   // Check to see if the CACHE_MAXSIZE_MB has been reached, and if so, delete the older files.
-  if (file_exists(get_sys_pref("cache_dir")) && !empty(get_sys_pref("cache_maxsize_mb")) )
+  if (file_exists(get_sys_pref("cache_dir")) && get_sys_pref("cache_maxsize_mb") != '' )
   {
     $dir      = get_sys_pref("cache_dir");
     $max_size = get_sys_pref("cache_maxsize_mb") * 1048576;

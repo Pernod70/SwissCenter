@@ -16,7 +16,7 @@
   $menu->add_item("Listen to Music",'music.php',true);
   $menu->add_item("View Photographs",'photo.php',true);
   
-  if ($_SESSION["internet"])
+  if (internet_available())
     $menu->add_item("View Weather Forecasts",'weather_cc.php',true);
 
   if (pl_enabled())
@@ -24,7 +24,7 @@
 
   // Icons
   
-  if ($_SESSION["internet"] && $_SESSION["update"]["available"])
+  if (internet_available() && $_SESSION["update"]["available"])
     $icons->add_icon("ICON_UPDATE","Update",'run_update.php');  
 
   $num_new = count_messages_with_status(MESSAGE_STATUS_NEW);

@@ -23,7 +23,7 @@
   $menu->add_item("Search For New Media",'do_refresh.php');
   
   // Does the User have internet connectivity?
-  if ($_SESSION["internet"])
+  if (internet_available())
     $menu->add_item("Update SwissCenter",'run_update.php');  
 
   $menu->display();

@@ -7,7 +7,7 @@
   require_once("base/mysql.php");
   require_once("base/playlist.php");
 
-  $server     = 'http://'.$_SESSION["opts"]["server_address"].'/';
+  $server     = server_address();
   $shuffle    = ($_REQUEST["shuffle"] == "on" ? true : false);
   $type       = un_magic_quote($_REQUEST["type"]);
   $spec       = un_magic_quote($_REQUEST["spec"]);

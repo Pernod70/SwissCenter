@@ -17,7 +17,7 @@
   // anyone to sit and listen to!). However, the user shouldn't notice as shuffle is done 
   // before the truncate of the playlist (if the user has selected shuffle).
 
-  $server     = 'http://'.$_SESSION["opts"]["server_address"].'/';
+  $server     = server_address();
   $type       = un_magic_quote($_REQUEST["type"]);
   $spec       = un_magic_quote($_REQUEST["spec"]);
   $seed       = $_REQUEST["seed"];

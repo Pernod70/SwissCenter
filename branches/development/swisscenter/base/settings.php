@@ -6,11 +6,12 @@
 session_start();
 require_once("utils.php");
 require_once("mysql.php");
+require_once("server.php");
 
-  //
-  // Here are the settings that we want available on a global basis, but we don't want the user
-  // changing it (for example, it would mess up the screen display).
-  //
+#-------------------------------------------------------------------------------------------------
+# Here are the settings that we want available on a global basis, but we don't want the user
+# changing it (for example, it would mess up the screen display).
+#-------------------------------------------------------------------------------------------------
 
   define( 'MAX_PER_PAGE',   8 );
   define( 'SCREEN_WIDTH',   620 );
@@ -23,12 +24,9 @@ require_once("mysql.php");
   define( 'MEDIA_EXT_MUSIC',  'mp3' );
   define( 'MEDIA_EXT_PHOTOS', 'jpeg,jpg,gif' );
   
-/**************************************************************************************************
- * @return nOTHING
- * @param Text $heading
- * @param Text $text
- * @desc Displays a fatal error on the user's screen and exits processing immediately.
- *************************************************************************************************/
+#-------------------------------------------------------------------------------------------------
+# Displays a fatal error on the user's screen and exits processing immediately.
+#-------------------------------------------------------------------------------------------------
 
 function fatal_error($heading,$text)
 {
@@ -96,73 +94,14 @@ function fatal_error($heading,$text)
   define ('CURRENT_USER',1);
 
 #-------------------------------------------------------------------------------------------------
-# Load the settings from the database if 
-#  (a) the don't exist 
-#  (b) we need to reload them or
-#  (c) we've switched installations
-#-------------------------------------------------------------------------------------------------
-
-  if (! isset($_SESSION["opts"]) || $_SESSION["opts"]["reload"])
-  {
-    $opts = array();
-    $user = array();
-    $dirs = array();
-    
-    
-    // Determine the current SwissCenter client & configuration
-    $opts["current_client"]   = str_replace('\\','/',$_SERVER["REMOTE_ADDR"]);
-    $opts["server_address"]   = $_SERVER['SERVER_ADDR'].":".$_SERVER['SERVER_PORT'];
-
-    // Get the current screen type (PAL or NTSC)
-    if (is_showcenter())
-    {
-      $text = @file_get_contents('http://'.$opts["current_client"].':2020/readsyb_options_page.cgi');  
-      if (substr_between_strings($text, 'HasPAL','/HasPAL') == 1)
-        $opts["screen"] = 'PAL';
-      else
-        $opts["screen"] = 'NTSC';
-    }
-    else 
-    {
-      $opts["screen"] = 'PAL';
-    }
-          
-/*    
-    // Showcenter clients...
-    $box_id = db_value("select box_id from clients where ip_address='".$opts["current_client"]."'");
-    if (empty($box_id))
-    {
-      $row = array('IP_ADDRESS'=>$opts["current_client"], 'BOX_ID'=>$_ENV["something"], 'USER_ID'=>$opts["user_id"]);
-      db_sqlcommand("delete from clients where ip_address='".$opts["current_client"]."'");
-      db_insert_row('clients',$row);
-    }
-*/    
-    // Assign the settings array to the session.
-    $_SESSION["opts"]         = $opts;  
-  }
-    
-
-#-------------------------------------------------------------------------------------------------
-# Check for internet connectivity
-#-------------------------------------------------------------------------------------------------
-
-  if ( !isset($_SESSION["internet"]) || $_SESSION["internet_check_timeout"] < time())
-  {
-    $temp = '';
-    $socket = @fsockopen('www.google.com', 80, $temp, $temp, 1); 
-    $_SESSION["internet_check_timeout"] = time()+300; // 5 mins
-    $_SESSION["internet"] = ($socket ? true : false);
-  }
-  
-#-------------------------------------------------------------------------------------------------
 # Check for Update
 #-------------------------------------------------------------------------------------------------
 
-  if ($_SESSION["internet"] && (!isset($_SESSION["update"]["timeout"]) || $_SESSION["update"]["timeout"] < time() ))
+  if (internet_available() && (!isset($_SESSION["update"]["timeout"]) || $_SESSION["update"]["timeout"] < time() ))
   {
-    $_SESSION["update"]["timeout"] = time()+86400; // 24 hours
-    $last_update = file_get_contents('http://update.swisscenter.co.uk/release/last_update.txt');
-    $_SESSION["update"]["available"] = ($last_update != $opts['last_update']);
+    $new_update_version = file_get_contents('http://update.swisscenter.co.uk/release/last_update.txt');
+    $_SESSION["update"]["available"] = ($new_update_version > get_sys_pref('last_update') );
+    $_SESSION["update"]["timeout"]   = time()+86400; //Check again in 24 hours
   }
 
 /**************************************************************************************************

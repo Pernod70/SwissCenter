@@ -5,8 +5,7 @@
 
   require_once("base/playlist.php");
  
-  $server  = $_SERVER['SERVER_ADDR'].":".$_SERVER['SERVER_PORT'].'/';
-  build_pl($server, un_magic_quote($_REQUEST["sql"]));
+  build_pl(un_magic_quote($_REQUEST["sql"]));
 
 /**************************************************************************************************
                                                End of file

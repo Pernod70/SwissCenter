@@ -405,10 +405,16 @@ function file_thumbnail( $fsp )
 
   if     (is_file($fsp))
   {
-    $image_files = array( file_noext(basename($fsp)).'.jpg');
-    $tn_image = find_in_dir(dirname($fsp), $image_files);
-    if (empty($tn_image))
-      $tn_image = file_icon($fsp);
+    $id3_image = db_value("select m.file_id from mp3s m,mp3_albumart ma where m.file_id = ma.file_id and concat(m.dirname,m.filename) = '$fsp'");
+    if (!empty($id3_image))
+      $tn_image = $id3_image;
+    else 
+    {
+      $image_files = array( file_noext(basename($fsp)).'.jpg');
+      $tn_image = find_in_dir(dirname($fsp), $image_files);
+      if (empty($tn_image))
+        $tn_image = file_icon($fsp);
+    }
   }
   elseif (is_dir($fsp))
   {
@@ -433,6 +439,9 @@ function file_albumart( $fsp )
 
   if ( is_file($fsp) )
   {
+    // need to do something with the albumart image if it is present!
+    $id3_image = db_value("select file_id from mp3s m,mp3_albumart ma where m.file_id = ma.file_id and concat(m.dirname,m.filename) = '$fsp'");
+    
     foreach ( array('gif','jpg','jpeg','png') as $type)
       if ( $return = find_in_dir( dirname($fsp),file_noext($fsp).'.'.$type))
         break;

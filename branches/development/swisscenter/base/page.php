@@ -14,6 +14,30 @@ require_once("infotab.php");
 require_once("utils.php");
 require_once("iconbar.php");
 
+
+#-------------------------------------------------------------------------------------------------
+# Determine screen type (currently only PAL or NTSC - no support for HDTV).
+#-------------------------------------------------------------------------------------------------
+
+function get_screen_type()
+{  
+  if ( !isset($_SESSION["display_type"]) )
+  {
+    if (is_showcenter())
+    {
+      $text = @file_get_contents('http://'.client_ip().':2020/readsyb_options_page.cgi');  
+      if (substr_between_strings($text, 'HasPAL','/HasPAL') == 1)
+        $_SESSION["display_type"] = 'PAL';
+      else
+        $_SESSION["display_type"] = 'NTSC';
+    }
+    else 
+      $_SESSION["display_type"] = 'PAL';
+  }
+  
+  return $_SESSION["display_type"];
+}
+
 //-------------------------------------------------------------------------------------------------
 // Procedures to output up/down links
 //-------------------------------------------------------------------------------------------------
@@ -69,7 +93,7 @@ function page_header( $title, $tagline = "",  $logo = "", $meta = "", $focus="1"
   else 
     $logo = style_img($logo);
 
-  if     ($_SESSION["opts"]["screen"] == 'NTSC')
+  if (get_screen_type() == 'NTSC')
   {
     $logo                   = '';
     $headings               = '<td height="30px" align="center"><b>'.$title.'</b> : '.$tagline.'&nbsp;</td>';

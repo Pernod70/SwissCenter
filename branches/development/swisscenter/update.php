@@ -175,12 +175,11 @@
       fclose($out);   
       set_last_update($update_location);
       send_to_log("Update complete");
-
       header("Location: /update_outcome.php?status=UPDATED");
    }
    else 
    {
-      set_last_update();
+      set_last_update($update_location);
       send_to_log("No files to update");
       header("Location: /update_outcome.php?status=NONE");
    }

@@ -2,13 +2,14 @@
 /**************************************************************************************************
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
+
   function show_picker( $url="", $search, $case = '' )
   {
     if ($case == '' || $case == 'U')
       $keys = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_,.'-#";
     else
       $keys = "abcdefghijklmnopqrstuvwxyz0123456789_,.'-#";
-    
+
     $cols = 6;
 
     echo '<table><tr>
@@ -31,7 +32,7 @@
     }
 
     echo '</tr></table>';
-    
+
     // Save the history of the A-Z picker.
     $_SESSION["last_picker"][count($_SESSION["history"])] = current_url();
   }

@@ -19,7 +19,7 @@
 
     $menu = new menu();
 
-    if ($_SESSION["internet"])
+    if (internet_available())
       $menu->add_item("Listen to Internet Radio","music_radio.php",true);
 
     $menu->add_item("Browse Music by Artist Name","music_search.php?sort=artist",true);
