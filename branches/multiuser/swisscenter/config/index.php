@@ -163,13 +163,104 @@
   // Display current config
   //
   
-  function users_display()
+  function users_display($modify_msg = '', $add_msg = '', $edit_id = 0)
   {
+    $data = db_toarray("select user_id, u.Name 'Name', c.name 'Max Certificate Viewable' from users u, certificates c where u.maxcert=c.cert_id order by u.name asc");
+    
     echo "<h1>User Management</h1>";
-    echo "<p>I'm sorry but the ability to create multiple users of the SwissCenter, each with their own preferences 
-             and access rights is a feature that is currently still in development.
-          <p>This section of the configuration will become active as soon as the feature is released and your SwissCenter
-             has been updated.";
+    message($modify_msg);
+    form_start("index.php", 150, "users");
+    form_hidden("section", "USERS");
+    form_hidden("action", "MODIFY");
+    form_select_table("user_id", $data, array("class"=>"form_select_tab","width"=>"100%"), "user_id",
+                      array("NAME"=>"", "MAX CERTIFICATE VIEWABLE"=>"select cert_id,name from certificates order by rank asc"), $edit_id, "users");
+    form_submit("Remove Selected Users", 1 ,"center");
+    form_end();
+    
+    echo "<p><h1>Add New User</h1>";
+    message($add_msg);
+    form_start("index.php", 150);
+    form_hidden("section", "USERS");
+    form_hidden("action", "NEW");
+    form_input("name", "Name", 70, '', $_REQUEST["name"]);
+    form_list_dynamic("cert", "Maximum certificate", "select cert_id,name from certificates order by rank asc", $_REQUEST["cert"]);
+    form_submit("Add New User", 2);
+    form_end();
+  }
+  
+  function users_new()
+  {
+    $name = $_REQUEST["name"];
+    $cert = $_REQUEST["cert"];
+    
+    if(empty($name))
+    {
+      users_display("", "!Please enter a name below");
+    }
+    else
+    {
+      $user_count = db_value("select count(*) from users where name='".db_escape_str($name)."'");
+      
+      if($user_count > 0)
+      {
+        users_display("", "!That user already exists, please try another name");
+      }
+      else
+      {
+        $data = array("name"=>$name, "maxcert"=>$cert);
+
+        if(db_insert_row("users", $data) === false)
+          users_display(db_error());
+        else
+          users_display("", "New User Added");
+      }
+    }
+  }
+  
+  function users_modify()
+  {
+    $selected = form_select_table_vals("user_id");
+    $edit_id = form_select_table_edit("user_id", "users");
+    $update_data = form_select_table_update("user_id", "users");
+    
+    if(!empty($edit_id))
+    {
+      users_display("", "", $edit_id);
+    }
+    elseif(!empty($update_data))
+    {
+      $user_id = $update_data["USER_ID"];
+      $name = $update_data["NAME"];
+      $max_cert = $update_data["MAX_CERTIFICATE_VIEWABLE"];
+      
+      if(empty($name))
+      {
+        user_display("!Please enter a user name");
+      }
+      else
+      {
+        db_sqlcommand("update users set name='".db_escape_str($name)."',maxcert=$max_cert where user_id=$user_id");
+        users_display("The selected user has been modified");
+      }
+    }
+    elseif(!empty($selected))
+    {
+      $message = "The selected users have been deleted";
+      
+      foreach($selected as $selected_item)
+      {
+        if($selected_item != 1)
+        {
+          db_sqlcommand("delete from users where user_id=$selected_item");
+        }
+        else
+          $message = "!The default user cannot be deleted";
+      }
+      
+      users_display($message);
+    }
+    else
+      users_display();
   }
   
   //*************************************************************************************************
@@ -919,12 +1010,12 @@
      {
        menu_item('Categories','section=CATEGORY&action=DISPLAY');
        menu_item('Media Locations','section=DIRS&action=DISPLAY');
+       menu_item('User Management','section=USERS&action=DISPLAY');
        menu_item('Scheduled Tasks','section=SCHED&action=DISPLAY');
        menu_item('Connectivity','section=CONNECT&action=DISPLAY');
        menu_item('Album/Film Art','section=ART&action=DISPLAY');
        menu_item('Playlists Location','section=PLAYLISTS&action=DISPLAY');
        menu_item('Image Cache','section=CACHE&action=DISPLAY');
-//       menu_item('User Management','section=USERS&action=DISPLAY');
        menu_item('Support Info','section=SUPPORT&action=DISPLAY','menu_bgr2.png');
      }
    echo '</table>';
