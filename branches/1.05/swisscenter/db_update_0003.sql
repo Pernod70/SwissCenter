@@ -1,5 +1,6 @@
 alter table movies add (year varchar(4) );
 alter table movies add (details_available varchar(1) );
+alter table movies add (match_pc int(10) );
 
 CREATE TABLE actors (
   actor_id     int(10) unsigned  NOT NULL auto_increment,
