@@ -258,7 +258,7 @@ function array2file( $array, $filename)
 {
   $success = false;
   $str = implode(newline(), $array);
-  if ( $handle = fopen($filename, 'wt') )
+  if ( $handle = @fopen($filename, 'wt') )
   {
      if ( fwrite($handle, $str) !== FALSE)
        $success = true;

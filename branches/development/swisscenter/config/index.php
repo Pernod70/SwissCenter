@@ -125,6 +125,7 @@
     else
     {
       // Try to write the settings to the swisscenter.ini file
+      touch('swisscenter.ini');
       if (! $handle = @fopen('swisscenter.ini', 'w') )
         return false;
       else 
