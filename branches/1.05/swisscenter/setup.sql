@@ -113,13 +113,15 @@ INSERT INTO art_files (filename) VALUES ('folder.png');
 -- Table structure for table `clients`
 -- -------------------------------------------------------------------------------------------------
 
+DROP TABLE IF EXISTS clients;
+
 CREATE TABLE clients (
   ip_address   varchar(100) NOT NULL default '',
   box_id       varchar(100),
-  current_user int unsigned
+  user_id      int(10) unsigned
   ,
   PRIMARY KEY  (ip_address),
-  FOREIGN KEY (current_user) references users (user_id)
+  FOREIGN KEY (user_id) references users (user_id)
 ) TYPE=MyISAM;
 
 -- -------------------------------------------------------------------------------------------------
