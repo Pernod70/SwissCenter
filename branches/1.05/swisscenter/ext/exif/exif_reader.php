@@ -1,25 +1,17 @@
 <?php
-/*  Exif reader v 1.2
-    By Richard James Kendall 
-    Bugs to richard@richardjameskendall.com 
-    Free to use, please acknowledge me 
-    
-    To use, just include this file (with require, include) and call
-    
-    exif(filename);
-    
-    An array called $exif_data will be populated with the exif tags and folders from the image.
-*/ 
+/************************************************************************************************
+  Exif reader v 1.2
 
-// holds the formatted data read from the EXIF data area
+  Original work by ** Richard James Kendall **
+  (optimized and reworked for inclusion in the SwissCenter project)
+
+  Usgage: $exif_array = exif('filename');
+  
+  Returns an ARRAY of EXIF tags and their associated values
+
+************************************************************************************************/ 
+
 $exif_data = array();
-
-// holds the number format used in the EXIF data (1 == moto, 0 == intel)
-$align = 0;
-
-// holds the lengths and names of the data formats
-$format_length = array(0, 1, 1, 2, 4, 8, 1, 1, 2, 4, 8, 4, 8);
-$format_type = array("", "BYTE", "STRING", "USHORT", "ULONG", "URATIONAL", "SBYTE", "UNDEFINED", "SSHORT", "SLONG", "SRATIONAL", "SINGLE", "DOUBLE");
 
 // Tag names
 $exif_tags = array ( 0x000b => "ACDComment"                 , 0x00fe => "ImageType"
@@ -77,137 +69,64 @@ $exif_enum = array ("Orientation"          => array("", "Normal (0 deg)", "Mirro
                    ,"FlashFired"           => array("Did not fire","Fired")
                    ,"FlashStrobe"          => array("10"=>", Strobe return light not detected" , "11"=>", Strobe return light detected")
                    ,"FlashMode"            => array("01"=>", Compulsory mode" , "10"=>", Compulsory mode" , "11"=>", Auto mode")
+                   ,"RedEye"               => array("0"=> ", No Red eye reduction" , "1"=> ", Red Eye reduction")
                    );
 
-// gets one byte from the file at handle $fp and converts it to a number
-function fgetord($fp) {
+                   
+// Returns one byte from the file (as a numnber)
+function fgetord($fp)
+{
 	return ord(fgetc($fp));
 }
 
-// takes $data and pads it from the left so strlen($data) == $shouldbe
-function pad($data, $shouldbe, $put) {
-	if (strlen($data) == $shouldbe) {
-		return $data;
-	} else {
-		$padding = "";
-		for ($i = strlen($data);$i < $shouldbe;$i++) {
-			$padding .= $put;
-		}
-		return $padding . $data;
-	}
-}
-
 // converts a number from intel (little endian) to motorola (big endian format)
-function ii2mm($intel) {
+function ii2mm($intel) 
+{
 	$mm = "";
-	for ($i = 0;$i <= strlen($intel);$i+=2) {
+	for ($i = 0;$i <= strlen($intel);$i+=2) 
+	{
 		$mm .= substr($intel, (strlen($intel) - $i), 2);
 	}
 	return $mm;
 }
 
 // gets a number from the EXIF data and converts if to the correct representation
-function getnumber($data, $start, $length, $align) {
+function getnumber($data, $start, $length, $align) 
+{
 	$a = bin2hex(substr($data, $start, $length));
-	if (!$align) {
+	if (!$align) 
 		$a = ii2mm($a);
-	}
 	return hexdec($a);
 }
 
 // gets a rational number (num, denom) from the EXIF data and produces a decimal
-function getrational($data, $align, $type) {
+function getrational($data, $align, $type) 
+{
 	$a = bin2hex($data);
-	if (!$align) {
+	if (!$align)
 		$a = ii2mm($a);
-	}
-	if ($align == 1) {
+	
+	if ($align == 1)
+	{
 		$n = hexdec(substr($a, 0, 8));
 		$d = hexdec(substr($a, 8, 8));
-	} else {
+	} 
+	else 
+	{
 		$d = hexdec(substr($a, 0, 8));
 		$n = hexdec(substr($a, 8, 8));
 	}
-	if ($type == "S" && $n > 2147483647) {
+	
+	if ($type == "S" && $n > 2147483647)
 		$n = $n - 4294967296;
-	}
-	if ($n == 0) {
+	
+	if ($n == 0)
 		return 0;
-	}
-	if ($d != 0) {
-		return ($n / $d);
-	} else {
+	
+	if ($d != 0)
+		return ($n / $d); 
+	else 
 		return $n . "/" . $d;
-	}
-}
-
-// opens the JPEG file and attempts to find the EXIF data
-function exif($file) {
-	$fp = fopen($file, "rb");
-	$a = fgetord($fp);
-	if ($a != 255 || fgetord($fp) != 216) {
-		return false;
-	}
-	$ef = false;
-	while (!feof($fp)) {
-		$section_length = 0;
-		$section_marker = 0;
-		$lh = 0;
-		$ll = 0;
-		for ($i = 0;$i < 7;$i++) {
-			$section_marker = fgetord($fp);
-			if ($section_marker != 255) {
-				break;
-			}
-			if ($i >= 6) {
-				return false;
-			}
-		}
-		if ($section_marker == 255) {
-			return false;
-		}
-		$lh = fgetord($fp);
-		$ll = fgetord($fp);
-		$section_length = ($lh << 8) | $ll;
-		$data = chr($lh) . chr($ll);
-		$t_data = fread($fp, $section_length - 2);
-		$data .= $t_data;
-		switch ($section_marker) {
-			case 225:
-		    	return extractEXIFData(substr($data, 2), $section_length);
-		    	$ef = true;
-				break;
-		}
-	}
-	fclose($fp);
-}
-
-// reads the EXIF header and if it is intact it calls readEXIFDir to get the data
-function extractEXIFData($data, $length) {
-	global $align;
-	if (substr($data, 0, 4) == "Exif") {
-		if (substr($data, 6, 2) == "II") {
-			$align = 0;
-		} else {
-			if (substr($data, 6, 2) == "MM") {
-				$align = 1;
-			} else {
-				return false;
-			}
-		}
-		$a = getnumber($data, 8, 2, $align);
-		if ($a != 0x2a) {
-			return false;
-		}
-		$first_offset = getnumber($data, 10, 4, $align);
-		if ($first_offset < 8 || $first_offset > 16) {
-			return false;
-		}
-		readEXIFDir(substr($data, 14), 8, $length - 6);
-		return true;
-	} else {
-		return false;
-	}
 }
 
 // ------------------------------------------------------------------------------------------------
@@ -231,34 +150,40 @@ function enumvalue($tname, $tvalue, $default = false)
 // Takes the flash value, splits it up into its component bits and returns the string it represents
 // ------------------------------------------------------------------------------------------------
 
-function flashvalue($bin)
+function flashvalue($dec)
 {
-	return enumvalue("FlashFired",substr($bin, 7, 1), '') 
+  $bin = str_pad(decbin($dec), 8, "0",STR_PAD_LEFT);
+
+  return enumvalue("FlashFired",substr($bin, 7, 1), '') 
 	     . enumvalue("FlashStrobe",substr($bin, 5, 2), '') 
 	     . enumvalue("FlashMode",substr($bin, 3, 2), '')
-	     . ( substr(pad(decbin($bin), 8, "0"), 1, 1) ? ", Red eye reduction" : ", No red eye reduction");
+	     . enumvalue("RedEye",substr($bin, 8, 1), '') ;
 }
 
-// takes a tag id along with the format, data and length of the data and deals with it appropriatly
-function dealwithtag($tag, $format, $data, $length, $align) {
-	global $format_type, $exif_data, $exif_tags;
-	
-	switch ($format_type[$format])
+// ------------------------------------------------------------------------------------------------
+// Takes a tag id along with the format, data and length of the data and deals with it.
+// ------------------------------------------------------------------------------------------------
+
+function dealwithtag($tag, $format, $data, $length, $align, &$exif_info) 
+{
+	global $exif_tags;
+
+	switch ($format)
 	{
-		case "STRING":
+		case 2: // STRING
 			$val = trim(substr($data, 0, $length));
 			break;
-		case "ULONG":
-		case "SLONG":
+		case 4: // ULONG
+		case 9: // SLONG
 			$val = enumvalue($exif_tags[$tag], getnumber($data, 0, 4, $align));
 			break;
-		case "USHORT":
-		case "SSHORT":
+		case 3: // USHORT
+		case 8: // SSHORT
 			switch ($tag)
 			{
 				case 0x9209:
-					$val = array( getnumber($data, 0, 2, $align)
-					            , flashvalue(getnumber($data, 0, 2, $align)));
+				  $num = getnumber($data, 0, 2, $align);
+					$val = array( str_pad(decbin($num), 8, '0',STR_PAD_LEFT), flashvalue($num));
 					break;
 				case 0x9214:
 					break;
@@ -271,13 +196,13 @@ function dealwithtag($tag, $format, $data, $length, $align) {
 					break;
 			} 
 			break;
-		case "URATIONAL":
+		case 5: // URATIONAL
 			$val = getrational(substr($data, 0, 8), $align, "U");
 			break;
-		case "SRATIONAL":
+		case 10: // SRATIONAL
 			$val = getrational(substr($data, 0, 8), $align, "S");
 			break;
-		case "UNDEFINED":
+		case 7: // UNDEFINED
 			switch ($tag)
 			{
 				case 0xa300:
@@ -294,20 +219,25 @@ function dealwithtag($tag, $format, $data, $length, $align) {
 			}
 			break;
 	}
-
+	
   if (isset($exif_tags[$tag]))
-   	$exif_data[ ($exif_tags[$tag]) ] = $val;
+   	$exif_info[ ($exif_tags[$tag]) ] = $val;
   else 
-    $exif_data['_ Tag:'.$tag] = $val;
+    $exif_info['_ Tag:'.$tag] = $val;
 
   // Sorts the array (by key) to make it easier to debug
-  ksort($exif_data);
+  ksort($exif_info);
 }
 
-// reads the tags from and EXIF IFD and if correct deals with the data
-function readEXIFDir($data, $offset_base, $exif_length) {
-	global $format_length, $format_type, $align;
-	
+// ------------------------------------------------------------------------------------------------
+// Reads the tags from and EXIF IFD and if correct deals with the data
+// ------------------------------------------------------------------------------------------------
+
+function readEXIFDir($data, $offset_base, $exif_length, $align, &$exif_info) 
+{
+  // Lookup arrays
+  $format_length = array(0, 1, 1, 2, 4, 8, 1, 1, 2, 4, 8, 4, 8);
+  
 	$data_in = "";
 	$number_dir_entries = getnumber($data, 0, 2, $align);
 
@@ -318,30 +248,87 @@ function readEXIFDir($data, $offset_base, $exif_length) {
 		$format       = getnumber($dir_entry, 2, 2, $align);
 		$components   = getnumber($dir_entry, 4, 4, $align);
 		
-		if (($format - 1) >= 12)
-			return false;
-
-		$byte_count = $components * $format_length[$format];
-		
-		if ($byte_count > 4)
+		if (($format - 1) < 12)
 		{
-			$offset_val = (getnumber($dir_entry, 8, 4, $align)) - $offset_base;
-			if (($offset_val + $byte_count) > $exif_length)
-				return false;
-
-			$data_in = substr($data, $offset_val);
+  		$byte_count = $components * $format_length[$format];
+  		
+  		// Get data
+  		if ($byte_count > 4)
+  		{
+  			$offset_val = (getnumber($dir_entry, 8, 4, $align)) - $offset_base;
+  			if (($offset_val + $byte_count) <= $exif_length)
+    			$data_in = substr($data, $offset_val);
+    	  else  
+    	    $data_in = '';
+  		}
+  		else
+  			$data_in = substr($dir_entry, 8);
+  
+  	  // Process data if present
+  	  if ($data_in != '')
+  	  {
+    	  if ($tag == 0x8769)
+    	  {
+    			$tmp = (getnumber($data_in, 0, 4, $align)) - 8;
+    			readEXIFDir(substr($data, $tmp), $tmp + 8 , $exif_length, $align, $exif_info);
+    		} 
+    		else
+    			dealwithtag($tag, $format, $data_in, $byte_count, $align, $exif_info);
+  	  }
 		}
-		else
-			$data_in = substr($dir_entry, 8);
-
-	  if ($tag == 0x8769)
-	  {
-			$tmp = (getnumber($data_in, 0, 4, $align)) - 8;
-			readEXIFDir(substr($data, $tmp), $tmp + 8 , $exif_length);
-		} 
-		else
-			dealwithtag($tag, $format, $data_in, $byte_count, $align);
 	}
+}
+
+// ------------------------------------------------------------------------------------------------
+// Reads the EXIF header and if it is intact it calls readEXIFDir to get the data
+// ------------------------------------------------------------------------------------------------
+
+function extractEXIFData($data, $length, &$exif_info)
+{
+	global $align;
+	if (substr($data, 0, 4) == "Exif")
+	{
+	  // Determine byte ordering
+		$align = (substr($data, 6, 2) == "II" ? 0 : 1);
+
+		// Should we read& process?
+		if (getnumber($data, 8, 2, $align) == 0x2a) 
+		{
+  		$first_offset = getnumber($data, 10, 4, $align);
+  		if ($first_offset >= 8 && $first_offset <= 16) 
+    		readEXIFDir(substr($data, 14), 8, $length - 6, $align, $exif_info);
+		}
+	} 
+}
+
+// ------------------------------------------------------------------------------------------------
+// Opens the JPEG file and attempts to find the EXIF data
+// ------------------------------------------------------------------------------------------------
+
+function exif($file)
+{
+  $exif_info = array();
+  
+	$fp = fopen($file, "rb");
+	if (fgetord($fp) == 255 && fgetord($fp) == 216)
+	{
+  	while (!feof($fp))
+  	{
+  		if ( ($section_marker = fgetord($fp)) != 255 ) 
+  		{
+    		$lh = fgetord($fp);
+    		$ll = fgetord($fp);
+    		$section_length = ($lh << 8) | $ll;
+    		$data =  fread($fp, $section_length - 2);
+    		
+    		if ($section_marker == 225)
+          extractEXIFData( $data, $section_length, $exif_info);
+  		}
+  	}
+	}
+	fclose($fp);
+	
+	return $exif_info;
 }
 
 ?>
