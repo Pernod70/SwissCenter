@@ -79,7 +79,7 @@
     $info->add_item('Genre', $data[0]["GENRE"]);
     $info->add_item('Year', $data[0]["YEAR"]);
     $info->add_item('Play Time', hhmmss($playtime));
-    $menu->add_item("Play now",pl_link('file',$data[0]["DIRNAME"].$data[0]["FILENAME"]));
+    $menu->add_item("Play now",pl_link('sql','select * from mp3s where file_id='.$data[0]["FILE_ID"],'audio'));
 
     $folder_img = find_in_dir($data[0]["DIRNAME"],$_SESSION["opts"]["art_files"]);
 
@@ -108,7 +108,7 @@
     distinct_info('Genre'      ,'genre' ,$newsql, $info);
     distinct_info('Year'       ,'year'  ,$newsql, $info);
     $info->add_item('Play Time',  hhmmss($playtime));
-    $menu->add_item('Play now',   pl_link('sql','select * from mp3s where '.substr($newsql,5)." order by album,track,title"));
+    $menu->add_item('Play now',   pl_link('sql','select * from mp3s where '.substr($newsql,5)." order by album,track,title",'audio'));
 
     if (pl_enabled())
       $menu->add_item('Add to your playlist','add_playlist.php?sql='.rawurlencode('select * from mp3s where '.substr($newsql,5)." order by album,track,title"),true);
