@@ -7,6 +7,39 @@ require_once("file.php");
 require_once("sched.php");
 
 // ----------------------------------------------------------------------------------
+// A better alternative to the "shuffle" routine in PHP - this version generates a
+// more random shuffle (and can be seeded to always return the same shuffled list).
+// ----------------------------------------------------------------------------------
+
+function shuffle_fisherYates(&$array, $seed = false)
+{
+   if ($seed !== false)
+     mt_srand($seed);
+     
+   $total = count($array);// <-- 
+   for ($i = 0; $i<$total; $i++)
+   {
+         $j = @mt_rand(0, $i);
+         $temp = $array[$i];
+         $array[$i] = $array[$j];
+         $array[$j] = $temp;
+   }
+} 
+
+//-------------------------------------------------------------------------------------------------
+// Makes the given filepath acceptable to the webserver (\ become /)
+//-------------------------------------------------------------------------------------------------
+
+function make_url_path( $fsp )
+{
+  $parts = split('/',str_replace('\\','/',$fsp));
+  for ($i=0; $i<count($parts); $i++)
+    $parts[$i] = rawurlencode($parts[$i]);    
+  
+  return join('/',$parts);
+}
+
+// ----------------------------------------------------------------------------------
 // If the given $text is empty or NULL (from MySQL) then this function returns the $default
 // string. Otherwise, it returns the $text passed in.
 // ----------------------------------------------------------------------------------
@@ -168,7 +201,7 @@ function hhmmss( $secs )
     $secs = $secs % 60;
   }
 
-  return $str.'1s';
+  return $str.$secs.'s';
 }
 
 // ----------------------------------------------------------------------------------
@@ -260,7 +293,7 @@ function arrayUnique( $array, $key )
 // indicate it has been shortened
 // ----------------------------------------------------------------------------------
 
-function shorten( $text, $trunc, $font_size = 1, $lines = 1 )
+function shorten( $text, $trunc, $font_size = 1, $lines = 1, $dots = true )
 {
   if(empty($text))
     return $text;
@@ -279,13 +312,14 @@ function shorten( $text, $trunc, $font_size = 1, $lines = 1 )
                           ";" => 4,   "=" => 12,  ">" => 12,  "?" => 11,  "@" => 19,  "<" => 12,  " " => 7,  );
 
   $len = 0;
+  $text = (string)$text;
   $short_string = "";
   $max_len = (int)((($trunc / $font_size) * $lines) - (12 * $font_size));
 
   for($index = 0; $index < strlen($text); $index++)
   {
     $current_char = $text[$index];
-
+    
     if(!array_key_exists($current_char, $char_widths))
       $char_len = 7;
     else
@@ -298,7 +332,8 @@ function shorten( $text, $trunc, $font_size = 1, $lines = 1 )
     }
     else
     {
-      $short_string .= "...";
+      if ($dots)
+        $short_string .= "...";
       break;
     }
   }
@@ -313,7 +348,9 @@ function shorten( $text, $trunc, $font_size = 1, $lines = 1 )
 
 function is_showcenter()
 {
-  if (strpos($_SERVER["HTTP_USER_AGENT"],'Syabas') !== false)
+  // return true; // DEBUG
+  
+  if ( !isset($_SERVER["HTTP_USER_AGENT"]) || strpos($_SERVER["HTTP_USER_AGENT"],'Syabas') !== false)
     return true;
   else
     return false;
