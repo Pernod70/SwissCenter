@@ -64,32 +64,38 @@
     $pass=un_magic_quote($_REQUEST["password"]);
     $db_stat = test_db('localhost','root',$pass,'swiss');
     
+    if (!defined('DB_HOST'))
+    {
+      define('DB_HOST','localhost');
+      define('DB_USERNAME','swisscenter');
+      define('DB_PASSWORD','swisscenter');
+      define('DB_DATABASE','swiss');
+    }
+
     if     ( db_root_sqlcommand($pass,"Create database swiss") == false && $db_stat != 'OK')
       install_display('!Unable to create database - Is your MySQL "Root" password correct?');
     elseif ( db_root_sqlcommand($pass,"Grant all on swiss.* to swisscenter@'localhost' identified by 'swisscenter'") == false)
       install_display('!Unable to create user - Is your MySQL "Root" password correct?');
     else 
     {
-      if (!defined('DB_HOST'))
-      {
-        define('DB_HOST','localhost');
-        define('DB_USERNAME','swisscenter');
-        define('DB_PASSWORD','swisscenter');
-        define('DB_DATABASE','swiss');
-      }
-      
-      // Open the setup.sql file
-      if (!$fsp = @file('../setup.sql'))
-        install_display('!The "Setup.sql" file in the ShowCenter directory is missing.');
-      else
-      {
-        $commands = split(";",implode(" ",$fsp));
-        foreach ($commands as $sql)
-          if ( strlen(trim($sql)) > 0 ) 
-            db_sqlcommand($sql);
+      // Fix for MySQL 4.1 and above (the authentication method changed and PHP 4.x uses an older uncompatible MySQL client).
+      if (substr(db_value("select version()"),0,3) >= 4.1)
+        db_root_sqlcommand($pass,"set password for swisscenter@'localhost' = OLD_PASSWORD('swisscenter')");  
             
+      // Open the setup.sql file
+      if ( file_exists('../setup.sql') )
+      {
+        // Run the setup file and all database update files
+        db_sqlfile('../setup.sql');
+        foreach (dir_to_array('..','db_update_[0-9]*.sql') as $file)
+          db_sqlfile($file);            
+
         write_ini ( 'localhost', 'swisscenter', 'swisscenter', 'swiss' );
         header('Location: index.php');
+      }
+      else
+      {
+        install_display('!The "Setup.sql" file in the ShowCenter directory is missing.');
       }
     }
   }
