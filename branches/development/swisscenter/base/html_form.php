@@ -325,9 +325,9 @@ function form_select_table ( $param, $table_contents, $table_params, $id_col, $e
       if($editable)
       {
         if($edit == 0)
-          echo '<td align="center"><input type="submit" name="'.$param.'_EDIT:'.$row[strtoupper($id_col)].'" value=" Edit "></td>';
+          echo '<td align="center" width="80"><input type="submit" name="'.$param.'_EDIT:'.$row[strtoupper($id_col)].'" value=" Edit "></td>';
         else if($row[strtoupper($id_col)] == $edit)
-          echo '<td align="center"><input type="submit" name="'.$param.'_UPDATE_ID:'.$row[strtoupper($id_col)].'" value=" Update "></td>';
+          echo '<td align="center" width="80"><input type="submit" name="'.$param.'_UPDATE_ID:'.$row[strtoupper($id_col)].'" value=" Update "></td>';
         else
           echo '<td>&nbsp;</td>';
       }  

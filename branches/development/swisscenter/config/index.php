@@ -592,7 +592,7 @@
   //*************************************************************************************************
   // Category section
   //*************************************************************************************************
-  function category_display($del_message = '', $add_message = '')
+  function category_display($del_message = '', $add_message = '', $edit_id = 0)
   {
     $cat = $_REQUEST["cat"];
     
@@ -605,8 +605,9 @@
       message($del_message);
       form_start('index.php');
       form_hidden('section', 'CATEGORY');
-      form_hidden('action', 'DELETE');
-      form_select_table('cat_ids', $data, array('class'=>'form_select_tab','width'=>'100%'), 'cat_id');
+      form_hidden('action', 'MODIFY');
+      form_select_table('cat_ids', $data, array('class'=>'form_select_tab','width'=>'100%'), 'cat_id',
+                        array('CATEGORY'=>''), $edit_id);
       form_submit('Remove Selected Categories', 1, 'center');
       form_end();
       
@@ -641,28 +642,51 @@
           category_display('', 'Category added');
       }
     }
-    
-    phpinfo();
   }
   
-  function category_delete()
+  function category_modify()
   {
-    $cat_ids = form_select_table_vals('cat_ids');
-    $message = 'The selected categories have been removed.';
+    $selected_ids = form_select_table_vals('cat_ids');
+    $edit_id = form_select_table_edit('cat_ids');
+    $update_data = form_select_table_update('cat_ids');
     
-    foreach($cat_ids as $cat_id)
+    if(!empty($edit_id))
     {
-      if($cat_id != 1)
+      category_display('', '', $edit_id);
+    }
+    else if(!empty($update_data))
+    {
+      $category_name = mysql_escape_string($update_data["CATEGORY"]);
+      $id = $update_data["CAT_IDS"];
+      
+      if($id != 1)
       {
-        // Ensure that the existing media_locations are updated with no category
-        db_sqlcommand("update media_locations set cat_id=1 where cat_id=$cat_id");
-        db_sqlcommand("delete from categories where cat_id=$cat_id");
+        db_sqlcommand("update categories set cat_name='$category_name' where cat_id=$id");
+        category_display('Category information updated');
       }
       else
-        $message = '!The uncategorised category cannot be removed';
+      {
+        category_display("!Category 'uncategorised' cannot be modified");
+      }
     }
+    else if(!empty($selected_ids))
+    {
+      $message = 'The selected categories have been removed.';
 
-    category_display($message);
+      foreach($selected_ids as $cat_id)
+      {
+        if($cat_id != 1)
+        {
+          // Ensure that the existing media_locations are updated with no category
+          db_sqlcommand("update media_locations set cat_id=1 where cat_id=$cat_id");
+          db_sqlcommand("delete from categories where cat_id=$cat_id");
+        }
+        else
+          $message = '!The uncategorised category cannot be removed';
+      }
+  
+      category_display($message);
+    }
   }
   
 
