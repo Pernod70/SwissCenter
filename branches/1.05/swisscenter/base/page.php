@@ -226,7 +226,7 @@ function page_footer( $back, $buttons= '', $iconbar = 0 )
   
   // Test the browser, and if the user is viewing from a browser other than the one on the
   // showcenter then output a "Back" Button (as this would normally be a IR remote button).
-  if (strpos($_ENV["HTTP_USER_AGENT"],'Syabas') === false)
+  if (strpos($_SERVER["HTTP_USER_AGENT"],'Syabas') === false)
     echo '<a href="'.$back.'"><img src="/images/dot.gif" width="'.SCREEN_WIDTH.'" height="30" border=0></a>';
   
   echo '<a href="'.$back.'" TVID="backspace"></a>
