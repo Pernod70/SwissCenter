@@ -8,11 +8,11 @@
   require_once("base/file.php");
   require_once("messages_db.php");
 
-  page_header( "Homepage");
-
-  echo '<center>Please select an option from the list:</center><p>';
-
   $menu = new menu();
+  $icons = new iconbar(200);
+
+  // Menu Items
+  
   $menu->add_item("Watch A Movie",'video.php',true);
   $menu->add_item("Listen to Music",'music.php',true);
   $menu->add_item("View Photographs",'photo.php',true);
@@ -25,24 +25,21 @@
 
   $menu->add_item("Preferences and Setup",'config.php',true);
 
-  if ($_SESSION["internet"] && $_SESSION["update"]["available"])
-  {
-    $menu->add_item("Update SwissCenter",'run_update.php',true);  
-  }
-
-  $menu->display();
-
-  // Create the iconbar to add to the footer  
-  $icons = new iconbar();
+  // Icons
   
+  if ($_SESSION["internet"] && $_SESSION["update"]["available"])
+    $icons->add_icon("ICON_UPDATE","Update",'run_update.php');  
+
   $num_new = count_messages_with_status(MESSAGE_STATUS_NEW);
   if(($num_new) > 0)
-    $icons->add_icon("MAIL", "messages.php?return=".current_url());
-  
+    $icons->add_icon("ICON_MAIL","New","messages.php?return=".current_url());
 
-  page_footer('', '', $icons);
-  
-//  debug($GLOBALS);
+  // Display the page content
+    
+  page_header( "Homepage");
+  echo '<center>Please select an option from the list:</center><p>';
+  $menu->display();
+  page_footer('', '', $icons);  
 
 /**************************************************************************************************
                                                End of file
