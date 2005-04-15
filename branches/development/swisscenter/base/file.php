@@ -263,7 +263,7 @@ function array2file( $array, $filename)
 function update_ini( $file, $var, $value )
 {
   // Read in the file, and setup variables
-  $contents = file($file);
+  $contents = @file($file);
   $match    = strtolower($var).'=';
   $len      = strlen($match);
   $found    = false;
@@ -394,7 +394,7 @@ function file_thumbnail( $fsp )
 
   if (is_file($fsp))
   {
-    $id3_image = db_value("select m.file_id from mp3s m,mp3_albumart ma where m.file_id = ma.file_id and concat(m.dirname,m.filename) = '$fsp'");
+    $id3_image = db_value("select m.file_id from mp3s m,mp3_albumart ma where m.file_id = ma.file_id and concat(m.dirname,m.filename) = '".db_escape_str($fsp)."'");
     if (!empty($id3_image))
       $tn_image = 'select image from mp3_albumart where file_id='.$id3_image.'.sql';
     else 
@@ -428,7 +428,7 @@ function file_albumart( $fsp )
 
   if ( is_file($fsp) )
   {
-    $id3_image = db_value("select m.file_id from mp3s m,mp3_albumart ma where m.file_id = ma.file_id and concat(m.dirname,m.filename) = '$fsp'");
+    $id3_image = db_value("select m.file_id from mp3s m,mp3_albumart ma where m.file_id = ma.file_id and concat(m.dirname,m.filename) = '".db_escape_str($fsp)."'");
     
     if ( !empty($id3_image) )
     {
