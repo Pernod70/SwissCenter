@@ -169,6 +169,17 @@ function file_noext( $filename )
 }
 
 //-------------------------------------------------------------------------------------------------
+// Returns the parent of the given directory (slash terminated, unlike the built-in "dirname").
+//-------------------------------------------------------------------------------------------------
+
+function parent_dir( $dirpath)
+{
+  $dirs = explode('/',rtrim($dirpath,'/'));
+  array_pop($dirs);
+  return ( count($dirs) == 0 ? '' : implode('/',$dirs ).'/');
+}
+
+//-------------------------------------------------------------------------------------------------
 // Returns the size of a directory in bytes.
 // if $subdirs is true, then includes all subdirs in total.
 //-------------------------------------------------------------------------------------------------

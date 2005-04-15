@@ -228,7 +228,7 @@
     if ( empty($dir) )
       page_footer( $back_url, $buttons );
     else
-      page_footer( $url.'?DIR='.rawurlencode(dirname($dir)), $buttons );
+      page_footer( $url.'?DIR='.rawurlencode(parent_dir($dir)), $buttons );
   }
 
   
