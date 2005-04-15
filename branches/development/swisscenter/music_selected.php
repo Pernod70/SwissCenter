@@ -65,6 +65,11 @@
   // Build menu of options
   $menu->add_item('Play now',   pl_link('sql',"select * $sql_table $predicate order by album,lpad(track,10,'0'),title",'audio'));
   $menu->add_item('Add to your playlist','add_playlist.php?sql='.rawurlencode("select * $sql_table $predicate order by album,lpad(track,10,'0'),title"),true);
+
+  // If only one track is selected, the user might want to expand their selection to the whole album
+  if ($num_rows ==1)
+    $menu->add_item("Select Entire Album",'music_select_album.php?name='.rawurlencode(db_value("select album $sql_table $predicate")));
+
   check_filter( $menu, 'Refine By Artist', 'artist', $sql_table, $predicate );
   check_filter( $menu, 'Refine By Album', 'album',  $sql_table, $predicate );
   check_filter( $menu, 'Refine By Title', 'title',  $sql_table, $predicate );
