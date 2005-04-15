@@ -13,12 +13,12 @@
     return pl_link('file',$file,'photo');
   }
 
-  browse_fs( 'Browse Photographs'
+  browse_db( 'Browse Photographs'
            , db_col_to_list("select name from media_locations where media_type=2")
-           , 'photo.php'
+           , 'from photos where 1=1'.$_SESSION["history"][0]["sql"]
+           , $_SESSION["history"][0]["url"]
            , array('gif','png','jpg','jpeg')
            , 'photo_select_all.php?'
-           , 'select filename,dirname from photos where dirname'
            , 'LOGO_PHOTO' );
 
 /**************************************************************************************************

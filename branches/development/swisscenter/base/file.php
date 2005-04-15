@@ -403,7 +403,11 @@ function file_thumbnail( $fsp )
 {
   $tn_image  = '';
 
-  if (is_file($fsp))
+  if (!file_exists($fsp))
+  {
+    send_to_log("Warning : File/Directory doesn't exist in file.php:file_thumbnail",$fsp);
+  }
+  elseif (is_file($fsp))
   {
     $id3_image = db_value("select m.file_id from mp3s m,mp3_albumart ma where m.file_id = ma.file_id and concat(m.dirname,m.filename) = '".db_escape_str($fsp)."'");
     if (!empty($id3_image))
@@ -423,7 +427,9 @@ function file_thumbnail( $fsp )
       $tn_image = dir_icon();      
   }
   else  
-    echo "Parameter incorrect";  
+  {
+    debug ("Parameter incorrect : ");  
+  }
 
   return $tn_image;
 }

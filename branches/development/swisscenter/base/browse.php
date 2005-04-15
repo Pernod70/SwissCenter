@@ -51,7 +51,7 @@
   // directory. The array $filetypes specified which file extensions are to be allowed.
   // ----------------------------------------------------------------------------------
 
-  function dir_contents( $dir, $filetypes, &$dir_list, &$file_list, $db_files_only)
+  function dir_contents_FS( $dir, $filetypes, &$dir_list, &$file_list)
   {
     if (($dh = @opendir($dir)) !== false)
     {
@@ -61,7 +61,7 @@
         {
           $dir_list[]  = array("filename"=>$name, "image"=> file_thumbnail($dir.$name));          
         }
-        elseif ( !$db_files_only && in_array(file_ext(strtolower($name)), $filetypes))
+        elseif ( in_array(file_ext(strtolower($name)), $filetypes))
         {
           $file_list[] = array("dirname" => $dir, "filename" => $name, "image"=> file_thumbnail($dir.$name));
         }
@@ -75,15 +75,20 @@
   // directories on the filesystem with the paths stored in the database.
   // ----------------------------------------------------------------------------------
 
-  function file_list_from_db ($query, &$file_list)
+  function dir_contents_DB (&$dir_list, &$file_list, $sql_table, $dir)
   {
-    if ( ($db_data = db_toarray($query)) !== false)
-    {
-      foreach ($db_data as $row)
-      {
-        $file_list[] = array("dirname" => $row["DIRNAME"], "filename" => $row["FILENAME"], "image"=> file_thumbnail($row["DIRNAME"].$row["FILENAME"]));
-      }
-    }
+    // Get list of subdirectories
+    $data = db_toarray("select distinct substr(substr(dirname,".(strlen($dir)+1)."),1,instr(substr(dirname,".(strlen($dir)+1)."),'/')-1) dir
+                        $sql_table and dirname like '$dir%' and dirname!='$dir'");
+    
+    foreach ($data as $row)
+      $dir_list[] = array("filename"=>$row["DIR"], "image"=> file_thumbnail($dir.$row["DIR"]));       
+
+    // Get list of files
+    $data = db_toarray("select dirname,filename $sql_table and dirname = '$dir'");
+    
+    foreach ($data as $row)
+      $file_list[] = array("dirname" => $row["DIRNAME"], "filename" => $row["FILENAME"], "image"=> file_thumbnail($row["DIRNAME"].$row["FILENAME"]));
   }
 
   // ----------------------------------------------------------------------------------
@@ -171,53 +176,38 @@
    }
   
   // ----------------------------------------------------------------------------------
-  // Ouputs all the details for browsing the filesystem directly, and choosing an
-  // individual file
+  // Display the list of choices in either thumbnail or list view (detect if the user
+  // has changed it and act appropriately)
   // ----------------------------------------------------------------------------------
 
-  function browse_fs($heading, $default_dir, $back_url, $filetypes, $all_link='', $sql_filelist='', $logo='' )
+  function browse_page(&$dir_list, &$file_list, $heading, $back_url, $all_link, $logo )
   {
-    // Check page parameters, and if not set then assign default values.
-    $url           = $_SERVER["PHP_SELF"];
-    $dir           = ( empty($_REQUEST["DIR"]) ? '' : un_magic_quote(rawurldecode($_REQUEST["DIR"])));
-    $page          = ( !isset($_REQUEST["page"]) ? 0 : $_REQUEST["page"]);
-    $pre           = ( is_array($default_dir) ? $default_dir : array($default_dir));
-    $db_files_only = ( $sql_filelist != '' ? true : false);
-    $dir_list      = array();
-    $file_list     = array();
-    $buttons       = array();
+    // Remove unwanted directories and/or files
+    tidy_lists ( $dir_list, $file_list );
+    
+    // Page settings
+    $url         = $_SERVER["PHP_SELF"];
+    $page        = ( !isset($_REQUEST["page"]) ? 0 : $_REQUEST["page"]);
+    $dir         = ( empty($_REQUEST["DIR"]) ? '' : un_magic_quote(rawurldecode($_REQUEST["DIR"])));
+    $start       = $page * (MAX_PER_PAGE);
+    $end         = min(count($dir_list)+count($file_list) , $start+MAX_PER_PAGE);
+    $buttons     = array();
 
-    // Switching Thumbnail/Details view?
+    // Switch between Thumbnail/Details view?
     if ( !empty($_REQUEST["thumbs"]) )
       set_user_pref('DISPLAY_THUMBS',strtoupper($_REQUEST["thumbs"]));
 
-    // Get a list of files/dirs from the filesystem.      
-    foreach ($pre as $path)
-      dir_contents(str_suffix($path,'/').$dir, $filetypes, $dir_list, $file_list, $db_files_only);
-          
-    // If the function was called with a SQL statement for the filelist, then query the
-    // dataase for the files within the current directory (instead of relying on the filesystem);
-    if ($db_files_only)
-    {
-      foreach ($pre as $path)
-        file_list_from_db( $sql_filelist."='".db_escape_str(str_suffix($path,'/').$dir)."'", $file_list);
-    }
-    
-    // Now that we have a list of files to work with, we can output the page (maximum MAX_PER_PAGE items per page).
     page_header( $heading, substr($dir,0,-1), $logo );
-    tidy_lists ( $dir_list, $file_list );
-    $start     = $page * (MAX_PER_PAGE);
-    $end       = min(count($dir_list)+count($file_list) , $start+MAX_PER_PAGE);
 
-    if ( get_user_pref("DISPLAY_THUMBS") != "YES" )
-    {
-      display_names ($url, $dir, $dir_list, $file_list, $start, $end, $page, ($page > 0), ($end < count($dir_list)+count($file_list)));
-      $buttons[] = array('text'=>'Thumbnail View', 'url'=>$url.'?thumbs=YES&DIR='.rawurlencode($dir) );
-    }
-    else
+    if ( get_user_pref("DISPLAY_THUMBS") == "YES" )
     {
       display_thumbs ($url, $dir, $dir_list, $file_list, $start, $end, $page, ($page > 0), ($end < count($dir_list)+count($file_list)));
       $buttons[] = array('text'=>'List View', 'url'=>$url.'?thumbs=NO&DIR='.rawurlencode($dir) );
+    }
+    else
+    {
+      display_names ($url, $dir, $dir_list, $file_list, $start, $end, $page, ($page > 0), ($end < count($dir_list)+count($file_list)));
+      $buttons[] = array('text'=>'Thumbnail View', 'url'=>$url.'?thumbs=YES&DIR='.rawurlencode($dir) );
     }
     
     // Should we present a link to select all files?
@@ -230,7 +220,47 @@
     else
       page_footer( $url.'?DIR='.rawurlencode(parent_dir($dir)), $buttons );
   }
+  
+  // ----------------------------------------------------------------------------------
+  // Ouputs all the details for browsing the filesystem directly, and choosing an
+  // individual file
+  // ----------------------------------------------------------------------------------
 
+  function browse_fs($heading, $media_dirs, $back_url, $filetypes, $all_link='', $logo='' )
+  {
+    // Check page parameters, and if not set then assign default values.
+    $dir             = ( empty($_REQUEST["DIR"]) ? '' : un_magic_quote(rawurldecode($_REQUEST["DIR"])));
+    $media_locations = ( is_array($media_dirs) ? $media_dirs : array($media_dirs));
+    $dir_list        = array();
+    $file_list       = array();
+
+    // Get a list of files/dirs from the filesystem.      
+    foreach ($media_locations as $path)
+      dir_contents_FS(str_suffix($path,'/').$dir, $filetypes, $dir_list, $file_list);  
+
+    browse_page($dir_list, $file_list, $heading, $back_url, $all_link, $logo);     
+  }
+
+  // ----------------------------------------------------------------------------------
+  // Ouputs all the details for browsing the files/dirs listed in the database and
+  // choosing an individual file.
+  //
+  // NOTE: £sql_table should be of the form "from <tablename> where <conditions>"
+  // ----------------------------------------------------------------------------------
+
+  function browse_db($heading, $media_dirs, $sql_table, $back_url, $filetypes, $all_link='', $logo='' )
+  {
+    // Check page parameters, and if not set then assign default values.
+    $dir             = ( empty($_REQUEST["DIR"]) ? '' : un_magic_quote(rawurldecode($_REQUEST["DIR"])));
+    $media_locations = ( is_array($media_dirs) ? $media_dirs : array($media_dirs));
+    $dir_list        = array();
+    $file_list       = array();
+
+    foreach ($media_locations as $path)
+      dir_contents_DB($dir_list, $file_list, $sql_table, str_suffix($path,'/').$dir);
+    
+    browse_page($dir_list, $file_list, $heading, $back_url, $all_link, $logo);     
+  }
   
 /**************************************************************************************************
                                                End of file

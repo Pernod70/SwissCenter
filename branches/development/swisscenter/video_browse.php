@@ -13,12 +13,12 @@
     return pl_link('file',$file);
   }
 
-  browse_fs( 'Browse Movies'
+  browse_db( 'Browse Movies'
            , db_col_to_list("select name from media_locations where media_type=3")
-           , 'video.php'
+           , 'from movies where 1=1'.$_SESSION["history"][0]["sql"]
+           , $_SESSION["history"][0]["url"]
            , explode(',',MEDIA_EXT_MOVIE)
            , ''
-           , 'select filename,dirname from movies where dirname'
            , 'LOGO_MOVIE' );
            
 /**************************************************************************************************

@@ -14,12 +14,12 @@
     return pl_link('sql','select * from mp3s where file_id='.$id,'audio');
   }
 
-  browse_fs( 'Browse Music'
+  browse_db( 'Browse Music'
            , db_col_to_list("select name from media_locations where media_type=1")
-           , 'music.php'
+           , 'from mp3s where 1=1'.$_SESSION["history"][0]["sql"]
+           , $_SESSION["history"][0]["url"]
            , array('mp3')
            , ''
-           , 'select filename,dirname from mp3s where dirname'
            , 'LOGO_MUSIC' );
 
 /**************************************************************************************************
