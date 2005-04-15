@@ -322,7 +322,7 @@
   function display_content()
   {
    $db_stat = test_db(DB_HOST,DB_USERNAME,DB_PASSWORD,DB_DATABASE); 
-   if ($_SERVER["REMOTE_ADDR"] != $_SERVER["SERVER_ADDR"] )
+   if (!is_server_iis() && $_SERVER["REMOTE_ADDR"] != $_SERVER["SERVER_ADDR"] )
    {
      echo '<br><h1>Access Denied</h1><p align="center">Remote access to the <i>\'SwissCenter Configuration Utility\'</i> is disabled for security reasons.';
    }

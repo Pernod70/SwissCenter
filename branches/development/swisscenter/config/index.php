@@ -952,7 +952,7 @@
    }
    
    
-   if ($_SERVER["REMOTE_ADDR"] != $_SERVER["SERVER_ADDR"])
+   if (!is_server_iis() && $_SERVER["REMOTE_ADDR"] != $_SERVER["SERVER_ADDR"])
    {
      echo '<br><h1>Access Denied</h1>
            <p align="center">Remote access to the <i>\'SwissCenter Configuration Utility\'</i> is disabled for security reasons.';
