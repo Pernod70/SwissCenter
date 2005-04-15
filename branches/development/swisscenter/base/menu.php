@@ -76,9 +76,13 @@ class menu
         $link = $item["url"];
         if (substr($link,0,5) != 'href=')
           $link = 'href="'.$link.'"';
+          
+        if ( style_img_exists("IMG_MENU_".$size) )
+          $menu_bg_img = style_img("IMG_MENU_".$size);
+        else 
+          $menu_bg_img = style_img("IMG_MENU");
 
-        echo '<tr><td valign="middle" width="'.$size.'px" height="25px" background="'.
-              style_img("IMG_MENU").'">&nbsp;&nbsp;&nbsp;'.
+        echo '<tr><td valign="middle" width="'.$size.'px" height="25px" background="'.$menu_bg_img.'">&nbsp;&nbsp;&nbsp;'.
               '<font color="'.style_value("TITLE_COLOUR",'#FFFFFF').'">'.++$i.'.</font> <a '.$link.' TVID="'.$i.
               '" name="'.$i.'">'.$text.'</a>'.$item["right"].'</td></tr>';
       }

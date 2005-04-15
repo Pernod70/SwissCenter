@@ -153,7 +153,7 @@
                 <center>'.img_gen($folder_img,150,150).'</center>
               </td></tr></table></td>
               <td valign="top">';
-              $menu->display(320);
+              $menu->display(300);
     echo '    </td></td></table>';
   }
   else

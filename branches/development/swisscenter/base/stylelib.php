@@ -42,14 +42,28 @@ function style_img ($name, $ext_url = false)
 {
   if ( !isset($_SESSION["style"]))
     load_style();
+    
+  $path   = substr(SC_LOCATION,0,-1);
+  $file   = $_SESSION["style"]["location"].$_SESSION["style"][strtoupper($name)];
+
+  if ( isset( $_SESSION["style"][strtoupper($name)]) && file_exists($path.$file) )
+    return ($ext_url ? $path : '').$file;
+  else 
+    return ($ext_url ? $path : '').'/images/dot.gif';
+}
+
+function style_img_exists ($name)
+{
+  if ( !isset($_SESSION["style"]))
+    load_style();
 
   $path   = substr(SC_LOCATION,0,-1);
   $file   = $_SESSION["style"]["location"].$_SESSION["style"][strtoupper($name)];
 
-  if ( file_exists($path.$file) )
-    return ($ext_url ? $path : '').$file;
+  if ( isset( $_SESSION["style"][strtoupper($name)]) && file_exists($path.$file) )
+    return true;
   else 
-    return ($ext_url ? $path : '').'/images/dot.gif';
+    return false;
 }
 
 function style_value ( $name, $default = '')
@@ -57,11 +71,10 @@ function style_value ( $name, $default = '')
   if ( !isset($_SESSION["style"]))
     load_style();
 
-  $val = $_SESSION["style"][strtoupper($name)];
-  if ( !isset($val) || empty($val) )
-    return $default;
+  if ( isset( $_SESSION["style"][strtoupper($name)]) && !empty($_SESSION["style"][strtoupper($name)]) )
+    return $_SESSION["style"][strtoupper($name)];
   else
-    return $val;
+    return $default;
 }
 
    

@@ -67,7 +67,7 @@
         <table cellspacing=0 cellpadding=0 width="100%">
           <tr>
             <td width="400">';
-              $menu->display(370);
+              $menu->display(350);
   echo '    </td>
             <td align="center">
               <a href="'.weather_link().'"><img border=0 src="weather/logo.gif"></a>
