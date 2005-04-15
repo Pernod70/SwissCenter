@@ -57,8 +57,10 @@ function fatal_error($heading,$text)
   // Where is the SwissCenter installed?
   if (!empty($_SERVER['DOCUMENT_ROOT']))
     define ('SC_LOCATION',str_replace('\\','/',os_path($_SERVER["DOCUMENT_ROOT"],true)));
+  elseif (!empty($_SERVER['PHP_SELF']))
+    define ('SC_LOCATION', str_replace('\\','/',dirname($_SERVER['PHP_SELF']).'/'));
   else 
-    define ('SC_LOCATION', dirname($_SERVER['PHP_SELF']).'/');
+    define ('SC_LOCATION', str_replace('\\','/',dirname($_SERVER["argv"][0]).'/'));
   
   // Ensure a logfile location is defined
   if ( !defined('LOGFILE'))
@@ -83,7 +85,7 @@ function fatal_error($heading,$text)
   else 
   {
     if (is_showcenter()) 
-      fatal_error('Your SwissCenter Configuration file is missing.','Please use the <font color="blue"">Configuration Utility</font> to create a configuration file');
+      fatal_error('Your SwissCenter Configuration file is missing.','Please use the <font color="blue">Configuration Utility</font> to create a configuration file');
     else
       fatal_error('Your SwissCenter Configuration file is missing.','Please use the <a href="/config/index.php">Configuration Utility<a> to create a configuration file');
   }
