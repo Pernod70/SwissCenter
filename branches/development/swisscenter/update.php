@@ -169,7 +169,8 @@
       $updated = true;
       force_rmdir('updates');
 
-      // Update complete, so save file list for comparison to new updates
+      // Update complete, so save file list for comparison to new updates and reset the session
+      $_SESSION = array();
       $out = fopen("filelist.txt", "w");
       fwrite($out, serialize($update["files"]));
       fclose($out);   
