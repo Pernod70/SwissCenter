@@ -230,7 +230,8 @@
     elseif(!empty($update))
     {
       // Update the row given in the database and redisplay the dirs
-      $dir = db_escape_str($update["DIRECTORY"]);
+    // Process the directory passed in
+      $dir = db_escape_str(rtrim(str_replace('\\','/',un_magic_quote($update["DIRECTORY"])),'/'));
       $type_id = $update["TYPE"];
       $cat_id = $update["CATEGORY"];
       $id = $update["LOC_ID"];
@@ -678,7 +679,7 @@
     form_start('index.php');
     form_hidden('section','CACHE');
     form_hidden('action','UPDATE');
-    form_input('dir','Cache Directory',70,'', $dir );
+    form_input('dir','Cache Directory',60,'', $dir );
     form_label('Please specify the directory in which the SwissCenter server should cache image files that have been resized 
                 (for example, the folder art for an album, or the thumbnail of a photograph)');
     form_input('size','Maximum Size',1,'', $size);
@@ -864,7 +865,28 @@
  
     form_submit('Store Settings', 2);
     form_end();
-    
+  }
+  
+  //
+  // Saves the new parameters
+  //
+  
+  function connect_modify()
+  {
+    set_sys_pref('radio_enabled',$_REQUEST["radio"]);
+    set_sys_pref('weather_enabled',$_REQUEST["weather"]);
+    set_sys_pref('updates_enabled',$_REQUEST["update"]);
+    set_sys_pref('messages_enabled',$_REQUEST["messages"]);
+    set_sys_pref('movie_check_enabled',$_REQUEST["movie_info"]);
+    connect_display('Settings Saved');
+  }
+  
+  //*************************************************************************************************
+  // Privacy Policy
+  //*************************************************************************************************
+
+  function privacy_display()
+  {
     ?>
     <h1>Privacy Policy</h1>
      <p><b>Data Collection</b>
@@ -883,22 +905,7 @@
             interface. If you wish you may prevent even these messages from being downloaded by disabling the "Messages" 
             feature in the form above.
         </ul>
-    <?
-    
-  }
-  
-  //
-  // Saves the new parameters
-  //
-  
-  function connect_modify()
-  {
-    set_sys_pref('radio_enabled',$_REQUEST["radio"]);
-    set_sys_pref('weather_enabled',$_REQUEST["weather"]);
-    set_sys_pref('updates_enabled',$_REQUEST["update"]);
-    set_sys_pref('messages_enabled',$_REQUEST["messages"]);
-    set_sys_pref('movie_check_enabled',$_REQUEST["movie_info"]);
-    connect_display('Settings Saved');
+    <?    
   }
   
   //*************************************************************************************************
@@ -925,6 +932,7 @@
        menu_item('Playlists Location','section=PLAYLISTS&action=DISPLAY');
        menu_item('Image Cache','section=CACHE&action=DISPLAY');
 //       menu_item('User Management','section=USERS&action=DISPLAY');
+       menu_item('Privacy Policy','section=PRIVACY&action=DISPLAY','menu_bgr2.png');
        menu_item('Support Info','section=SUPPORT&action=DISPLAY','menu_bgr2.png');
      }
    echo '</table>';
