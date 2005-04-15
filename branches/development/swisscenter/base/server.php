@@ -117,6 +117,9 @@
   
   function internet_available()
   {
+    if ( isset($_SESSION["internet"]) && !is_array($_SESSION["internet"]))
+      $_SESSION=array();
+    
     if ( !isset($_SESSION["internet"]) || $_SESSION["internet"]["timeout"] < time() )
     {
       $_SESSION["internet"]["available"] = internet_check();
