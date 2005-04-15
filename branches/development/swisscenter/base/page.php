@@ -208,12 +208,8 @@ function page_footer( $back, $buttons= '', $iconbar = 0 )
         $link = $buttons[$i]["url"];
         if (substr($link,0,5) != 'href=')
           $link = 'href="'.$link.'"';
-
-        // Output the link slightly different for the showcenter browser.
-        if ( is_showcenter() )
-          $link = $buttons[$i]["text"].'<a '.$link.' TVID="key_'.strtolower($button_id).'"></a>';
-        else
-          $link = '<a '.$link.' TVID="key_'.strtolower($button_id).'">'.$buttons[$i]["text"].'</a>';
+          
+        $link = '<a '.$link.' TVID="key_'.strtolower($button_id).'">'.$buttons[$i]["text"].'</a>';
       }
       else
         $link = $buttons[$i]["text"];
