@@ -234,6 +234,10 @@
   // Main script logic
   //===========================================================================================
 
+  @db_sqlcommand('delete from m using mp3s m left outer join media_locations ml on ml.location_id = m.location_id where ml.location_id is null');
+  @db_sqlcommand('delete from m using movies m left outer join media_locations ml on ml.location_id = m.location_id where ml.location_id is null');
+  @db_sqlcommand('delete from m using photos m left outer join media_locations ml on ml.location_id = m.location_id where ml.location_id is null');
+
   // Do the update
   media_indicator('BLINK');
   process_media_dirs( db_toarray("select * from media_locations where media_type=1") ,'mp3s',   explode(',' ,MEDIA_EXT_MUSIC));

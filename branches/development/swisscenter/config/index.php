@@ -257,6 +257,9 @@
           unlink(SC_LOCATION.'media/'.$id);
 
         db_sqlcommand("delete from media_locations where location_id=".$id);
+        db_sqlcommand("delete from mp3s where location_id=$id");
+        db_sqlcommand("delete from movies where location_id=$id");
+        db_sqlcommand("delete from photos where location_id=$id");
       }
 
       dirs_display('The selected directories have been removed.');
