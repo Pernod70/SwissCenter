@@ -59,11 +59,11 @@
       {
         if (is_dir($dir.$name) && $name != '.' && $name != '..')
         {
-          $dir_list[]  = array("filename"=>$name, "image"=> file_thumbnail($dir.$name));          
+          $dir_list[]  = array("dirname" => $dir, "filename" => $name);          
         }
         elseif ( in_array(file_ext(strtolower($name)), $filetypes))
         {
-          $file_list[] = array("dirname" => $dir, "filename" => $name, "image"=> file_thumbnail($dir.$name));
+          $file_list[] = array("dirname" => $dir, "filename" => $name );
         }
       }
       closedir($dh);
@@ -79,16 +79,17 @@
   {
     // Get list of subdirectories
     $data = db_toarray("select distinct substr(substr(dirname,".(strlen($dir)+1)."),1,instr(substr(dirname,".(strlen($dir)+1)."),'/')-1) dir
-                        $sql_table and dirname like '$dir%' and dirname!='$dir'");
-    
-    foreach ($data as $row)
-      $dir_list[] = array("filename"=>$row["DIR"], "image"=> file_thumbnail($dir.$row["DIR"]));       
+                        $sql_table and dirname like '".db_escape_str($dir)."%' and dirname!='".db_escape_str($dir)."'");
+    if (!empty($data))
+      foreach ($data as $row)
+        $dir_list[] = array("dirname" => $dir, "filename"=>$row["DIR"]);       
 
     // Get list of files
-    $data = db_toarray("select dirname,filename $sql_table and dirname = '$dir'");
+    $data = db_toarray("select dirname,filename $sql_table and dirname = '".db_escape_str($dir)."'");
     
-    foreach ($data as $row)
-      $file_list[] = array("dirname" => $row["DIRNAME"], "filename" => $row["FILENAME"], "image"=> file_thumbnail($row["DIRNAME"].$row["FILENAME"]));
+    if (!empty($data))
+      foreach ($data as $row)
+        $file_list[] = array("dirname" => $row["DIRNAME"], "filename" => $row["FILENAME"] );
   }
 
   // ----------------------------------------------------------------------------------
@@ -155,14 +156,15 @@
       if ($i < count($dir_list))
       {
         // Directory Icon or thumbnail for the directory if one exists
-        $tlist->add_item($dir_list[$i]["image"], $dir_list[$i]["filename"], $url.'?DIR='.rawurlencode($dir.$dir_list[$i]["filename"].'/') );
+        $image = file_thumbnail($dir_list[$i]["dirname"].$dir_list[$i]["filename"]);
+        $tlist->add_item($image, $dir_list[$i]["filename"], $url.'?DIR='.rawurlencode($dir.$dir_list[$i]["filename"].'/') );
       }
       else
       {
         // Output a link to cause the specified playlist to be loaded into the session
         $details   = $file_list[$i-count($dir_list)];  
         eval('$link_url = output_link( "'.$details["dirname"].$details["filename"].'" );');
-        $tlist->add_item($details["image"], file_noext($details["filename"]), $link_url);
+        $tlist->add_item(file_albumart($details["dirname"].$details["filename"]), file_noext($details["filename"]), $link_url);
       }
     }
 
