@@ -11,7 +11,7 @@
     if(empty($cat_id))
       $_SESSION["history"] = array(array("url"=>"photo.php"));
     else
-      $_SESSION["history"] = array(array("url"=>"photo.php?cat=$cat_id", "sql"=>category_select_sql($cat_id, 1)));
+      $_SESSION["history"] = array(array("url"=>"photo.php?cat=$cat_id", "sql"=>category_select_sql($cat_id, 2)));
 
     echo '<center>Please select an option from the list:</center><p>';
 
