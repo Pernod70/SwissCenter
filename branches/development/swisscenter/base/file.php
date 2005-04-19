@@ -410,7 +410,7 @@ function file_thumbnail( $fsp )
   elseif (is_file($fsp))
   {
     $id3_image = db_value("select m.file_id from mp3s m,mp3_albumart ma where m.file_id = ma.file_id and concat(m.dirname,m.filename) = '".db_escape_str($fsp)."'");
-    if (!empty($id3_image))
+    if (!empty($id3_image) && get_sys_pref('USE_ID3_ART','YES') == 'YES')
       $tn_image = 'select image from mp3_albumart where file_id='.$id3_image.'.sql';
     else 
     {

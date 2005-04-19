@@ -256,6 +256,7 @@
         if (! is_windows() )
           unlink(SC_LOCATION.'media/'.$id);
 
+        db_sqlcommand("delete from maa using mp3s m, mp3_albumart maa where m.file_id = maa.file_id and m.location_id=".$id);
         db_sqlcommand("delete from media_locations where location_id=".$id);
         db_sqlcommand("delete from mp3s where location_id=$id");
         db_sqlcommand("delete from movies where location_id=$id");
@@ -350,7 +351,7 @@
     form_hidden('section', 'ART');
     form_hidden('action', 'OPTIONS');
 
-    form_radio_static('id3','ID3-Tag Covers',$list,get_sys_pref('radio_enabled','YES'),false,true);
+    form_radio_static('id3','ID3-Tag Covers',$list,get_sys_pref('use_id3_art','YES'),false,true);
     form_label('If Album Art is present within the ID3-Tag of a music file, then it will be extracted and stored in the
                 database as the preferred art to use on the SwissCenter interface. However, as this can cause the database
                 to grow quite large you may disable this feature here if you wish.');
