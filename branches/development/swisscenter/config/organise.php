@@ -8,6 +8,7 @@
   include_once('../base/file.php');
   include_once('../base/html_form.php');
   include_once('../base/prefs.php');
+  include_once('../base/server.php');
   include_once('common.php');
   
   //
