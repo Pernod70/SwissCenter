@@ -53,7 +53,7 @@
           
         if ( get_sys_pref('USE_ID3_ART','YES') == 'YES' && isset($id3["id3v2"]["APIC"][0]["data"]))
         {
-          $file_id = db_value("select file_id from mp3s where concat(dirname,filename)='".$dir.$file."'");
+          $file_id = db_value("select file_id from mp3s where concat(dirname,filename)='".db_escape_str($dir.$file)."'");
           db_insert_row('mp3_albumart',array("file_id"=>$file_id, "image"=>addslashes($id3["id3v2"]["APIC"][0]["data"]) ));
           send_to_log("Image found within ID3 tag - will use as album art");
         }
@@ -233,6 +233,12 @@
   //===========================================================================================
   // Main script logic
   //===========================================================================================
+
+  // Removes orphaned media files (where the media_location has been removed) and orphaned ID3 albumart images
+  @db_sqlcommand('delete from maa using mp3_albumart maa left outer join mp3s m on maa.file_id = m.file_id where m.file_id is null');
+  @db_sqlcommand('delete from m using mp3s m left outer join media_locations ml on ml.location_id = m.location_id where ml.location_id is null');
+  @db_sqlcommand('delete from m using movies m left outer join media_locations ml on ml.location_id = m.location_id where ml.location_id is null');
+  @db_sqlcommand('delete from m using photos m left outer join media_locations ml on ml.location_id = m.location_id where ml.location_id is null');
 
   // Do the update
   media_indicator('BLINK');

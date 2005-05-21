@@ -14,7 +14,7 @@
 
     if($num == 0)
     {
-      page_header( "Messages", "", 'LOGO_CONFIG', '<meta http-equiv="refresh" content="2;URL=config.php">');
+      page_header( "Messages", "", 'LOGO_CONFIG', '<meta http-equiv="refresh" content="2;URL='.(empty($_REQUEST["return"]) ? 'config.php' : $_REQUEST["return"]).'">');
       
       // No messages to display
       echo '<center><font color="'.style_value("PAGE_TEXT").

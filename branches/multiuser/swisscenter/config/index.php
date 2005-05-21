@@ -7,6 +7,8 @@
   include_once('../base/mysql.php');
   include_once('../base/file.php');
   include_once('../base/html_form.php');
+  include_once('../base/server.php');
+  include_once('../base/prefs.php');
   include_once('common.php');
   
   //
@@ -129,7 +131,7 @@
           db_sqlfile($file);            
 
         // Write an ini file with the database parameters in it
-        write_ini ( $_REQUEST["host"], $_REQUEST["username"], $_REQUEST["password"], $_REQUEST["dbname"] );
+        write_ini ( DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE );
         
         // If the media_search.php script is not scheduled, then schedule it now!
         $sched = syscall('at');
@@ -277,14 +279,17 @@
     if (!is_windows() && !file_exists(SC_LOCATION.'media'))
       mkdir(SC_LOCATION.'media');
     
-    $data = db_toarray("select location_id,media_name 'Type', cat_name 'Category', name 'Directory'  from media_locations ml, media_types mt, categories cat where mt.media_id = ml.media_type and ml.cat_id = cat.cat_id order by 2,3,4");
+    $data = db_toarray("select location_id,media_name 'Type', cat_name 'Category', cert.name 'Unrated Certificate', ml.name 'Directory'  from media_locations ml, media_types mt, categories cat, certificates cert where ml.unrated=cert.cert_id and mt.media_id = ml.media_type and ml.cat_id = cat.cat_id order by 2,3,4");
      
     echo "<h1>Current Media Locations</h1>";
     message($delete);
     form_start('index.php', 150, 'dirs');
     form_hidden('section','DIRS');
     form_hidden('action','MODIFY');
-    form_select_table('loc_id',$data,array('class'=>'form_select_tab','width'=>'100%'),'location_id', array('DIRECTORY'=>'','TYPE'=>'select media_id,media_name from media_types order by 2','CATEGORY'=>'select cat_id,cat_name from categories order by cat_name'), $edit, 'dirs');
+    form_select_table('loc_id',$data,array('class'=>'form_select_tab','width'=>'100%'),'location_id',
+                      array('DIRECTORY'=>'','TYPE'=>'select media_id,media_name from media_types order by 2',
+                            'CATEGORY'=>'select cat_id,cat_name from categories order by cat_name',
+                            'UNRATED CERTIFICATE'=>'select cert_id,name from certificates order by rank asc'), $edit, 'dirs');
     form_submit('Remove Selected Locations',1,'center');
     form_end();
   
@@ -295,6 +300,7 @@
     form_hidden('action','NEW');
     form_list_dynamic('type','Media Type',"select media_id,media_name from media_types order by 2",$_REQUEST['type']);
     form_list_dynamic('cat', 'Category',"select cat_id,cat_name from categories order by cat_name", $_REQUEST['cat']);
+    form_list_dynamic('cert', 'Unrated Certificate', 'select cert_id,name from certificates order by rank asc', $_REQUEST['cert']);
     form_input('location','Location',70,'',un_magic_quote($_REQUEST['location']));
     form_label('Please specify the fully qualified directory path where the media can be found <p>For example: 
                 On Windows this might be <em>"C:\Documents and Settings\Robert\My Documents\My Music"</em> or on 
@@ -321,10 +327,12 @@
     elseif(!empty($update))
     {
       // Update the row given in the database and redisplay the dirs
-      $dir = db_escape_str($update["DIRECTORY"]);
+    // Process the directory passed in
+      $dir = db_escape_str(rtrim(str_replace('\\','/',un_magic_quote($update["DIRECTORY"])),'/'));
       $type_id = $update["TYPE"];
       $cat_id = $update["CATEGORY"];
       $id = $update["LOC_ID"];
+      $cert = $update["UNRATED_CERTIFICATE"];
 
       if (!file_exists($dir))
         dirs_display("!I'm sorry, the directory you specified does not exist");
@@ -332,7 +340,7 @@
         dirs_display("!Please enter a fully qualified directory path.");
       else
       {
-        db_sqlcommand("update media_locations set name='$dir',media_type=$type_id,cat_id=$cat_id where location_id=$id");
+        db_sqlcommand("update media_locations set name='$dir',media_type=$type_id,cat_id=$cat_id,unrated=$cert where location_id=$id");
         dirs_display('Updated media location information.');
       }
     }
@@ -344,7 +352,11 @@
         if (! is_windows() )
           unlink(SC_LOCATION.'media/'.$id);
 
+        db_sqlcommand("delete from maa using mp3s m, mp3_albumart maa where m.file_id = maa.file_id and m.location_id=".$id);
         db_sqlcommand("delete from media_locations where location_id=".$id);
+        db_sqlcommand("delete from mp3s where location_id=$id");
+        db_sqlcommand("delete from movies where location_id=$id");
+        db_sqlcommand("delete from photos where location_id=$id");
       }
 
       dirs_display('The selected directories have been removed.');
@@ -372,7 +384,7 @@
       dirs_display('',"!Please enter a fully qualified directory path.");
     else 
     {
-      if ( db_insert_row('media_locations',array('name'=>$dir,'media_type'=>$_REQUEST["type"],'cat_id'=>$_REQUEST["cat"])) === false)
+      if ( db_insert_row('media_locations',array('name'=>$dir,'media_type'=>$_REQUEST["type"],'cat_id'=>$_REQUEST["cat"],'unrated'=>$_REQUEST["cert"])) === false)
       {
         dirs_display(db_error());
       }
@@ -435,7 +447,7 @@
     form_hidden('section', 'ART');
     form_hidden('action', 'OPTIONS');
 
-    form_radio_static('id3','ID3-Tag Covers',$list,get_sys_pref('radio_enabled','YES'),false,true);
+    form_radio_static('id3','ID3-Tag Covers',$list,get_sys_pref('use_id3_art','YES'),false,true);
     form_label('If Album Art is present within the ID3-Tag of a music file, then it will be extracted and stored in the
                 database as the preferred art to use on the SwissCenter interface. However, as this can cause the database
                 to grow quite large you may disable this feature here if you wish.');
@@ -769,7 +781,7 @@
     form_start('index.php');
     form_hidden('section','CACHE');
     form_hidden('action','UPDATE');
-    form_input('dir','Cache Directory',70,'', $dir );
+    form_input('dir','Cache Directory',60,'', $dir );
     form_label('Please specify the directory in which the SwissCenter server should cache image files that have been resized 
                 (for example, the folder art for an album, or the thumbnail of a photograph)');
     form_input('size','Maximum Size',1,'', $size);
@@ -955,7 +967,28 @@
  
     form_submit('Store Settings', 2);
     form_end();
-    
+  }
+  
+  //
+  // Saves the new parameters
+  //
+  
+  function connect_modify()
+  {
+    set_sys_pref('radio_enabled',$_REQUEST["radio"]);
+    set_sys_pref('weather_enabled',$_REQUEST["weather"]);
+    set_sys_pref('updates_enabled',$_REQUEST["update"]);
+    set_sys_pref('messages_enabled',$_REQUEST["messages"]);
+    set_sys_pref('movie_check_enabled',$_REQUEST["movie_info"]);
+    connect_display('Settings Saved');
+  }
+  
+  //*************************************************************************************************
+  // Privacy Policy
+  //*************************************************************************************************
+
+  function privacy_display()
+  {
     ?>
     <h1>Privacy Policy</h1>
      <p><b>Data Collection</b>
@@ -974,22 +1007,7 @@
             interface. If you wish you may prevent even these messages from being downloaded by disabling the "Messages" 
             feature in the form above.
         </ul>
-    <?
-    
-  }
-  
-  //
-  // Saves the new parameters
-  //
-  
-  function connect_modify()
-  {
-    set_sys_pref('radio_enabled',$_REQUEST["radio"]);
-    set_sys_pref('weather_enabled',$_REQUEST["weather"]);
-    set_sys_pref('updates_enabled',$_REQUEST["update"]);
-    set_sys_pref('messages_enabled',$_REQUEST["messages"]);
-    set_sys_pref('movie_check_enabled',$_REQUEST["movie_info"]);
-    connect_display('Settings Saved');
+    <?    
   }
   
   //*************************************************************************************************
@@ -1016,6 +1034,7 @@
        menu_item('Album/Film Art','section=ART&action=DISPLAY');
        menu_item('Playlists Location','section=PLAYLISTS&action=DISPLAY');
        menu_item('Image Cache','section=CACHE&action=DISPLAY');
+       menu_item('Privacy Policy','section=PRIVACY&action=DISPLAY','menu_bgr2.png');
        menu_item('Support Info','section=SUPPORT&action=DISPLAY','menu_bgr2.png');
      }
    echo '</table>';
@@ -1035,7 +1054,7 @@
    }
    
    
-   if ($_SERVER["REMOTE_ADDR"] != $_SERVER["SERVER_ADDR"])
+   if (!is_server_iis() && $_SERVER["REMOTE_ADDR"] != $_SERVER["SERVER_ADDR"])
    {
      echo '<br><h1>Access Denied</h1>
            <p align="center">Remote access to the <i>\'SwissCenter Configuration Utility\'</i> is disabled for security reasons.';

@@ -17,6 +17,7 @@
       break;
     case "UPDATED" :
       echo "Your system has been updated.";
+      $_SESSION = array();
       break;
   }
   echo '</center>';

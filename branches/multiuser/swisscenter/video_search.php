@@ -7,23 +7,25 @@
   require_once("base/utils.php");
   require_once("base/mysql.php");
   require_once("base/az_picker.php");
+  require_once("base/users.php");
 
   function search_page( $title, $column, $sort, $this_url, $prefix, $search, $page)
   {
     page_header('Video', $title.' : '.$search,'LOGO_MOVIE','', (empty($_REQUEST["last"]) ? 'KEY_SPC' : $_REQUEST["last"] ) );
-
     $menu      = new menu();
     $data      = array();
     $back_url  = $_SESSION["history"][count($_SESSION["history"])-1]["url"];
-    $post_sql  = $_SESSION["history"][count($_SESSION["history"])-1]["sql"];
-    $sql       = "from movies m 
-                  left outer join directors_of_movie dom on m.file_id = dom.movie_id
-                  left outer join genres_of_movie gom on m.file_id = gom.movie_id
-                  left outer join actors_in_movie aim on m.file_id = aim.movie_id
+    $post_sql  = $_SESSION["history"][count($_SESSION["history"])-1]["sql"];// . " and IFNULL(media_cert.rank,unrated_cert.rank) <= ".get_current_user_rank();
+    $sql       = "from movies media
+                  inner join media_locations ml on media.location_id = ml.location_id
+                  left outer join certificates media_cert on media.certificate = media_cert.cert_id
+                  inner join certificates unrated_cert on ml.unrated = unrated_cert.cert_id
+                  left outer join directors_of_movie dom on media.file_id = dom.movie_id
+                  left outer join genres_of_movie gom on media.file_id = gom.movie_id
+                  left outer join actors_in_movie aim on media.file_id = aim.movie_id
                   left outer join actors a on aim.actor_id = a.actor_id
                   left outer join directors d on dom.director_id = d.director_id
                   left outer join genres g on gom.genre_id = g.genre_id where ";
-
     echo '<table border=0 height="320px" width="100%"><tr><td width="200px" valign="top">';
     show_picker( $this_url.'?sort='.$sort.'&any='.$prefix.'&search=', $search);
     echo '</td><td valign=top>';
@@ -98,7 +100,7 @@
       $column = $sort."_name";
       break;
     case "certificate":
-      $column = "rating";
+      $column = "IFNULL(media_cert.name,unrated_cert.name)";
       break;
   }
 

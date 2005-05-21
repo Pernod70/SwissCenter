@@ -5,118 +5,84 @@
 
   require_once("base/page.php");
   require_once("base/mysql.php");
-  require_once("base/utils.php");
   require_once("base/file.php");
   require_once("base/playlist.php");
 
-  $menu = new menu();
-  $info = new infotab();
-
   // Function that checks to see if the given attribute ($filter) is unique, and if so it
-  // populates the information table.
+  // populates the information table ($info)
 
-  function distinct_info ($name, $filter, $newsql, &$info)
+  function distinct_info (&$info, $info_text, $column, $table, $predicate)
   {
-    if (db_value("select count(distinct $filter) from mp3s where ".substr($newsql,5)) == 1) 
-    {
-      $text = db_value("select $filter from mp3s where ".substr($newsql,5). ' limit 1,1');
-      $info->add_item($name, $text);
-    }    
+    if ( db_value("select count(distinct $column) $table $predicate") == 1)
+      $info->add_item($info_text, db_value("select $column $table $predicate limit 0,1"));
   }
 
-  // Function that checks to see if the supplied SQL contains a filter for the specified type.
-  // If it doesn't, then we can output a menu item which allows the user to filter on that type.
+  // Checks to see if the supplied column is unique in for all selected rows, and if not it
+  // adds a "Refine by" option to the menu.
 
-  function check_filters ( $filter_list, $newsql, &$menu )
+  function check_filter ( &$menu, $menu_text, $column, $table, $predicate )
   {
-    foreach ($filter_list as $filter)
-    {
-      $num_rows  = db_value("select count(distinct $filter) from mp3s where ".substr($newsql,5));
-      if ($num_rows>1)
-      {
-        switch ($filter)
-        {
-          case 'artist': $menu->add_item("Refine by Artist Name","music_search.php?sort=artist",true); break;
-          case 'album' : $menu->add_item("Refine by Album Name","music_search.php?sort=album",true);   break;
-          case 'year'  : $menu->add_item("Refine by Year","music_search.php?sort=year",true);          break;
-          case 'title' : $menu->add_item("Refine by Track Name","music_search.php?sort=title",true);   break;
-          case 'genre' : $menu->add_item("Refine by Genre Name","music_search.php?sort=genre",true);   break;
-        }
-      }
-    }
+    if ( db_value("select count(distinct $column) $table $predicate") > 1)
+      $menu->add_item($menu_text, "music_search.php?sort=".$column,true);
   }
 
-//*************************************************************************************************
-// Main Code
-//*************************************************************************************************
+  //*************************************************************************************************
+  // Build page elements
+  //*************************************************************************************************
 
-  // Decode & assign page parameters to variables.
-
+  $sql_table = 'from mp3s where 1=1 ';
+  
+  $menu      = new menu();
+  $info      = new infotab();
   $name      = un_magic_quote(rawurldecode($_REQUEST["name"]));
   $type      = un_magic_quote($_REQUEST["type"]);
   $back_url  = $_SESSION["history"][count($_SESSION["history"])-1]["url"];
   $post_sql  = $_SESSION["history"][count($_SESSION["history"])-1]["sql"];
-  $newsql    = $post_sql." and $type like '".db_escape_str(str_replace('_','\_',$name))."'";
-  $playtime  = db_value("select sum(length) from mp3s where ".substr($newsql,5));
-  $num_rows  = db_value("select count($type) from mp3s where ".substr($newsql,5));
-  
+  $predicate = $post_sql." and $type like '".db_escape_str(str_replace('_','\_',$name))."'";
+  $playtime  = db_value("select sum(length) $sql_table $predicate");
+  $num_rows  = db_value("select count($type) $sql_table $predicate");
+
   if (isset($_REQUEST["shuffle"]))
     $_SESSION["shuffle"] = $_REQUEST["shuffle"];
 
   if (isset($_REQUEST["add"]) && strtoupper($_REQUEST["add"]) == 'Y')
-    $_SESSION["history"][] = array("url"=> str_replace('add=Y','add=N',url_add_param(current_url(),'p_del','Y')), "sql"=>$newsql);
+    $_SESSION["history"][] = array("url"=> str_replace('add=Y','add=N',url_add_param(current_url(),'p_del','Y')), "sql"=>$predicate);
 
-  if ($num_rows == 1)
-  {
-    page_header('1 Track Found', '', 'LOGO_MUSIC');
-    // Single match, so get the details from the database and display them
-    if ( ($data = db_toarray("select * from mp3s where ".substr($newsql,5))) === false)
-      page_error('A database error occurred');
-
-    $info->add_item('Track Name', $data[0]["TITLE"]);
-    $info->add_item('Album', $data[0]["ALBUM"]);
-    $info->add_item('Artist', $data[0]["ARTIST"]);
-    $info->add_item('Genre', $data[0]["GENRE"]);
-    $info->add_item('Year', $data[0]["YEAR"]);
-    $info->add_item('Play Time', hhmmss($playtime));
-    $menu->add_item("Play now",pl_link('sql','select * from mp3s where file_id='.$data[0]["FILE_ID"],'audio'));
-
-    $folder_img = file_albumart($data[0]["DIRNAME"].$data[0]["FILENAME"]);
-
-    if (pl_enabled())
-      $menu->add_item("Add to your playlist",'add_playlist.php?sql='.rawurlencode('select * from mp3s where file_id='.$data[0]["FILE_ID"]),true);
-
-    $menu->add_item("Select Entire Album",'music_select_album.php?name='.rawurlencode($data[0]["ALBUM"]));
-  }
+  // Title
+  if ($num_rows ==1)
+    page_header($num_rows.' Track Found', '', 'LOGO_MUSIC');
   else
-  {
-    // More than one track matches, so output filter details and menu options to add new filters
-    if ($num_rows ==1)
-      page_header($num_rows.' Track Found', '', 'LOGO_MUSIC');
-    else
-      page_header($num_rows.' Tracks Found', '', 'LOGO_MUSIC');
+    page_header($num_rows.' Tracks Found', '', 'LOGO_MUSIC');
 
-    if ( ($data = db_toarray("select dirname from mp3s where ".substr($newsql,5)." group by dirname")) === false )
-      page_error('A database error occurred');
+  // Display Information about current selection  
+  distinct_info($info, 'Track Name' ,'title' ,$sql_table, $predicate);
+  distinct_info($info, 'Album'      ,'album' ,$sql_table, $predicate);
+  distinct_info($info, 'Artist'     ,'artist',$sql_table, $predicate);
+  distinct_info($info, 'Genre'      ,'genre' ,$sql_table, $predicate);
+  distinct_info($info, 'Year'       ,'year'  ,$sql_table, $predicate);
+  $info->add_item('Play Time',  hhmmss($playtime));
+  
+  // Build menu of options
+  $menu->add_item('Play now',   pl_link('sql',"select * $sql_table $predicate order by album,lpad(track,10,'0'),title",'audio'));
+  $menu->add_item('Add to your playlist','add_playlist.php?sql='.rawurlencode("select * $sql_table $predicate order by album,lpad(track,10,'0'),title"),true);
 
-    if ( count($data)==1)
-      $folder_img = file_albumart($data[0]["DIRNAME"]);
+  // If only one track is selected, the user might want to expand their selection to the whole album
+  if ($num_rows ==1)
+    $menu->add_item("Select Entire Album",'music_select_album.php?name='.rawurlencode(db_value("select album $sql_table $predicate")));
 
-    distinct_info('Track Name' ,'title' ,$newsql, $info);
-    distinct_info('Album'      ,'album' ,$newsql, $info);
-    distinct_info('Artist'     ,'artist',$newsql, $info);
-    distinct_info('Genre'      ,'genre' ,$newsql, $info);
-    distinct_info('Year'       ,'year'  ,$newsql, $info);
-    $info->add_item('Play Time',  hhmmss($playtime));
-    $menu->add_item('Play now',   pl_link('sql','select * from mp3s where '.substr($newsql,5)." order by album,lpad(track,10,'0'),title",'audio'));
-
-    if (pl_enabled())
-      $menu->add_item('Add to your playlist','add_playlist.php?sql='.rawurlencode('select * from mp3s where '.substr($newsql,5)." order by album,lpad(track,10,'0'),title"),true);
-
-    check_filters( array('artist','album','title','genre','year'), $newsql, $menu);
-  }
+  check_filter( $menu, 'Refine By Artist', 'artist', $sql_table, $predicate );
+  check_filter( $menu, 'Refine By Album', 'album',  $sql_table, $predicate );
+  check_filter( $menu, 'Refine By Title', 'title',  $sql_table, $predicate );
+  check_filter( $menu, 'Refine By Genre', 'genre',  $sql_table, $predicate );
+  check_filter( $menu, 'Refine By Year', 'year',   $sql_table, $predicate );
 
   // Is there a picture for us to display?
+  $folder_img = file_albumart( db_value("select concat(dirname,filename) $sql_table $predicate limit 0,1") );
+
+  //*************************************************************************************************
+  // Display the page
+  //*************************************************************************************************
+
   if (! empty($folder_img) )
   {
     $info->display();
@@ -126,7 +92,7 @@
                 <center>'.img_gen($folder_img,150,150).'</center>
               </td></tr></table></td>
               <td valign="top">';
-              $menu->display(320);
+              $menu->display(300);
     echo '    </td></td></table>';
   }
   else
@@ -135,13 +101,14 @@
     $menu->display();
   }
 
+  // Display ABC buttons
   if (!isset($_SESSION["shuffle"]) || $_SESSION["shuffle"] == 'off')
     $buttons[] = array('text'=>'Turn Shuffle On', 'url'=>'music_selected.php?shuffle=on&name='.$name.'&type='.$type );
   else
     $buttons[] = array('text'=>'Turn Shuffle Off', 'url'=>'music_selected.php?shuffle=off&name='.$name.'&type='.$type );
 
   page_footer( url_add_param($_SESSION["last_picker"][count($_SESSION["history"])-1],'del','y'), $buttons );
-  
+
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/

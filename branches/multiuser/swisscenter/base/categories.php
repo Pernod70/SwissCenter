@@ -15,7 +15,17 @@
     
     $special    = array( array("CAT_NAME"=>"All Categories","CAT_ID"=>CAT_ALL)
                        , array("CAT_NAME"=>"Recently Added","CAT_ID"=>CAT_NEW) );
-    $categories = db_toarray("select distinct c.cat_id,c.cat_name from categories c,media_locations ml where c.cat_id=ml.cat_id and ml.media_type=$media_type order by c.cat_name ASC");     
+
+    $media_table = db_value("select media_table from media_types where media_id=$media_type");
+
+    $categories = db_toarray("select distinct c.cat_id,c.cat_name from
+                                categories c inner join media_locations ml on c.cat_id=ml.cat_id
+                                inner join $media_table media on media.location_id=ml.location_id
+                                left outer join certificates media_cert on media_cert.cert_id=media.certificate
+                                inner join certificates unrated_cert on unrated_cert.cert_id=ml.unrated
+                              where ml.media_type=$media_type
+                                and IFNULL(media_cert.rank,unrated_cert.rank) <= ".get_current_user_rank()." order by c.cat_name ASC");
+
     $cats       = array_merge( $special , $categories);
     $page       = (isset($_REQUEST["cat_page"]) ? $_REQUEST["cat_page"] : 1);
     $start      = ($page-1) * MAX_PER_PAGE; 
@@ -48,7 +58,7 @@
     {
       $locations = db_col_to_list("select location_id from media_locations where cat_id=$cat_id and media_type=$media_type");
       if(!empty($locations))
-        $sql = " and location_id in (".implode($locations,",").")";
+        $sql = " and media.location_id in (".implode($locations,",").")";
     }
     elseif($cat_id == CAT_NEW)
     {
@@ -58,14 +68,4 @@
     
     return $sql;
   }
-  
-  // -------------------------------------------------------------------------------------------------
-  // Returns the number of categories in use for the given media type.
-  // -------------------------------------------------------------------------------------------------
-
-  function categories_count($media_type)
-  {
-    return db_value("select count(distinct cat_id) from media_locations where media_type=$media_type");
-  }
-
 ?>

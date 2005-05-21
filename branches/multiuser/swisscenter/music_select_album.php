@@ -10,8 +10,8 @@
 
   // Now for some complete and utter cowboy code which re-seeds the history and last_picker
   // arrays that were being carefully maintained for browser history.
-  
-  $_SESSION["history"] = array( array("url"=>"music.php", "sql"=>""));
+
+  $_SESSION["history"] = array( $_SESSION["history"][0] );
   $_SESSION["last_picker"] = array("1"=>"/music_search.php?sort=album");
 
   // And go back to the 'selected' screen

@@ -169,14 +169,14 @@ function file_noext( $filename )
 }
 
 //-------------------------------------------------------------------------------------------------
-// Returns the parent of the given directory (slash terminated)
+// Returns the parent of the given directory (slash terminated, unlike the built-in "dirname").
 //-------------------------------------------------------------------------------------------------
 
 function parent_dir( $dirpath)
 {
-  $dirs = explode('/',$dirpath);
-  array_splice($dirs, count($dirs)-2,1);
-  return implode('/',$dirs );
+  $dirs = explode('/',rtrim($dirpath,'/'));
+  array_pop($dirs);
+  return ( count($dirs) == 0 ? '' : implode('/',$dirs ).'/');
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -274,7 +274,7 @@ function array2file( $array, $filename)
 function update_ini( $file, $var, $value )
 {
   // Read in the file, and setup variables
-  $contents = file($file);
+  $contents = @file($file);
   $match    = strtolower($var).'=';
   $len      = strlen($match);
   $found    = false;
@@ -403,10 +403,14 @@ function file_thumbnail( $fsp )
 {
   $tn_image  = '';
 
-  if (is_file($fsp))
+  if (!file_exists($fsp))
   {
-    $id3_image = db_value("select m.file_id from mp3s m,mp3_albumart ma where m.file_id = ma.file_id and concat(m.dirname,m.filename) = '$fsp'");
-    if (!empty($id3_image))
+    send_to_log("Warning : File/Directory doesn't exist in file.php:file_thumbnail",$fsp);
+  }
+  elseif (is_file($fsp))
+  {
+    $id3_image = db_value("select m.file_id from mp3s m,mp3_albumart ma where m.file_id = ma.file_id and concat(m.dirname,m.filename) = '".db_escape_str($fsp)."'");
+    if (!empty($id3_image) && get_sys_pref('USE_ID3_ART','YES') == 'YES')
       $tn_image = 'select image from mp3_albumart where file_id='.$id3_image.'.sql';
     else 
     {
@@ -423,7 +427,9 @@ function file_thumbnail( $fsp )
       $tn_image = dir_icon();      
   }
   else  
-    echo "Parameter incorrect";  
+  {
+    debug ("Parameter incorrect : ");  
+  }
 
   return $tn_image;
 }
@@ -439,24 +445,33 @@ function file_albumart( $fsp )
 
   if ( is_file($fsp) )
   {
-    // need to do something with the albumart image if it is present!
-    $id3_image = db_value("select m.file_id from mp3s m,mp3_albumart ma where m.file_id = ma.file_id and concat(m.dirname,m.filename) = '$fsp'");
+    $id3_image = db_value("select m.file_id from mp3s m,mp3_albumart ma where m.file_id = ma.file_id and concat(m.dirname,m.filename) = '".db_escape_str($fsp)."'");
     
     if ( !empty($id3_image) )
+    {
+      // This file has album art contained within the ID3 tag
       $return = 'select image from mp3_albumart where file_id='.$id3_image.'.sql';
+    }
     else 
     {
+      // Search the directory for an image with the same name as that given, but with an image extension
       foreach ( array('gif','jpg','jpeg','png') as $type)
         if ( $return = find_in_dir( dirname($fsp),file_noext($fsp).'.'.$type))
           break;
-          
+
+      // No albumart found for this specific file.. is there albumart for the directory?
       if ($return == '')
-        $return = find_in_dir(dirname($fsp), db_col_to_list("select filename from art_files"));
+        $return = file_albumart(dirname($fsp));
     }
   }
   elseif ( is_dir($fsp) )
   {
+    // Is there an image file with the same name as those listed in the configuration page?
     $return = find_in_dir($fsp, db_col_to_list("select filename from art_files"));
+    
+    // No albumart for this folder found... is there albumart for the parent folder?
+    if ($return === false && dirname($fsp) != $fsp)
+      $return = file_albumart(dirname($fsp));    
   } 
 
   return $return;

@@ -91,7 +91,10 @@
 
   function server_address()
   {
-    return 'http://'.$_SERVER['SERVER_ADDR'].":".$_SERVER['SERVER_PORT'].'/';
+    if (is_server_iis())
+      return 'http://'.$_SERVER['LOCAL_ADDR'].":".$_SERVER['SERVER_PORT'].'/';
+    else
+      return 'http://'.$_SERVER['SERVER_ADDR'].":".$_SERVER['SERVER_PORT'].'/';
   }
 
   // ----------------------------------------------------------------------------------
@@ -114,6 +117,9 @@
   
   function internet_available()
   {
+    if ( isset($_SESSION["internet"]) && !is_array($_SESSION["internet"]))
+      $_SESSION=array();
+    
     if ( !isset($_SESSION["internet"]) || $_SESSION["internet"]["timeout"] < time() )
     {
       $_SESSION["internet"]["available"] = internet_check();

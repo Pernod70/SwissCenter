@@ -13,7 +13,7 @@ require_once("menu.php");
 require_once("infotab.php");
 require_once("utils.php");
 require_once("iconbar.php");
-
+require_once("users.php");
 
 #-------------------------------------------------------------------------------------------------
 # Determine screen type (currently only PAL or NTSC - no support for HDTV).
@@ -86,8 +86,16 @@ function down_link( $url)
 
 // background-attachment:fixed;
 
-function page_header( $title, $tagline = "",  $logo = "", $meta = "", $focus="1")
+function page_header( $title, $tagline = "",  $logo = "", $meta = "", $focus="1", $skip_auth = false)
 {
+  // Check if the user has been selected and prompt for logon if needed
+  if(!$skip_auth && !is_user_selected())
+  {
+    ob_clean();
+    header('Location: '.server_address().'change_user.php');
+    exit;
+  }
+  
   if (empty($logo))
     $logo = '/images/logo.gif';
   else 
@@ -163,7 +171,7 @@ function page_header( $title, $tagline = "",  $logo = "", $meta = "", $focus="1"
 function page_error($message)
 {
   ob_clean();
-  page_header( "Error" );
+  page_header( "Error", "", "", "", "1", true );
   echo "<center>$message</center><p>";
   $menu = new menu();
   $menu->add_item("Return to the Main Menu",'/index.php',true);
@@ -208,12 +216,8 @@ function page_footer( $back, $buttons= '', $iconbar = 0 )
         $link = $buttons[$i]["url"];
         if (substr($link,0,5) != 'href=')
           $link = 'href="'.$link.'"';
-
-        // Output the link slightly different for the showcenter browser.
-        if ( is_showcenter() )
-          $link = $buttons[$i]["text"].'<a '.$link.' TVID="key_'.strtolower($button_id).'"></a>';
-        else
-          $link = '<a '.$link.' TVID="key_'.strtolower($button_id).'">'.$buttons[$i]["text"].'</a>';
+          
+        $link = '<a '.$link.' TVID="key_'.strtolower($button_id).'">'.$buttons[$i]["text"].'</a>';
       }
       else
         $link = $buttons[$i]["text"];
