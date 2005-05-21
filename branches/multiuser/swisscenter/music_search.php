@@ -7,6 +7,7 @@
   require_once("base/utils.php");
   require_once("base/mysql.php");
   require_once("base/az_picker.php");
+  require_once("base/rating.php");
 
   function search_page( $title, $column, $this_url, $prefix, $search, $page)
   {
@@ -15,11 +16,8 @@
     $menu      = new menu();
     $data      = array();
     $back_url  = $_SESSION["history"][count($_SESSION["history"])-1]["url"];
-    $post_sql  = $_SESSION["history"][count($_SESSION["history"])-1]["sql"] . " and IFNULL(media_cert.rank,unrated_cert.rank) <= ".get_current_user_rank();;
-    $sql = "from mp3s media
-            inner join media_locations ml on media.location_id = ml.location_id
-            left outer join certificates media_cert on media.certificate = media_cert.cert_id
-            inner join certificates unrated_cert on ml.unrated = unrated_cert.cert_id where";
+    $post_sql  = $_SESSION["history"][count($_SESSION["history"])-1]["sql"];
+    $sql = "from mp3s media".get_rating_join()." where";
 
     echo '<table border=0 height="320px" width="100%"><tr><td width="200px" valign="top">';
     show_picker( $this_url.'?sort='.$column.'&any='.$prefix.'&search=', $search);

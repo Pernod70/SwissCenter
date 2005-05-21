@@ -8,6 +8,7 @@
   require_once("base/mysql.php");
   require_once("base/az_picker.php");
   require_once("base/users.php");
+  require_once("base/rating.php");
 
   function search_page( $title, $column, $sort, $this_url, $prefix, $search, $page)
   {
@@ -16,10 +17,7 @@
     $data      = array();
     $back_url  = $_SESSION["history"][count($_SESSION["history"])-1]["url"];
     $post_sql  = $_SESSION["history"][count($_SESSION["history"])-1]["sql"];// . " and IFNULL(media_cert.rank,unrated_cert.rank) <= ".get_current_user_rank();
-    $sql       = "from movies media
-                  inner join media_locations ml on media.location_id = ml.location_id
-                  left outer join certificates media_cert on media.certificate = media_cert.cert_id
-                  inner join certificates unrated_cert on ml.unrated = unrated_cert.cert_id
+    $sql       = "from movies media".get_rating_join()."
                   left outer join directors_of_movie dom on media.file_id = dom.movie_id
                   left outer join genres_of_movie gom on media.file_id = gom.movie_id
                   left outer join actors_in_movie aim on media.file_id = aim.movie_id

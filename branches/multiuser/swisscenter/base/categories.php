@@ -1,6 +1,7 @@
 <?
   require_once('menu.php');
   require_once('mysql.php');
+  require_once('rating.php');
   
   define('CAT_ALL', -1);
   define('CAT_NEW', -2);
@@ -23,8 +24,7 @@
                                 inner join $media_table media on media.location_id=ml.location_id
                                 left outer join certificates media_cert on media_cert.cert_id=media.certificate
                                 inner join certificates unrated_cert on unrated_cert.cert_id=ml.unrated
-                              where ml.media_type=$media_type
-                                and IFNULL(media_cert.rank,unrated_cert.rank) <= ".get_current_user_rank()." order by c.cat_name ASC");
+                              where ml.media_type=$media_type".get_rating_filter()." order by c.cat_name ASC");
 
     $cats       = array_merge( $special , $categories);
     $page       = (isset($_REQUEST["cat_page"]) ? $_REQUEST["cat_page"] : 1);
