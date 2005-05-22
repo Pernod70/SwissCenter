@@ -26,6 +26,8 @@
   if (internet_available())
     $menu->add_item("Update SwissCenter",'run_update.php');  
 
+  $menu->add_item("Change PIN", 'change_pin.php');
+
   $menu->display();
   page_footer( 'index.php' );
 

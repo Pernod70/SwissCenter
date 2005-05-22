@@ -7,6 +7,9 @@
   require_once("base/file.php");
   require_once("messages_db.php");
 
+  page_header( "Main Menu", '','LOGO_HOME');
+
+
   $menu = new menu();
   $icons = new iconbar(400);
 
@@ -27,6 +30,7 @@
     $menu->add_item("Manage Playlists",'manage_pl.php',true);
 
   // Icons
+  $icons->add_icon("ICON_USER",get_current_user_name(),'change_user.php');
   
   if (internet_available() && $_SESSION["update"]["available"])
     $icons->add_icon("ICON_UPDATE","Update",'run_update.php');  
@@ -39,7 +43,6 @@
 
   // Display the page content
     
-  page_header( "Main Menu", '','LOGO_HOME');
   echo '<center>Please select an option from the list:</center><p>';
   $menu->display();
   page_footer('', '', $icons);  

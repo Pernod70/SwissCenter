@@ -80,6 +80,7 @@ INSERT INTO Certificates (name, rank, description)
 -- Users table
 -- -------------------------------------------------------------------------------------------------
 ALTER TABLE Users ADD MaxCert INT UNSIGNED DEFAULT 1;
+ALTER TABLE Users ADD Pin VARCHAR(10) DEFAULT NULL;
 
 ALTER TABLE Users ADD CONSTRAINT FOREIGN KEY(MaxCert) REFERENCES certificates(cert_id) ON DELETE SET NULL;
 

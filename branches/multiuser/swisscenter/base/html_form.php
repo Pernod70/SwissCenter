@@ -308,6 +308,10 @@ function form_select_table ( $param, $table_contents, $table_params, $id_col, $e
             {
               echo "<input type='text' name='".$element_name."' value='".$cell_value."'>";
             }
+            elseif($cell_edit_options == "*")
+            {
+              echo "<input type='password' name='".$element_name."' value='".$cell_value."'>";
+            }
             else
             {
               if(is_array($cell_edit_options))
@@ -330,8 +334,14 @@ function form_select_table ( $param, $table_contents, $table_params, $id_col, $e
             }
           }
           else
-            echo $cell_value;
-            
+          {
+            $cell_edit_options = $edit_options[$cell_name];
+            if($cell_edit_options == "*")
+              echo "********";
+            else
+              echo $cell_value;
+          }
+        
           echo '</td>';
         }
       }

@@ -167,7 +167,8 @@
   
   function users_display($modify_msg = '', $add_msg = '', $edit_id = 0)
   {
-    $data = db_toarray("select user_id, u.Name 'Name', c.name 'Max Certificate Viewable' from users u, certificates c where u.maxcert=c.cert_id order by u.name asc");
+    $data = db_toarray("select user_id, u.Name 'Name', u.Pin, c.name 'Max Certificate Viewable' from users u, certificates c where u.maxcert=c.cert_id order by u.name asc");
+    
     
     echo "<h1>User Management</h1>";
     message($modify_msg);
@@ -175,7 +176,10 @@
     form_hidden("section", "USERS");
     form_hidden("action", "MODIFY");
     form_select_table("user_id", $data, array("class"=>"form_select_tab","width"=>"100%"), "user_id",
-                      array("NAME"=>"", "MAX CERTIFICATE VIEWABLE"=>"select cert_id,name from certificates order by rank asc"), $edit_id, "users");
+                      array("NAME"=>"",
+                            "MAX CERTIFICATE VIEWABLE"=>"select cert_id,name from certificates order by rank asc",
+                            "PIN"=>"*")
+                      , $edit_id, "users");
     form_submit("Remove Selected Users", 1 ,"center");
     form_end();
     
@@ -234,6 +238,7 @@
       $user_id = $update_data["USER_ID"];
       $name = $update_data["NAME"];
       $max_cert = $update_data["MAX_CERTIFICATE_VIEWABLE"];
+      $pin = $update_data["PIN"];
       
       if(empty($name))
       {
@@ -241,7 +246,15 @@
       }
       else
       {
-        db_sqlcommand("update users set name='".db_escape_str($name)."',maxcert=$max_cert where user_id=$user_id");
+        $sql = "update users set name='".db_escape_str($name)."'";
+        if(empty($pin))
+          $sql = $sql.",pin=NULL";
+        else
+          $sql = $sql.",pin='".db_escape_str($pin)."'";
+        
+        $sql = $sql.",maxcert=$max_cert where user_id=$user_id";
+        
+        db_sqlcommand($sql);
         users_display("The selected user has been modified");
       }
     }
