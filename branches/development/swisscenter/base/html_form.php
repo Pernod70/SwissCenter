@@ -302,11 +302,15 @@ function form_select_table ( $param, $table_contents, $table_params, $id_col, $e
           if($editable && ($row[strtoupper($id_col)] == $edit))
           {
             // Check the edit options to see if there are choices for this column or not
-            $element_name = strtoupper($param.'_update:'.$cell_name);
+            $element_name = strtoupper($param.'_update:'.escape_form_names($cell_name));
             $cell_edit_options = $edit_options[$cell_name];
             if(empty($cell_edit_options))
             {
               echo "<input type='text' name='".$element_name."' value='".$cell_value."'>";
+            }
+            elseif($cell_edit_options == "*")
+            {
+              echo "<input type='password' name='".$element_name."' value='".$cell_value."'>";
             }
             else
             {
@@ -330,8 +334,14 @@ function form_select_table ( $param, $table_contents, $table_params, $id_col, $e
             }
           }
           else
-            echo $cell_value;
-            
+          {
+            $cell_edit_options = $edit_options[$cell_name];
+            if($cell_edit_options == "*")
+              echo "********";
+            else
+              echo $cell_value;
+          }
+        
           echo '</td>';
         }
       }
@@ -361,6 +371,11 @@ function form_select_table ( $param, $table_contents, $table_params, $id_col, $e
     echo '<tr><th><center>There are no items to display</center></th></tr?';
     echo '</table></td></tr>';
   }
+}
+
+function escape_form_names($name)
+{
+  return strtr($name, " ", "_");
 }
 
 function form_select_table_vals( $id_col )

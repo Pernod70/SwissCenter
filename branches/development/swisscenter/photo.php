@@ -5,13 +5,20 @@
 
   require_once("base/page.php");
   require_once("base/categories.php");
+  require_once("base/rating.php");
 
   function display_photo_menu($cat_id)
   {
     if(empty($cat_id))
-      $_SESSION["history"] = array(array("url"=>"photo.php"));
+    {
+      $_SESSION["history"] = array(array("url"=>"photo.php",
+        "sql"=>get_rating_filter()));
+    }
     else
-      $_SESSION["history"] = array(array("url"=>"photo.php?cat=$cat_id", "sql"=>category_select_sql($cat_id, 2)));
+    {
+      $_SESSION["history"] = array(array("url"=>"photo.php?cat=$cat_id",
+        "sql"=>category_select_sql($cat_id, 2).get_rating_filter()));
+    }
 
     echo '<center>Please select an option from the list:</center><p>';
 

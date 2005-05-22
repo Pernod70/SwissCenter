@@ -7,7 +7,8 @@
   require_once("base/mysql.php");
   require_once("base/file.php");
   require_once("base/playlist.php");
-
+  require_once("base/rating.php");
+  
   // Function that checks to see if the given attribute ($filter) is unique, and if so it
   // populates the information table ($info)
 
@@ -30,7 +31,7 @@
   // Build page elements
   //*************************************************************************************************
 
-  $sql_table = 'from mp3s where 1=1 ';
+  $sql_table = 'from mp3s media'.get_rating_join().' where 1=1 ';
   
   $menu      = new menu();
   $info      = new infotab();

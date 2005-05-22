@@ -3,6 +3,8 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
+require_once('file.php');
+
 #-------------------------------------------------------------------------------------------------
 # Converts all keys to uppercase
 #  array     - The array to work on
@@ -278,6 +280,7 @@ class db_query
   var $db_handle;
   var $stmt_handle;
   var $rows_fetched;
+  var $sql_to_execute;
 
   #-------------------------------------------------------------------------------------------------
   # Constructor
@@ -285,6 +288,8 @@ class db_query
 
   function db_query($sql = '', $dbname = '')
   {
+    $this->sql_to_execute = $sql;
+    
     if ($dbname == '')
       $dbname = DB_DATABASE;
       
@@ -332,17 +337,29 @@ class db_query
   #-------------------------------------------------------------------------------------------------
 
   function db_execute_sql($sql)
-  { return ( $this->stmt_handle = mysql_query( $sql, $this->db_handle) ); }
+  {
+    $this->sql_to_execute = $sql;
+    $this->stmt_handle = mysql_query($sql, $this->db_handle);
+    return $this->stmt_handle;
+  }
 
   function db_get_rows_fetched()
-  { return $this->rows_fetched; }
+  {
+    return $this->rows_fetched;
+  }
 
   function db_get_error()
-  { return mysql_error($this->db_handle); }
+  { 
+    return mysql_error($this->db_handle);
+  }
 
   function db_success()
-  { return $this->stmt_handle; }
-
+  {
+    if(!$this->stmt_handle)
+      send_to_log($this->db_get_error(), $this->sql_to_execute);
+      
+    return $this->stmt_handle;
+  }
 }
 
 /**************************************************************************************************

@@ -8,6 +8,7 @@
   require_once("base/utils.php");
   require_once("base/file.php");
   require_once("base/playlist.php");
+  require_once("base/rating.php");
 
   $menu = new menu();
   $info = new infotab();
@@ -37,7 +38,7 @@
         {
           case 'title'         : $menu->add_item("Refine by Title","video_search.php?sort=title",true); break;
           case 'year'          : $menu->add_item("Refine by Year","video_search.php?sort=year",true);   break;
-          case 'rating'        : $menu->add_item("Refine by Rating","video_search.php?sort=certificate",true);  break;
+          case 'certificate'   : $menu->add_item("Refine by Rating","video_search.php?sort=certificate",true);  break;
           case 'genre_name'    : $menu->add_item("Refine by Genre","video_search.php?sort=genre",true);  break;
           case 'actor_name'    : $menu->add_item("Refine by Actor","video_search.php?sort=actor",true);  break;        
           case 'director_name' : $menu->add_item("Refine by Director","video_search.php?sort=director",true);  break;
@@ -61,16 +62,17 @@
     case "genre":        $column = 'genre_name';    break;
     case "actor":        $column = 'actor_name';    break;
     case "director":     $column = 'director_name'; break;
-    case "certificate":  $column = 'rating';        break;
+    case "certificate":  $column = get_cert_name_sql();        break;
   }
 
-  $sql_table  = "movies m 
-                left outer join directors_of_movie dom on m.file_id = dom.movie_id
-                left outer join genres_of_movie gom on m.file_id = gom.movie_id
-                left outer join actors_in_movie aim on m.file_id = aim.movie_id
+  $sql_table  = "movies media
+                left outer join directors_of_movie dom on media.file_id = dom.movie_id
+                left outer join genres_of_movie gom on media.file_id = gom.movie_id
+                left outer join actors_in_movie aim on media.file_id = aim.movie_id
                 left outer join actors a on aim.actor_id = a.actor_id
                 left outer join directors d on dom.director_id = d.director_id
-                left outer join genres g on gom.genre_id = g.genre_id";
+                left outer join genres g on gom.genre_id = g.genre_id".
+                get_rating_join();
   
   $name      = un_magic_quote(rawurldecode($_REQUEST["name"]));
   $back_url  = $_SESSION["history"][count($_SESSION["history"])-1]["url"];
@@ -93,12 +95,12 @@
   {
     page_header('1 Item Found','','LOGO_MOVIE');
     // Single match, so get the details from the database and display them
-    if ( ($data = db_toarray("select m.*, a.actor_name, d.director_name, g.genre_name from $sql_table where ".substr($newsql,5))) === false)
+    if ( ($data = db_toarray("select media.*, a.actor_name, d.director_name, g.genre_name, ".get_cert_name_sql()." certificate_name from $sql_table where ".substr($newsql,5))) === false)
       page_error('A database error occurred');
 
     $info->add_item('Title', $data[0]["TITLE"]);
     $info->add_item('Year', $data[0]["YEAR"]);
-    $info->add_item('Certificate', $data[0]["RATING"]);
+    $info->add_item('Certificate', $data[0]["CERTIFICATE_NAME"]);
     $info->add_item('Director', $data[0]["DIRECTOR_NAME"]);
     $info->add_item('Starring', $data[0]["ACTOR_NAME"]);
     $info->add_item('Genre', $data[0]["GENRE_NAME"]);
@@ -134,13 +136,13 @@
     $info->add_item('Title', distinct_info('title',$sql_table, $newsql));
     $info->add_item('Starring', distinct_info('actor_name',$sql_table, $newsql));
     $info->add_item('Year', distinct_info('year',$sql_table, $newsql));
-    $info->add_item('Certificate',distinct_info('rating',$sql_table, $newsql));
+    $info->add_item('Certificate',distinct_info(/*'certificate'*/get_cert_name_sql(),$sql_table, $newsql));
     $menu->add_item('Play now'  , pl_link('sql',"select * from $sql_table where ".substr($newsql,5)." order by title"));
 
     if (pl_enabled())
       $menu->add_item('Add to your playlist','add_playlist.php?sql='.rawurlencode("select * from $sql_table where ".substr($newsql,5)." order by title"),true);
 
-    check_filters( array('title','year','rating','genre_name','actor_name','director_name'), $sql_table, $newsql, $menu);
+    check_filters( array('title','year','certificate','genre_name','actor_name','director_name'), $sql_table, $newsql, $menu);
   }
 
   // Is there a picture for us to display?

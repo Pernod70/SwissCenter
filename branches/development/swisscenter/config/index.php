@@ -165,13 +165,117 @@
   // Display current config
   //
   
-  function users_display()
+  function users_display($modify_msg = '', $add_msg = '', $edit_id = 0)
   {
+    $data = db_toarray("select user_id, u.Name 'Name', u.Pin, c.name 'Max Certificate Viewable' from users u, certificates c where u.maxcert=c.cert_id order by u.name asc");
+    
+    
     echo "<h1>User Management</h1>";
-    echo "<p>I'm sorry but the ability to create multiple users of the SwissCenter, each with their own preferences 
-             and access rights is a feature that is currently still in development.
-          <p>This section of the configuration will become active as soon as the feature is released and your SwissCenter
-             has been updated.";
+    message($modify_msg);
+    form_start("index.php", 150, "users");
+    form_hidden("section", "USERS");
+    form_hidden("action", "MODIFY");
+    form_select_table("user_id", $data, array("class"=>"form_select_tab","width"=>"100%"), "user_id",
+                      array("NAME"=>"",
+                            "MAX CERTIFICATE VIEWABLE"=>"select cert_id,name from certificates order by rank asc",
+                            "PIN"=>"*")
+                      , $edit_id, "users");
+    form_submit("Remove Selected Users", 1 ,"center");
+    form_end();
+    
+    echo "<p><h1>Add New User</h1>";
+    message($add_msg);
+    form_start("index.php", 150);
+    form_hidden("section", "USERS");
+    form_hidden("action", "NEW");
+    form_input("name", "Name", 70, '', $_REQUEST["name"]);
+    form_list_dynamic("cert", "Maximum certificate", "select cert_id,name from certificates order by rank asc", $_REQUEST["cert"]);
+    form_submit("Add New User", 2);
+    form_end();
+  }
+  
+  function users_new()
+  {
+    $name = $_REQUEST["name"];
+    $cert = $_REQUEST["cert"];
+    
+    if(empty($name))
+    {
+      users_display("", "!Please enter a name below");
+    }
+    else
+    {
+      $user_count = db_value("select count(*) from users where name='".db_escape_str($name)."'");
+      
+      if($user_count > 0)
+      {
+        users_display("", "!That user already exists, please try another name");
+      }
+      else
+      {
+        $data = array("name"=>$name, "maxcert"=>$cert);
+
+        if(db_insert_row("users", $data) === false)
+          users_display(db_error());
+        else
+          users_display("", "New User Added");
+      }
+    }
+  }
+  
+  function users_modify()
+  {
+    $selected = form_select_table_vals("user_id");
+    $edit_id = form_select_table_edit("user_id", "users");
+    $update_data = form_select_table_update("user_id", "users");
+    
+    if(!empty($edit_id))
+    {
+      users_display("", "", $edit_id);
+    }
+    elseif(!empty($update_data))
+    {
+      $user_id = $update_data["USER_ID"];
+      $name = $update_data["NAME"];
+      $max_cert = $update_data["MAX_CERTIFICATE_VIEWABLE"];
+      $pin = $update_data["PIN"];
+      
+      if(empty($name))
+      {
+        user_display("!Please enter a user name");
+      }
+      else
+      {
+        $sql = "update users set name='".db_escape_str($name)."'";
+        if(empty($pin))
+          $sql = $sql.",pin=NULL";
+        else
+          $sql = $sql.",pin='".db_escape_str($pin)."'";
+        
+        $sql = $sql.",maxcert=$max_cert where user_id=$user_id";
+        
+        db_sqlcommand($sql);
+        users_display("The selected user has been modified");
+      }
+    }
+    elseif(!empty($selected))
+    {
+      $message = "The selected users have been deleted";
+      
+      foreach($selected as $selected_item)
+      {
+        if($selected_item != 1)
+        {
+          db_sqlcommand("delete from users where user_id=$selected_item");
+        }
+        else
+          $message = "!The default user cannot be deleted";
+      }
+      
+      users_display($message);
+    }
+    else
+      users_display();
   }
   
   //*************************************************************************************************
@@ -188,14 +292,17 @@
     if (!is_windows() && !file_exists(SC_LOCATION.'media'))
       mkdir(SC_LOCATION.'media');
     
-    $data = db_toarray("select location_id,media_name 'Type', cat_name 'Category', name 'Directory'  from media_locations ml, media_types mt, categories cat where mt.media_id = ml.media_type and ml.cat_id = cat.cat_id order by 2,3,4");
+    $data = db_toarray("select location_id,media_name 'Type', cat_name 'Category', cert.name 'Unrated Certificate', ml.name 'Directory'  from media_locations ml, media_types mt, categories cat, certificates cert where ml.unrated=cert.cert_id and mt.media_id = ml.media_type and ml.cat_id = cat.cat_id order by 2,3,4");
      
     echo "<h1>Current Media Locations</h1>";
     message($delete);
     form_start('index.php', 150, 'dirs');
     form_hidden('section','DIRS');
     form_hidden('action','MODIFY');
-    form_select_table('loc_id',$data,array('class'=>'form_select_tab','width'=>'100%'),'location_id', array('DIRECTORY'=>'','TYPE'=>'select media_id,media_name from media_types order by 2','CATEGORY'=>'select cat_id,cat_name from categories order by cat_name'), $edit, 'dirs');
+    form_select_table('loc_id',$data,array('class'=>'form_select_tab','width'=>'100%'),'location_id',
+                      array('DIRECTORY'=>'','TYPE'=>'select media_id,media_name from media_types order by 2',
+                            'CATEGORY'=>'select cat_id,cat_name from categories order by cat_name',
+                            'UNRATED CERTIFICATE'=>'select cert_id,name from certificates order by rank asc'), $edit, 'dirs');
     form_submit('Remove Selected Locations',1,'center');
     form_end();
   
@@ -206,6 +313,7 @@
     form_hidden('action','NEW');
     form_list_dynamic('type','Media Type',"select media_id,media_name from media_types order by 2",$_REQUEST['type']);
     form_list_dynamic('cat', 'Category',"select cat_id,cat_name from categories order by cat_name", $_REQUEST['cat']);
+    form_list_dynamic('cert', 'Unrated Certificate', 'select cert_id,name from certificates order by rank asc', $_REQUEST['cert']);
     form_input('location','Location',70,'',un_magic_quote($_REQUEST['location']));
     form_label('Please specify the fully qualified directory path where the media can be found <p>For example: 
                 On Windows this might be <em>"C:\Documents and Settings\Robert\My Documents\My Music"</em> or on 
@@ -237,6 +345,7 @@
       $type_id = $update["TYPE"];
       $cat_id = $update["CATEGORY"];
       $id = $update["LOC_ID"];
+      $cert = $update["UNRATED_CERTIFICATE"];
 
       if (!file_exists($dir))
         dirs_display("!I'm sorry, the directory you specified does not exist");
@@ -244,7 +353,7 @@
         dirs_display("!Please enter a fully qualified directory path.");
       else
       {
-        db_sqlcommand("update media_locations set name='$dir',media_type=$type_id,cat_id=$cat_id where location_id=$id");
+        db_sqlcommand("update media_locations set name='$dir',media_type=$type_id,cat_id=$cat_id,unrated=$cert where location_id=$id");
         dirs_display('Updated media location information.');
       }
     }
@@ -288,7 +397,7 @@
       dirs_display('',"!Please enter a fully qualified directory path.");
     else 
     {
-      if ( db_insert_row('media_locations',array('name'=>$dir,'media_type'=>$_REQUEST["type"],'cat_id'=>$_REQUEST["cat"])) === false)
+      if ( db_insert_row('media_locations',array('name'=>$dir,'media_type'=>$_REQUEST["type"],'cat_id'=>$_REQUEST["cat"],'unrated'=>$_REQUEST["cert"])) === false)
       {
         dirs_display(db_error());
       }
@@ -932,12 +1041,13 @@
      {
        menu_item('Categories','section=CATEGORY&action=DISPLAY');
        menu_item('Media Locations','section=DIRS&action=DISPLAY');
+       menu_item('User Management','section=USERS&action=DISPLAY');
        menu_item('Scheduled Tasks','section=SCHED&action=DISPLAY');
        menu_item('Connectivity','section=CONNECT&action=DISPLAY');
        menu_item('Album/Film Art','section=ART&action=DISPLAY');
        menu_item('Playlists Location','section=PLAYLISTS&action=DISPLAY');
        menu_item('Image Cache','section=CACHE&action=DISPLAY');
-//       menu_item('User Management','section=USERS&action=DISPLAY');
+       menu_item('Privacy Policy','section=PRIVACY&action=DISPLAY','menu_bgr2.png');
        menu_item('Privacy Policy','section=PRIVACY&action=DISPLAY','menu_bgr2.png');
        menu_item('Support Info','section=SUPPORT&action=DISPLAY','menu_bgr2.png');
      }

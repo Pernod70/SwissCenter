@@ -90,11 +90,6 @@ function fatal_error($heading,$text)
       fatal_error('Your SwissCenter Configuration file is missing.','Please use the <a href="/config/index.php">Configuration Utility<a> to create a configuration file');
   }
   
-#-------------------------------------------------------------------------------------------------
-# Determine the current user (currently, only one user is supported).
-#-------------------------------------------------------------------------------------------------
-
-  define ('CURRENT_USER',1);
 
 #-------------------------------------------------------------------------------------------------
 # Check for Update
