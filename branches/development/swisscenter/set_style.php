@@ -7,6 +7,7 @@
   require_once("base/prefs.php");
 
   set_user_pref('style',$_REQUEST["style"]);
+  load_style();
   header("Location: /style.php");
 
 
