@@ -32,9 +32,9 @@
     $menu->display();
     
     if(!empty($cat_id))
-      page_footer('music.php');
+      page_footer('video.php', array(array('text'=>'Quick Play', 'url'=>quick_play_link("mp3s","audio",$_SESSION["history"][0][sql]))));
     else
-      page_footer('index.php');
+      page_footer('video.php', array(array('text'=>'Quick Play', 'url'=>quick_play_link("mp3s","audio",$_SESSION["history"][0][sql]))));
   }
 
 /**************************************************************************************************

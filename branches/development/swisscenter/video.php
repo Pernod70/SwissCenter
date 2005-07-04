@@ -6,6 +6,7 @@
   require_once("base/page.php");
   require_once("base/categories.php");
   require_once("base/rating.php");
+  require_once("base/playlist.php");
 
   function display_video_menu($cat_id)
   {
@@ -33,9 +34,9 @@
     $menu->display();
     
     if(!empty($cat_id))
-      page_footer('video.php');
+      page_footer('video.php', array(array('text'=>'Quick Play', 'url'=>quick_play_link("movies","playlist",$_SESSION["history"][0][sql]))));
     else
-      page_footer('index.php');
+      page_footer('video.php', array(array('text'=>'Quick Play', 'url'=>quick_play_link("movies","playlist",$_SESSION["history"][0][sql]))));
   }
   
 /**************************************************************************************************

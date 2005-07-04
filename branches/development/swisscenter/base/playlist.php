@@ -72,6 +72,19 @@ function pl_tracklist($type, $spec, $shuffle = false, $seed = 0)
 }
 
 //
+// Creates a "Quick Play" link
+//
+
+function quick_play_link ($table, $media, $where)
+{
+  $current_shuffle = $_SESSION["shuffle"];
+  $_SESSION["shuffle"] = 'on';
+  $link = pl_link('sql', "select * from $table media ".get_rating_join()." where 1=1 ".$where, $media);
+  $_SESSION["shuffle"] = $current_shuffle;
+  return $link;
+}
+
+//
 // returns true if the current user (Apache) is able to read and write to the
 // playlists directory.
 //
