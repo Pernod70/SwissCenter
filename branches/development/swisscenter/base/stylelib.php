@@ -11,8 +11,7 @@ require_once("users.php");
 
 function load_style()
 {
-/*  if(is_user_selected())
-    $style = db_value("select value from user_prefs where user_id=".get_current_user_id()." and name='STYLE'");
+  $style = get_user_pref('STYLE');
 
   if (!empty($style) && file_exists(SC_LOCATION.'styles/'.$style.'/style.ini'))
   {
@@ -21,7 +20,7 @@ function load_style()
     $details["name"]     = $style;
   }
   else 
-*/  {
+  {
     $details = parse_ini_file(SC_LOCATION.'images/style.ini');
     $details["location"] = '/images/';
     $details["name"]     = 'Default';
