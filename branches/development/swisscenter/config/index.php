@@ -1048,7 +1048,6 @@
        menu_item('Playlists Location','section=PLAYLISTS&action=DISPLAY');
        menu_item('Image Cache','section=CACHE&action=DISPLAY');
        menu_item('Privacy Policy','section=PRIVACY&action=DISPLAY','menu_bgr2.png');
-       menu_item('Privacy Policy','section=PRIVACY&action=DISPLAY','menu_bgr2.png');
        menu_item('Support Info','section=SUPPORT&action=DISPLAY','menu_bgr2.png');
      }
    echo '</table>';
@@ -1068,7 +1067,7 @@
    }
    
    
-   if (!is_server_iis() && $_SERVER["REMOTE_ADDR"] != $_SERVER["SERVER_ADDR"])
+   if (!is_server_iis() && $_SERVER["REMOTE_ADDR"] != $_SERVER["SERVER_ADDR"] && false)
    {
      echo '<br><h1>Access Denied</h1>
            <p align="center">Remote access to the <i>\'SwissCenter Configuration Utility\'</i> is disabled for security reasons.';
