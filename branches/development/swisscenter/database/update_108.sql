@@ -11,7 +11,7 @@ UPDATE system_prefs SET value='1.09' WHERE name='DATABASE_VERSION';
 -- -------------------------------------------------------------------------------------------------
 -- Certificates table
 -- -------------------------------------------------------------------------------------------------
-CREATE TABLE Certificates
+CREATE TABLE certificates
   (
     cert_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
     name varchar(7) COLLATE utf8_general_ci NOT NULL,
@@ -19,7 +19,7 @@ CREATE TABLE Certificates
     description varchar(200) COLLATE utf8_general_ci NULL
   ) Type='MyISAM';
 
-INSERT INTO Certificates (name, rank, description)
+INSERT INTO certificates (name, rank, description)
   VALUES
   (
     'Uc',
@@ -27,7 +27,7 @@ INSERT INTO Certificates (name, rank, description)
     'Suitable for pre-school'
   );
 
-INSERT INTO Certificates (name, rank, description)
+INSERT INTO certificates (name, rank, description)
   VALUES
   (
     'U',
@@ -35,7 +35,7 @@ INSERT INTO Certificates (name, rank, description)
     'Minimum age 4 years'
   );
 
-INSERT INTO Certificates (name, rank, description)
+INSERT INTO certificates (name, rank, description)
   VALUES
   (
     'PG',
@@ -43,7 +43,7 @@ INSERT INTO Certificates (name, rank, description)
     'Parental guidance recommended'
   );
 
-INSERT INTO Certificates (name, rank, description)
+INSERT INTO certificates (name, rank, description)
   VALUES
   (
     '12',
@@ -51,7 +51,7 @@ INSERT INTO Certificates (name, rank, description)
     'Minimum age 12 years'
   );
 
-INSERT INTO Certificates (name, rank, description)
+INSERT INTO certificates (name, rank, description)
   VALUES
   (
     '15',
@@ -59,7 +59,7 @@ INSERT INTO Certificates (name, rank, description)
     'Minimum age 15 years'
   );
 
-INSERT INTO Certificates (name, rank, description)
+INSERT INTO certificates (name, rank, description)
   VALUES
   (
     '18',
@@ -67,7 +67,7 @@ INSERT INTO Certificates (name, rank, description)
     'Minimum age 18 years'
   );
 
-INSERT INTO Certificates (name, rank, description)
+INSERT INTO certificates (name, rank, description)
   VALUES
   (
     'R18',
@@ -79,10 +79,10 @@ INSERT INTO Certificates (name, rank, description)
 -- -------------------------------------------------------------------------------------------------
 -- Users table
 -- -------------------------------------------------------------------------------------------------
-ALTER TABLE Users ADD MaxCert INT UNSIGNED DEFAULT 1;
-ALTER TABLE Users ADD Pin VARCHAR(10) DEFAULT NULL;
+ALTER TABLE users ADD maxcert INT UNSIGNED DEFAULT 1;
+ALTER TABLE users ADD pin VARCHAR(10) DEFAULT NULL;
 
-ALTER TABLE Users ADD CONSTRAINT FOREIGN KEY(MaxCert) REFERENCES certificates(cert_id) ON DELETE SET NULL;
+ALTER TABLE users ADD CONSTRAINT FOREIGN KEY(maxcert) REFERENCES certificates(cert_id) ON DELETE SET NULL;
 
 
 -- -------------------------------------------------------------------------------------------------
