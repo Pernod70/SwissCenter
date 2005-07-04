@@ -45,9 +45,9 @@ function db_escape_str( $text )
 
 function test_db($host, $username, $password, $database)
 {
-  if (! $this->db_handle = @mysql_pconnect( $host, $username, $password))
+  if (! $db_handle = @mysql_pconnect( $host, $username, $password))
     return "!Unable to connect to MySQL using the Host, Username and Password Specified";
-  elseif (! mysql_select_db($database, $this->db_handle) )
+  elseif (! mysql_select_db($database, $db_handle) )
     return "!Connection to MySQL established, but unable to select the specified database";
   else 
     return 'OK';
@@ -72,6 +72,19 @@ function db_toarray( $sql)
 
   $recs->destroy();
   return ($success ? $data : false );
+}
+
+#-------------------------------------------------------------------------------------------------
+# Searches the $col column of the $table table for the given $text.
+# If a matching row is found, then the $return_col column is returned, otherwise a null is returned.
+#-------------------------------------------------------------------------------------------------
+
+function db_lookup( $table, $col, $return_col, $text )
+{
+  if (db_value("select count(*) from $table where $col = '$text'") > 0)
+    return db_value("select $return_col from $table where $col = '$text'");
+  else
+    return null;
 }
 
 #-------------------------------------------------------------------------------------------------

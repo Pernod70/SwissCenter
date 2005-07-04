@@ -127,7 +127,7 @@
       
       $details = substr_between_strings($html,"Recommend DVD","MEMBER RATINGS");
       $columns = array ( "YEAR"              => array_pop(get_attrib($details,"Year:"))
-                       , "RATING"            => array_pop(get_attrib($details,"Certificate:"))
+                       , "CERTIFICATE"       => db_lookup( 'certificates','name','cert_id',array_pop(get_attrib($details,"Certificate:")) )
                        , "MATCH_PC"          => $accuracy
                        , "DETAILS_AVAILABLE" => 'Y');
 
