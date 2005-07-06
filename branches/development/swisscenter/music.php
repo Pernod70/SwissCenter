@@ -6,6 +6,7 @@
   require_once("base/page.php");
   require_once("base/categories.php");
   require_once("base/rating.php");
+  require_once("base/playlist.php");
 
   function display_music_menu($cat_id)
   {
