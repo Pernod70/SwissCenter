@@ -343,9 +343,9 @@
     // Process the directory passed in
       $dir = db_escape_str(rtrim(str_replace('\\','/',un_magic_quote($update["DIRECTORY"])),'/'));
       $type_id = $update["TYPE"];
-      $cat_id = $update["CATEGORY"];
-      $id = $update["LOC_ID"];
-      $cert = $update["UNRATED_CERTIFICATE"];
+      $cat_id  = $update["CATEGORY"];
+      $id      = $update["LOC_ID"];
+      $cert    = $update["UNRATED_CERTIFICATE"];
 
       if (!file_exists($dir))
         dirs_display("!I'm sorry, the directory you specified does not exist");
@@ -354,6 +354,13 @@
       else
       {
         db_sqlcommand("update media_locations set name='$dir',media_type=$type_id,cat_id=$cat_id,unrated=$cert where location_id=$id");
+        
+        if (! is_windows() )
+        {
+          unlink(SC_LOCATION.'media/'.$id);
+          symlink($dir,SC_LOCATION.'media/'.$id);
+        }
+
         dirs_display('Updated media location information.');
       }
     }
@@ -681,101 +688,197 @@
   function sched_display( $message = '')
   {   
     if (is_windows())
-    {
-      $at_hrs ='12';
-      $at_mins='00';
+      sched_display_win( $message);
+    else
+      sched_display_linux( $message);
+  }
+   
+  function sched_display_win( $message = '')
+  {
+    $at_hrs ='12';
+    $at_mins='00';
+  
+    // Get the current schedule information
+    $sched = syscall('at');
+    foreach(explode("\n",$sched) as $line)
+      if (strpos($line,os_path(SC_LOCATION.'media_search.php')) && strpos($line,'Each '))
+      {
+         $at_days = explode(' ',trim(substr($line,17,19)));
+         $at_hrs  = trim(substr($line,36,2));
+         $at_mins = trim(substr($line,39,2));
+      }
+
+    echo "<h1>Scheduled Tasks</h1>";
+    message($message);
+
+    echo '<p><b>Automatic Media Refresh</b>
+          <p>A search for new media will be performed at the given time for each of the days
+             specified below. It is recommended that you search for new media daily at a time
+             when you are unlikely to be using your PC.
+
+          <p align=center>
+             <form name="" enctype="multipart/form-data" action="index.php" method="post">
+               <input type=hidden name="section" value="SCHED">
+               <input type=hidden name="action" value="UPDATE_WIN">
+               <table width="400" class="form_select_tab" border=0 >
+               <tr>
+                 <th style="text-align=center;">Time</th>
+                 <th style="text-align=center;">Mon</th>
+                 <th style="text-align=center;">Tue</th>
+                 <th style="text-align=center;">Wed</th>
+                 <th style="text-align=center;">Thu</th>
+                 <th style="text-align=center;">Fri</th>
+                 <th style="text-align=center;">Sat</th>
+                 <th style="text-align=center;">Sun</th>
+               </tr>
+               <tr>
+                 <td style="text-align=center;"><input size="1" name="hr" value="'.$at_hrs.'">
+                                               :<input size="1" name="mi" value="'.$at_mins.'"> </td>
+                 <td style="text-align=center;"><input type="checkbox" name="day[]" value="M" '. (in_array('M',$at_days) ? 'checked' : '').'></td>
+                 <td style="text-align=center;"><input type="checkbox" name="day[]" value="T" '. (in_array('T',$at_days) ? 'checked' : '').'></td>
+                 <td style="text-align=center;"><input type="checkbox" name="day[]" value="W" '. (in_array('W',$at_days) ? 'checked' : '').'></td>
+                 <td style="text-align=center;"><input type="checkbox" name="day[]" value="Th" '.(in_array('Th',$at_days) ? 'checked' : '').'></td>
+                 <td style="text-align=center;"><input type="checkbox" name="day[]" value="F" '. (in_array('F',$at_days) ? 'checked' : '').'></td>
+                 <td style="text-align=center;"><input type="checkbox" name="day[]" value="S" '. (in_array('S',$at_days) ? 'checked' : '').'></td>
+                 <td style="text-align=center;"><input type="checkbox" name="day[]" value="Su" '.(in_array('Su',$at_days) ? 'checked' : '').'></td>
+               </tr>
+               </tr>
+               </table><br>
+                 <input type="submit" value="Update Schedule">
+             </form>
+             ';
+  }
+  
+  //
+  // Update the schedule 
+  //
+
+  function sched_display_linux( $message = '')
+  {
+    $cron = split(" ",syscall('crontab -l | grep "'.SC_LOCATION.'media_search.php" | head -1 | awk \'{ print $1" "$2" "$3" "$4" "$5 }\''));
+
+    echo "<h1>Scheduled Tasks</h1>";
+    message($message);
+
+    echo '<p><b>Automatic Media Refresh</b>
+          <p>A search for new media will be performed according to the schedule you define in the form below.
+          To ensure that your media is available whenever you want it, we recommend that you schedule media
+          refreshes between once a day and once an hour.
+          
+          <p align=center>
+            <form name="" enctype="multipart/form-data" action="index.php" method="post">
+               <input type=hidden name="section" value="SCHED">
+               <input type=hidden name="action" value="UPDATE_LINUX">
+               
+               <table class="form_select_tab" border=0 >
+               <tr>
+                 <th height="25"></th>
+                 <th width="75">&nbsp;Value</th>
+                 <th width="60">&nbsp;Range</th>
+                 <th width="50">&nbsp;Notes</th>
+               </tr>
+               <tr>
+                 <th width="100" style="text-align=right;">Month: &nbsp;</th>
+                 <td>&nbsp;<input size="6" name="month" value="'.$cron[3].'"></td>
+                 <td>&nbsp;1-12 </td>
+                 <td>&nbsp;1 = January, 2 = February, etc </td>
+               </tr>
+               <tr>
+                 <th width="100" style="text-align=right;">Date: &nbsp;</th>
+                 <td>&nbsp;<input size="6" name="date" value="'.$cron[2].'"></td>
+                 <td>&nbsp;1-31 </td>
+                 <td>&nbsp;The day of the month </td>
+               </tr>
+               <tr>
+                 <th width="100" style="text-align=right;">Hour: &nbsp;</th>
+                 <td>&nbsp;<input size="6" name="hour" value="'.$cron[1].'"></td>
+                 <td>&nbsp;0-23 </td>
+                 <td>&nbsp;The hour of the day </td>
+               </tr>
+               <tr>
+                 <th width="100" style="text-align=right;">Minute: &nbsp;</th>
+                 <td>&nbsp;<input size="6" name="minute" value="'.$cron[0].'"></td>
+                 <td>&nbsp;0-59 </td>
+                 <td>&nbsp;The number of minutes past the hour</td>
+               </tr>
+               <tr>
+                 <th width="100" style="text-align=right;">Weekday: &nbsp;</th>
+                 <td>&nbsp;<input size="6" name="day" value="'.$cron[4].'"></td>
+                 <td>&nbsp;1-7 </td>
+                 <td>&nbsp;1 = Monday, 2 = Tuesday, etc </td>
+               </tr>
+               </table><br>
+          
+               <input type="submit" value="Update Schedule">
+             </form>
+
+          <p><b>Notes</b>
+          <p>
+          <ul>
+          <li>\'*\' denotes all possible values.
+          <li>Multiple values can be specified using commas (1,5).
+          <li>A range can be specified using a hyphen (1-5).
+          <li>Both may be specified together (1-4,7).
+          </ul>
+          ';
+  }
+
+  function sched_update_win()
+  {   
+    $hrs  = $_REQUEST["hr"];
+    $mins = $_REQUEST["mi"];
+    $days = $_REQUEST["day"];
     
-      // Get the current schedule information
+    if ($hrs <0 || $hrs > 23 || !is_numeric($hrs))
+      sched_display('!Please enter a valid hour (between 0 and 23)');
+    elseif ($mins <0 || $mins > 59 || !is_numeric($mins))
+      sched_display('!Please enter a valid minute (between 0 and 59)');
+    else
+    {
+      // Find and remove old schedule entry
       $sched = syscall('at');
       foreach(explode("\n",$sched) as $line)
         if (strpos($line,os_path(SC_LOCATION.'media_search.php')) && strpos($line,'Each '))
-        {
-           $at_days = explode(' ',trim(substr($line,17,19)));
-           $at_hrs  = trim(substr($line,36,2));
-           $at_mins = trim(substr($line,39,2));
-        }
+         syscall('at '.substr(ltrim($line),0,strpos(ltrim($line),' ')).' /delete');
 
-      echo "<h1>Scheduled Tasks</h1>";
-      message($message);
-
-      echo '<p><b>Automatic Media Refresh</b>
-            <p>A search for new media will be performed at the given time for each of the days
-               specified below. It is recommended that you search for new media daily at a time
-               when you are unlikely to be using your PC.
-
-            <p align=center>
-               <form name="" enctype="multipart/form-data" action="index.php" method="post">
-                 <input type=hidden name="section" value="SCHED">
-                 <input type=hidden name="action" value="UPDATE">
-                 <table width="400" class="form_select_tab" border=0 >
-                 <tr>
-                   <th style="text-align=center;">Time</th>
-                   <th style="text-align=center;">Mon</th>
-                   <th style="text-align=center;">Tue</th>
-                   <th style="text-align=center;">Wed</th>
-                   <th style="text-align=center;">Thu</th>
-                   <th style="text-align=center;">Fri</th>
-                   <th style="text-align=center;">Sat</th>
-                   <th style="text-align=center;">Sun</th>
-                 </tr>
-                 <tr>
-                   <td style="text-align=center;"><input size="1" name="hr" value="'.$at_hrs.'">
-                                                 :<input size="1" name="mi" value="'.$at_mins.'"> </td>
-                   <td style="text-align=center;"><input type="checkbox" name="day[]" value="M" '. (in_array('M',$at_days) ? 'checked' : '').'></td>
-                   <td style="text-align=center;"><input type="checkbox" name="day[]" value="T" '. (in_array('T',$at_days) ? 'checked' : '').'></td>
-                   <td style="text-align=center;"><input type="checkbox" name="day[]" value="W" '. (in_array('W',$at_days) ? 'checked' : '').'></td>
-                   <td style="text-align=center;"><input type="checkbox" name="day[]" value="Th" '.(in_array('Th',$at_days) ? 'checked' : '').'></td>
-                   <td style="text-align=center;"><input type="checkbox" name="day[]" value="F" '. (in_array('F',$at_days) ? 'checked' : '').'></td>
-                   <td style="text-align=center;"><input type="checkbox" name="day[]" value="S" '. (in_array('S',$at_days) ? 'checked' : '').'></td>
-                   <td style="text-align=center;"><input type="checkbox" name="day[]" value="Su" '.(in_array('Su',$at_days) ? 'checked' : '').'></td>
-                 </tr>
-                 </tr>
-                 </table><br>
-                   <input type="submit" value="Update Schedule">
-               </form>
-               ';
-    }
-    else
-    {
-      echo "<h1>Scheduled Tasks</h1>";
-      message($message);
-      echo '<p align=center>Media Refreshes should be manually scheduled using "cron".';
-    }
-  }
-   
-  function sched_update()
-  {   
-    if (is_windows())
-    {
-      $hrs  = $_REQUEST["hr"];
-      $mins = $_REQUEST["mi"];
-      $days = $_REQUEST["day"];
-      
-      if ($hrs <0 || $hrs > 23 || !is_numeric($hrs))
-        sched_display('!Please enter a valid hour (between 0 and 23)');
-      elseif ($mins <0 || $mins > 59 || !is_numeric($mins))
-        sched_display('!Please enter a valid minute (between 0 and 59)');
-      else
+      if (count($days)>0)
       {
-        // Find and remove old schedule entry
-        $sched = syscall('at');
-        foreach(explode("\n",$sched) as $line)
-          if (strpos($line,os_path(SC_LOCATION.'media_search.php')) && strpos($line,'Each '))
-           syscall('at '.substr(ltrim($line),0,strpos(ltrim($line),' ')).' /delete');
-
-        if (count($days)>0)
-        {
-          run_background('media_search.php',implode(',',$days), $hrs.':'.$mins);  
-          sched_display('Automatic Media Refresh - Schedule Updated');        
-        }
-        else
-          sched_display('Automatic Media Refresh - No longer Active');
+        run_background('media_search.php',implode(',',$days), $hrs.':'.$mins);  
+        sched_display('Automatic Media Refresh - Schedule Updated');        
       }
+      else
+        sched_display('Automatic Media Refresh - No longer Active');
     }
-    else
-      sched_display();
   }
 
+  function sched_update_linux()
+  {   
+    $hrs    = $_REQUEST["hour"];
+    $mins   = $_REQUEST["minute"];
+    $dates  = $_REQUEST["date"];
+    $months = $_REQUEST["month"];
+    $days   = $_REQUEST["day"];
+    
+    if ( preg_match("/[^-,*0123456789]/",($hrs.$mins.$dates.$months.$days)) != 0)
+      sched_display('!Valid characters are any of "0123456789-,*"');
+    elseif ($hrs == '' || $mins == '' || $dates == '' || $months == '' || $days == '')
+      sched_display('!You must specify a value for every field');
+    else
+    {
+      // Find and replace old crontab entry
+      syscall('crontab -l | grep -v "'.SC_LOCATION.'media_search.php" | grep -v "^#" > /tmp/swisscron');
+      syscall("echo '$mins $hrs $dates $months $days ".'"'.os_path(PHP_LOCATION).'" "'.SC_LOCATION.'media_search.php"\' >> /tmp/swisscron');
+      syscall("crontab /tmp/swisscron");
+
+      // Was it successfully added?
+      $cron = split(" ",syscall('crontab -l | grep "'.SC_LOCATION.'media_search.php" | awk \'{ print $1" "$2" "$3" "$4" "$5 }\''));
+      if (count($cron)>0)
+        sched_display('Automatic Media Refresh - Schedule Updated');        
+      else
+        sched_display('Automatic Media Refresh - No longer Active');
+    }
+  }
+  
   //*************************************************************************************************
   // CACHE section
   //*************************************************************************************************
