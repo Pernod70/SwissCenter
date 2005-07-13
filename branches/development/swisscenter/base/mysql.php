@@ -323,6 +323,7 @@ class db_query
 
   function destroy()
   {
+    @mysql_free_result($this->stmt_handle);  
     return true;
   }
 
