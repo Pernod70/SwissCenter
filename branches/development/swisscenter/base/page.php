@@ -122,6 +122,7 @@ function page_header( $title, $tagline = "",  $logo = "", $meta = "", $focus="1"
         <head>'.$meta.'
         <meta SYABAS-FULLSCREEN>
         <meta SYABAS-PHOTOTITLE=0>
+        <meta SYABAS-BACKGROUND="'.$background_image.'">
         <meta syabas-keyoption="caps"><meta myibox-pip="0,0,0,0,0"><meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
         <meta name="generator" content="lyra-box UI">
         <title>'.$title.'</title>
