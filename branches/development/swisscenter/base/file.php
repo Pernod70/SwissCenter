@@ -62,7 +62,7 @@ function send_to_log( $item, $var = '')
 {
   if (defined('LOGFILE'))
   {
-    $time = '['.date('H:i:s dmY').'] ';
+    $time = '['.date('Y.m.d H:i:s').'] ';
     
     // If the file > 1Mb then archive it and start a new log.
     if (@filesize(LOGFILE) > 1048576)
