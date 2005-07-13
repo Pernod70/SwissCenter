@@ -370,7 +370,7 @@ class getid3_id3v2
 		if (isset($thisfile_id3v2['comments']['genre'])) {
 			foreach ($thisfile_id3v2['comments']['genre'] as $key => $value) {
 				unset($thisfile_id3v2['comments']['genre'][$key]);
-				$thisfile_id3v2['comments'] = getid3_lib::array_merge_noclobber($thisfile_id3v2['comments'], $this->ParseID3v2GenreString($value));
+				// $thisfile_id3v2['comments'] = getid3_lib::array_merge_noclobber($thisfile_id3v2['comments'], $this->ParseID3v2GenreString($value));
 			}
 		}
 
