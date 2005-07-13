@@ -90,6 +90,11 @@ function fatal_error($heading,$text)
       fatal_error('Your SwissCenter Configuration file is missing.','Please use the <a href="/config/index.php">Configuration Utility<a> to create a configuration file');
   }
   
+  // Determine the IP address of the hardware device
+  if (is_showcenter())
+  {
+      set_sys_pref("LAST_DEVICE",str_replace('\\','/',$_SERVER["REMOTE_ADDR"]));
+  }
 
 #-------------------------------------------------------------------------------------------------
 # Check for Update
