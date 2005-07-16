@@ -5,24 +5,21 @@
 
   require_once("base/page.php");
    
-  page_header("Updating...","",'LOGO_CONFIG','<meta http-equiv="refresh" content="3;URL=index.php">');
-  echo '<p>&nbsp;<p>&nbsp;<p><center>';
+      page_inform(2,"index.php","Online Update","");
+
   switch ($_REQUEST["status"])
   {
     case "ERROR" :
-      echo "Update failed - Please try again later.";
+      page_inform(2,"index.php","Online Update","Update failed - Please try again later.");
       break;
     case "NONE" :
-      echo "There are no updates available at this time.";
+      page_inform(2,"index.php","Online Update","There are no updates available at this time.");
       break;
     case "UPDATED" :
-      echo "Your system has been updated.";
+      page_inform(2,"index.php","Online Update","Your system has been updated.");
       $_SESSION = array();
       break;
   }
-  echo '</center>';
-
-  page_footer('/');  
    
 /**************************************************************************************************
                                                End of file

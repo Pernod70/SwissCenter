@@ -30,15 +30,15 @@
     $next_url = $ok_url.'&pin='.$pin;
   
 
-  echo '<center>'.$message.'</center><br>';
+  echo '<p>&nbsp;<p><center><font color="'.style_value("TITLE_COLOUR").'">'.$message.'</font></center><p>';
   
   if(strlen($pin) > 0)
-    echo '<center><font size="large">'.str_repeat("*", strlen($pin)).'</font></center>';
+    echo '<center><font size="large">&gt; &nbsp; '.str_repeat("*", strlen($pin)).' &nbsp; &lt;</font></center>';
   else
-    echo '<center><font size="large">&nbsp;</font></center>';
+    echo '<center><font size="large">&gt; &nbsp; &nbsp; &lt;</font></center>';
   
+  echo '<p align="center"><a href="'.$next_url.'">OK</a></center>';
 
-  echo '<center>';
   if(strlen($pin) < 10)
   {
     if(get_browser_type() == "SYABAS")
@@ -59,6 +59,7 @@
     }
     else
     {
+      echo '<p>&nbsp;<p align=center>';
       for($i = 0; $i < 10; $i++)
       {
         echo '<a href="enter_pin.php?ok_url='.urlencode($ok_url).
@@ -71,7 +72,7 @@
   else
     echo 'Maximum PIN length reached';
 
-  echo '<br><br><a href="'.$next_url.'">OK</a></center>';
+  echo '';
 
   $buttons[] = array('text'=>'Clear PIN', 'url'=>'enter_pin.php?url='.urlencode($return_url).'&message='.urlencode($message).'&pin=');
   $buttons[] = array('text'=>'Delete last digit',

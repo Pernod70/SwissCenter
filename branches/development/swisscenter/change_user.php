@@ -28,6 +28,7 @@
     }
 
     $menu->display();
+    page_footer('index.php');
   }
 
   function user_selected($user_id)
@@ -36,7 +37,7 @@
     {
       ob_clean();
       header('Location: '.server_address().'enter_pin.php?ok_url='.urlencode('change_user.php?id='.$user_id).
-             '&cancel_url=index.php&message='.urlencode('Please enter your PIN'));
+             '&cancel_url=index.php&message='.urlencode('Please enter your PIN using the number buttons on your remote control.'));
     }
     else
     {
@@ -46,14 +47,12 @@
   
   function change_user($user_id, $pin = null)
   {
-    page_header( "Change User", "", "", '<meta http-equiv="refresh" content="2;URL=index.php">', 1, true);
-      
     // Change user and let them know
     $ok = change_current_user_id($user_id, $pin);
     if($ok)
-      echo '<center><font color="'.style_value("PAGE_TEXT").'">Your user has been successfully changed</font></center><br>';
+      page_inform(2,"index.php","Change User","Your user has been successfully changed");
     else
-      echo '<center><font color="'.style_value("PAGE_TEXT").'">Incorrect PIN</font></center><br>';
+      page_inform(2,"index.php","Change User","Incorrect PIN");
   }
 
 /**************************************************************************************************
@@ -71,7 +70,5 @@
     user_selected($user_id);
   elseif(empty($user_id))
     select_user();
-
-  page_footer('index.php');
  
 ?>

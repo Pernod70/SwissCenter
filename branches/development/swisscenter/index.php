@@ -4,6 +4,7 @@
  *************************************************************************************************/
   require_once("base/page.php");
   require_once("base/playlist.php");
+  require_once("base/users.php");
   require_once("base/file.php");
   require_once("messages_db.php");
 
@@ -30,7 +31,9 @@
     $menu->add_item("Manage Playlists",'manage_pl.php',true);
 
   // Icons
-  $icons->add_icon("ICON_USER",get_current_user_name(),'change_user.php');
+  
+  if (get_num_users() > 1)
+    $icons->add_icon("ICON_USER",get_current_user_name(),'change_user.php');
   
   if (internet_available() && $_SESSION["update"]["available"])
     $icons->add_icon("ICON_UPDATE","Update",'run_update.php');  

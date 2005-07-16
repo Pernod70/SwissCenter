@@ -7,14 +7,9 @@
   require_once("base/mysql.php");
   require_once("base/users.php");
 
-
-
-
 /**************************************************************************************************
    Main page
  *************************************************************************************************/
-
-
 
   $user_id = get_current_user_id();
   $pin = $_REQUEST["pin"];
@@ -34,10 +29,7 @@
         }
         else
         {
-          page_header('Change PIN', '', '', '<meta http-equiv="refresh" content="2;URL=config.php"');
-          echo '<center><font color="'.style_value("PAGE_TEXT").
-                '">That PIN is incorrect</font></center></br>';
-          page_footer('config.php');
+          page_inform(2,'config.php','Change PIN',"That PIN is incorrect");
         }          
         break;
         
@@ -48,21 +40,15 @@
         break;
         
       case "N2";
-        page_header('Change PIN', '', '', '<meta http-equiv="refresh" content="2;URL=config.php"');
         if($pin != $newpin1)
         {
-          echo '<center><font color="'.style_value("PAGE_TEXT").
-               '">The PIN numbers did not match, not changed</font></center></br>';
-          page_footer('config.php');
+          page_inform(2,'config.php','Change PIN',"The PIN numbers did not match, not changed");
         }
         else
         {
           change_pin($user_id, $pin);
-          echo '<center><font color="'.style_value("PAGE_TEXT").
-               '">Your PIN number has been changed</font></center></br>';
+          page_inform(2,'config.php','Change PIN',"Your PIN number has been changed");
         }
-        
-        page_footer('config.php');
         break;
     }
   }
