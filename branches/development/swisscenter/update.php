@@ -13,7 +13,7 @@
 
   function chksum_files($pre, $dir, &$files)
   {
-    if ($dh = opendir($pre.$dir))
+    if ($dir!='media' && $dh = opendir($pre.$dir))
     {
       while (($file = readdir($dh)) !== false)
       {
