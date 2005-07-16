@@ -253,6 +253,18 @@ function page_footer( $back, $buttons= '', $iconbar = 0 )
 }
 
 //-------------------------------------------------------------------------------------------------
+// Displays the given message in the center of the screen for the amount of seconds given and then
+// redirects the user to the next page.
+//-------------------------------------------------------------------------------------------------
+   
+function page_inform( $seconds, $url, $title, $text)
+{
+  page_header($title,"","",'<meta http-equiv="refresh" content="'.$seconds.';URL='.$url.'">');
+  echo "<p>&nbsp;<p>&nbsp;<p><center>".$text."</center>";
+  page_footer('/');  
+}
+
+//-------------------------------------------------------------------------------------------------
 // Simple routine to set preformatted text and recursively output the contents or a variable or
 // array for debugging purposed
 //-------------------------------------------------------------------------------------------------

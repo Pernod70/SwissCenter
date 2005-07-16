@@ -16,14 +16,14 @@ function load_style()
   if (!empty($style) && file_exists(SC_LOCATION.'styles/'.$style.'/style.ini'))
   {
     $details = parse_ini_file(SC_LOCATION.'styles/'.$style.'/style.ini');
-    $details["location"] = '/styles/'.$style.'/';
-    $details["name"]     = $style;
+    $details["LOCATION"] = '/styles/'.$style.'/';
+    $details["NAME"]     = $style;
   }
   else 
   {
     $details = parse_ini_file(SC_LOCATION.'images/style.ini');
-    $details["location"] = '/images/';
-    $details["name"]     = 'Default';
+    $details["LOCATION"] = '/images/';
+    $details["NAME"]     = 'Default';
   }
   
   // Ensure the display for audio will be in the correct place...
@@ -46,7 +46,7 @@ function style_img ($name, $ext_url = false)
     load_style();
     
   $path   = substr(SC_LOCATION,0,-1);
-  $file   = $_SESSION["style"]["location"].$_SESSION["style"][strtoupper($name)];
+  $file   = $_SESSION["style"]["LOCATION"].$_SESSION["style"][strtoupper($name)];
 
   if ( isset( $_SESSION["style"][strtoupper($name)]) && file_exists($path.$file) )
     return ($ext_url ? $path : '').$file;
@@ -60,7 +60,7 @@ function style_img_exists ($name)
     load_style();
 
   $path   = substr(SC_LOCATION,0,-1);
-  $file   = $_SESSION["style"]["location"].$_SESSION["style"][strtoupper($name)];
+  $file   = $_SESSION["style"]["LOCATION"].$_SESSION["style"][strtoupper($name)];
 
   if ( isset( $_SESSION["style"][strtoupper($name)]) && file_exists($path.$file) )
     return true;

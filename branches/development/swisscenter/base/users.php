@@ -94,4 +94,9 @@ function get_default_user()
     return null;
 }
 
+function get_num_users()
+{
+  return db_value('SELECT count(*) FROM users');
+}
+
 ?>

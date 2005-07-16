@@ -164,7 +164,7 @@
         // Output a link to cause the specified playlist to be loaded into the session
         $details   = $file_list[$i-count($dir_list)];  
         eval('$link_url = output_link( "'.$details["dirname"].$details["filename"].'" );');
-        $tlist->add_item(file_albumart($details["dirname"].$details["filename"]), file_noext($details["filename"]), $link_url);
+        $tlist->add_item(file_thumbnail($details["dirname"].$details["filename"]), file_noext($details["filename"]), $link_url);
       }
     }
 

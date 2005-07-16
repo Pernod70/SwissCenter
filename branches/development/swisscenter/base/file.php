@@ -310,8 +310,8 @@ function file_icon( $fsp )
 {
   $sc_location = SC_LOCATION;
   $name = 'filetype_'.file_ext($fsp).'.gif';
-  
-  if (in_array(file_ext(strtolower($fsp)),array('jpg','gif','png','jpeg')))
+
+ if (in_array(file_ext(strtolower($fsp)),array('jpg','gif','png','jpeg')))
   {
     // The file is actually an image, so generate it as a thumbnail
     return $fsp;
@@ -406,29 +406,16 @@ function file_thumbnail( $fsp )
   if (!file_exists($fsp))
   {
     send_to_log("Warning : File/Directory doesn't exist in file.php:file_thumbnail",$fsp);
+    $tn_image = file_icon('xxx');
   }
-  elseif (is_file($fsp))
+  else 
   {
-    $id3_image = db_value("select m.file_id from mp3s m,mp3_albumart ma where m.file_id = ma.file_id and concat(m.dirname,m.filename) = '".db_escape_str($fsp)."'");
-    if (!empty($id3_image) && get_sys_pref('USE_ID3_ART','YES') == 'YES')
-      $tn_image = 'select image from mp3_albumart where file_id='.$id3_image.'.sql';
-    else 
-    {
-      $image_files = array( file_noext(basename($fsp)).'.jpg');
-      $tn_image = find_in_dir(dirname($fsp), $image_files);
-      if (empty($tn_image))
-        $tn_image = file_icon($fsp);
-    }
-  }
-  elseif (is_dir($fsp))
-  {
-    $tn_image = find_in_dir($fsp, db_col_to_list("select filename from art_files"));
-    if (empty($tn_image))
+    $tn_image = file_albumart($fsp);
+
+    if (empty($tn_image) && is_file($fsp) )
+      $tn_image = file_icon($fsp);
+    else
       $tn_image = dir_icon();      
-  }
-  else  
-  {
-    debug ("Parameter incorrect : ");  
   }
 
   return $tn_image;
