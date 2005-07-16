@@ -190,6 +190,7 @@
     form_hidden("action", "NEW");
     form_input("name", "Name", 70, '', $_REQUEST["name"]);
     form_list_dynamic("cert", "Maximum certificate", "select cert_id,name from certificates order by rank asc", $_REQUEST["cert"]);
+    form_input('pin','PIN',5,10);
     form_submit("Add New User", 2);
     form_end();
   }
@@ -198,6 +199,7 @@
   {
     $name = $_REQUEST["name"];
     $cert = $_REQUEST["cert"];
+    $pin  = $_REQUEST["pin"];
     
     if(empty($name))
     {
@@ -213,7 +215,7 @@
       }
       else
       {
-        $data = array("name"=>$name, "maxcert"=>$cert);
+        $data = array("name"=>$name, "maxcert"=>$cert,'pin'=>$pin);
 
         if(db_insert_row("users", $data) === false)
           users_display(db_error());
