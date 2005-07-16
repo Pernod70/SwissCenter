@@ -89,9 +89,9 @@
         </table>';
 
   if ( get_user_pref("weather_units") == 'm')
-    $buttons[] = array('text'=>'Switch to Imperial', 'url'=>'weather_cc.php?units=s' );
+    $buttons[] = array('text'=>'Switch to Imperial', 'url'=>'weather_cc.php?loc='.$loc_id.'&units=s' );
   else
-    $buttons[] = array('text'=>'Switch to Metric', 'url'=>'weather_cc.php?units=m' );
+    $buttons[] = array('text'=>'Switch to Metric', 'url'=>'weather_cc.php?loc='.$loc_id.'&units=m' );
 
   page_footer('index.php', $buttons);
 
