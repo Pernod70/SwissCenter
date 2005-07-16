@@ -69,15 +69,15 @@
     $image->text('Track',  $text_x, $text_y, $title_text_col, $title_text_size);
     wrap($image, $info[0]["TITLE"], $text_x+20, $text_y+=($detail_text_size), $text_width, $detail_text_col, $detail_text_size);
   }
-  if (!empty($info[0]["ALBUM"]))
-  {
-    $image->text('Album',  $text_x, $text_y, $title_text_col, $title_text_size);
-    wrap($image, $info[0]["ALBUM"], $text_x+20, $text_y+=($detail_text_size), $text_width, $detail_text_col, $detail_text_size);
-  }
   if (!empty($info[0]["ARTIST"]))
   {
     $image->text('Artist', $text_x, $text_y, $title_text_col, $title_text_size);
     wrap($image, $info[0]["ARTIST"], $text_x+20, $text_y+=($detail_text_size), $text_width, $detail_text_col, $detail_text_size);
+  }
+  if (!empty($info[0]["ALBUM"]))
+  {
+    $image->text('Album',  $text_x, $text_y, $title_text_col, $title_text_size);
+    wrap($image, $info[0]["ALBUM"], $text_x+20, $text_y+=($detail_text_size), $text_width, $detail_text_col, $detail_text_size);
   }
 
   // Output picture
