@@ -6,11 +6,14 @@
  require_once("mysql.php");
  require_once("users.php");
  
- function get_user_pref( $pref, $default = '' )
+ function get_user_pref( $pref, $default = '', $user_id = '')
  {
-   if(is_user_selected())
-     $result = db_value("select value from user_prefs where user_id = ".get_current_user_id()." and name='".strtoupper($pref)."'");
+   if ($user_id == '')
+     $user_id = get_current_user_id();
 
+   if ($user_id != '')
+     $result = db_value("select value from user_prefs where user_id = ".$user_id." and name='".strtoupper($pref)."'");
+   
    if ($result == '')
      return $default;
    else 
