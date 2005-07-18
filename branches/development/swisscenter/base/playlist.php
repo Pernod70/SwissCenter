@@ -26,7 +26,7 @@ function pl_link( $type, $spec= '', $media = 'playlist')
     case 'audio' :
           // Build link
           $link .= 'href="gen_playlist.php?shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&spec='.rawurlencode($spec).'" ';
-          $link .= 'pod="3,1,'.$server.'playing_list.php?shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&spec='.rawurlencode($spec).'" ';
+          $link .= 'pod="3,1,'.$server.'playing_list.php?userid='.get_current_user_id().'&shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&spec='.rawurlencode($spec).'" ';
           break;
     case 'photo':
           $link .= 'href="MUTE" ';
