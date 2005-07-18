@@ -89,7 +89,7 @@
   
    // Display a link to the previous page
     if ( $page > 0)   
-      $tlist->set_down( 'style.php?online='.$_REQUEST["online"].'&page='.($page-1) ); 
+      $tlist->set_up( 'style.php?online='.$_REQUEST["online"].'&page='.($page-1) ); 
   
     // Display a link to the next page
     if ( $end < count($styles) )
@@ -104,7 +104,7 @@
 
   // Link to the online resources only if the ZIP extension is enabled and we are 
   // not already viewing the online styles.
-  if ( $_REQUEST["online"] != 'Y' && extension_loaded('zip') )
+  if ( $_REQUEST["online"] != 'Y' )
     $buttons[] = array('text'=>'Download Styles from SwissCenter.co.uk', 'url'=>'style.php?online=Y');
   elseif ( $_REQUEST["online"] == 'Y')
     $buttons[] = array('text'=>'Show Installed Styles', 'url'=>'style.php');
