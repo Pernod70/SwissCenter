@@ -81,10 +81,12 @@ class menu
           $menu_bg_img = style_img("IMG_MENU_".$size);
         else 
           $menu_bg_img = style_img("IMG_MENU");
+          
+        $i++;
 
-        echo '<tr><td valign="middle" width="'.$size.'px" height="25px" background="'.$menu_bg_img.'">&nbsp;&nbsp;&nbsp;'.
-              '<font color="'.style_value("TITLE_COLOUR",'#FFFFFF').'">'.++$i.'.</font> <a '.$link.' TVID="'.$i.
-              '" name="'.$i.'">'.$text.'</a>'.$item["right"].'</td></tr>';
+        echo '<tr><td valign="middle" width="'.$size.'px" height="25px" background="'.$menu_bg_img.'">'.
+              '<a style="width:'.($size-2).'" '.
+              $link.' TVID="'.$i.'" name="'.$i.'">&nbsp;&nbsp;&nbsp;'.$i.'. '.$text.'</a>'.$item["right"].'</td></tr>';
       }
     }
 
