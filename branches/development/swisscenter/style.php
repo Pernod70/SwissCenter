@@ -16,8 +16,10 @@
   {
     if (!isset($_SESSION["online_styles"]))
     {
-      foreach ( file('http://update.swisscenter.co.uk/styles/index.txt') as $name)
-        $_SESSION["online_styles"][] = trim($name);
+      $contents = file('http://update.swisscenter.co.uk/styles/index.txt');
+      if (!empty($contents))
+        foreach ($contents as $name)
+          $_SESSION["online_styles"][] = trim($name);
     }
         
     return $_SESSION["online_styles"];
@@ -50,7 +52,12 @@
     }
     else
     {
-      $styles = array_values(array_diff(online_list(),$style_list));
+      $online_list = online_list();
+      if ( count($online_list)>0)
+        $styles = array_values(array_diff($online_list,$style_list));
+      else 
+        $styles = array();
+        
       sort($styles);
       return $styles;
     }
