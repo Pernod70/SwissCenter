@@ -30,14 +30,14 @@
     $next_url = $ok_url.'&pin='.$pin;
   
 
-  echo '<p>&nbsp;<p><center><font color="'.style_value("TITLE_COLOUR").'">'.$message.'</font></center><p>';
+  echo '<p><center><font color="'.style_value("TITLE_COLOUR").'">'.$message.'</font></center><p>&nbsp;<p>';
   
   if(strlen($pin) > 0)
     echo '<center><font size="large">&gt; &nbsp; '.str_repeat("*", strlen($pin)).' &nbsp; &lt;</font></center>';
   else
     echo '<center><font size="large">&gt; &nbsp; &nbsp; &lt;</font></center>';
   
-  echo '<p align="center"><a href="'.$next_url.'">OK</a></center>';
+  echo '<p>&nbsp;<p align="center"><a href="'.$next_url.'">OK</a></center>';
 
   if(strlen($pin) < 10)
   {
@@ -70,16 +70,21 @@
     }
   }
   else
-    echo 'Maximum PIN length reached';
+    echo '<p align="center"><br>Maximum PIN length reached';
 
   echo '';
 
-  $buttons[] = array('text'=>'Clear PIN', 'url'=>'enter_pin.php?url='.urlencode($return_url).'&message='.urlencode($message).'&pin=');
-  $buttons[] = array('text'=>'Delete last digit',
-                     'url'=>'enter_pin.php?ok_url='.urlencode($ok_url).
-                        '&message='.urlencode($message).
-                        '&cancel_url='.urlencode($cancel_url).
-                        '&pin='.substr($pin, 0, strlen($pin)-1));
+  $buttons[] = array('text'=>'Clear PIN'
+                    ,'url'=>'enter_pin.php?ok_url='.urlencode($return_url).
+                            '&message='.urlencode($message).
+                            '&cancel_url='.urlencode($cancel_url).
+                            '&pin=');
+                     
+  $buttons[] = array('text'=>'Delete last digit'
+                    ,'url'=>'enter_pin.php?ok_url='.urlencode($ok_url).
+                            '&message='.urlencode($message).
+                            '&cancel_url='.urlencode($cancel_url).
+                            '&pin='.substr($pin, 0, strlen($pin)-1));
 
   page_footer($cancel_url, $buttons);
 ?>
