@@ -205,6 +205,10 @@
     {
       users_display("", "!Please enter a name below");
     }
+    elseif (empty($cert))
+    {
+      users_display("","!Please enter the maximum certificate that this user may view");
+    }
     else
     {
       $user_count = db_value("select count(*) from users where name='".db_escape_str($name)."'");
