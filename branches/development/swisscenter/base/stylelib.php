@@ -9,9 +9,9 @@ require_once("users.php");
 // This procedure stores the STYLE information in the current session. 
 //-------------------------------------------------------------------------------------------------
 
-function load_style()
+function load_style( $user_id = '')
 {
-  $style = get_user_pref('STYLE');
+  $style = get_user_pref('STYLE','x',$user_id);
 
   if (!empty($style) && file_exists(SC_LOCATION.'styles/'.$style.'/style.ini'))
   {
