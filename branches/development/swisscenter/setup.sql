@@ -152,7 +152,7 @@ CREATE TABLE user_prefs (
 
 INSERT INTO user_prefs (user_id,name,value) VALUES (1,'WEATHER_HOME','UKXX0022');
 INSERT INTO user_prefs (user_id,name,value) VALUES (1,'WEATHER_UNITS','m');
-INSERT INTO user_prefs (user_id,name,value) VALUES (1,'STYLE','Water');
+INSERT INTO user_prefs (user_id,name,value) VALUES (1,'STYLE','KDE');
 
 -- -------------------------------------------------------------------------------------------------
 -- Table structure for table `movies`
