@@ -4,6 +4,7 @@
  *************************************************************************************************/
 
 require_once('mysql.php');
+require_once('stylelib.php');
 
 function get_current_user_id()
 {
@@ -21,7 +22,11 @@ function change_current_user_id($user_id, $pin = null)
   $ok = check_pin($user_id, $pin);
   
   if($ok)
+  {
+    set_sys_pref('LAST_USER',$user_id);
     $_SESSION["CURRENT_USER"] = $user_id;
+    load_style();
+  }
   
   return $ok;
 }
