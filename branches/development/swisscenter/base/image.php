@@ -224,7 +224,7 @@ class CImage
         case 'jpg':
         case 'jpeg':
           header("Content-type: image/jpeg");
-          imagejpeg($this->image);
+          imagejpeg($this->image,null,100);
           break;
         case 'png':
           header("Content-type: image/png");
