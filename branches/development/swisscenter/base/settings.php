@@ -93,7 +93,9 @@ function fatal_error($heading,$text)
   // Determine the IP address of the hardware device
   if (is_showcenter())
   {
-      set_sys_pref("LAST_DEVICE",str_replace('\\','/',$_SERVER["REMOTE_ADDR"]));
+  	$ip = str_replace('\\','/',$_SERVER["REMOTE_ADDR"]);
+  	if (get_sys_pref('LAST_DEVICE') != $ip)
+      set_sys_pref("LAST_DEVICE",$ip);
   }
 
 #-------------------------------------------------------------------------------------------------
