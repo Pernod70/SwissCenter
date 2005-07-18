@@ -18,6 +18,7 @@
   $y          = $_REQUEST["y"];
   $cache_file = str_suffix(get_sys_pref("cache_dir"),'/').'SwissC'.md5($filename.'_x'.$x.'y'.$y).'.png';
 
+  
   if ( get_sys_pref("cache_dir") != '' && file_exists($cache_file) )
   {
     // There is a cached version of the image available... so use it!
@@ -29,7 +30,7 @@
   }
   else
   {
-    if ( strtolower(file_ext($filename)) == 'sql' || file_exists($filename) )
+    if ( strtolower(file_ext($filename)) == 'sql' || file_exists($filename) || substr($filename,0,4) == 'http')
     {
   
       //  Load the image (pity there's 4 versions of the call depending on the file format!)
@@ -37,7 +38,7 @@
       {
         case 'jpg':
         case 'jpeg':
-          $image = ImageCreateFromJpeg($filename);
+        $image = ImageCreateFromJpeg($filename);
           break;
         case 'png':
           $image = ImageCreateFromPng($filename);
