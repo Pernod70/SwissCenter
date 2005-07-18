@@ -21,7 +21,7 @@
     if ($item_count++ >= 4000)
       break;
       
-    echo "3600|8| |".$server."playing_image.php?music_id=".$row["FILE_ID"]."|\n";
+    echo "3600|8| |".$server."playing_image.php?userid=".$_REQUEST["userid"]."&music_id=".$row["FILE_ID"]."|\n";
   }
   
 /**************************************************************************************************

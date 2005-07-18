@@ -5,6 +5,8 @@
 
   require_once("base/page.php");
   require_once("base/image.php");
+  require_once("base/stylelib.php");
+  require_once("base/users.php");
 
   //------------------------------------------------------------------------------------------------
   // Output multiple lines of text
@@ -30,6 +32,11 @@
   # elements of the "Now Playing" image
   # ------------------------------------------------------------------------------------------------
 
+  // The user ID has to be passed by in as this script will be run from a different session (which
+  // doesn't have the current user set). If this is not done, then the wrong style is used when
+  // generating the picture.
+  load_style($_REQUEST["userid"]);
+
   $image     = new CImage();
   $artfile   = new CImage();
   $info      = db_toarray("select * from mp3s where file_id=".$_REQUEST["music_id"]);
@@ -39,6 +46,7 @@
   $title_text_size               = style_value('NOW_TITLE_TEXT_SIZE','18');
   $detail_text_col               = hexdec(style_value('NOW_DETAIL_TEXT_COL','#000000'));
   $detail_text_size              = style_value('NOW_DETAIL_TEXT_SIZE','14');
+  list($title_x, $title_y)       = explode(',',style_value('NOW_TITLE_XY','20,50'));
   list($text_x, $text_y)         = explode(',',style_value('NOW_TEXT_XY','242,105'));
   list($art_left,$art_top)       = explode(',',style_value('NOW_ART_TOPLEFT_XY','23,105'));
   list($art_right,$art_bottom)   = explode(',',style_value('NOW_ART_BOTTOMRIGHT_XY','221,303'));  
@@ -63,6 +71,8 @@
   $artfile->resize( ($art_right-$art_left),($art_bottom-$art_top), $art_bg_colour );
   $image->copy($artfile,$art_left,$art_top);
   
+  $image->text('Now Playing',$title_x,$title_y, $title_text_col,28);
+
   //Track Information
   if (!empty($info[0]["TITLE"]))
   {
@@ -78,6 +88,11 @@
   {
     $image->text('Album',  $text_x, $text_y, $title_text_col, $title_text_size);
     wrap($image, $info[0]["ALBUM"], $text_x+20, $text_y+=($detail_text_size), $text_width, $detail_text_col, $detail_text_size);
+  }
+  if (!empty($info[0]["YEAR"]))
+  {
+    $image->text('Year',  $text_x, $text_y, $title_text_col, $title_text_size);
+    wrap($image, $info[0]["YEAR"], $text_x+20, $text_y+=($detail_text_size), $text_width, $detail_text_col, $detail_text_size);
   }
 
   // Output picture
