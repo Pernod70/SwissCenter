@@ -7,8 +7,6 @@
   require_once("base/mysql.php");
   require_once("base/users.php");
 
-
-
   function select_user()
   {
     page_header('Change User', "", "", "", "1", true);
@@ -21,14 +19,22 @@
       
     $data = db_toarray($sql);
 
-    $menu = new menu();
-    foreach($data as $user)
-    {
-      $menu->add_item($user["NAME"], "change_user.php?id=".$user["USER_ID"]);
-    }
+    $page       = (isset($_REQUEST["page"]) ? $_REQUEST["page"] : 1);
+    $start      = ($page-1) * MAX_PER_PAGE; 
+    $end        = min($start+MAX_PER_PAGE,count($data));
 
+    $menu = new menu();    
+    if ($page > 1)
+      $menu->add_up( url_add_param(current_url(),'page',($page-1)));
+
+    if ( count($data) > $end)
+      $menu->add_down( url_add_param(current_url(),'page',($page+1)));
+
+    for ($i=$start; $i<$end; $i++)
+      $menu->add_item($data[$i]["NAME"], "change_user.php?id=".$data[$i]["USER_ID"]);
+    
     $menu->display();
-    page_footer('index.php');
+    page_footer('index.php');    
   }
 
   function user_selected($user_id)
@@ -50,7 +56,9 @@
     // Change user and let them know
     $ok = change_current_user_id($user_id, $pin);
     if($ok)
+    {
       page_inform(2,"index.php","Change User","Your user has been successfully changed");
+    }
     else
       page_inform(2,"index.php","Change User","Incorrect PIN");
   }
@@ -59,7 +67,10 @@
    Main page
  *************************************************************************************************/
 
-
+  // if there isn't a user selected already, then use the system parameter LAST_USER to decide
+  // which style to use.
+  if (!is_user_selected())
+    load_style(get_sys_pref('LAST_USER'));
 
   $user_id = $_REQUEST["id"];
   $pin = $_REQUEST["pin"];
