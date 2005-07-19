@@ -352,8 +352,16 @@
       $cat_id  = $update["CATEGORY"];
       $id      = $update["LOC_ID"];
       $cert    = $update["UNRATED_CERTIFICATE"];
-
-      if (!file_exists($dir))
+  
+      if (empty($type_id))
+        dirs_display('',"!Please select the media type below.");
+      elseif (empty($cat_id))
+        dirs_display('',"!Please select thea category.");
+      elseif (empty($cert))
+        dirs_display('',"!Please select the default certificate for unrated media.");
+      elseif (empty($dir))
+        dirs_display('',"!Please select the media location below.");     
+      elseif (!file_exists($dir))
         dirs_display("!I'm sorry, the directory you specified does not exist");
       elseif ( ($dir[0] != '/' && $dir[1] != ':') || $dir=='..' || $dir=='.')
         dirs_display("!Please enter a fully qualified directory path.");
@@ -402,6 +410,10 @@
     
     if (empty($_REQUEST["type"]))
       dirs_display('',"!Please select the media type below.");
+    elseif (empty($_REQUEST["cat"]))
+      dirs_display('',"!Please select thea category.");
+    elseif (empty($_REQUEST["cert"]))
+      dirs_display('',"!Please select the default certificate for unrated media.");
     elseif (empty($_REQUEST["location"]))
       dirs_display('',"!Please select the media location below.");
     elseif (!file_exists($dir))
