@@ -14,10 +14,10 @@ UPDATE system_prefs SET value='1.09' WHERE name='DATABASE_VERSION';
 CREATE TABLE certificates
   (
     cert_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    name varchar(7) COLLATE utf8_general_ci NOT NULL,
+    name varchar(7) NOT NULL,
     rank INT NOT NULL,
-    description varchar(200) COLLATE utf8_general_ci NULL
-  ) Type='MyISAM';
+    description varchar(200) NULL
+  );
 
 INSERT INTO certificates (name, rank, description)
   VALUES
@@ -119,7 +119,7 @@ ALTER TABLE photos ADD CONSTRAINT FOREIGN KEY (certificate) REFERENCES certifica
 -- -------------------------------------------------------------------------------------------------
 -- Media types table
 -- -------------------------------------------------------------------------------------------------
-ALTER TABLE media_types ADD media_table nvarchar(20) NULL;
+ALTER TABLE media_types ADD media_table varchar(20) NULL;
 
 UPDATE media_types SET media_table='mp3s' WHERE media_id=1;
 UPDATE media_types SET media_table='photos' WHERE media_id=2;
