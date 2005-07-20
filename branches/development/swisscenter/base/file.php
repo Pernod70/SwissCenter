@@ -412,10 +412,13 @@ function file_thumbnail( $fsp )
   {
     $tn_image = file_albumart($fsp);
 
-    if (empty($tn_image) && is_file($fsp) )
-      $tn_image = file_icon($fsp);
-    else
-      $tn_image = dir_icon();      
+    if (empty($tn_image))
+    {
+      if (is_file($fsp) )
+        $tn_image = file_icon($fsp);
+      else
+        $tn_image = dir_icon();      
+    }
   }
 
   return $tn_image;
