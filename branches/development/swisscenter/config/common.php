@@ -49,13 +49,19 @@
     
   function paginate( $url, $total_items, $per_page, $current_page)
   {
+    $total_pages = ceil($total_items/$per_page);
+    
     echo '<table width="100%" border=0 cellpadding=0 cellspacing=8><tr>
           <td width="60" align="left">';
           if ($current_page > 1)
             echo '<a href="'.$url.($current_page-1).'">Previous</a>';      
     echo '&nbsp;</td><td align="center">&nbsp;';
-          for ($i=1; $i <= ceil($total_items/$per_page); $i++)
+          if ($current_page-5 >1)
+            echo '... ';
+          for ($i=max(1,$current_page-5); $i <= min($current_page+5,$total_pages); $i++)
             echo '&nbsp;<a href="'.$url.$i.'">'.$i.'</a>&nbsp;';      
+          if ($current_page+5 < $total_pages)
+            echo ' ...';
     echo '&nbsp;</td><td width="60" align="right">&nbsp;';
           if ($current_page < ceil($total_items/$per_page))
             echo '<a href="'.$url.($current_page+1).'">Next</a>';      
@@ -63,17 +69,39 @@
   }  
 
   //
+  // Outputs a heading within the menu sections
+  //
+  
+  function menu_heading($text = '&nbsp;')
+  {
+   echo '<tr><td width="5"></td><td align=center><b><i>'.$text.'</b></td></tr>';
+  }
+  
+  //
   // Outputs a menu item link
   //
   
   function menu_item($text, $params, $background = 'menu_bgr.png')
   {
-   echo '<tr><td width="5"></td>
+   echo '<tr><td width="5" align=right></td>
          <td class="menu" background="../images/'.$background.'">
          <a href="?'.$params.'">'.$text.'</a>
          </td></tr>';
   }
  
+  //
+  // Simple function to output all elements of an array as a drop-down or multi-select list.
+  //
+  
+  function list_option_elements ($array, $selected = array() )
+  {
+    $list = '';
+    foreach ($array as $row)
+      $list .= '<option '.(in_array($row["ID"],$selected) ? ' selected ' : '').'value="'.$row["NAME"].'">'.$row["NAME"].'</option>';
+
+   return $list;
+  }
+
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/
