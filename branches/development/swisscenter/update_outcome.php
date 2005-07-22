@@ -5,8 +5,6 @@
 
   require_once("base/page.php");
    
-      page_inform(2,"index.php","Online Update","");
-
   switch ($_REQUEST["status"])
   {
     case "ERROR" :
