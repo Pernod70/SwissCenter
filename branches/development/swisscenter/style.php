@@ -89,7 +89,7 @@
     for ($i=$start; $i<$end; $i++)
     {
       if ($_REQUEST["online"] == 'Y')
-        $tlist->add_item( 'http://update.swisscenter.co.uk/styles/'.$styles[$i].'.jpg' , $styles[$i] , 'href="download_style.php?name='.rawurlencode($styles[$i]).'"'); 
+        $tlist->add_item( 'http://update.swisscenter.co.uk/styles/'.$styles[$i].'.jpg' , $styles[$i] , 'href="run_style_download.php?name='.rawurlencode($styles[$i]).'"'); 
       else 
         $tlist->add_item( 'styles/'.$styles[$i].'/folder.jpg' , $styles[$i] , 'href="set_style.php?style='.rawurlencode($styles[$i]).'"'); 
     }

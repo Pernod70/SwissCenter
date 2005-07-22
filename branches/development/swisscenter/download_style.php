@@ -51,6 +51,7 @@
   
   // Set the style in the swssion, and redirect back to the main style page.
   set_user_pref('style',$style);
+  load_style();
   header("Location: /style.php");
 
 
