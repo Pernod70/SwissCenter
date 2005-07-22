@@ -139,28 +139,34 @@ function form_label( $text, $hpos = "R", $vpos = "B" )
 #        the value that will appear in the list for the user to select.
 #-------------------------------------------------------------------------------------------------
 
-function form_list_dynamic( $param, $prompt, $sql, $value = "", $opt = false )
+function form_list_dynamic_html ( $param, $sql, $value = "", $opt = false)
 {
-  echo '<tr><td>'.form_prompt($prompt,$opt).'</td>
-        <td><select '.($opt ? '' : ' required ').' name="'.$param.'" size="1">
-            <option value="">- Please Specify -';
+  $html = '<select '.($opt ? '' : ' required ').' name="'.$param.'" size="1"><option value="">- Please Specify -';
 
   $recs = new db_query( $sql );
-
   if ($recs->db_success() )
   {
     while ($row = $recs->db_fetch_row() )
     {
       $vals = array_values($row);
-      echo '<option '.( $vals[0] ==$value ? 'selected ' : '').
-           'value="'.$vals[0].'">'.$vals[1];
+      $html .= '<option '.( $vals[0] ==$value ? 'selected ' : '').'value="'.$vals[0].'">'.$vals[1];
     }
   }
   else
+  {
     page_error( $recs->db_get_error() );
-
+  }
   $recs->destroy();
-  echo '  </td></tr>';
+
+  return $html;
+}
+
+function form_list_dynamic( $param, $prompt, $sql, $value = "", $opt = false )
+{
+  echo '<tr>
+          <td>'.form_prompt($prompt,$opt).'</td>
+          <td>'.form_list_dynamic_html($param, $sql, $value, $opt).'</td>
+       </tr>';
 }
 
 #-------------------------------------------------------------------------------------------------
