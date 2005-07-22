@@ -4,6 +4,7 @@
  *************************************************************************************************/
 
   require_once('users.php');
+  require_once('mysql.php');
 
   function get_rating_join()
   {
@@ -21,7 +22,17 @@
   {
     return 'IFNULL(media_cert.name,unrated_cert.name)';
   }
+  
+  function get_cert_list_sql()
+  {
+    return 'select cert_id,name from certificates order by rank';
+  }
  
+  function get_cert_from_name($name)
+  {
+    return db_value("select cert_id from certificates where name='$name'");
+  }
+  
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/
