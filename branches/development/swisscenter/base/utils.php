@@ -66,7 +66,7 @@ function nvl($text,$default = '&lt;Unknown&gt;')
 
 function substr_between_strings( &$string, $startstr, $endstr)
 {
-  $start  = strpos($string,$startstr);
+  $start  = ( empty($startstr) ? 0 : strpos($string,$startstr));
   $end    = strpos($string,$endstr);
 
   if ($start === false || $end === false)
