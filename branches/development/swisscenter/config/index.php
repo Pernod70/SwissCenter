@@ -9,6 +9,8 @@
   include_once('../base/html_form.php');
   include_once('../base/server.php');
   include_once('../base/prefs.php');
+  include_once('../base/rating.php');
+  include_once('../base/db_abstract.php');
   include_once('common.php');
   
   //
@@ -189,8 +191,12 @@
     form_hidden("section", "USERS");
     form_hidden("action", "NEW");
     form_input("name", "Name", 70, '', $_REQUEST["name"]);
+    form_label('Please enter a name for the user as it should appear on the SwissCenter.');
     form_list_dynamic("cert", "Maximum certificate", "select cert_id,name from certificates order by rank asc", $_REQUEST["cert"]);
+    form_label('Please enter the <em>maximum</em> certificate that this user should be allowed to view. Items that have a higher
+                certificate than the one you specify here will <em>not</em> be displayed to this user.');
     form_input('pin','PIN',5,10);
+    form_label('You may optionally protect this user with a PIN number (which may be up to 10 digits long)');
     form_submit("Add New User", 2);
     form_end();
   }
@@ -298,7 +304,13 @@
     if (!is_windows() && !file_exists(SC_LOCATION.'media'))
       mkdir(SC_LOCATION.'media');
     
-    $data = db_toarray("select location_id,media_name 'Type', cat_name 'Category', cert.name 'Unrated Certificate', ml.name 'Directory'  from media_locations ml, media_types mt, categories cat, certificates cert where ml.unrated=cert.cert_id and mt.media_id = ml.media_type and ml.cat_id = cat.cat_id order by 2,3,4");
+    $data = db_toarray("select location_id,media_name 'Type', cat_name 'Category', cert.name 'Certificate', ml.name 'Directory'  from media_locations ml, media_types mt, categories cat, certificates cert where ml.unrated=cert.cert_id and mt.media_id = ml.media_type and ml.cat_id = cat.cat_id order by 2,3,4");
+    
+    // Try to determine sensible default values for "Category" and "Certification".
+    if (empty($_REQUEST["cat"]))
+      $_REQUEST["cat"] = db_value("select cat_id from categories where cat_name='General'");
+    if (empty($_REQUEST["cert"]))
+      $_REQUEST["cert"] = db_value("select cert_id from certificates where rank = ".db_value("select min(rank) from certificates")." limit 1");
      
     echo "<h1>Current Media Locations</h1>";
     message($delete);
@@ -317,13 +329,19 @@
     form_start('index.php');
     form_hidden('section','DIRS');
     form_hidden('action','NEW');
-    form_list_dynamic('type','Media Type',"select media_id,media_name from media_types order by 2",$_REQUEST['type']);
-    form_list_dynamic('cat', 'Category',"select cat_id,cat_name from categories order by cat_name", $_REQUEST['cat']);
-    form_list_dynamic('cert', 'Unrated Certificate', 'select cert_id,name from certificates order by rank asc', $_REQUEST['cert']);
     form_input('location','Location',70,'',un_magic_quote($_REQUEST['location']));
-    form_label('Please specify the fully qualified directory path where the media can be found <p>For example: 
+    form_label('Please specify the fully qualified directory path where the media can be found. Eg:
                 On Windows this might be <em>"C:\Documents and Settings\Robert\My Documents\My Music"</em> or on 
-                a LINUX system it might be <em>"/home/Robert/Music"</em>');
+                a Linux system it might be <em>"/home/Robert/Music"</em>');
+    form_list_dynamic('type','Media Type',"select media_id,media_name from media_types order by 2",$_REQUEST['type']);
+    form_label('Please select the type of media that this location should be searched for.');
+    form_list_dynamic('cat', 'Category',"select cat_id,cat_name from categories order by cat_name", $_REQUEST['cat']);
+    form_label('Specifying a category helps you to sort your audio files into logical groups such as "Audio Books" and "Language
+                learning" as well as "General" music. Using this feature will allow you to play a random selection of music
+                without a chapter from an audio book being added to the playlist.'); 
+    form_list_dynamic('cert', 'Unrated Certificate', 'select cert_id,name from certificates order by rank asc', $_REQUEST['cert']);
+    form_label('You should specify a default certificate that will be applied to each file within this media location that
+                does not have a certificate explicitly assigned to it.');
     form_submit('Add Location',2);
     form_end();
   }
@@ -1094,11 +1112,6 @@
                 are available then an icon will appear on the main menu to indicate that they are available for
                 you to view.');
 
-    form_radio_static('movie_info','Movie Info Downloads',$list,get_sys_pref('movie_check_enabled','YES'),false,true);
-    form_label('When new video items are discovered during a "new media search", the SwissCenter will use the filename
-                of the video file to search for, and download, additional movie information (eg: Actors, Directors, etc)
-                from the online movie rental site <a href=""http://www.lovefilm.com">www.lovefilem.com</a>.');
- 
     form_submit('Store Settings', 2);
     form_end();
   }
@@ -1113,10 +1126,326 @@
     set_sys_pref('weather_enabled',$_REQUEST["weather"]);
     set_sys_pref('updates_enabled',$_REQUEST["update"]);
     set_sys_pref('messages_enabled',$_REQUEST["messages"]);
-    set_sys_pref('movie_check_enabled',$_REQUEST["movie_info"]);
     connect_display('Settings Saved');
   }
   
+  //*************************************************************************************************
+  // MOVIE section
+  //*************************************************************************************************
+  
+  function movie_display( $message = '')
+  {
+    $per_page    = get_user_pref('PC_PAGINATION',20);
+    $page        = (empty($_REQUEST["page"]) ? 1 : $_REQUEST["page"]);
+    $start       = ($page-1)*$per_page;
+    $movie_list  = db_toarray("select * from movies order by title limit $start,$per_page");
+    $movie_count = db_value("select count(*) from movies");
+       
+    echo "<h1>Movie Details</h1>";
+    message($message);
+    
+    echo '<form enctype="multipart/form-data" action="" method="post">';
+    echo '<input type=hidden name="section" value="MOVIE">';
+    echo '<input type=hidden name="action" value="UPDATE">';
+
+    paginate('?section=MOVIE&action=DISPLAY&page=',$movie_count,$per_page,$page);
+    echo '<table class="form_select_tab" width="100%"><tr>
+            <th width="3%">&nbsp;</th>
+            <th width="34%"> Title </th>
+            <th width="21%"> Actors </th>
+            <th width="21%"> Directors </th>
+            <th width="21%"> Genres </th>
+          </tr></table>';
+
+    foreach ($movie_list as $movie)
+    {
+      $actors    = db_col_to_list("select actor_name from actors a,actors_in_movie aim where a.actor_id=aim.actor_id and movie_id=$movie[FILE_ID] order by 1");
+      $directors = db_col_to_list("select director_name from directors d, directors_of_movie dom where d.director_id = dom.director_id and movie_id=$movie[FILE_ID] order by 1");
+      $genres    = db_col_to_list("select genre_name from genres g, genres_of_movie gom where g.genre_id = gom.genre_id and movie_id=$movie[FILE_ID] order by 1");
+      $cert      = db_value("select name from certificates where cert_id=".nvl($movie["CERTIFICATE"],-1));
+
+      echo '<table class="form_select_tab" width="100%"><tr>
+            <td valign="top" width="3%"><input type="checkbox" name="movie[]" value="'.$movie["FILE_ID"].'"></input><td>
+            <td valign="top" width="34%">
+               <b>'.$movie["TITLE"].'</b><br>
+               Certificate : '.nvl($cert).'<br>
+               Year : '.nvl($movie["YEAR"]).'<br>
+             </td>
+             <td valign="top" width="21%">'.nvl(implode("<br>",$actors)).'</td>
+             <td valign="top" width="21%">'.nvl(implode("<br>",$directors)).'</td>
+             <td valign="top" width="21%">'.nvl(implode("<br>",$genres)).'</td>
+            </tr></table>';  	
+    }
+    
+    echo '<table width="100%"><tr><td align="center">
+          <input type="Submit" name="submit" value="Update Details"> &nbsp; 
+          <input type="Submit" name="submit" value="Clear Details"> &nbsp; 
+          </td></tr></table>';
+    
+    paginate('?section=MOVIE&action=DISPLAY&page=',$movie_count,$per_page,$page);
+    
+    echo '</form>';
+  }
+  
+  function movie_update()
+  {
+    if ($_REQUEST["submit"] == 'Clear Details')
+      movie_clear_details();
+    elseif ($_REQUEST["submit"] == 'Update Details')
+      movie_update_form();
+    else 
+      echo 'Unknown value recieved for "submit" parameter';
+  }
+  
+  function movie_clear_details()
+  {
+    $cleared = false;
+    foreach ($_REQUEST["movie"] as $value)
+    {
+      db_sqlcommand('delete from actors_in_movie where movie_id = '.$value);
+      db_sqlcommand('delete from directors_of_movie where movie_id = '.$value);
+      db_sqlcommand('delete from genres_of_movie where movie_id = '.$value);
+      db_sqlcommand('update movies set year=null,certificate=null where file_id = '.$value);
+      scdb_remove_orphans();
+      $cleared = true;
+    }
+    if ($cleared)
+      movie_display('Details cleared.');
+    else 
+      movie_display();
+  }
+
+  function movie_update_form()
+  {
+    $movie_list = $_REQUEST["movie"];
+    if (count($movie_list) == 0)
+      movie_display("!You did not selected any movies to update.");
+    elseif (count($movie_list) == 1)
+      movie_update_form_single();
+    else
+      movie_update_form_multiple($movie_list);
+  }
+  
+  function movie_update_form_single()
+  {
+    // Get actor/director/genre lists
+    $movie_id    = $_REQUEST["movie"][0];
+    $details     = db_toarray("select * from movies where file_id=".$movie_id);
+    $actors      = db_toarray("select actor_name name, actor_id id from actors order by 1");
+    $directors   = db_toarray("select director_name name, director_id id from directors order by 1");
+    $genres      = db_toarray("select genre_name name, genre_id id from genres order by 1");
+    
+    // Because we can't use subqueries for the above lists, we now need to determine which
+    // rows should be shown as selected.
+    $a_select = db_col_to_list("select actor_id from actors_in_movie where movie_id=".$movie_id);
+    $d_select = db_col_to_list("select director_id from directors_of_movie where movie_id=".$movie_id);
+    $g_select = db_col_to_list("select genre_id from genres_of_movie where movie_id=".$movie_id);
+
+    // Display movies that will be affected.
+    echo '<h1>Update <em>'.$details[0]["TITLE"].'</em></h1>
+          <form enctype="multipart/form-data" action="" method="post">
+          <input type=hidden name="section" value="MOVIE">
+          <input type=hidden name="action" value="UPDATE_SINGLE">
+          <input type=hidden name="movie[]" value="'.$movie_id.'">
+          <table class="form_select_tab" width="100%" cellspacing=4><tr><td colspan="3" align="center">&nbsp<br>
+          Please enter the details that you would like to <em>add</em> to each of the movies listed above
+          <br>(holding down the CTRL key will allow you to select multiple entries in the lists)
+          <br>&nbsp;</td></tr><tr>
+          <th width="33%">Actors</th>
+          <th width="33%">Directors</th>
+          <th width="33%">Genres</th>   
+          </tr><tr>
+          <td><select name="actors[]" multiple size="8">
+          '.list_option_elements($actors, $a_select).'
+          </select></td><td><select name="directors[]" multiple size="8">
+          '.list_option_elements($directors,$d_select).'
+          </select></td><td><select name="genres[]" multiple size="8">
+          '.list_option_elements($genres,$g_select).'
+          </select></td></tr></tr><tr><td colspan="3" align="center">&nbsp<br>
+          You may enter new Actors, Directors or Genres that are not listed into the boxes below. 
+          <br>To add more than one new entry, separate each entry with a comma.
+          <br>&nbsp;</td></tr><tr>
+          <td width="33%"><input name="actor_new" size=25></td>
+          <td width="33%"><input name="director_new" size=25></td>
+          <td width="33%"><input name="genre_new" size=25></td>
+          </tr><tr>
+            <th>Certificate</th>
+            <th>Year</th>
+          </tr><tr>
+            <td>
+            '.form_list_dynamic_html("rating",get_cert_list_sql(),$details[0]["CERTIFICATE"],true).'
+            </td>
+            <td><input name="year" size="6"></td>
+          </tr></table>
+          <p align="center"><input type="submit" value="Add/Update Details">
+          </form>';    
+  }
+  
+  function movie_update_form_multiple( $movie_list )
+  {
+    $actors    = db_toarray("select actor_name name from actors order by 1");
+    $directors = db_toarray("select director_name name from directors order by 1");
+    $genres    = db_toarray("select genre_name name from genres order by 1");
+
+    // Display movies that will be affected.
+    echo '<h1>Update Movies</h1>
+         <center>The following movies will be updated :<p>';
+         array_to_table(db_toarray("select title from movies where file_id in (".implode(',',$movie_list).")"),'50%');      
+      
+    echo '</center>
+          <form enctype="multipart/form-data" action="" method="post">
+          <input type=hidden name="section" value="MOVIE">
+          <input type=hidden name="action" value="UPDATE_MULTIPLE">';
+
+    foreach ($movie_list as $movie_id)
+      echo '<input type=hidden name="movie[]" value="'.$movie_id.'">';
+            
+    echo '<table class="form_select_tab" width="100%" cellspacing=4><tr><td colspan="3" align="center">
+          Please enter the details that you would like to <em>add</em> to each of the movies listed above
+          <br>(holding down the CTRL key will allow you to select multiple entries in the lists)
+          </td></tr><tr>
+          <th width="33%">Actors</th>
+          <th width="33%">Directors</th>
+          <th width="33%">Genres</th>   
+          </tr><tr>
+          <td><select name="actors[]" multiple size="8">
+          '.list_option_elements($actors).'
+          </select></td><td><select name="directors[]" multiple size="8">
+          '.list_option_elements($directors).'
+          </select></td><td><select name="genres[]" multiple size="8">
+          '.list_option_elements($genres).'
+          </select></td></tr></tr><tr><td colspan="3" align="center">
+          You may enter new Actors, Directors or Genres that are not listed into the boxes below. 
+          <br>To add more than one new entry, separateeach entry with a comma.
+          </td></tr><tr>
+          <td width="33%"><input name="actor_new" size=25></td>
+          <td width="33%"><input name="director_new" size=25></td>
+          <td width="33%"><input name="genre_new" size=25></td>
+          </tr><tr>
+            <th>Certificate</th>
+            <th>Year</th>
+          </tr><tr>
+            <td>
+            '.form_list_dynamic_html("rating",get_cert_list_sql(),'',true).'
+            </td>
+            <td><input name="year" size="6"></td>
+          </tr></table>
+          <p align="center"><input type="submit" value="Add/Update Details">
+          </form>';    
+  }
+
+  function movie_update_single()
+  {
+    // Clear the existing details for this movie, as they will be reinserted by
+    // calling the update_multiple function.
+    $movie_id = $_REQUEST["movie"][0];
+    db_sqlcommand("delete from actors_in_movie where movie_id=".$movie_id);
+    db_sqlcommand("delete from directors_of_movie where movie_id=".$movie_id);
+    db_sqlcommand("delete from genres_of_movie where movie_id=".$movie_id);
+    movie_update_multiple();
+  }
+  
+  function movie_update_multiple()
+  {
+    $movie_list = $_REQUEST["movie"];
+    $columns    = array();
+    
+    if (!empty($_REQUEST["year"]))
+      $columns["YEAR"] = $_REQUEST["year"];
+    if (!empty($_REQUEST["rating"]))
+      $columns["CERTIFICATE"] = $_REQUEST["rating"];
+
+    // Update the MOVIES table?
+    if (count($columns)>0)
+    {
+      $columns["DETAILS_AVAILABLE"] = 'Y';
+      scdb_set_movie_attribs($movie_list, $columns);
+    }
+   
+    // Add Actors/Genres/Directors?
+    if (count($_REQUEST["actors"]) >0)
+      scdb_add_actors($movie_list,$_REQUEST["actors"]);
+    if (!empty($_REQUEST["actor_new"]))
+      scdb_add_actors($movie_list, explode(',',$_REQUEST["actor_new"]));
+
+    if (count($_REQUEST["directors"]) >0)
+      scdb_add_directors($movie_list,$_REQUEST["directors"]);
+    if (!empty($_REQUEST["director_new"]))
+      scdb_add_directors($movie_list, explode(',',$_REQUEST["director_new"]));
+
+    if (count($_REQUEST["genres"]) >0)
+      scdb_add_genres($movie_list,$_REQUEST["genres"]);   
+    if (!empty($_REQUEST["genre_new"]))
+      scdb_add_genres($movie_list, explode(',',$_REQUEST["genre_new"]));
+
+    scdb_remove_orphans();
+    movie_display("Changes Made");
+   }
+
+  //*************************************************************************************************
+  // Extra Movie Information options
+  //*************************************************************************************************
+
+  function movie_info( $message = "")
+  {
+    $list = array('Enabled'=>'YES','Disabled'=>'NO');
+    
+    if (!empty($_REQUEST["downloads"]))
+    {
+      set_sys_pref('movie_check_enabled',$_REQUEST["downloads"]);
+      $message = 'Settings Saved';
+    }
+    
+    if (!empty($_REQUEST["refresh"]))
+    {
+      db_sqlcommand('update movies set year = null, certificate = null, match_pc = null, details_available = null, synopsis = null');
+      db_sqlcommand('delete from directors_of_movie');
+      db_sqlcommand('delete from actors_in_movie');
+      db_sqlcommand('delete from genres_of_movie');
+      $message = 'All extra movie information scheduled for refresh.';
+    }
+    
+    echo "<h1>Extra Movie Info</h1>";
+    message($message);
+    
+    form_start('index.php', 150, 'conn');
+    form_hidden('section', 'MOVIE');
+    form_hidden('action', 'INFO');
+    echo '<p><b>Downloading extra movie information</b>
+          <p>When new video items are discovered during a "new media search", the SwissCenter will use the filename
+                of the video file to search for and download additional movie information (eg: Actors, Directors, etc)
+                from the online movie rental site <a href=""http://www.lovefilm.com">www.lovefilem.com</a>.';
+    form_radio_static('downloads','Status',$list,get_sys_pref('movie_check_enabled','YES'),false,true);
+    form_submit('Save Changes',2);
+    form_end();
+
+    form_start('index.php', 150, 'conn');
+    form_hidden('section', 'MOVIE');
+    form_hidden('action', 'INFO');
+    form_hidden('refresh','YES');
+    echo '<p><b>Refreshing all extra movie information</b>
+          <p>If you encounter a situation where you need to refresh all the movie information that was downloaded from
+             the internet, for what ever reason, then you may do so by clicking on the button below.
+          <p><span class="stdformlabel">However, please be aware that if you have manually entered information using the "Movie Details" page
+             then this information will be lost.</span>';
+    form_submit('Refresh All Extra Information',2);
+    form_end();
+  }
+  
+  //*************************************************************************************************
+  // Media Search
+  //*************************************************************************************************
+
+  function media_search()
+  {
+    run_background('media_search.php');
+    message('Searching for new media');
+    echo "<h1>Search For New Media</h1>";
+    echo '<p>The database refresh has been started in the background and you may continue to use the 
+             system as normal. However please be aware that not all media files will be available 
+             for playback until the refresh is complete. ';
+  }
+   
   //*************************************************************************************************
   // Privacy Policy
   //*************************************************************************************************
@@ -1132,14 +1461,14 @@
         this of any other information transmitted in any form to the authors of the SwissCenter, or to any other third party.
      <p>There is one exception to the above statemnet :- To obtain extra information regarding video/movies files (such as actors, 
         directors, etc) the filename is submitted as part of a search query to the www.lovefilm.com website. If
-        you would prefer that this informationis not transmitted then you should disable the "Movie Info Download" feature in
-        the form above.
+        you would prefer that this informationis not transmitted then you should disable the "Movie Info Download" feature on
+        the "Extra Movie Info" page.
      <p><b>Unsolicited Email/Messages</b>
      <p><ul>
         <li>We will never send you unsolicited email.
         <li>Messages downloaded to the SwissCenter interface will relate only to the capabilities and operation of the 
             interface. If you wish you may prevent even these messages from being downloaded by disabling the "Messages" 
-            feature in the form above.
+            feature in "Connectivity" section.
         </ul>
     <?    
   }
@@ -1157,6 +1486,7 @@
   $db_stat = test_db(DB_HOST,DB_USERNAME,DB_PASSWORD,DB_DATABASE); 
 
   echo '<table width="160">';
+     menu_heading("Configuration");
      menu_item('Create Database','section=INSTALL&action=DISPLAY','menu_bgr2.png');
      if ($db_stat == 'OK')
      {
@@ -1168,6 +1498,15 @@
        menu_item('Album/Film Art','section=ART&action=DISPLAY');
        menu_item('Playlists Location','section=PLAYLISTS&action=DISPLAY');
        menu_item('Image Cache','section=CACHE&action=DISPLAY');
+       menu_heading();
+       menu_heading();
+       menu_heading("Media Management");
+       menu_item('Search For New Media','section=MEDIA&action=SEARCH','menu_bgr.png');
+       menu_item('Movie Details','section=MOVIE&action=DISPLAY','menu_bgr.png');
+       menu_item('Extra Movie Info','section=MOVIE&action=INFO','menu_bgr.png');
+       menu_heading();
+       menu_heading();
+       menu_heading("Information");
        menu_item('Privacy Policy','section=PRIVACY&action=DISPLAY','menu_bgr2.png');
        menu_item('Support Info','section=SUPPORT&action=DISPLAY','menu_bgr2.png');
      }
