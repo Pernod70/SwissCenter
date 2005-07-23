@@ -320,7 +320,7 @@
     form_select_table('loc_id',$data,array('class'=>'form_select_tab','width'=>'100%'),'location_id',
                       array('DIRECTORY'=>'','TYPE'=>'select media_id,media_name from media_types order by 2',
                             'CATEGORY'=>'select cat_id,cat_name from categories order by cat_name',
-                            'UNRATED CERTIFICATE'=>'select cert_id,name from certificates order by rank asc'), $edit, 'dirs');
+                            'CERTIFICATE'=>'select cert_id,name from certificates order by rank asc'), $edit, 'dirs');
     form_submit('Remove Selected Locations',1,'center');
     form_end();
   
@@ -369,7 +369,7 @@
       $type_id = $update["TYPE"];
       $cat_id  = $update["CATEGORY"];
       $id      = $update["LOC_ID"];
-      $cert    = $update["UNRATED_CERTIFICATE"];
+      $cert    = $update["CERTIFICATE"];
   
       if (empty($type_id))
         dirs_display('',"!Please select the media type below.");
