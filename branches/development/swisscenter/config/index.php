@@ -1439,8 +1439,8 @@
   function media_search()
   {
     run_background('media_search.php');
-    message('Searching for new media');
     echo "<h1>Search For New Media</h1>";
+    message('Searching for new media');
     echo '<p>The database refresh has been started in the background and you may continue to use the 
              system as normal. However please be aware that not all media files will be available 
              for playback until the refresh is complete. ';
