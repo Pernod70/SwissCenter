@@ -173,8 +173,11 @@
 
       $data = array("dirname"      => $dir
                    ,"filename"     => $file
+                   ,"location_id"  => $id
                    ,"title"        => file_noext($file)
-                   ,"size"         => filesize($dir.$file) );
+                   ,"size"         => filesize($dir.$file)
+                   ,"verified"     => 'Y'
+                   ,"discovered"   => db_datestr() );
       if ( db_insert_row( "movies", $data) === false )
         send_to_log('Unable to add movie to the database');
     }
