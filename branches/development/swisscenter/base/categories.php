@@ -68,4 +68,14 @@
     
     return $sql;
   }
+  
+  // -------------------------------------------------------------------------------------------------
+  // Returns the SQL needed to populate a drop-down list of categories.
+  // -------------------------------------------------------------------------------------------------
+
+  function category_list_sql()
+  {
+    return 'select cat_id,cat_name from categories order by cat_name';
+  }
+  
 ?>

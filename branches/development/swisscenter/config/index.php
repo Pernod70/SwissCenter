@@ -10,6 +10,7 @@
   include_once('../base/server.php');
   include_once('../base/prefs.php');
   include_once('../base/rating.php');
+  include_once('../base/categories.php');
   include_once('../base/db_abstract.php');
   include_once('common.php');
   
@@ -1137,19 +1138,45 @@
   {
     $per_page    = get_user_pref('PC_PAGINATION',20);
     $page        = (empty($_REQUEST["page"]) ? 1 : $_REQUEST["page"]);
-    $start       = ($page-1)*$per_page;
-    $movie_list  = db_toarray("select * from movies order by title limit $start,$per_page");
-    $movie_count = db_value("select count(*) from movies");
-       
+    $start       = ($page-1)*$per_page;    
+    $where       = '';
+
+    // Extra filters on the media (for categories and search).
+    if (!empty($_REQUEST["cat_id"]) )
+      $where .= "and ml.cat_id = $_REQUEST[cat_id] ";
+   
+    if (!empty($_REQUEST["search"]) )
+      $where .= "and m.title like '%$_REQUEST[search]%' ";
+      
+    // If the user has changed category, then shunt them back to page 1.
+    if ($_REQUEST["last_where"] != $where)
+      $start = 0;
+    
+    // SQL to fetch matching rows
+    $movie_count = db_value("select count(*) from movies m, media_locations ml where ml.location_id = m.location_id ".$where);
+    $movie_list  = db_toarray("select m.* from movies m, media_locations ml where ml.location_id = m.location_id ".$where." order by title limit $start,$per_page");        
+    
     echo "<h1>Movie Details</h1>";
     message($message);
     
     echo '<form enctype="multipart/form-data" action="" method="post">';
+
+    echo '<table width="100%"><tr><td width="50%">
+          <input type=hidden name="section" value="MOVIE">
+          <input type=hidden name="action" value="DISPLAY">
+          <input type=hidden name="last_where" value="'.$where.'">
+          Category : 
+          '.form_list_dynamic_html("cat_id","select cat_id,cat_name from categories",$_REQUEST["cat_id"],true,true,'- All Categories -').'
+          </form>
+          </td><td width"50% align="right">
+          Search : 
+          <input name="search" value="'.$_REQUEST["search"].'" size=10>
+          </td></tr></table>';
+    
     echo '<input type=hidden name="section" value="MOVIE">';
     echo '<input type=hidden name="action" value="UPDATE">';
 
-    paginate('?section=MOVIE&action=DISPLAY&page=',$movie_count,$per_page,$page);
-    echo '<table class="form_select_tab" width="100%"><tr>
+    echo '<p><table class="form_select_tab" width="100%"><tr>
             <th width="3%">&nbsp;</th>
             <th width="34%"> Title </th>
             <th width="21%"> Actors </th>
@@ -1178,23 +1205,25 @@
     }
     
     echo '<table width="100%"><tr><td align="center">
-          <input type="Submit" name="submit" value="Update Details"> &nbsp; 
-          <input type="Submit" name="submit" value="Clear Details"> &nbsp; 
+          <input type="Submit" name="subaction" value="Update Details"> &nbsp; 
+          <input type="Submit" name="subaction" value="Clear Details"> &nbsp; 
           </td></tr></table>';
     
-    paginate('?section=MOVIE&action=DISPLAY&page=',$movie_count,$per_page,$page);
+    paginate('?search='.$_REQUEST["search"].'&cat_id='.$_REQUEST["cat_id"].'&section=MOVIE&action=DISPLAY&page=',$movie_count,$per_page,$page);
     
     echo '</form>';
   }
   
   function movie_update()
   {
-    if ($_REQUEST["submit"] == 'Clear Details')
+    if ($_REQUEST["subaction"] == 'Clear Details')
       movie_clear_details();
-    elseif ($_REQUEST["submit"] == 'Update Details')
+    elseif ($_REQUEST["subaction"] == 'Update Details')
       movie_update_form();
-    else 
-      echo 'Unknown value recieved for "submit" parameter';
+    elseif (empty($_REQUEST["subaction"])) 
+      movie_display();
+    else
+      echo 'Unknown value recieved for "subaction" parameter : '.$_REQUEST["subaction"];
   }
   
   function movie_clear_details()

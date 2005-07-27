@@ -139,9 +139,15 @@ function form_label( $text, $hpos = "R", $vpos = "B" )
 #        the value that will appear in the list for the user to select.
 #-------------------------------------------------------------------------------------------------
 
-function form_list_dynamic_html ( $param, $sql, $value = "", $opt = false)
+function form_list_dynamic_html ( $param, $sql, $value = "", $opt = false, $submit = false, $inital_txt = '- Please Specify -')
 {
-  $html = '<select '.($opt ? '' : ' required ').' name="'.$param.'" size="1"><option value="">- Please Specify -';
+  $html = '<select '.
+          ($opt ? '' : ' required ').
+          ' name="'.$param.'"'.
+          ' size="1"'.
+          ($submit ? ' onChange="this.form.submit();"' : '').
+          '>'.
+          '<option value="">'.$inital_txt;
 
   $recs = new db_query( $sql );
   if ($recs->db_success() )
