@@ -24,11 +24,12 @@
     $getID3  = new getID3;
     $id3      = $getID3->analyze($filepath);
 
-    if ( $id3["fileformat"] == 'mp3')
+    if (in_array( $id3["fileformat"],array('mp3','asf')) )
     {
       if ( ! isset($id3["error"]) )
       {
         getid3_lib::CopyTagsToComments($id3);
+        send_to_log('details',$id3);
 
         // ID3 data successfully obtained, so enter it into the database
         $data = array("dirname"      => $dir
