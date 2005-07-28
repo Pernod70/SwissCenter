@@ -144,11 +144,11 @@
         // Store default cache settings
         set_sys_pref('CACHE_MAXSIZE_MB',10); // Default 10 Mb cache size
 
-        if (!file_exists(SC_LOCATION.'cache'))
-          mkdir(SC_LOCATION.'cache');
+        if (!file_exists(SC_LOCATION.'/cache'))
+          mkdir(SC_LOCATION.'/cache');
 
-        if (file_exists(SC_LOCATION.'cache') && is_dir(SC_LOCATION.'cache'))
-          set_sys_pref('CACHE_DIR',SC_LOCATION.'cache');
+        if (file_exists(SC_LOCATION.'/cache') && is_dir(SC_LOCATION.'/cache'))
+          set_sys_pref('CACHE_DIR',SC_LOCATION.'/cache');
           
         // Display the config page
         header('Location: index.php');
@@ -337,8 +337,8 @@
     form_list_dynamic('type','Media Type',"select media_id,media_name from media_types order by 2",$_REQUEST['type']);
     form_label('Please select the type of media that this location should be searched for.');
     form_list_dynamic('cat', 'Category',"select cat_id,cat_name from categories order by cat_name", $_REQUEST['cat']);
-    form_label('Specifying a category helps you to sort your audio files into logical groups such as "Audio Books" and "Language
-                learning" as well as "General" music. Using this feature will allow you to play a random selection of music
+    form_label('Specifying a category helps you to sort your media files into logical groups such as "Audio Books" and "Language
+                learning" as well as "General". For example, using this feature will allow you to play a random selection of music
                 without a chapter from an audio book being added to the playlist.'); 
     form_list_dynamic('cert', 'Unrated Certificate', 'select cert_id,name from certificates order by rank asc', $_REQUEST['cert']);
     form_label('You should specify a default certificate that will be applied to each file within this media location that
@@ -1205,7 +1205,7 @@
     }
     
     echo '<table width="100%"><tr><td align="center">
-          <input type="Submit" name="subaction" value="Update Details"> &nbsp; 
+          <input type="Submit" name="subaction" value="Edit Details"> &nbsp; 
           <input type="Submit" name="subaction" value="Clear Details"> &nbsp; 
           </td></tr></table>';
     
@@ -1218,7 +1218,7 @@
   {
     if ($_REQUEST["subaction"] == 'Clear Details')
       movie_clear_details();
-    elseif ($_REQUEST["subaction"] == 'Update Details')
+    elseif ($_REQUEST["subaction"] == 'Edit Details')
       movie_update_form();
     elseif (empty($_REQUEST["subaction"])) 
       movie_display();
@@ -1345,7 +1345,7 @@
           '.list_option_elements($genres).'
           </select></td></tr></tr><tr><td colspan="3" align="center">
           You may enter new Actors, Directors or Genres that are not listed into the boxes below. 
-          <br>To add more than one new entry, separateeach entry with a comma.
+          <br>To add more than one new entry, separate each entry with a comma.
           </td></tr><tr>
           <td width="33%"><input name="actor_new" size=25></td>
           <td width="33%"><input name="director_new" size=25></td>
