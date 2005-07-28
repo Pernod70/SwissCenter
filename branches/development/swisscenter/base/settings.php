@@ -105,15 +105,16 @@ function fatal_error($heading,$text)
   }
 
 #-------------------------------------------------------------------------------------------------
-# Determine the IP address of the hardware device
+# Determine the details of the client.
 #-------------------------------------------------------------------------------------------------
 
-  if (is_showcenter())
-  {
-  	$ip = str_replace('\\','/',$_SERVER["REMOTE_ADDR"]);
-  	if (get_sys_pref('LAST_DEVICE') != $ip)
-      set_sys_pref("LAST_DEVICE",$ip);
-  }
+  $device = array();
+  $device["ip_address"]   = str_replace('\\','/',$_SERVER["REMOTE_ADDR"]);
+  $device["agent_string"] = $_SERVER['HTTP_USER_AGENT'];
+  
+	db_sqlcommand("delete from clients where ip_address='$ip'");
+	db_insert_row('clients',$device);
+
 
 #-------------------------------------------------------------------------------------------------
 # Check for Update

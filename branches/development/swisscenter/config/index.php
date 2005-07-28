@@ -672,6 +672,9 @@
                  );
     array_to_table($opts);
   
+    echo "<h2>Clients Discovered</h2>";
+    array_to_table(db_toarray('select ip_address, agent_string from clients'));
+
     echo "<h2>Database Settings</h2>";
     echo '<table width="100%"><tr><td valign=top>';
       array_to_table( array( array('Connection Details'=>'Host = '.DB_HOST), 
