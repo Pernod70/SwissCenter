@@ -13,7 +13,7 @@
 // Main logic
 //*************************************************************************************************
 
-  // The showcenter can only cope with playlists of 4000 items (which should be enough for
+  // The device can only cope with playlists of a certain size (which should be enough for
   // anyone to sit and listen to!). However, the user shouldn't notice as shuffle is done 
   // before the truncate of the playlist (if the user has selected shuffle).
 
@@ -39,7 +39,7 @@
   
   foreach ($data as $row)
   {
-    if ($item_count >= 4000)
+    if ($item_count >= MAX_PLAYLIST_SIZE )
       break;
       
     if ( is_null($row["TITLE"]) )

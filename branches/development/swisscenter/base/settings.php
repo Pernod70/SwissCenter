@@ -90,7 +90,30 @@ function fatal_error($heading,$text)
       fatal_error('Your SwissCenter Configuration file is missing.','Please use the <a href="/config/index.php">Configuration Utility<a> to create a configuration file');
   }
   
-  // Determine the IP address of the hardware device
+#-------------------------------------------------------------------------------------------------
+# Whenever a new session starts, check that there is some media in the database. If not, inform
+# the user that they need to add a location or do a media search.
+#-------------------------------------------------------------------------------------------------
+
+  if (!isset($_SESSION["media_check"]))
+  { 
+    $media_count = db_value("select count(*) from media_locations");
+
+    if ($media_count ==0)
+    {
+      if (is_showcenter()) 
+        fatal_error('You have no media locations defined.','Please use the <font color="blue">Configuration Utility</font> to add media locations');
+      else
+        fatal_error('You have no media locations defined.','Please use the <a href="/config/index.php">Configuration Utility<a> to add media locations.');
+    }
+
+    $_SESSION["media_check"] = 'YES';  
+  }
+
+#-------------------------------------------------------------------------------------------------
+# Determine the IP address of the hardware device
+#-------------------------------------------------------------------------------------------------
+
   if (is_showcenter())
   {
   	$ip = str_replace('\\','/',$_SERVER["REMOTE_ADDR"]);
@@ -130,6 +153,13 @@ function fatal_error($heading,$text)
     // Check again in 24 hours
     $_SESSION["update"]["timeout"]   = time()+86400; 
   }
+
+#-------------------------------------------------------------------------------------------------
+# Determine which "server" library to load based on the USER AGENT string sent from the device.
+#-------------------------------------------------------------------------------------------------
+
+  // for now, we only have the "Pinnacle Showcenter" library, so just load that.
+  include_once("servers/showcenter.php");
 
 /**************************************************************************************************
                                                End of file
