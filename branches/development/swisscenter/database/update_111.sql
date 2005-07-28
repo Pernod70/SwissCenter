@@ -9,7 +9,13 @@
 UPDATE system_prefs SET value='1.11' WHERE name='DATABASE_VERSION';
 
 -- -------------------------------------------------------------------------------------------------
--- Add an extra attribute to the movie table
+-- Deletes any movie information where the location_id is null (due to a bug in a previous version)
+-- -------------------------------------------------------------------------------------------------
+
+delete from movies where location_id is null;
+
+-- -------------------------------------------------------------------------------------------------
+-- Add an extra attributes to the client table
 -- -------------------------------------------------------------------------------------------------
 
 ALTER TABLE clients ADD ( agent_string text, device_type text );
