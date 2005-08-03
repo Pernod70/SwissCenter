@@ -15,6 +15,9 @@ require_once("utils.php");
 require_once("iconbar.php");
 require_once("users.php");
 
+require_once("install_checks.php");
+require_once("capabilities.php");
+
 #-------------------------------------------------------------------------------------------------
 # Determine screen type (currently only PAL or NTSC - no support for HDTV).
 #-------------------------------------------------------------------------------------------------
