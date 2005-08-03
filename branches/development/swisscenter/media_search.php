@@ -29,7 +29,6 @@
       if ( ! isset($id3["error"]) )
       {
         getid3_lib::CopyTagsToComments($id3);
-        send_to_log('details',$id3);
 
         // ID3 data successfully obtained, so enter it into the database
         $data = array("dirname"      => $dir
