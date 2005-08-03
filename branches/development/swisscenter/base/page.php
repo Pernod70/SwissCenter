@@ -7,16 +7,15 @@ session_start();
 ob_start();
 
 require_once("settings.php");
-require_once("prefs.php");
+require_once("install_checks.php");
+require_once("capabilities.php");
+
 require_once("stylelib.php");
 require_once("menu.php");
 require_once("infotab.php");
 require_once("utils.php");
 require_once("iconbar.php");
 require_once("users.php");
-
-require_once("install_checks.php");
-require_once("capabilities.php");
 
 #-------------------------------------------------------------------------------------------------
 # Determine screen type (currently only PAL or NTSC - no support for HDTV).

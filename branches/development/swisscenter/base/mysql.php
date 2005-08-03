@@ -202,7 +202,7 @@ function db_value( $sql)
   $result  = '';
 
   if (!$success)
-    echo "Unable to query database - ".$recs->db_get_error();
+    send_to_log("Unable to query database - ".$recs->db_get_error());
 
   $result = @array_pop($recs->db_fetch_row());
   $recs->destroy();
@@ -364,7 +364,10 @@ class db_query
 
   function db_get_error()
   { 
-    return mysql_error($this->db_handle);
+    if ($this->db_handle)
+      return mysql_error($this->db_handle);
+    else 
+      return 'Invalid database handle';
   }
 
   function db_success()

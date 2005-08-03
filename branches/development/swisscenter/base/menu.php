@@ -7,7 +7,6 @@ ob_start();
 
 require_once("settings.php");
 require_once("utils.php");
-require_once("page.php");
 
 //
 // Class for outputting menus.

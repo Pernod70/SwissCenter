@@ -20,6 +20,18 @@ if (! file_exists(SC_LOCATION.'/config/swisscenter.ini'))
 }
   
 #-------------------------------------------------------------------------------------------------
+# Tests to see if there is a database to connect to.
+#-------------------------------------------------------------------------------------------------
+
+if ( test_db(DB_HOST,DB_USERNAME,DB_PASSWORD,DB_DATABASE) != 'OK')
+{
+  if (is_showcenter()) 
+    fatal_error('You have not created a database.','Please use the Configuration Utility to create a database.');
+  else
+    fatal_error('You have not created a database.','Please use the <a href="/config/index.php">Configuration Utility<a> to create a database.');
+}
+
+#-------------------------------------------------------------------------------------------------
 # Whenever a new session starts, check that there is some media in the database. If not, inform
 # the user that they need to add a location or do a media search.
 #-------------------------------------------------------------------------------------------------
