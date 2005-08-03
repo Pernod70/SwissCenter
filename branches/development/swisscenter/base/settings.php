@@ -111,13 +111,6 @@ function fatal_error($heading,$text)
     $_SESSION["update"]["timeout"]   = time()+86400; 
   }
 
-#-------------------------------------------------------------------------------------------------
-# Determine which "server" library to load based on the USER AGENT string sent from the device.
-#-------------------------------------------------------------------------------------------------
-
-  // for now, we only have the "Pinnacle Showcenter" library, so just load that.
-  include_once("servers/showcenter.php");
-
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/
