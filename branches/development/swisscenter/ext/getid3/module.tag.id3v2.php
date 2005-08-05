@@ -370,7 +370,7 @@ class getid3_id3v2
 		if (isset($thisfile_id3v2['comments']['genre'])) {
 			foreach ($thisfile_id3v2['comments']['genre'] as $key => $value) {
 				unset($thisfile_id3v2['comments']['genre'][$key]);
-				// $thisfile_id3v2['comments'] = getid3_lib::array_merge_noclobber($thisfile_id3v2['comments'], $this->ParseID3v2GenreString($value));
+				$thisfile_id3v2['comments'] = getid3_lib::array_merge_noclobber($thisfile_id3v2['comments'], $this->ParseID3v2GenreString($value));
 			}
 		}
 
@@ -399,8 +399,10 @@ class getid3_id3v2
 		// ID3v2.4.x: '21' $00 'Eurodisco' $00
 
 		$genrestring = trim($genrestring);
+		
 		$returnarray = array();
-		if (strpos($genrestring, "\x00") !== false) {
+		if (strpos($genrestring, "\x00") !== false)
+		{
 			$unprocessed = trim($genrestring); // trailing nulls will cause an infinite loop.
 			$genrestring = '';
 			while (strpos($unprocessed, "\x00") !== false) {
@@ -416,11 +418,15 @@ class getid3_id3v2
 			$returnarray['genre'][] = $genrestring;
 
 		} else {
-
+		  send_to_log($genrestring);
 			while (strpos($genrestring, '(') !== false) {
 
 				$startpos = strpos($genrestring, '(');
 				$endpos   = strpos($genrestring, ')');
+				
+				if ($endpos === false)
+				  $endpos = strlen($genrestring)-1;
+				
 				if (substr($genrestring, $startpos + 1, 1) == '(') {
 					$genrestring = substr($genrestring, 0, $startpos).substr($genrestring, $startpos + 1);
 					$endpos--;
@@ -438,7 +444,6 @@ class getid3_id3v2
 					if (empty($returnarray['genre']) || !in_array($element, $returnarray['genre'])) { // avoid duplicate entires
 						$returnarray['genre'][] = $element;
 					}
-
 				}
 			}
 		}
@@ -447,7 +452,6 @@ class getid3_id3v2
 				$returnarray['genre'][]   = $genrestring;
 			}
 		}
-
 		return $returnarray;
 	}
 
