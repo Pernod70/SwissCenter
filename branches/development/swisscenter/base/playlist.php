@@ -123,6 +123,7 @@ function build_pl($sql)
             "Manage Playlists"</font> option.';
   $menu = new menu();
   $menu->add_item('Manage Playlists','manage_pl.php');
+  $menu->add_item('Return to Selection',$back_url);
   $menu->display();
   page_footer($back_url);
 }
