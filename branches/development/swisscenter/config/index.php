@@ -1153,11 +1153,15 @@
       
     // If the user has changed category, then shunt them back to page 1.
     if ($_REQUEST["last_where"] != $where)
+    {
+      $page = 1;
       $start = 0;
+    }
     
     // SQL to fetch matching rows
     $movie_count = db_value("select count(*) from movies m, media_locations ml where ml.location_id = m.location_id ".$where);
-    $movie_list  = db_toarray("select m.* from movies m, media_locations ml where ml.location_id = m.location_id ".$where." order by title limit $start,$per_page");        
+    $movie_list  = db_toarray("select m.* from movies m, media_locations ml where ml.location_id = m.location_id ".$where.
+                              " order by title limit $start,$per_page");        
     
     echo "<h1>Movie Details</h1>";
     message($message);
@@ -1179,7 +1183,10 @@
     echo '<input type=hidden name="section" value="MOVIE">';
     echo '<input type=hidden name="action" value="UPDATE">';
 
-    echo '<p><table class="form_select_tab" width="100%"><tr>
+    paginate('?last_where='.$where.'&search='.$_REQUEST["search"].'&cat_id='.$_REQUEST["cat_id"].'&section=MOVIE&action=DISPLAY&page='
+            ,$movie_count,$per_page,$page);
+
+    echo '<table class="form_select_tab" width="100%"><tr>
             <th width="3%">&nbsp;</th>
             <th width="34%"> Title </th>
             <th width="21%"> Actors </th>
@@ -1189,9 +1196,12 @@
 
     foreach ($movie_list as $movie)
     {
-      $actors    = db_col_to_list("select actor_name from actors a,actors_in_movie aim where a.actor_id=aim.actor_id and movie_id=$movie[FILE_ID] order by 1");
-      $directors = db_col_to_list("select director_name from directors d, directors_of_movie dom where d.director_id = dom.director_id and movie_id=$movie[FILE_ID] order by 1");
-      $genres    = db_col_to_list("select genre_name from genres g, genres_of_movie gom where g.genre_id = gom.genre_id and movie_id=$movie[FILE_ID] order by 1");
+      $actors    = db_col_to_list("select actor_name from actors a,actors_in_movie aim where a.actor_id=aim.actor_id 
+                                   and movie_id=$movie[FILE_ID] order by 1");
+      $directors = db_col_to_list("select director_name from directors d, directors_of_movie dom where d.director_id = dom.director_id 
+                                   and movie_id=$movie[FILE_ID] order by 1");
+      $genres    = db_col_to_list("select genre_name from genres g, genres_of_movie gom where g.genre_id = gom.genre_id 
+                                   and movie_id=$movie[FILE_ID] order by 1");
       $cert      = db_value("select name from certificates where cert_id=".nvl($movie["CERTIFICATE"],-1));
 
       echo '<table class="form_select_tab" width="100%"><tr>
@@ -1207,12 +1217,14 @@
             </tr></table>';  	
     }
     
-    echo '<table width="100%"><tr><td align="center">
+    paginate('?last_where='.$where.'&search='.$_REQUEST["search"].'&cat_id='.$_REQUEST["cat_id"].'&section=MOVIE&action=DISPLAY&page='
+            ,$movie_count,$per_page,$page);
+
+    echo '<p><table width="100%"><tr><td align="center">
           <input type="Submit" name="subaction" value="Edit Details"> &nbsp; 
           <input type="Submit" name="subaction" value="Clear Details"> &nbsp; 
           </td></tr></table>';
     
-    paginate('?search='.$_REQUEST["search"].'&cat_id='.$_REQUEST["cat_id"].'&section=MOVIE&action=DISPLAY&page=',$movie_count,$per_page,$page);
     
     echo '</form>';
   }

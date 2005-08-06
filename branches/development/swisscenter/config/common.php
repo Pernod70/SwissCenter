@@ -50,18 +50,20 @@
   function paginate( $url, $total_items, $per_page, $current_page)
   {
     $total_pages = ceil($total_items/$per_page);
+    $start       = max(1,floor(($current_page-1)/10)*10);
+    $end         = min($start+9,$total_pages);
     
     echo '<table width="100%" border=0 cellpadding=0 cellspacing=8><tr>
           <td width="60" align="left">';
           if ($current_page > 1)
             echo '<a href="'.$url.($current_page-1).'">Previous</a>';      
     echo '&nbsp;</td><td align="center">&nbsp;';
-          if ($current_page-5 >1)
-            echo '... ';
-          for ($i=max(1,$current_page-5); $i <= min($current_page+5,$total_pages); $i++)
+          if ($current_page>10)
+            echo ' <a href="'.$url.($start-1).'">&lt;&lt;</a>';      
+          for ($i=$start; $i <=$end; $i++)
             echo '&nbsp;<a href="'.$url.$i.'">'.$i.'</a>&nbsp;';      
-          if ($current_page+5 < $total_pages)
-            echo ' ...';
+          if ($start+10 <= $total_pages)
+            echo ' <a href="'.$url.($end+1).'">&gt;&gt;</a>';      
     echo '&nbsp;</td><td width="60" align="right">&nbsp;';
           if ($current_page < ceil($total_items/$per_page))
             echo '<a href="'.$url.($current_page+1).'">Next</a>';      
