@@ -8,6 +8,7 @@ require_once("utils.php");
 require_once("mysql.php");
 require_once("server.php");
 require_once("prefs.php");
+require_once("language.php");
 
 #-------------------------------------------------------------------------------------------------
 # Here are the settings that we want available on a global basis, but we don't want the user

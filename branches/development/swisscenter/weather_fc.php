@@ -27,7 +27,7 @@
   page_header($xml_fc[$loc_id]["dnam"],'','LOGO_WEATHER');
 
   $menu = new menu();
-  $menu->add_item('Current Conditions','weather_cc.php?loc='.$loc_id);
+  $menu->add_item( str('WEATHER_CURRENT') ,'weather_cc.php?loc='.$loc_id);
 
   echo '<table border=0 cellspacing=0 cellpadding=0 width="100%">
           <tr>';
@@ -79,9 +79,9 @@
   // Display ABC buttons as necessary
   //
   if (get_user_pref("weather_units") == 'm')
-    $buttons[] = array('id'=>'A', 'text'=>'Switch to Imperial', 'url'=>'weather_fc.php?units=s&loc='.$loc_id );
+    $buttons[] = array('id'=>'A', 'text'=>str('WEATHER_IMPERIAL'), 'url'=>'weather_fc.php?units=s&loc='.$loc_id );
   else
-    $buttons[] = array('id'=>'A', 'text'=>'Switch to Metric', 'url'=>'weather_fc.php?units=m&loc='.$loc_id );
+    $buttons[] = array('id'=>'A', 'text'=>str('WEATHER_METRIC'), 'url'=>'weather_fc.php?units=m&loc='.$loc_id );
 
   page_footer('weather_cc.php?loc='.$loc_id, $buttons);
   

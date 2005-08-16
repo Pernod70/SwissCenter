@@ -9,7 +9,7 @@
 
   function search_page( $this_url, $prefix, $search, $page)
   {
-    page_header('Cities', 'Select City : '.$search,'LOGO_WEATHER','', (empty($_REQUEST["last"]) ? 'KEY_SPC' : $_REQUEST["last"] ) );
+    page_header('Cities', str('WEATHER_SELECT_CITY').$search,'LOGO_WEATHER','', (empty($_REQUEST["last"]) ? 'KEY_SPC' : $_REQUEST["last"] ) );
 
     $menu      = new menu();
     $data      = array();
@@ -26,12 +26,13 @@
 
     if (empty($data))
     {
-      echo 'There are no cities that match your search for <font color="'.style_value("TITLE_COLOUR",'#FFFFFF').'">'.$search.'</font> in the SwissCenter database.
-            <p> Would you like to search <font color="'.style_value("TITLE_COLOUR",'#FFFFFF').'">The Weather Channel</font> for possible matches anyway? 
-               (enter the city name in full before searching)<p>';
+      echo str( 'WEATHER_NO_CITY'
+              , '<font color="'.style_value("TITLE_COLOUR",'#FFFFFF').'">'.$search.'</font>'
+              ,'<font color="'.style_value("TITLE_COLOUR",'#FFFFFF').'">'.str('WEATHER_CHANNEL').'</font>').'<p>';
+              
 
-      $menu->add_item("Yes, Search Anyway",'city_selected.php?name='.rawurlencode($search),true);
-      $menu->add_item("No, Start A New Search",$this_url.'?sort='.$sort.'&any='.$prefix,true);
+      $menu->add_item( str('SEARCH_YES'),'city_selected.php?name='.rawurlencode($search),true);
+      $menu->add_item( str('SEARCH_NO'),$this_url.'?sort='.$sort.'&any='.$prefix,true);
       $menu->display( "300" );
  
     }
@@ -57,11 +58,11 @@
     // Output ABC buttons if appropriate
 
     if (empty($prefix))
-      $buttons[] = array('id'=>'A', 'text'=>'Anywhere in Name', 'url'=>$this_url.'?sort='.$sort.'&search='.rawurlencode($search).'&any=%' );
+      $buttons[] = array('id'=>'A', 'text'=>str('SEARCH_ANYWHERE'), 'url'=>$this_url.'?sort='.$sort.'&search='.rawurlencode($search).'&any=%' );
     else
-      $buttons[] = array('id'=>'A', 'text'=>'Start of Name', 'url'=>$this_url.'?sort='.$sort.'&search='.rawurlencode($search).'&any=' );
+      $buttons[] = array('id'=>'A', 'text'=>str('SEARCH_START'), 'url'=>$this_url.'?sort='.$sort.'&search='.rawurlencode($search).'&any=' );
 
-    $buttons[] = array('id'=>'B', 'text'=>'Clear Search', 'url'=>$this_url.'?sort='.$sort.'&any='.$prefix);
+    $buttons[] = array('id'=>'B', 'text'=>str('SEARCH_CLEAR'), 'url'=>$this_url.'?sort='.$sort.'&any='.$prefix);
 
     page_footer('weather_cc.php', $buttons);
   }

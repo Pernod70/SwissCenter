@@ -24,7 +24,7 @@
 
     // Display the button to make this their home location.
     if ($loc_id != weather_home() )
-      $buttons[] = array('text'=>'Set as Home', 'url'=>'weather_cc.php?&home='.$loc_id );
+      $buttons[] = array('text'=>str('WEATHER_HOME'), 'url'=>'weather_cc.php?&home='.$loc_id );
   }
   else
   {
@@ -44,12 +44,12 @@
 
   // Build Current Conditions information table
   $cc = new infotab();
-  $cc->add_item('Feels Like', $xml_cc["cc"]["flik"].chr(176).$xml_cc["head"]["ut"]);
-  $cc->add_item('Humidity',   $xml_cc["cc"]["hmid"].'%');
-  $cc->add_item('Pressure',   $xml_cc["cc"]["bar"]["r"].' '.$xml_cc["head"]["up"]);
-  $cc->add_item('Wind',       $xml_cc["cc"]["wind"][s].' '.$xml_cc["head"]["us"].' '.$xml_cc["cc"]["wind"]["t"]);
-  $cc->add_item('Visibility', $xml_cc["cc"]["vis"].' '.$xml_cc["head"]["ud"]);
-  $cc->add_item('UV Index',   $xml_cc["cc"]["uv"][i].' ('.$xml_cc["cc"]["uv"]["t"].')');
+  $cc->add_item(str('WEATHER_FEELS_LIE'),  $xml_cc["cc"]["flik"].chr(176).$xml_cc["head"]["ut"]);
+  $cc->add_item(str('WEATHER_HUMIDITY'),   $xml_cc["cc"]["hmid"].'%');
+  $cc->add_item(str('WEATHER_PRESSURE'),   $xml_cc["cc"]["bar"]["r"].' '.$xml_cc["head"]["up"]);
+  $cc->add_item(str('WEATHER_WIND'),       $xml_cc["cc"]["wind"][s].' '.$xml_cc["head"]["us"].' '.$xml_cc["cc"]["wind"]["t"]);
+  $cc->add_item(str('WEATHER_VISIBILITY'), $xml_cc["cc"]["vis"].' '.$xml_cc["head"]["ud"]);
+  $cc->add_item(str('WEATHER_UV'),         $xml_cc["cc"]["uv"][i].' ('.$xml_cc["cc"]["uv"]["t"].')');
   
   if ( $xml_cc["cc"]["icon"] == '-')
   {
@@ -58,8 +58,8 @@
   }
 
   $menu = new menu(false);
-  $menu->add_item('Display Five Day Forecast','weather_fc.php?loc='.$loc_id);
-  $menu->add_item('Choose Another Location','weather_city_list.php',true);
+  $menu->add_item(str('WEATHER_5DAY'),'weather_fc.php?loc='.$loc_id);
+  $menu->add_item(str('WEATHER_LOCATION'),'weather_city_list.php',true);
 
   // Display Weather Icon and statistics
   page_header($xml_cc[$loc_id]["dnam"],'','LOGO_WEATHER');
@@ -72,7 +72,7 @@
                   <br>'.$xml_cc["cc"]["t"].'</font>
             </td>
             <td align="center" width="60%">
-              <font size="4">Current Conditions</font><p>';
+              <font size="4">'.str('WEATHER_CURRENT').'</font><p>';
               $cc->display();
   echo '    </td>
           </tr>
@@ -89,9 +89,9 @@
         </table>';
 
   if ( get_user_pref("weather_units") == 'm')
-    $buttons[] = array('text'=>'Switch to Imperial', 'url'=>'weather_cc.php?loc='.$loc_id.'&units=s' );
+    $buttons[] = array('text'=>str('WEATHER_IMPERIAL'), 'url'=>'weather_cc.php?loc='.$loc_id.'&units=s' );
   else
-    $buttons[] = array('text'=>'Switch to Metric', 'url'=>'weather_cc.php?loc='.$loc_id.'&units=m' );
+    $buttons[] = array('text'=>str('WEATHER_METRIC'), 'url'=>'weather_cc.php?loc='.$loc_id.'&units=m' );
 
   page_footer('index.php', $buttons);
 

@@ -1,0 +1,38 @@
+#----------------------------------------------------------------------------------------------------
+#
+# This is a comment and should NOT be loaded into SwissCenter
+#
+#----------------------------------------------------------------------------------------------------
+
+UPDATE			= Update
+NEW			= New
+SETUP			= Setup
+
+SELECT_OPTION		= Please select an option from the list:
+MAIN_MENU		= Main Menu
+WATCH_MOVIE		= Watch a movie
+LISTEN_MUSIC		= Listen to music
+LISTEN_RADIO		= Listen to internet radio
+VIEW_WEATHER		= View weather forecast
+VIEW_PHOTO		= View photographs
+MANAGE_PLAYLISTS	= Manage playlists
+
+WEATHER_CHANNEL		= The Weather Channel
+WEATHER_CURRENT		= Current conditions
+WEATHER_IMPERIAL	= Switch to imperial
+WEATHER_METRIC		= Switch to metric
+WEATHER_SELECT_CITY	= Select city : 
+WEATHER_HOME		= Set as home
+WEATHER_NO_CITY		= There are no cities that match your search for %s in the SwissCenter database.<p> Would you like to search %s for possible matches anyway? (enter the city name in full before searching)
+WEATHER_FEELS_LIKE	= Feels like
+WEATHER_HUMIDITY	= Humidity
+WEATHER_PRESSURE	= Pressure
+WEATHER_WIND		= Wind
+WEATHER_VISIBILITY	= Visibility
+WEATHER_UV		= UV index
+
+SEARCH_YES		= Yes, search anyway
+SEARCH_NO		= No, start a new search		
+SEARCH_ANYWHERE		= Anywhere in name
+SEARCH_START		= Start of name
+SEARCH_CLEAR		= Clear search
