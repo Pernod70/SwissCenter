@@ -56,7 +56,7 @@
     echo '<table width="100%" border=0 cellpadding=0 cellspacing=8><tr>
           <td width="60" align="left">';
           if ($current_page > 1)
-            echo '<a href="'.$url.($current_page-1).'">Previous</a>';      
+            echo '<a href="'.$url.($current_page-1).'">'.str('PREVIOUS').'</a>';      
     echo '&nbsp;</td><td align="center">&nbsp;';
           if ($current_page>10)
             echo ' <a href="'.$url.($start-1).'">&lt;&lt;</a>';      
@@ -66,7 +66,7 @@
             echo ' <a href="'.$url.($end+1).'">&gt;&gt;</a>';      
     echo '&nbsp;</td><td width="60" align="right">&nbsp;';
           if ($current_page < ceil($total_items/$per_page))
-            echo '<a href="'.$url.($current_page+1).'">Next</a>';      
+            echo '<a href="'.$url.($current_page+1).'">'.str('NEXT').'</a>';      
     echo '</tr></table>';
   }  
 

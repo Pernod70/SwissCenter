@@ -10,7 +10,7 @@ include_once('prefs.php');
 // preference for the default language);
 //-------------------------------------------------------------------------------------------------
 
-function load_lang ( $lang = 'en')
+function load_lang ( $lang = 'en-gb' )
 {
   $lang_file = SC_LOCATION.'lang/'.$lang.'.txt';
   $keys      = array();
@@ -24,7 +24,7 @@ function load_lang ( $lang = 'en')
         $keys[strtoupper(trim($ex[0]))] = $ex[1];
       }      
 
-    $_SESSION["language"] = $keys;
+    $_SESSION["language"] = array_merge($_SESSION["language"],$keys);
     set_sys_pref('DEFAULT_LANGUAGE',$lang);
   }
   else 
@@ -37,8 +37,20 @@ function load_lang ( $lang = 'en')
 
 function str( $key )
 {
-//  if (! isset($_SESSION["language"]))
-    load_lang();
+  // Determine language to load? 
+  if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE']))
+    $current_lang = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+  else
+    $current_lang = get_sys_pref('DEFAULT_LANGUAGE','en-gb');
+  
+  if (!isset($_SESSION["language"]) || true)
+  {
+    // Load general language first (eg: 'en') then overwrite with regional variations (eg: 'en-gb')
+    if (strpos($current_lang,'-') !== false)
+      load_lang(substr($current_lang,0,strpos($current_lang,'-')));
+      
+    load_lang($current_lang);
+  }
     
   $string = $_SESSION["language"][strtoupper($key)];
   $txt    = '';
@@ -62,14 +74,7 @@ function str( $key )
   }
 
   # These are the html tags that we will allow in our language files:
-  $replace = array( '#<#'                   => '&lt;'
-                  , '#>#'                   => '&gt;'
-                  , '#\[[/]?p]#'            => '<p>'
-                  , '#\[[/]?br]#'           => '<br>'
-                  , '#\[[/]?b]#'            => '<b>'
-                  , '#\[[/]?i]#'            => '<i>'
-                  , '#\[[/]?em]#'           => '<em>'
-                  );
+  $replace = array( '#<#' => '&lt;', '#>#' => '&gt;', '#\[(/?)(br|em|p|b|i)]#i' => '<\1\2>' );
 
   return '#'.
          preg_replace( array_keys($replace), array_values($replace), $txt.$string).

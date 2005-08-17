@@ -20,7 +20,7 @@
   
   function db_error()
   {
-    return '!Unable to access the database - are your <i>Database Config</i> settings correct?';
+    return '!'.str('CONFIG_DB_ERROR');
   }
   
   //
@@ -74,26 +74,23 @@
     $pass = (!empty($_REQUEST["password"]) ? $_REQUEST["password"] : (defined('DB_PASSWORD') ? DB_PASSWORD : 'swisscenter'));
     $db   = (!empty($_REQUEST["dbname"])   ? $_REQUEST["dbname"]   : (defined('DB_DATABASE') ? DB_DATABASE : 'swiss'));
     
-    echo "<h1>Create Database</h1>";
+    echo "<h1>".str('CONFIG_DB_CREATE')."</h1>";
      
     message($message);
     form_start('index.php');
     form_hidden('section','INSTALL');
     form_hidden('action','RUN');
 
-    echo '<p>This screen allows you to create and populate the SwissCenter database. The parameters
-             that will be used to build the database are shown below.<p>';
+    echo '<p>'.str('CONFIG_DB_CREATE_TXT').'<p>';
     
-    form_input('host','Machine Name',15,'',$host);
-    form_input('dbname','Database Name',15,'',$db);
-    form_input('username','Username',15,'',$name);
-    form_input('password','Password',15,'',$pass);
+    form_input('host',str('MACHINE_NAME'),15,'',$host);
+    form_input('dbname',str('DATABASE_NAME'),15,'',$db);
+    form_input('username',str('USERNAME'),15,'',$name);
+    form_input('password',str('PASSWORD'),15,'',$pass);
              
-    form_input('root_password','"Root" Password',15,'',$_REQUEST["password"]);
-    form_label('Unless you entered a value for the <em>root</em> password during the installation of MySQL, then it is 
-                probably not set and you should leave this field blank.
-                <p><em>Please Note: Creating the database can take several minutes to complete. Please be patient. </em>');
-    form_submit('Create Database');
+    form_input('root_password',str('CONFIG_DB_ROOT_PW'),15,'',$_REQUEST["password"]);
+    form_label(str('CONFIG_DB_ROOT_PW_TXT'));
+    form_submit(str('CONFIG_DB_CREATE'));
     form_end();
   }
   
@@ -1531,10 +1528,10 @@
 
   echo '<table width="160">';
      menu_heading("Configuration");
-     menu_item('Create Database','section=INSTALL&action=DISPLAY','menu_bgr2.png');
+     menu_item( str('CONFIG_DB_CREATE') ,'section=INSTALL&action=DISPLAY','menu_bgr2.png');
      if ($db_stat == 'OK')
      {
-       menu_item('Categories','section=CATEGORY&action=DISPLAY');
+       menu_item( str('CATEGORIES') ,'section=CATEGORY&action=DISPLAY');
        menu_item('Media Locations','section=DIRS&action=DISPLAY');
        menu_item('User Management','section=USERS&action=DISPLAY');
        menu_item('Scheduled Tasks','section=SCHED&action=DISPLAY');
@@ -1573,8 +1570,7 @@
    
    if (!is_server_iis() && $_SERVER["REMOTE_ADDR"] != $_SERVER["SERVER_ADDR"] && false)
    {
-     echo '<br><h1>Access Denied</h1>
-           <p align="center">Remote access to the <i>\'SwissCenter Configuration Utility\'</i> is disabled for security reasons.';
+     echo '<br><h1>'.str('ACCESS_DENIED').'</h1><p align="center">'.str('REMOTE_ACCESS_ERROR').'</p>';
    }
    elseif (!empty($_REQUEST["section"]))
    {
@@ -1617,10 +1613,10 @@
         define (strtoupper($k),$v);
   }
 
-  $page_title = 'SwissCenter Configuration Utility';
+  $page_title = str('CONFIG_TITLE');
   $page_width = '750px';
   include("config_template.php");
-  
+
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/
