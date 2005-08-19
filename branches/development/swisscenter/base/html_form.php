@@ -259,7 +259,7 @@ function form_submit( $text = "Submit", $col = 2, $align = 'left' )
 # To retrieve the results of an edit call form_select_table_update()
 #-------------------------------------------------------------------------------------------------
 
-function form_select_table ( $param, $table_contents, $table_params, $id_col, $edit_options = array(), $edit = 0, $formname = '')
+function form_select_table ( $param, $table_contents, $table_headings, $table_params, $id_col, $edit_options = array(), $edit = 0, $formname = '')
 {
   // Process the paramters in the table 
   $editable = (count($edit_options) > 0);
@@ -278,10 +278,9 @@ function form_select_table ( $param, $table_contents, $table_params, $id_col, $e
     
     // Display headings for the table based on the column names in the dataset
     echo '<tr><th>&nbsp;</th>';
-    foreach ($table_contents[0] as $heading => $value)
+    foreach (explode(',',$table_headings) as $value)
     {
-      if ($heading != strtoupper($id_col))
-        echo '<th>'.ucwords(str_replace('_',' ',strtolower($heading))).'</th>';
+        echo '<th>'.ucwords($value).'</th>';
     }
 
     if($editable)

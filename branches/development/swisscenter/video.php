@@ -21,29 +21,27 @@
         "sql"=>category_select_sql($cat_id, 3).get_rating_filter()));
     }
 
-    echo '<center>Please select an option from the list:</center><p>';
+    echo '<center>'.str('SELECT_OPTION').'</center><p>';
 
     $menu = new menu();
-    $menu->add_item("Browse by Title","video_search.php?sort=title",true);
-    $menu->add_item("Browse by Actor","video_search.php?sort=actor",true);
-    $menu->add_item("Browse by Director","video_search.php?sort=director",true);
-    $menu->add_item("Browse by Genre","video_search.php?sort=genre",true);
-    $menu->add_item("Browse by Year","video_search.php?sort=year",true);
-    $menu->add_item("Browse by Certificate","video_search.php?sort=certificate",true);
-    $menu->add_item("Browse Filesystem","video_browse.php",true);
+    $menu->add_item( str('BROWSE_TITLE')       ,"video_search.php?sort=title",true);
+    $menu->add_item( str('BROWSE_ACTOR')       ,"video_search.php?sort=actor",true);
+    $menu->add_item( str('BROWSE_DIRECTOR')    ,"video_search.php?sort=director",true);
+    $menu->add_item( str('BROWSE_GENRE')       ,"video_search.php?sort=genre",true);
+    $menu->add_item( str('BROWSE_YEAR')        ,"video_search.php?sort=year",true);
+    $menu->add_item( str('BROWSE_CERTIFICATE') ,"video_search.php?sort=certificate",true);
+    $menu->add_item( str('BROWSE_FILESYSTEM')  ,"video_browse.php",true);
     $menu->display();
     
-    if(!empty($cat_id))
-      page_footer('video.php', array(array('text'=>'Quick Play', 'url'=>quick_play_link("movies","playlist",$_SESSION["history"][0][sql]))));
-    else
-      page_footer('video.php', array(array('text'=>'Quick Play', 'url'=>quick_play_link("movies","playlist",$_SESSION["history"][0][sql]))));
+    page_footer('video.php', array(array('text'=>str('QUICK_PLAY')
+                                        ,'url'=>quick_play_link("movies","playlist",$_SESSION["history"][0][sql]))));
   }
   
 /**************************************************************************************************
    Main page output
    *************************************************************************************************/
 
-  page_header("Watch A Movie",'','LOGO_MOVIE');
+  page_header( str('WATCH_MOVIE') ,'','LOGO_MOVIE');
   $cat_id = $_REQUEST["cat"];
   
   if( !empty($cat_id) )

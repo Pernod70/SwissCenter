@@ -175,7 +175,8 @@
     form_start("index.php", 150, "users");
     form_hidden("section", "USERS");
     form_hidden("action", "MODIFY");
-    form_select_table("user_id", $data, array("class"=>"form_select_tab","width"=>"100%"), "user_id",
+    form_select_table("user_id", $data, 'Name, PIN, Max Certificate Viewable'
+                     ,array("class"=>"form_select_tab","width"=>"100%"), "user_id",
                       array("NAME"=>"",
                             "MAX CERTIFICATE VIEWABLE"=>"select cert_id,name from certificates order by rank asc",
                             "PIN"=>"*")
@@ -315,7 +316,8 @@
     form_start('index.php', 150, 'dirs');
     form_hidden('section','DIRS');
     form_hidden('action','MODIFY');
-    form_select_table('loc_id',$data,array('class'=>'form_select_tab','width'=>'100%'),'location_id',
+    form_select_table('loc_id',$data, 'Type,Category,Certificate,Directory'
+                     ,array('class'=>'form_select_tab','width'=>'100%'),'location_id',
                       array('DIRECTORY'=>'','TYPE'=>'select media_id,media_name from media_types order by 2',
                             'CATEGORY'=>'select cat_id,cat_name from categories order by cat_name',
                             'CERTIFICATE'=>'select cert_id,name from certificates order by rank asc'), $edit, 'dirs');
@@ -479,7 +481,8 @@
     form_start('index.php', 150, 'art');
     form_hidden('section','ART');
     form_hidden('action','MODIFY');
-    form_select_table('filename',$data,array('class'=>'form_select_tab','width'=>'100%'),'filename',
+    form_select_table('filename',$data,'Name'
+                     ,array('class'=>'form_select_tab','width'=>'100%'),'filename',
                       array('NAME'=>''), $edit_id, 'art');
     form_submit('Remove Selected files',1,'center');
     form_end();
@@ -990,7 +993,8 @@
       form_start('index.php', 150, 'cats');
       form_hidden('section', 'CATEGORY');
       form_hidden('action', 'MODIFY');
-      form_select_table('cat_ids', $data, array('class'=>'form_select_tab','width'=>'100%'), 'cat_id',
+      form_select_table('cat_ids', $data, 'Category'
+                       ,array('class'=>'form_select_tab','width'=>'100%'), 'cat_id',
                         array('CATEGORY'=>''), $edit_id, 'cats');
       form_submit('Remove Selected Categories', 1, 'center');
       form_end();

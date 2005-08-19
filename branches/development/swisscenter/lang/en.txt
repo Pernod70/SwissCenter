@@ -1,38 +1,79 @@
 #----------------------------------------------------------------------------------------------------
 #
-# This is a comment and should NOT be loaded into SwissCenter
+# This is the base
 #
 #----------------------------------------------------------------------------------------------------
 
-NEW			= New
-NEXT			= Next
-PREVIOUS		= Previous
-SETUP			= Setup
-UPDATE			= Update
-MACHINE_NAME		= Machine name
-DATABASE_NAME		= Database name
-USERNAME		= Username
-PASSWORD		= Password
 ACCESS_DENIED		= Access Denied
-REMOTE_ACCESS_ERROR	= Remote access to the [em]SwissCenter Configuration Utility[/em] is disabled for security reasons.           
+ADD_PLAYLIST		= Add to your playlist
+ANYWHERE_IN_NAME	= Anywhere in name
+BROWSE_ACTOR		= Browse by actor
+BROWSE_ALBUM		= Browse by album name
+BROWSE_ARTIST		= Browse by artist name
+BROWSE_CERTIFICATE	= Browse by certificate
+BROWSE_DIRECTOR		= Browse by director
+BROWSE_FILESYSTEM	= Browse filesystem
+BROWSE_GENRE		= Browse by genre
+BROWSE_MOVIES		= Browse movies
+BROWSE_MUSIC		= Browse music
+BROWSE_TITLE		= Browse by title
+BROWSE_TRACK		= Browse by track name
+BROWSE_YEAR		= Browse by year
 CATEGORIES		= Categories
-
-CONFIG_TITLE            = SwissCenter Configuration Utility
-CONFIG_DB_ERROR		= Unable to access the database - are your [i]Database Config[/i] settings correct?
+CERTIFICATE		= Certificate
 CONFIG_DB_CREATE	= Create Database
 CONFIG_DB_CREATE_TXT    = This screen allows you to create and populate the SwissCenter database. The parameters that will be used to build the database are shown below.
+CONFIG_DB_ERROR		= Unable to access the database - are your [i]Database Config[/i] settings correct?
 CONFIG_DB_ROOT_PW	= "Root" password
 CONFIG_DB_ROOT_PW_TXT   = Unless you entered a value for the [em]root[/em] password during the installation of MySQL, then it is probably not set and you should leave this field blank.[p][em]Please Note: Creating the database can take several minutes to complete. Please be patient. [/em]
-
+CONFIG_TITLE            = SwissCenter Configuration Utility
+DATABASE_ERROR		= A database error occurred
+DATABASE_NAME		= Database name
+DIRECTOR		= Director
+GENRE			= Genre
 LISTEN_MUSIC		= Listen to music
 LISTEN_RADIO		= Listen to internet radio
+MACHINE_NAME		= Machine name
 MAIN_MENU		= Main Menu
 MANAGE_PLAYLISTS	= Manage playlists
+MANY_ITEMS		= %s Items found
+NEW			= New
+NEXT			= Next
+ONE_ITEM		= 1 Item found
+PASSWORD		= Password
+PLAY_NOW		= Play now
+PREVIOUS		= Previous
+QUICK_PLAY		= Quick play
+REFINE_ACTOR		= Refine by actor
+REFINE_CERTIFICATE	= Refine by certificate
+REFINE_DIRECTOR		= Refine by director
+REFINE_GENRE		= Refine genre
+REFINE_TITLE		= Refine by title
+REFINE_YEAR		= Refine by year
+REMOTE_ACCESS_ERROR	= Remote access to the [em]SwissCenter Configuration Utility[/em] is disabled for security reasons.           
+SEARCH_ANYWHERE		= Anywhere in name
+SEARCH_CLEAR		= Clear search
+SEARCH_NO		= No, start a new search		
+SEARCH_NO_ITEMS		= There are no items that match your search
+SEARCH_START		= Start of name
+SEARCH_YES		= Yes, search anyway
+SELECT_ALL		= Select all
 SELECT_OPTION		= Please select an option from the list:
+SETUP			= Setup
+SHUFFLE_OFF		= Turn shuffle off
+SHUFFLE_ON		= Turn shuffle on
+STARRING		= Starring
+START_OF_NAME		= Start of name
+TITLE			= Title
+UPDATE			= Update
+UPDATE_FAILED		= Update failed - please try again later
+UPDATE_NONE		= THere are no updates available at this time
+UPDATE_SUCCESS		= Your system has been updated
+UPDATE_TITLE		= Online update
+USERNAME		= Username
 VIEW_PHOTO		= View photographs
 VIEW_WEATHER		= View weather forecast
 WATCH_MOVIE		= Watch a movie
-
 WEATHER_5DAY		= Display five day forecast
 WEATHER_CHANNEL		= The Weather Channel
 WEATHER_CURRENT		= Current conditions
@@ -48,9 +89,4 @@ WEATHER_SELECT_CITY	= Select city :
 WEATHER_UV		= UV index
 WEATHER_VISIBILITY	= Visibility
 WEATHER_WIND		= Wind
-
-SEARCH_ANYWHERE		= Anywhere in name
-SEARCH_CLEAR		= Clear search
-SEARCH_NO		= No, start a new search		
-SEARCH_START		= Start of name
-SEARCH_YES		= Yes, search anyway
+YEAR			= Year

@@ -12,7 +12,7 @@
 
   function search_page( $title, $column, $sort, $this_url, $prefix, $search, $page)
   {
-    page_header('Video', $title.' : '.$search,'LOGO_MOVIE','', (empty($_REQUEST["last"]) ? 'KEY_SPC' : $_REQUEST["last"] ) );
+    page_header('Video', str($title).' : '.$search,'LOGO_MOVIE','', (empty($_REQUEST["last"]) ? 'KEY_SPC' : $_REQUEST["last"] ) );
     $menu      = new menu();
     $data      = array();
     $back_url  = $_SESSION["history"][count($_SESSION["history"])-1]["url"];
@@ -33,11 +33,11 @@
     $num_rows = db_value("select count(distinct $column) $sql $column !='' and $column like '".$prefix.db_escape_str(str_replace('_','\_',$search))."%' ".$post_sql);
 
     if ( $data === false || $num_rows === false)
-      page_error('A database error occurred');
+      page_error(str('DATABASE_ERRROR'));
 
     if (empty($data))
     {
-      echo 'There are no items that match your search.';
+      echo str('SEARCH_NO_ITEMS');
     }
     else
     {
@@ -62,12 +62,12 @@
     // Output ABC buttons if appropriate
 
     if (empty($prefix))
-      $buttons[] = array('text'=>'Anywhere in Name', 'url'=>$this_url.'?sort='.$sort.'&search='.rawurlencode($search).'&any=%' );
+      $buttons[] = array('text'=>str('ANYWHERE_IN_NAME'), 'url'=>$this_url.'?sort='.$sort.'&search='.rawurlencode($search).'&any=%' );
     else
-      $buttons[] = array('text'=>'Start of Name', 'url'=>$this_url.'?sort='.$sort.'&search='.rawurlencode($search).'&any=' );
+      $buttons[] = array('text'=>str('START_OF_NAME'), 'url'=>$this_url.'?sort='.$sort.'&search='.rawurlencode($search).'&any=' );
 
-    $buttons[] = array('text'=>'Clear Search', 'url'=>$this_url.'?sort='.$sort.'&any='.$prefix);
-    $buttons[] = array('text'=>'Select All', 'url'=>'video_selected.php?add=Y&type='.$sort.'&name='.rawurlencode($search.'%'));
+    $buttons[] = array('text'=>str('SEARCH_CLEAR'), 'url'=>$this_url.'?sort='.$sort.'&any='.$prefix);
+    $buttons[] = array('text'=>str('SELECT_ALL'), 'url'=>'video_selected.php?add=Y&type='.$sort.'&name='.rawurlencode($search.'%'));
 
     page_footer($back_url, $buttons);
   }
@@ -102,7 +102,7 @@
       break;
   }
 
-  search_page( 'Browse by '.ucfirst($sort), $column, $sort, 'video_search.php', $prefix, $search, $page)
+  search_page( 'BROWSE_'.strtoupper($sort), $column, $sort, 'video_search.php', $prefix, $search, $page)
 
 
 /**************************************************************************************************

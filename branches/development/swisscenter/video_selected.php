@@ -36,12 +36,12 @@
       {
         switch ($filter)
         {
-          case 'title'         : $menu->add_item("Refine by Title","video_search.php?sort=title",true); break;
-          case 'year'          : $menu->add_item("Refine by Year","video_search.php?sort=year",true);   break;
-          case 'certificate'   : $menu->add_item("Refine by Rating","video_search.php?sort=certificate",true);  break;
-          case 'genre_name'    : $menu->add_item("Refine by Genre","video_search.php?sort=genre",true);  break;
-          case 'actor_name'    : $menu->add_item("Refine by Actor","video_search.php?sort=actor",true);  break;        
-          case 'director_name' : $menu->add_item("Refine by Director","video_search.php?sort=director",true);  break;
+          case 'title'         : $menu->add_item( str('REFINE_TITLE')       ,"video_search.php?sort=title",true); break;
+          case 'year'          : $menu->add_item( str('REFINE_YEAR')        ,"video_search.php?sort=year",true);   break;
+          case 'certificate'   : $menu->add_item( str('REFINE_CERTIFICATE') ,"video_search.php?sort=certificate",true);  break;
+          case 'genre_name'    : $menu->add_item( str('REFINE_GENRE') 	    ,"video_search.php?sort=genre",true);  break;
+          case 'actor_name'    : $menu->add_item( str('REFINE_ACTOR')       ,"video_search.php?sort=actor",true);  break;        
+          case 'director_name' : $menu->add_item( str('REFINE_DIRECTOR')    ,"video_search.php?sort=director",true);  break;
         }
       }
     }
@@ -57,12 +57,12 @@
   
   switch ($type)
   {
-    case "title":        $column = 'title';         break;
-    case "year":         $column = 'year';          break;
-    case "genre":        $column = 'genre_name';    break;
-    case "actor":        $column = 'actor_name';    break;
-    case "director":     $column = 'director_name'; break;
-    case "certificate":  $column = get_cert_name_sql();        break;
+    case "title":        $column = 'title';             break;
+    case "year":         $column = 'year';              break;
+    case "genre":        $column = 'genre_name';        break;
+    case "actor":        $column = 'actor_name';        break;
+    case "director":     $column = 'director_name';     break;
+    case "certificate":  $column = get_cert_name_sql(); break;
   }
 
   $sql_table  = "movies media
@@ -93,23 +93,23 @@
     
   if ($num_rows == 1)
   {
-    page_header('1 Item Found','','LOGO_MOVIE');
+    page_header( str('ONE_ITEM') ,'','LOGO_MOVIE');
     // Single match, so get the details from the database and display them
     if ( ($data = db_toarray("select media.*, a.actor_name, d.director_name, g.genre_name, ".get_cert_name_sql()." certificate_name from $sql_table where ".substr($newsql,5))) === false)
-      page_error('A database error occurred');
+      page_error( str('DATABASE_ERROR'));
 
-    $info->add_item('Title', $data[0]["TITLE"]);
-    $info->add_item('Year', $data[0]["YEAR"]);
-    $info->add_item('Certificate', $data[0]["CERTIFICATE_NAME"]);
-    $info->add_item('Director', $data[0]["DIRECTOR_NAME"]);
-    $info->add_item('Starring', $data[0]["ACTOR_NAME"]);
-    $info->add_item('Genre', $data[0]["GENRE_NAME"]);
-    
-    $menu->add_item("Play now",pl_link('file',$data[0]["DIRNAME"].$data[0]["FILENAME"]));
+    $info->add_item( str('TITLE')       , $data[0]["TITLE"]);
+    $info->add_item( str('YEAR')        , $data[0]["YEAR"]);
+    $info->add_item( str('CERTIFICATE') , $data[0]["CERTIFICATE_NAME"]);
+    $info->add_item( str('DIRECTOR')    , $data[0]["DIRECTOR_NAME"]);
+    $info->add_item( str('STARRING')    , $data[0]["ACTOR_NAME"]);
+    $info->add_item( str('GENRE')       , $data[0]["GENRE_NAME"]);
+    $menu->add_item( str('PLAY_NOW')    , pl_link('file',$data[0]["DIRNAME"].$data[0]["FILENAME"]));
+
     $folder_img = file_albumart($data[0]["DIRNAME"].$data[0]["FILENAME"]);
 
     if (pl_enabled())
-      $menu->add_item("Add to your playlist",'add_playlist.php?sql='.rawurlencode('select * from movies where file_id='.$data[0]["FILE_ID"]),true);
+      $menu->add_item( str('ADD_PLAYLIST') ,'add_playlist.php?sql='.rawurlencode('select * from movies where file_id='.$data[0]["FILE_ID"]),true);
   }
 
   //
@@ -120,27 +120,23 @@
   else
   {
 
-  // More than one track matches, so output filter details and menu options to add new filters
-    if ($num_rows ==1)
-      page_header($num_rows.' Items Found','','LOGO_MOVIE');
-    else
-      page_header($num_rows.' Items Found','','LOGO_MOVIE');
+    // More than one track matches, so output filter details and menu options to add new filters
+    page_header( str('MANY_ITEMS',$num_rows),'','LOGO_MOVIE');
 
     if ( ($data = db_toarray("select dirname from $sql_table where ".substr($newsql,5)." group by dirname")) === false )
-      page_error('A database error occurred');
+      page_error( str('DATABASE_ERROR') );
 
     if ( count($data)==1)
       $folder_img = file_albumart($data[0]["DIRNAME"]);
 
-
-    $info->add_item('Title', distinct_info('title',$sql_table, $newsql));
-    $info->add_item('Starring', distinct_info('actor_name',$sql_table, $newsql));
-    $info->add_item('Year', distinct_info('year',$sql_table, $newsql));
-    $info->add_item('Certificate',distinct_info(/*'certificate'*/get_cert_name_sql(),$sql_table, $newsql));
-    $menu->add_item('Play now'  , pl_link('sql',"select * from $sql_table where ".substr($newsql,5)." order by title"));
+    $info->add_item( str('TITLE')       , distinct_info('title',$sql_table, $newsql));
+    $info->add_item( str('STARRING')    , distinct_info('actor_name',$sql_table, $newsql));
+    $info->add_item( str('YEAR')        , distinct_info('year',$sql_table, $newsql));
+    $info->add_item( str('CERTIFICATE') , distinct_info(/*'certificate'*/get_cert_name_sql(),$sql_table, $newsql));
+    $menu->add_item( str('PLAY_NOW')    , pl_link('sql',"select * from $sql_table where ".substr($newsql,5)." order by title"));
 
     if (pl_enabled())
-      $menu->add_item('Add to your playlist','add_playlist.php?sql='.rawurlencode("select * from $sql_table where ".substr($newsql,5)." order by title"),true);
+      $menu->add_item( str('ADD_PLAYLIST') ,'add_playlist.php?sql='.rawurlencode("select * from $sql_table where ".substr($newsql,5)." order by title"),true);
 
     check_filters( array('title','year','certificate','genre_name','actor_name','director_name'), $sql_table, $newsql, $menu);
   }
@@ -165,9 +161,9 @@
   }
 
   if (!isset($_SESSION["shuffle"]) || $_SESSION["shuffle"] == 'off')
-    $buttons[] = array('text'=>'Turn Shuffle On', 'url'=>'video_selected.php?shuffle=on&name='.$name.'&type='.$type );
+    $buttons[] = array('text'=>str('SHUFFLE_ON'), 'url'=>'video_selected.php?shuffle=on&name='.$name.'&type='.$type );
   else
-    $buttons[] = array('text'=>'Turn Shuffle Off', 'url'=>'video_selected.php?shuffle=off&name='.$name.'&type='.$type );
+    $buttons[] = array('text'=>str('SHUFFLE_OFF'), 'url'=>'video_selected.php?shuffle=off&name='.$name.'&type='.$type );
 
   page_footer( url_add_param($_SESSION["last_picker"][count($_SESSION["history"])-1],'del','y'), $buttons );
   

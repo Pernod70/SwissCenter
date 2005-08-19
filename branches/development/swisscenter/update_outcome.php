@@ -8,13 +8,13 @@
   switch ($_REQUEST["status"])
   {
     case "ERROR" :
-      page_inform(2,"index.php","Online Update","Update failed - Please try again later.");
+      page_inform(2,"index.php",str('UPDATE_TITLE'),str('UPDATE_FAILED'));
       break;
     case "NONE" :
-      page_inform(2,"index.php","Online Update","There are no updates available at this time.");
+      page_inform(2,"index.php",str('UPDATE_TITLE'),str('UPDATE_NONE'));
       break;
     case "UPDATED" :
-      page_inform(2,"index.php","Online Update","Your system has been updated.");
+      page_inform(2,"index.php",str('UPDATE_TITLE'),str('UPDATE_SUCCESS'));
       $_SESSION = array();
       break;
   }

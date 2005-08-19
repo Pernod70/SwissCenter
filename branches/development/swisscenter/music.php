@@ -21,28 +21,26 @@
         "sql"=>category_select_sql($cat_id, 1).get_rating_filter()));
     }
 
-    echo '<center>Please select an option from the list:</center><p>';
+    echo '<center>'.str('SELECT_OPTION').'</center><p>';
 
     $menu = new menu();
-    $menu->add_item("Browse Music by Artist Name","music_search.php?sort=artist",true);
-    $menu->add_item("Browse Music by Album Name","music_search.php?sort=album",true);
-    $menu->add_item("Browse Music by Track Name","music_search.php?sort=title",true);
-    $menu->add_item("Browse Music by Genre","music_search.php?sort=genre",true);
-    $menu->add_item("Browse Music by Year","music_search.php?sort=year",true);
-    $menu->add_item("Browse Filesystem","music_browse.php",true);
+    $menu->add_item( str('BROWSE_ARTIST') ,"music_search.php?sort=artist",true);
+    $menu->add_item( str('BROWSE_ALBUM') ,"music_search.php?sort=album",true);
+    $menu->add_item( str('BROWSE_TRACK') ,"music_search.php?sort=title",true);
+    $menu->add_item( str('BROWSE_GENRE') ,"music_search.php?sort=genre",true);
+    $menu->add_item( str('BROWSE_YEAR') ,"music_search.php?sort=year",true);
+    $menu->add_item( str('BROWSE_FILESYSTEM') ,"music_browse.php",true);
     $menu->display();
     
-    if(!empty($cat_id))
-      page_footer('music.php', array(array('text'=>'Quick Play', 'url'=>quick_play_link("mp3s","audio",$_SESSION["history"][0][sql]))));
-    else
-      page_footer('music.php', array(array('text'=>'Quick Play', 'url'=>quick_play_link("mp3s","audio",$_SESSION["history"][0][sql]))));
+    page_footer('music.php', array(array('text'=>str('QUICK_PLAY')
+                                        ,'url'=>quick_play_link("mp3s","audio",$_SESSION["history"][0][sql]))));
   }
 
 /**************************************************************************************************
    Main page output
    *************************************************************************************************/
 
-  page_header("Listen to Music", '', 'LOGO_MUSIC');
+  page_header( str('LISTEN_MUSIC'), '', 'LOGO_MUSIC');
   $cat_id = $_REQUEST["cat"];
   
   if( !empty($cat_id) )
