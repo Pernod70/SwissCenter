@@ -10,9 +10,9 @@
   define('MESSAGE_STATUS_DELETED', 2);
   
   $message_status_string = array(
-      MESSAGE_STATUS_NEW     => "New",
-      MESSAGE_STATUS_READ    => "Read",
-      MESSAGE_STATUS_DELETED => "Deleted",
+      MESSAGE_STATUS_NEW     => str('MESSAGE_STATUS_NEW'),
+      MESSAGE_STATUS_READ    => str('MESSAGE_STATUS_READ'),
+      MESSAGE_STATUS_DELETED => str('MESSAGE_STATUS_DELETED'),
   );
   
   function delete_message($delete_id)

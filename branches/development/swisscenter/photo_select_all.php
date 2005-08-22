@@ -20,15 +20,15 @@
 
 
   // Information on the current selection  
-  $info->add_item('No. Photos', $count);
-  $info->add_item('Time Per Photo', $delay.' Seconds');
-  $info->add_item('Total Play Time', hhmmss($delay * $count));
+  $info->add_item(str('PHOTOS_NO_SELECTED'), $count);
+  $info->add_item(str('PHOTOS_TIME_ONE'), $delay.' Seconds');
+  $info->add_item(str('PHOTOS_TIME_ALL'), hhmmss($delay * $count));
 
   // Menu Options
-  $menu->add_item("Start Slideshow",pl_link('dir',$spec,'photo'));
+  $menu->add_item(str('START_SLIDESHOW'),pl_link('dir',$spec,'photo'));
 
   // Display Page
-  page_header("Slideshow",'/'.$dir,'LOGO_PHOTO');
+  page_header(str('SLIDESHOW'),'/'.$dir,'LOGO_PHOTO');
   $info->display();
   $menu->display();
   page_footer( 'photo_browse.php?DIR='.$_REQUEST["dir"] );

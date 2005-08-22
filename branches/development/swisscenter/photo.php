@@ -21,23 +21,23 @@
         "sql"=>category_select_sql($cat_id, 2).get_rating_filter()));
     }
 
-    echo '<center>Please select an option from the list:</center><p>';
+    echo '<center>'.str('SELECT_OPTION').'</center><p>';
 
     $menu = new menu();
-    $menu->add_item("Browse Filesystem","photo_browse.php",true);
+    $menu->add_item(str('BROWSE_FILESYSTEM'),"photo_browse.php",true);
     $menu->display();
     
     if(!empty($cat_id))
-      page_footer('photo.php', array(array('text'=>'Quick Play', 'url'=>quick_play_link("photos","photo",$_SESSION["history"][0][sql]))));
+      page_footer('photo.php', array(array('text'=>str('QUICK_PLAY'), 'url'=>quick_play_link("photos","photo",$_SESSION["history"][0][sql]))));
     else
-      page_footer('photo.php', array(array('text'=>'Quick Play', 'url'=>quick_play_link("photos","photo",$_SESSION["history"][0][sql]))));
+      page_footer('photo.php', array(array('text'=>str('QUICK_PLAY'), 'url'=>quick_play_link("photos","photo",$_SESSION["history"][0][sql]))));
   }
 
 /**************************************************************************************************
    Main page output
    *************************************************************************************************/
 
-  page_header("View Photographs",'', 'LOGO_PHOTO');
+  page_header(str('VIEW_PHOTO'),'', 'LOGO_PHOTO');
   $cat_id = $_REQUEST["cat"];
   
   if( !empty($cat_id) )

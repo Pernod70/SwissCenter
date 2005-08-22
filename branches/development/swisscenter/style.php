@@ -68,9 +68,9 @@
   // ----------------------------------------------------------------------------------
 
   if ($_REQUEST["online"] != 'Y')
-    page_header( "Choose Style", '','LOGO_CONFIG' );
+    page_header( str('STYLE_CHOOSE'), '','LOGO_CONFIG' );
   else
-    page_header("Download Style", '', 'LOGO_CONFIG');
+    page_header( str('STYLE_DOWNLOAD'), '', 'LOGO_CONFIG');
 
   $styles        = styles_list();
   $page          = $_REQUEST["page"];
@@ -81,7 +81,7 @@
   
   if (count($styles) == 0)
   {
-    echo '<center>There are no styles available</center>';
+    echo '<center>'.str('STYLE_NONE_AVAILABLE').'</center>';
   }
   else 
   {  
@@ -112,9 +112,9 @@
   // Link to the online resources only if the ZIP extension is enabled and we are 
   // not already viewing the online styles.
   if ( $_REQUEST["online"] != 'Y' && extension_loaded('zip') )
-    $buttons[] = array('text'=>'Download Styles from SwissCenter.co.uk', 'url'=>'style.php?online=Y');
+    $buttons[] = array('text'=>str('STYLE_CHECK_ONLINE','SwissCenter.co.uk'), 'url'=>'style.php?online=Y');
   elseif ( $_REQUEST["online"] == 'Y')
-    $buttons[] = array('text'=>'Show Installed Styles', 'url'=>'style.php');
+    $buttons[] = array('text'=>str('STYLE_SHOW_INSTALLED'), 'url'=>'style.php');
 
   page_footer( 'config.php', $buttons );
 

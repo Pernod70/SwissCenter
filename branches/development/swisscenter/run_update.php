@@ -4,7 +4,7 @@
  *************************************************************************************************/
 
   require_once("base/page.php");   
-  page_inform(2,"update.php","Updating...","Updating - Please Wait");
+  page_inform(2,"update.php",str('UPDATING'),str('UPDATING_PLEASE_WAIT'));
    
 /**************************************************************************************************
                                                End of file

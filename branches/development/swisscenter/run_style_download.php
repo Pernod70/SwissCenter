@@ -4,7 +4,7 @@
  *************************************************************************************************/
 
   require_once("base/page.php");   
-  page_inform(1,"download_style.php?name=".$_REQUEST["name"],"Downloading...","Downloading Style - Please Wait");
+  page_inform(1,"download_style.php?name=".$_REQUEST["name"],str('DOWNLOADING'),str('STYLE_DOWNLOADING'));
    
 /**************************************************************************************************
                                                End of file
