@@ -85,7 +85,7 @@ function send_to_log( $item, $var = '')
     }   
     else 
     {
-      echo "Unable to write to logfile: ".LOGFILE;
+      echo str('LOGFILE_ERROR').' '.LOGFILE;
       exit;
     }
   }
@@ -297,7 +297,7 @@ function update_ini( $file, $var, $value )
   
   // Overwrite the existing file with the contents of the updated array
   if (! array2file($contents, $file) )
-    echo "Error saving settings";
+    send_to_log('Error writing to INI file');
 }
 
 //-------------------------------------------------------------------------------------------------

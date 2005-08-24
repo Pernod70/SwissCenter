@@ -17,7 +17,7 @@
 
   $sql = 'from mp3s media'.get_rating_join().'where 1=1';
 
-  browse_db( 'Browse Music'
+  browse_db( str('BROWSE_MUSIC')
            , db_col_to_list("select name from media_locations where media_type=1")
            , $sql.$_SESSION["history"][0]["sql"]
            , $_SESSION["history"][0]["url"]

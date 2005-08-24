@@ -37,7 +37,7 @@ function fatal_error($heading,$text)
   // Check that the current version of PHP is equal to, or greater than 4.3.9
   // If it isn't then we should report the error to the user and exit immediately.
   if ( !version_compare(phpversion(),'4.3.9','>='))
-    fatal_error('Your PHP version is too old.','You must have at least version 4.3.9 installed.');
+    fatal_error(str('PHP_VERSION_TITLE'),str('PHP_VERSION_TEXT'));
 
   // Determein PHP location
   if ( is_windows() )
@@ -110,6 +110,23 @@ function fatal_error($heading,$text)
     
     // Check again in 24 hours
     $_SESSION["update"]["timeout"]   = time()+86400; 
+  }
+
+#-------------------------------------------------------------------------------------------------
+# Record the USER_AGENT_STRING reported by the browser (or hardware) so that we can get an idea
+# as to what the various boxes report, and therefore distinguish between them in the future.
+#-------------------------------------------------------------------------------------------------
+  
+  if (!isset($_SESSION["device"]))
+  { 
+    $device = array();
+    $device["ip_address"]   = str_replace('\\','/',$_SERVER["REMOTE_ADDR"]);
+    $device["agent_string"] = $_SERVER['HTTP_USER_AGENT'];
+  
+	db_sqlcommand("delete from clients where ip_address='$ip'");
+	db_insert_row('clients',$device);
+
+    $_SESSION["device"] = $device;  
   }
 
 /**************************************************************************************************

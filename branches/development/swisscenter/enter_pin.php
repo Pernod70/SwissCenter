@@ -13,7 +13,7 @@
  *************************************************************************************************/
 
 
-  page_header("Enter PIN", "", "", "", 1, true);
+  page_header(str('PIN_ENTER'), "", "", "", 1, true);
 
   $pin = $_REQUEST["pin"];
   $ok_url = $_REQUEST["ok_url"];
@@ -67,17 +67,17 @@
     }
   }
   else
-    echo '<p align="center"><br>Maximum PIN length reached';
+    echo '<p align="center"><br>'.str('PIN_MAXLEN');
 
   echo '';
 
-  $buttons[] = array('text'=>'Clear PIN'
+  $buttons[] = array('text'=>str('PIN_CLEAR')
                     ,'url'=>'enter_pin.php?ok_url='.urlencode($return_url).
                             '&message='.urlencode($message).
                             '&cancel_url='.urlencode($cancel_url).
                             '&pin=');
                      
-  $buttons[] = array('text'=>'Delete last digit'
+  $buttons[] = array('text'=>str('PIN_DELETE_LAST')
                     ,'url'=>'enter_pin.php?ok_url='.urlencode($ok_url).
                             '&message='.urlencode($message).
                             '&cancel_url='.urlencode($cancel_url).

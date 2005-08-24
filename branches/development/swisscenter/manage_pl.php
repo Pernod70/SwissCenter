@@ -7,7 +7,7 @@
   require_once("base/utils.php");
   require_once("base/playlist.php");
 
-  page_header( "Manage Playlists" );
+  page_header( str('MANAGE_PLAYLISTS'));
   $buttons = array();
 
   //---------------------------------------------------------------------------------------
@@ -45,23 +45,23 @@
 
   if ($num_tracks > 0 )
   {
-    $menu->add_item('Play',pl_link('playlist'));
-    $menu->add_item('Clear the Playlist','manage_pl.php?clear=Y');
-    $menu->add_item('Edit the Playlist','edit_pl.php',true);
-    $menu->add_item( 'Load a New playlist','load_pl.php?action=replace', true);
-    $menu->add_item( 'Append Another Playlist','load_pl.php?action=append', true);
-    $menu->add_item( 'Save the Current Playlist','save_pl.php', true);
+    $menu->add_item(str('PLAY'),pl_link('playlist'));
+    $menu->add_item(str('PLAYLIST_CLEAR'),'manage_pl.php?clear=Y');
+    $menu->add_item(str('PLAYLIST_EDIT'),'edit_pl.php',true);
+    $menu->add_item(str('PLAYLIST_LOAD_NEW'),'load_pl.php?action=replace', true);
+    $menu->add_item(str('PLAYLIST_APPEND'),'load_pl.php?action=append', true);
+    $menu->add_item( str('PLAYLIST_SAVE_CURRENT'),'save_pl.php', true);
   }
   else
   {
-    $menu->add_item('Load a Playlist','load_pl.php?action=replace',true);
+    $menu->add_item(str('PLAYLIST_LOAD_NEW'),'load_pl.php?action=replace',true);
   }
 
   // Buttons (Shuffle on/off)
   if (!isset($_SESSION["shuffle"]) || $_SESSION["shuffle"] == 'off')
-    $buttons[] = array('text'=>'Turn Shuffle On', 'url'=>'manage_pl.php?shuffle=on');
+    $buttons[] = array('text'=>str('SHUFFLE_ON'), 'url'=>'manage_pl.php?shuffle=on');
   else
-    $buttons[] = array('text'=>'Turn Shuffle Off', 'url'=>'manage_pl.php?shuffle=off');
+    $buttons[] = array('text'=>str('SHUFFLE_OFF'), 'url'=>'manage_pl.php?shuffle=off');
 
   pl_info();
   $menu->display();

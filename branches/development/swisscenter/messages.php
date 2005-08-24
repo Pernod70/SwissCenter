@@ -14,15 +14,15 @@
 
     if($num == 0)
     {
-      page_inform(2,(empty($_REQUEST["return"]) ? 'config.php' : $_REQUEST["return"]), "Messages","There are no messages to display.");
+      page_inform(2,(empty($_REQUEST["return"]) ? 'config.php' : $_REQUEST["return"]), str('MESSAGES') 
+                   ,str('MESSAGES_NONE'));
       exit;      
     }
     else
     {
-      page_header( "Messages", "", 'LOGO_CONFIG' );
+      page_header( str('MESSAGES'), "", 'LOGO_CONFIG' );
       // Display a list of all the outstanding messages
-      echo '<center><font color="'.style_value("PAGE_TEXT").
-            '">Please select a message to view</font></center></br>';
+      echo '<center><font color="'.style_value("PAGE_TEXT").'">'.str('MESSAGES_SELECT').'</font></center></br>';
 
       // Find out what page we are on, default to page 0 (first page)      
       $page = $_REQUEST["page"];
@@ -37,7 +37,7 @@
       foreach ($data as $row)
       {
         if($row["STATUS"] == MESSAGE_STATUS_NEW)
-          $message_text = "(New) ".$row["TITLE"];
+          $message_text = '('.str('MESSAGE_STATUS_NEW').') '.$row["TITLE"];
         else
           $message_text = $row["TITLE"];
         
@@ -71,7 +71,7 @@
   
   function display_message($id)
   {
-    page_header( "Messages", "", 'LOGO_CONFIG' );
+    page_header( str('MESSAGES') , "", 'LOGO_CONFIG' );
 
     global $message_status_string;
     $menu = new menu();
@@ -93,15 +93,15 @@
     // Add the keep and delete links, if there was a keep or delete page to return
     // to then ensure that the link returns the user to the correct page
     if(!empty($_REQUEST["pagekeep"]))
-      $menu->add_item('Keep this message','messages.php?return='.$_REQUEST["return"].'&page='.$_REQUEST["pagekeep"]);
+      $menu->add_item(str('MESSAGES_KEEP'),'messages.php?return='.$_REQUEST["return"].'&page='.$_REQUEST["pagekeep"]);
     else
-      $menu->add_item('Keep this message','messages.php?return='.$_REQUEST["return"]);
+      $menu->add_item(str('MESSAGES_KEEP'),'messages.php?return='.$_REQUEST["return"]);
 
     if(!empty($_REQUEST["pagedel"]))
-      $menu->add_item('Delete this message','messages.php?return='.$_REQUEST["return"].
+      $menu->add_item(str('MESSAGES_DELETE'),'messages.php?return='.$_REQUEST["return"].
                       '&delete='.$id.'&page='.$_REQUEST["pagedel"]);
     else
-      $menu->add_item('Delete this message','messages.php?return='.$_REQUEST["return"].'&delete='.$id);
+      $menu->add_item(str('MESSAGES_DELETE'),'messages.php?return='.$_REQUEST["return"].'&delete='.$id);
       
     $menu->display();
     

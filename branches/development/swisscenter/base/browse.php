@@ -204,17 +204,17 @@
     if ( get_user_pref("DISPLAY_THUMBS") == "YES" )
     {
       display_thumbs ($url, $dir, $dir_list, $file_list, $start, $end, $page, ($page > 0), ($end < count($dir_list)+count($file_list)));
-      $buttons[] = array('text'=>'List View', 'url'=>$url.'?thumbs=NO&DIR='.rawurlencode($dir) );
+      $buttons[] = array('text'=>str('LIST_VIEW'), 'url'=>$url.'?thumbs=NO&DIR='.rawurlencode($dir) );
     }
     else
     {
       display_names ($url, $dir, $dir_list, $file_list, $start, $end, $page, ($page > 0), ($end < count($dir_list)+count($file_list)));
-      $buttons[] = array('text'=>'Thumbnail View', 'url'=>$url.'?thumbs=YES&DIR='.rawurlencode($dir) );
+      $buttons[] = array('text'=>str('THUMBNAIL_VIEW'), 'url'=>$url.'?thumbs=YES&DIR='.rawurlencode($dir) );
     }
     
     // Should we present a link to select all files?
     if ($all_link!='')
-      $buttons[] = array('text'=>'Select All', 'url'=>$all_link.'&dir='.rawurlencode($dir) );
+      $buttons[] = array('text'=>str('SELECT_ALL'), 'url'=>$all_link.'&dir='.rawurlencode($dir) );
     
     // Output ABC buttons if appropriate
     if ( empty($dir) )

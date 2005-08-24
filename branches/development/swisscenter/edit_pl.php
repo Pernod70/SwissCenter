@@ -57,7 +57,7 @@
   $items         = $_SESSION["playlist"];
   $num_tracks    = count($_SESSION["playlist"]);
 
-  page_header( "Edit Playlist", $_SESSION["playlist_name"], $highlight );
+  page_header( str('PLAYLIST_EDIT'), $_SESSION["playlist_name"], $highlight );
   
   echo '<center><table cellspacing="3" cellpadding="3" border="0">';
 
@@ -101,7 +101,7 @@
 
   echo '</table></center>';
 
-  $buttons[] = array('text'=>'Finished', 'url'=>'manage_pl.php');
+  $buttons[] = array('text'=>str('FINISHED'), 'url'=>'manage_pl.php');
   page_footer( 'manage_pl.php', $buttons );
 
 

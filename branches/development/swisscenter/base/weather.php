@@ -97,7 +97,7 @@ function get_weather_xml( $loc, $type, $val )
                       ,"requested" => time()
                       ,"type"      => $type );
     if (!db_insert_row( "weather", $data))
-      page_error('A database error occurred');
+      page_error(str('DATABASE_ERROR'));
   }
   return xml2tree($xml);
 }

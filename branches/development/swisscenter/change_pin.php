@@ -25,29 +25,29 @@
         {
           ob_clean();
           header('Location: '.server_address().'enter_pin.php?ok_url='.urlencode('change_pin.php?id='.
-                  $user_id.'&type=N1').'&cancel_url=config.php&message='.urlencode('Please enter your new PIN'));
+                  $user_id.'&type=N1').'&cancel_url=config.php&message='.urlencode(str('PIN_ENTER_NEW')));
         }
         else
         {
-          page_inform(2,'config.php','Change PIN',"That PIN is incorrect");
+          page_inform(2,'config.php','Change PIN',str('PIN_INCORRECT'));
         }          
         break;
         
       case "N1";
         ob_clean();
         header('Location: '.server_address().'enter_pin.php?ok_url='.urlencode('change_pin.php?id='.
-                $user_id.'&np='.$pin.'&type=N2').'&cancel_url=config.php&message='.urlencode('Please confirm your new PIN'));
+                $user_id.'&np='.$pin.'&type=N2').'&cancel_url=config.php&message='.urlencode(str('PIN_CONFIRM_NEW')));
         break;
         
       case "N2";
         if($pin != $newpin1)
         {
-          page_inform(2,'config.php','Change PIN',"The PIN numbers did not match, not changed");
+          page_inform(2,'config.php',str('PIN_CHANGE'),str('PIN_MISMATCH'));
         }
         else
         {
           change_pin($user_id, $pin);
-          page_inform(2,'config.php','Change PIN',"Your PIN number has been changed");
+          page_inform(2,'config.php',str('PIN_CHANGE'),str('PIN_CHANGED'));
         }
         break;
     }
@@ -59,12 +59,12 @@
     if(has_pin($user_id))
     {
       header('Location: '.server_address().'enter_pin.php?ok_url='.urlencode('change_pin.php?id='.
-              $user_id.'&type=O').'&cancel_url=config.php&message='.urlencode('Please enter your old PIN'));
+              $user_id.'&type=O').'&cancel_url=config.php&message='.urlencode(str('PIN_ENTER_OLD')));
     }
     else
     {
       header('Location: '.server_address().'enter_pin.php?ok_url='.urlencode('change_pin.php?id='.
-              $user_id.'&type=N1').'&cancel_url=config.php&message='.urlencode('Please enter your new PIN'));
+              $user_id.'&type=N1').'&cancel_url=config.php&message='.urlencode(str('PIN_ENTER_NEW')));
     }
   }
   

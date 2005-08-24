@@ -12,7 +12,7 @@
 
   function search_page( $title, $column, $sort, $this_url, $prefix, $search, $page)
   {
-    page_header('Video', str($title).' : '.$search,'LOGO_MOVIE','', (empty($_REQUEST["last"]) ? 'KEY_SPC' : $_REQUEST["last"] ) );
+    page_header(str('WATCH_MOVIE'), str($title).' : '.$search,'LOGO_MOVIE','', (empty($_REQUEST["last"]) ? 'KEY_SPC' : $_REQUEST["last"] ) );
     $menu      = new menu();
     $data      = array();
     $back_url  = $_SESSION["history"][count($_SESSION["history"])-1]["url"];

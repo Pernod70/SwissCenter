@@ -109,7 +109,8 @@
   }
 
   // Check to see if the CACHE_MAXSIZE_MB has been reached, and if so, delete the older files.
-  if (file_exists(get_sys_pref("cache_dir")) && get_sys_pref("cache_maxsize_mb") != '' )
+  if (file_exists(get_sys_pref("cache_dir")) && get_sys_pref("cache_maxsize_mb") != ''
+                                             && get_sys_pref("cache_maxsize_mb") > 0 )
   {
     $dir      = get_sys_pref("cache_dir");
     $max_size = get_sys_pref("cache_maxsize_mb") * 1048576;

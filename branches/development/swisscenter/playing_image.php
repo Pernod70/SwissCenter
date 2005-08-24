@@ -71,27 +71,27 @@
   $artfile->resize( ($art_right-$art_left),($art_bottom-$art_top), $art_bg_colour );
   $image->copy($artfile,$art_left,$art_top);
   
-  $image->text('Now Playing',$title_x,$title_y, $title_text_col,28);
+  $image->text(str('NOW_PLAYING'),$title_x,$title_y, $title_text_col,28);
 
   //Track Information
   if (!empty($info[0]["TITLE"]))
   {
-    $image->text('Track',  $text_x, $text_y, $title_text_col, $title_text_size);
+    $image->text(str('TRACK'),  $text_x, $text_y, $title_text_col, $title_text_size);
     wrap($image, $info[0]["TITLE"], $text_x+20, $text_y+=($detail_text_size), $text_width, $detail_text_col, $detail_text_size);
   }
   if (!empty($info[0]["ARTIST"]))
   {
-    $image->text('Artist', $text_x, $text_y, $title_text_col, $title_text_size);
+    $image->text(str('ARTIST'), $text_x, $text_y, $title_text_col, $title_text_size);
     wrap($image, $info[0]["ARTIST"], $text_x+20, $text_y+=($detail_text_size), $text_width, $detail_text_col, $detail_text_size);
   }
   if (!empty($info[0]["ALBUM"]))
   {
-    $image->text('Album',  $text_x, $text_y, $title_text_col, $title_text_size);
+    $image->text(str('ALBUM'),  $text_x, $text_y, $title_text_col, $title_text_size);
     wrap($image, $info[0]["ALBUM"], $text_x+20, $text_y+=($detail_text_size), $text_width, $detail_text_col, $detail_text_size);
   }
   if (!empty($info[0]["YEAR"]))
   {
-    $image->text('Year',  $text_x, $text_y, $title_text_col, $title_text_size);
+    $image->text(str('YEAR'),  $text_x, $text_y, $title_text_col, $title_text_size);
     wrap($image, $info[0]["YEAR"], $text_x+20, $text_y+=($detail_text_size), $text_width, $detail_text_col, $detail_text_size);
   }
 

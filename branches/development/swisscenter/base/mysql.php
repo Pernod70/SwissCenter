@@ -46,9 +46,9 @@ function db_escape_str( $text )
 function test_db($host, $username, $password, $database)
 {
   if (! $db_handle = @mysql_pconnect( $host, $username, $password))
-    return "!Unable to connect to MySQL using the Host, Username and Password Specified";
+    return '!'.str('DATABASE_NOCONNECT');
   elseif (! mysql_select_db($database, $db_handle) )
-    return "!Connection to MySQL established, but unable to select the specified database";
+    return '!'.str('DATABASE_NOSELECT');
   else 
     return 'OK';
 }

@@ -105,25 +105,24 @@ function build_pl($sql)
 
   // Get the file details from the database and add to the session playlist
   if ( ($data = db_toarray($sql)) === false)
-    page_error('A database error occurred');
+    page_error(str('DATABASE_ERROR'));
   else
   {
-    $_SESSION["playlist_name"] = "&lt;Custom&gt;";
+    $_SESSION["playlist_name"] = "&lt;".str('CUSTOM')."&gt;";
 
     foreach ($data as $row)
       $_SESSION["playlist"][] = $row;
   }
 
-  page_header('Tracks Added');
+  page_header(str('TRACKS_ADDED_TITLE'));
 
-  echo 'The tracks you selected have been added to the playlist.
-        <p> To start playing the tracks in your playlist or to modify the playlist
-            at any time, press the <font color="'.style_value("BUTTON_DESC_COLOUR".'#FFFFFF').'">HOME</font>
-            button on your remote control and then select the <font color="'.style_value("MENU_OPTION_REF_COLOUR",'#FFFFFF').'">
-            "Manage Playlists"</font> option.';
+  echo str('TRACKS_ADDED_TEXT'
+          ,'<font color="'.style_value("BUTTON_DESC_COLOUR".'#FFFFFF').'">'.str('HOME').'</font>'
+          ,'<font color="'.style_value("MENU_OPTION_REF_COLOUR",'#FFFFFF').'">"'.str('MANAGE_PLAYLISTS').'"</font>');
+
   $menu = new menu();
-  $menu->add_item('Manage Playlists','manage_pl.php');
-  $menu->add_item('Return to Selection',$back_url);
+  $menu->add_item(str('MANAGE_PLAYLISTS'),'manage_pl.php');
+  $menu->add_item(str('RETURN_TO_SELECTION'),$back_url);
   $menu->display();
   page_footer($back_url);
 }
@@ -146,12 +145,12 @@ function pl_info ()
     foreach ($_SESSION["playlist"] as $row)
       $playtime += $row["LENGTH"];
 
-    $info->add_item( 'Tracks', $num_tracks.($num_tracks ==0 ? ' Track' : ' Tracks') );
+    $info->add_item( str('TRACKS'), ($num_tracks ==0 ? str('ONE_TRACK',$num_tracks) : str('MANY_TRACKS',$num_tracks)) );
     $info->add_item( 'Play Time', hhmmss($playtime) );
   }
   else
   {
-    echo '<center>You do not have a playlist defined at the moment.</center>';
+    echo '<center>'.str('NO_PLAYLIST').'</center>';
   }
   $info->display();
 }
@@ -180,7 +179,7 @@ function load_pl ($file, $action)
   }
   else
   {
-    $_SESSION["playlist_name"] = "&lt;Custom&gt;";
+    $_SESSION["playlist_name"] = "&lt;".str('CUSTOM')."&gt;";
   }
 
   if (($lines = file($file)) !== false)

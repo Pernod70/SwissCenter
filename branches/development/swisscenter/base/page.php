@@ -177,7 +177,7 @@ function page_error($message)
   page_header( "Error", "", "", "", "1", true );
   echo "<center>$message</center><p>";
   $menu = new menu();
-  $menu->add_item("Return to the Main Menu",'/index.php',true);
+  $menu->add_item(str('RETURN_MAIN_MENU'),'/index.php',true);
   $menu->display();
   page_footer('');
   exit;

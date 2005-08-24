@@ -33,40 +33,6 @@ function run_background ( $command, $days = '', $soon ='' )
   }
 }
 
-// Schedules a job to run in the background using "at" or "cron" depending on the OS.
-//
-// $command  - the PHP script to run
-// $every    - the frequency to repeat the command
-
-function sched_os_add ($command, $every)
-{
-}
-
-// Removes all SwissCenter related jobs from the system scheduler
-
-function sched_os_del_all ()
-{
-}
-
-// Adds a job to the internal SwissCenter scheduler
-
-function sched_swiss_add ($command, $every)
-{
-}
-
-// Removes a job from the internal SwissCenter scheduler
-
-function sched_swiss_del ($command)
-{
-}
-
-// Removes all jobs from the internal SwissCenter scheduler
-
-function sched_swiss_del_all ()
-{
-}
-
-
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/

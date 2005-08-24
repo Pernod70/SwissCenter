@@ -12,7 +12,7 @@
 
   function display_categories($next_page, $media_type)
   {
-    echo '<center>Please select a category from the list:</center><p>';
+    echo '<center>'.str('SELECT_CATEGORY').'</center><p>';
     
     $special    = array( array("CAT_NAME"=>"All Categories","CAT_ID"=>CAT_ALL)
                        , array("CAT_NAME"=>"Recently Added","CAT_ID"=>CAT_NEW) );

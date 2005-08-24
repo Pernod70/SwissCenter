@@ -11,7 +11,7 @@
 
   function search_page( $title, $column, $this_url, $prefix, $search, $page)
   {
-    page_header('Music', 'Browse by '.$title.' : '.$search, 'LOGO_MUSIC', '', (empty($_REQUEST["last"]) ? 'KEY_SPC' : $_REQUEST["last"] ) );
+    page_header(str('LISTEN_MUSIC'), $title.' : '.$search, 'LOGO_MUSIC', '', (empty($_REQUEST["last"]) ? 'KEY_SPC' : $_REQUEST["last"] ) );
 
     $menu      = new menu();
     $data      = array();
@@ -28,11 +28,11 @@
     $num_rows = db_value("select count(distinct $column) $sql $column like '".$prefix.db_escape_str(str_replace('_','\_',$search))."%' ".$post_sql);
 
     if ( $data === false || $num_rows === false)
-      page_error('A database error occurred');
+      page_error(str('DATABASE_ERROR'));
 
     if (empty($data))
     {
-      echo 'No tracks can be found where the '.strtolower($title).' matches "'.$search.'".';
+      echo str('SEARCH_NO_ITEMS');
     }
     else
     {
@@ -57,12 +57,12 @@
     // Output ABC buttons if appropriate
 
     if (empty($prefix))
-      $buttons[] = array('text'=>'Anywhere in Name', 'url'=>$this_url.'?sort='.$column.'&search='.rawurlencode($search).'&any=%' );
+      $buttons[] = array('text'=>str('SEARCH_ANYWHERE'), 'url'=>$this_url.'?sort='.$column.'&search='.rawurlencode($search).'&any=%' );
     else
-      $buttons[] = array('text'=>'Start of Name', 'url'=>$this_url.'?sort='.$column.'&search='.rawurlencode($search).'&any=' );
+      $buttons[] = array('text'=>str('SEARCH_START'), 'url'=>$this_url.'?sort='.$column.'&search='.rawurlencode($search).'&any=' );
 
-    $buttons[] = array('text'=>'Clear Search', 'url'=>$this_url.'?sort='.$column.'&any='.$prefix);
-    $buttons[] = array('text'=>'Select All', 'url'=>'music_selected.php?add=Y&type='.$column.'&name='.rawurlencode($search.'%'));
+    $buttons[] = array('text'=>str('SEARCH_CLEAR'), 'url'=>$this_url.'?sort='.$column.'&any='.$prefix);
+    $buttons[] = array('text'=>str('SELECT_ALL'), 'url'=>'music_selected.php?add=Y&type='.$column.'&name='.rawurlencode($search.'%'));
 
     page_footer($back_url, $buttons);
   }
@@ -87,10 +87,10 @@
     case "artist":
     case "genre":
     case "year":
-      $title = ucwords($column);
+      $title = str(strtoupper(($column)));
       break;
     case "title":
-      $title = 'Track Name';
+      $title = str('TRACK_NAME');
       break;
   }
 

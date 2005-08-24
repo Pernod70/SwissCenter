@@ -30,7 +30,7 @@
   function write_ini ( $host, $user, $pass, $name )
   {
      $str = ";************************************************************************* ".newline().
-            "; This is the configuration file for SWISS-Center by Robert Taylor         ".newline().
+            "; SwissCenter Configuration                                                ".newline().
             ";************************************************************************* ".newline().
             "".newline().
             "DB_HOST=$host ".newline().

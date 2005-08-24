@@ -9,9 +9,9 @@
 
   function select_user()
   {
-    page_header('Change User', "", "", "", "1", true);
+    page_header(str('USER_CHANGE'), "", "", "", "1", true);
     
-    echo '<center>Please select a user from the list:</center><p>';
+    echo '<center>'.str('SELECT_USER').'</center><p>';
 
     $sql = "SELECT user_id, name FROM users";
     if(is_user_selected())
@@ -43,7 +43,7 @@
     {
       ob_clean();
       header('Location: '.server_address().'enter_pin.php?ok_url='.urlencode('change_user.php?id='.$user_id).
-             '&cancel_url=index.php&message='.urlencode('Please enter your PIN using the number buttons on your remote control.'));
+             '&cancel_url=index.php&message='.urlencode(str('PIN_ENTER_PROMPT')));
     }
     else
     {
@@ -57,10 +57,10 @@
     $ok = change_current_user_id($user_id, $pin);
     if($ok)
     {
-      page_inform(2,"index.php","Change User","Your user has been successfully changed");
+      page_inform(2,"index.php",str('USER_CHANGE'),str('USER_CHANGED'));
     }
     else
-      page_inform(2,"index.php","Change User","Incorrect PIN");
+      page_inform(2,"index.php",str('USER_CHANGE'),str('PIN_INCORRECT'));
   }
 
 /**************************************************************************************************

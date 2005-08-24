@@ -379,7 +379,7 @@ function form_select_table ( $param, $table_contents, $table_headings, $table_pa
   else 
   {
     echo '<tr><td colspan="2"><table '.$param_str.'>';
-    echo '<tr><th><center>There are no items to display</center></th></tr?';
+    echo '<tr><th><center>'.str('NO_ITEMS_TO_DISPLAY').'</center></th></tr?';
     echo '</table></td></tr>';
   }
 }

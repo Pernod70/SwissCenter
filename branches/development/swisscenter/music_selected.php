@@ -51,31 +51,31 @@
 
   // Title
   if ($num_rows ==1)
-    page_header($num_rows.' Track Found', '', 'LOGO_MUSIC');
+    page_header( str('ONE_TRACK'), '', 'LOGO_MUSIC');
   else
-    page_header($num_rows.' Tracks Found', '', 'LOGO_MUSIC');
+    page_header( str('MANY_TRACKS',$num_rows), '', 'LOGO_MUSIC');
 
   // Display Information about current selection  
-  distinct_info($info, 'Track Name' ,'title' ,$sql_table, $predicate);
-  distinct_info($info, 'Album'      ,'album' ,$sql_table, $predicate);
-  distinct_info($info, 'Artist'     ,'artist',$sql_table, $predicate);
-  distinct_info($info, 'Genre'      ,'genre' ,$sql_table, $predicate);
-  distinct_info($info, 'Year'       ,'year'  ,$sql_table, $predicate);
-  $info->add_item('Play Time',  hhmmss($playtime));
+  distinct_info($info, str('TRACK_NAME') ,'title' ,$sql_table, $predicate);
+  distinct_info($info, str('ALBUM')      ,'album' ,$sql_table, $predicate);
+  distinct_info($info, str('ARTIST')     ,'artist',$sql_table, $predicate);
+  distinct_info($info, str('GENRE')      ,'genre' ,$sql_table, $predicate);
+  distinct_info($info, str('YEAR')       ,'year'  ,$sql_table, $predicate);
+  $info->add_item( str('MUSIC_PLAY_TIME'),  hhmmss($playtime));
   
   // Build menu of options
-  $menu->add_item('Play now',   pl_link('sql',"select * $sql_table $predicate order by album,lpad(track,10,'0'),title",'audio'));
-  $menu->add_item('Add to your playlist','add_playlist.php?sql='.rawurlencode("select * $sql_table $predicate order by album,lpad(track,10,'0'),title"),true);
+  $menu->add_item(str('PLAY_NOW'),   pl_link('sql',"select * $sql_table $predicate order by album,lpad(track,10,'0'),title",'audio'));
+  $menu->add_item(str('ADD_PLAYLIST'),'add_playlist.php?sql='.rawurlencode("select * $sql_table $predicate order by album,lpad(track,10,'0'),title"),true);
 
   // If only one track is selected, the user might want to expand their selection to the whole album
   if ($num_rows ==1)
-    $menu->add_item("Select Entire Album",'music_select_album.php?name='.rawurlencode(db_value("select album $sql_table $predicate")));
+    $menu->add_item( str('SELECT_ENTIRE_ALBUM'),'music_select_album.php?name='.rawurlencode(db_value("select album $sql_table $predicate")));
 
-  check_filter( $menu, 'Refine By Artist', 'artist', $sql_table, $predicate );
-  check_filter( $menu, 'Refine By Album', 'album',  $sql_table, $predicate );
-  check_filter( $menu, 'Refine By Title', 'title',  $sql_table, $predicate );
-  check_filter( $menu, 'Refine By Genre', 'genre',  $sql_table, $predicate );
-  check_filter( $menu, 'Refine By Year', 'year',   $sql_table, $predicate );
+  check_filter( $menu, str('REFINE_ARTIST'), 'artist', $sql_table, $predicate );
+  check_filter( $menu, str('REFINE_ALBUM'), 'album',  $sql_table, $predicate );
+  check_filter( $menu, str('REFINE_TITLE'), 'title',  $sql_table, $predicate );
+  check_filter( $menu, str('REFINE_GENRE'), 'genre',  $sql_table, $predicate );
+  check_filter( $menu, str('REFINE_YEAR'), 'year',   $sql_table, $predicate );
 
   // Is there a picture for us to display?
   $folder_img = file_albumart( db_value("select concat(dirname,filename) $sql_table $predicate limit 0,1") );
@@ -104,9 +104,9 @@
 
   // Display ABC buttons
   if (!isset($_SESSION["shuffle"]) || $_SESSION["shuffle"] == 'off')
-    $buttons[] = array('text'=>'Turn Shuffle On', 'url'=>'music_selected.php?shuffle=on&name='.$name.'&type='.$type );
+    $buttons[] = array('text'=>str('SHUFFLE_ON', 'url'=>'music_selected.php?shuffle=on&name='.$name.'&type='.$type );
   else
-    $buttons[] = array('text'=>'Turn Shuffle Off', 'url'=>'music_selected.php?shuffle=off&name='.$name.'&type='.$type );
+    $buttons[] = array('text'=>str('SHUFFLE_OFF'), 'url'=>'music_selected.php?shuffle=off&name='.$name.'&type='.$type );
 
   page_footer( url_add_param($_SESSION["last_picker"][count($_SESSION["history"])-1],'del','y'), $buttons );
 
