@@ -22,14 +22,25 @@ if (!isset($_SESSION["install_check"]["extensions"]))
 { 
   check_mod('gd');
   check_mod('mbstring');
-  check_mod('zip');
   check_mod('mysql');
   check_mod('xml');
   check_mod('session');
+//  check_mod('zip');  // Only needed for downloading styles from the website
   
   $_SESSION["install_check"]["extensions"] = 'YES';
 }
 
+#-------------------------------------------------------------------------------------------------
+#- Checks to see if the SwissCenter installation directory is readable/writeable.
+#-------------------------------------------------------------------------------------------------
+
+if (! is_writable(SC_LOCATION) || ! is_readable(SC_LOCATION))
+  fatal_error(str('MISSING_PERMS_TITLE'),str('MISSING_PERMS_TEXT'));
+  
+$info = stat(SC_LOCATION.'/index.php');
+if (is_unix() && ($info[4]==0 || $info[5]==0))
+  fatal_error(str('ROOT_INSTALL_TITLE'),str('ROOT_INSTALL_TEXT'));
+  
 #-------------------------------------------------------------------------------------------------
 # Check that the swisscenter ini file exists and display an error message if it doesn't.
 #-------------------------------------------------------------------------------------------------

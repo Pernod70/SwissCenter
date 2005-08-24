@@ -104,7 +104,7 @@
 
   // Display ABC buttons
   if (!isset($_SESSION["shuffle"]) || $_SESSION["shuffle"] == 'off')
-    $buttons[] = array('text'=>str('SHUFFLE_ON', 'url'=>'music_selected.php?shuffle=on&name='.$name.'&type='.$type );
+    $buttons[] = array('text'=>str('SHUFFLE_ON'), 'url'=>'music_selected.php?shuffle=on&name='.$name.'&type='.$type );
   else
     $buttons[] = array('text'=>str('SHUFFLE_OFF'), 'url'=>'music_selected.php?shuffle=off&name='.$name.'&type='.$type );
 

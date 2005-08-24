@@ -17,6 +17,9 @@
   
   function is_windows()
   { return get_os_type() == "WINDOWS"; }
+  
+  function is_unix()
+  { return get_os_type() == "UNIX"; } 
 
   // ----------------------------------------------------------------------------------
   // Returns the browser type
@@ -106,7 +109,7 @@
     $temp = '';
 
     for ($i=0; $i < $timeouts; $i++)
-      if ( $sock = @fsockopen('www.google.com', 80, $temp, $temp, 1))
+      if ( $sock = @fsockopen('66.249.87.99', 80, $temp, $temp, 0.5)) // www.google.com
       {
         fclose($sock);
         return 'YES'; 
@@ -123,7 +126,7 @@
     if ( !isset($_SESSION["internet"]) || $_SESSION["internet"]["timeout"] < time() )
     {
       $_SESSION["internet"]["available"] = internet_check();
-      $_SESSION["internet"]["timeout"]   = time()+300; // 5 mins
+      $_SESSION["internet"]["timeout"]   = time()+900; // 15 mins
     }
     
     return ( $_SESSION["internet"]["available"] == 'YES' );

@@ -72,6 +72,7 @@ function str( $key )
     
     # These are the html tags that we will allow in our language files:
     $replace = array( '#<#' => '&lt;', '#>#' => '&gt;', '#\[(/?)(br|em|p|b|i)]#i' => '<\1\2>' );
+    $string = preg_replace( array_keys($replace), array_values($replace), $string);
 
     # perform substitutions 
     while ( strpos($string,'%') !== false)
@@ -92,7 +93,7 @@ function str( $key )
     }
   
     return '&lt;'.
-           preg_replace( array_keys($replace), array_values($replace), $txt.$string).
+           $txt.$string.
            '&gt;';
   }
 }
