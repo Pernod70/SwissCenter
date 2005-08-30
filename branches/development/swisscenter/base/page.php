@@ -7,7 +7,6 @@ session_start();
 ob_start();
 
 require_once("settings.php");
-require_once("install_checks.php");
 require_once("capabilities.php");
 
 require_once("stylelib.php");
