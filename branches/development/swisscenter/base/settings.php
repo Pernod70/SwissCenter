@@ -21,25 +21,10 @@ require_once("language.php");
   define( 'THUMB_H',        225 );
   
 #-------------------------------------------------------------------------------------------------
-# Displays a fatal error on the user's screen and exits processing immediately.
-#-------------------------------------------------------------------------------------------------
-
-function fatal_error($heading,$text)
-{
-  echo "<center><p>&nbsp;<p><b>$heading</b><p>$text</center>";
-  exit;
-}
-  
-#-------------------------------------------------------------------------------------------------
 # Check that the correct versions of PHP is present on the system.
 #-------------------------------------------------------------------------------------------------
 
-  // Check that the current version of PHP is equal to, or greater than 4.3.9
-  // If it isn't then we should report the error to the user and exit immediately.
-  if ( !version_compare(phpversion(),'4.3.9','>='))
-    fatal_error(str('PHP_VERSION_TITLE'),str('PHP_VERSION_TEXT'));
-
-  // Determein PHP location
+  // Determine PHP location
   if ( is_windows() )
     define ('PHP_LOCATION', str_replace('\\','/',$_SERVER["SCRIPT_FILENAME"]));
   else
@@ -89,7 +74,7 @@ function fatal_error($heading,$text)
     {
       // Check for program update
       $new_update_version = file_get_contents('http://update.swisscenter.co.uk/release/last_update.txt');
-      $_SESSION["update"]["available"] = ($new_update_version > get_sys_pref('last_update') );
+      $_SESSION["update"]["available"] = ($new_update_version > get_sys_pref('last_update',get_sys_pref('database_version')) );
     }
     
     if ( get_sys_pref('messages_enabled','YES') == 'YES')
@@ -123,8 +108,8 @@ function fatal_error($heading,$text)
     $device["ip_address"]   = str_replace('\\','/',$_SERVER["REMOTE_ADDR"]);
     $device["agent_string"] = $_SERVER['HTTP_USER_AGENT'];
   
-	db_sqlcommand("delete from clients where ip_address='$ip'");
-	db_insert_row('clients',$device);
+	  db_sqlcommand("delete from clients where ip_address='$ip'");
+	  db_insert_row('clients',$device);
 
     $_SESSION["device"] = $device;  
   }
