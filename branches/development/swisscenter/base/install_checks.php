@@ -6,6 +6,23 @@
 require_once("settings.php");
 
 #-------------------------------------------------------------------------------------------------
+# Displays a fatal error on the user's screen and exits processing immediately.
+#-------------------------------------------------------------------------------------------------
+
+function fatal_error($heading,$text)
+{
+  echo "<center><p>&nbsp;<p><b>$heading</b><p>$text</center>";
+  exit;
+}
+  
+#-------------------------------------------------------------------------------------------------
+# Check that the correct versions of PHP is present on the system.
+#-------------------------------------------------------------------------------------------------
+
+if ( !version_compare(phpversion(),'4.3.9','>='))
+  fatal_error(str('PHP_VERSION_TITLE'),str('PHP_VERSION_TEXT'));
+
+#-------------------------------------------------------------------------------------------------
 # Check the necessary extensions have been compiled into PHP
 #-------------------------------------------------------------------------------------------------
 
@@ -59,7 +76,7 @@ if ( test_db(DB_HOST,DB_USERNAME,DB_PASSWORD,DB_DATABASE) != 'OK')
 # If running on windows, then check that the "Task Scheduler" service is running.
 #-------------------------------------------------------------------------------------------------
 
-if (is_windows() && !isset($_SESSION["install_check"]["task_sched"]))
+if (is_windows() && !is_server_simese() && !isset($_SESSION["install_check"]["task_sched"]))
 {
   $services = syscall('net start');
   if ( strpos($services,'Task Scheduler') === false)
