@@ -114,9 +114,9 @@
       db_root_sqlcommand($pass,"Drop database ".DB_DATABASE);
     
     if     ( db_root_sqlcommand($pass,"Create database ".DB_DATABASE) == false)
-      install_display('!Unable to create database - Is your MySQL "Root" password correct?');
+      install_display('!'.str('DB_CREATE_DB_ERR'));
     elseif ( db_root_sqlcommand($pass,"Grant all on ".DB_DATABASE.".* to ".DB_USERNAME."@'".DB_HOST."' identified by '".DB_PASSWORD."'") == false)
-      install_display('!Unable to create user - Is your MySQL "Root" password correct?');
+      install_display('!'.str('DB_CREATE_USER_ERR'));
     else 
     {
       // Fix for MySQL 4.1 and above (the authentication method changed and PHP 4.x uses an older uncompatible MySQL client).
@@ -132,27 +132,25 @@
 
         // Write an ini file with the database parameters in it
         write_ini ( DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE );
-        
-        // If the media_search.php script is not scheduled, then schedule it now!
-        $sched = syscall('at');
-        if ( strstr($sched,os_path(SC_LOCATION.'media_search.php')) === false)
-          run_background('media_search.php','M,T,W,Th,F,S,Su','12:00');  
 
-        // Store default cache settings
-        set_sys_pref('CACHE_MAXSIZE_MB',10); // Default 10 Mb cache size
+        // Default cache location and limit (default is no limit)
+        if ( is_unix() )
+        {
+          set_sys_pref('CACHE_DIR','/tmp');
+          set_sys_pref('CACHE_MAXSIZE_MB','');
+        }
+        else
+        {
+          set_sys_pref('CACHE_DIR',$_ENV["WINDIR"].'\temp');
+          set_sys_pref('CACHE_MAXSIZE_MB','');
+        }
 
-        if (!file_exists(SC_LOCATION.'/cache'))
-          mkdir(SC_LOCATION.'/cache');
-
-        if (file_exists(SC_LOCATION.'/cache') && is_dir(SC_LOCATION.'/cache'))
-          set_sys_pref('CACHE_DIR',SC_LOCATION.'/cache');
-          
         // Display the config page
         header('Location: index.php');
       }
       else
       {
-        install_display('!The "Setup.sql" file in the ShowCenter directory is missing.');
+        install_display('!'.str('MISSING_SETUP_SQL'));
       }
     }
   }
@@ -673,7 +671,7 @@
     array_to_table($opts);
   
     echo "<h2>Clients Discovered</h2>";
-    array_to_table(db_toarray('select ip_address, agent_string from clients'));
+    array_to_table(db_toarray('select ip_address, agent_string from clients oder'));
 
     echo "<h2>Database Settings</h2>";
     echo '<table width="100%"><tr><td valign=top>';
@@ -693,9 +691,6 @@
   
     echo "<h2>Media Locations</h2>";
     array_to_table(db_toarray('select media_name "Type", name "Location" from media_locations ml, media_types mt where ml.media_type = mt.media_id order by 1'));
-  
-    echo "<h2>Art Files</h2>";
-    array_to_table(db_toarray('select * from art_files order by 1'));
   
     echo "<h2>System Preferences</h2>";
     array_to_table(db_toarray('select * from system_prefs order by 1'));
@@ -962,7 +957,7 @@
       cache_display("!Please select the cache size below.");
     elseif (! form_mask($size,'[0-9]'))
       cache_display("!The value you entered for the cache size is not a number");
-    elseif ( $size <1 )
+    elseif ( $size <0 )
       cache_display("!You cache size you entered is too small.");
     elseif (!file_exists($dir))
       cache_display("!I'm sorry, the directory you specified does not exist");
@@ -1484,11 +1479,9 @@
   function media_search()
   {
     run_background('media_search.php');
-    echo "<h1>Search For New Media</h1>";
-    message('Searching for new media');
-    echo '<p>The database refresh has been started in the background and you may continue to use the 
-             system as normal. However please be aware that not all media files will be available 
-             for playback until the refresh is complete. ';
+    echo "<h1>".str('SETUP_SEARCH_NEW_MEDIA')."</h1>";
+    message(str('REFRESH_DATABASE_PROMPT'));
+    echo '<p>'.str('REFRESH_RUNNING');
   }
    
   //*************************************************************************************************
@@ -1497,25 +1490,9 @@
 
   function privacy_display()
   {
-    ?>
-    <h1>Privacy Policy</h1>
-     <p><b>Data Collection</b>
-     <p>Information relating to the media files on your machine is collected and stored in a MySQL database located on
-        the PC on which the SwissCenter software is installed. This information is used for the sole purpose of 
-        providing you with an interface to your media files on such devices as the Pinnacle Showcenter. At no point is 
-        this of any other information transmitted in any form to the authors of the SwissCenter, or to any other third party.
-     <p>There is one exception to the above statemnet :- To obtain extra information regarding video/movies files (such as actors, 
-        directors, etc) the filename is submitted as part of a search query to the www.lovefilm.com website. If
-        you would prefer that this informationis not transmitted then you should disable the "Movie Info Download" feature on
-        the "Extra Movie Info" page.
-     <p><b>Unsolicited Email/Messages</b>
-     <p><ul>
-        <li>We will never send you unsolicited email.
-        <li>Messages downloaded to the SwissCenter interface will relate only to the capabilities and operation of the 
-            interface. If you wish you may prevent even these messages from being downloaded by disabling the "Messages" 
-            feature in "Connectivity" section.
-        </ul>
-    <?    
+    echo '<h1>'.str('PRIVACY_POLICY').'</h1>'.
+         '<p>'.str('PRIVACY_DATA_COLLECTION').
+         '<p>'.str('PRIVACY_COMMUNICATION'); 
   }
   
   //*************************************************************************************************
@@ -1546,13 +1523,13 @@
        menu_heading();
        menu_heading();
        menu_heading("Media Management");
-       menu_item('Search For New Media','section=MEDIA&action=SEARCH','menu_bgr.png');
+       menu_item(str('SETUP_SEARCH_NEW_MEDIA'),'section=MEDIA&action=SEARCH','menu_bgr.png');
        menu_item('Movie Details','section=MOVIE&action=DISPLAY','menu_bgr.png');
        menu_item('Extra Movie Info','section=MOVIE&action=INFO','menu_bgr.png');
        menu_heading();
        menu_heading();
        menu_heading("Information");
-       menu_item('Privacy Policy','section=PRIVACY&action=DISPLAY','menu_bgr2.png');
+       menu_item(str('PRIVACY_POLICY'),'section=PRIVACY&action=DISPLAY','menu_bgr2.png');
        menu_item('Support Info','section=SUPPORT&action=DISPLAY','menu_bgr2.png');
      }
    echo '</table>';
