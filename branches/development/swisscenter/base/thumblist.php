@@ -110,7 +110,7 @@ class thumb_list
       for ($col=0; $col < $max_col_this_row ; $col++)
       {
         $cell_no = $row*$this->n_cols+$col;
-        echo '<td valign="top" height="'.($this->tn_size["Y"]).'" width="'.$cell_width.'px"><center>'.img_gen($this->items[$cell_no]["img"],$this->tn_size["X"],$this->tn_size["Y"]).'</center></td>';        
+        echo '<td valign="middle" height="'.($this->tn_size["Y"]).'" width="'.$cell_width.'px"><center>'.img_gen($this->items[$cell_no]["img"],$this->tn_size["X"],$this->tn_size["Y"]).'</center></td>';        
       }
       
       echo "</tr><tr>";
