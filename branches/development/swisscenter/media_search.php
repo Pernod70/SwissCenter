@@ -7,6 +7,7 @@
   require_once("base/mysql.php");
   require_once("base/utils.php");
   require_once("base/file.php");
+  require_once("base/image.php");
   require_once("ext/getid3/getid3.php");
   require_once("video_obtain_info.php");
 
@@ -104,7 +105,9 @@
                      ,"verified"     => 'Y'
                      ,"discovered"   => db_datestr() );
 
-        if (!db_insert_row( "photos", $data))
+        if (db_insert_row( "photos", $data))
+          precache($dir.$file, 80, 80);
+        else
           send_to_log('Unable to add PHOTO to the database');
       }
       else
@@ -245,9 +248,9 @@
 
   // Do the update
   media_indicator('BLINK');
-  process_media_dirs( db_toarray("select * from media_locations where media_type=1") ,'mp3s',   explode(',' ,MEDIA_EXT_MUSIC));
-  process_media_dirs( db_toarray("select * from media_locations where media_type=3") ,'movies', explode(',' ,MEDIA_EXT_MOVIE));
-  extra_get_all_movie_details();
+//  process_media_dirs( db_toarray("select * from media_locations where media_type=1") ,'mp3s',   explode(',' ,MEDIA_EXT_MUSIC));
+//  process_media_dirs( db_toarray("select * from media_locations where media_type=3") ,'movies', explode(',' ,MEDIA_EXT_MOVIE));
+//  extra_get_all_movie_details();
   process_media_dirs( db_toarray("select * from media_locations where media_type=2") ,'photos', explode(',' ,MEDIA_EXT_PHOTOS));
   media_indicator('OFF');
      

@@ -4,7 +4,11 @@
  *************************************************************************************************/
 
 require_once("mysql.php");
+require_once("prefs.php");
  
+if (!extension_loaded('gd'))
+  dl('gd.so');
+
 #-------------------------------------------------------------------------------------------------
 # Returns the colour number ofr a 24-bit colour
 #-------------------------------------------------------------------------------------------------
@@ -14,6 +18,98 @@ function colour ( $r, $g, $b)
   return ($r << 16) | ($g << 8) | $b;
 }
 
+// -------------------------------------------------------------------------------------------------
+// Loads and resizes the given image and creates a cached copy of it.
+// -------------------------------------------------------------------------------------------------
+
+function precache( $filename, $x, $y, $overwrite = true )
+{
+  // Create a new image
+  $image = new CImage();
+  
+  // Load the image from disk
+  if (strtolower(file_ext($filename)) == 'sql')
+    $image->load_from_database( substr($filename,0,-4) );
+  elseif ( file_exists($filename) || substr($filename,0,4) == 'http' )
+    $image->load_from_file($filename); 
+  else  
+    send_to_log('Unable to process image specified : '.$filename);  
+  
+  $image->resize($x, $y);
+  $image->cache($overwrite);
+}
+
+// -------------------------------------------------------------------------------------------------
+// Returns the filename for caching the image locally (this is based on the filename used to load
+// the file from disk or from the database and the image's current x/y size).
+// -------------------------------------------------------------------------------------------------
+
+function cache_filename( $filename, $x, $y )
+{
+  $cache_dir = get_sys_pref('cache_dir');
+  if ($cache_dir != '')
+    return $cache_dir.'/SwissC'.sha1($filename.'_x'.$x.'y'.$y).'.png';
+  else  
+    return false;
+}
+
+#-------------------------------------------------------------------------------------------------
+# Function to check if the cache has exceeded the allowed size, and if so it deletes as many
+# files as is necessary to reduce the cache down to 90% of the allowed size.
+#-------------------------------------------------------------------------------------------------
+
+function reduce_cache()
+{
+  $dir = get_sys_pref("cache_dir");
+  $max_size = get_sys_pref("cache_maxsize_mb") * 1048576;
+  $target_size = $max_size * 0.90; # 90%
+
+  if (file_exists($dir) && $max_size != '' && $max_size > 0 )
+  {
+    $dir_size = 0;
+    
+    // Calculate sum of images filesizes, and maintain an array of images.
+    if ($dirstream = @opendir($dir))
+    {
+      while (false !== ($filename = readdir($dirstream)))
+        if ($filename!="." && $filename!=".." && substr($filename,0,6) == 'SwissC')
+          if (is_file($dir."/".$filename))
+          {
+            $dir_size += filesize($dir."/".$filename);
+            $files[filemtime($dir."/".$filename).'_'.filesize($dir.'/'.$filename).'_'.$filename] = $dir.'/'.$filename;
+          }
+    }
+    closedir($dirstream);
+
+    // If the sum of images is greater than the cache size, remove as many files as necessary.
+    if ($dir_size > $max_size)
+    {
+      ksort($files);
+      foreach( $files as $k => $v)
+        if ($dir_size > $target_size)
+        {
+          unlink($v);
+          $details = split('_',$k);
+          $dir_size -= $details[1];
+        }
+
+    }
+  }
+}
+
+#-------------------------------------------------------------------------------------------------
+# Outputs a cached file directly to the browser
+#-------------------------------------------------------------------------------------------------
+
+function output_cached_file( $filename )
+{
+    header("Content-Type: image/png");
+    touch($filename);
+    $fp = fopen($filename, 'rb')  ;
+    fpassthru($fp);
+    fclose($fp);
+}
+
 #-------------------------------------------------------------------------------------------------
 # Image class
 #-------------------------------------------------------------------------------------------------
@@ -21,9 +117,11 @@ function colour ( $r, $g, $b)
 class CImage
 {
 
-  var $image;
-  var $width = 0;
-  var $height = 0;
+  var $image          = false;
+  var $width          = 0;
+  var $height         = 0;
+  var $src_fsp        = false;
+  var $cache_filename = false;
   
 
   // -------------------------------------------------------------------------------------------------
@@ -32,9 +130,11 @@ class CImage
 
   function CImage($x = 100, $y = 100)
   {
-    $this->image  = imagecreate($x,$y);
-    $this->width  = $x;
-    $this->height = $y;
+    $this->image          = imagecreate($x,$y);
+    $this->width          = $x;
+    $this->height         = $y;
+    $this->src_fsp        = false;
+    $this->cache_filename = false;
   }
 
   // -------------------------------------------------------------------------------------------------
@@ -67,7 +167,7 @@ class CImage
       $this->height = 0;
     }
   }
-  
+    
   // -------------------------------------------------------------------------------------------------
   // Loads an image from the database
   // -------------------------------------------------------------------------------------------------
@@ -82,6 +182,8 @@ class CImage
 
     $this->image = ImageCreateFromString( db_value($sql) );
     $this->update_sizes();
+    $this->src_fsp  = $sql.'.sql';
+    $this->cache_filename = cache_filename($this->src_fsp,$this->width,$this->height);
   }
 
   // -------------------------------------------------------------------------------------------------
@@ -115,6 +217,8 @@ class CImage
           break;
       }
       $this->update_sizes();
+      $this->src_fsp  = $filename;
+      $this->cache_filename = cache_filename($this->src_fsp,$this->width,$this->height);
     }
   }
 
@@ -133,7 +237,10 @@ class CImage
     }
     
     if ($this->image !== false)
+    {
       @imagettftext ($this->image,$size,$angle,$x,$y,$colour,$font,$text);  
+      $this->src_fsp  = false;
+    }
   }
   
   // -------------------------------------------------------------------------------------------------
@@ -150,17 +257,19 @@ class CImage
         ImageCopy ( $this->image,  $src_image->get_image_ref() , $dest_x, $dest_y, 0,0, $src_image->get_width(), $src_image->get_height());
       else 
         ImageCopyResized( $this->image,  $src_image->get_image_ref() , $dest_x, $dest_y, 0, 0, $dest_w, $dest_h, $src_image->get_width(), $src_image->get_height() );
+
+      $this->src_fsp  = false;
     }
   }
 
   // -------------------------------------------------------------------------------------------------
-  // Rotates the current image by the specified angle, leaving the background the specified
-  // colour (default black)
+  // Resizes the current image to the given X,Y dimensions. If $keep_aspect is true, then the image
+  // will be scaled to the given X,Y size, but the aspect ratio will be maintained.
   // -------------------------------------------------------------------------------------------------
 
   function resize($x, $y, $bgcolour=0, $keep_aspect = true)
   {    
-    if ($this->image !== false && $x > 0 && $y > 0)
+    if ($this->image !== false && $x > 0 && $y > 0 && ($x != $this->width || $y != $this->height))
     {
       if ($keep_aspect) 
       {
@@ -177,11 +286,21 @@ class CImage
       }
 
       $old = $this->image;
-      $this->image = ImageCreateTrueColor($x,$y);
-      imagefill($this->image,0,0,$bgcolour);
-      imagecopyResampled ($this->image, $old, ($x-$newx)/2, ($y-$newy)/2, 0, 0, $newx, $newy, $this->width, $this->height);
+      if ($bgcolour === false)
+      {
+        $this->image = ImageCreateTrueColor($newx,$newy);
+        imagecopyResampled( $this->image, $old, 0,0,0,0, $newx, $newy, $this->width, $this->height);
+      }
+      else 
+      {
+        $this->image = ImageCreateTrueColor($x,$y);
+        imagefill($this->image,0,0,$bgcolour);
+        imagecopyResampled ($this->image, $old, ($x-$newx)/2, ($y-$newy)/2, 0, 0, $newx, $newy, $this->width, $this->height);
+      }
+      
       imagedestroy($old);
       $this->update_sizes();
+      $this->cache_filename = cache_filename($this->src_fsp,$x, $y);
     }
   } 
 
@@ -198,6 +317,7 @@ class CImage
       $this->image = ImageRotate($old, $angle, $bgcolour);
       imagedestroy($old);
       $this->update_sizes();
+      $this->src_fsp  = false;
     }
   } 
   
@@ -208,6 +328,7 @@ class CImage
   function rectangle ( $x, $y, $width, $height, $colour )
   {
     imagefilledrectangle($this->image, $x, $y, $x+$width, $y+$height, $colour);
+    $this->src_fsp  = false;
   }
 
   // -------------------------------------------------------------------------------------------------
@@ -236,9 +357,27 @@ class CImage
           break;
       }  
     }
+    
+    $this->cache();
   }
 
+  // -------------------------------------------------------------------------------------------------
+  // Caches the file locally.
+  // -------------------------------------------------------------------------------------------------
 
+  function cache($overwrite = false)
+  {
+    if ($this->src_fsp !== false )
+    {
+      $fsp = $this->cache_filename;
+      if ($fsp !== false && ($overwrite || !file_exists($fsp)) )
+      {
+        ImagePng($this->image, $fsp);  
+        reduce_cache();
+      }
+    }
+  }
+  
 }
 
    
