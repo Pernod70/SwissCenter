@@ -2,6 +2,8 @@
 /**************************************************************************************************
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
+  require_once("base/install_checks.php");
+
   require_once("base/page.php");
   require_once("base/playlist.php");
   require_once("base/users.php");
