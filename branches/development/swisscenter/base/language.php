@@ -24,6 +24,7 @@ function load_lang_strings ( $lang = 'en-gb' )
         $keys[strtoupper(trim($ex[0]))] = $ex[1];
       }      
     $_SESSION["language"] = array_merge($_SESSION["language"],$keys);
+    send_to_log("Loaded $lang language file");
   }
   else 
     send_to_log("Unable to locate $lang language file");
@@ -35,20 +36,20 @@ function load_lang ()
   load_lang_strings('en');
   
   // Determine language to load from the browser identification (or the last used). 
-  if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE']))
+  if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) && !empty($SERVER['HTTP_ACCEPT_LANGUAGE']))
     $current_lang = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
   else
     $current_lang = get_sys_pref('DEFAULT_LANGUAGE','en-gb');
 
   // Now overlay the general language file (eg: 'fr') over the english 
-  if (strpos($current_lang,'-') !== false)
+  if (strpos($current_lang,'-') !== false && substr($current_lang,0,strpos($current_lang,'-')) != 'en')
     load_lang_strings(substr($current_lang,0,strpos($current_lang,'-')));
       
   // And finally, overlay with any regional variations (eg: 'fr-be')
-  load_lang_strings($lang);
+  load_lang_strings($current_lang);
 
   // Store this as the system default language
-  set_sys_pref('DEFAULT_LANGUAGE',$lang);
+  set_sys_pref('DEFAULT_LANGUAGE',$current_lang);
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -57,7 +58,7 @@ function load_lang ()
 
 function str( $key )
 {
-  if (!isset($_SESSION["language"]) || true)
+//  if (!isset($_SESSION["language"]) )
     load_lang();
     
   if (! isset($_SESSION["language"][strtoupper($key)]) )
@@ -71,7 +72,7 @@ function str( $key )
     $i      = 1;
     
     # These are the html tags that we will allow in our language files:
-    $replace = array( '#<#' => '&lt;', '#>#' => '&gt;', '#\[(/?)(br|em|p|b|i)]#i' => '<\1\2>' );
+    $replace = array( '#<#' => '&lt;', '#>#' => '&gt;', '#\[(/?)(br|em|p|b|i|li|ul|ol)]#i' => '<\1\2>' );
     $string = preg_replace( array_keys($replace), array_values($replace), $string);
 
     # perform substitutions 
