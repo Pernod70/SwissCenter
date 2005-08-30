@@ -50,8 +50,10 @@
     
     if(strpos($_SERVER["SERVER_SOFTWARE"], "Apache") !== false )
       $server_type = "APACHE";
-    else if(strpos($_SERVER["SERVER_SOFTWARE"], "IIS") !== false)
+    elseif(strpos($_SERVER["SERVER_SOFTWARE"], "IIS") !== false)
       $server_type = "IIS";
+    elseif(strpos($_SERVER["SERVER_SOFTWARE"], "Simese") !== false)
+      $server_type = "SIMESE";
     else
       $server_type = "SIMESE";
     
@@ -66,6 +68,14 @@
   
   function is_server_simese()
   { return get_server_type() == "SIMESE"; }
+  
+  function simese_version()
+  {
+    if ( is_server_simese() )
+      return substr($_SERVER["SERVER_SOFTWARE"],7);
+    else 
+      return false;
+  }
 
   // ----------------------------------------------------------------------------------
   // Returns the full URL (SCRIPT_NAME + QUERY_STRING) of the current page
