@@ -29,8 +29,9 @@
     // Extract the zipfile
     if ( file_exists($dir))
     {
-      if (($fh = zip_open($filename)) !== false)
+      if ( extension_loaded('zip') && ($fh = zip_open($filename)) !== false)
       {
+        // The zip extension is loaded, so we can attempt to use it to extract the files
         while ($zip_entry = zip_read($fh))
         {
           $ze_filename = zip_entry_name($zip_entry);
@@ -42,6 +43,12 @@
           }
         }
         zip_close($fh);
+      }
+      elseif (is_unix())
+      {
+        // On LINUX machines, we can write to a temporary file and then use the standard "unzip" command to 
+        // perform the same functions as the zip extension
+        exec('unzip '.$filename.' -d '.$dir);
       }
     }
     

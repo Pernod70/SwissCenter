@@ -76,7 +76,7 @@
   //Track Information
   if (!empty($info[0]["TITLE"]))
   {
-    $image->text(str('TRACK'),  $text_x, $text_y, $title_text_col, $title_text_size);
+    $image->text(str('TRACK_NAME'),  $text_x, $text_y, $title_text_col, $title_text_size);
     wrap($image, $info[0]["TITLE"], $text_x+20, $text_y+=($detail_text_size), $text_width, $detail_text_col, $detail_text_size);
   }
   if (!empty($info[0]["ARTIST"]))

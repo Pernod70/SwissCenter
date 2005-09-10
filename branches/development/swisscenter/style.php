@@ -111,7 +111,7 @@
 
   // Link to the online resources only if the ZIP extension is enabled and we are 
   // not already viewing the online styles.
-  if ( $_REQUEST["online"] != 'Y' && extension_loaded('zip') )
+  if ( internet_available() && $_REQUEST["online"] != 'Y' && (extension_loaded('zip') || is_unix()))
     $buttons[] = array('text'=>str('STYLE_CHECK_ONLINE','SwissCenter.co.uk'), 'url'=>'style.php?online=Y');
   elseif ( $_REQUEST["online"] == 'Y')
     $buttons[] = array('text'=>str('STYLE_SHOW_INSTALLED'), 'url'=>'style.php');

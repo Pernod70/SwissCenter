@@ -93,9 +93,7 @@ function str( $key )
     	} 
     }
   
-    return '&lt;'.
-           $txt.$string.
-           '&gt;';
+    return $txt.$string;
   }
 }
    
