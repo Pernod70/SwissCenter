@@ -29,18 +29,18 @@
   $thumb_url  = $server.'thumb.php?x='.$x.'&y='.$y.'&src='; 
   
   $delay      = (count($data) > 1 ? 5 : 3600);  // If a single photo, then display for 1 hour.
+
+  $effect = 8; 
+  //  1 = Wipe Down                      2 = Wipe Up     
+  //  3 = Wipde up/down from center      4 = Wipe up/down to center
+  //  5 = Wipe left/up and right/down    6 = Wipe left/down and right/up
+  //  7 = Interleave up/down             8 = Fade In
+  //  9 = Random Effect from above 
   
   if (is_showcenter())
   {
     // Generate a playlist for the showcenter
   
-    $effect = 8; 
-    //  1 = Wipe Down                      2 = Wipe Up     
-    //  3 = Wipde up/down from center      4 = Wipe up/down to center
-    //  5 = Wipe left/up and right/down    6 = Wipe left/down and right/up
-    //  7 = Interleave up/down             8 = Fade In
-    //  9 = Random Effect from above 
-
     foreach ($data as $row)
     {
       if ($item_count >= MAX_PLAYLIST_SIZE )
@@ -62,6 +62,17 @@
   else 
   {
     // do some javascript here to display a slideshow on the PC
+    echo '<script language="javascript" src="slideshow.js"></script>
+          <img id="piccy" src="/images/dot.gif">        
+          <script language="javascript">
+          var slides = new Array('.count($data).');'.newline();
+
+    $i=0;
+    foreach ($data as $row)
+      echo 'slides['.$i++.'] = "'.$thumb_url.rawurlencode($row['DIRNAME'].$row['FILENAME']).'";'.newline();
+
+    echo 'Slideshow(5, document.getElementById("piccy"), slides, true);
+          </script>';
   }
 
   /**************************************************************************************************

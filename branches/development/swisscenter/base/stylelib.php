@@ -79,6 +79,11 @@ function style_value ( $name, $default = '')
     return $default;
 }
 
+function font_colour_tags( $name, $text )
+{
+  return '<font color="'.style_value($name,'#FFFFFF').'">'.$text.'</font>';
+}
+
    
 /**************************************************************************************************
                                                End of file

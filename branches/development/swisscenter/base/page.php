@@ -3,6 +3,10 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
+// If the current page has a session_id parameter, then this will be used to "share" a session. (yet more "cowboy" code!)
+if (isset($_REQUEST["session_id"]) && !empty($_REQUEST["session_id"]))
+  session_id($_REQUEST["session_id"]);
+
 session_start();
 ob_start();
 
@@ -15,6 +19,15 @@ require_once("infotab.php");
 require_once("utils.php");
 require_once("iconbar.php");
 require_once("users.php");
+
+
+function current_session()
+{
+  if (isset($_COOKIE["PHPSESSID"]))
+    return 'session_id='.$_COOKIE["PHPSESSID"];
+  else 
+    return substr(SID,strpos(SID,'=')+1);
+}
 
 #-------------------------------------------------------------------------------------------------
 # Determine screen type (currently only PAL or NTSC - no support for HDTV).

@@ -6,6 +6,20 @@
 require_once("file.php");
 require_once("sched.php");
 
+$char_widths = array(   "A" => 16,  "B" => 12,  "C" => 15,  "D" => 14,  "E" => 14,  "F" => 14,  "G" => 15,  "H" => 15,
+                        "I" => 4,   "J" => 10,  "K" => 14,  "L" => 11,  "M" => 16,  "N" => 15,  "O" => 16,  "P" => 14,
+                        "Q" => 16,  "R" => 15,  "S" => 12,  "T" => 15,  "U" => 14,  "V" => 16,  "W" => 20,  "X" => 16,
+                        "Y" => 15,  "Z" => 15,  "[" => 6,   "\\" => 7,  "]" => 6,   "^" => 9,   "_" => 12,  "`" => 6,
+                        "a" => 11,  "b" => 11,  "c" => 11,  "d" => 11,  "e" => 11,  "f" => 6,   "g" => 11,  "h" => 11,
+                        "i" => 4,   "j" => 5,   "k" => 10,  "l" => 4,   "m" => 16,  "n" => 11,  "o" => 11,  "p" => 11,
+                        "q" => 11,  "r" => 7,   "s" => 9,   "t" => 6,   "u" => 11,  "v" => 11,  "w" => 16,  "x" => 12,
+                        "y" => 11,  "z" => 11,  "{" => 7,   "|" => 4,   "}" => 7,   "~" => 11,  "!" => 4,   "\"" => 7,
+                        "#" => 10,  "$" => 11,  "%" => 16,  "&" => 15,  "'" => 4,   "/" => 7,   ")" => 6,   "(" => 6,
+                        "*" => 7,   "+" => 12,  "," => 4,   "-" => 8,   "." => 4,   "0" => 11,  "1" => 7,   "2" => 11,
+                        "3" => 11,  "4" => 11,  "5" => 11,  "6" => 11,  "7" => 11,  "8" => 11,  "9" => 11,  ":" => 4,
+                        ";" => 4,   "=" => 12,  ">" => 12,  "?" => 11,  "@" => 19,  "<" => 12,  " " => 7,  );
+
+
 // ----------------------------------------------------------------------------------
 // A better alternative to the "shuffle" routine in PHP - this version generates a
 // more random shuffle (and can be seeded to always return the same shuffled list).
@@ -16,7 +30,7 @@ function shuffle_fisherYates(&$array, $seed = false)
    if ($seed !== false)
      mt_srand($seed);
      
-   $total = count($array);// <-- 
+   $total = count($array);
    for ($i = 0; $i<$total; $i++)
    {
          $j = @mt_rand(0, $i);
@@ -316,45 +330,53 @@ function shorten( $text, $trunc, $font_size = 1, $lines = 1, $dots = true )
   if(empty($text))
     return $text;
     
-  $char_widths = array(   "A" => 16,  "B" => 12,  "C" => 15,  "D" => 14,  "E" => 14,  "F" => 14,  "G" => 15,  "H" => 15,
-                          "I" => 4,   "J" => 10,  "K" => 14,  "L" => 11,  "M" => 16,  "N" => 15,  "O" => 16,  "P" => 14,
-                          "Q" => 16,  "R" => 15,  "S" => 12,  "T" => 15,  "U" => 14,  "V" => 16,  "W" => 20,  "X" => 16,
-                          "Y" => 15,  "Z" => 15,  "[" => 6,   "\\" => 7,  "]" => 6,   "^" => 9,   "_" => 12,  "`" => 6,
-                          "a" => 11,  "b" => 11,  "c" => 11,  "d" => 11,  "e" => 11,  "f" => 6,   "g" => 11,  "h" => 11,
-                          "i" => 4,   "j" => 5,   "k" => 10,  "l" => 4,   "m" => 16,  "n" => 11,  "o" => 11,  "p" => 11,
-                          "q" => 11,  "r" => 7,   "s" => 9,   "t" => 6,   "u" => 11,  "v" => 11,  "w" => 16,  "x" => 12,
-                          "y" => 11,  "z" => 11,  "{" => 7,   "|" => 4,   "}" => 7,   "~" => 11,  "!" => 4,   "\"" => 7,
-                          "#" => 10,  "$" => 11,  "%" => 16,  "&" => 15,  "'" => 4,   "/" => 7,   ")" => 6,   "(" => 6,
-                          "*" => 7,   "+" => 12,  "," => 4,   "-" => 8,   "." => 4,   "0" => 11,  "1" => 7,   "2" => 11,
-                          "3" => 11,  "4" => 11,  "5" => 11,  "6" => 11,  "7" => 11,  "8" => 11,  "9" => 11,  ":" => 4,
-                          ";" => 4,   "=" => 12,  ">" => 12,  "?" => 11,  "@" => 19,  "<" => 12,  " " => 7,  );
-
-  $len = 0;
-  $text = (string)$text;
+  global $char_widths;
   $short_string = "";
-  $max_len = (int)((($trunc / $font_size) * $lines) - (12 * $font_size));
+  $len          = 0;
+  $text         = (string)$text;
+  $max_len      = (int)((($trunc / $font_size)) - (12 * $font_size));
 
-  for($index = 0; $index < strlen($text); $index++)
+  if ($lines > 1)
   {
-    $current_char = $text[$index];
-    
-    if(!array_key_exists($current_char, $char_widths))
-      $char_len = 7;
-    else
-      $char_len = $char_widths[$current_char];
-
-    if(($len + $char_len) < $max_len)
+    // Multiple lines
+    for ($lineno = 0; $lineno < $lines; $lineno++)
     {
-      $len += $char_len;
-      $short_string .= $current_char;
-    }
-    else
-    {
-      if ($dots)
-        $short_string .= "...";
-      break;
+      $line = shorten($text, $trunc, $font_size, 1, false);
+      $text = substr($text,strlen($line));
+      $short_string .= $line;
     }
   }
+  else 
+  {  
+    // Single line
+    for($index = 0; $index < strlen($text); $index++)
+    {
+      $current_char = $text[$index];
+      
+      if(!array_key_exists($current_char, $char_widths))
+        $char_len = 7;
+      else
+        $char_len = $char_widths[$current_char];
+  
+      if(($len + $char_len) < $max_len)
+      {
+        // Not reached the end of the space yet
+        $len += $char_len;
+        $short_string .= $current_char;
+      }
+      else
+      {
+        // Trims the string back to the last whitespace (max 8 chars will be trimmed)
+        if ( (strlen($short_string) - strrpos($short_string,' ')) <10)
+          $short_string = substr($short_string,0,strrpos($short_string,' ')+1);
+        
+        break;
+      }
+    }
+  }
+  
+  if ($dots && strlen($short_string) < strlen($text))
+    $short_string .= "...";
 
   return $short_string;
 }

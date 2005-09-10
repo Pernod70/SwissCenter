@@ -55,7 +55,7 @@ function cache_filename( $filename, $x, $y )
 {
   $cache_dir = get_sys_pref('cache_dir');
   if ($cache_dir != '')
-    return $cache_dir.'/SwissC'.sha1($filename.'_x'.$x.'y'.$y).'.png';
+    return $cache_dir.'/SwissCenter_'.sha1($filename).'_x'.$x.'y'.$y.'.png';
   else  
     return false;
 }

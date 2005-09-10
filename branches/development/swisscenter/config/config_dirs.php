@@ -57,9 +57,9 @@
   
   function dirs_modify()
   {
-    $selected = form_select_table_vals('loc_id');     // Get the selected items
-    $edit = form_select_table_edit('loc_id', 'dirs');         // Get the id of the edited row
-    $update = form_select_table_update('loc_id', 'dirs');     // Get the updates from an edit
+    $selected = form_select_table_vals('loc_id');            // Get the selected items
+    $edit     = form_select_table_edit('loc_id', 'dirs');    // Get the id of the edited row
+    $update   = form_select_table_update('loc_id', 'dirs');  // Get the updates from an edit
     
     if(!empty($edit))
     {
@@ -102,7 +102,7 @@
         dirs_display(str('MEDIA_LOC_UPDATE_OK'));
       }
     }
-    elseif($_REQUEST["submit_action"] == str('MEDIA_LOC_DEL_BUTTON'))
+    elseif(!empty($selected))
     {
       // Delete the selected directories
       foreach ($selected as $id)

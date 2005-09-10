@@ -11,6 +11,19 @@ require_once("page.php");
 require_once("ext/getid3/getid3.php");
 
 //
+//  Returns TRUE if the current playlist contains only music
+//
+
+function playlist_all_music()
+{
+  foreach ($_SESSION["playlist"] as $row)
+    if ( db_value("select count(*) from mp3s where file_id=$row[FILE_ID] and dirname='".db_escape_str($row["DIRNAME"])."' and filename='".db_escape_str($row["FILENAME"])."'") == 0 )
+      return false;
+
+  return true;
+}
+
+//
 // Returns the correct link to cause the showcenter to start obtaining playlists and displaying/play 
 // media.
 //
@@ -36,12 +49,18 @@ function pl_link( $type, $spec= '', $media = 'playlist')
           }
           else 
           {
-            $link .= 'href="gen_photolist.php?shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&spec='.rawurlencode($spec).'" ';
+            $link .= 'href="gen_photolist.php?shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&spec='.rawurlencode($spec).'" target="_blank" ';
           }
           break;
     default :
           $link .= 'href="gen_playlist.php?shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&spec='.rawurlencode($spec).'" ';
-          $link .= 'vod="playlist" ';
+
+          if ( playlist_all_music())
+            $link .= 'pod="3,1,'.$server.'playing_list.php?'.current_session().'&userid='.get_current_user_id().'&shuffle='.$_SESSION["shuffle"]
+                    .'&seed='.$seed.'&type='.$type.'&spec='.rawurlencode($spec).'" ';
+          else 
+            $link .= 'vod="playlist" ';
+
           break;
   }
   
@@ -167,8 +186,6 @@ function pl_info ()
 //
 function clear_pl()
 {
-  session_unregister("playlist_name");
-  session_unregister("playlist");
   unset($_SESSION["playlist_name"]);
   unset($_SESSION["playlist"]);
 }
@@ -199,10 +216,8 @@ function load_pl ($file, $action)
         $fsp = str_replace('\\','/',make_abs_file($fsp,get_sys_pref("playlists")));       
         $info_music = db_toarray("select * from mp3s where dirname = '".db_escape_str(str_suffix(dirname($fsp),'/'))."' and filename='".db_escape_str(basename($fsp))."' ");
         $info_movie = db_toarray("select * from movies where dirname = '".db_escape_str(str_suffix(dirname($fsp),'/'))."' and filename='".db_escape_str(basename($fsp))."' ");
-// TO-DO: uncomment and subsequent line once photos have been added to the system (or at least the table!).
         $info_photo = db_toarray("select * from photos where dirname = '".db_escape_str(str_suffix(dirname($fsp),'/'))."' and filename='".db_escape_str(basename($fsp))."' ");      
         $all = $info_movie + $info_music + $info_photo;
-//        $all = $info_movie + $info_music;
         
         if ( count($all) == 1)
           $_SESSION["playlist"][] = array_pop($all);

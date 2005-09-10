@@ -13,6 +13,27 @@
   $menu = new menu();
   $info = new infotab();
   
+  function movie_details ($movie)
+  {
+    $info      = array_pop(db_toarray("select * from movies where file_id=$movie"));
+    $directors = db_toarray("select d.director_name from directors_of_movie dom, directors d where dom.director_id = d.director_id and dom.movie_id=$movie");
+    $actors    = db_toarray("select a.actor_name from actors_in_movie aim, actors a where aim.actor_id = a.actor_id and aim.movie_id=$movie");
+    $genres    = db_toarray("select g.genre_name from genres_of_movie gom, genres g where gom.genre_id = g.genre_id and gom.movie_id=$movie");
+    $cert      = db_value("select concat(' (',name,')') from certificates where cert_id =".$info["CERTIFICATE"]);
+    
+    echo font_colour_tags('TITLE_COLOUR',str('TITLE')).' : '.shorten($info["TITLE"].$cert,450).'<p>';
+    
+    if ( !is_null($info["SYNOPSIS"]) )
+    {
+      echo '<p>'.shorten($info["SYNOPSIS"],530,1,3);
+
+      if ( !is_null($info["YEAR"]) )
+        echo " [".$info["YEAR"]."]";
+    }
+    else 
+      echo str('NO_SYNOPSIS_AVAILABLE');
+  }
+  
   // Function that checks to see if the given attribute ($filter) is unique, and if so it
   // populates the information table.
 
@@ -92,24 +113,24 @@
   //
     
   if ($num_rows == 1)
-  {
-    page_header( str('ONE_ITEM') ,'','LOGO_MOVIE');
+  {    
     // Single match, so get the details from the database and display them
     if ( ($data = db_toarray("select media.*, a.actor_name, d.director_name, g.genre_name, ".get_cert_name_sql()." certificate_name from $sql_table where ".substr($newsql,5))) === false)
       page_error( str('DATABASE_ERROR'));
 
-    $info->add_item( str('TITLE')       , $data[0]["TITLE"]);
-    $info->add_item( str('YEAR')        , $data[0]["YEAR"]);
-    $info->add_item( str('CERTIFICATE') , $data[0]["CERTIFICATE_NAME"]);
-    $info->add_item( str('DIRECTOR')    , $data[0]["DIRECTOR_NAME"]);
-    $info->add_item( str('STARRING')    , $data[0]["ACTOR_NAME"]);
-    $info->add_item( str('GENRE')       , $data[0]["GENRE_NAME"]);
-    $menu->add_item( str('PLAY_NOW')    , pl_link('file',$data[0]["DIRNAME"].$data[0]["FILENAME"]));
+    page_header( $data[0]["TITLE"] ,'','LOGO_MOVIE');
 
+    $menu->add_item( str('PLAY_NOW')    , pl_link('file',$data[0]["DIRNAME"].$data[0]["FILENAME"]));
     $folder_img = file_albumart($data[0]["DIRNAME"].$data[0]["FILENAME"]);
 
     if (pl_enabled())
       $menu->add_item( str('ADD_PLAYLIST') ,'add_playlist.php?sql='.rawurlencode('select * from movies where file_id='.$data[0]["FILE_ID"]),true);
+
+    // Link to full cast & directors
+    $menu->add_item( str('MOVIE_INFO'), 'video_info.php?movie='.$data[0]["FILE_ID"],true);
+    
+    // Display movie information
+    movie_details($data[0]["FILE_ID"]);
   }
 
   //
@@ -130,7 +151,6 @@
       $folder_img = file_albumart($data[0]["DIRNAME"]);
 
     $info->add_item( str('TITLE')       , distinct_info('title',$sql_table, $newsql));
-    $info->add_item( str('STARRING')    , distinct_info('actor_name',$sql_table, $newsql));
     $info->add_item( str('YEAR')        , distinct_info('year',$sql_table, $newsql));
     $info->add_item( str('CERTIFICATE') , distinct_info(/*'certificate'*/get_cert_name_sql(),$sql_table, $newsql));
     $menu->add_item( str('PLAY_NOW')    , pl_link('sql',"select * from $sql_table where ".substr($newsql,5)." order by title"));
@@ -139,12 +159,13 @@
       $menu->add_item( str('ADD_PLAYLIST') ,'add_playlist.php?sql='.rawurlencode("select * from $sql_table where ".substr($newsql,5)." order by title"),true);
 
     check_filters( array('title','year','certificate','genre_name','actor_name','director_name'), $sql_table, $newsql, $menu);
-  }
 
+    $info->display();
+  }
+  
   // Is there a picture for us to display?
   if (! empty($folder_img) )
   {
-    $info->display();
     echo '<p><table width="100%" cellpadding=0 cellspacing=0 border=0>
           <tr><td valign=top width="170px" align="center">
               <table width="100%"><tr><td height="10px"></td></tr><tr><td valign=top>
@@ -156,7 +177,6 @@
   }
   else
   {
-    $info->display();
     $menu->display();
   }
 
