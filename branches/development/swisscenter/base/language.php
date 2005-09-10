@@ -26,8 +26,6 @@ function load_lang_strings ( $lang = 'en-gb' )
     $_SESSION["language"] = array_merge($_SESSION["language"],$keys);
     send_to_log("Loaded $lang language file");
   }
-  else 
-    send_to_log("Unable to locate $lang language file");
 }
 
 function load_lang ()
@@ -58,7 +56,7 @@ function load_lang ()
 
 function str( $key )
 {
-//  if (!isset($_SESSION["language"]) )
+  if (!isset($_SESSION["language"]) )
     load_lang();
     
   if (! isset($_SESSION["language"][strtoupper($key)]) )

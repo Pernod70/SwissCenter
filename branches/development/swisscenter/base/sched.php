@@ -11,7 +11,7 @@
 
 function run_background ( $command, $days = '', $soon ='' )
 {
-  if ( substr(PHP_OS,0,3)=='WIN' )
+  if ( is_windows() )
   {
     if (empty($soon))
       $soon = date('H:i',time()+70);
@@ -24,12 +24,18 @@ function run_background ( $command, $days = '', $soon ='' )
     exec('at '.$soon.' CMD /C """"'.os_path(PHP_LOCATION).'" "'.os_path(SC_LOCATION.$command).'""""');
 
   }
-  else
+  elseif ( is_unix() )
   {
     $log = (is_null($logfile) ? '/dev/null' : os_path(SC_LOCATION.$logfile));
+    
+    // Try to work out where the php.ini file lives so that we can use it in the background command.
+    if (file_exists('/etc/php.ini'))
+      $php_ini = '-c /etc';
+    else 
+      $php_ini = '';
 
     // UNIX, so run with '&' to force it to the background.
-    exec( '"'.os_path(PHP_LOCATION).'" "'.os_path(SC_LOCATION.$command).'" > "'.$log.'" &' );
+    exec( '"'.os_path(PHP_LOCATION).'" '.$php_ini.' "'.os_path(SC_LOCATION.$command).'" > "'.$log.'" &' );
   }
 }
 

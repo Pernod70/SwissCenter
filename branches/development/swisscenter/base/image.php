@@ -6,8 +6,10 @@
 require_once("mysql.php");
 require_once("prefs.php");
  
+// Do we have the "gd" extension loaded? can we load it dynamically?
 if (!extension_loaded('gd'))
-  dl('gd.so');
+  if (! dl('gd.so'))
+    send_to_log("Unable to perform image functions - PHP compiled without 'gd' support.");
 
 #-------------------------------------------------------------------------------------------------
 # Returns the colour number ofr a 24-bit colour
@@ -24,19 +26,24 @@ function colour ( $r, $g, $b)
 
 function precache( $filename, $x, $y, $overwrite = true )
 {
-  // Create a new image
-  $image = new CImage();
+  if ( extension_loaded('gd') )
+  {
+    // Create a new image
+    $image = new CImage();
+    
+    // Load the image from disk
+    if (strtolower(file_ext($filename)) == 'sql')
+      $image->load_from_database( substr($filename,0,-4) );
+    elseif ( file_exists($filename) || substr($filename,0,4) == 'http' )
+      $image->load_from_file($filename); 
+    else  
+      send_to_log('Unable to process image specified : '.$filename);  
   
-  // Load the image from disk
-  if (strtolower(file_ext($filename)) == 'sql')
-    $image->load_from_database( substr($filename,0,-4) );
-  elseif ( file_exists($filename) || substr($filename,0,4) == 'http' )
-    $image->load_from_file($filename); 
-  else  
-    send_to_log('Unable to process image specified : '.$filename);  
-  
-  $image->resize($x, $y);
-  $image->cache($overwrite);
+    $image->resize($x, $y);
+    $image->cache($overwrite);
+  }
+  else 
+    send_to_log('Unable to pre-cache image : '.$filename);
 }
 
 // -------------------------------------------------------------------------------------------------

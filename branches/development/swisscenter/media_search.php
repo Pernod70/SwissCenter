@@ -106,7 +106,10 @@
                      ,"discovered"   => db_datestr() );
 
         if (db_insert_row( "photos", $data))
+        {
+          // TO-DO... the x,y sizes will change depending on the aspect ration and resolution of the display device(s) in use
           precache($dir.$file, 80, 80);
+        }
         else
           send_to_log('Unable to add PHOTO to the database');
       }
@@ -250,8 +253,11 @@
   media_indicator('BLINK');
   process_media_dirs( db_toarray("select * from media_locations where media_type=1") ,'mp3s',   explode(',' ,MEDIA_EXT_MUSIC));
   process_media_dirs( db_toarray("select * from media_locations where media_type=3") ,'movies', explode(',' ,MEDIA_EXT_MOVIE));
-  extra_get_all_movie_details();
   process_media_dirs( db_toarray("select * from media_locations where media_type=2") ,'photos', explode(',' ,MEDIA_EXT_PHOTOS));
+
+  if (internet_available())
+    extra_get_all_movie_details();
+  
   media_indicator('OFF');
      
   // Eliminate duplicate entries in the database. (in case the unique index hasn't been enforced)

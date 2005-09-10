@@ -9,6 +9,6 @@
   define( 'MEDIA_EXT_PHOTOS',  'jpeg,jpg,gif' );
   
   // Maximum number of entries within a playlist.
-  define( 'MAX_PLAYLIST_SIZE', 3999);
+  define( 'MAX_PLAYLIST_SIZE', 2000);
 
 ?>

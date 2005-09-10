@@ -51,15 +51,21 @@
 
  function set_sys_pref( $name, $value)
  {
-   db_sqlcommand("delete from system_prefs where name='".strtoupper($name)."'");
-   $result = db_insert_row('system_prefs', array("NAME"=>strtoupper($name), "VALUE"=>$value) );
-
-   if (!$result)
-     send_to_log("Unable to store system preference '$name' = '$value'");
-   else
-     send_to_log("Set system preference '$name' to '$value'");
-
-   return $result;
+   // Only update if the value changes
+   if (db_value("select count(*) from system_prefs where name='".strtoupper($name)."' and value='$value'") == 0)
+   {
+     db_sqlcommand("delete from system_prefs where name='".strtoupper($name)."'");
+     $result = db_insert_row('system_prefs', array("NAME"=>strtoupper($name), "VALUE"=>$value) );
+  
+     if (!$result)
+       send_to_log("Unable to store system preference '$name' = '$value'");
+     else
+       send_to_log("Set system preference '$name' to '$value'");
+  
+     return $result;
+   }
+   else 
+     return true;
  }
  
 /**************************************************************************************************

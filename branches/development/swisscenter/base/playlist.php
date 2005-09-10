@@ -29,8 +29,15 @@ function pl_link( $type, $spec= '', $media = 'playlist')
           $link .= 'pod="3,1,'.$server.'playing_list.php?userid='.get_current_user_id().'&shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&spec='.rawurlencode($spec).'" ';
           break;
     case 'photo':
-          $link .= 'href="MUTE" ';
-          $link .= 'pod="1,1,'.$server.'gen_photolist.php?shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&spec='.rawurlencode($spec).'" ';
+          if (is_showcenter())
+          {
+            $link .= 'href="MUTE" ';
+            $link .= 'pod="1,1,'.$server.'gen_photolist.php?shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&spec='.rawurlencode($spec).'" ';
+          }
+          else 
+          {
+            $link .= 'href="gen_photolist.php?shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&spec='.rawurlencode($spec).'" ';
+          }
           break;
     default :
           $link .= 'href="gen_playlist.php?shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&spec='.rawurlencode($spec).'" ';
