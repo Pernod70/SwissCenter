@@ -3,11 +3,11 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-  require_once("base/page.php");
-  require_once("base/mysql.php");
+  include_once("base/server.php");
   require_once("base/utils.php");
-  require_once("base/file.php");
   require_once("base/playlist.php");
+  require_once("base/capabilities.php");
+  require_once("base/file.php");
 
 //*************************************************************************************************
 // Main logic

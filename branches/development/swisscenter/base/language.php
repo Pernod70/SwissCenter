@@ -20,8 +20,8 @@ function load_lang_strings ( $lang = 'en-gb' )
     foreach (explode("\n",str_replace("\r",null,file_get_contents($lang_file))) as $line)
       if ( strlen($line) > 0 && $line[0] != '#')
       {
-      	$ex = explode('= ',$line,2);
-        $keys[strtoupper(trim($ex[0]))] = $ex[1];
+      	$ex = explode('=',$line,2);
+        $keys[strtoupper(trim($ex[0]))] = ltrim($ex[1]);
       }      
     $_SESSION["language"] = array_merge($_SESSION["language"],$keys);
     send_to_log("Loaded $lang language file");

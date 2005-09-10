@@ -139,7 +139,7 @@ function form_label( $text, $hpos = "R", $vpos = "B" )
 #        the value that will appear in the list for the user to select.
 #-------------------------------------------------------------------------------------------------
 
-function form_list_dynamic_html ( $param, $sql, $value = "", $opt = false, $submit = false, $inital_txt = '- Please Specify -')
+function form_list_dynamic_html ( $param, $sql, $value = "", $opt = false, $submit = false, $inital_txt = '')
 {
   $html = '<select '.
           ($opt ? '' : ' required ').
@@ -147,7 +147,7 @@ function form_list_dynamic_html ( $param, $sql, $value = "", $opt = false, $subm
           ' size="1"'.
           ($submit ? ' onChange="this.form.submit();"' : '').
           '>'.
-          '<option value="">'.$inital_txt;
+          '<option value=""> &lt;'.( empty($inital_txt) ? str('PLEASE_SELECT') : $inital_txt).'&gt; ';
 
   $recs = new db_query( $sql );
   if ($recs->db_success() )
@@ -190,7 +190,7 @@ function form_list_static( $param, $prompt, $list, $value = "", $opt = false,  $
         <td><select '.($opt ? '' : ' required ').' name="'.$param.'" size="1">';
 
   if ($ins)
-    echo '<option value="">- Please Specify -';
+    echo '<option value=""> &lt;'.str('PLEASE_SELECT').'&gt; ';
 
   while( list($akey,$avalue) = each($list) )
     echo '<option '.( $avalue ==$value ? 'selected ' : '').'value="'.$avalue.'">'.$akey;

@@ -7,15 +7,15 @@
   // Shows the result of an SQL statement as a HTML table
   //
   
-  function array_to_table( $data, $width = '100%' )
+  function array_to_table( $data, $table_headings = '', $width = '100%' )
   {  
     if (count($data) !=0)
     { 
       echo '<table class="form_select_tab" width="'.$width.'"><tr>';
   
-      foreach ($data[0] as $heading => $value)
-        echo '<th>'.ucwords(str_replace('_',' ',strtolower($heading))).'</th>';
-  
+      foreach (explode(',',$table_headings) as $value)
+        echo '<th>'.ucwords($value).'</th>';
+
       foreach ($data as $row)
       {
         echo '</tr><tr>';
