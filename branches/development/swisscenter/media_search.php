@@ -22,7 +22,7 @@
     send_to_log('New MP3 found : '.$file);
     $filepath = os_path($dir.$file);
     $data     = array();
-    $getID3  = new getID3;
+    $getID3   = new getID3;
     $id3      = $getID3->analyze($filepath);
 
     if (in_array( $id3["fileformat"],array('mp3','asf')) )
@@ -208,10 +208,23 @@
         }
         elseif ( in_array(strtolower(file_ext($file)),$file_exts) )
         {
-          // Is this file already in the database?
-          $cnt = db_value("select count(*) from $table where dirname='".db_escape_str($dir)."' and filename='".db_escape_str($file)."'");
-          if ($cnt == 0)
+          $db_date   = db_value("select discovered from $table where location_id=$id and dirname='".db_escape_str($dir)."' and filename='".db_escape_str($file)."'");
+          $file_date = db_datestr(filemtime($dir.$file));
+
+          if ( !is_null($db_date) && ($db_date >= $file_date) )
           {
+            // Record exists in database, and there have been no modifications to the file
+            db_sqlcommand("update $table set verified ='Y' where location_id=$id and dirname='".db_escape_str($dir)."' and filename='".db_escape_str($file)."'");
+          }
+          else
+          {
+            if ($file_date > $db_date)
+            {
+              // Record exists, but the modification time of the file is more recent
+              db_sqlcommand("delete from $table where location_id=$id and dirname='".db_escape_str($dir)."' and filename='".db_escape_str($file)."'");
+            }
+              
+            // Add the file's details to the database.
             switch ($table)
             {
               case 'mp3s'   : process_mp3(   $dir, $id, $file);  break;
@@ -219,8 +232,6 @@
               case 'photos' : process_photo( $dir, $id, $file);  break;
             }
           }
-          else
-            db_sqlcommand("update $table set verified ='Y' where dirname='".db_escape_str($dir)."' and filename='".db_escape_str($file)."'");
         }
       }
       closedir($dh);

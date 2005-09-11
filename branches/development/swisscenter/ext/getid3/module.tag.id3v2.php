@@ -418,7 +418,6 @@ class getid3_id3v2
 			$returnarray['genre'][] = $genrestring;
 
 		} else {
-		  send_to_log($genrestring);
 			while (strpos($genrestring, '(') !== false) {
 
 				$startpos = strpos($genrestring, '(');
