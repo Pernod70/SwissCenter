@@ -14,11 +14,6 @@
   // Process any actions passed on the query string
   //---------------------------------------------------------------------------------------
 
-  // Load a playlist (Overwriting or appending to the existing playlist)
-  
-  if ( isset($_REQUEST["load"]) && !empty($_REQUEST["load"]))
-    load_pl(rawurldecode($_REQUEST["load"]),$_REQUEST["action"]);
-
   // Save the Playlist
   if ( isset($_REQUEST["save"]) && !empty($_REQUEST["save"]))
     save_pl($_REQUEST['save']);

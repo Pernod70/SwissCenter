@@ -409,6 +409,13 @@ WEATHER_WIND		= Wind
 WEEKDAY			= Weekday
 YEAR			= Year
 
+# 11.Sep.2005
+
+PLAYLIST_LOAD_OK	= Playlist loaded successfully.
+PLAYLIST_NAME_USE	= Save with this filename
+PLAYLIST_NAME_CANCEL	= Cancel - Do not save
+CAPTIALISE		= Capitalise
+
 #----------------------------------------------------------------------------------------------------
 # End-of-file
 #----------------------------------------------------------------------------------------------------

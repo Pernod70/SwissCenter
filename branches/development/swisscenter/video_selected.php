@@ -13,6 +13,9 @@
   $menu = new menu();
   $info = new infotab();
   
+  // Displays the details for a single movie (identified by the movie ID) including the title, year, certificate
+  // and synopsis (where available).
+  
   function movie_details ($movie)
   {
     $info      = array_pop(db_toarray("select * from movies where file_id=$movie"));

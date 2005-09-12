@@ -11,13 +11,39 @@ if (!extension_loaded('gd'))
   if (! dl('gd.so'))
     send_to_log("Unable to perform image functions - PHP compiled without 'gd' support.");
 
-#-------------------------------------------------------------------------------------------------
-# Returns the colour number ofr a 24-bit colour
-#-------------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------
+// Returns the colour number ofr a 24-bit colour
+// -------------------------------------------------------------------------------------------------
 
 function colour ( $r, $g, $b)
 {
   return ($r << 16) | ($g << 8) | $b;
+}
+
+// -------------------------------------------------------------------------------------------------
+// Modifies the ($x,$y) dimesnsions given for an image after it has been scaled to fit within the 
+// specified bounding box ($box_x,$box_y)
+// -------------------------------------------------------------------------------------------------
+
+function image_get_scaled_xy(&$x,&$y,$box_x,$box_y)
+{
+  if ($x >0 && $y >0 && $box_x>0 && $box_y>0)
+  {
+    if ($x <= $y || ($box_x/$x*$y > $box_y) )
+    {
+      $newx = floor($box_y / $y * $x);
+      $newy = $box_y;
+    }
+    
+    if ($x >= $y || ($box_y/$y*$x > $box_x) )    
+    {
+      $newx = $box_x;
+      $newy = floor($box_x / $x * $y);
+    }
+          
+    $x = $newx;
+    $y = $newy;
+  }
 }
 
 // -------------------------------------------------------------------------------------------------
@@ -110,11 +136,12 @@ function reduce_cache()
 
 function output_cached_file( $filename )
 {
-    header("Content-Type: image/png");
-    touch($filename);
-    $fp = fopen($filename, 'rb')  ;
-    fpassthru($fp);
-    fclose($fp);
+  if ( file_exists($filename) )
+  {
+    $image = new CImage();
+    $image->load_from_file($filename);
+    $image->output('jpg');
+  }
 }
 
 #-------------------------------------------------------------------------------------------------
@@ -277,19 +304,18 @@ class CImage
   function resize($x, $y, $bgcolour=0, $keep_aspect = true)
   {    
     if ($this->image !== false && $x > 0 && $y > 0 && ($x != $this->width || $y != $this->height))
-    {
+    {      
+      // Work out new image sizes
       if ($keep_aspect) 
       {
-        if ($x && ($this->width < $this->height))
-        {
-          $newx = floor(($y / $this->height) * $this->width);
-          $newy = $y;
-        }
-        else
-        {
-          $newx = $x;
-          $newy = floor(($x / $this->width) * $this->height);
-        }
+        $newx = $this->get_width();
+        $newy = $this->get_height();
+        image_get_scaled_xy($newx,$newy,$x,$y);
+      } 
+      else 
+      {
+        $newx = $this->$x;
+        $newy = $this->$y;
       }
 
       $old = $this->image;

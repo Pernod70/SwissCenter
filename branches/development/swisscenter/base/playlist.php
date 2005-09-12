@@ -16,6 +16,9 @@ require_once("ext/getid3/getid3.php");
 
 function playlist_all_music()
 {
+  if (empty($_SESSION["playlist"]) || count($_SESSION["playlist"])==0)
+    return false;
+  
   foreach ($_SESSION["playlist"] as $row)
     if ( db_value("select count(*) from mp3s where file_id=$row[FILE_ID] and dirname='".db_escape_str($row["DIRNAME"])."' and filename='".db_escape_str($row["FILENAME"])."'") == 0 )
       return false;
