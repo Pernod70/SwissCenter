@@ -419,6 +419,13 @@ COMPACT_VIEW		= Compact View
 BROWSE_PHOTO_ALBUM	= Browse by photo album
 BROWSE_DATE		= Browse by date
 PHOTO_ALBUM		= Photo album
+PC_LINK_HOME		= Home
+PC_LINK_PHOTOS		= Photos
+PC_LINK_MOVIES		= Movies
+PC_LINK_MUSIC		= Music
+PC_LINK_BACK		= Back
+KEYBOARD_SPC		= SPACE
+KEYBOARD_DEL		= DELETE
 
 #----------------------------------------------------------------------------------------------------
 # End-of-file

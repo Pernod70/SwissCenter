@@ -27,7 +27,7 @@
     $post_sql  = $_SESSION["history"][count($_SESSION["history"])-1]["sql"];
     $main_table_sql = "$main_table media ".get_rating_join();
 
-// Adding necessary paramters to the target URL (for when an item is selected)
+    // Adding necessary paramters to the target URL (for when an item is selected)
     $choose_url = url_set_param($choose_url,'add','Y');
     $choose_url = url_set_param($choose_url,'type',$column);
 

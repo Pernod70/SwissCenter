@@ -11,8 +11,6 @@ session_start();
 ob_start();
 
 require_once("settings.php");
-require_once("capabilities.php");
-
 require_once("stylelib.php");
 require_once("menu.php");
 require_once("infotab.php");
@@ -27,29 +25,6 @@ function current_session()
     return 'session_id='.$_COOKIE["PHPSESSID"];
   else 
     return substr(SID,strpos(SID,'=')+1);
-}
-
-#-------------------------------------------------------------------------------------------------
-# Determine screen type (currently only PAL or NTSC - no support for HDTV).
-#-------------------------------------------------------------------------------------------------
-
-function get_screen_type()
-{  
-  if ( !isset($_SESSION["display_type"]) )
-  {
-    if (is_showcenter())
-    {
-      $text = @file_get_contents('http://'.client_ip().':2020/readsyb_options_page.cgi');  
-      if (substr_between_strings($text, 'HasPAL','/HasPAL') == 1)
-        $_SESSION["display_type"] = 'PAL';
-      else
-        $_SESSION["display_type"] = 'NTSC';
-    }
-    else 
-      $_SESSION["display_type"] = 'PAL';
-  }
-  
-  return $_SESSION["display_type"];
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -211,6 +186,17 @@ function img_gen( $filename, $x, $y, $type = false, $bgcol = false, $stretch = f
 }
 
 //-------------------------------------------------------------------------------------------------
+// Displays a button on the PC browser to perform the same action as on the remote control.
+//-------------------------------------------------------------------------------------------------
+
+function pc_nav_button($text, $url)
+  {
+   return '<td align="center" width="'.(SCREEN_WIDTH/5).'" background="../images/pc_nav_button.jpg" onclick="document.location=\''.$url.'\';">
+         <a href="'.$url.'"><font color="#000000"><b>'.$text.'</b></font></a>
+         </td>';
+  }
+
+//-------------------------------------------------------------------------------------------------
 // Finishes the page layout, including the formatting of any ABC buttons that have been defined.
 // Adds an iconbar if there is one but only if there are no buttons
 //-------------------------------------------------------------------------------------------------
@@ -260,8 +246,16 @@ function page_footer( $back, $buttons= '', $iconbar = 0 )
   
   // Test the browser, and if the user is viewing from a browser other than the one on the
   // showcenter then output a "Back" Button (as this would normally be a IR remote button).
-  if (strpos($_SERVER["HTTP_USER_AGENT"],'Syabas') === false)
-    echo '<a href="'.$back.'"><img src="/images/dot.gif" width="'.SCREEN_WIDTH.'" height="30" border=0></a>';
+  if (! is_showcenter() )
+  {
+    echo '<table style="position:absolute; top:'.SCREEN_HEIGHT.'px; left:0px; " width="'.SCREEN_WIDTH.'" cellspacing="10" cellpadding="0"><tr>'.
+         pc_nav_button(str('PC_LINK_HOME')   , '/index.php').
+         pc_nav_button(str('PC_LINK_MUSIC')  , '/music.php').
+         pc_nav_button(str('PC_LINK_MOVIES') , '/video.php').
+         pc_nav_button(str('PC_LINK_PHOTOS') , '/photo.php').
+         pc_nav_button(str('PC_LINK_BACK')   , $back).
+         '</tr></table>';
+  }
   
   echo '<a href="'.$back.'" TVID="backspace"></a>
         <a href="music.php" TVID="music"></a>

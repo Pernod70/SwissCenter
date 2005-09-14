@@ -12,19 +12,26 @@
 
     $cols = 6;
 
-    echo '<table><tr>
-                 <td colspan=3 height="30px" align="center"><a href="'.
-                     $url.rawurlencode($search." ").'&last=KEY_SPC" name="KEY_SPC">SPACE</a></td>
-                 <td colspan=3 height="30px" align="center"><a href="'.
-                     $url.rawurlencode(substr($search,0,-1)).'&last=KEY_DEL" name="KEY_DEL">DELETE</a></td>
-                 </tr>
-                 <tr>';
+    echo '<table>
+            <tr>
+              <td colspan=3 height="30px" align="center">';
+                $url = url_set_param($url,'last','KEY_SPC');
+                $url = url_set_param($url,'search', rawurlencode($search.' '));
+                echo '<a href="'.$url.'" name="KEY_SPC">'.str('KEYBOARD_SPACE').'</a>';
+    echo '    </td>
+              <td colspan=3 height="30px" align="center">';
+                $url = url_set_param($url,'last','KEY_DEL');
+                $url = url_set_param($url,'search', rawurlencode(substr($search,0,-1)));
+                echo '<a href="'.$url.'" name="KEY_DEL">'.str('KEYBOARD_DELETE').'</a>';
+    echo '    </td>
+            </tr>
+            <tr>';
 
     for ($n=1; $n<=strlen($keys); $n++)
     {
       $this_key = substr($keys,($n-1),1);
       $url = url_set_param($url,'last','KEY_'.$this_key);
-      $url = url_set_param($url,'search',$search.$this_key);
+      $url = url_set_param($url,'search',rawurlencode($search.$this_key));
       echo '<td width="25px" height="30px" align="center"><a href="'.$url.'" name="KEY_'.$this_key.'">'.$this_key.'</a></td>';
 
       // End of row? start another
@@ -32,7 +39,8 @@
         echo '</tr><tr>';
     }
 
-    echo '</tr></table>';
+    echo '  </tr>
+          </table>';
 
     // Save the history of the A-Z picker.
     $_SESSION["last_picker"][count($_SESSION["history"])] = current_url();

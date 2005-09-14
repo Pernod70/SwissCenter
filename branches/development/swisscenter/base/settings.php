@@ -4,6 +4,7 @@
  *************************************************************************************************/
 
 session_start();
+require_once("capabilities.php");
 require_once("utils.php");
 require_once("mysql.php");
 require_once("server.php");
@@ -16,7 +17,6 @@ require_once("language.php");
 #-------------------------------------------------------------------------------------------------
 
   define( 'MAX_PER_PAGE',   8 ); // Menus only
-  define( 'SCREEN_WIDTH',   620 );
   define( 'THUMB_W',        150 );
   define( 'THUMB_H',        225 );
   
