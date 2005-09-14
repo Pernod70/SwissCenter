@@ -17,12 +17,12 @@
               <td colspan=3 height="30px" align="center">';
                 $url = url_set_param($url,'last','KEY_SPC');
                 $url = url_set_param($url,'search', rawurlencode($search.' '));
-                echo '<a href="'.$url.'" name="KEY_SPC">'.str('KEYBOARD_SPACE').'</a>';
+                echo '<a href="'.$url.'" name="KEY_SPC">'.str('KEYBOARD_SPC').'</a>';
     echo '    </td>
               <td colspan=3 height="30px" align="center">';
                 $url = url_set_param($url,'last','KEY_DEL');
                 $url = url_set_param($url,'search', rawurlencode(substr($search,0,-1)));
-                echo '<a href="'.$url.'" name="KEY_DEL">'.str('KEYBOARD_DELETE').'</a>';
+                echo '<a href="'.$url.'" name="KEY_DEL">'.str('KEYBOARD_DEL').'</a>';
     echo '    </td>
             </tr>
             <tr>';
