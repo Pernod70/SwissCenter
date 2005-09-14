@@ -10,5 +10,7 @@
   
   // Maximum number of entries within a playlist.
   define( 'MAX_PLAYLIST_SIZE', 2000);
+  define( 'THUMBNAIL_X_SIZE',  80);
+  define( 'THUMBNAIL_Y_SIZE',  80);  
 
 ?>

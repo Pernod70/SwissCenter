@@ -230,11 +230,11 @@ function find_in_dir($dir, $filename)
   if (empty($actual))
     return false;
   else
-    return os_path(str_suffix($dir,'/')).$actual;
+    return str_suffix($dir,'/').$actual;
 }
 
 //-------------------------------------------------------------------------------------------------
-// Writes the contents of a string int a file
+// Writes the contents of a string into a file
 //-------------------------------------------------------------------------------------------------
 
 function write_binary_file($filename, $str)
@@ -311,7 +311,7 @@ function file_icon( $fsp )
   $sc_location = SC_LOCATION;
   $name = 'filetype_'.file_ext($fsp).'.gif';
 
- if (in_array(file_ext(strtolower($fsp)),array('jpg','gif','png','jpeg')))
+  if (in_array(file_ext(strtolower($fsp)),array('jpg','gif','png','jpeg')))
   {
     // The file is actually an image, so generate it as a thumbnail
     return $fsp;
@@ -463,7 +463,6 @@ function file_albumart( $fsp )
     if ($return === false && dirname($fsp) != $fsp)
       $return = file_albumart(dirname($fsp));    
   } 
-
   return $return;
 }
 

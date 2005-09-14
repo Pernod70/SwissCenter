@@ -97,9 +97,14 @@
   // to the left hand side).
   // ----------------------------------------------------------------------------------
 
-  function display_names ($url, $dir, $dir_list, $file_list, $start, $end, $page, $up, $down)
+  function display_names ($url, $dir, $dir_list, $file_list, $page)
   {
-    $menu = new menu();
+    $menu      = new menu();
+    $no_items  = 8;
+    $start     = $page * ($no_items);
+    $end       = min(count($dir_list)+count($file_list) , $start+$no_items);
+    $up        = ($page > 0);
+    $down      = ($end < count($dir_list)+count($file_list));
 
     if ($up)
       $menu->add_up($url.'?page='.($page-1).'&DIR='.rawurlencode($dir));
@@ -146,10 +151,26 @@
   // Displays the dirs/files to the user in "thumbnail" format 
   // ----------------------------------------------------------------------------------
 
-  function display_thumbs ($url, $dir, $dir_list, $file_list, $start, $end, $page, $up, $down)
+  function display_thumbs ($url, $dir, $dir_list, $file_list, $page)
   {
-    $tlist = new thumb_list(550);
+    $tlist   = new thumb_list(550);
 
+    // Compact View
+    if ( get_user_pref("DISPLAY_THUMBS") == "COMPACT" )
+    {
+      $tlist->set_num_cols(6);
+      $tlist->set_num_rows(3);
+      $tlist->set_titles_off();
+      $no_items = 18;
+    }
+    else 
+      $no_items = 8;
+
+    $start = $page * ($no_items);
+    $end   = min(count($dir_list)+count($file_list) , $start+$no_items);
+    $up    = ($page > 0);
+    $down  = ($end < count($dir_list)+count($file_list));
+    
    // Populate an array with the details that will be displayed
     for ($i=$start; $i<$end; $i++)
     {
@@ -191,8 +212,6 @@
     $url         = $_SERVER["PHP_SELF"];
     $page        = ( !isset($_REQUEST["page"]) ? 0 : $_REQUEST["page"]);
     $dir         = ( empty($_REQUEST["DIR"]) ? '' : un_magic_quote(rawurldecode($_REQUEST["DIR"])));
-    $start       = $page * (MAX_PER_PAGE);
-    $end         = min(count($dir_list)+count($file_list) , $start+MAX_PER_PAGE);
     $buttons     = array();
 
     // Switch between Thumbnail/Details view?
@@ -201,15 +220,20 @@
 
     page_header( $heading, substr($dir,0,-1), $logo );
 
-    if ( get_user_pref("DISPLAY_THUMBS") == "YES" )
+    if ( get_user_pref("DISPLAY_THUMBS") == "FULL" )
     {
-      display_thumbs ($url, $dir, $dir_list, $file_list, $start, $end, $page, ($page > 0), ($end < count($dir_list)+count($file_list)));
+      display_thumbs ($url, $dir, $dir_list, $file_list, $page);
+      $buttons[] = array('text'=>str('COMPACT_VIEW'), 'url'=>$url.'?thumbs=COMPACT&DIR='.rawurlencode($dir) );
+    }
+    elseif ( get_user_pref("DISPLAY_THUMBS") == "COMPACT" )
+    {
+      display_thumbs ($url, $dir, $dir_list, $file_list, $page);
       $buttons[] = array('text'=>str('LIST_VIEW'), 'url'=>$url.'?thumbs=NO&DIR='.rawurlencode($dir) );
     }
     else
     {
-      display_names ($url, $dir, $dir_list, $file_list, $start, $end, $page, ($page > 0), ($end < count($dir_list)+count($file_list)));
-      $buttons[] = array('text'=>str('THUMBNAIL_VIEW'), 'url'=>$url.'?thumbs=YES&DIR='.rawurlencode($dir) );
+      display_names ($url, $dir, $dir_list, $file_list, $page);
+      $buttons[] = array('text'=>str('THUMBNAIL_VIEW'), 'url'=>$url.'?thumbs=FULL&DIR='.rawurlencode($dir) );
     }
     
     // Should we present a link to select all files?

@@ -15,7 +15,7 @@ require_once("language.php");
 # changing it (for example, it would mess up the screen display).
 #-------------------------------------------------------------------------------------------------
 
-  define( 'MAX_PER_PAGE',   8 );
+  define( 'MAX_PER_PAGE',   8 ); // Menus only
   define( 'SCREEN_WIDTH',   620 );
   define( 'THUMB_W',        150 );
   define( 'THUMB_H',        225 );

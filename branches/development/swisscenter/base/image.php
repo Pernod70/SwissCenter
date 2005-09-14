@@ -5,7 +5,7 @@
 
 require_once("mysql.php");
 require_once("prefs.php");
- 
+
 // Do we have the "gd" extension loaded? can we load it dynamically?
 if (!extension_loaded('gd'))
   if (! dl('gd.so'))
@@ -134,13 +134,24 @@ function reduce_cache()
 # Outputs a cached file directly to the browser
 #-------------------------------------------------------------------------------------------------
 
-function output_cached_file( $filename )
+function output_cached_file( $filename , $type = '')
 {
   if ( file_exists($filename) )
   {
-    $image = new CImage();
-    $image->load_from_file($filename);
-    $image->output('jpg');
+    if ($type != '')
+    {
+      $image = new CImage();
+      $image->load_from_file($filename);
+      $image->output($type,false);
+      send_to_log('Outputting as '.strtoupper($type).' for '.$filename);
+    }
+    else 
+    {
+      header("Content-type: image/png");
+      $fp = fopen($filename,'rb');
+      fpassthru($fp);
+      send_to_log('Using passthru() for '.$filename);
+    }
   }
 }
 
@@ -369,7 +380,7 @@ class CImage
   // at the given location.
   // -------------------------------------------------------------------------------------------------
 
-  function output ($type)
+  function output ($type, $cache = true)
   {
     if ($this->image !== false)
     {
@@ -391,7 +402,8 @@ class CImage
       }  
     }
     
-    $this->cache();
+    if ($cache)
+      $this->cache();
   }
 
   // -------------------------------------------------------------------------------------------------
@@ -403,19 +415,20 @@ class CImage
     if ($this->src_fsp !== false )
     {
       $fsp = $this->cache_filename;
-      if ($fsp !== false && ($overwrite || !file_exists($fsp)) )
+      if ($fsp !== false )
       {
-        ImagePng($this->image, $fsp);  
-        reduce_cache();
+      	if ($overwrite || !file_exists($fsp))
+      	{
+          ImagePng($this->image, $fsp);  
+          reduce_cache();
+      	}
+      	else
+      	  touch($fsp);
       }
     }
   }
   
 }
-
-   
-
-
 
 /**************************************************************************************************
                                                End of file

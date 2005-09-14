@@ -21,15 +21,26 @@ class thumb_list
   var $up;
   var $down;
   var $control_width;
+  var $titles = true;
 
   var $n_cols = 4;
   var $n_rows = 2;
-  var $tn_size = array("X"=>80, "Y"=>80);
+  var $tn_size = array("X"=>THUMBNAIL_X_SIZE, "Y"=>THUMBNAIL_Y_SIZE);
 
   #-------------------------------------------------------------------------------------------------
   # Get/Set attributes
   #-------------------------------------------------------------------------------------------------
 
+  function set_titles_on()
+  {
+    $this->titles = true;
+  }
+  
+  function set_titles_off()
+  {
+    $this->titles = false;
+  }
+  
   function set_num_rows ($number)
   {
     $this->n_rows = $number;
@@ -50,7 +61,7 @@ class thumb_list
     $this->down = $url;
   }
 
-  function set_thumbnail_size ($x = 80, $y = 80)
+  function set_thumbnail_size ($x, $y)
   {
     $this->tn_size = array("X"=>$x,"Y"=>$y);
   }
@@ -97,7 +108,7 @@ class thumb_list
     echo '</td></tr></table><font size="1"><br></font>';
   
     // Display the table containing the images and textual links
-    echo '<table border="0" width="'.$this->control_width.'px" border="0" cellspacing="0px" cellpadding="4"><tr>';      
+    echo '<table width="'.$this->control_width.'px" border="0" cellspacing="0px" cellpadding="2"><tr>';      
 
         
     for ($row=0; $row < $this->n_rows; $row++)
@@ -110,19 +121,30 @@ class thumb_list
       for ($col=0; $col < $max_col_this_row ; $col++)
       {
         $cell_no = $row*$this->n_cols+$col;
-        echo '<td valign="middle" height="'.($this->tn_size["Y"]).'" width="'.$cell_width.'px"><center>'.img_gen($this->items[$cell_no]["img"],$this->tn_size["X"],$this->tn_size["Y"]).'</center></td>';        
+        $img_src = rawurlencode($this->items[$cell_no]["img"]);
+        $img_x   = $this->tn_size["X"];
+        $img_y   = $this->tn_size["Y"];
+        echo '<td valign="middle" height="'.($this->tn_size["Y"]).'" width="'.$cell_width.'px"><center>'
+             .($this->titles ? '' : '<a '.$this->items[$cell_no]["url"].'>')
+             .'<img border=0 width="'.$img_x.'" src="thumb.php?bgcol=0&x='.$img_x.'&y='.$img_y.'&src='.$img_src.'">'
+             .($this->titles ? '' : '</a>')
+             .'</center></td>';        
       }
       
       echo "</tr><tr>";
 
-      // Text/Link
-      for ($col=0; $col < $max_col_this_row ; $col++)
+      if ($this->titles) 
       {
-        $cell_no = $row*$this->n_cols+$col;
-        echo '<td valign="top" width="'.$cell_width.'px"><center><a name="'.($cell_no + 1).'" '.$this->items[$cell_no]["url"].'><font size="1">'.$this->items[$cell_no]["txt"].'</font></a></center></td>';
+        // Text/Link
+        for ($col=0; $col < $max_col_this_row ; $col++)
+        {
+          $cell_no = $row*$this->n_cols+$col;
+          echo '<td valign="top" width="'.$cell_width.'px"><center><a name="'.($cell_no + 1).'" '
+               .$this->items[$cell_no]["url"].'><font size="1">'.$this->items[$cell_no]["txt"].'</font></a></center></td>';
+        }
+  
+        echo "</tr><tr>";      
       }
-
-      echo "</tr><tr>";      
     }
     
     echo '</tr></table>';
