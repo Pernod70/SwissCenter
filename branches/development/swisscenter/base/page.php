@@ -110,11 +110,6 @@ function page_header( $title, $tagline = "",  $logo = "", $meta = "", $focus="1"
     exit;
   }
   
-  if (empty($logo))
-    $logo = '/images/logo.gif';
-  else 
-    $logo = style_img($logo);
-
   if (get_screen_type() == 'NTSC')
   {
     $logo                   = '';
@@ -125,7 +120,7 @@ function page_header( $title, $tagline = "",  $logo = "", $meta = "", $focus="1"
   }
   else
   {
-    $logo                   = '<td width="160px" height="92px" valign="center" align="center"><img src="'.$logo.'"></td>';
+    $logo                   = '<td width="160px" height="92px" valign="center" align="center"><img src="/images/logo.gif"></td>';
     $headings               = '<td height="92px" align="center"><h2>'.$title.'&nbsp;</h2>'.$tagline.'&nbsp;</td>';
     $background_image       = style_img("PAL_BACKGROUND");
     $heading_padding_top    = 4;

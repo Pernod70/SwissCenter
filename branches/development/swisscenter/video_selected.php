@@ -77,18 +77,8 @@
 
   // Decode & assign page parameters to variables.
 
-  $type      = un_magic_quote($_REQUEST["type"]);
+  $column      = un_magic_quote($_REQUEST["type"]);
   
-  switch ($type)
-  {
-    case "title":        $column = 'title';             break;
-    case "year":         $column = 'year';              break;
-    case "genre":        $column = 'genre_name';        break;
-    case "actor":        $column = 'actor_name';        break;
-    case "director":     $column = 'director_name';     break;
-    case "certificate":  $column = get_cert_name_sql(); break;
-  }
-
   $sql_table  = "movies media
                 left outer join directors_of_movie dom on media.file_id = dom.movie_id
                 left outer join genres_of_movie gom on media.file_id = gom.movie_id

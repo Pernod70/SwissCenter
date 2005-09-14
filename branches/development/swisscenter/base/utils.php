@@ -408,9 +408,9 @@ function url_add_param($url, $param, $value)
     return $url.'&'.$param.'='.$value;  
   }
   else
-  {
+  {    
     // Paramters present, and there is already a value for this paramter
-    return preg_replace('/([?&]'.$param.'=)[^&]*/','\1'.$value,$url); 
+    return preg_replace('/([?&]'.$param.'=)[^&]*/','${1}'.$value,$url); 
   }
 }
 

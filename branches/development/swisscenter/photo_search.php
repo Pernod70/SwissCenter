@@ -26,7 +26,7 @@
         break;
   }
 
-  search_page( $title, $table, $column, $choose_url )
+  search_media_page( str('VIEW_PHOTO'), $title, $table, '', $column, $choose_url )
 
 
 /**************************************************************************************************
