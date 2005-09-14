@@ -70,7 +70,7 @@ class menu
     {
       foreach ($this->menu_items as $item)
       {
-        $text = shorten($item["text"],$size - 50);
+        $text = shorten_chars($item["text"],$size - 50);
 
         $link = $item["url"];
         if (substr($link,0,5) != 'href=')

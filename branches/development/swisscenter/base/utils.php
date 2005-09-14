@@ -325,7 +325,7 @@ function arrayUnique( $array, $key )
 // indicate it has been shortened
 // ----------------------------------------------------------------------------------
 
-function shorten( $text, $trunc, $font_size = 1, $lines = 1, $dots = true )
+function shorten( $text, $trunc, $font_size = 1, $lines = 1, $dots = true, $word_trunc = true )
 {
   if(empty($text))
     return $text;
@@ -367,7 +367,7 @@ function shorten( $text, $trunc, $font_size = 1, $lines = 1, $dots = true )
       else
       {
         // Trims the string back to the last whitespace (max 8 chars will be trimmed)
-        if ( (strlen($short_string) - strrpos($short_string,' ')) <10)
+        if ( $word_trunc && (strlen($short_string) - strrpos($short_string,' ')) <10)
           $short_string = substr($short_string,0,strrpos($short_string,' ')+1);
         
         break;
@@ -379,6 +379,16 @@ function shorten( $text, $trunc, $font_size = 1, $lines = 1, $dots = true )
     $short_string .= "...";
 
   return $short_string;
+}
+
+//
+// Calls the function above, but specifies that the string should be cut short without
+// backtracking to the last space.
+//
+
+function shorten_chars( $text, $trunc, $font_size = 1, $lines = 1, $dots = true )
+{
+  return shorten($text, $trunc, $font_size, $lines, $dots, false);
 }
 
 // ----------------------------------------------------------------------------------
