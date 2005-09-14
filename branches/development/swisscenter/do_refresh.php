@@ -6,6 +6,7 @@
   require_once("base/page.php");
   require_once("base/utils.php");
   require_once("base/file.php");
+  require_once("base/media.php");
 
   //
   // Main Code
@@ -13,7 +14,7 @@
 
   $menu = new menu();
 
-  run_background('media_search.php');
+  media_refresh_now();
   page_header( str('REFRESH_DATABASE'), '', 'LOGO_CONFIG' );
 
 // At some point in the future, this will take you back to the media refresh screen (via a redirect).

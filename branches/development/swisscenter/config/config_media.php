@@ -2,15 +2,17 @@
 /**************************************************************************************************
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
-  
+
+include_once('base/media.php');
+
   function media_search()
   {
-    run_background('media_search.php');
+    media_refresh_now();
     echo "<h1>".str('SETUP_SEARCH_NEW_MEDIA')."</h1>";
     message(str('REFRESH_DATABASE_PROMPT'));
     echo '<p>'.str('REFRESH_RUNNING');
   }
-   
+   media
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/
