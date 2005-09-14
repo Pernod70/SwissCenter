@@ -5,6 +5,7 @@
 
 require_once("file.php");
 require_once("sched.php");
+require_once("prefs.php");
 
 $char_widths = array(   "A" => 16,  "B" => 12,  "C" => 15,  "D" => 14,  "E" => 14,  "F" => 14,  "G" => 15,  "H" => 15,
                         "I" => 4,   "J" => 10,  "K" => 14,  "L" => 11,  "M" => 16,  "N" => 15,  "O" => 16,  "P" => 14,
@@ -417,6 +418,14 @@ function url_add_param($url, $param, $value)
 function url_set_param($url, $param, $value)
 {
   return url_add_param($url, $param, $value);
+}
+
+// ----------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------
+
+function swisscente_version()
+{
+  return get_sys_pref('last_update',get_sys_pref('database_version'));
 }
 
 /**************************************************************************************************

@@ -74,7 +74,7 @@ require_once("language.php");
     {
       // Check for program update
       $new_update_version = file_get_contents('http://update.swisscenter.co.uk/release/last_update.txt');
-      $_SESSION["update"]["available"] = ($new_update_version > get_sys_pref('last_update',get_sys_pref('database_version')) );
+      $_SESSION["update"]["available"] = ( version_compare($new_update_version, swisscenter_version()) > 0);
     }
     
     if ( get_sys_pref('messages_enabled','YES') == 'YES')
