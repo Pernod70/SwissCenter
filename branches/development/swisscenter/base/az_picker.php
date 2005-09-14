@@ -23,8 +23,9 @@
     for ($n=1; $n<=strlen($keys); $n++)
     {
       $this_key = substr($keys,($n-1),1);
-      echo '<td width="25px" height="30px" align="center"><a href="'.
-            $url.rawurlencode($search.$this_key).'&last=KEY_'.$this_key.'" name="KEY_'.$this_key.'">'.$this_key.'</a></td>';
+      $url = url_set_param($url,'last','KEY_'.$this_key);
+      $url = url_set_param($url,'search',$search.$this_key);
+      echo '<td width="25px" height="30px" align="center"><a href="'.$url.'" name="KEY_'.$this_key.'">'.$this_key.'</a></td>';
 
       // End of row? start another
       if ($n % $cols == 0)

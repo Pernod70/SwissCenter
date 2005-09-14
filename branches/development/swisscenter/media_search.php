@@ -9,9 +9,12 @@
   require_once("base/file.php");
   require_once("base/image.php");
   require_once("ext/getid3/getid3.php");
+  require_once("ext/exif/exif_reader.php");
   require_once("video_obtain_info.php");
 
   set_time_limit(86400);
+  
+  $cache_dir = get_sys_pref('cache_dir');
 
   // ----------------------------------------------------------------------------------
   // MUSIC
@@ -83,11 +86,14 @@
 
   function process_photo( $dir, $id, $file)
   {
+    global $cache_dir;
+    
     send_to_log('New Photo found : '.$file);
     $filepath = os_path($dir.$file);
     $data     = array();
     $getID3   = new getID3;
     $id3      = $getID3->analyze($filepath);
+    $exif     = exif($dir.$file);
 
     if (in_array( $id3["fileformat"],array('jpg','gif','png','jpeg')) )
     {
@@ -96,19 +102,23 @@
         // File Info successfully obtained, so enter it into the database
         $data = array("dirname"        => $dir
                      ,"filename"       => $file
-                     ,"location_id"  => $id
+                     ,"location_id"    => $id
                      ,"size"           => $id3["filesize"]
                      ,"width"          => $id3["video"]["resolution_x"]
                      ,"height"         => $id3["video"]["resolution_y"]
                      ,"date_modified"  => filemtime($filepath)
-                     ,"date_created"   => 0
-                     ,"verified"     => 'Y'
-                     ,"discovered"   => db_datestr() );
+                     ,"date_created"   => $exif["DTDigitised"]
+                     ,"verified"       => 'Y'
+                     ,"discovered"     => db_datestr() );
+                     
+        send_to_log('GETID3',$id3);
+        send_to_log('EXIF',exif($dir.$file));
 
-        if (db_insert_row( "photos", $data))
+        if (db_insert_row( "photos", $data) && $cache_dir != '')
         {
           // TO-DO... the x,y sizes will change depending on the aspect ration and resolution of the display device(s) in use
-          precache($dir.$file, 80, 80);
+          send_to_log('Pre-caching thumbnail');
+          precache($dir.$file, THUMBNAIL_X_SIZE, THUMBNAIL_Y_SIZE);
         }
         else
           send_to_log('Unable to add PHOTO to the database');
@@ -190,6 +200,27 @@
   }
 
   // ----------------------------------------------------------------------------------
+  // Adds a photo "album" (all possible photo directories)
+  // ----------------------------------------------------------------------------------
+
+  function add_photo_album( $dir, $id )
+  {
+    $count = db_value("select count(*) from photo_albums where dirname='$dir'");
+    if ($count == 0)
+    {
+      $row = array("dirname"       => $dir
+                   ,"title"        => basename($dir)
+                   ,"verified"     => 'Y'
+                   ,"discovered"   => db_datestr()
+                   ,"location_id"  => $id
+                   );
+
+      if ( db_insert_row( "photo_albums", $row) === false )
+        send_to_log('Unable to add photo album to the database');
+    }
+  }
+  
+  // ----------------------------------------------------------------------------------
   // Recursive scan through the directory, finding all the MP3 files.
   // ----------------------------------------------------------------------------------
 
@@ -204,24 +235,38 @@
         {
           // Regular directory, so recurse and get files.
           if (($file) !='.' && ($file) !='..')
+          {
+            if ($table == 'photos')
+              add_photo_album($dir.$file, $id);
+
             scan_dirs( $dir.$file.'/', $id, $table, $file_exts);
+          }
         }
         elseif ( in_array(strtolower(file_ext($file)),$file_exts) )
         {
-          $db_date   = db_value("select discovered from $table where location_id=$id and dirname='".db_escape_str($dir)."' and filename='".db_escape_str($file)."'");
           $file_date = db_datestr(filemtime($dir.$file));
+          $db_date   = db_value("select discovered from $table 
+                                  where location_id=$id 
+                                    and dirname='".db_escape_str($dir)."' 
+                                    and filename='".db_escape_str($file)."'");
 
           if ( !is_null($db_date) && ($db_date >= $file_date) )
           {
             // Record exists in database, and there have been no modifications to the file
-            db_sqlcommand("update $table set verified ='Y' where location_id=$id and dirname='".db_escape_str($dir)."' and filename='".db_escape_str($file)."'");
+            db_sqlcommand("update $table set verified ='Y' 
+                            where location_id=$id 
+                              and dirname='".db_escape_str($dir)."' 
+                              and filename='".db_escape_str($file)."'");
           }
           else
           {
             if ($file_date > $db_date)
             {
               // Record exists, but the modification time of the file is more recent
-              db_sqlcommand("delete from $table where location_id=$id and dirname='".db_escape_str($dir)."' and filename='".db_escape_str($file)."'");
+              db_sqlcommand("delete from $table 
+                              where location_id=$id 
+                                and dirname='".db_escape_str($dir)."' 
+                                and filename='".db_escape_str($file)."'");
             }
               
             // Add the file's details to the database.
@@ -238,6 +283,11 @@
     }
   }
 
+  // ----------------------------------------------------------------------------------
+  // Processes each media location in turn, setting the verified flag and deleting
+  // records which are no longer available.
+  // ----------------------------------------------------------------------------------
+
   function process_media_dirs( $media_locations, $table, $types)
   {
     send_to_log('Refreshing '.strtoupper($table).' database');
@@ -249,35 +299,82 @@
     db_sqlcommand("delete from $table where verified ='N'");
     send_to_log('Completed refreshing '.strtoupper($table).' database');
   }
+
+  // ----------------------------------------------------------------------------------
+  // Removes orphaned media files and albumart from the database (where the media
+  // location has been removed).
+  // ----------------------------------------------------------------------------------
+
+  function remove_orphaned_records()
+  {
+    @db_sqlcommand('delete from maa  '.
+                   ' using mp3_albumart maa left outer join mp3s m  '.
+                   '    on maa.file_id = m.file_id '.
+                   ' where m.file_id is null');
+    
+    @db_sqlcommand('delete from m  '.
+                   ' using mp3s m left outer join media_locations ml  '.
+                   '    on ml.location_id = m.location_id '.
+                   ' where ml.location_id is null');
+    
+    @db_sqlcommand('delete from m '.
+                   ' using movies m left outer join media_locations ml  '.
+                   '    on ml.location_id = m.location_id  '.
+                   ' where ml.location_id is null');
+    
+    @db_sqlcommand('delete from m '.
+                   ' using photos m left outer join media_locations ml  '.
+                   '    on ml.location_id = m.location_id '.
+                   ' where ml.location_id is null');
+  }
   
+  // ----------------------------------------------------------------------------------
+  // Eliminate duplicate records (when the version of MySQL is too low to support the
+  // unique indexes created).
+  // ----------------------------------------------------------------------------------
+  
+  function eliminate_duplicates()
+  {
+    @db_sqlcommand('   CREATE TEMPORARY TABLE mp3s_del AS    '.
+                   '   SELECT max(file_id) file_id           '.
+                   '     FROM mp3s                           '.
+                   ' GROUP BY dirname,filename               '.
+                   '   HAVING count(*)>1');
+    
+    @db_sqlcommand('   CREATE TEMPORARY TABLE movies_del AS  '. 
+                   '   SELECT max(file_id) file_id           '.
+                   '     FROM movies                         '.
+                   ' GROUP BY dirname,filename               '.
+                   '   HAVING count(*)>1');
+    
+    @db_sqlcommand('   CREATE TEMPORARY TABLE photos_del AS  '.
+                   '   SELECT max(file_id) file_id           '.
+                   '     FROM photos                         '.
+                   ' GROUP BY dirname,filename               '.
+                   '   HAVING count(*)>1');
+    
+    @db_sqlcommand('DELETE FROM mp3s   USING mp3s, mp3s_del     WHERE mp3s.file_id = mp3s_del.file_id');
+    @db_sqlcommand('DELETE FROM movies USING movies, movies_del WHERE movies.file_id = movies_del.file_id');
+    @db_sqlcommand('DELETE FROM photos USING photos, photos_del WHERE photos.file_id = photos_del.file_id');  
+  }
+    
   //===========================================================================================
   // Main script logic
   //===========================================================================================
 
-  // Removes orphaned media files (where the media_location has been removed) and orphaned ID3 albumart images
-  @db_sqlcommand('delete from maa using mp3_albumart maa left outer join mp3s m on maa.file_id = m.file_id where m.file_id is null');
-  @db_sqlcommand('delete from m using mp3s m left outer join media_locations ml on ml.location_id = m.location_id where ml.location_id is null');
-  @db_sqlcommand('delete from m using movies m left outer join media_locations ml on ml.location_id = m.location_id where ml.location_id is null');
-  @db_sqlcommand('delete from m using photos m left outer join media_locations ml on ml.location_id = m.location_id where ml.location_id is null');
-
-  // Do the update
+  remove_orphaned_records();
   media_indicator('BLINK');
-  process_media_dirs( db_toarray("select * from media_locations where media_type=1") ,'mp3s',   explode(',' ,MEDIA_EXT_MUSIC));
-  process_media_dirs( db_toarray("select * from media_locations where media_type=3") ,'movies', explode(',' ,MEDIA_EXT_MOVIE));
+//  process_media_dirs( db_toarray("select * from media_locations where media_type=1") ,'mp3s',   explode(',' ,MEDIA_EXT_MUSIC));
+//  process_media_dirs( db_toarray("select * from media_locations where media_type=3") ,'movies', explode(',' ,MEDIA_EXT_MOVIE));
   process_media_dirs( db_toarray("select * from media_locations where media_type=2") ,'photos', explode(',' ,MEDIA_EXT_PHOTOS));
 
   if (internet_available())
     extra_get_all_movie_details();
   
   media_indicator('OFF');
+  eliminate_duplicates();
      
-  // Eliminate duplicate entries in the database. (in case the unique index hasn't been enforced)
-  @db_sqlcommand('CREATE TEMPORARY TABLE mp3s_del   AS SELECT max(file_id) file_id FROM mp3s   GROUP BY dirname,filename HAVING count(*)>1');
-  @db_sqlcommand('CREATE TEMPORARY TABLE movies_del AS SELECT max(file_id) file_id FROM movies GROUP BY dirname,filename HAVING count(*)>1');
-  @db_sqlcommand('CREATE TEMPORARY TABLE photos_del AS SELECT max(file_id) file_id FROM photos GROUP BY dirname,filename HAVING count(*)>1');
-  @db_sqlcommand('DELETE FROM mp3s   USING mp3s, mp3s_del     WHERE mp3s.file_id = mp3s_del.file_id');
-  @db_sqlcommand('DELETE FROM movies USING movies, movies_del WHERE movies.file_id = movies_del.file_id');
-  @db_sqlcommand('DELETE FROM photos USING photos, photos_del WHERE photos.file_id = photos_del.file_id');
+
 
 /**************************************************************************************************
                                                End of file

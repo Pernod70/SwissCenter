@@ -409,12 +409,16 @@ WEATHER_WIND		= Wind
 WEEKDAY			= Weekday
 YEAR			= Year
 
-# 11.Sep.2005
+# v1.13
 
 PLAYLIST_LOAD_OK	= Playlist loaded successfully.
 PLAYLIST_NAME_USE	= Save with this filename
 PLAYLIST_NAME_CANCEL	= Cancel - Do not save
 CAPTIALISE		= Capitalise
+COMPACT_VIEW		= Compact View
+BROWSE_PHOTO_ALBUM	= Browse by photo album
+BROWSE_DATE		= Browse by date
+PHOTO_ALBUM		= Photo album
 
 #----------------------------------------------------------------------------------------------------
 # End-of-file

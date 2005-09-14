@@ -26,7 +26,7 @@
   $data       = pl_tracklist($type, $spec, $shuffle, $seed);
   $x          = 625;
   $y          = ( get_screen_type() == 'PAL' ? 500 : 418);
-  $thumb_url  = $server.'thumb.php?x='.$x.'&y='.$y.'&src='; 
+  $thumb_url  = $server.'thumb.php?type=jpg&x='.$x.'&y='.$y.'&src='; 
   
   $delay      = (count($data) > 1 ? 5 : 3600);  // If a single photo, then display for 1 hour.
 
