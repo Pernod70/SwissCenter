@@ -9,6 +9,7 @@
   require_once("base/file.php");
   require_once("base/playlist.php");
   require_once("base/rating.php");
+  require_once("base/search.php");
 
   $menu = new menu();
   $info = new infotab();
@@ -40,10 +41,10 @@
   // Function that checks to see if the given attribute ($filter) is unique, and if so it
   // populates the information table.
 
-  function distinct_info ($filter, $sql_table, $newsql)
+  function distinct_info ($filter, $sql_table, $predicate)
   {
-    if (db_value("select count(distinct $filter) from $sql_table where ".substr($newsql,5)) == 1) 
-      return db_value("select $filter from $sql_table where ".substr($newsql,5). ' limit 1,1');
+    if (db_value("select count(distinct $filter) from $sql_table $predicate" == 1) )
+      return db_value("select $filter from $sql_table $newsq limit 1,1");
     else
       return '';
   }
@@ -51,11 +52,11 @@
   // Function that checks to see if the supplied SQL contains a filter for the specified type.
   // If it doesn't, then we can output a menu item which allows the user to filter on that type.
 
-  function check_filters ($filter_list, $sql_table, $newsql, &$menu )
+  function check_filters ($filter_list, $sql_table, $predicate, &$menu )
   {
     foreach ($filter_list as $filter)
     {
-      $num_rows  = db_value("select count(distinct $filter) from $sql_table where ".substr($newsql,5));
+      $num_rows  = db_value("select count(distinct $filter) from $sql_table $predicate");
       if ($num_rows>1)
       {
         switch ($filter)
@@ -76,9 +77,6 @@
 //*************************************************************************************************
 
   // Decode & assign page parameters to variables.
-
-  $column      = un_magic_quote($_REQUEST["type"]);
-  
   $sql_table  = "movies media
                 left outer join directors_of_movie dom on media.file_id = dom.movie_id
                 left outer join genres_of_movie gom on media.file_id = gom.movie_id
@@ -86,19 +84,11 @@
                 left outer join actors a on aim.actor_id = a.actor_id
                 left outer join directors d on dom.director_id = d.director_id
                 left outer join genres g on gom.genre_id = g.genre_id".
-                get_rating_join();
-  
-  $name      = un_magic_quote(rawurldecode($_REQUEST["name"]));
-  $back_url  = $_SESSION["history"][count($_SESSION["history"])-1]["url"];
-  $post_sql  = $_SESSION["history"][count($_SESSION["history"])-1]["sql"];
-  $newsql    = $post_sql." and $column like '".db_escape_str(str_replace('_','\_',$name))."'";  
-  $num_rows  = db_value("select count( distinct file_id) from $sql_table where ".substr($newsql,5));
-
-  if (isset($_REQUEST["shuffle"]))
-    $_SESSION["shuffle"] = $_REQUEST["shuffle"];
-
-  if (isset($_REQUEST["add"]) && strtoupper($_REQUEST["add"]) == 'Y')
-    $_SESSION["history"][] = array("url"=> str_replace('add=Y','add=N',url_add_param(current_url(),'p_del','Y')), "sql"=>$newsql);
+                get_rating_join().
+                ' where 1=1 ';  
+  $predicate = search_process_passed_params();
+  $num_rows  = db_value("select count( distinct media.file_id) from $sql_table $predicate");
+  $this_url   = url_set_param(current_url(),'add','N');
 
   //
   // A single movie has been matched/selected by the user, so display as much information as possible
@@ -108,7 +98,7 @@
   if ($num_rows == 1)
   {    
     // Single match, so get the details from the database and display them
-    if ( ($data = db_toarray("select media.*, a.actor_name, d.director_name, g.genre_name, ".get_cert_name_sql()." certificate_name from $sql_table where ".substr($newsql,5))) === false)
+    if ( ($data = db_toarray("select media.*, a.actor_name, d.director_name, g.genre_name, ".get_cert_name_sql()." certificate_name from $sql_table $predicate")) === false)
       page_error( str('DATABASE_ERROR'));
 
     page_header( $data[0]["TITLE"] ,'','LOGO_MOVIE');
@@ -137,21 +127,21 @@
     // More than one track matches, so output filter details and menu options to add new filters
     page_header( str('MANY_ITEMS',$num_rows),'','LOGO_MOVIE');
 
-    if ( ($data = db_toarray("select dirname from $sql_table where ".substr($newsql,5)." group by dirname")) === false )
+    if ( ($data = db_toarray("select dirname from $sql_table $predicate group by dirname")) === false )
       page_error( str('DATABASE_ERROR') );
 
     if ( count($data)==1)
       $folder_img = file_albumart($data[0]["DIRNAME"]);
 
-    $info->add_item( str('TITLE')       , distinct_info('title',$sql_table, $newsql));
-    $info->add_item( str('YEAR')        , distinct_info('year',$sql_table, $newsql));
-    $info->add_item( str('CERTIFICATE') , distinct_info(/*'certificate'*/get_cert_name_sql(),$sql_table, $newsql));
-    $menu->add_item( str('PLAY_NOW')    , pl_link('sql',"select * from $sql_table where ".substr($newsql,5)." order by title"));
+    $info->add_item( str('TITLE')       , distinct_info('title',$sql_table, $predicate));
+    $info->add_item( str('YEAR')        , distinct_info('year',$sql_table, $predicate));
+    $info->add_item( str('CERTIFICATE') , distinct_info(/*'certificate'*/get_cert_name_sql(),$sql_table, $predicate));
+    $menu->add_item( str('PLAY_NOW')    , pl_link('sql',"select * from $sql_table $predicate order by title"));
 
     if (pl_enabled())
-      $menu->add_item( str('ADD_PLAYLIST') ,'add_playlist.php?sql='.rawurlencode("select * from $sql_table where ".substr($newsql,5)." order by title"),true);
+      $menu->add_item( str('ADD_PLAYLIST') ,'add_playlist.php?sql='.rawurlencode("select * from $sql_table $predicate order by title"),true);
 
-    check_filters( array('title','year','certificate','genre_name','actor_name','director_name'), $sql_table, $newsql, $menu);
+    check_filters( array('title','year','certificate','genre_name','actor_name','director_name'), $sql_table, $predicate, $menu);
 
     $info->display();
   }
@@ -174,9 +164,9 @@
   }
 
   if (!isset($_SESSION["shuffle"]) || $_SESSION["shuffle"] == 'off')
-    $buttons[] = array('text'=>str('SHUFFLE_ON'), 'url'=>'video_selected.php?shuffle=on&name='.$name.'&type='.$type );
+    $buttons[] = array('text'=>str('SHUFFLE_ON'), 'url'=> url_set_param($this_url,'shuffle','on') );
   else
-    $buttons[] = array('text'=>str('SHUFFLE_OFF'), 'url'=>'video_selected.php?shuffle=off&name='.$name.'&type='.$type );
+    $buttons[] = array('text'=>str('SHUFFLE_OFF'), 'url'=> url_set_param($this_url,'shuffle','off') );
 
   page_footer( url_add_param($_SESSION["last_picker"][count($_SESSION["history"])-1],'del','y'), $buttons );
   

@@ -12,7 +12,7 @@
   switch ($column)
   {
     case "filename":
-        $title       = str('TITLE');
+        $title       = str('PHOTO_TITLE');
         break;
     case "title":
         $title       = str('PHOTO_ALBUM');

@@ -25,8 +25,8 @@
 
     $menu = new menu();
     $menu->add_item( str('BROWSE_PHOTO_ALBUM') ,"photo_search.php?sort=title",true);
-    $menu->add_item( str('BROWSE_TITLE')       ,"photo_search.php?sort=filename",true);
-    $menu->add_item(str('BROWSE_FILESYSTEM')   ,"photo_browse.php",true);
+    $menu->add_item( str('BROWSE_PHOTO_TITLE') ,"photo_search.php?sort=filename",true);
+    $menu->add_item( str('BROWSE_FILESYSTEM')  ,"photo_browse.php",true);
     $menu->display();
     
     if(!empty($cat_id))
@@ -37,7 +37,7 @@
 
 /**************************************************************************************************
    Main page output
-   *************************************************************************************************/
+ *************************************************************************************************/
 
   page_header(str('VIEW_PHOTO'),'', 'LOGO_PHOTO');
   $cat_id = $_REQUEST["cat"];

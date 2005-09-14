@@ -30,7 +30,7 @@
       break;
   }
 
-  search_media_page( 'WATCH_MOVIE', $title, 'movies', $joined_tables, $column, 'video_selected.php')
+  search_media_page( str('WATCH_MOVIE'), $title, 'movies', $joined_tables, $column, 'video_selected.php')
 
 /**************************************************************************************************
                                                End of file
