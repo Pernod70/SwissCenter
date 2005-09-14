@@ -19,13 +19,13 @@
 
   $server     = server_address();
   $type       = un_magic_quote($_REQUEST["type"]);
-  $spec       = un_magic_quote($_REQUEST["spec"]);
+  $spec       = $_SESSION["play_now"]["spec"];
   $seed       = $_REQUEST["seed"];
   $shuffle    = ($_REQUEST["shuffle"] == "on" ? true : false);
   $item_count = 0;
   $data       = pl_tracklist($type, $spec, $shuffle, $seed);
-  $x          = 625;
-  $y          = ( get_screen_type() == 'PAL' ? 500 : 418);
+  $x          = SCREEN_WIDTH;
+  $y          = SCREEN_HEIGHT;
   $thumb_url  = $server.'thumb.php?type=jpg&x='.$x.'&y='.$y.'&src='; 
   
   $delay      = (count($data) > 1 ? 5 : 3600);  // If a single photo, then display for 1 hour.
@@ -62,8 +62,9 @@
   else 
   {
     // do some javascript here to display a slideshow on the PC
-    echo '<script language="javascript" src="slideshow.js"></script>
-          <img id="piccy" src="/images/dot.gif">        
+    echo '<body bgcolor="#000000" TOPMARGIN="0" LEFTMARGIN="0" MARGINHEIGHT="0" MARGINWIDTH="0">
+          <script language="javascript" src="slideshow.js"></script>
+          <center><img id="piccy" src="/images/dot.gif"></center>
           <script language="javascript">
           var slides = new Array('.count($data).');'.newline();
 

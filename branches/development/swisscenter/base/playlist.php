@@ -36,31 +36,36 @@ function pl_link( $type, $spec= '', $media = 'playlist')
   $link   = '';
   $seed   = mt_rand();
   $server = server_address();
+  
+  // Save the specification into the session (We'll also need to share the session by specifying the "session_id" paramter on the URL)
+  $_SESSION["play_now"]["spec"] = $spec;
 
   switch ($media)
   {
     case 'audio' :
           // Build link
-          $link .= 'href="gen_playlist.php?shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&spec='.rawurlencode($spec).'" ';
-          $link .= 'pod="3,1,'.$server.'playing_list.php?userid='.get_current_user_id().'&shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&spec='.rawurlencode($spec).'" ';
+          $link .= 'href="gen_playlist.php?shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&'.current_session().'" ';
+          $link .= 'pod="3,1,'.$server.'playing_list.php?userid='.get_current_user_id().'&shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&'.current_session().'" ';
           break;
     case 'photo':
           if (is_showcenter())
           {
             $link .= 'href="MUTE" ';
-            $link .= 'pod="1,1,'.$server.'gen_photolist.php?shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&spec='.rawurlencode($spec).'" ';
+            $link .= 'pod="1,1,'.$server.'gen_photolist.php?shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&'.current_session().'" ';
           }
           else 
           {
-            $link .= 'href="gen_photolist.php?shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&spec='.rawurlencode($spec).'" target="_blank" ';
+            $url  = $server.'gen_photolist.php?shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&'.current_session();
+            $args = "'".$url."','Slideshow','scrollbars=0, toolbar=0, width=".(SCREEN_WIDTH).", height=".(SCREEN_HEIGHT)."'";
+            $link = 'href="#" onclick="window.open('.$args.')"';
           }
           break;
     default :
-          $link .= 'href="gen_playlist.php?shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&spec='.rawurlencode($spec).'" ';
+          $link .= 'href="gen_playlist.php?shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&'.current_session().'" ';
 
           if ( playlist_all_music())
             $link .= 'pod="3,1,'.$server.'playing_list.php?'.current_session().'&userid='.get_current_user_id().'&shuffle='.$_SESSION["shuffle"]
-                    .'&seed='.$seed.'&type='.$type.'&spec='.rawurlencode($spec).'" ';
+                    .'&seed='.$seed.'&type='.$type.'" ';
           else 
             $link .= 'vod="playlist" ';
 
@@ -76,6 +81,8 @@ function pl_link( $type, $spec= '', $media = 'playlist')
 
 function pl_tracklist($type, $spec, $shuffle = false, $seed = 0)
 {
+  $spec = $_SESSION["play_now"]["spec"];
+  
   switch ($type)
   {
     case 'playlist':

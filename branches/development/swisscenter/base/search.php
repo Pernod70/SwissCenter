@@ -16,15 +16,15 @@
       array_pop($_SESSION["history"]);
 
     // Get important paramters from the URL
-    $this_url  = current_url();
-    $search    = un_magic_quote(rawurldecode($_REQUEST["search"]));
-    $prefix    = $_REQUEST["any"];
-    $page      = ( empty($_REQUEST["page"]) ? 0 : $_REQUEST["page"]);
-    $focus     = (empty($_REQUEST["last"]) ? 'KEY_SPC' : $_REQUEST["last"] );
-    $menu      = new menu();
-    $data      = array();
-    $back_url  = $_SESSION["history"][count($_SESSION["history"])-1]["url"];
-    $post_sql  = $_SESSION["history"][count($_SESSION["history"])-1]["sql"];
+    $this_url       = current_url();
+    $search         = un_magic_quote(rawurldecode($_REQUEST["search"]));
+    $prefix         = $_REQUEST["any"];
+    $page           = ( empty($_REQUEST["page"]) ? 0 : $_REQUEST["page"]);
+    $focus          = (empty($_REQUEST["last"]) ? 'KEY_SPC' : $_REQUEST["last"] );
+    $menu           = new menu();
+    $data           = array();
+    $back_url       = $_SESSION["history"][count($_SESSION["history"])-1]["url"];
+    $post_sql       = $_SESSION["history"][count($_SESSION["history"])-1]["sql"];
     $main_table_sql = "$main_table media ".get_rating_join();
 
     // Adding necessary paramters to the target URL (for when an item is selected)

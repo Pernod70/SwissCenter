@@ -6,19 +6,16 @@
   require_once("base/search.php");
 
   // Check page parameters
-  $column    = $_REQUEST["sort"];
+  $column        = $_REQUEST["sort"];
+  $joined_tables = "inner join photo_albums pa on media.dirname like concat(pa.dirname,'%') ";
 
   switch ($column)
   {
     case "filename":
-        $title      = str('TITLE');
-        $table      = 'photos';
-        $choose_url = 'photo_selected.php';
+        $title       = str('TITLE');
         break;
     case "title":
-        $title      = str('PHOTO_ALBUM');
-        $table      = 'photo_albums';
-        $choose_url = 'photo_album_selected.php';
+        $title       = str('PHOTO_ALBUM');
         break;
     default :
         send_to_log('Unknown $column in photo_album_search.php');
@@ -26,8 +23,7 @@
         break;
   }
 
-  search_media_page( str('VIEW_PHOTO'), $title, $table, '', $column, $choose_url )
-
+  search_media_page( str('VIEW_PHOTO'), $title, 'photos', $joined_tables, $column, 'photo_selected.php' )
 
 /**************************************************************************************************
                                                End of file

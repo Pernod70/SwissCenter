@@ -3,6 +3,7 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
+  include_once("base/page.php");
   include_once("base/server.php");
   require_once("base/utils.php");
   require_once("base/playlist.php");
@@ -19,7 +20,7 @@
 
   $server     = server_address();
   $type       = un_magic_quote($_REQUEST["type"]);
-  $spec       = un_magic_quote($_REQUEST["spec"]);
+  $spec       = $_SESSION["play_now"]["spec"];
   $seed       = $_REQUEST["seed"];
   $shuffle    = ($_REQUEST["shuffle"] == "on" ? true : false);
   $item_count = 0;

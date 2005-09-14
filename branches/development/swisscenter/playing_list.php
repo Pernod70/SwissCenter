@@ -10,7 +10,7 @@
   $server     = server_address();
   $shuffle    = ($_REQUEST["shuffle"] == "on" ? true : false);
   $type       = un_magic_quote($_REQUEST["type"]);
-  $spec       = un_magic_quote($_REQUEST["spec"]);
+  $spec       = $_SESSION["play_now"]["spec"]
   $seed       = $_REQUEST["seed"];
   $data       = pl_tracklist($type, $spec, $shuffle, $seed);
   $item_count = 0;

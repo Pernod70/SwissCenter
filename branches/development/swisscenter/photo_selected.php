@@ -31,7 +31,7 @@
   // Build page elements
   //*************************************************************************************************
 
-  $sql_table = 'from photos media'.get_rating_join().' where 1=1 ';
+  $sql_table = "from photos media ".get_rating_join()." inner join photo_albums pa on media.dirname like concat(pa.dirname,'%') where 1=1 ";
   
   $menu      = new menu();
   $info      = new infotab();
@@ -57,7 +57,7 @@
   $info->add_item(str('PHOTOS_TIME_ALL'), hhmmss($delay * $count));
 
   // Menu Options
-  $menu->add_item(str('START_SLIDESHOW'),pl_link('sql',"select * $sql_table $predicate order by title",'photo'));
+  $menu->add_item(str('START_SLIDESHOW'),pl_link('sql',"select media.* $sql_table $predicate order by title",'photo'));
 
   // Display Page
   page_header(str('SLIDESHOW'),'','LOGO_PHOTO');
