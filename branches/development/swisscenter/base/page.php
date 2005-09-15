@@ -192,8 +192,8 @@ function img_gen( $filename, $x, $y, $type = false, $bgcol = false, $stretch = f
 
 function pc_nav_button($text, $url)
   {
-   return '<td align="center" width="'.(SCREEN_WIDTH/5).'" background="../images/pc_nav_button.jpg" onclick="document.location=\''.$url.'\';">
-         <a href="'.$url.'"><font color="#000000"><b>'.$text.'</b></font></a>
+    return '<td align="center" valign="center" height="23" width="'.(SCREEN_WIDTH/5).'" background="'.style_img('IMG_PC_BUTTON').'" onclick="document.location=\''.$url.'\';">
+         <a href="'.$url.'"><font color="'.style_value('COL_PC_BUTTON','#000000').'"><b>'.$text.'</b></font></a>
          </td>';
   }
 
