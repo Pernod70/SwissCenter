@@ -3,7 +3,7 @@
   Exif reader v 1.2
 
   Original work by ** Richard James Kendall **
-  (optimized and reworked for inclusion in the SwissCenter project)
+  (optimized and reworked for inclusion in the SwissCenter project by Robert Taylor)
 
   Usgage: $exif_array = exif('filename');
   
@@ -49,28 +49,14 @@ $exif_tags = array ( 0x000b => "ACDComment"                 , 0x00fe => "ImageTy
 
 
 // data for EXIF enumeations
-$exif_enum = array ("Orientation"          => array("", "Normal (0 deg)", "Mirrored", "Upsidedown", "Upsidedown & Mirrored", "", "", "")
-                   ,"ResUnit"              => array("", "inches", "inches", "cm", "mm", "um")
-                   ,"YCbCrPos"             => array("", "Centre of Pixel Array", "Datum Points")
-                   ,"ExpProg"              => array("", "Manual", "Program", "Apeture Priority", "Shutter Priority", "Program Creative", "Program Action", "Portrait", "Landscape")
-                   ,"LightSource"          => array("Unknown", "Daylight", "Fluorescent", "Tungsten (incandescent)", "Flash", "Fine Weather", "Cloudy Weather", "Share", "Daylight Fluorescent", "Day White Fluorescent", "Cool White Fluorescent", "White Fluorescent", "Standard Light A", "Standard Light B", "Standard Light C", "D55", "D65", "D75", "D50", "ISO Studio Tungsten")
-                   ,"MeterMode"            => array("Unknown", "Average", "Centre Weighted", "Spot", "Multi-Spot", "Pattern", "Partial")
-                   ,"RenderingProcess"     => array("Normal Process", "Custom Process")
-                   ,"ExposureMode"         => array("Auto", "Manual", "Auto Bracket")
-                   ,"WhiteBalance"         => array("Auto", "Manual")
-                   ,"SceneCaptureType"     => array("Standard", "Landscape", "Portrait", "Night Scene")
-                   ,"GainControl"          => array("None", "Low Gain Up", "High Gain Up", "Low Gain Down", "High Gain Down")
-                   ,"Contrast"             => array("Normal", "Soft", "Hard")
-                   ,"Saturation"           => array("Normal", "Low Saturation", "High Saturation")
-                   ,"Sharpness"            => array("Normal", "Soft", "Hard")
-                   ,"SubjectDistanceRange" => array("Unknown", "Macro", "Close View", "Distant View")
-                   ,"FocalPlaneResUnit"    => array("", "inches", "inches", "cm", "mm", "um")
-                   ,"SensingMethod"        => array("", "Not Defined", "One-chip Colour Area Sensor", "Two-chip Colour Area Sensor", "Three-chip Colour Area Sensor", "Colour Sequential Area Sensor", "Trilinear Sensor", "Colour Sequential Linear Sensor")
-                   ,"FlashFired"           => array("Did not fire","Fired")
-                   ,"FlashStrobe"          => array("10"=>", Strobe return light not detected" , "11"=>", Strobe return light detected")
-                   ,"FlashMode"            => array("01"=>", Compulsory mode" , "10"=>", Compulsory mode" , "11"=>", Auto mode")
-                   ,"RedEye"               => array("0"=> ", No Red eye reduction" , "1"=> ", Red Eye reduction")
-                   );
+$exif_enum = array ( "Orientation"          => explode(',' ,  ','.str('EXIFVALS_ORIENTATION').',,,')
+                   , "ExpProg"              => explode(',' ,  ','.str('EXIFVALS_EXP_PROG'))
+                   , "LightSource"          => explode(',' ,  str('EXIFVALS_LIGHT_SOURCE'))
+                   , "MeterMode"            => explode(',' ,  str('EXIFVALS_METER_MODE'))
+                   , "ExposureMode"         => explode(',' ,  str('EXIFVALS_EXPOSE_MODE'))
+                   , "WhiteBalance"         => explode(',' ,  str('EXIFVALS_WHITE_BALANCE'))
+                   , "SceneCaptureType"     => explode(',' ,  str('EXIFVALS_SCENE_TYPE'))
+                   , "FlashFired"           => explode(',' ,  str('EXIFVALS_FLASH')) );
 
                    
 // Returns one byte from the file (as a numnber)

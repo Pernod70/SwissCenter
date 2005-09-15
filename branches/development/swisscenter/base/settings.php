@@ -108,8 +108,11 @@ require_once("language.php");
     $device["ip_address"]   = str_replace('\\','/',$_SERVER["REMOTE_ADDR"]);
     $device["agent_string"] = $_SERVER['HTTP_USER_AGENT'];
   
-	  db_sqlcommand("delete from clients where ip_address='$ip'");
-	  db_insert_row('clients',$device);
+    if (strlen($device["ip_address"])>0)
+    {
+  	  db_sqlcommand("delete from clients where ip_address='".$device["ip_address"]."'");
+  	  db_insert_row('clients',$device);
+    }
 
     $_SESSION["device"] = $device;  
   }

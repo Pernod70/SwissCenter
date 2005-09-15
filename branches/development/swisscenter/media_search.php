@@ -6,7 +6,6 @@
   require_once("base/page.php");
   require_once("base/mysql.php");
   require_once("base/utils.php");
-  require_once("base/file.php");
   require_once("base/image.php");
   require_once("ext/getid3/getid3.php");
   require_once("ext/exif/exif_reader.php");
@@ -87,7 +86,7 @@
   function process_photo( $dir, $id, $file)
   {
     global $cache_dir;
-    
+
     send_to_log('New Photo found : '.$file);
     $filepath = os_path($dir.$file);
     $data     = array();
@@ -100,20 +99,33 @@
       if ( ! isset($id3["error"]) )
       {
         // File Info successfully obtained, so enter it into the database
-        $data = array("dirname"        => $dir
-                     ,"filename"       => $file
-                     ,"location_id"    => $id
-                     ,"size"           => $id3["filesize"]
-                     ,"width"          => $id3["video"]["resolution_x"]
-                     ,"height"         => $id3["video"]["resolution_y"]
-                     ,"date_modified"  => filemtime($filepath)
-                     ,"date_created"   => $exif["DTDigitised"]
-                     ,"verified"       => 'Y'
-                     ,"discovered"     => db_datestr() );
+        $data = array( "dirname"             => $dir
+                     , "filename"            => $file
+                     , "location_id"         => $id
+                     , "size"                => $id3["filesize"]
+                     , "width"               => $id3["video"]["resolution_x"]
+                     , "height"              => $id3["video"]["resolution_y"]
+                     , "date_modified"       => filemtime($filepath)
+                     , "date_created"        => $exif["DTDigitised"]
+                     , "verified"            => 'Y'
+                     , "discovered"          => db_datestr()
+                     , "exif_exposure_mode"  => $exif['ExposureMode']
+                     , "exif_exposure_time"  => dec2frac($exif['ExposureTime'])
+                     , "exif_fnumber"        => rtrim($exif['FNumber'],'0')
+                     , "exif_focal_length"   => (empty($exif['FocalLength']) ? null : $exif['FocalLength'].str('LENGTH_MM') )
+                     , "exif_image_source"   => $exif['ImageSource']
+                     , "exif_make"           => $exif['Make']
+                     , "exif_model"          => $exif['Model']
+                     , "exif_orientation"    => $exif['Orientation']
+                     , "exif_white_balance"  => $exif['WhiteBalance']
+                     , "exif_flash"          => $exif['Flash'][1]
+                     , "exif_iso"            => $exif['ISOSpeedRating']
+                     , "exif_light_source"   => $exif['LightSource']
+                     , "exif_exposure_prog"  => $exif['ExpProg']
+                     , "exif_meter_mode"     => $exif['MeterMode']
+                     , "exif_capture_type"   => $exif['SceneCaptureType']
+                     );
                      
-        send_to_log('GETID3',$id3);
-        send_to_log('EXIF',exif($dir.$file));
-
         if (db_insert_row( "photos", $data) && $cache_dir != '')
         {
           // TO-DO... the x,y sizes will change depending on the aspect ration and resolution of the display device(s) in use
@@ -362,8 +374,8 @@
   // Main script logic
   //===========================================================================================
 
-  remove_orphaned_records();
   media_indicator('BLINK');
+  remove_orphaned_records();
   process_media_dirs( db_toarray("select * from media_locations where media_type=1") ,'mp3s',   explode(',' ,MEDIA_EXT_MUSIC));
   process_media_dirs( db_toarray("select * from media_locations where media_type=3") ,'movies', explode(',' ,MEDIA_EXT_MOVIE));
   process_media_dirs( db_toarray("select * from media_locations where media_type=2") ,'photos', explode(',' ,MEDIA_EXT_PHOTOS));
@@ -371,10 +383,8 @@
   if (internet_available())
     extra_get_all_movie_details();
   
-  media_indicator('OFF');
   eliminate_duplicates();
-     
-
+  media_indicator('OFF');
 
 /**************************************************************************************************
                                                End of file

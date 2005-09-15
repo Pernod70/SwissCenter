@@ -23,11 +23,36 @@
   $refine_url = 'photo_search.php';
   $this_url   = url_set_param(current_url(),'add','N');
   
-  // Information on the current selection  
-  $info->add_item(str('PHOTOS_NO_SELECTED'), $count);
-  $info->add_item(str('PHOTOS_TIME_ONE'), $delay.' Seconds');
-  $info->add_item(str('PHOTOS_TIME_ALL'), hhmmss($delay * $count));
 
+  if ($count == 1)
+  {
+    $pic   = array_pop(db_toarray("select * from $sql_table $predicate"));
+    $flash = explode(',',$pic['EXIF_FLASH']);
+    
+    $info->add_item(str('EXIF_EXPOSE_MODE')    ,$pic['EXIF_EXPOSURE_MODE']);
+    $info->add_item(str('EXIF_EXPOSE_TIME')    ,$pic['EXIF_EXPOSURE_TIME']);
+    $info->add_item(str('EXIF_FNUMBER')        ,rtrim($pic['EXIF_FNUMBER'],'0'));
+    $info->add_item(str('EXIF_FOCAL_LENGTH')   ,$pic['EXIF_FOCAL_LENGTH']);
+    $info->add_item(str('EXIF_SOURCE')         ,$pic['EXIF_IMAGE_SOURCE']);
+    $info->add_item(str('EXIF_MAKE')           ,$pic['EXIF_MAKE']);
+    $info->add_item(str('EXIF_MODEL')          ,$pic['EXIF_MODEL']);
+    $info->add_item(str('EXIF_ORIENTATION')    ,$pic['EXIF_ORIENTATION']);
+    $info->add_item(str('EXIF_WHITE_BALANCE')  ,$pic['EXIF_WHITE_BALANCE']);
+    $info->add_item(str('EXIF_FLASH')          ,$flash[0]);
+    $info->add_item(str('EXIF_ISO')            ,$pic['EXIF_ISO']);
+    $info->add_item(str('EXIF_LIGHT_SOURCE')   ,$pic['EXIF_LIGHT_SOURCE']);
+    $info->add_item(str('EXIF_EXPOSE_PROG')    ,$pic['EXIF_EXPOSURE_PROG']);
+    $info->add_item(str('EXIF_METER_MODE')     ,$pic['EXIF_METER_MODE']);
+    $info->add_item(str('EXIF_SCENCE_CAPTURE') ,$pic['EXIF_CAPTURE_TYPE']);
+  }
+  else 
+  {
+    // Information on the current selection  - no point showing the no. of slides or timing info for one slide though!
+    $info->add_item(str('PHOTOS_NO_SELECTED')  , $count);
+    $info->add_item(str('PHOTOS_TIME_ONE')     , $delay.' Seconds');
+    $info->add_item(str('PHOTOS_TIME_ALL')     , hhmmss($delay * $count));
+  }
+  
   // Menu Options
   search_check_filter( $menu, str('REFINE_PHOTO_ALBUM'),  'title',  $sql_table, $predicate, $refine_url );
   search_check_filter( $menu, str('REFINE_PHOTO_TITLE'),  'filename',  $sql_table, $predicate, $refine_url );

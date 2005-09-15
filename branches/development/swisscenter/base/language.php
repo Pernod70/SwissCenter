@@ -28,16 +28,25 @@ function load_lang_strings ( $lang = 'en-gb' )
   }
 }
 
-function load_lang ()
+function load_lang ($current_lang = '')
 {
   // First load english so that we at least have a string for every token.
   load_lang_strings('en');
   
-  // Determine language to load from the browser identification (or the last used). 
-  if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) && !empty($SERVER['HTTP_ACCEPT_LANGUAGE']))
-    $current_lang = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
-  else
-    $current_lang = get_sys_pref('DEFAULT_LANGUAGE','en-gb');
+  // If a language name was not given then try to work out which language to use
+  if ($current_lang == '')
+  {
+    // Determine language to load from the browser identification (or the last used). 
+    if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) && !empty($_SERVER['HTTP_ACCEPT_LANGUAGE']))
+    {
+  	  $langs_allowed = explode(',',$_SERVER['HTTP_ACCEPT_LANGUAGE']); 
+      $current_lang = $langs_allowed[0];
+    }
+    else
+    {
+      $current_lang = get_sys_pref('DEFAULT_LANGUAGE','en-gb');
+    }
+  }
 
   // Now overlay the general language file (eg: 'fr') over the english 
   if (strpos($current_lang,'-') !== false && substr($current_lang,0,strpos($current_lang,'-')) != 'en')

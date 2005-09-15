@@ -21,14 +21,15 @@
                    ,'messages.php?return='.current_url(),true);
   }
 
+  $menu->add_item(str('LANG_CHANGE'),'change_lang.php',true);
   $menu->add_item(str('SETUP_CHANGE_UI'),'style.php',true);
+  $menu->add_item(str('PIN_CHANGE'), 'change_pin.php');
   $menu->add_item(str('SETUP_SEARCH_NEW_MEDIA'),'do_refresh.php');
   
   // Does the User have internet connectivity?
   if (internet_available())
     $menu->add_item(str('SETUP_UPDATE_SC'),'run_update.php');  
 
-  $menu->add_item(str('PIN_CHANGE'), 'change_pin.php');
 
   $menu->display();
   page_footer( 'index.php' );

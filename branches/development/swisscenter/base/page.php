@@ -10,6 +10,7 @@ if (isset($_REQUEST["session_id"]) && !empty($_REQUEST["session_id"]))
 session_start();
 ob_start();
 
+require_once("file.php");
 require_once("settings.php");
 require_once("stylelib.php");
 require_once("menu.php");

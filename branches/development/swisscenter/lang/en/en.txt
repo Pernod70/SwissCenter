@@ -15,7 +15,6 @@
 #
 #  [br][/br]  [em][/em]  [p][/p]  [b][/b]  [i][/i]  [li][/li]  [ul][\ul]  [ol][/ul]
 #
-
 # In some circumstances, other text may need to be substituted within the text. Placeholders for
 # the position within the string where the substitution occurs are indicated with '%s'.
 #
@@ -66,7 +65,6 @@ BROWSE_DIRECTOR		= Browse by director
 BROWSE_FILESYSTEM	= Browse filesystem
 BROWSE_GENRE		= Browse by genre
 BROWSE_MOVIES		= Browse movies
-BROWSE_MUSIC		= Browse music
 BROWSE_MUSIC		= Browse music
 BROWSE_PHOTOS		= Browse photographs
 BROWSE_TITLE		= Browse by title
@@ -409,27 +407,62 @@ WEATHER_WIND		= Wind
 WEEKDAY			= Weekday
 YEAR			= Year
 
-# v1.13
+# -----------------------
+# SwissCenter v1.13
+# -----------------------
+
+COMPACT_VIEW		= Compact View
+
+KEYBOARD_DEL		= DELETE
+KEYBOARD_SPC		= SPACE
 
 PLAYLIST_LOAD_OK	= Playlist loaded successfully.
-PLAYLIST_NAME_USE	= Save with this filename
 PLAYLIST_NAME_CANCEL	= Cancel - Do not save
-CAPTIALISE		= Capitalise
-COMPACT_VIEW		= Compact View
-BROWSE_PHOTO_ALBUM	= Browse by photo album
-BROWSE_PHOTO_TITLE	= Browse by title
-REFINE_PHOTO_ALBUM	= Refine by photo album
-REFINE_PHOTO_TITLE	= Refine by photo title
-BROWSE_DATE		= Browse by date
-PHOTO_ALBUM		= Photo album
-PHOTO_TITLE		= Title
+PLAYLIST_NAME_USE	= Save with this filename
+
+PC_LINK_BACK		= Back
 PC_LINK_HOME		= Home
-PC_LINK_PHOTOS		= Photos
 PC_LINK_MOVIES		= Movies
 PC_LINK_MUSIC		= Music
-PC_LINK_BACK		= Back
-KEYBOARD_SPC		= SPACE
-KEYBOARD_DEL		= DELETE
+PC_LINK_PHOTOS		= Photos
+
+BROWSE_DATE		= Browse by date
+BROWSE_PHOTO_ALBUM	= Browse by photo album
+BROWSE_PHOTO_TITLE	= Browse by title
+PHOTO_ALBUM		= Photo album
+PHOTO_TITLE		= Title
+REFINE_PHOTO_ALBUM	= Refine by photo album
+REFINE_PHOTO_TITLE	= Refine by photo title
+
+EXIF_EXPOSE_MODE	= Exposure mode
+EXIF_EXPOSE_PROG	= Exposure program
+EXIF_EXPOSE_TIME	= Exposure time
+EXIF_FLASH		= Flash
+EXIF_FNUMBER		= F-number
+EXIF_FOCAL_LENGTH	= Focal length
+EXIF_ISO		= ISO speed rating
+EXIF_LIGHT_SOURCE	= Light source
+EXIF_MAKE		= Make
+EXIF_METER_MODE		= Metering mode
+EXIF_MODEL		= Model
+EXIF_ORIENTATION	= Orientation
+EXIF_SCENCE_CAPTURE	= Scence mode
+EXIF_SOURCE		= Image source
+EXIF_WHITE_BALANCE	= White balance
+LENGTH_MM		= mm
+
+# Conversion of EXIF data within photographs to a textual equivalent
+# NOTE: It is important that these are kept in the same order and are comma seperated
+
+EXIFVALS_EXPOSE_MODE	= Auto, Manual, Auto Bracket
+EXIFVALS_EXP_PROG	= Manual, Program, Apeture Priority, Shutter Priority, Program Creative, Program Action, Portrait, Landscape
+EXIFVALS_FLASH		= Did not fire, Fired
+EXIFVALS_LIGHT_SOURCE	= Unknown, Daylight, Fluorescent, Tungsten (incandescent), Flash, Fine Weather, Cloudy Weather, Share, Daylight Fluorescent, Day White Fluorescent, Cool White Fluorescent, White Fluorescent, Standard Light A, Standard Light B, Standard Light C, D55, D65, D75, D50, ISO Studio Tungsten
+EXIFVALS_METER_MODE	= Unknown, Average, Centre Weighted, Spot, Multi-Spot, Pattern, Partial
+EXIFVALS_ORIENTATION	= Normal (0 deg), Mirrored, Upsidedown, Upsidedown & Mirrored
+EXIFVALS_SCENE_TYPE	= Standard, Landscape, Portrait, Night Scene
+EXIFVALS_WHITE_BALANCE	= Auto, Manual
+
 
 #----------------------------------------------------------------------------------------------------
 # End-of-file
