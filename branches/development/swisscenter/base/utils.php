@@ -429,22 +429,33 @@ function swisscente_version()
 {
   return max( get_sys_pref('last_update') ,get_sys_pref('database_version'));
 }
-
 // ----------------------------------------------------------------------------------
-// Attempts to convert a decimal number to a fraction (eg: 0.004 to 1/250)
+// Attempts to convert a decimal number to a fraction. Firstly, the standard shutter
+// speeds are used to determine if one of them is +/- 5% of the value.
 // ----------------------------------------------------------------------------------
 
-function dec2frac( $decimal , $dec_places = 4)
+function dec2frac( $decimal)
 {
   // If the number passed in is 0, then exit immediately.
   if ($decimal == 0)
     return '';
-    
-  $decimal = (string)$decimal;
 
-  // Truncate to the given number of decimal places
-  if (strlen($decimal)>(2+$dec_places))
-    $decimal = substr($decimal,0,2+$dec_places);
+  $speeds = array(  '1/8000' => 1/8000,   '1/7500' => 1/7500,   '1/7000' => 1/7000,   '1/6500' => 1/6500,   '1/6000' => 1/6000, 
+                    '1/5500' => 1/5500,   '1/5000' => 1/5000,   '1/4500' => 1/4500,   '1/4000' => 1/4000,   '1/3500' => 1/3500, 
+                    '1/3000' => 1/3000,   '1/2500' => 1/2500,   '1/2000' => 1/2000,   '1/1500' => 1/1500,   '1/1000' => 1/1000, 
+                    '1/750'  => 1/750,    '1/500'  => 1/500,    '1/350'  => 1/350,    '1/250'  => 1/250,    '1/180'  => 1/180,  
+                    '1/125'  => 1/125,    '1/90'   => 1/90,     '1/60'   => 1/60,     '1/45'   => 1/45,     '1/30'   => 0/30,   
+                    '1/20'   => 1/20,     '1/15'   => 1/15,     '1/10'   => 1/10,     '1/8'    => 1/8,      '1/6'    => 1/6,    
+                    '1/4'    => 1/4,      '0"3'    => 0.3,      '0"5'    => 0.5,      '0"7'    => 0.7,      '1"'     => 1,      
+                    '1"5'    => 1.5,      '2"'     => 2,        '3"'     => 3,        '4"'     => 4,        '6"'     => 6,      
+                    '8"'     => 8,        '10"'    => 10,       '15"'    => 15,       '20"'    => 20,       '30"'    => 30       ) ;
+                    
+  // Try to match to the above shutter speeds.
+  foreach ($speeds as $key => $val)
+    if ($decimal > ($val*0.95) && $decimal < ($val*1.05))
+      return $key;
+  
+  $decimal = (string)$decimal;
 
   $num = '';
   $den = 1;
@@ -456,28 +467,33 @@ function dec2frac( $decimal , $dec_places = 4)
    // build the denominator as we 'shift' the decimal to the right
    if( $dec ) $den *= 10;
    
-   // find the decimal place/ build the numberator
+   // find the decimal place/ build the numerator
    if( $decimal{$i} == '.' ) $dec = true;
    else $num .= $decimal{$i};
   }
   $num = (int)$num;
    
   // whole number, just return it
-  if( $den == 1 ) return $num;
+  if( $den == 1 ) 
+    return $num;
    
   $num2 = $num;
   $den2 = $den;
   $rem  = 1;
+  
   // Euclid's Algorithm (to find the gcd)
-  while( $num2 % $den2 ) {
+  while( $num2 % $den2 ) 
+  {
    $rem = $num2 % $den2;
    $num2 = $den2;
    $den2 = $rem;
   }
-  if( $den2 != $den ) $rem = $den2;
+  
+  if( $den2 != $den ) 
+    $rem = $den2;
    
   // now $rem holds the gcd of the numerator and denominator of our fraction
-  return ($num / $rem ) . "/" . ($den / $rem);
+  return  ($num / $rem ) . "/" . ($den / $rem);
 }
 
 /**************************************************************************************************

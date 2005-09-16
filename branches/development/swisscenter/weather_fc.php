@@ -24,7 +24,7 @@
   $time      = split(' ',$xml_fc["dayf"]["lsup"]);
 
   // Display Weather Icon and statistics
-  page_header($xml_fc[$loc_id]["dnam"],'','LOGO_WEATHER');
+  page_header($xml_fc[$loc_id]["dnam"],'');
 
   $menu = new menu();
   $menu->add_item( str('WEATHER_CURRENT') ,'weather_cc.php?loc='.$loc_id);

@@ -20,7 +20,7 @@
     }
     else
     {
-      page_header( str('MESSAGES'), "", 'LOGO_CONFIG' );
+      page_header( str('MESSAGES'), "" );
       // Display a list of all the outstanding messages
       echo '<center><font color="'.style_value("PAGE_TEXT").'">'.str('MESSAGES_SELECT').'</font></center></br>';
 
@@ -71,7 +71,7 @@
   
   function display_message($id)
   {
-    page_header( str('MESSAGES') , "", 'LOGO_CONFIG' );
+    page_header( str('MESSAGES') , "");
 
     global $message_status_string;
     $menu = new menu();

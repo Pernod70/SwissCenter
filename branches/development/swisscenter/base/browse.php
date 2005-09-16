@@ -203,7 +203,7 @@
   // has changed it and act appropriately)
   // ----------------------------------------------------------------------------------
 
-  function browse_page(&$dir_list, &$file_list, $heading, $back_url, $all_link, $logo )
+  function browse_page(&$dir_list, &$file_list, $heading, $back_url, $all_link )
   {
     // Remove unwanted directories and/or files
     tidy_lists ( $dir_list, $file_list );
@@ -218,20 +218,21 @@
     if ( !empty($_REQUEST["thumbs"]) )
       set_user_pref('DISPLAY_THUMBS',strtoupper($_REQUEST["thumbs"]));
 
-    page_header( $heading, substr($dir,0,-1), $logo );
-
     if ( get_user_pref("DISPLAY_THUMBS") == "FULL" )
     {
+      page_header( $heading, substr($dir,0,-1),'',1,false);
       display_thumbs ($url, $dir, $dir_list, $file_list, $page);
       $buttons[] = array('text'=>str('COMPACT_VIEW'), 'url'=>$url.'?thumbs=COMPACT&DIR='.rawurlencode($dir) );
     }
     elseif ( get_user_pref("DISPLAY_THUMBS") == "COMPACT" )
     {
+      page_header( $heading, substr($dir,0,-1),'',1,false,style_value("PAGE_FOCUS_IMAGES"));
       display_thumbs ($url, $dir, $dir_list, $file_list, $page);
       $buttons[] = array('text'=>str('LIST_VIEW'), 'url'=>$url.'?thumbs=NO&DIR='.rawurlencode($dir) );
     }
     else
     {
+      page_header( $heading, substr($dir,0,-1),'',1,false);
       display_names ($url, $dir, $dir_list, $file_list, $page);
       $buttons[] = array('text'=>str('THUMBNAIL_VIEW'), 'url'=>$url.'?thumbs=FULL&DIR='.rawurlencode($dir) );
     }
@@ -252,7 +253,7 @@
   // individual file
   // ----------------------------------------------------------------------------------
 
-  function browse_fs($heading, $media_dirs, $back_url, $filetypes, $all_link='', $logo='' )
+  function browse_fs($heading, $media_dirs, $back_url, $filetypes, $all_link='')
   {
     // Check page parameters, and if not set then assign default values.
     $dir             = ( empty($_REQUEST["DIR"]) ? '' : un_magic_quote(rawurldecode($_REQUEST["DIR"])));
@@ -264,7 +265,7 @@
     foreach ($media_locations as $path)
       dir_contents_FS(str_suffix($path,'/').$dir, $filetypes, $dir_list, $file_list);  
 
-    browse_page($dir_list, $file_list, $heading, $back_url, $all_link, $logo);     
+    browse_page($dir_list, $file_list, $heading, $back_url, $all_link);     
   }
 
   // ----------------------------------------------------------------------------------
@@ -274,7 +275,7 @@
   // NOTE: £sql_table should be of the form "from <tablename> where <conditions>"
   // ----------------------------------------------------------------------------------
 
-  function browse_db($heading, $media_dirs, $sql_table, $back_url, $filetypes, $all_link='', $logo='' )
+  function browse_db($heading, $media_dirs, $sql_table, $back_url, $filetypes, $all_link='')
   {
     // Check page parameters, and if not set then assign default values.
     $dir             = ( empty($_REQUEST["DIR"]) ? '' : un_magic_quote(rawurldecode($_REQUEST["DIR"])));
@@ -285,7 +286,7 @@
     foreach ($media_locations as $path)
       dir_contents_DB($dir_list, $file_list, $sql_table, str_suffix($path,'/').$dir);
     
-    browse_page($dir_list, $file_list, $heading, $back_url, $all_link, $logo);     
+    browse_page($dir_list, $file_list, $heading, $back_url, $all_link);     
   }
   
 /**************************************************************************************************

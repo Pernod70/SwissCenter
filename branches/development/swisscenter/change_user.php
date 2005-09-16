@@ -9,7 +9,7 @@
 
   function select_user()
   {
-    page_header(str('USER_CHANGE'), "", "", "", "1", true);
+    page_header(str('USER_CHANGE'), "", "", "1", true);
     
     echo '<center>'.str('SELECT_USER').'</center><p>';
 

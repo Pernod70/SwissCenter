@@ -32,11 +32,6 @@
   # elements of the "Now Playing" image
   # ------------------------------------------------------------------------------------------------
 
-  // The user ID has to be passed by in as this script will be run from a different session (which
-  // doesn't have the current user set). If this is not done, then the wrong style is used when
-  // generating the picture.
-  load_style($_REQUEST["userid"]);
-
   $image     = new CImage();
   $artfile   = new CImage();
   $info      = db_toarray("select * from mp3s where file_id=".$_REQUEST["music_id"]);

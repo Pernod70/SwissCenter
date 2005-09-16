@@ -57,7 +57,7 @@
   $items         = $_SESSION["playlist"];
   $num_tracks    = count($_SESSION["playlist"]);
 
-  page_header( str('PLAYLIST_EDIT'), $_SESSION["playlist_name"], $highlight );
+  page_header( str('PLAYLIST_EDIT'), $_SESSION["playlist_name"],'', $highlight );
   
   echo '<center><table cellspacing="3" cellpadding="3" border="0">';
 
@@ -72,7 +72,12 @@
 
   for ($i=$start; $i < $end; $i++)
   {
-    $play_link     = pl_link('file',$items[$i]["DIRNAME"].$items[$i]["FILENAME"]);
+    // Get the link address for playing this file.
+    $file_id       = '';
+    $media_type    = '';
+    find_media_in_db( $items[$i]["DIRNAME"].$items[$i]["FILENAME"], $media_type, $file_id);
+    $play_link     = play_file( $media_type, $file_id);
+
     $up_link       = 'edit_pl.php?up='.$i;
     $down_link     = 'edit_pl.php?down='.$i;
     $del_link      = 'edit_pl.php?del='.$i;

@@ -40,7 +40,7 @@
 
   if ($num_tracks > 0 )
   {
-    $menu->add_item(str('PLAY'),pl_link('playlist'));
+    $menu->add_item(str('PLAY'),play_playlist());
     $menu->add_item(str('PLAYLIST_CLEAR'),'manage_pl.php?clear=Y');
     $menu->add_item(str('PLAYLIST_EDIT'),'edit_pl.php',true);
     $menu->add_item(str('PLAYLIST_LOAD_NEW'),'load_pl.php?action=replace', true);

@@ -33,15 +33,15 @@
     $menu->add_item( str('BROWSE_FILESYSTEM')  ,"video_browse.php",true);
     $menu->display();
     
-    page_footer('video.php', array(array('text'=>str('QUICK_PLAY')
-                                        ,'url'=>quick_play_link("movies","playlist",$_SESSION["history"][0][sql]))));
+    page_footer('video.php', array(array('text' => str('QUICK_PLAY')
+                                        ,'url'  => quick_play_link(MEDIA_TYPE_VIDEO,$_SESSION["history"][0][sql]))));
   }
   
 /**************************************************************************************************
    Main page output
    *************************************************************************************************/
 
-  page_header( str('WATCH_MOVIE') ,'','LOGO_MOVIE');
+  page_header( str('WATCH_MOVIE') ,'');
   $cat_id = $_REQUEST["cat"];
   
   if( !empty($cat_id) )

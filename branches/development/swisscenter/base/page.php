@@ -76,7 +76,7 @@ function down_link( $url)
 
 // background-attachment:fixed;
 
-function page_header( $title, $tagline = "",  $logo = "", $meta = "", $focus="1", $skip_auth = false)
+function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth = false, $focus_colour = '')
 {
   // Check if the user has been selected and prompt for logon if needed
   if(!$skip_auth && !is_user_selected())
@@ -103,6 +103,9 @@ function page_header( $title, $tagline = "",  $logo = "", $meta = "", $focus="1"
     $heading_padding_bottom = 14;
   }
   
+  if ($focus_colour == '')
+    $focus_colour = style_value("PAGE_FOCUS_COLOUR",'#FFFFFF');
+  
   echo '<html>
         <head>'.$meta.'
         <meta SYABAS-FULLSCREEN>
@@ -118,7 +121,7 @@ function page_header( $title, $tagline = "",  $logo = "", $meta = "", $focus="1"
         </head>
         <body  onLoadSet="'.$focus.'"
                background="'.  $background_image .'"
-               FOCUSCOLOR="'.  style_value("PAGE_FOCUS_COLOUR",'#FFFFFF').'"
+               FOCUSCOLOR="'.  $focus_colour.'"
                FOCUSTEXT="'.   style_value("PAGE_FOCUS_TEXT",'#FFFFFF').'"
                text="'.        style_value("PAGE_TEXT",'#FFFFFF').'"
                vlink="'.       style_value("PAGE_VLINK",'#FFFFFF').'"
@@ -157,7 +160,7 @@ function page_header( $title, $tagline = "",  $logo = "", $meta = "", $focus="1"
 function page_error($message)
 {
   ob_clean();
-  page_header( "Error", "", "", "", "1", true );
+  page_header( "Error", "", "", "1", true );
   echo "<center>$message</center><p>";
   $menu = new menu();
   $menu->add_item(str('RETURN_MAIN_MENU'),'/index.php',true);
@@ -274,7 +277,7 @@ function page_footer( $back, $buttons= '', $iconbar = 0 )
    
 function page_inform( $seconds, $url, $title, $text)
 {
-  page_header($title,"","",'<meta http-equiv="refresh" content="'.$seconds.';URL='.$url.'">');
+  page_header($title,"",'<meta http-equiv="refresh" content="'.$seconds.';URL='.$url.'">');
   echo "<p>&nbsp;<p>&nbsp;<p><center>".$text."</center>";
   page_footer('/');  
 }

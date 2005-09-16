@@ -32,15 +32,15 @@
     $menu->add_item( str('BROWSE_FILESYSTEM') ,"music_browse.php",true);
     $menu->display();
     
-    page_footer('music.php', array(array('text'=>str('QUICK_PLAY')
-                                        ,'url'=>quick_play_link("mp3s","audio",$_SESSION["history"][0][sql]))));
+    page_footer('music.php', array(array('text' => str('QUICK_PLAY')
+                                        ,'url'  => quick_play_link(MEDIA_TYPE_MUSIC,$_SESSION["history"][0][sql]))));
   }
 
  /**************************************************************************************************
    Main page output
    *************************************************************************************************/
 
-  page_header( str('LISTEN_MUSIC'), '', 'LOGO_MUSIC');
+  page_header( str('LISTEN_MUSIC'), '');
   $cat_id = $_REQUEST["cat"];
   
   if( !empty($cat_id) )

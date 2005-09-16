@@ -13,17 +13,13 @@
 // Main logic
 //*************************************************************************************************
 
-  // The device can only cope with playlists of a certain size (which should be enough for
-  // anyone to sit and listen to!). However, the user shouldn't notice as shuffle is done 
-  // before the truncate of the playlist (if the user has selected shuffle).
+  // The device can only cope with playlists of a certain size (However, the user 
+  // shouldn't notice as shuffle is done before the truncate of the playlist 
+  // (if the user has selected shuffle).
 
   $server     = server_address();
-  $type       = un_magic_quote($_REQUEST["type"]);
-  $spec       = $_SESSION["play_now"]["spec"];
-  $seed       = $_REQUEST["seed"];
-  $shuffle    = ($_REQUEST["shuffle"] == "on" ? true : false);
+  $data       = get_tracklist_to_play();
   $item_count = 0;
-  $data       = pl_tracklist($type, $spec, $shuffle, $seed);
   $x          = SCREEN_WIDTH;
   $y          = SCREEN_HEIGHT;
   $thumb_url  = $server.'thumb.php?type=jpg&x='.$x.'&y='.$y.'&src='; 

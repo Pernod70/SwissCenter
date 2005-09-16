@@ -10,7 +10,7 @@
   require_once("base/file.php");
   require_once("messages_db.php");
 
-  page_header( str('MAIN_MENU'), 'v'.swisscente_version(),'LOGO_HOME');
+  page_header( str('MAIN_MENU'), 'v'.swisscente_version());
 
   $menu = new menu();
   $icons = new iconbar(400);

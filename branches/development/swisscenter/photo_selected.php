@@ -56,10 +56,10 @@
   // Menu Options
   search_check_filter( $menu, str('REFINE_PHOTO_ALBUM'),  'title',  $sql_table, $predicate, $refine_url );
   search_check_filter( $menu, str('REFINE_PHOTO_TITLE'),  'filename',  $sql_table, $predicate, $refine_url );
-  $menu->add_item(str('START_SLIDESHOW'),pl_link('sql',"select media.* from $sql_table $predicate order by title",'photo'));
+  $menu->add_item(str('START_SLIDESHOW'), play_sql_list(MEDIA_TYPE_PHOTO,"select media.* from $sql_table $predicate order by title") );
 
   // Display Page
-  page_header(str('SLIDESHOW'),'','LOGO_PHOTO');
+  page_header(str('SLIDESHOW'),'');
   $info->display();
   $menu->display();
 

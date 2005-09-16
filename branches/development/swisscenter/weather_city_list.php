@@ -9,7 +9,7 @@
 
   function search_page( $this_url, $prefix, $search, $page)
   {
-    page_header('Cities', str('WEATHER_SELECT_CITY').$search,'LOGO_WEATHER','', (empty($_REQUEST["last"]) ? 'KEY_SPC' : $_REQUEST["last"] ) );
+    page_header('Cities', str('WEATHER_SELECT_CITY').$search,'', (empty($_REQUEST["last"]) ? 'KEY_SPC' : $_REQUEST["last"] ) );
 
     $menu      = new menu();
     $data      = array();
@@ -41,11 +41,11 @@
 
       // We are not on the first page, so output a link to go "up" a page of entries.
       if ($page > 0)
-        $menu->add_up( $this_url.'?search='.rawurlencode($search).'&any='.$prefix.'&page='.($page-1));
+        $menu->add_up( $this_url.'?last='.MAX_PER_PAGE.'&search='.rawurlencode($search).'&any='.$prefix.'&page='.($page-1));
 
       // We are not on the last page, so output a link to go "down" a page of entries.
       if (($page+1)*MAX_PER_PAGE < $num_rows)
-        $menu->add_down( $this_url.'?search='.rawurlencode($search).'&any='.$prefix.'&page='.($page+1));
+        $menu->add_down( $this_url.'?last=1&search='.rawurlencode($search).'&any='.$prefix.'&page='.($page+1));
 
       foreach ($data as $row)
         $menu->add_item($row["NAME"],'city_selected.php?name='.rawurlencode($row["NAME"]),true);

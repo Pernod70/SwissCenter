@@ -19,12 +19,8 @@
   // before the truncate of the playlist (if the user has selected shuffle).
 
   $server     = server_address();
-  $type       = un_magic_quote($_REQUEST["type"]);
-  $spec       = $_SESSION["play_now"]["spec"];
-  $seed       = $_REQUEST["seed"];
-  $shuffle    = ($_REQUEST["shuffle"] == "on" ? true : false);
+  $data       = get_tracklist_to_play();
   $item_count = 0;
-  $data       = pl_tracklist($type, $spec, $shuffle, $seed);
   
   foreach ($data as $row)
   {

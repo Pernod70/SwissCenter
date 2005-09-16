@@ -4,6 +4,7 @@
  *************************************************************************************************/
 
   require_once("base/page.php");
+  require_once("base/mysql.php");
   require_once("base/utils.php");
   require_once('base/browse.php');
   require_once('base/playlist.php');
@@ -11,7 +12,8 @@
 
   function output_link( $file )
   {
-    return pl_link('file',$file,'photo');
+    $file_id = db_value("select file_id from photos where concat(dirname,filename)='$file'");
+    return play_file(MEDIA_TYPE_PHOTO,$file_id);
   }
 
   $sql = 'from photos media'.get_rating_join().'where 1=1';

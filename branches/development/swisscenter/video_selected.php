@@ -101,9 +101,9 @@
     if ( ($data = db_toarray("select media.*, a.actor_name, d.director_name, g.genre_name, ".get_cert_name_sql()." certificate_name from $sql_table $predicate")) === false)
       page_error( str('DATABASE_ERROR'));
 
-    page_header( $data[0]["TITLE"] ,'','LOGO_MOVIE');
+    page_header( $data[0]["TITLE"] ,'');
 
-    $menu->add_item( str('PLAY_NOW')    , pl_link('file',$data[0]["DIRNAME"].$data[0]["FILENAME"]));
+    $menu->add_item( str('PLAY_NOW')    , play_file(MEDIA_TYPE_VIDEO,$data[0]["FILE_ID"]) );
     $folder_img = file_albumart($data[0]["DIRNAME"].$data[0]["FILENAME"]);
 
     if (pl_enabled())
@@ -125,7 +125,7 @@
   {
 
     // More than one track matches, so output filter details and menu options to add new filters
-    page_header( str('MANY_ITEMS',$num_rows),'','LOGO_MOVIE');
+    page_header( str('MANY_ITEMS',$num_rows),'');
 
     if ( ($data = db_toarray("select dirname from $sql_table $predicate group by dirname")) === false )
       page_error( str('DATABASE_ERROR') );
@@ -136,7 +136,7 @@
     $info->add_item( str('TITLE')       , distinct_info('title',$sql_table, $predicate));
     $info->add_item( str('YEAR')        , distinct_info('year',$sql_table, $predicate));
     $info->add_item( str('CERTIFICATE') , distinct_info(/*'certificate'*/get_cert_name_sql(),$sql_table, $predicate));
-    $menu->add_item( str('PLAY_NOW')    , pl_link('sql',"select * from $sql_table $predicate order by title"));
+    $menu->add_item( str('PLAY_NOW')    , play_sql_list(MEDIA_TYPE_VIDEO,"select * from $sql_table $predicate order by title"));
 
     if (pl_enabled())
       $menu->add_item( str('ADD_PLAYLIST') ,'add_playlist.php?sql='.rawurlencode("select * from $sql_table $predicate order by title"),true);

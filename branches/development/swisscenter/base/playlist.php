@@ -10,94 +10,70 @@ require_once("mysql.php");
 require_once("page.php");
 require_once("ext/getid3/getid3.php");
 
-//
-//  Returns TRUE if the current playlist contains only music
-//
+define('MEDIA_TYPE_MUSIC',1);
+define('MEDIA_TYPE_PHOTO',2);
+define('MEDIA_TYPE_VIDEO',3);
+define('MEDIA_TYPE_RADIO',4);
 
-function playlist_all_music()
+//-------------------------------------------------------------------------------------------------
+// Sets the $media_type and $file_id to the values for the media file specified in $fsp.
+// returns $file_id and $media_type set to '' if nothing is found.
+//-------------------------------------------------------------------------------------------------
+
+function find_media_in_db( $fsp, &$media_type, &$file_id)
 {
-  if (empty($_SESSION["playlist"]) || count($_SESSION["playlist"])==0)
-    return false;
-  
-  foreach ($_SESSION["playlist"] as $row)
-    if ( db_value("select count(*) from mp3s where file_id=$row[FILE_ID] and dirname='".db_escape_str($row["DIRNAME"])."' and filename='".db_escape_str($row["FILENAME"])."'") == 0 )
-      return false;
+  // Try music first
+  $media_type = MEDIA_TYPE_MUSIC;
+  $file_id    = db_value("select file_id from mp3s where concat(dirname,filename)='$fsp' limit 1");
 
-  return true;
-}
-
-//
-// Returns the correct link to cause the showcenter to start obtaining playlists and displaying/play 
-// media.
-//
-
-function pl_link( $type, $spec= '', $media = 'playlist')
-{
-  $link   = '';
-  $seed   = mt_rand();
-  $server = server_address();
-  
-  // Save the specification into the session (We'll also need to share the session by specifying the "session_id" paramter on the URL)
-  $_SESSION["play_now"]["spec"] = $spec;
-
-  switch ($media)
+  if (is_null($file_id))
   {
-    case 'audio' :
-          // Build link
-          $link .= 'href="gen_playlist.php?shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&'.current_session().'" ';
-          $link .= 'pod="3,1,'.$server.'playing_list.php?userid='.get_current_user_id().'&shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&'.current_session().'" ';
-          break;
-    case 'photo':
-          if (is_showcenter())
-          {
-            $link .= 'href="MUTE" ';
-            $link .= 'pod="1,1,'.$server.'gen_photolist.php?shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&'.current_session().'" ';
-          }
-          else 
-          {
-            $url  = $server.'gen_photolist.php?shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&'.current_session();
-            $args = "'".$url."','Slideshow','scrollbars=0, toolbar=0, width=".(SCREEN_WIDTH).", height=".(SCREEN_HEIGHT)."'";
-            $link = 'href="#" onclick="window.open('.$args.')"';
-          }
-          break;
-    default :
-          $link .= 'href="gen_playlist.php?shuffle='.$_SESSION["shuffle"].'&seed='.$seed.'&type='.$type.'&'.current_session().'" ';
-
-          if ( playlist_all_music())
-            $link .= 'pod="3,1,'.$server.'playing_list.php?'.current_session().'&userid='.get_current_user_id().'&shuffle='.$_SESSION["shuffle"]
-                    .'&seed='.$seed.'&type='.$type.'" ';
-          else 
-            $link .= 'vod="playlist" ';
-
-          break;
+    // Nothing found, so try movies
+    $media_type = MEDIA_TYPE_VIDEO;
+    $file_id    = db_value("select file_id from movies where concat(dirname,filename)='$fsp' limit 1");
   }
-  
-  return $link;
+
+  if (is_null($file_id))
+  {
+    // still nothing... try photos
+    $media_type = MEDIA_TYPE_PHOTO;
+    $file_id    = db_value("select file_id from photos where concat(dirname,filename)='$fsp' limit 1");
+  }
+
+  if (is_null($file_id))
+  {
+    // Still nothing... set the variables to '' to indicate nothing could be found
+    $media_type = '';
+    $file_id    = '';
+  }
 }
 
-//
+//-------------------------------------------------------------------------------------------------
 // Generates the array of tracks to play for the current playlist
-//
+//-------------------------------------------------------------------------------------------------
 
-function pl_tracklist($type, $spec, $shuffle = false, $seed = 0)
-{
-  $spec = $_SESSION["play_now"]["spec"];
-  
-  switch ($type)
+function get_tracklist_to_play()
+{  
+  $seed       = nvl($_REQUEST["seed"],0);
+  $shuffle    = ($_SESSION["shuffle"] == "on" ? true : false);
+  $spec_type  = $_REQUEST["spec_type"];
+  $media_type = $_REQUEST["media_type"];
+
+  switch ($spec_type)
   {
     case 'playlist':
-          $array = $_SESSION["playlist"];
+          $array      = $_SESSION["playlist"];
           break;
+          
     case 'sql':
-          $array = db_toarray($spec);
+          $spec       = $_SESSION["play_now"]["spec"];
+          $array      = db_toarray($spec.' LIMIT '.MAX_PLAYLIST_SIZE);
           break;
+          
     case 'file':
-          $array = array(array("FILENAME"=>$spec));
-          break;
-    case 'dir':
-          $media_type = substr_between_strings($spec,'<<','>>');
-          foreach ( db_col_to_list("select name from media_types, media_locations where media_id = media_type and media_name='".$media_type."'") as $path) 
-            $array = array_merge($array,db_toarray(str_replace('<<'.$media_type.'>>',$path,$spec))); 
+          $spec       = $_REQUEST["spec"];
+          $table      = db_value("select media_table from media_types where media_id = $media_type");          
+          $array      = db_toarray("select * from $table where file_id = $spec");
           break;
   }
 
@@ -107,32 +83,124 @@ function pl_tracklist($type, $spec, $shuffle = false, $seed = 0)
   return $array;
 }
 
-//
-// Creates a "Quick Play" link
-//
+//-------------------------------------------------------------------------------------------------
+// Returns a link to play a loaded or custom playlist (held in the session)
+//-------------------------------------------------------------------------------------------------
 
-function quick_play_link ($table, $media, $where)
+function play_playlist()
 {
-  $current_shuffle = $_SESSION["shuffle"];
-  $_SESSION["shuffle"] = 'on';
-  $link = pl_link('sql', "select * from $table media ".get_rating_join()." where 1=1 ".$where, $media);
-  $_SESSION["shuffle"] = $current_shuffle;
+  $params = 'spec_type=playlist&'.current_session().'&seed='.mt_rand();
+  
+  // If all music, then generate the "Now Playing" images to accompany the tracks.
+  if ( playlist_all_music())
+    $extra = 'pod="3,1,'.server_address().'playing_list.php?'.$params.'" ';
+  else 
+    $extra = 'vod="playlist" ';
+
+  return 'href="gen_playlist.php?'.$params.'" '.$extra;
+}
+
+//-------------------------------------------------------------------------------------------------
+// Returns a link to play a single file of type $media_type (constants defined above) which has
+// a file ID held in $file_id
+//-------------------------------------------------------------------------------------------------
+
+function play_file( $media_type, $file_id )
+{
+  $params = 'spec_type=file&'.current_session().'&spec='.$file_id.'&media_type='.$media_type;
+  
+  switch ($media_type)
+  {
+    case MEDIA_TYPE_MUSIC:
+         $link   = 'href="gen_playlist.php?'.$params.'" pod="3,1,'.server_address().'playing_list.php?'.$params.'" ';
+         break;
+         
+    case MEDIA_TYPE_VIDEO:
+         $link   = 'href="gen_playlist.php?'.$params.'" vod="playlist" ';
+         break;
+         
+    case MEDIA_TYPE_PHOTO:
+         if (is_showcenter())
+         {
+           // We send the href as MUTE becasue we don't want any music playing. Otherwise (I guess) we would
+           // send a link to a page that generates a music playlist
+           $link .= 'href="MUTE" pod="1,1,'.$server.'gen_photolist.php?'.$params.'" ';
+         }
+         else 
+         {
+           // On the PC we want to open a new window (of the right size) and run a little javascript picture slideshow.
+           $args = "'".$server.'gen_photolist.php?'.$params."','Slideshow','scrollbars=0, toolbar=0, width=".(SCREEN_WIDTH).", height=".(SCREEN_HEIGHT)."'";
+           $link = 'href="#" onclick="window.open('.$args.')"';
+         }
+         break;
+  }
+  
   return $link;
 }
 
-//
+//-------------------------------------------------------------------------------------------------
+// Returns a link to play a collection of $media_type items (constrants defined above) which are
+// selected using the SQL statement in $spec
+//-------------------------------------------------------------------------------------------------
+
+function play_sql_list( $media_type, $spec)
+{
+  $_SESSION["play_now"]["spec"] = $spec;
+  $params = 'spec_type=sql&'.current_session().'&seed='.mt_rand().'&media_type='.$media_type;
+  
+  switch ($media_type)
+  {
+    case MEDIA_TYPE_MUSIC:
+         $link   = 'href="gen_playlist.php?'.$params.'" pod="3,1,'.server_address().'playing_list.php?'.$params.'" ';
+         break;
+         
+    case MEDIA_TYPE_VIDEO:
+         $link   = 'href="gen_playlist.php?'.$params.'" vod="playlist" ';
+         break;
+         
+    case MEDIA_TYPE_PHOTO:
+         if (is_showcenter())
+         {
+           // We send the href as MUTE becasue we don't want any music playing. Otherwise (I guess) we would
+           // send a link to a page that generates a music playlist
+           $link .= 'href="MUTE" pod="1,1,'.$server.'gen_photolist.php?'.$params.'" ';
+         }
+         else 
+         {
+           // On the PC we want to open a new window (of the right size) and run a little javascript picture slideshow.
+           $args = "'".$server.'gen_photolist.php?'.$params."','Slideshow','scrollbars=0, toolbar=0, width=".(SCREEN_WIDTH).", height=".(SCREEN_HEIGHT)."'";
+           $link = 'href="#" onclick="window.open('.$args.')"';
+         }
+         break;
+  }
+  
+  return $link;
+}
+
+//-------------------------------------------------------------------------------------------------
+// Creates a "Quick Play" link
+//-------------------------------------------------------------------------------------------------
+
+function quick_play_link ( $media_type, $where)
+{
+  $_SESSION["shuffle"] = 'on';
+  $table = db_value("select media_table from media_types where media_id = $media_type");          
+  return play_sql_list($media_type, "select * from $table media ".get_rating_join()." where 1=1 ".$where);
+}
+
+//-------------------------------------------------------------------------------------------------
 // returns true if the current user (Apache) is able to read and write to the
 // playlists directory.
-//
+//-------------------------------------------------------------------------------------------------
 
 function pl_enabled()
 {
   return (is_readable(os_path(get_sys_pref("playlists"))) && is_writeable(os_path(get_sys_pref("playlists"))));
 }
 
-//
+//-------------------------------------------------------------------------------------------------
 // Stores the details of the current music selection in the SESSION playlist.
-//
+//-------------------------------------------------------------------------------------------------
 
 function build_pl($sql)
 {
@@ -163,8 +231,10 @@ function build_pl($sql)
   page_footer($back_url);
 }
 
+//-------------------------------------------------------------------------------------------------
 // Outputs the information about the current music playlist
 // (takes an infotab() object as a paramter)
+//-------------------------------------------------------------------------------------------------
 
 function pl_info ()
 {
@@ -191,18 +261,19 @@ function pl_info ()
   $info->display();
 }
 
-//
+//-------------------------------------------------------------------------------------------------
 // Clears the current playlist from the session
-//
+//-------------------------------------------------------------------------------------------------
+
 function clear_pl()
 {
   unset($_SESSION["playlist_name"]);
   unset($_SESSION["playlist"]);
 }
 
-//
+//-------------------------------------------------------------------------------------------------
 // Loads the contents of the file into the current session.
-//
+//-------------------------------------------------------------------------------------------------
 
 function load_pl ($file, $action)
 {
@@ -236,9 +307,9 @@ function load_pl ($file, $action)
   }
 }
 
-//
+//-------------------------------------------------------------------------------------------------
 // Save a Playlist
-//
+//-------------------------------------------------------------------------------------------------
 
 function save_pl ($file)
 {
@@ -249,6 +320,22 @@ function save_pl ($file)
 
   array2file($playlist, $file);
   $_SESSION["playlist_name"] = file_noext(basename($file));
+}
+
+//-------------------------------------------------------------------------------------------------
+//  Returns TRUE if the current playlist contains only music
+//-------------------------------------------------------------------------------------------------
+
+function playlist_all_music()
+{
+  if (empty($_SESSION["playlist"]) || count($_SESSION["playlist"])==0)
+    return false;
+  
+  foreach ($_SESSION["playlist"] as $row)
+    if ( db_value("select count(*) from mp3s where file_id=$row[FILE_ID] and dirname='".db_escape_str($row["DIRNAME"])."' and filename='".db_escape_str($row["FILENAME"])."'") == 0 )
+      return false;
+
+  return true;
 }
 
 /**************************************************************************************************

@@ -11,7 +11,7 @@
   
   $post_sql = $sql.$_SESSION["history"][0]["sql"];
   $dir   = un_magic_quote(rawurldecode($_REQUEST["dir"]));
-  $spec  = "select * from photos media ".get_rating_join()."where dirname like '<<Photo>>/$dir%' order by filename".$post_sql;
+  $spec  = "select * from photos media ".get_rating_join()."where dirname like '#MEDIA_LOC#/$dir%' order by filename".$post_sql;
   $data  = pl_tracklist('dir', $spec);
   $count = count($data);
   $info  = new infotab();
@@ -28,7 +28,7 @@
   $menu->add_item(str('START_SLIDESHOW'),pl_link('dir',$spec,'photo'));
 
   // Display Page
-  page_header(str('SLIDESHOW'),'/'.$dir,'LOGO_PHOTO');
+  page_header(str('SLIDESHOW'),'/'.$dir);
   $info->display();
   $menu->display();
   page_footer( 'photo_browse.php?DIR='.$_REQUEST["dir"] );

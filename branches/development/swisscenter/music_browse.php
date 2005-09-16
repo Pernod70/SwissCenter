@@ -11,8 +11,8 @@
 
   function output_link( $file )
   {
-    $id = db_value("select file_id from mp3s where concat(dirname,filename) = '".db_escape_str($file)."'");   
-    return pl_link('sql','select * from mp3s where file_id='.$id,'audio');
+    $file_id = db_value("select file_id from mp3s where concat(dirname,filename)='$file'");
+    return play_file(MEDIA_TYPE_MUSIC,$file_id);
   }
 
   $sql = 'from mp3s media'.get_rating_join().'where 1=1';

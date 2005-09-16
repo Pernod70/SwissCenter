@@ -68,9 +68,9 @@
   // ----------------------------------------------------------------------------------
 
   if ($_REQUEST["online"] != 'Y')
-    page_header( str('STYLE_CHOOSE'), '','LOGO_CONFIG' );
+    page_header( str('STYLE_CHOOSE'), '');
   else
-    page_header( str('STYLE_DOWNLOAD'), '', 'LOGO_CONFIG');
+    page_header( str('STYLE_DOWNLOAD'), '');
 
   $styles        = styles_list();
   $page          = $_REQUEST["page"];

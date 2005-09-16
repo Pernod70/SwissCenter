@@ -11,7 +11,8 @@
 
   function output_link( $file )
   {
-    return pl_link('file',$file);
+    $file_id = db_value("select file_id from movies where concat(dirname,filename)='$file'");
+    return play_file(MEDIA_TYPE_VIDEO,$file_id);
   }
 
   $sql = 'from movies media'.get_rating_join().'where 1=1';

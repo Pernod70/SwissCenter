@@ -13,7 +13,7 @@
 
   if (count($matches) == 0)
   {
-    page_header(str('WEATHER_MATCHING_TITLE'),str('WEATHER_MATCHING'),'LOGO_WEATHER');
+    page_header(str('WEATHER_MATCHING_TITLE'),str('WEATHER_MATCHING'));
     
     echo '&nbsp;<center><p>'
          .str('WEATHER_NO_MATCHING'

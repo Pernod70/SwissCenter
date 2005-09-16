@@ -12,20 +12,14 @@
 
     $cols = 6;
 
-    echo '<table>
-            <tr>
-              <td colspan=3 height="30px" align="center">';
-                $url = url_set_param($url,'last','KEY_SPC');
-                $url = url_set_param($url,'search', rawurlencode($search.' '));
-                echo '<a href="'.$url.'" name="KEY_SPC">'.str('KEYBOARD_SPC').'</a>';
-    echo '    </td>
-              <td colspan=3 height="30px" align="center">';
-                $url = url_set_param($url,'last','KEY_DEL');
-                $url = url_set_param($url,'search', rawurlencode(substr($search,0,-1)));
-                echo '<a href="'.$url.'" name="KEY_DEL">'.str('KEYBOARD_DEL').'</a>';
-    echo '    </td>
-            </tr>
-            <tr>';
+    echo '<table><tr>';
+    $url = url_set_param($url,'last','KEY_SPC');
+    $url = url_set_param($url,'search', rawurlencode($search.' '));
+    echo '<td colspan=3 height="30px" align="center"><a href="'.$url.'" name="KEY_SPC">'.str('KEYBOARD_SPC').'</a></td>';
+    $url = url_set_param($url,'last','KEY_DEL');
+    $url = url_set_param($url,'search', rawurlencode(substr($search,0,-1)));
+    echo '<td colspan=3 height="30px" align="center"><a href="'.$url.'" name="KEY_DEL">'.str('KEYBOARD_DEL').'</a></td>';
+    echo '</tr><tr>';
 
     for ($n=1; $n<=strlen($keys); $n++)
     {

@@ -15,7 +15,7 @@
 
   $movie = $_REQUEST["movie"];
   
-  page_header( str('MOVIE_INFO') ,'','LOGO_MOVIE');
+  page_header( str('MOVIE_INFO') ,'');
     
   debug($movie);
   

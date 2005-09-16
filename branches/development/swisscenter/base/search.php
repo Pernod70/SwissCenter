@@ -20,7 +20,7 @@ function  search_media_page( $heading, $title, $main_table, $joined_tables, $col
     array_pop($_SESSION["history"]);
 
   // Get important paramters from the URL
-  $this_url       = current_url();
+  $this_url       = url_set_param(current_url(),'del','N');
   $search         = un_magic_quote(rawurldecode($_REQUEST["search"]));
   $prefix         = $_REQUEST["any"];
   $page           = ( empty($_REQUEST["page"]) ? 0 : $_REQUEST["page"]);
@@ -49,7 +49,7 @@ function  search_media_page( $heading, $title, $main_table, $joined_tables, $col
     page_error(str('DATABASE_ERROR'));
 
   // Start outputting the page
-  page_header( $heading, $title.' : '.$search, '', '', $focus );
+  page_header( $heading, $title.' : '.$search, '', $focus );
   echo '<table border=0 height="320px" width="100%"><tr><td width="200px" valign="top">';
   show_picker( $this_url, $search);
   echo '</td><td valign=top>';

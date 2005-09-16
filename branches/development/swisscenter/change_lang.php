@@ -15,7 +15,7 @@
   }
   else 
   {
-    page_header( str('LANG_CHANGE'), '', 'LOGO_CONFIG' );
+    page_header( str('LANG_CHANGE'), '');
 
     echo '<p align="center">'.str('LANG_SELECT');
     $menu = new menu();

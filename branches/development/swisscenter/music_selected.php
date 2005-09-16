@@ -19,7 +19,7 @@
   $sql_table  = 'mp3s media'.get_rating_join().' where 1=1 ';
   $predicate  = search_process_passed_params();
   $playtime   = db_value("select sum(length) from $sql_table $predicate");
-  $num_rows   = db_value("select count($type) from $sql_table $predicate");
+  $num_rows   = db_value("select count(*) from $sql_table $predicate");
   $refine_url = 'music_search.php';
   $this_url   = url_set_param(current_url(),'add','N');
 
@@ -38,7 +38,7 @@
   $info->add_item( str('MUSIC_PLAY_TIME'),  hhmmss($playtime));
   
   // Build menu of options
-  $menu->add_item(str('PLAY_NOW'),   pl_link('sql',"select * from $sql_table $predicate order by album,lpad(track,10,'0'),title",'audio'));
+  $menu->add_item(str('PLAY_NOW'),   play_sql_list(MEDIA_TYPE_MUSIC,"select * from $sql_table $predicate order by album,lpad(track,10,'0'),title") );
   $menu->add_item(str('ADD_PLAYLIST'),'add_playlist.php?sql='.rawurlencode("select * from $sql_table $predicate order by album,lpad(track,10,'0'),title"),true);
 
   // If only one track is selected, the user might want to expand their selection to the whole album

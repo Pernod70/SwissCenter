@@ -13,7 +13,7 @@
  *************************************************************************************************/
 
 
-  page_header(str('PIN_ENTER'), "", "", "", 1, true);
+  page_header(str('PIN_ENTER'), "", "", 1, true);
 
   $pin = $_REQUEST["pin"];
   $ok_url = $_REQUEST["ok_url"];

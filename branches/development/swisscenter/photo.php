@@ -30,16 +30,16 @@
     $menu->display();
     
     if(!empty($cat_id))
-      page_footer('photo.php', array(array('text'=>str('QUICK_PLAY'), 'url'=>quick_play_link("photos","photo",$_SESSION["history"][0][sql]))));
+      page_footer('photo.php', array(array('text'=>str('QUICK_PLAY'), 'url' => quick_play_link(MEDIA_TYPE_PHOTO,$_SESSION["history"][0][sql]))));
     else
-      page_footer('photo.php', array(array('text'=>str('QUICK_PLAY'), 'url'=>quick_play_link("photos","photo",$_SESSION["history"][0][sql]))));
+      page_footer('photo.php', array(array('text'=>str('QUICK_PLAY'), 'url' => quick_play_link(MEDIA_TYPE_PHOTO,$_SESSION["history"][0][sql]))));
   }
 
 /**************************************************************************************************
    Main page output
  *************************************************************************************************/
 
-  page_header(str('VIEW_PHOTO'),'', 'LOGO_PHOTO');
+  page_header(str('VIEW_PHOTO'),'');
   $cat_id = $_REQUEST["cat"];
   
   if( !empty($cat_id) )

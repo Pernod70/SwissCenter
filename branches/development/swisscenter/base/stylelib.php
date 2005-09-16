@@ -15,7 +15,8 @@ function load_style( $user_id = '')
 
   if (!empty($style) && file_exists(SC_LOCATION.'styles/'.$style.'/style.ini'))
   {
-    $details = parse_ini_file(SC_LOCATION.'styles/'.$style.'/style.ini');
+    $details = parse_ini_file(SC_LOCATION.'images/style.ini');
+    $details = array_merge($details,parse_ini_file(SC_LOCATION.'styles/'.$style.'/style.ini'));
     $details["LOCATION"] = '/styles/'.$style.'/';
     $details["NAME"]     = $style;
   }
@@ -25,7 +26,7 @@ function load_style( $user_id = '')
     $details["LOCATION"] = '/images/';
     $details["NAME"]     = 'Default';
   }
-  
+
   // Ensure the display for audio will be in the correct place...
   if (get_screen_type() == 'PAL')
     $dummy = @file_get_contents('http://'.client_ip().':2020/pod_audio_info.cgi?x=210&y=464');  
@@ -46,7 +47,11 @@ function style_img ($name, $ext_url = false)
     load_style();
     
   $path   = substr(SC_LOCATION,0,-1);
-  $file   = $_SESSION["style"]["LOCATION"].$_SESSION["style"][strtoupper($name)];
+  
+  if (style_img_exists($name))
+    $file   = $_SESSION["style"]["LOCATION"].$_SESSION["style"][strtoupper($name)];
+  else 
+    $file   = '/images/'.$_SESSION["style"][strtoupper($name)];
 
   if ( isset( $_SESSION["style"][strtoupper($name)]) && file_exists($path.$file) )
     return ($ext_url ? $path : '').$file;

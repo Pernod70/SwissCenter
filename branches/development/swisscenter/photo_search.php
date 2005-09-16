@@ -23,7 +23,7 @@
         break;
   }
 
-  search_media_page( str('VIEW_PHOTO'), $title, 'photos', $joined_tables, $column, 'photo_selected.php' )
+  search_media_page( str('VIEW_PHOTO'), $title, 'photos', $joined_tables, $column, 'photo_selected.php' );
 
 /**************************************************************************************************
                                                End of file
