@@ -426,13 +426,28 @@ PC_LINK_MOVIES		= Movies
 PC_LINK_MUSIC		= Music
 PC_LINK_PHOTOS		= Photos
 
+SECONDS			= %s Seconds
+MINUTES			= %s Minutes
+
 BROWSE_DATE		= Browse by date
 BROWSE_PHOTO_ALBUM	= Browse by photo album
 BROWSE_PHOTO_TITLE	= Browse by title
 PHOTO_ALBUM		= Photo album
 PHOTO_TITLE		= Title
+PHOTO_PLAY_ORDER	= Play order
+PHOTO_CHANGE_ORDER	= Change play order
+PHOTO_CHANGE_TIME	= Change time per photo
+PHOTO_ORDER_NAME	= Name
+PHOTO_ORDER_DATE_TAKEN	= Date taken
+PHOTO_ORDER_DATE_DISK	= Date modified
+PHOTO_ORDER_DATE_RANDOM	= Random
 REFINE_PHOTO_ALBUM	= Refine by photo album
 REFINE_PHOTO_TITLE	= Refine by photo title
+
+TIME_SECOND_SHORT	= s
+TIME_MINUTE_SHORT	= m
+TIME_HOUR_SHORT		= h
+TIME_DAY_SHORT		= d
 
 EXIF_EXPOSE_MODE	= Exposure mode
 EXIF_EXPOSE_PROG	= Exposure program
@@ -462,7 +477,6 @@ EXIFVALS_METER_MODE	= Unknown, Average, Centre Weighted, Spot, Multi-Spot, Patte
 EXIFVALS_ORIENTATION	= Normal (0 deg), Mirrored, Upsidedown, Upsidedown & Mirrored
 EXIFVALS_SCENE_TYPE	= Standard, Landscape, Portrait, Night Scene
 EXIFVALS_WHITE_BALANCE	= Auto, Manual
-
 
 #----------------------------------------------------------------------------------------------------
 # End-of-file

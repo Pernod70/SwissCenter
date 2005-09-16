@@ -150,6 +150,7 @@ function output_cached_file( $filename , $type = '')
       header("Content-type: image/png");
       $fp = fopen($filename,'rb');
       fpassthru($fp);
+      fclose($fp);
       send_to_log('Using passthru() for '.$filename);
     }
   }

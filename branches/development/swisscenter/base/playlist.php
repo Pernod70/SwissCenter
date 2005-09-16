@@ -8,12 +8,7 @@ require_once("utils.php");
 require_once("file.php");
 require_once("mysql.php");
 require_once("page.php");
-require_once("ext/getid3/getid3.php");
-
-define('MEDIA_TYPE_MUSIC',1);
-define('MEDIA_TYPE_PHOTO',2);
-define('MEDIA_TYPE_VIDEO',3);
-define('MEDIA_TYPE_RADIO',4);
+require_once("rating.php");
 
 //-------------------------------------------------------------------------------------------------
 // Sets the $media_type and $file_id to the values for the media file specified in $fsp.
@@ -24,20 +19,20 @@ function find_media_in_db( $fsp, &$media_type, &$file_id)
 {
   // Try music first
   $media_type = MEDIA_TYPE_MUSIC;
-  $file_id    = db_value("select file_id from mp3s where concat(dirname,filename)='$fsp' limit 1");
+  $file_id    = db_value("select file_id from mp3s where concat(dirname,filename)='".db_escape_str($fsp)."' limit 1");
 
   if (is_null($file_id))
   {
     // Nothing found, so try movies
     $media_type = MEDIA_TYPE_VIDEO;
-    $file_id    = db_value("select file_id from movies where concat(dirname,filename)='$fsp' limit 1");
+    $file_id    = db_value("select file_id from movies where concat(dirname,filename)='".db_escape_str($fsp)."' limit 1");
   }
 
   if (is_null($file_id))
   {
     // still nothing... try photos
     $media_type = MEDIA_TYPE_PHOTO;
-    $file_id    = db_value("select file_id from photos where concat(dirname,filename)='$fsp' limit 1");
+    $file_id    = db_value("select file_id from photos where concat(dirname,filename)='".db_escape_str($fsp)."' limit 1");
   }
 
   if (is_null($file_id))
@@ -75,12 +70,49 @@ function get_tracklist_to_play()
           $table      = db_value("select media_table from media_types where media_id = $media_type");          
           $array      = db_toarray("select * from $table where file_id = $spec");
           break;
+
+    case 'dir':
+          $array      = array();
+          $dir        = rawurldecode($_REQUEST["spec"]);
+          $table      = db_value("select media_table from media_types where media_id = $media_type");          
+
+          // Get all media locations for this filetype, append the $dir and escapge them for DB access
+          $all_dirs = db_col_to_list("select name from media_locations where media_type = $media_type");
+          for ($i=0 ; $i<count($all_dirs) ; $i++)
+            $all_dirs[$i] = db_escape_str($all_dirs[$i].'/'.$dir);
+
+          $predicate = "dirname like '".implode("%' or dirname like '",$all_dirs)."%'";
+          $array     = db_toarray("select * from $table media ".get_rating_join()."where $predicate order by filename"); 
+          break;
+
   }
 
-  if ($shuffle && count($array)>1)
+  if ($shuffle && count($array)>1 && $spec_type != 'dir')
     shuffle_fisherYates($array,$seed);
 
   return $array;
+}
+
+//-------------------------------------------------------------------------------------------------
+// Returns the correct style of slideshow link for photos, depending on the browser
+//-------------------------------------------------------------------------------------------------
+
+function slideshow_link_by_browser( $params )
+{  
+  if (is_showcenter())
+  {
+   // We send the href as MUTE becasue we don't want any music playing. Otherwise (I guess) we would
+   // send a link to a page that generates a music playlist
+   $link .= 'href="MUTE" pod="1,1,'.server_address().'gen_photolist.php?'.$params.'" ';
+  }
+  else 
+  {
+   // On the PC we want to open a new window (of the right size) and run a little javascript picture slideshow.
+   $args = "'".server_address().'gen_photolist.php?'.$params."','Slideshow','scrollbars=0, toolbar=0, width=".(SCREEN_WIDTH).", height=".(SCREEN_HEIGHT)."'";
+   $link = 'href="#" onclick="window.open('.$args.')"';
+  }
+  
+  return $link;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -101,6 +133,32 @@ function play_playlist()
 }
 
 //-------------------------------------------------------------------------------------------------
+// Returns a link to play the directory $dir of files of type $media_type (constants defined above)
+//-------------------------------------------------------------------------------------------------
+
+function play_dir( $media_type, $dir )
+{
+  $params = 'spec_type=dir&spec='.rawurlencode($dir).'&media_type='.$media_type.'&seed='.mt_rand().'&'.current_session();
+  
+  switch ($media_type)
+  {
+    case MEDIA_TYPE_MUSIC:
+         $link   = 'href="gen_playlist.php?'.$params.'" pod="3,1,'.server_address().'playing_list.php?'.$params.'" ';
+         break;
+         
+    case MEDIA_TYPE_VIDEO:
+         $link   = 'href="gen_playlist.php?'.$params.'" vod="playlist" ';
+         break;
+         
+    case MEDIA_TYPE_PHOTO:
+         $link   = slideshow_link_by_browser( $params );
+         break;
+  }
+  
+  return $link;
+}
+  
+  //-------------------------------------------------------------------------------------------------
 // Returns a link to play a single file of type $media_type (constants defined above) which has
 // a file ID held in $file_id
 //-------------------------------------------------------------------------------------------------
@@ -120,18 +178,7 @@ function play_file( $media_type, $file_id )
          break;
          
     case MEDIA_TYPE_PHOTO:
-         if (is_showcenter())
-         {
-           // We send the href as MUTE becasue we don't want any music playing. Otherwise (I guess) we would
-           // send a link to a page that generates a music playlist
-           $link .= 'href="MUTE" pod="1,1,'.$server.'gen_photolist.php?'.$params.'" ';
-         }
-         else 
-         {
-           // On the PC we want to open a new window (of the right size) and run a little javascript picture slideshow.
-           $args = "'".$server.'gen_photolist.php?'.$params."','Slideshow','scrollbars=0, toolbar=0, width=".(SCREEN_WIDTH).", height=".(SCREEN_HEIGHT)."'";
-           $link = 'href="#" onclick="window.open('.$args.')"';
-         }
+         $link   = slideshow_link_by_browser( $params);
          break;
   }
   
@@ -159,18 +206,7 @@ function play_sql_list( $media_type, $spec)
          break;
          
     case MEDIA_TYPE_PHOTO:
-         if (is_showcenter())
-         {
-           // We send the href as MUTE becasue we don't want any music playing. Otherwise (I guess) we would
-           // send a link to a page that generates a music playlist
-           $link .= 'href="MUTE" pod="1,1,'.$server.'gen_photolist.php?'.$params.'" ';
-         }
-         else 
-         {
-           // On the PC we want to open a new window (of the right size) and run a little javascript picture slideshow.
-           $args = "'".$server.'gen_photolist.php?'.$params."','Slideshow','scrollbars=0, toolbar=0, width=".(SCREEN_WIDTH).", height=".(SCREEN_HEIGHT)."'";
-           $link = 'href="#" onclick="window.open('.$args.')"';
-         }
+         $link   = slideshow_link_by_browser( $params);
          break;
   }
   

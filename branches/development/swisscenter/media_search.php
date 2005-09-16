@@ -217,7 +217,7 @@
 
   function add_photo_album( $dir, $id )
   {
-    $count = db_value("select count(*) from photo_albums where dirname='$dir'");
+    $count = db_value("select count(*) from photo_albums where dirname='".db_escape_str($dir)."'");
     if ($count == 0)
     {
       $row = array("dirname"       => $dir

@@ -12,13 +12,15 @@ require_once("prefs.php");
 require_once("language.php");
 
 #-------------------------------------------------------------------------------------------------
-# Here are the settings that we want available on a global basis, but we don't want the user
-# changing it (for example, it would mess up the screen display).
+# Here are the settings that we want available on a global basis.
 #-------------------------------------------------------------------------------------------------
 
   define( 'MAX_PER_PAGE',   8 ); // Menus only
-  define( 'THUMB_W',        150 );
-  define( 'THUMB_H',        225 );
+
+  define('MEDIA_TYPE_MUSIC',1);
+  define('MEDIA_TYPE_PHOTO',2);
+  define('MEDIA_TYPE_VIDEO',3);
+  define('MEDIA_TYPE_RADIO',4);
   
 #-------------------------------------------------------------------------------------------------
 # Check that the correct versions of PHP is present on the system.

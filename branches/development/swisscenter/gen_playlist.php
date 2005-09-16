@@ -44,7 +44,7 @@
   
   if (!is_showcenter() )
   {
-    // header('Content-Disposition: attachment; filename=Playlist.m3u');
+    header('Content-Disposition: attachment; filename=Playlist.m3u');
     header("Cache-Control: must-revalidate, post-check=0, pre-check=0"); 
     header('Content-Type: audio/x-mpegurl');
     header("Content-Length: ".ob_get_length());

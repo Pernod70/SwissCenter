@@ -16,12 +16,13 @@
 
   $menu       = new menu();
   $info       = new infotab();
-  $delay      = 5;
   $sql_table  = "photos media ".get_rating_join()." inner join photo_albums pa on media.dirname like concat(pa.dirname,'%') where 1=1 ";
   $predicate  = search_process_passed_params();
   $count      = db_value("select count(distinct media.file_id) from $sql_table $predicate");
   $refine_url = 'photo_search.php';
   $this_url   = url_set_param(current_url(),'add','N');
+  $play_order = get_user_pref('PHOTO_PLAY_ORDER','filename');    
+  $delay      = get_user_pref('PHOTO_PLAY_TIME',5);
   
 
   if ($count == 1)
@@ -51,12 +52,26 @@
     $info->add_item(str('PHOTOS_NO_SELECTED')  , $count);
     $info->add_item(str('PHOTOS_TIME_ONE')     , $delay.' Seconds');
     $info->add_item(str('PHOTOS_TIME_ALL')     , hhmmss($delay * $count));
+    
+    switch ($play_order)
+    {
+      case 'filename'      : $info->add_item(str('PHOTO_PLAY_ORDER')   , str('PHOTO_ORDER_NAME') ); break;
+      case 'date_created'  : $info->add_item(str('PHOTO_PLAY_ORDER')   , str('PHOTO_ORDER_DATE_TAKEN') ); break;
+      case 'date_modified' : $info->add_item(str('PHOTO_PLAY_ORDER')   , str('PHOTO_ORDER_DATE_DISK') ); break;
+      default              : $info->add_item(str('PHOTO_PLAY_ORDER')   , str('PHOTO_ORDER_DATE_RANDOM') ); break;
+    }
   }
   
   // Menu Options
+  $menu->add_item(str('START_SLIDESHOW'), play_sql_list(MEDIA_TYPE_PHOTO,"select media.* from $sql_table $predicate order by $play_order") );
   search_check_filter( $menu, str('REFINE_PHOTO_ALBUM'),  'title',  $sql_table, $predicate, $refine_url );
   search_check_filter( $menu, str('REFINE_PHOTO_TITLE'),  'filename',  $sql_table, $predicate, $refine_url );
-  $menu->add_item(str('START_SLIDESHOW'), play_sql_list(MEDIA_TYPE_PHOTO,"select media.* from $sql_table $predicate order by title") );
+  
+  if ($count >1)
+  {
+    $menu->add_item( str('PHOTO_CHANGE_ORDER'), 'photo_change_order.php', true);
+    $menu->add_item( str('PHOTO_CHANGE_TIME'), 'photo_change_time.php', true);
+  }
 
   // Display Page
   page_header(str('SLIDESHOW'),'');
@@ -64,11 +79,6 @@
   $menu->display();
 
   // Display ABC buttons
-  if (!isset($_SESSION["shuffle"]) || $_SESSION["shuffle"] == 'off')
-    $buttons[] = array('text'=>str('SHUFFLE_ON'), 'url'=> url_set_param($this_url,'shuffle','on') );
-  else
-    $buttons[] = array('text'=>str('SHUFFLE_OFF'), 'url'=> url_set_param($this_url,'shuffle','off') );
-
   page_footer( url_add_param($_SESSION["last_picker"][count($_SESSION["history"])-1],'del','y'), $buttons );
 
 /**************************************************************************************************

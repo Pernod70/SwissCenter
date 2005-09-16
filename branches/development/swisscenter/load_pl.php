@@ -21,7 +21,11 @@
   }
   else 
   {
-    browse_fs(str('PLAYLIST_LOAD'), get_sys_pref("playlists"), 'manage_pl.php', array('m3u') );
+    browse_fs( str('PLAYLIST_LOAD')
+             , get_sys_pref("playlists")
+             , 'manage_pl.php'
+             , array('m3u')
+             );
   }
 
 /**************************************************************************************************

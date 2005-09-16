@@ -10,6 +10,36 @@
   require_once("base/rating.php");
   
 #-------------------------------------------------------------------------------------------------
+# Functions for managing the search history.
+#-------------------------------------------------------------------------------------------------
+
+function search_hist_init( $url, $sql )
+{
+  $_SESSION["history"] = array();
+  $_SESSION["history"][] = array("url"=> $url, "sql"=>$sql);
+}
+
+function search_hist_push( $url, $sql )
+{
+  $_SESSION["history"][] = array("url"=> $url, "sql"=>$sql);
+}
+
+function search_hist_pop()
+{
+  array_pop($_SESSION["history"]);
+}
+
+function search_hist_most_recent()
+{
+  return $_SESSION["history"][count($_SESSION["history"])-1];
+}
+
+function search_hist_first()
+{
+  return $_SESSION["history"][0];
+}
+
+#-------------------------------------------------------------------------------------------------
 # Function to output a "search" page for any media type.
 #-------------------------------------------------------------------------------------------------  
 
@@ -17,7 +47,7 @@ function  search_media_page( $heading, $title, $main_table, $joined_tables, $col
 {
   // Should we delete the last entry on the history stack?
   if (strtoupper($_REQUEST["del"]) == 'Y')
-    array_pop($_SESSION["history"]);
+    search_hist_pop();
 
   // Get important paramters from the URL
   $this_url       = url_set_param(current_url(),'del','N');
@@ -27,8 +57,7 @@ function  search_media_page( $heading, $title, $main_table, $joined_tables, $col
   $focus          = (empty($_REQUEST["last"]) ? 'KEY_SPC' : $_REQUEST["last"] );
   $menu           = new menu();
   $data           = array();
-  $back_url       = $_SESSION["history"][count($_SESSION["history"])-1]["url"];
-  $post_sql       = $_SESSION["history"][count($_SESSION["history"])-1]["sql"];
+  $history        = search_hist_most_recent();
   $main_table_sql = "$main_table media ".get_rating_join();
 
   // Adding necessary paramters to the target URL (for when an item is selected)
@@ -38,12 +67,12 @@ function  search_media_page( $heading, $title, $main_table, $joined_tables, $col
   // Get the matching records from the database.
   $data     = db_toarray("   select distinct $column display 
                                from $main_table_sql $joined_tables
-                              where $column like '".$prefix.db_escape_str(str_replace('_','\_',$search))."%' ".$post_sql." 
+                              where $column like '".$prefix.db_escape_str(str_replace('_','\_',$search))."%' ".$history["sql"]." 
                            order by 1 limit ".(($page*MAX_PER_PAGE)).",".MAX_PER_PAGE);
   
   $num_rows = db_value("     select count(distinct $column) 
                                from $main_table_sql $joined_tables
-                              where $column like '".$prefix.db_escape_str(str_replace('_','\_',$search))."%' ".$post_sql);
+                              where $column like '".$prefix.db_escape_str(str_replace('_','\_',$search))."%' ".$history["sql"]);
 
   if ( $data === false || $num_rows === false)
     page_error(str('DATABASE_ERROR'));
@@ -87,7 +116,7 @@ function  search_media_page( $heading, $title, $main_table, $joined_tables, $col
   $buttons[] = array('text'=>str('SEARCH_CLEAR'), 'url'=>url_add_param($this_url,'search','') );
   $buttons[] = array('text'=>str('SELECT_ALL'),   'url'=>url_set_param($choose_url,'name',rawurlencode($search.'%')) );
 
-  page_footer($back_url, $buttons);
+  page_footer( $history["url"], $buttons);
 }
   
 #-------------------------------------------------------------------------------------------------
@@ -98,14 +127,23 @@ function search_process_passed_params()
 {
   $name      = un_magic_quote(rawurldecode($_REQUEST["name"]));
   $type      = un_magic_quote($_REQUEST["type"]);
-  $post_sql  = $_SESSION["history"][count($_SESSION["history"])-1]["sql"];
-  $predicate = $post_sql." and $type like '".db_escape_str(str_replace('_','\_',$name))."'";
+  $history   = search_hist_most_recent();
+  
+  // If no $type is specified, then $name contains a pure SQL predicate to add.
+  if (empty($type))
+    $predicate = $history["sql"]." and $name";
+  else 
+    $predicate = $history["sql"]." and $type like '".db_escape_str(str_replace('_','\_',$name))."'";
 
   if (isset($_REQUEST["shuffle"]))
     $_SESSION["shuffle"] = $_REQUEST["shuffle"];
 
   if (isset($_REQUEST["add"]) && strtoupper($_REQUEST["add"]) == 'Y')
-    $_SESSION["history"][] = array("url"=> str_replace('add=Y','add=N',url_add_param(current_url(),'p_del','Y')), "sql"=>$predicate);
+  {
+    $hist_url  = url_add_param(current_url(),'p_del','Y');
+    $hist_url  = url_set_param($hist_url,'add','N');
+    search_hist_push( $hist_url , $predicate );
+  }
 
   return $predicate;
 }

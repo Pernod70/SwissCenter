@@ -7,19 +7,14 @@
   require_once("base/categories.php");
   require_once("base/rating.php");
   require_once("base/playlist.php");
+  require_once("base/search.php");
 
   function display_photo_menu($cat_id)
   {
     if(empty($cat_id))
-    {
-      $_SESSION["history"] = array(array("url"=>"photo.php",
-        "sql"=>get_rating_filter()));
-    }
+      search_hist_init( 'photo.php', get_rating_filter() );
     else
-    {
-      $_SESSION["history"] = array(array("url"=>"photo.php?cat=$cat_id",
-        "sql"=>category_select_sql($cat_id, 2).get_rating_filter()));
-    }
+      search_hist_init( 'photo.php?cat='.$cat_id, category_select_sql($cat_id, 1).get_rating_filter() );
 
     echo '<center>'.str('SELECT_OPTION').'</center><p>';
 
