@@ -44,7 +44,7 @@
 
   // Build Current Conditions information table
   $cc = new infotab();
-  $cc->add_item(str('WEATHER_FEELS_LIE'),  $xml_cc["cc"]["flik"].chr(176).$xml_cc["head"]["ut"]);
+  $cc->add_item(str('WEATHER_FEELS_LIKE'), $xml_cc["cc"]["flik"].chr(176).$xml_cc["head"]["ut"]);
   $cc->add_item(str('WEATHER_HUMIDITY'),   $xml_cc["cc"]["hmid"].'%');
   $cc->add_item(str('WEATHER_PRESSURE'),   $xml_cc["cc"]["bar"]["r"].' '.$xml_cc["head"]["up"]);
   $cc->add_item(str('WEATHER_WIND'),       $xml_cc["cc"]["wind"][s].' '.$xml_cc["head"]["us"].' '.$xml_cc["cc"]["wind"]["t"]);

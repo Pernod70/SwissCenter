@@ -16,7 +16,7 @@
     return play_file(MEDIA_TYPE_MUSIC,$file_id);
   }
 
-  $hist = search_hist_most_first();
+  $hist = search_hist_most_recent();
   $sql  = 'from mp3s media'.get_rating_join().'where 1=1'.$hist["sql"];
 
   browse_db( str('BROWSE_MUSIC')                                                   // Title

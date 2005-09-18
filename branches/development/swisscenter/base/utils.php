@@ -425,7 +425,7 @@ function url_set_param($url, $param, $value)
 // online or the version of the database).
 // ----------------------------------------------------------------------------------
 
-function swisscente_version()
+function swisscenter_version()
 {
   return max( get_sys_pref('last_update') ,get_sys_pref('database_version'));
 }

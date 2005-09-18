@@ -94,7 +94,6 @@ require_once("language.php");
         }
       }
     }
-    
     // Check again in 24 hours
     $_SESSION["update"]["timeout"]   = time()+86400; 
   }
