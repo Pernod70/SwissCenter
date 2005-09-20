@@ -413,6 +413,8 @@ YEAR			= Year
 
 COMPACT_VIEW		= Compact View
 
+NO_SYNOPSIS_AVAILABLE	= There is no synopsis available.
+
 KEYBOARD_DEL		= DELETE
 KEYBOARD_SPC		= SPACE
 
@@ -449,6 +451,7 @@ TIME_MINUTE_SHORT	= m
 TIME_HOUR_SHORT		= h
 TIME_DAY_SHORT		= d
 
+EXIF_EXPOSURE		= Exposure
 EXIF_EXPOSE_MODE	= Exposure mode
 EXIF_EXPOSE_PROG	= Exposure program
 EXIF_EXPOSE_TIME	= Exposure time
