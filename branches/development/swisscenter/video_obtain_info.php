@@ -126,15 +126,25 @@
       }
       
       $details = substr_between_strings($html,"Recommend this to a friend</span>","MEMBER RATINGS");
+
       $columns = array ( "YEAR"              => array_pop(get_attrib($details,"Year:"))
                        , "CERTIFICATE"       => db_lookup( 'certificates','name','cert_id',array_pop(get_attrib($details,"Certificate:")) )
                        , "MATCH_PC"          => $accuracy
                        , "DETAILS_AVAILABLE" => 'Y'
                        , "SYNOPSIS"          => substr_between_strings($details,'','     '));
+                       
       scdb_add_directors     (array($file_id), get_attrib($details,"Director:"));
       scdb_add_actors        (array($file_id), get_attrib($details,"Starring:"));
       scdb_add_genres        (array($file_id), get_attrib($details,"Genre\(s\):"));    
       scdb_set_movie_attribs (array($file_id), $columns);
+
+      // Attempt to capture the fact that the website has changed and we are unable to get movie information.
+      if (strlen($details) == 0)
+      {
+        send_to_log('UNABLE TO GET MOVIE INFORMATION FROM WWW.LOVEFILM.COM');
+        send_to_log('This may be due to lovefilm changing their page format - please post to the forums on');
+        send_to_log('the www.swisscenter.co.uk website requesting that the matter be investigated further.');        
+      }
     }
     else 
     {
