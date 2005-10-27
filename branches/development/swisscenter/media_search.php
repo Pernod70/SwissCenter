@@ -12,6 +12,7 @@
   require_once("video_obtain_info.php");
 
   set_time_limit(0);
+  ini_set('memory_limit',-1);
   $start_time = time();
   
   $cache_dir = get_sys_pref('cache_dir');
@@ -254,11 +255,11 @@
   function scan_dirs( $dir, $id, $table, $file_exts )
   {
     debug_to_log('Scanning : '.$dir);
-    if ($dh = opendir($dir))
+    if ($dh = @opendir($dir))
     {
       while (($file = readdir($dh)) !== false)
       {
-        if (is_dir($dir.$file))
+        if (@is_dir($dir.$file))
         {
           // Regular directory, so recurse and get files.
           if (($file) !='.' && ($file) !='..')
@@ -271,7 +272,9 @@
         }
         elseif ( in_array(strtolower(file_ext($file)),$file_exts) )
         {
-          $file_date = db_datestr(filemtime($dir.$file));
+          if ( @filemtime($dir.$file) > 0 )
+            $file_date = db_datestr(@filemtime($dir.$file));
+            
           $db_date   = db_value("select discovered from $table 
                                   where location_id=$id 
                                     and dirname='".db_escape_str($dir)."' 
@@ -289,7 +292,7 @@
           {
             if ($file_date > $db_date)
             {
-              debug_to_log('"File has been modified, reloading information..."');
+              debug_to_log("File has been modified ($file_date > $db_date)");
 
               // Record exists, but the modification time of the file is more recent
               db_sqlcommand("delete from $table 
