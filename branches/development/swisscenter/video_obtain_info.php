@@ -131,7 +131,7 @@
           }
       }
       
-      $details = substr_between_strings($html,"Recommend this to a friend</span>","MEMBER RATINGS");
+      $details = substr_between_strings($html,"Recommend this to a friend</span>","titlebar");
 
       $columns = array ( "YEAR"              => array_pop(get_attrib($details,"Year:"))
                        , "CERTIFICATE"       => db_lookup( 'certificates','name','cert_id',array_pop(get_attrib($details,"Certificate:")) )
