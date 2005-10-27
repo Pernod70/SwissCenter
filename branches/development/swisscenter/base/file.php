@@ -92,6 +92,15 @@ function send_to_log( $item, $var = '')
 }
 
 //-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+
+function debug_to_log( $item, $var='')
+{
+  if (defined('LOG_MODE') && strtolower(LOG_MODE) == 'debug')
+    send_to_log($item, $var);
+}
+
+//-------------------------------------------------------------------------------------------------
 // Returns an absolute path pointing to the file specified in $fsp.
 // - If $fsp is already an absolute path, then nothing is done.
 // - if $fsp is not an absolute path, then directory $dir is added to make one.

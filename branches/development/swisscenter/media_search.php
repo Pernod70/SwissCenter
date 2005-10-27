@@ -11,7 +11,8 @@
   require_once("ext/exif/exif_reader.php");
   require_once("video_obtain_info.php");
 
-  set_time_limit(86400);
+  set_time_limit(0);
+  $start_time = time();
   
   $cache_dir = get_sys_pref('cache_dir');
 
@@ -129,7 +130,7 @@
         if (db_insert_row( "photos", $data) && $cache_dir != '')
         {
           // TO-DO... the x,y sizes will change depending on the aspect ration and resolution of the display device(s) in use
-          send_to_log('Pre-caching thumbnail');
+          debug_to_log('Pre-caching thumbnail');
           precache($dir.$file, THUMBNAIL_X_SIZE, THUMBNAIL_Y_SIZE);
         }
         else
@@ -197,7 +198,7 @@
     else
     {
       // File extension is correct, but the file itself isn't!
-      send_to_log("GETID3 claims this is not a valid movie (but we'll add it anyway!)");
+      debug_to_log("GETID3 claims this is not a valid movie (but we'll add it anyway!)");
 
       $data = array("dirname"      => $dir
                    ,"filename"     => $file
@@ -206,6 +207,7 @@
                    ,"size"         => filesize($dir.$file)
                    ,"verified"     => 'Y'
                    ,"discovered"   => db_datestr() );
+                   
       if ( db_insert_row( "movies", $data) === false )
         send_to_log('Unable to add movie to the database');
     }
@@ -220,6 +222,8 @@
     $count = db_value("select count(*) from photo_albums where dirname='".db_escape_str($dir)."'");
     if ($count == 0)
     {
+      debug_to_log('Adding photo album "'.$basename($dir).'"');
+      
       $row = array("dirname"       => $dir
                    ,"title"        => basename($dir)
                    ,"verified"     => 'Y'
@@ -238,7 +242,7 @@
 
   function scan_dirs( $dir, $id, $table, $file_exts )
   {
-    send_to_log('Scanning : '.$dir);
+    debug_to_log('Scanning : '.$dir);
     if ($dh = opendir($dir))
     {
       while (($file = readdir($dh)) !== false)
@@ -274,6 +278,8 @@
           {
             if ($file_date > $db_date)
             {
+              debug_to_log('"File has been modified, reloading information..."');
+
               // Record exists, but the modification time of the file is more recent
               db_sqlcommand("delete from $table 
                               where location_id=$id 
@@ -319,25 +325,25 @@
 
   function remove_orphaned_records()
   {
-    @db_sqlcommand('delete from maa  '.
-                   ' using mp3_albumart maa left outer join mp3s m  '.
-                   '    on maa.file_id = m.file_id '.
-                   ' where m.file_id is null');
+    @db_sqlcommand('delete from mp3_albumart  '.
+                   ' using mp3_albumart left outer join mp3s  '.
+                   '    on mp3_albumart.file_id = mp3s.file_id '.
+                   ' where mp3s.file_id is null');
     
-    @db_sqlcommand('delete from m  '.
-                   ' using mp3s m left outer join media_locations ml  '.
-                   '    on ml.location_id = m.location_id '.
-                   ' where ml.location_id is null');
+    @db_sqlcommand('delete from mp3s  '.
+                   ' using mp3s  left outer join media_locations  '.
+                   '    on media_locations.location_id = mp3s.location_id '.
+                   ' where media_locations.location_id is null');
     
-    @db_sqlcommand('delete from m '.
-                   ' using movies m left outer join media_locations ml  '.
-                   '    on ml.location_id = m.location_id  '.
-                   ' where ml.location_id is null');
+    @db_sqlcommand('delete from movies '.
+                   ' using movies left outer join media_locations  '.
+                   '    on media_locations.location_id = movies.location_id  '.
+                   ' where media_locations.location_id is null');
     
-    @db_sqlcommand('delete from m '.
-                   ' using photos m left outer join media_locations ml  '.
-                   '    on ml.location_id = m.location_id '.
-                   ' where ml.location_id is null');
+    @db_sqlcommand('delete from photos '.
+                   ' using photos left outer join media_locations '.
+                   '    on media_locations.location_id = photos.location_id '.
+                   ' where media_locations.location_id is null');
   }
   
   // ----------------------------------------------------------------------------------

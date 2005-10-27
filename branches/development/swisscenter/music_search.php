@@ -20,8 +20,7 @@
       break;
   }
 
-  search_media_page( str('LISTEN_MUSIC'), $title, 'mp3s', '', $column, 'music_selected.php')
-
+  search_media_page( str('LISTEN_MUSIC'), $title, 'mp3s', '', $column, 'music_selected.php');
 
 /**************************************************************************************************
                                                End of file
