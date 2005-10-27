@@ -76,7 +76,18 @@
     else
     {
       // File extension is MP3, but the file itself isn't!
-      send_to_log('GETID3 claims this is not an MP3');
+      send_to_log('GETID3 claims this is not an MP3 - adding it anyway, but no ID3 tag information could be read.');
+
+      $data = array("dirname"      => $dir
+                   ,"filename"     => $file
+                   ,"location_id"  => $id
+                   ,"title"        => file_noext($file)
+                   ,"size"         => filesize($dir.$file)
+                   ,"verified"     => 'Y'
+                   ,"discovered"   => db_datestr() );
+                   
+      if ( db_insert_row( "mp3s", $data) === false )
+        send_to_log('Unable to add MP3 to the database');
     }
   }
 
@@ -386,7 +397,7 @@
   process_media_dirs( db_toarray("select * from media_locations where media_type=3") ,'movies', explode(',' ,MEDIA_EXT_MOVIE));
   process_media_dirs( db_toarray("select * from media_locations where media_type=2") ,'photos', explode(',' ,MEDIA_EXT_PHOTOS));
 
-  if (internet_available())
+  if (internet_available() && get_sys_pref('movie_check_enabled','NO') == 'YES')
     extra_get_all_movie_details();
   
   eliminate_duplicates();

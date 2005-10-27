@@ -17,7 +17,7 @@
       // Insert the actor into the table (we don't care if this violates an unique constraint)
       if (! empty($actor))
       {
-        db_sqlcommand("insert into actors values (0,'$actor')");
+        db_sqlcommand("insert into actors values (0,'$actor')",false);
         $actor_id = db_value("select actor_id from actors where actor_name='$actor'");
         foreach ($movies as $movie_id)
           db_sqlcommand("insert into actors_in_movie values ($movie_id, $actor_id)");
@@ -37,7 +37,7 @@
       // Insert the director into the table (we don't care if this violates an unique constraint)
       if (! empty($dir))
       {
-        db_sqlcommand("insert into directors values (0,'$dir')");
+        db_sqlcommand("insert into directors values (0,'$dir')",false);
         $dir_id = db_value("select director_id from directors where director_name='$dir'");
         foreach ($movies as $movie_id)
           db_sqlcommand("insert into directors_of_movie values ($movie_id, $dir_id)");
@@ -57,7 +57,7 @@
       // Insert the genre into the table (we don't care if this violates an unique constraint)
       if (! empty($genre))
       {
-        db_sqlcommand("insert into genres values (0,'$genre')");
+        db_sqlcommand("insert into genres values (0,'$genre')",false);
         $genre_id = db_value("select genre_id from genres where genre_name='$genre'");        
         foreach ($movies as $movie_id)
           db_sqlcommand("insert into genres_of_movie values ($movie_id, $genre_id)");
@@ -72,7 +72,7 @@
   function scdb_set_movie_attribs ( $movies, $columns )
   {
     foreach ($movies as $movie_id)
-      db_sqlcommand("update movies set ".db_array_to_set_list($columns)." where file_id=".$movie_id);
+      db_sqlcommand("update movies set ".db_array_to_set_list($columns)." where file_id=".$movie_id,false);
   }   
  
   // ----------------------------------------------------------------------------------------
@@ -94,13 +94,13 @@
                              where movie_id is null;");
 
     foreach ($actors as $row)
-      db_sqlcommand("delete from actors where actor_id = ".$row["ACTOR_ID"]);
+      db_sqlcommand("delete from actors where actor_id = ".$row["ACTOR_ID"],false);
 
     foreach ($directors as $row)
-      db_sqlcommand("delete from directors where director_id = ".$row["DIRECTOR_ID"]);
+      db_sqlcommand("delete from directors where director_id = ".$row["DIRECTOR_ID"],false);
 
     foreach ($genres as $row)
-      db_sqlcommand("delete from genres where genre_id = ".$row["GENRE_ID"]);
+      db_sqlcommand("delete from genres where genre_id = ".$row["GENRE_ID"],false);
   }
   
 /**************************************************************************************************

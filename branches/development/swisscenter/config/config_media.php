@@ -3,7 +3,7 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-include_once('base/media.php');
+include_once('../base/media.php');
 
   function media_search()
   {
@@ -12,7 +12,7 @@ include_once('base/media.php');
     message(str('REFRESH_DATABASE_PROMPT'));
     echo '<p>'.str('REFRESH_RUNNING');
   }
-   media
+   
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/

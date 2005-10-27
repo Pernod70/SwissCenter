@@ -25,7 +25,6 @@ CREATE TABLE photo_albums (
   KEY title (title(50))
 ) TYPE=MyISAM;
 
-
 ALTER TABLE movies ADD CONSTRAINT FOREIGN KEY (certificate) REFERENCES certificates(cert_id) ON DELETE SET NULL;
 ALTER TABLE movies ADD FOREIGN KEY (location_id) REFERENCES media_locations (location_id) ON DELETE CASCADE;
 
@@ -52,6 +51,7 @@ ALTER TABLE photos ADD
 , exif_capture_type	text default null
 );
 
+ALTER TABLE photos modify date_created varchar(50);
 
 -- *************************************************************************************************
 --   SWISScenter Source                                                              Robert Taylor

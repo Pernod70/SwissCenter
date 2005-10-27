@@ -49,7 +49,11 @@
 
   function extra_get_movie_details ( $file_id )
   {    
+    // First check to see if we've encountered an error downloading the details before in this session.
+    if ( isset($_SESSION['Movie_info_download']) )
+      return;
 
+    // Perform search for matching titles
     $site_url    = 'http://www.lovefilm.com/';
     $search_url  = $site_url.'search.php?searchtype=title&dvdsearch=';
     $file_path   = db_value("select dirname from movies where file_id = $file_id");
@@ -70,6 +74,8 @@
       else 
       {
         // There are multiple matches found... process them
+        
+        $html = substr($html,strpos($html,"Film Title"));     
         $matches = get_urls_from_html($html);
         $best_match = array("id" => 0, "chars" => 0, "pc" => 0);
         
@@ -133,17 +139,20 @@
                        , "DETAILS_AVAILABLE" => 'Y'
                        , "SYNOPSIS"          => substr_between_strings($details,'','     '));
                        
-      scdb_add_directors     (array($file_id), get_attrib($details,"Director:"));
-      scdb_add_actors        (array($file_id), get_attrib($details,"Starring:"));
-      scdb_add_genres        (array($file_id), get_attrib($details,"Genre\(s\):"));    
-      scdb_set_movie_attribs (array($file_id), $columns);
-
       // Attempt to capture the fact that the website has changed and we are unable to get movie information.
       if (strlen($details) == 0)
       {
         send_to_log('UNABLE TO GET MOVIE INFORMATION FROM WWW.LOVEFILM.COM');
         send_to_log('This may be due to lovefilm changing their page format - please post to the forums on');
-        send_to_log('the www.swisscenter.co.uk website requesting that the matter be investigated further.');        
+        send_to_log('the www.swisscenter.co.uk website requesting that the matter be investigated further.');  
+        $_SESSION['Movie_info_download'] = true;      
+      }
+      else
+      {
+        scdb_add_directors     (array($file_id), get_attrib($details,"Director:"));
+        scdb_add_actors        (array($file_id), get_attrib($details,"Starring:"));
+        scdb_add_genres        (array($file_id), get_attrib($details,"Genre\(s\):"));    
+        scdb_set_movie_attribs (array($file_id), $columns);
       }
     }
     else 

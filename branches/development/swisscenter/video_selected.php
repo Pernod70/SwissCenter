@@ -103,7 +103,7 @@
 
     page_header( $data[0]["TITLE"] ,'');
 
-    $menu->add_item( str('PLAY_NOW')    , play_file(MEDIA_TYPE_VIDEO,$data[0]["FILE_ID"]) );
+    $menu->add_item( str('PLAY_NOW')    , play_sql_list(MEDIA_TYPE_VIDEO,"select * from $sql_table $predicate order by title"));
     $folder_img = file_albumart($data[0]["DIRNAME"].$data[0]["FILENAME"]);
 
     if (pl_enabled())

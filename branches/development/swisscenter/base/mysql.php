@@ -137,10 +137,10 @@ function db_col_to_list( $sql)
 # Returns TRUE if the query completed successfully, otherwise the funtions returns FALSE 
 #-------------------------------------------------------------------------------------------------
 
-function db_sqlcommand ($sql)
+function db_sqlcommand ($sql, $log_errors = true)
 {
   $recs     = new db_query( $sql);
-  $success  = $recs->db_success();
+  $success  = $recs->db_success($log_errors);
   $recs->destroy();
   return ($success ? true : false );
 }
@@ -370,10 +370,15 @@ class db_query
       return 'Invalid database handle';
   }
 
-  function db_success()
+  function db_success($log_error = true)
   {
     if(!$this->stmt_handle)
-      send_to_log($this->db_get_error(), $this->sql_to_execute);
+    {
+      if ($log_error)
+        send_to_log($this->db_get_error(), $this->sql_to_execute);
+      else 
+        debug_to_log($this->db_get_error(), $this->sql_to_execute);
+    }
       
     return $this->stmt_handle;
   }

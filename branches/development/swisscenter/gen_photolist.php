@@ -67,7 +67,7 @@
     foreach ($data as $row)
       echo 'slides['.$i++.'] = "'.$thumb_url.rawurlencode($row['DIRNAME'].$row['FILENAME']).'";'.newline();
 
-    echo 'Slideshow(5, document.getElementById("piccy"), slides, true);
+    echo 'Slideshow('.$delay.', document.getElementById("piccy"), slides, true);
           </script>';
   }
 
