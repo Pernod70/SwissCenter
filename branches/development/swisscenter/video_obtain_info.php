@@ -124,13 +124,13 @@
             break;
           }
       }
-      $details = substr_between_strings($html,"Recommend this DVD","MEMBER RATINGS");
+      
+      $details = substr_between_strings($html,"Recommend this to a friend</span>","MEMBER RATINGS");
       $columns = array ( "YEAR"              => array_pop(get_attrib($details,"Year:"))
                        , "CERTIFICATE"       => db_lookup( 'certificates','name','cert_id',array_pop(get_attrib($details,"Certificate:")) )
                        , "MATCH_PC"          => $accuracy
                        , "DETAILS_AVAILABLE" => 'Y'
-                       , "SYNOPSIS"          => substr_between_strings($details,'','Director:'));
-                       
+                       , "SYNOPSIS"          => substr_between_strings($details,'','     '));
       scdb_add_directors     (array($file_id), get_attrib($details,"Director:"));
       scdb_add_actors        (array($file_id), get_attrib($details,"Starring:"));
       scdb_add_genres        (array($file_id), get_attrib($details,"Genre\(s\):"));    
