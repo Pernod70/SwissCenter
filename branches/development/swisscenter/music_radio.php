@@ -10,8 +10,8 @@
   function output_link( $file )
   {
     $contents= file_get_contents($file);
-    $contents= substr($contents,strpos($contents,"\nURL=")+4);
-    $url=substr($contents,1,strpos($contents,"\n"));
+    preg_match('/\bURL=.*\n?/',$contents,$matches);
+    $url = substr($matches[0],4);
     return $url;
   }
 

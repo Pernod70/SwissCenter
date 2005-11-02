@@ -42,7 +42,7 @@
                      ,"verified"     => 'Y'
                      ,"size"         => $id3["filesize"]
                      ,"length"       => floor($id3["playtime_seconds"])
-                     ,"lengthstring" => $id4["playtime_string"]
+                     ,"lengthstring" => $id3["playtime_string"]
                      ,"bitrate"      => floor($id3["bitrate"])
                      ,"version"      => 0
                      ,"title"        => array_last($id3["comments"]["title"])

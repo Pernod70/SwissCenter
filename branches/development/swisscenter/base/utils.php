@@ -129,6 +129,8 @@ function get_images_from_html ($string)
 
 function syscall($command)
 {
+  $result = '';
+  
   if ($proc = popen("($command)","r"))
   {
     while (!feof($proc)) 
