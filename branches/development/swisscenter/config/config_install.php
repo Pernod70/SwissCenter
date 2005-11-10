@@ -81,7 +81,7 @@
         }
         else
         {
-          set_sys_pref('CACHE_DIR',$_ENV["WINDIR"].'\temp');
+          set_sys_pref('CACHE_DIR',$_ENV["WINDIR"].'\\temp');
           set_sys_pref('CACHE_MAXSIZE_MB','0');
         }
 

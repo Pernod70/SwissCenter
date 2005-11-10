@@ -2,7 +2,10 @@
 /**************************************************************************************************
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
-  
+
+  // PHP caches information on whether files/dirs exist, permissions, etc - we need to clear the cache.
+  clearstatcache();
+
   // ----------------------------------------------------------------------------------
   // Display current config
   // ----------------------------------------------------------------------------------
@@ -52,6 +55,34 @@
   }
    
   // ----------------------------------------------------------------------------------
+  // Logs details about why the given path could not be added as media location.
+  // ----------------------------------------------------------------------------------
+
+  function log_dir_failure($dir)
+  {
+    send_to_log('Unable to add media location : '.$dir);
+    while ($dir != '')
+    {
+      $output = '';
+        
+      if (is_dir($dir))
+        $output .= 'Directory';
+      elseif (is_file($dir))
+        $output .= 'File';
+      elseif ( file_exists($dir))
+        $output .= 'Exists, but is not a file or directory.';
+      else
+        $output .= 'Does not exist';
+        
+      if (is_unix())
+        send_to_log(stat('Stat() of '.$dir,$dir));
+
+      send_to_log($dir.' >> '.$output);
+      $dir = parent_dir($dir);
+    }
+  }
+
+  // ----------------------------------------------------------------------------------
   // Delete an existing location
   // ----------------------------------------------------------------------------------
   
@@ -75,6 +106,8 @@
       $cat_id  = $update["CATEGORY"];
       $id      = $update["LOC_ID"];
       $cert    = $update["CERTIFICATE"];
+      
+      send_to_log('Updating media location',$update);
   
       if (empty($type_id))
         dirs_display('',"!".str('MEDIA_LOC_ERROR_TYPE'));
@@ -85,7 +118,10 @@
       elseif (empty($dir))
         dirs_display('',"!".str('MEDIA_LOC_ERROR_LOC'));     
       elseif (!file_exists($dir))
+      {
+        log_dir_failure($dir);
         dirs_display('',"!".str('MEDIA_LOC_ERROR_DIRFAIL'));
+      }
       elseif ( ($dir[0] != '/' && $dir[1] != ':') || $dir=='..' || $dir=='.')
         dirs_display('',"!".str('MEDIA_LOC_ERROR_PATH'));
       else
@@ -141,7 +177,10 @@
     elseif (empty($_REQUEST["location"]))
       dirs_display('',"!".str('MEDIA_LOC_ERROR_LOC'));
     elseif (!file_exists($dir))
+    {
+      log_dir_failure($dir);
       dirs_display('',"!".str('MEDIA_LOC_ERROR_DIRFAIL'));
+    }
     elseif ( ($dir[0] != '/' && $dir[1] != ':') || $dir=='..' || $dir=='.')
       dirs_display('',"!".str('MEDIA_LOC_ERROR_PATH'));
     else 
@@ -150,11 +189,11 @@
                       , 'media_type' => $_REQUEST["type"]
                       , 'cat_id'     => $_REQUEST["cat"]
                       , 'unrated'    => $_REQUEST["cert"]);
-                        
+
+      send_to_log('Adding new media location',$new_row);
+                      
       if ( db_insert_row('media_locations', $new_row) === false)
-      {
         dirs_display(db_error());
-      }
       else
       {
         $id = db_value("select location_id from media_locations where name='$dir' and media_type=".$_REQUEST["type"]);
