@@ -43,7 +43,7 @@ function db_escape_str( $text )
 # Tests the connection to the database using the details provided 
 #-------------------------------------------------------------------------------------------------
 
-function test_db($host, $username, $password, $database)
+function test_db($host = DB_HOST , $username = DB_USERNAME , $password = DB_PASSWORD , $database = DB_DATABASE)
 {
   if (! $db_handle = @mysql_pconnect( $host, $username, $password))
     return '!'.str('DATABASE_NOCONNECT');

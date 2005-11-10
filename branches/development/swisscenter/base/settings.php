@@ -65,11 +65,17 @@ require_once("language.php");
         define (strtoupper($k),$v);
   }
 
+ 
 
 #-------------------------------------------------------------------------------------------------
-# Check for Update
+# Check that the database is available before we continue with checks that should be performed 
+# when every new session is initiated.
 #-------------------------------------------------------------------------------------------------
 
+if ( test_db() == 'OK' )
+{
+
+  // Check for Update
   if (internet_available() && (!isset($_SESSION["update"]["timeout"]) || $_SESSION["update"]["timeout"] < time() ))
   {
     if ( get_sys_pref('updates_enabled','YES') == 'YES')
@@ -98,10 +104,8 @@ require_once("language.php");
     $_SESSION["update"]["timeout"]   = time()+86400; 
   }
 
-#-------------------------------------------------------------------------------------------------
-# Record the USER_AGENT_STRING reported by the browser (or hardware) so that we can get an idea
-# as to what the various boxes report, and therefore distinguish between them in the future.
-#-------------------------------------------------------------------------------------------------
+  // Record the USER_AGENT_STRING reported by the browser (or hardware) so that we can get an idea
+  // as to what the various boxes report, and therefore distinguish between them in the future.
   
   if (!isset($_SESSION["device"]))
   { 
@@ -117,6 +121,8 @@ require_once("language.php");
 
     $_SESSION["device"] = $device;  
   }
+
+}
 
 /**************************************************************************************************
                                                End of file
