@@ -24,7 +24,7 @@
   
   foreach ($data as $row)
   {
-    if ($item_count >= MAX_PLAYLIST_SIZE )
+    if ($item_count >= max_playlist_size() )
       break;
       
     if ( is_null($row["TITLE"]) )
@@ -32,7 +32,7 @@
     else
       $title = rtrim($row["TITLE"]);
 
-    if (is_showcenter())
+    if (is_hardware_player())
       echo  $title.'|0|0|'.$server.make_url_path(ucfirst($row["DIRNAME"]).$row["FILENAME"])."|\n";
     else
       echo  $server.make_url_path(ucfirst($row["DIRNAME"]).$row["FILENAME"]).newline();
@@ -40,9 +40,9 @@
     $item_count++;
   }
 
-  // If this is a non-showcenter browser then we need to output some headers
+  // If this is a PC browser then we need to output some headers
   
-  if (!is_showcenter() )
+  if ( is_pc() )
   {
     header('Content-Disposition: attachment; filename=Playlist.m3u');
     header("Cache-Control: must-revalidate, post-check=0, pre-check=0"); 

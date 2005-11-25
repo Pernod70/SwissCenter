@@ -73,6 +73,11 @@ function form_input( $param, $prompt, $size = 15, $maxlength = '',$value ='', $o
 # $sizey - [opt] the number of rows in the text field (default 5)
 #-------------------------------------------------------------------------------------------------
 
+function form_text_html( $param, $sizex = 100, $sizey = 5, $value ='')
+{
+   return '<textarea '.($opt ? '' : ' required ').' rows="'.$sizey.'" cols="'.$sizex.'" name="'.$param.'">'.$value.'</textarea>';
+}
+
 function form_text( $param, $prompt, $sizex = 100, $sizey = 5, $value ='', $opt = false)
 {
    echo '<tr>
@@ -80,7 +85,7 @@ function form_text( $param, $prompt, $sizex = 100, $sizey = 5, $value ='', $opt 
          </tr>
          <tr>
            <td colspan="2">
-             <textarea '.($opt ? '' : ' required ').' rows="'.$sizey.'" cols="'.$sizex.'" name="'.$param.'">'.$value.'</textarea>
+             '.form_text_html($param,$sizex,$sizey,$value).'
            </td>
          </tr>';
 }

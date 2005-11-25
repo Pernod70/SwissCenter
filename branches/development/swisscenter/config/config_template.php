@@ -9,27 +9,27 @@
 </head>
 <body style="margin:20px;" background="../images/bgr.png">
 <style>
-  .title               {   font-family       : sans-serif;
+  .title                {  font-family       : sans-serif;
                            font-size         : 20px;
                            font-weight       : bold;
                            color             : #000000;
                            margin-left       : 10px; }
   
-  h1                   {   font-family       : sans-serif;
+  h1                    {  font-family       : sans-serif;
                            font-size         : 18px;
                            text-align        : center;
                            font-weight       : bold;
                            padding-top       : 10px;
                            color             : #ff8800; }
                     
-  h2                   {   font-family       : sans-serif;
+  h2                    {  font-family       : sans-serif;
                            font-size         : 14px;
                            text-align        : center;
                            font-weight       : bold;
                            padding-top       : 10px;
                            color             : #ff4444; }
   
-  tr, p, div            {  font-family       : Verdana, Arial, Helvetica, sans-serif;
+  tr, p, div, textarea  {  font-family       : Verdana, Arial, Helvetica, sans-serif;
                            font-size         : 11px; }
   
   hr                    {  background        : #999999;

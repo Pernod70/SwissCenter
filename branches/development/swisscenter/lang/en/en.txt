@@ -481,6 +481,12 @@ EXIFVALS_ORIENTATION	= Normal (0 deg), Mirrored, Upsidedown, Upsidedown & Mirror
 EXIFVALS_SCENE_TYPE	= Standard, Landscape, Portrait, Night Scene
 EXIFVALS_WHITE_BALANCE	= Auto, Manual
 
+# -----------------------
+# SwissCenter v1.14
+# -----------------------
+
+PC_LINK_CONFIG          = Config
+
 #----------------------------------------------------------------------------------------------------
 # End-of-file
 #----------------------------------------------------------------------------------------------------

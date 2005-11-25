@@ -32,13 +32,13 @@
   //  7 = Interleave up/down             8 = Fade In
   //  9 = Random Effect from above 
   
-  if (is_showcenter())
+  if (is_hardware_player())
   {
     // Generate a playlist for the showcenter
   
     foreach ($data as $row)
     {
-      if ($item_count >= MAX_PLAYLIST_SIZE )
+      if ($item_count >= max_playlist_size() )
         break;
         
       if ( is_null($row["TITLE"]) )
@@ -46,7 +46,7 @@
       else
         $title = rtrim($row["TITLE"]);
   
-      if (is_showcenter())
+      if (is_hardware_player())
         echo  "$delay|$effect|$title|".$thumb_url.rawurlencode(ucfirst($row["DIRNAME"]).$row["FILENAME"])."|\n";
       else
         echo  $thumb_url.rawurlencode(ucfirst($row["DIRNAME"]).$row["FILENAME"]).newline();

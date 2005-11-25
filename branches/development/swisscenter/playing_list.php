@@ -14,7 +14,7 @@
   foreach ($data as $row)
   {
     // Each device  has a maximum playlist size 
-    if ($item_count++ >= MAX_PLAYLIST_SIZE )
+    if ($item_count++ >= max_playlist_size() )
       break;
       
     echo "3600|8| |".$server."playing_image.php?".current_session()."&music_id=".$row["FILE_ID"]."|\n";

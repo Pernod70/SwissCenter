@@ -234,7 +234,7 @@
     $count = db_value("select count(*) from photo_albums where dirname='".db_escape_str($dir)."'");
     if ($count == 0)
     {
-      debug_to_log('Adding photo album "'.$basename($dir).'"');
+      debug_to_log('Adding photo album "'.basename($dir).'"');
       
       $row = array("dirname"       => $dir
                    ,"title"        => basename($dir)
@@ -396,9 +396,9 @@
 
   media_indicator('BLINK');
   remove_orphaned_records();
-  process_media_dirs( db_toarray("select * from media_locations where media_type=1") ,'mp3s',   explode(',' ,MEDIA_EXT_MUSIC));
-  process_media_dirs( db_toarray("select * from media_locations where media_type=3") ,'movies', explode(',' ,MEDIA_EXT_MOVIE));
-  process_media_dirs( db_toarray("select * from media_locations where media_type=2") ,'photos', explode(',' ,MEDIA_EXT_PHOTOS));
+  process_media_dirs( db_toarray("select * from media_locations where media_type=1") ,'mp3s',   media_exts_music() );
+  process_media_dirs( db_toarray("select * from media_locations where media_type=3") ,'movies', media_exts_movies() );
+  process_media_dirs( db_toarray("select * from media_locations where media_type=2") ,'photos', media_exts_photos() );
 
   if (internet_available() && get_sys_pref('movie_check_enabled','NO') == 'YES')
     extra_get_all_movie_details();

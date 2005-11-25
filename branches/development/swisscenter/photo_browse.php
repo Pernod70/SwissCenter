@@ -22,7 +22,7 @@
            , db_col_to_list("select name from media_locations where media_type=2")  // Directories
            , $sql.$_SESSION["history"][0]["sql"]                                    // SQL (from...)
            , $_SESSION["history"][0]["url"]                                         // Back URL
-           , explode(',',MEDIA_EXT_PHOTOS)                                          // Filetypes
+           , media_exts_photos()                                                    // Filetypes
            , MEDIA_TYPE_PHOTO                                                       // Select All media type
            );
 

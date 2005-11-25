@@ -38,7 +38,7 @@
 
   if(strlen($pin) < 10)
   {
-    if(get_browser_type() == "SYABAS")
+    if( is_hardware_player() )
     {
       $buttons[] = array('text'=>'Enter 0',
                          'url'=>'enter_pin.php?ok_url='.urlencode($ok_url).

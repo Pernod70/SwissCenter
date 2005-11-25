@@ -23,7 +23,7 @@
            , db_col_to_list("select name from media_locations where media_type=1") // Directories
            , $sql                                                                  // SQL (from...)
            , $hist["url"]                                                          // Return URL
-           , explode(',',MEDIA_EXT_MUSIC)                                          // Filetypes
+           , media_exts_music()                                                    // Filetypes
            , MEDIA_TYPE_MUSIC                                                      // Select all media type
            );
 

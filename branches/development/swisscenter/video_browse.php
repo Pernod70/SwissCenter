@@ -21,7 +21,7 @@
            , db_col_to_list("select name from media_locations where media_type=3")   // Directories
            , $sql.$_SESSION["history"][0]["sql"]                                     // SQL (from...)
            , $_SESSION["history"][0]["url"]                                          // Back URL
-           , explode(',',MEDIA_EXT_MOVIE)                                            // Filetypes
+           , media_exts_movies()                                                     // Filetypes
            , MEDIA_TYPE_VIDEO                                                        // Select All media type
            );
            

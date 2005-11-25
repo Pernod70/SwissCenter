@@ -197,13 +197,17 @@
           <td width="33%"><input name="director_new" size=25></td>
           <td width="33%"><input name="genre_new" size=25></td>
           </tr><tr>
+            <th colspan="3">'.str('Synopsis').'</th>
+          </tr><tr>
+            <td colspan="3">'.form_text_html('synopsis',90,3,$details[0]["SYNOPSIS"],true).'</td>
+          </tr><tr>
             <th>'.str('CERTIFICATE').'</th>
             <th>'.str('YEAR').'</th>
           </tr><tr>
             <td>
             '.form_list_dynamic_html("rating",get_cert_list_sql(),$details[0]["CERTIFICATE"],true).'
             </td>
-            <td><input name="year" size="6"></td>
+            <td><input name="year" size="6" value="'.$details[0]["YEAR"].'"></td>
           </tr></table>
           <p align="center"><input type="submit" value="'.str('MOVIE_ADD_BUTTON').'">
           </form>';    
@@ -222,7 +226,7 @@
     // Display movies that will be affected.
     echo '<h1>'.str('MOVIE_UPD_TTILE').'</h1>
          <center>'.str('MOVIE_UPD_TEXT').'<p>';
-         array_to_table(db_toarray("select title from movies where file_id in (".implode(',',$movie_list).")"),'50%');      
+         array_to_table(db_toarray("select title from movies where file_id in (".implode(',',$movie_list).")"),str('Title'));      
       
     echo '</center>
           <form enctype="multipart/form-data" action="" method="post">
@@ -251,6 +255,10 @@
           <td width="33%"><input name="actor_new" size=25></td>
           <td width="33%"><input name="director_new" size=25></td>
           <td width="33%"><input name="genre_new" size=25></td>
+          </tr><tr>
+            <th colspan="3">'.str('Synopsis').'</th>
+          </tr><tr>
+            <td colspan="3">'.form_text_html('synopsis',65,3,'',true).'</td>
           </tr><tr>
             <th>'.str('CERTIFICATE').'</th>
             <th>'.str('YEAR').'</th>
@@ -292,6 +300,8 @@
       $columns["YEAR"] = $_REQUEST["year"];
     if (!empty($_REQUEST["rating"]))
       $columns["CERTIFICATE"] = $_REQUEST["rating"];
+    if (!empty($_REQUEST["synopsis"]))
+      $columns["SYNOPSIS"] = $_REQUEST["synopsis"];
 
     // Update the MOVIES table?
     if (count($columns)>0)
