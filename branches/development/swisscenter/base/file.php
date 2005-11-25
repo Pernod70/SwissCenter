@@ -320,7 +320,7 @@ function file_icon( $fsp )
   $sc_location = SC_LOCATION;
   $name = 'filetype_'.file_ext($fsp).'.gif';
 
-  if (in_array(file_ext(strtolower($fsp)),array('jpg','gif','png','jpeg')))
+  if (in_array(file_ext(strtolower($fsp)), explode(',' ,ALBUMART_EXT) ))
   {
     // The file is actually an image, so generate it as a thumbnail
     return $fsp;
@@ -454,7 +454,7 @@ function file_albumart( $fsp )
     else 
     {
       // Search the directory for an image with the same name as that given, but with an image extension
-      foreach ( array('gif','jpg','jpeg','png') as $type)
+      foreach ( explode(',' ,ALBUMART_EXT) as $type)
         if ( $return = find_in_dir( dirname($fsp),file_noext($fsp).'.'.$type))
           break;
 

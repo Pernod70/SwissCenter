@@ -22,8 +22,7 @@
  
  function get_sys_pref( $pref, $default = '' )
  {
-   if ( test_db() == 'OK' );
-     $result = db_value("select value from system_prefs where name='".strtoupper($pref)."'");
+   $result = db_value("select value from system_prefs where name='".strtoupper($pref)."'");
 
    if ($result == '')
      return $default;
@@ -53,7 +52,7 @@
  function set_sys_pref( $name, $value)
  {
    // Only update if the value changes
-   if (test_db() == 'OK' && db_value("select count(*) from system_prefs where name='".strtoupper($name)."' and value='$value'") == 0)
+   if (db_value("select count(*) from system_prefs where name='".strtoupper($name)."' and value='$value'") == 0)
    {
      db_sqlcommand("delete from system_prefs where name='".strtoupper($name)."'");
      $result = db_insert_row('system_prefs', array("NAME"=>strtoupper($name), "VALUE"=>$value) );

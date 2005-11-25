@@ -20,26 +20,7 @@
   
   function is_unix()
   { return get_os_type() == "UNIX"; } 
-
-  // ----------------------------------------------------------------------------------
-  // Returns the browser type
-  // ----------------------------------------------------------------------------------
   
-  function get_browser_type()
-  {
-    if     ( !isset($_SERVER["HTTP_USER_AGENT"]) ) 
-      return 'SYABAS';
-    elseif ( empty($_SERVER["HTTP_USER_AGENT"])  ) // Variable is set, but empty
-      return 'SYABAS';
-    elseif ( strpos($_SERVER["HTTP_USER_AGENT"],'Syabas') !== false )
-      return 'SYABAS';
-    else
-      return 'UNKNOWN';
-  }
-  
-  function is_showcenter()
-  { return get_browser_type() == "SYABAS"; }
-
   // ----------------------------------------------------------------------------------
   // Returns the webserver type
   // ----------------------------------------------------------------------------------

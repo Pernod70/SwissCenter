@@ -7,6 +7,38 @@ include_once('server.php');
 include_once('utils.php');
 
 #-------------------------------------------------------------------------------------------------
+# Returns the type of hardware player that the SwissCenter is communicating with.
+#-------------------------------------------------------------------------------------------------
+
+function get_player_type()
+{
+  if     ( strpos($_SERVER['HTTP_USER_AGENT'],'-NST-')>0 )
+    return 'NEUSTON';
+  elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-PIN-')>0 )
+    return 'PINNACLE';
+  elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-PIN-2')>0 )
+    return 'PINNACLE SC200';
+  elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-IOD-')>0 )
+    return 'IO-DATA';
+  elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-LTI-')>0 )
+    return 'BUFFALO';
+  elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-MMS-')>0 )
+    return 'MOMITSU';
+  elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-ADS-')>0 )
+    return 'ADSTECH';
+  elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-FIA-')>0 )
+    return 'FIA';
+  else 
+    return 'PC';
+}
+
+function is_hardware_player()
+{ return get_player_type() != "PC"; }
+
+function is_pc()
+{ return get_player_type() == "PC"; }
+
+#-------------------------------------------------------------------------------------------------
 # Determine screen type (currently only PAL or NTSC - no support for HDTV).
 #-------------------------------------------------------------------------------------------------
 
@@ -14,7 +46,7 @@ function get_screen_type()
 {  
   if ( !isset($_SESSION["display_type"]) )
   {
-    if (is_showcenter())
+    if (is_hardware_player())
     {
       $text = @file_get_contents('http://'.client_ip().':2020/readsyb_options_page.cgi');  
       if (substr_between_strings($text, 'HasPAL','/HasPAL') == 1)
@@ -30,28 +62,74 @@ function get_screen_type()
 }
 
 #-------------------------------------------------------------------------------------------------
-# Define system capabilities
+# Maximum size playlist that the hardware players can accept.
 #-------------------------------------------------------------------------------------------------
 
-  // Media extensions supported by this hardware device.
-  define( 'MEDIA_EXT_MOVIE',   'avi,mpg,mpeg,vob,wmv,asf' );
-  define( 'MEDIA_EXT_MUSIC',   'mp3,wma' );
-  define( 'MEDIA_EXT_PHOTOS',  'jpeg,jpg,gif' );
-  
-  // Maximum number of entries within a playlist.
-  define( 'MAX_PLAYLIST_SIZE', 2000);
-  define( 'THUMBNAIL_X_SIZE',  80);
-  define( 'THUMBNAIL_Y_SIZE',  80);  
-  
-  if (get_screen_type() == 'NTSC')
+function max_playlist_size()
+{
+  return 2000;
+}
+
+#-------------------------------------------------------------------------------------------------
+# Returns the TVID code that the player accepts for the given "code". This is useful as some
+# players (such as the showcenter 200) have different TVID codes for the same RC button.
+#-------------------------------------------------------------------------------------------------
+
+function tvid( $code )
+{
+  // Define empty array
+  $map = array();
+  $code = strtoupper($code);
+
+  // Depending on hardware player, override default values by storing in the $map array
+  if ( get_player_type() == 'PINNACLE SC200')
   {
-    define( 'SCREEN_WIDTH',   620 );
-    define( 'SCREEN_HEIGHT',  418 );
+    $map = array( 'KEY_A' => 'A'
+                , 'KEY_B' => 'B'
+                , 'KEY_C' => 'C' );
   }
+  
+  // Return the appropriate TVID html code.
+  if (array_key_exists($code,$map))
+    return ' TVID="'.$map[$code].'" ';
   else 
-  {
-    define( 'SCREEN_WIDTH',   620 );
-    define( 'SCREEN_HEIGHT',  500 );
-  }
+    return ' TVID="'.$code.'" ';
+}
+
+#-------------------------------------------------------------------------------------------------
+# Returns an array of file extensions that are supported by the hardware player.
+#-------------------------------------------------------------------------------------------------
+
+function media_exts_movies()
+{
+  return explode(',' ,'avi,mpg,mpeg,vob,wmv,asf');
+}
+
+function media_exts_music()
+{
+  return explode(',' ,'mp3,wma');
+}
+
+function media_exts_photos()
+{
+  return explode(',' ,'jpeg,jpg,gif');
+}
+
+#-------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------------
+
+define( 'THUMBNAIL_X_SIZE',  80);
+define( 'THUMBNAIL_Y_SIZE',  80);  
+
+if (get_screen_type() == 'NTSC')
+{
+  define( 'SCREEN_WIDTH',   620 );
+  define( 'SCREEN_HEIGHT',  418 );
+}
+else 
+{
+  define( 'SCREEN_WIDTH',   620 );
+  define( 'SCREEN_HEIGHT',  500 );
+}
 
 ?>

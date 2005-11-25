@@ -18,7 +18,7 @@ require_once("infotab.php");
 require_once("utils.php");
 require_once("iconbar.php");
 require_once("users.php");
-
+require_once("server.php");
 
 function current_session()
 {
@@ -196,7 +196,7 @@ function img_gen( $filename, $x, $y, $type = false, $bgcol = false, $stretch = f
 function pc_nav_button($text, $url)
   {
     return '<td align="center" valign="center" height="23" width="'.(SCREEN_WIDTH/5).'" background="'.style_img('IMG_PC_BUTTON').'" onclick="document.location=\''.$url.'\';">
-         <a href="'.$url.'"><font color="'.style_value('COL_PC_BUTTON','#000000').'"><b>'.$text.'</b></font></a>
+         <a href="'.$url.'"><font color="'.style_value('COL_PC_BUTTON','#000000').'">'.$text.'</font></a>
          </td>';
   }
 
@@ -228,7 +228,7 @@ function page_footer( $back, $buttons= '', $iconbar = 0 )
         if (substr($link,0,5) != 'href=')
           $link = 'href="'.$link.'"';
           
-        $link = '<a '.$link.' TVID="key_'.strtolower($button_id).'">'.$buttons[$i]["text"].'</a>';
+        $link = '<a '.$link.tvid('KEY_'.$button_id).'>'.$buttons[$i]["text"].'</a>';
       }
       else
         $link = $buttons[$i]["text"];
@@ -250,10 +250,11 @@ function page_footer( $back, $buttons= '', $iconbar = 0 )
   
   // Test the browser, and if the user is viewing from a browser other than the one on the
   // showcenter then output a "Back" Button (as this would normally be a IR remote button).
-  if (! is_showcenter() )
+  if ( is_pc() )
   {
     echo '<table style="position:absolute; top:'.SCREEN_HEIGHT.'px; left:0px; " width="'.SCREEN_WIDTH.'" cellspacing="10" cellpadding="0"><tr>'.
          pc_nav_button(str('PC_LINK_HOME')   , '/index.php').
+         pc_nav_button(str('PC_LINK_CONFIG') , '/config/index.php').
          pc_nav_button(str('PC_LINK_MUSIC')  , '/music.php').
          pc_nav_button(str('PC_LINK_MOVIES') , '/video.php').
          pc_nav_button(str('PC_LINK_PHOTOS') , '/photo.php').

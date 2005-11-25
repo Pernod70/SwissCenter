@@ -15,6 +15,7 @@ require_once("language.php");
 # Here are the settings that we want available on a global basis.
 #-------------------------------------------------------------------------------------------------
 
+  define( 'ALBUMART_EXT', 'jpg,jpeg,gif,png' );
   define( 'MAX_PER_PAGE',   8 ); // Menus only
 
   define('MEDIA_TYPE_MUSIC',1);

@@ -62,7 +62,7 @@ function get_tracklist_to_play()
           
     case 'sql':
           $spec       = $_SESSION["play_now"]["spec"];
-          $array      = db_toarray($spec.' LIMIT '.MAX_PLAYLIST_SIZE);
+          $array      = db_toarray($spec.' LIMIT '.max_playlist_size());
           break;
           
     case 'file':
@@ -99,7 +99,7 @@ function get_tracklist_to_play()
 
 function slideshow_link_by_browser( $params )
 {  
-  if (is_showcenter())
+  if (is_hardware_player())
   {
    // We send the href as MUTE becasue we don't want any music playing. Otherwise (I guess) we would
    // send a link to a page that generates a music playlist
