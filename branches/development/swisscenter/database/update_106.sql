@@ -121,6 +121,12 @@ DELETE FROM mp3s   USING mp3s, mp3s_del     WHERE mp3s.file_id = mp3s_del.file_i
 DELETE FROM movies USING movies, movies_del WHERE movies.file_id = movies_del.file_id;
 DELETE FROM photos USING photos, photos_del WHERE photos.file_id = photos_del.file_id;
 
+-- Create Unique indexes
+
+CREATE UNIQUE INDEX mp3s_fsp_u1   ON mp3s (dirname(800),filename(200));
+CREATE UNIQUE INDEX movies_fsp_u1 ON movies (dirname(800),filename(200));
+CREATE UNIQUE INDEX photos_fsp_u1 ON photos (dirname(800),filename(200));
+
 -- -------------------------------------------------------------------------------------------------
 -- Create a table to store AlbumArt which has been extracted from mp3s.
 -- 
