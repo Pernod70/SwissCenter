@@ -19,15 +19,15 @@
 
     foreach ($items as $actor)
     {
-      $actor = rtrim(ltrim($actor));
-      // Insert the actor into the table (we don't care if this violates an unique constraint)
-      if (! empty($actor))
-      {
+      $actor = db_escape_str(rtrim(ltrim($actor)));
+      
+      $cnt = db_value("select count(*) from actors where actor_name='$actor'");
+      if (!empty($actor) && $cnt==0)
         db_sqlcommand("insert into actors values (0,'$actor')",false);
-        $actor_id = db_value("select actor_id from actors where actor_name='$actor'");
-        foreach ($movies as $movie_id)
-          db_sqlcommand("insert into actors_in_movie values ($movie_id, $actor_id)");
-      }
+
+      $actor_id = db_value("select actor_id from actors where actor_name='$actor'");
+      foreach ($movies as $movie_id)
+        db_sqlcommand("insert into actors_in_movie values ($movie_id, $actor_id)");
     }
   }
 
@@ -45,15 +45,15 @@
     
     foreach ($items as $dir)
     {
-      $dir = rtrim(ltrim($dir));
-      // Insert the director into the table (we don't care if this violates an unique constraint)
-      if (! empty($dir))
-      {
+      $dir = db_escape_str(rtrim(ltrim($dir)));
+      
+      $cnt = db_value("select count(*) from directors where director_name='$dir'");
+      if (!empty($dir) && $cnt==0)
         db_sqlcommand("insert into directors values (0,'$dir')",false);
-        $dir_id = db_value("select director_id from directors where director_name='$dir'");
-        foreach ($movies as $movie_id)
-          db_sqlcommand("insert into directors_of_movie values ($movie_id, $dir_id)");
-      }
+
+      $dir_id = db_value("select director_id from directors where director_name='$dir'");
+      foreach ($movies as $movie_id)
+        db_sqlcommand("insert into directors_of_movie values ($movie_id, $dir_id)");
     }
   }
 
@@ -71,15 +71,15 @@
 
     foreach ($items as $genre)
     {
-      $genre = rtrim(ltrim($genre));
-      // Insert the genre into the table (we don't care if this violates an unique constraint)
-      if (! empty($genre))
-      {
+      $genre = db_escape_str(rtrim(ltrim($genre)));
+      
+      $cnt = db_value("select count(*) from genres where genre_name='$genre'");
+      if (!empty($genre) && $cnt==0)
         db_sqlcommand("insert into genres values (0,'$genre')",false);
-        $genre_id = db_value("select genre_id from genres where genre_name='$genre'");        
-        foreach ($movies as $movie_id)
-          db_sqlcommand("insert into genres_of_movie values ($movie_id, $genre_id)");
-      }
+
+      $genre_id = db_value("select genre_id from genres where genre_name='$genre'");        
+      foreach ($movies as $movie_id)
+        db_sqlcommand("insert into genres_of_movie values ($movie_id, $genre_id)");
     }
   }
 

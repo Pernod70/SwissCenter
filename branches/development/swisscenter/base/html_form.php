@@ -233,12 +233,20 @@ function form_radio_static( $param, $prompt, $list, $value = "", $opt = false, $
 # col  - [opt] The column that the button should be displayed in (defaults to column 2)
 #-------------------------------------------------------------------------------------------------
 
-function form_submit( $text = "Submit", $col = 2, $align = 'left' )
+function form_submit( $text = "Submit", $col = 2, $align = 'left', $width = '' )
 {
   if ($col == 1)
-    echo '<tr><td align="'.$align.'" colspan="2"><input type="submit" name="submit_action" value=" '.$text.' "></td></tr>';
+    echo '<tr><td align="'.$align.'" colspan="2">'.form_submit_html($text,$width).'</td></tr>';
   else 
-    echo '<tr><td>&nbsp;</td><td align="'.$align.'"><input type="submit" name="submit_action" value=" '.$text.' "></td></tr>';
+    echo '<tr><td>&nbsp;</td><td align="'.$align.'">'.form_submit_html($text,$width).'</td></tr>';
+}
+
+function form_submit_html( $text = "Submit", $width = '')
+{
+  if ($width != '')
+    $width = 'style="width:'.$width.'px;"';
+  
+  return '<input type="submit" '.$width.' name="submit_action" value=" '.$text.' ">';
 }
 
 #-------------------------------------------------------------------------------------------------

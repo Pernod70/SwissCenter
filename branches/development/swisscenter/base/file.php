@@ -442,7 +442,16 @@ function file_albumart( $fsp )
 {
   $return    = '';
 
-  if ( @is_file($fsp) )
+  if ( @is_dir($fsp) )
+  {
+    // Is there an image file with the same name as those listed in the configuration page?
+    $return = find_in_dir($fsp, db_col_to_list("select filename from art_files"));
+    
+    // No albumart for this folder found... is there albumart for the parent folder?
+    if ($return === false && dirname($fsp) != $fsp)
+      $return = file_albumart(dirname($fsp));    
+  } 
+  else
   {
     $id3_image = db_value("select m.file_id from mp3s m,mp3_albumart ma where m.file_id = ma.file_id and concat(m.dirname,m.filename) = '".db_escape_str($fsp)."'");
     
@@ -463,15 +472,7 @@ function file_albumart( $fsp )
         $return = file_albumart(dirname($fsp));
     }
   }
-  elseif ( @is_dir($fsp) )
-  {
-    // Is there an image file with the same name as those listed in the configuration page?
-    $return = find_in_dir($fsp, db_col_to_list("select filename from art_files"));
-    
-    // No albumart for this folder found... is there albumart for the parent folder?
-    if ($return === false && dirname($fsp) != $fsp)
-      $return = file_albumart(dirname($fsp));    
-  } 
+  
   return $return;
 }
 

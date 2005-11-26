@@ -85,9 +85,8 @@
 	  menu_heading();
 	  
 	  menu_heading(str('MEDIA_MANAGEMENT'));
-	  menu_item( str('SETUP_SEARCH_NEW_MEDIA') ,'section=MEDIA&action=SEARCH','menu_bgr.png');
 	  menu_item( str('ORG_TITLE')              ,'section=MOVIE&action=DISPLAY','menu_bgr.png');
-	  menu_item( str('MOVIE_EXTRA_TITLE')      ,'section=MOVIE&action=INFO','menu_bgr.png');
+	  menu_item( str('MOVIE_OPTIONS')      ,'section=MOVIE&action=INFO','menu_bgr.png');
 	  
 	  menu_heading();
 	  menu_heading();

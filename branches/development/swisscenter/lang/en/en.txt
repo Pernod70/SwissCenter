@@ -201,7 +201,6 @@ MOVIE_ADD_BUTTON	= Add/Update details
 MOVIE_ADD_PROMPT	= Please enter the details that you would like to [em]add[/em] to each of the movies listed above [br] (holding down the CTRL key will allow you to select multiple entries in the lists)
 MOVIE_CHANGES_MADE	= Changes made
 MOVIE_ERROR_NO_SELECT	= You did not select any movies to update
-MOVIE_EXTRA_DL_PROMPT	= When new video items are discovered during a "new media search", the SwissCenter will use the filename of the video file to search for and download additional movie information (eg: Actors, Directors, etc) from the online movie rental site %s
 MOVIE_EXTRA_DL_TITLE	= Downloading extra movie information
 MOVIE_EXTRA_REFRESH_OK	= All extra movie information scheduled for refresh
 MOVIE_EXTRA_TITLE	= Extra movie info
@@ -258,7 +257,6 @@ PLAY_NOW		= Play now
 PLEASE_SELECT		= Please select
 PREVIOUS		= Previous
 PRIVACY_COMMUNICATION	= [b]Unsolicited Email/Messages[/b] [p][ul][li]We will never send you unsolicited email.[li]Messages downloaded to the SwissCenter interface will relate only to the capabilities and operation of the interface. If you wish you may prevent even these messages from being downloaded by disabling the "Messages" feature in "Connectivity" section.[/ul]
-PRIVACY_DATA_COLLECTION	= [b]Data Collection[/b] [p]Information relating to the media files on your machine is collected and stored in a MySQL database located on the PC on which the SwissCenter software is installed. This information is used for the sole purpose of providing you with an interface to your media files on such devices as the Pinnacle Showcenter. At no point is this of any other information transmitted in any form to the authors of the SwissCenter, or to any other third party. [p]There is one exception to the above statemnet :- To obtain extra information regarding video/movies files (such as actors, directors, etc) the filename is submitted as part of a search query to the www.lovefilm.com website. If you would prefer that this informationis not transmitted then you should disable the "Movie Info Download" feature on the "Extra Movie Info" page. 
 PRIVACY_POLICY		= Privacy policy
 QUICK_PLAY		= Quick play
 RANGE			= Range
@@ -486,6 +484,14 @@ EXIFVALS_WHITE_BALANCE	= Auto, Manual
 # -----------------------
 
 PC_LINK_CONFIG          = Config
+MOVIE_EXTRA_SITE_PROMPT = Download info from
+MOVIE_OPTIONS		= Movie Options
+MEDIA_SEARCH_PROMPT	= Clicking the button below will begin a background scan of all your media locations. Media that is no longer present on your system will be removed from the database and any new or changed media will be added.
+
+# Updated text strings in v1.14
+MOVIE_EXTRA_DL_PROMPT	= When new video items are discovered during a "new media search", the SwissCenter will use the filename of the video file to search for and download additional movie information (eg: Actors, Directors, etc) from the site you specify below.
+PRIVACY_DATA_COLLECTION	= [b]Data Collection[/b] [p]Information relating to the media files on your machine is collected and stored in a MySQL database located on the PC on which the SwissCenter software is installed. This information is used for the sole purpose of providing you with an interface to your media files on such devices as the Pinnacle Showcenter. At no point is this of any other information transmitted in any form to the authors of the SwissCenter, or to any other third party. [p]There is one exception to the above statemnet :- To obtain extra information regarding video/movies files (such as actors, directors, etc) the filename is submitted as part of a search query to the website selected on the %s screen. If you would prefer that this informationis not transmitted then you should disable the "Movie Info Download". 
+
 
 #----------------------------------------------------------------------------------------------------
 # End-of-file

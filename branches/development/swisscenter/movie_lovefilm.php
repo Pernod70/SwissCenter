@@ -46,7 +46,7 @@
           $chars = similar_text($film_title,$matches[2][$i],$pc);
           $matches[2][$i] .= " (".round($pc,2)."%)";
           
-          if ( $chars > $best_match["chars"] || ($chars = $best_match["chars"] && $pc > $best_match["pc"]))
+          if ( ($chars > $best_match["chars"] && $pc >= $best_match["pc"]) || $pc > $best_match["pc"])
             $best_match = array("id" => $i, "chars" => $chars, "pc" => $pc);
         }
 
@@ -73,7 +73,7 @@
       else 
         send_to_log('Single Match found, but not > 75%');
     }
-
+    
     // Determine attributes for the movie and update the database
     if ($accuracy >= 75)
     {
@@ -84,10 +84,17 @@
         foreach ($matches[1] as $url)
           if (strpos($url,'boxcover')>0)
           {
-            $out = fopen($file_path.file_noext($file_name).'.jpg', "wb");
-            fwrite($out, file_get_contents($site_url.$url));
-            fclose($out);
-            send_to_log('AlbumArt downloaded for '.$film_title);
+            $out = @fopen($file_path.file_noext($file_name).'.jpg', "wb");
+            if ($out)
+            {
+              fwrite($out, file_get_contents($site_url.$url));
+              fclose($out);
+              send_to_log('AlbumArt downloaded for '.$film_title);
+            }
+            else 
+            {
+               send_to_log('Unable to write AlbumArt to file (May be a permissions problem if running on Linux)');
+            }
             break;
           }
       }
