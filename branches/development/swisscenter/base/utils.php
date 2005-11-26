@@ -103,9 +103,9 @@ function substr_between_strings( &$string, $startstr, $endstr)
 // Returns all the hyperlinks is the given string
 // ----------------------------------------------------------------------------------
 
-function get_urls_from_html ($string) 
+function get_urls_from_html ($string, $href_start ) 
 {
-  preg_match_all ('/<a.*href="(view_dvd[^"]*)"[^>]*>(.*)<\/a>/i', $string, &$matches);
+  preg_match_all ('/<a.*href="('.$href_start.'[^"]*)"[^>]*>(.*)<\/a>/i', $string, &$matches);
   
   for ($i = 0; $i<count($matches[2]); $i++)
     $matches[2][$i] = preg_replace('/<[^>]*>/','',$matches[2][$i]);

@@ -11,6 +11,12 @@
 
   function scdb_add_actors ( $movies, $items )
   {
+    if (! is_array($items))
+      $items = array($items);
+      
+    if (! is_array($movies))
+      $movies = array($movies);
+
     foreach ($items as $actor)
     {
       $actor = rtrim(ltrim($actor));
@@ -31,6 +37,12 @@
 
   function scdb_add_directors ( $movies, $items )
   {
+    if (! is_array($items))
+      $items = array($items);
+      
+    if (! is_array($movies))
+      $movies = array($movies);
+    
     foreach ($items as $dir)
     {
       $dir = rtrim(ltrim($dir));
@@ -51,6 +63,12 @@
 
   function scdb_add_genres ( $movies, $items )
   {
+    if (! is_array($items))
+      $items = array($items);
+
+    if (! is_array($movies))
+      $movies = array($movies);
+
     foreach ($items as $genre)
     {
       $genre = rtrim(ltrim($genre));
@@ -71,6 +89,9 @@
 
   function scdb_set_movie_attribs ( $movies, $columns )
   {
+    if (! is_array($movies))
+      $movies = array($movies);
+
     foreach ($movies as $movie_id)
       db_sqlcommand("update movies set ".db_array_to_set_list($columns)." where file_id=".$movie_id,false);
   }   
