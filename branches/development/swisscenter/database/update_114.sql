@@ -15,18 +15,20 @@ UPDATE system_prefs SET value='1.14' WHERE name='DATABASE_VERSION';
 
 DELETE FROM certificates;
 
-INSERT INTO certificates (cert_id, name, rank, description) VALUES ( 1, 'G',      10, 'General Audiences')
-INSERT INTO certificates (cert_id, name, rank, description) VALUES ( 2, 'Uc',     10, 'Suitable for pre-school')
-INSERT INTO certificates (cert_id, name, rank, description) VALUES ( 3, 'U',      20, 'Minimum age 4 years')
-INSERT INTO certificates (cert_id, name, rank, description) VALUES ( 4, 'PG',     30, 'Parental guidance recommended')
-INSERT INTO certificates (cert_id, name, rank, description) VALUES ( 5, '12',     40, 'Minimum age 12 years')
-INSERT INTO certificates (cert_id, name, rank, description) VALUES ( 6, 'PG-13',  50, 'Parents Strongly Cautioned')
-INSERT INTO certificates (cert_id, name, rank, description) VALUES ( 7, '15',     60, 'Minimum age 15 years')
-INSERT INTO certificates (cert_id, name, rank, description) VALUES ( 8, 'R',      70, 'Restricted')
-INSERT INTO certificates (cert_id, name, rank, description) VALUES ( 9, 'NC-17',  80, 'Not suitable for viewers under 17');
-INSERT INTO certificates (cert_id, name, rank, description) VALUES (10, '18',     90, 'Minimum age 18 years')
-INSERT INTO certificates (cert_id, name, rank, description) VALUES (11, 'XXX',   100, 'Adult');
-INSERT INTO certificates (cert_id, name, rank, description) VALUES (12, 'R18',   100, 'Restricted distribution, minimum age 18 years')
+ALTER TABLE certificates ADD (scheme text);
+
+INSERT INTO certificates (cert_id, name, rank, scheme, description) VALUES ( 1, 'G',      10, 'MPAA','General Audiences');
+INSERT INTO certificates (cert_id, name, rank, scheme, description) VALUES ( 2, 'Uc',     10, 'BBFC','Suitable for pre-school');
+INSERT INTO certificates (cert_id, name, rank, scheme, description) VALUES ( 3, 'U',      20, 'BBFC','Minimum age 4 years');
+INSERT INTO certificates (cert_id, name, rank, scheme, description) VALUES ( 4, 'PG',     30, 'BBFC','Parental guidance recommended');
+INSERT INTO certificates (cert_id, name, rank, scheme, description) VALUES ( 5, '12',     40, 'BBFC','Minimum age 12 years');
+INSERT INTO certificates (cert_id, name, rank, scheme, description) VALUES ( 6, 'PG-13',  50, 'MPAA','Parents Strongly Cautioned');
+INSERT INTO certificates (cert_id, name, rank, scheme, description) VALUES ( 7, '15',     60, 'BBFC','Minimum age 15 years');
+INSERT INTO certificates (cert_id, name, rank, scheme, description) VALUES ( 8, 'R',      70, 'MPAA','Restricted');
+INSERT INTO certificates (cert_id, name, rank, scheme, description) VALUES ( 9, 'NC-17',  80, 'MPAA','Not suitable for viewers under 17');
+INSERT INTO certificates (cert_id, name, rank, scheme, description) VALUES (10, '18',     90, 'BBFC','Minimum age 18 years');
+INSERT INTO certificates (cert_id, name, rank, scheme, description) VALUES (11, 'XXX',   100, 'MPAA','Adult');
+INSERT INTO certificates (cert_id, name, rank, scheme, description) VALUES (12, 'R18',   100, 'BBFC','Restricted distribution, minimum age 18 years');
 
 -- *************************************************************************************************
 --   SWISScenter Source                                                              Robert Taylor

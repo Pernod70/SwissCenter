@@ -344,6 +344,7 @@ function movie_info( $message = "")
   
   if (!empty($_REQUEST["downloads"]))
   {
+    set_rating_scheme_name($_REQUEST['scheme']);
     set_sys_pref('movie_info_script',$_REQUEST['site']);
     set_sys_pref('movie_check_enabled',$_REQUEST["downloads"]);
     $message = str('SAVE_SETTINGS_OK');
@@ -368,6 +369,7 @@ function movie_info( $message = "")
   echo '<p><b>'.str('MOVIE_EXTRA_DL_TITLE').'</b>
         <p>'.str('MOVIE_EXTRA_DL_PROMPT','<a href=""http://www.lovefilm.com">www.lovefilem.com</a>');
   form_list_static('site',str('MOVIE_EXTRA_SITE_PROMPT'),$sites_list,get_sys_pref('movie_info_script','movie_lovefilm.php'),false,false);
+  form_list_dynamic('scheme',str('RATING_SCHEME_PROMPT'),get_rating_scheme_list_sql(),get_rating_scheme_name(),false,false,null);
   form_radio_static('downloads',str('STATUS'),$list,get_sys_pref('movie_check_enabled','YES'),false,true);
   form_submit(str('SAVE_SETTINGS'),2,'left',240);
   form_end();

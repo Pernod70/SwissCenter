@@ -22,7 +22,7 @@
     form_select_table("user_id", $data, str('USERS_TABLE_HEADINGS')
                      ,array("class"=>"form_select_tab","width"=>"100%"), "user_id",
                       array("NAME"=>"",
-                            "MAX CERTIFICATE VIEWABLE"=>"select cert_id,name from certificates order by rank asc",
+                            "MAX CERTIFICATE VIEWABLE"=>get_cert_list_sql(),
                             "PIN"=>"*")
                       , $edit_id, "users");
     form_submit(str('USERS_DEL_BUTTON'), 1 ,"center");
@@ -35,7 +35,7 @@
     form_hidden("action", "NEW");
     form_input("name", str("NAME"), 70, '', $_REQUEST["name"]);
     form_label(str('USERS_NAME_PROMPT'));
-    form_list_dynamic("cert", str('USERS_MAX_CERT'), "select cert_id,name from certificates order by rank asc", $_REQUEST["cert"]);
+    form_list_dynamic("cert", str('USERS_MAX_CERT'), get_cert_list_sql(), $_REQUEST["cert"]);
     form_label(str('USERS_MAX_CERT_PROMPT'));
     form_input('pin',str('USERS_PIN'),5,10);
     form_label(str('USERS_PIN_PROMPT'));

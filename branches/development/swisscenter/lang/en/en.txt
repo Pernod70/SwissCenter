@@ -487,6 +487,7 @@ PC_LINK_CONFIG          = Config
 MOVIE_EXTRA_SITE_PROMPT = Download info from
 MOVIE_OPTIONS		= Movie Options
 MEDIA_SEARCH_PROMPT	= Clicking the button below will begin a background scan of all your media locations. Media that is no longer present on your system will be removed from the database and any new or changed media will be added.
+RATING_SCHEME_PROMPT	= Certificate Scheme
 
 # Updated text strings in v1.14
 MOVIE_EXTRA_DL_PROMPT	= When new video items are discovered during a "new media search", the SwissCenter will use the filename of the video file to search for and download additional movie information (eg: Actors, Directors, etc) from the site you specify below.

@@ -5,6 +5,21 @@
 
   require_once('users.php');
   require_once('mysql.php');
+  
+  function get_rating_scheme_name()
+  {
+    return get_sys_pref('ratings_scheme','BBFC');
+  }
+  
+  function set_rating_scheme_name( $name )
+  {
+    set_sys_pref('ratings_scheme',$name);
+  }
+  
+  function get_rating_scheme_list_sql()
+  {
+    return 'select distinct scheme,scheme name from certificates order by 1';
+  }
 
   function get_rating_join()
   {
@@ -25,7 +40,7 @@
   
   function get_cert_list_sql()
   {
-    return 'select cert_id,name from certificates order by rank';
+    return "select cert_id,name from certificates where scheme = '".get_rating_scheme_name()."' order by rank";
   }
  
   function get_cert_from_name($name)

@@ -172,11 +172,11 @@ function form_list_dynamic_html ( $param, $sql, $value = "", $opt = false, $subm
   return $html;
 }
 
-function form_list_dynamic( $param, $prompt, $sql, $value = "", $opt = false )
+function form_list_dynamic( $param, $prompt, $sql, $value = "", $opt = false, $submit = false, $initial_txt = '' )
 {
   echo '<tr>
           <td>'.form_prompt($prompt,$opt).'</td>
-          <td>'.form_list_dynamic_html($param, $sql, $value, $opt).'</td>
+          <td>'.form_list_dynamic_html($param, $sql, $value, $opt, $submit, $initial_txt).'</td>
        </tr>';
 }
 
