@@ -278,6 +278,7 @@ function page_footer( $back, $buttons= '', $iconbar = 0 )
    
 function page_inform( $seconds, $url, $title, $text)
 {
+  debug_to_log("Displaying message",array("message"=>$text, "time"=>$seconds, "url"=>$url));
   page_header($title,"",'<meta http-equiv="refresh" content="'.$seconds.';URL='.$url.'">');
   echo "<p>&nbsp;<p>&nbsp;<p><center>".$text."</center>";
   page_footer('/');  

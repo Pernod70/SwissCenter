@@ -10,7 +10,15 @@
   function sched_display( $message = '')
   {   
     if (is_windows())
-      sched_display_win( $message);
+    {
+      if (is_server_simese() && simese_version() >= 1.31)
+      {
+        echo "<h1>".str('SCHEDULE_TITLE')."</h1>";
+        echo str("SIMESE_SCHED_PROMPT");
+      }
+      else
+        sched_display_win( $message);
+    }
     else
       sched_display_linux( $message);
   }

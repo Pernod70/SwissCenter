@@ -28,7 +28,7 @@
     form_submit(str('USERS_DEL_BUTTON'), 1 ,"center");
     form_end();
     
-    echo "<p><h1>".str('USERS_ADD_TITLE')."</h1>";
+    echo "<p><h1>".str('USERS_ADD_BUTTON')."</h1>";
     message($add_msg);
     form_start("index.php", 150);
     form_hidden("section", "USERS");

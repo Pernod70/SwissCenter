@@ -7,9 +7,25 @@
   // Display current config
   // ----------------------------------------------------------------------------------
   
-  function support_display()
+  function support_display( $log_mode = "", $debug_message = "")
   {
+    // If we haven't passed through the stat of the LOG_MODE then take it from the ini file
+    if ($log_mode == "")
+      $log_mode = strtoupper(LOG_MODE);
+    
+    $list = array( str('ENABLED')=>'DEBUG',str('DISABLED')=>'ERRORS');
+
     echo "<h1>".str('SUPPORT_TITLE')."</h1><p>".str('SUPPORT_TXT','<a href=\"www.swisscenter.co.uk\">www.swisscenter.co.uk</a>');
+    
+    echo "<h2>".str('DEBUG_MODE')."</h2>";
+    message($debug_message);    
+    form_start('index.php', 150, 'conn');
+    form_hidden('section', 'SUPPORT');
+    form_hidden('action', 'SET_DEBUG');
+    form_list_static('debug',str('DEBUG_MODE'), $list ,($log_mode == 'DEBUG' ? 'DEBUG' : 'ERRORS'),false,false);
+    form_label(str('DEBUG_MODE_PROMPT'));
+    form_submit(str('SAVE_SETTINGS'), 2);
+    form_end();
     
     echo "<h2>".str('SUPPORT_PROG_TITLE')."</h2>";
     $opts = array( array('Program'=>'PHP','Location'=>PHP_LOCATION),
@@ -48,6 +64,12 @@
                   ,str('SUPPORT_USRPREF_TABLE'));
   
   }
+  
+function support_set_debug ()
+{
+  update_ini("swisscenter.ini","LOG_MODE",$_REQUEST["debug"]);
+  support_display( $_REQUEST["debug"], str('SAVE_SETTINGS_OK'));
+}
   
 /**************************************************************************************************
                                                End of file

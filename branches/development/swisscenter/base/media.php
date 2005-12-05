@@ -12,7 +12,7 @@ include_once("sched.php");
 
 function media_refresh_now()
 {
-  if (is_server_simese())
+  if (is_server_simese() && simese_version() >= 1.31)
   {
     $dir = SC_LOCATION.'config/simese';
 

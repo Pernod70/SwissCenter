@@ -30,6 +30,12 @@ INSERT INTO certificates (cert_id, name, rank, scheme, description) VALUES (10, 
 INSERT INTO certificates (cert_id, name, rank, scheme, description) VALUES (11, 'XXX',   100, 'MPAA','Adult');
 INSERT INTO certificates (cert_id, name, rank, scheme, description) VALUES (12, 'R18',   100, 'BBFC','Restricted distribution, minimum age 18 years');
 
+-- -------------------------------------------------------------------------------------------------
+-- Flag all movie details for download, as we've changed the certificates table.
+-- -------------------------------------------------------------------------------------------------
+
+UPDATE movies set details_available = null;
+
 -- *************************************************************************************************
 --   SWISScenter Source                                                              Robert Taylor
 -- *************************************************************************************************

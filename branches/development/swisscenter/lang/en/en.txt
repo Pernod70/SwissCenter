@@ -360,7 +360,7 @@ UPPERCASE		= Uppercase
 USERNAME		= Username
 USERS_ADDED_OK		= New user added
 USERS_ADD_BUTTON	= Add new user
-USERS_ADD_TITLE		= Add new user
+USERS_ADD_TITLE		= Manage Users
 USERS_CONFIG_TITLE	= User Management
 USERS_DEL_BUTTON	= Remove selected users
 USERS_DEL_OK		= The selected users have been deleted
@@ -488,10 +488,14 @@ MOVIE_EXTRA_SITE_PROMPT = Download info from
 MOVIE_OPTIONS		= Movie Options
 MEDIA_SEARCH_PROMPT	= Clicking the button below will begin a background scan of all your media locations. Media that is no longer present on your system will be removed from the database and any new or changed media will be added.
 RATING_SCHEME_PROMPT	= Certificate Scheme
+DEBUG_MODE		= Debug Mode
+DEBUG_MODE_PROMPT	= Enabling [i]Debug Mode[/i] will cause more information to be written to the support.log file when performing actions such as a media update and when downloading movie information. This extra information may be required to troubleshoot any issues you are experiencing.
+SIMESE_SCHED_PROMPT	= You may schedule automatic refreshes of the SwissCenter database by right clicking on the Simese icon in the taskbar and selecting [i]Update Media Scheduler[/i].
 
 # Updated text strings in v1.14
 MOVIE_EXTRA_DL_PROMPT	= When new video items are discovered during a "new media search", the SwissCenter will use the filename of the video file to search for and download additional movie information (eg: Actors, Directors, etc) from the site you specify below.
 PRIVACY_DATA_COLLECTION	= [b]Data Collection[/b] [p]Information relating to the media files on your machine is collected and stored in a MySQL database located on the PC on which the SwissCenter software is installed. This information is used for the sole purpose of providing you with an interface to your media files on such devices as the Pinnacle Showcenter. At no point is this of any other information transmitted in any form to the authors of the SwissCenter, or to any other third party. [p]There is one exception to the above statemnet :- To obtain extra information regarding video/movies files (such as actors, directors, etc) the filename is submitted as part of a search query to the website selected on the %s screen. If you would prefer that this informationis not transmitted then you should disable the "Movie Info Download". 
+
 
 
 #----------------------------------------------------------------------------------------------------
