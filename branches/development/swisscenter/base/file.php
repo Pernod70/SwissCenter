@@ -440,9 +440,12 @@ function file_thumbnail( $fsp )
 
 function file_albumart( $fsp )
 {
-  $return    = '';
-
-  if ( @is_dir($fsp) )
+  if (empty($fsp))
+  {
+    // No directory specified.
+    return '';
+  }
+  elseif ( @is_dir($fsp) )
   {
     // Is there an image file with the same name as those listed in the configuration page?
     $return = find_in_dir($fsp, db_col_to_list("select filename from art_files"));
@@ -453,6 +456,7 @@ function file_albumart( $fsp )
   } 
   else
   {
+    $return    = '';
     $id3_image = db_value("select m.file_id from mp3s m,mp3_albumart ma where m.file_id = ma.file_id and concat(m.dirname,m.filename) = '".db_escape_str($fsp)."'");
     
     if ( !empty($id3_image) )

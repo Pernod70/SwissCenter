@@ -126,25 +126,7 @@
         $menu->add_item(ucwords(file_noext($file_list[$i-count($dir_list)]["filename"])),$dest);
       }
     }
-
-    // Does this folder have an albumart file? If so, display it
-    $image = file_albumart($dir);
-    if (! empty($image))
-    {
-      $x = 150;
-      $y = 200;
-      image_resized_xy($image,$x,$y);
-      echo '<table width="100%" cellpadding=0 cellspacing=0 border=0>
-            <tr><td valign=top height="320px" width="170px" align="center">
-                <table width="100%"><tr><td height="'.((320-$y)/2).'px"></td></tr><tr><td valign=top>
-                  <center>'.img_gen($image,150,200).'</center>
-                </td></tr></table></td>
-                <td valign="top">';
-                $menu->display(350);
-     echo '     </td></td></table>';
-    }
-    else
-      $menu->display(400);
+    $menu->display(400);
    }
 
   // ----------------------------------------------------------------------------------
