@@ -82,12 +82,21 @@ function tvid( $code )
   $code = strtoupper($code);
 
   // Depending on hardware player, override default values by storing in the $map array
-  if ( get_player_type() == 'PINNACLE SC200')
+  switch ( get_player_type() )
   {
-    $map = array( 'KEY_A' => 'A'
-                , 'KEY_B' => 'B'
-                , 'KEY_C' => 'C' );
+    case 'PINNACLE SC200':
+          $map = array( 'KEY_A'     => 'A'
+                      , 'KEY_B'     => 'B'
+                      , 'KEY_C'     => 'C' );
+          break;
+    case 'ID-DATA':
+          $map = array( 'BACKSPACE' => 'back'
+                      , 'KEY_A'     => 'play'
+                      , 'KEY_B'     => 'esc'
+                      , 'KEY_C'     => 'repeat' );
+         break;
   }
+
   
   // Return the appropriate TVID html code.
   if (array_key_exists($code,$map))
