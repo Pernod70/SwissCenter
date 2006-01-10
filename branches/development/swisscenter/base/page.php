@@ -25,7 +25,7 @@ function current_session()
   if (isset($_COOKIE["PHPSESSID"]))
     return 'session_id='.$_COOKIE["PHPSESSID"];
   else 
-    return substr(SID,strpos(SID,'=')+1);
+    return 'session_id='.substr(SID,strpos(SID,'=')+1);
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -262,10 +262,10 @@ function page_footer( $back, $buttons= '', $iconbar = 0 )
          '</tr></table>';
   }
   
-  echo '<a href="'.$back.'" TVID="backspace"></a>
-        <a href="music.php" TVID="music"></a>
-        <a href="video.php" TVID="movie"></a>
-        <a href="photo.php" TVID="photo"></a>';
+  echo '<a href="'.$back.'" '.tvid('BACKSPACE').'></a>
+        <a href="music.php" '.tvid('MUSIC').'></a>
+        <a href="video.php" '.tvid('MOVIE').'></a>
+        <a href="photo.php" '.tvid('PHOTO').'></a>';
 
   echo '</body>
         </html>';
