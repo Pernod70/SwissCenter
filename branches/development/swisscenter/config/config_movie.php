@@ -367,7 +367,7 @@ function movie_info( $message = "")
   form_hidden('section', 'MOVIE');
   form_hidden('action', 'INFO');
   echo '<p><b>'.str('MOVIE_EXTRA_DL_TITLE').'</b>
-        <p>'.str('MOVIE_EXTRA_DL_PROMPT','<a href=""http://www.lovefilm.com">www.lovefilem.com</a>');
+        <p>'.str('MOVIE_EXTRA_DL_PROMPT');
   form_list_static('site',str('MOVIE_EXTRA_SITE_PROMPT'),$sites_list,get_sys_pref('movie_info_script','movie_lovefilm.php'),false,false);
   form_list_dynamic('scheme',str('RATING_SCHEME_PROMPT'),get_rating_scheme_list_sql(),get_rating_scheme_name(),false,false,null);
   form_radio_static('downloads',str('STATUS'),$list,get_sys_pref('movie_check_enabled','YES'),false,true);
