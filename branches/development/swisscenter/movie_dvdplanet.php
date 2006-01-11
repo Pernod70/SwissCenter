@@ -68,20 +68,8 @@
       {
         preg_match("/'boxart[^=]*=([^']*)'/", $html, $id);      
         if (strpos($html,'boxart')>0)
-        {
-          send_to_log('Attempting to download albumart from '.$site_url.'productimages/front/'.$id[1].'.jpg');
-          $out = @fopen($file_path.file_noext($file_name).'.jpg', "wb");
-          if ($out)
-          {
-            fwrite($out, file_get_contents($site_url.'productimages/front/'.$id[1].'.jpg'));
-            fclose($out);
-            send_to_log('AlbumArt downloaded for '.$film_title);
-          }
-          else 
-          {
-             send_to_log('Unable to write AlbumArt to file (May be a permissions problem if running on Linux)');
-          }
-        }
+          file_save_albumart( $site_url.'productimages/front/'.$id[1].'.jpg' , $file_path.file_noext($file_name).'.jpg' , $film_title);
+          break;
       }
       
       $details = substr_between_strings($html,"Release Date","Disk Count");

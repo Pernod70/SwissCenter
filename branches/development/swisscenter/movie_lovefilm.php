@@ -84,17 +84,7 @@
         foreach ($matches[1] as $url)
           if (strpos($url,'boxcover')>0)
           {
-            $out = @fopen($file_path.file_noext($file_name).'.jpg', "wb");
-            if ($out)
-            {
-              fwrite($out, file_get_contents($site_url.$url));
-              fclose($out);
-              send_to_log('AlbumArt downloaded for '.$film_title);
-            }
-            else 
-            {
-               send_to_log('Unable to write AlbumArt to file (May be a permissions problem if running on Linux)');
-            }
+            file_save_albumart( $site_url.$url , $file_path.file_noext($file_name).'.jpg' , $film_title);
             break;
           }
       }

@@ -480,6 +480,26 @@ function file_albumart( $fsp )
   return $return;
 }
 
+//-------------------------------------------------------------------------------------------------
+// Download a JPG image from the given URL and save it into the filmart/albumart file specified
+//-------------------------------------------------------------------------------------------------
+
+function file_save_albumart( $url, $fsp, $film_title )
+{
+  send_to_log('Attempting to download albumart from '.$url);
+  $out = @fopen($fsp, "wb");
+  if ($out)
+  {
+    @fwrite($out, file_get_contents($url));
+    @fclose($out);
+    send_to_log('AlbumArt downloaded for '.$film_title);
+  }
+  else 
+  {
+     send_to_log('Unable to write AlbumArt to file (May be a permissions problem if running on Linux)');
+  }
+}
+
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/
