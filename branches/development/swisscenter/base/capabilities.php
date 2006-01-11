@@ -14,10 +14,10 @@ function get_player_type()
 {
   if     ( strpos($_SERVER['HTTP_USER_AGENT'],'-NST-')>0 )
     return 'NEUSTON';
-  elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-PIN-')>0 )
-    return 'PINNACLE';
   elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-PIN-2')>0 )
     return 'PINNACLE SC200';
+  elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-PIN-')>0 )
+    return 'PINNACLE';
   elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-IOD-')>0 )
     return 'IO-DATA';
   elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-LTI-')>0 )
