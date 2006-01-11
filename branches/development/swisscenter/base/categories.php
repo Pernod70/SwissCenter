@@ -14,8 +14,8 @@
   {
     echo '<center>'.str('SELECT_CATEGORY').'</center><p>';
     
-    $special    = array( array("CAT_NAME"=>"All Categories","CAT_ID"=>CAT_ALL)
-                       , array("CAT_NAME"=>"Recently Added","CAT_ID"=>CAT_NEW) );
+    $special    = array( array("CAT_NAME"=>str('CAT_LIST_ALL'),"CAT_ID"=>CAT_ALL)
+                       , array("CAT_NAME"=>str('CAT_RECENTLY_ADDED'),"CAT_ID"=>CAT_NEW) );
 
     $media_table = db_value("select media_table from media_types where media_id=$media_type");
 
@@ -26,7 +26,7 @@
                                 inner join certificates unrated_cert on unrated_cert.cert_id=ml.unrated
                               where ml.media_type=$media_type".get_rating_filter()." order by c.cat_name ASC");
 
-    $cats       = array_merge( $special , $categories);
+    $cats       = array_merge( $categories, $special);
     $page       = (isset($_REQUEST["cat_page"]) ? $_REQUEST["cat_page"] : 1);
     $start      = ($page-1) * MAX_PER_PAGE; 
     $end        = min($start+MAX_PER_PAGE,count($cats));
