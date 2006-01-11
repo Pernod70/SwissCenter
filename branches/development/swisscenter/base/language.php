@@ -23,7 +23,7 @@ function load_lang_strings ( $lang = 'en-gb' )
       	$ex = explode('=',$line,2);
         $keys[strtoupper(trim($ex[0]))] = ltrim($ex[1]);
       }      
-    $_SESSION["language"] = array_merge($_SESSION["language"],$keys);
+    $_SESSION["language"] = array_merge( (array)$_SESSION["language"] , (array)$keys );
     send_to_log("Loaded $lang language file");
   }
 }
