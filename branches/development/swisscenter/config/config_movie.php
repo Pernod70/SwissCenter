@@ -46,10 +46,10 @@ function movie_display( $message = '')
         <input type=hidden name="last_where" value="'.$where.'">
         '.str('CATEGORY').' : 
         '.form_list_dynamic_html("cat_id","select cat_id,cat_name from categories",$_REQUEST["cat_id"],true,true,str('CATEGORY_LIST_ALL')).'
-        </form>
         </td><td width"50% align="right">
         '.str('SEARCH').' : 
         <input name="search" value="'.$_REQUEST["search"].'" size=10>
+        </form>
         </td></tr></table>';
   
   echo '<input type=hidden name="section" value="MOVIE">';
