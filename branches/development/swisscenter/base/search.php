@@ -45,6 +45,9 @@ function search_hist_first()
 
 function  search_media_page( $heading, $title, $main_table, $joined_tables, $column,  $choose_url )
 {
+  // Make sure that the session variable for "shuffle" matches the user's preference (because it will have been set "on" for quick play).
+  $_SESSION["shuffle"] = get_user_pref('shuffle','off');
+  
   // Should we delete the last entry on the history stack?
   if (strtoupper($_REQUEST["del"]) == 'Y')
     search_hist_pop();
@@ -141,7 +144,10 @@ function search_process_passed_params()
     $predicate = $history["sql"]." and $type like '".db_escape_str(str_replace('_','\_',$name))."'";
 
   if (isset($_REQUEST["shuffle"]))
+  {
     $_SESSION["shuffle"] = $_REQUEST["shuffle"];
+    set_user_pref('shuffle',$_REQUEST["shuffle"]);
+  }
 
   if (isset($_REQUEST["add"]) && strtoupper($_REQUEST["add"]) == 'Y')
   {
