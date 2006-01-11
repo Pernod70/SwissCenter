@@ -12,6 +12,7 @@ require_once("utils.php");
 // Class for outputting menus.
 //
 
+
 class menu
 {
 
@@ -36,7 +37,7 @@ class menu
   {
     if (! is_null($text) && !empty($text))
       $this->menu_items[] = array( "text"=>$text, "url"=>$url,
-                                   "right"=> ($right == true ? '</td><td><img src="'.style_img("IMG_RIGHT").'">' : '') );
+                                   "right"=> ($right == true ? '<img src="'.style_img("IMG_RIGHT").'">' : '') );
   }
 
   function add_up( $url )
@@ -49,28 +50,24 @@ class menu
     $this->down = $url;
   }
 
-  function display( $size=400 )
+   function display( $size=500 )
   {
     $i=0;
     $link="";
 
-    echo '<center><table cellspacing="3" cellpadding="3" border="0">';
-
-    if ($this->icons )
-    {
-      if (! empty($this->up))
-        echo '<tr><td align="center" valign="middle" width="'.$size.'px" height="10px">'.
-             up_link($this->up).
-             '</td></tr>';
-      else
-        echo '<tr><td align="center" valign="middle" width="'.$size.'px" height="10px"></a></td></tr>';
-    }
-
+    echo '<center><table cellspacing="2" cellpadding="2" border="0">';
+    
     if (! empty($this->menu_items))
     {
+      if (!empty($this->up))
+	{
+	  $up = $this->up;
+	   echo '<td></td><td><a href="'.$up.'" TVID="PGUP" ONFOCUSLOAD></a></td><td></td></tr>';
+	  }
+
       foreach ($this->menu_items as $item)
       {
-        $text = shorten_chars($item["text"],$size - 50);
+        $text = shorten_chars($item["text"],$size - 0);
 
         $link = $item["url"];
         if (substr($link,0,5) != 'href=')
@@ -83,19 +80,30 @@ class menu
           
         $i++;
 
-        echo '<tr><td valign="middle" width="'.$size.'px" height="25px" background="'.$menu_bg_img.'">'.
-              '<a style="width:'.($size-2).'" '.
-              $link.' TVID="'.$i.'" name="'.$i.'">&nbsp;&nbsp;&nbsp;'.$i.'. '.$text.'</a>'.$item["right"].'</td></tr>';
-      }
-    }
+        echo '<tr><td>'.$item["right"].'</td><td valign="middle" width="'.$size.'px" height="18px" background="'.$menu_bg_img.'"><font size="2">'.'<a style="width:'.($size-2).'" '.$link.' TVID="'.$i.'" name="'.$i.'">&nbsp;&nbsp;&nbsp;'.$i.'. '.$text.'</a>'.'</font></td>';
 
-    if ($this->icons && !empty($this->down))
-    {
-        echo '<tr><td align="center" valign="middle" width="'.$size.'px" height="10px">'.
-             down_link($this->down).
-             '</td></tr>';
-    }
+	if ($this->icons )
+	    {
+	      if (!empty($this->up) && $i==1)
 
+		echo '<td>'.up_link($this->up).'</td></tr>';
+	      else
+		if (!empty($this->down) && $i==MAX_PER_PAGE )
+    		  {
+        	    echo '<td>'.down_link($this->down).'</td></tr>';
+    		  }
+		else
+        	    echo '<td></a></td></tr>';
+	     }
+        }
+
+	if (!empty($this->down) )
+	  {
+	   $down = $this->down;
+	   echo '<td></td><td valign="middle" width="'.$size.'px"><a href="'.$down.'" TVID="PGDN" ONFOCUSLOAD><font size="-5">&nbsp;&nbsp;&nbsp;</font></a></td><td></td></tr>';
+	  }
+    }
+ 
     echo '</table></center>';
   }
 

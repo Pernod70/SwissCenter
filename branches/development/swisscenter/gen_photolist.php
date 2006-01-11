@@ -32,6 +32,8 @@
   //  7 = Interleave up/down             8 = Fade In
   //  9 = Random Effect from above 
   
+  debug_to_log('Generating list of pictures to send to the networked media player.');
+
   if (is_hardware_player())
   {
     // Generate a playlist for the showcenter
@@ -45,11 +47,14 @@
         $title = rtrim(file_noext(basename($row["FILENAME"])));
       else
         $title = rtrim($row["TITLE"]);
+        
+      $url = $thumb_url.rawurlencode(ucfirst($row["DIRNAME"]).$row["FILENAME"]);
+      debug_to_log(' - '.$url);
   
       if (is_hardware_player())
-        echo  "$delay|$effect|$title|".$thumb_url.rawurlencode(ucfirst($row["DIRNAME"]).$row["FILENAME"])."|\n";
+        echo  "$delay|$effect|$title|$url|\n";
       else
-        echo  $thumb_url.rawurlencode(ucfirst($row["DIRNAME"]).$row["FILENAME"]).newline();
+        echo  $url.newline();
   
       $item_count++;
     }

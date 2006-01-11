@@ -22,6 +22,8 @@
   $data       = get_tracklist_to_play();
   $item_count = 0;
   
+  debug_to_log('Generating list of media files to send to the networked media player.');
+  
   foreach ($data as $row)
   {
     if ($item_count >= max_playlist_size() )
@@ -32,11 +34,14 @@
     else
       $title = rtrim($row["TITLE"]);
 
+    $url = $server.make_url_path(ucfirst($row["DIRNAME"]).$row["FILENAME"]);
+    debug_to_log(' - '.$url);
+      
     if (is_hardware_player())
-      echo  $title.'|0|0|'.$server.make_url_path(ucfirst($row["DIRNAME"]).$row["FILENAME"])."|\n";
+      echo  $title.'|0|0|'.$url."|\n";
     else
-      echo  $server.make_url_path(ucfirst($row["DIRNAME"]).$row["FILENAME"]).newline();
-
+      echo  $url.newline();
+      
     $item_count++;
   }
 
