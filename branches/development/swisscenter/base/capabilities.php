@@ -28,8 +28,14 @@ function get_player_type()
     return 'ADSTECH';
   elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-FIA-')>0 )
     return 'FIA';
-  else 
+  elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-VNE-')>0 )
+    return 'SNAZIO';
+  elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-HNB-')>0 )
+    return 'H&B';
+  elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'MSIE')>0 )
     return 'PC';
+  else
+    return 'UNKNOWN';
 }
 
 function is_hardware_player()
