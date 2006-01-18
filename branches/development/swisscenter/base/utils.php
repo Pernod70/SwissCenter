@@ -47,15 +47,20 @@ function shuffle_fisherYates(&$array, $seed = false)
 
 function make_url_path( $fsp )
 {
-  // On 'nix systems, we need to modify the path to access the file via the symbolic link 
+  // On linux/unix systems, we need to modify the path to access the file via the symbolic link
   // rather than trying to access it directly
-  if (! is_windows())
+  if ( is_unix() )
   {
     foreach ( db_toarray("select name,concat('media/',location_id) dir from media_locations") as $dir)
       $fsp = preg_replace('#^'.$dir["NAME"].'#', $dir["DIR"], $fsp);
   }  
   
   $parts = split('/',str_replace('\\','/',$fsp));
+
+  // On windows, we should ensure that the drive letter is converted to uppercase
+  if ( is_windows() )
+    $parts[0] = strtoupper($parts[0]);
+
   for ($i=0; $i<count($parts); $i++)
     $parts[$i] = rawurlencode($parts[$i]);    
   
