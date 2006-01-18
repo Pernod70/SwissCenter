@@ -14,7 +14,7 @@
     if(empty($cat_id))
       search_hist_init( 'photo.php', get_rating_filter() );
     else
-      search_hist_init( 'photo.php?cat='.$cat_id, category_select_sql($cat_id, 1).get_rating_filter() );
+      search_hist_init( 'photo.php?cat='.$cat_id, category_select_sql($cat_id, 2).get_rating_filter() );
 
     echo '<center>'.str('SELECT_OPTION').'</center><p>';
 

@@ -11,15 +11,9 @@
   function display_video_menu($cat_id)
   {
     if(empty($cat_id))
-    {
-      $_SESSION["history"] = array(array("url"=>"video.php",
-        "sql"=>get_rating_filter()));
-    }
+      search_hist_init( 'music.php', get_rating_filter() );
     else
-    {
-      $_SESSION["history"] = array(array("url"=>"video.php?cat=$cat_id",
-        "sql"=>category_select_sql($cat_id, 3).get_rating_filter()));
-    }
+      search_hist_init( 'music.php?cat='.$cat_id, category_select_sql($cat_id, 3).get_rating_filter() );
 
     echo '<center>'.str('SELECT_OPTION').'</center><p>';
 
