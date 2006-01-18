@@ -24,15 +24,6 @@ function preferred_resize( &$dimg, $simg, $dx, $dy, $sx, $sy, $dw, $dh, $sw, $sh
 }
 
 // -------------------------------------------------------------------------------------------------
-// Returns the colour number ofr a 24-bit colour
-// -------------------------------------------------------------------------------------------------
-
-function colour ( $r, $g, $b)
-{
-  return ($r << 16) | ($g << 8) | $b;
-}
-
-// -------------------------------------------------------------------------------------------------
 // Modifies the ($x,$y) dimesnsions given for an image after it has been scaled to fit within the
 // specified bounding box ($box_x,$box_y)
 // -------------------------------------------------------------------------------------------------
@@ -209,6 +200,18 @@ class CImage
   { return $this->image; }
 
   // -------------------------------------------------------------------------------------------------
+  // Allocate a colour to be used in the image (especially useful for alpha blending).
+  // -------------------------------------------------------------------------------------------------
+
+  function allocate_colour( $r, $g, $b, $alpha = 0)
+  {
+    if ($this->image !== false)
+      return imagecolorallocatealpha($this->image, 255, 255, 255, 127);
+    else
+      return false;
+  }
+
+  // -------------------------------------------------------------------------------------------------
   // Updates the known width and height of the image
   // -------------------------------------------------------------------------------------------------
 
@@ -314,7 +317,6 @@ class CImage
       if ( ($dest_w == $src_image->get_width() && $dest_h == $src_image->get_height()) || ($dest_w == 0 && $dest_h == 0) )
         ImageCopy ( $this->image,  $src_image->get_image_ref() , $dest_x, $dest_y, 0,0, $src_image->get_width(), $src_image->get_height());
       else
-
         preferred_resize( $this->image,  $src_image->get_image_ref() , $dest_x, $dest_y, 0, 0, $dest_w, $dest_h, $src_image->get_width(), $src_image->get_height() );
 
       $this->src_fsp  = false;
@@ -352,6 +354,9 @@ class CImage
       else
       {
         $this->image = ImageCreateTrueColor($x,$y);
+        ImageSaveAlpha($this->image, true);
+        ImageAlphaBlending( $this->image, false);
+        $bgcolour = $this->allocate_colour(255,0,0,0);
         imagefill($this->image,0,0,$bgcolour);
         preferred_resize($this->image, $old, ($x-$newx)/2, ($y-$newy)/2, 0, 0, $newx, $newy, $this->width, $this->height);
       }

@@ -173,20 +173,17 @@ function page_error($message)
 // Outputs an IMG tag which uses the thumbnail generator/caching engine
 //-------------------------------------------------------------------------------------------------
 
-function img_gen( $filename, $x, $y, $type = false, $bgcol = false, $stretch = false)
+function img_gen( $filename, $x, $y, $type = false, $stretch = false)
 {
   $params = 'src='.rawurlencode($filename).'&x='.$x.'&y='.$y;
   
   if ($type !== false)
     $params .='&type='.$type;
   
-  if ($bgcol !== false)
-    $params .='&bgcol='.$bgcol;
-
   if ($stretch !== false)
     $params .='&stretch=Y';
 
-  return '<img src="thumb.php?'.$params.'" border=0>';
+  return '<img width="'.$x.'" height="'.$y.'" src="thumb.php?'.$params.'" border=0>';
 }
 
 //-------------------------------------------------------------------------------------------------

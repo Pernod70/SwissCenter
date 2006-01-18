@@ -126,7 +126,7 @@ class thumb_list
         $img_y   = $this->tn_size["Y"];
         echo '<td valign="middle" height="'.($this->tn_size["Y"]).'" width="'.$cell_width.'px"><center>'
              .($this->titles ? '' : '<a '.$this->items[$cell_no]["url"].'>')
-             .'<img border=0 width="'.$img_x.'" src="thumb.php?bgcol=0&x='.$img_x.'&y='.$img_y.'&src='.$img_src.'">'
+             .img_gen($img_src, $img_x, $img_y)
              .($this->titles ? '' : '</a>')
              .'</center></td>';        
       }

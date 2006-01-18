@@ -12,8 +12,6 @@
               specified, then the default is PNG format.
    stretch = [Optional] If present on the URL, then the iumage will be stretched to fit the given
              (X,Y) size instead of keeping it's aspect ratio
-     bgcol = [optional] If specified, a background colour will be used when an image does not
-             fit completely within the given (X,Y) size
  
   *************************************************************************************************/
 
@@ -33,7 +31,6 @@
   $y          = $_REQUEST["y"];
   $cache_file = cache_filename($filename, $x, $y);
   $aspect     = (isset($_REQUEST["stretch"]) ? false : true);
-  $bgcol      = (isset($_REQUEST["bgcol"]) ? $_REQUEST["bg_col"] : false);
 
   // Is there a cached version available?
   if ( $cache_file !== false && file_exists($cache_file) )
@@ -54,10 +51,13 @@
       send_to_log('Unable to process image specified : '.$filename);  
     
     // Resize it to the required size, whilst maintaining the correct aspect ratio
-    $image->resize($x, $y, $bgcol, $aspect);
+    $image->resize($x, $y, 0, $aspect);
     
     // Output the image to the browser.
-    $image->output($format);
+    if (isset($_REQUEST["type"]))
+      $image->output($_REQUEST["type"]);
+    else
+      $image->output('png');
   }
 
 
