@@ -312,7 +312,10 @@ class db_query
       {
         $this->rows_fetched = 0;
         if (! empty($sql) )
-         $this->stmt_handle = mysql_query( $sql, $this->db_handle);
+        {
+          $this->stmt_handle = mysql_query( $sql, $this->db_handle);
+          @debug_to_log("SQL> ".$sql);
+        }
       }
     }
   }
@@ -354,6 +357,7 @@ class db_query
   {
     $this->sql_to_execute = $sql;
     $this->stmt_handle = mysql_query($sql, $this->db_handle);
+    @debug_to_log("SQL> ".$sql);
     return $this->stmt_handle;
   }
 
