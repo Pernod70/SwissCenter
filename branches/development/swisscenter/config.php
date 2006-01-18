@@ -5,8 +5,8 @@
 
   require_once("base/page.php");
   require_once("messages_db.php");
-  
-  page_header( str('SETUP_TITLE'), '');
+
+  page_header( str('SETUP_TITLE'), str('CURRENT_VERSION').' '.swisscenter_version());
 
   echo '<p align="center">'.str('SELECT_OPTION');
   $menu = new menu();
@@ -25,10 +25,10 @@
   $menu->add_item(str('SETUP_CHANGE_UI'),'style.php',true);
   $menu->add_item(str('PIN_CHANGE'), 'change_pin.php');
   $menu->add_item(str('SETUP_SEARCH_NEW_MEDIA'),'do_refresh.php');
-  
+
   // Does the User have internet connectivity?
   if (internet_available())
-    $menu->add_item(str('SETUP_UPDATE_SC'),'run_update.php');  
+    $menu->add_item(str('SETUP_UPDATE_SC'),'run_update.php');
 
 
   $menu->display();

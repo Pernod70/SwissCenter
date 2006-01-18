@@ -506,7 +506,7 @@ IMAGE_RESIZE_TYPE	= Image generation
 IMAGE_RESIZE		= Resize (faster)
 IMAGE_RESAMPLE		= Resample (higher quality)
 IMAGE_RESIZE_PROMPT	= Please choose the method that the SwissCenter should use when generating images on the fly.
-
+CURRENT_VERSION		= Current Version
 
 #----------------------------------------------------------------------------------------------------
 # End-of-file
