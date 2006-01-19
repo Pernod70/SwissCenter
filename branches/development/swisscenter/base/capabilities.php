@@ -32,6 +32,8 @@ function get_player_type()
     return 'SNAZIO';
   elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-HNB-')>0 )
     return 'H&B';
+  elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-EGT-')>0 )
+    return 'ELGATO';
   elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'MSIE')>0 )
     return 'PC';
   else
@@ -95,11 +97,19 @@ function tvid( $code )
                       , 'KEY_B'     => 'B'
                       , 'KEY_C'     => 'C' );
           break;
-    case 'ID-DATA':
+          
+    case 'IO-DATA':
           $map = array( 'BACKSPACE' => 'back'
                       , 'KEY_A'     => 'play'
                       , 'KEY_B'     => 'esc'
                       , 'KEY_C'     => 'repeat' );
+         break;
+         
+    case 'ELGATO':
+    case 'NEUSTON':
+          $map = array( 'KEY_A'     => 'red'
+                      , 'KEY_B'     => 'green'
+                      , 'KEY_C'     => 'blue' );
          break;
   }
 
@@ -109,6 +119,33 @@ function tvid( $code )
     return ' TVID="'.$map[$code].'" ';
   else 
     return ' TVID="'.$code.'" ';
+}
+
+#-------------------------------------------------------------------------------------------------
+# Returns the correct STYLE tag to use to display a link to the quick-access buttons (eg: ABC)
+#-------------------------------------------------------------------------------------------------
+
+function quick_access_img( $position )
+{
+  switch ( get_player_type() )
+  {
+    case 'ELGATO':
+    case 'NEUSTON':
+         $map = array('IMG_RED','IMG_GREEN','IMG_BLUE');
+         break;    
+
+    case 'IO-DATA':
+         $map = array('IMG_PAUSE','IMG_STOP','IMG_REPEAT');
+         break;
+
+    default:
+         $map = array('IMG_A','IMG_B','IMG_C');
+  }
+
+  if (isset($map[$position]))
+    return $map[$position];
+  else 
+    return false;
 }
 
 #-------------------------------------------------------------------------------------------------

@@ -216,21 +216,18 @@ function page_footer( $back, $buttons= '', $iconbar = 0 )
   {
     for ($i=0; $i<count($buttons); $i++)
     {
-      // Assign to a Remote Control Button
-      $button_id = substr('ABC',$i,1);
-
       if (! empty($buttons[$i]["url"]) )
       {
         $link = $buttons[$i]["url"];
         if (substr($link,0,5) != 'href=')
           $link = 'href="'.$link.'"';
           
-        $link = '<a '.$link.tvid('KEY_'.$button_id).'>'.$buttons[$i]["text"].'</a>';
+        $link = '<a '.$link.tvid('KEY_'.substr('ABC',$i,1)).'>'.$buttons[$i]["text"].'</a>';
       }
       else
         $link = $buttons[$i]["text"];
-      
-      echo '<td align="center"><img src="'.style_img('IMG_'.$button_id).'">'.$link.'</td>';
+
+        echo '<td align="center"><img src="'.style_img(quick_access_img($i)).'">'.$link.'</td>';
     }
   }
   elseif(!empty($iconbar))
