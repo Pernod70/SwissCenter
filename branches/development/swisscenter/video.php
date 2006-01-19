@@ -7,6 +7,7 @@
   require_once("base/categories.php");
   require_once("base/rating.php");
   require_once("base/playlist.php");
+  require_once("base/search.php");
 
   function display_video_menu($cat_id)
   {
