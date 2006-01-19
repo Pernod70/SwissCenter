@@ -505,11 +505,16 @@ MOVIE_EXTRA_DL_PROMPT	= Wenn neue Filmeintr&auml;ge w&auml;hrend einer Suche nac
 PRIVACY_DATA_COLLECTION	= [b]Datensammlung[/b] [p]Informationen &uuml;ber die Medien-Dateien auf Ihrem Rechner werden gesammelt und in einer MySQL-Datenbank auf dem Rechner gespeichert, auf dem SwissCenter installiert ist. Diese Informationen werden einzig und allein daf&uuml;r verwendet, eine Bedienoberfl&auml;che f&uuml;r Ihre Medien auf solchen Ger&auml;ten wie das Pinnacle Showcenter zu erzeugen. Zu keinem Zeitpunkt werden diese oder irgendwelche anderen Informationen an die Autoren von SwissCenter oder irgendeine andere Stelle &uuml;bertragen. [p]Es gibt eine Ausnahme zur obigen Erkl&auml;rung:- Um zus&auml;tzliche Informationen zu Filmen/Videos (wie Schauspieler, Regisseure etc.) zu erhalten, wird der Dateiname als Teil einer Suche an die Website geschickt, die auf der Seite %s ausgew&auml;hlt wurde. Wenn Sie nicht m&ouml;chten, da&szlig; diese Informationen &uuml;bertragen werden, deaktivieren Sie bitte die Option "Zus&auml;tzliche Filminformationen herunterladen".
 
 # -----------------------
-# Missing from v1.14
+# SwissCenter v1.14.1
 # -----------------------
 
-CAT_LIST_ALL = Alle Kategorien
-CAT_RECENTLY_ADDED = Zuletzt hinzugef&uuml;gt
+CAT_LIST_ALL            = Alle Kategorien
+CAT_RECENTLY_ADDED      = Zuletzt hinzugef&uuml;gt
+IMAGE_RESIZE_TYPE       = Bildanpassung
+IMAGE_RESIZE            = Verkleinern (schneller)
+IMAGE_RESAMPLE          = Filtern (h&ouml;here Qualit&auml;t)
+IMAGE_RESIZE_PROMPT     = Bitte w&auml;hlen Sie die Methode, mit der SwissCenter Bilder wie Albumcover oder Fotos in die ben&ouml;tigte Gr&ouml;&szlig;e bringt.
+CURRENT_VERSION         = Aktuelle Version
 
 #----------------------------------------------------------------------------------------------------
 # End-of-file
