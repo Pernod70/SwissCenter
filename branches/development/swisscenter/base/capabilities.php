@@ -8,11 +8,17 @@ include_once('utils.php');
 
 #-------------------------------------------------------------------------------------------------
 # Returns the type of hardware player that the SwissCenter is communicating with.
+#
+# NOTE: If the player type has already been determined and is stored in the session, then we use
+#       that instead. This is a workaround for the fact that the sigma designs hardware doesn't 
+#       send a User Agent String when sending GET requests for playlists and media content.
 #-------------------------------------------------------------------------------------------------
 
 function get_player_type()
 {
-  if     ( strpos($_SERVER['HTTP_USER_AGENT'],'-NST-')>0 )
+  if (isset($_SESSION["device"]["player_type"]))
+    return $_SESSION["device"]["player_type"];
+  elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-NST-')>0 )
     return 'NEUSTON';
   elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-PIN-2')>0 )
     return 'PINNACLE SC200';

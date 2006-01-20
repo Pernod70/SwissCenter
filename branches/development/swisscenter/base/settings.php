@@ -113,6 +113,7 @@ if ( test_db() == 'OK' )
     $device = array();
     $device["ip_address"]   = str_replace('\\','/',$_SERVER["REMOTE_ADDR"]);
     $device["agent_string"] = $_SERVER['HTTP_USER_AGENT'];
+    $device["player_type"]  = get_player_type();
   
     if (strlen($device["ip_address"])>0)
     {
