@@ -12,9 +12,9 @@
   function display_video_menu($cat_id)
   {
     if(empty($cat_id))
-      search_hist_init( 'music.php', get_rating_filter() );
+      search_hist_init( 'video.php', get_rating_filter() );
     else
-      search_hist_init( 'music.php?cat='.$cat_id, category_select_sql($cat_id, 3).get_rating_filter() );
+      search_hist_init( 'video.php?cat='.$cat_id, category_select_sql($cat_id, 3).get_rating_filter() );
 
     echo '<center>'.str('SELECT_OPTION').'</center><p>';
 

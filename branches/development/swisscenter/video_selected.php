@@ -77,18 +77,19 @@
 //*************************************************************************************************
 
   // Decode & assign page parameters to variables.
-  $sql_table  = "movies media
-                left outer join directors_of_movie dom on media.file_id = dom.movie_id
-                left outer join genres_of_movie gom on media.file_id = gom.movie_id
-                left outer join actors_in_movie aim on media.file_id = aim.movie_id
-                left outer join actors a on aim.actor_id = a.actor_id
-                left outer join directors d on dom.director_id = d.director_id
-                left outer join genres g on gom.genre_id = g.genre_id".
-                get_rating_join().
-                ' where 1=1 ';  
-  $predicate = search_process_passed_params();
-  $num_rows  = db_value("select count( distinct media.file_id) from $sql_table $predicate");
-  $this_url   = url_set_param(current_url(),'add','N');
+  $sql_table     = "movies media
+                    left outer join directors_of_movie dom on media.file_id = dom.movie_id
+                    left outer join genres_of_movie gom on media.file_id = gom.movie_id
+                    left outer join actors_in_movie aim on media.file_id = aim.movie_id
+                    left outer join actors a on aim.actor_id = a.actor_id
+                    left outer join directors d on dom.director_id = d.director_id
+                    left outer join genres g on gom.genre_id = g.genre_id".
+                    get_rating_join().
+                    ' where 1=1 ';  
+  $select_fields = "file_id, dirname, filename, title location_id, certificate";
+  $predicate     = search_process_passed_params();
+  $num_rows      = db_value("select count( distinct media.file_id) from $sql_table $predicate");
+  $this_url      = url_set_param(current_url(),'add','N');
 
   //
   // A single movie has been matched/selected by the user, so display as much information as possible
@@ -103,11 +104,11 @@
 
     page_header( $data[0]["TITLE"] ,'');
 
-    $menu->add_item( str('PLAY_NOW')    , play_sql_list(MEDIA_TYPE_VIDEO,"select * from $sql_table $predicate order by title"));
+    $menu->add_item( str('PLAY_NOW')    , play_sql_list(MEDIA_TYPE_VIDEO,"select distinct $select_fields from $sql_table $predicate order by title"));
     $folder_img = file_albumart($data[0]["DIRNAME"].$data[0]["FILENAME"]);
 
     if (pl_enabled())
-      $menu->add_item( str('ADD_PLAYLIST') ,'add_playlist.php?sql='.rawurlencode('select * from movies where file_id='.$data[0]["FILE_ID"]),true);
+      $menu->add_item( str('ADD_PLAYLIST') ,'add_playlist.php?sql='.rawurlencode("select distinct $select_fields from movies where file_id=".$data[0]["FILE_ID"]),true);
 
     // TO-DO
     // Link to full cast & directors
@@ -137,10 +138,10 @@
     $info->add_item( str('TITLE')       , distinct_info('title',$sql_table, $predicate));
     $info->add_item( str('YEAR')        , distinct_info('year',$sql_table, $predicate));
     $info->add_item( str('CERTIFICATE') , distinct_info(/*'certificate'*/get_cert_name_sql(),$sql_table, $predicate));
-    $menu->add_item( str('PLAY_NOW')    , play_sql_list(MEDIA_TYPE_VIDEO,"select * from $sql_table $predicate order by title"));
+    $menu->add_item( str('PLAY_NOW')    , play_sql_list(MEDIA_TYPE_VIDEO,"select distinct $select_fields from $sql_table $predicate order by title"));
 
     if (pl_enabled())
-      $menu->add_item( str('ADD_PLAYLIST') ,'add_playlist.php?sql='.rawurlencode("select * from $sql_table $predicate order by title"),true);
+      $menu->add_item( str('ADD_PLAYLIST') ,'add_playlist.php?sql='.rawurlencode("select distinct $select_fields from $sql_table $predicate order by title"),true);
 
     check_filters( array('title','year','certificate','genre_name','actor_name','director_name'), $sql_table, $predicate, $menu);
 
