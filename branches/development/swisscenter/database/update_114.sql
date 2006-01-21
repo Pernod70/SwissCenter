@@ -36,6 +36,13 @@ INSERT INTO certificates (cert_id, name, rank, scheme, description) VALUES (12, 
 
 UPDATE movies set details_available = null;
 
+-- -------------------------------------------------------------------------------------------------
+-- Flag all photos as out-of-date so that the new information (albums, exif, etc) get populated on
+-- the next media search.
+-- -------------------------------------------------------------------------------------------------
+
+update photos set discovered='1900/01/02 00:00:00';
+
 -- *************************************************************************************************
 --   SWISScenter Source                                                              Robert Taylor
 -- *************************************************************************************************
