@@ -38,9 +38,8 @@ function movie_display( $message = '')
   echo "<h1>".str('ORG_TITLE')."</h1>";
   message($message);
   
-  echo '<form enctype="multipart/form-data" action="" method="post">';
-
-  echo '<table width="100%"><tr><td width="50%">
+  echo '<form enctype="multipart/form-data" action="" method="post">
+        <table width="100%"><tr><td width="50%">
         <input type=hidden name="section" value="MOVIE">
         <input type=hidden name="action" value="DISPLAY">
         <input type=hidden name="last_where" value="'.$where.'">
@@ -52,8 +51,9 @@ function movie_display( $message = '')
         </form>
         </td></tr></table>';
   
-  echo '<input type=hidden name="section" value="MOVIE">';
-  echo '<input type=hidden name="action" value="UPDATE">';
+  echo '<form enctype="multipart/form-data" action="" method="post">
+        <input type=hidden name="section" value="MOVIE">
+        <input type=hidden name="action" value="UPDATE">';
 
   paginate('?last_where='.$where.'&search='.$_REQUEST["search"].'&cat_id='.$_REQUEST["cat_id"].'&section=MOVIE&action=DISPLAY&page='
           ,$movie_count,$per_page,$page);
