@@ -422,7 +422,7 @@ COMPACT_VIEW		= Kompaktansicht
 NO_SYNOPSIS_AVAILABLE	= Keine Inhaltsangabe vorhanden
 
 KEYBOARD_DEL		= ENTF
-KEYBOARD_SPC		= LEERTASTE
+KEYBOARD_SPC		= LEER
 
 PLAYLIST_LOAD_OK	= Playliste geladen
 PLAYLIST_NAME_CANCEL	= Abbrechen - Nicht speichern
