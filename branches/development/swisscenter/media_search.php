@@ -313,6 +313,8 @@
       }
       closedir($dh);
     }
+    else 
+      send_to_log('Unable to read the directory contents. Are the permissions correct?',$dir);
   }
 
   // ----------------------------------------------------------------------------------

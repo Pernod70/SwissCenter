@@ -13,17 +13,22 @@
 
   function chksum_files($pre, $dir, &$files)
   {
-    if ($dir!='media/' && $dh = opendir($pre.$dir))
+    if ($dir!='media/')
     {
-      while (($file = readdir($dh)) !== false)
+      if ($dh = opendir($pre.$dir))
       {
-        if (is_dir($pre.$dir.$file) && ($file) !='.' && ($file) !='..')
-          chksum_files(  $pre, $dir.$file.'/', $files);
-        if (is_file($pre.$dir.$file) && ($file) !='.' && ($file) !='..')
-          $files[] = array('filename'=>$dir.$file
-                          ,'checksum'=> md5(file_get_contents($pre.$dir.$file)) );
+        while (($file = readdir($dh)) !== false)
+        {
+          if (is_dir($pre.$dir.$file) && ($file) !='.' && ($file) !='..')
+            chksum_files(  $pre, $dir.$file.'/', $files);
+          if (is_file($pre.$dir.$file) && ($file) !='.' && ($file) !='..')
+            $files[] = array('filename'=>$dir.$file
+                            ,'checksum'=> md5(file_get_contents($pre.$dir.$file)) );
+        }
+        closedir($dh);
       }
-      closedir($dh);
+      else 
+        send_to_log("ERROR : Unable to open directory for reading.",$pre.$dir);
     }
   }
 
@@ -46,7 +51,6 @@
   
   // Get file checksums from the online update file  
   $file_contents = file_get_contents($update_location.'filelist.txt');
-  $update = unserialize($file_contents);
   
   if ($file_contents === false)
   {
@@ -55,6 +59,8 @@
   }
   else
   {
+    $update = unserialize($file_contents);
+
     // Get the checksums for the local files, and unserialize the downloaded file.
     if (file_exists("filelist.txt"))
       $local = unserialize(file_get_contents('filelist.txt'));
@@ -64,7 +70,11 @@
     // Create update directory to hold files if it doesn't already exist
     if (!file_exists('updates'))
     {
-      mkdir('updates');
+      if ( mkdir('updates') === false )
+      {
+        send_to_log('ERROR: Unable to create directory.',"Updates");
+        $errors += 1;
+      }
     }
     
     // Download the required files    
@@ -127,8 +137,11 @@
     {
       if (!file_exists($dir["directory"]))
       {
-        if ( mkdir($dir["directory"]) == false )
-          $errors += 1;
+        if ( mkdir($dir["directory"]) === false )
+        {
+         send_to_log('ERROR: Unable to create directory.',SC_LOCATION.$dir["directory"]);
+         $errors += 1;
+        }
         else 
           send_to_log("'".$dir["directory"]."' directory created : ");
       }
@@ -148,9 +161,17 @@
     {
       foreach($actions as $a)
       {
-        unlink($a["existing"]);
-        rename($a["downloaded"],$a["existing"]);
-        send_to_log("'".$a["existing"]."' updated");
+        if ( unlink($a["existing"]) )
+        {
+          if ( rename($a["downloaded"],$a["existing"]) )
+            send_to_log("'".$a["existing"]."' updated");
+          else 
+            send_to_log('ERROR: Unable to create new file.',SC_LOCATION.$a["existing"]);
+        }
+        else
+        {
+          send_to_log('ERROR: Unable to delete existing file.',SC_LOCATION.$a["existing"]);
+        }          
 
         // If the file that has been updated is a database update, then apply it to the database
         if ( preg_match('/.*update_[0-9]*.sql/',$a["existing"]) )
