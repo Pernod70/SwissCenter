@@ -3,8 +3,8 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-include_once('server.php');
-include_once('utils.php');
+require_once( realpath(dirname(__FILE__).'/server.php'));
+require_once( realpath(dirname(__FILE__).'/utils.php'));
 
 #-------------------------------------------------------------------------------------------------
 # Returns the type of hardware player that the SwissCenter is communicating with.
@@ -190,4 +190,7 @@ else
   define( 'SCREEN_HEIGHT',  500 );
 }
 
+/**************************************************************************************************
+                                               End of file
+ **************************************************************************************************/
 ?>

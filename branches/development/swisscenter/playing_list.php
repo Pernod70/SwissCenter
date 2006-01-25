@@ -3,9 +3,9 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-  require_once("base/page.php");
-  require_once("base/mysql.php");
-  require_once("base/playlist.php");
+  require_once( realpath(dirname(__FILE__).'/base/page.php'));
+  require_once( realpath(dirname(__FILE__).'/base/mysql.php'));
+  require_once( realpath(dirname(__FILE__).'/base/playlist.php'));
 
   $server     = server_address();
   $data       = get_tracklist_to_play();

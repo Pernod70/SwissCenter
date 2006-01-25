@@ -3,7 +3,7 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-  require_once("base/playlist.php");
+  require_once( realpath(dirname(__FILE__).'/base/playlist.php'));
  
   build_pl(un_magic_quote($_REQUEST["sql"]));
 

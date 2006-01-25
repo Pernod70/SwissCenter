@@ -3,7 +3,7 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
- require_once("mysql.php");
+ require_once( realpath(dirname(__FILE__).'/mysql.php'));
  
   // ----------------------------------------------------------------------------------------
   // Updates the actors list, and assigns them to the given movie

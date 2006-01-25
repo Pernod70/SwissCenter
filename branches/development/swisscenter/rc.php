@@ -3,7 +3,7 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
   
-  require_once('base/settings.php');
+  require_once( realpath(dirname(__FILE__).'/base/settings.php'));
 
   $device = get_sys_pref('LAST_DEVICE','none');
   $key    = $_REQUEST["ctrl"];

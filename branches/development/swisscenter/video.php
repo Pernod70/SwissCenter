@@ -3,11 +3,11 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-  require_once("base/page.php");
-  require_once("base/categories.php");
-  require_once("base/rating.php");
-  require_once("base/playlist.php");
-  require_once("base/search.php");
+  require_once( realpath(dirname(__FILE__).'/base/page.php'));
+  require_once( realpath(dirname(__FILE__).'/base/categories.php'));
+  require_once( realpath(dirname(__FILE__).'/base/rating.php'));
+  require_once( realpath(dirname(__FILE__).'/base/playlist.php'));
+  require_once( realpath(dirname(__FILE__).'/base/search.php'));
 
   function display_video_menu($cat_id)
   {
@@ -29,7 +29,7 @@
     $menu->display();
     
     page_footer('video.php', array(array('text' => str('QUICK_PLAY')
-                                        ,'url'  => quick_play_link(MEDIA_TYPE_VIDEO,$_SESSION["history"][0][sql]))));
+                                        ,'url'  => quick_play_link(MEDIA_TYPE_VIDEO,$_SESSION["history"][0]["sql"]))));
   }
   
 /**************************************************************************************************
@@ -37,10 +37,9 @@
    *************************************************************************************************/
 
   page_header( str('WATCH_MOVIE') ,'');
-  $cat_id = $_REQUEST["cat"];
   
-  if( !empty($cat_id) )
-    display_video_menu($cat_id);
+  if( isset($_REQUEST["cat"]) && !empty($_REQUEST["cat"]) )
+    display_video_menu($_REQUEST["cat"]);
   else
     display_categories('video.php', 3);
 

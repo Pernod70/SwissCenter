@@ -3,9 +3,9 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-  require_once("base/page.php");
-  require_once("base/utils.php");
-  require_once("base/thumblist.php");
+  require_once( realpath(dirname(__FILE__).'/base/page.php'));
+  require_once( realpath(dirname(__FILE__).'/base/utils.php'));
+  require_once( realpath(dirname(__FILE__).'/base/thumblist.php'));
 
   // ----------------------------------------------------------------------------------
   // Gets the list of styles from the SwissCenter website and returns them.  It also caches

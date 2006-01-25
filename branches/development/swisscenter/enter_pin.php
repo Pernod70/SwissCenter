@@ -2,11 +2,11 @@
 /**************************************************************************************************
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
-  require_once("base/page.php");
-  require_once("base/menu.php");
-  require_once("base/mysql.php");
-  require_once("base/users.php");
-  require_once("base/server.php");
+  require_once( realpath(dirname(__FILE__).'/base/page.php'));
+  require_once( realpath(dirname(__FILE__).'/base/menu.php'));
+  require_once( realpath(dirname(__FILE__).'/base/mysql.php'));
+  require_once( realpath(dirname(__FILE__).'/base/users.php'));
+  require_once( realpath(dirname(__FILE__).'/base/server.php'));
 
 /**************************************************************************************************
    Main page

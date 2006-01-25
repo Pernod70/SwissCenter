@@ -3,8 +3,8 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-require_once("mysql.php");
-require_once("prefs.php");
+require_once( realpath(dirname(__FILE__).'/mysql.php'));
+require_once( realpath(dirname(__FILE__).'/prefs.php'));
 
 // Do we have the "gd" extension loaded? can we load it dynamically?
 if (!extension_loaded('gd'))
@@ -242,9 +242,12 @@ class CImage
     }
 
     $this->image = ImageCreateFromString( db_value($sql) );
-    $this->update_sizes();
-    $this->src_fsp  = $sql.'.sql';
-    $this->cache_filename = cache_filename($this->src_fsp,$this->width,$this->height);
+    if ($this->image !== false)
+    {
+      $this->update_sizes();
+      $this->src_fsp  = $sql.'.sql';
+      $this->cache_filename = cache_filename($this->src_fsp,$this->width,$this->height);
+    }
   }
 
   // -------------------------------------------------------------------------------------------------
@@ -277,9 +280,14 @@ class CImage
           $this->image = false;
           break;
       }
-      $this->update_sizes();
-      $this->src_fsp  = $filename;
-      $this->cache_filename = cache_filename($this->src_fsp,$this->width,$this->height);
+      
+      // If the image created successfully, then update the other information.
+      if ($this->image !== false)
+      {
+        $this->update_sizes();
+        $this->src_fsp  = $filename;
+        $this->cache_filename = cache_filename($this->src_fsp,$this->width,$this->height);
+      }
     }
   }
 

@@ -3,7 +3,7 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-include_once('prefs.php');
+require_once( realpath(dirname(__FILE__).'/prefs.php'));
 
 //-------------------------------------------------------------------------------------------------
 // This procedure loads the language definitions into the session (and also updates the system 
@@ -23,8 +23,13 @@ function load_lang_strings ( $lang = 'en-gb' )
       	$ex = explode('=',$line,2);
         $keys[strtoupper(trim($ex[0]))] = ltrim($ex[1]);
       }      
-    $_SESSION["language"] = array_merge( (array)$_SESSION["language"] , (array)$keys );
+      
     send_to_log("Loaded $lang language file");
+    
+    if ( isset($_SESSION["language"]) && is_array($_SESSION["language"]))
+      $_SESSION["language"] = array_merge( (array)$_SESSION["language"] , (array)$keys );
+    else 
+      $_SESSION["language"] = $keys;      
   }
 }
 

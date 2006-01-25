@@ -3,8 +3,8 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-include_once("server.php");
-include_once("sched.php");
+require_once( realpath(dirname(__FILE__).'/server.php'));
+require_once( realpath(dirname(__FILE__).'/sched.php'));
 
 //-------------------------------------------------------------------------------------------------
 // Causes an immediate refresh of the media database

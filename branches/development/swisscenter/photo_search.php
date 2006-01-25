@@ -3,7 +3,7 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-  require_once("base/search.php");
+  require_once( realpath(dirname(__FILE__).'/base/search.php'));
 
   // Check page parameters
   $column        = $_REQUEST["sort"];

@@ -3,9 +3,9 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-require_once("file.php");
-require_once("sched.php");
-require_once("prefs.php");
+require_once( realpath(dirname(__FILE__).'/file.php'));
+require_once( realpath(dirname(__FILE__).'/sched.php'));
+require_once( realpath(dirname(__FILE__).'/prefs.php'));
 
 $char_widths = array(   "A" => 16,  "B" => 12,  "C" => 15,  "D" => 14,  "E" => 14,  "F" => 14,  "G" => 15,  "H" => 15,
                         "I" => 4,   "J" => 10,  "K" => 14,  "L" => 11,  "M" => 16,  "N" => 15,  "O" => 16,  "P" => 14,
@@ -142,8 +142,9 @@ function syscall($command)
       $result .= fgets($proc, 1000);
       
     pclose($proc);
-    return $result; 
   }
+
+  return $result; 
 }
   
 // ----------------------------------------------------------------------------------

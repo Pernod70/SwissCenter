@@ -3,8 +3,8 @@
 //  SWISScenter Source                                                              Robert Taylor
 //*************************************************************************************************
 
-  require_once("base/page.php");
-  require_once("messages_db.php");
+  require_once( realpath(dirname(__FILE__).'/base/page.php'));
+  require_once( realpath(dirname(__FILE__).'/messages_db.php'));
 
   function list_messages()
   {

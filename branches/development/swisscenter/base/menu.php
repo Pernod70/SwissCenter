@@ -5,8 +5,8 @@
 
 ob_start();
 
-require_once("settings.php");
-require_once("utils.php");
+require_once( realpath(dirname(__FILE__).'/settings.php'));
+require_once( realpath(dirname(__FILE__).'/utils.php'));
 
 //
 // Class for outputting menus.

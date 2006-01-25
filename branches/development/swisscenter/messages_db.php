@@ -3,7 +3,7 @@
 //  SWISScenter Source                                                              Robert Taylor
 //*************************************************************************************************
 
-  require_once("base/mysql.php");
+  require_once( realpath(dirname(__FILE__).'/base/mysql.php'));
 
   define('MESSAGE_STATUS_NEW'    , 0);
   define('MESSAGE_STATUS_READ'   , 1);

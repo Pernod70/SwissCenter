@@ -3,7 +3,7 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-require_once("users.php");
+require_once( realpath(dirname(__FILE__).'/users.php'));
 
 //-------------------------------------------------------------------------------------------------
 // This procedure stores the STYLE information in the current session. 
@@ -64,10 +64,9 @@ function style_img_exists ($name)
   if ( !isset($_SESSION["style"]))
     load_style();
 
-  $path   = substr(SC_LOCATION,0,-1);
-  $file   = $_SESSION["style"]["LOCATION"].$_SESSION["style"][strtoupper($name)];
-
-  if ( isset( $_SESSION["style"][strtoupper($name)]) && file_exists($path.$file) )
+  $path   = substr(SC_LOCATION,0,-1).$_SESSION["style"]["LOCATION"];
+  
+  if ( isset( $_SESSION["style"][strtoupper($name)]) && file_exists($path.$_SESSION["style"][strtoupper($name)]) )
     return true;
   else 
     return false;

@@ -3,8 +3,8 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-  require_once("base/page.php");
-  require_once("base/prefs.php");
+  require_once( realpath(dirname(__FILE__).'/base/page.php');
+  require_once( realpath(dirname(__FILE__).'/base/prefs.php');
 
   set_user_pref('style',$_REQUEST["style"]);
   load_style();

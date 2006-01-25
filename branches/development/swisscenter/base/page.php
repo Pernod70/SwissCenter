@@ -7,18 +7,18 @@
 if (isset($_REQUEST["session_id"]) && !empty($_REQUEST["session_id"]))
   session_id($_REQUEST["session_id"]);
 
-session_start();
+@session_start();
 ob_start();
 
-require_once("file.php");
-require_once("settings.php");
-require_once("stylelib.php");
-require_once("menu.php");
-require_once("infotab.php");
-require_once("utils.php");
-require_once("iconbar.php");
-require_once("users.php");
-require_once("server.php");
+require_once( realpath(dirname(__FILE__).'/file.php'));
+require_once( realpath(dirname(__FILE__).'/settings.php'));
+require_once( realpath(dirname(__FILE__).'/stylelib.php'));
+require_once( realpath(dirname(__FILE__).'/menu.php'));
+require_once( realpath(dirname(__FILE__).'/infotab.php'));
+require_once( realpath(dirname(__FILE__).'/utils.php'));
+require_once( realpath(dirname(__FILE__).'/iconbar.php'));
+require_once( realpath(dirname(__FILE__).'/users.php'));
+require_once( realpath(dirname(__FILE__).'/server.php'));
 
 function current_session()
 {
@@ -128,15 +128,6 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
                bgcolor="'.     style_value("PAGE_BGCOLOUR",'#FFFFFF').'"
                TOPMARGIN="0" LEFTMARGIN="0" MARGINHEIGHT="0" MARGINWIDTH="0">';
   
-  if ($margin_top >0)
-  {
-    echo '<table width="'.SCREEN_WIDTH.'px" border="0" cellpadding="0" cellspacing="0">
-            <tr>
-              <td width="'.SCREEN_WIDTH.'px" height="'.$heading_padding_top.'px"></td>
-            </tr>
-          </table>';
-  }
-
   echo '<table width="'.SCREEN_WIDTH.'px" border="0" cellpadding="0" cellspacing="0">
           <tr>'.$logo.
                 $headings.'

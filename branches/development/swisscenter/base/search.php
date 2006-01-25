@@ -3,11 +3,11 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-  require_once("base/page.php");
-  require_once("base/utils.php");
-  require_once("base/mysql.php");
-  require_once("base/az_picker.php");
-  require_once("base/rating.php");
+  require_once( realpath(dirname(__FILE__).'/page.php'));
+  require_once( realpath(dirname(__FILE__).'/utils.php'));
+  require_once( realpath(dirname(__FILE__).'/mysql.php'));
+  require_once( realpath(dirname(__FILE__).'/az_picker.php'));
+  require_once( realpath(dirname(__FILE__).'/rating.php'));
   
 #-------------------------------------------------------------------------------------------------
 # Functions for managing the search history.
@@ -49,13 +49,13 @@ function  search_media_page( $heading, $title, $main_table, $joined_tables, $col
   $_SESSION["shuffle"] = get_user_pref('shuffle','off');
   
   // Should we delete the last entry on the history stack?
-  if (strtoupper($_REQUEST["del"]) == 'Y')
+  if (isset($_REQUEST["del"]) && strtoupper($_REQUEST["del"]) == 'Y')
     search_hist_pop();
 
   // Get important paramters from the URL
   $this_url       = url_set_param(current_url(),'del','N');
-  $search         = un_magic_quote(rawurldecode($_REQUEST["search"]));
-  $prefix         = $_REQUEST["any"];
+  $search         = ( isset($_REQUEST["search"]) ? un_magic_quote(rawurldecode($_REQUEST["search"])) : '');
+  $prefix         = ( isset($_REQUEST["any"]) ? $_REQUEST["any"] : '');
   $page           = ( empty($_REQUEST["page"]) ? 0 : $_REQUEST["page"]);
   $focus          = (empty($_REQUEST["last"]) ? 'KEY_SPC' : $_REQUEST["last"] );
   $menu           = new menu();

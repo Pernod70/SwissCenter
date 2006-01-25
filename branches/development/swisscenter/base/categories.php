@@ -1,7 +1,11 @@
 <?
-  require_once('menu.php');
-  require_once('mysql.php');
-  require_once('rating.php');
+/**************************************************************************************************
+   SWISScenter Source                                                              Robert Taylor
+ *************************************************************************************************/
+
+  require_once( realpath(dirname(__FILE__).'/menu.php'));
+  require_once( realpath(dirname(__FILE__).'/mysql.php'));
+  require_once( realpath(dirname(__FILE__).'/rating.php'));
   
   define('CAT_ALL', -1);
   define('CAT_NEW', -2);
@@ -78,4 +82,7 @@
     return 'select cat_id,cat_name from categories order by cat_name';
   }
   
+/**************************************************************************************************
+                                               End of file
+ **************************************************************************************************/
 ?>

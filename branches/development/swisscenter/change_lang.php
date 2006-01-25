@@ -2,10 +2,10 @@
 /**************************************************************************************************
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
-  require_once("base/page.php");
-  require_once("base/menu.php");
-  require_once("base/mysql.php");
-  require_once("base/language.php");
+  require_once( realpath(dirname(__FILE__).'/base/page.php'));
+  require_once( realpath(dirname(__FILE__).'/base/menu.php'));
+  require_once( realpath(dirname(__FILE__).'/base/mysql.php'));
+  require_once( realpath(dirname(__FILE__).'/base/language.php'));
 
   if (isset($_REQUEST["lang"]))
   {

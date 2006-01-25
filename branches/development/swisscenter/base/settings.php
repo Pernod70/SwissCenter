@@ -3,13 +3,13 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-session_start();
-require_once("capabilities.php");
-require_once("utils.php");
-require_once("mysql.php");
-require_once("server.php");
-require_once("prefs.php");
-require_once("language.php");
+@session_start();
+require_once( realpath(dirname(__FILE__).'/capabilities.php'));
+require_once( realpath(dirname(__FILE__).'/utils.php'));
+require_once( realpath(dirname(__FILE__).'/mysql.php'));
+require_once( realpath(dirname(__FILE__).'/server.php'));
+require_once( realpath(dirname(__FILE__).'/prefs.php'));
+require_once( realpath(dirname(__FILE__).'/language.php'));
 
 #-------------------------------------------------------------------------------------------------
 # Here are the settings that we want available on a global basis.
@@ -63,7 +63,7 @@ require_once("language.php");
     // Read file
     foreach( parse_ini_file(SC_LOCATION.'config/swisscenter.ini') as $k => $v)
       if (!empty($v))
-        define (strtoupper($k),$v);
+        @define (strtoupper($k),$v);
   }
 
  

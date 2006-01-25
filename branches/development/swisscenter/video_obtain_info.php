@@ -3,9 +3,9 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-  require_once("base/page.php");
-  require_once("base/db_abstract.php");
-  require_once("base/utils.php");
+  require_once( realpath(dirname(__FILE__).'/base/page.php'));
+  require_once( realpath(dirname(__FILE__).'/base/db_abstract.php'));
+  require_once( realpath(dirname(__FILE__).'/base/utils.php'));
   
   // ----------------------------------------------------------------------------------------
   // Removes common parts of filenames that we don't want to search for...
@@ -70,7 +70,7 @@
   // Determine which movie database the user has requested that we use.
   // ----------------------------------------------------------------------------------------
 
-  include_once( get_sys_pref('movie_info_script','movie_lovefilm.php'));
+  require_once( get_sys_pref('movie_info_script','movie_lovefilm.php'));
   
   /**************************************************************************************************
                                                End of file

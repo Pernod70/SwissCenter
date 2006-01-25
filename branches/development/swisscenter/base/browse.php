@@ -3,12 +3,12 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-  require_once("page.php");
-  require_once("utils.php");
-  require_once("file.php");
-  require_once("mysql.php");
-  require_once("thumblist.php");
-  require_once("prefs.php");
+  require_once( realpath(dirname(__FILE__).'/page.php'));
+  require_once( realpath(dirname(__FILE__).'/utils.php'));
+  require_once( realpath(dirname(__FILE__).'/file.php'));
+  require_once( realpath(dirname(__FILE__).'/mysql.php'));
+  require_once( realpath(dirname(__FILE__).'/thumblist.php'));
+  require_once( realpath(dirname(__FILE__).'/prefs.php'));
   
   // ----------------------------------------------------------------------------------
   // Does the following to the list of directories and files...

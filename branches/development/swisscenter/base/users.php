@@ -3,12 +3,15 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-require_once('mysql.php');
-require_once('stylelib.php');
+require_once( realpath(dirname(__FILE__).'/mysql.php'));
+require_once( realpath(dirname(__FILE__).'/stylelib.php'));
 
 function get_current_user_id()
 {
-  return $_SESSION["CURRENT_USER"];
+  if (isset($_SESSION["CURRENT_USER"]))
+    return $_SESSION["CURRENT_USER"];
+  else 
+    return false;
 }
 
 function get_current_user_name()

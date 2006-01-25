@@ -3,7 +3,7 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-require_once("settings.php");
+require_once( realpath(dirname(__FILE__).'/settings.php'));
 
 #-------------------------------------------------------------------------------------------------
 # Displays a fatal error on the user's screen and exits processing immediately.

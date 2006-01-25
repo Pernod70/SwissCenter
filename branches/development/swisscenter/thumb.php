@@ -19,10 +19,10 @@
   // Do not report any errors at all for the thumbnail generator.
 //  error_reporting(0);
 
-  include_once('base/settings.php');
-  include_once('base/utils.php');
-  require_once("base/file.php");
-  require_once("base/image.php");
+  require_once( realpath(dirname(__FILE__).'/base/settings.php'));
+  require_once( realpath(dirname(__FILE__).'/base/utils.php'));
+  require_once( realpath(dirname(__FILE__).'/base/file.php'));
+  require_once( realpath(dirname(__FILE__).'/base/image.php'));
 
   // Parameters to the script. Need to do more extensive checking on them!
   $filename   = un_magic_quote(rawurldecode($_REQUEST["src"]));

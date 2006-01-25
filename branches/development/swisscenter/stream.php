@@ -3,8 +3,8 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-  require_once("base/settings.php");
-  require_once("base/file.php");
+  require_once( realpath(dirname(__FILE__).'/base/settings.php'));
+  require_once( realpath(dirname(__FILE__).'/base/file.php'));
 
   $startArray = sscanf( $_SERVER["HTTP_RANGE"], "bytes=%d-" );
   $start      = (empty($startArray[0]) ? 0 : $startArray[0]);

@@ -16,7 +16,7 @@
 
  *************************************************************************************************/
 
-require_once("../base/mysql.php");
+require_once( realpath(dirname(__FILE__).'/mysql.php'));
 
 #-------------------------------------------------------------------------------------------------
 # Displays the prompt for the field to the user, highlighting mandatory fields. Internal to this

@@ -4,15 +4,15 @@
  *************************************************************************************************/
   ob_start();
 
-  include_once('../base/mysql.php');
-  include_once('../base/file.php');
-  include_once('../base/html_form.php');
-  include_once('../base/server.php');
-  include_once('../base/prefs.php');
-  include_once('../base/rating.php');
-  include_once('../base/categories.php');
-  include_once('../base/db_abstract.php');
-  include_once('common.php');
+  require_once( realpath(dirname(__FILE__).'/../base/mysql.php'));
+  require_once( realpath(dirname(__FILE__).'/../base/file.php'));
+  require_once( realpath(dirname(__FILE__).'/../base/html_form.php'));
+  require_once( realpath(dirname(__FILE__).'/../base/server.php'));
+  require_once( realpath(dirname(__FILE__).'/../base/prefs.php'));
+  require_once( realpath(dirname(__FILE__).'/../base/rating.php'));
+  require_once( realpath(dirname(__FILE__).'/../base/categories.php'));
+  require_once( realpath(dirname(__FILE__).'/../base/db_abstract.php'));
+  require_once( realpath(dirname(__FILE__).'/common.php'));
 
   // ----------------------------------------------------------------------------------
   // Display a database error

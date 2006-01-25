@@ -49,9 +49,6 @@ class iconbar
     
     foreach($this->icons as $icon)
     {
-      $width  = $this->icon_width;
-      $height = $this->icon_height;      
-
       echo '<td valign=middle align="center" width="'.$this->bar_width / count($this->icons).'px">
             <img align="absmiddle" border="0" src="'.$icon["img"].'" height="'.$icon["height"].'" width="'.$icon["width"].'">&nbsp;';
 

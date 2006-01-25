@@ -3,10 +3,10 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-  require_once("base/page.php");
-  require_once("base/image.php");
-  require_once("base/stylelib.php");
-  require_once("base/users.php");
+  require_once( realpath(dirname(__FILE__).'/base/page.php'));
+  require_once( realpath(dirname(__FILE__).'/base/image.php'));
+  require_once( realpath(dirname(__FILE__).'/base/stylelib.php'));
+  require_once( realpath(dirname(__FILE__).'/base/users.php'));
 
   //------------------------------------------------------------------------------------------------
   // Output multiple lines of text

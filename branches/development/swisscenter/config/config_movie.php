@@ -3,7 +3,7 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
   
-include_once('../base/media.php');
+require_once( realpath(dirname(__FILE__).'/../base/media.php'));
 
 // ----------------------------------------------------------------------------------
 // Displays the details for movies

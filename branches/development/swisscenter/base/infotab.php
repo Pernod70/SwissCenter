@@ -5,7 +5,7 @@
 
 ob_start();
 
-require_once("settings.php");
+require_once( realpath(dirname(__FILE__).'/settings.php'));
 
 //
 // Class for outputting information tables.
@@ -41,8 +41,11 @@ class infotab
     $col_opts = array();
 
     foreach ($this->cols as $coln => $colp)
+    {
+      $col_opts[$coln] = '';
       foreach ($colp as $pn => $pv)
         $col_opts[$coln] .= " ".$pn.'="'.$pv.'"';
+    }
 
     if (! empty($this->items))
     {

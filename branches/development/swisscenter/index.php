@@ -2,13 +2,13 @@
 /**************************************************************************************************
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
-  require_once("base/install_checks.php");
+  require_once( realpath(dirname(__FILE__).'/base/install_checks.php'));
 
-  require_once("base/page.php");
-  require_once("base/playlist.php");
-  require_once("base/users.php");
-  require_once("base/file.php");
-  require_once("messages_db.php");
+  require_once( realpath(dirname(__FILE__).'/base/page.php'));
+  require_once( realpath(dirname(__FILE__).'/base/playlist.php'));
+  require_once( realpath(dirname(__FILE__).'/base/users.php'));
+  require_once( realpath(dirname(__FILE__).'/base/file.php'));
+  require_once( realpath(dirname(__FILE__).'/messages_db.php'));
 
   page_header( str('MAIN_MENU'));
 

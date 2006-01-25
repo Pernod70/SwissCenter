@@ -9,7 +9,8 @@
 
   function category_display($del_message = '', $add_message = '', $edit_id = 0)
   {
-    $cat = $_REQUEST["cat"];
+    $cat      = ( isset($_REQUEST["cat"]) ? $_REQUEST["cat"] : '');
+    $cat_name = ( isset($_REQUEST["cat_name"]) ? un_magic_quote($_REQUEST["cat_name"]) : '');
     
     if(empty($cat))
     {
@@ -32,7 +33,7 @@
       form_start('index.php');
       form_hidden('section', 'CATEGORY');
       form_hidden('action', 'ADD');
-      form_input('cat_name', str('NAME'), 70, 100, un_magic_quote($_REQUEST["cat_name"]));
+      form_input('cat_name', str('NAME'), 70, 100, $cat_name);
       form_submit(str('CAT_ADD_BUTTON'), 2, 'left');
       form_end();
     }

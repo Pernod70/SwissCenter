@@ -3,8 +3,8 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-  require_once('users.php');
-  require_once('mysql.php');
+  require_once( realpath(dirname(__FILE__).'/users.php'));
+  require_once( realpath(dirname(__FILE__).'/mysql.php'));
   
   function get_rating_scheme_name()
   {

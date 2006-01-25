@@ -3,12 +3,12 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-require_once("infotab.php");
-require_once("utils.php");
-require_once("file.php");
-require_once("mysql.php");
-require_once("page.php");
-require_once("rating.php");
+require_once( realpath(dirname(__FILE__).'/infotab.php'));
+require_once( realpath(dirname(__FILE__).'/utils.php'));
+require_once( realpath(dirname(__FILE__).'/file.php'));
+require_once( realpath(dirname(__FILE__).'/mysql.php'));
+require_once( realpath(dirname(__FILE__).'/page.php'));
+require_once( realpath(dirname(__FILE__).'/rating.php'));
 
 //-------------------------------------------------------------------------------------------------
 // Sets the $media_type and $file_id to the values for the media file specified in $fsp.

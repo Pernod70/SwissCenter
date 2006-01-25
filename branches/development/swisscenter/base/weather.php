@@ -3,8 +3,8 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-require_once('utils.php');
-require_once('mysql.php');
+require_once( realpath(dirname(__FILE__).'/utils.php'));
+require_once( realpath(dirname(__FILE__).'/mysql.php'));
 
 define('PARTNER_ID'  ,'1005644464');
 define('LICENSE_KEY' ,'e8f37039809161cc');

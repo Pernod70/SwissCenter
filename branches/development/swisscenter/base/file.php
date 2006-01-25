@@ -3,7 +3,7 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-require_once("utils.php");
+require_once( realpath(dirname(__FILE__).'/utils.php'));
 
 //-------------------------------------------------------------------------------------------------
 // Returns the correct line ending for files depending on the host OS.
@@ -223,10 +223,10 @@ function dir_size($dir, $subdirs = false)
 
 function find_in_dir($dir, $filename)
 {
-  $actual='';
+  $actual = '';
   if ($dh = opendir($dir))
   {
-    while (($file = readdir($dh)) !== false && $acutal == '')
+    while ( $actual == '' && ($file = readdir($dh)) !== false )
     {
       if     ( is_string($filename) && strtolower($file) == strtolower($filename))
         $actual = $file;

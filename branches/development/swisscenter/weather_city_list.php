@@ -3,9 +3,9 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-  require_once("base/page.php");
-  require_once("base/mysql.php");
-  require_once("base/az_picker.php");
+  require_once( realpath(dirname(__FILE__).'/base/page.php'));
+  require_once( realpath(dirname(__FILE__).'/base/mysql.php'));
+  require_once( realpath(dirname(__FILE__).'/base/az_picker.php'));
 
   function search_page( $this_url, $prefix, $search, $page)
   {

@@ -3,12 +3,12 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-  require_once("base/page.php");
-  require_once("base/utils.php");
-  require_once('base/browse.php');
-  require_once('base/playlist.php');
-  require_once('base/rating.php');
-  require_once("base/search.php");
+  require_once( realpath(dirname(__FILE__).'/base/page.php'));
+  require_once( realpath(dirname(__FILE__).'/base/utils.php'));
+  require_once( realpath(dirname(__FILE__).'/base/browse.php'));
+  require_once( realpath(dirname(__FILE__).'/base/playlist.php'));
+  require_once( realpath(dirname(__FILE__).'/base/rating.php'));
+  require_once( realpath(dirname(__FILE__).'/base/search.php'));
 
   function output_link( $file )
   {
