@@ -3,7 +3,7 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-  require_once( realpath(dirname(__FILE__).'/base/page.php');   
+  require_once( realpath(dirname(__FILE__).'/base/page.php'));   
   page_inform(2,"update.php",str('UPDATING'),str('UPDATING_PLEASE_WAIT'));
    
 /**************************************************************************************************

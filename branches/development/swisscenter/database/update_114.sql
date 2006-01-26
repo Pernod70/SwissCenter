@@ -6,7 +6,7 @@
 -- Database Version Recording (set to the current release version)
 -- -------------------------------------------------------------------------------------------------
 
-UPDATE system_prefs SET value='1.14.2' WHERE name='DATABASE_VERSION';
+UPDATE system_prefs SET value='1.14.3' WHERE name='DATABASE_VERSION';
 
 -- -------------------------------------------------------------------------------------------------
 -- Re-seed certificates table... this time with a much larger ranking so that we can squeeze in 
