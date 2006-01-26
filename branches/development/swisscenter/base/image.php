@@ -349,8 +349,8 @@ class CImage
       }
       else
       {
-        $newx = $this->$x;
-        $newy = $this->$y;
+        $newx = $x;
+        $newy = $y;
       }
 
       $old = $this->image;
