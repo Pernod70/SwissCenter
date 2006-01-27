@@ -11,7 +11,7 @@ class iconbar
   // -------------------------------------------------------------------------------------------------
 
   var $icons = array();
-  var $bar_width = 400;
+  var $bar_width = 64;
   
   // -------------------------------------------------------------------------------------------------
   // Get/set methods
@@ -26,7 +26,7 @@ class iconbar
   // Constructor
   // -------------------------------------------------------------------------------------------------
 
-  function iconbar($width = 400)
+  function iconbar($width = 64)
   {
     $this->bar_width = $width;
   }
@@ -38,19 +38,19 @@ class iconbar
   function add_icon($img_name, $text, $link_url = "")
   {
     $filename = style_img($img_name);
-    $imagedata  = getimagesize(style_img($img_name,true));
-    $this->icons[] = array( "img"=>$filename, "text" => $text, "link"=>$link_url, "width" =>$imagedata[0], "height"=>$imagedata[1] );
+    $this->icons[] = array( "img"=>SC_LOCATION.$filename, "text" => $text, "link"=>$link_url);
   }
   
   function display()
   {
-    echo '<table border="0" align="center" width="'.$this->bar_width.'px" >';
+    echo '<table border="0" align="center" width="'.convert_x($this->bar_width).'" >';
     echo '<tr>';
     
     foreach($this->icons as $icon)
     {
-      echo '<td valign=middle align="center" width="'.$this->bar_width / count($this->icons).'px">
-            <img align="absmiddle" border="0" src="'.$icon["img"].'" height="'.$icon["height"].'" width="'.$icon["width"].'">&nbsp;';
+      echo '<td valign=middle align="center" width="'.convert_x($this->bar_width / count($this->icons)).'">'
+           .img_gen($icon["img"], 10, 6.5, false, false, array("align" => "absmiddle"))
+           . '&nbsp;';
 
       if(!empty($icon["link"]))
         echo '<a href="'.$icon["link"].'"><font size="1">'.$icon["text"].'</font></a>';

@@ -26,7 +26,7 @@
       $case = 'L';
       
     page_header(str('PLAYLIST_SAVE'), '','', (empty($_REQUEST["last"]) ? 'KEY_SPC' : $_REQUEST["last"] ) );
-    echo '<table border=0 height="320px" width="100%"><tr><td width="200px" valign="top">';
+    echo '<table border=0 width="100%" height="'.convert_y(65).'"><tr><td width="'.convert_x(32).'" valign="top">';
     show_picker( $this_url.'?case='.$case.'&search=', $search, $case);
     echo '</td><td valign=top>';
       

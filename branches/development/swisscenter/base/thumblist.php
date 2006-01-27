@@ -25,7 +25,7 @@ class thumb_list
 
   var $n_cols = 4;
   var $n_rows = 2;
-  var $tn_size = array("X"=>THUMBNAIL_X_SIZE, "Y"=>THUMBNAIL_Y_SIZE);
+  var $tn_size = array("X"=>13, "Y"=>16); // Defauylt thumbnail size.
 
   #-------------------------------------------------------------------------------------------------
   # Get/Set attributes
@@ -70,7 +70,7 @@ class thumb_list
   # Constructor
   #-------------------------------------------------------------------------------------------------
 
-  function thumb_list( $control_width = 550)
+  function thumb_list( $control_width = 85)
   {
     $this->control_width = $control_width;
   }
@@ -84,21 +84,19 @@ class thumb_list
     if (! is_null($url) && substr($url,0,4) != "href")
       $url = 'href="'.$url.'"';
     
-    $cell_width = floor(($this->control_width / $this->n_cols) - (4 * ($this->n_cols - 1)));
-
     if (! is_null($image) && !is_null($text))
       $this->items[] = array( "img"=>  $image
-                            , "txt" => shorten($text,$cell_width, 0.75, 2)
+                            , "txt" => $text
                             , "url" => $url );
   }
 
   function display()
   {
-    $cell_width = floor(($this->control_width / $this->n_cols) - (4 * ($this->n_cols - 1)));
+    $cell_width = floor(($this->control_width / $this->n_cols) );
     
     // Display a link to the previous page
-    echo '<table border="0" cellspacing="0" cellpadding="0"><tr>
-         <td align="center" width="'.$this->control_width.'px" height="10px">';
+    echo '<center><table border="0" cellspacing="0" cellpadding="0"><tr>
+         <td align="center" width="'.convert_x($this->control_width).'" height="'.convert_y(2).'">';
 
     if ( !empty($this->up))
       echo up_link($this->up);
@@ -108,7 +106,7 @@ class thumb_list
     echo '</td></tr></table><font size="1"><br></font>';
   
     // Display the table containing the images and textual links
-    echo '<table width="'.$this->control_width.'px" border="0" cellspacing="0px" cellpadding="2"><tr>';      
+    echo '<table width="'.convert_x($this->control_width).'" border="0" cellspacing="0" cellpadding="2"><tr>';      
 
         
     for ($row=0; $row < $this->n_rows; $row++)
@@ -124,7 +122,7 @@ class thumb_list
         $img_src = rawurlencode($this->items[$cell_no]["img"]);
         $img_x   = $this->tn_size["X"];
         $img_y   = $this->tn_size["Y"];
-        echo '<td valign="middle" height="'.($this->tn_size["Y"]).'" width="'.$cell_width.'px"><center>'
+        echo '<td valign="middle" width="'.convert_x($cell_width).'" height="'.convert_y($this->tn_size["Y"]).'"><center>'
              .($this->titles ? '' : '<a '.$this->items[$cell_no]["url"].'>')
              .img_gen($img_src, $img_x, $img_y)
              .($this->titles ? '' : '</a>')
@@ -139,8 +137,10 @@ class thumb_list
         for ($col=0; $col < $max_col_this_row ; $col++)
         {
           $cell_no = $row*$this->n_cols+$col;
-          echo '<td valign="top" width="'.$cell_width.'px"><center><a name="'.($cell_no + 1).'" '
-               .$this->items[$cell_no]["url"].'><font size="1">'.$this->items[$cell_no]["txt"].'</font></a></center></td>';
+          echo '<td valign="top" width="'.convert_x($cell_width).'"><center><a name="'.($cell_no + 1).'" '
+               .$this->items[$cell_no]["url"].'><font size="1">'
+               .shorten($this->items[$cell_no]["txt"],$cell_width, 0.75, 2)
+               .'</font></a></center></td>';
         }
   
         echo "</tr><tr>";      
@@ -153,9 +153,11 @@ class thumb_list
     if ( !empty($this->down))
     {
       echo '<font size="1"><br></font><table border="0" cellspacing="0" cellpadding="0"><tr>
-              <td align="center" width="'.$this->control_width.'px" height="10px">'.down_link($this->down).'</td>
-              </tr></table>';
+              <td align="center" width="'.convert_x($this->control_width).'" height="'.convert_y(2).'">'
+             .down_link($this->down).'</td></tr></table>';
     }
+    
+    echo '</center>';
   }
 
 }

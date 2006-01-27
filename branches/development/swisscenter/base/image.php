@@ -37,8 +37,7 @@ function image_get_scaled_xy(&$x,&$y,$box_x,$box_y)
       $newx = floor($box_y / $y * $x);
       $newy = $box_y;
     }
-
-    if ($x >= $y || ($box_y/$y*$x > $box_x) )
+    elseif ($x >= $y || ($box_y/$y*$x > $box_x) )
     {
       $newx = $box_x;
       $newy = floor($box_x / $x * $y);

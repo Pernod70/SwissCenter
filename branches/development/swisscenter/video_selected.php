@@ -152,12 +152,12 @@
   if (! empty($folder_img) )
   {
     echo '<p><table width="100%" cellpadding=0 cellspacing=0 border=0>
-          <tr><td valign=top width="170px" align="center">
-              <table width="100%"><tr><td height="10px"></td></tr><tr><td valign=top>
-                <center>'.img_gen($folder_img,150,150).'</center>
+          <tr><td valign=top width="'.convert_x(29).'" align="center">
+              <table width="100%"><tr><td height="'.convert_y(1).'"></td></tr><tr><td valign=top>
+                <center>'.img_gen($folder_img,25,30).'</center>
               </td></tr></table></td>
               <td valign="top">';
-              $menu->display(300);
+              $menu->display(48);
     echo '    </td></td></table>';
   }
   else

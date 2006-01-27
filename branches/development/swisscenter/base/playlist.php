@@ -81,7 +81,7 @@ function get_tracklist_to_play()
           for ($i=0 ; $i<count($all_dirs) ; $i++)
             $all_dirs[$i] = db_escape_str($all_dirs[$i].'/'.$dir);
 
-          $predicate = "dirname like '".implode("%' or dirname like '",$all_dirs)."%'";
+          $predicate = "dirname like '".implode("%' or dirname like '",$all_dirs)."%' ".get_rating_filter();
           $array     = db_toarray("select * from $table media ".get_rating_join()."where $predicate order by filename"); 
           break;
 
@@ -108,7 +108,7 @@ function slideshow_link_by_browser( $params )
   else 
   {
    // On the PC we want to open a new window (of the right size) and run a little javascript picture slideshow.
-   $args = "'".server_address().'gen_photolist.php?'.$params."','Slideshow','scrollbars=0, toolbar=0, width=".(SCREEN_WIDTH).", height=".(SCREEN_HEIGHT)."'";
+   $args = "'".server_address().'gen_photolist.php?'.$params."','Slideshow','scrollbars=0, toolbar=0, width=".(convert_x(100)).", height=".(convert_y(100))."'";
    $link = 'href="#" onclick="window.open('.$args.')"';
   }
   

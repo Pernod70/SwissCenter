@@ -343,7 +343,7 @@ function shorten( $text, $trunc, $font_size = 1, $lines = 1, $dots = true, $word
   $short_string = "";
   $len          = 0;
   $text         = (string)$text;
-  $max_len      = (int)((($trunc / $font_size)) - (12 * $font_size));
+  $max_len      = (int)((( convert_x($trunc) / $font_size)) - (12 * $font_size));
 
   if ($lines > 1)
   {

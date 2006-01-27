@@ -126,7 +126,7 @@
         $menu->add_item(ucwords(file_noext($file_list[$i-count($dir_list)]["filename"])),$dest);
       }
     }
-    $menu->display(400);
+    $menu->display();
    }
 
   // ----------------------------------------------------------------------------------
@@ -135,7 +135,7 @@
 
   function display_thumbs ($url, $dir, $dir_list, $file_list, $page)
   {
-    $tlist   = new thumb_list(550);
+    $tlist   = new thumb_list();
 
     // Compact View
     if ( get_user_pref("DISPLAY_THUMBS") == "COMPACT" )

@@ -82,7 +82,7 @@ function  search_media_page( $heading, $title, $main_table, $joined_tables, $col
 
   // Start outputting the page
   page_header( $heading, $title.' : '.$search, '', $focus );
-  echo '<table border=0 height="320px" width="100%"><tr><td width="200px" valign="top">';
+  echo '<table border=0 width="100%"><tr><td width="'.convert_x(32).'" valign="top">';
   show_picker( $this_url, $search);
   echo '</td><td valign=top>';
 
@@ -105,7 +105,7 @@ function  search_media_page( $heading, $title, $main_table, $joined_tables, $col
     foreach ($data as $row)
       $menu->add_item($row["DISPLAY"],url_set_param($choose_url,'name',rawurlencode($row["DISPLAY"])));
 
-    $menu->display( "300" );
+    $menu->display(48);
   }
 
   echo '</td></tr></table>';

@@ -34,9 +34,10 @@ class menu
 
   function add_item( $text, $url="", $right=false )
   {
+    $right = img_gen(SC_LOCATION.style_img("IMG_RIGHT"), 1.6 , 4);
     if (! is_null($text) && !empty($text))
       $this->menu_items[] = array( "text"=>$text, "url"=>$url,
-                                   "right"=> ($right == true ? '</td><td><img src="'.style_img("IMG_RIGHT").'">' : '') );
+                                   "right"=> ($right == true ? '</td><td>'.$right : '') );
   }
 
   function add_up( $url )
@@ -49,7 +50,7 @@ class menu
     $this->down = $url;
   }
 
-  function display( $size=400 )
+  function display( $size=65 )
   {
     $i=0;
     $link="";
@@ -59,18 +60,18 @@ class menu
     if ($this->icons )
     {
       if (! empty($this->up))
-        echo '<tr><td align="center" valign="middle" width="'.$size.'px" height="10px">'.
+        echo '<tr><td align="center" valign="middle" width="'.convert_x($size).'" height="'.convert_y(4).'">'.
              up_link($this->up).
              '</td></tr>';
       else
-        echo '<tr><td align="center" valign="middle" width="'.$size.'px" height="10px"></a></td></tr>';
+        echo '<tr><td align="center" valign="middle" width="'.convert_x($size).'" height="'.convert_y(4).'"></a></td></tr>';
     }
 
     if (! empty($this->menu_items))
     {
       foreach ($this->menu_items as $item)
       {
-        $text = shorten_chars($item["text"],$size - 50);
+        $text = shorten_chars($item["text"],$size);
 
         $link = $item["url"];
         if (substr($link,0,5) != 'href=')
@@ -83,15 +84,15 @@ class menu
           
         $i++;
 
-        echo '<tr><td valign="middle" width="'.$size.'px" height="25px" background="'.$menu_bg_img.'">'.
-              '<a style="width:'.($size-2).'" '.
+        echo '<tr><td valign="middle" width="'.convert_x($size).'" height="'.convert_y(5).'" background="'.$menu_bg_img.'">'.
+              '<a style="width:'.(convert_x($size)-2).'" '.
               $link.' TVID="'.$i.'" name="'.$i.'">&nbsp;&nbsp;&nbsp;'.$i.'. '.$text.'</a>'.$item["right"].'</td></tr>';
       }
     }
 
     if ($this->icons && !empty($this->down))
     {
-        echo '<tr><td align="center" valign="middle" width="'.$size.'px" height="10px">'.
+        echo '<tr><td align="center" valign="middle" width="'.convert_x($size).'" height="'.convert_y(4).'">'.
              down_link($this->down).
              '</td></tr>';
     }

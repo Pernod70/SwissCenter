@@ -17,9 +17,9 @@
     $cols = 6;
 
     echo '<table><tr>
-                 <td colspan=3 height="30px" align="center"><a href="'.
+                 <td colspan=3 height="'.convert_y(6).'" align="center"><a href="'.
                      $url.rawurlencode($search." ").'&last=KEY_SPC" name="KEY_SPC">SPACE</a></td>
-                 <td colspan=3 height="30px" align="center"><a href="'.
+                 <td colspan=3 height="'.convert_y(6).'" align="center"><a href="'.
                      $url.rawurlencode(substr($search,0,-1)).'&last=KEY_DEL" name="KEY_DEL">DELETE</a></td>
                  </tr>
                  <tr>';
@@ -27,7 +27,7 @@
     for ($n=1; $n<=strlen($keys); $n++)
     {
       $this_key = substr($keys,($n-1),1);
-      echo '<td width="25px" height="30px" align="center"><a href="'.
+      echo '<td width="'.convert_x(4).'" height="'.convert_y(6).'" align="center"><a href="'.
             $url.rawurlencode($search.$this_key).'&last=KEY_'.$this_key.'" name="KEY_'.$this_key.'">'.$this_key.'</a></td>';
 
       // End of row? start another

@@ -5,6 +5,7 @@
 
 require_once( realpath(dirname(__FILE__).'/server.php'));
 require_once( realpath(dirname(__FILE__).'/utils.php'));
+require_once( realpath(dirname(__FILE__).'/screen.php'));
 
 #-------------------------------------------------------------------------------------------------
 # Returns the type of hardware player that the SwissCenter is communicating with.
@@ -18,32 +19,38 @@ function get_player_type()
 {
   if (isset($_SESSION["device"]["player_type"]))
     return $_SESSION["device"]["player_type"];
-  elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-NST-')>0 )
-    return 'NEUSTON';
-  elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-PIN-2')>0 )
-    return 'PINNACLE SC200';
-  elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-PIN-')>0 )
-    return 'PINNACLE';
-  elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-IOD-')>0 )
-    return 'IO-DATA';
-  elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-LTI-')>0 )
-    return 'BUFFALO';
-  elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-MMS-')>0 )
-    return 'MOMITSU';
-  elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-ADS-')>0 )
-    return 'ADSTECH';
-  elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-FIA-')>0 )
-    return 'FIA';
-  elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-VNE-')>0 )
-    return 'SNAZIO';
-  elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-HNB-')>0 )
-    return 'H&B';
-  elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-EGT-')>0 )
-    return 'ELGATO';
-  elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'MSIE')>0 )
-    return 'PC';
-  else
-    return 'UNKNOWN';
+  else 
+  {
+    if     ( strpos($_SERVER['HTTP_USER_AGENT'],'-NST-')>0 )
+      $type = 'NEUSTON';
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-PIN-2')>0 )
+      $type = 'PINNACLE SC200';
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-PIN-')>0 )
+      $type = 'PINNACLE';
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-IOD-')>0 )
+      $type = 'IO-DATA';
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-LTI-')>0 )
+      $type = 'BUFFALO';
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-MMS-')>0 )
+      $type = 'MOMITSU';
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-ADS-')>0 )
+      $type = 'ADSTECH';
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-FIA-')>0 )
+      $type = 'FIA';
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-VNE-')>0 )
+      $type = 'SNAZIO';
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-HNB-')>0 )
+      $type = 'H&B';
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-EGT-')>0 )
+      $type = 'ELGATO';
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'MSIE')>0 )
+      $type = 'PC';
+    else
+      $type = 'UNKNOWN';
+
+    $_SESSION["device"]["player_type"] = $type;
+    return $type;
+  }
 }
 
 function is_hardware_player()
@@ -56,13 +63,14 @@ function is_pc()
 # Determine screen type (currently only PAL or NTSC - no support for HDTV).
 #-------------------------------------------------------------------------------------------------
 
-function get_screen_type()
+function OLD_get_screen_type()
 {  
   if ( !isset($_SESSION["display_type"]) )
   {
     if (is_hardware_player())
     {
       $text = @file_get_contents('http://'.client_ip().':2020/readsyb_options_page.cgi');  
+      send_to_log("Player has identified it's options as: ",$text);
       if (substr_between_strings($text, 'HasPAL','/HasPAL') == 1)
         $_SESSION["display_type"] = 'PAL';
       else
@@ -171,23 +179,6 @@ function media_exts_music()
 function media_exts_photos()
 {
   return explode(',' ,'jpeg,jpg,gif');
-}
-
-#-------------------------------------------------------------------------------------------------
-#-------------------------------------------------------------------------------------------------
-
-define( 'THUMBNAIL_X_SIZE',  80);
-define( 'THUMBNAIL_Y_SIZE',  80);  
-
-if (get_screen_type() == 'NTSC')
-{
-  define( 'SCREEN_WIDTH',   620 );
-  define( 'SCREEN_HEIGHT',  418 );
-}
-else 
-{
-  define( 'SCREEN_WIDTH',   620 );
-  define( 'SCREEN_HEIGHT',  500 );
 }
 
 /**************************************************************************************************

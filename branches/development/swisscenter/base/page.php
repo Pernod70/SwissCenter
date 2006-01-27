@@ -3,7 +3,7 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-// If the current page has a session_id parameter, then this will be used to "share" a session. (yet more "cowboy" code!)
+// If the current page has a session_id parameter, then this will be used to "share" a session.
 if (isset($_REQUEST["session_id"]) && !empty($_REQUEST["session_id"]))
   session_id($_REQUEST["session_id"]);
 
@@ -34,47 +34,18 @@ function current_session()
 
 function up_link( $url)
 {
-  return '<a href="'.$url.'" TVID="PGUP" ONFOCUSLOAD>'.
-         '<img border=0 src="'.style_img("IMG_PGUP").'"></a>';
+  return '<a href="'.$url.'" TVID="PGUP" ONFOCUSLOAD>'.img_gen(SC_LOCATION.style_img("IMG_PGUP"),4,2).'</a>';
 }
 
 function down_link( $url)
 {
-  return '<a href="'.$url.'" TVID="PGDN" ONFOCUSLOAD>'.
-         '<img border=0 src="'.style_img("IMG_PGDN").'"></a>';
+  return '<a href="'.$url.'" TVID="PGDN" ONFOCUSLOAD>'.img_gen(SC_LOCATION.style_img("IMG_PGDN"),4,2).'</a>';
 }
-
-//-------------------------------------------------------------------------------------------------
-// Procedures to output a multi-column display
-//-------------------------------------------------------------------------------------------------
-
- function multi_col_start ( $col_size = "" )
- {
-   echo '<p><table border=0 width="100%"><tr><td '
-        .(empty($col_size) ? '' : 'width="'.$col_size)
-        .'"valign=top>';
- }
-
- function multi_col_switch ( $col_size = "", $lborder = false)
- {
-   echo '</td><td width="20" '
-        .(empty($lborder) ? '' : 'style="border-left: 1 solid #000066 ! important;" ')
-        .'><Img src="" height="6" width="20"></td><td '
-        .(empty($col_size) ? '' : 'width="'.$col_size.'" ')
-        .'valign=top>';
- }
-
- function multi_col_end ()
- {
-   echo '</td></tr></table>';
- }
 
 //-------------------------------------------------------------------------------------------------
 // Outputs the initial page layout, body and style settings and prepares the page for output to the
 // "main" area.
 //-------------------------------------------------------------------------------------------------
-
-// background-attachment:fixed;
 
 function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth = false, $focus_colour = '')
 {
@@ -89,19 +60,17 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
   if (get_screen_type() == 'NTSC')
   {
     $logo                   = '';
-    $headings               = '<td height="30px" align="center"><b>'.$title.'</b> : '.$tagline.'&nbsp;</td>';
-    $background_image       = style_img("NTSC_BACKGROUND");
-    $heading_padding_top    = 0;
-    $heading_padding_bottom = 14;
+    $headings               = '<td height="'.convert_y(6).'" align="center"><b>'.$title.'</b> : '.$tagline.'&nbsp;</td>';
+    $heading_padding_bottom = 2;
   }
   else
   {
-    $logo                   = '<td width="160px" height="92px" valign="center" align="center"><img src="/images/logo.gif"></td>';
-    $headings               = '<td height="92px" align="center"><h2>'.$title.'&nbsp;</h2>'.$tagline.'&nbsp;</td>';
-    $background_image       = style_img("PAL_BACKGROUND");
-    $heading_padding_top    = 4;
-    $heading_padding_bottom = 14;
+    $logo                   = '<td width="'.convert_x(25).'" height="'.convert_y(19).'" valign="center" align="center">'.img_gen(SC_LOCATION."/images/logo.gif",20,10);
+    $headings               = '<td height="'.convert_y(19).'" align="center"><h2>'.$title.'&nbsp;</h2>'.$tagline.'&nbsp;</td>';
+    $heading_padding_bottom = 3;
   }
+
+  $background_image       = '/thumb.php?stretch=Y&x='.convert_x(100).'&y='.convert_y(100).'&src='.rawurlencode(SC_LOCATION.style_img("PAL_BACKGROUND"));
   
   if ($focus_colour == '')
     $focus_colour = style_value("PAGE_FOCUS_COLOUR",'#FFFFFF');
@@ -128,20 +97,18 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
                bgcolor="'.     style_value("PAGE_BGCOLOUR",'#FFFFFF').'"
                TOPMARGIN="0" LEFTMARGIN="0" MARGINHEIGHT="0" MARGINWIDTH="0">';
   
-  echo '<table width="'.SCREEN_WIDTH.'px" border="0" cellpadding="0" cellspacing="0">
-          <tr>'.$logo.
-                $headings.'
-          </tr>
+  echo '<table width="'.convert_x(100).'" border="0" cellpadding="0" cellspacing="0">
+        <tr>'.$logo.$headings.'</tr>
         </table>
-        <table width="'.SCREEN_WIDTH.'px" border="0" cellpadding="0" cellspacing="0">
-          <tr>
-            <td width="'.SCREEN_WIDTH.'px" height="'.$heading_padding_bottom.'px"></td>
-          </tr>
+        
+        <table width="'.convert_x(100).'" border="0" cellpadding="0" cellspacing="0">
+        <tr><td width="'.convert_x(100).'" height="'.convert_y($heading_padding_bottom).'"></td></tr>
         </table>
-        <table width="'.SCREEN_WIDTH.'px" border="0" cellpadding="0" cellspacing="0">
+        
+        <table width="'.convert_x(100).'" border="0" cellpadding="0" cellspacing="0">
           <tr>
-            <td width="40px" height="335px" ></td>
-            <td width="550px" valign="top" align="left">';
+            <td width="'.convert_x(5).'" height="'.convert_y(67).'" ></td>
+            <td width="'.convert_x(90).'" valign="top" align="left">';
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -164,26 +131,35 @@ function page_error($message)
 // Outputs an IMG tag which uses the thumbnail generator/caching engine
 //-------------------------------------------------------------------------------------------------
 
-function img_gen( $filename, $x, $y, $type = false, $stretch = false)
+function img_gen( $filename, $x, $y, $type = false, $stretch = false, $html_params = array())
 {
-  $params = 'src='.rawurlencode($filename).'&x='.$x.'&y='.$y;
+  // Build a string containing the name/value pairs of the extra html_params specified
+  $html = '';
+  foreach ($html_params as $n => $v)
+    $html .= $n.'="'.$v.'" ';
+    
+  // Build the paramters for the thumb.php script
+  $img_params = 'thumb.php?src='.rawurlencode($filename).'&x='.convert_x($x).'&y='.convert_y($y);
   
   if ($type !== false)
-    $params .='&type='.$type;
+    $img_params .='&type='.$type;
   
   if ($stretch !== false)
-    $params .='&stretch=Y';
+    $img_params .='&stretch=Y';
 
-  return '<img width="'.$x.'" height="'.$y.'" src="thumb.php?'.$params.'" border=0>';
+  return '<img '.$html.' width="'.convert_x($x).'" height="'.convert_y($y).'" src="'.$img_params.'" border=0>';
 }
 
 //-------------------------------------------------------------------------------------------------
 // Displays a button on the PC browser to perform the same action as on the remote control.
+//
+// NOTE: The height of the button is fixed at 23 pixels. This does not change with the resolution
+//       of the resolution of the screen as this is a PC browser and it is therefore unneccessary.
 //-------------------------------------------------------------------------------------------------
 
 function pc_nav_button($text, $url)
   {
-    return '<td align="center" valign="center" height="23" width="'.(SCREEN_WIDTH/5).'" background="'.style_img('IMG_PC_BUTTON').'" onclick="document.location=\''.$url.'\';">
+    return '<td align="center" valign="center" height="23" width="'.(convert_x(100)/5).'" background="'.style_img('IMG_PC_BUTTON').'" onclick="document.location=\''.$url.'\';">
          <a href="'.$url.'"><font color="'.style_value('COL_PC_BUTTON','#000000').'">'.$text.'</font></a>
          </td>';
   }
@@ -196,12 +172,12 @@ function pc_nav_button($text, $url)
 function page_footer( $back, $buttons= '', $iconbar = 0 )
 {
   echo '    </td>
-            <td width="35px"></td>
+            <td width="'.convert_x(5).'"></td>
           </tr>
         </table>
-        <table width="'.SCREEN_WIDTH.'px" height="30px" border="0" cellpadding="0" cellspacing="0">
+        <table width="'.convert_x(100).'" border="0" cellpadding="0" cellspacing="0">
           <tr>
-            <td width="40px"></td>';
+            <td width="'.convert_x(5).'"></td>';
 
   if(!empty($buttons))
   {
@@ -218,7 +194,7 @@ function page_footer( $back, $buttons= '', $iconbar = 0 )
       else
         $link = $buttons[$i]["text"];
 
-        echo '<td align="center"><img src="'.style_img(quick_access_img($i)).'">'.$link.'</td>';
+        echo '<td align="center">'.img_gen(SC_LOCATION.style_img(quick_access_img($i)),5,6).$link.'</td>';
     }
   }
   elseif(!empty($iconbar))
@@ -229,7 +205,7 @@ function page_footer( $back, $buttons= '', $iconbar = 0 )
   }
   
 
-  echo '    <td width="35px"></td>
+  echo '    <td width="'.convert_x(5).'"></td>
           </tr>
         </table>';
   
@@ -237,7 +213,7 @@ function page_footer( $back, $buttons= '', $iconbar = 0 )
   // showcenter then output a "Back" Button (as this would normally be a IR remote button).
   if ( is_pc() )
   {
-    echo '<table style="position:absolute; top:'.SCREEN_HEIGHT.'px; left:0px; " width="'.SCREEN_WIDTH.'" cellspacing="10" cellpadding="0"><tr>'.
+    echo '<table style="position:absolute; top:'.convert_y(100).'; left:0; " width="'.convert_x(100).'" cellspacing="10" cellpadding="0"><tr>'.
          pc_nav_button(str('PC_LINK_HOME')   , '/index.php').
          pc_nav_button(str('PC_LINK_CONFIG') , '/config/index.php').
          pc_nav_button(str('PC_LINK_MUSIC')  , '/music.php').

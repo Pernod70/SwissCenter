@@ -13,7 +13,7 @@
   page_header( str('MAIN_MENU'));
 
   $menu = new menu();
-  $icons = new iconbar(400);
+  $icons = new iconbar();
 
   // Menu Items
 
