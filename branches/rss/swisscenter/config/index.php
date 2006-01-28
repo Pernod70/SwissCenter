@@ -81,6 +81,13 @@
 	  menu_item( str('PLAYLISTS')              ,'section=PLAYLISTS&action=DISPLAY');
 	  menu_item( str('CACHE_CONFIG_TITLE')     ,'section=CACHE&action=DISPLAY');
 
+      menu_heading();
+      menu_heading();
+      
+      menu_heading(str('RSS_FEEDS'));
+      menu_item(str('RSS_SETTINGS'), 'section=RSS_SETTING&action=DISPLAY', 'menu_bgr.png');
+      menu_item(str('RSS_SUBSCRIPTIONS'), 'section=RSS_SUB&action=DISPLAY', 'menu_bgr.png');
+
 	  menu_heading();
 	  menu_heading();
 	  

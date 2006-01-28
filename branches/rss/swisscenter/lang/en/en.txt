@@ -2,8 +2,8 @@
 # Swisscenter language file 
 # -------------------------
 #
-# A swisscenter languiage file consists of a mapping from internal program ID (eg: "ADD_PLAYLIST") 
-# to the actual text that should be displayed to the user (eg: "Add to your playulist") as follows:
+# A swisscenter language file consists of a mapping from internal program ID (eg: "ADD_PLAYLIST") 
+# to the actual text that should be displayed to the user (eg: "Add to your playlist") as follows:
 # 
 #   <ID> = <text>
 #
@@ -13,7 +13,7 @@
 # The <text> may contain a limited number of markup tags which are indicated by square brackets
 # and perform an identical function to their HTML counterparts. The following tags are supported:
 #
-#  [br][/br]  [em][/em]  [p][/p]  [b][/b]  [i][/i]  [li][/li]  [ul][\ul]  [ol][/ul]
+#  [br][/br]  [em][/em]  [p][/p]  [b][/b]  [i][/i]  [li][/li]  [ul][\ul]  [ol][/ol]
 #
 # In some circumstances, other text may need to be substituted within the text. Placeholders for
 # the position within the string where the substitution occurs are indicated with '%s'.
@@ -507,6 +507,24 @@ IMAGE_RESIZE		= Resize (faster)
 IMAGE_RESAMPLE		= Resample (higher quality)
 IMAGE_RESIZE_PROMPT	= Please choose the method that the SwissCenter should use when generating images on the fly.
 CURRENT_VERSION		= Current Version
+
+# -----------------------
+# SwissCenter RSS Support
+# -----------------------
+
+RSS_FEEDS		= RSS Feeds
+RSS_SETTINGS		= Settings
+RSS_SUBSCRIPTIONS	= Manage subscriptions
+RSS_SUB_HEADINGS	= Title, Url, Update frequency
+RSS_SUB_DEL_BUTTON	= Delete subscription
+RSS_SUB_ADD_TITLE	= Add a new subscription
+RSS_SUB_ADD_BUTTON	= Add subscription
+RSS_UPDATE_FREQ		= Update frequency
+RSS_UPDATE_FREQ_UNITS	= minutes
+URL			= URL
+RSS_SUB_ADD_ERROR_TITLE	= You must enter a title for the subscription
+RSS_SUB_ERROR_EXISTS	= A subscription with that title or url already exists
+RSS_SUB_ADDED_OK	= Subscription successfully added
 
 #----------------------------------------------------------------------------------------------------
 # End-of-file

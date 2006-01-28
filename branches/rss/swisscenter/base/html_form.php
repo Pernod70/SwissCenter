@@ -52,7 +52,7 @@ function form_start( $url, $width = 150, $name = '' )
 # $mask - Regular expression that is used to validate the field on the client
 #-------------------------------------------------------------------------------------------------
 
-function form_input( $param, $prompt, $size = 15, $maxlength = '',$value ='', $opt = false, $mask = '')
+function form_input( $param, $prompt, $size = 15, $maxlength = '',$value ='', $opt = false, $mask = '', $postscript = '')
 {
   echo '<tr>
           <td>'.form_prompt($prompt,$opt).'</td>
@@ -62,7 +62,7 @@ function form_input( $param, $prompt, $size = 15, $maxlength = '',$value ='', $o
               ($maxlength != '' ? ' maxlength="'.$maxlength.'"' : '').
              ' size='.$size.
              ' name="'.$param.'"
-               value="'.$value.'"></td>
+               value="'.$value.'"> ' . $postscript . '</td>
         </tr>';
 }
 
