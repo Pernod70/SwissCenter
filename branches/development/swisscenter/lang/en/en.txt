@@ -501,7 +501,7 @@ PRIVACY_DATA_COLLECTION	= [b]Data Collection[/b] [p]Information relating to the 
 # -----------------------
 
 CAT_LIST_ALL            = All categories
-CAT_RECENTLY_ADDED      = Recently addedd
+CAT_RECENTLY_ADDED      = Recently added
 IMAGE_RESIZE_TYPE	= Image generation
 IMAGE_RESIZE		= Resize (faster)
 IMAGE_RESAMPLE		= Resample (higher quality)
