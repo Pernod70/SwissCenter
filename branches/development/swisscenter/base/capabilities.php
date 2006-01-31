@@ -17,8 +17,8 @@ require_once( realpath(dirname(__FILE__).'/screen.php'));
 
 function get_player_type()
 {
-  if (isset($_SESSION["device"]["player_type"]))
-    return $_SESSION["device"]["player_type"];
+  if (isset($_SESSION["device"]["device_type"]))
+    return $_SESSION["device"]["device_type"];
   else 
   {
     if     ( strpos($_SERVER['HTTP_USER_AGENT'],'-NST-')>0 )
@@ -45,10 +45,13 @@ function get_player_type()
       $type = 'ELGATO';
     elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'MSIE')>0 )
       $type = 'PC';
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'Mozilla')>0 )
+      $type = 'PC';
     else
       $type = 'UNKNOWN';
 
-    $_SESSION["device"]["player_type"] = $type;
+    $_SESSION["device"]["device_type"]  = $type;
+    $_SESSION["device"]["agent_string"] = $_SERVER['HTTP_USER_AGENT'];
     return $type;
   }
 }
