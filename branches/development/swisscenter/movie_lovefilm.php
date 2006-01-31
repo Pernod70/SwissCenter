@@ -11,8 +11,8 @@
   function extra_get_movie_details ( $file_id )
   {    
     // First check to see if we've encountered an error downloading the details before in this session.
-    if ( isset($_SESSION['Movie_info_download']) )
-      return;
+//    if ( isset($_SESSION['Movie_info_download']) )
+//      return;
 
     // Perform search for matching titles
     $site_url    = 'http://www.lovefilm.com/';
@@ -88,8 +88,7 @@
             break;
           }
       }
-
-      $details = substr_between_strings($html,"Recommend this to a friend</span>","titlebar");
+      $details = substr_between_strings($html,"boxcover-padded","titlebar");
       $columns = array ( "YEAR"              => array_pop(get_attrib($details,"Year:"))
                        , "CERTIFICATE"       => db_lookup( 'certificates','name','cert_id',array_pop(get_attrib($details,"Certificate:")) )
                        , "MATCH_PC"          => $accuracy
