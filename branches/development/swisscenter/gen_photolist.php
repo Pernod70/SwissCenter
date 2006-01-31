@@ -20,8 +20,8 @@
   $server     = server_address();
   $data       = get_tracklist_to_play();
   $item_count = 0;
-  $x          = convert_x(100);
-  $y          = convert_y(100);
+  $x          = convert_x(1000);
+  $y          = convert_y(1000);
   $thumb_url  = $server.'thumb.php?type=png&x='.$x.'&y='.$y.'&src=';  
   $delay      = (count($data) > 1 ? get_user_pref('PHOTO_PLAY_TIME','5') : 3600); 
 

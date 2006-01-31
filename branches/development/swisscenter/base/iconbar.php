@@ -11,7 +11,7 @@ class iconbar
   // -------------------------------------------------------------------------------------------------
 
   var $icons = array();
-  var $bar_width = 64;
+  var $bar_width = 640;
   
   // -------------------------------------------------------------------------------------------------
   // Get/set methods
@@ -26,7 +26,7 @@ class iconbar
   // Constructor
   // -------------------------------------------------------------------------------------------------
 
-  function iconbar($width = 64)
+  function iconbar($width = 640)
   {
     $this->bar_width = $width;
   }
@@ -49,7 +49,7 @@ class iconbar
     foreach($this->icons as $icon)
     {
       echo '<td valign=middle align="center" width="'.convert_x($this->bar_width / count($this->icons)).'">'
-           .img_gen($icon["img"], 10, 6.5, false, false, array("align" => "absmiddle"))
+           .img_gen($icon["img"], 100, 65, false, false, 'RESIZE', array("align" => "absmiddle"))
            . '&nbsp;';
 
       if(!empty($icon["link"]))

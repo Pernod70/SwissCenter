@@ -9,7 +9,7 @@
 
   $page          = ( !isset($_REQUEST["page"]) ? 0 : $_REQUEST["page"]);
   $highlight     = ( !isset($_REQUEST["hl"]) ? '1' : $_REQUEST["hl"]);
-  $width         = 56;
+  $width         = 560;
 
   $navup_img     = SC_LOCATION.style_img("IMG_PGUP");
   $navdown_img   = SC_LOCATION.style_img("IMG_PGDN");
@@ -61,10 +61,10 @@
   echo '<center><table cellspacing="3" cellpadding="3" border="0">';
 
   if ($page > 0)
-    echo '<tr><td align="center" valign="middle" width="'.convert_x($width).'" height="'.convert_y(2).'">'
+    echo '<tr><td align="center" valign="middle" width="'.convert_x($width).'" height="'.convert_y(20).'">'
          .up_link('edit_pl.php?page='.($page-1)).'</td></tr>';
   else
-    echo '<tr><td align="center" valign="middle" width="'.convert_x($width).'" height="'.convert_y(2).'"></a></td></tr>';
+    echo '<tr><td align="center" valign="middle" width="'.convert_x($width).'" height="'.convert_y(20).'"></a></td></tr>';
 
   $start = $page * MAX_PER_PAGE;
   $end   = min( count($items) , $start+MAX_PER_PAGE);
@@ -84,23 +84,23 @@
     $text = $items[$i]["TITLE"];
 
     echo '<tr>'.
-           '<td valign="middle" width="'.convert_x($width).'" height="'.convert_y(4).'">'.
+           '<td valign="middle" width="'.convert_x($width).'" height="'.convert_y(40).'">'.
            '  &nbsp;&nbsp;&nbsp;<a '.$play_link.' TVID="'.$i.'" name="'.$i.'">'.$text.'</a>'.
            '</td>'.
-           '<td valign="middle" width="'.convert_x(4).'" height="'.convert_y(4).'">'.
-           '<a href="'.$up_link.'" name="'.$i.'u">'.img_gen($up_img,4,4).'</a>'.
+           '<td valign="middle" width="'.convert_x(40).'" height="'.convert_y(40).'">'.
+           '<a href="'.$up_link.'" name="'.$i.'u">'.img_gen($up_img,40,40).'</a>'.
            '</td>'.
-           '<td valign="middle" width="'.convert_x(4).'" height="'.convert_y(4).'">'.
-           '<a href="'.$down_link.'" name="'.$i.'d">'.img_gen($down_img,4,4).'</a>'.
+           '<td valign="middle" width="'.convert_x(40).'" height="'.convert_y(40).'">'.
+           '<a href="'.$down_link.'" name="'.$i.'d">'.img_gen($down_img,40,40).'</a>'.
            '</td>'.
-           '<td valign="middle" width="'.convert_x(4).'" height="'.convert_y(4).'">'.
-           '<a href="'.$del_link.'" name="'.$i.'x">'.img_gen($del_img,4,4).'</a>'.
+           '<td valign="middle" width="'.convert_x(40).'" height="'.convert_y(40).'">'.
+           '<a href="'.$del_link.'" name="'.$i.'x">'.img_gen($del_img,40,40).'</a>'.
            '</td>'.
          '</tr>';
   }
 
   if (($page+1)*MAX_PER_PAGE < $num_tracks)
-    echo '<tr><td align="center" valign="middle" width="'.convert_x($width).'" height="'.convert_y(2).'">'
+    echo '<tr><td align="center" valign="middle" width="'.convert_x($width).'" height="'.convert_y(20).'">'
          .down_link('edit_pl.php?page='.($page+1)).'</td></tr>';
 
   echo '</table></center>';

@@ -108,7 +108,7 @@ function slideshow_link_by_browser( $params )
   else 
   {
    // On the PC we want to open a new window (of the right size) and run a little javascript picture slideshow.
-   $args = "'".server_address().'gen_photolist.php?'.$params."','Slideshow','scrollbars=0, toolbar=0, width=".(convert_x(100)).", height=".(convert_y(100))."'";
+   $args = "'".server_address().'gen_photolist.php?'.$params."','Slideshow','scrollbars=0, toolbar=0, width=".(convert_x(1000)).", height=".(convert_y(1000))."'";
    $link = 'href="#" onclick="window.open('.$args.')"';
   }
   

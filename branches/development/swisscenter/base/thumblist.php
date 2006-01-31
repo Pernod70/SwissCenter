@@ -25,7 +25,7 @@ class thumb_list
 
   var $n_cols = 4;
   var $n_rows = 2;
-  var $tn_size = array("X"=>13, "Y"=>16); // Defauylt thumbnail size.
+  var $tn_size = array("X"=>130, "Y"=>160); // Defauylt thumbnail size.
 
   #-------------------------------------------------------------------------------------------------
   # Get/Set attributes
@@ -70,7 +70,7 @@ class thumb_list
   # Constructor
   #-------------------------------------------------------------------------------------------------
 
-  function thumb_list( $control_width = 85)
+  function thumb_list( $control_width = 850)
   {
     $this->control_width = $control_width;
   }
@@ -96,7 +96,7 @@ class thumb_list
     
     // Display a link to the previous page
     echo '<center><table border="0" cellspacing="0" cellpadding="0"><tr>
-         <td align="center" width="'.convert_x($this->control_width).'" height="'.convert_y(2).'">';
+         <td align="center" width="'.convert_x($this->control_width).'" height="'.convert_y(20).'">';
 
     if ( !empty($this->up))
       echo up_link($this->up);
@@ -153,7 +153,7 @@ class thumb_list
     if ( !empty($this->down))
     {
       echo '<font size="1"><br></font><table border="0" cellspacing="0" cellpadding="0"><tr>
-              <td align="center" width="'.convert_x($this->control_width).'" height="'.convert_y(2).'">'
+              <td align="center" width="'.convert_x($this->control_width).'" height="'.convert_y(20).'">'
              .down_link($this->down).'</td></tr></table>';
     }
     
