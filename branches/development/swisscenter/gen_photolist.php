@@ -22,7 +22,7 @@
   $item_count = 0;
   $x          = convert_x(1000);
   $y          = convert_y(1000);
-  $thumb_url  = $server.'thumb.php?type=png&x='.$x.'&y='.$y.'&src=';  
+  $thumb_url  = $server.'thumb.php?type=jpg&x='.$x.'&y='.$y.'&src=';  
   $delay      = (count($data) > 1 ? get_user_pref('PHOTO_PLAY_TIME','5') : 3600); 
 
   $effect = 8; 
