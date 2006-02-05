@@ -20,8 +20,9 @@ function run_background ( $command, $days = '', $soon ='' )
       $soon.= ' /every:'.$days;
       
     // Windows, so use the "Start" command to run it in another process.
-    // Change recommended by Marco : http://www.swisscenter.co.uk/component/option,com_simpleboard/Itemid,42/func,view/id,29/catid,10/
-    exec('at '.$soon.' CMD /C """"'.os_path(PHP_LOCATION).'" "'.os_path(SC_LOCATION.$command).'""""');
+    $cmd = 'at '.$soon.' CMD /C """"'.os_path(PHP_LOCATION).'" "'.os_path(SC_LOCATION.$command).'""""';
+    send_to_log('Executing the following command in the background:',$cmd);
+    exec($cmd);
 
   }
   elseif ( is_unix() )
@@ -35,7 +36,9 @@ function run_background ( $command, $days = '', $soon ='' )
       $php_ini = '';
 
     // UNIX, so run with '&' to force it to the background.
-    exec( '"'.os_path(PHP_LOCATION).'" '.$php_ini.' "'.os_path(SC_LOCATION.$command).'" > "'.$log.'" &' );
+    $cmd = '"'.os_path(PHP_LOCATION).'" '.$php_ini.' "'.os_path(SC_LOCATION.$command).'" > "'.$log.'" &' ;
+    send_to_log('Executing the following command in the background:',$cmd);
+    exec($cmd);
   }
 }
 
