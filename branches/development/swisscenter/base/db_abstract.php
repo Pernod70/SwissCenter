@@ -27,7 +27,7 @@
 
       $actor_id = db_value("select actor_id from actors where actor_name='$actor'");
       foreach ($movies as $movie_id)
-        db_sqlcommand("insert into actors_in_movie values ($movie_id, $actor_id)");
+        db_sqlcommand("insert into actors_in_movie values ($movie_id, $actor_id)",false);
     }
   }
 
@@ -53,7 +53,7 @@
 
       $dir_id = db_value("select director_id from directors where director_name='$dir'");
       foreach ($movies as $movie_id)
-        db_sqlcommand("insert into directors_of_movie values ($movie_id, $dir_id)");
+        db_sqlcommand("insert into directors_of_movie values ($movie_id, $dir_id)",false);
     }
   }
 
@@ -79,7 +79,7 @@
 
       $genre_id = db_value("select genre_id from genres where genre_name='$genre'");        
       foreach ($movies as $movie_id)
-        db_sqlcommand("insert into genres_of_movie values ($movie_id, $genre_id)");
+        db_sqlcommand("insert into genres_of_movie values ($movie_id, $genre_id)",false);
     }
   }
 
