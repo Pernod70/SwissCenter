@@ -314,7 +314,7 @@ class db_query
         if (! empty($sql) )
         {
           $this->stmt_handle = mysql_query( $sql, $this->db_handle);
-          @debug_to_log("SQL> ".$sql);
+          // @debug_to_log("SQL> ".$sql);
         }
       }
     }
@@ -357,7 +357,7 @@ class db_query
   {
     $this->sql_to_execute = $sql;
     $this->stmt_handle = mysql_query($sql, $this->db_handle);
-    @debug_to_log("SQL> ".$sql);
+    // @debug_to_log("SQL> ".$sql);
     return $this->stmt_handle;
   }
 
@@ -380,8 +380,6 @@ class db_query
     {
       if ($log_error)
         send_to_log($this->db_get_error(), $this->sql_to_execute);
-      else 
-        debug_to_log($this->db_get_error(), $this->sql_to_execute);
     }
       
     return $this->stmt_handle;

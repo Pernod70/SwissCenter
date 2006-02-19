@@ -110,10 +110,18 @@
       }
       else
       {
-        debug_to_log('Main Movie details',$columns);
-        scdb_add_directors     ($file_id, get_attrib($details,"Director:"));
-        scdb_add_actors        ($file_id, get_attrib($details,"Starring:"));
-        scdb_add_genres        ($file_id, get_attrib($details,"Genre\(s\):"));    
+        $new_directors = get_attrib($details,"Director:");
+        $new_actors    = get_attrib($details,"Starring:");
+        $new_genres    = get_attrib($details,"Genre\(s\):");
+        
+        send_to_log('Main Movie details',$columns);
+        send_to_log('Directors',$new_directors);
+        send_to_log('Actors',$new_actors);
+        send_to_log('Genres',$new_genres);
+        
+        scdb_add_directors     ($file_id, $new_directors);
+        scdb_add_actors        ($file_id, $new_actors);
+        scdb_add_genres        ($file_id, $new_genres);    
         scdb_set_movie_attribs ($file_id, $columns);
       }
     }

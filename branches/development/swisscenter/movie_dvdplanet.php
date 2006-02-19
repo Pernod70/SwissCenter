@@ -23,7 +23,12 @@
     $html        = file_get_contents($search_url.str_replace(' ','+',$film_title));
     $accuracy    = 0;
     send_to_log('Checking movie file : '.$file_name);
-           
+    
+    // Because DVDplanet name their files as 'Abyss, The' instead of 'The Abyss', we need to swap the word ordering around.
+    if ( substr($film_title,0,3)=='The' )
+      $film_title = substr($film_title,4).' The';
+
+    // Have we count a match?
     if (strpos($html,"We're sorry, there were no") !== false)
     {
       // There are no matches found... do nothing
@@ -90,9 +95,18 @@
       }
       else
       {
-        scdb_add_directors     ($file_id, get_attrib($details,"Direction:"));
-        scdb_add_actors        ($file_id, get_attrib($details,"Actor\/Actors:"));
-        scdb_add_genres        ($file_id, get_attrib($details,"Category:"));    
+        $new_directors = get_attrib($details,"Direction:");
+        $new_actors    = get_attrib($details,"Actor\/Actors:");
+        $new_genres    = get_attrib($details,"Category:");
+        
+        send_to_log('Main Movie details',$columns);
+        send_to_log('Directors',$new_directors);
+        send_to_log('Actors',$new_actors);
+        send_to_log('Genres',$new_genres);
+        
+        scdb_add_directors     ($file_id, $new_directors);
+        scdb_add_actors        ($file_id, $new_actors);
+        scdb_add_genres        ($file_id, $new_genres);    
         scdb_set_movie_attribs ($file_id, $columns);
       }
     }
