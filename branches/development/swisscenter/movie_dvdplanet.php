@@ -74,7 +74,6 @@
         preg_match("/'boxart[^=]*=([^']*)'/", $html, $id);      
         if (strpos($html,'boxart')>0)
           file_save_albumart( $site_url.'productimages/front/'.$id[1].'.jpg' , $file_path.file_noext($file_name).'.jpg' , $film_title);
-          break;
       }
       
       $details = substr_between_strings($html,"Release Date","Disk Count");
