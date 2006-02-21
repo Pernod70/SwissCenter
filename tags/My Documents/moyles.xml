@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss" xmlns:itunes="http://www.itunes.com/DTDs/Podcast-1.0.dtd">
+	<channel>
+		<title>Best of Moyles</title>
+		<link>http://www.bbc.co.uk/radio1/chrismoyles/</link>
+		<description>The best of the Chris Moyles show from BBC Radio 1.  Weekly highlights taken from the breakfast show, as broadcast by Chris and team every morning on Radio 1 from 7am to 10am.</description>
+		<itunes:author>BBC Radio 1</itunes:author>
+		<language>en-gb</language>
+		
+		<itunes:image rel="image" href="http://www.bbc.co.uk/radio/downloadtrial/images/programmes/300x300/radio1_bestofmoyles.jpg">BBC Radio 1: Best of Moyles</itunes:image>
+		
+		<copyright>(C) BBC 2005</copyright>
+		<pubDate>Sat, 14 Jan 2006 03:00:19 +0000</pubDate>
+		<item>
+			<title>2006/01/13 - Davina McCall, Coogan &amp; Brydon</title>
+			<description>Chris chats to Davina about Celebrity Big Brother, Steve Coogan and Rob Brydon provide some genius impressions, and the team talk darts.</description>
+			<itunes:subtitle>2006/01/13 - Davina McCall, Coogan &amp; Brydon</itunes:subtitle>
+			<itunes:summary>Chris chats to Davina about Celebrity Big Brother, Steve Coogan and Rob Brydon provide some genius impressions, and the team talk darts.</itunes:summary>
+			<pubDate>Fri, 13 Jan 2006 18:00:00 +0000</pubDate>
+			<itunes:duration>00:31:09</itunes:duration>
+			<guid isPermaLink="false">http://downloads.bbc.co.uk/rmhttp/downloadtrial/radio1/bestofmoyles/bestofmoyles_20060113-1800_40_pc.mp3</guid>
+			<enclosure url="http://downloads.bbc.co.uk/rmhttp/downloadtrial/radio1/bestofmoyles/bestofmoyles_20060113-1800_40_pc.mp3" length="13172123" type="audio/mpeg"/>
+			<media:content url="http://downloads.bbc.co.uk/rmhttp/downloadtrial/radio1/bestofmoyles/bestofmoyles_20060113-1800_40_pc.mp3" 
+				fileSize="13172123" 
+				type="audio/mpeg"
+				expression="full" 
+				duration="1869"
+				bitrate="40"/>
+			
+		</item>
+	</channel>
+</rss>
