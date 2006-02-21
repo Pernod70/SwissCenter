@@ -78,7 +78,7 @@
           $tmp_file = $to.md5( $fsp["filename"].$fsp["checksum"]).'.bin';
           $out = fopen($tmp_file, "w");
           fwrite($out, $str);
-          fclose($out);
+          fclose($out); 
         }
       }
     }
@@ -93,7 +93,7 @@
   	echo '<p>Please enter the version number for this release:
   	      <dir>
   	      <form enctype="multipart/form-data" action="release.php" method="post">
-  	      Version : <input size=10 name="version" value="">
+  	      Version (Eg: 1.06) : <input size=10 name="version" value="">
   	      Release Dir : <input size=20 name="dir" value="">
   	      <p>
   	      <input type="submit" value=" Go ">
@@ -103,12 +103,15 @@
   }
   else 
   {
-    set_time_limit(86400);
-    @force_rmdir('release');
-    @mkdir('release');
-    
     $files = array();
     $release = $_REQUEST["dir"].'/';
+    
+    set_time_limit(86400);
+    exec('mkdir /home/swisscenter/www/update/source');
+    exec('mkdir /home/swisscenter/www/update/'.$release);
+    exec('rm -rf /home/swisscenter/www/update/source/*');
+    exec('rm -rf /home/swisscenter/www/update/'.$release.'/*');
+    exec('cd /home/swisscenter/www/update/source ; unzip ../swisscenter.zip');
     
     echo '<h1>Releasing version '.$_REQUEST["version"].'</h1>';
     echo '<p>Checksuming Files';
@@ -121,6 +124,9 @@
     fclose($out);
     echo '<p>Compressing the files';
     zip_files('source/',$release, $files,$dirs);
+
+    exec('cp /home/swisscenter/www/update/swisscenter.zip /home/swisscenter/www/www/downloads/swisscenter.zip');
+    exec('cp /home/swisscenter/www/update/swisscenter.zip /home/swisscenter/www/www/downloads/swisscenter_'.$_REQUEST["version"].'.zip');
   }
 
 /**************************************************************************************************
