@@ -13,22 +13,22 @@
 
 function get_screen_type()
 {
-// NTSC - 624,416 (from agent string)
-// PAL  - 624,496 (from agent string)
-// HDTV - 1280,720 (from agent string)
-// HDTV - 1920,1080 
-// PC   - 800,450 
+  // NTSC - 624,416 (from agent string)
+  // PAL  - 624,496 (from agent string)
+  // HDTV - 1280,720 (from agent string)
+  // HDTV - 1920,1080 
+  // PC   - 800,450 
 
   if ( is_pc() )
   {
-    $_SESSION["device"]["screen_x_res"]  = 800;
+    $_SESSION["device"]["screen_x_res"] = 800;
     $_SESSION["device"]["screen_y_res"] = 450;    
   }
   else 
   {
     preg_match("/[0-9]*x[0-9]*/",$_SESSION["device"]["agent_string"],$matches);  
     $xpos = strpos($matches[0],'x');
-    $_SESSION["device"]["screen_x_res"]  = substr($matches[0],0,$xpos);
+    $_SESSION["device"]["screen_x_res"] = substr($matches[0],0,$xpos);
     $_SESSION["device"]["screen_y_res"] = substr($matches[0],strpos($matches[0],'x')+1);
   }
   
@@ -70,6 +70,36 @@ function convert_y( $y)
 {
   get_screen_type(); 
   return ceil($_SESSION["device"]["screen_y_res"] * $y / 1000);  
+}
+
+function font_nearest( $desired_size )
+{
+  if ( is_pc() )
+    $size = $desired_size;
+  else
+  {
+    // Convert font size to pixels for this display device.
+    $desired_size = convert_y($desired_size);
+
+    // The hardware players only have a small number of font sizes available, so try to work out which
+    // font size will give the closest number of pixels to that desired and then return the font size
+    // in logical co-ordinates (0-1000).
+    
+    if     ($desired_size <= 12) 
+      $size = 10.4;
+    elseif ($desired_size <= 15) 
+      $size = 20.8;
+    elseif ($desired_size <= 17) 
+      $size = 24;
+    elseif ($desired_size <= 20) 
+      $size = 25.6;
+    elseif ($desired_size <= 26) 
+      $size = 28.8;
+    else
+      $size = 38.5;
+  }
+  
+  return $size;
 }
 
 function font_tags( $size = false, $colour = false)

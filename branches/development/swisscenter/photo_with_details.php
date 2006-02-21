@@ -19,7 +19,7 @@
     
     while (strlen($text)>0)
     {
-      $output = shorten($text, $width, $fudge_factor, 1, false);
+      $output = shorten($text, $width, 1, $fudge_factor, false);
       $image->text($output, $x, $y, $font_colour, $font_size);
       $text = substr($text,strlen($output));
       $y += ($font_size*1.5);

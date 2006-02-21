@@ -29,7 +29,7 @@
     
     if ( !is_null($info["SYNOPSIS"]) )
     {
-      echo '<p>'.shorten($info["SYNOPSIS"],850,1,3);
+      echo '<p>'.shorten($info["SYNOPSIS"],850,3);
 
       if ( !is_null($info["YEAR"]) )
         echo " [".$info["YEAR"]."]";

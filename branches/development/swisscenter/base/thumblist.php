@@ -139,7 +139,7 @@ class thumb_list
           $cell_no = $row*$this->n_cols+$col;
           echo '<td valign="top" width="'.convert_x($cell_width).'"><center><a name="'.($cell_no + 1).'" '
                .$this->items[$cell_no]["url"].'><font size="1">'
-               .shorten($this->items[$cell_no]["txt"],$cell_width, 0.75, 2)
+               .shorten($this->items[$cell_no]["txt"],$cell_width, 2, 10)
                .'</font></a></center></td>';
         }
   
