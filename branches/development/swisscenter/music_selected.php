@@ -31,8 +31,8 @@
 
   // Display Information about current selection  
   search_distinct_info($info, str('TRACK_NAME') ,'title' ,$sql_table, $predicate);
-  search_distinct_info($info, str('ALBUM')      ,'album' ,$sql_table, $predicate);
-  search_distinct_info($info, str('ARTIST')     ,'artist',$sql_table, $predicate);
+  $album_name  = search_distinct_info($info, str('ALBUM')      ,'album' ,$sql_table, $predicate);
+  $artist_name = search_distinct_info($info, str('ARTIST')     ,'artist',$sql_table, $predicate);
   search_distinct_info($info, str('GENRE')      ,'genre' ,$sql_table, $predicate);
   search_distinct_info($info, str('YEAR')       ,'year'  ,$sql_table, $predicate);
   $info->add_item( str('MUSIC_PLAY_TIME'),  hhmmss($playtime));
@@ -51,6 +51,11 @@
   search_check_filter( $menu, str('REFINE_GENRE'),  'genre',  $sql_table, $predicate, $refine_url );
   search_check_filter( $menu, str('REFINE_YEAR'),   'year',   $sql_table, $predicate, $refine_url );
 
+  if ( !empty($artist_name) )
+    $menu->add_item( str("SEARCH_WIKIPEDIA"), lang_wikipedia_search( strip_title($artist_name)), true);
+  elseif ( !empty($album_name) )
+    $menu->add_item( str("SEARCH_WIKIPEDIA"), lang_wikipedia_search( strip_title($album_name)), true);
+  
   // Is there a picture for us to display?
   $folder_img = file_albumart( db_value("select concat(dirname,filename) from $sql_table $predicate limit 0,1") );
 

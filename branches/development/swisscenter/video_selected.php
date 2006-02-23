@@ -90,7 +90,7 @@
   $predicate     = search_process_passed_params();
   $num_rows      = db_value("select count( distinct media.file_id) from $sql_table $predicate");
   $this_url      = url_set_param(current_url(),'add','N');
-
+  
   //
   // A single movie has been matched/selected by the user, so display as much information as possible
   // on the screen, along with commands to "Play Now" or "Add to Playlist".
@@ -110,6 +110,9 @@
     if (pl_enabled())
       $menu->add_item( str('ADD_PLAYLIST') ,'add_playlist.php?sql='.rawurlencode("select distinct $select_fields from movies where file_id=".$data[0]["FILE_ID"]),true);
 
+    // Add a link to search wikipedia
+    $menu->add_item( str('SEARCH_WIKIPEDIA'), lang_wikipedia_search( ucwords(strip_title($data[0]["TITLE"])) ) ,true);
+      
     // TO-DO
     // Link to full cast & directors
     // $menu->add_item( str('MOVIE_INFO'), 'video_info.php?movie='.$data[0]["FILE_ID"],true);

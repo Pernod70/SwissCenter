@@ -508,6 +508,12 @@ IMAGE_RESAMPLE		= Resample (higher quality)
 IMAGE_RESIZE_PROMPT	= Please choose the method that the SwissCenter should use when generating images on the fly.
 CURRENT_VERSION		= Current Version
 
+# -----------------------
+# SwissCenter v1.15
+# -----------------------
+
+SEARCH_WIKIPEDIA	= Lookup in Wikipedia
+
 #----------------------------------------------------------------------------------------------------
 # End-of-file
 #----------------------------------------------------------------------------------------------------

@@ -4,6 +4,7 @@
  *************************************************************************************************/
 
 require_once( realpath(dirname(__FILE__).'/prefs.php'));
+require_once( realpath(dirname(__FILE__).'/utils.php'));
 
 //-------------------------------------------------------------------------------------------------
 // This procedure loads the language definitions into the session (and also updates the system 
@@ -108,7 +109,22 @@ function str( $key )
     return $txt.$string;
   }
 }
-   
+
+//-------------------------------------------------------------------------------------------------
+// Returns the URL needed to perform a search on the wikipedia internet site in the user's current
+// language. The $search_terms string contains the text to search for.
+//-------------------------------------------------------------------------------------------------
+
+function lang_wikipedia_search( $search_terms )
+{
+  // Determine the appropriate wikipedia address for the current language
+  $lang = get_sys_pref('DEFAULT_LANGUAGE','en-gb');
+  if ( strpos($lang,'-') !== false)
+    $lang = substr($lang,0,strpos($lang,'-'));
+    
+  return 'http://'.$lang.'.wikipedia.org/w/index.php?search='.urlencode($search_terms);
+}
+
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/

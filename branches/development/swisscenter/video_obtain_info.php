@@ -8,30 +8,6 @@
   require_once( realpath(dirname(__FILE__).'/base/utils.php'));
   
   // ----------------------------------------------------------------------------------------
-  // Removes common parts of filenames that we don't want to search for...
-  // (eg: file extension, file suffix ("CD1",etc) and non-alphanumeric chars.
-  // ----------------------------------------------------------------------------------------
-  
-  function strip_title ($title)
-  {
-    $search  = array ( '/\.[^.]*$/'
-                     , '/\(.*\)/'
-                     , '/\[.*]/'
-                     , '/[^0-9A-Z-a-z() ]+/'
-                     , '/ CD.*/i'
-                     , '/ +$/');
-    
-    $replace = array ( ''
-                     , ' '
-                     , ' '
-                     , ' '
-                     , ' '
-                     , '');
-    
-    return preg_replace($search, $replace, $title);
-  }
-    
-  // ----------------------------------------------------------------------------------------
   // Gets the text that corresponds to the given detail
   // ----------------------------------------------------------------------------------------
 
