@@ -121,8 +121,8 @@ function lang_wikipedia_search( $search_terms )
   $lang = get_sys_pref('DEFAULT_LANGUAGE','en-gb');
   if ( strpos($lang,'-') !== false)
     $lang = substr($lang,0,strpos($lang,'-'));
-    
-  return 'http://'.$lang.'.wikipedia.org/w/index.php?search='.urlencode($search_terms);
+
+  return '/wikipedia_proxy.php?wiki='.urlencode($lang.'.wikipedia.org').'&url='.urlencode('/w/index.php').'&search='.urlencode($search_terms);
 }
 
 /**************************************************************************************************
