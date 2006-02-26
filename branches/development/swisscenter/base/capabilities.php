@@ -21,31 +21,31 @@ function get_player_type()
     return $_SESSION["device"]["device_type"];
   else 
   {
-    if     ( strpos($_SERVER['HTTP_USER_AGENT'],'-NST-')>0 )
+    if     ( strpos($_SERVER['HTTP_USER_AGENT'],'-NST-')!== false )
       $type = 'NEUSTON';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-PIN-2')>0 )
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-PIN-2')!== false )
       $type = 'PINNACLE SC200';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-PIN-')>0 )
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-PIN-')!== false )
       $type = 'PINNACLE';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-IOD-')>0 )
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-IOD-')!== false )
       $type = 'IO-DATA';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-LTI-')>0 )
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-LTI-')!== false )
       $type = 'BUFFALO';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-MMS-')>0 )
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-MMS-')!== false )
       $type = 'MOMITSU';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-ADS-')>0 )
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-ADS-')!== false )
       $type = 'ADSTECH';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-FIA-')>0 )
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-FIA-')!== false )
       $type = 'FIA';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-VNE-')>0 )
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-VNE-')!== false )
       $type = 'SNAZIO';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-HNB-')>0 )
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-HNB-')!== false )
       $type = 'H&B';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-EGT-')>0 )
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-EGT-')!== false )
       $type = 'ELGATO';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'MSIE')>0 )
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'MSIE')!== false )
       $type = 'PC';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'Mozilla')>0 )
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'Mozilla')!== false )
       $type = 'PC';
     else
       $type = 'UNKNOWN';
