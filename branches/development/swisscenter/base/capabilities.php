@@ -171,7 +171,7 @@ function quick_access_img( $position )
 
 function media_exts_movies()
 {
-  return explode(',' ,'avi,mpg,mpeg,vob,wmv,asf');
+  return explode(',' ,'avi,mpg,mpeg,vob,wmv,asf,divx');
 }
 
 function media_exts_music()
