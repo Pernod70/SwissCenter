@@ -21,6 +21,14 @@ ALTER TABLE clients ADD
 , aspect        TEXT         default null
 );
 
+-- -------------------------------------------------------------------------------------------------
+-- Adds missing MPAA ratings for the certificates table
+-- -------------------------------------------------------------------------------------------------
+
+INSERT INTO certificates (cert_id, name, rank, scheme, description) VALUES ( 13, 'PG', 30, 'MPAA','Parental guidance recommended');
+INSERT INTO certificates (cert_id, name, rank, scheme, description) VALUES ( 14, 'UR',  5, 'MPAA','Un-Rated Family content');
+INSERT INTO certificates (cert_id, name, rank, scheme, description) VALUES ( 15, 'NR', 90, 'MPAA','Not Rated Adult content');
+
 
 -- *************************************************************************************************
 --   SWISScenter Source                                                              Robert Taylor
