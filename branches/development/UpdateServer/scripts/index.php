@@ -117,7 +117,7 @@
     foreach ($array as $line)
       if (!empty($line))
       {
-        fwrite($out, "echo '<hr noshade size=1><font color=red>".trim($line)."</font><hr size=1 noshade>'\n");
+        fwrite($out, "echo '<hr noshade size=1><font color=red>".trim($line)."</font>'\n");
         fwrite($out, trim($line)."\n" );
       }
     fclose($out);
@@ -129,7 +129,7 @@
     set_time_limit(86400); 
     $cmd = un_magic_quote($_REQUEST["cmd"]);
   
-    echo '<p><h1>Enter UNIX Commands<p>';
+    echo '<p><h1>Enter UNIX Commands</h1><p>';
     message($new);
     form_start('index.php');
     form_hidden('section','CMD');
@@ -138,7 +138,7 @@
     form_submit('Run Commands',1);
     form_end();
 
-    echo '<p><h1>Output<p></h1><pre>';
+    echo '<p><h1>Output</h1><p><pre>';
     write_script("_script.sh",$cmd);
     passthru('/bin/bash _script.sh 2>&1');
     echo '</pre>';
