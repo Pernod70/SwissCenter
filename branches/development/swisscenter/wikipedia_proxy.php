@@ -11,6 +11,7 @@
 
 function convert_link ( $wiki, $link )
   {
+    $color = style_value('WIKI_LINK','#00FFFF');
     $found = preg_match('~href="(.*?)".*?>(.*?)</a>~s',$link,$matches);
 
     if ($found == 0)
@@ -18,11 +19,11 @@ function convert_link ( $wiki, $link )
     elseif ( $matches[2] == 'edit')
       return 'edit';
     elseif ( strpos($matches[1],'http://') !== false )
-      return $link;
+      return'<a href="'.$matches[1].'"><img src="/images/extlink.gif"> <font color="'.$color.'">'.$matches[2].'</font></a>';
     elseif ( $matches[1][0] == '#')
-      return'<a href="'.current_url().$matches[1].'">'.$matches[2].'</a>';
+      return'<a href="'.current_url().$matches[1].'"><font color="'.$color.'">'.$matches[2].'</font></a>';
     else 
-      return '<a href="/wikipedia_proxy?wiki='.urlencode($wiki).'&url='.urlencode($matches[1]).'">'.$matches[2].'</a>';
+      return '<a href="/wikipedia_proxy?wiki='.urlencode($wiki).'&url='.urlencode($matches[1]).'"><font color="'.$color.'">'.$matches[2].'</font></a>';
   }
   
 //-------------------------------------------------------------------------------------------------
