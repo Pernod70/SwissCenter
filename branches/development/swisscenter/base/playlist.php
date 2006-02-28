@@ -327,15 +327,24 @@ function load_pl ($file, $action)
   {
     foreach ($lines as $l)
     {
-      $fsp = rtrim($l);
-      if (!empty($fsp) && $fsp[0]!='#')
+      $entry = rtrim($l);
+      if (!empty($entry) && $entry[0] != '#')
       {
-        $fsp = str_replace('\\','/',make_abs_file($fsp,get_sys_pref("playlists")));       
+        if ($entry[1] == ':')
+          $fsp = $entry;                                          
+        elseif ($entry[0] == '\\')
+          $fsp = substr(get_sys_pref("playlists"),0,2).$entry;   
+        else 
+          $fsp = make_abs_file($entry,get_sys_pref("playlists")); 
+
+        // Get all the details from the database that match this filename
+        $fsp = str_replace('\\','/',$fsp);
         $info_music = db_toarray("select * from mp3s where dirname = '".db_escape_str(str_suffix(dirname($fsp),'/'))."' and filename='".db_escape_str(basename($fsp))."' ");
         $info_movie = db_toarray("select * from movies where dirname = '".db_escape_str(str_suffix(dirname($fsp),'/'))."' and filename='".db_escape_str(basename($fsp))."' ");
         $info_photo = db_toarray("select * from photos where dirname = '".db_escape_str(str_suffix(dirname($fsp),'/'))."' and filename='".db_escape_str(basename($fsp))."' ");      
         $all = $info_movie + $info_music + $info_photo;
         
+        // To quote highlander..."there can be only one".
         if ( count($all) == 1)
           $_SESSION["playlist"][] = array_pop($all);
       }
