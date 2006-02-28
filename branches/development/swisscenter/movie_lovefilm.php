@@ -11,8 +11,8 @@
   function extra_get_movie_details ( $file_id )
   {    
     // First check to see if we've encountered an error downloading the details before in this session.
-//    if ( isset($_SESSION['Movie_info_download']) )
-//      return;
+    if ( isset($_SESSION['Movie_info_download']) )
+      return;
 
     // Perform search for matching titles
     $site_url    = 'http://www.lovefilm.com/';
