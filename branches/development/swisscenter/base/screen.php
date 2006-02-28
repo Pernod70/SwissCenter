@@ -3,6 +3,44 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
+function store_browser_size( $res )
+{
+  // This is really crappy, but the hardware sends the wrong browser resolution for HDTV screens
+  // so we have to explicitly check for it here and then override it.
+  
+  if ($res == '1280x720')
+  {
+    $_SESSION["device"]["browser_x_res"] = 1080;
+    $_SESSION["device"]["browser_y_res"] =  640;      
+  }
+  else 
+  {
+    list ($x, $y) = explode('x',$res);  
+    $_SESSION["device"]["browser_x_res"] = $x;
+    $_SESSION["device"]["browser_y_res"] = $y;      
+  }
+}
+
+function store_screen_size( $res = '')
+{
+  if (!empty($res))
+  {
+    list ($x, $y) = explode('x',$res);  
+    $_SESSION["device"]["screen_x_res"] = $x;
+    $_SESSION["device"]["screen_y_res"] = $y;      
+  }
+  else 
+  {
+    // We have not been provided with the actual scrren size, so deduce it from the browser sizes.
+    if ($_SESSION["device"]["browser_x_res"] != 624 )
+      store_screen_size('1280x720'); // HDTV
+    elseif ($_SESSION["device"]["browser_y_res"] == 496 )
+      store_screen_size('720x576'); // PAL
+    else 
+      store_screen_size('720x480'); // NTSC
+  }
+}
+
 #-------------------------------------------------------------------------------------------------
 # This function determines the type of display that the user is using to view the SwissCenter on
 # and therefore how the interface should be adjusted to allow for different capabilities
@@ -13,31 +51,24 @@
 
 function get_screen_type()
 {
-  // NTSC - 624,416 (from agent string)
-  // PAL  - 624,496 (from agent string)
-  // HDTV - 1280,720 (from agent string)
-  // HDTV - 1920,1080 
-  // PC   - 800,450 
-
   if ( is_pc() )
   {
-    $_SESSION["device"]["screen_x_res"] = 800;
-    $_SESSION["device"]["screen_y_res"] = 450;    
+    store_browser_size('800x450');
+    store_screen_size('800x450');
   }
   else 
   {
-    preg_match("/[0-9]*x[0-9]*/",$_SESSION["device"]["agent_string"],$matches);  
-    $xpos = strpos($matches[0],'x');
-    $_SESSION["device"]["screen_x_res"] = substr($matches[0],0,$xpos);
-    $_SESSION["device"]["screen_y_res"] = substr($matches[0],strpos($matches[0],'x')+1);
+    preg_match_all("/[0-9]*x[0-9]*/",$_SESSION["device"]["agent_string"],$matches);  
+    store_browser_size($matches[0][0]);
+    store_screen_size($matches[0][1]);
   }
   
   // What type of screen is it... Widescreen (16:9) or normal (4:3)?
-  $_SESSION["device"]["aspect"] = ($_SESSION["device"]["screen_x_res"]/16*9 == $_SESSION["device"]["screen_y_res"] ? '16:9' : '4:3');
+  $_SESSION["device"]["aspect"] = ($_SESSION["device"]["browser_x_res"]/16*9 == $_SESSION["device"]["browser_y_res"] ? '16:9' : '4:3');
 
   // How do we clasify this screen... PAL, NTSC or HDTV?
-  if ( $_SESSION["device"]["screen_x_res"] == 624)
-    $_SESSION["device"]["screen_type"] = ($_SESSION["device"]["screen_y_res"] == 416 ? 'NTSC' : 'PAL');
+  if ( $_SESSION["device"]["browser_x_res"] == 624)
+    $_SESSION["device"]["screen_type"] = ($_SESSION["device"]["browser_y_res"] == 416 ? 'NTSC' : 'PAL');
   else
     $_SESSION["device"]["screen_type"] = 'HDTV';
       
@@ -63,13 +94,13 @@ function is_screen_hdtv()
 function convert_x( $x )
 {
   get_screen_type();  
-  return ceil($_SESSION["device"]["screen_x_res"] * $x / 1000);
+  return ceil($_SESSION["device"]["browser_x_res"] * $x / 1000);
 }
 
 function convert_y( $y)
 {
   get_screen_type(); 
-  return ceil($_SESSION["device"]["screen_y_res"] * $y / 1000);  
+  return ceil($_SESSION["device"]["browser_y_res"] * $y / 1000);  
 }
 
 function font_nearest( $desired_size )
