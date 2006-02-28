@@ -10,12 +10,26 @@
   $table      = db_value("select media_table from media_types where media_id = ".$_REQUEST["media_type"]);          
   $location   = db_value("select concat(dirname,filename) from $table where file_id= $file_id");
 
+  // We have to perform on-the-fly resizing for images, so we need to redirect them through the thumb.php 
+  // script. For other file types, we don't need to do anything.
+  
+  if ($media == 2 ) // Photos
+  {
+    $x = convert_x(1000);
+    $y = convert_y(1000);
+    $redirect_url = "thumb.php?type=jpg&x=$x&y=$y&src=".rawurlencode(ucfirst($row["DIRNAME"]).$row["FILENAME"]);
+  }
+  else 
+  {
+    $redirect_url = make_url_path($location);
+  }
+
   // Increment the downloads counter for this file
-//  db_sqlcommand("update $table set downloads = downloads + 1 where file_id=$file_id");
+  db_sqlcommand("update $table set viewings = viewings + 1 where file_id=$file_id");
 
   // Send a redirect header to the player with the real location of the media file.
   header ("HTTP/1.0 307 Temporary redirect");
-  header ("location: ".$server.make_url_path($location));
+  header ("location: ".$server.$redirect_url);
 
 /**************************************************************************************************
                                                End of file

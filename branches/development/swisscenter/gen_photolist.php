@@ -20,17 +20,7 @@
   $server     = server_address();
   $data       = get_tracklist_to_play();
   $item_count = 0;
-  $x          = convert_x(1000);
-  $y          = convert_y(1000);
-  $thumb_url  = $server.'thumb.php?type=jpg&x='.$x.'&y='.$y.'&src=';  
   $delay      = (count($data) > 1 ? get_user_pref('PHOTO_PLAY_TIME','5') : 3600); 
-
-  $effect = 8; 
-  //  1 = Wipe Down                      2 = Wipe Up     
-  //  3 = Wipde up/down from center      4 = Wipe up/down to center
-  //  5 = Wipe left/up and right/down    6 = Wipe left/down and right/up
-  //  7 = Interleave up/down             8 = Fade In
-  //  9 = Random Effect from above 
   
   debug_to_log('Generating list of pictures to send to the networked media player.');
 
@@ -48,7 +38,7 @@
       else
         $title = rtrim($row["TITLE"]);
         
-      $url = $thumb_url.rawurlencode(ucfirst($row["DIRNAME"]).$row["FILENAME"]);
+      $url = $server.'stream.php?media_type=2&file_id='.$row["FILE_ID"].'&ext=.jpg';
       debug_to_log(' - '.$url);
   
       if (is_hardware_player())
@@ -70,7 +60,7 @@
 
     $i=0;
     foreach ($data as $row)
-      echo 'slides['.$i++.'] = "'.$thumb_url.rawurlencode($row['DIRNAME'].$row['FILENAME']).'";'.newline();
+      echo 'slides['.$i++.'] = "'.$server.'stream.php?media_type=2&file_id='.$row["FILE_ID"].'&ext=.jpg'.'";'.newline();
 
     echo 'Slideshow('.$delay.', document.getElementById("piccy"), slides, true);
           </script>';

@@ -9,6 +9,15 @@
 UPDATE system_prefs SET value='1.15' WHERE name='DATABASE_VERSION';
 
 -- -------------------------------------------------------------------------------------------------
+-- Add the new "downloads" column to the media tables so that we can record how many times a file
+-- has been requested by the user.
+-- -------------------------------------------------------------------------------------------------
+
+ALTER TABLE mp3s   ADD ( viewings INT UNSIGNED default 0 );
+ALTER TABLE movies ADD ( viewings INT UNSIGNED default 0 );
+ALTER TABLE photos ADD ( viewings INT UNSIGNED default 0 );
+
+-- -------------------------------------------------------------------------------------------------
 -- Add new fields to the "clients" table. This records details on all the platforms that the
 -- SwissCenter has seen so far (IP, agent string, player type, screen resolution, etc)
 -- -------------------------------------------------------------------------------------------------
