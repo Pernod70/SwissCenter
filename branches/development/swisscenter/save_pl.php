@@ -37,7 +37,7 @@
       echo '<p>'.str('FILE_EXISTS').'';
   
     if (strlen($search)>0)
-      $menu->add_item(str('PLAYLIST_NAME_USE'),'manage_pl.php?save='.rawurlencode($base_dir.$search.'.m3u'));
+      $menu->add_item(str('PLAYLIST_NAME_USE'),'manage_pl.php?save='.rawurlencode($base_dir.$search.'.m3u&abc=1'));
       
     $menu->add_item(str('PLAYLIST_NAME_CANCEL'),'manage_pl.php');
     $menu->display(300);
