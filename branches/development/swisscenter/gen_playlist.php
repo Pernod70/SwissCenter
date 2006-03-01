@@ -20,6 +20,7 @@
 
   $server     = server_address();
   $data       = get_tracklist_to_play();
+  $max_size   = max_playlist_size();
   $item_count = 0;
   $media_type = 0;
   $file_id    = 0; 
@@ -28,7 +29,7 @@
   
   foreach ($data as $row)
   {
-    if ($item_count >= max_playlist_size() )
+    if ($item_count >= $max_size)
       break;
 
     // We need to identify the media_type. This may have been passed in on the query string (if the list of files
