@@ -14,7 +14,6 @@
   set_time_limit(0);
   ini_set('memory_limit',-1);
   $start_time = time();
-  
   $cache_dir = get_sys_pref('cache_dir');
 
   // ----------------------------------------------------------------------------------
@@ -29,6 +28,15 @@
     $getID3   = new getID3;
     $id3      = $getID3->analyze($filepath);
 
+    // Standard information about the file 
+    $data["dirname"]      = $dir;
+    $data["filename"]     = $file;
+    $data["location_id"]  = $id;
+    $data["title"]        = file_noext($file);
+    $data["size"]         = filesize($dir.$file);
+    $data["verified"]     = 'Y';
+    $data["discovered"]   = db_datestr();
+
     if (in_array( $id3["fileformat"],array('mp3','asf')) )
     {
       if ( ! isset($id3["error"]) )
@@ -36,22 +44,16 @@
         getid3_lib::CopyTagsToComments($id3);
 
         // ID3 data successfully obtained, so enter it into the database
-        $data = array("dirname"      => $dir
-                     ,"filename"     => $file
-                     ,"location_id"  => $id
-                     ,"verified"     => 'Y'
-                     ,"size"         => $id3["filesize"]
-                     ,"length"       => floor($id3["playtime_seconds"])
-                     ,"lengthstring" => $id3["playtime_string"]
-                     ,"bitrate"      => floor($id3["bitrate"])
-                     ,"version"      => 0
-                     ,"title"        => array_last($id3["comments"]["title"])
-                     ,"artist"       => array_last($id3["comments"]["artist"])
-                     ,"album"        => array_last($id3["comments"]["album"])
-                     ,"year"         => array_last($id3["comments"]["year"])
-                     ,"track"        => array_last($id3["comments"]["track"])
-                     ,"genre"        => array_last($id3["comments"]["genre"])
-                     ,"discovered"   => db_datestr() );
+        $data["length"]       = floor($id3["playtime_seconds"]);
+        $data["lengthstring"] = $id3["playtime_string"];
+        $data["bitrate"]      = floor($id3["bitrate"]);
+        $data["version"]      = 0;
+        $data["title"]        = array_last($id3["comments"]["title"]);
+        $data["artist"]       = array_last($id3["comments"]["artist"]);
+        $data["album"]        = array_last($id3["comments"]["album"]);
+        $data["year"]         = array_last($id3["comments"]["year"]);
+        $data["track"]        = array_last($id3["comments"]["track"]);
+        $data["genre"]        = array_last($id3["comments"]["genre"]);
                      
         if (!db_insert_row( "mp3s", $data))
           send_to_log('Unable to add MP3 to the database');
@@ -78,15 +80,6 @@
     {
       // File extension is MP3, but the file itself isn't!
       send_to_log('GETID3 claims this is not an MP3 - adding it anyway, but no ID3 tag information could be read.');
-
-      $data = array("dirname"      => $dir
-                   ,"filename"     => $file
-                   ,"location_id"  => $id
-                   ,"title"        => file_noext($file)
-                   ,"size"         => filesize($dir.$file)
-                   ,"verified"     => 'Y'
-                   ,"discovered"   => db_datestr() );
-                   
       if ( db_insert_row( "mp3s", $data) === false )
         send_to_log('Unable to add MP3 to the database');
     }
@@ -146,7 +139,7 @@
           precache($dir.$file, THUMBNAIL_X_SIZE, THUMBNAIL_Y_SIZE);
         }
         else
-          send_to_log('Unable to add PHOTO to the database');
+          send_to_log('Unable to add photo to the database');
       }
       else
       {
@@ -160,7 +153,7 @@
     else
     {
       // File extension is OK, but the file itself isn't!
-      send_to_log('GETID3 claims this is not a PHOTO');
+      send_to_log('GETID3 claims this is not a valid photo file');
     }
   }
 
@@ -172,57 +165,45 @@
   {
     send_to_log('New movie found : '.$file);
     $types    = array('riff','mpeg');
-    $filepath = os_path($dir.$file);
     $data     = array();
     $getID3   = new getID3;
+    $filepath = os_path($dir.$file);
     $id3      = $getID3->analyze($filepath);
-
+    
+    // Standard information about the file 
+    $data["dirname"]      = $dir;
+    $data["filename"]     = $file;
+    $data["location_id"]  = $id;
+    $data["title"]        = file_noext($file);
+    $data["size"]         = filesize($dir.$file);
+    $data["verified"]     = 'Y';
+    $data["discovered"]   = db_datestr();
+    
     if ( in_array(strtolower($id3["fileformat"]), $types))
     {
       if ( ! isset($id3["error"]) )
       {
+        // Tag data successfully obtained, so record the following information
         getid3_lib::CopyTagsToComments($id3);
-
-        // Tag data successfully obtained, so enter it into the database
-        $data = array("dirname"      => $dir
-                     ,"filename"     => $file
-                     ,"location_id"  => $id
-                     ,"title"        => file_noext($file)
-                     ,"size"         => $id3["filesize"]
-                     ,"length"       => floor($id3["playtime_seconds"])
-                     ,"lengthstring" => $id3["playtime_string"] 
-                     ,"verified"     => 'Y'
-                     ,"discovered"   => db_datestr() );
-                     
-        if ( db_insert_row( "movies", $data) === false )
-          send_to_log('Unable to add movie to the database');
+        $data["size"]          = $id3["filesize"];
+        $data["length"]        = floor($id3["playtime_seconds"]);
+        $data["lengthstring"]  = $id3["playtime_string"];                     
       }
       else
       {
-        // File is a valid movie format, but there were (critical) problems reading the tag info
-        // or the file itself is not a movie
-        send_to_log('Errors occurred whilst reading tag information');
+        // File is a valid movie format, but there were (critical) problems reading the tag info.
+        send_to_log("GETID3 claims there are errors in the video file");
         foreach ($id3["error"] as $err)
           send_to_log(' - '.$err);
       }
 
     }
     else
-    {
-      // File extension is correct, but the file itself isn't!
-      debug_to_log("GETID3 claims this is not a valid movie (but we'll add it anyway!)");
+      send_to_log("GETID3 claims this is not a valid movie");
 
-      $data = array("dirname"      => $dir
-                   ,"filename"     => $file
-                   ,"location_id"  => $id
-                   ,"title"        => file_noext($file)
-                   ,"size"         => filesize($dir.$file)
-                   ,"verified"     => 'Y'
-                   ,"discovered"   => db_datestr() );
-                   
-      if ( db_insert_row( "movies", $data) === false )
-        send_to_log('Unable to add movie to the database');
-    }
+    // Insert the row into the database
+    if ( db_insert_row( "movies", $data) === false )
+      send_to_log('Unable to add movie to the database');
   }
 
   // ----------------------------------------------------------------------------------
@@ -290,7 +271,7 @@
           }
           else
           {
-            if ($file_date > $db_date)
+            if (!is_null($db_date) && $file_date > $db_date)
             {
               debug_to_log("File has been modified ($file_date > $db_date)");
 
