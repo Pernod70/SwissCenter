@@ -27,6 +27,8 @@ ALTER TABLE clients ADD
 , screen_type   TEXT         default null
 , screen_x_res  INT UNSIGNED default null
 , screen_y_res  INT UNSIGNED default null
+, browser_x_res INT UNSIGNED default null
+, browser_y_res INT UNSIGNED default null
 , aspect        TEXT         default null
 );
 
