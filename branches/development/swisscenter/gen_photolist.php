@@ -20,6 +20,7 @@
   $server     = server_address();
   $data       = get_tracklist_to_play();
   $item_count = 0;
+  $effect     = 8;
   $delay      = (count($data) > 1 ? get_user_pref('PHOTO_PLAY_TIME','5') : 3600); 
   
   debug_to_log('Generating list of pictures to send to the networked media player.');
