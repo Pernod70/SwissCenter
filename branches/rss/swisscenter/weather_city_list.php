@@ -33,7 +33,7 @@
 
       $menu->add_item( str('SEARCH_YES'),'city_selected.php?name='.rawurlencode($search),true);
       $menu->add_item( str('SEARCH_NO'),$this_url.'?sort='.$sort.'&any='.$prefix,true);
-      $menu->display( "300" );
+      $menu->display( 480 );
  
     }
     else
@@ -50,7 +50,7 @@
       foreach ($data as $row)
         $menu->add_item($row["NAME"],'city_selected.php?name='.rawurlencode($row["NAME"]),true);
 
-      $menu->display( "300" );
+      $menu->display( 480 );
     }
 
     echo '</td></tr></table>';

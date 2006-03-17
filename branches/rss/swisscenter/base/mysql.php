@@ -270,6 +270,14 @@ function db_insert_row( $table, $fields )
   return db_sqlcommand($sql);
 }
 
+#-------------------------------------------------------------------------------------------------
+# Gets the id of the last inserted row with an auto_increment field
+#-------------------------------------------------------------------------------------------------
+function db_insert_id()
+{
+  return mysql_insert_id();
+}
+
 /**************************************************************************************************
   DB_QUERY class definition.
 *************************************************************************************************/
@@ -314,10 +322,12 @@ class db_query
         if (! empty($sql) )
         {
           $this->stmt_handle = mysql_query( $sql, $this->db_handle);
-          @debug_to_log("SQL> ".$sql);
+          // @debug_to_log("SQL> ".$sql);
         }
       }
     }
+    else 
+      send_to_log("Connected Failed :: " . mysql_error());
   }
 
   #-------------------------------------------------------------------------------------------------
@@ -357,7 +367,7 @@ class db_query
   {
     $this->sql_to_execute = $sql;
     $this->stmt_handle = mysql_query($sql, $this->db_handle);
-    @debug_to_log("SQL> ".$sql);
+    // @debug_to_log("SQL> ".$sql);
     return $this->stmt_handle;
   }
 
@@ -380,8 +390,6 @@ class db_query
     {
       if ($log_error)
         send_to_log($this->db_get_error(), $this->sql_to_execute);
-      else 
-        debug_to_log($this->db_get_error(), $this->sql_to_execute);
     }
       
     return $this->stmt_handle;

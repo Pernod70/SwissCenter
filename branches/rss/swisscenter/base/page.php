@@ -34,12 +34,12 @@ function current_session()
 
 function up_link( $url)
 {
-  return '<a href="'.$url.'" TVID="PGUP" ONFOCUSLOAD>'.img_gen(SC_LOCATION.style_img("IMG_PGUP"),4,2).'</a>';
+  return '<a href="'.$url.'" TVID="PGUP" ONFOCUSLOAD>'.img_gen(SC_LOCATION.style_img("IMG_PGUP"),40,20).'</a>';
 }
 
 function down_link( $url)
 {
-  return '<a href="'.$url.'" TVID="PGDN" ONFOCUSLOAD>'.img_gen(SC_LOCATION.style_img("IMG_PGDN"),4,2).'</a>';
+  return '<a href="'.$url.'" TVID="PGDN" ONFOCUSLOAD>'.img_gen(SC_LOCATION.style_img("IMG_PGDN"),40,20).'</a>';
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -60,17 +60,15 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
   if (get_screen_type() == 'NTSC')
   {
     $logo                   = '';
-    $headings               = '<td height="'.convert_y(6).'" align="center"><b>'.$title.'</b> : '.$tagline.'&nbsp;</td>';
-    $heading_padding_bottom = 2;
+    $headings               = '<td height="'.convert_y(60).'" align="center"><b>'.$title.'</b> : '.$tagline.'&nbsp;</td>';
   }
   else
   {
-    $logo                   = '<td width="'.convert_x(25).'" height="'.convert_y(19).'" valign="center" align="center">'.img_gen(SC_LOCATION."/images/logo.gif",20,10);
-    $headings               = '<td height="'.convert_y(19).'" align="center"><h2>'.$title.'&nbsp;</h2>'.$tagline.'&nbsp;</td>';
-    $heading_padding_bottom = 3;
+    $logo                   = '<td width="'.convert_x(250).'" height="'.convert_y(190).'" valign="center" align="center">'.img_gen(SC_LOCATION."/images/logo.gif",200,100,false,false,'RESIZE');
+    $headings               = '<td height="'.convert_y(190).'" align="center"><h2>'.$title.'&nbsp;</h2>'.$tagline.'&nbsp;</td>';
   }
 
-  $background_image       = '/thumb.php?stretch=Y&x='.convert_x(100).'&y='.convert_y(100).'&src='.rawurlencode(SC_LOCATION.style_img("PAL_BACKGROUND"));
+  $background_image       = '/thumb.php?type=jpg&stretch=Y&x='.convert_x(1000).'&y='.convert_y(1000).'&src='.rawurlencode(SC_LOCATION.style_img("PAL_BACKGROUND"));
   
   if ($focus_colour == '')
     $focus_colour = style_value("PAGE_FOCUS_COLOUR",'#FFFFFF');
@@ -80,7 +78,7 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
         <meta SYABAS-FULLSCREEN>
         <meta SYABAS-PHOTOTITLE=0>
         <meta SYABAS-BACKGROUND="'.$background_image.'">
-        <meta syabas-keyoption="caps"><meta myibox-pip="0,0,0,0,0"><meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+        <meta syabas-keyoption="caps"><meta myibox-pip="0,0,0,0,0"><meta http-equiv="content-type" content="text/html;charset=utf-8">
         <meta name="generator" content="lyra-box UI">
         <title>'.$title.'</title>
         <style>
@@ -97,18 +95,14 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
                bgcolor="'.     style_value("PAGE_BGCOLOUR",'#FFFFFF').'"
                TOPMARGIN="0" LEFTMARGIN="0" MARGINHEIGHT="0" MARGINWIDTH="0">';
   
-  echo '<table width="'.convert_x(100).'" border="0" cellpadding="0" cellspacing="0">
+  echo '<table width="'.convert_x(1000).'" border="0" cellpadding="0" cellspacing="0">
         <tr>'.$logo.$headings.'</tr>
         </table>
         
-        <table width="'.convert_x(100).'" border="0" cellpadding="0" cellspacing="0">
-        <tr><td width="'.convert_x(100).'" height="'.convert_y($heading_padding_bottom).'"></td></tr>
-        </table>
-        
-        <table width="'.convert_x(100).'" border="0" cellpadding="0" cellspacing="0">
+        <table width="'.convert_x(1000).'" border="0" cellpadding="0" cellspacing="0">
           <tr>
-            <td width="'.convert_x(5).'" height="'.convert_y(67).'" ></td>
-            <td width="'.convert_x(90).'" valign="top" align="left">';
+            <td width="'.convert_x(50).'" height="'.convert_y(670).'" ></td>
+            <td width="'.convert_x(900).'" valign="top" align="left">';
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -131,7 +125,7 @@ function page_error($message)
 // Outputs an IMG tag which uses the thumbnail generator/caching engine
 //-------------------------------------------------------------------------------------------------
 
-function img_gen( $filename, $x, $y, $type = false, $stretch = false, $html_params = array())
+function img_gen( $filename, $x, $y, $type = false, $stretch = false, $rs_mode = false, $html_params = array())
 {
   // Build a string containing the name/value pairs of the extra html_params specified
   $html = '';
@@ -146,6 +140,9 @@ function img_gen( $filename, $x, $y, $type = false, $stretch = false, $html_para
   
   if ($stretch !== false)
     $img_params .='&stretch=Y';
+    
+  if ($rs_mode !== false)
+    $img_params .='&rs_mode='.$rs_mode;
 
   return '<img '.$html.' width="'.convert_x($x).'" height="'.convert_y($y).'" src="'.$img_params.'" border=0>';
 }
@@ -159,7 +156,7 @@ function img_gen( $filename, $x, $y, $type = false, $stretch = false, $html_para
 
 function pc_nav_button($text, $url)
   {
-    return '<td align="center" valign="center" height="23" width="'.(convert_x(100)/5).'" background="'.style_img('IMG_PC_BUTTON').'" onclick="document.location=\''.$url.'\';">
+    return '<td align="center" valign="center" height="23" width="'.(convert_x(1000)/5).'" background="'.style_img('IMG_PC_BUTTON').'" onclick="document.location=\''.$url.'\';">
          <a href="'.$url.'"><font color="'.style_value('COL_PC_BUTTON','#000000').'">'.$text.'</font></a>
          </td>';
   }
@@ -172,12 +169,12 @@ function pc_nav_button($text, $url)
 function page_footer( $back, $buttons= '', $iconbar = 0 )
 {
   echo '    </td>
-            <td width="'.convert_x(5).'"></td>
+            <td width="'.convert_x(50).'"></td>
           </tr>
         </table>
-        <table width="'.convert_x(100).'" border="0" cellpadding="0" cellspacing="0">
+        <table width="'.convert_x(1000).'" border="0" cellpadding="0" cellspacing="0">
           <tr>
-            <td width="'.convert_x(5).'"></td>';
+            <td width="'.convert_x(50).'"></td>';
 
   if(!empty($buttons))
   {
@@ -194,7 +191,7 @@ function page_footer( $back, $buttons= '', $iconbar = 0 )
       else
         $link = $buttons[$i]["text"];
 
-        echo '<td align="center">'.img_gen(SC_LOCATION.style_img(quick_access_img($i)),5,6).$link.'</td>';
+        echo '<td align="center">'.img_gen(SC_LOCATION.style_img(quick_access_img($i)),50,60).$link.'</td>';
     }
   }
   elseif(!empty($iconbar))
@@ -205,7 +202,7 @@ function page_footer( $back, $buttons= '', $iconbar = 0 )
   }
   
 
-  echo '    <td width="'.convert_x(5).'"></td>
+  echo '    <td width="'.convert_x(50).'"></td>
           </tr>
         </table>';
   
@@ -213,7 +210,7 @@ function page_footer( $back, $buttons= '', $iconbar = 0 )
   // showcenter then output a "Back" Button (as this would normally be a IR remote button).
   if ( is_pc() )
   {
-    echo '<table style="position:absolute; top:'.convert_y(100).'; left:0; " width="'.convert_x(100).'" cellspacing="10" cellpadding="0"><tr>'.
+    echo '<table style="position:absolute; top:'.convert_y(1000).'; left:0; " width="'.convert_x(1000).'" cellspacing="10" cellpadding="0"><tr>'.
          pc_nav_button(str('PC_LINK_HOME')   , '/index.php').
          pc_nav_button(str('PC_LINK_CONFIG') , '/config/index.php').
          pc_nav_button(str('PC_LINK_MUSIC')  , '/music.php').

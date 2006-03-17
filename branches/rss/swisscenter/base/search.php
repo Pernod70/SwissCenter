@@ -82,7 +82,7 @@ function  search_media_page( $heading, $title, $main_table, $joined_tables, $col
 
   // Start outputting the page
   page_header( $heading, $title.' : '.$search, '', $focus );
-  echo '<table border=0 width="100%"><tr><td width="'.convert_x(32).'" valign="top">';
+  echo '<table border=0 width="100%"><tr><td width="'.convert_x(300).'" valign="top">';
   show_picker( $this_url, $search);
   echo '</td><td valign=top>';
 
@@ -105,7 +105,7 @@ function  search_media_page( $heading, $title, $main_table, $joined_tables, $col
     foreach ($data as $row)
       $menu->add_item($row["DISPLAY"],url_set_param($choose_url,'name',rawurlencode($row["DISPLAY"])));
 
-    $menu->display(48);
+    $menu->display(540);
   }
 
   echo '</td></tr></table>';
@@ -178,7 +178,12 @@ function search_check_filter ( &$menu, $menu_text, $column, $table, $predicate, 
 function search_distinct_info (&$info, $info_text, $column, $table, $predicate)
 {
   if ( db_value("select count(distinct $column) from $table $predicate") == 1)
+  {
     $info->add_item($info_text, db_value("select $column from $table $predicate limit 0,1"));
+    return db_value("select $column from $table $predicate limit 1");
+  }
+  else 
+    return '';
 }
 
 /**************************************************************************************************

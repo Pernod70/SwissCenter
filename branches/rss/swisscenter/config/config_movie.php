@@ -35,7 +35,7 @@ function movie_display( $message = '')
   $movie_list  = db_toarray("select m.* from movies m, media_locations ml where ml.location_id = m.location_id ".$where.
                             " order by title limit $start,$per_page");        
   
-  echo "<h1>".str('ORG_TITLE')."</h1>";
+  echo '<h1>'.str('ORG_TITLE').'  - '.str('PAGE').' : '.$page.'</h1>';
   message($message);
   
   echo '<form enctype="multipart/form-data" action="" method="post">

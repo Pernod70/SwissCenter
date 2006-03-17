@@ -10,7 +10,7 @@
 
   function output_link( $file )
   {
-    return 'load_pl.php?action='.$_REQUEST["action"].'&load='.rawurlencode($file);
+    return 'load_pl.php?load='.rawurlencode($file).'&action='.$_REQUEST["action"];
   }
 
   // Load a playlist (Overwriting or appending to the existing playlist)  

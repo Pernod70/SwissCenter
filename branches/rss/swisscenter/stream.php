@@ -3,42 +3,34 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-  require_once( realpath(dirname(__FILE__).'/base/settings.php'));
-  require_once( realpath(dirname(__FILE__).'/base/file.php'));
+  require_once( realpath(dirname(__FILE__).'/base/page.php'));
 
-  $startArray = sscanf( $_SERVER["HTTP_RANGE"], "bytes=%d-" );
-  $start      = (empty($startArray[0]) ? 0 : $startArray[0]);
-  $file       = stripcslashes($_REQUEST["file"]);
-  $size       = filesize($file);
-  
-  // Log the request (in a later version we will store some info in the database to enable us 
-  // to "resume playing" whatever the user last chose, in conjunction with a temp playlist file).
-  
-  send_to_log("File  : ".$file); 
-  send_to_log("Range : ".$start."-".($size-1)."/".$size); 
+  $server     = server_address();
+  $file_id    = $_REQUEST["file_id"];
+  $table      = db_value("select media_table from media_types where media_id = ".$_REQUEST["media_type"]);          
+  $location   = db_value("select concat(dirname,filename) from $table where file_id= $file_id");
 
-  // Output page header
-
-  if ($start > 0)
-    header( "HTTP/1.1 206 Partial content" );
+  // We have to perform on-the-fly resizing for images, so we need to redirect them through the thumb.php 
+  // script. For other file types, we don't need to do anything.
   
-  header("Pragma: ");
-  header("Cache-Control: ");
-  header("Content-type: application/octet-stream");
-  header("Content-Disposition: inline; filename=".basename($file)); 
-  header("Accept-Ranges: bytes"); 
-  header("Content-Range: bytes ".$start."-".($size-1)."/".$size); 
-  header("Content-Length: ".(string)($size-$start)); 
+  if ($media == 2 ) // Photos
+  {
+    $x = convert_x(1000);
+    $y = convert_y(1000);
+    $redirect_url = "thumb.php?type=jpg&x=$x&y=$y&src=".rawurlencode(ucfirst($row["DIRNAME"]).$row["FILENAME"]);
+  }
+  else 
+  {
+    $redirect_url = make_url_path($location);
+  }
 
-  // Stream the specified file 
-  $fp = fopen($file, 'rb');
+  // Increment the downloads counter for this file
+  db_sqlcommand("update $table set viewings = viewings + 1 where file_id=$file_id");
 
-  if( $start > 0 )
-    fseek( $fp, $start );
-  
-  fpassthru($fp);
-  fclose($fp);
-  
+  // Send a redirect header to the player with the real location of the media file.
+  header ("HTTP/1.0 307 Temporary redirect");
+  header ("location: ".$server.$redirect_url);
+
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/

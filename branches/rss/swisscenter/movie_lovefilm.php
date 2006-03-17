@@ -24,9 +24,9 @@
     $accuracy    = 0;
     send_to_log('Checking movie file : '.$file_name);
         
-    if (strpos($html,"Search Results") !== false)
+    if (strpos(strtolower($html),"search results") !== false)
     { 
-      if (strpos($html,"no results were found") !== false)
+      if (strpos(strtolower($html),"no results were found") !== false)
       {
         // There are no matches found... do nothing
         $accuracy = 0;
@@ -88,8 +88,8 @@
             break;
           }
       }
-
-      $details = substr_between_strings($html,"Recommend this to a friend</span>","titlebar");
+      
+      $details = substr_between_strings($html,"boxcover-padded","<h2>");
       $columns = array ( "YEAR"              => array_pop(get_attrib($details,"Year:"))
                        , "CERTIFICATE"       => db_lookup( 'certificates','name','cert_id',array_pop(get_attrib($details,"Certificate:")) )
                        , "MATCH_PC"          => $accuracy
@@ -103,12 +103,25 @@
         send_to_log('This may be due to lovefilm changing their page format - please post to the forums on');
         send_to_log('the www.swisscenter.co.uk website requesting that the matter be investigated further.');  
         $_SESSION['Movie_info_download'] = true;      
+        
+        # For debugging purposes, uncomment the next line and then look through the html to discover what 
+        # the markers have been changed to.
+        # echo $html;
       }
       else
       {
-        scdb_add_directors     ($file_id, get_attrib($details,"Director:"));
-        scdb_add_actors        ($file_id, get_attrib($details,"Starring:"));
-        scdb_add_genres        ($file_id, get_attrib($details,"Genre\(s\):"));    
+        $new_directors = get_attrib($details,"Director:");
+        $new_actors    = get_attrib($details,"Starring:");
+        $new_genres    = get_attrib($details,"Genre\(s\):");
+        
+        send_to_log('Main Movie details',$columns);
+        send_to_log('Directors',$new_directors);
+        send_to_log('Actors',$new_actors);
+        send_to_log('Genres',$new_genres);
+        
+        scdb_add_directors     ($file_id, $new_directors);
+        scdb_add_actors        ($file_id, $new_actors);
+        scdb_add_genres        ($file_id, $new_genres);    
         scdb_set_movie_attribs ($file_id, $columns);
       }
     }

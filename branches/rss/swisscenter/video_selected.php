@@ -25,11 +25,11 @@
     $genres    = db_toarray("select g.genre_name from genres_of_movie gom, genres g where gom.genre_id = g.genre_id and gom.movie_id=$movie");
     $cert      = db_value("select concat(' (',name,')') from certificates where cert_id =".$info["CERTIFICATE"]);
     
-    echo font_colour_tags('TITLE_COLOUR',str('TITLE')).' : '.shorten($info["TITLE"].$cert,450).'<p>';
+    echo font_colour_tags('TITLE_COLOUR',str('TITLE')).' : '.shorten($info["TITLE"].$cert,721).'<p>';
     
     if ( !is_null($info["SYNOPSIS"]) )
     {
-      echo '<p>'.shorten($info["SYNOPSIS"],530,1,3);
+      echo '<p>'.shorten($info["SYNOPSIS"],850,3);
 
       if ( !is_null($info["YEAR"]) )
         echo " [".$info["YEAR"]."]";
@@ -90,7 +90,7 @@
   $predicate     = search_process_passed_params();
   $num_rows      = db_value("select count( distinct media.file_id) from $sql_table $predicate");
   $this_url      = url_set_param(current_url(),'add','N');
-
+  
   //
   // A single movie has been matched/selected by the user, so display as much information as possible
   // on the screen, along with commands to "Play Now" or "Add to Playlist".
@@ -110,6 +110,9 @@
     if (pl_enabled())
       $menu->add_item( str('ADD_PLAYLIST') ,'add_playlist.php?sql='.rawurlencode("select distinct $select_fields from movies where file_id=".$data[0]["FILE_ID"]),true);
 
+    // Add a link to search wikipedia
+    $menu->add_item( str('SEARCH_WIKIPEDIA'), lang_wikipedia_search( ucwords(strip_title($data[0]["TITLE"])) ) ,true);
+      
     // TO-DO
     // Link to full cast & directors
     // $menu->add_item( str('MOVIE_INFO'), 'video_info.php?movie='.$data[0]["FILE_ID"],true);
@@ -152,12 +155,12 @@
   if (! empty($folder_img) )
   {
     echo '<p><table width="100%" cellpadding=0 cellspacing=0 border=0>
-          <tr><td valign=top width="'.convert_x(29).'" align="center">
-              <table width="100%"><tr><td height="'.convert_y(1).'"></td></tr><tr><td valign=top>
-                <center>'.img_gen($folder_img,25,30).'</center>
+          <tr><td valign=top width="'.convert_x(290).'" align="center">
+              <table width="100%"><tr><td height="'.convert_y(10).'"></td></tr><tr><td valign=top>
+                <center>'.img_gen($folder_img,250,300).'</center>
               </td></tr></table></td>
               <td valign="top">';
-              $menu->display(48);
+              $menu->display(480);
     echo '    </td></td></table>';
   }
   else

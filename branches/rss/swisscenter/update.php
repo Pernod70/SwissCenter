@@ -161,17 +161,9 @@
     {
       foreach($actions as $a)
       {
-        if ( unlink($a["existing"]) )
-        {
-          if ( rename($a["downloaded"],$a["existing"]) )
-            send_to_log("'".$a["existing"]."' updated");
-          else 
-            send_to_log('ERROR: Unable to create new file.',SC_LOCATION.$a["existing"]);
-        }
-        else
-        {
-          send_to_log('ERROR: Unable to delete existing file.',SC_LOCATION.$a["existing"]);
-        }          
+        unlink($a["existing"]);
+        rename($a["downloaded"],$a["existing"]);
+        send_to_log("'".$a["existing"]."' updated");
 
         // If the file that has been updated is a database update, then apply it to the database
         if ( preg_match('/.*update_[0-9]*.sql/',$a["existing"]) )

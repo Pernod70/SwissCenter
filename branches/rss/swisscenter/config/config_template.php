@@ -6,6 +6,7 @@
 
 <html>
 <head>
+<title>SwissCenter Config</title>
 </head>
 <body style="margin:20px;" background="../images/bgr.png">
 <style>

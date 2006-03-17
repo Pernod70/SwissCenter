@@ -67,7 +67,7 @@
   echo '<table cellspacing=0 border=0 cellpadding=0 width="100%">
           <tr>
             <td align="center" width="40%">'
-              .img_gen(SC_LOCATION.'/weather/large/'.$xml_cc["cc"]["icon"].'.gif',20,26).'
+              .img_gen(SC_LOCATION.'/weather/large/'.$xml_cc["cc"]["icon"].'.gif',200,260,false,false,'RESIZE').'
               <font size="4"><br>'.$xml_cc["cc"]["tmp"].chr(176).$xml_cc["head"]["ut"].'
                   <br>'.$xml_cc["cc"]["t"].'</font>
             </td>
@@ -79,10 +79,10 @@
         </table>
         <table cellspacing=0 border=0 cellpadding=0 width="100%">
           <tr>
-            <td width="'.convert_x(64).'">';
-              $menu->display(56);
+            <td width="'.convert_x(640).'">';
+              $menu->display(560);
   echo '    </td>
-            <td align="center" valign="top"><a href="'.weather_link().'">'.img_gen(SC_LOCATION.'/weather/logo.gif',13,13).'</a></td>
+            <td align="center" valign="top"><a href="'.weather_link().'">'.img_gen(SC_LOCATION.'/weather/logo.gif',130,130,false,false,'RESIZE').'</a></td>
           </tr>
         </table>';
 

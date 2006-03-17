@@ -509,6 +509,12 @@ IMAGE_RESIZE_PROMPT	= Please choose the method that the SwissCenter should use w
 CURRENT_VERSION		= Current Version
 
 # -----------------------
+# SwissCenter v1.15
+# -----------------------
+
+SEARCH_WIKIPEDIA	= Lookup in Wikipedia
+
+# -----------------------
 # SwissCenter RSS Support
 # -----------------------
 
@@ -524,7 +530,16 @@ RSS_UPDATE_FREQ_UNITS	= minutes
 URL			= URL
 RSS_SUB_ADD_ERROR_TITLE	= You must enter a title for the subscription
 RSS_SUB_ERROR_EXISTS	= A subscription with that title or url already exists
+RSS_SUB_ERROR_TITLE	= You must enter a subscription title
+RSS_SUB_ERROR_URL	= You must enter a valid URL for the subscription
+RSS_SUB_ERROR_UPDATEFREQ	= You must enter an update frequency in minutes
+RSS_SUB_ERROR_NOCREATEDIR	= Unable to create the subscription directory
+RSS_SUB_ERROR_DELETE	= There was an error deleting the subscription
+RSS_SUB_ERROR_DOWNLOAD	= Unable to download RSS feed, the URL may be invalid
 RSS_SUB_ADDED_OK	= Subscription successfully added
+RSS_SUB_DELETE_OK	= Subscription successfully deleted
+RSS_SUB_UPDATE_OK	= Subscription successfully updated
+
 
 #----------------------------------------------------------------------------------------------------
 # End-of-file

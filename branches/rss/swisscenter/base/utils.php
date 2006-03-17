@@ -7,18 +7,18 @@ require_once( realpath(dirname(__FILE__).'/file.php'));
 require_once( realpath(dirname(__FILE__).'/sched.php'));
 require_once( realpath(dirname(__FILE__).'/prefs.php'));
 
-$char_widths = array(   "A" => 16,  "B" => 12,  "C" => 15,  "D" => 14,  "E" => 14,  "F" => 14,  "G" => 15,  "H" => 15,
-                        "I" => 4,   "J" => 10,  "K" => 14,  "L" => 11,  "M" => 16,  "N" => 15,  "O" => 16,  "P" => 14,
-                        "Q" => 16,  "R" => 15,  "S" => 12,  "T" => 15,  "U" => 14,  "V" => 16,  "W" => 20,  "X" => 16,
-                        "Y" => 15,  "Z" => 15,  "[" => 6,   "\\" => 7,  "]" => 6,   "^" => 9,   "_" => 12,  "`" => 6,
-                        "a" => 11,  "b" => 11,  "c" => 11,  "d" => 11,  "e" => 11,  "f" => 6,   "g" => 11,  "h" => 11,
-                        "i" => 4,   "j" => 5,   "k" => 10,  "l" => 4,   "m" => 16,  "n" => 11,  "o" => 11,  "p" => 11,
-                        "q" => 11,  "r" => 7,   "s" => 9,   "t" => 6,   "u" => 11,  "v" => 11,  "w" => 16,  "x" => 12,
-                        "y" => 11,  "z" => 11,  "{" => 7,   "|" => 4,   "}" => 7,   "~" => 11,  "!" => 4,   "\"" => 7,
-                        "#" => 10,  "$" => 11,  "%" => 16,  "&" => 15,  "'" => 4,   "/" => 7,   ")" => 6,   "(" => 6,
-                        "*" => 7,   "+" => 12,  "," => 4,   "-" => 8,   "." => 4,   "0" => 11,  "1" => 7,   "2" => 11,
-                        "3" => 11,  "4" => 11,  "5" => 11,  "6" => 11,  "7" => 11,  "8" => 11,  "9" => 11,  ":" => 4,
-                        ";" => 4,   "=" => 12,  ">" => 12,  "?" => 11,  "@" => 19,  "<" => 12,  " " => 7,  );
+$char_widths = array(   "A" => 096,  "B" => 192,  "C" => 240,  "D" => 224,  "E" => 224,  "F" => 224,  "G" => 240,  "H" => 240,
+                        "I" => 064,  "J" => 160,  "K" => 224,  "L" => 176,  "M" => 256,  "N" => 240,  "O" => 256,  "P" => 224,
+                        "Q" => 256,  "R" => 240,  "S" => 192,  "T" => 240,  "U" => 224,  "V" => 256,  "W" => 320,  "X" => 256,
+                        "Y" => 240,  "Z" => 240,  "[" => 096, "\\" => 112,  "]" => 096,  "^" => 144,  "_" => 192,  "`" => 096,
+                        "a" => 176,  "b" => 176,  "c" => 176,  "d" => 176,  "e" => 176,  "f" => 096,  "g" => 176,  "h" => 176,
+                        "i" => 064,  "j" => 080,  "k" => 160,  "l" => 064,  "m" => 256,  "n" => 176,  "o" => 176,  "p" => 176,
+                        "q" => 176,  "r" => 112,  "s" => 144,  "t" => 096,  "u" => 176,  "v" => 176,  "w" => 256,  "x" => 192,
+                        "y" => 176,  "z" => 176,  "{" => 112,  "|" => 064,  "}" => 112,  "~" => 176,  "!" => 064, "\"" => 112,
+                        "#" => 160,  "$" => 176,  "%" => 256,  "&" => 240,  "'" => 064,  "/" => 112,  ")" => 096,  "(" => 096,
+                        "*" => 112,  "+" => 192,  "," => 064,  "-" => 128,  "." => 064,  "0" => 176,  "1" => 112,  "2" => 176,
+                        "3" => 176,  "4" => 176,  "5" => 176,  "6" => 176,  "7" => 176,  "8" => 176,  "9" => 176,  ":" => 064,
+                        ";" => 064,  "=" => 192,  ">" => 192,  "?" => 176,  "@" => 304,  "<" => 192,  " " => 112,  );
 
 
 // ----------------------------------------------------------------------------------
@@ -80,6 +80,32 @@ function nvl($text,$default = '&lt;Unknown&gt;')
     return $text;   
 }
 
+  // ----------------------------------------------------------------------------------------
+  // Removes common parts of filenames that we don't want to search for...
+  // (eg: file extension, file suffix ("CD1",etc) and non-alphanumeric chars.
+  // ----------------------------------------------------------------------------------------
+  
+  function strip_title ($title)
+  {
+    $search  = array ( '/\.[^.]*$/'
+                     , '/\(.*\)/'
+                     , '/\[.*]/'
+                     , '/\W+/'
+                     , '/ CD.*/i'
+                     , '/\s+/'
+                     , '/ +$/');
+    
+    $replace = array ( ''
+                     , ' '
+                     , ' '
+                     , ' '
+                     , ' '
+                     , ' '
+                     , '');
+    
+    return preg_replace($search, $replace, $title);
+  }
+    
 // ----------------------------------------------------------------------------------
 // Returns the text between two given strings
 // ----------------------------------------------------------------------------------
@@ -334,7 +360,7 @@ function arrayUnique( $array, $key )
 // indicate it has been shortened
 // ----------------------------------------------------------------------------------
 
-function shorten( $text, $trunc, $font_size = 1, $lines = 1, $dots = true, $word_trunc = true )
+function shorten( $text, $trunc, $lines = 1, $font_size = 24, $dots = true, $word_trunc = true )
 {
   if(empty($text))
     return $text;
@@ -343,14 +369,14 @@ function shorten( $text, $trunc, $font_size = 1, $lines = 1, $dots = true, $word
   $short_string = "";
   $len          = 0;
   $text         = (string)$text;
-  $max_len      = (int)((( convert_x($trunc) / $font_size)) - (12 * $font_size));
+  $max_len      = $trunc * 10; // All sizes are *10 to avoid flaoting point calculations.
 
   if ($lines > 1)
   {
     // Multiple lines
     for ($lineno = 0; $lineno < $lines; $lineno++)
     {
-      $line = shorten($text, $trunc, $font_size, 1, false);
+      $line = shorten($text, $trunc, 1, $font_size, false);
       $text = substr($text,strlen($line));
       $short_string .= $line;
     }
@@ -395,9 +421,9 @@ function shorten( $text, $trunc, $font_size = 1, $lines = 1, $dots = true, $word
 // backtracking to the last space.
 //
 
-function shorten_chars( $text, $trunc, $font_size = 1, $lines = 1, $dots = true )
+function shorten_chars( $text, $trunc, $lines = 1, $font_size = 24, $dots = true )
 {
-  return shorten($text, $trunc, $font_size, $lines, $dots, false);
+  return shorten($text, $trunc, $lines, $font_size, $dots, false);
 }
 
 // ----------------------------------------------------------------------------------
@@ -455,8 +481,8 @@ function dec2frac( $decimal)
                     '1/125'  => 1/125,    '1/90'   => 1/90,     '1/60'   => 1/60,     '1/45'   => 1/45,     '1/30'   => 0/30,   
                     '1/20'   => 1/20,     '1/15'   => 1/15,     '1/10'   => 1/10,     '1/8'    => 1/8,      '1/6'    => 1/6,    
                     '1/4'    => 1/4,      '0"3'    => 0.3,      '0"5'    => 0.5,      '0"7'    => 0.7,      '1"'     => 1,      
-                    '1"5'    => 1.5,      '2"'     => 2,        '3"'     => 3,        '4"'     => 4,        '6"'     => 6,      
-                    '8"'     => 8,        '10"'    => 10,       '15"'    => 15,       '20"'    => 20,       '30"'    => 30       ) ;
+                    '1"5'    => 1.5,      '2"'     => 2,        '3"'     => 3,        '4"'     => 4,        '6"'     => 096,      
+                    '8"'     => 128,        '10"'    => 160,       '15"'    => 240,       '20"'    => 320,       '30"'    => 30       ) ;
                     
   // Try to match to the above shutter speeds.
   foreach ($speeds as $key => $val)
@@ -503,6 +529,48 @@ function dec2frac( $decimal)
   // now $rem holds the gcd of the numerator and denominator of our fraction
   return  ($num / $rem ) . "/" . ($den / $rem);
 }
+
+
+// ----------------------------------------------------------------------------------
+// Recursively deletes directories
+// ----------------------------------------------------------------------------------
+function delete_dir($dir)
+{
+  $dir = str_suffix($dir, '/');
+
+  if(!file_exists($dir))
+    return true;
+
+  if ($handle = opendir($dir))
+  {
+    while ($obj = readdir($handle))
+    {
+      if ($obj != '.' && $obj != '..')
+      {
+        if (is_dir($dir.$obj))
+        {
+          if (!delete_dir($dir.$obj))
+            return false;
+        }
+        elseif (is_file($dir.$obj))
+        {
+          if (!unlink($dir.$obj))
+            return false;
+        }
+      }
+    }
+
+
+    closedir($handle);
+
+    if (!@rmdir($dir))
+      return false;
+
+    return true;
+  }
+
+  return false;
+} 
 
 /**************************************************************************************************
                                                End of file

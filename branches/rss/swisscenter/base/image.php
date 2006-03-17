@@ -15,9 +15,12 @@ if (!extension_loaded('gd'))
 // Resizes the image using the user's preferred option (resample or resize) from the config page.
 // -------------------------------------------------------------------------------------------------
 
-function preferred_resize( &$dimg, $simg, $dx, $dy, $sx, $sy, $dw, $dh, $sw, $sh )
+function preferred_resize( &$dimg, $simg, $dx, $dy, $sx, $sy, $dw, $dh, $sw, $sh, $rs_mode )
 {
-  if ( get_sys_pref('IMAGE_RESIZING','RESAMPLE') == 'RESAMPLE')
+  if ($rs_mode == '')
+    $rs_mode = get_sys_pref('IMAGE_RESIZING','RESAMPLE');
+    
+  if ( $rs_mode == 'RESAMPLE')
     imagecopyresampled( $dimg,  $simg , $dx, $dy, $sx, $sy, $dw, $dh, $sw, $sh );
   else
     ImageCopyResized( $dimg,  $simg , $dx, $dy, $sx, $sy, $dw, $dh, $sw, $sh );
@@ -79,11 +82,14 @@ function precache( $filename, $x, $y, $overwrite = true )
 // the file from disk or from the database and the image's current x/y size).
 // -------------------------------------------------------------------------------------------------
 
-function cache_filename( $filename, $x, $y )
+function cache_filename( $filename, $x, $y, $rs_mode = '' )
 {
   $cache_dir = get_sys_pref('cache_dir');
+  if ($rs_mode == '')
+    $rs_mode = get_sys_pref('IMAGE_RESIZING','RESAMPLE');
+    
   if ($cache_dir != '')
-    return $cache_dir.'/SwissCenter_'.sha1($filename).'_x'.$x.'y'.$y.'.png';
+    return $cache_dir.'/SwissCenter_'.sha1($filename).'_x'.$x.'y'.$y.'_'.strtolower($rs_mode).'.png';
   else
     return false;
 }
@@ -205,7 +211,7 @@ class CImage
   function allocate_colour( $r, $g, $b, $alpha = 0)
   {
     if ($this->image !== false)
-      return imagecolorallocatealpha($this->image, 255, 255, 255, 127);
+      return imagecolorallocatealpha($this->image, $r, $g, $b, $alpha);
     else
       return false;
   }
@@ -315,7 +321,7 @@ class CImage
   // Copies a section of the given image onto the current image
   // -------------------------------------------------------------------------------------------------
 
-  function copy(&$src_image, $dest_x, $dest_y, $dest_w = 0, $dest_h = 0)
+  function copy(&$src_image, $dest_x, $dest_y, $dest_w = 0, $dest_h = 0, $rs_mode = '')
   {
     if ($this->image !== false)
     {
@@ -324,7 +330,7 @@ class CImage
       if ( ($dest_w == $src_image->get_width() && $dest_h == $src_image->get_height()) || ($dest_w == 0 && $dest_h == 0) )
         ImageCopy ( $this->image,  $src_image->get_image_ref() , $dest_x, $dest_y, 0,0, $src_image->get_width(), $src_image->get_height());
       else
-        preferred_resize( $this->image,  $src_image->get_image_ref() , $dest_x, $dest_y, 0, 0, $dest_w, $dest_h, $src_image->get_width(), $src_image->get_height() );
+        preferred_resize( $this->image,  $src_image->get_image_ref() , $dest_x, $dest_y, 0, 0, $dest_w, $dest_h, $src_image->get_width(), $src_image->get_height(), $rs_mode );
 
       $this->src_fsp  = false;
     }
@@ -335,7 +341,7 @@ class CImage
   // will be scaled to the given X,Y size, but the aspect ratio will be maintained.
   // -------------------------------------------------------------------------------------------------
 
-  function resize($x, $y, $bgcolour=0, $keep_aspect = true)
+  function resize($x, $y, $bgcolour=0, $keep_aspect = true, $rs_mode = '')
   {
     if ($this->image !== false && $x > 0 && $y > 0 && ($x != $this->width || $y != $this->height))
     {
@@ -353,20 +359,12 @@ class CImage
       }
 
       $old = $this->image;
-      if ($bgcolour === false)
-      {
-        $this->image = ImageCreateTrueColor($newx,$newy);
-        preferred_resize( $this->image, $old, 0,0,0,0, $newx, $newy, $this->width, $this->height);
-      }
-      else
-      {
-        $this->image = ImageCreateTrueColor($x,$y);
-        ImageSaveAlpha($this->image, true);
-        ImageAlphaBlending( $this->image, false);
-        $bgcolour = $this->allocate_colour(255,0,0,0);
-        imagefill($this->image,0,0,$bgcolour);
-        preferred_resize($this->image, $old, ($x-$newx)/2, ($y-$newy)/2, 0, 0, $newx, $newy, $this->width, $this->height);
-      }
+      $this->image = ImageCreateTrueColor($x,$y);
+      ImageAlphaBlending( $this->image, false);
+      ImageSaveAlpha($this->image, true);
+      $bgcolour = $this->allocate_colour(0,0,0,127);
+      imagefill($this->image,0,0,$bgcolour);
+      preferred_resize($this->image, $old, ($x-$newx)/2, ($y-$newy)/2, 0, 0, $newx, $newy, $this->width, $this->height, $rs_mode);
 
       imagedestroy($old);
       $this->update_sizes();

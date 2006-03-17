@@ -20,21 +20,39 @@
 
   $server     = server_address();
   $data       = get_tracklist_to_play();
+  $max_size   = max_playlist_size();
   $item_count = 0;
+  $media_type = 0;
+  $file_id    = 0; 
   
   debug_to_log('Generating list of media files to send to the networked media player.');
   
   foreach ($data as $row)
   {
-    if ($item_count >= max_playlist_size() )
+    if ($item_count >= $max_size)
       break;
+
+    // We need to identify the media_type. This may have been passed in on the query string (if the list of files
+    // are all of the same type) or we may need to determine it from the database.
+    if (isset($_REQUEST["media_type"]) && !empty($_REQUEST["media_type"]))
+    {
+      $media_type = $_REQUEST["media_type"];  
+      $file_id    = $row["FILE_ID"];
+    }
+    else
+    {
+      find_media_in_db($row["DIRNAME"].$row["FILENAME"], $media_type, $file_id);
+    }
       
     if ( is_null($row["TITLE"]) )
       $title = rtrim(file_noext(basename($row["FILENAME"])));
     else
       $title = rtrim($row["TITLE"]);
 
-    $url = $server.make_url_path(ucfirst($row["DIRNAME"]).$row["FILENAME"]);
+    // NOTE: An extra (unused) parameter is appended onto the end URL to inform the media player of the filetype. 
+    //       If this is missing, then the player reports "unknown format" 
+    
+    $url = $server.'stream.php?media_type='.$media_type.'&file_id='.$file_id.'&ext=.'.file_ext($row["FILENAME"]);
     debug_to_log(' - '.$url);
       
     if (is_hardware_player())

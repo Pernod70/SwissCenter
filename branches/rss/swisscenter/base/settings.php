@@ -104,22 +104,21 @@ if ( test_db() == 'OK' )
     $_SESSION["update"]["timeout"]   = time()+86400; 
   }
 
-  // Record the USER_AGENT_STRING reported by the browser (or hardware) so that we can get an idea
-  // as to what the various boxes report, and therefore distinguish between them in the future.
+  // Record the details for this client
   
-  if (!isset($_SESSION["device"]))
+//  if (!isset($_SESSION["device"]))
   { 
-    $device = array();
-    $device["ip_address"]   = str_replace('\\','/',$_SERVER["REMOTE_ADDR"]);
-    $device["agent_string"] = $_SERVER['HTTP_USER_AGENT'];
-  
-    if (strlen($device["ip_address"])>0)
-    {
-  	  db_sqlcommand("delete from clients where ip_address='".$device["ip_address"]."'");
-  	  db_insert_row('clients',$device);
-    }
+    $_SESSION["device"]["last_seen"]  = db_datestr();
+    $_SESSION["device"]["ip_address"] = str_replace('\\','/',$_SERVER["REMOTE_ADDR"]);
 
-    $_SESSION["device"] = $device;  
+    get_player_type();
+    get_screen_type();
+    
+    if (strlen($_SESSION["device"]["ip_address"])>0)
+    {
+  	  db_sqlcommand("delete from clients where ip_address='".$_SESSION["device"]["ip_address"]."'");
+  	  db_insert_row('clients',$_SESSION["device"]);
+    }
   }
 
 }

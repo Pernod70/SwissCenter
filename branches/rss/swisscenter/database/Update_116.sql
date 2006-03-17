@@ -30,7 +30,7 @@ CREATE TABLE rss_channels
     max_age INT NOT NULL DEFAULT 30,
     published_date DATETIME NULL,
     modified_date DATETIME NULL,
-    certificate_id INT NOT NULL    
+    certificate_id INT NOT NULL
 );
 
 CREATE TABLE rss_items

@@ -46,18 +46,18 @@
     }
 
     $fc = new infotab();
-    $fc->set_col_attrib(1,'width',convert_x(5.4));
+    $fc->set_col_attrib(1,'width',convert_x(54));
     $fc->set_col_attrib(1,'align','right');
     $fc->set_col_attrib(2,'align','right');
-    $fc->set_col_attrib(2,'width',convert_x(7));
+    $fc->set_col_attrib(2,'width',convert_x(70));
     $fc->add_item('Hi', $xml_fc["dayf"][$i]["hi"].chr(176).$xml_fc["head"]["ut"]);
     $fc->add_item('Lo', $xml_fc["dayf"][$i]["low"].chr(176).$xml_fc["head"]["ut"]);
     $day = date('D',time()+$i*86400);
 
     echo '<td><center><font color="'.style_value("TITLE_COLOUR").'" size="4">'.$day.'</font><p>'
-         .img_gen(SC_LOCATION.'/weather/large/'.$xml_fc["dayf"][$i]["d"]["icon"].'.gif',10,13).'<br>';
+         .img_gen(SC_LOCATION.'/weather/large/'.$xml_fc["dayf"][$i]["d"]["icon"].'.gif',100,130,false,false,'RESIZE').'<br>';
           $fc->display(100);
-    echo  img_gen(SC_LOCATION.'/weather/large/'.$xml_fc["dayf"][$i]["n"]["icon"].'.gif',10,13).'><br>
+    echo  img_gen(SC_LOCATION.'/weather/large/'.$xml_fc["dayf"][$i]["n"]["icon"].'.gif',100,130,false,false,'RESIZE').'<br>
           </center><p></td>';
   }
               
@@ -65,10 +65,10 @@
         </table><p>
         <table cellspacing=0 cellpadding=0 width="100%">
           <tr>
-            <td width="'.convert_x(64).'">';
-              $menu->display(56);
+            <td width="'.convert_x(640).'">';
+              $menu->display(560);
   echo '    </td>
-            <td align="center"><a href="'.weather_link().'">'.img_gen(SC_LOCATION.'/weather/logo.gif',13,13).'></a></td>
+            <td align="center" valign="bottom"><a href="'.weather_link().'">'.img_gen(SC_LOCATION.'/weather/logo.gif',130,130,false,false,'RESIZE').'</a></td>
           </tr>
         </table>';
 

@@ -29,7 +29,8 @@
   $format     = strtolower(file_ext($filename));
   $x          = $_REQUEST["x"];
   $y          = $_REQUEST["y"];
-  $cache_file = cache_filename($filename, $x, $y);
+  $rs_mode    = $_REQUEST["rs_mode"];
+  $cache_file = cache_filename($filename, $x, $y, $rs_mode);
   $aspect     = (isset($_REQUEST["stretch"]) ? false : true);
 
   // Is there a cached version available?
@@ -51,7 +52,7 @@
       send_to_log('Unable to process image specified : '.$filename);  
     
     // Resize it to the required size, whilst maintaining the correct aspect ratio
-    $image->resize($x, $y, 0, $aspect);
+    $image->resize($x, $y, 0, $aspect, $rs_mode);
     
     // Output the image to the browser.
     if (isset($_REQUEST["type"]))
