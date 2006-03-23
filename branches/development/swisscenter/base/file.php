@@ -500,6 +500,43 @@ function file_save_albumart( $url, $fsp, $film_title )
   }
 }
 
+//-------------------------------------------------------------------------------------------------
+// Returns the location of the PHP.INI file
+//-------------------------------------------------------------------------------------------------
+
+function  php_ini_location()
+{
+  ob_start();
+  phpinfo(INFO_GENERAL);
+  $text = ob_get_contents();
+  ob_end_clean();
+ 
+  preg_match('#php.ini.*?</td><td class="v">(.*?)<#',$text,$matches);
+  if (!empty($matches[1]))
+    return $matches[1];
+  else 
+    return false;
+}
+
+function php_cli_location()
+{
+  if ( is_windows() )
+  {
+    if ( isset($_SERVER["SCRIPT_FILENAME"]) && !empty($_SERVER["SCRIPT_FILENAME"]))
+      return str_replace('\\','/',$_SERVER["SCRIPT_FILENAME"]);
+    else 
+      return false;
+  }
+  else
+  {
+    $location = trim(syscall('which php'));
+    if (substr($location,0,6) != 'no php')
+      return $location;
+    else 
+      return false;
+  }
+}
+
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/
