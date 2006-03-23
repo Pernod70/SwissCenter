@@ -23,26 +23,11 @@ require_once( realpath(dirname(__FILE__).'/language.php'));
   define('MEDIA_TYPE_RADIO',4);
   
 #-------------------------------------------------------------------------------------------------
-# Check that the correct versions of PHP is present on the system.
-#-------------------------------------------------------------------------------------------------
-
-  // Determine PHP location
-  if ( is_windows() )
-    define ('PHP_LOCATION', str_replace('\\','/',$_SERVER["SCRIPT_FILENAME"]));
-  else
-    define ('PHP_LOCATION', trim(syscall('which php')));
-
-#-------------------------------------------------------------------------------------------------
 # Determine the location of the SwissCenter installation, and required files.
 #-------------------------------------------------------------------------------------------------
 
   // Where is the SwissCenter installed?
-  if (!empty($_SERVER['DOCUMENT_ROOT']))
-    define ('SC_LOCATION',str_replace('\\','/',os_path($_SERVER["DOCUMENT_ROOT"],true)));
-  elseif (!empty($_SERVER['PHP_SELF']))
-    define ('SC_LOCATION', str_replace('\\','/',dirname($_SERVER['PHP_SELF']).'/'));
-  else 
-    define ('SC_LOCATION', str_replace('\\','/',dirname($_SERVER["argv"][0]).'/'));
+  define('SC_LOCATION', str_replace('\\','/',realpath(dirname(dirname(__FILE__)))).'/' );
   
   // Ensure a logfile location is defined
   if ( !defined('LOGFILE'))
