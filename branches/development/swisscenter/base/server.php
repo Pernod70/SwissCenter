@@ -50,6 +50,15 @@
   function is_server_simese()
   { return get_server_type() == "SIMESE"; }
   
+  function apache_version()
+  {
+    preg_match('#Apache/(.*?) #',$_SERVER["SERVER_SOFTWARE"], $matches);
+    if (!empty($matches[1]))
+      return $matches[1];
+    else 
+      return false;
+  }
+  
   function simese_version()
   {
     if ( is_server_simese() )
@@ -121,6 +130,21 @@
     }
     
     return ( $_SESSION["internet"]["available"] == 'YES' );
+  }
+
+  // ----------------------------------------------------------------------------------
+  // Returns TRUE if the windows Task Scheduler service is running
+  // ----------------------------------------------------------------------------------
+
+  function is_task_scheduler_running()
+  {
+    if (is_windows())
+    {
+      $services = syscall('net start');
+      return ( strpos($services,'Task Scheduler') !== false );
+    }
+    else 
+      return 'Not running on windows';
   }
   
 /**************************************************************************************************

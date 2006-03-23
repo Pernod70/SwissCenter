@@ -63,30 +63,6 @@ function is_pc()
 { return get_player_type() == "PC"; }
 
 #-------------------------------------------------------------------------------------------------
-# Determine screen type (currently only PAL or NTSC - no support for HDTV).
-#-------------------------------------------------------------------------------------------------
-
-function OLD_get_screen_type()
-{  
-  if ( !isset($_SESSION["display_type"]) )
-  {
-    if (is_hardware_player())
-    {
-      $text = @file_get_contents('http://'.client_ip().':2020/readsyb_options_page.cgi');  
-      send_to_log("Player has identified it's options as: ",$text);
-      if (substr_between_strings($text, 'HasPAL','/HasPAL') == 1)
-        $_SESSION["display_type"] = 'PAL';
-      else
-        $_SESSION["display_type"] = 'NTSC';
-    }
-    else 
-      $_SESSION["display_type"] = 'PAL';
-  }
-  
-  return $_SESSION["display_type"];
-}
-
-#-------------------------------------------------------------------------------------------------
 # Maximum size playlist that the hardware players can accept.
 #-------------------------------------------------------------------------------------------------
 
@@ -183,6 +159,21 @@ function media_exts_photos()
 {
   return explode(',' ,'jpeg,jpg,gif');
 }
+
+#-------------------------------------------------------------------------------------------------
+# Returns an array of PHP modules that are required/suggested to be installed for this player type
+#-------------------------------------------------------------------------------------------------
+
+function get_required_modules_list()
+{
+  return explode(',','gd,mbstring,mysql,xml,session');
+}
+
+function get_suggested_modules_list()
+{
+  return explode(',','zip');
+}
+
 
 /**************************************************************************************************
                                                End of file
