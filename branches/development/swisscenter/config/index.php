@@ -36,8 +36,7 @@
            "DB_HOST=$host ".newline().
            "DB_USERNAME=$user ".newline().
            "DB_PASSWORD=$pass ".newline().
-           "DB_DATABASE=$name ".newline().
-           "LOGFILE=".(defined('LOGFILE') ? LOGFILE : '');
+           "DB_DATABASE=$name ".newline();
   
     // Try to make a MySQL connection using the details given
     $db_stat = test_db($host,$user,$pass,$name); 
@@ -125,26 +124,9 @@
     }
     else 
     {
-      // The user has not specified an action, so try to work out which page they should be viewing
-      if ($db_stat != 'OK')
-      {
-        // No database - this must be their first visit. Prompt for them to create a database
-        include_once('config_install.php');
-        install_display();
-      }
-      else
-      {
-        // Database is OK - Remove any old databsae update scripts that are still hanging around
-        // and then display all the categories that they have defined.
-      
-        $sched = syscall('at');
-        foreach(explode("\n",$sched) as $line)
-          if (strstr($line,'db_update.php'))
-             syscall('at '.substr(ltrim($line),0,strpos(ltrim($line),' ')).' /delete'); 
-
-        include_once('config_category.php');
-        category_display();  
-      }
+      // The user has not specified an action, so run installation tests and display the results.
+      include_once('config_check.php');
+      check_display();  
     }
   }
 

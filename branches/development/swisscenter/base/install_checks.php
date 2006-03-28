@@ -26,7 +26,7 @@ require_once( realpath(dirname(__FILE__).'/file.php'));
 
 function check_php_version()
 {
-  return version_compare(phpversion(),'4.3.9','>=');
+  return ( version_compare(phpversion(),'4.3.9','>=') && version_compare(phpversion(),'5.0.0','<=') );
 }
 
 
@@ -35,6 +35,11 @@ function check_php_ini_location()
   return (php_ini_location() !== false);
 }
 
+
+function check_php_cli()
+{
+  return (php_cli_location() !== false);
+}
 
 function check_php_required_modules()
 {
@@ -63,10 +68,10 @@ function check_php_suggested_modules()
 function check_mysql_connect()
 {
   # Do we have defined constants for database connectivity?
-  if ( !defined('DB_HOST') || !defined('DB_DATABASE') || !defined('DB_USERNAME') || !defined('DB_PASSWORD'))
+  if ( !defined('DB_HOST') || !defined('DB_DATABASE') || !defined('DB_PASSWORD'))
     return false;
 
-  if ( ($db = @mysql_pconnect( DB_HOST, DB_USERNAME, DB_PASSWORD )) && mysql_select_db(DB_DATABASE, $db) )
+  if ( ($db = @mysql_pconnect( DB_HOST, DB_USERNAME, DB_PASSWORD )) )
     return true;
   else 
     return false;
@@ -75,10 +80,29 @@ function check_mysql_connect()
 
 function check_mysql_version()
 {
-  $version = db_value("select version()");
-  return version_compare($version,'4.0','>=');  
+  if ( ($db = @mysql_pconnect( DB_HOST, DB_USERNAME, DB_PASSWORD )) )
+  {  
+    $stmt = mysql_query( 'select version()', $db);
+    if ($row = mysql_fetch_array( $stmt, MYSQL_ASSOC ))
+    {
+      $version = array_pop($row);
+      return version_compare($version,'4.0','>=');  
+    }
+    else 
+      return false;
+  }  
+  else 
+    return false;
 }
 
+
+function check_mysql_database_exists()
+{
+  if (check_mysql_connect())
+    return (test_db(DB_HOST,DB_USERNAME,DB_PASSWORD,DB_DATABASE) == 'OK');
+  else 
+    return false;
+}
 
 #-------------------------------------------------------------------------------------------------
 # Webserver checks
@@ -104,7 +128,7 @@ function check_web_version()
 
 function check_swiss_write_log_dir()
 {
-  return is_writeable(SC_LOCATION.'/log/');  
+  return is_writeable(dirname(logfile_location()));  
 }
 
 
@@ -119,6 +143,18 @@ function check_swiss_media_locations()
   return (db_value("select count(*) from media_locations") > 0);
 }
 
+
+function check_swiss_write_rootdir()
+{
+  return ( is_readable(SC_LOCATION) && is_writable(SC_LOCATION) );  
+}
+
+
+function check_not_root_install()
+{
+  $info = stat(SC_LOCATION.'/index.php');
+  return ! (is_unix() && ($info[4]==0 || $info[5]==0));
+}
 
 #-------------------------------------------------------------------------------------------------
 # Scheduler
@@ -144,7 +180,7 @@ function check_server_scheduler()
   else 
   {
     // Linux - So check that crontab is available for use.
-    return true;
+    return ( strpos(syscall("crontab -l 2>&1"),'not allowed') === false);
   }
 }
 
@@ -162,42 +198,19 @@ Function get_check_results()
   $results['PHP required mods']      = check_php_required_modules();
   $results['PHP suggested mods']     = check_php_suggested_modules();
   $results['PHP version']            = check_php_version();
+  $results['PHP cli']                = check_php_cli();
   $results['MYSQL connect']          = check_mysql_connect();
   $results['MYSQL version']          = check_mysql_version();
+  $results['MYSQL database']         = check_mysql_database_exists();
   $results['SWISS ini file']         = check_swiss_ini_file();
   $results['SWISS media locs']       = check_swiss_media_locations();
   $results['SWISS write log']        = check_swiss_write_log_dir();
   $results['SERVER scheduler']       = check_server_scheduler();
+  $results['SWISS write root']       = check_swiss_write_rootdir();
+  $results['SWISS root install']     = check_not_root_install();
+
   return $results;
 }
-
-#-------------------------------------------------------------------------------------------------
-#-------------------------------------------------------------------------------------------------
-#-------------------------------------------------------------------------------------------------
-#-------------------------------------------------------------------------------------------------
-#-------------------------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------------------------
-#- Checks to see if the SwissCenter installation directory is readable/writeable.
-#-------------------------------------------------------------------------------------------------
-
-if (! is_writable(SC_LOCATION) || ! is_readable(SC_LOCATION))
-  fatal_error(str('MISSING_PERMS_TITLE'),str('MISSING_PERMS_TEXT'));
-  
-$info = stat(SC_LOCATION.'/index.php');
-if (is_unix() && ($info[4]==0 || $info[5]==0))
-  fatal_error(str('ROOT_INSTALL_TITLE'),str('ROOT_INSTALL_TEXT'));
-  
-#-------------------------------------------------------------------------------------------------
-# Tests to see if there is a database to connect to.
-#-------------------------------------------------------------------------------------------------
-
-if ( test_db(DB_HOST,DB_USERNAME,DB_PASSWORD,DB_DATABASE) != 'OK')
-  fatal_error(str('MISSING_DB_TITLE'),str('MISSING_DB_TEXT'));
-
-#-------------------------------------------------------------------------------------------------
-# If running on windows, then check that the "Task Scheduler" service is running.
-#-------------------------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------------------------
 #                                             End of file

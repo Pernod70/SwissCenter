@@ -188,7 +188,7 @@ MISSING_INI_TEXT	= Please use the Configuration Utility to create a configuratio
 MISSING_INI_TITLE	= Your SwissCenter configuration file is missing.
 MISSING_MEDIA_TEXT	= Please use the Configuration Utility to add some media locations. 
 MISSING_MEDIA_TITLE	= You have no media locations defined.
-MISSING_PERMS_TEXT	= The directory that you have installed SwissCenter is not readable/writeable by the webserver user.
+MISSING_PERMS_TEXT	= The directory where you have installed SwissCenter is not readable/writeable by the webserver user.
 MISSING_PERMS_TITLE	= Installation incorrent
 MISSING_SCHED_TEXT	= The windows "Task Scheduler" service is require by SwissCenter to enable searching for media files. 
 MISSING_SCHED_TITLE	= "Task Scheduler" service not running.
@@ -514,26 +514,37 @@ CURRENT_VERSION		= Current Version
 
 SEARCH_WIKIPEDIA	= Lookup in Wikipedia
 INSTALL_TEST_TITLE	= Installation Checks
-PASS_PHP_INI		= Successfully located the 'php.ini
-FAIL_PHP_INI		= Unable to locate the 'php.ini' file
-PASS_MYSQL_CONNECT	=
-FAIL_MYSQL_CONNECT	=
-PASS_MYSQL_VERSION	=
-FAIL_MYSQL_VERSION	=
-PASS_PHP_EXTRA_MODS	=
-FAIL_PHP_EXTRA_MODS	=
-PASS_PHP_REQ_MODS	=
-FAIL_PHP_REQ_MODS	=
-PASS_PHP_VERSION	=
-FAIL_PHP_VERSION	=
-PASS_SERVER_SCHED	=
-FAIL_SERVER_SCHED	=
-PASS_SWISS_INI		=
-FAIL_SWISS_INI		=
-PASS_SWISS_LOCS		=
-FAIL_SWISS_LOCS		=
-PASS_SWISS_LOG		=
-FAIL_SWISS_LOG		=
+INSTALL_TEST_SUCCESS    = The following tests were successful: 
+INSTALL_TEST_FAIL_WEB   = The following tests failed:
+INSTALL_TEST_FAIL_CLI   = The following tests failed:when run in the background.
+
+FAIL_MYSQL_VERSION      = Your version of MySQL is not supported.
+FAIL_MYSQL_CONNECT	= Unable to connect to the MySQL server.
+FAIL_MYSQL_DB           = Unable to connect to the SwissCener database (Have you created one?)
+FAIL_PHP_CLI            = You have no command line version of PHP installed. SwissCenter will be unable to search for new media files.
+FAIL_PHP_INI		= Unable to locate the 'php.ini' file.
+FAIL_PHP_VERSION        = Your version of PHP is not supported (%s)..
+FAIL_PHP_REQ_MODS       = Not all PHP modules required by SwissCenter are available (required modules are: [b]%s[/b]).
+FAIL_PHP_EXTRA_MODS     = Not all recommended PHP modules are available. Some non-critical features have been disabled as a result (recommended modules are: [b]%s[/b]).
+FAIL_SERVER_SCHED	= Background jobs are unable to run - this may be because cron (linux) or the task scheduler service (windows) is disabled.
+FAIL_SWISS_INI		= Unable to locate the 'swisscenter.ini' file. [br]Have you created a SwissCenter database yet?
+FAIL_SWISS_LOCS         = No media locations have been defined.
+FAIL_SWISS_LOG		= Unable to write to the SwissCenter log file (%s). 
+
+PASS_MYSQL_VERSION      = Your version of MySQL is supported.
+PASS_MYSQL_CONNECT	= Successfully connected to the MySQL server.
+PASS_MYSQL_DB           = Successfully connected to the SwissCenter database.
+PASS_PHP_CLI            = A command line version of PHP has been detected.
+PASS_PHP_INI            = Successfully located the 'php.ini' file.
+PASS_PHP_VERSION        = Your version of PHP is supported.
+PASS_PHP_REQ_MODS       = All required PHP modules are available.
+PASS_PHP_EXTRA_MODS     = All suggested PHP modules are available.
+PASS_SERVER_SCHED	= Automatic searching for new media is supported.
+PASS_SWISS_INI		= Successfully located the 'swisscenter.ini' file.
+PASS_SWISS_LOCS		= Media locations have been defined.
+PASS_SWISS_LOG		= Logging enabled.
+PASS_SWISS_ROOT_INS     = Installation was as a user other than root.
+PASS_SWISS_RW_FILES     = Able to Read/Write to the SwissCenter installation directory.
 
 #----------------------------------------------------------------------------------------------------
 # End-of-file

@@ -202,7 +202,7 @@ function db_value( $sql)
   $result  = '';
 
   if (!$success)
-    send_to_log("Unable to query database - ".$recs->db_get_error());
+    send_to_log("Unable to query database: ".$recs->db_get_error());
 
   $result = @array_pop($recs->db_fetch_row());
   $recs->destroy();
@@ -301,25 +301,34 @@ class db_query
 
   function db_query($sql = '', $dbname = '')
   {
-    $this->sql_to_execute = $sql;
-    
-    if ($dbname == '')
-      $dbname = DB_DATABASE;
-      
-    if ($this->db_handle = @mysql_pconnect( DB_HOST, DB_USERNAME, DB_PASSWORD ) )
+    if (!defined('DB_HOST'))
     {
-      if (mysql_select_db($dbname, $this->db_handle) )
+      $this->stmt_handle = false;
+    }
+    else
+    {
+    
+      if ($dbname == '')
+        $dbname = DB_DATABASE;
+        
+      if ($this->db_handle = @mysql_pconnect( DB_HOST, DB_USERNAME, DB_PASSWORD ) )
       {
-        $this->rows_fetched = 0;
-        if (! empty($sql) )
+        if (mysql_select_db($dbname, $this->db_handle) )
         {
-          $this->stmt_handle = mysql_query( $sql, $this->db_handle);
-          // @debug_to_log("SQL> ".$sql);
+          $this->rows_fetched = 0;
+          if (! empty($sql) )
+          {
+            $this->sql_to_execute = $sql;
+            $this->stmt_handle = mysql_query( $sql, $this->db_handle);
+            // @debug_to_log("SQL> ".$sql);
+          }
         }
       }
+      else 
+      {
+        send_to_log("Connected Failed :: " . mysql_error());
+      }
     }
-    else 
-      send_to_log("Connected Failed :: " . mysql_error());
   }
 
   #-------------------------------------------------------------------------------------------------
@@ -373,7 +382,7 @@ class db_query
     if ($this->db_handle)
       return mysql_error($this->db_handle);
     else 
-      return 'Invalid database handle';
+      return '';
   }
 
   function db_success($log_error = true)

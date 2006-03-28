@@ -160,7 +160,7 @@ function get_images_from_html ($string)
 
 function syscall($command)
 {
-  $result = '';
+  $result = false;
   
   if ($proc = popen("($command)","r"))
   {

@@ -29,13 +29,6 @@ require_once( realpath(dirname(__FILE__).'/language.php'));
   // Where is the SwissCenter installed?
   define('SC_LOCATION', str_replace('\\','/',realpath(dirname(dirname(__FILE__)))).'/' );
   
-  // Ensure a logfile location is defined
-  if ( !defined('LOGFILE'))
-  {
-    define('LOGFILE',os_path(SC_LOCATION.'log/support.log'));
-    update_ini(os_path(SC_LOCATION.'config/swisscenter.ini'),'LOGFILE',LOGFILE);
-  }
-
 #-------------------------------------------------------------------------------------------------
 # Process the SwissCenter configuration file which contains the MySQL database connection details
 # and location of the support log file.

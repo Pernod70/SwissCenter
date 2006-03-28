@@ -53,45 +53,60 @@ function dir_to_array ($dir, $pattern = '.*', $opts = 7 )
 }
 
 //-------------------------------------------------------------------------------------------------
-// Routine to add a message and (optionally) the contents of a variable to the swisscenter logfile.
-// NOTE: If the logfile has become more than 1Mb in size then it is archived and a new log is 
+// Returns the path/filename of the logfile.
+//-------------------------------------------------------------------------------------------------
+
+function logfile_location()
+{
+  return str_replace('\\','/',realpath(dirname(__FILE__).'/../log/support.log'));
+}
+
+//-------------------------------------------------------------------------------------------------
+// Routine to add a message and (optionally) the contents of a variable to the swisscenter log.
+// NOTE: If the logv has become more than 1Mb in size then it is archived and a new log is 
 //       started. Only one generation of logs is archived (so current log and old log only)
 //-------------------------------------------------------------------------------------------------
 
 function send_to_log( $item, $var = '')
 {
-  if (defined('LOGFILE'))
+  if (!empty($item) || !empty($var))
   {
-    $time = '['.date('Y.m.d H:i:s').'] ';
+    $log = logfile_location();
     
-    // If the file > 1Mb then archive it and start a new log.
-    if (@filesize(LOGFILE) > 1048576)
+    if ( $log !== false )
     {
-      @unlink(LOGFILE.'.old');
-      @rename(LOGFILE,LOGFILE.'.old');
-    }
-    
-    // Write log entry to file.
-    if ($handle = fopen(LOGFILE, 'a'))
-    {
-      @fwrite($handle, $time.$item.newline());
-      if (!empty($var))
+      $time = '['.date('Y.m.d H:i:s').'] ';
+      
+      // If the file > 1Mb then archive it and start a new log.
+      if (@filesize($log) > 1048576)
       {
-        $out = explode("\n",print_r($var,true));
-        foreach ($out as $line)
-          @fwrite($handle,$time.$line.newline());
+        @unlink($log.'.old');
+        @rename($log,$log.'.old');
       }
-      fclose($handle);
-    }   
-    else 
-    {
-      echo str('LOGFILE_ERROR').' '.LOGFILE;
-      exit;
+      
+      // Write log entry to file.
+      if ($handle = fopen($log, 'a'))
+      {
+        @fwrite($handle, $time.$item.newline());
+        if (!empty($var))
+        {
+          $out = explode("\n",print_r($var,true));
+          foreach ($out as $line)
+            @fwrite($handle,$time.$line.newline());
+        }
+        fclose($handle);
+      }   
+      else 
+      {
+        echo str('LOGFILE_ERROR').' '.$log;
+        exit;
+      }
     }
   }
 }
 
 //-------------------------------------------------------------------------------------------------
+// Writes entries to the logfile if DEBUG mode is enabled.
 //-------------------------------------------------------------------------------------------------
 
 function debug_to_log( $item, $var='')
@@ -105,6 +120,7 @@ function debug_to_log( $item, $var='')
 // - If $fsp is already an absolute path, then nothing is done.
 // - if $fsp is not an absolute path, then directory $dir is added to make one.
 //-------------------------------------------------------------------------------------------------
+
 function make_abs_file( $fsp, $dir )
 {
   if ( substr(PHP_OS,0,3)=='WIN' )
@@ -135,14 +151,14 @@ function os_path( $path, $addslash=false )
     if ($addslash)
       return str_suffix(preg_replace('/\//', '\\', $path),'\\');
     else
-      return preg_replace('/\//', '\\', $path);
+      return str_replace('/', '\\', $path);
   }
   else
   {
     if ($addslash)
       return str_suffix(preg_replace('/\//', '/', $path),'/');
     else
-      return preg_replace('/\//', '/', $path);
+      return $path;
   }
 }
 
@@ -523,17 +539,17 @@ function php_cli_location()
   if ( is_windows() )
   {
     if ( isset($_SERVER["SCRIPT_FILENAME"]) && !empty($_SERVER["SCRIPT_FILENAME"]))
-      return str_replace('\\','/',$_SERVER["SCRIPT_FILENAME"]);
+      return str_replace('\\','/',stripslashes($_SERVER["SCRIPT_FILENAME"]));
     else 
       return false;
   }
   else
   {
     $location = trim(syscall('which php'));
-    if (substr($location,0,6) != 'no php')
-      return $location;
-    else 
+    if (empty($location) || strpos($location,'no php') !== false)
       return false;
+    else 
+      return $location;
   }
 }
 
