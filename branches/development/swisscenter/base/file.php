@@ -513,7 +513,7 @@ function  php_ini_location()
  
   preg_match('#php.ini.*?</td><td class="v">(.*?)<#',$text,$matches);
   if (!empty($matches[1]))
-    return $matches[1];
+    return trim($matches[1]);
   else 
     return false;
 }

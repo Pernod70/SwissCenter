@@ -513,6 +513,27 @@ CURRENT_VERSION		= Current Version
 # -----------------------
 
 SEARCH_WIKIPEDIA	= Lookup in Wikipedia
+INSTALL_TEST_TITLE	= Installation Checks
+PASS_PHP_INI		= Successfully located the 'php.ini
+FAIL_PHP_INI		= Unable to locate the 'php.ini' file
+PASS_MYSQL_CONNECT	=
+FAIL_MYSQL_CONNECT	=
+PASS_MYSQL_VERSION	=
+FAIL_MYSQL_VERSION	=
+PASS_PHP_EXTRA_MODS	=
+FAIL_PHP_EXTRA_MODS	=
+PASS_PHP_REQ_MODS	=
+FAIL_PHP_REQ_MODS	=
+PASS_PHP_VERSION	=
+FAIL_PHP_VERSION	=
+PASS_SERVER_SCHED	=
+FAIL_SERVER_SCHED	=
+PASS_SWISS_INI		=
+FAIL_SWISS_INI		=
+PASS_SWISS_LOCS		=
+FAIL_SWISS_LOCS		=
+PASS_SWISS_LOG		=
+FAIL_SWISS_LOG		=
 
 #----------------------------------------------------------------------------------------------------
 # End-of-file
