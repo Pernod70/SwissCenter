@@ -10,6 +10,10 @@
   $table      = db_value("select media_table from media_types where media_id = ".$_REQUEST["media_type"]);          
   $location   = db_value("select concat(dirname,filename) from $table where file_id= $file_id");
 
+  // **Sanity check** - Do we have permissions to read this file?
+  if (!is_readable($local))
+    send_to_log("Error: SwissCenter does not have permissions to read the file '$location'");
+  
   // We have to perform on-the-fly resizing for images, so we need to redirect them through the thumb.php 
   // script. For other file types, we don't need to do anything.
   
