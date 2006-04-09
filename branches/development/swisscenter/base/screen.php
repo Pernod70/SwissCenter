@@ -3,6 +3,9 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
+define('BROWSER_COORDS',1);
+define('SCREEN_COORDS',2);
+
 function store_browser_size( $res )
 {
   // This is really crappy, but the hardware sends the wrong browser resolution for HDTV screens
@@ -91,16 +94,22 @@ function is_screen_hdtv()
 # a decimal component).
 #-------------------------------------------------------------------------------------------------
 
-function convert_x( $x )
+function convert_x( $x, $coords = BROWSER_COORDS )
 {
   get_screen_type();  
-  return ceil($_SESSION["device"]["browser_x_res"] * $x / 1000);
+  if ( $coords == SCREEN_COORDS )
+    return ceil($_SESSION["device"]["screen_x_res"] * $x / 1000);
+  else
+    return ceil($_SESSION["device"]["browser_x_res"] * $x / 1000);
 }
 
-function convert_y( $y)
+function convert_y( $y, $coords = BROWSER_COORDS )
 {
   get_screen_type(); 
-  return ceil($_SESSION["device"]["browser_y_res"] * $y / 1000);  
+  if ( $coords == SCREEN_COORDS )
+    return ceil($_SESSION["device"]["screen_y_res"] * $y / 1000);  
+  else
+    return ceil($_SESSION["device"]["browser_y_res"] * $y / 1000);  
 }
 
 function font_nearest( $desired_size )

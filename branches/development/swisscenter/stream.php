@@ -19,8 +19,8 @@
   
   if ($media == 2 ) // Photos
   {
-    $x = convert_x(1000);
-    $y = convert_y(1000);
+    $x = convert_x(1000, SCREEN_COORDS);
+    $y = convert_y(1000, SCREEN_COORDS);
     $redirect_url = "thumb.php?type=jpg&x=$x&y=$y&src=".rawurlencode(ucfirst($row["DIRNAME"]).$row["FILENAME"]);
   }
   else 
