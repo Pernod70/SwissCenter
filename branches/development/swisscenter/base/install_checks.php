@@ -180,7 +180,8 @@ function check_server_scheduler()
   else 
   {
     // Linux - So check that crontab is available for use.
-    return ( strpos(syscall("crontab -l 2>&1"),'not allowed') === false);
+    $crontab = syscall("crontab -l 2>&1");
+    return ( ! (strpos($crontab,'not allowed') !== false || strpos($crontab,'do not have permission') !== false) );
   }
 }
 
