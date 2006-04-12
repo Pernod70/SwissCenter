@@ -34,12 +34,12 @@ function current_session()
 
 function up_link( $url)
 {
-  return '<a href="'.$url.'" TVID="PGUP" ONFOCUSLOAD>'.img_gen(SC_LOCATION.style_img("IMG_PGUP"),40,20).'</a>';
+  return '<a href="'.$url.'" TVID="PGUP" ONFOCUSLOAD>'.img_gen(SC_LOCATION.style_img("IMG_PGUP"),40,20,false,false,'RESIZE').'</a>';
 }
 
 function down_link( $url)
 {
-  return '<a href="'.$url.'" TVID="PGDN" ONFOCUSLOAD>'.img_gen(SC_LOCATION.style_img("IMG_PGDN"),40,20).'</a>';
+  return '<a href="'.$url.'" TVID="PGDN" ONFOCUSLOAD>'.img_gen(SC_LOCATION.style_img("IMG_PGDN"),40,20,false,false,'RESIZE').'</a>';
 }
 
 //-------------------------------------------------------------------------------------------------

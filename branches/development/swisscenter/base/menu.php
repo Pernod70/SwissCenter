@@ -33,12 +33,14 @@ class menu
     $this->icons = $show_icons;
   }
 
-  function add_item( $text, $url="", $right=false )
+  function add_item( $text, $url="", $right = false )
   {
-    $right = img_gen(SC_LOCATION.style_img("IMG_RIGHT"), 16 , 40);
+    $icon = img_gen(SC_LOCATION.style_img("IMG_RIGHT"), 16 , 40, false, false, 'RESIZE');
+    
     if (! is_null($text) && !empty($text))
-      $this->menu_items[] = array( "text"=>$text, "url"=>$url,
-                                   "right"=> ($right == true ? '</td><td>'.$right : '') );
+      $this->menu_items[] = array( "text"=>$text
+                                 , "url"=>$url
+                                 , "right"=> ($right == true ? '</td><td>'.$icon : '') );
   }
 
   function add_up( $url )
@@ -85,7 +87,7 @@ class menu
           
         $i++;
 
-        echo '<tr><td valign="middle" width="'.convert_x($size).'" height="'.convert_y(50).'" background="'.$menu_bg_img.'">'.
+        echo '<tr><td valign="middle" width="'.convert_x($size).'" height="'.convert_y(40).'" background="'.$menu_bg_img.'">'.
               '<a style="width:'.(convert_x($size)-2).'" '.
               $link.' TVID="'.$i.'" name="'.$i.'">'.font_tags($this->font_size).'&nbsp;&nbsp;&nbsp;'.$i.'. '.$text.'</font></a>'.$item["right"].'</td></tr>';
       }
