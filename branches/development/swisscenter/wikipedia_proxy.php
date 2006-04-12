@@ -23,7 +23,7 @@ function convert_link ( $wiki, $link )
     elseif ( $matches[1][0] == '#')
       return'<a href="'.current_url().$matches[1].'"><font color="'.$color.'">'.$matches[2].'</font></a>';
     else 
-      return '<a href="/wikipedia_proxy?wiki='.urlencode($wiki).'&url='.urlencode($matches[1]).'"><font color="'.$color.'">'.$matches[2].'</font></a>';
+      return '<a href="/wikipedia_proxy.php?wiki='.urlencode($wiki).'&url='.urlencode($matches[1]).'"><font color="'.$color.'">'.$matches[2].'</font></a>';
   }
   
 //-------------------------------------------------------------------------------------------------
