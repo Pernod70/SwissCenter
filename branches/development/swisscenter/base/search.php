@@ -83,7 +83,7 @@ function  search_media_page( $heading, $title, $main_table, $joined_tables, $col
   // Start outputting the page
   page_header( $heading, $title.' : '.$search, '', $focus );
   echo '<table border=0 width="100%"><tr><td width="'.convert_x(300).'" valign="top">';
-  show_picker( $this_url, $search);
+  show_picker( url_set_param($this_url,'page',0), $search);
   echo '</td><td valign=top>';
 
   if (empty($data))
