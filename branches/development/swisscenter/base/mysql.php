@@ -45,7 +45,9 @@ function db_escape_str( $text )
 
 function test_db($host = DB_HOST , $username = DB_USERNAME , $password = DB_PASSWORD , $database = DB_DATABASE)
 {
-  if (! $db_handle = @mysql_pconnect( $host, $username, $password))
+  if ( !defined('DB_HOST') || !defined('DB_USERNAME') || !defined('DB_PASSWORD') || !defined('DB_DATABASE'))
+    return 'FAIL';
+  elseif (! $db_handle = @mysql_pconnect( $host, $username, $password))
     return '!'.str('DATABASE_NOCONNECT');
   elseif (! mysql_select_db($database, $db_handle) )
     return '!'.str('DATABASE_NOSELECT');
