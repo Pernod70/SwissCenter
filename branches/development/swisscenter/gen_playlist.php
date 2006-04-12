@@ -21,6 +21,7 @@
   $server     = server_address();
   $data       = get_tracklist_to_play();
   $max_size   = max_playlist_size();
+  $resume     = (isset($_REQUEST["resume"]) && $_REQUEST["resume"] == 'Y');
   $item_count = 0;
   $media_type = 0;
   $file_id    = 0; 
@@ -53,10 +54,23 @@
     //       If this is missing, then the player reports "unknown format" 
     
     $url = $server.'stream.php?media_type='.$media_type.'&file_id='.$file_id.'&ext=.'.file_ext($row["FILENAME"]);
-    debug_to_log(' - '.$url);
+    debug_to_log("- ".$url);
+    
+    // If this is a hardware player, then we might wish to resume playback of a file partway through
+    $start_pos = 0;
+    if ( $resume && support_resume() )
+    {
+      $filename = ucfirst($row["DIRNAME"]).$row["FILENAME"];
+      $bookmark_filename = SC_LOCATION."config/bookmarks/".md5("/".$filename).".dat";
+      if (file_exists($bookmark_filename))
+      {
+        $start_pos = (int)trim(file_get_contents($bookmark_filename));
+        debug_to_log("- Resuming playback from ".$start_pos."%");
+      }
+    }
       
     if (is_hardware_player())
-      echo  $title.'|0|0|'.$url."|\n";
+      echo  $title.'|'.$start_pos.'|0|'.$url."|\n";
     else
       echo  $url.newline();
       

@@ -513,6 +513,7 @@ CURRENT_VERSION		= Current Version
 # -----------------------
 
 SEARCH_WIKIPEDIA	= Lookup in Wikipedia
+RESUME_PLAYING          = Resume Playing
 INSTALL_TEST_TITLE	= Installation Checks
 INSTALL_TEST_SUCCESS    = The following tests were successful: 
 INSTALL_TEST_FAIL_WEB   = The following tests failed:

@@ -104,9 +104,14 @@
 
     page_header( $data[0]["TITLE"] ,'');
 
+    // Play now
     $menu->add_item( str('PLAY_NOW')    , play_sql_list(MEDIA_TYPE_VIDEO,"select distinct $select_fields from $sql_table $predicate order by title"));
-    $folder_img = file_albumart($data[0]["DIRNAME"].$data[0]["FILENAME"]);
 
+    // Resume playing
+    if ( support_resume() && file_exists( bookmark_file($data[0]["DIRNAME"].$data[0]["FILENAME"]) ))
+      $menu->add_item( str('RESUME_PLAYING') , resume_file(MEDIA_TYPE_VIDEO,$data[0]["FILE_ID"]), true);
+        
+    // Add to your current plpaylist
     if (pl_enabled())
       $menu->add_item( str('ADD_PLAYLIST') ,'add_playlist.php?sql='.rawurlencode("select distinct $select_fields from movies where file_id=".$data[0]["FILE_ID"]),true);
 
@@ -117,8 +122,9 @@
     // Link to full cast & directors
     // $menu->add_item( str('MOVIE_INFO'), 'video_info.php?movie='.$data[0]["FILE_ID"],true);
     
-    // Display movie information
+    // Display movie information and determine thumbnail
     movie_details($data[0]["FILE_ID"]);
+    $folder_img = file_albumart($data[0]["DIRNAME"].$data[0]["FILENAME"]);
   }
 
   //

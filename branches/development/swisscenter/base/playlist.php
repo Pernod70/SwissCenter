@@ -159,6 +159,34 @@ function play_dir( $media_type, $dir )
 }
   
 //-------------------------------------------------------------------------------------------------
+// Returns a link to RESUME playing a single file of type $media_type (constants defined above)
+// which has a file ID held in $file_id
+//-------------------------------------------------------------------------------------------------
+
+function resume_file( $media_type, $file_id )
+{
+  $params = 'resume=Y&spec_type=file&'.current_session().'&spec='.$file_id.'&media_type='.$media_type;
+  
+  switch ($media_type)
+  {
+    case MEDIA_TYPE_MUSIC:
+         $link   = 'href="gen_playlist.php?'.$params.'" pod="3,1,'.server_address().'playing_list.php?'.$params.'" ';
+         break;
+         
+    case MEDIA_TYPE_VIDEO:
+         $link   = 'href="gen_playlist.php?'.$params.'" vod="playlist" ';
+         break;
+         
+    case MEDIA_TYPE_PHOTO:
+         send_to_log("Attempting to resume playback of a photo don't not make sense.");
+         $link   = false;
+         break;
+  }
+  
+  return $link;
+}
+
+//-------------------------------------------------------------------------------------------------
 // Returns a link to play a single file of type $media_type (constants defined above) which has
 // a file ID held in $file_id
 //-------------------------------------------------------------------------------------------------

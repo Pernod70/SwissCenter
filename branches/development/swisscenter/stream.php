@@ -30,6 +30,7 @@
 
   // Increment the downloads counter for this file
   db_sqlcommand("update $table set viewings = viewings + 1 where file_id=$file_id");
+  set_user_pref('LAST_PLAYED', $location);
 
   // Send a redirect header to the player with the real location of the media file.
   header ("HTTP/1.0 307 Temporary redirect");

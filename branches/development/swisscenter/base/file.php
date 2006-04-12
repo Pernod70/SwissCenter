@@ -58,7 +58,16 @@ function dir_to_array ($dir, $pattern = '.*', $opts = 7 )
 
 function logfile_location()
 {
-  return str_replace('\\','/',realpath(dirname(__FILE__).'/../log/support.log'));
+  return str_replace('\\','/',realpath(dirname(__FILE__).'/../log')).'/support.log';
+}
+
+//-------------------------------------------------------------------------------------------------
+// Returns the bookmark filename (for resume playing) for the given filename (DIRNAME.FILENAME)
+//-------------------------------------------------------------------------------------------------
+
+function bookmark_file( $fsp )
+{
+  return SC_LOCATION."config/bookmarks/".md5("/".ucfirst($fsp)).".dat";
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -72,7 +81,7 @@ function send_to_log( $item, $var = '')
   if (!empty($item) || !empty($var))
   {
     $log = logfile_location();
-    
+
     if ( $log !== false )
     {
       $time = '['.date('Y.m.d H:i:s').'] ';

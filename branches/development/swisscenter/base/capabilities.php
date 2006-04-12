@@ -174,6 +174,16 @@ function get_suggested_modules_list()
   return explode(',','zip');
 }
 
+#-------------------------------------------------------------------------------------------------
+# Is this hardware device / server combination able to support particular features?
+#-------------------------------------------------------------------------------------------------
+
+function support_resume()
+{
+  return (    is_hardware_player() 
+           && is_server_simese() 
+           && version_compare(simese_version(),'1.36','>=')  );
+}
 
 /**************************************************************************************************
                                                End of file
