@@ -554,7 +554,7 @@ function php_cli_location()
   }
   else
   {
-    $location = trim(syscall('which php'));
+    $location = trim(syscall('which php php4 | head -1'));
     if (empty($location) || strpos($location,'no php') !== false)
       return false;
     else 
