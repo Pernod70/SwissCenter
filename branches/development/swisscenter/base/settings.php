@@ -43,8 +43,6 @@ require_once( realpath(dirname(__FILE__).'/language.php'));
         @define (strtoupper($k),$v);
   }
 
- 
-
 #-------------------------------------------------------------------------------------------------
 # Check that the database is available before we continue with checks that should be performed 
 # when every new session is initiated.
@@ -84,7 +82,7 @@ if ( test_db() == 'OK' )
 
   // Record the details for this client
   
-//  if (!isset($_SESSION["device"]))
+  if (!isset($_SESSION["device"]))
   { 
     $_SESSION["device"]["last_seen"]  = db_datestr();
     $_SESSION["device"]["ip_address"] = str_replace('\\','/',$_SERVER["REMOTE_ADDR"]);

@@ -31,11 +31,11 @@ function media_refresh_now()
 // or "cron" to schedule a media refresh)
 //-------------------------------------------------------------------------------------------------
 
-function media_schedule_refresh($schedule)
+function media_schedule_refresh($schedule, $time)
 {
   // Managing the Simese scheduler is best done in Simese, not by the SwissCenter
   if (!is_server_simese())
-    run_background('media_search.php',$schedule);
+    run_background('media_search.php',$schedule, $time);
 }
 
 

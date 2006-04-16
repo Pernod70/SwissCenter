@@ -25,8 +25,13 @@
   }
   else 
   {
-    $redirect_url = make_url_path($location);
-  }
+ 
+    // If using Simese, then use UTF-8 encoding
+    if (is_server_simese())
+      $redirect_url = make_url_path( mb_convert_encoding($location,'UTF-8','ISO-8859-1') );
+    else
+      $redirect_url = make_url_path($location);
+ }
 
   // Increment the downloads counter for this file
   db_sqlcommand("update $table set viewings = viewings + 1 where file_id=$file_id");

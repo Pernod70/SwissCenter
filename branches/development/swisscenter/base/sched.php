@@ -18,15 +18,19 @@ function run_background ( $command, $days = '', $soon ='' )
   if ($php !== false && !empty($command))
   {
     if ( is_windows() )
-    {
-      if (empty($soon))
-        $soon = date('H:i',time()+70);
-  
+    { 
       if (!empty($days)) 
-        $soon.= ' /every:'.$days;
+      {
+        // Using a schedule, so we need to use at to create the job
+        $soon.= date('H:i',time()+70).' /every:'.$days;
+        $cmd = 'at '.$soon.' CMD /C " "'.os_path($php).'" -c "'.os_path(SC_LOCATION.$command).'" "';
+      }
+      else 
+      {
+        // Running immediately.
+		    pclose(popen('start "" "'.os_path($php).'" '.escapeshellarg(os_path(SC_LOCATION.$command)), "r"));        
+      }
         
-      // Windows, so use the "Start" command to run it in another process.
-      $cmd = 'at '.$soon.' CMD /C " "'.os_path($php).'" -c "'.os_path(SC_LOCATION.$command).'" "';
       send_to_log('Executing the following command in the background:',$cmd);
       exec($cmd);
   
