@@ -35,17 +35,15 @@ class getid3_mpeg
 		}
 		$ThisFileInfo['fileformat'] = 'mpeg';
 		fseek($fd, $ThisFileInfo['avdataoffset'], SEEK_SET);
-		$MPEGstreamData       = fread($fd, min(100000, $ThisFileInfo['avdataend'] - $ThisFileInfo['avdataoffset']));
+		$MPEGstreamData       = fread($fd, min(300000, $ThisFileInfo['avdataend'] - $ThisFileInfo['avdataoffset']));
 		$MPEGstreamDataLength = strlen($MPEGstreamData);
 
 		$foundVideo = true;
-		$VideoChunkOffset = 0;
-		while (substr($MPEGstreamData, $VideoChunkOffset++, 4) !== GETID3_MPEG_VIDEO_SEQUENCE_HEADER) {
-			if ($VideoChunkOffset >= $MPEGstreamDataLength) {
-				$foundVideo = false;
-				break;
-			}
-		}
+  		$VideoChunkOffset = strpos($MPEGstreamData, GETID3_MPEG_VIDEO_SEQUENCE_HEADER);
+        if ($VideoChunkOffset === false) {
+			$foundVideo = false;
+			$VideoChunkOffset = $MPEGstreamDataLength;
+        }
 		if ($foundVideo) {
 
 			// Start code                       32 bits
@@ -139,7 +137,7 @@ class getid3_mpeg
 
 		} else {
 
-			$ThisFileInfo['error'][] = 'Could not find start of video block in the first 100,000 bytes (or before end of file) - this might not be an MPEG-video file?';
+			$ThisFileInfo['error'][] = 'Could not find start of video block in the first '.$MPEGstreamDataLength.' bytes (or before end of file) - this might not be an MPEG-video file?';
 
 		}
 
