@@ -27,11 +27,14 @@ function load_style( $user_id = '')
     $details["NAME"]     = 'Default';
   }
 
-  // Ensure the display for audio will be in the correct place...
-  if (get_screen_type() == 'PAL')
-    $dummy = @file_get_contents('http://'.client_ip().':2020/pod_audio_info.cgi?x=210&y=464');  
-  else
-    $dummy = @file_get_contents('http://'.client_ip().':2020/pod_audio_info.cgi?x=210&y=369');  
+  // Ensure the display for audio will be in the correct place (only applicable to hardware players)
+  if (is_hardware_player())
+  {
+    if (get_screen_type() == 'PAL')
+      $dummy = @file_get_contents('http://'.client_ip().':2020/pod_audio_info.cgi?x=210&y=464');  
+    else
+      $dummy = @file_get_contents('http://'.client_ip().':2020/pod_audio_info.cgi?x=210&y=369');  
+  }
          
   // Cache the style parameters in the session
   $_SESSION["style"] = $details;
