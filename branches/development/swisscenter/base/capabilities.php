@@ -157,7 +157,7 @@ function media_exts_music()
 
 function media_exts_photos()
 {
-  return explode(',' ,'jpeg,jpg,gif');
+  return explode(',' ,'jpeg,jpg,gif,png');
 }
 
 #-------------------------------------------------------------------------------------------------

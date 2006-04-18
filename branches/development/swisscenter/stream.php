@@ -7,11 +7,12 @@
 
   $server     = server_address();
   $file_id    = $_REQUEST["file_id"];
-  $table      = db_value("select media_table from media_types where media_id = ".$_REQUEST["media_type"]);          
+  $media      = $_REQUEST["media_type"];
+  $table      = db_value("select media_table from media_types where media_id = ".$media);          
   $location   = db_value("select concat(dirname,filename) from $table where file_id= $file_id");
 
   // **Sanity check** - Do we have permissions to read this file?
-  if (!is_readable($local))
+  if (!is_readable($location))
     send_to_log("Error: SwissCenter does not have permissions to read the file '$location'");
   
   // We have to perform on-the-fly resizing for images, so we need to redirect them through the thumb.php 
@@ -21,7 +22,7 @@
   {
     $x = convert_x(1000, SCREEN_COORDS);
     $y = convert_y(1000, SCREEN_COORDS);
-    $redirect_url = "thumb.php?type=jpg&x=$x&y=$y&src=".rawurlencode(ucfirst($row["DIRNAME"]).$row["FILENAME"]);
+    $redirect_url = "thumb.php?type=jpg&x=$x&y=$y&src=".rawurlencode(ucfirst($location));
   }
   else 
   {

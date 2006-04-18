@@ -23,7 +23,9 @@
     $directors = db_toarray("select d.director_name from directors_of_movie dom, directors d where dom.director_id = d.director_id and dom.movie_id=$movie");
     $actors    = db_toarray("select a.actor_name from actors_in_movie aim, actors a where aim.actor_id = a.actor_id and aim.movie_id=$movie");
     $genres    = db_toarray("select g.genre_name from genres_of_movie gom, genres g where gom.genre_id = g.genre_id and gom.movie_id=$movie");
-    $cert      = db_value("select concat(' (',name,')') from certificates where cert_id =".$info["CERTIFICATE"]);
+    
+    if (!empty($info["CERTIFICATE"]))
+      $cert = '('.get_cert_name( get_nearest_cert_in_scheme( $info["CERTIFICATE"], get_rating_scheme_name() ) ).')';
     
     echo font_colour_tags('TITLE_COLOUR',str('TITLE')).' : '.shorten($info["TITLE"].$cert,721).'<p>';
     

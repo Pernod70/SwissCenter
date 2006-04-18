@@ -26,7 +26,7 @@ require_once( realpath(dirname(__FILE__).'/file.php'));
 
 function check_php_version()
 {
-  return ( version_compare(phpversion(),'4.3.9','>=') && version_compare(phpversion(),'5.0.0','<=') );
+  return ( version_compare(phpversion(),'4.3.9','>=') );
 }
 
 

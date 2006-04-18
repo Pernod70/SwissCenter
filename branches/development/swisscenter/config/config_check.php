@@ -183,11 +183,11 @@ function check_display()
 
   $test_page->add_test( $php, "PHP required mods"
                       , str("PASS_PHP_REQ_MODS")
-                      , str("FAIL_PHP_REQ_MODS", implode(',',get_required_modules_list())) );
+                      , str("FAIL_PHP_REQ_MODS", implode(', ',get_required_modules_list())) );
 
   $test_page->add_test( $php, "PHP suggested mods"
                       , str("PASS_PHP_EXTRA_MODS")
-                      , str("FAIL_PHP_EXTRA_MODS", implode(',',get_suggested_modules_list())) );
+                      , str("FAIL_PHP_EXTRA_MODS", implode(', ',get_suggested_modules_list())) );
 
   # ----------------------
   # MySQL Tests
