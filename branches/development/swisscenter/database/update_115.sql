@@ -40,6 +40,12 @@ INSERT INTO certificates (cert_id, name, rank, scheme, description) VALUES ( 13,
 INSERT INTO certificates (cert_id, name, rank, scheme, description) VALUES ( 14, 'UR',  5, 'MPAA','Un-Rated Family content');
 INSERT INTO certificates (cert_id, name, rank, scheme, description) VALUES ( 15, 'NR', 90, 'MPAA','Not Rated Adult content');
 
+-- -------------------------------------------------------------------------------------------------
+-- New column for the categories table to indicate if details should be downloaded
+-- -------------------------------------------------------------------------------------------------
+
+ALTER TABLE categories ADD  ( download_info VARCHAR(1) DEFAULT 'N' );
+UPDATE categories set download_info='Y';
 
 -- *************************************************************************************************
 --   SWISScenter Source                                                              Robert Taylor

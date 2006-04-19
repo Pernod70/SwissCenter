@@ -493,6 +493,7 @@ DEBUG_MODE_PROMPT	= Enabling [i]Debug Mode[/i] will cause more information to be
 SIMESE_SCHED_PROMPT	= You may schedule automatic refreshes of the SwissCenter database by right clicking on the Simese icon in the taskbar and selecting [i]Update Media Scheduler[/i].
 
 # Updated text strings in v1.14
+
 MOVIE_EXTRA_DL_PROMPT	= When new video items are discovered during a "new media search", the SwissCenter will use the filename of the video file to search for and download additional video information (eg: Actors, Directors, etc) from the site you specify below.
 PRIVACY_DATA_COLLECTION	= [b]Data Collection[/b] [p]Information relating to the media files on your machine is collected and stored in a MySQL database located on the PC on which the SwissCenter software is installed. This information is used for the sole purpose of providing you with an interface to your media files on such devices as the Pinnacle Showcenter. At no point is this of any other information transmitted in any form to the authors of the SwissCenter, or to any other third party. [p]There is one exception to the above statemnet :- To obtain extra information regarding video files (such as actors, directors, etc) the filename is submitted as part of a search query to the website selected on the %s screen. If you would prefer that this informationis not transmitted then you should disable the "Video Info Download". 
 
@@ -512,12 +513,16 @@ CURRENT_VERSION		= Current Version
 # SwissCenter v1.15
 # -----------------------
 
+# New text strings
+
 SEARCH_WIKIPEDIA	= Lookup in Wikipedia
 RESUME_PLAYING          = Resume Playing
 INSTALL_TEST_TITLE	= Installation Checks
 INSTALL_TEST_SUCCESS    = The following tests were successful: 
 INSTALL_TEST_FAIL_WEB   = The following tests failed:
 INSTALL_TEST_FAIL_CLI   = The following tests failed:when run in the background.
+CAT_DOWNLOAD            = Download Extra Info 
+CAT_DOWNLOAD_PROMPT     = This field determines if extra information should be downloaded from the internet for files assigned to this category when it is available.
 
 FAIL_MYSQL_VERSION      = Your version of MySQL is not supported.
 FAIL_MYSQL_CONNECT	= Unable to connect to the MySQL server.

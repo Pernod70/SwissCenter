@@ -27,7 +27,7 @@
 
   function extra_get_all_movie_details ()
   {
-    if (get_sys_pref('movie_check_enabled','YES') == 'YES')
+    if ( is_movie_check_enabled() )
     {
       send_to_log('Checking online for extra movie information');
       $data = db_toarray("select file_id, filename from movies where details_available is null");
@@ -41,6 +41,7 @@
     else 
       send_to_log('Online movie check is DISABLED');
   }   
+
 
   // ----------------------------------------------------------------------------------------
   // Determine which movie database the user has requested that we use.

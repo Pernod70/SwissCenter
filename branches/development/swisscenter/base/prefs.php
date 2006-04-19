@@ -5,7 +5,12 @@
  
  require_once( realpath(dirname(__FILE__).'/mysql.php'));
  require_once( realpath(dirname(__FILE__).'/users.php'));
+ require_once( realpath(dirname(__FILE__).'/server.php'));
  
+ // ----------------------------------------------------------------------------------
+ // USER proferences
+ // ----------------------------------------------------------------------------------
+
  function get_user_pref( $pref, $default = '', $user_id = '')
  {
    if ($user_id == '')
@@ -14,16 +19,6 @@
    if ($user_id != '')
      $result = db_value("select value from user_prefs where user_id = ".$user_id." and name='".strtoupper($pref)."'");
    
-   if ($result == '')
-     return $default;
-   else 
-     return $result;
- }
- 
- function get_sys_pref( $pref, $default = '' )
- {
-   $result = db_value("select value from system_prefs where name='".strtoupper($pref)."'");
-
    if ($result == '')
      return $default;
    else 
@@ -49,6 +44,20 @@
    return $result;
  }
 
+ // ----------------------------------------------------------------------------------
+ // SYSTEM preferences
+ // ----------------------------------------------------------------------------------
+
+ function get_sys_pref( $pref, $default = '' )
+ {
+   $result = db_value("select value from system_prefs where name='".strtoupper($pref)."'");
+
+   if ($result == '')
+     return $default;
+   else 
+     return $result;
+ }
+ 
  function set_sys_pref( $name, $value)
  {
    // Only update if the value changes
@@ -66,6 +75,15 @@
    }
    else 
      return true;
+ }
+
+ // ----------------------------------------------------------------------------------
+ // Online movie checking
+ // ----------------------------------------------------------------------------------
+
+ function is_movie_check_enabled()
+ {
+   return (internet_available() && get_sys_pref('movie_check_enabled','YES') == 'YES');
  }
  
 /**************************************************************************************************

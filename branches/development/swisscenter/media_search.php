@@ -383,7 +383,7 @@
   process_media_dirs( db_toarray("select * from media_locations where media_type=3") ,'movies', media_exts_movies() );
   process_media_dirs( db_toarray("select * from media_locations where media_type=2") ,'photos', media_exts_photos() );
 
-  if (internet_available() && get_sys_pref('movie_check_enabled','NO') == 'YES')
+  if ( is_movie_check_enabled() )
     extra_get_all_movie_details();
   
   eliminate_duplicates();
