@@ -47,6 +47,8 @@ function get_player_type()
       $type = 'PC';
     elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'Mozilla')!== false )
       $type = 'PC';
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'Opera')!== false )
+      $type = 'PC';
     else
       $type = 'UNKNOWN';
 
@@ -180,9 +182,20 @@ function get_suggested_modules_list()
 
 function support_resume()
 {
-  return (    is_hardware_player() 
-           && is_server_simese() 
-           && version_compare(simese_version(),'1.36','>=')  );
+  $result = false;
+  
+  switch ( get_player_type() )
+  {
+    case 'IO-DATA':
+         $result = false;
+         break;
+
+    default:
+         $result = ( is_hardware_player() && version_compare(simese_version(),'1.36','>=') );
+         break;
+  }
+
+  return $result;
 }
 
 /**************************************************************************************************

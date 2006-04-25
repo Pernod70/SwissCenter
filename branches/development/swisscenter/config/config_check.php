@@ -255,9 +255,8 @@ function check_display()
   $test_page->add_test( $server, "SERVER scheduler"
                       , str("PASS_SERVER_SCHED")
                       , str("FAIL_SERVER_SCHED"));
-
-  # Display test results Tests
                            
+  # Display test results
   $test_page->display();
 }
 
