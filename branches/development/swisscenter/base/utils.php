@@ -131,17 +131,31 @@ function substr_between_strings( &$string, $startstr, $endstr)
 }
 
 // ----------------------------------------------------------------------------------
-// Returns all the hyperlinks is the given string
+// Returns all the hyperlinks that are in the given string that match the specified
+// regular expression ($search) within the href portion of the link.
 // ----------------------------------------------------------------------------------
 
-function get_urls_from_html ($string, $href_start ) 
+function get_urls_from_html ($string, $search ) 
 {
-  preg_match_all ('/<a.*href="('.$href_start.'[^"]*)"[^>]*>(.*)<\/a>/i', $string, &$matches);
+  preg_match_all ('/<a.*href="(.*'.$search.'[^"]*)"[^>]*>(.*)<\/a>/i', $string, &$matches);
   
   for ($i = 0; $i<count($matches[2]); $i++)
     $matches[2][$i] = preg_replace('/<[^>]*>/','',$matches[2][$i]);
 
   return $matches;
+}
+
+// ----------------------------------------------------------------------------------
+// Returns the given URL ($url) as a properly formatted URL, using $site as the site
+// address if one is not present.
+// ----------------------------------------------------------------------------------
+
+function add_site_to_url ( $url, $site )
+{
+  if ( strpos($url,'http:/') === false)
+    return rtrim($site,'/').'/'.ltrim($url,'/');
+  else 
+    return $url;
 }
 
 // ----------------------------------------------------------------------------------
