@@ -113,7 +113,7 @@ function nvl($text,$default = '&lt;Unknown&gt;')
 function substr_between_strings( &$string, $startstr, $endstr)
 {
   $start  = ( empty($startstr) ? 0 : strpos($string,$startstr));
-  $end    = strpos($string,$endstr);
+  $end    = strpos($string,$endstr, $start+strlen($startstr));
 
   if ($start === false || $end === false)
   {
@@ -137,7 +137,7 @@ function substr_between_strings( &$string, $startstr, $endstr)
 
 function get_urls_from_html ($string, $search ) 
 {
-  preg_match_all ('/<a.*href="(.*'.$search.'[^"]*)"[^>]*>(.*)<\/a>/i', $string, &$matches);
+  preg_match_all ('/<a.*href="(.*'.$search.'[^"]*)"[^>]*>(.*)<\/a>/Ui', $string, &$matches);
   
   for ($i = 0; $i<count($matches[2]); $i++)
     $matches[2][$i] = preg_replace('/<[^>]*>/','',$matches[2][$i]);
