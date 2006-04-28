@@ -3,10 +3,6 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-  require_once( realpath(dirname(__FILE__).'/base/page.php'));
-  require_once( realpath(dirname(__FILE__).'/video_obtain_info.php'));
-  require_once( realpath(dirname(__FILE__).'/base/weather.php'));
-
   function extra_get_movie_details($id, $filename, $title)
   {
     // The site URL (may be used later)
@@ -52,16 +48,6 @@
     }
   }
 
-  #####################################
-  
-  $title    = 'Hitch';
-  $id       = db_value("select file_id from movies where title='$title'");
-  $filename = db_value("select concat(dirname,filename) from movies where file_id=$id");
-
-  extra_get_movie_details($id, $filename, $title);  
-
-  debug( db_toarray("select * from movies where file_id=$id"));
-  
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/

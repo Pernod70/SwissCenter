@@ -143,12 +143,12 @@
   {
     if ( is_movie_check_enabled() )
     {
-      send_to_log('Checking online for extra movie information');
-      $data = db_toarray("select file_id, filename from movies where details_available is null");
+      send_to_log('Checking online for extra movie information from '.file_noext(get_sys_pref('movie_info_script','www.lovefilm.com.php')));
+      $data = db_toarray("select file_id, concat(dirname,filename) fsp, filename title from movies where details_available is null");
     
       // Process each movie
       foreach ($data as $row)
-        extra_get_movie_details( $row["FILE_ID"] );
+        extra_get_movie_details( $row["FILE_ID"], $row["FSP"], $row["TITLE"] );
           
       send_to_log('Online movie check complete');
     }
@@ -161,7 +161,14 @@
   // Determine which movie database the user has requested that we use.
   // ----------------------------------------------------------------------------------------
 
-//  require_once( get_sys_pref('movie_info_script','movie_lovefilm.php'));
+  $parser_dir = realpath( dirname(__FILE__).'/ext/parsers/' );
+  $inc_file   = get_sys_pref('movie_info_script','www.lovefilm.com.php');
+
+  if ( !file_exists($parser_dir.$inc_file) )
+    $inc_file = 'www.lovefilm.com.php';
+
+  // Include the appropriate file
+  require_once( $parser_dir.$inc_file );
   
   /**************************************************************************************************
                                                End of file

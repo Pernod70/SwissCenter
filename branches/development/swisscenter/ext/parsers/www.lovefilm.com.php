@@ -8,7 +8,7 @@
 
  *************************************************************************************************/
 
-  function extra_get_movie_details ( $file_id )
+  function extra_get_movie_details($id, $filename, $title)
   {    
     // First check to see if we've encountered an error downloading the details before in this session.
     if ( isset($_SESSION['Movie_info_download']) )

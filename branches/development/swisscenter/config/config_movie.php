@@ -339,9 +339,12 @@ function movie_update_multiple()
 function movie_info( $message = "")
 {
   $list       = array( str('ENABLED')=>'YES',str('DISABLED')=>'NO');
-  $sites_list = array( 'www.lovefilm.com'=>'movie_lovefilm.php'
-                     , 'www.dvdplanet.com'=>'movie_dvdplanet.php');
+  $sites_list = array();
   
+  $parsers = dir_to_array( realpath(dirname(__FILE__).'/../ext/parsers') , '.*\.php' );
+  foreach ($parsers as $file)
+    $sites_list[file_noext($file)] = basename($file);  
+    
   if (!empty($_REQUEST["downloads"]))
   {
     set_rating_scheme_name($_REQUEST['scheme']);
