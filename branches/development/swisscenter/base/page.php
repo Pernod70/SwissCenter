@@ -133,7 +133,7 @@ function img_gen( $filename, $x, $y, $type = false, $stretch = false, $rs_mode =
     $html .= $n.'="'.$v.'" ';
     
   // Build the paramters for the thumb.php script
-  $img_params = 'thumb.php?src='.rawurlencode($filename).'&x='.convert_x($x).'&y='.convert_y($y);
+  $img_params = '/thumb.php?src='.rawurlencode($filename).'&x='.convert_x($x).'&y='.convert_y($y);
   
   if ($type !== false)
     $img_params .='&type='.$type;

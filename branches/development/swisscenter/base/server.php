@@ -71,12 +71,18 @@
   // Returns the full URL (SCRIPT_NAME + QUERY_STRING) of the current page
   // ----------------------------------------------------------------------------------
   
-  function current_url()
+  function current_url( $post_vars = false)
   {
     if(is_server_apache() || is_server_iis())
-      return "http://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
+      $url = "http://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
     else 
-      return $_SERVER["SCRIPT_NAME"].(empty($_SERVER["QUERY_STRING"]) ? "" : "?".$_SERVER["QUERY_STRING"]);
+      $url =  $_SERVER["SCRIPT_NAME"].(empty($_SERVER["QUERY_STRING"]) ? "" : "?".$_SERVER["QUERY_STRING"]);
+      
+    if ($post_vars)
+      foreach ($_POST as $arg => $val)
+        $url = url_add_param($url,$arg,$val);
+      
+    return $url;
   }
 
   // ----------------------------------------------------------------------------------

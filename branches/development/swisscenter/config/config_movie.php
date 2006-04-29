@@ -6,15 +6,120 @@
 require_once( realpath(dirname(__FILE__).'/../base/media.php'));
 
 // ----------------------------------------------------------------------------------
+// Get an array of online movie parsers for displaying in a form drop-down list.
+// ----------------------------------------------------------------------------------
+
+function get_parsers_list()
+{
+  $parsers = dir_to_array( realpath(dirname(__FILE__).'/../ext/parsers') , '.*\.php' );
+  $sites_list = array();
+  
+  foreach ($parsers as $file)
+    $sites_list[file_noext($file)] = basename($file);  
+  
+  return $sites_list;
+}
+
+// ----------------------------------------------------------------------------------
 // Displays the details for movies
+// ----------------------------------------------------------------------------------
+
+function movie_display_info()
+{
+  // Get actor/director/genre lists
+  $movie_id    = $_REQUEST["movie_id"];
+  $details     = db_toarray("select * from movies where file_id=".$movie_id);
+  $actors      = db_toarray("select actor_name name from actors a, actors_in_movie aim where aim.actor_id = a.actor_id and movie_id=".$movie_id);
+  $directors   = db_toarray("select director_name name from directors d, directors_of_movie dom where dom.director_id = d.director_id and movie_id=".$movie_id);
+  $genres      = db_toarray("select genre_name name from genres g, genres_of_movie gom where gom.genre_id = g.genre_id and movie_id=".$movie_id);
+  $sites_list  = get_parsers_list();
+  
+  // Display movies that will be affected.
+  echo '<h1>'.$details[0]["TITLE"].'</h1><center>
+         ( <a href="'.$_SESSION["last_search_page"].'">'.str('RETURN_TO_LIST').'</a> |
+           <a href="?section=MOVIE&action=UPDATE_FORM_SINGLE&movie[]='.$movie_id.'">'.str('DETAILS_EDIT').'</a> )
+        </center>
+        <table class="form_select_tab" width="100%" cellspacing=4><tr>
+          <th colspan="3">'.str('SYNOPSIS').'</th>
+        </tr><tr>
+          <td colspan="3">';
+  
+  $folder_img = file_albumart($details[0]["DIRNAME"].$details[0]["FILENAME"]);
+  if (!empty($folder_img))
+    echo img_gen($folder_img,100,200,false,false,false,array('hspace'=>0,'vspace'=>4,'align'=>'left') );
+  
+  echo  $details[0]["SYNOPSIS"].'<br>&nbsp;</td>
+        </tr><tr>
+        <th width="33%">'.str('ACTOR').'</th>
+        <th width="33%">'.str('DIRECTOR').'</th>
+        <th width="33%">'.str('GENRE').'</th>   
+        </tr><tr>
+        <td rowspan=3 valign=top>';
+  
+        foreach ($actors as $name)
+          echo $name["NAME"].'<br>';
+          
+  echo '<br>&nbsp;</td><td valign=top>';
+  
+        foreach ($directors as $name)
+          echo $name["NAME"].'<br>';
+          
+  echo '<br>&nbsp;</td><td valign=top>';
+  
+        foreach ($genres as $name)
+          echo $name["NAME"].'<br>';
+          
+  echo '<br>&nbsp;</td></tr></tr><tr>
+          <th>'.str('CERTIFICATE').'</th>
+          <th>'.str('YEAR').'</th>
+        </tr><tr>
+          <td valign=top>'.get_cert_name(get_nearest_cert_in_scheme($details[0]["CERTIFICATE"])).'</td>
+          <td valign=top>'.$details[0]["YEAR"].'</td>
+        </tr></table>
+        <p align="center">';
+
+  // Get movie information from online source
+  echo '<table width="100%"><tr>
+        <td align="center">
+          <form enctype="multipart/form-data" action="" method="post">
+          <input type=hidden name="section" value="MOVIE">
+          <input type=hidden name="action" value="LOOKUP">
+          <input type=hidden name="movie_id" value="'.$movie_id.'">
+          '.form_list_static_html('site',$sites_list, get_sys_pref('movie_info_script','movie_lovefilm.php'),false,false).'
+          &nbsp; <input type="Submit" name="subaction" value="'.str('LOOKUP_MOVIE').'"> &nbsp; 
+          </form>
+        </td>
+        </tr></table>';  
+}
+
+// ----------------------------------------------------------------------------------
+// Uses the selected parser script to update the movie details in the database
+// ----------------------------------------------------------------------------------
+
+function movie_lookup()
+{
+  $movie_id = $_REQUEST["movie_id"];
+  $details = db_toarray("select * from movies where file_id=$movie_id");
+
+  require_once( realpath(dirname(__FILE__).'/../video_obtain_info.php'));
+  extra_get_movie_details($movie_id, $details[0]["DIRNAME"].$details[0]["FILENAME"], file_noext($details[0]["FILENAME"]));  
+  movie_display_info();
+}
+
+// ----------------------------------------------------------------------------------
+// Displays the movie details for editing
 // ----------------------------------------------------------------------------------
 
 function movie_display( $message = '')
 {
+  $_SESSION["last_search_page"] = current_url( true );
   $per_page    = get_user_pref('PC_PAGINATION',20);
   $page        = (empty($_REQUEST["page"]) ? 1 : $_REQUEST["page"]);
   $start       = ($page-1)*$per_page;    
   $where       = '';
+  
+  if (empty($message) && isset($_REQUEST["message"]))
+    $message = urldecode($_REQUEST["message"]);
 
   // Extra filters on the media (for categories and search).
   if (!empty($_REQUEST["cat_id"]) )
@@ -79,7 +184,7 @@ function movie_display( $message = '')
     echo '<table class="form_select_tab" width="100%"><tr>
           <td valign="top" width="3%"><input type="checkbox" name="movie[]" value="'.$movie["FILE_ID"].'"></input><td>
           <td valign="top" width="34%">
-             <b>'.$movie["TITLE"].'</b><br>
+             <a href="?section=movie&action=display_info&movie_id='.$movie["FILE_ID"].'">'.$movie["TITLE"].'</a><br>
              Certificate : '.nvl($cert).'<br>
              Year : '.nvl($movie["YEAR"]).'<br>
            </td>
@@ -88,17 +193,14 @@ function movie_display( $message = '')
            <td valign="top" width="21%">'.nvl(implode("<br>",$genres)).'</td>
           </tr></table>';  	
   }
-  
   paginate('?last_where='.$where.'&search='.$_REQUEST["search"].'&cat_id='.$_REQUEST["cat_id"].'&section=MOVIE&action=DISPLAY&page='
           ,$movie_count,$per_page,$page);
 
   echo '<p><table width="100%"><tr><td align="center">
         <input type="Submit" name="subaction" value="'.str('DETAILS_EDIT').'"> &nbsp; 
         <input type="Submit" name="subaction" value="'.str('DETAILS_CLEAR').'"> &nbsp; 
-        </td></tr></table>';
-  
-  
-  echo '</form>';
+        </td></tr></table>
+        </form>';
 }
 
 // ----------------------------------------------------------------------------------
@@ -329,7 +431,7 @@ function movie_update_multiple()
     scdb_add_genres($movie_list, explode(',',$_REQUEST["genre_new"]));
 
   scdb_remove_orphans();
-  movie_display(str('MOVIE_CHANGES_MADE'));
+  header('Location: '.url_add_param($_SESSION["last_search_page"],'message',str('MOVIE_CHANGES_MADE')));
  }
 
 // ----------------------------------------------------------------------------------
@@ -339,12 +441,8 @@ function movie_update_multiple()
 function movie_info( $message = "")
 {
   $list       = array( str('ENABLED')=>'YES',str('DISABLED')=>'NO');
-  $sites_list = array();
-  
-  $parsers = dir_to_array( realpath(dirname(__FILE__).'/../ext/parsers') , '.*\.php' );
-  foreach ($parsers as $file)
-    $sites_list[file_noext($file)] = basename($file);  
-    
+  $sites_list = get_parsers_list();
+      
   if (!empty($_REQUEST["downloads"]))
   {
     set_rating_scheme_name($_REQUEST['scheme']);

@@ -24,7 +24,7 @@
       $img_addr = get_html_tag_attrib($html,'img','images/dvdcover','src');
       if ($img_addr !== false)
         file_save_albumart( add_site_to_url($img_addr, $site_url)
-                          , file_noext($filename).'.'.file_ext($img_addr)
+                          , basename($filename).'/'.file_noext($filename).'.'.file_ext($img_addr)
                           , $title);
     
       // Get moviethe single-value movie attributes 

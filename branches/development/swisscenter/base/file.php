@@ -511,17 +511,20 @@ function file_albumart( $fsp )
 
 function file_save_albumart( $url, $fsp, $film_title )
 {
-  send_to_log('Attempting to download albumart from '.$url);
-  $out = @fopen($fsp, "wb");
-  if ($out)
+  if (!file_exists($fsp))
   {
-    @fwrite($out, file_get_contents($url));
-    @fclose($out);
-    send_to_log('AlbumArt downloaded for '.$film_title);
-  }
-  else 
-  {
-     send_to_log('Unable to write AlbumArt to file (May be a permissions problem if running on Linux)');
+    send_to_log('Attempting to download albumart from '.$url);
+    $out = @fopen($fsp, "wb");
+    if ($out)
+    {
+      @fwrite($out, file_get_contents($url));
+      @fclose($out);
+      send_to_log('AlbumArt downloaded for '.$film_title);
+    }
+    else 
+    {
+       send_to_log('Unable to write AlbumArt to file (May be a permissions problem if running on Linux)');
+    }
   }
 }
 

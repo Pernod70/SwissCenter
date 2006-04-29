@@ -161,14 +161,14 @@
   // Determine which movie database the user has requested that we use.
   // ----------------------------------------------------------------------------------------
 
-  $parser_dir = realpath( dirname(__FILE__).'/ext/parsers/' );
+  $parser_dir = realpath( dirname(__FILE__).'/ext/parsers' );
   $inc_file   = get_sys_pref('movie_info_script','www.lovefilm.com.php');
-
-  if ( !file_exists($parser_dir.$inc_file) )
+  if ( !file_exists($parser_dir.'/'.$inc_file) )
     $inc_file = 'www.lovefilm.com.php';
 
   // Include the appropriate file
-  require_once( $parser_dir.$inc_file );
+  send_to_log('Including parser file '.$parser_dir.'/'.$inc_file);
+  require_once( $parser_dir.'/'.$inc_file );
   
   /**************************************************************************************************
                                                End of file

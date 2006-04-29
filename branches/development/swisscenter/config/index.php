@@ -4,6 +4,7 @@
  *************************************************************************************************/
   ob_start();
 
+  require_once( realpath(dirname(__FILE__).'/../base/page.php'));
   require_once( realpath(dirname(__FILE__).'/../base/mysql.php'));
   require_once( realpath(dirname(__FILE__).'/../base/file.php'));
   require_once( realpath(dirname(__FILE__).'/../base/html_form.php'));
@@ -120,7 +121,7 @@
     {
       $func = (strtoupper($_REQUEST["section"]).'_'.strtoupper($_REQUEST["action"]));
       include_once('config_'.strtolower($_REQUEST["section"]).'.php');
-      @$func();
+      $func();
     }
     else 
     {

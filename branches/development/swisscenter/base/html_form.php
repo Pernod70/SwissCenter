@@ -169,7 +169,7 @@ function form_list_dynamic_html ( $param, $sql, $value = "", $opt = false, $subm
   }
   $recs->destroy();
 
-  return $html;
+  return $html.'</select>';
 }
 
 function form_list_dynamic( $param, $prompt, $sql, $value = "", $opt = false, $submit = false, $initial_txt = '' )
@@ -189,18 +189,26 @@ function form_list_dynamic( $param, $prompt, $sql, $value = "", $opt = false, $s
 # $list - an array of values to display in the drop-down list.
 #-------------------------------------------------------------------------------------------------
 
-function form_list_static( $param, $prompt, $list, $value = "", $opt = false,  $ins = true )
+function form_list_static_html( $param, $list, $value = "", $opt = false,  $ins = true )
 {
-  echo '<tr><td>'.form_prompt($prompt,$opt).'</td>
-        <td><select '.($opt ? '' : ' required ').' name="'.$param.'" size="1">';
+  $html = '<select '.($opt ? '' : ' required ').' name="'.$param.'" size="1">';
 
   if ($ins)
-    echo '<option value=""> &lt;'.str('PLEASE_SELECT').'&gt; ';
+    $html.= '<option value=""> &lt;'.str('PLEASE_SELECT').'&gt; ';
 
   while( list($akey,$avalue) = each($list) )
-    echo '<option '.( $avalue ==$value ? 'selected ' : '').'value="'.$avalue.'">'.$akey;
+    $html.= '<option '.( $avalue ==$value ? 'selected ' : '').'value="'.$avalue.'">'.$akey;
 
-  echo '  </td></tr>';
+  return $html.'</select>';
+}
+
+function form_list_static( $param, $prompt, $list, $value = "", $opt = false,  $ins = true )
+{
+  echo '<tr>
+          <td>'.form_prompt($prompt,$opt).'</td>
+          <td>'.form_list_static_html( $param, $list, $value, $opt, $ins).'</td>
+        </tr>';
+            
 }
 
 #-------------------------------------------------------------------------------------------------
