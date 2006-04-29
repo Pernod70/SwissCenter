@@ -17,8 +17,8 @@
     // Perform search for matching titles
     $site_url    = 'http://www.lovefilm.com/';
     $search_url  = $site_url.'search.php?searchtype=title&dvdsearch=';
-    $file_path   = db_value("select dirname from movies where file_id = $file_id");
-    $file_name   = db_value("select filename from movies where file_id = $file_id");
+    $file_path   = db_value("select dirname from movies where file_id = $id");
+    $file_name   = db_value("select filename from movies where file_id = $id");
     $film_title  = ucwords(strip_title( $file_name ));
     $html        = file_get_contents($search_url.str_replace(' ','+',$film_title));
     $accuracy    = 0;
@@ -119,17 +119,17 @@
         send_to_log('Actors',$new_actors);
         send_to_log('Genres',$new_genres);
         
-        scdb_add_directors     ($file_id, $new_directors);
-        scdb_add_actors        ($file_id, $new_actors);
-        scdb_add_genres        ($file_id, $new_genres);    
-        scdb_set_movie_attribs ($file_id, $columns);
+        scdb_add_directors     ($id, $new_directors);
+        scdb_add_actors        ($id, $new_actors);
+        scdb_add_genres        ($id, $new_genres);    
+        scdb_set_movie_attribs ($id, $columns);
       }
     }
     else 
     {
       // Mark the file as attempted to get details, but none available
       $columns = array ( "MATCH_PC" => $accuracy, "DETAILS_AVAILABLE" => 'N');
-      scdb_set_movie_attribs ($file_id, $columns);
+      scdb_set_movie_attribs ($id, $columns);
     }
   }
   

@@ -85,7 +85,7 @@ function movie_display_info()
           <input type=hidden name="section" value="MOVIE">
           <input type=hidden name="action" value="LOOKUP">
           <input type=hidden name="movie_id" value="'.$movie_id.'">
-          '.form_list_static_html('site',$sites_list, get_sys_pref('movie_info_script','movie_lovefilm.php'),false,false).'
+          '.form_list_static_html('parser',$sites_list, get_sys_pref('movie_info_script','movie_lovefilm.php'),false,false).'
           &nbsp; <input type="Submit" name="subaction" value="'.str('LOOKUP_MOVIE').'"> &nbsp; 
           </form>
         </td>
