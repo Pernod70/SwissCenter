@@ -43,13 +43,14 @@
   
   #----------
   # Album Art
-  #----------
+  #---------- 
 
-  $art_fsp   = file_albumart($info[0]["DIRNAME"].$info[0]["FILENAME"]);
-  $art_x     = convert_x(70,SCREEN_COORDS);
-  $art_y     = convert_y(200,SCREEN_COORDS);
-  $art_w     = convert_x(250,SCREEN_COORDS);
-  $art_h     = convert_y(400,SCREEN_COORDS);
+  $art_fsp    = file_albumart($info[0]["DIRNAME"].$info[0]["FILENAME"]);
+  $art_x      = convert_x(70,SCREEN_COORDS);
+  $art_y      = convert_y(200,SCREEN_COORDS);
+  $art_w      = convert_x(250,SCREEN_COORDS);
+  $art_h      = convert_y(400,SCREEN_COORDS);
+  $border_col = hexdec(style_value('NOW_ART_BORDER','#FFFFFF'));
 
   if ($art_fsp == '')
     $artfile->load_from_file( style_img('NOW_NO_ALBUMART',true) );
@@ -59,7 +60,7 @@
     $artfile->load_from_file( $art_fsp );
     
   // Resize album art and then overlay onto the background image.  
-  $artfile->resize( $art_w, $art_h, $art_bg_colour );
+  $artfile->resize( $art_w, $art_h, $art_bg_colour, true, '', $border_col );
   $image->copy($artfile, $art_x, $art_y);
 
   #-----------
@@ -70,8 +71,10 @@
   $title_text_col   = hexdec(style_value('NOW_TITLE_COLOUR','#000000'));
   $title_x          = convert_x(70,SCREEN_COORDS);
   $title_y          = convert_y(120,SCREEN_COORDS);
+  $line_y           = convert_x(120,SCREEN_COORDS);
   
   $image->text(str('NOW_PLAYING'),$title_x, $title_y, $title_text_col, $title_text_size);
+  $image->line( $title_x, $line_y, convert_x(900,SCREEN_COORDS), $line_y, $title_text_col);
   
   # -----------------
   # Track Information

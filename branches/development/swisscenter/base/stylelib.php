@@ -27,12 +27,16 @@ function load_style( $user_id = '')
     $details["NAME"]     = 'Default';
   }
 
-  // Ensure the display for audio will be in the correct place (only applicable to hardware players)
-  if (is_hardware_player())
-    set_progress_bar_location( 300, 820 );
-         
   // Cache the style parameters in the session
   $_SESSION["style"] = $details;
+
+  // Ensure the display for audio will be in the correct place (only applicable to hardware players)
+  if (is_hardware_player())
+  {
+    list ($x,$y) = explode(',',style_value('NOW_PROGRESS_BAR','300,820'));
+    set_progress_bar_location( $x,$y );
+  }
+         
 }
  
 //-------------------------------------------------------------------------------------------------
@@ -61,15 +65,19 @@ function style_img_exists ($name)
   
   if ($img == '')
     return false;
-  else
-    return file_exists($path.$img);
+  elseif (file_exists($path.$img))
+    return true;
+  elseif  (file_exists(SC_LOCATION.'images/'.$img))
+    return true;
+  else 
+    return false;
 }
 
 
 function style_is_image( $name )
 {
   $img = style_value($name);
-
+  
   if ( preg_match('/\.(jpeg|jpg|gif|png)$/i',$img) == 0)
     return false;
   elseif ( ! style_img_exists($name) )
@@ -99,7 +107,7 @@ function style_img ($name, $full_path = false)
   $path = substr(SC_LOCATION,0,-1);
   $val  = style_value($name);  
   
-  if (style_img_exists($name))
+  if ( file_exists(substr(SC_LOCATION,0,-1).$_SESSION["style"]["LOCATION"].$val) )
     $file   = $_SESSION["style"]["LOCATION"].$val;
   else 
     $file   = '/images/'.$val;

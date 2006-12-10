@@ -28,9 +28,10 @@
   $rs_mode    = $_REQUEST["rs_mode"];
   $cache_file = cache_filename($filename, $x, $y, $rs_mode);
   $aspect     = (isset($_REQUEST["stretch"]) ? false : true);
+  $use_cache  = get_sys_pref('CACHE_STYLE_DETAILS','YES');
 
   // Is there a cached version available?
-  if ( $cache_file !== false && file_exists($cache_file) )
+  if ( $cache_file !== false && file_exists($cache_file) && $use_cache == 'YES' )
   {
     send_to_log(6,"Cached file exists for $filename at ($x x $y)");
     output_cached_file($cache_file, $_REQUEST["type"]);

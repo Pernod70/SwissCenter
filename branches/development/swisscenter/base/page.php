@@ -18,6 +18,7 @@ require_once( realpath(dirname(__FILE__).'/infotab.php'));
 require_once( realpath(dirname(__FILE__).'/utils.php'));
 require_once( realpath(dirname(__FILE__).'/iconbar.php'));
 require_once( realpath(dirname(__FILE__).'/users.php'));
+require_once( realpath(dirname(__FILE__).'/prefs.php'));
 require_once( realpath(dirname(__FILE__).'/server.php'));
 
 function current_session()
@@ -159,7 +160,7 @@ function img_gen( $filename, $x, $y, $type = false, $stretch = false, $rs_mode =
 function pc_nav_button($text, $url)
   {
     return '<td align="center" valign="center" height="23" width="'.(convert_x(1000)/5).'" '.
-                style_background('PC_BUTTON_BACKGROUD').' onclick="document.location=\''.$url.'\';">
+                style_background('PC_BUTTON_BACKGROUND').' onclick="document.location=\''.$url.'\';">
             <a href="'.$url.'">'.font_colour_tags('PC_BUTTON_TEXT_COLOUR',$text).'</a>
             </td>';
   }
@@ -258,16 +259,19 @@ function debug( $item )
 }
 
 //-------------------------------------------------------------------------------------------------
-// Actions that should be taken for every page
+// Actions that should be taken at the start of every page
 //-------------------------------------------------------------------------------------------------
 
 // Log details of the page request
 send_to_log(1,"------------------------------------------------------------------------------");
 send_to_log(1,"Page Requested : ".current_url());
 
-// If in design mode, then we want to make sure the style file is re-read on every page.
-if ( defined('STYLE_MODE') && STYLE_MODE == 'DESIGN' )
+// If in design mode, then we want to force loading of styles and/or language strings.
+if ( get_sys_pref('CACHE_STYLE_DETAILS','YES') == 'NO' )
   load_style();
+  
+if ( get_sys_pref('CACHE_LANGUAGE_STRINGS','YES') == 'NO' )  
+  load_lang();
 
 /**************************************************************************************************
                                                End of file

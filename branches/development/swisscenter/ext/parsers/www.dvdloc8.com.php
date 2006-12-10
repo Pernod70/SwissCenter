@@ -30,7 +30,7 @@
       // Get moviethe single-value movie attributes 
       $cert_text = get_html_tag_attrib($html,'img','images/rating','alt');
       $synopsis  = substr_between_strings($html,'Synopsis:','<br><br>');
-      $year      = substr_between_strings($html,'Year of Production:','DVD Release Date:');
+      $year      = substr_between_strings($html,'Year of Production:','Disc Release Date');
 
       // Store the single-value movie attributes in the database
       scdb_set_movie_attribs( $id , array ( 'YEAR'        => $year

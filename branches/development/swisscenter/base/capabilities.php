@@ -150,7 +150,7 @@ function quick_access_img( $position )
 
 function media_exts_movies()
 {
-  return explode(',' ,'avi,mpg,mpeg,vob,wmv,asf,divx');
+  return explode(',' ,'avi,mpg,mpeg,vob,wmv,asf,divx,ts,tp');
 }
 
 function media_exts_music()
@@ -161,6 +161,11 @@ function media_exts_music()
 function media_exts_photos()
 {
   return explode(',' ,'jpeg,jpg,gif,png');
+}
+
+function media_exts_radio()
+{
+  return explode(',' ,'url');
 }
 
 function media_exts( $media_type )

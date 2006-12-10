@@ -70,7 +70,6 @@ BROWSE_PHOTOS		= Browse photographs
 BROWSE_TITLE		= Browse by title
 BROWSE_TRACK		= Browse by track name
 BROWSE_YEAR		= Browse by year
-CACHE_CONFIG_TITLE	= Image Cache
 CACHE_DIR		= Cache directory
 CACHE_DIR_PROMPT	= Please specify the directory in which the SwissCenter server should cache image files that have been resized (for example, the folder art for an album, or the thumbnail of a photograph)
 CACHE_ERROR_FULL_DIR	= Please enter a fully qualified directory path
@@ -573,6 +572,19 @@ PASS_SWISS_RW_FILES     = Able to Read/Write to the SwissCenter installation dir
 
 DEBUG_MODE		= Logging Mode
 DEBUG_MODE_PROMPT	= The [i]Logging Mode[/i] controls how much information will be written to the support.log file when using the SwissCenter. If you are reporting a bug that you are able to reproduce, please ensure that the Logging mode is set to the maximum before capturing the log.
+
+# -----------------------
+# SwissCenter v1.15.2
+# -----------------------
+
+CACHE_STYLE             = Cache style details
+CACHE_STYLE_PROMPT      = When enabled, SwissCenter will cache all style details in memory. Disable this feature if you are developing new styles and need to see changes reflected immediately.
+CACHE_LANG              = Cache language strings
+CACHE_LANG_PROMPT       = When enabled, SwissCenter will cache all language strings details in memory. Disable this feature if you are adding a translation and need to see changes reflected immediately.
+
+# Updated text strings in v1.15.2
+
+CACHE_CONFIG_TITLE	= Cache Settings
 
 
 #----------------------------------------------------------------------------------------------------

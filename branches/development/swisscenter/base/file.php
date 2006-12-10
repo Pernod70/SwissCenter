@@ -6,6 +6,25 @@
 require_once( realpath(dirname(__FILE__).'/utils.php'));
 
 //-------------------------------------------------------------------------------------------------
+// A function to get around the limitation that some versions of PHP on linux machines only have
+// support for 32-bit integers and therefore cannot return the size of a file > 2Gb
+//-------------------------------------------------------------------------------------------------
+
+function large_filesize( $fsp )
+{
+  if ( is_windows() )
+  {
+    return filesize($fsp);
+  }
+  else 
+  {
+    $details = preg_split('/ +/',exec('ls -l "'.$fsp.'"'));
+    send_to_log(8,'File details from "ls -l '.$fsp.'" command',$details);
+    return $details[4];
+  }
+}
+
+//-------------------------------------------------------------------------------------------------
 // Returns the correct line ending for files depending on the host OS.
 //-------------------------------------------------------------------------------------------------
 
@@ -352,32 +371,23 @@ function update_ini( $file, $var, $value )
 
 function file_icon( $fsp )
 {
-  $sc_location = SC_LOCATION;
-  $name = 'filetype_'.file_ext($fsp).'.gif';
+  $ext = strtolower(file_ext($fsp));
+  $filetype_icon =  SC_LOCATION.style_value("location").str_replace('XXX',strtoupper($ext),style_value('ICON_FILE_XXX'));
 
   if (in_array(file_ext(strtolower($fsp)), explode(',' ,ALBUMART_EXT) ))
-  {
-    // The file is actually an image, so generate it as a thumbnail
     return $fsp;
-  }
-  elseif (file_exists( $sc_location.style_value("location").$name))
-  {
-    // There is an icon within the selected style for this filetype
-    return $sc_location.style_value("location").$name;
-  }
-  elseif (file_exists( $sc_location.'images/'.$name))
-  {
-    // There is a generic icon for this filetype
-    return $sc_location.'images/'.$name;
-  }
+  elseif ( file_exists($filetype_icon) )
+    return $filetype_icon;
+  elseif ( in_array($ext,media_exts_radio()) )
+    return style_img('ICON_RADIO',true);
+  elseif ( in_array($ext,media_exts_movies()) )
+    return style_img('ICON_VIDEO',true);
+  elseif ( in_array($ext,media_exts_music()) )
+    return style_img('ICON_AUDIO',true);
+  elseif ( in_array($ext,media_exts_photos()) )
+    return style_img('ICON_IMAGE',true);
   else
-  {
-    // Display an "unknown" filetype in the selected style, or failing that, the generic one.
-    if (file_exists( $sc_location.style_value("location").'filetype_unknown.gif'))
-      return $sc_location.style_value("location").'filetype_unknown.gif';
-    else
-      return $sc_location.'images/filetype_unknown.gif';
-  }
+    return style_img('ICON_UNKNOWN',true);  
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -387,10 +397,7 @@ function file_icon( $fsp )
 
 function dir_icon()
 {
-  if (file_exists( SC_LOCATION.style_value("location")."filetype_directory.gif"))
-    return SC_LOCATION.style_value("location")."filetype_directory.gif";
-  else
-    return SC_LOCATION."images/filetype_directory.gif";
+  return style_img('ICON_FOLDER',true);
 }
 
 //-------------------------------------------------------------------------------------------------

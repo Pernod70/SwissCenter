@@ -51,15 +51,16 @@
   echo '<center>'.str('SELECT_OPTION').'</center><p>';
   $menu->display();
   
-  // If resume is supported and the user didn't finish the last file that they were
-  // watching, then bind "PLAY" to resume playback.
+  // Bind "HELP" to the last file played, and if resume is supported and the user didn't finish 
+  // the last file that they were watching then restart from the last viewed point.
   $fsp = get_user_pref('LAST_PLAYED');
-  if ( support_resume() && file_exists(bookmark_file($fsp)) )
-  {
-    find_media_in_db($fsp, $media_type, $file_id);
-    echo '<a '.resume_file($media_type,$file_id).tvid('HELP').'></a>';
-  }
+  find_media_in_db($fsp, $media_type, $file_id);
   
+  if ( support_resume() && file_exists(bookmark_file($fsp)) )
+    echo '<a '.resume_file($media_type,$file_id).tvid('HELP').'></a>';
+  else
+    echo '<a '.resume_file($media_type,$file_id).tvid('HELP').'></a>';    
+
   page_footer('', '', $icons);
 
 /**************************************************************************************************

@@ -15,7 +15,7 @@ if (!extension_loaded('gd'))
 // Resizes the image using the user's preferred option (resample or resize) from the config page.
 // -------------------------------------------------------------------------------------------------
 
-function preferred_resize( &$dimg, $simg, $dx, $dy, $sx, $sy, $dw, $dh, $sw, $sh, $rs_mode )
+function preferred_resize( &$dimg, &$simg, $dx, $dy, $sx, $sy, $dw, $dh, $sw, $sh, $rs_mode )
 {
   if ($rs_mode == '')
     $rs_mode = get_sys_pref('IMAGE_RESIZING','RESAMPLE');
@@ -93,7 +93,7 @@ function cache_filename( $filename, $x, $y, $rs_mode = '' )
     $rs_mode = get_sys_pref('IMAGE_RESIZING','RESAMPLE');
     
   if ($cache_dir != '')
-    return $cache_dir.'/SwissCenter_'.sha1($filename).'_x'.$x.'y'.$y.'_'.strtolower($rs_mode).'.png';
+    return $cache_dir.'/SwissCenter_'.sha1($filename.filemtime($filename)).'_x'.$x.'y'.$y.'_'.strtolower($rs_mode).'.png';
   else
     return false;
 }
@@ -354,7 +354,7 @@ class CImage
   // will be scaled to the given X,Y size, but the aspect ratio will be maintained.
   // -------------------------------------------------------------------------------------------------
 
-  function resize($x, $y, $bgcolour=0, $keep_aspect = true, $rs_mode = '')
+  function resize($x, $y, $bgcolour=0, $keep_aspect = true, $rs_mode = '', $border_colour = false)
   {
     if ($this->image !== false && $x > 0 && $y > 0 && ($x != $this->width || $y != $this->height))
     {
@@ -381,6 +381,9 @@ class CImage
       imagefill($this->image,0,0,$bgcolour);
       preferred_resize($this->image, $old, ($x-$newx)/2, ($y-$newy)/2, 0, 0, $newx, $newy, $this->width, $this->height, $rs_mode);
 
+      if ( $border_colour !== false)
+        $this->rectangle( ($x-$newx)/2, ($y-$newy)/2, $newx-1, $newy-1,  $border_colour, false);
+      
       imagedestroy($old);
       $this->update_sizes();
       $this->cache_filename = cache_filename($this->src_fsp,$x, $y);
@@ -441,15 +444,15 @@ class CImage
       {
         case 'jpg':
         case 'jpeg':
-        
-          // This sets the background colour for images that have transparency (eg: when the source was
-          // a PNG file). I have absolutely no idea why this works - it just does.
-          $colour = imagecolorallocate( $this->image, 0, 0, 0 );
-          imagefill( $this->image, 0, 0, $colour );        
-
+          // Create a copy to ensure transparency is converted to black.
+          $copy = ImageCreateTrueColor($this->width,$this->height);
+          $bgcolour = imagecolorallocate($copy, 0, 0, 0);
+          imagefill($copy,0,0,$bgcolour);
+          imagecopy($copy, $this->image, 0,0 ,0,0, $this->width,$this->height);
+                   
           // Output the image
           header("Content-type: image/jpeg");
-          imagejpeg($this->image);
+          imagejpeg($copy);
           break;
         case 'png':
           header("Content-type: image/png");
