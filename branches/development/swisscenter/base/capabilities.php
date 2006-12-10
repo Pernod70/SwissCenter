@@ -23,7 +23,9 @@ function get_player_type()
     return $_SESSION["device"]["device_type"];
   else 
   {
-    if     ( strpos($_SERVER['HTTP_USER_AGENT'],'-NST-')!== false )
+    if (!key_exists('HTTP_USER_AGENT',$_SERVER))
+      $type = 'UNKNOWN';
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-NST-')!== false )
       $type = 'NEUSTON';
     elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-PIN-2')!== false )
       $type = 'PINNACLE SC200';

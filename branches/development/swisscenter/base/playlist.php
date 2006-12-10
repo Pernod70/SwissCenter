@@ -82,7 +82,10 @@ function get_tracklist_to_play()
             $all_dirs[$i] = db_escape_str($all_dirs[$i].'/'.$dir);
 
           $predicate = "dirname like '".implode("%' or dirname like '",$all_dirs)."%' ".get_rating_filter();
-          $array     = db_toarray("select * from $table media ".get_rating_join()."where $predicate order by order by album,lpad(track,10,'0'),title"); 
+          if ($media_type == 1)
+            $array     = db_toarray("select * from $table media ".get_rating_join()."where $predicate order by album,lpad(track,10,'0'),title"); 
+          else
+            $array     = db_toarray("select * from $table media ".get_rating_join()."where $predicate order by filename"); 
           break;
 
   }

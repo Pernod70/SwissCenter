@@ -29,8 +29,8 @@
   
   function get_server_type()
   {
-    $server_type = "UNKNOWN";
-    
+    if (!key_exists('SERVER_SOFTWARE',$_SERVER))
+      $server_type = 'SIMESE';
     if(strpos($_SERVER["SERVER_SOFTWARE"], "Apache") !== false )
       $server_type = "APACHE";
     elseif(strpos($_SERVER["SERVER_SOFTWARE"], "IIS") !== false)
