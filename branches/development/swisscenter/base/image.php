@@ -33,7 +33,7 @@ function preferred_resize( &$dimg, $simg, $dx, $dy, $sx, $sy, $dw, $dh, $sw, $sh
 
 function image_get_scaled_xy(&$x,&$y,$box_x,$box_y)
 { 
-  if ($x >0 && $y >0 && $box_x>0 && $box_y>0 && !($x == $box_x || $y == $box_y))
+  if ($x >0 && $y >0 && $box_x>0 && $box_y>0)
   {
     if ( ($box_x/$x*$y > $box_y) )
     {

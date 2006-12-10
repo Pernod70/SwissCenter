@@ -27,15 +27,14 @@ CREATE INDEX viewings_n1 ON viewings (media_id);
 -- SwissCenter has seen so far (IP, agent string, player type, screen resolution, etc)
 -- -------------------------------------------------------------------------------------------------
 
-ALTER TABLE clients ADD 
-( last_seen     DATETIME     default null
-, screen_type   TEXT         default null
-, screen_x_res  INT UNSIGNED default null
-, screen_y_res  INT UNSIGNED default null
-, browser_x_res INT UNSIGNED default null
-, browser_y_res INT UNSIGNED default null
-, aspect        TEXT         default null
-);
+ALTER TABLE clients ADD ( last_seen     DATETIME     default null);
+ALTER TABLE clients ADD ( screen_type   TEXT         default null);
+ALTER TABLE clients ADD ( screen_x_res  INT UNSIGNED default null);
+ALTER TABLE clients ADD ( screen_y_res  INT UNSIGNED default null);
+ALTER TABLE clients ADD ( browser_x_res INT UNSIGNED default null);
+ALTER TABLE clients ADD ( browser_y_res INT UNSIGNED default null);
+ALTER TABLE clients ADD ( aspect        TEXT         default null);
+
 
 -- -------------------------------------------------------------------------------------------------
 -- Adds missing MPAA ratings for the certificates table
@@ -50,7 +49,7 @@ INSERT INTO certificates (cert_id, name, rank, scheme, description) VALUES ( 15,
 -- -------------------------------------------------------------------------------------------------
 
 ALTER TABLE categories ADD  ( download_info VARCHAR(1) DEFAULT 'N' );
-UPDATE categories set download_info='Y';
+UPDATE categories set download_info='Y' WHERE cat_name='Films' ;
 
 -- *************************************************************************************************
 --   SWISScenter Source                                                              Robert Taylor

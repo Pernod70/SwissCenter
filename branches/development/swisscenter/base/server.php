@@ -117,10 +117,15 @@
   
   function current_url( $post_vars = false)
   {
+    $host   = $_SERVER["HTTP_HOST"];
+    
     if(is_server_apache() || is_server_iis())
-      $url = "http://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
+      $url = "http://".$host.$_SERVER["REQUEST_URI"];
     else 
-      $url =  $_SERVER["SCRIPT_NAME"].(empty($_SERVER["QUERY_STRING"]) ? "" : "?".$_SERVER["QUERY_STRING"]);
+    {
+      $params = (empty($_SERVER["QUERY_STRING"]) ? "" : "?".$_SERVER["QUERY_STRING"]);
+      $url = "http://$host/".str_replace('\\','/',stripslashes($_SERVER["SCRIPT_NAME"].$params));
+    }
       
     if ($post_vars)
       foreach ($_POST as $arg => $val)

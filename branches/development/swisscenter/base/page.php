@@ -143,12 +143,10 @@ function img_gen( $filename, $x, $y, $type = false, $stretch = false, $rs_mode =
   if ( strpos($browser,'MSIE ') !== false && preg_replace('/^.*MSIE (.*);.*$/Ui','\1',$browser) < 7)
   {
     $filter = "filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='$img_params',sizingMethod='crop');";
-    return '<img style="'.$filter.'" width="'.convert_x($x).'" height="'.convert_y($y).'" src="/images/dot.gif" border=0>';
+    return '<img '.$html.' style="'.$filter.'" width="'.convert_x($x).'" height="'.convert_y($y).'" src="/images/dot.gif" border=0>';
   }
   else      
-    return '<img '.$html.' width="'.convert_x($x).'" height="'.convert_y($y).'" src="'.$img_params.'" border=0>';
-  
-  # filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='',sizingMethod='xrop');
+    return '<img '.$html.' width="'.convert_x($x).'" height="'.convert_y($y).'" src="'.$img_params.'" border=0>';  
 }
 
 //-------------------------------------------------------------------------------------------------

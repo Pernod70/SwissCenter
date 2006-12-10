@@ -541,9 +541,9 @@ function  php_ini_location()
 function php_cli_location()
 {
   if ( is_windows() )
-  {
+  { 
     if ( isset($_SERVER["SCRIPT_FILENAME"]) && !empty($_SERVER["SCRIPT_FILENAME"]))
-      return str_replace('\\','/',$_SERVER["SCRIPT_FILENAME"]);
+      return str_replace('\\','/',un_magic_quote($_SERVER["SCRIPT_FILENAME"]));
     else 
       return false;
   }

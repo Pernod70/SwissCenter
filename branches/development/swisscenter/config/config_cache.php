@@ -20,7 +20,7 @@
     form_hidden('action','UPDATE');
     form_radio_static('resize',str('IMAGE_RESIZE_TYPE'),$list, get_sys_pref('IMAGE_RESIZING','RESAMPLE'),false,true);
     form_label(str('IMAGE_RESIZE_PROMPT'));
-    form_input('dir',str('CACHE_DIR'),60,'', $dir );
+    form_input('dir',str('CACHE_DIR'),60,'', os_path(un_magic_quote($dir)) );
     form_label(str('CACHE_DIR_PROMPT'));
     form_input('size',str('CACHE_SIZE'),3,'', $size);
     form_label(str('CACHE_SIZE_PROMPT'));
@@ -34,7 +34,7 @@
 
   function cache_update()
   {
-    $dir = rtrim(str_replace('\\','/',un_magic_quote($_REQUEST["dir"])),'/');
+    $dir = rtrim(str_replace('\\','/',stripslashes($_REQUEST["dir"])),'/');
     $size = $_REQUEST["size"];
 
     if (empty($dir))
