@@ -53,14 +53,14 @@
     // If we are sure that we found a good result, then get the file details.
     if ($best_match["pc"] > 75)      
     {
-      send_to_log('Possible matches are:',$haystack);
-      send_to_log('Best guess: ['.$best_match["id"].'] - '.$haystack[$best_match["id"]]);
+      send_to_log(6,'Possible matches are:',$haystack);
+      send_to_log(4,'Best guess: ['.$best_match["id"].'] - '.$haystack[$best_match["id"]]);
       $accuracy = $best_match["pc"];      
       return $best_match["id"];
     }
     else 
     {
-      send_to_log('Multiple Matches found, No match > 75%',$haystack);
+      send_to_log(4,'Multiple Matches found, No match > 75%',$haystack);
       return false;
     }          
   }
@@ -84,7 +84,7 @@
     $film_title  = ucwords(strip_title( $title ));
     $accuracy = 0;
     
-    send_to_log("Searching for details about '$film_title' online at '$site_url'");
+    send_to_log(4,"Searching for details about '$film_title' online at '$site_url'");
 
     // Change the word order?
     if ( $change_word_order && substr($film_title,0,3)=='The' )
@@ -92,11 +92,12 @@
 
     // Submit the search
     $search_page = $site_url.str_replace('#####',urlencode($film_title),$search_url);
+    send_to_log(6,'Fetching information from:',url_get_components($search_page));
     $html        = file_get_contents( $search_page);    
 
     if ($html === false)
     {
-      send_to_log('Failed to access the following URL : '.$search_page);
+      send_to_log(2,'Failed to access the URL.');
     }
     else
     {
@@ -105,15 +106,20 @@
       {
         $matches     = get_urls_from_html($html, $link_string);
         $index       = best_match($film_title, $matches[2], $accuracy);
-        $dvd_page    = add_site_to_url($matches[1][$index] , $site_url);
-        $html        = file_get_contents($dvd_page);
-
-        if ($html === false)
-          send_to_log('Falied to access the following URL : '.$dvd_page);
+        
+        if ($index === false)
+          $html = false;          
+        else
+        {
+          $url = add_site_to_url($matches[1][$index],$site_url);
+          send_to_log(6,'Fetching information from:',url_get_components($url));
+          debug($url);
+          $html = file_get_contents( $url );
+        }
       }
       else
       {
-        send_to_log("No Match found.");
+        send_to_log(4,"No Match found.");
         $html = false;
       }
     }
@@ -143,17 +149,26 @@
   {
     if ( is_movie_check_enabled() )
     {
-      send_to_log('Checking online for extra movie information from '.file_noext(get_sys_pref('movie_info_script','www.lovefilm.com.php')));
-      $data = db_toarray("select file_id, concat(dirname,filename) fsp, filename title from movies where details_available is null");
+      send_to_log(4,'Checking online for extra movie information from '.file_noext(get_sys_pref('movie_info_script','www.lovefilm.com.php')));
+
+      // Only try to update movie information for categories that have it enabled, and where the details_available column is null.
+      $data = db_toarray("select file_id
+                               , concat(dirname,filename) fsp
+                               , filename title
+                            from movies m, media_locations ml, categories c
+                           where m.location_id = ml.location_id
+                             and ml.cat_id = c.cat_id
+                             and m.details_available is null
+                             and  c.download_info = 'Y' ");
     
       // Process each movie
       foreach ($data as $row)
         extra_get_movie_details( $row["FILE_ID"], $row["FSP"], $row["TITLE"] );
           
-      send_to_log('Online movie check complete');
+      send_to_log(4,'Online movie check complete');
     }
     else 
-      send_to_log('Online movie check is DISABLED');
+      send_to_log(4,'Online movie check is DISABLED');
   }   
 
 
@@ -175,7 +190,7 @@
   }
 
   // Include the appropriate file
-  send_to_log('Including parser file '.$parser_dir.'/'.$inc_file);
+  send_to_log(4,'Including parser file '.$parser_dir.'/'.$inc_file);
   require_once( $parser_dir.'/'.$inc_file );
   
   /**************************************************************************************************

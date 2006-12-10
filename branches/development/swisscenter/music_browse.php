@@ -20,10 +20,8 @@
   $sql  = 'from mp3s media'.get_rating_join().'where 1=1'.$hist["sql"];
 
   browse_db( str('BROWSE_MUSIC')                                                   // Title
-           , db_col_to_list("select name from media_locations where media_type=1") // Directories
            , $sql                                                                  // SQL (from...)
            , $hist["url"]                                                          // Return URL
-           , media_exts_music()                                                    // Filetypes
            , MEDIA_TYPE_MUSIC                                                      // Select all media type
            );
 

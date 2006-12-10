@@ -2,7 +2,6 @@
 /**************************************************************************************************
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
-  ob_start();
 
   require_once( realpath(dirname(__FILE__).'/../base/page.php'));
   require_once( realpath(dirname(__FILE__).'/../base/mysql.php'));

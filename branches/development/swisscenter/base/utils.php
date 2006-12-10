@@ -374,7 +374,7 @@ function arrayUnique( $array, $key )
 // indicate it has been shortened
 // ----------------------------------------------------------------------------------
 
-function shorten( $text, $trunc, $lines = 1, $font_size = 24, $dots = true, $word_trunc = true )
+function shorten( $text, $width, $lines = 1, $font_size = 24, $dots = true, $word_trunc = true )
 {
   if(empty($text))
     return $text;
@@ -383,14 +383,17 @@ function shorten( $text, $trunc, $lines = 1, $font_size = 24, $dots = true, $wor
   $short_string = "";
   $len          = 0;
   $text         = (string)$text;
-  $max_len      = $trunc * 10; // All sizes are *10 to avoid flaoting point calculations.
+
+  // The character sizes specified in the array are for a fixed size font. therefore, we 
+  // need to calculate the max_len for the font size we were given.  
+  $max_len = 24/$font_size * $width * 10; 
 
   if ($lines > 1)
   {
     // Multiple lines
     for ($lineno = 0; $lineno < $lines; $lineno++)
     {
-      $line = shorten($text, $trunc, 1, $font_size, false);
+      $line = shorten($text, $width, 1, $font_size, false);
       $text = substr($text,strlen($line));
       $short_string .= $line;
     }
@@ -403,7 +406,7 @@ function shorten( $text, $trunc, $lines = 1, $font_size = 24, $dots = true, $wor
       $current_char = $text[$index];
       
       if(!array_key_exists($current_char, $char_widths))
-        $char_len = 7;
+        $char_len = 176;
       else
         $char_len = $char_widths[$current_char];
   
@@ -466,6 +469,29 @@ function url_add_param($url, $param, $value)
 function url_set_param($url, $param, $value)
 {
   return url_add_param($url, $param, $value);
+}
+
+//
+
+function url_get_components( $url )
+{
+  preg_match('¬(http://|ftp://|)(.*)/(.*)($|\?)(.*)$¬Ui',$url, $matches);
+  
+  $components = array( 'Site'   => $matches[2]
+                     , 'Path'   => dirname($matches[3])
+                     , 'Script' => basename($matches[3]) );
+
+  if (!empty($matches[5]))
+  {                     
+    $components["Params"] = array();
+    foreach ( explode('&',$matches[5]) as $p)
+    {
+      $pair = explode('=',$p);
+      $components["Params"][$pair[0]] = $pair[1];
+    }
+  }
+    
+  return $components;
 }
 
 // ----------------------------------------------------------------------------------

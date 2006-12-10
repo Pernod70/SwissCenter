@@ -11,7 +11,7 @@
 
 function convert_link ( $wiki, $link )
   {
-    $color = style_value('WIKI_LINK','#00FFFF');
+    $color = style_value('PAGE_TEXT_BOLD_COLOUR','#00FFFF');
     $found = preg_match('~href="(.*?)".*?>(.*?)</a>~s',$link,$matches);
 
     if ($found == 0)

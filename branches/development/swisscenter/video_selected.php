@@ -27,7 +27,7 @@
     if (!empty($info["CERTIFICATE"]))
       $cert = '('.get_cert_name( get_nearest_cert_in_scheme( $info["CERTIFICATE"], get_rating_scheme_name() ) ).')';
     
-    echo font_colour_tags('TITLE_COLOUR',str('TITLE')).' : '.shorten($info["TITLE"].$cert,721).'<p>';
+    echo font_colour_tags('PAGE_TITLE_COLOUR',str('TITLE')).' : '.shorten($info["TITLE"].$cert,721).'<p>';
     
     if ( !is_null($info["SYNOPSIS"]) )
     {
@@ -118,7 +118,8 @@
       $menu->add_item( str('ADD_PLAYLIST') ,'add_playlist.php?sql='.rawurlencode("select distinct $select_fields from movies where file_id=".$data[0]["FILE_ID"]),true);
 
     // Add a link to search wikipedia
-    $menu->add_item( str('SEARCH_WIKIPEDIA'), lang_wikipedia_search( ucwords(strip_title($data[0]["TITLE"])) ) ,true);
+    if (internet_available() && get_sys_pref('wikipedia_lookups','YES') == 'YES' )
+      $menu->add_item( str('SEARCH_WIKIPEDIA'), lang_wikipedia_search( ucwords(strip_title($data[0]["TITLE"])) ) ,true);
       
     // TO-DO
     // Link to full cast & directors

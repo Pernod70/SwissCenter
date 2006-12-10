@@ -27,8 +27,8 @@
     if (empty($data))
     {
       echo str( 'WEATHER_NO_CITY'
-              , '<font color="'.style_value("TITLE_COLOUR",'#FFFFFF').'">'.$search.'</font>'
-              ,'<font color="'.style_value("TITLE_COLOUR",'#FFFFFF').'">'.str('WEATHER_CHANNEL').'</font>').'<p>';
+              , '<font color="'.style_value("PAGE_TITLE_COLOUR",'#FFFFFF').'">'.$search.'</font>'
+              ,'<font color="'.style_value("PAGE_TITLE_COLOUR",'#FFFFFF').'">'.str('WEATHER_CHANNEL').'</font>').'<p>';
               
 
       $menu->add_item( str('SEARCH_YES'),'city_selected.php?name='.rawurlencode($search),true);

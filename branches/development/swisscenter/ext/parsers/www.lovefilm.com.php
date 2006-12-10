@@ -22,7 +22,7 @@
     $film_title  = ucwords(strip_title( $file_name ));
     $html        = file_get_contents($search_url.str_replace(' ','+',$film_title));
     $accuracy    = 0;
-    send_to_log('Checking movie file : '.$file_name);
+    send_to_log(4,'Checking movie file : '.$file_name);
         
     if (strpos(strtolower($html),"search results") !== false)
     { 
@@ -30,7 +30,7 @@
       {
         // There are no matches found... do nothing
         $accuracy = 0;
-        send_to_log("No Match found.");
+        send_to_log(4,"No Match found.");
       }
       else 
       {
@@ -54,12 +54,12 @@
         if ($best_match["pc"] > 75)      
         {
           $html = file_get_contents($site_url.$matches[1][$best_match["id"]]);
-          send_to_log('Multiple Matches found, best guess is "'.$matches[2][$best_match["id"]].'"',$matches[2]);
+          send_to_log(4,'Multiple Matches found, best guess is "'.$matches[2][$best_match["id"]].'"',$matches[2]);
           $accuracy = $best_match["pc"];      
         }
         else 
         {
-          send_to_log('Multiple Matches found, No match > 75%',$matches[2]);
+          send_to_log(4,'Multiple Matches found, No match > 75%',$matches[2]);
           $accuracy = 0;
         }
       }
@@ -69,9 +69,9 @@
       $title = str_replace('&nbsp;','',substr_between_strings($html,'-- main body','-- Recommend'));
       similar_text($film_title, strip_title($film_title), $accuracy);
       if ($accuracy > 75)
-        send_to_log('Single Match found : '.$title);      
+        send_to_log(4,'Single Match found : '.$title);      
       else 
-        send_to_log('Single Match found, but not > 75%');
+        send_to_log(4,'Single Match found, but not > 75%');
     }
     
     // Determine attributes for the movie and update the database
@@ -99,14 +99,11 @@
       // Attempt to capture the fact that the website has changed and we are unable to get movie information.
       if (strlen($details) == 0)
       {
-        send_to_log('UNABLE TO GET MOVIE INFORMATION FROM WWW.LOVEFILM.COM');
-        send_to_log('This may be due to lovefilm changing their page format - please post to the forums on');
-        send_to_log('the www.swisscenter.co.uk website requesting that the matter be investigated further.');  
-        $_SESSION['Movie_info_download'] = true;      
-        
-        # For debugging purposes, uncomment the next line and then look through the html to discover what 
-        # the markers have been changed to.
-        # echo $html;
+        send_to_log(1,'UNABLE TO GET MOVIE INFORMATION FROM WWW.LOVEFILM.COM');
+        send_to_log(1,'This may be due to lovefilm changing their page format - please post to the forums on');
+        send_to_log(1,'the www.swisscenter.co.uk website requesting that the matter be investigated further.');  
+        $_SESSION['Movie_info_download'] = true;              
+        return false;
       }
       else
       {
@@ -114,15 +111,11 @@
         $new_actors    = get_attrib($details,"Starring:");
         $new_genres    = get_attrib($details,"Genre\(s\):");
         
-        send_to_log('Main Movie details',$columns);
-        send_to_log('Directors',$new_directors);
-        send_to_log('Actors',$new_actors);
-        send_to_log('Genres',$new_genres);
-        
         scdb_add_directors     ($id, $new_directors);
         scdb_add_actors        ($id, $new_actors);
         scdb_add_genres        ($id, $new_genres);    
         scdb_set_movie_attribs ($id, $columns);
+        return true;
       }
     }
     else 
@@ -130,6 +123,7 @@
       // Mark the file as attempted to get details, but none available
       $columns = array ( "MATCH_PC" => $accuracy, "DETAILS_AVAILABLE" => 'N');
       scdb_set_movie_attribs ($id, $columns);
+      return false;
     }
   }
   

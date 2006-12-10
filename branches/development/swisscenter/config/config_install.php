@@ -28,7 +28,7 @@
     form_input('username',str('USERNAME'),15,'',$name);
     form_input('password',str('PASSWORD'),15,'',$pass);
              
-    form_input('root_password',str('CONFIG_DB_ROOT_PW'),15,'',$_REQUEST["password"]);
+    form_input('root_password',str('CONFIG_DB_ROOT_PW'),15,'',$_REQUEST["root_password"], true);
     form_label(str('CONFIG_DB_ROOT_PW_TXT'));
     form_submit(str('CONFIG_DB_CREATE'));
     form_end();

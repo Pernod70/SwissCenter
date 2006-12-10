@@ -34,12 +34,12 @@ function current_session()
 
 function up_link( $url)
 {
-  return '<a href="'.$url.'" TVID="PGUP" ONFOCUSLOAD>'.img_gen(SC_LOCATION.style_img("IMG_PGUP"),40,20,false,false,'RESIZE').'</a>';
+  return '<a href="'.$url.'" TVID="PGUP" ONFOCUSLOAD>'.img_gen(SC_LOCATION.style_img("PAGE_UP"),40,20,false,false,'RESIZE').'</a>';
 }
 
 function down_link( $url)
 {
-  return '<a href="'.$url.'" TVID="PGDN" ONFOCUSLOAD>'.img_gen(SC_LOCATION.style_img("IMG_PGDN"),40,20,false,false,'RESIZE').'</a>';
+  return '<a href="'.$url.'" TVID="PGDN" ONFOCUSLOAD>'.img_gen(SC_LOCATION.style_img("PAGE_DOWN"),40,20,false,false,'RESIZE').'</a>';
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -58,17 +58,11 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
   }
   
   if (get_screen_type() == 'NTSC')
-  {
-    $logo                   = '';
     $headings               = '<td height="'.convert_y(60).'" align="center"><b>'.$title.'</b> : '.$tagline.'&nbsp;</td>';
-  }
   else
-  {
-    $logo                   = '<td width="'.convert_x(250).'" height="'.convert_y(190).'" valign="center" align="center">'.img_gen(SC_LOCATION."/images/logo.gif",200,100,false,false,'RESIZE');
     $headings               = '<td height="'.convert_y(190).'" align="center"><h2>'.$title.'&nbsp;</h2>'.$tagline.'&nbsp;</td>';
-  }
 
-  $background_image       = '/thumb.php?type=jpg&stretch=Y&x='.convert_x(1000).'&y='.convert_y(1000).'&src='.rawurlencode(SC_LOCATION.style_img("PAL_BACKGROUND"));
+  $background_image       = '/thumb.php?type=jpg&stretch=Y&x='.convert_x(1000).'&y='.convert_y(1000).'&src='.rawurlencode(SC_LOCATION.style_img("PAGE_BACKGROUND"));
   
   if ($focus_colour == '')
     $focus_colour = style_value("PAGE_FOCUS_COLOUR",'#FFFFFF');
@@ -83,20 +77,20 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
         <title>'.$title.'</title>
         <style>
           body {font-family: arial; font-size: 14px; background-repeat: no-repeat; }
-          a {color:'.style_value("PAGE_LINK",'#FFFFFF').'; text-decoration: none;}
+          a {color:'.style_value("PAGE_LINKS_COLOUR",'#FFFFFF').'; text-decoration: none;}
         </style>
         </head>
         <body  onLoadSet="'.$focus.'"
                background="'.  $background_image .'"
                FOCUSCOLOR="'.  $focus_colour.'"
                FOCUSTEXT="'.   style_value("PAGE_FOCUS_TEXT",'#FFFFFF').'"
-               text="'.        style_value("PAGE_TEXT",'#FFFFFF').'"
-               vlink="'.       style_value("PAGE_VLINK",'#FFFFFF').'"
-               bgcolor="'.     style_value("PAGE_BGCOLOUR",'#FFFFFF').'"
+               text="'.        style_value("PAGE_TEXT_COLOUR",'#FFFFFF').'"
+               vlink="'.       style_value("PAGE_LINKS_COLOUR",'#FFFFFF').'"
+               bgcolor="'.     style_value("PAGE_BACKGROUND_COLOUR",'#FFFFFF').'"
                TOPMARGIN="0" LEFTMARGIN="0" MARGINHEIGHT="0" MARGINWIDTH="0">';
   
   echo '<table width="'.convert_x(1000).'" border="0" cellpadding="0" cellspacing="0">
-        <tr>'.$logo.$headings.'</tr>
+        <tr>'.$headings.'</tr>
         </table>
         
         <table width="'.convert_x(1000).'" border="0" cellpadding="0" cellspacing="0">
@@ -144,7 +138,17 @@ function img_gen( $filename, $x, $y, $type = false, $stretch = false, $rs_mode =
   if ($rs_mode !== false)
     $img_params .='&rs_mode='.$rs_mode;
 
-  return '<img '.$html.' width="'.convert_x($x).'" height="'.convert_y($y).'" src="'.$img_params.'" border=0>';
+  
+  $browser = $_SERVER['HTTP_USER_AGENT'];
+  if ( strpos($browser,'MSIE ') !== false && preg_replace('/^.*MSIE (.*);.*$/Ui','\1',$browser) < 7)
+  {
+    $filter = "filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='$img_params',sizingMethod='crop');";
+    return '<img style="'.$filter.'" width="'.convert_x($x).'" height="'.convert_y($y).'" src="/images/dot.gif" border=0>';
+  }
+  else      
+    return '<img '.$html.' width="'.convert_x($x).'" height="'.convert_y($y).'" src="'.$img_params.'" border=0>';
+  
+  # filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='',sizingMethod='xrop');
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -156,9 +160,10 @@ function img_gen( $filename, $x, $y, $type = false, $stretch = false, $rs_mode =
 
 function pc_nav_button($text, $url)
   {
-    return '<td align="center" valign="center" height="23" width="'.(convert_x(1000)/5).'" background="'.style_img('IMG_PC_BUTTON').'" onclick="document.location=\''.$url.'\';">
-         <a href="'.$url.'"><font color="'.style_value('COL_PC_BUTTON','#000000').'">'.$text.'</font></a>
-         </td>';
+    return '<td align="center" valign="center" height="23" width="'.(convert_x(1000)/5).'" '.
+                style_background('PC_BUTTON_BACKGROUD').' onclick="document.location=\''.$url.'\';">
+            <a href="'.$url.'">'.font_colour_tags('PC_BUTTON_TEXT_COLOUR',$text).'</a>
+            </td>';
   }
 
 //-------------------------------------------------------------------------------------------------
@@ -236,7 +241,7 @@ function page_footer( $back, $buttons= '', $iconbar = 0 )
    
 function page_inform( $seconds, $url, $title, $text)
 {
-  debug_to_log("Displaying message",array("message"=>$text, "time"=>$seconds, "url"=>$url));
+  send_to_log(8,"Displaying message",array("message"=>$text, "time"=>$seconds, "url"=>$url));
   page_header($title,"",'<meta http-equiv="refresh" content="'.$seconds.';URL='.$url.'">');
   echo "<p>&nbsp;<p>&nbsp;<p><center>".$text."</center>";
   page_footer('/');  
@@ -255,11 +260,16 @@ function debug( $item )
 }
 
 //-------------------------------------------------------------------------------------------------
-// Main code for thislibrary
+// Actions that should be taken for every page
 //-------------------------------------------------------------------------------------------------
 
-send_to_log("------------------------------------------------------------------------------");
-send_to_log("Page Requested : ".current_url());
+// Log details of the page request
+send_to_log(1,"------------------------------------------------------------------------------");
+send_to_log(1,"Page Requested : ".current_url());
+
+// If in design mode, then we want to make sure the style file is re-read on every page.
+if ( defined('STYLE_MODE') && STYLE_MODE == 'DESIGN' )
+  load_style();
 
 /**************************************************************************************************
                                                End of file

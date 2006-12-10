@@ -6,6 +6,7 @@
 require_once( realpath(dirname(__FILE__).'/server.php'));
 require_once( realpath(dirname(__FILE__).'/utils.php'));
 require_once( realpath(dirname(__FILE__).'/screen.php'));
+require_once( realpath(dirname(__FILE__).'/settings.php'));
 
 #-------------------------------------------------------------------------------------------------
 # Returns the type of hardware player that the SwissCenter is communicating with.
@@ -126,15 +127,15 @@ function quick_access_img( $position )
   {
     case 'ELGATO':
     case 'NEUSTON':
-         $map = array('IMG_RED','IMG_GREEN','IMG_BLUE');
+         $map = array('QUICK_RED','QUICK_GREEN','QUICK_BLUE');
          break;    
 
     case 'IO-DATA':
-         $map = array('IMG_PAUSE','IMG_STOP','IMG_REPEAT');
+         $map = array('QUICK_PAUSE','QUICK_STOP','QUICK_REPEAT');
          break;
 
     default:
-         $map = array('IMG_A','IMG_B','IMG_C');
+         $map = array('QUICK_A','QUICK_B','QUICK_C');
   }
 
   if (isset($map[$position]))
@@ -162,6 +163,19 @@ function media_exts_photos()
   return explode(',' ,'jpeg,jpg,gif,png');
 }
 
+function media_exts( $media_type )
+{
+  switch ($media_type)
+  {  
+    case MEDIA_TYPE_MUSIC : return media_exts_music();  break;
+    case MEDIA_TYPE_PHOTO : return media_exts_photos(); break;
+    case MEDIA_TYPE_VIDEO : return media_exts_movies(); break;
+  }
+  
+  // Should never happen
+  return array();
+}
+
 #-------------------------------------------------------------------------------------------------
 # Returns an array of PHP modules that are required/suggested to be installed for this player type
 #-------------------------------------------------------------------------------------------------
@@ -174,6 +188,17 @@ function get_required_modules_list()
 function get_suggested_modules_list()
 {
   return explode(',','zip');
+}
+
+#-------------------------------------------------------------------------------------------------
+# Accesses the players's internal webserver to set the location of the progress bar for the
+# "Now Playing" screen
+#-------------------------------------------------------------------------------------------------
+
+function set_progress_bar_location( $x, $y )
+{
+  $dummy = @file_get_contents('http://'.client_ip().':2020/pod_audio_info.cgi?x='
+           .convert_x($x,SCREEN_COORDS).'&y='.convert_y($y,SCREEN_COORDS));  
 }
 
 #-------------------------------------------------------------------------------------------------
@@ -196,6 +221,50 @@ function support_resume()
   }
 
   return $result;
+}
+
+#-------------------------------------------------------------------------------------------------
+# Is this hardware device capable of displaying sync'd "Now Playing" screens?
+#-------------------------------------------------------------------------------------------------
+
+function support_now_playing()
+{ 
+  $result = true;
+  
+  switch ( get_player_type() )
+  {
+    case 'IO-DATA':
+         $result = false;
+         break;
+  }
+
+  return $result;
+}
+  
+#-------------------------------------------------------------------------------------------------
+# The transition effect to use between "Now Playing" screens.
+#
+# Available effects are:
+#  0 - Random                    1 - Wipe Down                 2 - Wipe Up
+#  3 - Open Vertical             4 - Close Vertical            5 - Split Vertical 1
+#  6 - Split Vertical 2          7 - Interlace                 8 - Fade to black
+#
+# NOTE: On the newer 2nd Gen machines, effect number 0 appears to be "no effect".
+#-------------------------------------------------------------------------------------------------
+
+function now_playing_transition()
+{
+  switch ( get_player_type() )
+  {
+    case 'IO-DATA':
+    case 'PINNACLE': // Showcenter 1000
+         return 8;
+         break;
+
+    default:
+         return 0;
+         break;
+  }	
 }
 
 /**************************************************************************************************

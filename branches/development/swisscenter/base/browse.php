@@ -5,10 +5,24 @@
 
   require_once( realpath(dirname(__FILE__).'/page.php'));
   require_once( realpath(dirname(__FILE__).'/utils.php'));
+  require_once( realpath(dirname(__FILE__).'/settings.php'));
   require_once( realpath(dirname(__FILE__).'/file.php'));
   require_once( realpath(dirname(__FILE__).'/mysql.php'));
   require_once( realpath(dirname(__FILE__).'/thumblist.php'));
   require_once( realpath(dirname(__FILE__).'/prefs.php'));
+  require_once( realpath(dirname(__FILE__).'/media.php'));
+  
+  // ----------------------------------------------------------------------------------
+  // Returns the number of items obeing displayed on a page
+  // ----------------------------------------------------------------------------------
+
+  function items_per_page()
+  {
+    if ( get_user_pref("DISPLAY_THUMBS") == "COMPACT" )
+      return 18;
+    else 
+      return 8;    
+  }
   
   // ----------------------------------------------------------------------------------
   // Does the following to the list of directories and files...
@@ -100,7 +114,7 @@
   function display_names ($url, $dir, $dir_list, $file_list, $page)
   {
     $menu      = new menu();
-    $no_items  = 8;
+    $no_items  = items_per_page();
     $start     = $page * ($no_items);
     $end       = min(count($dir_list)+count($file_list) , $start+$no_items);
     $up        = ($page > 0);
@@ -135,7 +149,8 @@
 
   function display_thumbs ($url, $dir, $dir_list, $file_list, $page)
   {
-    $tlist   = new thumb_list();
+    $tlist    = new thumb_list();
+    $no_items = items_per_page();
 
     // Compact View
     if ( get_user_pref("DISPLAY_THUMBS") == "COMPACT" )
@@ -143,10 +158,7 @@
       $tlist->set_num_cols(6);
       $tlist->set_num_rows(3);
       $tlist->set_titles_off();
-      $no_items = 18;
     }
-    else 
-      $no_items = 8;
 
     $start = $page * ($no_items);
     $end   = min(count($dir_list)+count($file_list) , $start+$no_items);
@@ -187,6 +199,10 @@
 
   function browse_page(&$dir_list, &$file_list, $heading, $back_url, $media_type )
   {
+    // Switch between Thumbnail/Details view?
+    if ( !empty($_REQUEST["thumbs"]) )
+      set_user_pref('DISPLAY_THUMBS',strtoupper($_REQUEST["thumbs"]));
+
     // Remove unwanted directories and/or files
     tidy_lists ( $dir_list, $file_list );
     
@@ -195,11 +211,8 @@
     $page        = ( !isset($_REQUEST["page"]) ? 0 : $_REQUEST["page"]);
     $dir         = ( empty($_REQUEST["DIR"]) ? '' : un_magic_quote(rawurldecode($_REQUEST["DIR"])));
     $buttons     = array();
-
-    // Switch between Thumbnail/Details view?
-    if ( !empty($_REQUEST["thumbs"]) )
-      set_user_pref('DISPLAY_THUMBS',strtoupper($_REQUEST["thumbs"]));
-
+    $total_pages = ceil( ( count($dir_list)+count($file_list) ) / items_per_page() );
+    
     if ( get_user_pref("DISPLAY_THUMBS") == "FULL" )
     {
       page_header( $heading, substr($dir,0,-1),'',1,false);
@@ -219,9 +232,17 @@
       $buttons[] = array('text'=>str('THUMBNAIL_VIEW'), 'url'=>$url.'?thumbs=FULL&DIR='.rawurlencode($dir) );
     }
     
+    // Output some links to allow the user to jump though all pages returned using the keys "1" to "9" on the
+    // remote control. Note: "1" jumps to the first page, and "9" to the last.
+    for ($ir_key =0; $ir_key<10; $ir_key++ )      
+      echo '<a href="'.$url.'?page='.floor(($ir_key-1)*(($total_pages-1)/8)).'&DIR='.rawurlencode($dir).'" '.tvid($ir_key).'></a>';
+      
     // Should we present a link to select all files?
     if ($media_type > 0)
       $buttons[] = array('text'=>str('SELECT_ALL'), 'url'=> play_dir( $media_type, $dir));
+      
+    // Link to scan/refresh the directory
+      $buttons[] = array('text'=>str('REFRESH_DIR_BUTTON'), 'url' => '/media_dir_refresh.php?media_type='.$media_type.'&dir='.urlencode($dir).'&return_url='.urlencode(current_url()) );
 
     // Output ABC buttons if appropriate
     if ( empty($dir) )
@@ -245,8 +266,8 @@
 
     // Get a list of files/dirs from the filesystem.      
     foreach ($media_locations as $path)
-      dir_contents_FS(str_suffix($path,'/').$dir, $filetypes, $dir_list, $file_list);  
-
+      dir_contents_FS(str_suffix($path,'/').$dir, $filetypes, $dir_list, $file_list);
+      
     browse_page($dir_list, $file_list, $heading, $back_url, $media_type);     
   }
 
@@ -257,17 +278,18 @@
   // NOTE: £sql_table should be of the form "from <tablename> where <conditions>"
   // ----------------------------------------------------------------------------------
 
-  function browse_db($heading, $media_dirs, $sql_table, $back_url, $filetypes, $media_type = 0 )
+  function browse_db($heading, $sql_table, $back_url, $media_type = 0 )
   {
     // Check page parameters, and if not set then assign default values.
-    $dir             = ( empty($_REQUEST["DIR"]) ? '' : un_magic_quote(rawurldecode($_REQUEST["DIR"])));
-    $media_locations = ( is_array($media_dirs) ? $media_dirs : array($media_dirs));
     $dir_list        = array();
     $file_list       = array();
+    $dir             = ( empty($_REQUEST["DIR"]) ? '' : un_magic_quote(rawurldecode($_REQUEST["DIR"])));
+    $media_locations = db_toarray("select * from media_locations where media_type=".$media_type);
 
-    foreach ($media_locations as $path)
-      dir_contents_DB($dir_list, $file_list, $sql_table, str_suffix($path,'/').$dir);
-    
+    // Get list of files/dirs from the database
+    foreach ($media_locations as $row)
+      dir_contents_DB($dir_list, $file_list, $sql_table, str_suffix($row["NAME"],'/').$dir);
+          
     browse_page($dir_list, $file_list, $heading, $back_url, $media_type);     
   }
   

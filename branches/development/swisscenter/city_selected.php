@@ -17,8 +17,8 @@
     
     echo '&nbsp;<center><p>'
          .str('WEATHER_NO_MATCHING'
-             ,'<font color="'.style_value("MENU_OPTION_REF_COLOUR",'#FFFFFF').'">The Weather Channel</font>'
-             ,'<font color="'.style_value("MENU_OPTION_REF_COLOUR",'#FFFFFF').'">'.$_REQUEST["name"].'</font>')
+             ,'<font color="'.style_value("PAGE_TEXT_BOLD_COLOUR",'#FFFFFF').'">The Weather Channel</font>'
+             ,'<font color="'.style_value("PAGE_TEXT_BOLD_COLOUR",'#FFFFFF').'">'.$_REQUEST["name"].'</font>')
          .'<p></center>';
 
     $menu = new menu();

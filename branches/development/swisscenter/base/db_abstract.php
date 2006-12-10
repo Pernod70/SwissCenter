@@ -17,7 +17,7 @@
     if (! is_array($movies))
       $movies = array($movies);
 
-    debug_to_log('Storing these actors:',$items);
+    send_to_log(8,'Storing these actors:',$items);
 
     foreach ($items as $actor)
     {
@@ -48,7 +48,7 @@
     if (! is_array($movies))
       $movies = array($movies);
       
-    debug_to_log('Storing these directors:',$items);
+    send_to_log(8,'Storing these directors:',$items);
     
     foreach ($items as $dir)
     {
@@ -79,7 +79,7 @@
     if (! is_array($movies))
       $movies = array($movies);
 
-    debug_to_log('Storing these genres:',$items);
+    send_to_log(8,'Storing these genres:',$items);
 
     foreach ($items as $genre)
     {
@@ -107,7 +107,7 @@
     if (! is_array($movies))
       $movies = array($movies);
 
-    debug_to_log('Storing:',$columns);
+    send_to_log(8,'Storing:',$columns);
 
     foreach ($movies as $movie_id)
       db_sqlcommand("update movies set ".db_array_to_set_list($columns)." where file_id=".$movie_id,false);

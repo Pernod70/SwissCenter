@@ -37,7 +37,7 @@
   if (get_num_users() > 1)
     $icons->add_icon("ICON_USER",get_current_user_name(),'change_user.php');
 
-  if (internet_available() && $_SESSION["update"]["available"])
+  if (internet_available() && update_available() )
     $icons->add_icon("ICON_UPDATE",str('UPDATE'),'run_update.php');
 
   $num_new = count_messages_with_status(MESSAGE_STATUS_NEW);

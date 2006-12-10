@@ -27,7 +27,7 @@
     $next_url = $ok_url.'&pin='.$pin;
   
 
-  echo '<p><center><font color="'.style_value("TITLE_COLOUR").'">'.$message.'</font></center><p>&nbsp;<p>';
+  echo '<p><center><font color="'.style_value("PAGE_TITLE_COLOUR").'">'.$message.'</font></center><p>&nbsp;<p>';
   
   if(strlen($pin) > 0)
     echo '<center><font size="large">&gt; &nbsp; '.str_repeat("*", strlen($pin)).' &nbsp; &lt;</font></center>';

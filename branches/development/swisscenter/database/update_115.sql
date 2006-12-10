@@ -9,13 +9,18 @@
 UPDATE system_prefs SET value='1.15' WHERE name='DATABASE_VERSION';
 
 -- -------------------------------------------------------------------------------------------------
--- Add the new "downloads" column to the media tables so that we can record how many times a file
--- has been requested by the user.
+-- Create a new table to track the number of viewings per media type for each user of the system.
 -- -------------------------------------------------------------------------------------------------
 
-ALTER TABLE mp3s   ADD ( viewings INT UNSIGNED default 0 );
-ALTER TABLE movies ADD ( viewings INT UNSIGNED default 0 );
-ALTER TABLE photos ADD ( viewings INT UNSIGNED default 0 );
+CREATE TABLE viewings
+( user_id          int(10) unsigned NOT NULL 
+, media_type       int(10) unsigned NOT NULL 
+, media_id         int(10) unsigned NOT NULL 
+, last_viewed      datetime NOT NULL
+, total_viewings   int(10) unsigned default 0
+);
+
+CREATE INDEX viewings_n1 ON viewings (media_id);
 
 -- -------------------------------------------------------------------------------------------------
 -- Add new fields to the "clients" table. This records details on all the platforms that the

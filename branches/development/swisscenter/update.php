@@ -28,15 +28,15 @@
         closedir($dh);
       }
       else 
-        send_to_log("ERROR : Unable to open directory for reading.",$pre.$dir);
+        send_to_log(1,"ERROR : Unable to open directory for reading.",$pre.$dir);
     }
   }
 
  function set_last_update($release_dir)
  {
    $last_update = file_get_contents($release_dir.'last_update.txt');
-   set_sys_pref('last_update',$last_update);
-   $_SESSION["update"]["available"] = false;
+   set_sys_pref('LAST_UPDATE',$last_update);
+   set_sys_pref('UPDATE_AVAILABLE',false);
  }
    
 //*************************************************************************************************
@@ -72,7 +72,7 @@
     {
       if ( mkdir('updates') === false )
       {
-        send_to_log('ERROR: Unable to create directory.',"Updates");
+        send_to_log(1,'ERROR: Unable to create directory.',"Updates");
         $errors += 1;
       }
     }
@@ -89,13 +89,13 @@
         {
           // File was already downloaded (previous failed update attempt?)
           $actions[] = array("downloaded"=>$tmp_file, "existing"=>$test["filename"]);
-          send_to_log( $tmp_file." - already downloaded");
+          send_to_log(4, $tmp_file." - already downloaded");
         }
         else
         {
           // New or changed file
           $file_contents = file_get_contents($update_location.$filename);
-          send_to_log($tmp_file." - downloading");
+          send_to_log(4,$tmp_file." - downloading");
   
           if ($file_contents === false)
           {
@@ -123,7 +123,7 @@
               }
               else
               {
-                send_to_log($tmp_file." - stored on disk ready for rename");
+                send_to_log(4,$tmp_file." - stored on disk ready for rename");
                 $actions[] = array("downloaded"=>$tmp_file, "existing"=>$test["filename"]);
               }
             }          
@@ -139,11 +139,11 @@
       {
         if ( mkdir($dir["directory"]) === false )
         {
-         send_to_log('ERROR: Unable to create directory.',SC_LOCATION.$dir["directory"]);
+         send_to_log(1,'ERROR: Unable to create directory.',SC_LOCATION.$dir["directory"]);
          $errors += 1;
         }
         else 
-          send_to_log("'".$dir["directory"]."' directory created : ");
+          send_to_log(4,"'".$dir["directory"]."' directory created : ");
       }
     }
   }
@@ -151,7 +151,7 @@
   // Any errors so far?
   if ($errors !=0)
   {
-    send_to_log("There were errors during the update process : ".$errtxt);
+    send_to_log(1,"There were errors during the update process : ".$errtxt);
     header("Location: /update_outcome.php?status=ERROR");
   }
   else
@@ -163,7 +163,7 @@
       {
         unlink($a["existing"]);
         rename($a["downloaded"],$a["existing"]);
-        send_to_log("'".$a["existing"]."' updated");
+        send_to_log(4,"'".$a["existing"]."' updated");
 
         // If the file that has been updated is a database update, then apply it to the database
         if ( preg_match('/.*update_[0-9]*.sql/',$a["existing"]) )
@@ -172,9 +172,9 @@
             if ( strlen(trim($sql)) > 0 ) 
             {
               if (db_sqlcommand($sql))
-                send_to_log("SQL command executed : ".$sql);
+                send_to_log(6,"SQL command executed : ".$sql);
               else 
-                send_to_log("SQL command failed : ".$sql);
+                send_to_log(1,"SQL command failed : ".$sql);
             }
         } 
       }
@@ -188,13 +188,13 @@
       fwrite($out, serialize($update["files"]));
       fclose($out);   
       set_last_update($update_location);
-      send_to_log("Update complete");
+      send_to_log(4,"Update complete");
       header("Location: /update_outcome.php?status=UPDATED");
    }
    else 
    {
       set_last_update($update_location);
-      send_to_log("No files to update");
+      send_to_log(4,"No files to update");
       header("Location: /update_outcome.php?status=NONE");
    }
         

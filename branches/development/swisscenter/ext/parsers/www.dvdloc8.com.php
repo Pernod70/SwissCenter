@@ -45,6 +45,13 @@
     
       // Store the fact that there are details available in the database.
       scdb_set_movie_attribs( $id, array( 'DETAILS_AVAILABLE' => 'Y') );
+      
+      return true;
+    }
+    else 
+    {
+      // Signal that we were unable to locate the movie details.
+      return false;
     }
   }
 

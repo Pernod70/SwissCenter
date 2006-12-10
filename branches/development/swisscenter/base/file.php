@@ -76,9 +76,11 @@ function bookmark_file( $fsp )
 //       started. Only one generation of logs is archived (so current log and old log only)
 //-------------------------------------------------------------------------------------------------
 
-function send_to_log( $item, $var = '')
+function send_to_log($level, $item, $var = '')
 {
-  if (!empty($item) || !empty($var))
+  $log_level = ( defined('LOG_MODE') && (int)LOG_MODE > 0 ? LOG_MODE : 5);
+  
+  if (!empty($item) && $log_level >= $level )
   {
     $log = logfile_location();
 
@@ -112,16 +114,6 @@ function send_to_log( $item, $var = '')
       }
     }
   }
-}
-
-//-------------------------------------------------------------------------------------------------
-// Writes entries to the logfile if DEBUG mode is enabled.
-//-------------------------------------------------------------------------------------------------
-
-function debug_to_log( $item, $var='')
-{
-  if (defined('LOG_MODE') && strtolower(LOG_MODE) == 'debug')
-    send_to_log($item, $var);
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -331,7 +323,7 @@ function update_ini( $file, $var, $value )
   
   // Overwrite the existing file with the contents of the updated array
   if (! array2file($contents, $file) )
-    send_to_log('Error writing to INI file');
+    send_to_log(1,'Error writing to INI file');
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -439,7 +431,7 @@ function file_thumbnail( $fsp )
 
   if (!file_exists($fsp))
   {
-    send_to_log("Warning : File/Directory doesn't exist in file.php:file_thumbnail",$fsp);
+    send_to_log(3,"Warning : File/Directory doesn't exist in file.php:file_thumbnail",$fsp);
     $tn_image = file_icon('xxx');
   }
   else 
@@ -513,17 +505,17 @@ function file_save_albumart( $url, $fsp, $film_title )
 {
   if (!file_exists($fsp))
   {
-    send_to_log('Attempting to download albumart from '.$url);
+    send_to_log(4,'Attempting to download albumart from '.$url);
     $out = @fopen($fsp, "wb");
     if ($out)
     {
       @fwrite($out, file_get_contents($url));
       @fclose($out);
-      send_to_log('AlbumArt downloaded for '.$film_title);
+      send_to_log(4,'AlbumArt downloaded for '.$film_title);
     }
     else 
     {
-       send_to_log('Unable to write AlbumArt to file (May be a permissions problem if running on Linux)');
+       send_to_log(2,'Unable to write AlbumArt to file (May be a permissions problem if running on Linux)');
     }
   }
 }
@@ -551,13 +543,13 @@ function php_cli_location()
   if ( is_windows() )
   {
     if ( isset($_SERVER["SCRIPT_FILENAME"]) && !empty($_SERVER["SCRIPT_FILENAME"]))
-      return str_replace('\\','/',stripslashes($_SERVER["SCRIPT_FILENAME"]));
+      return str_replace('\\','/',$_SERVER["SCRIPT_FILENAME"]);
     else 
       return false;
   }
   else
   {
-    $location = trim(syscall('which php php4 | head -1'));
+    $location = trim(shell_exec("which php php4 | grep '^/' | head -1"));
     if (empty($location) || strpos($location,'no php') !== false)
       return false;
     else 

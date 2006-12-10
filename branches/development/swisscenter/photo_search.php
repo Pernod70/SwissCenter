@@ -18,7 +18,7 @@
         $title       = str('PHOTO_ALBUM');
         break;
     default :
-        send_to_log('Unknown $column in photo_album_search.php');
+        send_to_log(1,'Unknown $column in photo_album_search.php');
         page_error('Unexpected error - please see log for details');
         break;
   }

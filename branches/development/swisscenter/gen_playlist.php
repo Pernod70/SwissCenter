@@ -26,7 +26,7 @@
   $media_type = 0;
   $file_id    = 0; 
   
-  debug_to_log('Generating list of media files to send to the networked media player.');
+  send_to_log(7,'Generating list of media files to send to the networked media player.');
   
   foreach ($data as $row)
   {
@@ -54,7 +54,7 @@
     //       If this is missing, then the player reports "unknown format" 
     
     $url = $server.'stream.php?media_type='.$media_type.'&file_id='.$file_id.'&ext=.'.file_ext($row["FILENAME"]);
-    debug_to_log("- ".$url);
+    send_to_log(7,"- ".$url);
     
     // If this is a hardware player, then we might wish to resume playback of a file partway through
     $start_pos = 0;
@@ -65,7 +65,7 @@
       if (file_exists($bookmark_filename))
       {
         $start_pos = (int)trim(file_get_contents($bookmark_filename));
-        debug_to_log("- Resuming playback from ".$start_pos."%");
+        send_to_log(7,"- Resuming playback from ".$start_pos."%");
       }
     }
       

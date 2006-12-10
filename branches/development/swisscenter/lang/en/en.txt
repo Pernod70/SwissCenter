@@ -488,8 +488,6 @@ MOVIE_EXTRA_SITE_PROMPT = Download info from
 MOVIE_OPTIONS		= Video Options
 MEDIA_SEARCH_PROMPT	= Clicking the button below will begin a background scan of all your media locations. Media that is no longer present on your system will be removed from the database and any new or changed media will be added.
 RATING_SCHEME_PROMPT	= Certificate Scheme
-DEBUG_MODE		= Debug Mode
-DEBUG_MODE_PROMPT	= Enabling [i]Debug Mode[/i] will cause more information to be written to the support.log file when performing actions such as a media update and when downloading video information. This extra information may be required to troubleshoot any issues you are experiencing.
 SIMESE_SCHED_PROMPT	= You may schedule automatic refreshes of the SwissCenter database by right clicking on the Simese icon in the taskbar and selecting [i]Update Media Scheduler[/i].
 
 # Updated text strings in v1.14
@@ -515,6 +513,9 @@ CURRENT_VERSION		= Current Version
 
 # New text strings
 
+REFRESH_DIR             = Refreshing
+REFRESH_DIR_BUTTON      = Refresh
+REFRESH_DIR_TEXT        = SwissCenter is searching for new or updated media and adding it to the database. This may take a few moments, so please be patient.
 SEARCH_WIKIPEDIA	= Lookup in Wikipedia
 RESUME_PLAYING          = Resume Playing
 INSTALL_TEST_TITLE	= Installation Checks
@@ -523,6 +524,22 @@ INSTALL_TEST_FAIL_WEB   = The following tests failed:
 INSTALL_TEST_FAIL_CLI   = The following tests failed:when run in the background.
 CAT_DOWNLOAD            = Download Extra Info 
 CAT_DOWNLOAD_PROMPT     = This field determines if extra information should be downloaded from the internet for files assigned to this category when it is available.
+SYNOPSIS		= Synopsis
+RETURN_TO_LIST		= Return to list
+PAGE			= Page %s
+LOOKUP_MOVIE		= Lookup Movie
+LOOKUP_SUCCESS		= Movie details downloaded and stored.
+LOOKUP_FAILURE		= Unable to locate movie details.
+DEBUG_MINIMUM		= (Minimum)
+DEBUG_MAXIMUM		= (Maximum)
+DEBUG_RECOMMENDED	= (Recommended)
+DEBUG_LEVEL		= Level %s %s
+
+INTERNET_SETTING        = Internet Connection
+INTERNET_SETTING_PROMPT = This specifies whether or not your PC has an internet connection that SwissCenter can use. If you set the value to 'Automatic' then SwissCenter will try to detect an internet connection automatically.
+CONNECT_OPT_TEXT        = You may choose to enable or disable specific features that make use of an internet connection below. It is recommended that you leave all the features enabled.
+WIKI_LOOKUP             = Wikipedia Lookups
+WIKI_LOOKUP_PROMPT      = When this option is enabled, SwissCenter will include the option to lookup information (such as artists and movies) on the Wikipedia site.
 
 FAIL_MYSQL_VERSION      = Your version of MySQL is not supported.
 FAIL_MYSQL_CONNECT	= Unable to connect to the MySQL server.
@@ -551,6 +568,12 @@ PASS_SWISS_LOCS		= Media locations have been defined.
 PASS_SWISS_LOG		= Logging enabled.
 PASS_SWISS_ROOT_INS     = Installation was as a user other than root.
 PASS_SWISS_RW_FILES     = Able to Read/Write to the SwissCenter installation directory.
+
+# Updated text strings in v1.15
+
+DEBUG_MODE		= Logging Mode
+DEBUG_MODE_PROMPT	= The [i]Logging Mode[/i] controls how much information will be written to the support.log file when using the SwissCenter. If you are reporting a bug that you are able to reproduce, please ensure that the Logging mode is set to the maximum before capturing the log.
+
 
 #----------------------------------------------------------------------------------------------------
 # End-of-file

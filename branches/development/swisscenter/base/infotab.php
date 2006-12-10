@@ -3,8 +3,6 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-ob_start();
-
 require_once( realpath(dirname(__FILE__).'/settings.php'));
 
 //
@@ -55,7 +53,7 @@ class infotab
         $text = shorten($item["text"],$trunc*$lines);
           
         if (!is_null( $item["text"]))
-          echo '<tr><td'.$col_opts[1].'><font color="'.style_value("TITLE_COLOUR",'#FFFFFF').'">'.$item["title"].'</font></td><td width="6"></td><td'.$col_opts[2].'>'.$text.'</td></tr>';
+          echo '<tr><td'.$col_opts[1].'><font color="'.style_value("PAGE_TITLE_COLOUR",'#FFFFFF').'">'.$item["title"].'</font></td><td width="6"></td><td'.$col_opts[2].'>'.$text.'</td></tr>';
       }
       echo '</table></center>';
     }

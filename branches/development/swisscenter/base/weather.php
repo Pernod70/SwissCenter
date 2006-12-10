@@ -90,7 +90,7 @@ function get_weather_xml( $loc, $type, $val )
   if (empty($xml))
   {
     $fetch_url = $url.'&'.$type.'='.$val;
-    send_to_log("Fetching weather information from $fetch_url");
+    send_to_log(4,"Fetching weather information from", url_get_components($fetch_url));
     $xml       = file_get_contents($fetch_url);
     $data      = array("url"       => $url
                       ,"xml"       => $xml

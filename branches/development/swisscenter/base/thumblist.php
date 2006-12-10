@@ -25,7 +25,7 @@ class thumb_list
 
   var $n_cols = 4;
   var $n_rows = 2;
-  var $tn_size = array("X"=>130, "Y"=>160); // Defauylt thumbnail size.
+  var $tn_size = array("X"=>THUMBNAIL_X_SIZE, "Y"=>THUMBNAIL_Y_SIZE); 
 
   #-------------------------------------------------------------------------------------------------
   # Get/Set attributes

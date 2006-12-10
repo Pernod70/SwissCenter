@@ -54,7 +54,7 @@
     $fc->add_item('Lo', $xml_fc["dayf"][$i]["low"].chr(176).$xml_fc["head"]["ut"]);
     $day = date('D',time()+$i*86400);
 
-    echo '<td><center><font color="'.style_value("TITLE_COLOUR").'" size="4">'.$day.'</font><p>'
+    echo '<td><center><font color="'.style_value("PAGE_TITLE_COLOUR").'" size="4">'.$day.'</font><p>'
          .img_gen(SC_LOCATION.'/weather/large/'.$xml_fc["dayf"][$i]["d"]["icon"].'.gif',100,130,false,false,'RESIZE').'<br>';
           $fc->display(100);
     echo  img_gen(SC_LOCATION.'/weather/large/'.$xml_fc["dayf"][$i]["n"]["icon"].'.gif',100,130,false,false,'RESIZE').'<br>

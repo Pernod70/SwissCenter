@@ -121,11 +121,12 @@ function slideshow_link_by_browser( $params )
 
 function play_playlist()
 {
-  $params = 'spec_type=playlist&'.current_session().'&seed='.mt_rand();
-  
+  $params = 'spec_type=playlist&'.current_session().'&seed='.mt_rand(); 
+  $skip_type = ( support_now_playing() ? 3 : 2);
+
   // If all music, then generate the "Now Playing" images to accompany the tracks.
   if ( playlist_all_music())
-    $extra = 'pod="3,1,'.server_address().'playing_list.php?'.$params.'" ';
+    $extra = 'pod="'.$skip_type.',1,'.server_address().'playing_list.php?'.$params.'" ';
   else 
     $extra = 'vod="playlist" ';
 
@@ -139,11 +140,12 @@ function play_playlist()
 function play_dir( $media_type, $dir )
 {
   $params = 'spec_type=dir&spec='.rawurlencode($dir).'&media_type='.$media_type.'&seed='.mt_rand().'&'.current_session();
+  $skip_type = ( support_now_playing() ? 3 : 2);
   
   switch ($media_type)
   {
     case MEDIA_TYPE_MUSIC:
-         $link   = 'href="gen_playlist.php?'.$params.'" pod="3,1,'.server_address().'playing_list.php?'.$params.'" ';
+         $link   = 'href="gen_playlist.php?'.$params.'" pod="'.$skip_type.',1,'.server_address().'playing_list.php?'.$params.'" ';
          break;
          
     case MEDIA_TYPE_VIDEO:
@@ -166,11 +168,12 @@ function play_dir( $media_type, $dir )
 function resume_file( $media_type, $file_id )
 {
   $params = 'resume=Y&spec_type=file&'.current_session().'&spec='.$file_id.'&media_type='.$media_type;
+  $skip_type = ( support_now_playing() ? 3 : 2);
   
   switch ($media_type)
   {
     case MEDIA_TYPE_MUSIC:
-         $link   = 'href="gen_playlist.php?'.$params.'" pod="3,1,'.server_address().'playing_list.php?'.$params.'" ';
+         $link   = 'href="gen_playlist.php?'.$params.'" pod="'.$skip_type.',1,'.server_address().'playing_list.php?'.$params.'" ';
          break;
          
     case MEDIA_TYPE_VIDEO:
@@ -178,7 +181,7 @@ function resume_file( $media_type, $file_id )
          break;
          
     case MEDIA_TYPE_PHOTO:
-         send_to_log("Attempting to resume playback of a photo don't not make sense.");
+         send_to_log(1,"Attempting to resume playback of a photo don't not make sense.");
          $link   = false;
          break;
   }
@@ -194,11 +197,12 @@ function resume_file( $media_type, $file_id )
 function play_file( $media_type, $file_id )
 {
   $params = 'spec_type=file&'.current_session().'&spec='.$file_id.'&media_type='.$media_type;
+  $skip_type = ( support_now_playing() ? 3 : 2);
   
   switch ($media_type)
   {
     case MEDIA_TYPE_MUSIC:
-         $link   = 'href="gen_playlist.php?'.$params.'" pod="3,1,'.server_address().'playing_list.php?'.$params.'" ';
+         $link   = 'href="gen_playlist.php?'.$params.'" pod="'.$skip_type.',1,'.server_address().'playing_list.php?'.$params.'" ';
          break;
          
     case MEDIA_TYPE_VIDEO:
@@ -222,11 +226,12 @@ function play_sql_list( $media_type, $spec)
 {
   $_SESSION["play_now"]["spec"] = $spec;
   $params = 'spec_type=sql&'.current_session().'&seed='.mt_rand().'&media_type='.$media_type;
+  $skip_type = ( support_now_playing() ? 3 : 2);
   
   switch ($media_type)
   {
     case MEDIA_TYPE_MUSIC:
-         $link   = 'href="gen_playlist.php?'.$params.'" pod="3,1,'.server_address().'playing_list.php?'.$params.'" ';
+         $link   = 'href="gen_playlist.php?'.$params.'" pod="'.$skip_type.',1,'.server_address().'playing_list.php?'.$params.'" ';
          break;
          
     case MEDIA_TYPE_VIDEO:
@@ -285,8 +290,8 @@ function build_pl($sql)
   page_header(str('TRACKS_ADDED_TITLE'));
 
   echo str('TRACKS_ADDED_TEXT'
-          ,'<font color="'.style_value("BUTTON_DESC_COLOUR".'#FFFFFF').'">'.str('HOME').'</font>'
-          ,'<font color="'.style_value("MENU_OPTION_REF_COLOUR",'#FFFFFF').'">"'.str('MANAGE_PLAYLISTS').'"</font>');
+          ,'<font color="'.style_value("PAGE_TEXT_BOLD_COLOUR".'#FFFFFF').'">'.str('HOME').'</font>'
+          ,'<font color="'.style_value("PAGE_TEXT_BOLD_COLOUR",'#FFFFFF').'">"'.str('MANAGE_PLAYLISTS').'"</font>');
 
   $menu = new menu();
   $menu->add_item(str('MANAGE_PLAYLISTS'),'manage_pl.php');

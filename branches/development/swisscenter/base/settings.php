@@ -7,6 +7,7 @@
 require_once( realpath(dirname(__FILE__).'/capabilities.php'));
 require_once( realpath(dirname(__FILE__).'/mysql.php'));
 require_once( realpath(dirname(__FILE__).'/server.php'));
+require_once( realpath(dirname(__FILE__).'/internet.php'));
 require_once( realpath(dirname(__FILE__).'/prefs.php'));
 require_once( realpath(dirname(__FILE__).'/language.php'));
 
@@ -22,8 +23,11 @@ require_once( realpath(dirname(__FILE__).'/language.php'));
   define('MEDIA_TYPE_VIDEO',3);
   define('MEDIA_TYPE_RADIO',4);
   
+  define('THUMBNAIL_X_SIZE',130);
+  define('THUMBNAIL_Y_SIZE',160);
+  
 #-------------------------------------------------------------------------------------------------
-# Determine the location of the SwissCenter installation, and required files.
+# Determine the location of the SwissCenter installation.
 #-------------------------------------------------------------------------------------------------
 
   // Where is the SwissCenter installed?
@@ -43,61 +47,14 @@ require_once( realpath(dirname(__FILE__).'/language.php'));
         @define (strtoupper($k),$v);
   }
 
+
 #-------------------------------------------------------------------------------------------------
-# Check that the database is available before we continue with checks that should be performed 
-# when every new session is initiated.
+# Record the details of the client accessing the system, and download any new messages that may be
+# available on the swisscenter.co.uk website.
 #-------------------------------------------------------------------------------------------------
 
-if ( test_db() == 'OK' )
-{
-
-  // Check for Update
-  if (internet_available() && (!isset($_SESSION["update"]["timeout"]) || $_SESSION["update"]["timeout"] < time() ))
-  {
-    if ( get_sys_pref('updates_enabled','YES') == 'YES')
-    {
-      // Check for program update
-      $new_update_version = file_get_contents('http://update.swisscenter.co.uk/release/last_update.txt');
-      $_SESSION["update"]["available"] = ( version_compare($new_update_version, swisscenter_version()) > 0);
-    }
-    
-    if ( get_sys_pref('messages_enabled','YES') == 'YES')
-    {
-      // Check for new messages
-      $last_update = db_value("select max(added) from messages");
-      $messages = file_get_contents("http://update.swisscenter.co.uk/messages.php?last_check=".urlencode($last_update));
-    
-      if (!empty($messages))
-      {
-        foreach (unserialize($messages) as $mesg)
-        {
-          unset ($mesg["MESSAGE_ID"]);
-          db_insert_row('messages',$mesg);
-        }
-      }
-    }
-    // Check again in 24 hours
-    $_SESSION["update"]["timeout"]   = time()+86400; 
-  }
-
-  // Record the details for this client
-  
-  if (!isset($_SESSION["device"]))
-  { 
-    $_SESSION["device"]["last_seen"]  = db_datestr();
-    $_SESSION["device"]["ip_address"] = str_replace('\\','/',$_SERVER["REMOTE_ADDR"]);
-
-    get_player_type();
-    get_screen_type();
-    
-    if (strlen($_SESSION["device"]["ip_address"])>0)
-    {
-  	  db_sqlcommand("delete from clients where ip_address='".$_SESSION["device"]["ip_address"]."'");
-  	  db_insert_row('clients',$_SESSION["device"]);
-    }
-  }
-
-}
+record_client_details();
+download_new_messages();
 
 /**************************************************************************************************
                                                End of file

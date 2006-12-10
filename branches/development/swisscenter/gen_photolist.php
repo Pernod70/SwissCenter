@@ -23,7 +23,7 @@
   $effect     = 8;
   $delay      = (count($data) > 1 ? get_user_pref('PHOTO_PLAY_TIME','5') : 3600); 
   
-  debug_to_log('Generating list of pictures to send to the networked media player.');
+  send_to_log(7,'Generating list of pictures to send to the networked media player.');
 
   if (is_hardware_player())
   {
@@ -40,7 +40,7 @@
         $title = rtrim($row["TITLE"]);
         
       $url = $server.'stream.php?media_type=2&file_id='.$row["FILE_ID"].'&ext=.jpg';
-      debug_to_log(' - '.$url);
+      send_to_log(7,' - '.$url);
   
       if (is_hardware_player())
         echo  "$delay|$effect|$title|$url|\n";

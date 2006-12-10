@@ -11,8 +11,9 @@
   $highlight     = ( !isset($_REQUEST["hl"]) ? '1' : $_REQUEST["hl"]);
   $width         = 560;
 
-  $navup_img     = SC_LOCATION.style_img("IMG_PGUP");
-  $navdown_img   = SC_LOCATION.style_img("IMG_PGDN");
+  $navup_img     = SC_LOCATION.style_img("PAGE_UP");
+  $navdown_img   = SC_LOCATION.style_img("PAGE_DOWN");
+  
   $up_img        = SC_LOCATION.style_img("IMG_PLAYLIST_UP");
   $down_img      = SC_LOCATION.style_img("IMG_PLAYLIST_DOWN");
   $del_img       = SC_LOCATION.style_img("IMG_PLAYLIST_DELETE");

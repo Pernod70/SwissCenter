@@ -3,8 +3,6 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-ob_start();
-
 require_once( realpath(dirname(__FILE__).'/settings.php'));
 require_once( realpath(dirname(__FILE__).'/utils.php'));
 
@@ -35,7 +33,7 @@ class menu
 
   function add_item( $text, $url="", $right = false )
   {
-    $icon = img_gen(SC_LOCATION.style_img("IMG_RIGHT"), 16 , 40, false, false, 'RESIZE');
+    $icon = img_gen(SC_LOCATION.style_img("MENU_RIGHT"), 16 , 40, false, false, 'RESIZE');
     
     if (! is_null($text) && !empty($text))
       $this->menu_items[] = array( "text"=>$text
@@ -80,15 +78,9 @@ class menu
         if (substr($link,0,5) != 'href=')
           $link = 'href="'.$link.'"';
           
-        if ( style_img_exists("IMG_MENU_".$size) )
-          $menu_bg_img = style_img("IMG_MENU_".$size);
-        else 
-          $menu_bg_img = style_img("IMG_MENU");
-          
         $i++;
 
-        echo '<tr><td valign="middle" width="'.convert_x($size).'" height="'.convert_y(40).'" background="'.$menu_bg_img.'">'.
-              '<a style="width:'.(convert_x($size)-2).'" '.
+        echo '<tr><td valign="middle" width="'.convert_x($size).'" height="'.convert_y(40).'" '.style_background('MENU_BACKGROUND').'>'.'<a style="width:'.(convert_x($size)-2).'" '.
               $link.' TVID="'.$i.'" name="'.$i.'">'.font_tags($this->font_size).'&nbsp;&nbsp;&nbsp;'.$i.'. '.$text.'</font></a>'.$item["right"].'</td></tr>';
       }
     }

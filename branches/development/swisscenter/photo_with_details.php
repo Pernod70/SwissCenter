@@ -41,11 +41,12 @@
   $text_x    = $pic_width * 1.1;
   $text_y    = 80;
   
-  $text_width                    = style_value('NOW_TEXT_WIDTH','360');
   $title_text_col                = hexdec(style_value('NOW_TITLE_TEXT_COL','#000000'));
   $title_text_size               = style_value('NOW_TITLE_TEXT_SIZE','18');
   $detail_text_col               = hexdec(style_value('NOW_DETAIL_TEXT_COL','#000000'));
-//  $detail_text_size              = style_value('NOW_DETAIL_TEXT_SIZE','14');
+  $detail_text_size              = style_value('NOW_DETAIL_TEXT_SIZE','14');
+
+  $text_width                    = 400;
   $detail_text_size              = 12;
 
   # ------------------------------------------------------------------------------------------------

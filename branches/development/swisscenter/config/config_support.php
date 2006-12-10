@@ -13,7 +13,17 @@
     if ($log_mode == "")
       $log_mode = strtoupper(LOG_MODE);
     
-    $list = array( str('ENABLED')=>'DEBUG',str('DISABLED')=>'ERRORS');
+    // Build list of debugging levels.
+    $list = array( str('DEBUG_LEVEL',1,str('DEBUG_MINIMUM')) => 1 
+                 , str('DEBUG_LEVEL',2) => 2
+                 , str('DEBUG_LEVEL',3) => 3
+                 , str('DEBUG_LEVEL',4) => 4
+                 , str('DEBUG_LEVEL',5,str('DEBUG_RECOMMENDED')) => 5
+                 , str('DEBUG_LEVEL',6) => 6
+                 , str('DEBUG_LEVEL',7) => 7
+                 , str('DEBUG_LEVEL',8) => 8
+                 , str('DEBUG_LEVEL',9,str('DEBUG_MAXIMUM')) => 9
+                 );    
 
     echo "<h1>".str('SUPPORT_TITLE')."</h1><p>".str('SUPPORT_TXT','<a href=\"www.swisscenter.co.uk\">www.swisscenter.co.uk</a>');
     
@@ -22,16 +32,17 @@
     form_start('index.php', 150, 'conn');
     form_hidden('section', 'SUPPORT');
     form_hidden('action', 'SET_DEBUG');
-    form_list_static('debug',str('DEBUG_MODE'), $list ,($log_mode == 'DEBUG' ? 'DEBUG' : 'ERRORS'),false,false);
+    form_list_static('debug',str('DEBUG_MODE'), $list ,( (int)$log_mode>1 ? $log_mode:5),false,false);
     form_label(str('DEBUG_MODE_PROMPT'));
     form_submit(str('SAVE_SETTINGS'), 2);
     form_end();
     
     echo "<h2>".str('SUPPORT_PROG_TITLE')."</h2>";
-    $opts = array( array('Program'=>'PHP','Location'=>PHP_LOCATION),
-                   array('Program'=>'Swisscenter','Location'=>SC_LOCATION),
+    $opts = array( array('Program'=>'PHP (CLI Version)','Location'=>os_path(php_cli_location()) ),
+                   array('Program'=>'PHP ini file','Location'=>os_path(php_ini_location()) ),
+                   array('Program'=>'Swisscenter','Location'=>os_path(SC_LOCATION)),
                  );
-    array_to_table($opts, str('SUPPORT_PROG_HEADINGS'));
+    array_to_table($opts, str('SUPPORT_PROG_HEADINGS'));    
   
     echo "<h2>".str('SUPPORT_CLIENTS_TITLE')."</h2>";
     array_to_table(db_toarray('select ip_address, agent_string from clients order by ip_address')
@@ -61,15 +72,14 @@
     array_to_table(db_toarray('select u.name "User", up.name,up.value 
                                  from users u,user_prefs up 
                                 where u.user_id = up.user_id order by 1,2')
-                  ,str('SUPPORT_USRPREF_TABLE'));
-  
+                  ,str('SUPPORT_USRPREF_TABLE'));  
   }
   
-function support_set_debug ()
-{
-  update_ini("swisscenter.ini","LOG_MODE",$_REQUEST["debug"]);
-  support_display( $_REQUEST["debug"], str('SAVE_SETTINGS_OK'));
-}
+  function support_set_debug ()
+  {
+    update_ini("swisscenter.ini","LOG_MODE",$_REQUEST["debug"]);
+    support_display( $_REQUEST["debug"], str('SAVE_SETTINGS_OK'));
+  }
   
 /**************************************************************************************************
                                                End of file

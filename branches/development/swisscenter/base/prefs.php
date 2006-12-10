@@ -36,9 +36,9 @@
      $result = db_insert_row('user_prefs', array("USER_ID"=>$user, "NAME"=>strtoupper($name), "VALUE"=>$value) );
 
      if (!$result)
-       send_to_log("Unable to store preferemce '$name' = '$value' for user '$user'");
+       send_to_log(1,"Unable to store preferemce '$name' = '$value' for user '$user'");
      else
-       send_to_log("Set user preference '$name' to '$value' for user '$user'");
+       send_to_log(6,"Set user preference '$name' to '$value' for user '$user'");
    }   
    
    return $result;
@@ -67,9 +67,9 @@
      $result = db_insert_row('system_prefs', array("NAME"=>strtoupper($name), "VALUE"=>$value) );
   
      if (!$result)
-       send_to_log("Unable to store system preference '$name' = '$value'");
+       send_to_log(1,"Unable to store system preference '$name' = '$value'");
      else
-       send_to_log("Set system preference '$name' to '$value'");
+       send_to_log(6,"Set system preference '$name' to '$value'");
   
      return $result;
    }

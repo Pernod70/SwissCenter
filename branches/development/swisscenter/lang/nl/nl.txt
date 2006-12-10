@@ -407,6 +407,64 @@ WEATHER_WIND		= Wind
 WEEKDAY			= Weekdag
 YEAR			= Jaar
 
+# -----------------------
+# SwissCenter v1.15
+# -----------------------
+
+# New text strings
+
+SEARCH_WIKIPEDIA = Opzoeken in Wikipedia
+RESUME_PLAYING = Hervatten
+INSTALL_TEST_TITLE = Installatiecontroles
+INSTALL_TEST_SUCCESS = De volgende controles zijn geslaagd:
+INSTALL_TEST_FAIL_WEB = De volgende controles faalden:
+INSTALL_TEST_FAIL_CLI = De volgende controles faalden in achtergrondmodus:
+CAT_DOWNLOAD = Extra Informatie downloaden
+CAT_DOWNLOAD_PROMPT = Dit veld bepaalt het downloaden van extra op het Internet beschikbare informatie voor bestanden van deze categorie.
+SYNOPSIS = Synopsis
+RETURN_TO_LIST = Keer terug naar lijst
+PAGE = Pagina %s
+LOOKUP_MOVIE = Filmgegevens opzoeken
+LOOKUP_SUCCESS = Filmgegevens gedownloaded en opgeslagen.
+LOOKUP_FAILURE = Filmgegevens niet gevonden.
+DEBUG_MINIMUM = (Minimum)
+DEBUG_MAXIMUM = (Maximum)
+DEBUG_RECOMMENDED = (Aanbevolen)
+DEBUG_LEVEL = Niveau %s %s
+
+FAIL_MYSQL_VERSION = Uw MySQL-versie wordt niet ondersteund.
+FAIL_MYSQL_CONNECT = De verbinding met de MySQL-server heeft gefaald.
+FAIL_MYSQL_DB = De verbinding met de SwissCenter-databank heeft gefaald (Hebt U die gecreëerd?)
+FAIL_PHP_CLI = Een CLI-versie van PHP werd niet gevonden. SwissCenter kan geen nieuwe mediabestanden zoeken.
+FAIL_PHP_INI = Het 'php.ini'-bestand werd niet gevonden.
+FAIL_PHP_VERSION = Uw PHP-versie (%s) wordt niet ondersteund.
+FAIL_PHP_REQ_MODS = Niet alle voor SwissCenter noodzakelijke PHP-modules (%s) zijn beschikbaar.
+FAIL_PHP_EXTRA_MODS = Niet alle voor SwissCenter aanbevolen PHP-modules (%s) zijn beschikbaar. Enkele niet-kritische functies zijn uitgeschakeld.
+FAIL_SERVER_SCHED = Achtergrondtaken konden niet uitgevoerd worden - misschien is cron (linux) of de task scheduler service (windows) uitgeschakeld.
+FAIL_SWISS_INI = Het 'swisscenter.ini'-bestand is niet gevonden. [br]Hebt U de SwissCenter-databank al aangemaakt ?
+FAIL_SWISS_LOCS = De medialokaties zijn niet gedefinieerd.
+FAIL_SWISS_LOG = Niet mogelijk om naar de SwissCenter-logfile (%s) te schrijven.
+
+PASS_MYSQL_VERSION = Uw MySQL-versie wordt ondersteund.
+PASS_MYSQL_CONNECT = Verbinding met MySQL-server geslaagd.
+PASS_MYSQL_DB = Verbinding met SwissCenter-databank geslaagd.
+PASS_PHP_CLI = Een CLI-versie van PHP is gevonden.
+PASS_PHP_INI = Het 'php.ini'-bestand is gevonden.
+PASS_PHP_VERSION = Uw PHP-versie wordt ondersteund.
+PASS_PHP_REQ_MODS = Alle noodzakelijke PHP-modules zijn beschikbaar.
+PASS_PHP_EXTRA_MODS = Alle aanbevolen PHP-modules zijn beschikbaar.
+PASS_SERVER_SCHED = Het automatisch zoeken naar nieuwe media wordt ondersteund.
+PASS_SWISS_INI = Het 'swisscenter.ini'-bestand is gevonden.
+PASS_SWISS_LOCS = De medialokaties zijn gedefinieerd.
+PASS_SWISS_LOG = Logging ingeschakeld.
+PASS_SWISS_ROOT_INS = De installatieprocedure werd door een niet-root gebruiker uitgevoerd.
+PASS_SWISS_RW_FILES = De SwissCenter installatiefolder kan gelezen en beschreven worden.
+
+# Updated Strings
+
+DEBUG_MODE = Logmodus
+DEBUG_MODE_PROMPT = De Logmodus bepaalt hoeveel informatie tijdens het gebruik van SwissCenter naar de 'support.log'-file geschreven wordt. Gelieve U ervan te verzekeren dat de Logmodus op maximum staat, vooraleer een logfile mee te sturen bij de rapportering van een reproduceerbare fout.
+
 #----------------------------------------------------------------------------------------------------
 # End-of-file
 #----------------------------------------------------------------------------------------------------

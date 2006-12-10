@@ -3,6 +3,8 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
    
+  require_once( realpath(dirname(__FILE__).'/mysql.php'));
+
   // ----------------------------------------------------------------------------------
   // Returns the Operating System type
   // ----------------------------------------------------------------------------------
@@ -68,6 +70,48 @@
   }
 
   // ----------------------------------------------------------------------------------
+  // Returns the version of GD installed on the system (or FALSE if not installed)
+  // ----------------------------------------------------------------------------------
+
+  function gd_version()
+  {
+    // Have we already determined the version?
+    if (! isset($_SESSION["GD Version"]) )
+    {
+      if ( !extension_loaded('gd'))
+      {
+        $_SESSION["GD Version"] = false;
+      }
+      elseif (function_exists('gd_info')) 
+      {
+        // Use the gd_info() function if possible.
+        $ver_info = gd_info();
+        preg_match('/\d/', $ver_info['GD Version'], $match);
+        $_SESSION["GD Version"] =  $match[0];
+      }  
+      elseif ( preg_match('/phpinfo/', ini_get('disable_functions')) == 0)
+      {
+        // Is phpinfo() available for us to use?
+        ob_start();
+        phpinfo(8);
+        $info = ob_get_contents();
+        ob_end_clean();
+        $info = stristr($info, 'gd version');
+        preg_match('/\d/', $info, $match);
+        $_SESSION["GD Version"] =  $match[0];
+      }
+      else
+      {       
+        // Otherwise, return a hardcoded failsafe.
+        $_SESSION["GD Version"] =  0;
+      }
+    }
+
+    // Return the version number.
+    return $_SESSION["GD Version"];
+  }
+  
+  // ----------------------------------------------------------------------------------
   // Returns the full URL (SCRIPT_NAME + QUERY_STRING) of the current page
   // ----------------------------------------------------------------------------------
   
@@ -106,37 +150,6 @@
       return 'http://'.$_SERVER['SERVER_ADDR'].":".$_SERVER['SERVER_PORT'].'/';
   }
 
-  // ----------------------------------------------------------------------------------
-  // Returns TRUE if the server has internet connectivity
-  // ----------------------------------------------------------------------------------
-
-  function internet_check( $timeouts = 3)
-  {
-    $temp = '';
-
-    for ($i=0; $i < $timeouts; $i++)
-      if ( $sock = @fsockopen('66.249.87.99', 80, $temp, $temp, 0.5)) // www.google.com
-      {
-        fclose($sock);
-        return 'YES'; 
-      }
-
-    return 'NO';
-  }
-  
-  function internet_available()
-  {
-    if ( isset($_SESSION["internet"]) && !is_array($_SESSION["internet"]))
-      $_SESSION=array();
-    
-    if ( !isset($_SESSION["internet"]) || $_SESSION["internet"]["timeout"] < time() )
-    {
-      $_SESSION["internet"]["available"] = internet_check();
-      $_SESSION["internet"]["timeout"]   = time()+900; // 15 mins
-    }
-    
-    return ( $_SESSION["internet"]["available"] == 'YES' );
-  }
 
   // ----------------------------------------------------------------------------------
   // Returns TRUE if the windows Task Scheduler service is running
@@ -153,6 +166,28 @@
       return 'Not running on windows';
   }
   
+  #-------------------------------------------------------------------------------------------------
+  # Record the details about the client accessing the server in the database.
+  #-------------------------------------------------------------------------------------------------
+
+  function record_client_details()
+  {
+    if (test_db() == 'OK' && !isset($_SESSION["device"]))
+    { 
+      $_SESSION["device"]["last_seen"]  = db_datestr();
+      $_SESSION["device"]["ip_address"] = str_replace('\\','/',$_SERVER["REMOTE_ADDR"]);
+  
+      get_player_type();
+      get_screen_type();
+      
+      if (strlen($_SESSION["device"]["ip_address"]) > 0 )
+      {
+    	  db_sqlcommand("delete from clients where ip_address='".$_SESSION["device"]["ip_address"]."'");
+    	  db_insert_row('clients',$_SESSION["device"]);
+      }
+    }
+  }
+
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/

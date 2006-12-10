@@ -18,10 +18,8 @@
   $sql = 'from movies media'.get_rating_join().'where 1=1';
 
   browse_db( str('BROWSE_MOVIES')                                                    // Title
-           , db_col_to_list("select name from media_locations where media_type=3")   // Directories
            , $sql.$_SESSION["history"][0]["sql"]                                     // SQL (from...)
            , $_SESSION["history"][0]["url"]                                          // Back URL
-           , media_exts_movies()                                                     // Filetypes
            , MEDIA_TYPE_VIDEO                                                        // Select All media type
            );
            

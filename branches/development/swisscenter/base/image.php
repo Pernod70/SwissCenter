@@ -9,7 +9,7 @@ require_once( realpath(dirname(__FILE__).'/prefs.php'));
 // Do we have the "gd" extension loaded? can we load it dynamically?
 if (!extension_loaded('gd'))
   if (! dl('gd.so'))
-    send_to_log("Unable to perform image functions - PHP compiled without 'gd' support.");
+    send_to_log(1,"Unable to perform image functions - PHP compiled without 'gd' support.");
 
 // -------------------------------------------------------------------------------------------------
 // Resizes the image using the user's preferred option (resample or resize) from the config page.
@@ -32,15 +32,15 @@ function preferred_resize( &$dimg, $simg, $dx, $dy, $sx, $sy, $dw, $dh, $sw, $sh
 // -------------------------------------------------------------------------------------------------
 
 function image_get_scaled_xy(&$x,&$y,$box_x,$box_y)
-{
-  if ($x >0 && $y >0 && $box_x>0 && $box_y>0)
+{ 
+  if ($x >0 && $y >0 && $box_x>0 && $box_y>0 && !($x == $box_x || $y == $box_y))
   {
-    if ($x <= $y || ($box_x/$x*$y > $box_y) )
+    if ( ($box_x/$x*$y > $box_y) )
     {
       $newx = floor($box_y / $y * $x);
       $newy = $box_y;
     }
-    elseif ($x >= $y || ($box_y/$y*$x > $box_x) )
+    elseif ( ($box_y/$y*$x > $box_x) )
     {
       $newx = $box_x;
       $newy = floor($box_x / $x * $y);
@@ -68,13 +68,13 @@ function precache( $filename, $x, $y, $overwrite = true )
     elseif ( file_exists($filename) || substr($filename,0,4) == 'http' )
       $image->load_from_file($filename);
     else
-      send_to_log('Unable to process image specified : '.$filename);
+      send_to_log(1,'Unable to process image specified : '.$filename);
 
     $image->resize($x, $y);
     $image->cache($overwrite);
   }
   else
-    send_to_log('Unable to pre-cache image : '.$filename);
+    send_to_log(1,'Unable to pre-cache image : '.$filename);
 }
 
 // -------------------------------------------------------------------------------------------------
@@ -84,6 +84,10 @@ function precache( $filename, $x, $y, $overwrite = true )
 
 function cache_filename( $filename, $x, $y, $rs_mode = '' )
 {
+  // If in design mode, returnwe don't want to cache files, or use existing cached fules.
+  if ( defined('STYLE_MODE') && STYLE_MODE == 'DESIGN' )
+    return false;
+  
   $cache_dir = get_sys_pref('cache_dir');
   if ($rs_mode == '')
     $rs_mode = get_sys_pref('IMAGE_RESIZING','RESAMPLE');
@@ -151,7 +155,7 @@ function output_cached_file( $filename , $type = '')
       $image = new CImage();
       $image->load_from_file($filename);
       $image->output($type,false);
-      send_to_log('Outputting as '.strtoupper($type).' for '.$filename);
+      send_to_log(6,'Outputting cached file as '.strtoupper($type));
     }
     else
     {
@@ -159,7 +163,6 @@ function output_cached_file( $filename , $type = '')
       $fp = fopen($filename,'rb');
       fpassthru($fp);
       fclose($fp);
-      send_to_log('Using passthru() for '.$filename);
     }
   }
 }
@@ -184,7 +187,7 @@ class CImage
 
   function CImage($x = 100, $y = 100)
   {
-    $this->image          = imagecreate($x,$y);
+    $this->image          = imagecreatetruecolor($x,$y);
     $this->width          = $x;
     $this->height         = $y;
     $this->src_fsp        = false;
@@ -277,6 +280,8 @@ class CImage
           break;
         case 'png':
           $this->image = ImageCreateFromPng($filename);
+          imageAlphaBlending($this->image, false);
+          imageSaveAlpha($this->image, true);
           break;
         case 'gif':
           $this->image = ImageCreateFromGif($filename);
@@ -298,10 +303,17 @@ class CImage
 
   // -------------------------------------------------------------------------------------------------
   // Outputs some text onto the image (using truetype fonts).
+  // NOTE: The font-size given should be specified in pixels.
   // -------------------------------------------------------------------------------------------------
 
   function text ($text, $x = 0, $y = 0, $colour, $size = 14, $font = '', $angle = 0 )
   {
+    // GD version 2 takes the font-size argument in points, whereas this function takes the 
+    // text size in pixels. We therefore need to convert the given value before passing to GD.
+    if (gd_version() >=3)
+      $size *= 0.8;
+    
+    // Determine the font to use if not specified.
     if (empty($font))
     {
       if (is_windows())
@@ -310,6 +322,7 @@ class CImage
         $font = 'luxisr';
     }
 
+    // Write the text to the image
     if ($this->image !== false)
     {
       @imagettftext ($this->image,$size,$angle,$x,$y,$colour,$font,$text);
@@ -351,11 +364,13 @@ class CImage
         $newx = $this->get_width();
         $newy = $this->get_height();
         image_get_scaled_xy($newx,$newy,$x,$y);
+        send_to_log(8,"Resizing $this->src_fsp ($this->width,$this->height) to fit ($x,$y). New size is ($newx,$newy)");
       }
       else
       {
         $newx = $x;
         $newy = $y;
+        send_to_log(8,"Stretching $this->src_fsp ($this->width,$this->height) to ($x,$y)");
       }
 
       $old = $this->image;
@@ -393,9 +408,23 @@ class CImage
   // Draws a filled rectangle of the given colour on the image
   // -------------------------------------------------------------------------------------------------
 
-  function rectangle ( $x, $y, $width, $height, $colour )
+  function rectangle ( $x, $y, $width, $height, $colour, $filled = true )
   {
-    imagefilledrectangle($this->image, $x, $y, $x+$width, $y+$height, $colour);
+    if ($filled)
+      imagefilledrectangle($this->image, $x, $y, $x+$width, $y+$height, $colour);
+    else 
+      imagerectangle($this->image, $x, $y, $x+$width, $y+$height, $colour);    
+    
+    $this->src_fsp  = false;
+  }
+
+  // -------------------------------------------------------------------------------------------------
+  // Draws a line of the given colour on the image
+  // -------------------------------------------------------------------------------------------------
+
+  function line ( $x, $y, $x2, $y2, $colour )
+  {
+    imageline($this->image, $x, $y, $x2, $y2, $colour);    
     $this->src_fsp  = false;
   }
 
@@ -412,8 +441,15 @@ class CImage
       {
         case 'jpg':
         case 'jpeg':
+        
+          // This sets the background colour for images that have transparency (eg: when the source was
+          // a PNG file). I have absolutely no idea why this works - it just does.
+          $colour = imagecolorallocate( $this->image, 0, 0, 0 );
+          imagefill( $this->image, 0, 0, $colour );        
+
+          // Output the image
           header("Content-type: image/jpeg");
-          imagejpeg($this->image,null,100);
+          imagejpeg($this->image);
           break;
         case 'png':
           header("Content-type: image/png");

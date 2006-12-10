@@ -25,7 +25,7 @@ function load_lang_strings ( $lang = 'en-gb' )
         $keys[strtoupper(trim($ex[0]))] = ltrim($ex[1]);
       }      
       
-    send_to_log("Loaded $lang language file");
+    send_to_log(6,"Loaded $lang language file");
     
     if ( isset($_SESSION["language"]) && is_array($_SESSION["language"]))
       $_SESSION["language"] = array_merge( (array)$_SESSION["language"] , (array)$keys );

@@ -60,7 +60,7 @@
 
   function log_dir_failure($dir)
   {
-    send_to_log('Unable to add media location : '.$dir);
+    send_to_log(2,'Unable to add media location : '.$dir);
     while ($dir != '')
     {
       $output = '';
@@ -75,9 +75,9 @@
         $output .= 'Does not exist';
         
       if (is_unix())
-        send_to_log(stat('Stat() of '.$dir,$dir));
+        send_to_log(2,stat('Stat() of '.$dir,$dir));
 
-      send_to_log($dir.' >> '.$output);
+      send_to_log(2,$dir.' >> '.$output);
       $dir = parent_dir($dir);
     }
   }
@@ -100,14 +100,14 @@
     elseif(!empty($update))
     {
       // Update the row given in the database and redisplay the dirs
-     // Process the directory passed in
+      // Process the directory passed in
       $dir = db_escape_str(rtrim(str_replace('\\','/',un_magic_quote($update["DIRECTORY"])),'/'));
       $type_id = $update["TYPE"];
       $cat_id  = $update["CATEGORY"];
       $id      = $update["LOC_ID"];
       $cert    = $update["CERTIFICATE"];
       
-      send_to_log('Updating media location',$update);
+      send_to_log(4,'Updating media location',$update);
   
       if (empty($type_id))
         dirs_display('',"!".str('MEDIA_LOC_ERROR_TYPE'));
@@ -190,7 +190,7 @@
                       , 'cat_id'     => $_REQUEST["cat"]
                       , 'unrated'    => $_REQUEST["cert"]);
 
-      send_to_log('Adding new media location',$new_row);
+      send_to_log(4,'Adding new media location',$new_row);
                       
       if ( db_insert_row('media_locations', $new_row) === false)
         dirs_display(db_error());

@@ -15,10 +15,6 @@
  
   *************************************************************************************************/
 
-
-  // Do not report any errors at all for the thumbnail generator.
-//  error_reporting(0);
-
   require_once( realpath(dirname(__FILE__).'/base/settings.php'));
   require_once( realpath(dirname(__FILE__).'/base/utils.php'));
   require_once( realpath(dirname(__FILE__).'/base/file.php'));
@@ -36,6 +32,7 @@
   // Is there a cached version available?
   if ( $cache_file !== false && file_exists($cache_file) )
   {
+    send_to_log(6,"Cached file exists for $filename at ($x x $y)");
     output_cached_file($cache_file, $_REQUEST["type"]);
   }
   else
@@ -49,7 +46,7 @@
     elseif ( file_exists($filename) || substr($filename,0,4) == 'http' )
       $image->load_from_file($filename); 
     else  
-      send_to_log('Unable to process image specified : '.$filename);  
+      send_to_log(1,'Unable to process image specified : '.$filename);  
     
     // Resize it to the required size, whilst maintaining the correct aspect ratio
     $image->resize($x, $y, 0, $aspect, $rs_mode);

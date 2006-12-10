@@ -204,7 +204,7 @@ function db_value( $sql)
   $result  = '';
 
   if (!$success)
-    send_to_log("Unable to query database: ".$recs->db_get_error());
+    send_to_log(1,"Unable to query database: ".$recs->db_get_error());
 
   $result = @array_pop($recs->db_fetch_row());
   $recs->destroy();
@@ -322,13 +322,13 @@ class db_query
           {
             $this->sql_to_execute = $sql;
             $this->stmt_handle = mysql_query( $sql, $this->db_handle);
-            // @debug_to_log("SQL> ".$sql);
+            @send_to_log(9,"SQL> ".$sql);
           }
         }
       }
       else 
       {
-        send_to_log("Connected Failed :: " . mysql_error());
+        send_to_log(1,"Connected Failed :: " . mysql_error());
       }
     }
   }
@@ -370,7 +370,7 @@ class db_query
   {
     $this->sql_to_execute = $sql;
     $this->stmt_handle = mysql_query($sql, $this->db_handle);
-    // @debug_to_log("SQL> ".$sql);
+    @send_to_log(9,"SQL> ".$sql);
     return $this->stmt_handle;
   }
 
@@ -392,7 +392,7 @@ class db_query
     if(!$this->stmt_handle)
     {
       if ($log_error)
-        send_to_log($this->db_get_error(), $this->sql_to_execute);
+        send_to_log(1,$this->db_get_error(), $this->sql_to_execute);
     }
       
     return $this->stmt_handle;

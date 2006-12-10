@@ -51,10 +51,14 @@
   search_check_filter( $menu, str('REFINE_GENRE'),  'genre',  $sql_table, $predicate, $refine_url );
   search_check_filter( $menu, str('REFINE_YEAR'),   'year',   $sql_table, $predicate, $refine_url );
 
-  if ( !empty($artist_name) )
-    $menu->add_item( str("SEARCH_WIKIPEDIA"), lang_wikipedia_search( strip_title($artist_name)), true);
-  elseif ( !empty($album_name) )
-    $menu->add_item( str("SEARCH_WIKIPEDIA"), lang_wikipedia_search( strip_title($album_name)), true);
+  // Adda menu option to lookup the artist/album in Wikipedia
+  if (internet_available() && get_sys_pref('wikipedia_lookups','YES') == 'YES')
+  {
+    if ( !empty($artist_name) )
+      $menu->add_item( str("SEARCH_WIKIPEDIA"), lang_wikipedia_search( strip_title($artist_name)), true);
+    elseif ( !empty($album_name) )
+      $menu->add_item( str("SEARCH_WIKIPEDIA"), lang_wikipedia_search( strip_title($album_name)), true);
+  }
   
   // Is there a picture for us to display?
   $folder_img = file_albumart( db_value("select concat(dirname,filename) from $sql_table $predicate limit 0,1") );

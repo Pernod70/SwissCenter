@@ -31,7 +31,7 @@ function run_background ( $command, $days = '', $soon ='' )
 		    pclose(popen('start "" "'.os_path($php).'" '.escapeshellarg(os_path(SC_LOCATION.$command)), "r"));        
       }
         
-      send_to_log('Executing the following command in the background:',$cmd);
+      send_to_log(4,'Executing the following command in the background:',$cmd);
       exec($cmd);
   
     }
@@ -45,7 +45,7 @@ function run_background ( $command, $days = '', $soon ='' )
   
       // UNIX, so run with '&' to force it to the background.
       $cmd = '"'.os_path($php).'" '.$php_ini.' "'.os_path(SC_LOCATION.$command).'" > "/dev/null" &' ;
-      send_to_log('Executing the following command in the background:',$cmd);
+      send_to_log(4,'Executing the following command in the background:',$cmd);
       exec($cmd);
     }
   }

@@ -24,7 +24,7 @@ function get_parsers_list()
 // Displays the details for movies
 // ----------------------------------------------------------------------------------
 
-function movie_display_info()
+function movie_display_info(  $message = '' )
 {
   // Get actor/director/genre lists
   $movie_id    = $_REQUEST["movie_id"];
@@ -38,8 +38,9 @@ function movie_display_info()
   echo '<h1>'.$details[0]["TITLE"].'</h1><center>
          ( <a href="'.$_SESSION["last_search_page"].'">'.str('RETURN_TO_LIST').'</a> |
            <a href="?section=MOVIE&action=UPDATE_FORM_SINGLE&movie[]='.$movie_id.'">'.str('DETAILS_EDIT').'</a> )
-        </center>
-        <table class="form_select_tab" width="100%" cellspacing=4><tr>
+        </center>';
+        message($message);
+  echo '<table class="form_select_tab" width="100%" cellspacing=4><tr>
           <th colspan="3">'.str('SYNOPSIS').'</th>
         </tr><tr>
           <td colspan="3">';
@@ -99,11 +100,15 @@ function movie_display_info()
 function movie_lookup()
 {
   $movie_id = $_REQUEST["movie_id"];
-  $details = db_toarray("select * from movies where file_id=$movie_id");
+  $details  = db_toarray("select * from movies where file_id=$movie_id");
+  $filename = $details[0]["DIRNAME"].$details[0]["FILENAME"];
+  $title    = file_noext($details[0]["FILENAME"]);
 
   require_once( realpath(dirname(__FILE__).'/../video_obtain_info.php'));
-  extra_get_movie_details($movie_id, $details[0]["DIRNAME"].$details[0]["FILENAME"], file_noext($details[0]["FILENAME"]));  
-  movie_display_info();
+  if ( extra_get_movie_details($movie_id, $filename,$title) )
+    movie_display_info( str('LOOKUP_SUCCESS') );
+  else 
+    movie_display_info( '!'.str('LOOKUP_FAILURE') );
 }
 
 // ----------------------------------------------------------------------------------
@@ -140,7 +145,7 @@ function movie_display( $message = '')
   $movie_list  = db_toarray("select m.* from movies m, media_locations ml where ml.location_id = m.location_id ".$where.
                             " order by title limit $start,$per_page");        
   
-  echo '<h1>'.str('ORG_TITLE').'  - '.str('PAGE').' : '.$page.'</h1>';
+  echo '<h1>'.str('ORG_TITLE').'  ('.str('PAGE',$page).')</h1>';
   message($message);
   
   echo '<form enctype="multipart/form-data" action="" method="post">
@@ -216,7 +221,7 @@ function movie_update()
   elseif (empty($_REQUEST["subaction"])) 
     movie_display();
   else
-    send_to_log('Unknown value recieved for "subaction" parameter : '.$_REQUEST["subaction"]);
+    send_to_log(1,'Unknown value recieved for "subaction" parameter : '.$_REQUEST["subaction"]);
 }
 
 // ----------------------------------------------------------------------------------
@@ -431,7 +436,11 @@ function movie_update_multiple()
     scdb_add_genres($movie_list, explode(',',$_REQUEST["genre_new"]));
 
   scdb_remove_orphans();
-  header('Location: '.url_add_param($_SESSION["last_search_page"],'message',str('MOVIE_CHANGES_MADE')));
+  
+  $redirect_to = $_SESSION["last_search_page"];
+  $redirect_to = url_add_param($redirect_to, 'message',   str('MOVIE_CHANGES_MADE'));
+  $redirect_to = url_set_param($redirect_to ,'subaction', '');
+  header("Location: $redirect_to");
  }
 
 // ----------------------------------------------------------------------------------

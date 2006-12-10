@@ -50,30 +50,46 @@ function store_screen_size( $res = '')
 #
 # EG: HDTV is always widescreen, whilst PAL and NTSC are more 4:3.
 #     PAL has more lines than NTSC and therefore a portion of the interface is "lost".
+#
+# NOTES:
+#
+# If there is no HTTP_USER_AGENT string, then it is likely that the Showcenter media firmware is
+# trying to access SwissCenter (the firmware doesn't identify itself at all). Therefore, we need
+# to determine the screen attributes by re-loading the cached agent string for this IP address.
 #-------------------------------------------------------------------------------------------------
 
 function get_screen_type()
 {
-  if ( is_pc() )
+  if (!isset($_SESSION["device"]["screen_type"]))
   {
-    store_browser_size('800x450');
-    store_screen_size('800x450');
-  }
-  else 
-  {
-    preg_match_all("/[0-9]*x[0-9]*/",$_SESSION["device"]["agent_string"],$matches);  
-    store_browser_size($matches[0][0]);
-    store_screen_size($matches[0][1]);
-  }
+    if ( is_pc() )
+    {
+      store_browser_size('800x450');
+      store_screen_size('800x450');
+    }
+    else 
+    {
+      // Retrieve the AGENT_STRING from the database if it's not provided by the client
+      if ( empty($_SESSION["device"]["agent_string"]) )
+        $_SESSION["device"]["agent_string"] = db_value("select agent_string from clients where ip_address='".str_replace('\\','/',$_SERVER["REMOTE_ADDR"])."'");
+      
+      preg_match_all("/[0-9]*x[0-9]*/",$_SESSION["device"]["agent_string"],$matches);  
+      store_browser_size($matches[0][0]);
+      store_screen_size($matches[0][1]);
+    }
+    
+    // What type of screen is it... Widescreen (16:9) or normal (4:3)?
+    $_SESSION["device"]["aspect"] = ($_SESSION["device"]["browser_x_res"]/16*9 == $_SESSION["device"]["browser_y_res"] ? '16:9' : '4:3');
   
-  // What type of screen is it... Widescreen (16:9) or normal (4:3)?
-  $_SESSION["device"]["aspect"] = ($_SESSION["device"]["browser_x_res"]/16*9 == $_SESSION["device"]["browser_y_res"] ? '16:9' : '4:3');
-
-  // How do we clasify this screen... PAL, NTSC or HDTV?
-  if ( $_SESSION["device"]["browser_x_res"] == 624)
-    $_SESSION["device"]["screen_type"] = ($_SESSION["device"]["browser_y_res"] == 416 ? 'NTSC' : 'PAL');
-  else
-    $_SESSION["device"]["screen_type"] = 'HDTV';
+    // How do we clasify this screen... PAL, NTSC or HDTV?
+    if ( $_SESSION["device"]["browser_x_res"] == 624)
+      $_SESSION["device"]["screen_type"] = ($_SESSION["device"]["browser_y_res"] == 416 ? 'NTSC' : 'PAL');
+    else
+      $_SESSION["device"]["screen_type"] = 'HDTV';
+      
+    // Record some debugging information
+    send_to_log(6,'Device: ',$_SESSION["device"]);
+  }
       
   // Return the screen type
   return $_SESSION["device"]["screen_type"];
@@ -112,35 +128,19 @@ function convert_y( $y, $coords = BROWSER_COORDS )
     return ceil($_SESSION["device"]["browser_y_res"] * $y / 1000);  
 }
 
-function font_nearest( $desired_size )
-{
-  if ( is_pc() )
-    $size = $desired_size;
-  else
-  {
-    // Convert font size to pixels for this display device.
-    $desired_size = convert_y($desired_size);
+#-------------------------------------------------------------------------------------------------
+# Returns the size (in pixels) given a size in logical coordinates
+#-------------------------------------------------------------------------------------------------
 
-    // The hardware players only have a small number of font sizes available, so try to work out which
-    // font size will give the closest number of pixels to that desired and then return the font size
-    // in logical co-ordinates (0-1000).
-    
-    if     ($desired_size <= 12) 
-      $size = 10.4;
-    elseif ($desired_size <= 15) 
-      $size = 20.8;
-    elseif ($desired_size <= 17) 
-      $size = 24;
-    elseif ($desired_size <= 20) 
-      $size = 25.6;
-    elseif ($desired_size <= 26) 
-      $size = 28.8;
-    else
-      $size = 38.5;
-  }
-  
-  return $size;
+function font_size( $desired_size, $coords = BROWSER_COORDS )
+{
+  return convert_x( $desired_size, $coords );  
 }
+
+#-------------------------------------------------------------------------------------------------
+# Given a desired font size (in logical coordinates), return the nearestsize  HTML font that the
+# hardware player can display.
+#-------------------------------------------------------------------------------------------------
 
 function font_tags( $size = false, $colour = false)
 {
@@ -149,7 +149,7 @@ function font_tags( $size = false, $colour = false)
     $size_param = '';
   else
   {
-    // Convert font size to pixels for this display device.
+    // Convert logical coordinates font-size (1-1000) to actual pixels
     $size = convert_y($size);
   
     if ( is_pc() )
