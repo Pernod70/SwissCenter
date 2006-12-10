@@ -15,7 +15,10 @@
     $db   = (!empty($_REQUEST["dbname"])   ? $_REQUEST["dbname"]   : (defined('DB_DATABASE') ? DB_DATABASE : 'swiss'));
     
     echo "<h1>".str('CONFIG_DB_CREATE')."</h1>";
-     
+
+    if ( test_db() == 'OK' )
+      message("!".str('DROP_DATABASE'));
+    
     message($message);
     form_start('index.php');
     form_hidden('section','INSTALL');

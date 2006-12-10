@@ -94,7 +94,7 @@
                        , "CERTIFICATE"       => db_lookup( 'certificates','name','cert_id',array_pop(get_attrib($details,"Certificate:")) )
                        , "MATCH_PC"          => $accuracy
                        , "DETAILS_AVAILABLE" => 'Y'
-                       , "SYNOPSIS"          => substr_between_strings($details,'','     '));
+                       , "SYNOPSIS"          => substr_between_strings($details,'',chr(9)));
                        
       // Attempt to capture the fact that the website has changed and we are unable to get movie information.
       if (strlen($details) == 0)

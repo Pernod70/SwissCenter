@@ -11,8 +11,12 @@
 
   function output_link( $file )
   {
-    $file_id = db_value("select file_id from movies where concat(dirname,filename)='".db_escape_str($file)."'");
-    return play_file(MEDIA_TYPE_VIDEO,$file_id);
+    $data = db_toarray("select * from movies where concat(dirname,filename)='".db_escape_str($file)."'");
+
+    if ( support_resume() && file_exists( bookmark_file($data[0]["DIRNAME"].$data[0]["FILENAME"]) ))
+      return resume_file(MEDIA_TYPE_VIDEO,$data[0]["FILE_ID"]);
+    else
+     return play_file(MEDIA_TYPE_VIDEO,$data[0]["FILE_ID"]);
   }
 
   $sql = 'from movies media'.get_rating_join().'where 1=1';

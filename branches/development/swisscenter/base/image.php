@@ -12,21 +12,6 @@ if (!extension_loaded('gd'))
     send_to_log(1,"Unable to perform image functions - PHP compiled without 'gd' support.");
 
 // -------------------------------------------------------------------------------------------------
-// Resizes the image using the user's preferred option (resample or resize) from the config page.
-// -------------------------------------------------------------------------------------------------
-
-function preferred_resize( &$dimg, &$simg, $dx, $dy, $sx, $sy, $dw, $dh, $sw, $sh, $rs_mode )
-{
-  if ($rs_mode == '')
-    $rs_mode = get_sys_pref('IMAGE_RESIZING','RESAMPLE');
-    
-  if ( $rs_mode == 'RESAMPLE')
-    imagecopyresampled( $dimg,  $simg , $dx, $dy, $sx, $sy, $dw, $dh, $sw, $sh );
-  else
-    ImageCopyResized( $dimg,  $simg , $dx, $dy, $sx, $sy, $dw, $dh, $sw, $sh );
-}
-
-// -------------------------------------------------------------------------------------------------
 // Modifies the ($x,$y) dimesnsions given for an image after it has been scaled to fit within the
 // specified bounding box ($box_x,$box_y)
 // -------------------------------------------------------------------------------------------------
@@ -49,6 +34,25 @@ function image_get_scaled_xy(&$x,&$y,$box_x,$box_y)
     $x = $newx;
     $y = $newy;
   }
+}
+
+// -------------------------------------------------------------------------------------------------
+// Resizes the image using the user's preferred option (resample or resize) from the config page.
+// -------------------------------------------------------------------------------------------------
+
+function preferred_resize( &$dimg, &$simg, $dx, $dy, $sx, $sy, $dw, $dh, $sw, $sh, $rs_mode )
+{
+  if ($rs_mode == '')
+    $rs_mode = get_sys_pref('IMAGE_RESIZING','RESAMPLE');
+
+  // The showcenter seems to display images that have been resampled with messed up transparency, so we
+  // only use the resample method if the image is greater than 150x150 pixels. This should give us a
+  // reasonable balance between not resampling icons and losing quality on images,
+
+  if ( $rs_mode == 'RESAMPLE' && ($dw > 150) && ($dh > 150) )
+    imagecopyresampled( $dimg,  $simg , $dx, $dy, $sx, $sy, $dw, $dh, $sw, $sh );
+  else
+    ImageCopyResized( $dimg,  $simg , $dx, $dy, $sx, $sy, $dw, $dh, $sw, $sh );
 }
 
 // -------------------------------------------------------------------------------------------------
@@ -159,6 +163,7 @@ function output_cached_file( $filename , $type = '')
     }
     else
     {
+      session_write_close();
       header("Content-type: image/png");
       $fp = fopen($filename,'rb');
       fpassthru($fp);
@@ -306,8 +311,11 @@ class CImage
   // NOTE: The font-size given should be specified in pixels.
   // -------------------------------------------------------------------------------------------------
 
-  function text ($text, $x = 0, $y = 0, $colour, $size = 14, $font = '', $angle = 0 )
+  function text ($text, $x = 0, $y = 0, $colour = 0, $size = 14, $font = '', $angle = 0 )
   {
+    // Exit value of this function.
+    $result = false;
+    
     // GD version 2 takes the font-size argument in points, whereas this function takes the 
     // text size in pixels. We therefore need to convert the given value before passing to GD.
     if (gd_version() >=3)
@@ -325,9 +333,14 @@ class CImage
     // Write the text to the image
     if ($this->image !== false)
     {
-      @imagettftext ($this->image,$size,$angle,$x,$y,$colour,$font,$text);
+      $result = @imagettftext ($this->image,$size,$angle,$x,$y,$colour,$font,$text);
+      if ( $result === false )
+        send_to_log(5,"Unable to use Truetype Font '$font' to display '$text'");
+      
       $this->src_fsp  = false;
     }
+    
+    return $result;
   }
 
   // -------------------------------------------------------------------------------------------------
@@ -339,16 +352,11 @@ class CImage
     if ($this->image !== false)
     {
       ImageAlphaBlending( $this->image, true);
-
-      if ( ($dest_w == $src_image->get_width() && $dest_h == $src_image->get_height()) || ($dest_w == 0 && $dest_h == 0) )
-        ImageCopy ( $this->image,  $src_image->get_image_ref() , $dest_x, $dest_y, 0,0, $src_image->get_width(), $src_image->get_height());
-      else
-        preferred_resize( $this->image,  $src_image->get_image_ref() , $dest_x, $dest_y, 0, 0, $dest_w, $dest_h, $src_image->get_width(), $src_image->get_height(), $rs_mode );
-
+      ImageCopy ( $this->image,  $src_image->get_image_ref() , $dest_x, $dest_y, 0,0, $src_image->get_width(), $src_image->get_height());
       $this->src_fsp  = false;
     }
   }
-
+ 
   // -------------------------------------------------------------------------------------------------
   // Resizes the current image to the given X,Y dimensions. If $keep_aspect is true, then the image
   // will be scaled to the given X,Y size, but the aspect ratio will be maintained.
@@ -440,6 +448,7 @@ class CImage
   {
     if ($this->image !== false)
     {
+      session_write_close();
       switch (strtolower($type))
       {
         case 'jpg':

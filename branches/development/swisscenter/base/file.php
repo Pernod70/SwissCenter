@@ -465,10 +465,10 @@ function file_thumbnail( $fsp )
 
     if (empty($tn_image))
     {
-      if (is_file($fsp) )
-        $tn_image = file_icon($fsp);
-      else
+      if (@is_dir($fsp) )
         $tn_image = dir_icon();      
+      else
+        $tn_image = file_icon($fsp);
     }
   }
 

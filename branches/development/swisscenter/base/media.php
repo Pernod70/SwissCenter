@@ -246,11 +246,14 @@ function process_photo( $dir, $id, $file)
                    , "exif_capture_type"   => $exif['SceneCaptureType']
                    );
                    
-      if (db_insert_row( "photos", $data) && $cache_dir != '')
+      if (db_insert_row( "photos", $data))
       {
-        // TO-DO... the x,y sizes will change depending on the aspect ration and resolution of the display device(s) in use
-        send_to_log(6,'Pre-caching thumbnail');
-        precache($dir.$file, convert_x(THUMBNAIL_X_SIZE), convert_y(THUMBNAIL_Y_SIZE) );
+        // Pre-cache the image thumbnail if the user has selected that option.
+        if ($cache_dir != '' && get_sys_pref('CACHE_PRECACHE_IMAGES','NO') == 'YES')
+        {
+          send_to_log(6,'Pre-caching thumbnail');
+          precache($dir.$file, convert_x(THUMBNAIL_X_SIZE), convert_y(THUMBNAIL_Y_SIZE) );
+        }
       }
       else
         send_to_log(2,'Unable to add photo to the database');
@@ -330,7 +333,7 @@ function process_media_directory( $dir, $id, $table, $file_exts, $recurse = true
   send_to_log(4,'Scanning : '.$dir);
 
   // Mark all the files in this directory as unverified
-  db_sqlcommand("update $table set verified ='N' where dirname='".db_escape_str($dir)."'");
+  db_sqlcommand("update $table set verified ='N' where dirname like'".db_escape_str($dir)."%'");
     
   if ($dh = @opendir($dir))
   {
@@ -395,7 +398,7 @@ function process_media_directory( $dir, $id, $table, $file_exts, $recurse = true
     send_to_log(1,'Unable to read the directory contents. Are the permissions correct?',$dir);
     
   // Delete any files which cannot be verified
-  db_sqlcommand("delete from $table where verified ='N' and dirname='".db_escape_str($dir)."'");   
+  db_sqlcommand("delete from $table where verified ='N' and dirname like '".db_escape_str($dir)."%'");   
 }
 
 /**************************************************************************************************

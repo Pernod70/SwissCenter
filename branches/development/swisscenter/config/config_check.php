@@ -114,36 +114,41 @@ class test_results
             <tr>
               <td width="100%"><b>'.$section["heading"].'</b></td>
               <td width="40" valign=top align=center><img src="'.($failures ? 'fail.png' : 'pass.png').'"></td>
-            </tr>
-            <tr><td colspan=2>';
+            </tr>';
       
-      if (count($section["passed"]) > 0)
-      {
-        echo '<p>'.str('INSTALL_TEST_SUCCESS').'<font color="#006600"><ul>';
-        foreach ($section["passed"] as $msg)
-          echo '<li>'.$msg;
-        echo '</ul></font>';
-      }
-      
-      if (count($section["failed_web"]) > 0)
-      {
-        echo '<p>'.str('INSTALL_TEST_FAIL_WEB').'<font color="#660000"><ul>';
-        foreach ($section["failed_web"] as $msg)
-          echo '<li>'.$msg;
-        echo '</ul></font>';
-      }
+      if ( $failures )
+      {      
+        echo '<tr><td colspan=2>';
+        
+        if (count($section["passed"]) > 0)
+        {
+          echo '<p>'.str('INSTALL_TEST_SUCCESS').'<font color="#006600"><ul>';
+          foreach ($section["passed"] as $msg)
+            echo '<li>'.$msg;
+          echo '</ul></font>';
+        }
+        
+        if (count($section["failed_web"]) > 0)
+        {
+          echo '<p>'.str('INSTALL_TEST_FAIL_WEB').'<font color="#660000"><ul>';
+          foreach ($section["failed_web"] as $msg)
+            echo '<li>'.$msg;
+          echo '</ul></font>';
+        }
+  
+        if (count($section["failed_cli"]) > 0)
+        {
+          echo '<p>'.str('INSTALL_TEST_FAIL_CLI').'<font color="#660000"><ul>';
+          foreach ($section["failed_cli"] as $msg)
+            echo '<li>'.$msg;
+          echo '</ul></font>';
+        }
 
-      if (count($section["failed_cli"]) > 0)
-      {
-        echo '<p>'.str('INSTALL_TEST_FAIL_CLI').'<font color="#660000"><ul>';
-        foreach ($section["failed_cli"] as $msg)
-          echo '<li>'.$msg;
-        echo '</ul></font>';
+        echo '</td>';
       }
 
       // End the display for this section
-      echo '</td>
-            </tr>
+      echo '</tr>
             </table>';
     }
     echo '</center>';
@@ -173,6 +178,7 @@ function check_display()
   $test_page->add_test( $php, "PHP ini file", str("PASS_PHP_INI"), str("FAIL_PHP_INI"));
   $test_page->add_test( $php, "PHP required mods", str("PASS_PHP_REQ_MODS"), str("FAIL_PHP_REQ_MODS", implode(', ',get_required_modules_list())) );
   $test_page->add_test( $php, "PHP suggested mods", str("PASS_PHP_EXTRA_MODS"), str("FAIL_PHP_EXTRA_MODS", implode(', ',get_suggested_modules_list())) );
+  $test_page->add_test( $php, "PHP fonts", str("PASS_PHP_FONTS"), str("FAIL_PHP_FONTS") );
 
   # ----------------------
   # MySQL Tests
@@ -191,6 +197,17 @@ function check_display()
   }
                       
   # ----------------------
+  # Webserver Tests
+  # ----------------------
+
+  $server = $test_page->add_section("Webserver");
+
+  $test_page->add_test( $server, "SERVER scheduler", str("PASS_SERVER_SCHED"), str("FAIL_SERVER_SCHED"));
+                           
+  # Display test results
+  $test_page->display();
+
+  # ----------------------
   # SwissCenter configuration Tests
   # ----------------------
                            
@@ -207,16 +224,6 @@ function check_display()
   if ( $test_page->test_result('MYSQL database'))
     $test_page->add_test( $swiss, "SWISS media locs", str("PASS_SWISS_LOCS"), str("FAIL_SWISS_LOCS"));
 
-  # ----------------------
-  # Webserver Tests
-  # ----------------------
-
-  $server = $test_page->add_section("Webserver");
-
-  $test_page->add_test( $server, "SERVER scheduler", str("PASS_SERVER_SCHED"), str("FAIL_SERVER_SCHED"));
-                           
-  # Display test results
-  $test_page->display();
 }
 
 /**************************************************************************************************

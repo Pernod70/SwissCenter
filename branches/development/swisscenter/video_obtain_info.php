@@ -113,7 +113,6 @@
         {
           $url = add_site_to_url($matches[1][$index],$site_url);
           send_to_log(6,'Fetching information from:',url_get_components($url));
-          debug($url);
           $html = file_get_contents( $url );
         }
       }

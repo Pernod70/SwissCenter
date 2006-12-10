@@ -87,12 +87,12 @@ function nvl($text,$default = '&lt;Unknown&gt;')
   
   function strip_title ($title)
   {
-    $search  = array ( '/\.[^.]*$/'
+    $search  = array ( '/\.[^.]*$/U'
                      , '/\(.*\)/'
                      , '/\[.*]/'
-                     , '/\W+/'
-                     , '/ CD.*/i'
-                     , '/\s+/'
+                     , '/\s\W/'
+                     , '/\W\s/'
+                     , '/\sCD[^\w].*/i'
                      , '/ +$/');
     
     $replace = array ( ''

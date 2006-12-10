@@ -10,13 +10,20 @@
   require_once( realpath(dirname(__FILE__).'/base/capabilities.php'));
   require_once( realpath(dirname(__FILE__).'/base/file.php'));
 
-//*************************************************************************************************
-// Main logic
+/**************************************************************************************************
+// Notes
 //*************************************************************************************************
 
-  // The showcenter can only cope with playlists of a certain size (which should be enough for
-  // anyone to sit and listen to!). However, the user shouldn't notice as shuffle is done 
-  // before the truncate of the playlist (if the user has selected shuffle).
+ [1] The hardware players can only cope with a playlists containing a limited number of entries. 
+     This probably varies between players, and so is set in the capabilities.php file and returned
+     using the function max_playlist_size().
+
+ [2] The URL contained in the playlist will always be treated as a file path and will have the extension
+     replaceed with known subtitle extensions (srt, sub,...). This means that when we use the stream.php
+     script to stream the file we have to add "&ext=.avi" onto the end to allow the showcenter to support
+     subtitles. If this is missing then the player will report "unknown format"     
+
+*/
 
   $server     = server_address();
   $data       = get_tracklist_to_play();
@@ -30,7 +37,7 @@
   
   foreach ($data as $row)
   {
-    if ($item_count >= $max_size)
+    if ($item_count++ >= $max_size)
       break;
 
     // We need to identify the media_type. This may have been passed in on the query string (if the list of files
@@ -45,17 +52,6 @@
       find_media_in_db($row["DIRNAME"].$row["FILENAME"], $media_type, $file_id);
     }
       
-    if ( is_null($row["TITLE"]) )
-      $title = rtrim(file_noext(basename($row["FILENAME"])));
-    else
-      $title = rtrim($row["TITLE"]);
-
-    // NOTE: An extra (unused) parameter is appended onto the end URL to inform the media player of the filetype. 
-    //       If this is missing, then the player reports "unknown format" 
-    
-    $url = $server.'stream.php?media_type='.$media_type.'&file_id='.$file_id.'&ext=.'.file_ext($row["FILENAME"]);
-    send_to_log(7,"- ".$url);
-    
     // If this is a hardware player, then we might wish to resume playback of a file partway through
     $start_pos = 0;
     if ( $resume && support_resume() )
@@ -68,13 +64,22 @@
         send_to_log(7,"- Resuming playback from ".$start_pos."%");
       }
     }
-      
+
+    // Don't use "stream.php" for movies until we can get the (lack of) subtitles bug sorted out!
+    if ($media_type == 3 ) // Movie
+      $url = $server.make_url_path(ucfirst($row["DIRNAME"]).$row["FILENAME"]);
+    else
+      $url = $server.'stream.php?'.current_session().'&media_type='.$media_type.'&file_id='.$file_id.'&ext=.'.file_ext($row["FILENAME"]);
+    
+    // Build up the playlist row to send to the player, including the title of the movie (for the on-screen display)
+    $title = rtrim(nvl( $row["TITLE"] , file_noext(basename($row["FILENAME"])) ));
+    send_to_log(7," - ".$url);
+
     if (is_hardware_player())
       echo  $title.'|'.$start_pos.'|0|'.$url."|\n";
     else
       echo  $url.newline();
       
-    $item_count++;
   }
 
   // If this is a PC browser then we need to output some headers

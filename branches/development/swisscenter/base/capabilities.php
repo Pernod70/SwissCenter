@@ -7,6 +7,7 @@ require_once( realpath(dirname(__FILE__).'/server.php'));
 require_once( realpath(dirname(__FILE__).'/utils.php'));
 require_once( realpath(dirname(__FILE__).'/screen.php'));
 require_once( realpath(dirname(__FILE__).'/settings.php'));
+require_once( realpath(dirname(__FILE__).'/prefs.php'));
 
 #-------------------------------------------------------------------------------------------------
 # Returns the type of hardware player that the SwissCenter is communicating with.
@@ -150,12 +151,12 @@ function quick_access_img( $position )
 
 function media_exts_movies()
 {
-  return explode(',' ,'avi,mpg,mpeg,vob,wmv,asf,divx,ts,tp');
+  return explode(',' ,'asf,avi,dat,divx,m2v,mpe,mpeg,mpg,ts,tp,vob,wmv,xvid');
 }
 
 function media_exts_music()
 {
-  return explode(',' ,'mp3,wma');
+  return explode(',' ,'ac3,mp2,mp3,ogg,wav,wma');
 }
 
 function media_exts_photos()
@@ -234,16 +235,48 @@ function support_resume()
 
 function support_now_playing()
 { 
-  $result = true;
+  $user_opt = get_sys_pref('SUPPORT_NOW_PLAYING','AUTO');
+  $result   = ($user_opt == 'YES');
   
-  switch ( get_player_type() )
+  if ($user_opt == 'AUTO')
   {
-    case 'IO-DATA':
-         $result = false;
-         break;
+    switch ( get_player_type() )
+    {
+      case 'BUFFALO':
+      case 'IO-DATA':
+           $result = false;
+           break;
+      default:
+           $result = true;
+    }
   }
 
   return $result;
+}
+
+#-------------------------------------------------------------------------------------------------
+# Returns the POD (Picture On Demand) parameter to pass to the hardware player that controls how
+# the images and music with by synchronized together.
+#
+# On the showcenter, the values are:
+#   1 - FF?RW buttons control the photos. Music playback is unaffected
+#   2 - FF/RW buttons control the music. Photo playback is unaffected (or so Pinnacle claim)
+#   3 - FF/RW controls both the photos and the music.
+#-------------------------------------------------------------------------------------------------
+
+function now_playing_sync_type()
+{
+  $result = 3;  // Default values for players unless we discover otherwise.
+  
+  switch ( get_player_type() )
+  {
+    case 'BUFFALO':
+    case 'IO-DATA':
+         $result = 2;
+         break;
+  }
+
+  return $result;  
 }
   
 #-------------------------------------------------------------------------------------------------

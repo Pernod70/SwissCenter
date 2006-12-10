@@ -2,3 +2,4 @@ Deutsch,de
 English,en
 Nederlands,nl
 Español,es
+Français,fr

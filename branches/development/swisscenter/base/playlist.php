@@ -82,7 +82,7 @@ function get_tracklist_to_play()
             $all_dirs[$i] = db_escape_str($all_dirs[$i].'/'.$dir);
 
           $predicate = "dirname like '".implode("%' or dirname like '",$all_dirs)."%' ".get_rating_filter();
-          $array     = db_toarray("select * from $table media ".get_rating_join()."where $predicate order by filename"); 
+          $array     = db_toarray("select * from $table media ".get_rating_join()."where $predicate order by order by album,lpad(track,10,'0'),title"); 
           break;
 
   }
@@ -122,11 +122,10 @@ function slideshow_link_by_browser( $params )
 function play_playlist()
 {
   $params = 'spec_type=playlist&'.current_session().'&seed='.mt_rand(); 
-  $skip_type = ( support_now_playing() ? 3 : 2);
 
   // If all music, then generate the "Now Playing" images to accompany the tracks.
   if ( playlist_all_music())
-    $extra = 'pod="'.$skip_type.',1,'.server_address().'playing_list.php?'.$params.'" ';
+    $extra = 'pod="'.now_playing_sync_type().',1,'.server_address().'playing_list.php?'.$params.'" ';
   else 
     $extra = 'vod="playlist" ';
 
@@ -140,12 +139,11 @@ function play_playlist()
 function play_dir( $media_type, $dir )
 {
   $params = 'spec_type=dir&spec='.rawurlencode($dir).'&media_type='.$media_type.'&seed='.mt_rand().'&'.current_session();
-  $skip_type = ( support_now_playing() ? 3 : 2);
   
   switch ($media_type)
   {
     case MEDIA_TYPE_MUSIC:
-         $link   = 'href="gen_playlist.php?'.$params.'" pod="'.$skip_type.',1,'.server_address().'playing_list.php?'.$params.'" ';
+         $link   = 'href="gen_playlist.php?'.$params.'" pod="'.now_playing_sync_type().',1,'.server_address().'playing_list.php?'.$params.'" ';
          break;
          
     case MEDIA_TYPE_VIDEO:
@@ -168,12 +166,11 @@ function play_dir( $media_type, $dir )
 function resume_file( $media_type, $file_id )
 {
   $params = 'resume=Y&spec_type=file&'.current_session().'&spec='.$file_id.'&media_type='.$media_type;
-  $skip_type = ( support_now_playing() ? 3 : 2);
   
   switch ($media_type)
   {
     case MEDIA_TYPE_MUSIC:
-         $link   = 'href="gen_playlist.php?'.$params.'" pod="'.$skip_type.',1,'.server_address().'playing_list.php?'.$params.'" ';
+         $link   = 'href="gen_playlist.php?'.$params.'" pod="'.now_playing_sync_type().',1,'.server_address().'playing_list.php?'.$params.'" ';
          break;
          
     case MEDIA_TYPE_VIDEO:
@@ -197,12 +194,11 @@ function resume_file( $media_type, $file_id )
 function play_file( $media_type, $file_id )
 {
   $params = 'spec_type=file&'.current_session().'&spec='.$file_id.'&media_type='.$media_type;
-  $skip_type = ( support_now_playing() ? 3 : 2);
   
   switch ($media_type)
   {
     case MEDIA_TYPE_MUSIC:
-         $link   = 'href="gen_playlist.php?'.$params.'" pod="'.$skip_type.',1,'.server_address().'playing_list.php?'.$params.'" ';
+         $link   = 'href="gen_playlist.php?'.$params.'" pod="'.now_playing_sync_type().',1,'.server_address().'playing_list.php?'.$params.'" ';
          break;
          
     case MEDIA_TYPE_VIDEO:
@@ -226,12 +222,11 @@ function play_sql_list( $media_type, $spec)
 {
   $_SESSION["play_now"]["spec"] = $spec;
   $params = 'spec_type=sql&'.current_session().'&seed='.mt_rand().'&media_type='.$media_type;
-  $skip_type = ( support_now_playing() ? 3 : 2);
   
   switch ($media_type)
   {
     case MEDIA_TYPE_MUSIC:
-         $link   = 'href="gen_playlist.php?'.$params.'" pod="'.$skip_type.',1,'.server_address().'playing_list.php?'.$params.'" ';
+         $link   = 'href="gen_playlist.php?'.$params.'" pod="'.now_playing_sync_type().',1,'.server_address().'playing_list.php?'.$params.'" ';
          break;
          
     case MEDIA_TYPE_VIDEO:

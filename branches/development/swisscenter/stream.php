@@ -8,6 +8,7 @@
   require_once( realpath(dirname(__FILE__).'/base/utils.php'));
   require_once( realpath(dirname(__FILE__).'/base/file.php'));
   require_once( realpath(dirname(__FILE__).'/base/image.php'));
+  require_once( realpath(dirname(__FILE__).'/base/users.php'));
 
   //-------------------------------------------------------------------------------------------------
   // Outputs the image file to the browser.
@@ -53,6 +54,7 @@
       send_to_log(5,"Subtitles File  : ".$fsp); 
       send_to_log(8,"Subtitles Range : ".$start." to ".($size-1)."/".$size); 
   
+      session_write_close();
       header("Content-type: application/octet-stream");
       header("Content-Disposition: attachment; filename=\"".basename($fsp)."\""); 
       header("Content-Length: ".(string)($size-$start)); 
@@ -76,7 +78,7 @@
   function store_request_details( $media, $file_id, $location )
   {  
     // Store details on the file being requested.
-    set_user_pref('LAST_PLAYED', $location);
+    set_user_pref('LAST_PLAYED_TIME', time() );
     set_user_pref('LAST_PLAYED_ID', $file_id);  
 
     // Current user
@@ -99,7 +101,7 @@
   // Streams a file down to the hardware player
   //-------------------------------------------------------------------------------------------------
 
-  function stream_file($media_id, $file_id, $location)
+  function stream_file($media_id, $file_id, $location, $headers = array() )
   {
     $startArray  = sscanf( $_SERVER["HTTP_RANGE"], "bytes=%d-%d" );
     $fsize       = large_filesize($location);
@@ -126,14 +128,17 @@
       header("HTTP/1.1 206 Partial Content");
     }
     
-    $fdate=filemtime($location);
-    header ("Content-Type: audio/mpeg");
-    header ("Last-Changed: ".date('r',$fdate));
+    foreach ($headers as $html_header)
+    {
+      send_to_log(8,'Header: '.$html_header);
+      header ($html_header);
+    }
     
     // Send any pending output (inc headers) and stop timeouts or user aborts killing the script
     ob_end_flush();      
     ignore_user_abort(TRUE);
     set_time_limit(0);
+    session_write_close();
   
     // Open the file
     $fh=fopen($location, 'rb');    
@@ -168,19 +173,15 @@
   // Main logic
   //*************************************************************************************************
 
-  $server     = server_address();
-  $file_id    = $_REQUEST["file_id"];
-  $media      = $_REQUEST["media_type"];
-  $table      = db_value("select media_table from media_types where media_id = ".$media);          
-  $location   = db_value("select concat(dirname,filename) from $table where file_id= $file_id");
-  $req_ext    = $_REQUEST["ext"];
-  $subtitles  = array('.srt','.sub', '.ssa', '.smi');
-
-  // If using Simese, then use UTF-8 encoding
-  if (is_server_simese())
-    $redirect_url = make_url_path( mb_convert_encoding($location,'UTF-8','ISO-8859-1') );
-  else
-    $redirect_url = make_url_path($location);
+  $server       = server_address();
+  $file_id      = $_REQUEST["file_id"];
+  $media        = $_REQUEST["media_type"];
+  $table        = db_value("select media_table from media_types where media_id = ".$media);          
+  $location     = db_value("select concat(dirname,filename) from $table where file_id= $file_id");
+  $req_ext      = $_REQUEST["ext"];
+  $redirect_url = make_url_path($location);
+  $subtitles    = array('.srt','.sub', '.ssa', '.smi');
+  $headers      = array();
 
   // Determine what to do with the file request...      
   if ( in_array(strtolower($req_ext),$subtitles) )
@@ -207,13 +208,20 @@
     // Store the request details, and then send a redirect header to the player with the real location of the media file.
     send_to_log(7,'Attempting to stream the following file',array( "File ID"=>$file_id, "Media Type"=>$media_type, "Location"=>$location ));
     store_request_details( $media, $file_id, $location);  
-    
-    if (false) // trying to get streaming via PHP working... this is to switch between the two different approaches.
+      
+    if ($media == 1) // Music
     {
-      stream_file($media_id, $file_id, $location);
+      $duration = db_value("select length from $table where file_id= $file_id");
+      if ($duration > 0)
+        $headers[] = "TimeSeekRange.dlna.org: npt=0-/".$duration."\r\n";
+
+      $headers[] = "Content-type: audio/x-mpeg";
+      $headers[] = "Last-Changed: ".date('r',filemtime($location));
+      stream_file($media_id, $file_id, $location, $headers);
     }
     else 
     {
+      send_to_log(8,'Redirecting to '.$server.$redirect_url);
       header ("HTTP/1.0 307 Temporary redirect");
       header ("location: ".$server.$redirect_url);
     }

@@ -19,6 +19,7 @@
 
 require_once( realpath(dirname(__FILE__).'/settings.php'));
 require_once( realpath(dirname(__FILE__).'/file.php'));
+require_once( realpath(dirname(__FILE__).'/image.php'));
 
 #-------------------------------------------------------------------------------------------------
 # PHP checks
@@ -68,6 +69,12 @@ function check_php_suggested_modules()
     }
       
   return true;
+}
+
+function check_php_ttf()
+{
+  $img = new CImage() ;
+  return ($img->text('Test') !== false);
 }
 
 
@@ -261,6 +268,7 @@ Function get_check_results()
   $results['PHP suggested mods']     = check_php_suggested_modules();
   $results['PHP ini file']           = check_php_ini_location();
   $results['PHP cli']                = check_php_cli();
+  $results['PHP fonts']              = check_php_ttf();
   $results['MYSQL version']          = check_mysql_version();
   $results['MYSQL connect']          = check_mysql_connect();
   $results['MYSQL database']         = check_mysql_database_exists();

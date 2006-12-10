@@ -8,6 +8,7 @@ if (isset($_REQUEST["session_id"]) && !empty($_REQUEST["session_id"]))
   session_id($_REQUEST["session_id"]);
 
 @session_start();
+ini_set("session.gc_maxlifetime", "86400"); // Set session timeout to 1 day
 ob_start();
 
 require_once( realpath(dirname(__FILE__).'/file.php'));

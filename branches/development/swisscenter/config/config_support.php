@@ -2,7 +2,7 @@
 /**************************************************************************************************
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
-  
+
   // ----------------------------------------------------------------------------------
   // Display current config
   // ----------------------------------------------------------------------------------
@@ -39,7 +39,7 @@
     
     echo "<h2>".str('SUPPORT_PROG_TITLE')."</h2>";
     $opts = array( array('Program'=>'PHP (CLI Version)','Location'=>os_path(php_cli_location()) ),
-                   array('Program'=>'PHP ini file','Location'=>os_path(php_ini_location()) ),
+                   array('Program'=>'PHP ini file','Location'=>os_path(php_ini_location()).' <a href="index.php?section=SUPPORT&action=show_phpinfo">(PHP settings)</a>' ),
                    array('Program'=>'Swisscenter','Location'=>os_path(SC_LOCATION)),
                  );
     array_to_table($opts, str('SUPPORT_PROG_HEADINGS'));    
@@ -81,6 +81,17 @@
     support_display( $_REQUEST["debug"], str('SAVE_SETTINGS_OK'));
   }
   
+  // ----------------------------------------------------------------------------------
+  // Displays the phpinfo() page.
+  // ----------------------------------------------------------------------------------
+
+  function support_show_phpinfo()
+  { 
+    ob_clean();
+    phpinfo(); 
+    exit;
+  }
+
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/

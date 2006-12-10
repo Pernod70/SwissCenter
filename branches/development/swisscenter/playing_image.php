@@ -71,7 +71,7 @@
   $title_text_col   = hexdec(style_value('NOW_TITLE_COLOUR','#000000'));
   $title_x          = convert_x(70,SCREEN_COORDS);
   $title_y          = convert_y(120,SCREEN_COORDS);
-  $line_y           = convert_x(120,SCREEN_COORDS);
+  $line_y           = convert_y(150,SCREEN_COORDS);
   
   $image->text(str('NOW_PLAYING'),$title_x, $title_y, $title_text_col, $title_text_size);
   $image->line( $title_x, $line_y, convert_x(900,SCREEN_COORDS), $line_y, $title_text_col);

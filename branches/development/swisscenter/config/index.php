@@ -70,30 +70,34 @@
     menu_heading(str('CONFIGURATION'));
     menu_item( str('CONFIG_DB_CREATE')         ,'section=INSTALL&action=DISPLAY','menu_bgr2.png');
     if ($db_stat == 'OK')
-	{
-	  menu_item( str('CATEGORIES')             ,'section=CATEGORY&action=DISPLAY');
-	  menu_item( str('MEDIA_LOCATIONS')        ,'section=DIRS&action=DISPLAY');
-	  menu_item( str('USERS_ADD_TITLE')        ,'section=USERS&action=DISPLAY');
-	  menu_item( str('SCHEDULE_TITLE')         ,'section=SCHED&action=DISPLAY');
-	  menu_item( str('CONNECT_TITLE')          ,'section=CONNECT&action=DISPLAY');
-	  menu_item( str('ART_FILES_TITLE')        ,'section=ART&action=DISPLAY');
-	  menu_item( str('PLAYLISTS')              ,'section=PLAYLISTS&action=DISPLAY');
-	  menu_item( str('CACHE_CONFIG_TITLE')     ,'section=CACHE&action=DISPLAY');
-
-	  menu_heading();
-	  menu_heading();
-	  
-	  menu_heading(str('MEDIA_MANAGEMENT'));
-	  menu_item( str('ORG_TITLE')              ,'section=MOVIE&action=DISPLAY','menu_bgr.png');
-	  menu_item( str('MOVIE_OPTIONS')      ,'section=MOVIE&action=INFO','menu_bgr.png');
-	  
-	  menu_heading();
-	  menu_heading();
-	  
-	  menu_heading(str("INFORMATION"));
-	  menu_item( str('PRIVACY_POLICY')         ,'section=PRIVACY&action=DISPLAY','menu_bgr2.png');
-	  menu_item( str('SUPPORT_TITLE')          ,'section=SUPPORT&action=DISPLAY','menu_bgr2.png');
-	}
+  	{
+  	  menu_item( str('CACHE_CONFIG_TITLE')     ,'section=CACHE&action=DISPLAY');
+  	  menu_item( str('CATEGORIES')             ,'section=CATEGORY&action=DISPLAY');
+  	  menu_item( str('CONNECT_TITLE')          ,'section=CONNECT&action=DISPLAY');
+  	  menu_item( str('USERS_ADD_TITLE')        ,'section=USERS&action=DISPLAY');
+  	  menu_item( str('SCHEDULE_TITLE')         ,'section=SCHED&action=DISPLAY');
+  
+  	  menu_heading();
+  	  menu_heading();
+  	  
+  	  menu_heading(str('MEDIA_MANAGEMENT'));
+  	  menu_item( str('MEDIA_LOCATIONS')        ,'section=DIRS&action=DISPLAY');
+  	  menu_item( str('CONFIG_AUDIO_OPTIONS')   ,'section=AUDIO&action=DISPLAY','menu_bgr.png');
+  	  menu_item( str('CONFIG_IMAGE_OPTIONS')   ,'section=IMAGE&action=DISPLAY','menu_bgr.png');
+//  	  menu_item( str('CONFIG_RADIO_OPTIONS')   ,'section=MOVIE&action=INFO','menu_bgr.png');
+  	  menu_item( str('PLAYLISTS')              ,'section=PLAYLISTS&action=DISPLAY');
+  	  menu_item( str('MOVIE_OPTIONS')          ,'section=MOVIE&action=INFO','menu_bgr.png');
+  	  menu_heading();
+  	  menu_item( str('ART_FILES_TITLE')        ,'section=ART&action=DISPLAY');
+  	  menu_item( str('ORG_TITLE')              ,'section=MOVIE&action=DISPLAY','menu_bgr.png');
+  	  
+  	  menu_heading();
+  	  menu_heading();
+  	  
+  	  menu_heading(str("INFORMATION"));
+  	  menu_item( str('PRIVACY_POLICY')         ,'section=PRIVACY&action=DISPLAY','menu_bgr2.png');
+  	  menu_item( str('SUPPORT_TITLE')          ,'section=SUPPORT&action=DISPLAY','menu_bgr2.png');
+  	}
     echo '</table>';
   }
  

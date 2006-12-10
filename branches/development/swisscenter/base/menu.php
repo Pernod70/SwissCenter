@@ -20,7 +20,7 @@ class menu
   var $up;
   var $down;
   var $icons = true;
-  var $font_size = 28;
+  var $font_size = 30;
 
   #-------------------------------------------------------------------------------------------------
   # Member Functions
