@@ -29,31 +29,21 @@
     $y += $font_size;
   }
   
-  # ------------------------------------------------------------------------------------------------
-  # If the parameter "music_id" is set to "NONE" then we should get the file_id from the database.
-  # This is an attempt to auto-update the now playing screen for browsers that do not support auto
-  # changing of the image when the track changes.
-  # ------------------------------------------------------------------------------------------------
-
-  if ($_REQUEST["music_id"] == 'NONE')
-    $info = db_toarray("select * from mp3s where file_id=".get_user_pref('LAST_PLAYED_ID'));
-  else  
-    $info = db_toarray("select * from mp3s where file_id=".$_REQUEST["music_id"]);
-
-  # ------------------------------------------------------------------------------------------------
-  # Build the "Now Playing" image
-  # ------------------------------------------------------------------------------------------------
-  
+ /**************************************************************************************************
+   Main page output
+   *************************************************************************************************/
+ 
   $image            = new CImage();
   $artfile          = new CImage();
+  $info             = db_toarray("select * from mp3s where file_id=".get_user_pref('LAST_PLAYED_ID'));
 
-  // Load the image and scale it to the appropriate size.
+  // Load the image and scale it to the appropriate size.  
   $image->load_from_file(style_img('NOW_BACKGROUND',true) );
   $image->resize( convert_x(1000,SCREEN_COORDS), convert_y(1000,SCREEN_COORDS), 0, false);
   
-  // ------------------------------------------------------------------------------------------------
-  // Album Art
-  // ------------------------------------------------------------------------------------------------
+  #----------
+  # Album Art
+  #----------
 
   $art_fsp   = file_albumart($info[0]["DIRNAME"].$info[0]["FILENAME"]);
   $art_x     = convert_x(70,SCREEN_COORDS);
@@ -68,13 +58,13 @@
   else
     $artfile->load_from_file( $art_fsp );
     
-  // Resize album art and then overlay onto the background image.
+  // Resize album art and then overlay onto the background image.  
   $artfile->resize( $art_w, $art_h, $art_bg_colour );
   $image->copy($artfile, $art_x, $art_y);
 
-  // ------------------------------------------------------------------------------------------------
-  // Page Title
-  // ------------------------------------------------------------------------------------------------
+  #-----------
+  # Page Title
+  #-----------
 
   $title_text_size  = font_size( 40, SCREEN_COORDS);
   $title_text_col   = hexdec(style_value('NOW_TITLE_COLOUR','#000000'));
@@ -83,9 +73,9 @@
   
   $image->text(str('NOW_PLAYING'),$title_x, $title_y, $title_text_col, $title_text_size);
   
-  // ------------------------------------------------------------------------------------------------
-  // Track Information
-  // ------------------------------------------------------------------------------------------------
+  # -----------------
+  # Track Information
+  # -----------------
   
   $label_text_size  = font_size( 20, SCREEN_COORDS);
   $detail_text_size = font_size( 14, SCREEN_COORDS);  

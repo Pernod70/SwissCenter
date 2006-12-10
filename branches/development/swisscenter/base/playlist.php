@@ -181,7 +181,7 @@ function resume_file( $media_type, $file_id )
          break;
          
     case MEDIA_TYPE_PHOTO:
-         send_to_log(1,"Attempting to resume playback of a photo don't not make sense.");
+         send_to_log(1,"Attempting to resume playback of a photo doesn't make sense.");
          $link   = false;
          break;
   }

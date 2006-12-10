@@ -7,43 +7,21 @@
   require_once( realpath(dirname(__FILE__).'/base/mysql.php'));
   require_once( realpath(dirname(__FILE__).'/base/playlist.php'));
 
+  // We output two identical playlist items that both point to the same script (playing_image.php),
+  // the only difference is that players that support a "Now Playing" screen will sync the slide
+  // change with the end of the music. For other players, we must constantly switch between
+  // images (on a 5 second delay).
+  
   $server     = server_address();
-  $data       = get_tracklist_to_play();
-  $max_size   = max_playlist_size();
-  $item_count = 0;
-  $session    = current_session();
   $transition = now_playing_transition();
+  $timeout    = 5;
+  $url        = $server."playing_image.php?".current_session()."&type=.jpg";
   
-  send_to_log(7,'Generating List of "Now Playing" images');
+  send_to_log(7,'Generating List of "Now Playing" images');  
+  send_to_log(7,' -'.$url);
   
-  if ( support_now_playing() )
-  {
-    // For players that support the "Now Playing" screen we can output a list of images that
-    // should be displayed at the same time as the music is playing. These players automatically
-    // request the revelant image as the track starts playing.
-    foreach ($data as $row)
-    {
-      // Each device  has a maximum playlist size 
-      if ($item_count++ >= $max_size)
-        break;
-        
-      $url = $server."playing_image.php?".$session."&music_id=".$row["FILE_ID"]."&type=.jpg";
-      send_to_log(7,$url);
-  
-      echo "3600|$transition| |".$url."|\n";
-    }    
-  }
-  else 
-  {
-    // For other players we need to perform a bit of a hack. Basically, we get the player to
-    // repeatedly request an image every <n> seconds. The routine that generates the image
-    // uses the information from the last track requested.
-    set_user_pref('LAST_PLAYED_ID',$data[0]["FILE_ID"]);
-    $url = $server."playing_image.php?".$session."&music_id=NONE&type=.jpg";
-    send_to_log(7,$url);
-    echo "5|$transition| |".$url."|\n";    
-    echo "5|$transition| |".$url."|\n";    
-  }
+  echo "$timeout|$transition| |$url|\n";    
+  echo "$timeout|$transition| |$url|\n";    
   
 /**************************************************************************************************
                                                End of file

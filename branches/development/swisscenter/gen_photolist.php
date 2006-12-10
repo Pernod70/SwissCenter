@@ -39,7 +39,7 @@
       else
         $title = rtrim($row["TITLE"]);
         
-      $url = $server.'stream.php?media_type=2&file_id='.$row["FILE_ID"].'&ext=.jpg';
+      $url = $server.'stream.php?'.current_session().'&media_type=2&file_id='.$row["FILE_ID"].'&ext=.jpg';
       send_to_log(7,' - '.$url);
   
       if (is_hardware_player())

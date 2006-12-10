@@ -72,8 +72,26 @@ function bookmark_file( $fsp )
 
 //-------------------------------------------------------------------------------------------------
 // Routine to add a message and (optionally) the contents of a variable to the swisscenter log.
+//
 // NOTE: If the logv has become more than 1Mb in size then it is archived and a new log is 
 //       started. Only one generation of logs is archived (so current log and old log only)
+//
+// ERRORS
+// 1 - Information on critical errors only.
+// 2 - Information on all errors
+// 3 - Detailed information on all erorrs
+//
+// EVENTS
+// 4 - Information on important events (new mp3s, etc)
+// 5 - ALl events
+//
+// DEBUGGING INFORMATION
+// 6 - System modifications -  Files being created, system prefs, updating swisscenter, etc
+// 7 - Information sent to the hardware player
+// 8 - Maximum detail but without database related information
+//
+// EVERYTHING
+// 9 - Maximum detail, includes all SQL statements executed
 //-------------------------------------------------------------------------------------------------
 
 function send_to_log($level, $item, $var = '')
@@ -526,16 +544,31 @@ function file_save_albumart( $url, $fsp, $film_title )
 
 function  php_ini_location()
 {
+  $location = false;
+
+  // Fetch phpinfo text
   ob_start();
   phpinfo(INFO_GENERAL);
   $text = ob_get_contents();
   ob_end_clean();
- 
-  preg_match('#php.ini.*?</td><td class="v">(.*?)<#',$text,$matches);
-  if (!empty($matches[1]))
-    return trim($matches[1]);
+  
+  // Process the output depending on what format it is in.
+  if ( strpos( $text, '<!DOCTYPE html') !== false)
+  {  
+    // HTML format
+    preg_match('#php.ini.*<td class="v">(.*?)<#',$text,$matches);
+    if (!empty($matches[1]))
+      $location = trim($matches[1]);
+  }
   else 
-    return false;
+  { 
+    // Text format
+    preg_match('#php.ini.*=>(.*)\n#',$text,$matches);
+    if (!empty($matches[1]))
+      $location = trim($matches[1]);
+  }
+
+  return $location; 
 }
 
 function php_cli_location()

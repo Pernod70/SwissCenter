@@ -26,18 +26,22 @@ require_once( realpath(dirname(__FILE__).'/file.php'));
 
 function check_php_version()
 {
+  send_to_log(5,'- PHP Version : '.phpversion());
   return ( version_compare(phpversion(),'4.3.9','>=') );
 }
 
 
 function check_php_ini_location()
 {
-  return (php_ini_location() !== false);
+  $location = php_ini_location();
+  send_to_log(5,'- PHP ini location : '.$location);
+  return ($location !== false);
 }
 
 
 function check_php_cli()
 {
+  send_to_log(5,'- PHP CLI location : '.php_cli_location());
   return (php_cli_location() !== false);
 }
 
@@ -45,7 +49,10 @@ function check_php_required_modules()
 {
   foreach ( get_required_modules_list() as $module)
     if (!extension_loaded($module))
+    {
+      send_to_log(5,"- Required PHP module '$module' not installed");
       return false;
+    }
       
   return true;
 }
@@ -55,7 +62,10 @@ function check_php_suggested_modules()
 {
   foreach ( get_suggested_modules_list() as $module)
     if (!extension_loaded($module))
+    {
+      send_to_log(5,"- Suggested PHP module '$module' not installed");
       return false;
+    }
       
   return true;
 }
@@ -69,7 +79,10 @@ function check_mysql_connect()
 {
   # Do we have defined constants for database connectivity?
   if ( !defined('DB_HOST') || !defined('DB_DATABASE') || !defined('DB_PASSWORD'))
+  {
+    send_to_log(5,"- Unable to determine database connection details");
     return false;
+  }
 
   if ( ($db = @mysql_pconnect( DB_HOST, DB_USERNAME, DB_PASSWORD )) )
     return true;
@@ -86,6 +99,7 @@ function check_mysql_version()
     if ($row = mysql_fetch_array( $stmt, MYSQL_ASSOC ))
     {
       $version = array_pop($row);
+      send_to_log(5,"- MySQL Version : $version");
       return version_compare($version,'4.0','>=');  
     }
     else 
@@ -99,9 +113,22 @@ function check_mysql_version()
 function check_mysql_database_exists()
 {
   if (check_mysql_connect())
-    return (test_db(DB_HOST,DB_USERNAME,DB_PASSWORD,DB_DATABASE) == 'OK');
+  {
+    send_to_log(5,"- Successfully connected to MySQL");
+    $result = (test_db(DB_HOST,DB_USERNAME,DB_PASSWORD,DB_DATABASE) == 'OK'); 
+    
+    if ($result)    
+      send_to_log(5,"- Successfully connected to the SwissCenter database.");
+    else
+      send_to_log(5,"- Failed to connect to the SwissCenter database.");
+
+    return $result;
+  }
   else 
+  {
+    send_to_log(5,"- Unable to connect to MySQL");
     return false;
+  }
 }
 
 #-------------------------------------------------------------------------------------------------
@@ -114,11 +141,20 @@ function check_mysql_database_exists()
 function check_web_version()
 {
   if (is_server_simese())
+  {
+    send_to_log(5,'- Simese version : '.simese_version());
     return version_compare(simese_version(),'1.31','>=');
+  }
   elseif (is_server_apache())
+  {
+    send_to_log(5,'- Apache version : '.apache_version());
     return version_compare(apache_version(),'2.0','>=');
+  }
   else 
+  {
+    send_to_log(5,'- Unknown webserver');
     return true; 
+  }
 }
 
 
@@ -128,32 +164,54 @@ function check_web_version()
 
 function check_swiss_write_log_dir()
 {
+  
   return is_writeable(dirname(logfile_location()));  
 }
 
 
 function check_swiss_ini_file()
 {
-  return file_exists(SC_LOCATION.'/config/swisscenter.ini');
+  $result =  file_exists(SC_LOCATION.'/config/swisscenter.ini');
+  
+  if (!$result)
+    send_to_log(5,'- Unable to access '.SC_LOCATION.'/config/swisscenter.ini');
+      
+  return $result;
 }
 
 
 function check_swiss_media_locations()
 {
-  return (db_value("select count(*) from media_locations") > 0);
+  $result =  (db_value("select count(*) from media_locations") > 0);
+
+  if (!$result)
+    send_to_log(5,'- No media locations have been defined yet.');
+        
+  return $result;
 }
 
 
 function check_swiss_write_rootdir()
 {
-  return ( is_readable(SC_LOCATION) && is_writable(SC_LOCATION) );  
+  $result =  ( is_readable(SC_LOCATION) && is_writable(SC_LOCATION) );  
+
+  if (!$result)
+    send_to_log(5,'- The '.SC_LOCATION.' directory is not read/write for the webserver user.');
+      
+  return $result;
 }
 
 
 function check_not_root_install()
 {
   $info = stat(SC_LOCATION.'/index.php');
-  return ! (is_unix() && ($info[4]==0 || $info[5]==0));
+  send_to_log(8,'- File Stat of /index.php',$info);
+  $result = ! (is_unix() && ($info[4]==0 || $info[5]==0));
+  
+  if (!$result)
+    send_to_log(5,"- Swisscenter appears to have been installed as the 'root' user.");
+  
+  return $result;
 }
 
 #-------------------------------------------------------------------------------------------------
@@ -181,6 +239,7 @@ function check_server_scheduler()
   {
     // Linux - So check that crontab is available for use.
     $crontab = syscall("crontab -l 2>&1");
+    send_to_log(8,'Results of crontab command',$crontab);
     return ( ! (strpos($crontab,'not allowed') !== false || strpos($crontab,'do not have permission') !== false) );
   }
 }
@@ -194,21 +253,23 @@ function check_server_scheduler()
 
 Function get_check_results()
 {
+  send_to_log(5,'Webserver PHP Tests...');
+
   $results = array();
-  $results['PHP ini file']           = check_php_ini_location();
+  $results['PHP version']            = check_php_version();
   $results['PHP required mods']      = check_php_required_modules();
   $results['PHP suggested mods']     = check_php_suggested_modules();
-  $results['PHP version']            = check_php_version();
+  $results['PHP ini file']           = check_php_ini_location();
   $results['PHP cli']                = check_php_cli();
-  $results['MYSQL connect']          = check_mysql_connect();
   $results['MYSQL version']          = check_mysql_version();
+  $results['MYSQL connect']          = check_mysql_connect();
   $results['MYSQL database']         = check_mysql_database_exists();
   $results['SWISS ini file']         = check_swiss_ini_file();
-  $results['SWISS media locs']       = check_swiss_media_locations();
   $results['SWISS write log']        = check_swiss_write_log_dir();
-  $results['SERVER scheduler']       = check_server_scheduler();
   $results['SWISS write root']       = check_swiss_write_rootdir();
   $results['SWISS root install']     = check_not_root_install();
+  $results['SWISS media locs']       = check_swiss_media_locations();
+  $results['SERVER scheduler']       = check_server_scheduler();
 
   return $results;
 }
