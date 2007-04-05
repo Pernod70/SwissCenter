@@ -342,7 +342,7 @@ function process_media_directory( $dir, $id, $table, $file_exts, $recurse = true
       if (@is_dir($dir.$file))
       {
         // Regular directory
-        if (($file) !='.' && ($file) !='..')
+        if ((get_sys_pref('IGNORE_HIDDEN_FILES',1) && strpos($file,'.')!==0) || (!get_sys_pref('IGNORE_HIDDEN_FILES',1) && (($file) !='.' && ($file) !='..')))
         {
           if ($table == 'photos')
             add_photo_album($dir.$file, $id);
