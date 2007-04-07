@@ -73,8 +73,26 @@ function check_php_suggested_modules()
 
 function check_php_ttf()
 {
-  $img = new CImage() ;
-  return ($img->text('Test') !== false);
+  $font_ok = FALSE; // assume worst case first
+  $font = get_sys_pref('TTF_FONT','0');
+  if ($font!='0') {
+    $img = new CImage();
+    $font_ok = $img->text('Test');
+  }
+  if ($font_ok===FALSE) {
+    $fonts = array("Arial","/usr/share/fonts/truetype/msttcorefonts/Arial.ttf","luxisr"); // to be continued
+    $img = new CImage();
+    foreach ($fonts as $sfont) {
+      if ($img->text('Test',0,0,0,14,$sfont)==FALSE) continue;
+      set_sys_pref('TTF_FONT',$sfont);
+      $font_ok = TRUE;
+    }
+  }
+  if ($font_ok===FALSE) {
+    set_sys_pref('TTF_FONT','0'); // so we see it was checked for
+    return FALSE;
+  }
+  return TRUE;
 }
 
 

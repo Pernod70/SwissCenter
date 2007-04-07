@@ -324,10 +324,13 @@ class CImage
     // Determine the font to use if not specified.
     if (empty($font))
     {
-      if (is_windows())
-        $font = 'Arial';
-      else
-        $font = 'luxisr';
+      $font = get_sys_pref('TTF_FONT','1'); // returns font (if set), '0' check on config page failed, '1' if check was not yet performed
+      if ($font=='1') 
+      { // perform the check _once_. If it succeeds, font will be set in the future - else it will return '0' next time
+        include('install_checks.php');
+        check_php_ttf();
+        $font = get_sys_pref('TTF_FONT','Arial');
+      }
     }
 
     // Write the text to the image
