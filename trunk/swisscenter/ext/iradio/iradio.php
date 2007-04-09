@@ -10,7 +10,7 @@
  # under the terms of the GNU General Public License (see doc/LICENSE)       #
  #############################################################################
 
- /* $Id: imdb_config.php,v 1.3 2007/02/26 22:44:14 izzy Exp $ */
+ /* $Id$ */
 
 // the proxy to use for connections to imdb.
 // leave it empty for no proxy.
