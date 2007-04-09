@@ -32,9 +32,18 @@ class shoutcast extends iradio {
    * @class shoutcast
    * @method parse
    * @param string url pagename and params to add to the main url
+   * @param string cachename Name of the cache object to use
    * @return boolean success FALSE on error or nothing found, TRUE otherwise
    */
-  function parse($url) {
+  function parse($url,$cachename) {
+    if (!empty($cachename)) { // try getting the data from cache
+      $stations = $this->read_cache($cachename);
+      if ($stations !== FALSE) {
+        $this->station = $stations;
+        return TRUE;
+      }
+    }
+    echo "No Cache<br>";
     if (empty($url)) return FALSE;
     $uri = "http://".$this->iradiosite."/$url&numresult=".$this->numresults;
     $this->openpage($uri);
@@ -72,6 +81,8 @@ class shoutcast extends iradio {
       $this->add_station($name,$playlist,$bitrate,$genre,$format,$listeners,$maxlisteners,$nowplaying,$website);
       $startpos = strpos($this->page,"<a href=\"/sbin/shoutcast-playlist.pls",$epos);
     }
+    if (!empty($cachename)) $this->write_cache($cachename,$this->station);
+    return TRUE;
   }
 
   /** Searching for a genre
@@ -85,7 +96,7 @@ class shoutcast extends iradio {
    * @return boolean success FALSE on error or nothing found, TRUE otherwise
    */
   function search_genre($name) {
-    return $this->parse("?sgenre=$name");
+    return $this->parse("?sgenre=$name",$name);
   }
 
   /** Searching for a station
@@ -99,7 +110,7 @@ class shoutcast extends iradio {
    * @return boolean success FALSE on error or nothing found, TRUE otherwise
    */
   function search_station($name) {
-    return $this->parse("?s=$name");
+    return $this->parse("?s=$name",$name);
   }
 
 }

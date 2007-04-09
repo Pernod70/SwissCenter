@@ -13,6 +13,7 @@
   $menu       = new menu();
 
  $iradio = new shoutcast;
+ $iradio->set_cache( realpath(dirname(__FILE__).'/cache/shoutcast') );
 
 #===================================================[ Display Station List ]===
  if (!empty($_REQUEST["subgenre"])) {
