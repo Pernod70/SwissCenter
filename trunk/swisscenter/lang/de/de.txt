@@ -516,6 +516,103 @@ IMAGE_RESAMPLE          = Filtern (h&ouml;here Qualit&auml;t)
 IMAGE_RESIZE_PROMPT     = Bitte w&auml;hlen Sie die Methode, mit der SwissCenter Bilder wie Albumcover oder Fotos in die ben&ouml;tigte Gr&ouml;&szlig;e bringt.
 CURRENT_VERSION         = Aktuelle Version
 
+# -----------------------
+# SwissCenter v1.15
+# -----------------------
+
+# New text strings
+
+REFRESH_DIR             = Aktualisiere
+REFRESH_DIR_BUTTON      = Aktualisieren
+REFRESH_DIR_TEXT        = SwissCenter sucht nach neuen oder aktualisierten Medien und f&uuml;gt sie der Datenbank hinzu. Dies kann einige Augenblicke dauern, bitte gedulden Sie sich.
+SEARCH_WIKIPEDIA	= In Wikipedia nachschlagen
+RESUME_PLAYING          = Wiedergabe fortsetzen
+INSTALL_TEST_TITLE	= Installations-Pr&uuml;fungen
+INSTALL_TEST_SUCCESS    = Die folgenden Tests waren erfolgreich: 
+INSTALL_TEST_FAIL_WEB   = Die folgenden Tests schlugen fehl:
+INSTALL_TEST_FAIL_CLI   = Die folgenden Tests schlugen bei der Ausf&uuml;hrung im Hintergrund fehl.
+CAT_DOWNLOAD_PROMPT     = Dieses Feld legt fest, ob f&uuml;r Dateien in der gew&auml;hlten Kategorie weitere Informationen aus dem Internet nachgeladen werden sollen, sofern verfügbar.
+SYNOPSIS		= Zusammenfassung
+RETURN_TO_LIST		= Zur&uuml;ck zur Liste
+PAGE			= Seite %s
+LOOKUP_MOVIE		= Film nachschlagen
+LOOKUP_SUCCESS		= Details zum Film wurden heruntergeladen und gespeichert.
+LOOKUP_FAILURE		= Keine Details zu diesem Film auffindbar.
+DEBUG_RECOMMENDED	= (Empfohlen)
+
+INTERNET_SETTING        = Internet Verbindung
+INTERNET_SETTING_PROMPT = Diese Option gibt an, ob Ihr PC &uuml;ber eine Internetverbindung verf&uuml;gt, die SwissCenter verwenden kann. Wenn Sie den Wert auf 'Automatisch' stellen, wird SwissCenter versuchen, dies selbst zu ermitteln.
+CONNECT_OPT_TEXT        = Sie k&ouml;nnen einzelne Funktionen, die eine Internetverbindung ben&ooml;tigen, (de-)aktivieren. Es wird empfohlen, alle Funktionen aktiviert zu lassen.
+WIKI_LOOKUP_PROMPT      = Ist diese Option aktiviert, wird SwissCenter das Nachschlagen von Informationen, z.B. zu Schauspielern und Filmen, anbieten.
+
+FAIL_MYSQL_VERSION      = Ihre MySQL-Version wird nicht unterst&uuml;tzt.
+FAIL_MYSQL_CONNECT	= Konnte keine Verbindung zum MySQL Server herstellen.
+FAIL_MYSQL_DB           = Konnte keine Verbindung mit der SwissCener Datenbank herstellen. (Haben Sie eine angelegt?)
+FAIL_PHP_CLI            = Sie haben keine Kommandozeilen-Version von PHP (php-cli) installiert. SwissCenter ist daher nicht in der Lage, nach neuen Medien-Dateien zu suchen.
+FAIL_PHP_INI		= Kann die 'php.ini' Datei nicht finden.
+FAIL_PHP_VERSION        = Ihre PHP-Version wird nicht unterst&uuml;tzt (%s)..
+FAIL_PHP_REQ_MODS       = Es sind nicht alle PHP-Module verf&uuml;gbar, die von SwissCenter ben&ouml;tigt werden. Ben&ouml;tigte Module sind: [b]%s[/b]).
+FAIL_PHP_EXTRA_MODS     = Es sind nicht alle empfohlenen PHP-Module verf&uuml;gbar. Einige nicht-kritische Funktionen wurden daher deaktiviert. (Empfohlene Module sind: [b]%s[/b]).
+FAIL_SERVER_SCHED	= Hintergrund-Jobs k&ouml;nnen nicht ausgef&uuml;hrt werden. Eine m&ouml;gliche Ursache ist, dass Cron (Linux) bzw. der Scheduler Service (Windows) deaktiviert ist.
+FAIL_SWISS_INI		= Kann die Datei 'swisscenter.ini' nicht finden. [br]Haben Sie schon eine SwissCenter Datenbank angelegt?
+FAIL_SWISS_LOCS         = Es wurden keine Medien Speicherorte definiert.
+FAIL_SWISS_LOG		= Kann nicht in die SwissCenter Logdatei schreiben (%s). 
+
+PASS_MYSQL_VERSION      = Ihre MySQL-Version wird unterst&uuml;tzt.
+PASS_MYSQL_CONNECT	= Verbindung mit dem MySQL Server erfolgreich hergestellt.
+PASS_MYSQL_DB           = Verbindung zur SwissCenter Datenbank erfolgreich hergestellt.
+PASS_PHP_CLI            = Kommandozeilen-Version von PHP (php-cli) wurde gefunden.
+PASS_PHP_INI            = Die Datei 'php.ini' wurde erfolgreich lokalisiert.
+PASS_PHP_VERSION        = Ihre PHP-Version wird unterst&uuml;tzt.
+PASS_PHP_REQ_MODS       = Alle erforderlichen PHP Module sind verf&uuml;gbar.
+PASS_PHP_EXTRA_MODS     = Alle empfohlenen PHP Module sind verf&uuml;gbar.
+PASS_SERVER_SCHED	= Automatische Suche nach neuen Medien wird unterst&uuml;tzt.
+PASS_SWISS_INI		= Datei 'swisscenter.ini' erfolgreich lokalisiert.
+PASS_SWISS_LOCS		= Medien Speicherorte wurden definiert.
+PASS_SWISS_LOG		= Logging aktiviert.
+PASS_SWISS_ROOT_INS     = SwissCenter wurde nicht als 'root' User durchgef&uuml;hrt.
+PASS_SWISS_RW_FILES     = Kann lesend und schreibend auf das SwissCenter Installationsverzeichnis zugreifen.
+
+# Updated text strings in v1.15
+
+DEBUG_MODE_PROMPT	= Der [i]Debug-Modus[/i] legt fest, wie viel Information in die support.log Datei geschrieben wird. Wenn Sie einen Bug melden, den Sie reproduzieren k&ouml;nnen, stellen Sie bitte sicher, dass der Debug-Modus auf das Maximum eingestellt ist, bevor Sie diese Informationen sammeln.
+
+# -----------------------
+# SwissCenter v1.15.2
+# -----------------------
+
+CACHE_STYLE             = Style-Details cachen
+CACHE_STYLE_PROMPT      = Wenn aktiviert, wird SwissCenter alle Style Informationen f&uuml;r den schnelleren Zugriff zwischenspeichern. Deaktivieren Sie diese Funktion, wenn Sie neue Styles entwickeln, um Ihre &Auml;nderungen sofort sehen zu k&ouml;nnen.
+CACHE_LANG              = &Uuml;bersetzungen cachen
+CACHE_LANG_PROMPT       = Wenn aktiviert, wird SwissCenter alle &Uuml;bersetzungen f&uuml;r den schnelleren Zugriff zwischenspeichern. Deaktivieren Sie diese Funktion, wenn Sie &Uuml;bersetzungen bearbeiten und die &Auml;nderungen sofort sehen wollen.
+
+# Updated text strings in v1.15.2
+
+CACHE_CONFIG_TITLE	= Cache Einstellungen
+
+# -----------------------
+# SwissCenter v1.15.3
+# -----------------------
+
+CACHE_PRECACHE_PROMPT   = Ist diese Option aktiviert, wird SwissCenter Thumbnails (kleine vorschaubilder) f&uuml;r alle Bilder erstellen, die es w&auml;hrend der Mediensuche findet.
+DROP_DATABASE           = Warnung: Sie haben bereits eine SwissCenter Datenbank. [br]Wenn Sie fortfahren, gehen alle bisher gesammelten Informationen und Einstellungen verloren.
+CONFIG_IMAGE_OPTIONS    = Image Optionen
+CONFIG_AUDIO_OPTIONS    = Audio Optionen
+CONFIG_RADIO_OPTIONS    = Radio Optionen
+PASS_PHP_FONTS          = Ein TrueType Font f&uuml;r die Erstellung der "Aktueller Titel" Bilder wurde erfolgreich lokalisiert.
+FAIL_PHP_FONTS          = Konnte keinen TrueType Font finden. Die Seite "Aktueller Titel" wird keine Track-Informationen enthalten.
+NOW_PLAYING_SUPPORT     = Seite "Aktueller Titel"
+NOW_PLAYING_PROMPT      = Einige Hardware-Player unterst&uuml;tzen die Anzeige einer Bilddatei w&auml;hrend der Wiedergabe eines Musikst&uuml;ckes. SwissCenter nutzt diese Tatsache f&uuml;r die Darstellung von Details zum aktuellen Musikst&uuml;ck. [p]In den meisten F&auml;llen kann SwissCenter automatisch feststellen, ob Ihr Player dies unterst&uuml;tzt. Sollte es dabei zu Problemen kommen, k&ouml;nnen Sie die entsprechende Einstellung hier &auml;ndern.
+
+# Updated text strings in v1.15.3
+
+PLAYLISTS 		= Playlist Optionen
+
+
+IRADIO_MAINGENRE SELECT = Bitte w&auml;len Sie das Main-Genre f&uuml;r die Suche:
+IRADIO_SUBGENRE_SELECT  = Bitte w&auml;len Sie das Sub-Genre f&uuml;r die Suche:
+IRADIO_STATION_SELECT   = Bitte w&auml;hlen Sie die Station:
+
 #----------------------------------------------------------------------------------------------------
 # End-of-file
 #----------------------------------------------------------------------------------------------------
