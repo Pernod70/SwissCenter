@@ -21,6 +21,7 @@ class menu
   var $down;
   var $icons = true;
   var $font_size = 30;
+  var $stream = 0;
 
   #-------------------------------------------------------------------------------------------------
   # Member Functions
@@ -41,6 +42,17 @@ class menu
                                  , "right"=> ($right == true ? '</td><td>'.$icon : '') );
   }
 
+  function add_streamitem( $text, $url, $info, $right = false )
+  {
+    $icon = img_gen(SC_LOCATION.style_img("MENU_RIGHT"), 16 , 40, false, false, 'RESIZE');
+    
+    if (! is_null($text) && !empty($text))
+      $this->menu_items[] = array( "text"=>$text
+                                 , "info"=>$info
+                                 , "url"=>$url
+                                 , "right"=> ($right == true ? '</td><td>'.$icon : '') );
+  }
+
   function add_up( $url )
   {
     $this->up = $url;
@@ -55,6 +67,14 @@ class menu
   {
     $i=0;
     $link="";
+    if ($this->stream)
+    {
+#      $tdinfo = "</td><td>&nbsp;";
+      $tdinfo = "</td><td>";
+    } else {
+      $tdinfo = "";
+      $info   = "";
+    }
 
     echo '<center><table cellspacing="3" cellpadding="3" border="0">';
 
@@ -63,9 +83,9 @@ class menu
       if (! empty($this->up))
         echo '<tr><td align="center" valign="middle" width="'.convert_x($size).'" height="'.convert_y(40).'">'.
              up_link($this->up).
-             '</td></tr>';
+             $tdinfo.'</td></tr>';
       else
-        echo '<tr><td align="center" valign="middle" width="'.convert_x($size).'" height="'.convert_y(40).'"></a></td></tr>';
+        echo '<tr><td align="center" valign="middle" width="'.convert_x($size).'" height="'.convert_y(40).'"></a>'.$tdinfo.'</td></tr>';
     }
 
     if (! empty($this->menu_items))
@@ -73,15 +93,21 @@ class menu
       foreach ($this->menu_items as $item)
       {
         $text = shorten_chars($item["text"],$size-80,1,$this->font_size);
+        $info = shorten_chars($item["info"],$size-80,1,$this->font_size);
 
         $link = $item["url"];
         if (substr($link,0,5) != 'href=')
           $link = 'href="'.$link.'"';
+
+        if ($this->stream)
+        {
+          $info = "</td><td align='right'".style_background('MENU_BACKGROUND').">".font_tags($this->font_size).$info;
+        }
           
         $i++;
 
         echo '<tr><td valign="middle" width="'.convert_x($size).'" height="'.convert_y(40).'" '.style_background('MENU_BACKGROUND').'>'.'<a style="width:'.(convert_x($size)-2).'" '.
-              $link.' TVID="'.$i.'" name="'.$i.'">'.font_tags($this->font_size).'&nbsp;&nbsp;&nbsp;'.$i.'. '.$text.'</font></a>'.$item["right"].'</td></tr>';
+              $link.' TVID="'.$i.'" name="'.$i.'">'.font_tags($this->font_size).'&nbsp;&nbsp;&nbsp;'.$i.'. '.$text.'</font></a>'.$item["right"].$info.'</td></tr>';
       }
     }
 

@@ -43,7 +43,6 @@ class shoutcast extends iradio {
         return TRUE;
       }
     }
-    echo "No Cache<br>";
     if (empty($url)) return FALSE;
     $uri = "http://".$this->iradiosite."/$url&numresult=".$this->numresults;
     $this->openpage($uri);

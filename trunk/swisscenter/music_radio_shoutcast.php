@@ -22,9 +22,10 @@
    $stations = $iradio->get_station();
    $sc = count($stations);
    for ($i=0;$i<$sc;++$i) {
-     $menu->add_item($stations[$i]->name,$stations[$i]->playlist);
+     $menu->add_streamitem($stations[$i]->name,$stations[$i]->playlist,$stations[$i]->bitrate."K");
 #     echo " <LI><A HREF='".$stations[$i]->playlist."'>".$stations[$i]->name."</A> (".$stations[$i]->type.", ".$stations[$i]->bitrate." kBPS)</LI>\n";
    }
+   $menu->stream = 1;
 #====================================================[ Select the SubGenre ]===
  } elseif (!empty($_REQUEST["maingenre"])) {
    page_header('Select the Sub-Genre to search for:');
