@@ -15,13 +15,13 @@
 #===================================================[ Display Station List ]===
  if (!empty($_REQUEST["subgenre"])) {
    (isset($_REQUEST["page"])) ? $page = $_REQUEST["page"] : $page = 0;
-   page_header('Select the station to tune in:');
+   page_header(str('IRADIO_STATION_SELECT'));
    $iradio->search_genre($_REQUEST["subgenre"]);
    $stations = $iradio->get_station();
    display_iradio($_SERVER["PHP_SELF"]."?subgenre=".$_REQUEST["subgenre"],$stations,$page);
 #====================================================[ Select the SubGenre ]===
  } elseif (!empty($_REQUEST["maingenre"])) {
-   page_header('Select the Sub-Genre to search for:');
+   page_header(str('IRADIO_SUBGENRE_SELECT'));
    $genres = $iradio->get_subgenres($_REQUEST["maingenre"]);
    $gc = count($genres);
    for ($i=0;$i<$gc;++$i) {
@@ -29,7 +29,7 @@
    }
 #===================================================[ Select the MainGenre ]===
  } else {
-   page_header('Select the Main-Genre to search for:');
+   page_header(str('IRADIO_MAINGENRE SELECT'));
    $genres = $iradio->get_maingenres();
    $gc = count($genres);
    for ($i=0;$i<$gc;++$i) {

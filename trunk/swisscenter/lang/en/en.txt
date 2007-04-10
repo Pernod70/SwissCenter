@@ -604,6 +604,10 @@ NOW_PLAYING_PROMPT      = Some hardware players allow a picture to be displayed 
 
 PLAYLISTS 		= Playlist Options
 
+IRADIO_MAINGENRE SELECT = Select the Main-Genre to search for:
+IRADIO_SUBGENRE_SELECT  = Select the Sub-Genre to search for:
+IRADIO_STATION_SELECT   = Select the station to tune in:
+
 #----------------------------------------------------------------------------------------------------
 # End-of-file
 #----------------------------------------------------------------------------------------------------
