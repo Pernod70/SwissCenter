@@ -61,6 +61,36 @@
   }
   
   // ----------------------------------------------------------------------------------
+  // Displays the iradio stations to the user in "text menu" format
+  // ----------------------------------------------------------------------------------
+
+  function display_iradio ($url, $stations, $page=0)
+  {
+    $menu      = new menu();
+    $no_items  = items_per_page();
+    $start     = $page * ($no_items);
+    $end       = min(count($stations), $start+$no_items);
+    $up        = ($page > 0);
+    $down      = ($end < count($stations));
+
+    if ($up)
+      $menu->add_up($url.'&page='.($page-1));
+
+    if ($down)
+      $menu->add_down($url.'&page='.($page+1));
+
+    for ($i=$start; $i<$end; $i++)
+    {
+      // Output a link to cause the specified playlist to be loaded into the session
+      $menu->add_streamitem($stations[$i]->name,$stations[$i]->playlist,$stations[$i]->bitrate."K");
+#        eval('$dest = output_link( "'.$file_list[$i-count($dir_list)]["dirname"].$file_list[$i-count($dir_list)]["filename"].'" );');
+#        $menu->add_item(ucwords(file_noext($file_list[$i-count($dir_list)]["filename"])),$dest);
+    }
+    $menu->stream = 1; // display stream info as well
+    $menu->display();
+   }
+
+  // ----------------------------------------------------------------------------------
   // Fills the two arrays with the directory and file names to be found in the given
   // directory. The array $filetypes specified which file extensions are to be allowed.
   // ----------------------------------------------------------------------------------

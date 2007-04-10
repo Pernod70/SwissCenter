@@ -51,7 +51,7 @@ class iradio {
     // automatically delete cached files older than X secs
     $this->cache_expire = 3600; // 3600=1h
     // limit result list
-    $this->numresults = 12; // shoutcast: 25/30/50/100
+    $this->numresults = 24; // shoutcast: 25/30/50/100
     // setup genres from ./genres.txt
     $this->read_genres();
     $this->sort_genres();
