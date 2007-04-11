@@ -615,6 +615,10 @@ IRADIO_ERROR_CACHE_EXPIRE  = You must specify a (numeric) value for 'Secs to kee
 IRADIO_ERROR_MAXNUM     = You must specify a (numeric) value for 'Max stations/genre'!
 IRADIO_ERROR_MAXNUM_ZERO   = You must specify a [b][i]numeric, non-zero[/i][/b] value for 'Max stations/genre'!
 
+TTF_FONT                = TrueType Font
+TTF_FONT_PROMPT         = Font to be used to display Track informations on the 'Now Playing" screen, if supported (and enabled). Enter a 0 (zero) to auto-detect, a font name (e.g. if auto-detection fails), or a font file name with full path to the file (if everything else fails).
+FAIL_PHP_FONT_SET       = ... but the font seems to be invalid (or not available)
+
 #----------------------------------------------------------------------------------------------------
 # End-of-file
 #----------------------------------------------------------------------------------------------------

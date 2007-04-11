@@ -620,6 +620,9 @@ IRADIO_ERROR_CACHE_EXPIRE  = F&uuml;r 'Stationen puffern' muss ein (numerischer)
 IRADIO_ERROR_MAXNUM     = F&uuml;r 'Stationen/Genre' muss ein (numerischer) Wert angegeben werden!
 IRADIO_ERROR_MAXNUM_ZERO   = F&uuml;r 'Stationen/Genre' muss ein [b][i]numerischer[/i][/b] Wert [b][i]ungleich Null[/i][/b] angegeben werden!
 
+TTF_FONT_PROMPT         = Dieser Font wird f&uuml;r die Anzeige von Track-Informationen w&auml;hrend der Musik-Wiedergabe benutzt, sofern der Player das unterst&uuml;tzt (und es in der Konfiguration aktiviert wurde). M&ouml;gliche Werte sind: 0 (Null) f&uuml;r automatische Erkennung, ein Font-Name (z.B. 'Arial'), oder der Name einer Font-Datei inkl. des kompletten Pfades (falls beides voriges fehlschl&auml;gt).
+FAIL_PHP_FONT_SET       = ... Nur der Font scheint invalid (oder nicht verf&uuml;gbar) zu sein.
+
 #----------------------------------------------------------------------------------------------------
 # End-of-file
 #----------------------------------------------------------------------------------------------------
