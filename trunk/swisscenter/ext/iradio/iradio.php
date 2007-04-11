@@ -84,6 +84,25 @@ class iradio {
     return TRUE;
   }
 
+  /** Set the cache expiration
+   * @class iradio
+   * @method set_cache_expiration
+   * @param integer seconds Seconds to hold parsed station lists in cache (0 to disable caching)
+   */
+  function set_cache_expiration($seconds) {
+    if (empty($seconds)) $this->cache_enabled = FALSE;
+    $this->cache_expire = $seconds;
+  }
+
+  /** Set max numbers of stations for result lists
+   * @class iradio
+   * @method set_max_results
+   * @param integer num Max number of stations in result list
+   */
+  function set_max_results($num) {
+    $this->numresults = $num;
+  }
+
   /** Purge cache dir
    * @class iradio
    * @method purge_cache

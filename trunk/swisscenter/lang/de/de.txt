@@ -542,7 +542,7 @@ DEBUG_RECOMMENDED	= (Empfohlen)
 
 INTERNET_SETTING        = Internet Verbindung
 INTERNET_SETTING_PROMPT = Diese Option gibt an, ob Ihr PC &uuml;ber eine Internetverbindung verf&uuml;gt, die SwissCenter verwenden kann. Wenn Sie den Wert auf 'Automatisch' stellen, wird SwissCenter versuchen, dies selbst zu ermitteln.
-CONNECT_OPT_TEXT        = Sie k&ouml;nnen einzelne Funktionen, die eine Internetverbindung ben&ooml;tigen, (de-)aktivieren. Es wird empfohlen, alle Funktionen aktiviert zu lassen.
+CONNECT_OPT_TEXT        = Sie k&ouml;nnen einzelne Funktionen, die eine Internetverbindung ben&ouml;tigen, (de-)aktivieren. Es wird empfohlen, alle Funktionen aktiviert zu lassen.
 WIKI_LOOKUP_PROMPT      = Ist diese Option aktiviert, wird SwissCenter das Nachschlagen von Informationen, z.B. zu Schauspielern und Filmen, anbieten.
 
 FAIL_MYSQL_VERSION      = Ihre MySQL-Version wird nicht unterst&uuml;tzt.
@@ -612,6 +612,13 @@ PLAYLISTS 		= Playlist Optionen
 IRADIO_MAINGENRE SELECT = Bitte w&auml;len Sie das Main-Genre f&uuml;r die Suche:
 IRADIO_SUBGENRE_SELECT  = Bitte w&auml;len Sie das Sub-Genre f&uuml;r die Suche:
 IRADIO_STATION_SELECT   = Bitte w&auml;hlen Sie die Station:
+IRADIO_MAX_STATIONS     = Stationen/Genre
+IRADIO_MAX_STATIONS_PROMPT = Wie viele Stationen pro Genre maximal aus dem Internet bezogen werden sollen. Eine zu gro&szlig;e Anzahl erh&ouml;ht nicht nur die Wartezeit (und damit die Wahrscheinlichkeit eines Browser-TimeOuts), sondern auch das Risiko eines "Zu-wenig-Speicher" Fehlers von PHP. Ein guter Kompromiss sind 24 Stationen. Bei Problemen einen kleineren Wert w&auml;hlen.
+IRADIO_CACHE_EXPIRE     = Stationen puffern (Sek.)
+IRADIO_CACHE_EXPIRE_PROMPT = SwissCenter kann die Stations-Informationen f&uuml;r jedes Genre zwischenspeichern. Da sich diese Informationen jedoch best&auml;ndig &auml;ndern, sollten sie von Zeit zu Zeit neu geladen werden. Eine Stunde (3600 Sekunden) ist ein guter Wert.
+IRADIO_ERROR_CACHE_EXPIRE  = F&uuml;r 'Stationen puffern' muss ein (numerischer) Wert angegeben werden. Zum Abschalten der Pufferung bitte eine 0 (Null) eingeben.
+IRADIO_ERROR_MAXNUM     = F&uuml;r 'Stationen/Genre' muss ein (numerischer) Wert angegeben werden!
+IRADIO_ERROR_MAXNUM_ZERO   = F&uuml;r 'Stationen/Genre' muss ein [b][i]numerischer[/i][/b] Wert [b][i]ungleich Null[/i][/b] angegeben werden!
 
 #----------------------------------------------------------------------------------------------------
 # End-of-file

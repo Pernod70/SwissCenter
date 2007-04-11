@@ -11,6 +11,8 @@
 
  $iradio = new shoutcast;
  $iradio->set_cache( realpath(dirname(__FILE__).'/cache/shoutcast') );
+ $iradio->set_cache_expiration(get_sys_pref('',24));
+ $iradio->set_max_results(get_sys_pref('iradio_cache_expire',3600));
 
  function make_genre_menu($url,$genre,$type) {
    $ac = count($genre);

@@ -607,6 +607,13 @@ PLAYLISTS 		= Playlist Options
 IRADIO_MAINGENRE SELECT = Select the Main-Genre to search for:
 IRADIO_SUBGENRE_SELECT  = Select the Sub-Genre to search for:
 IRADIO_STATION_SELECT   = Select the station to tune in:
+IRADIO_MAX_STATIONS     = Max stations/genre
+IRADIO_MAX_STATIONS_PROMPT = Maximum number of radio stations to retrieve per genre. The more is [b]not[/b] the better: Putting this number to high will not only increase the time to retrieve them (and thus make a browser timeout more likely), but also the possibility of an "out-of-memory" error from PHP. A good number is 24. Reduce it, if you encounter one of the mentioned possible errors.
+IRADIO_CACHE_EXPIRE     = Secs to keep stations
+IRADIO_CACHE_EXPIRE_PROMPT = SwissCenter can cache station information. But since the station list will continuously be changing, we should refresh them from time to time. One hour (3600s) is a good compromise.
+IRADIO_ERROR_CACHE_EXPIRE  = You must specify a (numeric) value for 'Secs to keep stations'! If you want to turn this off, enter 0 (zero).
+IRADIO_ERROR_MAXNUM     = You must specify a (numeric) value for 'Max stations/genre'!
+IRADIO_ERROR_MAXNUM_ZERO   = You must specify a [b][i]numeric, non-zero[/i][/b] value for 'Max stations/genre'!
 
 #----------------------------------------------------------------------------------------------------
 # End-of-file
