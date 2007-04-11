@@ -12,6 +12,18 @@
  $iradio = new shoutcast;
  $iradio->set_cache( realpath(dirname(__FILE__).'/cache/shoutcast') );
 
+ function make_genre_menu($url,$genre,$type) {
+   $ac = count($genre);
+   for ($i=0;$i<$ac;++$i) {
+     $object->name = ucwords($genre[$i]);
+     $object->url  = $_SERVER["PHP_SELF"]."?$type=".$genre[$i];
+     $array[] = $object;
+   }
+   $page = $_REQUEST["page"];
+   if (empty($page)) $page = 0;
+   browse_array($url,$array,$page);
+ }
+
 #===================================================[ Display Station List ]===
  if (!empty($_REQUEST["subgenre"])) {
    (isset($_REQUEST["page"])) ? $page = $_REQUEST["page"] : $page = 0;
@@ -19,24 +31,20 @@
    $iradio->search_genre($_REQUEST["subgenre"]);
    $stations = $iradio->get_station();
    display_iradio($_SERVER["PHP_SELF"]."?subgenre=".$_REQUEST["subgenre"],$stations,$page);
+   $menu->display();
 #====================================================[ Select the SubGenre ]===
  } elseif (!empty($_REQUEST["maingenre"])) {
    page_header(str('IRADIO_SUBGENRE_SELECT'));
    $genres = $iradio->get_subgenres($_REQUEST["maingenre"]);
-   $gc = count($genres);
-   for ($i=0;$i<$gc;++$i) {
-     $menu->add_item(ucfirst($genres[$i]),$_SERVER["PHP_SELF"]."?subgenre=".$genres[$i],true);
-   }
+   $url = $_SERVER["PHP_SELF"]."?maingenre=".$_REQUEST["maingenre"];
+   make_genre_menu($url,$genres,"subgenre");
 #===================================================[ Select the MainGenre ]===
  } else {
    page_header(str('IRADIO_MAINGENRE SELECT'));
    $genres = $iradio->get_maingenres();
-   $gc = count($genres);
-   for ($i=0;$i<$gc;++$i) {
-     $menu->add_item(ucfirst($genres[$i]),$_SERVER["PHP_SELF"]."?maingenre=".$genres[$i],true);
-   }
+   $url = $_SERVER["PHP_SELF"]."?ab"; // "ab" is just a dummy, since &page= will be appended
+   make_genre_menu($url,$genres,"maingenre");
  }
- $menu->display();
  page_footer('', '', $icons);
 
 /**************************************************************************************************
