@@ -172,6 +172,39 @@ class iradio {
   }
 
 # ------------------------------------------------------------[ Structures ]---
+  /** Read the list of countries
+   * @class iradio
+   * @method read_countries
+   * @param optional string filename
+   * @return boolean success
+   */
+  function read_countries($filename="") {
+    if (empty($filename)) $filename = dirname(__FILE__)."/countries.txt";
+    if (!file_exists($filename)) return FALSE;
+    $list = file($filename);
+    $lc = count($list);
+    $errors = 0;
+    for ($i=0;$i<$lc;++$i) {
+      $line = trim($list[$i]);
+      if (!strlen($line)) continue; // skip empty lines
+      if (substr($line,0,1)=="#") continue; // skip comments
+      $this->countries[] = $line;
+    }
+  }
+
+  /** Retrieve the country list
+   * @class iradio
+   * @method get_countries
+   * @return array countries
+   */
+  function get_countries() {
+    if (empty($this->countries)) {
+      $this->read_countries();
+      sort($this->countries);
+    }
+    return $this->countries;
+  }
+
   /** Add a genre to the genre list
    * @class iradio
    * @method add_genre

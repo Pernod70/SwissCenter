@@ -14,6 +14,7 @@
   page_header(str('LISTEN_RADIO'));
 
   $menu->add_item('ShoutCast','./music_radio_shoutcast.php');
+  $menu->add_item('Live-Radio','./music_radio_liveradio.php');
   $menu->add_item('Bookmarks','./music_radio_urls.php');
   $menu->display();
   page_footer('./index.php');
