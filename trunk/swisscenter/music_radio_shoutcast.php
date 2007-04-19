@@ -10,7 +10,7 @@
   $menu       = new menu();
 
  $iradio = new shoutcast;
- $iradio->set_cache( realpath(dirname(__FILE__).'/cache/shoutcast') );
+ $iradio->set_cache( get_sys_pref('CACHE_DIR').'/shoutcast' );
  $iradio->set_cache_expiration(get_sys_pref('',24));
  $iradio->set_max_results(get_sys_pref('iradio_cache_expire',3600));
 
