@@ -42,7 +42,7 @@
     form_start('index.php');
     form_hidden('section','DIRS');
     form_hidden('action','NEW');
-    form_input('location',str('LOCATION'),70,'',un_magic_quote($_REQUEST['location']));
+    form_input('location',str('LOCATION'),50,'',un_magic_quote($_REQUEST['location']));
     form_label(str('LOCATION_PROMPT'));
     form_list_dynamic('type',str('MEDIA_TYPE'),"select media_id,media_name from media_types order by 2",$_REQUEST['type']);
     form_label(str('MEDIA_TYPE_PROMPT'));

@@ -84,7 +84,7 @@
   	  menu_item( str('MEDIA_LOCATIONS')        ,'section=DIRS&action=DISPLAY');
   	  menu_item( str('CONFIG_AUDIO_OPTIONS')   ,'section=AUDIO&action=DISPLAY','menu_bgr.png');
   	  menu_item( str('CONFIG_IMAGE_OPTIONS')   ,'section=IMAGE&action=DISPLAY','menu_bgr.png');
-//  	  menu_item( str('CONFIG_RADIO_OPTIONS')   ,'section=MOVIE&action=INFO','menu_bgr.png');
+  	  menu_item( str('CONFIG_RADIO_OPTIONS')   ,'section=RADIO&action=DISPLAY','menu_bgr.png');
   	  menu_item( str('PLAYLISTS')              ,'section=PLAYLISTS&action=DISPLAY');
   	  menu_item( str('MOVIE_OPTIONS')          ,'section=MOVIE&action=INFO','menu_bgr.png');
   	  menu_heading();

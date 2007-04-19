@@ -33,7 +33,7 @@
     form_start("index.php", 150);
     form_hidden("section", "USERS");
     form_hidden("action", "NEW");
-    form_input("name", str("NAME"), 70, '', $_REQUEST["name"]);
+    form_input("name", str("NAME"), 50, '', $_REQUEST["name"]);
     form_label(str('USERS_NAME_PROMPT'));
     form_list_dynamic("cert", str('USERS_MAX_CERT'), get_cert_list_sql(), $_REQUEST["cert"]);
     form_label(str('USERS_MAX_CERT_PROMPT'));

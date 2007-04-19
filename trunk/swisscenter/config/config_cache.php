@@ -15,10 +15,10 @@
 
     echo "<h1>".str('CACHE_CONFIG_TITLE')."</h1>";
     message($message);
-    form_start('index.php');
+    form_start('index.php',160);
     form_hidden('section','CACHE');
     form_hidden('action','UPDATE');
-    form_input('dir',str('CACHE_DIR'),60,'', os_path(un_magic_quote($dir)) );
+    form_input('dir',str('CACHE_DIR'),40,'', os_path(un_magic_quote($dir)) );
     form_label(str('CACHE_DIR_PROMPT'));
     form_input('size',str('CACHE_SIZE'),3,'', $size);
     form_label(str('CACHE_SIZE_PROMPT'));    

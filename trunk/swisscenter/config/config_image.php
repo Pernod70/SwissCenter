@@ -22,7 +22,7 @@
     form_label(str('IMAGE_RESIZE_PROMPT'));
     form_radio_static('precache',str('CACHE_PRECACHE'),$option_vals, get_sys_pref('CACHE_PRECACHE_IMAGES','NO'),false,true);
     form_label(str('CACHE_PRECACHE_PROMPT'));
-    form_input('fontname',str('TTF_FONT'),70,'',get_sys_pref('TTF_FONT',0));
+    form_input('fontname',str('TTF_FONT'),30,'',get_sys_pref('TTF_FONT',0));
     form_label(str('TTF_FONT_PROMPT'));
     form_submit(str('SAVE_SETTINGS'));
     form_end();

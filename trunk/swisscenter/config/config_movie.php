@@ -317,7 +317,7 @@ function movie_update_form_single()
         </tr><tr>
           <th colspan="3">'.str('Synopsis').'</th>
         </tr><tr>
-          <td colspan="3">'.form_text_html('synopsis',90,3,$details[0]["SYNOPSIS"],true).'</td>
+          <td colspan="3">'.form_text_html('synopsis',90,6,$details[0]["SYNOPSIS"],true).'</td>
         </tr><tr>
           <th>'.str('CERTIFICATE').'</th>
           <th>'.str('YEAR').'</th>

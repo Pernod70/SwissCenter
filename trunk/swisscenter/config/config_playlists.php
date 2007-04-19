@@ -16,7 +16,7 @@
     form_start('index.php');
     form_hidden('section','PLAYLISTS');
     form_hidden('action','UPDATE');
-    form_input('location',str('LOCATION'),70,'',$dir);
+    form_input('location',str('LOCATION'),50,'',$dir);
     form_label(str('PLAYLISTS_CONFIG_PROMPT'));
     form_submit(str('SAVE_SETTINGS'),2);
     form_end();

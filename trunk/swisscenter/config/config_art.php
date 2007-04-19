@@ -31,7 +31,7 @@
     form_start('index.php');
     form_hidden('section','ART');
     form_hidden('action','NEW');
-    form_input('name',str('FILENAME'),60,'',un_magic_quote($_REQUEST['name']));
+    form_input('name',str('FILENAME'),50,'',un_magic_quote($_REQUEST['name']));
     form_label(str('ART_FILENAME_PROMPT'));
     form_submit(str('ART_FILES_ADD_BUTTON'),2);
     form_end();
