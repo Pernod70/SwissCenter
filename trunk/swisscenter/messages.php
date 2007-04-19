@@ -47,7 +47,7 @@
         // in which case they'll always go back to page 0
         if((count($data) > 1) || ($page == 0))
           $pagedel = $page;
-        else if($page > 0)
+        elseif($page > 0)
           $pagedel = $page - 1;
 
         // Add a link to display the message, this includes the pages that should be displayed
@@ -58,11 +58,11 @@
 
       // Add up/down buttons as needed for prev/next page      
       if ($page > 0)
-        $menu->add_up( $this_url.'?return='.$_REQUEST["return"].'&page='.($page-1));
+        $menu->add_up( '?return='.$_REQUEST["return"].'&page='.($page-1));
 
       // We are not on the last page, so output a link to go "down" a page of entries.
       if (($page+1)*MAX_PER_PAGE < $num)
-        $menu->add_down( $this_url.'?return='.$_REQUEST["return"].'&page='.($page+1));
+        $menu->add_down( '?return='.$_REQUEST["return"].'&page='.($page+1));
       
       // Render the menu
       $menu->display();

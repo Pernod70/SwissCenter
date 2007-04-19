@@ -72,7 +72,7 @@
   echo '';
 
   $buttons[] = array('text'=>str('PIN_CLEAR')
-                    ,'url'=>'enter_pin.php?ok_url='.urlencode($return_url).
+                    ,'url'=>'enter_pin.php?ok_url='.urlencode($ok_url).
                             '&message='.urlencode($message).
                             '&cancel_url='.urlencode($cancel_url).
                             '&pin=');

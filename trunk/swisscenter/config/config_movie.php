@@ -4,6 +4,7 @@
  *************************************************************************************************/
   
 require_once( realpath(dirname(__FILE__).'/../base/media.php'));
+require_once( realpath(dirname(__FILE__).'/../ext/xml/export_movie.php'));
 
 // ----------------------------------------------------------------------------------
 // Get an array of online movie parsers for displaying in a form drop-down list.
@@ -32,12 +33,20 @@ function movie_display_info(  $message = '' )
   $actors      = db_toarray("select actor_name name from actors a, actors_in_movie aim where aim.actor_id = a.actor_id and movie_id=".$movie_id);
   $directors   = db_toarray("select director_name name from directors d, directors_of_movie dom where dom.director_id = d.director_id and movie_id=".$movie_id);
   $genres      = db_toarray("select genre_name name from genres g, genres_of_movie gom where gom.genre_id = g.genre_id and movie_id=".$movie_id);
+  $filename    = $details[0]["DIRNAME"].$details[0]["FILENAME"];
   $sites_list  = get_parsers_list();
-  
+  $exists_js   = '';
+
+  // If a movie XML file already exists, use javascript to ask the user whether to overwrite it.
+  if ( file_exists(substr($filename,0,strrpos($filename,'.')).".xml") )
+    $exists_js = 'onClick="javascript:return confirm(\''.addslashes(str_replace('"','',str('MOVIE_EXPORT_OVERWRITE'))).'?\')"';  
+    
   // Display movies that will be affected.
   echo '<h1>'.$details[0]["TITLE"].'</h1><center>
-         ( <a href="'.$_SESSION["last_search_page"].'">'.str('RETURN_TO_LIST').'</a> |
-           <a href="?section=MOVIE&action=UPDATE_FORM_SINGLE&movie[]='.$movie_id.'">'.str('DETAILS_EDIT').'</a> )
+         ( <a href="'.$_SESSION["last_search_page"].'">'.str('RETURN_TO_LIST').'</a> 
+         | <a href="?section=MOVIE&action=UPDATE_FORM_SINGLE&movie[]='.$movie_id.'">'.str('DETAILS_EDIT').'</a> 
+         | <a href="?section=MOVIE&action=EXPORT&movie_id='.$movie_id.'" '.$exists_js.'>'.str('DETAILS_EXPORT').'</a> 
+         )
         </center>';
         message($message);
   echo '<table class="form_select_tab" width="100%" cellspacing=4><tr>
@@ -345,13 +354,12 @@ function movie_update_form_multiple( $movie_list )
   foreach ($movie_list as $movie_id)
     echo '<input type=hidden name="movie[]" value="'.$movie_id.'">';
           
-  echo '<table class="form_select_tab" width="100%" cellspacing=4><tr><td colspan="3" align="center">
-        '.str('MOVIE_ADD_PROMPT').'
-        </td></tr><tr>
+  echo '<table class="form_select_tab" width="100%" cellspacing=4><tr>
         <th width="33%">'.str('ACTOR').'</th>
         <th width="33%">'.str('DIRECTOR').'</th>
         <th width="33%">'.str('GENRE').'</th>   
         </tr><tr>
+        <tr><td colspan="3" align="center">'.str('MOVIE_ADD_PROMPT').'</td></tr>
         <td><select name="actors[]" multiple size="8">
         '.list_option_elements($actors).'
         </select></td><td><select name="directors[]" multiple size="8">
@@ -503,6 +511,22 @@ function movie_info( $message = "")
   form_end();
 }
   
+// ----------------------------------------------------------------------------------
+// Exports the movie details to a file
+// ----------------------------------------------------------------------------------
+
+function movie_export()
+{
+  $movie = array_pop(db_toarray("select * from movies where file_id = ".$_REQUEST["movie_id"]));
+  $filename = substr($movie["DIRNAME"].$movie["FILENAME"],0,strrpos($movie["DIRNAME"].$movie["FILENAME"],'.')).".xml";
+
+  if ( ! is_writable(dirname($filename)) )
+    movie_display_info("!".str('MOVIE_EXPORT_NOT_WRITABLE'));
+  elseif ( export_movie_to_xml($movie["FILE_ID"], $filename))
+    movie_display_info(str('MOVIE_EXPORT_SUCCESS'));
+  else
+    movie_display_info("!".str('MOVIE_EXPORT_FAILURE'));
+}
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/

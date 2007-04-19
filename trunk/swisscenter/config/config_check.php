@@ -53,13 +53,12 @@ class test_results
   # Add a new section and returns the identifier for it (used when adding tests).
   #-------------------------------------------------------------------------------------------------
 
-  function add_section( $heading )
+  function add_section( $heading, $position )
   {
-    $this->sections[] = array( "heading" => $heading
-                             , "passed" => array()
-                             , "failed_cli" => array() 
-                             , "failed_web" => array() 
-                             );
+    $this->sections[$position] = array( "heading" => $heading
+                                      , "passed" => array()
+                                      , "failed_cli" => array() 
+                                      , "failed_web" => array()  );
     return count($this->sections)-1;
   }
   
@@ -103,6 +102,8 @@ class test_results
 
   function display()
   {
+    ksort($this->sections);
+    
     echo '<h1>'.str('INSTALL_TEST_TITLE').'</h1>
           <p><center>';
     foreach ($this->sections as $section)
@@ -164,12 +165,29 @@ function check_display()
 {
   load_lang();
   $test_page = new test_results();
-    
+  
+  # ----------------------
+  # SwissCenter configuration Tests
+  # ----------------------
+                           
+  $swiss = $test_page->add_section("SwissCenter",4);
+
+  // It only makes sense to check for root installations on UNIX.
+  if (is_unix())
+    $test_page->add_test( $swiss, "SWISS root install", str("PASS_SWISS_ROOT_INS"), str("ROOT_INSTALL_TEXT"));
+
+  $test_page->add_test( $swiss, "SWISS write root", str("PASS_SWISS_RW_FILES"), str("MISSING_PERMS_TEXT"));
+  $test_page->add_test( $swiss, "SWISS ini file", str("PASS_SWISS_INI"), str("FAIL_SWISS_INI"));
+  $test_page->add_test( $swiss, "SWISS write log", str("PASS_SWISS_LOG"), str("FAIL_SWISS_LOG", logfile_location()) );
+                      
+  if ( $test_page->test_result('MYSQL database'))
+    $test_page->add_test( $swiss, "SWISS media locs", str("PASS_SWISS_LOCS"), str("FAIL_SWISS_LOCS"));
+
   # ----------------------
   # PHP Tests
   # ----------------------
   
-  $php = $test_page->add_section("PHP");
+  $php = $test_page->add_section("PHP",2);
   
   if (! is_server_simese() || version_compare(simese_version(),'1.31','<') )
     $test_page->add_test( $php, "PHP cli", str("PASS_PHP_CLI"), str("FAIL_PHP_CLI" ) );    
@@ -186,10 +204,11 @@ function check_display()
   
   # If there is no swisscenter.ini file present, then we will not be able to connect to the database
   # because that is where the connection details are stored.
-  
+
+  debug($test_page->test_result('SWISS ini file'));
   if ( $test_page->test_result('SWISS ini file'))
   {                         
-    $mysql = $test_page->add_section("MySQL");
+    $mysql = $test_page->add_section("MySQL",3);
   
     $test_page->add_test( $mysql, "MYSQL connect", str("PASS_MYSQL_CONNECT"), str("FAIL_MYSQL_CONNECT"));  
     $test_page->add_test( $mysql, "MYSQL version", str("PASS_MYSQL_VERSION"), str("FAIL_MYSQL_VERSION"));
@@ -200,29 +219,14 @@ function check_display()
   # Webserver Tests
   # ----------------------
 
-  $server = $test_page->add_section("Webserver");
+  $server = $test_page->add_section("Webserver",1);
 
   $test_page->add_test( $server, "SERVER scheduler", str("PASS_SERVER_SCHED"), str("FAIL_SERVER_SCHED"));
                            
+  # ----------------------
+
   # Display test results
   $test_page->display();
-
-  # ----------------------
-  # SwissCenter configuration Tests
-  # ----------------------
-                           
-  $swiss = $test_page->add_section("SwissCenter");
-
-  // It only makes sense to check for root installations on UNIX.
-  if (is_unix())
-    $test_page->add_test( $swiss, "SWISS root install", str("PASS_SWISS_ROOT_INS"), str("ROOT_INSTALL_TEXT"));
-
-  $test_page->add_test( $swiss, "SWISS write root", str("PASS_SWISS_RW_FILES"), str("MISSING_PERMS_TEXT"));
-  $test_page->add_test( $swiss, "SWISS ini file", str("PASS_SWISS_INI"), str("FAIL_SWISS_INI"));
-  $test_page->add_test( $swiss, "SWISS write log", str("PASS_SWISS_LOG"), str("FAIL_SWISS_LOG", logfile_location()) );
-                      
-  if ( $test_page->test_result('MYSQL database'))
-    $test_page->add_test( $swiss, "SWISS media locs", str("PASS_SWISS_LOCS"), str("FAIL_SWISS_LOCS"));
 
 }
 

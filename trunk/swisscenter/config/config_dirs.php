@@ -75,7 +75,7 @@
         $output .= 'Does not exist';
         
       if (is_unix())
-        send_to_log(2,stat('Stat() of '.$dir,$dir));
+        send_to_log(2,@stat('Stat() of '.$dir,$dir));
 
       send_to_log(2,$dir.' >> '.$output);
       $dir = parent_dir($dir);

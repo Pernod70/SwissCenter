@@ -582,8 +582,14 @@ function php_cli_location()
 {
   if ( is_windows() )
   { 
-    if ( isset($_SERVER["SCRIPT_FILENAME"]) && !empty($_SERVER["SCRIPT_FILENAME"]))
-      return str_replace('\\','/',un_magic_quote($_SERVER["SCRIPT_FILENAME"]));
+    $loc = $_SERVER["SCRIPT_FILENAME"];
+    if ( !empty($loc))
+    {
+      if (file_exists( dirname($loc).'/cli/php.exe'))
+        return dirname($loc).'/cli/php.exe';
+      else 
+        return $loc;
+    }
     else 
       return false;
   }

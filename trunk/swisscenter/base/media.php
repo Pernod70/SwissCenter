@@ -136,6 +136,7 @@ function process_mp3( $dir, $id, $file)
       $data["length"]       = floor($id3["playtime_seconds"]);
       $data["lengthstring"] = $id3["playtime_string"];
       $data["bitrate"]      = floor($id3["bitrate"]);
+      $data["bitrate_mode"] = strtoupper($id3["audio"][" bitrate_mode"]);
       $data["version"]      = 0;
       $data["title"]        = array_last($id3["comments"]["title"]);
       $data["artist"]       = array_last($id3["comments"]["artist"]);

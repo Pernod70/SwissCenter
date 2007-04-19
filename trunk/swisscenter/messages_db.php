@@ -18,7 +18,7 @@
   function delete_message($delete_id)
   {
     // Delete the message from the database
-    $success = db_sqlcommand("UPDATE messages 
+    return db_sqlcommand("UPDATE messages 
                                  SET status=".MESSAGE_STATUS_DELETED." 
                                WHERE message_id=".$delete_id);
   }

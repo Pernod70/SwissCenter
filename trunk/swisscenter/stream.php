@@ -75,7 +75,7 @@
   // how often. Also store the details on the last file played in the user's preferences.
   //-------------------------------------------------------------------------------------------------
   
-  function store_request_details( $media, $file_id, $location )
+  function store_request_details( $media, $file_id )
   {  
     // Store details on the file being requested.
     set_user_pref('LAST_PLAYED_TIME', time() );
@@ -101,13 +101,13 @@
   // Streams a file down to the hardware player
   //-------------------------------------------------------------------------------------------------
 
-  function stream_file($media_id, $file_id, $location, $headers = array() )
+  function stream_file($media, $file_id, $location, $headers = array() )
   {
     $startArray  = sscanf( $_SERVER["HTTP_RANGE"], "bytes=%d-%d" );
     $fsize       = large_filesize($location);
     $fstart      = (empty($startArray[0]) ? 0 : $startArray[0]);
     $fend        = (empty($startArray[1]) ? ($fsize-1) : $startArray[1]);
-    $fbytes      = $fend-$fstarte+1;
+    $fbytes      = $fend-$fstart+1;
     
     send_to_log(8,'Requesting HTTP Range : '.$_SERVER["HTTP_RANGE"]);
     send_to_log(8,"Sending : $fstart-$fend/$fsize ($fbytes bytes)");
@@ -143,23 +143,23 @@
     // Open the file
     $fh=fopen($location, 'rb');    
     fseek($fh, $fstart);      
-    $bytessofar = 0; 
-    $bytestoget = 20480;
+    $fbytessofar = 0; 
+    $fbytestoget = 20480;
     
     // Loop while the connection is open
     while( $fh && (connection_status()==0) ) 
     {
-	  	$bytestoget = min($bytestoget, $fbytes-$fbytessofar);
+	  	$fbytestoget = min($fbytestoget, $fbytes-$fbytessofar);
   		
-      if (!$bytestoget || (($fbuf=fgets($fh,$bytestoget)) === FALSE) ) 
+      if (!$fbytestoget || (($fbuf=fgets($fh,$fbytestoget)) === FALSE) ) 
         break;
         
-  	  $bytessofar += strlen($fbuf);
+  	  $fbytessofar += strlen($fbuf);
       echo $fbuf;
   	  flush();
   	  
       // Put SQL command to update the amount of file served here (on a per-user basis)
-  	  $bookmark = $fstart + $bytessofar;
+  	  $bookmark = $fstart + $fbytessofar;
     }
     
     if (!$fh || feof($fh)) 
@@ -195,6 +195,20 @@
     // Sanity check - Do we have permissions to read this file?
     send_to_log(1,"Error: SwissCenter does not have permissions to read the file '$location'");
   }
+  elseif ($media == 1) // Music
+  {
+    // Store the request details, and then send a redirect header to the player with the real location of the media file.
+    send_to_log(7,'Attempting to stream the following Audio file',array( "File ID"=>$file_id, "Media Type"=>$media, "Location"=>$location ));
+    store_request_details( $media, $file_id, $location);  
+
+    $duration = db_value("select length from $table where file_id= $file_id");
+    if ($duration > 0)
+      $headers[] = "TimeSeekRange.dlna.org: npt=0-/".$duration."\r\n";
+
+    $headers[] = "Content-type: audio/x-mpeg";
+    $headers[] = "Last-Changed: ".date('r',filemtime($location));
+    stream_file($media, $file_id, $location, $headers);
+  }
   elseif ($media == 2) // Photos
   {
     // We have to perform on-the-fly resizing for images because we can't redirect them through the thumb.php 
@@ -206,25 +220,12 @@
   else 
   { 
     // Store the request details, and then send a redirect header to the player with the real location of the media file.
-    send_to_log(7,'Attempting to stream the following file',array( "File ID"=>$file_id, "Media Type"=>$media_type, "Location"=>$location ));
+    send_to_log(7,'Attempting to stream the following file',array( "File ID"=>$file_id, "Media Type"=>$media, "Location"=>$location ));
     store_request_details( $media, $file_id, $location);  
       
-    if ($media == 1) // Music
-    {
-      $duration = db_value("select length from $table where file_id= $file_id");
-      if ($duration > 0)
-        $headers[] = "TimeSeekRange.dlna.org: npt=0-/".$duration."\r\n";
-
-      $headers[] = "Content-type: audio/x-mpeg";
-      $headers[] = "Last-Changed: ".date('r',filemtime($location));
-      stream_file($media_id, $file_id, $location, $headers);
-    }
-    else 
-    {
-      send_to_log(8,'Redirecting to '.$server.$redirect_url);
-      header ("HTTP/1.0 307 Temporary redirect");
-      header ("location: ".$server.$redirect_url);
-    }
+    send_to_log(8,'Redirecting to '.$server.$redirect_url);
+    header ("HTTP/1.0 307 Temporary redirect");
+    header ("location: ".$server.$redirect_url);
   }
 
 /**************************************************************************************************

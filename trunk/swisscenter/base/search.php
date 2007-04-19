@@ -70,12 +70,12 @@ function  search_media_page( $heading, $title, $main_table, $joined_tables, $col
   // Get the matching records from the database.
   $data     = db_toarray("   select distinct $column display 
                                from $main_table_sql $joined_tables
-                              where $column like '".$prefix.db_escape_str(str_replace('_','\_',$search))."%' ".$history["sql"]." 
+                              where $column != '0' and $column like '".$prefix.db_escape_str(str_replace('_','\_',$search))."%' ".$history["sql"]." 
                            order by 1 limit ".(($page*MAX_PER_PAGE)).",".MAX_PER_PAGE);
   
   $num_rows = db_value("     select count(distinct $column) 
                                from $main_table_sql $joined_tables
-                              where $column like '".$prefix.db_escape_str(str_replace('_','\_',$search))."%' ".$history["sql"]);
+                              where $column != '0' and $column like '".$prefix.db_escape_str(str_replace('_','\_',$search))."%' ".$history["sql"]);
 
   if ( $data === false || $num_rows === false)
     page_error(str('DATABASE_ERROR'));

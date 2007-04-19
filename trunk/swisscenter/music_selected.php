@@ -41,9 +41,12 @@
   $menu->add_item(str('PLAY_NOW'),   play_sql_list(MEDIA_TYPE_MUSIC,"select * from $sql_table $predicate order by album,lpad(track,10,'0'),title") );
   $menu->add_item(str('ADD_PLAYLIST'),'add_playlist.php?sql='.rawurlencode("select * from $sql_table $predicate order by album,lpad(track,10,'0'),title"),true);
 
-  // If only one track is selected, the user might want to expand their selection to the whole album
+  // If only one track is selected, the user might want to expand their selection to the whole album or create a MusicIP playlist based on this track
   if ($num_rows ==1)
+  {
     $menu->add_item( str('SELECT_ENTIRE_ALBUM'),'music_select_album.php?name='.rawurlencode(db_value("select album from $sql_table $predicate")));
+//    $menu->add_item( str('MUSICIP_TRACK'),'music_select_album.php?name='.rawurlencode(db_value("select album from $sql_table $predicate")));
+  }
 
   search_check_filter( $menu, str('REFINE_ARTIST'), 'artist', $sql_table, $predicate, $refine_url );
   search_check_filter( $menu, str('REFINE_ALBUM'),  'album',  $sql_table, $predicate, $refine_url );
