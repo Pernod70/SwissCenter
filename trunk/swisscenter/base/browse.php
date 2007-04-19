@@ -82,9 +82,8 @@
     for ($i=$start; $i<$end; $i++)
     {
       // Output a link to cause the specified playlist to be loaded into the session
-      $menu->add_streamitem($stations[$i]->name,$stations[$i]->playlist,$stations[$i]->bitrate."K");
+      $menu->add_info_item($stations[$i]->name,$stations[$i]->playlist,$stations[$i]->bitrate."K");
     }
-    $menu->stream = 1; // display stream info as well
     $menu->display();
    }
 

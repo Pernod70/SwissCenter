@@ -21,7 +21,7 @@ class menu
   var $down;
   var $icons = true;
   var $font_size = 30;
-  var $stream = 0;
+  var $info_column = false;
 
   #-------------------------------------------------------------------------------------------------
   # Member Functions
@@ -35,17 +35,24 @@ class menu
   function add_item( $text, $url="", $right = false )
   {
     $icon = img_gen(SC_LOCATION.style_img("MENU_RIGHT"), 16 , 40, false, false, 'RESIZE');
+
+    if (substr($url,0,5) != 'href=')
+      $url = 'href="'.$url.'"';
     
-    if (! is_null($text) && !empty($text))
+    if (! is_null($text) && strlen($text)>0)
       $this->menu_items[] = array( "text"=>$text
                                  , "url"=>$url
                                  , "right"=> ($right == true ? '</td><td>'.$icon : '') );
   }
 
-  function add_streamitem( $text, $url, $info, $right = false )
+  function add_info_item( $text, $url, $info, $right = false )
   {
     $icon = img_gen(SC_LOCATION.style_img("MENU_RIGHT"), 16 , 40, false, false, 'RESIZE');
+    $this->info_column = true;
     
+    if (substr($url,0,5) != 'href=')
+      $url = 'href="'.$url.'"';
+
     if (! is_null($text) && !empty($text))
       $this->menu_items[] = array( "text"=>$text
                                  , "info"=>$info
@@ -65,16 +72,22 @@ class menu
 
   function display( $size=650 )
   {
-    $i=0;
-    $link="";
-    if ($this->stream)
-    {
-#      $tdinfo = "</td><td>&nbsp;";
+    $i        = 0;
+    $width    = convert_x($size);
+    $height   = convert_y(40);
+    $bg_style = 'MENU_BACKGROUND';
+    $tdinfo = "";
+    $info   = "";
+    
+    if ( style_is_colour($bg_style))
+      $background = ' bgcolor="'.style_value($bg_style).'" ';
+    elseif ( style_is_image($bg_style))
+      $background = ' background="/thumb.php?src='.rawurlencode(style_img($bg_style,true)).'&x='.($width+6).'&y='.($height+9).'&stretch=Y" ';
+    else 
+      $background = '';
+
+    if ($this->info_column)
       $tdinfo = "</td><td>";
-    } else {
-      $tdinfo = "";
-      $info   = "";
-    }
 
     echo '<center><table cellspacing="3" cellpadding="3" border="0">';
 
@@ -99,10 +112,8 @@ class menu
         if (substr($link,0,5) != 'href=')
           $link = 'href="'.$link.'"';
 
-        if ($this->stream)
-        {
+        if ($this->info_column)
           $info = "</td><td align='right'".style_background('MENU_BACKGROUND').">".font_tags($this->font_size).$info;
-        }
           
         $i++;
 
