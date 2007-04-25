@@ -112,6 +112,20 @@ class shoutcast extends iradio {
     return $this->parse("?s=$name",$name);
   }
 
+  /** Searching by country
+   *  Initiates a freetext search at the ShoutCast site and stores all returned
+   *  stations using iradio::add_station (use get_station() to retrieve
+   *  the results). Returns FALSE on error (or if no stations found), TRUE
+   *  otherwise.
+   * @class liveradio
+   * @method search_country
+   * @param string name
+   * @return boolean success FALSE on error or nothing found, TRUE otherwise
+   */
+  function search_country($name) {
+    return $this->search_station($name);
+  }
+
 }
 
 ?>

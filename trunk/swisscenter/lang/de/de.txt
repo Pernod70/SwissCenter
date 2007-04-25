@@ -608,11 +608,12 @@ NOW_PLAYING_PROMPT      = Einige Hardware-Player unterst&uuml;tzen die Anzeige e
 
 PLAYLISTS 		= Playlist Optionen
 
-
+IRADIO_SEARCH           = Suche nach Stationen
 IRADIO_MAINGENRE SELECT = Bitte w&auml;hlen Sie das Main-Genre f&uuml;r die Suche:
 IRADIO_SUBGENRE_SELECT  = Bitte w&auml;hlen Sie das Sub-Genre f&uuml;r die Suche:
 IRADIO_STATION_SELECT   = Bitte w&auml;hlen Sie die Station:
 IRADIO_COUNTRY_SELECT   = Bitte w&auml;hlen Sie das Land f&uuml;r die Suche:
+IRADIO_CLASS_SELECT     = Bitte w&auml;hlen Sie den Radio-Service:
 BROWSE_COUNTRY          = Nach Land
 IRADIO_MAX_STATIONS     = Stationen/Genre
 IRADIO_MAX_STATIONS_PROMPT = Wie viele Stationen pro Genre maximal aus dem Internet bezogen werden sollen. Eine zu gro&szlig;e Anzahl erh&ouml;ht nicht nur die Wartezeit (und damit die Wahrscheinlichkeit eines Browser-TimeOuts), sondern auch das Risiko eines "Zu-wenig-Speicher" Fehlers von PHP. Ein guter Kompromiss sind 24 Stationen. Bei Problemen einen kleineren Wert w&auml;hlen.
@@ -624,6 +625,7 @@ IRADIO_ERROR_MAXNUM_ZERO   = F&uuml;r 'Stationen/Genre' muss ein [b][i]numerisch
 
 TTF_FONT_PROMPT         = Dieser Font wird f&uuml;r die Anzeige von Track-Informationen w&auml;hrend der Musik-Wiedergabe benutzt, sofern der Player das unterst&uuml;tzt (und es in der Konfiguration aktiviert wurde). M&ouml;gliche Werte sind: 0 (Null) f&uuml;r automatische Erkennung, ein Font-Name (z.B. 'Arial'), oder der Name einer Font-Datei inkl. des kompletten Pfades (falls beides voriges fehlschl&auml;gt).
 FAIL_PHP_FONT_SET       = ... Nur der Font scheint invalid (oder nicht verf&uuml;gbar) zu sein.
+BOOKMARKS               = Lesezeichen
 
 #----------------------------------------------------------------------------------------------------
 # End-of-file

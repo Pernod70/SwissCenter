@@ -44,7 +44,7 @@ class liveradio extends iradio {
       }
     }
     if (empty($url)) return FALSE;
-    $uri = "http://".$this->iradiosite."/SearchResults.php3?OSt=Li&OFee=28780&OCnt=Li&OSta=Li&Sta=&OCit=Li&Cit=&OGen=Li&$url&OPag=".$this->numresults;
+    $uri = "http://".$this->iradiosite."/SearchResults.php3?OSt=Li&OFee=Any&OCnt=Li&OSta=Li&Sta=&OCit=Li&Cit=&OGen=Li&$url&OPag=".$this->numresults;
     $this->openpage($uri);
     $startpos = strpos($this->page,'HREF="redirstation'); // seek for start position of block
     while ($startpos) {
