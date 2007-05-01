@@ -1,5 +1,7 @@
+Dansk,da
 Deutsch,de
 English,en
-Nederlands,nl
 Español,es
 Français,fr
+Nederlands,nl
+Polish,pl
