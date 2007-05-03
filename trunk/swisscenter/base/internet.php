@@ -64,7 +64,7 @@ function update_available()
   // Make sure that internet connectivity is available, and only check once a day for updates.
   if (get_sys_pref('updates_enabled','YES') == 'YES' && internet_available() && $next_check <= time() )
   {
-    $new_update_version = file_get_contents('http://update.swisscenter.co.uk/release/last_update.txt');
+    $new_update_version = @file_get_contents('http://update.swisscenter.co.uk/release/last_update.txt');
     $status = ( version_compare($new_update_version, swisscenter_version()) > 0);
     
     // Store availability and check again for new messages in 24 hours.
