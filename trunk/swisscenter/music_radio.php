@@ -12,8 +12,8 @@
   $menu       = new menu();
 
   page_header(str('LISTEN_RADIO'));
-
-  $menu->add_item(str('IRADIO_SEARCH'),'./music_radio_shoutcast.php');
+  $menu->add_item('ShoutCast', url_add_param('music_radio_shoutcast.php', 'class','shoutcast') );
+  $menu->add_item('Live-Radio',url_add_param('music_radio_shoutcast.php', 'class','liveradio') );
   $menu->add_item(str('BOOKMARKS'),'./music_radio_urls.php');
   $menu->display();
   page_footer('./index.php');

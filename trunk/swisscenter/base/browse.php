@@ -84,6 +84,7 @@
       // Output a link to cause the specified playlist to be loaded into the session
       $menu->add_info_item($stations[$i]->name,$stations[$i]->playlist,$stations[$i]->bitrate."K");
     }
+    
     $menu->display();
    }
 

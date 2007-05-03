@@ -17,7 +17,7 @@
 
   browse_fs( str('LISTEN_RADIO')
            , db_col_to_list("select name from media_locations where media_type=4")
-           , 'index.php'
+           , 'music_radio.php'
            , array('url')
            );
 

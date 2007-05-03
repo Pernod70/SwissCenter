@@ -471,7 +471,24 @@ function url_set_param($url, $param, $value)
   return url_add_param($url, $param, $value);
 }
 
-//
+function url_remove_param($url, $param)
+{
+  if (preg_match('/\?'.$param.'=/',$url) != 0) 
+  {
+    // Paramter present as the first parameter
+    return rtrim(preg_replace('/(\?'.$param.'=[^&]*)(&*)/','?',$url),'?'); 
+  }
+  elseif (preg_match('/&'.$param.'=/',$url) != 0) 
+  {
+    // Paramter present, but not the first one.
+    return preg_replace('/(&'.$param.'=[^&]*)/','',$url); 
+  }
+  else 
+  {
+    // Parameter not present, so just return the URL unaltered.
+    return $url;
+  }
+}
 
 function url_get_components( $url )
 {
