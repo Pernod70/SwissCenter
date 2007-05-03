@@ -607,9 +607,11 @@ PLAYLISTS 		= Playlist Options
 IRADIO_SEARCH           = Search for stations
 IRADIO_MAINGENRE SELECT = Select the Main-Genre to search for:
 IRADIO_SUBGENRE_SELECT  = Select the Sub-Genre to search for:
-IRADIO_STATION_SELECT   = Select the station to tune in:
+IRADIO_STATION_SELECT   = Select the Station to tune in:
 IRADIO_COUNTRY_SELECT   = Select the Country to search for:
 IRADIO_CLASS_SELECT     = Select the Radio service:
+IRADIO_NO_STATIONS      = No stations found.
+IRADIO_NO_STATIONS_MSG  = No stations could be found that match your search for '%s'
 BROWSE_COUNTRY          = Browse by country
 IRADIO_MAX_STATIONS     = Max stations/genre
 IRADIO_MAX_STATIONS_PROMPT = Maximum number of radio stations to retrieve per genre. The more is [b]not[/b] the better: Putting this number to high will not only increase the time to retrieve them (and thus make a browser timeout more likely), but also the possibility of an "out-of-memory" error from PHP. A good number is 24. Reduce it, if you encounter one of the mentioned possible errors.
@@ -618,6 +620,7 @@ IRADIO_CACHE_EXPIRE_PROMPT = SwissCenter can cache station information. But sinc
 IRADIO_ERROR_CACHE_EXPIRE  = You must specify a (numeric) value for 'Secs to keep stations'! If you want to turn this off, enter 0 (zero).
 IRADIO_ERROR_MAXNUM     = You must specify a (numeric) value for 'Max stations/genre'!
 IRADIO_ERROR_MAXNUM_ZERO   = You must specify a [b][i]numeric, non-zero[/i][/b] value for 'Max stations/genre'!
+
 
 TTF_FONT                = TrueType Font
 TTF_FONT_PROMPT         = Font to be used to display Track informations on the 'Now Playing" screen, if supported (and enabled). Enter a 0 (zero) to auto-detect, a font name (e.g. if auto-detection fails), or a font file name with full path to the file (if everything else fails).

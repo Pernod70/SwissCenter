@@ -66,7 +66,7 @@
  if (empty($_REQUEST["by_genre"]) && empty($_REQUEST["by_country"]))
  {
    // Select Browse Type
-   page_header('Browse Live-Radio'); // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< language string needs replacing
+   page_header(str('IRADIO_SEARCH'));
    $menu->add_item(str('BROWSE_GENRE'), url_add_param($current_url,'by_genre','1') );
    $menu->add_item(str('BROWSE_COUNTRY'), url_add_param($current_url,'by_country','1') );
    $menu->display();   
@@ -96,12 +96,20 @@
      else 
      {
        // Main and subgenre chosen, so list the available radio stations.
-       (isset($_REQUEST["page"])) ? $page = $_REQUEST["page"] : $page = 0;
-       page_header(str('IRADIO_STATION_SELECT'));
+       $back_url = url_remove_param( $current_url,'subgenre');
        $iradio->search_genre($_REQUEST["subgenre"]);
        $stations = $iradio->get_station();
-       display_iradio($current_url, $stations, $page);
-       page_footer( url_remove_param( $current_url,'subgenre') );
+       if (count($stations) >0 )
+       {
+         (isset($_REQUEST["page"])) ? $page = $_REQUEST["page"] : $page = 0;
+         page_header(str('IRADIO_STATION_SELECT'));         
+         display_iradio($current_url, $stations, $page);
+         page_footer( $back_url );
+       }
+       else
+       {
+         page_inform(5,$back_url,str('IRADIO_NO_STATIONS'),str('IRADIO_NO_STATIONS_MSG',$_REQUEST["maingenre"].':'.$_REQUEST["subgenre"]));
+       }
      }
    }
    else 
@@ -117,12 +125,20 @@
      else 
      {
        // Now the country/langauge has been chosen, list the available stations.
-       (isset($_REQUEST["page"])) ? $page = $_REQUEST["page"] : $page = 0;
-       page_header(str('IRADIO_STATION_SELECT'));
+       $back_url = url_remove_param( $current_url,'country');
        $iradio->search_country($_REQUEST["country"]);
        $stations = $iradio->get_station();
-       display_iradio($current_url,$stations,$page);
-       page_footer( url_remove_param( $current_url,'country') );
+       if (count($stations) >0 )
+       {
+         (isset($_REQUEST["page"])) ? $page = $_REQUEST["page"] : $page = 0;
+         page_header(str('IRADIO_STATION_SELECT'));
+         display_iradio($current_url,$stations,$page);
+         page_footer( $back_url );
+       }
+       else
+       {
+         page_inform(5,$back_url,str('IRADIO_NO_STATIONS'),str('IRADIO_NO_STATIONS_MSG',$_REQUEST["country"]));
+       }
      }
    }   
  }
