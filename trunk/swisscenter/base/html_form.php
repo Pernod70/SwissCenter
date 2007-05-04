@@ -25,7 +25,9 @@ require_once( realpath(dirname(__FILE__).'/mysql.php'));
 
 function form_prompt( $prompt, $opt )
 {
-  if ($opt)
+  if (empty($prompt))
+    return '&nbsp;';
+  elseif ($opt)
     return $prompt.' : &nbsp;';
   else
     return '<span class=stdformreq>'.$prompt.' : &nbsp;</span>';
@@ -62,6 +64,28 @@ function form_input( $param, $prompt, $size = 15, $maxlength = '',$value ='', $o
               ($maxlength != '' ? ' maxlength="'.$maxlength.'"' : '').
              ' size='.$size.
              ' name="'.$param.'"
+               value="'.$value.'"></td>
+        </tr>';
+}
+
+#-------------------------------------------------------------------------------------------------
+# Creates a input box that also has a slider for entering numbers between a min and max value.
+#
+# $min  - the minimum value
+# $max  - the maximum allowed value
+# $size - the size of the input field
+# $mask - Regular expression that is used to validate the field on the client
+#-------------------------------------------------------------------------------------------------
+
+function form_slider( $param, $prompt, $min, $max, $size = 15, $value ='', $class = 'slider_200px', $opt = false)
+{
+  echo '<tr>
+          <td>'.form_prompt($prompt,$opt).'</td>
+          <td><input type="text"'.($opt ? '' : ' required ').'
+               mask="[0-9]*" 
+               size="'.$size.'" 
+               name="'.$param.'" 
+               class="fd_tween fd_range_'.$min.'_'.$max.' fd_classname_'.$class.'"
                value="'.$value.'"></td>
         </tr>';
 }
@@ -381,11 +405,11 @@ function form_select_table ( $param, $table_contents, $table_headings, $table_pa
       if($editable)
       {
         if(empty($edit))
-          echo '<td align="center" width="60"><a href="javascript:edit_'.$formname.'(\''.$row[strtoupper($id_col)].'\');"><img alt="Edit" title="Edit" src="ico_edit.gif" border="0"></a></td>';
+          echo '<td align="center" width="60"><a href="javascript:edit_'.$formname.'(\''.$row[strtoupper($id_col)].'\');"><img alt="Edit" title="Edit" src="/images/ico_edit.gif" border="0"></a></td>';
         else if($row[strtoupper($id_col)] == $edit)
         {
-          echo '<td align="center" width="60"><a href="javascript:update_'.$formname.'(\''.$row[strtoupper($id_col)].'\');"><img alt="Ok" title="Ok" src="ico_tick.gif" border="0"></a>';
-          echo '&nbsp;&nbsp;<a href="javascript:cancel_'.$formname.'();"><img alt="Cancel" title="Cancel" src="ico_cross.gif" border="0"></a></td>';
+          echo '<td align="center" width="60"><a href="javascript:update_'.$formname.'(\''.$row[strtoupper($id_col)].'\');"><img alt="Ok" title="Ok" src="/images/ico_tick.gif" border="0"></a>';
+          echo '&nbsp;&nbsp;<a href="javascript:cancel_'.$formname.'();"><img alt="Cancel" title="Cancel" src="/images/ico_cross.gif" border="0"></a></td>';
         }
         else
           echo '<td>&nbsp;</td>';

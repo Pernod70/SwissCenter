@@ -3,6 +3,8 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
+require_once( realpath(dirname(__FILE__).'/../base/internet.php'));
+
   // ----------------------------------------------------------------------------------
   // Display current config
   // ----------------------------------------------------------------------------------
@@ -17,11 +19,39 @@
     form_start('index.php');
     form_hidden('section','AUDIO');
     form_hidden('action','UPDATE');
-
     form_radio_static('style',str('NOW_PLAYING_SUPPORT'),$opts3_vals, get_sys_pref('SUPPORT_NOW_PLAYING','AUTO') ,false,true);
     form_label(str('NOW_PLAYING_PROMPT'));    
-    
+    form_submit(str('SAVE_SETTINGS'));  
     form_end();
+    
+    /* 04.May.07 - MusicIP functionality not yet ready for deployment. This is a mock up of the "Slider" control.
+      
+    echo "<h1>".str('CONFIG_MUSICIP_OPTIONS')."</h1>";
+    $opts_type = array( str('TRACKS')=>'tracks',str('MINUTES')=>'min');
+
+    if ( !musicip_check(10002,1) )
+      message('!MusicIP server not found');
+
+    form_start('index.php');
+    form_hidden('section','AUDIO');
+    form_hidden('action','UPDATE_MUSICIP');
+    form_input('test','Port',3,'', 10002);
+    form_label(str('TTF_FONT_PROMPT'));    
+      
+    form_slider('test1a','Repeating Artists',1,100,3, 10);  
+    form_radio_static('test1b','',$opts_type, 'tracks' ,false,true);
+    form_label(str('TTF_FONT_PROMPT'));    
+    form_slider('test2a','Playlist size',5,1000,3, 50);  
+    form_radio_static('test2b','',$opts_type, 'tracks' ,false,true);
+    form_label(str('TTF_FONT_PROMPT'));    
+    form_slider('test3a','Style',0,200,3, 20);  
+    form_label(str('TTF_FONT_PROMPT'));    
+    form_slider('test4a','Variety',0,9,3, 0);  
+    form_label(str('TTF_FONT_PROMPT'));    
+    form_submit(str('SAVE_SETTINGS'));  
+    form_end();
+    
+    */
   }
 
   // ----------------------------------------------------------------------------------

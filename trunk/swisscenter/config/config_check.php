@@ -114,7 +114,7 @@ class test_results
       echo '<p><table border=1 noshade width="90%" cellspacing=0 cellpadding=8 bgcolor="#ffffff">
             <tr>
               <td width="100%"><b>'.$section["heading"].'</b></td>
-              <td width="40" valign=top align=center><img src="'.($failures ? 'fail.png' : 'pass.png').'"></td>
+              <td width="40" valign=top align=center><img src="/images/'.($failures ? 'fail.png' : 'pass.png').'"></td>
             </tr>';
       
       if ( $failures )
