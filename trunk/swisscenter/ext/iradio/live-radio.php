@@ -46,7 +46,9 @@ class liveradio extends iradio {
     if (empty($url)) return FALSE;
     $uri = "http://".$this->iradiosite."/SearchResults.php3?OSt=Li&OFee=Any&OCnt=Li&OSta=Li&Sta=&OCit=Li&Cit=&OGen=Li&$url&OPag=".$this->numresults;
     $this->openpage($uri);
+    $stationcount = 0;
     $startpos = strpos($this->page,'HREF="redirstation'); // seek for start position of block
+    $epos = $startpos +1; // prevent endless loop on broken pages
     while ($startpos) {
       $spos = strpos($this->page,'HREF="',$startpos); // website
       $epos = strpos($this->page,"\">",$spos);
@@ -73,6 +75,8 @@ class liveradio extends iradio {
       $listeners = "";
       $maxlisteners = "";
       $this->add_station($name,$playlist,$bitrate,$genre,$format,$listeners,$maxlisteners,$nowplaying,$website);
+      ++$stationcount;
+      if ($stationcount = $this->numresults) break;
       $startpos = strpos($this->page,'HREF="redirstation',$epos);
     }
     if (!empty($cachename)) $this->write_cache($cachename,$this->station);

@@ -46,9 +46,9 @@ class shoutcast extends iradio {
     if (empty($url)) return FALSE;
     $uri = "http://".$this->iradiosite."/$url&numresult=".$this->numresults;
     $this->openpage($uri);
-#    $len = strlen($this->page);
-#    die("$len");
+    $stationcount = 0;
     $startpos = strpos($this->page,">Type<"); // seek for start position of block
+    $epos = $startpos +1; // prevent endless loop on broken pages
     while ($startpos) {
       $spos = strpos($this->page,"a href=",$startpos); // playlist
       $epos = strpos($this->page,"\">",$spos);
@@ -78,6 +78,8 @@ class shoutcast extends iradio {
       $epos = strpos($this->page,"</font>",$spos);
       $format = substr($this->page,$spos+5,$epos - $spos -5);
       $this->add_station($name,$playlist,$bitrate,$genre,$format,$listeners,$maxlisteners,$nowplaying,$website);
+      ++$stationcount;
+      if ($stationcount = $this->numresults) break;
       $startpos = strpos($this->page,"<a href=\"/sbin/shoutcast-playlist.pls",$epos);
     }
     if (!empty($cachename)) $this->write_cache($cachename,$this->station);
