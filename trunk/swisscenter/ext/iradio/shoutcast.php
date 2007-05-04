@@ -79,7 +79,7 @@ class shoutcast extends iradio {
       $format = substr($this->page,$spos+5,$epos - $spos -5);
       $this->add_station($name,$playlist,$bitrate,$genre,$format,$listeners,$maxlisteners,$nowplaying,$website);
       ++$stationcount;
-      if ($stationcount = $this->numresults) break;
+      if ($stationcount == $this->numresults) break;
       $startpos = strpos($this->page,"<a href=\"/sbin/shoutcast-playlist.pls",$epos);
     }
     if (!empty($cachename)) $this->write_cache($cachename,$this->station);

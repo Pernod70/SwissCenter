@@ -76,7 +76,7 @@ class liveradio extends iradio {
       $maxlisteners = "";
       $this->add_station($name,$playlist,$bitrate,$genre,$format,$listeners,$maxlisteners,$nowplaying,$website);
       ++$stationcount;
-      if ($stationcount = $this->numresults) break;
+      if ($stationcount == $this->numresults) break;
       $startpos = strpos($this->page,'HREF="redirstation',$epos);
     }
     if (!empty($cachename)) $this->write_cache($cachename,$this->station);
