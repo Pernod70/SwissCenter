@@ -56,8 +56,9 @@
      mkdir($cachedir);
      
    $iradio->set_cache( $cachedir );
-   $iradio->set_cache_expiration(get_sys_pref('',24));
-   $iradio->set_max_results(get_sys_pref('iradio_cache_expire',3600));
+   $iradio->set_cache_expiration(get_sys_pref('iradio_cache_expire',3600));
+   $iradio->set_max_results(get_sys_pref('',24));
+   
  }
 
  // Output the appropriate menu based, based on earlier choices and ensure that the
