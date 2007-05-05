@@ -22,6 +22,7 @@ class menu
   var $icons = true;
   var $font_size = 30;
   var $info_column = false;
+  var $padding = 40;
 
   #-------------------------------------------------------------------------------------------------
   # Member Functions
@@ -30,6 +31,11 @@ class menu
   function menu( $show_icons = true)
   {
     $this->icons = $show_icons;
+  }
+  
+  function padding( $val )
+  {
+    $this->padding = $val;
   }
 
   function add_item( $text, $url="", $right = false )
@@ -98,7 +104,7 @@ class menu
              up_link($this->up).
              $tdinfo.'</td></tr>';
       else
-        echo '<tr><td align="center" valign="middle" width="'.convert_x($size).'" height="'.convert_y(40).'"></a>'.$tdinfo.'</td></tr>';
+        echo '<tr><td align="center" valign="middle" width="'.convert_x($size).'" height="'.convert_y($this->padding).'"></a>'.$tdinfo.'</td></tr>';
     }
 
     if (! empty($this->menu_items))

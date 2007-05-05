@@ -9,6 +9,7 @@
   require_once( realpath(dirname(__FILE__).'/base/playlist.php'));
   require_once( realpath(dirname(__FILE__).'/base/rating.php'));
   require_once( realpath(dirname(__FILE__).'/base/search.php'));
+  require_once( realpath(dirname(__FILE__).'/base/musicip.php'));
   
   //*************************************************************************************************
   // Build page elements
@@ -39,15 +40,19 @@
   
   // Build menu of options
   $menu->add_item(str('PLAY_NOW'),   play_sql_list(MEDIA_TYPE_MUSIC,"select * from $sql_table $predicate order by album,lpad(track,10,'0'),title") );
+
+  // If there's only a single song then the user might want to generate a MusicIP playlist
+  if ($num_rows ==1 && musicip_available() )
+    $menu->add_item( str('MIP_MIX_SONG'),musicip_mix_song( db_value("select concat(dirname,filename) from $sql_table $predicate")) );
+  
+  // Or adds these tracks to their current playlist...
   $menu->add_item(str('ADD_PLAYLIST'),'add_playlist.php?sql='.rawurlencode("select * from $sql_table $predicate order by album,lpad(track,10,'0'),title"),true);
 
-  // If only one track is selected, the user might want to expand their selection to the whole album or create a MusicIP playlist based on this track
+  // If only one track is selected, the user might want to expand their selection to the whole album
   if ($num_rows ==1)
-  {
     $menu->add_item( str('SELECT_ENTIRE_ALBUM'),'music_select_album.php?name='.rawurlencode(db_value("select album from $sql_table $predicate")));
-//    $menu->add_item( str('MUSICIP_TRACK'),'music_select_album.php?name='.rawurlencode(db_value("select album from $sql_table $predicate")));
-  }
 
+  // Or refine the tracks further
   search_check_filter( $menu, str('REFINE_ARTIST'), 'artist', $sql_table, $predicate, $refine_url );
   search_check_filter( $menu, str('REFINE_ALBUM'),  'album',  $sql_table, $predicate, $refine_url );
   search_check_filter( $menu, str('REFINE_TITLE'),  'title',  $sql_table, $predicate, $refine_url );
@@ -69,6 +74,9 @@
   //*************************************************************************************************
   // Display the page
   //*************************************************************************************************
+
+  // There may be 5 options, which is a real squeeeze on the page, so set the padding to a small value
+  $menu->padding(6);
 
   if (! empty($folder_img) )
   {

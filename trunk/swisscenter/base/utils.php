@@ -466,10 +466,27 @@ function url_add_param($url, $param, $value)
   }
 }
 
-function url_set_param($url, $param, $value)
+// Array version of the url_add_param() function
+
+function url_add_params( $url, $array)
 {
-  return url_add_param($url, $param, $value);
+  foreach ($array as $param=>$value)
+    $url = url_add_param($url, $param, $value);
+
+  return $url;
 }
+
+// url_set_param() is actually just another name for url_add_param()
+
+function url_set_param($url, $param, $value)
+{ return url_add_param($url, $param, $value); }
+
+function url_set_params( $url, $array)
+{ return url_add_params( $url, $array); }
+
+// ----------------------------------------------------------------------------------
+// Removes the given paramter from the given URL
+// ----------------------------------------------------------------------------------
 
 function url_remove_param($url, $param)
 {
@@ -489,6 +506,20 @@ function url_remove_param($url, $param)
     return $url;
   }
 }
+
+// Array version of the url_remove_param() function
+
+function url_remove_params( $url, $array)
+{
+  foreach ($array as $value)
+    $url = url_remove_param($url, $value);
+
+  return $url;
+}
+
+// ----------------------------------------------------------------------------------
+// Splits an array into it's components and returns them as an array
+// ----------------------------------------------------------------------------------
 
 function url_get_components( $url )
 {

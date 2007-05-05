@@ -62,7 +62,7 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
   if (get_screen_type() == 'NTSC')
     $headings               = '<td height="'.convert_y(60).'" align="center"><b>'.$title.'</b> : '.$tagline.'&nbsp;</td>';
   else
-    $headings               = '<td height="'.convert_y(190).'" align="center"><h2>'.$title.'&nbsp;</h2>'.$tagline.'&nbsp;</td>';
+    $headings               = '<td height="'.convert_y(170).'" align="center"><h2>'.$title.'&nbsp;</h2>'.$tagline.'&nbsp;</td>';
 
   $background_image       = '/thumb.php?type=jpg&stretch=Y&x='.convert_x(1000).'&y='.convert_y(1000).'&src='.rawurlencode(SC_LOCATION.style_img("PAGE_BACKGROUND"));
   

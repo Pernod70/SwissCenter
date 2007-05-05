@@ -18,11 +18,6 @@
 define ('PROXY', "");
 define ('PROXY_PORT', "");
 
-// set to false to use the old browseremulator.
-$PEAR = false;
-
-require_once(dirname(__FILE__)."/iradio_request.php");
-
 # ==========================================================[ Config Class ]===
 /** Configuration and structure part of the iradio classes
  * @package IRadio
@@ -334,10 +329,7 @@ class iradio {
    * @return boolean success
    */
   function openpage($url) {
-    $req = new iradio_Request("");
-    $req->setURL($url);
-    $req->sendRequest();
-    $this->page = $req->getResponseBody();
+    $this->page = file_get_contents($url);
     return TRUE;
   }
 

@@ -146,7 +146,7 @@
         define (strtoupper($k),$v);
   }
 
-  $page_title = str('CONFIG_TITLE');
+  $page_title = '<a href="/"><img border=0 align="right" hspace=8 src="/images/close.gif"></a>'.str('CONFIG_TITLE');
   $page_width = '750px';
   include("config_template.php");
 

@@ -205,7 +205,6 @@ function check_display()
   # If there is no swisscenter.ini file present, then we will not be able to connect to the database
   # because that is where the connection details are stored.
 
-  debug($test_page->test_result('SWISS ini file'));
   if ( $test_page->test_result('SWISS ini file'))
   {                         
     $mysql = $test_page->add_section("MySQL",3);

@@ -602,30 +602,49 @@ NOW_PLAYING_PROMPT      = Some hardware players allow a picture to be displayed 
 
 # Updated text strings in v1.15.3
 
-PLAYLISTS 		= Playlist Options
+# -----------------------
+# SwissCenter v1.16
+# -----------------------
 
-IRADIO_SEARCH           = Search for stations
-IRADIO_MAINGENRE SELECT = Select the Main-Genre to search for:
-IRADIO_SUBGENRE_SELECT  = Select the Sub-Genre to search for:
-IRADIO_STATION_SELECT   = Select the Station to tune in:
-IRADIO_COUNTRY_SELECT   = Select the Country to search for:
-IRADIO_CLASS_SELECT     = Select the Radio service:
-IRADIO_NO_STATIONS      = No stations found.
-IRADIO_NO_STATIONS_MSG  = No stations could be found that match your search for '%s'
-BROWSE_COUNTRY          = Browse by country
-IRADIO_MAX_STATIONS     = Max stations/genre
+PLAYLISTS 		   = Playlist Options
+
+IRADIO_SEARCH              = Search for stations
+IRADIO_MAINGENRE SELECT    = Select the Main-Genre to search for:
+IRADIO_SUBGENRE_SELECT     = Select the Sub-Genre to search for:
+IRADIO_STATION_SELECT      = Select the Station to tune in:
+IRADIO_COUNTRY_SELECT      = Select the Country to search for:
+IRADIO_CLASS_SELECT        = Select the Radio service:
+IRADIO_NO_STATIONS         = No stations found.
+IRADIO_NO_STATIONS_MSG     = No stations could be found that match your search for '%s'
+BROWSE_COUNTRY             = Browse by country
+IRADIO_MAX_STATIONS        = Max stations/genre
 IRADIO_MAX_STATIONS_PROMPT = Maximum number of radio stations to retrieve per genre. The more is [b]not[/b] the better: Putting this number to high will not only increase the time to retrieve them (and thus make a browser timeout more likely), but also the possibility of an "out-of-memory" error from PHP. A good number is 24. Reduce it, if you encounter one of the mentioned possible errors.
-IRADIO_CACHE_EXPIRE     = Cache Timeout
+IRADIO_CACHE_EXPIRE        = Cache Timeout
 IRADIO_CACHE_EXPIRE_PROMPT = SwissCenter can cache station information. But since the station list will continuously be changing, we should refresh them from time to time. One hour (3600s) is a good compromise.
 IRADIO_ERROR_CACHE_EXPIRE  = You must specify a (numeric) value for 'Secs to keep stations'! If you want to turn this off, enter 0 (zero).
-IRADIO_ERROR_MAXNUM     = You must specify a (numeric) value for 'Max stations/genre'!
+IRADIO_ERROR_MAXNUM        = You must specify a (numeric) value for 'Max stations/genre'!
 IRADIO_ERROR_MAXNUM_ZERO   = You must specify a [b][i]numeric, non-zero[/i][/b] value for 'Max stations/genre'!
 
+TTF_FONT                   = TrueType Font
+TTF_FONT_PROMPT            = Font to be used to display Track informations on the 'Now Playing" screen, if supported (and enabled). Enter a 0 (zero) to auto-detect, a font name (e.g. if auto-detection fails), or a font file name with full path to the file (if everything else fails).
+FAIL_PHP_FONT_SET          = ... but the font seems to be invalid (or not available)
+BOOKMARKS                  = Bookmarks
 
-TTF_FONT                = TrueType Font
-TTF_FONT_PROMPT         = Font to be used to display Track informations on the 'Now Playing" screen, if supported (and enabled). Enter a 0 (zero) to auto-detect, a font name (e.g. if auto-detection fails), or a font file name with full path to the file (if everything else fails).
-FAIL_PHP_FONT_SET       = ... but the font seems to be invalid (or not available)
-BOOKMARKS               = Bookmarks
+CONFIG_MIP_OPTIONS         = MusicIP
+MIP_DESC                   = [b]What is MusicIP?[/b][p]MusicIP (available from %s) is a great piece of software which analyzes your music collection and generates an "acoustic fingerprint" of each song. This information is then used to generate a personal playlist of similar tracks based on a selected track, artist or album. [p]If MusicIP is installed on the same machine as SwissCenter, then extra features become available to generate and listen to MusicIP playlists directly from within the SwissCenter interface.
+MIP_PORT                   = MusicIP Port
+MIP_INVALID_PORT           = The port you specified is not valid.
+MIP_PORT_PROMPT            = Enter the port number that the MusicIP server is listening on. If you have not changed anything then the default port will be 10002. [p][b]Note:[/b]  MusicIP must be installed on the same server as SwissCenter.
+MIP_NOT_FOUND              = MusicIP server not found on port %s
+MIP_STYLE                  = Style
+MIP_STYLE_PROMPT           = This setting allows you to specify how closely the style of the artists within the mix will match the seed song. A high number will probably result in only a few different artists being chosen, while a small number will allow more variation in style.
+MIP_VARIETY                = Variety
+MIP_VARIETY_PROMPT         = Allows you to specify how much variety you like to have in your mix. The higher the setting, the more variety will be introduced into the mix.
+MIP_REJECT                 = Artist Repeat
+MIP_REJECT_PROMPT          = You can prevent the same artist being played twice within a set time period (or number of tracks) using this option.
+MIP_SIZE                   = Playlist Size
+MIP_SIZE_PROMPT            = The number of tracks that MusicIP should return as part of a playlist.
+MIP_MIX_SONG               = Play similar trackts
 
 #----------------------------------------------------------------------------------------------------
 # End-of-file

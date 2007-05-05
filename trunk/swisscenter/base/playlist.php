@@ -56,8 +56,15 @@ function get_tracklist_to_play()
 
   switch ($spec_type)
   {
+    case 'musicip':
+          $save = $_SESSION["playlist"];
+          load_pl( $_SESSION["musicip_playlist"] ,'replace');
+          $array = $_SESSION["playlist"];
+          $_SESSION["playlist"] = $save;
+          break;
+      
     case 'playlist':
-          $array      = $_SESSION["playlist"];
+          $array = $_SESSION["playlist"];
           break;
           
     case 'sql':
@@ -356,6 +363,7 @@ function load_pl ($file, $action)
 
   if (($lines = file($file)) !== false)
   {
+    send_to_log(5,'Loading playlist',$file);
     foreach ($lines as $l)
     {
       $entry = rtrim($l);
@@ -377,7 +385,13 @@ function load_pl ($file, $action)
         
         // To quote highlander..."there can be only one".
         if ( count($all) == 1)
-          $_SESSION["playlist"][] = array_pop($all);
+        {
+          $item = array_pop($all);
+          send_to_log(8,'Found FILE_ID='.$item["FILE_ID"].' : '.$fsp);
+          $_SESSION["playlist"][] = $item;
+        }
+        else 
+          send_to_log(8,'Unable to locate : '.$fsp);
       }
     }
   }

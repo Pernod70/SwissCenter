@@ -84,7 +84,7 @@
        page_header(str('IRADIO_MAINGENRE SELECT'));
        $genres = $iradio->get_maingenres();
        make_genre_menu($genres,"maingenre");
-       page_footer( url_remove_param( $current_url,'by_genre') );
+       page_footer( url_remove_params( $current_url,array('by_genre','page')) );
      }
      elseif (empty($_REQUEST["subgenre"]) )
      {
@@ -92,12 +92,12 @@
        page_header(str('IRADIO_SUBGENRE_SELECT'));
        $genres = $iradio->get_subgenres($_REQUEST["maingenre"]);
        make_genre_menu($genres,"subgenre");
-       page_footer( url_remove_param( $current_url,'maingenre') );
+       page_footer( url_remove_params( $current_url,array('maingenre','page')) );
      }
      else 
      {
        // Main and subgenre chosen, so list the available radio stations.
-       $back_url = url_remove_param( $current_url,'subgenre');
+       $back_url = url_remove_params( $current_url,array('subgenre','page'));
        $iradio->search_genre($_REQUEST["subgenre"]);
        $stations = $iradio->get_station();
        if (count($stations) >0 )
@@ -121,12 +121,12 @@
        page_header(str('IRADIO_COUNTRY_SELECT'));
        $countries = $iradio->get_countries();
        make_genre_menu($countries,"country");
-       page_footer( url_remove_param( $current_url,'by_country') );
+       page_footer( url_remove_params( $current_url,array('by_country','page')) );
      }
      else 
      {
        // Now the country/langauge has been chosen, list the available stations.
-       $back_url = url_remove_param( $current_url,'country');
+       $back_url = url_remove_params( $current_url,array('country','page'));
        $iradio->search_country($_REQUEST["country"]);
        $stations = $iradio->get_station();
        if (count($stations) >0 )

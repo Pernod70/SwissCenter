@@ -24,20 +24,6 @@ function internet_check( $timeouts = 3)
   return false;
 }
 
-function musicip_check( $port, $timeouts = 3)
-{
-  $temp = '';
-
-  for ($i=0; $i < $timeouts; $i++)
-    if ( $sock = @fsockopen('http://localhost', $port, $temp, $temp, 0.5))
-    {
-      fclose($sock);
-      return true; 
-    }
-
-  return false;
-}
-
 // ----------------------------------------------------------------------------------
 // Returns TRUE if the server has internet connectivity
 // ----------------------------------------------------------------------------------
