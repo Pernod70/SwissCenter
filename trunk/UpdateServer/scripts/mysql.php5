@@ -64,8 +64,7 @@ function test_db($host, $username, $password, $database)
 
 function db_toarray( $sql)
 {
-  $data = array();
-
+  $data = array();  
   $recs    = new db_query( $sql );
   $success = $recs->db_success();
 

@@ -43,7 +43,7 @@
 .menu a:hover           {  color             : #000000; }
   
 .stdformreq             {  color             : #000000; }
-.stdform                {  color             : #999999; }
+.stdform                {  color             : #000000; }
 .stdformlabel           {  color             : #dd4400; }
 .stdformlabel em        {  color             : #992200; }
 
