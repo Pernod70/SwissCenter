@@ -631,7 +631,8 @@ FAIL_PHP_FONT_SET          = ... but the font seems to be invalid (or not availa
 BOOKMARKS                  = Bookmarks
 
 CONFIG_MIP_OPTIONS         = MusicIP
-MIP_DESC                   = [b]What is MusicIP?[/b][p]MusicIP (available from %s) is a great piece of software which analyzes your music collection and generates an "acoustic fingerprint" of each song. This information is then used to generate a personal playlist of similar tracks based on a selected track, artist or album. [p]If MusicIP is installed on the same machine as SwissCenter, then extra features become available to generate and listen to MusicIP playlists directly from within the SwissCenter interface.
+MIP_WHATIS                 = What is MusicIP?
+MIP_DESC                   = MusicIP (available from %s) is a great piece of software which analyzes your music collection and generates an "acoustic fingerprint" of each song. This information is then used to generate a personal playlist of similar tracks based on a selected track, artist or album. [p]If MusicIP is installed on the same machine as SwissCenter, then extra features become available to generate and listen to MusicIP playlists directly from within the SwissCenter interface.
 MIP_PORT                   = MusicIP Port
 MIP_INVALID_PORT           = The port you specified is not valid.
 MIP_PORT_PROMPT            = Enter the port number that the MusicIP server is listening on. If you have not changed anything then the default port will be 10002. [p][b]Note:[/b]  MusicIP must be installed on the same server as SwissCenter.
@@ -645,6 +646,10 @@ MIP_REJECT_PROMPT          = You can prevent the same artist being played twice 
 MIP_SIZE                   = Playlist Size
 MIP_SIZE_PROMPT            = The number of tracks that MusicIP should return as part of a playlist.
 MIP_MIX_SONG               = Play similar trackts
+
+EXTRAS_TEST_TITLE          = Additional Components
+FAIL_MUSICIP_TEST          = MusicIP is not installed (or configured correctly).
+PASS_MUSICIP_TEST          = MusicIP service detected.
 
 #----------------------------------------------------------------------------------------------------
 # End-of-file

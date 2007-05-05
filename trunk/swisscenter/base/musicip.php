@@ -22,7 +22,7 @@ function musicip_check( $port )
     $result = true; 
   }
 
-  return$result;
+  return $result;
 }
 
 function musicip_available( $recheck = false)

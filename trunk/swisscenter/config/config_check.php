@@ -7,16 +7,13 @@ require_once( realpath(dirname(__FILE__).'/../base/sched.php'));
 require_once( realpath(dirname(__FILE__).'/../base/install_checks.php'));
 
 // ----------------------------------------------------------------------------------
-// A class to output the test results onto the page in a pretty format!
+// A class to perform the various tests (both as the Webserver and via the command
+// line). Member functions allow other objects to query the test result.
 // ----------------------------------------------------------------------------------
 
 class test_results
 {
-  #-------------------------------------------------------------------------------------------------
-  # Member Variables
-  #-------------------------------------------------------------------------------------------------
 
-  var $sections;
   var $web_results;
   var $cli_results;
   
@@ -26,7 +23,6 @@ class test_results
 
   function test_results()
   {    
-    $this->sections    = array ();
     $this->cli_results = array();
     
     // Get the results of all the installation tests when run via the webserver
@@ -48,7 +44,62 @@ class test_results
       }
     }
   }
+  
+  #-------------------------------------------------------------------------------------------------
+  # Returns the result of a test (true for pass, false for fail)
+  #-------------------------------------------------------------------------------------------------
 
+  function cli_result( $key )
+  {
+    return ( count($this->cli_results) == 0 || ( key_exists($key,$this->cli_results) && $this->cli_results[$key] ) );
+  }
+  
+  function web_result( $key )
+  {
+    return ( key_exists($key,$this->web_results) && $this->web_results[$key] );
+  }
+  
+  function result( $key)
+  {
+    return ($this->cli_result($key) && $this->web_result($key));
+  }
+  
+}
+
+// ----------------------------------------------------------------------------------
+// A class to output the test results onto the page in a pretty format!
+// ----------------------------------------------------------------------------------
+
+class test_summary
+{
+  var $title;
+  var $sections;
+  var $results;
+  
+  var $pass_img = 'pass.png';
+  var $fail_img = 'fail.png';
+
+  #-------------------------------------------------------------------------------------------------
+  # Constructor
+  #-------------------------------------------------------------------------------------------------
+
+  function test_summary( $title, $result_obj)
+  {    
+    $this->sections = array();
+    $this->title    = $title;
+    $this->results  = $result_obj;
+  }
+
+  #-------------------------------------------------------------------------------------------------
+  # functions to set the pass/fail icons used.
+  #-------------------------------------------------------------------------------------------------
+
+  function pass_icon( $icon )
+  { $this->pass_img = $icon; }
+  
+  function fail_icon( $icon )
+  { $this->fail_img = $icon; }
+  
   #-------------------------------------------------------------------------------------------------
   # Add a new section and returns the identifier for it (used when adding tests).
   #-------------------------------------------------------------------------------------------------
@@ -59,25 +110,9 @@ class test_results
                                       , "passed" => array()
                                       , "failed_cli" => array() 
                                       , "failed_web" => array()  );
-    return count($this->sections)-1;
+    return $position;
   }
   
-  #-------------------------------------------------------------------------------------------------
-  # Returns the result of a test (true for pass, false for fail)
-  #-------------------------------------------------------------------------------------------------
-
-  function test_result( $key )
-  {
-    if ( key_exists($key,$this->web_results) )
-    {      
-      if (!$this->web_results[$key] || (count($this->cli_results)>0 && !$this->cli_results[$key]) )
-        return false;
-      else 
-        return true;
-    }
-    else 
-      return false;
-  }
   
   #-------------------------------------------------------------------------------------------------
   # Add details about a specific test
@@ -87,13 +122,15 @@ class test_results
   {
     if ( key_exists($section,$this->sections) )
     {      
-      if (!$this->web_results[$key])
+      if (!$this->results->web_result($key))
         $this->sections[$section]["failed_web"][] = $fail;
-      elseif (is_array($this->cli_results) && key_exists($key,$this->cli_results) && !$this->cli_results[$key])
+      elseif (!$this->results->cli_result($key))
         $this->sections[$section]["failed_cli"][] = $fail;
       else 
         $this->sections[$section]["passed"][] = $pass;
     }
+    else 
+      echo '<li>'.$section.' - '.$key;
   }
   
   #-------------------------------------------------------------------------------------------------
@@ -104,7 +141,7 @@ class test_results
   {
     ksort($this->sections);
     
-    echo '<h1>'.str('INSTALL_TEST_TITLE').'</h1>
+    echo '<h1>'.$this->title.'</h1>
           <p><center>';
     foreach ($this->sections as $section)
     {
@@ -114,7 +151,7 @@ class test_results
       echo '<p><table border=1 noshade width="90%" cellspacing=0 cellpadding=8 bgcolor="#ffffff">
             <tr>
               <td width="100%"><b>'.$section["heading"].'</b></td>
-              <td width="40" valign=top align=center><img src="/images/'.($failures ? 'fail.png' : 'pass.png').'"></td>
+              <td width="40" valign=top align=center><img src="/images/'.($failures ? $this->fail_img : $this->pass_img).'"></td>
             </tr>';
       
       if ( $failures )
@@ -164,39 +201,42 @@ class test_results
 function check_display()
 {
   load_lang();
-  $test_page = new test_results();
+  $results         = new test_results();
+  $core_tests      = new test_summary( str('INSTALL_TEST_TITLE'), $results);
+  $component_tests = new test_summary( str('EXTRAS_TEST_TITLE'), $results);
+  $component_tests->fail_icon('question.png');
   
   # ----------------------
   # SwissCenter configuration Tests
   # ----------------------
                            
-  $swiss = $test_page->add_section("SwissCenter",4);
+  $swiss = $core_tests->add_section("SwissCenter",4);
 
   // It only makes sense to check for root installations on UNIX.
   if (is_unix())
-    $test_page->add_test( $swiss, "SWISS root install", str("PASS_SWISS_ROOT_INS"), str("ROOT_INSTALL_TEXT"));
+    $core_tests->add_test( $swiss, "SWISS root install", str("PASS_SWISS_ROOT_INS"), str("ROOT_INSTALL_TEXT"));
 
-  $test_page->add_test( $swiss, "SWISS write root", str("PASS_SWISS_RW_FILES"), str("MISSING_PERMS_TEXT"));
-  $test_page->add_test( $swiss, "SWISS ini file", str("PASS_SWISS_INI"), str("FAIL_SWISS_INI"));
-  $test_page->add_test( $swiss, "SWISS write log", str("PASS_SWISS_LOG"), str("FAIL_SWISS_LOG", logfile_location()) );
+  $core_tests->add_test( $swiss, "SWISS write root", str("PASS_SWISS_RW_FILES"), str("MISSING_PERMS_TEXT"));
+  $core_tests->add_test( $swiss, "SWISS ini file", str("PASS_SWISS_INI"), str("FAIL_SWISS_INI"));
+  $core_tests->add_test( $swiss, "SWISS write log", str("PASS_SWISS_LOG"), str("FAIL_SWISS_LOG", logfile_location()) );
                       
-  if ( $test_page->test_result('MYSQL database'))
-    $test_page->add_test( $swiss, "SWISS media locs", str("PASS_SWISS_LOCS"), str("FAIL_SWISS_LOCS"));
+  if ( $results->result('MYSQL database'))
+    $core_tests->add_test( $swiss, "SWISS media locs", str("PASS_SWISS_LOCS"), str("FAIL_SWISS_LOCS"));
 
   # ----------------------
   # PHP Tests
   # ----------------------
   
-  $php = $test_page->add_section("PHP",2);
+  $php = $core_tests->add_section("PHP",2);
   
   if (! is_server_simese() || version_compare(simese_version(),'1.31','<') )
-    $test_page->add_test( $php, "PHP cli", str("PASS_PHP_CLI"), str("FAIL_PHP_CLI" ) );    
+    $core_tests->add_test( $php, "PHP cli", str("PASS_PHP_CLI"), str("FAIL_PHP_CLI" ) );    
 
-  $test_page->add_test( $php, "PHP version", str("PASS_PHP_VERSION"), str("FAIL_PHP_VERSION",phpversion()) );
-  $test_page->add_test( $php, "PHP ini file", str("PASS_PHP_INI"), str("FAIL_PHP_INI"));
-  $test_page->add_test( $php, "PHP required mods", str("PASS_PHP_REQ_MODS"), str("FAIL_PHP_REQ_MODS", implode(', ',get_required_modules_list())) );
-  $test_page->add_test( $php, "PHP suggested mods", str("PASS_PHP_EXTRA_MODS"), str("FAIL_PHP_EXTRA_MODS", implode(', ',get_suggested_modules_list())) );
-  $test_page->add_test( $php, "PHP fonts", str("PASS_PHP_FONTS"), str("FAIL_PHP_FONTS") );
+  $core_tests->add_test( $php, "PHP version", str("PASS_PHP_VERSION"), str("FAIL_PHP_VERSION",phpversion()) );
+  $core_tests->add_test( $php, "PHP ini file", str("PASS_PHP_INI"), str("FAIL_PHP_INI"));
+  $core_tests->add_test( $php, "PHP required mods", str("PASS_PHP_REQ_MODS"), str("FAIL_PHP_REQ_MODS", implode(', ',get_required_modules_list())) );
+  $core_tests->add_test( $php, "PHP suggested mods", str("PASS_PHP_EXTRA_MODS"), str("FAIL_PHP_EXTRA_MODS", implode(', ',get_suggested_modules_list())) );
+  $core_tests->add_test( $php, "PHP fonts", str("PASS_PHP_FONTS"), str("FAIL_PHP_FONTS") );
 
   # ----------------------
   # MySQL Tests
@@ -205,28 +245,34 @@ function check_display()
   # If there is no swisscenter.ini file present, then we will not be able to connect to the database
   # because that is where the connection details are stored.
 
-  if ( $test_page->test_result('SWISS ini file'))
+  if ( $results->result('SWISS ini file'))
   {                         
-    $mysql = $test_page->add_section("MySQL",3);
+    $mysql = $core_tests->add_section("MySQL",3);
   
-    $test_page->add_test( $mysql, "MYSQL connect", str("PASS_MYSQL_CONNECT"), str("FAIL_MYSQL_CONNECT"));  
-    $test_page->add_test( $mysql, "MYSQL version", str("PASS_MYSQL_VERSION"), str("FAIL_MYSQL_VERSION"));
-    $test_page->add_test( $mysql, "MYSQL database", str("PASS_MYSQL_DB"), str("FAIL_MYSQL_DB"));
+    $core_tests->add_test( $mysql, "MYSQL connect", str("PASS_MYSQL_CONNECT"), str("FAIL_MYSQL_CONNECT"));  
+    $core_tests->add_test( $mysql, "MYSQL version", str("PASS_MYSQL_VERSION"), str("FAIL_MYSQL_VERSION"));
+    $core_tests->add_test( $mysql, "MYSQL database", str("PASS_MYSQL_DB"), str("FAIL_MYSQL_DB"));
   }
                       
   # ----------------------
   # Webserver Tests
   # ----------------------
 
-  $server = $test_page->add_section("Webserver",1);
+  $server = $core_tests->add_section("Webserver",1);
+  $core_tests->add_test( $server, "SERVER scheduler", str("PASS_SERVER_SCHED"), str("FAIL_SERVER_SCHED"));
 
-  $test_page->add_test( $server, "SERVER scheduler", str("PASS_SERVER_SCHED"), str("FAIL_SERVER_SCHED"));
-                           
+  # ----------------------
+  # Extra component tests
+  # ----------------------
+
+  $musicip = $component_tests->add_section("MusicIP",1);
+  $component_tests->add_test( $musicip,"MUSICIP api",str('PASS_MUSICIP_TEST'),str('FAIL_MUSICIP_TEST').'<p>'.str('MIP_DESC','<a href="www.musicip.com">www.musicip.com</a>'));
+
   # ----------------------
 
   # Display test results
-  $test_page->display();
-
+  $core_tests->display();
+  $component_tests->display();
 }
 
 /**************************************************************************************************

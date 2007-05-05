@@ -28,7 +28,8 @@ require_once( realpath(dirname(__FILE__).'/../base/musicip.php'));
     $opts_type = array( str('TRACKS')=>'tracks',str('MINUTES')=>'min');
 
     message($message_musicip);      
-    echo str('MIP_DESC','<a href="www.musicip.com">www.musicip.com</a>');
+    echo '<b>'.str('MIP_WHATIS').'</b>';
+    echo '<p>'.str('MIP_DESC','<a href="www.musicip.com">www.musicip.com</a>');
 
     form_start('index.php');
     form_hidden('section','AUDIO');

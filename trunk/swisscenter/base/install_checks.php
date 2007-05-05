@@ -20,6 +20,7 @@
 require_once( realpath(dirname(__FILE__).'/settings.php'));
 require_once( realpath(dirname(__FILE__).'/file.php'));
 require_once( realpath(dirname(__FILE__).'/image.php'));
+require_once( realpath(dirname(__FILE__).'/musicip.php'));
 
 #-------------------------------------------------------------------------------------------------
 # PHP checks
@@ -296,6 +297,7 @@ Function get_check_results()
   $results['SWISS root install']     = check_not_root_install();
   $results['SWISS media locs']       = check_swiss_media_locations();
   $results['SERVER scheduler']       = check_server_scheduler();
+  $results['MUSICIP api']            = musicip_available();
 
   return $results;
 }
