@@ -473,7 +473,6 @@ EXIFVALS_EXP_PROG	= Manual, Program, Apeture Priority, Shutter Priority, Program
 EXIFVALS_FLASH		= Did not fire, Fired
 EXIFVALS_LIGHT_SOURCE	= Unknown, Daylight, Fluorescent, Tungsten (incandescent), Flash, Fine Weather, Cloudy Weather, Share, Daylight Fluorescent, Day White Fluorescent, Cool White Fluorescent, White Fluorescent, Standard Light A, Standard Light B, Standard Light C, D55, D65, D75, D50, ISO Studio Tungsten
 EXIFVALS_METER_MODE	= Unknown, Average, Centre Weighted, Spot, Multi-Spot, Pattern, Partial
-EXIFVALS_ORIENTATION	= Normal (0 deg), Mirrored, Upsidedown, Upsidedown & Mirrored
 EXIFVALS_SCENE_TYPE	= Standard, Landscape, Portrait, Night Scene
 EXIFVALS_WHITE_BALANCE	= Auto, Manual
 
@@ -650,6 +649,9 @@ MIP_MIX_SONG               = Play similar trackts
 EXTRAS_TEST_TITLE          = Additional Components
 FAIL_MUSICIP_TEST          = MusicIP is not installed (or configured correctly).
 PASS_MUSICIP_TEST          = MusicIP service detected.
+
+# EXIF orientation values (see http://www.swisscenter.co.uk/components/com_mambowiki/index.php?title=EXIF_metadata_within_pictures)
+EXIFVALS_ORIENTATION	   = Normal, Flip Horizontal, Rotate 180, Flip Vertical, Transpose, Rotate Right, Transverse, Rotate Left
 
 #----------------------------------------------------------------------------------------------------
 # End-of-file

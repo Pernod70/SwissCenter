@@ -166,7 +166,6 @@
       $bookmark = "NULL";
       
     fclose($fh);
-    // Put SQL command to update the amount of file served here (on a per-user basis)
   }
   
   //*************************************************************************************************

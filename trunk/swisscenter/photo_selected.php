@@ -9,6 +9,7 @@
   require_once( realpath(dirname(__FILE__).'/base/playlist.php'));
   require_once( realpath(dirname(__FILE__).'/base/rating.php'));
   require_once( realpath(dirname(__FILE__).'/base/search.php'));
+  require_once( realpath(dirname(__FILE__).'/ext/exif/exif_reader.php'));
 
   //*************************************************************************************************
   // Build page elements
@@ -27,7 +28,7 @@
   if ($count == 1)
   {
     $pic   = array_pop(db_toarray("select * from $sql_table $predicate"));
-    $flash = explode(',',$pic['EXIF_FLASH']);
+    $flash = explode(',',exif_val('Flash',$pic['EXIF_FLASH']));
 
     // Stop the make from appearing twice (such as "Canon Canon EOS 10D").
     if (!empty($pic['EXIF_MAKE']) && strpos( strtolower($pic['EXIF_MODEL']),strtolower($pic['EXIF_MAKE'])) !== false)
@@ -41,11 +42,11 @@
                                                                        , $pic['EXIF_FOCAL_LENGTH']));
 
     $info->add_item(str('EXIF_ISO')            ,$pic['EXIF_ISO']);
-    $info->add_item(str('EXIF_WHITE_BALANCE')  ,$pic['EXIF_WHITE_BALANCE']);
-    $info->add_item(str('EXIF_LIGHT_SOURCE')   ,$pic['EXIF_LIGHT_SOURCE']);
-    $info->add_item(str('EXIF_EXPOSE_PROG')    ,$pic['EXIF_EXPOSURE_PROG']);
-    $info->add_item(str('EXIF_METER_MODE')     ,$pic['EXIF_METER_MODE']);
-    $info->add_item(str('EXIF_SCENCE_CAPTURE') ,$pic['EXIF_CAPTURE_TYPE']);
+    $info->add_item(str('EXIF_WHITE_BALANCE')  ,exif_val('WhiteBalance',$pic['EXIF_WHITE_BALANCE']));
+    $info->add_item(str('EXIF_LIGHT_SOURCE')   ,exif_val('LightSource',$pic['EXIF_LIGHT_SOURCE']));
+    $info->add_item(str('EXIF_EXPOSE_PROG')    ,exif_val('ExpProg',$pic['EXIF_EXPOSURE_PROG']));
+    $info->add_item(str('EXIF_METER_MODE')     ,exif_val('MeterMode',$pic['EXIF_METER_MODE']));
+    $info->add_item(str('EXIF_SCENCE_CAPTURE') ,exif_val('SceneCaptureType',$pic['EXIF_CAPTURE_TYPE']));
     $info->add_item(str('EXIF_FLASH')          ,$flash[0]);
 
     $menu->add_item(str('START_SLIDESHOW'), play_sql_list(MEDIA_TYPE_PHOTO,"select media.* from $sql_table $predicate order by $play_order") );

@@ -7,6 +7,7 @@
   require_once( realpath(dirname(__FILE__).'/base/image.php'));
   require_once( realpath(dirname(__FILE__).'/base/stylelib.php'));
   require_once( realpath(dirname(__FILE__).'/base/users.php'));
+  require_once( realpath(dirname(__FILE__).'/ext/exif/exif_reader.php'));
 
   //------------------------------------------------------------------------------------------------
   // Output multiple lines of text
@@ -92,29 +93,27 @@
   if (!empty($info["EXIF_WHITE_BALANCE"]))
   {
     $image->text(str('EXIF_WHITE_BALANCE'),  $text_x, $text_y, $title_text_col, $detail_text_size);
-    wrap($image, $info["EXIF_WHITE_BALANCE"], $text_x+20, $text_y+=($detail_text_size), $text_width, $detail_text_col, $detail_text_size);
+    wrap($image, exif_val('WhiteBalance',$info["EXIF_WHITE_BALANCE"]), $text_x+20, $text_y+=($detail_text_size), $text_width, $detail_text_col, $detail_text_size);
   }
 
   // Light Source
   if (!empty($info["EXIF_LIGHT_SOURCE"]))
   {
     $image->text(str('EXIF_LIGHT_SOURCE'),  $text_x, $text_y, $title_text_col, $detail_text_size);
-    wrap($image, $info["EXIF_LIGHT_SOURCE"], $text_x+20, $text_y+=($detail_text_size), $text_width, $detail_text_col, $detail_text_size);
+    wrap($image, exif_val('LightSource',$info["EXIF_LIGHT_SOURCE"]), $text_x+20, $text_y+=($detail_text_size), $text_width, $detail_text_col, $detail_text_size);
   }
 
     // Exposure Program
   if (!empty($info["EXIF_EXPOSURE_PROG"]))
   {
     $image->text(str('EXIF_EXPOSE_PROG'),  $text_x, $text_y, $title_text_col, $detail_text_size);
-    wrap($image, $info["EXIF_EXPOSURE_PROG"], $text_x+20, $text_y+=($detail_text_size), $text_width, $detail_text_col, $detail_text_size);
+    wrap($image, exif_val('ExpProg',$info["EXIF_EXPOSURE_PROG"]), $text_x+20, $text_y+=($detail_text_size), $text_width, $detail_text_col, $detail_text_size);
   }
 
     /*
-    $flash = explode(',',$pic['EXIF_FLASH']);
-    $info->add_item(str('EXIF_LIGHT_SOURCE')   ,$pic['EXIF_LIGHT_SOURCE']);
-    $info->add_item(str('EXIF_EXPOSE_PROG')    ,$pic['EXIF_EXPOSURE_PROG']);
-    $info->add_item(str('EXIF_METER_MODE')     ,$pic['EXIF_METER_MODE']);
-    $info->add_item(str('EXIF_SCENCE_CAPTURE') ,$pic['EXIF_CAPTURE_TYPE']);
+    $flash = explode(',',exif_val('Flash',$pic['EXIF_FLASH']));
+    $info->add_item(str('EXIF_METER_MODE')     ,exif_val('MeterMode',$pic['EXIF_METER_MODE']));
+    $info->add_item(str('EXIF_SCENCE_CAPTURE') ,exif_val('SceneCaptureType',$pic['EXIF_CAPTURE_TYPE']));
     $info->add_item(str('EXIF_FLASH')          ,$flash[0]);
 */
   // Output picture

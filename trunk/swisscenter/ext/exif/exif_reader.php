@@ -11,6 +11,55 @@
 
 ************************************************************************************************/ 
 
+// ************************************************************************************************
+// The following variables and functions take an EXIF tag name and value and return the appropriate
+// textual description from the CSV values stored in the language file (for display to the user).
+// ************************************************************************************************
+
+// data for EXIF enumeations
+$exif_enum = array ( "Orientation"          => explode(',' ,  ','.str('EXIFVALS_ORIENTATION').',,,')
+                   , "ExpProg"              => explode(',' ,  ','.str('EXIFVALS_EXP_PROG'))
+                   , "LightSource"          => explode(',' ,  str('EXIFVALS_LIGHT_SOURCE'))
+                   , "MeterMode"            => explode(',' ,  str('EXIFVALS_METER_MODE'))
+                   , "ExposureMode"         => explode(',' ,  str('EXIFVALS_EXPOSE_MODE'))
+                   , "WhiteBalance"         => explode(',' ,  str('EXIFVALS_WHITE_BALANCE'))
+                   , "SceneCaptureType"     => explode(',' ,  str('EXIFVALS_SCENE_TYPE'))
+                   , "FlashFired"           => explode(',' ,  str('EXIFVALS_FLASH')) );
+                   
+// Checks for an enumeration called $tname and returned the value $tvalue from the enumeration.
+//  - If no enumeration exists then the default value is returned.
+//  - If no default was specified, then the actual value (number) is returned.
+
+function exif_val($tag_name, $value, $default = false)
+{
+  // Use the global variable - faster than repeatedly filling a new array for multiple calls.
+  global $exif_enum;
+  
+  // "Flash" is actually a synonym for a collection of flash attributes.
+  if ($tag_name == 'Flash')
+  {
+    $bin = str_pad(decbin($value), 8, "0",STR_PAD_LEFT);
+  
+    return exif_val("FlashFired",substr($bin, 7, 1), '') 
+  	     . exif_val("FlashStrobe",substr($bin, 5, 2), '') 
+  	     . exif_val("FlashMode",substr($bin, 3, 2), '')
+  	     . exif_val("RedEye",substr($bin, 8, 1), '') ;    
+  }
+  else 
+  {
+    if ( isset($exif_enum[$tag_name][$value]) )
+      return $exif_enum[$tag_name][$value];
+    elseif ( $default !== false)
+      return $default;
+    else
+     return $value;
+  }
+}
+
+// ************************************************************************************************
+// Routines for reading an image file and extractingthe EXIF data from it.
+// ************************************************************************************************
+
 $exif_data = array();
 
 // Tag names
@@ -47,18 +96,6 @@ $exif_tags = array ( 0x000b => "ACDComment"                 , 0x00fe => "ImageTy
                    , 0xa408 => "Contrast"                   , 0xa409 => "Saturation"
                    , 0xa40a => "Sharpness"                  , 0xa40c => "SubjectDistanceRange");
 
-
-// data for EXIF enumeations
-$exif_enum = array ( "Orientation"          => explode(',' ,  ','.str('EXIFVALS_ORIENTATION').',,,')
-                   , "ExpProg"              => explode(',' ,  ','.str('EXIFVALS_EXP_PROG'))
-                   , "LightSource"          => explode(',' ,  str('EXIFVALS_LIGHT_SOURCE'))
-                   , "MeterMode"            => explode(',' ,  str('EXIFVALS_METER_MODE'))
-                   , "ExposureMode"         => explode(',' ,  str('EXIFVALS_EXPOSE_MODE'))
-                   , "WhiteBalance"         => explode(',' ,  str('EXIFVALS_WHITE_BALANCE'))
-                   , "SceneCaptureType"     => explode(',' ,  str('EXIFVALS_SCENE_TYPE'))
-                   , "FlashFired"           => explode(',' ,  str('EXIFVALS_FLASH')) );
-
-                   
 // Returns one byte from the file (as a numnber)
 function fgetord($fp)
 {
@@ -116,37 +153,6 @@ function getrational($data, $align, $type)
 }
 
 // ------------------------------------------------------------------------------------------------
-// Checks for an enumeration called $tname and returned the value $tvalue from the enumeration.
-// If no enumeration exists and $default is false, then the value itself is returned,
-// If no enumeration exists and $default is specified, then $default is returned.
-// ------------------------------------------------------------------------------------------------
-
-function enumvalue($tname, $tvalue, $default = false)
-{
-  global $exif_enum;
-  if ( isset($exif_enum[$tname][$tvalue]) )
-    return $exif_enum[$tname][$tvalue];
-  elseif ( $default !== false)
-    return $default;
-  else
-   return $tvalue;
-}
-
-// ------------------------------------------------------------------------------------------------
-// Takes the flash value, splits it up into its component bits and returns the string it represents
-// ------------------------------------------------------------------------------------------------
-
-function flashvalue($dec)
-{
-  $bin = str_pad(decbin($dec), 8, "0",STR_PAD_LEFT);
-
-  return enumvalue("FlashFired",substr($bin, 7, 1), '') 
-	     . enumvalue("FlashStrobe",substr($bin, 5, 2), '') 
-	     . enumvalue("FlashMode",substr($bin, 3, 2), '')
-	     . enumvalue("RedEye",substr($bin, 8, 1), '') ;
-}
-
-// ------------------------------------------------------------------------------------------------
 // Takes a tag id along with the format, data and length of the data and deals with it.
 // ------------------------------------------------------------------------------------------------
 
@@ -161,7 +167,7 @@ function dealwithtag($tag, $format, $data, $length, $align, &$exif_info)
 			break;
 		case 4: // ULONG
 		case 9: // SLONG
-			$val = enumvalue($exif_tags[$tag], getnumber($data, 0, 4, $align));
+			$val = getnumber($data, 0, 4, $align);
 			break;
 		case 3: // USHORT
 		case 8: // SSHORT
@@ -169,7 +175,7 @@ function dealwithtag($tag, $format, $data, $length, $align, &$exif_info)
 			{
 				case 0x9209:
 				  $num = getnumber($data, 0, 2, $align);
-					$val = array( str_pad(decbin($num), 8, '0',STR_PAD_LEFT), flashvalue($num));
+					$val = array( str_pad(decbin($num), 8, '0',STR_PAD_LEFT), $num);
 					break;
 				case 0x9214:
 					break;
@@ -178,7 +184,7 @@ function dealwithtag($tag, $format, $data, $length, $align, &$exif_info)
 					$val = ($tmp == 1 ? "sRGB" : "Uncalibrated");
 					break;
 				default:
-					$val = enumvalue($exif_tags[$tag], getnumber($data, 0, 2, $align));
+					$val = getnumber($data, 0, 2, $align);
 					break;
 			} 
 			break;

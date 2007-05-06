@@ -92,10 +92,14 @@ function download_new_messages()
     // Add the messages to the database
     if (!empty($messages))
     {
-      foreach (unserialize($messages) as $mesg)
+      $mesg_array = unserialize($messages);
+      if (count($mesg_array)>0)
       {
-        unset ($mesg["MESSAGE_ID"]);
-        db_insert_row('messages',$mesg);
+        foreach ($mesg_array as $mesg)
+        {
+          unset ($mesg["MESSAGE_ID"]);
+          db_insert_row('messages',$mesg);
+        }
       }
     }
     
