@@ -12,9 +12,11 @@
   $style    = rawurldecode($_REQUEST["name"]);
   $dir      = SC_LOCATION.'styles/'.$style.'/';
   $filename = SC_LOCATION.'_tmp_style.zip';
+  $zipfile  = str_replace(' ','%20','http://update.swisscenter.co.uk/styles/'.$style.'.zip');
+  send_to_log(5,'User has requested a download of the style "'.$style.'"');
   
   // First attempt to get the style
-  if ( ($zip = file_get_contents('http://update.swisscenter.co.uk/styles/'.$style.'.zip')) !== false)
+  if ( ($zip = file_get_contents($zipfile)) !== false)
   {
     // Write the zipfile to a temporary file
     write_binary_file($filename,$zip);
@@ -40,6 +42,7 @@
             $buf = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));  
             zip_entry_close($zip_entry);
             write_binary_file($dir.$ze_filename,$buf);
+            send_to_log(8,'Extracting file from zipfile : '.$dir.$ze_filename);
           }
         }
         zip_close($fh);
@@ -55,6 +58,8 @@
     // Delete temporary file
     unlink($filename);
   }
+  else 
+    send_to_log(1,'Unable to download the style',array("Style Name"=>$style,"Zipfile"=>$zipfile));
   
   // Set the style in the swssion, and redirect back to the main style page.
   set_user_pref('style',$style);
