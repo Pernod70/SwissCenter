@@ -1,0 +1,635 @@
+#----------------------------------------------------------------------------------------------------
+# Swisscenter language file 
+# -------------------------
+#
+# A swisscenter languiage file consists of a mapping from internal program ID (eg: "ADD_PLAYLIST") 
+# to the actual text that should be displayed to the user (eg: "Add to your playulist") as follows:
+# 
+#   <ID> = <text>
+#
+# NOTE: The text cannot span multiple lines. If a line break or paragraph break are required within
+#       the text then markup tags should be used (see below).
+#
+# The <text> may contain a limited number of markup tags which are indicated by square brackets
+# and perform an identical function to their HTML counterparts. The following tags are supported:
+#
+#  [br][/br]  [em][/em]  [p][/p]  [b][/b]  [i][/i]  [li][/li]  [ul][\ul]  [ol][/ul]
+#
+
+# In some circumstances, other text may need to be substituted within the text. Placeholders for
+# the position within the string where the substitution occurs are indicated with '%s'.
+#
+# EG: In the ID below, the number of tracks that has been found within the database is substituted 
+# for the %s within the string... so a search returning 4 tracks would be displayed to the user 
+# as "4 Tracks"
+#
+#   MANY_TRACKS= %s Tracks
+# 
+# Finally, Lines that begin with a hash (#) are considered to be comments and are ignored.
+#
+#----------------------------------------------------------------------------------------------------
+
+# The language contained within this file
+
+LANGUAGE		= Deutsch
+
+# Translated by Bernhard Gschwantner, swisscenter.co.uk@datenbankdesign.com
+
+# Mappings
+
+ACCESS_DENIED		= Zugriff verweigert
+ACTOR			= Darsteller
+ADD_PLAYLIST		= Zur Playliste hinzuf&uuml;gen
+ALBUM			= Album
+ANYWHERE_IN_NAME	= Im gesamten Namen
+ARTIST			= Interpret
+ART_ADDED_OK		= Cover-Datei hinzugef&uuml;gt 
+ART_DELETE_OK		= Die ausgew&auml;hlten Dateien wurden gel&ouml;scht
+ART_ERROR_FILENAME	= Bitte geben Sie einen Dateinamen ein
+ART_ERROR_FILETYPE	= Nur Dateinamen mit den Endungen JPG, JPEG, GIF or PNG sind g&uuml;ltig
+ART_ERROR_QUOTE		= Dateinamen d&uuml;rfen keine Anf&uuml;hrungszeichen beinhalten
+ART_ERROR_SLASH		= Dateinamen d&uuml;rfen keine Verzeichnisreferenzen beinhalten
+ART_FILENAME_PROMPT	= Bitte geben Sie die Namen aller Bilddateien an, die als Album-/Filmcover verwendet werden sollen, wenn Sie in einem Medien-Verzeichnis gefunden werden.
+ART_FILES_ADD_BUTTON	= Dateinamen hinzuf&uuml;gen
+ART_FILES_ADD_TITLE	= Einen Dateinamen hinzuf&uuml;gen
+ART_FILES_CURRENT	= Aktuelle Coverdateien
+ART_FILES_DEL_BUTTON	= Ausgew&auml;hlte Dateien l&ouml;schen
+ART_FILES_PROMPT	= [em]Album-/Film-Cover-[/em]Dateien sind die Namen von Bilddateien, die SwissCenter darstellen soll, wenn Sie eine Listenansicht gew&auml;hlt haben (Filmliste, Musikliste, etc.), oder wenn Sie ein Album oder einen Film gew&auml;hlt haben.[p] Wenn mindestens eine der Dateien, die Sie hier angegeben haben, innerhalb eines Ordners gefunden wird, wird die erste gefundene in der SwissCenter-Oberfl&auml;che dargestellt.
+ART_FILES_TITLE		= Album-/Filmcover
+ART_ID3_TAG		= ID3-Tag Covers
+ART_ID3_TAG_PROMPT	= Wenn ein Album-Cover im ID3-Tag einer Musikdatei gefunden wird, dann wird es extrahiert und in der Datenbank als bevorzugtes Cover f&uuml;r die SwissCenter-Oberfl&auml;che gespeichert. Da dadurch die Datenbank sehr gro&szlig; werden kann, k&ouml;nnen Sie diese Funktion hier deaktivieren, wenn Sie wollen.
+ART_UPDATE_OK		= Cover-Informationen aktualisiert
+AUTOMATIC		= Automatisch
+BROWSE_ACTOR		= Nach Darsteller
+BROWSE_ALBUM		= Nach Albumname
+BROWSE_ARTIST		= Nach Interpret
+BROWSE_CERTIFICATE	= Nach Zertifikat
+BROWSE_DIRECTOR		= Nach Regisseur
+BROWSE_FILESYSTEM	= In Ordnern bl&auml;ttern
+BROWSE_GENRE		= Nach Genre
+BROWSE_MOVIES		= In Filmliste bl&auml;ttern
+BROWSE_MUSIC		= In Musikliste bl&auml;ttern
+BROWSE_PHOTOS		= In Fotoliste bl&auml;ttern
+BROWSE_TITLE		= Nach Titel
+BROWSE_TRACK		= Nach Trackname
+BROWSE_YEAR		= Nach Jahr
+CACHE_CONFIG_TITLE	= Bilder-Cache
+CACHE_DIR		= Cache-Ordner
+CACHE_DIR_PROMPT	= Bitte geben Sie das Verzeichnis an, in dem der SwissCenter-Server die Bilddateien zwischenspeichern soll, die verkleinert wurden (zum Beispiel ein Albumcover oder die Voransicht eines Fotos)
+CACHE_ERROR_FULL_DIR	= Bitte geben Sie den kompletten Pfad zum Ordner an
+CACHE_ERROR_MISSING	= Bitte geben Sie einen Cache-Ordner an
+CACHE_ERROR_NOT_EXIST	= Der angegebene Ordner existiert nicht
+CACHE_ERROR_NOT_NUMBER	= Der Wert, den Sie als Cache-Gr&ouml;&szlig;e angegeben haben, ist keine Zahl
+CACHE_ERROR_SIZE	= Bitte geben Sie eine Gr&ouml;&szlig;e f&uuml;r den Cache an (oder 0 f&uuml;r unbegrenzten Speicher)
+CACHE_ERROR_SMALL	= Die angegebene Cache-Gr&ouml;&szlig;e ist zu klein
+CACHE_SIZE		= Maximalgr&ouml;&szlig;e
+CACHE_SIZE_PROMPT	= Der maximale Platz auf der Festplatte (in Megabytes), der zum Zwischenspeichern der Bilddateien verwendet wird (Ein Wert von 0 bedeutet unbegrenzten Speicherplatz) Wenn dieser Maximalwert erreicht wurde, werden die Dateien zuerst gel&ouml;scht, die am l&auml;ngsten nicht mehr angesehen wurden.
+CATEGORIES		= Kategorien
+CATEGORY		= Kategorie
+CATEGORY_LIST_ALL	= Alle Kategorien
+CATEGORY_PROMPT		= Wenn Sie Kategorien angeben, k&ouml;nnen Sie Mediendateien leichter in logische Gruppen einteilen, beispielsweise "H&ouml;rb&uuml;cher", "Sprachkurse" oder "Allgemein". Unter anderem haben Sie so die M&ouml;glichkeit, Ihre Lieblingsmusik in zuf&auml;lliger Reihenfolge zu h&ouml;ren, ohne da&szlig; Kapitel eines H&ouml;rbuchs zur Playliste hinzugef&uuml;gt werden.
+CAT_ADDED_OK		= Kategorie hinzugef&uuml;gt
+CAT_ADD_BUTTON		= Kategorie hinzuf&uuml;gen
+CAT_ADD_TITLE		= Eine neue Kategorie hinzuf&uuml;gen
+CAT_DELETE_OK		= Die ausgew&auml;hlten Kategorien wurden entfernt
+CAT_DEL_BUTTON		= Ausgew&auml;hlte Kategorien ausw&auml;hlen
+CAT_ERROR_DELETE	= Die Kategorie %s kann nicht entfernt werden
+CAT_ERROR_EXISTS	= Der Kategoriename existiert bereits
+CAT_ERROR_NAME		= Bitte geben Sie einen Kategorienamen an
+CAT_UPDATE_OK		= Die Kategorie wurde aktualisiert
+CERTIFICATE		= Zertifikat
+CLEAR_NAME		= Namen l&ouml;schen
+CONFIGURATION		= Konfiguration
+CONFIG_DB_CREATE	= Datenbank erstellen
+CONFIG_DB_CREATE_TXT    = In diesem Bildschirm k&ouml;nnen Sie die SwissCenter-Datenbank erstellen und bef&uuml;llen. Die Parameter, die f&uuml;r die Erstellung der Datenbank benutz werden, werden weiter unten angezeigt.
+CONFIG_DB_ERROR		= Kann nicht auf die Datenbank zugreifen - sind Ihre [em]Datenbank-Konfigurations-[/em]Parameter korrekt?
+CONFIG_DB_ROOT_PW	= Pa&szlig;wort f&uuml;r "Root" 
+CONFIG_DB_ROOT_PW_TXT   = Wenn Sie keinen Wert f&uuml;r das [em]root[/em]-Pa&szlig;wort w&auml;hrend der Installation von MySQL angegeben haben, dann ist es wahrscheinlich leer, und Sie k&ouml;nnen das Feld leer lassen.[p][em]Bitte beachten Sie: Die Erstellung der Datebank kann einige Minuten dauern -bitte um Geduld![/em]
+CONFIG_TITLE            = SwissCenter Konfigurationsprogramm
+CONNECT_TEXT		= Einige Funktionen innerhalb der SissCenter-Oberfl&auml;che verwenden eine Verbindung zum Internet, um entweder Informationen zu aktualisieren (beispielsweise Wettervorhersagen), oder regelm&auml;&szlig;ig nach neuen Informationen zu suchen (wie zum Beispiel neue Updates)
+CONNECT_TITLE		= Verbindung
+CONTINUE		= Fortsetzen
+CUSTOM			= Eigener Wert
+DATABASE_ERROR		= Ein Datenbankfehler ist aufgetreten
+DATABASE_NAME		= Datenbankname
+DATABASE_NOCONNECT	= Keine Verbindung mit MySQL mit den angegebenen Daten f&uuml;r Host, Benutzername und Pa&szlig;wort
+DATABASE_NOSELECT	= Verbindung zu MySQL aufgebaut, aber die Datenbank konnte nicht ge&ouml;ffnet werden
+DATE			= Datum
+DAY_1			= Mo.
+DAY_2			= Di.
+DAY_3			= Mi.
+DAY_4			= Do.
+DAY_5			= Fr.
+DAY_6			= Sa.
+DAY_7			= So.
+DB_CREATE_DB_ERR	= Datenbank konnte nicht erstellt werden - bitte &uuml;berpr&uuml;fen Sie das Pa&szlig;wort f&uuml;r den MySQL-"Root"-Benutzer
+DB_CREATE_USER_ERR	= Benutzer konnte nicht erstellt werden - bitte &uuml;berpr&uuml;fen Sie das Pa&szlig;wort f&uuml;r den MySQL-"Root"-Benutzer
+
+DETAILS_CLEAR		= Details l&ouml;schen
+DETAILS_CLEARED_OK	= Details gel&ouml;scht
+DETAILS_EDIT		= Details bearbeiten
+DIRECTOR		= Regisseur
+DISABLED		= Deaktiviert
+DOWNLOADING		= Wird heruntergeladen...
+ENABLED			= Aktiviert
+EXTRA_REFRESH_DETAILS	= Wenn es notwendig sein sollte, da&szlig; Sie alle Filminformationen aus dem Internet aktualisieren m&uuml;ssen, dann k&ouml;nnen Sie das tun, indem Sie den Button unten anklicken.
+EXTRA_REFRESH_GO	= Alle Zusatzinformationen aktualisieren
+EXTRA_REFRESH_TITLE	= Zusatzinformationen aktualisieren
+EXTRA_REFRESH_WARNING	= Achtung - bitte beachten Sie, da&szlig; alle Informationen verloren gehen, die Sie manuell auf der Seite %s eingegeben oder ge&auml;ndert haben.
+FILENAME		= Dateiname
+FILE_EXISTS		= WARNUNG: Eine Datei mit demselben Namen existiert bereits! Wenn Sie jetzt speichern, &uuml;berschreiben Sie diese Datei.
+FINISHED		= Beendet
+GENRE			= Genre
+HOME			= Home
+HOUR			= Stunde
+INFORMATION 		= Information
+INTERNET_RADIO		= Internet-Radio
+INTERNET_RADIO_PROMPT	= Verbindungen zu einzelnen Internet-Radiostationen werden direkt vom ShowCenter aufgebaut, wenn ein Benutzer eine Station w&auml;hlt.Wenn Ihr ShowCenter keinen direkten Internetzugang hat, dann sollten Sie diese Funktion deaktivieren.
+LANG_CHANGE		= Sprache wechseln
+LANG_SELECT		= Bitte w&auml;hlen Sie die gew&uuml;nschte Sprache
+LISTEN_MUSIC		= Musik
+LISTEN_RADIO		= Internet-Radio
+LIST_VIEW		= Listenansicht
+LOCATION		= Ort
+LOCATION_PROMPT		= Bitte geben Sie den gesamten Pfad zum Ordner an, in dem sich die Mediendateien befinden. Z.B.: Unter Windows k&ouml;nnten diese Angaben so lauten: [em]"C:\Dokumente und Einstellungen\Robert\Eigene Dateien\Eigene Musik"[/em], auf einem Linux-Rechner beispielsweise [em]"/home/Robert/Musik"[/em]
+LOGFILE_ERROR		= Kann Protokolldatei nicht schreiben:
+LOWERCASE		= Kleinbuchstaben
+MACHINE_NAME		= Name des Rechners
+MAIN_MENU		= Hauptmen&uuml;
+MANAGE_PLAYLISTS	= Playlisten
+MANY_ITEMS		= %s Eintr&auml;ge
+MANY_TRACKS		= %s Tracks
+MEDIA_LOCATIONS		= Medienordner
+MEDIA_LOC_ADD_BUTTON	= Ordner hinzuf&uuml;gen
+MEDIA_LOC_ADD_OK	= Ordner hinzugef&uuml;gt
+MEDIA_LOC_ADD_TITLE	= Einen neuen Ordner hinzuf&uuml;gen
+MEDIA_LOC_DEL_BUTTON	= Ausgew&auml;hlte Ordner entfernen
+MEDIA_LOC_DEL_OK	= Die ausgew&auml;hlten Ordner wurden entfernt
+MEDIA_LOC_ERROR_CAT	= Bitte w&auml;hlen Sie eine Kategorie
+MEDIA_LOC_ERROR_CERT	= Bitte w&auml;hlen Sie ein Zertifikat f&uuml;r unkategorisierte Medien
+MEDIA_LOC_ERROR_DIRFAIL	= Der Ordner existiert nicht
+MEDIA_LOC_ERROR_LOC	= Bitte geben Sie einen Medienordner ein
+MEDIA_LOC_ERROR_PATH 	= Bitte geben Sie einen kompletten Pfad zum Medienordner ein
+MEDIA_LOC_ERROR_TYPE	= Bitte w&auml;hlen Sie einen Medientyp aus
+MEDIA_LOC_HEADINGS	= Typ, Kategorie, Zertifikat, Ordner
+MEDIA_LOC_UPDATE_OK	= Medienordner-Informationen wurden aktualisiert
+MEDIA_MANAGEMENT	= Medienverwaltung
+MEDIA_TYPE		= Medientyp
+MEDIA_TYPE_PROMPT	= Bitte w&auml;hlen Sie einen Medientyp aus, nach dem in diesem Ordner gesucht wird.
+MESSAGES		= Nachrichten
+MESSAGES_DELETE		= Diese Nachricht l&ouml;schen
+MESSAGES_KEEP		= Diese Nachricht aufheben
+MESSAGES_NONE		= Keine Nachrichten vorhanden
+MESSAGES_SELECT		= Bitte w&auml;hlen Sie eine Nachricht, die Sie ansehen wollen
+MESSAGES_VIEW		= Nachrichten ansehen
+MESSAGE_STATUS_DELETED	= Gel&ouml;scht
+MESSAGE_STATUS_NEW	= Neu
+MESSAGE_STATUS_READ	= Gelesen
+MINUTE			= Minute
+MISSING_DB_TEXT		= Bitte benutzen Sie das Konfigurations-Utility, um eine Datenbank zu erstellen.
+MISSING_DB_TITLE	= Sie haben keine Datenbank erstellt.
+MISSING_INI_TEXT	= Bitte benutzen Sie das Konfigurations-Utility, um eine Konfigurationsdatei zu erstellen.
+MISSING_INI_TITLE	= Ihre SwissCenter-Konfigurationsdatei fehlt.
+MISSING_MEDIA_TEXT	= Bitte benutzen Sie das Konfigurations-Utility, um Medienordner zu erstellen. 
+MISSING_MEDIA_TITLE	= Sie haben keine Medienordner erstellt.
+MISSING_PERMS_TEXT	= Das Verzeichnis, in dem Sie SwissCenter installiert haben, ist vom Webserver-Benutzer nicht lesbar bzw. &auml;nderbar.
+MISSING_PERMS_TITLE	= Installation nicht korrekt
+MISSING_SCHED_TEXT	= Der Taskplaner-Dienst von Windows wird von SwissCenter ben&ouml;tigt, um Mediendateien zu suchen.
+MISSING_SCHED_TITLE	= Taskplaner-Dienst ist nicht gestartet.
+MISSING_SETUP_SQL	= Die Datei "Setup.sql" im SwissCenter-Verzeichnis fehlt.
+MODULE_MISSING_LINUX	= Das Modul %s ist nicht geladen - Sie m&uuml;ssen m&ouml;glicherweise PHP mit der ben&ouml;tigten Option neu kompilieren.
+MODULE_MISSING_TITLE	= Ein ben&ouml;tigtes PHP-Modul fehlt
+MODULE_MISSING_WINDOWS  = Das Modul %s ist nicht geladen - bitte passen Sie die Datei php.ini an, um es zu aktivieren.
+MONTH			= Monat
+MOVIE_ADD_BUTTON	= Details hinzuf&uuml;gen/bearbeiten
+MOVIE_ADD_PROMPT	= Bitte geben Sie die Details ein, die Sie zu jedem der oben aufgelisteten Filme [em]hinzuf&uuml;gen[/em] m&ouml;chten [br] (Sie k&ouml;nnen mehrere Eintr&auml;ge in den Listen ausw&auml;hlen, indem Sie die STRG-Taste gedr&uuml;ckt halten)
+MOVIE_CHANGES_MADE	= Daten ge&auml;ndert
+MOVIE_ERROR_NO_SELECT	= Sie haben keine Filme ausgew&auml;hlt, die ge&auml;ndert werden sollen
+MOVIE_EXTRA_DL_PROMPT	= Wenn neue Film-Eintr&auml;ge w&auml;hrend einer Mediensuche gefunden werden, benutzt SwissCenter den Dateinamen der Videodatei, um nach zus&auml;tzlichen Filminformationen (wie Darsteller, Regisseure etc.) auf der Website %s zu suchen und diese Informationen herunterzuladen 
+MOVIE_EXTRA_DL_TITLE	= Zus&auml;tzliche Filminformationen herunterladen
+MOVIE_EXTRA_REFRESH_OK	= Alle zus&auml;tzlichen Filminformationen wurden zur Aktualisierung vorgemerkt
+MOVIE_EXTRA_TITLE	= Zus&auml;tzliche Filminformationen
+MOVIE_NEW_PROMPT        = Sie k&ouml;nnen neue Darsteller, Regisseure oder Genres in die Eingabefelder weiter unten eingeben. [br] Wenn Sie mehrere Eintr&auml;ge eingeben wollen, dann trennen Sie die Eintr&auml;ge bitte mit einem Komma.
+MOVIE_UPD_TEXT		= Die folgenden Filme werden aktualisiert
+MOVIE_UPD_TTILE 	= Filme aktualisieren
+MUSIC_PLAY_TIME		= Spielzeit
+NAME			= Name
+NEW			= Neu
+NEW_MESSAGES		= Neue Nachrichten
+NEW_MESSAGES_PROMPT	= T&auml;glich wird auf wichtige Informationen betreffend die SwissCenter-Oberfl&auml;che gepr&uuml;ft. Wenn neue Nachrichten vorhanden sind, wird mit einem Symbol im Hauptmen&uuml; angezeigt, da&szlig; Sie diese Nachrichten ansehen k&ouml;nnen.
+NEXT			= Weiter
+NOTES			= Notizen
+NOW_PLAYING		= Aktueller Titel
+NO_ITEMS_TO_DISPLAY	= Keine Eintr&auml;ge vorhanden
+NO_PLAYLIST		= Sie haben derzeit keine Playliste definiert
+ONE_ITEM		= 1 Eintrag
+ONE_TRACK		= 1 Track
+OPTIONS			= Optionen
+ORG_TITLE		= Filmdetails
+PASSWORD		= Passwort
+PHOTOS_NO_SELECTED	= Anzahl Fotos
+PHOTOS_TIME_ALL		= Gesamte Spielzeit
+PHOTOS_TIME_ONE		= Zeit pro Foto
+PHP_VERSION_TEXT	= Sie m&uuml;ssen mindestens Version 4.3.9 von PHP installiert haben.
+PHP_VERSION_TITLE	= Ihre PHP-Version ist zu alt.
+PIN_CHANGE		= PIN &auml;ndern
+PIN_CHANGED		= Ihre PIN wurde ge&auml;ndert.
+PIN_CLEAR		= PIN l&ouml;schen
+PIN_CONFIRM_NEW		= Bitte best&auml;tigen Sie Ihre neue PIN
+PIN_DELETE_LAST		= Letzte Ziffer l&ouml;schen
+PIN_ENTER		= PIN eingeben
+PIN_ENTER_NEW		= Bitte geben Sie Ihre neue PIN ein
+PIN_ENTER_OLD		= Bitte geben Sie Ihre alte PIN ein
+PIN_ENTER_PROMPT	= Bitte geben Sie Ihre PIN mit den Zifferntasten Ihrer Fernbedienung ein
+PIN_INCORRECT	 	= Die PIN ist falsch
+PIN_MAXLEN		= Maximale PIN-L&auml;nge erreicht
+PIN_MISMATCH		= Die PINs stimmen nicht &uuml;berein - PIN wurde nicht ge&auml;ndert
+PLAY			= Abspielen
+PLAYLISTS 		= Playlisten
+PLAYLISTS_CONFIG_PROMPT = Bitte geben Sie den kompletten Pfad zum Ordner ein, in dem Ihre Playlisten von SwissCenter gespeichert werden sollen.[p]Zum Beispiel: Unter Windows k&ouml;nnte der Pfad so lauten: [em]"C:\Dokumente und Einstellungen\Robert\Eigene Dokumente\Eigene Playlisten"[/em], oder auf einem Linux-Rechner [em]"/home/Robert/Playlisten"[/em]
+PLAYLISTS_ERROR_DIR 	= Bitte geben Sie einen Ordner f&uuml;r die Playlisten ein
+PLAYLISTS_ERROR_INVALID = Der angegebene Ordner existiert nicht
+PLAYLISTS_ERROR_PATH	= Bitte geben Sie den kompletten Pfad zum Ordner ein
+PLAYLIST_APPEND		= Eine andere Playliste anh&auml;ngen
+PLAYLIST_CLEAR		= Playliste l&ouml;schen
+PLAYLIST_EDIT		= Playliste bearbeiten
+PLAYLIST_LOAD		= Playliste laden
+PLAYLIST_LOAD_NEW	= Eine neue Playliste laden
+PLAYLIST_SAVE		= Playliste speichern
+PLAYLIST_SAVE_CURRENT	= Die aktuelle Playliste speichern
+PLAYLIST_SAVE_PROMPT	= Bitte geben Sie den gew&uuml;nschten Namen der Playliste ein
+PLAY_NOW		= Jetzt abspielen
+PLEASE_SELECT		= Bitte w&auml;hlen Sie
+PREVIOUS		= Zur&uuml;ck
+PRIVACY_COMMUNICATION	= [b]Unerw&uuml;nschte Email/Nachrichten[/b] [p][ul][li]Wir werden Ihnen niemals unerw&uuml;nschte Nachrichten senden.[li]Nachrichten, die &uuml;ber die SwissCenter-Oberfl&auml;che heruntergeladen werden, werden sich immer nur auf F&auml;higkeiten und den Betrieb der SwissCenter-Oberfl&auml;che beziehen. Wenn Sie selbst solche Nachrichten blockieren m&ouml;chten, k&ouml;nnen Sie im Bereich "Verbindungen" die Funktion "Nachrichten" deaktivieren.[/ul]
+PRIVACY_DATA_COLLECTION	= [b]Datensammlung[/b] [p]Informationen &uuml;ber die Mediendateien auf Ihrem Rechner werden in einer MySQL-Datenbank auf Ihrem Rechner gesammelt und gespeichert. Diese Informationen werden einzig und allein daf&uuml;r verwendet, Ihnen den Zugriff auf Ihre Mediendateien &uuml;ber solche Ger&auml;te wie das Pinnacle ShowCenter zu geben. Weder diese noch irgendeine andere Information wird an irgendeiner Stelle an die Autoren von SwissCenter oder irgendeiner dritten Partei &uuml;bermittelt. [p]Es gibt eine einzige Ausnahme zu der obigen Erkl&auml;rung: - Um zus&auml;tzliche Informationen zu Filmen und Videos zu erhalten (wie Darsteller, Regisseure etc.), wird der Dateiname als Teil einer Suchanfrage an die Website www.lovefilm.com &uuml;bermittelt. Wenn Sie es vorziehen, diese Information nicht zu senden, dann sollten Sie die Funktion "Herunterladen von Filminformationen" auf der Seite "Zus&auml;tzliche Filminformationen" deaktivieren. 
+PRIVACY_POLICY		= Datenschutzerkl&auml;rung
+QUICK_PLAY		= Schnellstart
+RANGE			= Bereich
+REFINE_ACTOR		= Nach Autor einschr&auml;nken
+REFINE_ALBUM		= Nach Album einschr&auml;nken
+REFINE_ARTIST		= Nach Interpret einschr&auml;nken
+REFINE_CERTIFICATE	= Nach Zertifikat einschr&auml;nken
+REFINE_DIRECTOR		= Nach Regisseur einschr&auml;nken
+REFINE_GENRE		= Nach Genre einschr&auml;nken
+REFINE_TITLE		= Nach Titel einschr&auml;nken
+REFINE_YEAR		= Nach Jahr einschr&auml;nken
+REFRESH_DATABASE	= Datenbank aktualisieren
+REFRESH_DATABASE_PROMPT = Suche nach neuen Medien
+REFRESH_RUNNING		= Die Datenbankaktualisierung wurde im Hintergrund gestartet, Sie k&ouml;nnen SwissCenter aber weiter normal verwenden. Bitte beachten Sie, da&szlig; nicht alle Mediendateien zum Abspielen verf&uuml;gbar sind, bis die Aktualisierung abgeschlossen ist.[p]Die erstmalige Aktualisierung kann ca. 10 Minuten pro 5.000 Mediendateien auf Ihrem System dauern. Nachfolgende Aktualisierungen sind meistens wesentlich schneller.
+REMOTE_ACCESS_ERROR	= Der entfernte Zugriff auf das [em]SwissCenter-Konfigurations-Utility[/em] ist aus Sicherheitsgr&uuml;nden deaktiviert.
+RETURN_MAIN_MENU	= Zur&uuml;ck zum Hauptmen&uuml;
+RETURN_TO_SELECTION	= Zur&uuml;ck zur Auswahl
+ROOT_INSTALL_TEXT	= Sie sollten die SwissCenter-Software als Webserver-Benutzer installieren - "root"-Installationen werden nicht unterst&uuml;tzt.
+ROOT_INSTALL_TITLE	= Die Installation wurde als "root" gestartet
+SAVE_SETTINGS		= Einstellungen speichern
+SAVE_SETTINGS_OK	= Einstellungen erfolgreich gespeichert
+SCHEDULE_AUTO_TITLE	= Automatische Medienaktualisierung
+SCHEDULE_AUTO_TXT	= Eine Suche nach neuen Medien wird zur angegebenen Zeit an jedem der unten angegebenen Tage durchgef&uuml;hrt. Es wird empfohlen, da&szlig; Sie t&auml;glich eine Mediensuche zu einer Zeit durchf&uuml;hren, zu der es unwahrscheinlich ist, da&szlig; Sie Ihren Rechner benutzen.
+SCHEDULE_DATE_PROMPT	= Tag des Monats
+SCHEDULE_ERROR_CHARS	= Folgende Zeichen sind g&uuml;ltig: %s
+SCHEDULE_ERROR_FIELDS	= Sie m&uuml;ssen in jedem Feld einen Wert eingeben
+SCHEDULE_ERROR_HOUR	= Bitte geben Sie einen g&uuml;ltigen Wert f&uuml;r die Stunde ein (zwischen 0 und 23)
+SCHEDULE_ERROR_MIN	= Bitte geben Sie einen g&uuml;ltigen Wert f&uuml;r die Minute ein (zwischen 0 und 59)
+SCHEDULE_HOUR_PROMPT	= Die Stunde am Tag
+SCHEDULE_MINUTE_PROMPT	= Die Anzahl der Minuten nach der Stunde
+SCHEDULE_MONTH_PROMPT	= 1 = J&auml;nner, 2 = Februar, etc .
+SCHEDULE_NONE		= Automatische Medienaktualisierung - nicht mehr aktiv
+SCHEDULE_NOTES		= [li]* kennzeichnet m&ouml;gliche Werte. [li]Mehrere Werte k&ouml;nnen durch Komma getrennt werden (1,5). [li]Ein Bereich kann durch einen Bindestrich gekennzeichnet werden(1-5). [li]Sie k&ouml;nnen beides zusammen verwenden (1-4,7).
+SCHEDULE_TITLE		= Geplante Tasks
+SCHEDULE_UPDATED	= Automatische Medienaktualisierung - Zeitplan aktualisiert
+SCHEDULE_UPDATE_BUTTON	= Zeitplan aktualisieren
+SCHEDULE_WEEKDAY_PROMPT	= 1 = Montag, 2 = Dienstag., etc
+SEARCH			= Suchen
+SEARCH_ANYWHERE		= Irgendwo im Namen
+SEARCH_CLEAR		= Suche l&ouml;schen
+SEARCH_NO		= Nein, eine neue Suche starten
+SEARCH_NO_ITEMS		= Es gibt keine Eintr&auml;ge, die Ihren Suchkriterien entsprechen
+SEARCH_START		= Beginn des Namens
+SEARCH_YES		= Ja, trotzdem suchen
+SELECT_ALL		= Alle ausw&auml;hlen
+SELECT_CATEGORY		= Bitte w&auml;hlen Sie eine Kategorie aus der Liste:
+SELECT_ENTIRE_ALBUM	= Ganzes Album w&auml;hlen
+SELECT_OPTION		= Bitte w&auml;hlen Sie eine Option aus der Liste:
+SELECT_USER		= Bitte w&auml;hlen Sie einen Benutzer aus der Liste:
+SETUP			= Einstellungen
+SETUP_CHANGE_UI		= Oberfl&auml;chen-Stil w&auml;hlen
+SETUP_SEARCH_NEW_MEDIA	= Nach neuen Medien suchen
+SETUP_TITLE		= Voreinstellungen
+SETUP_UPDATE_SC		= SwissCenter aktualisieren
+SHUFFLE_OFF		= Zuf&auml;llige Wiedergabe abschalten
+SHUFFLE_ON		= Zuf&auml;llige Wiedergabe einschalten
+SLIDESHOW		= Diashow
+STARRING		= Darsteller
+START_OF_NAME		= Beginn des Namens
+START_SLIDESHOW		= Diashow starten
+STATUS			= Status
+STYLE_CHECK_ONLINE	= Stile von %s herunterladen
+STYLE_CHOOSE		= Stil w&auml;hlen
+STYLE_DOWNLOAD		= Stil herunterladen
+STYLE_DOWNLOADING	= Stil wird heruntergeladen - bitte um etwas Geduld.
+STYLE_NONE_AVAILABLE	= Es sind keine Stile verf&uuml;gbar.
+STYLE_SHOW_INSTALLED	= Installierte Stile zeigen
+SUPPORT_CLIENTS_TITLE	= Gefundene Clients
+SUPPORT_CLINTS_TABLE	= IP-Addresse, Browser-Identifikation
+SUPPORT_DB_CONN_TABLE	= Verbindungsdetails
+SUPPORT_DB_DB_LIST	= Datenbanken
+SUPPORT_DB_TABLE_LIST	= Tabelle, Zeilen
+SUPPORT_DB_TITLE	= Datenbankeinstellungen
+SUPPORT_PROG_HEADINGS	= Programm, Ordner
+SUPPORT_PROG_TITLE	= Programm-Ordner
+SUPPORT_SYSPREF_TABLE	= Einstellung, Wert
+SUPPORT_SYSPREF_TITLE	= Systemeinstellungen
+SUPPORT_TITLE		= Support-Informationen
+SUPPORT_TXT		= Wenn Sie Probleme mit SwissCenter haben, dann beschreiben Sie bitte im [em]Hilfe-Forum[/em] auf der Webseite %s Ihr Problem inklusiver aller wichtigen Informationen, wie z.B. Ihrem Betriebssystem. Alle oder einige der unten angezeigten Informationen k&ouml;nnten erfragt werden, um Ihnen bei der Verfolgung des Problems zu helfen.
+SUPPORT_USRPREF_TABLE	= Benutzer, Einstellung, Wert
+SUPPORT_USRPREF_TITLE	= Benutzereinstellungen
+THUMBNAIL_VIEW		= Miniaturansicht
+TIME			= Zeit
+TITLE			= Titel
+TRACKS			= Tracks
+TRACKS_ADDED_TEXT	= Die ausgew&auml;hlten Tracks wurden zur Playliste hinzugef&uuml;gt.[p] Um die Tracks in Ihrer Playliste abzuspielen oder um die Playliste zu bearbeiten, dr&uuml;cken Sie den Knopf %s auf Ihrer Fernbedienung und w&auml;hlen dann die Option %s.
+TRACKS_ADDED_TITLE	= Tracks hinzugef&uuml;gt
+TRACK_NAME		= Track-Name
+UNRATED_CERTIFICATE	= Standardzertifikat
+UNRATED_CERT_PROMPT	= Sie sollten ein Standardzertifikat angeben, das jeder Mediendatei zugeordnet wird, die kein explizit zugeordnetes Zertifikat hat.
+UPDATE			= Aktualisieren
+UPDATE_CHECK		= Aktualisierungspr&uuml;fung
+UPDATE_CHECK_PROMPT	= &Uuml;ber die Website %s wird einmal t&auml;glich gepr&uuml;ft, ob eine neue Version von SwissCenter verf&uuml;gbar ist. Wenn eine neue Version installiert werden kann, erscheint ein Men&uuml;eintrag im Hauptmen&uuml; der SwissCenter-Oberfl&auml;che, mit dem Sie Ihre SwissCenter-Version aktualisieren k&ouml;nnen.
+UPDATE_FAILED		= Aktualisierung fehlgeschlagen - bitte versuchen Sie es sp&auml;ter wieder.
+UPDATE_NONE		= Derzeit sind keine Aktualisierungen verf&uuml;gbar
+UPDATE_SUCCESS		= Ihr System wurde aktualisiert
+UPDATE_TITLE		= Online-Aktualisierung
+UPDATING		= Aktualisierung gestartet...
+UPDATING_PLEASE_WAIT	= Aktualisierung gestartet - bitte warten
+UPPERCASE		= Gro&szlig;buchstaben
+USERNAME		= Benutzername
+USERS_ADDED_OK		= Neuer Benutzer hinzugef&uuml;gt
+USERS_ADD_BUTTON	= Neuen Benutzer hinzuf&uuml;gen
+USERS_ADD_TITLE		= Benutzer anlegen
+USERS_CONFIG_TITLE	= Benutzerverwaltung
+USERS_DEL_BUTTON	= Ausgew&auml;hlte Benutzer l&ouml;schen
+USERS_DEL_OK		= Die ausgew&auml;hlten Benutzer wurden gel&ouml;scht
+USERS_EDIT_OK		= Der ausgew&auml;hlte Benutzer wurde aktualisiert
+USERS_ERROR_CERT	= Bitte w&auml;hlen Sie das h&ouml;chste Zertifikat, das der Benutzer sehen darf
+USERS_ERROR_DEFAULT	= Der Standardbenutzer kann nicht gel&ouml;scht werden
+USERS_ERROR_EXISTS	= Dieser Benutzer existiert bereits, bitte geben Sie einen anderen Namen ein
+USERS_ERROR_NAME	= Bitte geben Sie einen Benutzernamen ein
+USERS_MAX_CERT		= H&ouml;chstes Zertifikat
+USERS_MAX_CERT_PROMPT	= Bitte w&auml;hlen Sie das [em]h&ouml;chste[/em] Zertifikat, das dieser Benutzer sehen darf. Eintr&auml;ge mit einem h&ouml;heren Zertifikat als dem hier angegebenen sind f&uuml;r diesen Benutzer [em]nicht[/em] sichtbar.
+USERS_NAME_PROMPT	= Bitte geben Sie den Namen f&uuml;r diesen Benutzer so an, wie er in der SwissCenter-Oberfl&auml;che erscheinen soll.
+USERS_PIN		= PIN
+USERS_PIN_PROMPT	= Sie k&ouml;nnen den Benutzer optional mit einem PIN-Code sch&uuml;tzen (die bis zu 10 Ziffern lang sein darf).
+USERS_TABLE_HEADINGS	= Name, PIN, H&ouml;chstes Zertifikat
+USER_CHANGE		= Benutzer &auml;ndern
+USER_CHANGED		= Der Benutzer wurde erfolgreich ge&auml;ndert
+VALUE			= Wert
+VIEW_PHOTO		= Fotos
+VIEW_WEATHER		= Wettervorhersage
+WATCH_MOVIE		= Filme
+WEATHER_5DAY		= F&uuml;nf-Tage-Vorschau anzeigen
+WEATHER_BACK_TO_SEARCH	= Zur&uuml;ck zur Suchseite
+WEATHER_CHANNEL		= The Weather Channel
+WEATHER_CURRENT		= Aktuelle Wetterbedingungen
+WEATHER_FEELS_LIKE	= F&uuml;hlt sich an wie
+WEATHER_FORECAST 	= Wettervorhersagen
+WEATHER_FORECAST_PROMPT = Informationen &uuml;ber die aktuellen Wetterbedingungen (oder 5-Tage-Vorhersage) wird von %s bei Bedarf heruntergeladen.
+WEATHER_HOME		= Als Standard definieren
+WEATHER_HUMIDITY	= Feuchtigkeit
+WEATHER_IMPERIAL	= Fahrenheit
+WEATHER_LOCATION	= Einen anderen Ort w&auml;hlen
+WEATHER_MATCHING	= St&auml;dte, die Ihren Kriterien entsprechen
+WEATHER_MATCHING_TITLE	= Gefundene St&auml;dte
+WEATHER_METRIC		= Celsius
+WEATHER_NO_CITY		= Es gibt keine St&auml;dte, die Ihrer Suche nach %s in der SwissCenter-Datenbank gefunden werden konnten.[p] M&ouml;chten Sie trotzdem auf %s nach m&ouml;glichen &Uuml;bereinstimmunen suchen? (Geben Sie den gesamten Stadtnamen an, bevor Sie die Suche starten)
+WEATHER_NO_MATCHING	= Leider wird von %s derzeit keine Wettervorhersage f&uuml;r die Stadt %s angeboten.
+WEATHER_PRESSURE	= Druck
+WEATHER_SELECT_CITY	= Stadt ausw&auml;hlen:
+WEATHER_UV		= UV-Index
+WEATHER_VISIBILITY	= Sichtweite
+WEATHER_WIND		= Wind
+WEEKDAY			= Wochentag
+YEAR			= Jahr
+
+
+
+# -----------------------
+# SwissCenter v1.13
+# -----------------------
+
+COMPACT_VIEW		= Kompaktansicht
+
+NO_SYNOPSIS_AVAILABLE	= Keine Inhaltsangabe vorhanden
+
+KEYBOARD_DEL		= ENTF
+KEYBOARD_SPC		= LEER
+
+PLAYLIST_LOAD_OK	= Playliste geladen
+PLAYLIST_NAME_CANCEL	= Abbrechen - Nicht speichern
+PLAYLIST_NAME_USE	= Mit diesem Dateinamen speichern
+
+PC_LINK_BACK		= Zur&uuml;ck
+PC_LINK_HOME		= Home
+PC_LINK_MOVIES		= Filme
+PC_LINK_MUSIC		= Musik
+PC_LINK_PHOTOS		= Fotos
+
+SECONDS			= %s Sekunden
+MINUTES			= %s Minuten
+
+BROWSE_DATE		= Nach Datum
+BROWSE_PHOTO_ALBUM	= Nach Fotoalbum
+BROWSE_PHOTO_TITLE	= Nach Titel
+PHOTO_ALBUM		= Fotoalbum
+PHOTO_TITLE		= Titel
+PHOTO_PLAY_ORDER	= Reihenfolge
+PHOTO_CHANGE_ORDER	= Reihenfolge &auml;ndern
+PHOTO_CHANGE_TIME	= Geschwindigkeit &auml;ndern
+PHOTO_ORDER_NAME	= Name
+PHOTO_ORDER_DATE_TAKEN	= Aufnahmedatum
+PHOTO_ORDER_DATE_DISK	= &Auml;nderungsdatum
+PHOTO_ORDER_DATE_RANDOM	= Zuf&auml;llig
+REFINE_PHOTO_ALBUM	= Nach Fotoalbum einschr&auml;nken
+REFINE_PHOTO_TITLE	= Nach Titel einschr&auml;nken
+
+TIME_SECOND_SHORT	= s
+TIME_MINUTE_SHORT	= m
+TIME_HOUR_SHORT		= h
+TIME_DAY_SHORT		= t
+
+EXIF_EXPOSURE		= Belichtung
+EXIF_EXPOSE_MODE	= Belichtungsmodus
+EXIF_EXPOSE_PROG	= Belichtungsprogramm
+EXIF_EXPOSE_TIME	= Belichtungszeit
+EXIF_FLASH		= Blitz
+EXIF_FNUMBER		= f-Nummer
+EXIF_FOCAL_LENGTH	= Brennweite
+EXIF_ISO		= ISO-&Auml;quivalent
+EXIF_LIGHT_SOURCE	= Lichtquelle
+EXIF_MAKE		= Make
+EXIF_METER_MODE		= Messmodus
+EXIF_MODEL		= Modell
+EXIF_ORIENTATION	= Orientierung
+EXIF_SCENCE_CAPTURE	= Szenentyp
+EXIF_SOURCE		= Bildquelle
+EXIF_WHITE_BALANCE	= Wei&szlig;abgleich
+LENGTH_MM		= mm
+
+# Conversion of EXIF data within photographs to a textual equivalent
+# NOTE: It is important that these are kept in the same order and are comma seperated
+
+EXIFVALS_EXPOSE_MODE	= Auto, Manuell, Auto Bracket
+EXIFVALS_EXP_PROG	= Manuell, Programm, Blenden-Priorit&auml;t, Verschlu&szlig;-Priorit&auml;t, Programm Kreativ, Programm Action, Portrait, Landschaft
+EXIFVALS_FLASH		= Kein Blitz, Mit Blitz
+EXIFVALS_LIGHT_SOURCE	= Unbekannt, Tageslicht, Kunstlicht, Tungsten (incandescent), Blitz, Sch&ouml;nwetter, Bew&ouml;lkt, Share, Daylight Fluorescent, Day White Fluorescent, Cool White Fluorescent, White Fluorescent, Standard-Licht A, Standard-Licht B, Standard-Licht C, D55, D65, D75, D50, ISO Studio Tungsten
+EXIFVALS_METER_MODE	= Unbekannt, Durchschnitt, Zentrum gewichtet, Punkt, Mehrpunkt, Muster, Teil
+EXIFVALS_ORIENTATION	= Normal (0 Grad), Gespiegelt,Gedreht, Gedreht und gespiegelt
+EXIFVALS_SCENE_TYPE	= Standard, Landschaft, Portrait, Nachtszene
+EXIFVALS_WHITE_BALANCE	= Auto, Manuell
+
+# -----------------------
+# SwissCenter v1.14
+# -----------------------
+
+PC_LINK_CONFIG          = Einstellungen
+MOVIE_EXTRA_SITE_PROMPT = Infos downloaden von
+MOVIE_OPTIONS		= Film-Optionen
+MEDIA_SEARCH_PROMPT	= Durch Bet&auml;tigung des Buttons werden Ihre Medienordner im Hintergrund nach neuen Medien durchsucht. Medien, die nicht mehr vorhanden sind, werden aus der Datenbank entfernt, und neue oder ge&auml;nderte Medien werden zur Datenbank hinzugef&uuml;gt.
+RATING_SCHEME_PROMPT	= Zertifizierungsschema
+DEBUG_MODE		= Debug-Modus
+DEBUG_MODE_PROMPT	= Wenn Sie den [i]Debug-Modus[/i] aktivieren, wird mehr Information in der Datei support.log gespeichert, wenn Sie Aktionen starten wie die Medienaktualisierung oder Filminformationen aus dem Internet downloaden. Diese zus&auml;tzlichen Informationen werden ben&ouml;tigt, um eventuell auftretende Probleme aufsp&uuml;ren zu k&ouml;nnen.
+SIMESE_SCHED_PROMPT	= Sie k&ouml;nnen automatische Aktualisierungen der SwissCenter-Datenbank planen, indem Sie das Simese-Symbol in der Taskleiste mit der rechten Maustaste anklicken und [i]Update Media Scheduler[/i] ausw&auml;hlen.
+
+# Updated text strings in v1.14
+MOVIE_EXTRA_DL_PROMPT	= Wenn neue Filmeintr&auml;ge w&auml;hrend einer Suche nach neuen Medien gefunden werden, benutzt SwissCenter den Dateinamen, um nach zus&auml;tzlichen Filminformationen (z.B.: Schauspieler, Regisseur etc.) von der unten ausgew&auml;hlten Website zu suchen und sie herunterzuladen.
+PRIVACY_DATA_COLLECTION	= [b]Datensammlung[/b] [p]Informationen &uuml;ber die Medien-Dateien auf Ihrem Rechner werden gesammelt und in einer MySQL-Datenbank auf dem Rechner gespeichert, auf dem SwissCenter installiert ist. Diese Informationen werden einzig und allein daf&uuml;r verwendet, eine Bedienoberfl&auml;che f&uuml;r Ihre Medien auf solchen Ger&auml;ten wie das Pinnacle Showcenter zu erzeugen. Zu keinem Zeitpunkt werden diese oder irgendwelche anderen Informationen an die Autoren von SwissCenter oder irgendeine andere Stelle &uuml;bertragen. [p]Es gibt eine Ausnahme zur obigen Erkl&auml;rung:- Um zus&auml;tzliche Informationen zu Filmen/Videos (wie Schauspieler, Regisseure etc.) zu erhalten, wird der Dateiname als Teil einer Suche an die Website geschickt, die auf der Seite %s ausgew&auml;hlt wurde. Wenn Sie nicht m&ouml;chten, da&szlig; diese Informationen &uuml;bertragen werden, deaktivieren Sie bitte die Option "Zus&auml;tzliche Filminformationen herunterladen".
+
+# -----------------------
+# SwissCenter v1.14.1
+# -----------------------
+
+CAT_LIST_ALL            = Alle Kategorien
+CAT_RECENTLY_ADDED      = Zuletzt hinzugef&uuml;gt
+IMAGE_RESIZE_TYPE       = Bildanpassung
+IMAGE_RESIZE            = Verkleinern (schneller)
+IMAGE_RESAMPLE          = Filtern (h&ouml;here Qualit&auml;t)
+IMAGE_RESIZE_PROMPT     = Bitte w&auml;hlen Sie die Methode, mit der SwissCenter Bilder wie Albumcover oder Fotos in die ben&ouml;tigte Gr&ouml;&szlig;e bringt.
+CURRENT_VERSION         = Aktuelle Version
+
+# -----------------------
+# SwissCenter v1.15
+# -----------------------
+
+# New text strings
+
+REFRESH_DIR             = Aktualisiere
+REFRESH_DIR_BUTTON      = Aktualisieren
+REFRESH_DIR_TEXT        = SwissCenter sucht nach neuen oder aktualisierten Medien und f&uuml;gt sie der Datenbank hinzu. Dies kann einige Augenblicke dauern, bitte gedulden Sie sich.
+SEARCH_WIKIPEDIA	= In Wikipedia nachschlagen
+RESUME_PLAYING          = Wiedergabe fortsetzen
+INSTALL_TEST_TITLE	= Installations-Pr&uuml;fungen
+INSTALL_TEST_SUCCESS    = Die folgenden Tests waren erfolgreich: 
+INSTALL_TEST_FAIL_WEB   = Die folgenden Tests schlugen fehl:
+INSTALL_TEST_FAIL_CLI   = Die folgenden Tests schlugen bei der Ausf&uuml;hrung im Hintergrund fehl.
+CAT_DOWNLOAD_PROMPT     = Dieses Feld legt fest, ob f&uuml;r Dateien in der gew&auml;hlten Kategorie weitere Informationen aus dem Internet nachgeladen werden sollen, sofern verfügbar.
+SYNOPSIS		= Zusammenfassung
+RETURN_TO_LIST		= Zur&uuml;ck zur Liste
+PAGE			= Seite %s
+LOOKUP_MOVIE		= Film nachschlagen
+LOOKUP_SUCCESS		= Details zum Film wurden heruntergeladen und gespeichert.
+LOOKUP_FAILURE		= Keine Details zu diesem Film auffindbar.
+DEBUG_RECOMMENDED	= (Empfohlen)
+
+INTERNET_SETTING        = Internet Verbindung
+INTERNET_SETTING_PROMPT = Diese Option gibt an, ob Ihr PC &uuml;ber eine Internetverbindung verf&uuml;gt, die SwissCenter verwenden kann. Wenn Sie den Wert auf 'Automatisch' stellen, wird SwissCenter versuchen, dies selbst zu ermitteln.
+CONNECT_OPT_TEXT        = Sie k&ouml;nnen einzelne Funktionen, die eine Internetverbindung ben&ouml;tigen, (de-)aktivieren. Es wird empfohlen, alle Funktionen aktiviert zu lassen.
+WIKI_LOOKUP_PROMPT      = Ist diese Option aktiviert, wird SwissCenter das Nachschlagen von Informationen, z.B. zu Schauspielern und Filmen, anbieten.
+
+FAIL_MYSQL_VERSION      = Ihre MySQL-Version wird nicht unterst&uuml;tzt.
+FAIL_MYSQL_CONNECT	= Konnte keine Verbindung zum MySQL Server herstellen.
+FAIL_MYSQL_DB           = Konnte keine Verbindung mit der SwissCener Datenbank herstellen. (Haben Sie eine angelegt?)
+FAIL_PHP_CLI            = Sie haben keine Kommandozeilen-Version von PHP (php-cli) installiert. SwissCenter ist daher nicht in der Lage, nach neuen Medien-Dateien zu suchen.
+FAIL_PHP_INI		= Kann die 'php.ini' Datei nicht finden.
+FAIL_PHP_VERSION        = Ihre PHP-Version wird nicht unterst&uuml;tzt (%s)..
+FAIL_PHP_REQ_MODS       = Es sind nicht alle PHP-Module verf&uuml;gbar, die von SwissCenter ben&ouml;tigt werden. Ben&ouml;tigte Module sind: [b]%s[/b]).
+FAIL_PHP_EXTRA_MODS     = Es sind nicht alle empfohlenen PHP-Module verf&uuml;gbar. Einige nicht-kritische Funktionen wurden daher deaktiviert. (Empfohlene Module sind: [b]%s[/b]).
+FAIL_SERVER_SCHED	= Hintergrund-Jobs k&ouml;nnen nicht ausgef&uuml;hrt werden. Eine m&ouml;gliche Ursache ist, dass Cron (Linux) bzw. der Scheduler Service (Windows) deaktiviert ist.
+FAIL_SWISS_INI		= Kann die Datei 'swisscenter.ini' nicht finden. [br]Haben Sie schon eine SwissCenter Datenbank angelegt?
+FAIL_SWISS_LOCS         = Es wurden keine Medien Speicherorte definiert.
+FAIL_SWISS_LOG		= Kann nicht in die SwissCenter Logdatei schreiben (%s). 
+
+PASS_MYSQL_VERSION      = Ihre MySQL-Version wird unterst&uuml;tzt.
+PASS_MYSQL_CONNECT	= Verbindung mit dem MySQL Server erfolgreich hergestellt.
+PASS_MYSQL_DB           = Verbindung zur SwissCenter Datenbank erfolgreich hergestellt.
+PASS_PHP_CLI            = Kommandozeilen-Version von PHP (php-cli) wurde gefunden.
+PASS_PHP_INI            = Die Datei 'php.ini' wurde erfolgreich lokalisiert.
+PASS_PHP_VERSION        = Ihre PHP-Version wird unterst&uuml;tzt.
+PASS_PHP_REQ_MODS       = Alle erforderlichen PHP Module sind verf&uuml;gbar.
+PASS_PHP_EXTRA_MODS     = Alle empfohlenen PHP Module sind verf&uuml;gbar.
+PASS_SERVER_SCHED	= Automatische Suche nach neuen Medien wird unterst&uuml;tzt.
+PASS_SWISS_INI		= Datei 'swisscenter.ini' erfolgreich lokalisiert.
+PASS_SWISS_LOCS		= Medien Speicherorte wurden definiert.
+PASS_SWISS_LOG		= Logging aktiviert.
+PASS_SWISS_ROOT_INS     = SwissCenter wurde nicht als 'root' User durchgef&uuml;hrt.
+PASS_SWISS_RW_FILES     = Kann lesend und schreibend auf das SwissCenter Installationsverzeichnis zugreifen.
+
+# Updated text strings in v1.15
+
+DEBUG_MODE_PROMPT	= Der [i]Debug-Modus[/i] legt fest, wie viel Information in die support.log Datei geschrieben wird. Wenn Sie einen Bug melden, den Sie reproduzieren k&ouml;nnen, stellen Sie bitte sicher, dass der Debug-Modus auf das Maximum eingestellt ist, bevor Sie diese Informationen sammeln.
+
+# -----------------------
+# SwissCenter v1.15.2
+# -----------------------
+
+CACHE_STYLE             = Style-Details cachen
+CACHE_STYLE_PROMPT      = Wenn aktiviert, wird SwissCenter alle Style Informationen f&uuml;r den schnelleren Zugriff zwischenspeichern. Deaktivieren Sie diese Funktion, wenn Sie neue Styles entwickeln, um Ihre &Auml;nderungen sofort sehen zu k&ouml;nnen.
+CACHE_LANG              = &Uuml;bersetzungen cachen
+CACHE_LANG_PROMPT       = Wenn aktiviert, wird SwissCenter alle &Uuml;bersetzungen f&uuml;r den schnelleren Zugriff zwischenspeichern. Deaktivieren Sie diese Funktion, wenn Sie &Uuml;bersetzungen bearbeiten und die &Auml;nderungen sofort sehen wollen.
+
+# Updated text strings in v1.15.2
+
+CACHE_CONFIG_TITLE	= Cache Einstellungen
+
+# -----------------------
+# SwissCenter v1.15.3
+# -----------------------
+
+CACHE_PRECACHE_PROMPT   = Ist diese Option aktiviert, wird SwissCenter Thumbnails (kleine vorschaubilder) f&uuml;r alle Bilder erstellen, die es w&auml;hrend der Mediensuche findet.
+DROP_DATABASE           = Warnung: Sie haben bereits eine SwissCenter Datenbank. [br]Wenn Sie fortfahren, gehen alle bisher gesammelten Informationen und Einstellungen verloren.
+CONFIG_IMAGE_OPTIONS    = Image Optionen
+CONFIG_AUDIO_OPTIONS    = Audio Optionen
+CONFIG_RADIO_OPTIONS    = Radio Optionen
+PASS_PHP_FONTS          = Ein TrueType Font f&uuml;r die Erstellung der "Aktueller Titel" Bilder wurde erfolgreich lokalisiert.
+FAIL_PHP_FONTS          = Konnte keinen TrueType Font finden. Die Seite "Aktueller Titel" wird keine Track-Informationen enthalten.
+NOW_PLAYING_SUPPORT     = Seite "Aktueller Titel"
+NOW_PLAYING_PROMPT      = Einige Hardware-Player unterst&uuml;tzen die Anzeige einer Bilddatei w&auml;hrend der Wiedergabe eines Musikst&uuml;ckes. SwissCenter nutzt diese Tatsache f&uuml;r die Darstellung von Details zum aktuellen Musikst&uuml;ck. [p]In den meisten F&auml;llen kann SwissCenter automatisch feststellen, ob Ihr Player dies unterst&uuml;tzt. Sollte es dabei zu Problemen kommen, k&ouml;nnen Sie die entsprechende Einstellung hier &auml;ndern.
+
+# Updated text strings in v1.15.3
+
+PLAYLISTS 		= Playlist Optionen
+
+IRADIO_SEARCH           = Suche nach Stationen
+IRADIO_MAINGENRE SELECT = Bitte w&auml;hlen Sie das Main-Genre f&uuml;r die Suche:
+IRADIO_SUBGENRE_SELECT  = Bitte w&auml;hlen Sie das Sub-Genre f&uuml;r die Suche:
+IRADIO_STATION_SELECT   = Bitte w&auml;hlen Sie die Station:
+IRADIO_COUNTRY_SELECT   = Bitte w&auml;hlen Sie das Land f&uuml;r die Suche:
+IRADIO_CLASS_SELECT     = Bitte w&auml;hlen Sie den Radio-Service:
+BROWSE_COUNTRY          = Nach Land
+IRADIO_MAX_STATIONS     = Stationen/Genre
+IRADIO_MAX_STATIONS_PROMPT = Wie viele Stationen pro Genre maximal aus dem Internet bezogen werden sollen. Eine zu gro&szlig;e Anzahl erh&ouml;ht nicht nur die Wartezeit (und damit die Wahrscheinlichkeit eines Browser-TimeOuts), sondern auch das Risiko eines "Zu-wenig-Speicher" Fehlers von PHP. Ein guter Kompromiss sind 24 Stationen. Bei Problemen einen kleineren Wert w&auml;hlen.
+IRADIO_CACHE_EXPIRE     = Stationen puffern (Sek.)
+IRADIO_CACHE_EXPIRE_PROMPT = SwissCenter kann die Stations-Informationen f&uuml;r jedes Genre zwischenspeichern. Da sich diese Informationen jedoch best&auml;ndig &auml;ndern, sollten sie von Zeit zu Zeit neu geladen werden. Eine Stunde (3600 Sekunden) ist ein guter Wert.
+IRADIO_ERROR_CACHE_EXPIRE  = F&uuml;r 'Stationen puffern' muss ein (numerischer) Wert angegeben werden. Zum Abschalten der Pufferung bitte eine 0 (Null) eingeben.
+IRADIO_ERROR_MAXNUM     = F&uuml;r 'Stationen/Genre' muss ein (numerischer) Wert angegeben werden!
+IRADIO_ERROR_MAXNUM_ZERO   = F&uuml;r 'Stationen/Genre' muss ein [b][i]numerischer[/i][/b] Wert [b][i]ungleich Null[/i][/b] angegeben werden!
+
+TTF_FONT_PROMPT         = Dieser Font wird f&uuml;r die Anzeige von Track-Informationen w&auml;hrend der Musik-Wiedergabe benutzt, sofern der Player das unterst&uuml;tzt (und es in der Konfiguration aktiviert wurde). M&ouml;gliche Werte sind: 0 (Null) f&uuml;r automatische Erkennung, ein Font-Name (z.B. 'Arial'), oder der Name einer Font-Datei inkl. des kompletten Pfades (falls beides voriges fehlschl&auml;gt).
+FAIL_PHP_FONT_SET       = ... Nur der Font scheint invalid (oder nicht verf&uuml;gbar) zu sein.
+BOOKMARKS               = Lesezeichen
+
+#----------------------------------------------------------------------------------------------------
+# End-of-file
+#----------------------------------------------------------------------------------------------------
+
+
+
