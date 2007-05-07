@@ -93,7 +93,7 @@ function download_new_messages()
     if (!empty($messages))
     {
       $mesg_array = unserialize($messages);
-      if (count($mesg_array)>0)
+      if ( is_array($mesg_array) && count($mesg_array)>0)
       {
         foreach ($mesg_array as $mesg)
         {
