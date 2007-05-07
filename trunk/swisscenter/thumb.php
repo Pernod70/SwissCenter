@@ -44,7 +44,7 @@
     // Load the image from disk
     if (strtolower(file_ext($filename)) == 'sql')
       $image->load_from_database( substr($filename,0,-4) );
-    elseif ( file_exists($filename) || substr($filename,0,4) == 'http' )
+    elseif ( file_exists($filename) || is_remote_file($filename) )
       $image->load_from_file($filename); 
     else  
       send_to_log(1,'Unable to process image specified : '.$filename);  

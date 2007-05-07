@@ -232,6 +232,15 @@ function file_noext( $filename )
 }
 
 //-------------------------------------------------------------------------------------------------
+// Returns TRUE if the given file is actually a internet address.
+//-------------------------------------------------------------------------------------------------
+
+function is_remote_file( $filename )
+{
+  return ( strtolower(substr($filename,0,7)) == 'http://' );
+}
+
+//-------------------------------------------------------------------------------------------------
 // Returns the parent of the given directory (slash terminated, unlike the built-in "dirname").
 //-------------------------------------------------------------------------------------------------
 

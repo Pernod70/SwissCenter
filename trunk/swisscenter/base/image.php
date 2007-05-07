@@ -5,6 +5,7 @@
 
 require_once( realpath(dirname(__FILE__).'/mysql.php'));
 require_once( realpath(dirname(__FILE__).'/prefs.php'));
+require_once( realpath(dirname(__FILE__).'/file.php'));
 
 // Do we have the "gd" extension loaded? can we load it dynamically?
 if (!extension_loaded('gd'))
@@ -69,7 +70,7 @@ function precache( $filename, $x, $y, $overwrite = true )
     // Load the image from disk
     if (strtolower(file_ext($filename)) == 'sql')
       $image->load_from_database( substr($filename,0,-4) );
-    elseif ( file_exists($filename) || substr($filename,0,4) == 'http' )
+    elseif ( file_exists($filename) || is_remote_file($filename) )
       $image->load_from_file($filename);
     else
       send_to_log(1,'Unable to process image specified : '.$filename);
@@ -88,7 +89,7 @@ function precache( $filename, $x, $y, $overwrite = true )
 
 function cache_filename( $filename, $x, $y, $rs_mode = '' )
 {
-  // If in design mode, returnwe don't want to cache files, or use existing cached fules.
+  // If in design mode, we don't want to cache files, or use existing cached fules.
   if ( defined('STYLE_MODE') && STYLE_MODE == 'DESIGN' )
     return false;
   
@@ -96,8 +97,14 @@ function cache_filename( $filename, $x, $y, $rs_mode = '' )
   if ($rs_mode == '')
     $rs_mode = get_sys_pref('IMAGE_RESIZING','RESAMPLE');
     
+  // Include the last modified time for files (or today's date for files from the internet)
+  if ( is_remote_file($filename) )
+    $filetime = date("dmY");
+  else 
+    $filetime = filemtime($filename);
+    
   if ($cache_dir != '')
-    return $cache_dir.'/SwissCenter_'.sha1($filename.filemtime($filename)).'_x'.$x.'y'.$y.'_'.strtolower($rs_mode).'.png';
+    return $cache_dir.'/SwissCenter_'.sha1($filename.$filetime).'_x'.$x.'y'.$y.'_'.strtolower($rs_mode).'.png';
   else
     return false;
 }
@@ -274,9 +281,12 @@ class CImage
       imagedestroy($this->image);
       $this->image = false;
     }
-
-    if ( is_file($filename) )
+    
+    if ( is_file($filename) || is_remote_file($filename))
     {
+      if ( is_remote_file($filename) )
+        $filename = str_replace(' ','%20',$filename);
+      
       switch (strtolower(file_ext($filename)))
       {
         case 'jpg':
