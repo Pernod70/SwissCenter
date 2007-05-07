@@ -298,7 +298,8 @@ Function get_check_results()
   $results['SWISS media locs']       = check_swiss_media_locations();
   $results['SERVER scheduler']       = check_server_scheduler();
   $results['MUSICIP api']            = musicip_available();
-
+  $results['MUSICIP mixable']        = (musicip_mixable_percent() >= 50);
+  
   return $results;
 }
 

@@ -27,7 +27,12 @@ require_once( realpath(dirname(__FILE__).'/../base/musicip.php'));
     echo "<h1>".str('CONFIG_MIP_OPTIONS')."</h1>";
     $opts_type = array( str('TRACKS')=>'tracks',str('MINUTES')=>'min');
 
-    message($message_musicip);      
+    // Display any messages to the user regarding the state of the MusicIP service
+    if ( ! empty($message_musicip) )
+      message($message_musicip);  
+    elseif ( ! musicip_available() )
+      message('!'.str('MIP_NOT_FOUND'));  
+
     echo '<b>'.str('MIP_WHATIS').'</b>';
     echo '<p>'.str('MIP_DESC','<a href="www.musicip.com">www.musicip.com</a>');
 
@@ -81,7 +86,7 @@ require_once( realpath(dirname(__FILE__).'/../base/musicip.php'));
       }
       else 
       {
-        audio_display('',"!".str('MIP_NOT_FOUND',$port));
+        audio_display('',"!".str('MIP_INVALID_PORT',$port));
       }
     }
   }  
