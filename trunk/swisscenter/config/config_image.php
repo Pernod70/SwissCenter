@@ -18,6 +18,8 @@
     form_start('index.php');
     form_hidden('section','IMAGE');
     form_hidden('action','UPDATE');
+    form_radio_static('rotate',str('IMAGE_EXIF_ROTATE'),$option_vals, get_sys_pref('IMAGE_ROTATE','YES'),false,true);
+    form_label(str('IMAGE_EXIF_ROTATE_PROMPT'));
     form_radio_static('resize',str('IMAGE_RESIZE_TYPE'),$resize_vals, get_sys_pref('IMAGE_RESIZING','RESAMPLE'),false,true);
     form_label(str('IMAGE_RESIZE_PROMPT'));
     form_radio_static('precache',str('CACHE_PRECACHE'),$option_vals, get_sys_pref('CACHE_PRECACHE_IMAGES','NO'),false,true);
@@ -35,15 +37,16 @@
   function image_update()
   {
     $img = new CImage();
+    $msg = '';
     $fontname = $_REQUEST["fontname"];
-    if (strtoupper(substr($fontname,strlen($fontname)-4)) != '.TTF'
-       || $img->text('Test',0,0,0,14,$sfont)===FALSE) {
-         $msg = str('FAIL_PHP_FONT_SET');
-    } else {
+
+    if ( $img->text('Test',0,0,0,14,$sfont) === FALSE) 
+      $msg = str('FAIL_PHP_FONT_SET');
+    else 
       set_sys_pref('TTF_FONT',$fontname);
-      $msg = '';
-    }
+
     set_sys_pref('IMAGE_RESIZING',$_REQUEST["resize"]);
+    set_sys_pref('IMAGE_ROTATE',$_REQUEST["rotate"]);
     set_sys_pref('CACHE_PRECACHE_IMAGES',$_REQUEST["precache"]);
     image_display(str('SAVE_SETTINGS_OK').$msg);
   }

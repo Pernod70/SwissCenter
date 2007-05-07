@@ -411,12 +411,47 @@ class CImage
     if ($this->image !== false && $angle != 0)
     {
       $old = $this->image;
-      $this->image = ImageRotate($old, $angle, $bgcolour);
+      $this->image = ImageRotate($old, 360-$angle, $bgcolour);
       imagedestroy($old);
       $this->update_sizes();
       $this->src_fsp  = false;
     }
   }
+  
+  function flip_horizontal()
+  {
+    if ($this->image !== false)
+    {
+      $w = imagesx($this->image);
+      $h = imagesy($this->image);
+      $old = $this->image;
+      $this->image = ImageCreateTrueColor($w,$h);
+
+      for ($x = 0; $x < $w; $x++)
+       imagecopy($this->image, $old, $x, 0, $w - $x - 1, 0, 1, $h);
+        
+      imagedestroy($old);
+      $this->src_fsp = false;
+    }
+  }
+
+  function flip_vertical()
+  {
+    if ($this->image !== false)
+    {
+      $w = imagesx($this->image);
+      $h = imagesy($this->image);
+      $old = $this->image;
+      $this->image = ImageCreateTrueColor($w,$h);
+
+      for ($y = 0; $y < $h; $y++)
+        imagecopy($this->image, $old, 0, $y, 0, $h - $y - 1, $w, 1);
+        
+      imagedestroy($old);
+      $this->src_fsp = false;
+    }
+  }
+
 
   // -------------------------------------------------------------------------------------------------
   // Draws a filled rectangle of the given colour on the image

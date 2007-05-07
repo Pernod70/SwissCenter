@@ -14,7 +14,15 @@
   // Outputs the image file to the browser.
   //-------------------------------------------------------------------------------------------------
 
-  function output_image( $filename, $x, $y)
+  /* Although it would be faster to rsize the image and *then* rotate, it doesn't give the
+     expected result in PHP. As an example, take an image of 4000 x 6000 pixels that needs
+     to be displayed on a 1600x1200 screen:
+    
+     Image (4000,6000) -> Resize (800,1200)     -> Rotate 90 (1200,800) = Image of 1200 x 800
+     Image (4000,6000) -> Rotate 90 (6000,4000) -> Resize (1600,1066)   = Image of 1600 x 1066
+  */
+
+      function output_image( $file_id, $filename, $x, $y)
   {
     $cache_file = cache_filename($filename, $x, $y);
     if ( $cache_file !== false && file_exists($cache_file) )
@@ -33,8 +41,36 @@
         $image->load_from_file($filename); 
       else  
         send_to_log(1,'Unable to process image specified : '.$filename);  
+            
+      // Rotate/mirror the image as specified in the EXIF data (if enabled)
+      if (get_sys_pref('IMAGE_ROTATE','YES'))
+      {
+        $orientation = db_value("select exif_orientation from photos where file_id = $file_id");
+        
+        if ( $orientation == 5 || $orientation == 6 || $orientation == 7)
+          $image->rotate(90);          
+        elseif ( $orientation == 8 )
+          $image->rotate(270);
+  
+        // Only resize images to make them smaller!
+        if ( $image->get_width() > $x || $image->get_height() > $y)
+          $image->resize($x, $y);
+  
+        // Any required flips of the image can be done after the resize to improve performance
+        
+        if ( $orientation == 2 || $orientation == 5 || $orientation == 3 )
+          $image->flip_horizontal();
+  
+        if ( $orientation == 4 || $orientation == 7 || $orientation == 3 )
+          $image->flip_vertical();
+      }
+      else 
+      {
+        // Only resize images to make them smaller!
+        if ( $image->get_width() > $x || $image->get_height() > $y)
+          $image->resize($x, $y);        
+      }
       
-      $image->resize($x, $y);
       $image->output('jpg');
     }
   }
@@ -214,7 +250,7 @@
     // script. No idea why, but it seems to hand the showcenter firmware responsible for displaying slideshows.  
     send_to_log(7,'Attempting to stream the following Photo',array( "File ID"=>$file_id, "Location"=>$location ));
     store_request_details( $media, $file_id, $location);  
-    output_image( ucfirst($location), convert_x(1000, SCREEN_COORDS), convert_y(1000, SCREEN_COORDS) );
+    output_image( $file_id, ucfirst($location), convert_x(1000, SCREEN_COORDS), convert_y(1000, SCREEN_COORDS) );
   }
   else 
   { 
