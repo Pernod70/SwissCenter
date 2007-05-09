@@ -81,7 +81,7 @@ function get_screen_type()
     // What type of screen is it... Widescreen (16:9) or normal (4:3)?
     $_SESSION["device"]["aspect"] = ($_SESSION["device"]["browser_x_res"]/16*9 == $_SESSION["device"]["browser_y_res"] ? '16:9' : '4:3');
   
-    // How do we clasify this screen... PAL, NTSC or HDTV?
+    // How do we classify this screen... PAL, NTSC or HDTV?
     if ( $_SESSION["device"]["browser_x_res"] == 624)
       $_SESSION["device"]["screen_type"] = ($_SESSION["device"]["browser_y_res"] == 416 ? 'NTSC' : 'PAL');
     else
