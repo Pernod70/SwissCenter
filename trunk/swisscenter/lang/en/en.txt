@@ -628,13 +628,13 @@ IMAGE_EXIF_ROTATE          = Auto-Rotate
 IMAGE_EXIF_ROTATE_PROMPT   = Most modern digital camera record whether the camera was in "Landscape" or "Portrait" mode when a photograph was taken. Enabling this option will cause SwissCenter to automatically rotate the photograph before displaying it on the screen.
 
 TTF_FONT                   = TrueType Font
-TTF_FONT_PROMPT            = Font to be used to display Track informations on the 'Now Playing" screen, if supported (and enabled). Enter a 0 (zero) to auto-detect, a font name (e.g. if auto-detection fails), or a font file name with full path to the file (if everything else fails).
+TTF_FONT_PROMPT            = Font to be used to display Track information on the 'Now Playing" screen, if supported (and enabled). Enter a 0 (zero) to auto-detect, a font name (e.g. if auto-detection fails), or a font file name with full path to the file (if everything else fails).
 FAIL_PHP_FONT_SET          = ... but the font seems to be invalid (or not available)
 BOOKMARKS                  = Bookmarks
 
 CONFIG_MIP_OPTIONS         = MusicIP
 MIP_WHATIS                 = What is MusicIP?
-MIP_DESC                   = MusicIP (available free from %s) is a great piece of software which analyzes your music collection and generates an "acoustic fingerprint" of each song. This information is then used to generate a personal playlist of similar tracks based on a selected track, artist or album. [p]If MusicIP is installed on the same machine as SwissCenter, then extra features become available to generate and listen to MusicIP playlists directly from within the SwissCenter interface.
+MIP_DESC                   = MusicIP (available free from %s) is a great piece of software which analyses your music collection and generates an "acoustic fingerprint" of each song. This information is then used to generate a personal playlist of similar tracks based on a selected track, artist or album. [p]If MusicIP is installed on the same machine as SwissCenter, then extra features become available to generate and listen to MusicIP playlists directly from within the SwissCenter interface.
 MIP_PORT                   = MusicIP Port
 MIP_INVALID_PORT           = MusicIP server not found on port %s
 MIP_PORT_PROMPT            = Enter the port number that the MusicIP server is listening on. If you have not changed anything then the default port will be 10002. [p][b]Note:[/b]  MusicIP must be installed on the same server as SwissCenter.
@@ -647,13 +647,13 @@ MIP_REJECT                 = Artist Repeat
 MIP_REJECT_PROMPT          = You can prevent the same artist being played twice within a set time period (or number of tracks) using this option.
 MIP_SIZE                   = Playlist Size
 MIP_SIZE_PROMPT            = The number of tracks that MusicIP should return as part of a playlist.
-MIP_MIX_SONG               = Play similar trackts
+MIP_MIX_SONG               = Play similar tracks
 
 EXTRAS_TEST_TITLE          = Additional Components
 FAIL_MUSICIP_TEST          = MusicIP is not installed (or configured correctly).
 PASS_MUSICIP_TEST          = MusicIP service detected.
-FAIL_MIP_MIXABLE           = Only a small percentage (<50%) of your music has been analyzed by MusicIP. Although MusicIP will be able to generate playlists you may find that they are not very accurate.
-PASS_MIP_MIXABLE           = More than 50% of your music has been analyzed by MusicIP
+FAIL_MIP_MIXABLE           = Only a small percentage (<50%) of your music has been analysed by MusicIP. Although MusicIP will be able to generate playlists you may find that they are not very accurate.
+PASS_MIP_MIXABLE           = More than 50% of your music has been analysed by MusicIP
 
 # EXIF orientation values (see http://www.swisscenter.co.uk/components/com_mambowiki/index.php?title=EXIF_metadata_within_pictures)
 EXIFVALS_ORIENTATION	   = Normal, Flip Horizontal, Rotate 180, Flip Vertical, Transpose, Rotate Right, Transverse, Rotate Left
