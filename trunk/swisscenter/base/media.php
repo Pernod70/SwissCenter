@@ -80,6 +80,28 @@ function remove_orphaned_records()
 }
 
 // ----------------------------------------------------------------------------------
+// Removes orphaned actors, directors and genres from the movie tables.
+// ----------------------------------------------------------------------------------
+
+function remove_orphaned_movie_info()
+{
+  @db_sqlcommand('delete from actors '.
+                 ' using actors left outer join actors_in_movie '.
+                 '    on actors.actor_id = actors_in_movie.actor_id '.
+                 ' where actors_in_movie.actor_id is null');  
+
+  @db_sqlcommand('delete from genres '.
+                 ' using genres left outer join genres_of_movie '.
+                 '    on genres.genre_id = genres_of_movie.genre_id '.
+                 ' where genres_of_movie.genre_id is null');  
+
+  @db_sqlcommand('delete from directors '.
+                 ' using directors left outer join directors_of_movie '.
+                 '    on directors.director_id = directors_of_movie.director_id '.
+                 ' where directors_of_movie.director_id is null');  
+}
+
+// ----------------------------------------------------------------------------------
 // Eliminate duplicate records (when the version of MySQL is too low to support the
 // unique indexes created).
 // ----------------------------------------------------------------------------------
