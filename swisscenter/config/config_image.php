@@ -40,7 +40,7 @@
     $msg = '';
     $fontname = $_REQUEST["fontname"];
 
-    if ( $img->text('Test',0,0,0,14,$sfont) === FALSE) 
+    if ( $img->text('Test',0,0,0,14,$fontname) === FALSE) 
       $msg = str('FAIL_PHP_FONT_SET');
     else 
       set_sys_pref('TTF_FONT',$fontname);
