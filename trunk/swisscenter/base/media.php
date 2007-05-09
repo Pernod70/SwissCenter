@@ -72,6 +72,11 @@ function remove_orphaned_records()
                  ' using photos left outer join media_locations '.
                  '    on media_locations.location_id = photos.location_id '.
                  ' where media_locations.location_id is null');
+
+  @db_sqlcommand('delete from photo_albums '.
+                 ' using photo_albums left outer join photos '.
+                 '    on photo_albums.dirname = left(photos.dirname,length(photo_albums.dirname)) '.
+                 ' where left(photos.dirname,length(photo_albums.dirname)) is null');
 }
 
 // ----------------------------------------------------------------------------------
@@ -250,16 +255,16 @@ function process_photo( $dir, $id, $file)
       if (db_insert_row( "photos", $data))
       {
         // Pre-cache the image thumbnail if the user has selected that option.
-        $browsers = db_toarray("select distinct screen_x_res, screen_y_res from clients");
+        $browsers = db_toarray("select distinct browser_x_res, browser_y_res from clients");
         if ($cache_dir != '' && get_sys_pref('CACHE_PRECACHE_IMAGES','NO') == 'YES' && count($browsers)>0 )
         {
           send_to_log(6,'Pre-caching thumbnail');
           foreach ($browsers as $row)
           {
-            $_SESSION["device"]["screen_x_res"]=$row["screen_x_res"];
-            $_SESSION["device"]["screen_y_res"]=$row["screen_y_res"];
-            send_to_log(6,"- size $row[screen_x_res] x $row[screen_y_res]");            
-            precache($dir.$file, convert_x(THUMBNAIL_X_SIZE, SCREEN_COORDS), convert_y(THUMBNAIL_Y_SIZE, SCREEN_COORDS) );             
+            $_SESSION["device"]["browser_x_res"]=$row["BROWSER_X_RES"];
+            $_SESSION["device"]["browser_y_res"]=$row["BROWSER_Y_RES"];
+            send_to_log(6,"- for browser size ".$row["BROWSER_X_RES"]."x".$row["BROWSER_Y_RES"]);
+            precache($dir.$file, convert_x(THUMBNAIL_X_SIZE), convert_y(THUMBNAIL_Y_SIZE) );             
           }
         }
       }
@@ -300,7 +305,7 @@ function process_movie( $dir, $id, $file)
   $data["dirname"]      = $dir;
   $data["filename"]     = $file;
   $data["location_id"]  = $id;
-  $data["title"]        = file_noext($file);
+  $data["title"]        = strip_title($file);
   $data["size"]         = filesize($dir.$file);
   $data["verified"]     = 'Y';
   $data["discovered"]   = db_datestr();
@@ -342,7 +347,7 @@ function process_media_directory( $dir, $id, $table, $file_exts, $recurse = true
 
   // Mark all the files in this directory as unverified
   db_sqlcommand("update $table set verified ='N' where dirname like'".db_escape_str($dir)."%'");
-    
+
   if ($dh = @opendir($dir))
   {
     while (($file = readdir($dh)) !== false)
@@ -407,7 +412,7 @@ function process_media_directory( $dir, $id, $table, $file_exts, $recurse = true
     
   // Delete any files which cannot be verified
   db_sqlcommand("delete from $table where verified ='N' and dirname like '".db_escape_str($dir)."%'");   
-  
+
   // Remove the browser coords from the session to ensure it gets recalculated to the current browser
   unset($_SESSION["device"]);
 }

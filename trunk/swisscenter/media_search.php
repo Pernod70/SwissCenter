@@ -39,7 +39,6 @@
   //===========================================================================================
 
   media_indicator('BLINK');
-  remove_orphaned_records();
   
   process_media_dirs( MEDIA_TYPE_MUSIC );
   process_media_dirs( MEDIA_TYPE_VIDEO );
@@ -48,6 +47,7 @@
   if ( is_movie_check_enabled() )
     extra_get_all_movie_details();
   
+  remove_orphaned_records();
   eliminate_duplicates();
   media_indicator('OFF');
 
