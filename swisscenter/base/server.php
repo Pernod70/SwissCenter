@@ -165,7 +165,7 @@
     if (is_windows())
     {
       $services = syscall('net start');
-      return ( strpos($services,'Task Scheduler') !== false );
+      return ( strpos($services,'Task Scheduler') !== false || strpos($services,str('TASK_SCHEDULER')) !== false);
     }
     else 
       return 'Not running on windows';

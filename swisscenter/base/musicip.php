@@ -25,7 +25,7 @@ function musicip_check( $port )
   $temp = '';
   $result = false;
 
-  if ( $sock = @fsockopen('localhost', $port , $temp, $temp, 0.5))
+  if ( $sock = @fsockopen('localhost', $port , $temp, $temp, 1.5))
   {
     fclose($sock);
     $status = @file_get_contents("http://localhost:$port/api/getstatus");
