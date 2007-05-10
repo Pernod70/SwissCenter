@@ -56,14 +56,12 @@ html>body .fd-slider-bar
         width:20px;
         height:20px;
         background:transparent url(/images/slider.png) no-repeat 0px 0px !important;
-        background:none;
         -moz-user-select:none;
         }
 
 .fd-slider-hover
         {
         background:transparent url(/images/slider-hover.png) no-repeat 0px 0px !important;
-        background:none;
         }
 
 div.slider_200px
@@ -72,4 +70,5 @@ div.slider_200px
         float:left;
         margin-right: 6px;
         }
+
 
