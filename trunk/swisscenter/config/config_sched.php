@@ -176,7 +176,7 @@
 
       if (count($days)>0)
       {
-      	media_schedule_refresh(implode(',',$days), $hrs.':'.$mins);  
+        run_background('media_search.php', implode(',',$days) , $hrs.':'.$mins );
         sched_display(str('SCHEDULE_UPDATED'));        
       }
       else
