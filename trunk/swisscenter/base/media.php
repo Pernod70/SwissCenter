@@ -101,20 +101,47 @@ function eliminate_duplicates()
   @db_sqlcommand('DELETE FROM movies USING movies, movies_del WHERE movies.file_id = movies_del.file_id');
   @db_sqlcommand('DELETE FROM photos USING photos, photos_del WHERE photos.file_id = photos_del.file_id');  
 }
+
+/**
+ * Returns the database table name for the specified media type.
+ *
+ * @param integer $media_type
+ * @return string
+ */
+
+function get_media_table( $media_type )
+{
+  return db_value("select media_table from media_types where media_id = $media_type");
+}
   
 /**
  * Returns the number of times that the specified media file has been viewed.
  *
- * @param enum $media_type MEDIA_TYPE_MUSIC | MEDIA_TYPE_PHOTO | MEDIA_TYPE_RADIO | MEDIA_TYPE_VIDEO
- * @param integer $file_id The FILE_ID from the database for this media file.
+ * @param enum $media_type - MEDIA_TYPE_MUSIC | MEDIA_TYPE_PHOTO | MEDIA_TYPE_RADIO | MEDIA_TYPE_VIDEO
+ * @param mixed $file - Filename (inc. path) or FILE_ID of the media file
  * @return integer
  */
 
 function viewings_count( $media_type, $file_id)
 {
-  $val = db_value("select total_viewings from viewings 
-                    where user_id = ".get_current_user_id()."
-                      and media_type = $media_type and media_id = $file_id");
+  if ( is_numeric($file) )
+  {
+    $val = db_value("select total_viewings from viewings 
+                      where user_id = ".get_current_user_id()."
+                         and media_type = $media_type and media_id = $file_id");
+  }
+  elseif ( is_string($file))
+  {
+    $table = get_media_table($media_type);
+    $val = db_value("select total_viewings from viewings, $table 
+                      where viewings.media_id = $table.file_id 
+                        and media_type = $media_type and concat(dirname,filename) = '".db_escape_str($file)."'");
+  }
+  else 
+  {
+    send_to_log(1,'Incorrect call to the viewings_count() function.');
+    $val = FALSE;
+  }
   
   return ($val !== FALSE ? $val : 0);
 }
