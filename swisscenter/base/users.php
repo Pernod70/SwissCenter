@@ -6,6 +6,12 @@
 require_once( realpath(dirname(__FILE__).'/mysql.php'));
 require_once( realpath(dirname(__FILE__).'/stylelib.php'));
 
+/**
+ * Gets the user ID of the currently logged on user.
+ *
+ * @return integer
+ */
+
 function get_current_user_id()
 {
   if (isset($_SESSION["CURRENT_USER"]))
@@ -14,10 +20,24 @@ function get_current_user_id()
     return false;
 }
 
+/**
+ * Returns the name of the currently logged on user
+ *
+ * @return string
+ */
+
 function get_current_user_name()
 {
   return db_value('SELECT name FROM users WHERE user_id='.get_current_user_id());
 }
+
+/**
+ * Sets the current user to the ID given provided the supplied PIN is correct.
+ *
+ * @param integer $user_id - User to make current
+ * @param string $pin - PIN code for the user
+ * @return boolean
+ */
 
 function change_current_user_id($user_id, $pin = null)
 {
@@ -34,6 +54,14 @@ function change_current_user_id($user_id, $pin = null)
   return $ok;
 }
 
+/**
+ * Validates the PIN against the specified user.
+ *
+ * @param integer $user_id - User ID to check PIN for
+ * @param string $pin - The PIN number
+ * @return boolean
+ */
+
 function check_pin($user_id, $pin)
 {
   $sql = "SELECT count(*) FROM users WHERE user_id=".$user_id." AND pin";
@@ -46,12 +74,26 @@ function check_pin($user_id, $pin)
   return db_value($sql);
 }
 
+/**
+ * Returns true if the user has set a PIN on their account
+ *
+ * @param integer $user_id
+ * @return boolean
+ */
+
 function has_pin($user_id)
 {
   $pin = db_value("SELECT pin FROM users WHERE user_id=".$user_id);
   
   return !empty($pin);
 }
+
+/**
+ * Sets the PIN for the specified user
+ *
+ * @param integer $user_id
+ * @param string $pin
+ */
 
 function change_pin($user_id, $pin)
 {
@@ -61,6 +103,12 @@ function change_pin($user_id, $pin)
     db_sqlcommand("UPDATE users SET pin='$pin' WHERE user_id=$user_id");
 }
 
+/**
+ * Returns whether or not a user is currently selected.
+ *
+ * @return boolean
+ */
+
 function is_user_selected()
 {
   $current_user_id = get_current_user_id();
@@ -69,7 +117,7 @@ function is_user_selected()
   if(empty($current_user_id))
   {
     $default_user = get_default_user();
-    if(!empty($default_user))
+    if( $default_user !== FALSE)
     {
       change_current_user_id($default_user);
       $current_user_id = get_current_user_id();
@@ -78,6 +126,12 @@ function is_user_selected()
   
   return !empty($current_user_id);
 }
+
+/**
+ * Gets the maximum rank (in terms of media certificates) that the specified user is able to access.
+ *
+ * @return integer
+ */
 
 function get_current_user_rank()
 {
@@ -91,6 +145,12 @@ function get_current_user_rank()
   return $rank;
 }
 
+/**
+ * Returns the default user ID if a default user is configured, or FALSE otherwise.
+ *
+ * @return integer
+ */
+
 function get_default_user()
 {
   // Look for only a single user with no PIN
@@ -99,8 +159,14 @@ function get_default_user()
   if(count($data) == 1)
     return $data[0]["USER_ID"];
   else
-    return null;
+    return FALSE;
 }
+
+/**
+ * Returns the number of users defined in the system
+ *
+ * @return integer
+ */
 
 function get_num_users()
 {
