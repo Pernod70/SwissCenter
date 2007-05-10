@@ -94,17 +94,25 @@ function musicip_mixable_percent()
   if ( musicip_available() )
   {
     $matches = array();
-    $html = strip_tags(file_get_contents( musicip_address().'server' ));
+    $html = @file_get_contents( musicip_address().'server' );
     
-    // Total number of songs
-    preg_match_all('/Total Songs *([0-9,]*)/i',$html,$matches);
-    $songs = str_replace(',','',$matches[1][0]);
-
-    // Total number of songs
-    preg_match_all('/Mixable Songs *([0-9,]*)/i',$html,$matches);
-    $mixable = str_replace(',','',$matches[1][0]);
-
-    return (int)($mixable/$songs*100);
+    // Page was successfully retrieved
+    if ($html !== false)
+    {
+      $html = strip_tags($html);
+      
+      // Total number of songs
+      preg_match_all('/Total Songs *([0-9,]*)/i',$html,$matches);
+      $songs = str_replace(',','',$matches[1][0]);
+  
+      // Total number of songs
+      preg_match_all('/Mixable Songs *([0-9,]*)/i',$html,$matches);
+      $mixable = str_replace(',','',$matches[1][0]);
+  
+      return (int)($mixable/$songs*100);
+    }
+    else 
+      return false;
   }
   else 
     return false;

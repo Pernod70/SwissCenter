@@ -48,6 +48,7 @@
     extra_get_all_movie_details();
   
   remove_orphaned_records();
+  remove_orphaned_movie_info();
   eliminate_duplicates();
   media_indicator('OFF');
 

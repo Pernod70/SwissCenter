@@ -20,13 +20,28 @@
     echo '<center>'.str('SELECT_OPTION').'</center><p>';
 
     $menu = new menu();
-    $menu->add_item( str('BROWSE_ARTIST') ,"music_search.php?sort=artist",true);
-    $menu->add_item( str('BROWSE_ALBUM') ,"music_search.php?sort=album",true);
-    $menu->add_item( str('BROWSE_TRACK') ,"music_search.php?sort=title",true);
-    $menu->add_item( str('BROWSE_GENRE') ,"music_search.php?sort=genre",true);
-    $menu->add_item( str('BROWSE_YEAR') ,"music_search.php?sort=year",true);
-    $menu->add_item( str('BROWSE_FILESYSTEM') ,"music_browse.php",true);
-    $menu->display();
+    if (get_sys_pref('browse_music_artist_enabled','YES') == 'YES')
+      $menu->add_item( str('BROWSE_ARTIST') ,"music_search.php?sort=artist",true);
+    if (get_sys_pref('browse_music_album_enabled','YES') == 'YES') 
+      $menu->add_item( str('BROWSE_ALBUM') ,"music_search.php?sort=album",true);
+    if (get_sys_pref('browse_music_track_enabled','YES') == 'YES') 
+      $menu->add_item( str('BROWSE_TRACK') ,"music_search.php?sort=title",true);
+    if (get_sys_pref('browse_music_genre_enabled','YES') == 'YES') 
+      $menu->add_item( str('BROWSE_GENRE') ,"music_search.php?sort=genre",true);
+    if (get_sys_pref('browse_music_year_enabled','YES') == 'YES') 
+      $menu->add_item( str('BROWSE_YEAR') ,"music_search.php?sort=year",true);
+    if (get_sys_pref('browse_music_filesystem_enabled','YES') == 'YES') 
+      $menu->add_item( str('BROWSE_FILESYSTEM') ,"music_browse.php",true);
+    
+    if ($menu->num_items() == 1)
+    {
+      search_hist_init( 'music.php', category_select_sql($cat_id, 1).get_rating_filter() );
+      header('Location: '.server_address().$menu->item_url(0));
+    } 
+    else
+    {
+      $menu->display();
+    }
     
     page_footer('music.php', array(array('text' => str('QUICK_PLAY')
                                         ,'url'  => quick_play_link(MEDIA_TYPE_MUSIC,$_SESSION["history"][0]["sql"]))));

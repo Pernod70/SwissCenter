@@ -38,22 +38,26 @@ class menu
     $this->padding = $val;
   }
 
-  function add_item( $text, $url="", $right = false )
+  function add_item( $text, $url="", $right = false, $left = false )
   {
     $icon = img_gen(SC_LOCATION.style_img("MENU_RIGHT"), 16 , 40, false, false, 'RESIZE');
-
+    $icon_left = img_gen(SC_LOCATION.style_img("MENU_LEFT"), 16 , 40, false, false, 'RESIZE');
+    
     if (substr($url,0,5) != 'href=')
       $url = 'href="'.$url.'"';
     
     if (! is_null($text) && strlen($text)>0)
       $this->menu_items[] = array( "text"=>$text
                                  , "url"=>$url
-                                 , "right"=> ($right == true ? '</td><td>'.$icon : '') );
+                                 , "right"=> ($right == true ? '</td><td>'.$icon : '')
+				 , "left"=> ($left == true ? '<td>'.$icon_left.'</td>' : '') );
   }
 
-  function add_info_item( $text, $url, $info, $right = false )
+  function add_info_item( $text, $url, $info, $right = false, $left = false )
   {
     $icon = img_gen(SC_LOCATION.style_img("MENU_RIGHT"), 16 , 40, false, false, 'RESIZE');
+    $icon_left = img_gen(SC_LOCATION.style_img("MENU_LEFT"), 16 , 40, false, false, 'RESIZE');
+    
     $this->info_column = true;
     
     if (substr($url,0,5) != 'href=')
@@ -63,7 +67,8 @@ class menu
       $this->menu_items[] = array( "text"=>$text
                                  , "info"=>$info
                                  , "url"=>$url
-                                 , "right"=> ($right == true ? '</td><td>'.$icon : '') );
+                                 , "right"=> ($right == true ? '</td><td>'.$icon : '') 
+				 , "left"=> ($left == true ? '<td>'.$icon_left.'</td>' : '') );
   }
 
   function add_up( $url )
@@ -76,6 +81,20 @@ class menu
     $this->down = $url;
   }
 
+  function num_items()
+  {
+    return count($this->menu_items);
+  }
+  
+  function item_url( $item=0 )
+  {
+    $url = $this->menu_items[$item]["url"];
+    if (substr($url,0,5) == 'href=')
+      return substr($url,6,strlen($url)-7);
+    else
+      return $url;
+  }
+  
   function display( $size=650 )
   {
     $i        = 0;

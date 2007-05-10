@@ -73,7 +73,8 @@
   	{
   	  menu_item( str('CACHE_CONFIG_TITLE')     ,'section=CACHE&action=DISPLAY');
   	  menu_item( str('CATEGORIES')             ,'section=CATEGORY&action=DISPLAY');
-  	  menu_item( str('CONNECT_TITLE')          ,'section=CONNECT&action=DISPLAY');
+  	  menu_item( str('BROWSE_OPTIONS')             ,'section=BROWSE&action=DISPLAY');
+	  menu_item( str('CONNECT_TITLE')          ,'section=CONNECT&action=DISPLAY');
   	  menu_item( str('USERS_ADD_TITLE')        ,'section=USERS&action=DISPLAY');
   	  menu_item( str('SCHEDULE_TITLE')         ,'section=SCHED&action=DISPLAY');
   
