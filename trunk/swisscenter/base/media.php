@@ -9,47 +9,16 @@ require_once( realpath(dirname(__FILE__).'/mysql.php'));
 require_once( realpath(dirname(__FILE__).'/image.php'));
 require_once( realpath(dirname(__FILE__).'/screen.php'));
 require_once( realpath(dirname(__FILE__).'/utils.php'));
+require_once( realpath(dirname(__FILE__).'/users.php'));
 
 // Libraries for reading file metadata
 require_once( realpath(dirname(__FILE__).'/../ext/getid3/getid3.php'));
 require_once( realpath(dirname(__FILE__).'/../ext/exif/exif_reader.php'));
 
-//-------------------------------------------------------------------------------------------------
-// Causes an immediate refresh of the media database
-//-------------------------------------------------------------------------------------------------
-
-function media_refresh_now()
-{
-  if (is_server_simese() && simese_version() >= 1.31)
-  {
-    $dir = SC_LOCATION.'config/simese';
-
-    if ( !file_exists($dir) )
-      mkdir($dir);
-    
-    if (is_dir($dir))
-      write_binary_file($dir.'/Simese.ini',"MediaRefresh=Now");
-  }
-  else
-  	run_background('media_search.php');
-}
-
-//-------------------------------------------------------------------------------------------------
-// If the server is anything other than Simese, then we use the bacground scheduler (such as "at"
-// or "cron" to schedule a media refresh)
-//-------------------------------------------------------------------------------------------------
-
-function media_schedule_refresh($schedule, $time)
-{
-  // Managing the Simese scheduler is best done in Simese, not by the SwissCenter
-  if (!is_server_simese())
-    run_background('media_search.php',$schedule, $time);
-}
-
-// ----------------------------------------------------------------------------------
-// Removes orphaned media files and albumart from the database (rows that exist in
-// the database for a media location that is not valid anymore).
-// ----------------------------------------------------------------------------------
+/**
+ * Removes orphaned media files and albumart from the database (rows that exist in
+ * the database for a media location that is not valid anymore).
+ */
 
 function remove_orphaned_records()
 {
@@ -79,9 +48,10 @@ function remove_orphaned_records()
                  ' where left(photos.dirname,length(photo_albums.dirname)) is null');
 }
 
-// ----------------------------------------------------------------------------------
-// Removes orphaned actors, directors and genres from the movie tables.
-// ----------------------------------------------------------------------------------
+/**
+ * Removes orphaned actors, directors and genres from the movie tables.
+ *
+ */
 
 function remove_orphaned_movie_info()
 {
@@ -101,10 +71,11 @@ function remove_orphaned_movie_info()
                  ' where directors_of_movie.director_id is null');  
 }
 
-// ----------------------------------------------------------------------------------
-// Eliminate duplicate records (when the version of MySQL is too low to support the
-// unique indexes created).
-// ----------------------------------------------------------------------------------
+/**
+ * Eliminate duplicate records (when the version of MySQL is too low to support the
+ * unique indexes created).
+ *
+ */
 
 function eliminate_duplicates()
 {
@@ -131,10 +102,86 @@ function eliminate_duplicates()
   @db_sqlcommand('DELETE FROM photos USING photos, photos_del WHERE photos.file_id = photos_del.file_id');  
 }
   
+/**
+ * Returns the number of times that the specified media file has been viewed.
+ *
+ * @param enum $media_type MEDIA_TYPE_MUSIC | MEDIA_TYPE_PHOTO | MEDIA_TYPE_RADIO | MEDIA_TYPE_VIDEO
+ * @param integer $file_id The FILE_ID from the database for this media file.
+ * @return integer
+ */
+
+function viewings_count( $media_type, $file_id)
+{
+  $val = db_value("select total_viewings from viewings 
+                    where user_id = ".get_current_user_id()."
+                      and media_type = $media_type and media_id = $file_id");
+  
+  return ($val !== FALSE ? $val : 0);
+}
+
+/**
+ * Increment the downloads counter so that we can track which files are played by which user,
+ * and how often. Also store the details on the last file played in the user's preferences.
+ *
+ * @param integer $media
+ * @param integer $file_id
+ */
+
+function store_request_details( $media, $file_id )
+{  
+  // Store details on the file being requested.
+  set_user_pref('LAST_PLAYED_TIME', time() );
+  set_user_pref('LAST_PLAYED_ID', $file_id);  
+
+  // Current user
+  $user_id = get_current_user_id();
+
+  // Increment the downloads counter for this file
+  if ( db_value("select count(*) from viewings where user_id=$user_id and media_type=$media and media_id=$file_id") == 0)
+  {
+    db_sqlcommand("insert into viewings ( user_id, media_type, media_id, last_viewed, total_viewings )
+                   values ( $user_id, $media, $file_id, now(), 1) ");
+  }
+  else
+  {
+    db_sqlcommand("update viewings set total_viewings = total_viewings+1 , last_viewed = now() 
+                   where user_id=$user_id and media_type=$media and media_id=$file_id");
+  }  
+}
+
 //-------------------------------------------------------------------------------------------------
-// Takes the specified file and checks the format to determine if it should be added to the 
-// appropriate media table in the database.
+// The following functions all relate explicitly to searchign for new media.
 //-------------------------------------------------------------------------------------------------
+
+/**
+ * Causes an immediate refresh of the media database
+ *
+ */
+
+function media_refresh_now()
+{
+  if (is_server_simese() && simese_version() >= 1.31)
+  {
+    $dir = SC_LOCATION.'config/simese';
+
+    if ( !file_exists($dir) )
+      mkdir($dir);
+    
+    if (is_dir($dir))
+      write_binary_file($dir.'/Simese.ini',"MediaRefresh=Now");
+  }
+  else
+  	run_background('media_search.php');
+}
+
+/**
+ * Takes the specified file and checks the format to determine if it should be added to the 
+ * appropriate media table in the database.
+ *
+ * @param directory $dir
+ * @param integer $id - Media Location ID
+ * @param filename $file
+ */
 
 function process_mp3( $dir, $id, $file)
 {
@@ -202,10 +249,12 @@ function process_mp3( $dir, $id, $file)
   }
 }
 
-// ----------------------------------------------------------------------------------
-// Given a directory ($dir) and location id ($id) this function creates a new photo
-// album within the database.
-// ----------------------------------------------------------------------------------
+/**
+ * Creates a new photo album within the database for this directory.
+ *
+ * @param directory $dir
+ * @param integer $id - Media Location ID
+ */
 
 function add_photo_album( $dir, $id )
 {
@@ -226,10 +275,14 @@ function add_photo_album( $dir, $id )
   }
 }
   
-//-------------------------------------------------------------------------------------------------
-// Takes the specified file and checks the format to determine if it should be added to the 
-// appropriate media table in the database.
-//-------------------------------------------------------------------------------------------------
+/**
+ * Takes the specified file and checks the format to determine if it should be added to the 
+ * appropriate media table in the database.
+ *
+ * @param directory $dir
+ * @param integer $id - Media Location ID
+ * @param filename $file
+ */
 
 function process_photo( $dir, $id, $file)
 {
@@ -309,10 +362,14 @@ function process_photo( $dir, $id, $file)
   }
 }
 
-//-------------------------------------------------------------------------------------------------
-// Takes the specified file and checks the format to determine if it should be added to the 
-// appropriate media table in the database.
-//-------------------------------------------------------------------------------------------------
+/**
+ * Takes the specified file and checks the format to determine if it should be added to the 
+ * appropriate media table in the database.
+ *
+ * @param directory $dir
+ * @param integer $id - Media Location ID
+ * @param filename $file
+ */
 
 function process_movie( $dir, $id, $file)
 {
@@ -359,9 +416,15 @@ function process_movie( $dir, $id, $file)
     send_to_log(1,'Unable to add movie to the database');
 }
 
-// ----------------------------------------------------------------------------------
-// Recursive scan through the directory, finding all the MP3 files.
-// ----------------------------------------------------------------------------------
+/**
+ * Recursive scan through the directory, finding all the MP3 files.
+ *
+ * @param directory $dir - directory to search
+ * @param integer $id - media location ID
+ * @param string $table - database table for this media type
+ * @param array $file_exts - array of allowed file extensions
+ * @param boolean $recurse - Process subdirectories?
+ */
 
 function process_media_directory( $dir, $id, $table, $file_exts, $recurse = true )
 {
