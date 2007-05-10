@@ -9,6 +9,8 @@
   require_once( realpath(dirname(__FILE__).'/base/playlist.php'));
   require_once( realpath(dirname(__FILE__).'/base/capabilities.php'));
   require_once( realpath(dirname(__FILE__).'/base/file.php'));
+  require_once( realpath(dirname(__FILE__).'/base/db_abstract.php'));
+  require_once( realpath(dirname(__FILE__).'/base/media.php'));
 
 /**************************************************************************************************
 // Notes
@@ -67,7 +69,13 @@
 
     // Don't use "stream.php" for movies until we can get the (lack of) subtitles bug sorted out!
     if ($media_type == 3 ) // Movie
+    {
+      // Record the fact the movie was viewed.
+      store_request_details( $media_type, $file_id); 
+
+      send_to_log(7,'Attempting to stream the following video',array( "File ID"=>$file_id, "Media Type"=>$media_type, "Location"=>ucfirst($row["DIRNAME"]).$row["FILENAME"] ));
       $url = $server.make_url_path(ucfirst($row["DIRNAME"]).$row["FILENAME"]);
+    }
     else
       $url = $server.'stream.php?'.current_session().'&media_type='.$media_type.'&file_id='.$file_id.'&ext=.'.file_ext($row["FILENAME"]);
     
