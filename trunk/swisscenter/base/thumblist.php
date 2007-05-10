@@ -79,7 +79,7 @@ class thumb_list
   # Member Functions
   #-------------------------------------------------------------------------------------------------
 
-  function add_item( $image, $text, $url )
+  function add_item( $image, $text, $url, $highlight = false )
   {
     if (! is_null($url) && substr($url,0,4) != "href")
       $url = 'href="'.$url.'"';
@@ -87,7 +87,8 @@ class thumb_list
     if (! is_null($image) && !is_null($text))
       $this->items[] = array( "img"=>  $image
                             , "txt" => $text
-                            , "url" => $url );
+                            , "url" => $url
+			                      , "highlight" => $highlight);
   }
 
   function display()
@@ -137,10 +138,14 @@ class thumb_list
         for ($col=0; $col < $max_col_this_row ; $col++)
         {
           $cell_no = $row*$this->n_cols+$col;
+          $text    = shorten($this->items[$cell_no]["txt"],$cell_width, 2, 10); 
+          
+          // highlight this thumbnail?
+	        if ($this->items[$cell_no]["highlight"]==true)
+            $text = "<b><i>".$text."</i></b>";
+
           echo '<td valign="top" width="'.convert_x($cell_width).'"><center><a name="'.($cell_no + 1).'" '
-               .$this->items[$cell_no]["url"].'><font size="1">'
-               .shorten($this->items[$cell_no]["txt"],$cell_width, 2, 10)
-               .'</font></a></center></td>';
+               .$this->items[$cell_no]["url"].'>'.'<font size="1">'.$text.'</font></a></center></td>';
         }
   
         echo "</tr><tr>";      
