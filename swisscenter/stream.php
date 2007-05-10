@@ -9,20 +9,25 @@
   require_once( realpath(dirname(__FILE__).'/base/file.php'));
   require_once( realpath(dirname(__FILE__).'/base/image.php'));
   require_once( realpath(dirname(__FILE__).'/base/users.php'));
+  require_once( realpath(dirname(__FILE__).'/base/media.php'));
 
-  //-------------------------------------------------------------------------------------------------
-  // Outputs the image file to the browser.
-  //-------------------------------------------------------------------------------------------------
+/**
+ * Outputs the image file to the browser.
+ * 
+ * Although it would be faster to rsize the image and *then* rotate, it doesn't give the
+ * expected result in PHP. As an example, take an image of 4000 x 6000 pixels that needs
+ * to be displayed on a 1600x1200 screen:
+ * 
+ *   Image (4000,6000) -> Resize (800,1200)     -> Rotate 90 (1200,800) = Image of 1200 x 800
+ *   Image (4000,6000) -> Rotate 90 (6000,4000) -> Resize (1600,1066)   = Image of 1600 x 1066
+ *
+ * @param integer $file_id
+ * @param string $filename
+ * @param integer $x
+ * @param integer $y
+ */
 
-  /* Although it would be faster to rsize the image and *then* rotate, it doesn't give the
-     expected result in PHP. As an example, take an image of 4000 x 6000 pixels that needs
-     to be displayed on a 1600x1200 screen:
-    
-     Image (4000,6000) -> Resize (800,1200)     -> Rotate 90 (1200,800) = Image of 1200 x 800
-     Image (4000,6000) -> Rotate 90 (6000,4000) -> Resize (1600,1066)   = Image of 1600 x 1066
-  */
-
-      function output_image( $file_id, $filename, $x, $y)
+  function output_image( $file_id, $filename, $x, $y)
   {
     $cache_file = cache_filename($filename, $x, $y);
     if ( $cache_file !== false && file_exists($cache_file) )
@@ -75,10 +80,12 @@
     }
   }
 
-  //-------------------------------------------------------------------------------------------------
-  // Outputs the requested subtitles file to the browser (if it exists).
-  //-------------------------------------------------------------------------------------------------
-  
+/**
+ * Outputs the requested subtitles file to the browser (if it exists).
+ *
+ * @param string $fsp
+ */
+
   function output_subtitles( $fsp )
   {
     if (file_exists($fsp))
@@ -106,36 +113,14 @@
     }        
   }
 
-  //-------------------------------------------------------------------------------------------------
-  // Increment the downloads counter so that we can track which files are played by which user, and
-  // how often. Also store the details on the last file played in the user's preferences.
-  //-------------------------------------------------------------------------------------------------
-  
-  function store_request_details( $media, $file_id )
-  {  
-    // Store details on the file being requested.
-    set_user_pref('LAST_PLAYED_TIME', time() );
-    set_user_pref('LAST_PLAYED_ID', $file_id);  
-
-    // Current user
-    $user_id = get_current_user_id();
-
-    // Increment the downloads counter for this file
-    if ( db_value("select count(*) from viewings where user_id=$user_id and media_type=$media and media_id=$file_id") == 0)
-    {
-      db_sqlcommand("insert into viewings ( user_id, media_type, media_id, last_viewed, total_viewings )
-                     values ( $user_id, $media, $file_id, now(), 1) ");
-    }
-    else
-    {
-      db_sqlcommand("update viewings set total_viewings = total_viewings+1 , last_viewed = now() 
-                     where user_id=$user_id and media_type=$media and media_id=$file_id");
-    }  
-  }
-
-  //-------------------------------------------------------------------------------------------------
-  // Streams a file down to the hardware player
-  //-------------------------------------------------------------------------------------------------
+/**
+ * Streams a file down to the hardware player.
+ *
+ * @param integer $media
+ * @param integer $file_id
+ * @param filename $location
+ * @param array $headers
+ */
 
   function stream_file($media, $file_id, $location, $headers = array() )
   {
@@ -234,7 +219,7 @@
   {
     // Store the request details, and then send a redirect header to the player with the real location of the media file.
     send_to_log(7,'Attempting to stream the following Audio file',array( "File ID"=>$file_id, "Media Type"=>$media, "Location"=>$location ));
-    store_request_details( $media, $file_id, $location);  
+    store_request_details( $media, $file_id);  
 
     $duration = db_value("select length from $table where file_id= $file_id");
     if ($duration > 0)
@@ -249,14 +234,14 @@
     // We have to perform on-the-fly resizing for images because we can't redirect them through the thumb.php 
     // script. No idea why, but it seems to hand the showcenter firmware responsible for displaying slideshows.  
     send_to_log(7,'Attempting to stream the following Photo',array( "File ID"=>$file_id, "Location"=>$location ));
-    store_request_details( $media, $file_id, $location);  
+    store_request_details( $media, $file_id);  
     output_image( $file_id, ucfirst($location), convert_x(1000, SCREEN_COORDS), convert_y(1000, SCREEN_COORDS) );
   }
   else 
   { 
     // Store the request details, and then send a redirect header to the player with the real location of the media file.
     send_to_log(7,'Attempting to stream the following file',array( "File ID"=>$file_id, "Media Type"=>$media, "Location"=>$location ));
-    store_request_details( $media, $file_id, $location);  
+    store_request_details( $media, $file_id);  
       
     send_to_log(8,'Redirecting to '.$server.$redirect_url);
     header ("HTTP/1.0 307 Temporary redirect");
