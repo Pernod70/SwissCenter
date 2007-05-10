@@ -82,7 +82,7 @@
     for ($i=$start; $i<$end; $i++)
     {
       // Output a link to cause the specified playlist to be loaded into the session
-      $menu->add_info_item($stations[$i]->name,$stations[$i]->playlist,$stations[$i]->bitrate."K");
+      $menu->add_info_item($stations[$i]->name, $stations[$i]->bitrate."k", $stations[$i]->playlist);
     }
     
     $menu->display();
@@ -167,7 +167,7 @@
   // to the left hand side).
   // ----------------------------------------------------------------------------------
 
-  function display_names ($url, $dir, $dir_list, $file_list, $page)
+  function display_names ($url, $dir, $dir_list, $file_list, $page, $media_type)
   {
     $menu      = new menu();
     $no_items  = items_per_page();
@@ -192,8 +192,10 @@
       else
       {
         // Output a link to cause the specified playlist to be loaded into the session
-        eval('$dest = output_link( "'.$file_list[$i-count($dir_list)]["dirname"].$file_list[$i-count($dir_list)]["filename"].'" );');
-        $menu->add_item(ucwords(file_noext($file_list[$i-count($dir_list)]["filename"])),$dest);
+        $details   = $file_list[$i-count($dir_list)];  
+        $viewed    = (viewings_count( $media_type, $details["dirname"].$details["filename"]) > 0);
+        eval('$link_url = output_link( "'.$details["dirname"].$details["filename"].'" );');        
+        $menu->add_item( ucwords(file_noext($details["filename"])) , $link_url, false, $viewed );
       }
     }
     $menu->display();
@@ -203,7 +205,7 @@
   // Displays the dirs/files to the user in "thumbnail" format 
   // ----------------------------------------------------------------------------------
 
-  function display_thumbs ($url, $dir, $dir_list, $file_list, $page)
+  function display_thumbs ($url, $dir, $dir_list, $file_list, $page, $media_type)
   {
     $tlist    = new thumb_list();
     $no_items = items_per_page();
@@ -234,8 +236,9 @@
       {
         // Output a link to cause the specified playlist to be loaded into the session
         $details   = $file_list[$i-count($dir_list)];  
-        eval('$link_url = output_link( "'.$details["dirname"].$details["filename"].'" );');
-        $tlist->add_item(file_thumbnail($details["dirname"].$details["filename"]), file_noext($details["filename"]), $link_url);
+        $viewed    = (viewings_count( $media_type, $details["dirname"].$details["filename"]) > 0);
+        eval('$link_url = output_link( "'.$details["dirname"].$details["filename"].'" );');        
+        $tlist->add_item( file_thumbnail($details["dirname"].$details["filename"]) , file_noext($details["filename"]) , $link_url , $viewed);
       }
     }
 
@@ -272,19 +275,19 @@
     if ( get_user_pref("DISPLAY_THUMBS") == "FULL" )
     {
       page_header( $heading, substr($dir,0,-1),'',1,false);
-      display_thumbs ($url, $dir, $dir_list, $file_list, $page);
+      display_thumbs ($url, $dir, $dir_list, $file_list, $page, $media_type);
       $buttons[] = array('text'=>str('COMPACT_VIEW'), 'url'=>$url.'?thumbs=COMPACT&DIR='.rawurlencode($dir) );
     }
     elseif ( get_user_pref("DISPLAY_THUMBS") == "COMPACT" )
     {
       page_header( $heading, substr($dir,0,-1),'',1,false,style_value("PAGE_FOCUS_IMAGES"));
-      display_thumbs ($url, $dir, $dir_list, $file_list, $page);
+      display_thumbs ($url, $dir, $dir_list, $file_list, $page, $media_type);
       $buttons[] = array('text'=>str('LIST_VIEW'), 'url'=>$url.'?thumbs=NO&DIR='.rawurlencode($dir) );
     }
     else
     {
       page_header( $heading, substr($dir,0,-1),'',1,false);
-      display_names ($url, $dir, $dir_list, $file_list, $page);
+      display_names ($url, $dir, $dir_list, $file_list, $page, $media_type);
       $buttons[] = array('text'=>str('THUMBNAIL_VIEW'), 'url'=>$url.'?thumbs=FULL&DIR='.rawurlencode($dir) );
     }
     
