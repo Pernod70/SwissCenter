@@ -19,14 +19,30 @@
     echo '<center>'.str('SELECT_OPTION').'</center><p>';
 
     $menu = new menu();
-    $menu->add_item( str('BROWSE_TITLE')       ,"video_search.php?sort=title",true);
-    $menu->add_item( str('BROWSE_ACTOR')       ,"video_search.php?sort=actor",true);
-    $menu->add_item( str('BROWSE_DIRECTOR')    ,"video_search.php?sort=director",true);
-    $menu->add_item( str('BROWSE_GENRE')       ,"video_search.php?sort=genre",true);
-    $menu->add_item( str('BROWSE_YEAR')        ,"video_search.php?sort=year",true);
-    $menu->add_item( str('BROWSE_CERTIFICATE') ,"video_search.php?sort=certificate",true);
-    $menu->add_item( str('BROWSE_FILESYSTEM')  ,"video_browse.php",true);
-    $menu->display();
+    if (get_sys_pref('browse_video_title_enabled','YES') == 'YES')
+      $menu->add_item( str('BROWSE_TITLE')       ,"video_search.php?sort=title",true);
+    if (get_sys_pref('browse_video_actor_enabled','YES') == 'YES')
+      $menu->add_item( str('BROWSE_ACTOR')       ,"video_search.php?sort=actor",true);
+    if (get_sys_pref('browse_video_director_enabled','YES') == 'YES') 
+      $menu->add_item( str('BROWSE_DIRECTOR')    ,"video_search.php?sort=director",true);
+    if (get_sys_pref('browse_video_genre_enabled','YES') == 'YES') 
+      $menu->add_item( str('BROWSE_GENRE')       ,"video_search.php?sort=genre",true);
+    if (get_sys_pref('browse_video_year_enabled','YES') == 'YES') 
+      $menu->add_item( str('BROWSE_YEAR')        ,"video_search.php?sort=year",true);
+    if (get_sys_pref('browse_video_certificate_enabled','YES') == 'YES') 
+      $menu->add_item( str('BROWSE_CERTIFICATE') ,"video_search.php?sort=certificate",true);
+    if (get_sys_pref('browse_video_filesystem_enabled','YES') == 'YES') 
+      $menu->add_item( str('BROWSE_FILESYSTEM')  ,"video_browse.php",true);
+      
+    if ($menu->num_items() == 1)
+    {
+      search_hist_init( 'video.php', category_select_sql($cat_id, 3).get_rating_filter() );
+      header('Location: '.server_address().$menu->item_url(0));
+    } 
+    else
+    {
+      $menu->display();
+    }
     
     page_footer('video.php', array(array('text' => str('QUICK_PLAY')
                                         ,'url'  => quick_play_link(MEDIA_TYPE_VIDEO,$_SESSION["history"][0]["sql"]))));
