@@ -17,7 +17,7 @@
 
   $menu       = new menu();
   $info       = new infotab();
-  $sql_table  = "photos media ".get_rating_join()." inner join photo_albums pa on media.dirname like concat(pa.dirname,'%') where 1=1 ";
+  $sql_table  = "photos media ".get_rating_join()." left outer join photo_albums pa on media.dirname like concat(pa.dirname,'%') where 1=1 ";
   $predicate  = search_process_passed_params();
   $count      = db_value("select count(distinct media.file_id) from $sql_table $predicate");
   $refine_url = 'photo_search.php';
