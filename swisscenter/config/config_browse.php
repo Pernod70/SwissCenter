@@ -41,7 +41,7 @@
     form_radio_static('photo_album',str('BROWSE_PHOTO_ALBUM'),$option_vals,get_sys_pref('browse_photo_album_enabled','YES'),false,true);
     form_radio_static('photo_title',str('BROWSE_PHOTO_TITLE'),$option_vals,get_sys_pref('browse_photo_title_enabled','YES'),false,true);
     form_radio_static('photo_filesystem',str('BROWSE_FILESYSTEM'),$option_vals,get_sys_pref('browse_photo_filesystem_enabled','YES'),false,true);
-    form_submit(str('SAVE_SETTINGS'), 2);
+    echo '<tr><td></td><td>&nbsp;<br>'.form_submit_html(str('SAVE_SETTINGS')).'</td></tr>';
     form_end();
   }
   
