@@ -122,7 +122,7 @@ function get_media_table( $media_type )
  * @return integer
  */
 
-function viewings_count( $media_type, $file_id)
+function viewings_count( $media_type, $file)
 {
   if ( is_numeric($file) )
   {
