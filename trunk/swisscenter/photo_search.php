@@ -7,7 +7,7 @@
 
   // Check page parameters
   $column        = $_REQUEST["sort"];
-  $joined_tables = "inner join photo_albums pa on media.dirname like concat(pa.dirname,'%') ";
+  $joined_tables = "left outer join photo_albums pa on media.dirname like concat(pa.dirname,'%') ";
 
   switch ($column)
   {
