@@ -79,7 +79,7 @@ class thumb_list
   # Member Functions
   #-------------------------------------------------------------------------------------------------
 
-  function add_item( $image, $text, $url, $highlight = false )
+  function add_item( $image, $text, $url, $highlight = '' )
   {
     if (! is_null($url) && substr($url,0,4) != "href")
       $url = 'href="'.$url.'"';
@@ -141,8 +141,8 @@ class thumb_list
           $text    = shorten($this->items[$cell_no]["txt"],$cell_width, 2, 10); 
           
           // highlight this thumbnail?
-	        if ($this->items[$cell_no]["highlight"]==true)
-            $text = "<b><i>".$text."</i></b>";
+	        if (!empty($this->items[$cell_no]["highlight"]))
+            $text = img_gen(style_img($this->items[$cell_no]["highlight"],true), 10 , 10, false, false, 'RESIZE').$text;
 
           echo '<td valign="top" width="'.convert_x($cell_width).'"><center><a name="'.($cell_no + 1).'" '
                .$this->items[$cell_no]["url"].'>'.'<font size="1">'.$text.'</font></a></center></td>';

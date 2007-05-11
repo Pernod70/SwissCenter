@@ -178,8 +178,8 @@ function movie_display( $message = '')
           ,$movie_count,$per_page,$page);
 
   echo '<table class="form_select_tab" width="100%"><tr>
-          <th width="3%">&nbsp;</th>
-          <th width="34%"> '.str('Title').' </th>
+          <th width="4%">&nbsp;</th>
+          <th width="33%"> '.str('Title').' </th>
           <th width="21%"> '.str('Actor').' </th>
           <th width="21%"> '.str('Director').' </th>
           <th width="21%"> '.str('Genre').' </th>
@@ -196,11 +196,12 @@ function movie_display( $message = '')
     $cert      = db_value("select name from certificates where cert_id=".nvl($movie["CERTIFICATE"],-1));
 
     echo '<table class="form_select_tab" width="100%"><tr>
-          <td valign="top" width="3%"><input type="checkbox" name="movie[]" value="'.$movie["FILE_ID"].'"></input><td>
-          <td valign="top" width="34%">
+          <td valign="top" width="4%"><input type="checkbox" name="movie[]" value="'.$movie["FILE_ID"].'"></input></td>
+          <td valign="top" width="33%">
              <a href="?section=movie&action=display_info&movie_id='.$movie["FILE_ID"].'">'.$movie["TITLE"].'</a><br>
              Certificate : '.nvl($cert).'<br>
              Year : '.nvl($movie["YEAR"]).'<br>
+	     Viewed : '.nvl($movie["VIEWED"]).'<br>
            </td>
            <td valign="top" width="21%">'.nvl(implode("<br>",$actors)).'</td>
            <td valign="top" width="21%">'.nvl(implode("<br>",$directors)).'</td>
@@ -243,10 +244,12 @@ function movie_clear_details()
   foreach ($_REQUEST["movie"] as $value)
   {
     db_sqlcommand('delete from actors_in_movie where movie_id = '.$value);
+    db_sqlcommand('delete from actors where actor_id not in (select actor_id from actors_of_movie)');
     db_sqlcommand('delete from directors_of_movie where movie_id = '.$value);
+    db_sqlcommand('delete from directors where director_id not in (select director_id from directors_of_movie)');
     db_sqlcommand('delete from genres_of_movie where movie_id = '.$value);
+    db_sqlcommand('delete from genres where genre_id not in (select genre_id from genres_of_movie)');
     db_sqlcommand('update movies set year=null,certificate=null where file_id = '.$value);
-    remove_orphaned_movie_info();
     scdb_remove_orphans();
     $cleared = true;
   }
@@ -322,12 +325,16 @@ function movie_update_form_single()
         </tr><tr>
           <th>'.str('CERTIFICATE').'</th>
           <th>'.str('YEAR').'</th>
+	  <th>'.str('VIEWED').'</th>
         </tr><tr>
           <td>
           '.form_list_dynamic_html("rating",get_cert_list_sql(),$details[0]["CERTIFICATE"],true).'
           </td>
           <td><input name="year" size="6" value="'.$details[0]["YEAR"].'"></td>
-        </tr></table>
+          <td>
+	  '.form_list_static_html("viewed",array('Yes'=>'Y','No'=>'N'),$details[0]["VIEWED"],true,false).'
+	  </td>
+	</tr></table>
         <p align="center"><input type="submit" value="'.str('MOVIE_ADD_BUTTON').'">
         </form>';    
 }
@@ -380,11 +387,15 @@ function movie_update_form_multiple( $movie_list )
         </tr><tr>
           <th>'.str('CERTIFICATE').'</th>
           <th>'.str('YEAR').'</th>
+	  <th>'.str('VIEWED').'</th>
         </tr><tr>
           <td>
           '.form_list_dynamic_html("rating",get_cert_list_sql(),'',true).'
           </td>
           <td><input name="year" size="6"></td>
+	  <td>
+	  '.form_list_static_html("viewed",array('Yes'=>'Y','No'=>'N'),'N',true,false).'
+	  </td>
         </tr></table>
         <p align="center"><input type="submit" value="'.str('MOVIE_ADD_BUTTON').'">
         </form>';    
@@ -420,6 +431,8 @@ function movie_update_multiple()
     $columns["CERTIFICATE"] = $_REQUEST["rating"];
   if (!empty($_REQUEST["synopsis"]))
     $columns["SYNOPSIS"] = $_REQUEST["synopsis"];
+  if (!empty($_REQUEST["viewed"]))
+    $columns["VIEWED"] = $_REQUEST["viewed"];
 
   // Update the MOVIES table?
   if (count($columns)>0)
