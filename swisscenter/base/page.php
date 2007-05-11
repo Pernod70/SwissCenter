@@ -36,12 +36,18 @@ function current_session()
 
 function up_link( $url)
 {
-  return '<a href="'.$url.'" TVID="PGUP" ONFOCUSLOAD>'.img_gen(SC_LOCATION.style_img("PAGE_UP"),40,20,false,false,'RESIZE').'</a>';
+  if (!empty($url))
+    return '<a href="'.$url.'" TVID="PGUP" ONFOCUSLOAD>'.img_gen(SC_LOCATION.style_img("PAGE_UP"),40,20,false,false,'RESIZE').'</a>';
+  else 
+    return '';
 }
 
 function down_link( $url)
 {
-  return '<a href="'.$url.'" TVID="PGDN" ONFOCUSLOAD>'.img_gen(SC_LOCATION.style_img("PAGE_DOWN"),40,20,false,false,'RESIZE').'</a>';
+  if (!empty($url))
+    return '<a href="'.$url.'" TVID="PGDN" ONFOCUSLOAD>'.img_gen(SC_LOCATION.style_img("PAGE_DOWN"),40,20,false,false,'RESIZE').'</a>';
+  else 
+    return '';
 }
 
 //-------------------------------------------------------------------------------------------------
