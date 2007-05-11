@@ -76,7 +76,7 @@
   //*************************************************************************************************
 
   // There may be 5 options, which is a real squeeeze on the page, so set the padding to a small value
-  $menu->padding(6);
+  $menu->set_vertical_margins(6);
 
   if (! empty($folder_img) )
   {
