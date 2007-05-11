@@ -8,6 +8,7 @@
   require_once( realpath(dirname(__FILE__).'/mysql.php'));
   require_once( realpath(dirname(__FILE__).'/az_picker.php'));
   require_once( realpath(dirname(__FILE__).'/rating.php'));
+  require_once( realpath(dirname(__FILE__).'/media.php'));
   
 #-------------------------------------------------------------------------------------------------
 # Functions for managing the search history.
@@ -43,7 +44,7 @@ function search_hist_first()
 # Function to output a "search" page for any media type.
 #-------------------------------------------------------------------------------------------------  
 
-function  search_media_page( $heading, $title, $main_table, $joined_tables, $column,  $choose_url )
+function  search_media_page( $heading, $title, $media_type, $joined_tables, $column,  $choose_url )
 {
   // Make sure that the session variable for "shuffle" matches the user's preference (because it will have been set "on" for quick play).
   $_SESSION["shuffle"] = get_user_pref('shuffle','off');
@@ -57,26 +58,33 @@ function  search_media_page( $heading, $title, $main_table, $joined_tables, $col
   $search         = ( isset($_REQUEST["search"]) ? un_magic_quote(rawurldecode($_REQUEST["search"])) : '');
   $prefix         = ( isset($_REQUEST["any"]) ? $_REQUEST["any"] : '');
   $page           = ( empty($_REQUEST["page"]) ? 0 : $_REQUEST["page"]);
-  $focus          = (empty($_REQUEST["last"]) ? 'KEY_SPC' : $_REQUEST["last"] );
+  $focus          = ( empty($_REQUEST["last"]) ? 'KEY_SPC' : $_REQUEST["last"] );
   $menu           = new menu();
   $data           = array();
   $history        = search_hist_most_recent();
+
+  // variables that form the SQL statement
+  $main_table     = get_media_table($media_type);
   $main_table_sql = "$main_table media ".get_rating_join();
+  $restrict_sql   = "$column like '$prefix".db_escape_str(str_replace('_','\_',$search))."%' $history[sql]";
+  $viewed_sql     = "select $column, concat( sum(if(viewings.total_viewings>0,1,0)),':',count(*) ) view_status
+                     from $main_table_sql 
+                     left outer join viewings on (media.file_id = viewings.media_id and viewings.media_type= $media_type)";
 
   // Adding necessary paramters to the target URL (for when an item is selected)
   $choose_url = url_set_param($choose_url,'add','Y');
   $choose_url = url_set_param($choose_url,'type',$column);
 
   // Get the matching records from the database.
-  $data     = db_toarray("   select distinct $column display 
-                               from $main_table_sql $joined_tables
-                              where $column != '0' and $column like '".$prefix.db_escape_str(str_replace('_','\_',$search))."%' ".$history["sql"]." 
-                           order by 1 limit ".(($page*MAX_PER_PAGE)).",".MAX_PER_PAGE);
+  $data       = db_toarray("   select distinct $column display 
+                                 from $main_table_sql $joined_tables
+                                where $column != '0' and $restrict_sql 
+                             order by 1 limit ".(($page*MAX_PER_PAGE)).",".MAX_PER_PAGE);
   
-  $num_rows = db_value("     select count(distinct $column) 
-                               from $main_table_sql $joined_tables
-                              where $column != '0' and $column like '".$prefix.db_escape_str(str_replace('_','\_',$search))."%' ".$history["sql"]);
-
+  $num_rows   = db_value("     select count(distinct $column) 
+                                 from $main_table_sql $joined_tables
+                                where $column != '0' and $restrict_sql");
+  
   if ( $data === false || $num_rows === false)
     page_error(str('DATABASE_ERROR'));
 
@@ -103,7 +111,18 @@ function  search_media_page( $heading, $title, $main_table, $joined_tables, $col
     }
 
     foreach ($data as $row)
-      $menu->add_item($row["DISPLAY"],url_set_param($choose_url,'name',rawurlencode($row["DISPLAY"])));
+    {
+      $viewed = explode(':',db_value($viewed_sql." where $column = '".$row["DISPLAY"]."' and $restrict_sql group by $column"));
+
+      if ($viewed[0] == $viewed[1])
+        $icon = 'IMG_VIEWED';
+      elseif ( $viewed[0] > 0 )
+        $icon = 'IMG_PARTVIEWED';
+      else
+        $icon = 'IMG_UNVIEWED';
+
+      $menu->add_item($row["DISPLAY"],url_set_param($choose_url,'name',rawurlencode($row["DISPLAY"])), false, $icon);
+    }
 
     $menu->display(540);
   }
