@@ -7,6 +7,46 @@ require_once( realpath(dirname(__FILE__).'/mysql.php'));
 require_once( realpath(dirname(__FILE__).'/prefs.php'));
 require_once( realpath(dirname(__FILE__).'/file.php'));
 
+if (!function_exists('imagerotate')) {
+  function ImageRotate( $imgSrc, $angle, $dummy )
+  {
+    $angle = 360 - $angle;
+    // ensuring we got really RightAngle (if not we choose the closest one)
+    $angle = min( ( (int)(($angle+45) / 90) * 90), 270 );
+
+    // no need to fight
+    if( $angle == 0 )
+        return( $imgSrc );
+
+    // dimenstion of source image
+    $srcX = imagesx( $imgSrc );
+    $srcY = imagesy( $imgSrc );
+
+    switch( $angle )
+        {
+        case 90:
+            $imgDest = imagecreatetruecolor( $srcY, $srcX );
+            for( $x=0; $x<$srcX; $x++ )
+                for( $y=0; $y<$srcY; $y++ )
+                    imagecopy($imgDest, $imgSrc, $srcY-$y-1, $x, $x, $y, 1, 1);
+            break;
+
+        case 180:
+            $imgDest = ImageFlip( $imgSrc, IMAGE_FLIP_BOTH );
+            break;
+
+        case 270:
+            $imgDest = imagecreatetruecolor( $srcY, $srcX );
+            for( $x=0; $x<$srcX; $x++ )
+                for( $y=0; $y<$srcY; $y++ )
+                    imagecopy($imgDest, $imgSrc, $y, $srcX-$x-1, $x, $y, 1, 1);
+            break;
+        }
+
+    return( $imgDest );
+  }
+}
+
 // Do we have the "gd" extension loaded? can we load it dynamically?
 if (!extension_loaded('gd'))
   if (! dl('gd.so'))
