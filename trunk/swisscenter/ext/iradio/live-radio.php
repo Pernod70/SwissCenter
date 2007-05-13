@@ -10,7 +10,7 @@
  # under the terms of the GNU General Public License (see doc/LICENSE)       #
  #############################################################################
 
- /* $Id: liveradio.php,v 1.3 2007-04-09 20:02:19 izzy Exp $ */
+ /* $Id$ */
 
 require_once(dirname(__FILE__)."/iradio.php");
 
