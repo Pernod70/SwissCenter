@@ -34,7 +34,7 @@ require_once( realpath(dirname(__FILE__).'/../base/musicip.php'));
       message('!'.str('MIP_NOT_FOUND'));  
 
     echo '<b>'.str('MIP_WHATIS').'</b>';
-    echo '<p>'.str('MIP_DESC','<a href="www.musicip.com">www.musicip.com</a>');
+    echo '<p>'.str('MIP_DESC','<a href="http://www.musicip.com">www.musicip.com</a>');
 
     form_start('index.php');
     form_hidden('section','AUDIO');
