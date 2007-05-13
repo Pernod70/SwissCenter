@@ -176,6 +176,28 @@ function store_request_details( $media, $file_id )
   }  
 }
 
+/**
+ * Returns the appropriate style identifier for the number of items viewed compared to the total number of items
+ *
+ * @param integer $viewed
+ * @param integer $total
+ * @return integer
+ */
+
+function viewed_icon( $viewed, $total=1)
+{
+  if ($viewed == 0)
+    return 'IMG_VIEWED_0';
+  elseif ($viewed >= $total)
+    return 'IMG_VIEWED_4';
+  elseif ($viewed/$total <0.34)
+    return 'IMG_VIEWED_1';
+  elseif ($viewed/$total <0.67)
+    return 'IMG_VIEWED_2';
+  else
+    return 'IMG_VIEWED_3';
+}
+
 //-------------------------------------------------------------------------------------------------
 // The following functions all relate explicitly to searchign for new media.
 //-------------------------------------------------------------------------------------------------

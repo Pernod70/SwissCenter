@@ -170,7 +170,7 @@ function pc_nav_button($text, $url)
   {
     return '<td align="center" valign="center" height="23" width="'.(convert_x(1000)/5).'" '.
                 style_background('PC_BUTTON_BACKGROUND').' onclick="document.location=\''.$url.'\';">
-            <a href="'.$url.'">'.font_colour_tags('PC_BUTTON_TEXT_COLOUR',$text).'</a>
+            '.font_colour_tags('PC_BUTTON_TEXT_COLOUR',$text).'
             </td>';
   }
 
