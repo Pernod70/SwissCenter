@@ -627,6 +627,26 @@ TTF_FONT_PROMPT         = Dieser Font wird f&uuml;r die Anzeige von Track-Inform
 FAIL_PHP_FONT_SET       = ... Nur der Font scheint invalid (oder nicht verf&uuml;gbar) zu sein.
 BOOKMARKS               = Lesezeichen
 
+MIP_WHATIS                 = Was ist MusicIP?
+MIP_DESC                   = MusicIP (frei verf&uuml;gbar bei %s) ist eine Software, die Ihre Musiksammlung analysiert und dabei f&uuml;r jeden Titel einen "akustischen Fingerabdruck" generiert. Anhand dieser Information werden sodann - basierend auf einem ausgew&auml;hlten Titel, K&uuml;nstler oder Album - pers&ouml;nliche Playlists gleichartiger Titel erstellt. [p]Ist MusicIP auf dem gleichen Rechner wie SwissCenter installiert, wird diese Extra-Funktionalit&auml;t direkt aus dem SwissCenter Interface verf&uuml;gbar.
+MIP_INVALID_PORT           = MusicIP Server wurde nicht auf Port %s gefunden
+
+MIP_PORT_PROMPT            = Geben Sie bitte die Portnummer an, unter der der MusicIP Server erreichbar ist. Der Default-Port ist 10002, sofern an der Konfiguration nichts ver&auml;ndert wurde.[p][b]Anmerkung:[/b]  MusicIP muss auf dem selben Rechner installiert sein wie SwissCenter.
+MIP_NOT_FOUND              = Es konnte kein MusicIP Server gefunden werden.
+MIP_STYLE_PROMPT           = Hiermit l&auml;sst sich festlegen, wie genau der Stil der ausgew&auml;hlten K&uuml;nstler &uuml;bereinstimmen soll. Je gr&ouml;&szlig;er die Nummer, desto besser die &Uuml;bereinstimmung - je kleiner die Nummer, desto gr&ouml;&szlig; die Vielfalt der ausgew&auml;hlten K&uuml;nstler.
+MIP_VARIETY                = Vielfalt
+MIP_VARIETY_PROMPT         = Legt die Breite des Musik-Mixes fest. Je gr&ouml;&szlig;er der Wert, desto vielf&auml;ltiger der Mix.
+MIP_REJECT_PROMPT          = Verhindert, dass der gleiche K&uuml;nstler im angegebenen Zeitraum (bzw. Titelanzahl) erneut gespielt wird.
+MIP_SIZE                   = Playlist Gr&ouml;&szlig;e
+MIP_SIZE_PROMPT            = Anzahl der Titel, die MusicIP als Teil einer Playlist zur&uuml;ckgeben soll.
+MIP_MIX_SONG               = &Auml;hnliche Titel spielen
+
+EXTRAS_TEST_TITLE          = Zus&auml;tzliche Komponenten
+FAIL_MUSICIP_TEST          = MusicIP ist nicht installiert (oder nicht korrekt konfiguriert).
+PASS_MUSICIP_TEST          = MusicIP Service gefunden.
+FAIL_MIP_MIXABLE           = Nur ein kleiner Teil (<50%) Ihrer Musik wurde von MusicIP analysiert. Auch wenn MusicIP daraus bereits Playlisten erstellen kann, werden diese evtl. nicht sehr akkurat sein.
+PASS_MIP_MIXABLE           = Mehr als 50% Ihrer Musik wurde von MusicIP analysiert
+
 #----------------------------------------------------------------------------------------------------
 # End-of-file
 #----------------------------------------------------------------------------------------------------
