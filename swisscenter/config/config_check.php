@@ -266,7 +266,7 @@ function check_display()
   # ----------------------
 
   $musicip = $component_tests->add_section("MusicIP",1);
-  $component_tests->add_test( $musicip,"MUSICIP api",str('PASS_MUSICIP_TEST'),str('FAIL_MUSICIP_TEST').'<p>'.str('MIP_DESC','<a href="www.musicip.com">www.musicip.com</a>'));
+  $component_tests->add_test( $musicip,"MUSICIP api",str('PASS_MUSICIP_TEST'),str('FAIL_MUSICIP_TEST').'<p>'.str('MIP_DESC','<a href="http://www.musicip.com">www.musicip.com</a>'));
   if ( $results->result('MUSICIP api'))
     $component_tests->add_test( $musicip,"MUSICIP mixable",str('PASS_MIP_MIXABLE'),str('FAIL_MIP_MIXABLE'));
 
