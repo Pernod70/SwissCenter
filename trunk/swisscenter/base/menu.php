@@ -169,7 +169,7 @@ class menu
       echo '<tr>';
       if ($cell_pos >1)
         echo '<td colspan="'.($cell_pos-1).'"></td>';      
-      echo '<td align="center" valign="middle" width="'.convert_x($size).'" height="'.convert_y($this->vertical_margin).'">'.$link.'</td>';
+      echo '<td align="center" valign="middle" width="'.convert_x($size).'" height="'.convert_y($this->vertical_margin).'">'.$link_html.'</td>';
       if ($total_cells > $cell_pos)
         echo '<td colspan="'.($total_cells-$cell_pos).'"></td>';      
       echo '</tr>';      
@@ -226,7 +226,7 @@ class menu
         
         // Left icon?
         if ($left_icons == 1)
-          echo '<td align="right" valign="middle" height="'.convert_y(40).'"'.$item["left"].'</td>';
+          echo '<td align="right" valign="middle" height="'.convert_y(40).'">'.$item["left"].'</td>';
         
         // Main text  
         echo '<td valign="middle" width="'.convert_x($size).'" height="'.convert_y(40).'" '.$background.'>'.
@@ -241,7 +241,7 @@ class menu
               
         // Right icon?
         if ($right_icons == 1)
-          echo '<td align="right" valign="middle" height="'.convert_y(40).'"'.$item["right"].'</td>';
+          echo '<td align="right" valign="middle" height="'.convert_y(40).'">'.$item["right"].'</td>';
           
         // End row
         echo '</tr>';

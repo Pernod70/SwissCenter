@@ -113,15 +113,7 @@ function  search_media_page( $heading, $title, $media_type, $joined_tables, $col
     foreach ($data as $row)
     {
       $viewed = explode(':',db_value($viewed_sql." where $column = '".$row["DISPLAY"]."' and $restrict_sql group by $column"));
-
-      if ($viewed[0] == $viewed[1])
-        $icon = 'IMG_VIEWED';
-      elseif ( $viewed[0] > 0 )
-        $icon = 'IMG_PARTVIEWED';
-      else
-        $icon = 'IMG_UNVIEWED';
-
-      $menu->add_item($row["DISPLAY"],url_set_param($choose_url,'name',rawurlencode($row["DISPLAY"])), false, $icon);
+      $menu->add_item($row["DISPLAY"],url_set_param($choose_url,'name',rawurlencode($row["DISPLAY"])), false, viewed_icon($viewed[0], $viewed[1]) );
     }
 
     $menu->display(540);
