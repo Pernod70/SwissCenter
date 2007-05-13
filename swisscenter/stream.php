@@ -48,7 +48,7 @@
         send_to_log(1,'Unable to process image specified : '.$filename);  
             
       // Rotate/mirror the image as specified in the EXIF data (if enabled)
-      if (get_sys_pref('IMAGE_ROTATE','YES'))
+      if (get_sys_pref('IMAGE_ROTATE','YES')!='NO')
       {
         $orientation = db_value("select exif_orientation from photos where file_id = $file_id");
         
