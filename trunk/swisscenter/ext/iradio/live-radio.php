@@ -44,7 +44,7 @@ class liveradio extends iradio {
       }
     }
     if (empty($url)) return FALSE;
-    $uri = "http://".$this->iradiosite."/SearchResults.php3?OSt=Li&OFee=Any&OCnt=Li&OSta=Li&Sta=&OCit=Li&Cit=&OGen=Li&$url&OPag=".$this->numresults;
+    $uri = "http://".$this->iradiosite."/SearchResults.php3?OSt=Li&OCnt=Li&OSta=Li&Sta=&OCit=Li&Cit=&OGen=Li&$url&OPag=".$this->numresults;
     $this->openpage($uri);
     $stationcount = 0;
     $startpos = strpos($this->page,'HREF="redirstation'); // seek for start position of block
@@ -74,7 +74,7 @@ class liveradio extends iradio {
       $nowplaying = "?";
       $listeners = "";
       $maxlisteners = "";
-      $this->add_station($name,$playlist,$bitrate,$genre,$format,$listeners,$maxlisteners,$nowplaying,$website);
+      $this->add_station($name,$playlist."&filetype=.pls",$bitrate,$genre,$format,$listeners,$maxlisteners,$nowplaying,$website);
       ++$stationcount;
       if ($stationcount == $this->numresults) break;
       $startpos = strpos($this->page,'HREF="redirstation',$epos);
@@ -94,7 +94,7 @@ class liveradio extends iradio {
    * @return boolean success FALSE on error or nothing found, TRUE otherwise
    */
   function search_genre($name) {
-    return $this->parse("&Genre=$name&Cnt=&St=",$name);
+    return $this->parse("&OFee=29434&Genre=$name&Cnt=&St=",$name);
   }
 
   /** Searching for a station
@@ -108,7 +108,7 @@ class liveradio extends iradio {
    * @return boolean success FALSE on error or nothing found, TRUE otherwise
    */
   function search_station($name) {
-    return $this->parse("&Genre=&Cnt=&St=$name",$name);
+    return $this->parse("&OFee=29434&Genre=&Cnt=&St=$name",$name);
   }
 
   /** Searching by country
@@ -122,7 +122,7 @@ class liveradio extends iradio {
    * @return boolean success FALSE on error or nothing found, TRUE otherwise
    */
   function search_country($name) {
-    return $this->parse("&Genre=&Cnt=$name&St=",$name);
+    return $this->parse("&OFee=29434&Genre=&Cnt=$name&St=",$name);
   }
 
 }
