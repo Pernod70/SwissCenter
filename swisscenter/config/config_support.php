@@ -25,7 +25,7 @@
                  , str('DEBUG_LEVEL',9,str('DEBUG_MAXIMUM')) => 9
                  );    
 
-    echo "<h1>".str('SUPPORT_TITLE')."</h1><p>".str('SUPPORT_TXT','<a href=\"www.swisscenter.co.uk\">www.swisscenter.co.uk</a>');
+    echo "<h1>".str('SUPPORT_TITLE')."</h1><p>".str('SUPPORT_TXT','<a href="http://www.swisscenter.co.uk">www.swisscenter.co.uk</a>');
     
     echo "<h2>".str('DEBUG_MODE')."</h2>";
     message($debug_message);    
