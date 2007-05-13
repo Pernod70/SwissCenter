@@ -64,7 +64,7 @@ function movie_display_info(  $message = '' )
         <th width="33%">'.str('DIRECTOR').'</th>
         <th width="33%">'.str('GENRE').'</th>   
         </tr><tr>
-        <td rowspan=3 valign=top>';
+        <td valign=top>';
   
         foreach ($actors as $name)
           echo $name["NAME"].'<br>';
