@@ -628,7 +628,7 @@ IMAGE_EXIF_ROTATE          = Auto-Rotate
 IMAGE_EXIF_ROTATE_PROMPT   = Most modern digital camera record whether the camera was in "Landscape" or "Portrait" mode when a photograph was taken. Enabling this option will cause SwissCenter to automatically rotate the photograph before displaying it on the screen.
 
 TTF_FONT                   = TrueType Font
-TTF_FONT_PROMPT            = Font to be used to display Track information on the 'Now Playing" screen, if supported (and enabled). Enter a 0 (zero) to auto-detect, a font name (e.g. if auto-detection fails), or a font file name with full path to the file (if everything else fails).
+TTF_FONT_PROMPT            = Font to be used to display Track information on the 'Now Playing" screen, if supported (and enabled). Enter a font file name with full path to the file, or leave blank to try to auto-detect a font.
 FAIL_PHP_FONT_SET          = ... but the font seems to be invalid (or not available)
 BOOKMARKS                  = Bookmarks
 
@@ -657,6 +657,13 @@ PASS_MIP_MIXABLE           = More than 50% of your music has been analysed by Mu
 
 # EXIF orientation values (see http://www.swisscenter.co.uk/components/com_mambowiki/index.php?title=EXIF_metadata_within_pictures)
 EXIFVALS_ORIENTATION	   = Normal, Flip Horizontal, Rotate 180, Flip Vertical, Transpose, Rotate Right, Transverse, Rotate Left
+
+# -----------------------
+# SwissCenter v1.17
+# -----------------------
+
+BROWSE_OPTIONS             = Browse Options
+BROWSE_TEXT                = SwissCenter allows you to browse your media files in a number of different ways. To reduce the complexity of the interface or to customise it more to your liking you can disable any of the "Browse by..." options shown below. If only one option is enabled then SwissCenter will jump straight to that option instead of showing a menu. [p]Please note that you must leave at least [b]one[/b] option enabled in each group.
 
 #----------------------------------------------------------------------------------------------------
 # End-of-file
