@@ -45,7 +45,7 @@ function movie_display_info(  $message = '' )
   echo '<h1>'.$details[0]["TITLE"].'</h1><center>
          ( <a href="'.$_SESSION["last_search_page"].'">'.str('RETURN_TO_LIST').'</a> 
          | <a href="?section=MOVIE&action=UPDATE_FORM_SINGLE&movie[]='.$movie_id.'">'.str('DETAILS_EDIT').'</a> 
-         | <a href="?section=MOVIE&action=EXPORT&movie_id='.$movie_id.'" '.$exists_js.'>'.str('DETAILS_EXPORT').'</a> 
+         <!--| <a href="?section=MOVIE&action=EXPORT&movie_id='.$movie_id.'" '.$exists_js.'>'.str('DETAILS_EXPORT').'</a> -->
          )
         </center>';
         message($message);
