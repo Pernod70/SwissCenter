@@ -47,6 +47,7 @@
        require_once( realpath(dirname(__FILE__).'/ext/iradio/live-radio.php'));
        $iradio  = new liveradio;
        $cachedir = get_sys_pref('CACHE_DIR').'/liveradio';
+       $iradio->restrict_mediatype("mp3");
        break;
  }
  
