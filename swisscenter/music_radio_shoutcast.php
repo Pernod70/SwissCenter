@@ -15,7 +15,7 @@
    $url = current_url();
    $ac  = count($genre);
    
-   for ($i0;$i<$ac;++$i) 
+   for ($i=0;$i<$ac;++$i) 
    {
      $object->name = ucwords($genre[$i]);
      $object->url  = url_set_param( $url, $type, $genre[$i]);
@@ -39,11 +39,13 @@
  switch ($_REQUEST["class"]) 
  {
    case shoutcast :
+       send_to_log(8,"Initializing ShoutCast parser");
        require_once( realpath(dirname(__FILE__).'/ext/iradio/shoutcast.php'));
        $iradio  = new shoutcast;
        $cachedir = get_sys_pref('CACHE_DIR').'/shoutcast';
        break;
    case liveradio :
+       send_to_log(8,"Initializing LiveRadio parser");
        require_once( realpath(dirname(__FILE__).'/ext/iradio/live-radio.php'));
        $iradio  = new liveradio;
        $cachedir = get_sys_pref('CACHE_DIR').'/liveradio';
@@ -55,7 +57,8 @@
  {
    if (!file_exists($cachedir)) 
      mkdir($cachedir);
-     
+
+   send_to_log(8,"Initialize station cache. CacheDir: '$cachedir', Expiry: '".get_sys_pref('iradio_cache_expire',3600)."'");
    $iradio->set_cache( $cachedir );
    $iradio->set_cache_expiration(get_sys_pref('iradio_cache_expire',3600));
    $iradio->set_max_results(get_sys_pref('',24));
@@ -84,6 +87,7 @@
        // Choose main genre
        page_header(str('IRADIO_MAINGENRE SELECT'));
        $genres = $iradio->get_maingenres();
+       send_to_log(8,"Browsing by genre chosen. Main genre list:",$genres);
        make_genre_menu($genres,"maingenre");
        page_footer( url_remove_params( $current_url,array('by_genre','page')) );
      }
@@ -92,6 +96,7 @@
        // Choose sub-genre
        page_header(str('IRADIO_SUBGENRE_SELECT'));
        $genres = $iradio->get_subgenres($_REQUEST["maingenre"]);
+       send_to_log(8,"Browsing by genre chosen. Main genre: '".$_REQUEST["maingenre"]."', sub-genre list:",$genres);
        make_genre_menu($genres,"subgenre");
        page_footer( url_remove_params( $current_url,array('maingenre','page')) );
      }
@@ -99,8 +104,10 @@
      {
        // Main and subgenre chosen, so list the available radio stations.
        $back_url = url_remove_params( $current_url,array('subgenre','page'));
+       send_to_log(8,"Genre search for '".$_REQUEST["subgenre"]."'");
        $iradio->search_genre($_REQUEST["subgenre"]);
        $stations = $iradio->get_station();
+       send_to_log(8,"Station list parsed",$stations);
        if (count($stations) >0 )
        {
          (isset($_REQUEST["page"])) ? $page = $_REQUEST["page"] : $page = 0;
@@ -121,15 +128,18 @@
        // Browse by Country/Language
        page_header(str('IRADIO_COUNTRY_SELECT'));
        $countries = $iradio->get_countries();
+       send_to_log(8,"Station search for country initialized. Country array:",$countries);
        make_genre_menu($countries,"country");
        page_footer( url_remove_params( $current_url,array('by_country','page')) );
      }
      else 
      {
        // Now the country/langauge has been chosen, list the available stations.
+       send_to_log(8,"Country search for '".$_REQUEST["country"]."'");
        $back_url = url_remove_params( $current_url,array('country','page'));
        $iradio->search_country($_REQUEST["country"]);
        $stations = $iradio->get_station();
+       send_to_log(8,"Station list parsed",$stations);
        if (count($stations) >0 )
        {
          (isset($_REQUEST["page"])) ? $page = $_REQUEST["page"] : $page = 0;
