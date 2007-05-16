@@ -45,7 +45,7 @@ class liveradio extends iradio {
       }
     }
     if (empty($url)) return FALSE;
-    $uri = "http://".$this->iradiosite."/SearchResults.php3".$this->search_baseparams."&OPag=".$this->numresults;
+    $uri = "http://".$this->iradiosite."/SearchResults.php3".$this->search_baseparams.$url."&OPag=".$this->numresults;
 #die($uri);
     $this->openpage($uri);
     $stationcount = 0;
