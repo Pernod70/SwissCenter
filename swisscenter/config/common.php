@@ -71,27 +71,6 @@
   }  
 
   //
-  // Outputs a heading within the menu sections
-  //
-  
-  function menu_heading($text = '&nbsp;')
-  {
-   echo '<tr><td width="5"></td><td align=center><b><i>'.$text.'</b></td></tr>';
-  }
-  
-  //
-  // Outputs a menu item link
-  //
-  
-  function menu_item($text, $params, $background = 'menu_bgr.png')
-  {
-   echo '<tr><td width="5" align=right></td>
-         <td class="menu" background="../images/'.$background.'">
-         <a href="?'.$params.'">'.$text.'</a>
-         </td></tr>';
-  }
- 
-  //
   // Simple function to output all elements of an array as a drop-down or multi-select list.
   //
   
@@ -104,6 +83,42 @@
    return $list;
   }
 
+  /**
+   * A simple class to create an expanding javascript menu on the configuration screen.
+   *
+   */
+   
+  class config_menu
+  {
+    var $menus;
+    
+    function config_menu()
+    { $this->menus = array(); }
+    
+    function add_menu( $text )
+    { $this->menus[] = array( "title" => $text , "items" => array() ); }
+    
+    function add_item( $text, $params )
+    { $this->menus[count($this->menus)-1]["items"][] = array( "text" => $text, "params" => $params); }
+    
+    function display()
+    {
+      $menu_id = 0;
+      foreach ($this->menus as $menu)
+      {
+        $menu_id++;
+        echo '<a class="menu" onclick="showHide(\'submenu'.$menu_id.'\');">'.$menu["title"].'</a>
+              <div id="submenu'.$menu_id.'" class="hide">';
+        
+        // Output each option
+        foreach ($menu["items"] as $item)
+          echo '<a <a href="?menu='.$menu_id.'&'.$item["params"].'" class="submenu">'.$item["text"].'</a>';
+        
+        echo '</div>';
+      }
+    }    
+  }
+  
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/

@@ -11,6 +11,7 @@
   <link rel="stylesheet" type="text/css" media="screen" href="slider.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="config.css" />
   <script type="text/javascript" src="./slider.js"></script>
+  <script type="text/javascript" src="./config.js"></script>
   </head>
 <body style="margin:20px;" background="../images/bgr.png">
 
