@@ -84,16 +84,8 @@
         write_ini ( DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE );
 
         // Default cache location and limit (default is no limit)
-        if ( is_unix() )
-        {
-          set_sys_pref('CACHE_DIR','/tmp');
-          set_sys_pref('CACHE_MAXSIZE_MB','0');
-        }
-        else
-        {
-          set_sys_pref('CACHE_DIR',$_ENV["WINDIR"].'\\temp');
-          set_sys_pref('CACHE_MAXSIZE_MB','0');
-        }
+        set_sys_pref('CACHE_DIR',SC_LOCATION.'cache');
+        set_sys_pref('CACHE_MAXSIZE_MB','0');
 
         // Display the config page
         header('Location: index.php');
@@ -113,6 +105,7 @@
   function install_runsql()
   {
     $sql = un_magic_quote($_REQUEST["sql"]);
+    $heading = '';
 
     echo "<h1>".str('CONFIG_SQL')."</h1>";
 
@@ -125,13 +118,33 @@
       form_submit('Run SQL',1);
       form_end();
       
-      if (strpos($sql,'select ') !== false)
+      if (  in_array( strtolower(substr($sql,0,strpos($sql,' '))), array('select','show','desc')) )
       {
-        $data = db_toarray($sql);
-        if ($data !== false)
-          array_to_table($data);
+        
+        $data = array();
+        $recs    = new db_query( $sql );
+        $success = $recs->db_success();
+      
+        if ($success)
+        {
+          // Fetch data into an array
+          while ($row = $recs->db_fetch_row())
+            $data[] = $row;      
+        
+          // WOrk out what the headings are
+          foreach($data[0] as $col=>$val)
+            $heading[] = $col;
+        
+          // Display a pretty HTML table
+          array_to_table($data,join(',',$heading));
+        }
         else
+        {
           message('!SQL command failed.');
+          echo $recs->db_get_error();
+        }
+          
+        $recs->destroy();
       }
       elseif (!empty($sql))
       {

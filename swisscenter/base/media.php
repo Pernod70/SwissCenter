@@ -119,16 +119,20 @@ function get_media_table( $media_type )
  *
  * @param enum $media_type - MEDIA_TYPE_MUSIC | MEDIA_TYPE_PHOTO | MEDIA_TYPE_RADIO | MEDIA_TYPE_VIDEO
  * @param mixed $file - Filename (inc. path) or FILE_ID of the media file
+ * @param integer $user [optional] - The user_ID of the user to check the number of viewings for. Defaults to the current user.
  * @return integer
  */
 
-function viewings_count( $media_type, $file)
+function viewings_count( $media_type, $file, $user = '')
 {
+  if (empty($user))
+    $user = get_current_user_id();
+  
   if ( is_numeric($file) )
   {
     $val = db_value("select total_viewings from viewings 
-                      where user_id = ".get_current_user_id()."
-                         and media_type = $media_type and media_id = $file_id");
+                      where user_id = $user
+                         and media_type = $media_type and media_id = $file");
   }
   elseif ( is_string($file))
   {
