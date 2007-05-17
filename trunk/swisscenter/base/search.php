@@ -27,16 +27,25 @@ function search_hist_push( $url, $sql )
 
 function search_hist_pop()
 {
+  if (count($_SESSION["history"]) == 0)
+    page_error(str('DATABASE_ERROR'));
+
   array_pop($_SESSION["history"]);
 }
 
 function search_hist_most_recent()
 {
+  if (count($_SESSION["history"]) == 0)
+    page_error(str('DATABASE_ERROR'));
+  
   return $_SESSION["history"][count($_SESSION["history"])-1];
 }
 
 function search_hist_first()
 {
+  if (count($_SESSION["history"]) == 0)
+    page_error(str('DATABASE_ERROR'));
+
   return $_SESSION["history"][0];
 }
 
