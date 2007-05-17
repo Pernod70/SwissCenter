@@ -20,15 +20,17 @@
      This probably varies between players, and so is set in the capabilities.php file and returned
      using the function max_playlist_size().
 
- [2] The URL contained in the playlist will always be treated as a file path and will have the extension
-     replaceed with known subtitle extensions (srt, sub,...). This means that when we use the stream.php
-     script to stream the file we have to add "&ext=.avi" onto the end to allow the showcenter to support
-     subtitles. If this is missing then the player will report "unknown format"     
+ [2] The hardware players expect to find an extension on the end of the URL. They use this to determine
+     the data format (to play) and also substitute "avi" for a subtitle extension before requesting a
+     subtitle.
 
 */
 
+  // Generate the playlist based on the values passed as part of the request
+  generate_tracklist( $_REQUEST["seed"], ($_SESSION["shuffle"] == "on"), $_REQUEST["spec_type"], $_REQUEST["spec"], $_REQUEST["media_type"]);
+
+  $data       = get_tracklist();                            
   $server     = server_address();
-  $data       = get_tracklist_to_play();
   $max_size   = max_playlist_size();
   $resume     = (isset($_REQUEST["resume"]) && $_REQUEST["resume"] == 'Y');
   $item_count = 0;
@@ -39,7 +41,7 @@
   
   foreach ($data as $row)
   {
-    if ($item_count++ >= $max_size)
+    if ($item_count >= $max_size)
       break;
 
     // We need to identify the media_type. This may have been passed in on the query string (if the list of files
@@ -77,7 +79,7 @@
       $url = $server.make_url_path(ucfirst($row["DIRNAME"]).$row["FILENAME"]);
     }
     else
-      $url = $server.'stream.php?'.current_session().'&media_type='.$media_type.'&file_id='.$file_id.'&ext=.'.file_ext($row["FILENAME"]);
+      $url = $server.'stream.php?'.current_session().'&media_type='.$media_type.'&idx='.$item_count.'&ext=.'.file_ext($row["FILENAME"]);
     
     // Build up the playlist row to send to the player, including the title of the movie (for the on-screen display)
     $title = rtrim(nvl( $row["TITLE"] , file_noext(basename($row["FILENAME"])) ));
@@ -88,6 +90,7 @@
     else
       echo  $url.newline();
       
+    $item_count++;
   }
 
   // If this is a PC browser then we need to output some headers

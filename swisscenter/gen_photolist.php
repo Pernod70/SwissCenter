@@ -9,16 +9,25 @@
   require_once( realpath(dirname(__FILE__).'/base/file.php'));
   require_once( realpath(dirname(__FILE__).'/base/playlist.php'));
 
-//*************************************************************************************************
-// Main logic
+/**************************************************************************************************
+// Notes
 //*************************************************************************************************
 
-  // The device can only cope with playlists of a certain size (However, the user 
-  // shouldn't notice as shuffle is done before the truncate of the playlist 
-  // (if the user has selected shuffle).
+ [1] The hardware players can only cope with a playlists containing a limited number of entries. 
+     This probably varies between players, and so is set in the capabilities.php file and returned
+     using the function max_playlist_size().
 
+ [2] The hardware players expect to find an extension on the end of the URL. They use this to determine
+     the data format (to play) and also substitute "avi" for a subtitle extension before requesting a
+     subtitle.
+
+*/
+
+  // Generate the playlist based on the values passed as part of the request
+  generate_tracklist( $_REQUEST["seed"], ($_SESSION["shuffle"] == "on"), $_REQUEST["spec_type"], $_REQUEST["spec"], $_REQUEST["media_type"]);
+
+  $data       = get_tracklist();                            
   $server     = server_address();
-  $data       = get_tracklist_to_play();
   $item_count = 0;
   $effect     = 8;
   $delay      = (count($data) > 1 ? get_user_pref('PHOTO_PLAY_TIME','5') : 3600); 
@@ -39,7 +48,7 @@
       else
         $title = rtrim($row["TITLE"]);
         
-      $url = $server.'stream.php?'.current_session().'&media_type=2&file_id='.$row["FILE_ID"].'&ext=.jpg';
+      $url = $server.'stream.php?'.current_session().'&media_type=2&idx='.$item_count.'&ext=.jpg';
       send_to_log(7,' - '.$url);
   
       if (is_hardware_player())
@@ -61,7 +70,10 @@
 
     $i=0;
     foreach ($data as $row)
-      echo 'slides['.$i++.'] = "'.$server.'stream.php?media_type=2&file_id='.$row["FILE_ID"].'&ext=.jpg'.'";'.newline();
+    {
+      echo 'slides['.$i.'] = "'.$server.'stream.php?media_type=2&idx='.$i.'&ext=.jpg'.'";'.newline();
+      $i++;
+    }
 
     echo 'Slideshow('.$delay.', document.getElementById("piccy"), slides, true);
           </script>';

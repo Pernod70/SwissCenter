@@ -10,6 +10,7 @@
   require_once( realpath(dirname(__FILE__).'/base/image.php'));
   require_once( realpath(dirname(__FILE__).'/base/users.php'));
   require_once( realpath(dirname(__FILE__).'/base/media.php'));
+  require_once( realpath(dirname(__FILE__).'/base/playlist.php'));
 
 /**
  * Outputs the image file to the browser.
@@ -195,15 +196,22 @@
   // Main logic
   //*************************************************************************************************
 
+  // Retrieve the tracklist, and the index (idx) of the item to stream.
+  send_to_log(1,'Stream request');
+  $tracks = get_tracklist();
+  $idx    = $_REQUEST["idx"];
+  
   $server       = server_address();
-  $file_id      = $_REQUEST["file_id"];
   $media        = $_REQUEST["media_type"];
-  $table        = db_value("select media_table from media_types where media_id = ".$media);          
-  $location     = db_value("select concat(dirname,filename) from $table where file_id= $file_id");
-  $req_ext      = $_REQUEST["ext"];
+  $file_id      = $tracks[$idx]["FILE_ID"];
+  $location     = $tracks[$idx]["DIRNAME"].$tracks[$idx]["FILENAME"];
   $redirect_url = make_url_path($location);
+  $req_ext      = $_REQUEST["ext"];
   $subtitles    = array('.srt','.sub', '.ssa', '.smi');
   $headers      = array();
+
+  $_SESSION["LAST_RESPONSE"] = 'MEDIA';
+  $_SESSION["LAST_RESPONSE_IDX"] = $idx;
 
   // Determine what to do with the file request...      
   if ( in_array(strtolower($req_ext),$subtitles) )
@@ -220,12 +228,11 @@
   elseif ($media == 1) // Music
   {
     // Store the request details, and then send a redirect header to the player with the real location of the media file.
-    send_to_log(7,'Attempting to stream the following Audio file',array( "File ID"=>$file_id, "Media Type"=>$media, "Location"=>$location ));
+    send_to_log(7,'Attempting to stream the following Audio file',$tracks[$idx]);
     store_request_details( $media, $file_id);  
 
-    $duration = db_value("select length from $table where file_id= $file_id");
-    if ($duration > 0)
-      $headers[] = "TimeSeekRange.dlna.org: npt=0-/".$duration."\r\n";
+    if ($tracks[$idx]["LENGTH"] > 0)
+      $headers[] = "TimeSeekRange.dlna.org: npt=0-/".$tracks[$idx]["LENGTH"]."\r\n";
 
     $headers[] = "Content-type: audio/x-mpeg";
     $headers[] = "Last-Changed: ".date('r',filemtime($location));
@@ -235,21 +242,21 @@
   {
     // We have to perform on-the-fly resizing for images because we can't redirect them through the thumb.php 
     // script. No idea why, but it seems to hand the showcenter firmware responsible for displaying slideshows.  
-    send_to_log(7,'Attempting to stream the following Photo',array( "File ID"=>$file_id, "Location"=>$location ));
+    send_to_log(7,'Attempting to stream the following Photo',$tracks[$idx]);
     store_request_details( $media, $file_id);  
     output_image( $file_id, ucfirst($location), convert_x(1000, SCREEN_COORDS), convert_y(1000, SCREEN_COORDS) );
   }
   else 
   { 
     // Store the request details, and then send a redirect header to the player with the real location of the media file.
-    send_to_log(7,'Attempting to stream the following file',array( "File ID"=>$file_id, "Media Type"=>$media, "Location"=>$location ));
+    send_to_log(7,'Attempting to stream the following file',$tracks[$idx]);
     store_request_details( $media, $file_id);  
       
     send_to_log(8,'Redirecting to '.$server.$redirect_url);
     header ("HTTP/1.0 307 Temporary redirect");
     header ("location: ".$server.$redirect_url);
   }
-
+  
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/
