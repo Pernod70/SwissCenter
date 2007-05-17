@@ -65,41 +65,40 @@
   function display_menu()
   {
     $db_stat = test_db(DB_HOST,DB_USERNAME,DB_PASSWORD,DB_DATABASE); 
-
-    echo '<table width="160">';
-    menu_heading(str('CONFIGURATION'));
-    menu_item( str('CONFIG_DB_CREATE')         ,'section=INSTALL&action=DISPLAY','menu_bgr2.png');
+    $menu = new config_menu();
+        
+    $menu->add_menu(str('CONFIGURATION'));
+    $menu->add_item(str('CONFIG_OVERVIEW')          ,'');
+    $menu->add_item(str('CONFIG_DB_CREATE')         ,'section=INSTALL&action=DISPLAY');
+    
     if ($db_stat == 'OK')
   	{
-  	  menu_item( str('CACHE_CONFIG_TITLE')     ,'section=CACHE&action=DISPLAY');
-  	  menu_item( str('CATEGORIES')             ,'section=CATEGORY&action=DISPLAY');
-  	  menu_item( str('BROWSE_OPTIONS')             ,'section=BROWSE&action=DISPLAY');
-	  menu_item( str('CONNECT_TITLE')          ,'section=CONNECT&action=DISPLAY');
-  	  menu_item( str('USERS_ADD_TITLE')        ,'section=USERS&action=DISPLAY');
-  	  menu_item( str('SCHEDULE_TITLE')         ,'section=SCHED&action=DISPLAY');
+      $menu->add_menu(str('CONFIGURATION'));
+      $menu->add_item(str('CACHE_CONFIG_TITLE')     ,'section=CACHE&action=DISPLAY');
+  	  $menu->add_item(str('CATEGORIES')             ,'section=CATEGORY&action=DISPLAY');
+  	  $menu->add_item(str('BROWSE_OPTIONS')         ,'section=BROWSE&action=DISPLAY');
+	    $menu->add_item(str('CONNECT_TITLE')          ,'section=CONNECT&action=DISPLAY');
+  	  $menu->add_item(str('USERS_ADD_TITLE')        ,'section=USERS&action=DISPLAY');
+  	  $menu->add_item(str('SCHEDULE_TITLE')         ,'section=SCHED&action=DISPLAY');
   
-  	  menu_heading();
-  	  menu_heading();
-  	  
-  	  menu_heading(str('MEDIA_MANAGEMENT'));
-  	  menu_item( str('MEDIA_LOCATIONS')        ,'section=DIRS&action=DISPLAY');
-  	  menu_item( str('CONFIG_AUDIO_OPTIONS')   ,'section=AUDIO&action=DISPLAY','menu_bgr.png');
-  	  menu_item( str('CONFIG_IMAGE_OPTIONS')   ,'section=IMAGE&action=DISPLAY','menu_bgr.png');
-  	  menu_item( str('CONFIG_RADIO_OPTIONS')   ,'section=RADIO&action=DISPLAY','menu_bgr.png');
-  	  menu_item( str('PLAYLISTS')              ,'section=PLAYLISTS&action=DISPLAY');
-  	  menu_item( str('MOVIE_OPTIONS')          ,'section=MOVIE&action=INFO','menu_bgr.png');
-  	  menu_heading();
-  	  menu_item( str('ART_FILES_TITLE')        ,'section=ART&action=DISPLAY');
-  	  menu_item( str('ORG_TITLE')              ,'section=MOVIE&action=DISPLAY','menu_bgr.png');
-  	  
-  	  menu_heading();
-  	  menu_heading();
-  	  
-  	  menu_heading(str("INFORMATION"));
-  	  menu_item( str('PRIVACY_POLICY')         ,'section=PRIVACY&action=DISPLAY','menu_bgr2.png');
-  	  menu_item( str('SUPPORT_TITLE')          ,'section=SUPPORT&action=DISPLAY','menu_bgr2.png');
+      $menu->add_menu(str('MEDIA_MANAGEMENT'));
+  	  $menu->add_item(str('MEDIA_LOCATIONS')        ,'section=DIRS&action=DISPLAY');
+  	  $menu->add_item(str('CONFIG_AUDIO_OPTIONS')   ,'section=AUDIO&action=DISPLAY');
+  	  $menu->add_item(str('CONFIG_IMAGE_OPTIONS')   ,'section=IMAGE&action=DISPLAY');
+  	  $menu->add_item(str('CONFIG_RADIO_OPTIONS')   ,'section=RADIO&action=DISPLAY');
+  	  $menu->add_item(str('PLAYLISTS')              ,'section=PLAYLISTS&action=DISPLAY');
+  	  $menu->add_item(str('MOVIE_OPTIONS')          ,'section=MOVIE&action=INFO');
+  	  $menu->add_item(str('ART_FILES_TITLE')        ,'section=ART&action=DISPLAY');
+  	  $menu->add_item(str('ORG_TITLE')              ,'section=MOVIE&action=DISPLAY');
+
+      $menu->add_menu(str('INFORMATION'));
+  	  $menu->add_item(str('PRIVACY_POLICY')         ,'section=PRIVACY&action=DISPLAY');
+  	  $menu->add_item(str('SUPPORT_TITLE')          ,'section=SUPPORT&action=DISPLAY');
   	}
-    echo '</table>';
+  	
+  	$menu->display();
+    $menu_id = $_SESSION["config_menu"];
+  	echo '<script>showHide("submenu'.$menu_id.'");</script>';
   }
  
   // ----------------------------------------------------------------------------------
@@ -134,12 +133,27 @@
       check_display();  
     }
   }
+  
+  /**
+   * Identify which menu the user is currently on by looking at the "menu" parameter
+   * passed into the page. If no menu parameter was passed, then use the last value
+   * that was stored in the session.
+   * 
+   * Finally, if the user has never been to a config page in this session, then 
+   * select the first menu.
+   */
 
-  // ----------------------------------------------------------------------------------
-  // Get the database parameters from the ini file as they are needed throughout the script, and 
-  // then execute the template file
-  // ----------------------------------------------------------------------------------
+  // Identify which menu the user is currently on. This is needed to 
+  if (isset($_REQUEST["menu"]) && !empty($_REQUEST["menu"]))
+    $_SESSION["config_menu"] = $_REQUEST["menu"];
+  elseif (!isset($_SESSION["config_menu"]))
+    $_SESSION["config_menu"] = 1;
 
+  /**
+   * Get the database parameters from the ini file as they are needed throughout the script, 
+   * and then execute the template file
+   */
+  
   if ($_REQUEST["section"]!='INSTALL' && file_exists('swisscenter.ini'))
   {
     foreach( parse_ini_file('swisscenter.ini') as $k => $v)
