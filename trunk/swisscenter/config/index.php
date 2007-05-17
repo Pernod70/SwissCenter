@@ -143,11 +143,11 @@
    * select the first menu.
    */
 
-  // Identify which menu the user is currently on. This is needed to 
-  if (isset($_REQUEST["menu"]) && !empty($_REQUEST["menu"]))
-    $_SESSION["config_menu"] = $_REQUEST["menu"];
-  elseif (!isset($_SESSION["config_menu"]))
+  // Identify which menu the user is currently on. 
+  if (empty($_REQUEST["section"]) )
     $_SESSION["config_menu"] = 1;
+  elseif (!empty($_REQUEST["menu"]))
+    $_SESSION["config_menu"] = $_REQUEST["menu"];
 
   /**
    * Get the database parameters from the ini file as they are needed throughout the script, 
