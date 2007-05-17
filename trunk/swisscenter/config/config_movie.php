@@ -82,10 +82,17 @@ function movie_display_info(  $message = '' )
   echo '<br>&nbsp;</td></tr></tr><tr>
           <th>'.str('CERTIFICATE').'</th>
           <th>'.str('YEAR').'</th>
+          <th>'.str('VIEWED_BY').'</th>
         </tr><tr>
           <td valign=top>'.get_cert_name(get_nearest_cert_in_scheme($details[0]["CERTIFICATE"])).'</td>
-          <td valign=top>'.$details[0]["YEAR"].'</td>
-        </tr></table>
+          <td valign=top>'.$details[0]["YEAR"].'</td><td>';
+
+  foreach ( db_toarray("select * from users") as $row)
+    echo '<input type="checkbox" name="viewed" '.
+         (viewings_count( 3, $details[0]["FILE_ID"], $row["USER_ID"])>0 ? 'checked' : '').
+         '>'.$row["NAME"].'</input><br>';
+  
+  echo '</td></tr></table>
         <p align="center">';
 
   // Get movie information from online source

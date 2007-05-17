@@ -142,9 +142,9 @@ class thumb_list
           
           // highlight this thumbnail?
 	        if (!empty($this->items[$cell_no]["highlight"]))
-            $text = img_gen(style_img($this->items[$cell_no]["highlight"],true), 10 , 10, false, false, 'RESIZE').$text;
+            $text = "<b>$text</b>";
 
-          echo '<td valign="top" width="'.convert_x($cell_width).'"><center><a name="'.($cell_no + 1).'" '
+          echo '<td valign="top" width="'.convert_x($cell_width).'"><center>'.'<a name="'.($cell_no + 1).'" '
                .$this->items[$cell_no]["url"].'>'.'<font size="1">'.$text.'</font></a></center></td>';
         }
   
