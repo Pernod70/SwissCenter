@@ -168,7 +168,7 @@ function img_gen( $filename, $x, $y, $type = false, $stretch = false, $rs_mode =
 
 function pc_nav_button($text, $url)
   {
-    return '<td align="center" valign="center" height="23" width="'.(convert_x(1000)/5).'" '.
+    return '<td style="cursor: pointer" align="center" valign="center" height="23" width="'.(convert_x(1000)/5).'" '.
                 style_background('PC_BUTTON_BACKGROUND').' onclick="document.location=\''.$url.'\';">
             '.font_colour_tags('PC_BUTTON_TEXT_COLOUR',$text).'
             </td>';
