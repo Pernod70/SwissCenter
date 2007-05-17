@@ -200,6 +200,7 @@
   send_to_log(1,'Stream request');
   $tracks = get_tracklist();
   $idx    = $_REQUEST["idx"];
+  $_SESSION["LAST_RESPONSE_IDX"] = $idx;
   
   $server       = server_address();
   $media        = $_REQUEST["media_type"];
@@ -209,10 +210,7 @@
   $req_ext      = $_REQUEST["ext"];
   $subtitles    = array('.srt','.sub', '.ssa', '.smi');
   $headers      = array();
-
-  $_SESSION["LAST_RESPONSE"] = 'MEDIA';
-  $_SESSION["LAST_RESPONSE_IDX"] = $idx;
-
+ 
   // Determine what to do with the file request...      
   if ( in_array(strtolower($req_ext),$subtitles) )
   {

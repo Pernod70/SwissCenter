@@ -4,24 +4,49 @@
  *************************************************************************************************/
 
   require_once( realpath(dirname(__FILE__).'/base/page.php'));
+  require_once( realpath(dirname(__FILE__).'/base/capabilities.php'));
   require_once( realpath(dirname(__FILE__).'/base/mysql.php'));
   require_once( realpath(dirname(__FILE__).'/base/playlist.php'));
 
-  // We output two identical playlist items that both point to the same script (playing_image.php),
-  // the only difference is that players that support a "Now Playing" screen will sync the slide
-  // change with the end of the music. For other players, we must constantly switch between
-  // images (on a 5 second delay).
-  
   $server     = server_address();
   $transition = now_playing_transition();
-  $timeout    = 5;
-  $url        = $server."playing_image.php?".current_session()."&type=.jpg";
-  
-  send_to_log(7,'Generating List of "Now Playing" images');  
-  send_to_log(7,' -'.$url);
-  
-  echo "$timeout|$transition| |$url|\n";    
-  echo "$timeout|$transition| |$url|\n";    
+  $url        = $server."playing_image.php?".current_session();
+  $data       = get_tracklist();                            
+
+  if (support_now_playing())
+  {
+    /**
+     * The following code ouputs the list of photos that are sync'd with the music tracks
+     * automatically by the player. There is no need whatsoever to keep refreshing the 
+     * screen, nor keep track of the media file that is currently playing.
+     */
+    
+    $idx        = 0;
+    $timeout    = 9999;
+    send_to_log(7,"Support for sync'd music and photos enabled");
+    send_to_log(7,'Generating List of "Now Playing" images');  
+    
+    foreach ($data as $row)
+    {    
+      send_to_log(7,' - '.$url."&idx$idx=&type=.jpg");
+      echo "$timeout|$transition| |$url&idx=$idx&type=.jpg|\n";    
+      $idx++;
+    }
+  }
+  else 
+  {
+    /**
+     * For players that do not have the capability to sync a photo list with the music, we
+     * have to keep track of which track in the playlist is being streamed and refresh the
+     * page frequently so that the information is kept up-to-date.
+     */
+    
+    $timeout    = 5;    
+    send_to_log(7,"No Support for sync'd music and photos.");
+    
+    echo "$timeout|$transition| |$url&type=.jpg|\n";    
+    echo "$timeout|$transition| |$url&type=.jpg|\n";    
+  }
   
 /**************************************************************************************************
                                                End of file
