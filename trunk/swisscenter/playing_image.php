@@ -41,33 +41,25 @@
   $this_info = array();
   $next_info = array();
   $tracks    = get_tracklist();
-  $idx       = $_SESSION["LAST_RESPONSE_IDX"];
-  
-  /**
-   * This is a fix for the problem that on certain players (notably the Showcenter 200) the image
-   * and the song are requested in the wrong order if you press SKIP on the remote control. 
-   */
-  if ( $_SESSION["LAST_RESPONSE"] == 'INFO')
-    send_to_log(7,'The last request was for a "Now Playing" image, so obtain info for the next track (index:'.++$idx.')');
-  else
-    send_to_log(7,'The last request was for a media file, so obtain info for the current track');
-    
+
+  // Work out where in the playlist we are depending on what support is available.
+  if (support_now_playing())
+    $idx       = $_REQUEST["idx"];
+  else 
+   $idx = $_SESSION["LAST_RESPONSE_IDX"];
   
   // Get current, prev and next track details (as appropriate)
   if ($idx > 0)
-  {
     $prev_info = $tracks[$idx-1];
-    send_to_log(8,'Previous track:',$prev_info);
-  }
 
   $this_info   = $tracks[$idx];
-  send_to_log(8,'Current track:',$this_info);
 
   if ($idx < count($tracks)-1)
-  {
     $next_info = $tracks[$idx+1];
-    send_to_log(8,'Next track:',$next_info);
-  }
+    
+  send_to_log(8,'Previous track:',$prev_info);
+  send_to_log(8,'Current track:',$this_info);
+  send_to_log(8,'Next track:',$next_info);
   
   // Load the image and scale it to the appropriate size.  
   $image->load_from_file(style_img('NOW_BACKGROUND',true) );
@@ -143,7 +135,6 @@
   }
   
   // Output picture
-  $_SESSION["LAST_RESPONSE"] = 'INFO';
   $image->output('jpeg');
 
 /**************************************************************************************************
