@@ -34,7 +34,7 @@ function shuffle_fisherYates(&$array, $seed = false)
    $total = count($array);
    for ($i = 0; $i<$total; $i++)
    {
-         $j = @mt_rand(0, $i);
+         $j = @mt_rand(0, ($total-1));
          $temp = $array[$i];
          $array[$i] = $array[$j];
          $array[$j] = $temp;
