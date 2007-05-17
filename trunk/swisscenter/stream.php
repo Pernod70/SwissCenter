@@ -56,10 +56,12 @@
           $image->rotate(90);          
         elseif ( $orientation == 8 )
           $image->rotate(270);
-  
-        // Only resize images to make them smaller!
-        if ( $image->get_width() > $x || $image->get_height() > $y)
-          $image->resize($x, $y);
+
+// Should add a config option on whether or not to scale images UP as well as DOWN.
+//          
+//        // Only resize images to make them smaller!
+//        if ( $image->get_width() > $x || $image->get_height() > $y)
+//          $image->resize($x, $y);
   
         // Any required flips of the image can be done after the resize to improve performance
         
