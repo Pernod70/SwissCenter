@@ -6,6 +6,12 @@
   // ----------------------------------------------------------------------------------
   // Install form - get MySQL root password from user
   // ----------------------------------------------------------------------------------
+  /**
+   * Displays a form to the user to prompt them for the details required to create a new
+   * swisscenter database
+   *
+   * @param string $message - optional feedback message
+   */
   
   function install_display($message = '')
   {
@@ -37,9 +43,10 @@
     form_end();
   }
   
-  // ----------------------------------------------------------------------------------
-  // Perform the installation
-  // ----------------------------------------------------------------------------------
+/**
+ * Creates a swisscenter database
+ *
+ */
   
   function install_run()
   {
@@ -96,6 +103,49 @@
         install_display('!'.str('MISSING_SETUP_SQL'));
       }
     }
+  }
+  
+  /**
+   * Executes SQL entered by the user and displays the results.
+   *
+   */
+  
+  function install_runsql()
+  {
+    $sql = un_magic_quote($_REQUEST["sql"]);
+
+    echo "<h1>".str('CONFIG_SQL')."</h1>";
+
+    if ( test_db() == 'OK' )
+    {
+      form_start('index.php');
+      form_hidden('section','INSTALL');
+      form_hidden('action','RUNSQL');
+      form_text('sql','SQL statement',100,5,$sql);
+      form_submit('Run SQL',1);
+      form_end();
+      
+      if (strpos($sql,'select ') !== false)
+      {
+        $data = db_toarray($sql);
+        if ($data !== false)
+          array_to_table($data);
+        else
+          message('!SQL command failed.');
+      }
+      elseif (!empty($sql))
+      {
+        if ( db_sqlcommand($sql) )
+          message('SQL completed successfully.');
+        else 
+          message('!SQL command failed.');
+          
+      }
+      
+    }
+    else
+      message("!Unable to connect to the database.");
+    
   }
 
 /**************************************************************************************************
