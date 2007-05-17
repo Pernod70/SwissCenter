@@ -8,6 +8,8 @@
   require_once( realpath(dirname(__FILE__).'/base/stylelib.php'));
   require_once( realpath(dirname(__FILE__).'/base/users.php'));
   require_once( realpath(dirname(__FILE__).'/base/screen.php'));
+  require_once( realpath(dirname(__FILE__).'/base/playlist.php'));
+  require_once( realpath(dirname(__FILE__).'/base/file.php'));
 
   //------------------------------------------------------------------------------------------------
   // Output multiple lines of text
@@ -33,19 +35,49 @@
    Main page output
    *************************************************************************************************/
  
-  $image            = new CImage();
-  $artfile          = new CImage();
-  $info             = db_toarray("select * from mp3s where file_id=".get_user_pref('LAST_PLAYED_ID'));
+  $image     = new CImage();
+  $artfile   = new CImage();  
+  $prev_info = array();
+  $this_info = array();
+  $next_info = array();
+  $tracks    = get_tracklist();
+  $idx       = $_SESSION["LAST_RESPONSE_IDX"];
+  
+  /**
+   * This is a fix for the problem that on certain players (notably the Showcenter 200) the image
+   * and the song are requested in the wrong order if you press SKIP on the remote control. 
+   */
+  if ( $_SESSION["LAST_RESPONSE"] == 'INFO')
+    send_to_log(7,'The last request was for a "Now Playing" image, so obtain info for the next track (index:'.++$idx.')');
+  else
+    send_to_log(7,'The last request was for a media file, so obtain info for the current track');
+    
+  
+  // Get current, prev and next track details (as appropriate)
+  if ($idx > 0)
+  {
+    $prev_info = $tracks[$idx-1];
+    send_to_log(8,'Previous track:',$prev_info);
+  }
 
+  $this_info   = $tracks[$idx];
+  send_to_log(8,'Current track:',$this_info);
+
+  if ($idx < count($tracks)-1)
+  {
+    $next_info = $tracks[$idx+1];
+    send_to_log(8,'Next track:',$next_info);
+  }
+  
   // Load the image and scale it to the appropriate size.  
   $image->load_from_file(style_img('NOW_BACKGROUND',true) );
   $image->resize( convert_x(1000,SCREEN_COORDS), convert_y(1000,SCREEN_COORDS), 0, false);
-  
+
   #----------
   # Album Art
   #---------- 
 
-  $art_fsp    = file_albumart($info[0]["DIRNAME"].$info[0]["FILENAME"]);
+  $art_fsp    = file_albumart($this_info["DIRNAME"].$this_info["FILENAME"]);
   $art_x      = convert_x(70,SCREEN_COORDS);
   $art_y      = convert_y(200,SCREEN_COORDS);
   $art_w      = convert_x(250,SCREEN_COORDS);
@@ -90,28 +122,28 @@
   $text_width       = convert_x(450,SCREEN_COORDS);
   $indent           = convert_x(30,SCREEN_COORDS);
   
-  if (!empty($info[0]["TITLE"]))
-  {
-    $image->text(str('TRACK_NAME'),  $text_x, $text_y, $label_text_col, $label_text_size);
-    wrap($image, $info[0]["TITLE"], $text_x + $indent, $text_y+=($detail_text_size*2.5), $text_width, $detail_text_col, $detail_text_size);
-  }
-  if (!empty($info[0]["ARTIST"]))
+
+  $image->text(str('TRACK_NAME'),  $text_x, $text_y, $label_text_col, $label_text_size);
+  wrap($image, nvl($this_info["TITLE"],file_noext($this_info["FILENAME"])), $text_x + $indent, $text_y+=($detail_text_size*2.5), $text_width, $detail_text_col, $detail_text_size);
+
+  if (!empty($this_info["ARTIST"]))
   {
     $image->text(str('ARTIST'), $text_x, $text_y, $label_text_col, $label_text_size);
-    wrap($image, $info[0]["ARTIST"], $text_x + $indent, $text_y+=($detail_text_size*2.5), $text_width, $detail_text_col, $detail_text_size);
+    wrap($image, $this_info["ARTIST"], $text_x + $indent, $text_y+=($detail_text_size*2.5), $text_width, $detail_text_col, $detail_text_size);
   }
-  if (!empty($info[0]["ALBUM"]))
+  if (!empty($this_info["ALBUM"]))
   {
     $image->text(str('ALBUM'),  $text_x, $text_y, $label_text_col, $label_text_size);
-    wrap($image, $info[0]["ALBUM"], $text_x + $indent, $text_y+=($detail_text_size*2.5), $text_width, $detail_text_col, $detail_text_size);
+    wrap($image, $this_info["ALBUM"], $text_x + $indent, $text_y+=($detail_text_size*2.5), $text_width, $detail_text_col, $detail_text_size);
   }
-  if (!empty($info[0]["YEAR"]))
+  if (!empty($this_info["YEAR"]))
   {
     $image->text(str('YEAR'),  $text_x, $text_y, $label_text_col, $label_text_size);
-    wrap($image, $info[0]["YEAR"], $text_x + $indent, $text_y+=($detail_text_size*2.5), $text_width, $detail_text_col, $detail_text_size);
+    wrap($image, $this_info["YEAR"], $text_x + $indent, $text_y+=($detail_text_size*2.5), $text_width, $detail_text_col, $detail_text_size);
   }
-
+  
   // Output picture
+  $_SESSION["LAST_RESPONSE"] = 'INFO';
   $image->output('jpeg');
 
 /**************************************************************************************************

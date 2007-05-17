@@ -13,10 +13,22 @@
     return 'load_pl.php?load='.rawurlencode($file).'&action='.$_REQUEST["action"];
   }
 
+  $fsp    = rawurldecode($_REQUEST["load"]);
+  $action = $_REQUEST["action"];
+  $name   = file_noext(basename($fsp));
+  $custom = "&lt;".str('CUSTOM')."&gt;";
+  
   // Load a playlist (Overwriting or appending to the existing playlist)  
-  if ( isset($_REQUEST["load"]) && !empty($_REQUEST["load"]))
+  if (!empty($fsp))
   {
-    load_pl(rawurldecode($_REQUEST["load"]),$_REQUEST["action"]);
+    $tracks = load_pl($fsp);
+
+    // Either replace the existing playlist or merge the two together.
+    if ($action == "replace")
+      set_current_playlist($name, $tracks);
+    else
+      set_current_playlist( $custom, array_merge($_SESSION["playlist"], $tracks) );
+
     page_inform(2,"manage_pl.php",str('PLAYLIST_LOAD'),str('PLAYLIST_LOAD_OK'));
   }
   else 

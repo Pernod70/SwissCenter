@@ -156,10 +156,6 @@ function viewings_count( $media_type, $file)
 
 function store_request_details( $media, $file_id )
 {  
-  // Store details on the file being requested.
-  set_user_pref('LAST_PLAYED_TIME', time() );
-  set_user_pref('LAST_PLAYED_ID', $file_id);  
-
   // Current user
   $user_id = get_current_user_id();
 
