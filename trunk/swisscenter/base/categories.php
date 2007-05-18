@@ -66,7 +66,7 @@
     }
     elseif($cat_id == CAT_NEW)
     {
-      $sql = " and discovered > ('".db_datestr()."' - interval 7 day)";
+      $sql = " and media.discovered > ('".db_datestr()."' - interval 7 day)";
     }
     // No sql needed for CAT_ALL
     
