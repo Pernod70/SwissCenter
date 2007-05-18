@@ -531,6 +531,43 @@ function file_albumart( $fsp )
   return $return;
 }
 
+/**
+ * Function to download a remote file and save it to the specified location on the local
+ * filesystem.
+ *
+ * @param URL $url - Location of the file to download
+ * @param string $filename - Location to save the file to
+ * @param boolean $overwrite - [Optional] Overwrite local file it is exists
+ */
+
+function file_download_and_save( $url, $filename, $overwrite = false )
+{
+  send_to_log(4,'Downloading remote file to the local filesystem',array("remote"=>$url, "local"=>$filename));
+  if ( is_remote_file($url))
+  {
+    if ($overwrite || !file_exists($filename))
+    {
+      $img = file_get_contents($url);
+      if ($img !== false)
+      {        
+        if ($out = @fopen($filename, "wb") )
+        {
+          @fwrite($out, $img);
+          @fclose($out);
+        }
+        else 
+          send_to_log(4,'Error : Unable to create Local file.');
+      }
+      else 
+        send_to_log(4,'Error : Unable to download remote file.');
+    }
+    else 
+      send_to_log(4,'Error : Local file exists (overwrite option not specified).');
+  }
+  else 
+    send_to_log(4,'Error : The file specified is not a remote file.');
+}
+
 //-------------------------------------------------------------------------------------------------
 // Download a JPG image from the given URL and save it into the filmart/albumart file specified
 //-------------------------------------------------------------------------------------------------
@@ -538,20 +575,7 @@ function file_albumart( $fsp )
 function file_save_albumart( $url, $fsp, $film_title )
 {
   if (!file_exists($fsp))
-  {
-    send_to_log(4,'Attempting to download albumart from '.$url);
-    $out = @fopen($fsp, "wb");
-    if ($out)
-    {
-      @fwrite($out, file_get_contents($url));
-      @fclose($out);
-      send_to_log(4,'AlbumArt downloaded for '.$film_title);
-    }
-    else 
-    {
-       send_to_log(2,'Unable to write AlbumArt to file (May be a permissions problem if running on Linux)');
-    }
-  }
+    file_download_and_save($url,$fsp);
 }
 
 //-------------------------------------------------------------------------------------------------
