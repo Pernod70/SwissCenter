@@ -50,34 +50,11 @@
             
       // Rotate/mirror the image as specified in the EXIF data (if enabled)
       if (get_sys_pref('IMAGE_ROTATE','YES')!='NO')
-      {
-        $orientation = db_value("select exif_orientation from photos where file_id = $file_id");
-        
-        if ( $orientation == 5 || $orientation == 6 || $orientation == 7)
-          $image->rotate(90);          
-        elseif ( $orientation == 8 )
-          $image->rotate(270);
+        $image->rotate_by_exif();
 
-// Should add a config option on whether or not to scale images UP as well as DOWN.
-//          
-//        // Only resize images to make them smaller!
-//        if ( $image->get_width() > $x || $image->get_height() > $y)
-//          $image->resize($x, $y);
-  
-        // Any required flips of the image can be done after the resize to improve performance
-        
-        if ( $orientation == 2 || $orientation == 5 || $orientation == 3 )
-          $image->flip_horizontal();
-  
-        if ( $orientation == 4 || $orientation == 7 || $orientation == 3 )
-          $image->flip_vertical();
-      }
-      else 
-      {
-        // Only resize images to make them smaller!
-        if ( $image->get_width() > $x || $image->get_height() > $y)
-          $image->resize($x, $y);        
-      }
+      // Only resize images to make them smaller!
+      if ( $image->get_width() > $x || $image->get_height() > $y)
+        $image->resize($x, $y);        
       
       $image->output('jpg');
     }
