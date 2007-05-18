@@ -195,9 +195,25 @@ function check_web_version()
 # SwissCenter configuration
 #-------------------------------------------------------------------------------------------------
 
+function check_swiss_unviewable()
+{
+  $max_rank = db_toarray("select max(rank) from users u join certificates c on (u.maxcert = c.cert_id)");
+  $unviewable = 0;
+  
+  foreach (db_toarray("select media_table from media_types") as $table)
+  {
+    $unviewable += db_value("select count(*) from $table m
+                               left outer join certificates c on (m.certificate = c.cert_id)
+                               join media_locations ml on (ml.location_id = m.location_id)
+                               join certificates mlc on (mlc.cert_id = ml.unrated)
+                             where ifnull(c.rank,mlc.rank) > $max_rank ");
+  }
+  
+  return $unviewable;
+}
+
 function check_swiss_write_log_dir()
 {
-  
   return is_writeable(dirname(logfile_location()));  
 }
 
