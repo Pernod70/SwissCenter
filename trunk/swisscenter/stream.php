@@ -207,7 +207,7 @@
     store_request_details( $media, $file_id);  
 
     if ($tracks[$idx]["LENGTH"] > 0)
-      $headers[] = "TimeSeekRange.dlna.org: npt=0-/".$tracks[$idx]["LENGTH"]."\r\n";
+      $headers[] = "TimeSeekRange.dlna.org: npt=0-/".$tracks[$idx]["LENGTH"];
 
     $headers[] = "Content-type: audio/x-mpeg";
     $headers[] = "Last-Changed: ".date('r',filemtime($location));
