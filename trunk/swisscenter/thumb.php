@@ -21,7 +21,17 @@
   require_once( realpath(dirname(__FILE__).'/base/image.php'));
 
   // Parameters to the script. Need to do more extensive checking on them!
-  $filename   = un_magic_quote(rawurldecode($_REQUEST["src"]));
+  $filename   = un_magic_quote(urldecode($_REQUEST["src"]));
+  
+  // If the file is on the internet, download it into a temporary location first
+  if ( is_remote_file($filename) )
+  {
+    $url = $filename;
+    filename = get_sys_pref('cache_dir').'SwissCenter_download_'.date('YmdH').file_ext($filename);
+    file_download_and_save($url, $filename);
+  }
+
+  // Other parameters passed in to the script
   $format     = strtolower(file_ext($filename));
   $x          = $_REQUEST["x"];
   $y          = $_REQUEST["y"];
@@ -49,6 +59,10 @@
     else  
       send_to_log(1,'Unable to process image specified : '.$filename);  
     
+    // Rotate/mirror the image as specified in the EXIF data (and enabled)
+    if (get_sys_pref('IMAGE_ROTATE','YES')!='NO')
+      $image->rotate_by_exif();
+
     // Resize it to the required size, whilst maintaining the correct aspect ratio
     $image->resize($x, $y, 0, $aspect, $rs_mode);
     
