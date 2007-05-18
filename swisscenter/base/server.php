@@ -149,12 +149,8 @@
 
   function server_address()
   {
-    if (is_server_iis())
-      return 'http://'.$_SERVER['LOCAL_ADDR'].":".$_SERVER['SERVER_PORT'].'/';
-    else
-      return 'http://'.$_SERVER['SERVER_ADDR'].":".$_SERVER['SERVER_PORT'].'/';
+    return 'http://'.$_SERVER["HTTP_HOST"].'/';
   }
-
 
   // ----------------------------------------------------------------------------------
   // Returns TRUE if the windows Task Scheduler service is running
