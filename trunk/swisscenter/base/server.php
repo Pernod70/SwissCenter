@@ -143,13 +143,30 @@
     return str_replace('\\','/',$_SERVER["REMOTE_ADDR"]);
   }  
 
-  // ----------------------------------------------------------------------------------
-  // Returns the HTTP address (IP and Port) where the SwissCenter is installed.
-  // ----------------------------------------------------------------------------------
+  /**
+   * Returns the HTTP full address (including port) of the server on which SwissCenter
+   * is installed. 
+   * 
+   * Note: There appears to be a bug in the Syabas/Sigma Designs firmware which means
+   * that the HTTP request is not properly formed. Most notably, the PORT is missing
+   * so we have to try and deduce it using other means!
+   *
+   * @return string
+   */
 
   function server_address()
   {
-    return 'http://'.$_SERVER["HTTP_HOST"].'/';
+    $server = $_SERVER['SERVER_NAME'];
+    
+    if (strpos($server,':') === false)
+    {
+      if (!empty($_SERVER['SERVER_PORT']))
+        $server = $server.':'.$_SERVER['SERVER_PORT'];
+      else 
+        $server = $server.':'.$_SESSION["device"]["port"]; 
+    }
+
+    return 'http://'.$server.'/';
   }
 
   // ----------------------------------------------------------------------------------
@@ -177,7 +194,7 @@
     { 
       $_SESSION["device"]["last_seen"]  = db_datestr();
       $_SESSION["device"]["ip_address"] = str_replace('\\','/',$_SERVER["REMOTE_ADDR"]);
-  
+      $_SESSION["device"]["port"] = $_SERVER['SERVER_PORT']; 
       get_player_type();
       get_screen_type();
       

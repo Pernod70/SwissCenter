@@ -14,6 +14,12 @@ UPDATE system_prefs SET value='1.17' WHERE name='DATABASE_VERSION';
 
 INSERT INTO certificates (cert_id, name, rank, scheme, description) VALUES ( 0, '12A',     35, 'BBFC','Minimum age 12 years (unless accompanied)');
 
+-- -------------------------------------------------------------------------------------------------
+-- Recording the HTP port of the client as a workaround for a bug in the hardware player's browser
+-- -------------------------------------------------------------------------------------------------
+
+ALTER TABLE clients ADD (port integer);
+
 -- *************************************************************************************************
 --   SWISScenter Source                                                              Robert Taylor
 -- *************************************************************************************************
