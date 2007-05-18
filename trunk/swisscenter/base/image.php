@@ -6,42 +6,36 @@
 require_once( realpath(dirname(__FILE__).'/mysql.php'));
 require_once( realpath(dirname(__FILE__).'/prefs.php'));
 require_once( realpath(dirname(__FILE__).'/file.php'));
+require_once( realpath(dirname(__FILE__).'/../ext/exif/exif_reader.php'));
 
-if (!function_exists('imagerotate')) {
+if (!function_exists('imagerotate')) 
+{
   function ImageRotate( $imgSrc, $angle, $dummy )
   {
-    $angle = 360 - $angle;
     // ensuring we got really RightAngle (if not we choose the closest one)
-    $angle = min( ( (int)(($angle+45) / 90) * 90), 270 );
+    $angle = 360 - min( ( (int)(($angle+45) / 90) * 90), 270 );
 
-    // no need to fight
-    if( $angle == 0 )
-        return( $imgSrc );
+    // no need to rotate
+    if( $angle != 0 )
+      return( $imgSrc );
 
-    // dimenstion of source image
     $srcX = imagesx( $imgSrc );
     $srcY = imagesy( $imgSrc );
 
-    switch( $angle )
-        {
-        case 90:
-            $imgDest = imagecreatetruecolor( $srcY, $srcX );
-            for( $x=0; $x<$srcX; $x++ )
-                for( $y=0; $y<$srcY; $y++ )
-                    imagecopy($imgDest, $imgSrc, $srcY-$y-1, $x, $x, $y, 1, 1);
-            break;
-
-        case 180:
-            $imgDest = ImageFlip( $imgSrc, IMAGE_FLIP_BOTH );
-            break;
-
-        case 270:
-            $imgDest = imagecreatetruecolor( $srcY, $srcX );
-            for( $x=0; $x<$srcX; $x++ )
-                for( $y=0; $y<$srcY; $y++ )
-                    imagecopy($imgDest, $imgSrc, $y, $srcX-$x-1, $x, $y, 1, 1);
-            break;
-        }
+    if ($angle == 90) 
+    {
+      $imgDest = imagecreatetruecolor( $srcY, $srcX );
+      for( $x=0; $x<$srcX; $x++ )
+          for( $y=0; $y<$srcY; $y++ )
+              imagecopy($imgDest, $imgSrc, $srcY-$y-1, $x, $x, $y, 1, 1);
+    }
+    elseif ($angle == 270)
+    {
+      $imgDest = imagecreatetruecolor( $srcY, $srcX );
+      for( $x=0; $x<$srcX; $x++ )
+          for( $y=0; $y<$srcY; $y++ )
+              imagecopy($imgDest, $imgSrc, $y, $srcX-$x-1, $x, $y, 1, 1);
+    }
 
     return( $imgDest );
   }
@@ -110,7 +104,7 @@ function precache( $filename, $x, $y, $overwrite = true )
     // Load the image from disk
     if (strtolower(file_ext($filename)) == 'sql')
       $image->load_from_database( substr($filename,0,-4) );
-    elseif ( file_exists($filename) || is_remote_file($filename) )
+    elseif ( file_exists($filename) )
       $image->load_from_file($filename);
     else
       send_to_log(1,'Unable to process image specified : '.$filename);
@@ -137,11 +131,7 @@ function cache_filename( $filename, $x, $y, $rs_mode = '' )
   if ($rs_mode == '')
     $rs_mode = get_sys_pref('IMAGE_RESIZING','RESAMPLE');
     
-  // Include the last modified time for files (or today's date for files from the internet)
-  if ( is_remote_file($filename) )
-    $filetime = date("dmY");
-  else 
-    $filetime = filemtime($filename);
+  $filetime = filemtime($filename);
     
   if ($cache_dir != '')
     return $cache_dir.'/SwissCenter_'.sha1($filename.$filetime).'_x'.$x.'y'.$y.'_'.strtolower($rs_mode).'.png';
@@ -232,7 +222,6 @@ class CImage
   var $src_fsp        = false;
   var $cache_filename = false;
 
-
   // -------------------------------------------------------------------------------------------------
   // Creates a blank image
   // -------------------------------------------------------------------------------------------------
@@ -322,10 +311,8 @@ class CImage
       $this->image = false;
     }
     
-    if ( is_file($filename) || is_remote_file($filename))
+    if ( is_file($filename))
     {
-      if ( is_remote_file($filename) )
-        $filename = str_replace(' ','%20',$filename);
       
       switch (strtolower(file_ext($filename)))
       {
@@ -502,7 +489,35 @@ class CImage
     }
   }
 
+  /**
+   * Rotates/flips an image to display it in the correct orientation as recorded
+   * by the EXIF data held within the original file.
+   * 
+   * NOTE: This function does nothing if the original file was loaded from the
+   * database.
+   *
+   */
 
+  function rotate_by_exif()
+  {
+    if (file_ext($this->src_fsp) != 'sql')
+    {
+      $exif = exif($this->src_fsp);
+      $orientation = $exif['Orientation'];
+      
+      if ( $orientation == 5 || $orientation == 6 || $orientation == 7)
+        $this->rotate(90);          
+      elseif ( $orientation == 8 )
+        $this->rotate(270);
+    
+      if ( $orientation == 2 || $orientation == 5 || $orientation == 3 )
+        $this->flip_horizontal();
+    
+      if ( $orientation == 4 || $orientation == 7 || $orientation == 3 )
+        $this->flip_vertical();    
+    }
+  }
+  
   // -------------------------------------------------------------------------------------------------
   // Draws a filled rectangle of the given colour on the image
   // -------------------------------------------------------------------------------------------------
