@@ -247,7 +247,7 @@ function process_mp3( $dir, $id, $file)
   $data["title"]        = file_noext($file);
   $data["size"]         = filesize($dir.$file);
   $data["verified"]     = 'Y';
-  $data["discovered"]   = filemtime($filepath);
+  $data["discovered"]   = db_datestr(filemtime($filepath));
 
   if (in_array( $id3["fileformat"],array('mp3','asf')) )
   {
@@ -315,7 +315,7 @@ function add_photo_album( $dir, $id )
     $row = array("dirname"       => $dir
                  ,"title"        => basename($dir)
                  ,"verified"     => 'Y'
-                 ,"discovered"   => filemtime($dir)
+                 ,"discovered"   => db_datestr(filemtime($dir))
                  ,"location_id"  => $id
                  );
 
@@ -358,7 +358,7 @@ function process_photo( $dir, $id, $file)
                    , "date_modified"       => filemtime($filepath)
                    , "date_created"        => $exif["DTDigitised"]
                    , "verified"            => 'Y'
-                   , "discovered"          => filemtime($filepath)
+                   , "discovered"          => db_datestr(filemtime($filepath))
                    , "exif_exposure_mode"  => $exif['ExposureMode']
                    , "exif_exposure_time"  => dec2frac($exif['ExposureTime'])
                    , "exif_fnumber"        => rtrim($exif['FNumber'],'0')
@@ -436,7 +436,7 @@ function process_movie( $dir, $id, $file)
   $data["title"]        = strip_title($file);
   $data["size"]         = filesize($dir.$file);
   $data["verified"]     = 'Y';
-  $data["discovered"]   = filemtime($filepath);
+  $data["discovered"]   = db_datestr(filemtime($filepath));
   
   if ( in_array(strtolower($id3["fileformat"]), $types))
   {
