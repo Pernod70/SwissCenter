@@ -104,19 +104,20 @@
     function display()
     {
       $menu_id = 0;
+      echo '<div style="float: left" id="my_menu" class="sdmenu">';
       foreach ($this->menus as $menu)
       {
-        $menu_id++;
-        echo '<a class="menu" onclick="showHide(\'submenu'.$menu_id.'\');">'.$menu["title"].'</a>
-              <div id="submenu'.$menu_id.'" class="hide">';
+        echo '<div class="collapsed"><span>'.$menu["title"].'</span>';
         
         // Output each option
         foreach ($menu["items"] as $item)
-          echo '<a <a href="?menu='.$menu_id.'&'.$item["params"].'" class="submenu">'.$item["text"].'</a>';
+          echo '<a href="?'.$item["params"].'">'.$item["text"].'</a>';
         
         echo '</div>';
+        $menu_id++;
       }
-    }    
+      echo '</div>';
+    }
   }
   
 /**************************************************************************************************

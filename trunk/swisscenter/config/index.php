@@ -97,8 +97,6 @@
   	}
   	
   	$menu->display();
-    $menu_id = $_SESSION["config_menu"];
-  	echo '<script>showHide("submenu'.$menu_id.'");</script>';
   }
  
   // ----------------------------------------------------------------------------------
@@ -134,21 +132,6 @@
     }
   }
   
-  /**
-   * Identify which menu the user is currently on by looking at the "menu" parameter
-   * passed into the page. If no menu parameter was passed, then use the last value
-   * that was stored in the session.
-   * 
-   * Finally, if the user has never been to a config page in this session, then 
-   * select the first menu.
-   */
-
-  // Identify which menu the user is currently on. 
-  if (empty($_REQUEST["section"]) )
-    $_SESSION["config_menu"] = 1;
-  elseif (!empty($_REQUEST["menu"]))
-    $_SESSION["config_menu"] = $_REQUEST["menu"];
-
   /**
    * Get the database parameters from the ini file as they are needed throughout the script, 
    * and then execute the template file

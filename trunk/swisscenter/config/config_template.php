@@ -8,11 +8,23 @@
 <head>
   <meta http-equiv="content-type" content="text/html;charset=utf-8">
   <title>SwissCenter Config</title>
-  <link rel="stylesheet" type="text/css" media="screen" href="slider.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="sdmenu.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="config.css" />
-  <script type="text/javascript" src="./slider.js"></script>
-  <script type="text/javascript" src="./config.js"></script>
-  </head>
+  <script type="text/javascript" src="sdmenu.js"></script>
+  <script type="text/javascript" src="config.js"></script>
+	<script type="text/javascript">
+  	var myMenu;
+  	window.onload = function() 
+  	{
+	  	myMenu = new SDMenu("my_menu");
+      myMenu.speed = 2;                     // Menu sliding speed (1 - 5 recomended)
+      myMenu.remember = true;               // Store menu states (expanded or collapsed) in cookie and restore later
+      myMenu.oneSmOnly = false;             // One expanded submenu at a time
+      myMenu.markCurrent = true;            // Mark current link / page (link.href == location.href)
+  		myMenu.init();
+	  };
+	</script>
+</head>
 <body style="margin:20px;" background="../images/bgr.png">
 
 <table width="<?php echo $page_width; ?>" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="eeeeee">
