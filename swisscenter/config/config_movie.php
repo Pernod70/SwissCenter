@@ -127,63 +127,15 @@ function movie_lookup()
     movie_display_info( '!'.str('LOOKUP_FAILURE') );
 }
 
-// ----------------------------------------------------------------------------------
-// Displays the movie details for editing
-// ----------------------------------------------------------------------------------
+/**
+ * Displays all the details for an array of movies in a table. Each row shows
+ *a selection box, film name, actors, directors, genres, year and rating.
+ *
+ * @param array $movie
+ */
 
-function movie_display( $message = '')
+function movie_display_list($movie_list)
 {
-  $_SESSION["last_search_page"] = current_url( true );
-  $per_page    = get_user_pref('PC_PAGINATION',20);
-  $page        = (empty($_REQUEST["page"]) ? 1 : $_REQUEST["page"]);
-  $start       = ($page-1)*$per_page;    
-  $where       = '';
-  
-  if (empty($message) && isset($_REQUEST["message"]))
-    $message = urldecode($_REQUEST["message"]);
-
-  // Extra filters on the media (for categories and search).
-  if (!empty($_REQUEST["cat_id"]) )
-    $where .= "and ml.cat_id = $_REQUEST[cat_id] ";
- 
-  if (!empty($_REQUEST["search"]) )
-    $where .= "and m.title like '%$_REQUEST[search]%' ";
-    
-  // If the user has changed category, then shunt them back to page 1.
-  if ($_REQUEST["last_where"] != $where)
-  {
-    $page = 1;
-    $start = 0;
-  }
-  
-  // SQL to fetch matching rows
-  $movie_count = db_value("select count(*) from movies m, media_locations ml where ml.location_id = m.location_id ".$where);
-  $movie_list  = db_toarray("select m.* from movies m, media_locations ml where ml.location_id = m.location_id ".$where.
-                            " order by title limit $start,$per_page");        
-  
-  echo '<h1>'.str('ORG_TITLE').'  ('.str('PAGE',$page).')</h1>';
-  message($message);
-  
-  echo '<form enctype="multipart/form-data" action="" method="post">
-        <table width="100%"><tr><td width="50%">
-        <input type=hidden name="section" value="MOVIE">
-        <input type=hidden name="action" value="DISPLAY">
-        <input type=hidden name="last_where" value="'.$where.'">
-        '.str('CATEGORY').' : 
-        '.form_list_dynamic_html("cat_id","select cat_id,cat_name from categories",$_REQUEST["cat_id"],true,true,str('CATEGORY_LIST_ALL')).'
-        </td><td width"50% align="right">
-        '.str('SEARCH').' : 
-        <input name="search" value="'.$_REQUEST["search"].'" size=10>
-        </form>
-        </td></tr></table>';
-  
-  echo '<form enctype="multipart/form-data" action="" method="post">
-        <input type=hidden name="section" value="MOVIE">
-        <input type=hidden name="action" value="UPDATE">';
-
-  paginate('?last_where='.$where.'&search='.$_REQUEST["search"].'&cat_id='.$_REQUEST["cat_id"].'&section=MOVIE&action=DISPLAY&page='
-          ,$movie_count,$per_page,$page);
-
   echo '<table class="form_select_tab" width="100%"><tr>
           <th width="3%">&nbsp;</th>
           <th width="34%"> '.str('Title').' </th>
@@ -214,6 +166,101 @@ function movie_display( $message = '')
            <td valign="top" width="21%">'.nvl(implode("<br>",$genres)).'</td>
           </tr></table>';  	
   }
+}
+
+function movie_display_thumbs($movie_list)
+{
+  $cnt = 0;
+
+  foreach ($movie_list as $movie)
+  {
+    if ($cnt++ % 4 == 0)
+    {
+      echo '<table class="form_select_tab" width="100%"><tr>'.$thumb_html.'</tr><tr>'.$title_html.'</table>';
+      $thumb_html = '';
+      $title_html = '';
+    }
+    
+    $img_url     = img_gen(file_albumart($movie["DIRNAME"].$movie["FILENAME"]) ,130,400,false,false,false,array('hspace'=>0,'vspace'=>4,'align'=>'left') );    
+    $edit_url    = '?section=movie&action=display_info&movie_id='.$movie["FILE_ID"];
+    $thumb_html .= '<td valign="top"><input type="checkbox" name="movie[]" value="'.$movie["FILE_ID"].'"></input></td>
+                    <td align="center" valign="middle"><a href="'.$edit_url.'">'.$img_url.'</a></td>';
+    $title_html .= '<td width="25%" colspan="2" align="center" valign="middle"><a href="'.$edit_url.'">'.$movie["TITLE"].'</a></td>';    
+  }
+
+  // and last row...
+  echo '<table class="form_select_tab" width="100%"><tr>'.$thumb_html.'</tr><tr>'.$title_html.'</table>';
+}
+
+  // ----------------------------------------------------------------------------------
+// Displays the movie details for editing
+// ----------------------------------------------------------------------------------
+
+function movie_display( $message = '')
+{
+  $_SESSION["last_search_page"] = current_url( true );
+  $per_page    = get_user_pref('PC_PAGINATION',20);
+  $page        = (empty($_REQUEST["page"]) ? 1 : $_REQUEST["page"]);
+  $start       = ($page-1)*$per_page;    
+  $where       = '';
+  
+  if (empty($message) && isset($_REQUEST["message"]))
+    $message = urldecode($_REQUEST["message"]);
+
+  // Changing List type?
+  if (!empty($_REQUEST["list"]) )
+    set_user_pref('CONFIG_VIDEO_LIST',$_REQUEST["list"]);
+
+    // Extra filters on the media (for categories and search).
+  if (!empty($_REQUEST["cat_id"]) )
+    $where .= "and ml.cat_id = $_REQUEST[cat_id] ";
+ 
+  if (!empty($_REQUEST["search"]) )
+    $where .= "and m.title like '%$_REQUEST[search]%' ";
+    
+  // If the user has changed category, then shunt them back to page 1.
+  if ($_REQUEST["last_where"] != $where)
+  {
+    $page = 1;
+    $start = 0;
+  }
+  
+  // SQL to fetch matching rows
+  $movie_count = db_value("select count(*) from movies m, media_locations ml where ml.location_id = m.location_id ".$where);
+  $movie_list  = db_toarray("select m.* from movies m, media_locations ml where ml.location_id = m.location_id ".$where.
+                            " order by title limit $start,$per_page");        
+  
+  $list_type = get_user_pref('CONFIG_VIDEO_LIST','THUMBS');
+  echo '<h1>'.str('ORG_TITLE').'  ('.str('PAGE',$page).')</h1>';
+  message($message);
+  
+  echo '<form enctype="multipart/form-data" action="" method="post">
+        <table width="100%"><tr><td width="50%">
+        <input type=hidden name="section" value="MOVIE">
+        <input type=hidden name="action" value="DISPLAY">
+        <input type=hidden name="last_where" value="'.$where.'">
+        '.str('CATEGORY').' : 
+        '.form_list_dynamic_html("cat_id","select cat_id,cat_name from categories",$_REQUEST["cat_id"],true,true,str('CATEGORY_LIST_ALL')).'&nbsp;
+        <a href="'.url_set_param(current_url(),'list','LIST').'"><img align="absbottom" border="0"  src="/images/details.gif"></a>
+        <a href="'.url_set_param(current_url(),'list','THUMBS').'"><img align="absbottom" border="0" src="/images/thumbs.gif"></a>  
+        </td><td width"50%" align="right">
+        '.str('SEARCH').' : 
+        <input name="search" value="'.$_REQUEST["search"].'" size=10>
+        </form>
+        </td></tr></table>';
+  
+  echo '<form enctype="multipart/form-data" action="" method="post">
+        <input type=hidden name="section" value="MOVIE">
+        <input type=hidden name="action" value="UPDATE">';
+
+  paginate('?last_where='.$where.'&search='.$_REQUEST["search"].'&cat_id='.$_REQUEST["cat_id"].'&section=MOVIE&action=DISPLAY&page='
+          ,$movie_count,$per_page,$page);
+
+  if ($list_type == 'THUMBS')
+    movie_display_thumbs($movie_list);
+  else
+    movie_display_list($movie_list);
+          
   paginate('?last_where='.$where.'&search='.$_REQUEST["search"].'&cat_id='.$_REQUEST["cat_id"].'&section=MOVIE&action=DISPLAY&page='
           ,$movie_count,$per_page,$page);
 
