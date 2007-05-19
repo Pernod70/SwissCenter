@@ -20,7 +20,7 @@
     $file_path   = db_value("select dirname from movies where file_id = $id");
     $file_name   = db_value("select filename from movies where file_id = $id");
     $film_title  = ucwords(strip_title( $file_name ));
-    $html        = file_get_contents($search_url.str_replace(' ','+',$film_title));
+    $html        = @file_get_contents($search_url.str_replace(' ','+',$film_title));
     $accuracy    = 0;
     send_to_log(4,'Checking movie file : '.$file_name);
         
