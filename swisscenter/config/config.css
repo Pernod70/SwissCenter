@@ -60,26 +60,3 @@ hr                       { background        : #999999;
                            font-weight        : bold; 
                          }
                           
-.menu                    { color             : #ffffff;
-                           margin            : 3px 10px 3px 10px;
-                           padding           : 2px 0 0 14px;
-                           height            : 17px;
-                           width             : 142px;
-                           text-decoration   : none; 
-                           background-image  : url(/images/menu_bgr2.png);
-                           cursor            : pointer;
-                           display           : block;
-                         }
-
-.submenu                 { color             : #ffffff;
-                           margin            : 3px 10px 3px 10px;
-                           padding           : 2px 0 0 14px;
-                           height            : 17px;
-                           width             : 142px;
-                           text-decoration   : none; 
-                           background-image  : url(/images/menu_bgr.png);
-                           display           : block;
-                         }
-
-.hide                    { display           : none; }
-.show                    { display           : block; }
