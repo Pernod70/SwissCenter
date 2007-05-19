@@ -74,35 +74,21 @@ function check_php_suggested_modules()
 
 function check_php_ttf()
 {
-  $font_ok = FALSE; // assume worst case first
-  $font = get_sys_pref('TTF_FONT','');
-
-  if ( empty($font))
-  {
-    $img = new CImage();
-    $font_ok = $img->text('Test');
-  }
+  $defaults = array(get_sys_pref('TTF_FONT'), "Arial", "/usr/share/fonts/truetype/msttcorefonts/Arial.ttf", "luxisr");
+  $img      = new CImage();
+  $font_ok  = false;
   
-  if ($font_ok===FALSE) 
+  foreach ($defaults as $font) 
   {
-    $fonts = array("Arial","/usr/share/fonts/truetype/msttcorefonts/Arial.ttf","luxisr"); // to be continued
-    $img = new CImage();
-    foreach ($fonts as $sfont) 
+    if ($img->text('Test',0,0,0,14,$font) !== false )
     {
-      if ($img->text('Test',0,0,0,14,$sfont)==FALSE) continue;
-      set_sys_pref('TTF_FONT',$sfont);
-      $font_ok = TRUE;
+      set_sys_pref('TTF_FONT',$font);
+      $font_ok = true;
     }
   }
-  
-  if ($font_ok===FALSE) 
-  {
-    set_sys_pref('TTF_FONT','');
-    return FALSE;
-  }
-  return TRUE;
-}
 
+  return $font_ok;
+}
 
 #-------------------------------------------------------------------------------------------------
 # MySQL checks
