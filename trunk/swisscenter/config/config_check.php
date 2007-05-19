@@ -220,9 +220,6 @@ function check_display()
   $core_tests->add_test( $swiss, "SWISS ini file", str("PASS_SWISS_INI"), str("FAIL_SWISS_INI"));
   $core_tests->add_test( $swiss, "SWISS write log", str("PASS_SWISS_LOG"), str("FAIL_SWISS_LOG", logfile_location()) );
                       
-  if ( $results->result('MYSQL database'))
-    $core_tests->add_test( $swiss, "SWISS media locs", str("PASS_SWISS_LOCS"), str("FAIL_SWISS_LOCS"));
-
   # ----------------------
   # PHP Tests
   # ----------------------

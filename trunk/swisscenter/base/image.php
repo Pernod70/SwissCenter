@@ -343,18 +343,6 @@ class CImage
     }
   }
 
-  function get_default_font()
-  {
-    $font = get_sys_pref('TTF_FONT','-Not Set-'); // returns font (if set)
-    if ($font=='-Not Set-') 
-    { // perform the check _once_. If it succeeds, font will be set in the future - else it will return '' next time
-      include('install_checks.php');
-      check_php_ttf();
-      $font = get_sys_pref('TTF_FONT','Arial');
-    }
-    return $font;
-  }
-  
   // -------------------------------------------------------------------------------------------------
   // Outputs some text onto the image (using truetype fonts).
   // NOTE: The font-size given should be specified in pixels.
@@ -372,7 +360,7 @@ class CImage
     
     // Determine the font to use if not specified.
     if (empty($font))
-      $font = $this->get_default_font();
+      $font = get_sys_pref('TTF_FONT');
 
     // Write the text to the image
     if ($this->image !== false)
@@ -387,25 +375,45 @@ class CImage
     return $result;
   }
   
+  /**
+   * Returns the width (in pixels) of the text when rendered
+   *
+   * @param string $text
+   * @param integer $size
+   * @param string $font
+   * @param integer $angle
+   * @return integer
+   */
+  
   function get_text_width( $text, $size = 14, $font = '', $angle = 0)
   {
     if (gd_version() >=3)
       $size *= 0.8;
     
     if (empty($font))
-      $font = $this->get_default_font();
+      $font = get_sys_pref('TTF_FONT');
       
     $box = @imagettfbbox($size, $angle, $font, $text);
     return ($box[2] - $box[6]);
   }
   
+  /**
+   * Returns the height (in pixels) of the text when rendered
+   *
+   * @param string $text
+   * @param integer $size
+   * @param string $font
+   * @param integer $angle
+   * @return integer
+   */
+
   function get_text_height( $text, $size = 14, $font = '', $angle = 0)
   {
     if (gd_version() >=3)
       $size *= 0.8;
     
     if (empty($font))
-      $font = $this->get_default_font();
+      $font = get_sys_pref('TTF_FONT');
       
     $box = @imagettfbbox($size, $angle, $font, $text);
     return ($box[3] - $box[7]);

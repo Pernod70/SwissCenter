@@ -36,7 +36,7 @@ function db_datestr( $time = '')
 
 function db_escape_str( $text )
 {
-  return mysql_real_escape_string($text);
+  return @mysql_real_escape_string($text);
 }
 
 #-------------------------------------------------------------------------------------------------
@@ -175,10 +175,10 @@ function db_sqlfile ($fsp)
 function db_root_sqlcommand( $root_password, $sql )
 {
   // Connect to the Database
-  if ( ! $link = mysql_connect( 'localhost', 'root', $root_password ));
+  if ( ! $link = @mysql_connect( 'localhost', 'root', $root_password ));
 
   // Execute the query
-  if (! ($result = mysql_query($sql)))
+  if (! ($result = @mysql_query($sql)))
     return false;
   else
   {
