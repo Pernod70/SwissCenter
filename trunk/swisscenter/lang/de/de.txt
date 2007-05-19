@@ -654,6 +654,9 @@ PASS_MIP_MIXABLE           = Mehr als 50% Ihrer Musik wurde von MusicIP analysie
 # -----------------------
 
 BROWSE_TEXT                = SwissCenter kann Ihre Medien auf vielf&auml;ltige Weise pr&auml;sentieren. Um die Bedienung so einfach wie m&ouml;glich zu gestalten, bzw. die Oberfl&auml;che an die eigenen Bed&uuml;rfnisse anzupassen, k&ouml;nnen Sie verschiedene Anzeige-Optionen deaktivieren. Sollte dabei nur noch eine einzige Option &uuml;brigbleiben, wird SwissCenter das entsprechende Men&uuml; &uuml;berspringen und diese Option automatisch ausw&auml;hlen.[b]Es muss jedoch pro Gruppe mindestens [b]eine[/b] Option aktiviert sein.
+MUSIC_PLAY_NEXT            = N&auml;chster Titel
+MUSIC_PLAY_PREV            = Voriger Titel
+TRACK_LENGTH               = L&auml;nge
 
 #----------------------------------------------------------------------------------------------------
 # End-of-file
