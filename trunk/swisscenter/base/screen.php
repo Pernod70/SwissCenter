@@ -134,7 +134,7 @@ function convert_y( $y, $coords = BROWSER_COORDS )
 
 function font_size( $desired_size, $coords = BROWSER_COORDS )
 {
-  return convert_x( $desired_size, $coords );  
+  return convert_y( $desired_size, $coords );  
 }
 
 #-------------------------------------------------------------------------------------------------
