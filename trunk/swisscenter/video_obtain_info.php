@@ -6,6 +6,7 @@
   require_once( realpath(dirname(__FILE__).'/base/page.php'));
   require_once( realpath(dirname(__FILE__).'/base/db_abstract.php'));
   require_once( realpath(dirname(__FILE__).'/base/utils.php'));
+  require_once( realpath(dirname(__FILE__).'/base/rating.php'));
   
   // ----------------------------------------------------------------------------------------
   // Gets the value of an attrbute for a particluar tag (often the "alt" of an "img" tag)
