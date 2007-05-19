@@ -666,8 +666,7 @@ BROWSE_OPTIONS             = Browse Options
 BROWSE_TEXT                = SwissCenter allows you to browse your media files in a number of different ways. To reduce the complexity of the interface or to customise it more to your liking you can disable any of the "Browse by..." options shown below. If only one option is enabled then SwissCenter will jump straight to that option instead of showing a menu. [p]Please note that you must leave at least [b]one[/b] option enabled in each group.
 MUSIC_PLAY_NEXT            = Coming up
 MUSIC_PLAY_PREV            = Just played
-MUSIC_TRACK_TIME           = Track
-MUSIC_SUM_TRACK_TIME       = Played
+TRACK_LENGTH               = Length
 
 #----------------------------------------------------------------------------------------------------
 # End-of-file

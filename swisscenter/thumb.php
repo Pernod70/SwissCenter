@@ -27,7 +27,7 @@
   if ( is_remote_file($filename) )
   {
     $url = $filename;
-    $filename = get_sys_pref('cache_dir').'SwissCenter_download_'.date('YmdH').file_ext($filename);
+    $filename = get_sys_pref('cache_dir').'/SwissCenter_download_'.md5($filename).'_'.date('YmdH').'.'.file_ext($filename);
     file_download_and_save($url, $filename);
   }
 

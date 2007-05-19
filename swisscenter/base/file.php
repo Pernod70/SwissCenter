@@ -547,7 +547,7 @@ function file_download_and_save( $url, $filename, $overwrite = false )
   {
     if ($overwrite || !file_exists($filename))
     {
-      $img = file_get_contents($url);
+      $img = file_get_contents(str_replace(' ','%20',$url));
       if ($img !== false)
       {        
         if ($out = @fopen($filename, "wb") )

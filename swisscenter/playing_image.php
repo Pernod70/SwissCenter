@@ -104,8 +104,8 @@
   # Track Information
   # -----------------
   
-  $label_text_size  = font_size( 20, SCREEN_COORDS);
-  $detail_text_size = font_size( 16, SCREEN_COORDS);  
+  $label_text_size  = font_size( 25, SCREEN_COORDS);
+  $detail_text_size = font_size( 20, SCREEN_COORDS);  
   $label_text_col   = hexdec(style_value('NOW_LABEL_COLOUR','#000000'));
   $detail_text_col  = hexdec(style_value('NOW_DETAIL_COLOUR','#000000'));
 
@@ -142,11 +142,6 @@
   $time_text_y         = max($text_y,convert_y(680,SCREEN_COORDS));
   $image->rectangle($title_x, $time_text_y , convert_x(850,SCREEN_COORDS), convert_y(2,SCREEN_COORDS), $title_text_col);
   $time_text_y        += convert_y(60,SCREEN_COORDS);
-
-  // Calculate playing time so far
-  $total_time = 0;
-  for ($i=0; $i<$idx; $i++)
-    $total_time += $tracks[$i]["LENGTH"];
  
   // Previous track details
   if ( count($prev_info) >0)
@@ -171,19 +166,17 @@
   // Time for this track
   if ($this_info["LENGTH"]>0)
   {
-    $image->text(str('MUSIC_TRACK_TIME'),      $time_text_x, convert_y(900,SCREEN_COORDS), $title_text_col, $detail_text_size);    
+    $image->text(str('TRACK_LENGTH'), $time_text_x, convert_y(900,SCREEN_COORDS), $title_text_col, $detail_text_size);    
     $image->text(hhmmss($this_info["LENGTH"]), $time_text_x, convert_y(940,SCREEN_COORDS), $detail_text_col, $detail_text_size);        
   }
   
-  // Total time so far
-  if ($total_time>0)
-  {
-    $total_label  = convert_x(925,SCREEN_COORDS) - $image->get_text_width(str('MUSIC_SUM_TRACK_TIME'),$detail_text_size);
-    $total_detail = convert_x(925,SCREEN_COORDS) - $image->get_text_width(hhmmss($total_time),$detail_text_size);
+  // Total so far
+  $pos=($idx+1).' / '.count($tracks);
+  $total_label  = convert_x(925,SCREEN_COORDS) - $image->get_text_width(str('TRACKS'),$detail_text_size);
+  $total_detail = convert_x(925,SCREEN_COORDS) - $image->get_text_width($pos,$detail_text_size);
 
-    $image->text(str('MUSIC_SUM_TRACK_TIME'), $total_label, convert_y(900,SCREEN_COORDS), $title_text_col, $detail_text_size);    
-    $image->text(hhmmss($total_time),        $total_detail, convert_y(940,SCREEN_COORDS), $detail_text_col, $detail_text_size);    
-  }  
+  $image->text(str('TRACKS'), $total_label, convert_y(900,SCREEN_COORDS), $title_text_col, $detail_text_size);    
+  $image->text( $pos , $total_detail, convert_y(940,SCREEN_COORDS), $detail_text_col, $detail_text_size);    
  
   // Output picture
   $image->output('jpeg');
