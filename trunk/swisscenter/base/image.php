@@ -16,7 +16,7 @@ if (!function_exists('imagerotate'))
     $angle = 360 - min( ( (int)(($angle+45) / 90) * 90), 270 );
 
     // no need to rotate
-    if( $angle != 0 )
+    if( $angle == 0 )
       return( $imgSrc );
 
     $srcX = imagesx( $imgSrc );
