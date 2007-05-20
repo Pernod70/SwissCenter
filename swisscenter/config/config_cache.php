@@ -11,7 +11,7 @@
   {
     $option_vals  = array( str('ENABLED')=>'YES',str('DISABLED')=>'NO');
     $dir          = (!empty($_REQUEST["dir"])  ? $_REQUEST["dir"]  : get_sys_pref("CACHE_DIR"));
-    $size         = (!empty($_REQUEST["size"]) ? $_REQUEST["size"] : get_sys_pref("CACHE_MAXSIZE_MB",50));
+    $size         = (!empty($_REQUEST["size"]) ? $_REQUEST["size"] : get_sys_pref("CACHE_MAXSIZE_MB"));
 
     echo "<h1>".str('CACHE_CONFIG_TITLE')."</h1>";
     message($message);

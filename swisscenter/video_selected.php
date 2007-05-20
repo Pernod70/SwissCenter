@@ -46,7 +46,7 @@
   function distinct_info ($filter, $sql_table, $predicate)
   {
     if (db_value("select count(distinct $filter) from $sql_table $predicate" == 1) )
-      return db_value("select $filter from $sql_table $newsq limit 1,1");
+      return db_value("select $filter from $sql_table limit 1,1");
     else
       return '';
   }

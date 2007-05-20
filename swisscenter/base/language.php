@@ -71,12 +71,20 @@ function load_lang ($current_lang = '')
 
 function str( $key )
 {
+  $num_args = @func_num_args();
+  
   if (!isset($_SESSION["language"]) )
     load_lang();
     
   if (! isset($_SESSION["language"][strtoupper($key)]) )
   {
-    return '['.strtoupper($key).']';
+    $txt = '['.strtoupper($key).']';
+    
+    if ($num_args>1)
+      for ($i=1;$i<$num_args;$i++)
+        $txt.= ' ['.@func_get_arg($i).']';
+    
+    return $txt;
   }
   else
   {
