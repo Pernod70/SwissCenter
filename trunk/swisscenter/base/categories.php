@@ -18,8 +18,7 @@
   {
     echo '<center>'.str('SELECT_CATEGORY').'</center><p>';
     
-    $special    = array( array("CAT_NAME"=>str('CAT_LIST_ALL'),"CAT_ID"=>CAT_ALL)
-                       , array("CAT_NAME"=>str('CAT_RECENTLY_ADDED'),"CAT_ID"=>CAT_NEW) );
+    $special    = array( array("CAT_NAME"=>str('CAT_LIST_ALL'),"CAT_ID"=>CAT_ALL) );
 
     $media_table = db_value("select media_table from media_types where media_id=$media_type");
 
@@ -64,11 +63,6 @@
       if(!empty($locations))
         $sql = " and media.location_id in (".implode($locations,",").")";
     }
-    elseif($cat_id == CAT_NEW)
-    {
-      $sql = " and media.discovered > ('".db_datestr()."' - interval 7 day)";
-    }
-    // No sql needed for CAT_ALL
     
     return $sql;
   }
@@ -80,6 +74,21 @@
   function category_list_sql()
   {
     return 'select cat_id,cat_name from categories order by cat_name';
+  }
+  
+  // -------------------------------------------------------------------------------------------------
+  // Returns the number of categories
+  // -------------------------------------------------------------------------------------------------
+
+  function category_count($media_type)
+  {
+    $media_table = db_value("select media_table from media_types where media_id=$media_type");
+    return db_value("select count(distinct c.cat_id) 
+                         from categories c inner join media_locations ml on c.cat_id=ml.cat_id
+                              inner join $media_table media on media.location_id=ml.location_id
+                              left outer join certificates media_cert on media_cert.cert_id=media.certificate
+                              inner join certificates unrated_cert on unrated_cert.cert_id=ml.unrated
+                        where ml.media_type=$media_type".get_rating_filter()." order by c.cat_name ASC");
   }
   
 /**************************************************************************************************
