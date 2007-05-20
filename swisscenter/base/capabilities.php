@@ -205,9 +205,8 @@ function get_suggested_modules_list()
 
 function set_progress_bar_location( $x, $y )
 {
-//  $dummy = @file_get_contents('http://'.client_ip().':2020/pod_audio_info.cgi?x='
-//           .convert_x($x,SCREEN_COORDS).'&y='.convert_y($y,SCREEN_COORDS));  
-  $dummy = @file_get_contents('http://'.client_ip().':2020/pod_audio_info.cgi?x=450&y=620');  
+  $dummy = @file_get_contents('http://'.client_ip().':2020/pod_audio_info.cgi?x='
+           .convert_x($x,SCREEN_COORDS).'&y='.convert_y($y,SCREEN_COORDS));  
 }
 
 #-------------------------------------------------------------------------------------------------
