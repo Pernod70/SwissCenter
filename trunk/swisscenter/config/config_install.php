@@ -105,7 +105,6 @@
   function install_runsql()
   {
     $sql = un_magic_quote($_REQUEST["sql"]);
-    $heading = '';
 
     echo "<h1>".str('CONFIG_SQL')."</h1>";
 
@@ -118,47 +117,51 @@
       form_submit('Run SQL',1);
       form_end();
       
-      if (  in_array( strtolower(substr($sql,0,strpos($sql,' '))), array('select','show','desc')) )
-      {
-        
-        $data = array();
-        $recs    = new db_query( $sql );
-        $success = $recs->db_success();
+      $stmts = explode(';',$sql);
       
-        if ($success)
-        {
-          // Fetch data into an array
-          while ($row = $recs->db_fetch_row())
-            $data[] = $row;      
+      foreach ($stmts as $sql)
+      {    
+        $sql=trim($sql);
+        if (  in_array( strtolower(substr($sql,0,strpos($sql,' '))), array('select','show','desc')) )
+        {          
+          $data = array();
+          $recs    = new db_query( $sql );
+          $success = $recs->db_success();
+          $heading = array();
         
-          // WOrk out what the headings are
-          foreach($data[0] as $col=>$val)
-            $heading[] = $col;
-        
-          // Display a pretty HTML table
-          array_to_table($data,join(',',$heading));
+          if ($success)
+          {
+            // Fetch data into an array
+            while ($row = $recs->db_fetch_row())
+              $data[] = $row;      
+          
+            // WOrk out what the headings are
+            foreach($data[0] as $col=>$val)
+              $heading[] = $col;
+          
+            // Display a pretty HTML table
+            echo '<p>';
+            array_to_table($data,join(',',$heading));
+          }
+          else
+          {
+            message('!SQL command failed.');
+            echo $recs->db_get_error();
+          }
+            
+          $recs->destroy();
         }
-        else
+        elseif (!empty($sql))
         {
-          message('!SQL command failed.');
-          echo $recs->db_get_error();
+          if ( db_sqlcommand($sql) )
+            message('SQL completed successfully.');
+          else 
+            message('!SQL command failed.');            
         }
-          
-        $recs->destroy();
       }
-      elseif (!empty($sql))
-      {
-        if ( db_sqlcommand($sql) )
-          message('SQL completed successfully.');
-        else 
-          message('!SQL command failed.');
-          
-      }
-      
     }
     else
-      message("!Unable to connect to the database.");
-    
+      message("!Unable to connect to the database.");    
   }
 
 /**************************************************************************************************
