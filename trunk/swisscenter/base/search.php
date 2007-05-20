@@ -76,8 +76,9 @@ function  search_media_page( $heading, $title, $media_type, $joined_tables, $col
   $main_table     = get_media_table($media_type);
   $main_table_sql = "$main_table media ".get_rating_join();
   $restrict_sql   = "$column like '$prefix".db_escape_str(str_replace('_','\_',$search))."%' $history[sql]";
-  $viewed_sql     = "select $column, concat( sum(if(viewings.total_viewings>0,1,0)),':',count(*) ) view_status
-                     from $main_table_sql 
+  
+  $viewed_sql     = "select concat( sum(if(viewings.total_viewings>0,1,0)),':',count(*) ) view_status
+                     from $main_table_sql $joined_tables
                      left outer join viewings on (media.file_id = viewings.media_id and viewings.media_type= $media_type)";
 
   // Adding necessary paramters to the target URL (for when an item is selected)
