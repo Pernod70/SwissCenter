@@ -221,6 +221,7 @@ class CImage
   var $height         = 0;
   var $src_fsp        = false;
   var $cache_filename = false;
+  var $exif_data      = false;
 
   // -------------------------------------------------------------------------------------------------
   // Creates a blank image
@@ -287,6 +288,7 @@ class CImage
     if ($this->image !== false)
     {
       imagedestroy($this->image);
+      $this->exif_data = false;
       $this->image = false;
     }
 
@@ -339,6 +341,7 @@ class CImage
         $this->update_sizes();
         $this->src_fsp  = $filename;
         $this->cache_filename = cache_filename($this->src_fsp,$this->width,$this->height);
+        $this->exif_data = exif($this->src_fsp);
       }
     }
   }
@@ -533,13 +536,12 @@ class CImage
    * database.
    *
    */
-
+  
   function rotate_by_exif()
   {
-    if (file_ext($this->src_fsp) != 'sql')
+    if ( $this->exif_data !== false)
     {
-      $exif = exif($this->src_fsp);
-      $orientation = $exif['Orientation'];
+      $orientation = $this->exif_data['Orientation'];
       
       if ( $orientation == 5 || $orientation == 6 || $orientation == 7)
         $this->rotate(90);          
@@ -554,6 +556,21 @@ class CImage
     }
   }
   
+  /**
+   * Returns true if the image dimensions will be swapped over due to a rotation
+   * according to the EXIF orientation data.
+   *
+   * @return boolean
+   */
+  
+  function rotate_by_exif_swaps_dims()
+  {
+    if ( $this->exif_data !== false)
+      return ( $this->exif_data['Orientation'] >=5 && $this->exif_data['Orientation']<=8);
+    else 
+      return false;
+  }
+
   // -------------------------------------------------------------------------------------------------
   // Draws a filled rectangle of the given colour on the image
   // -------------------------------------------------------------------------------------------------

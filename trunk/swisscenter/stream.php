@@ -47,15 +47,19 @@
         $image->load_from_file($filename); 
       else  
         send_to_log(1,'Unable to process image specified : '.$filename);  
-            
+
+      // Optimisation: If a rotate needs to be done, swap the X/Y sizes over
+      if (get_sys_pref('IMAGE_ROTATE','YES')!='NO' && $image->rotate_by_exif_swaps_dims())
+        list($x,$y) = array($y,$x);
+
+      // Only resize images to make them smaller!
+      // if ( $image->get_width() > $x || $image->get_height() > $y)
+      $image->resize($x, $y);        
+
       // Rotate/mirror the image as specified in the EXIF data (if enabled)
       if (get_sys_pref('IMAGE_ROTATE','YES')!='NO')
         $image->rotate_by_exif();
-
-      // Only resize images to make them smaller!
-      if ( $image->get_width() > $x || $image->get_height() > $y)
-        $image->resize($x, $y);        
-      
+        
       $image->output('jpg');
     }
   }
