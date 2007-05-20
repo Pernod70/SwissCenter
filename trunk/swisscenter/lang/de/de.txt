@@ -657,6 +657,7 @@ BROWSE_TEXT                = SwissCenter kann Ihre Medien auf vielf&auml;ltige W
 MUSIC_PLAY_NEXT            = N&auml;chster Titel
 MUSIC_PLAY_PREV            = Voriger Titel
 TRACK_LENGTH               = L&auml;nge
+CONFIG_OVERVIEW            = &Uuml;bersicht
 
 #----------------------------------------------------------------------------------------------------
 # End-of-file
