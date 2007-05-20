@@ -20,6 +20,35 @@ INSERT INTO certificates (cert_id, name, rank, scheme, description) VALUES ( 0, 
 
 ALTER TABLE clients ADD (port integer);
 
+-- -------------------------------------------------------------------------------------------------
+-- RSS subscriptions and items
+-- -------------------------------------------------------------------------------------------------
+
+CREATE TABLE rss_subscriptions
+(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    type INT NOT NULL,
+    url TEXT NOT NULL,
+    title VARCHAR(50) NOT NULL,
+    update_frequency INT NOT NULL DEFAULT 60,
+    last_update DATETIME NOT NULL
+);
+
+
+CREATE TABLE rss_items
+(
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    subscription_id INT NOT NULL,
+    title TEXT NOT NULL,
+    url TEXT NULL,
+    description TEXT NOT NULL,
+    published_date DATETIME NOT NULL,
+    timestamp INT NOT NULL,
+    guid TEXT NULL,
+    linked_file TEXT NULL
+);
+
+
 -- *************************************************************************************************
 --   SWISScenter Source                                                              Robert Taylor
 -- *************************************************************************************************
