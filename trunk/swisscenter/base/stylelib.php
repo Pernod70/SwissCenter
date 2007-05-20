@@ -35,6 +35,7 @@ function load_style( $user_id = '')
   {
     list ($x,$y) = explode(',',style_value('NOW_PROGRESS_BAR','300,820'));
     set_progress_bar_location( $x,$y );
+    $dummy = @file_get_contents('http://'.client_ip().':2020/set_amx=ON');  
   }
          
 }
@@ -102,7 +103,7 @@ function style_is_colour( $name )
 // exist, then a transparent image is returned.
 //-------------------------------------------------------------------------------------------------
 
-function style_img ($name, $full_path = false)
+function style_img ($name, $full_path = false, $placeholder = true)
 {
   $path = substr(SC_LOCATION,0,-1);
   $val  = style_value($name);  
@@ -114,8 +115,10 @@ function style_img ($name, $full_path = false)
 
   if ( $val != '' && file_exists($path.$file) )
     return ($full_path ? $path : '').$file;
-  else 
+  elseif ($placeholder)
     return ($full_path ? $path : '').'/images/dot.gif';
+  else 
+    return '';
 }
 
 //-------------------------------------------------------------------------------------------------

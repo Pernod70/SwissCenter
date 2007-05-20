@@ -525,6 +525,12 @@ function file_albumart( $fsp )
       // No albumart found for this specific file.. is there albumart for the directory?
       if ($return == '')
         $return = file_albumart(dirname($fsp));
+
+      // OK, give up! Use a standard picture based on the filetype.
+      if ( $return == '' && in_array(strtolower(file_ext($fsp)), media_exts_movies()) )
+        $return = style_img('MISSING_FILM_ART',true,false);
+      elseif ( $return == '' && in_array(strtolower(file_ext($fsp)), media_exts_music()) )
+        $return = style_img('MISSING_ALBUM_ART',true,false);        
     }
   }
   
