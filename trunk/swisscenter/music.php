@@ -8,13 +8,14 @@
   require_once( realpath(dirname(__FILE__).'/base/rating.php'));
   require_once( realpath(dirname(__FILE__).'/base/playlist.php'));
   require_once( realpath(dirname(__FILE__).'/base/search.php'));
+  require_once( realpath(dirname(__FILE__).'/base/filter.php'));
 
   function display_music_menu($cat_id)
   {
     if(empty($cat_id))
-      search_hist_init( 'music.php', get_rating_filter() );
+      search_hist_init( 'music.php', get_rating_filter().filter_get_predicate() );
     else
-      search_hist_init( 'music.php?cat='.$cat_id, category_select_sql($cat_id, 1).get_rating_filter() );
+      search_hist_init( 'music.php?cat='.$cat_id, category_select_sql($cat_id, 1).get_rating_filter().filter_get_predicate() );
 
     // Prompt the user to select an item
     echo '<center>'.str('SELECT_OPTION').'</center><p>';
@@ -43,8 +44,10 @@
       $menu->display();
     }
     
-    page_footer('music.php', array(array('text' => str('QUICK_PLAY')
-                                        ,'url'  => quick_play_link(MEDIA_TYPE_MUSIC,$_SESSION["history"][0]["sql"]))));
+    $buttons = array();
+    $buttons[] = array('text' => str('QUICK_PLAY'),'url'  => quick_play_link(MEDIA_TYPE_MUSIC,$_SESSION["history"][0]["sql"]));
+    $buttons[] = array('text' => str('FILTER'),'url'  => 'get_filter.php?return='.urlencode('music.php?cat='.$cat_id));
+    page_footer('music.php', $buttons);
   }
 
  /**************************************************************************************************
@@ -53,7 +56,7 @@
 
   page_header( str('LISTEN_MUSIC'), '');
   
-  if( isset($_REQUEST["cat"]) && !empty($_REQUEST["cat"]) )
+  if( category_count(MEDIA_TYPE_MUSIC)==1 || !empty($_REQUEST["cat"]) )
     display_music_menu($_REQUEST["cat"]);
   else
     display_categories('music.php', 1);
