@@ -199,8 +199,9 @@ function search_distinct_info (&$info, $info_text, $column, $table, $predicate)
 {
   if ( db_value("select count(distinct $column) from $table $predicate") == 1)
   {
-    $info->add_item($info_text, db_value("select $column from $table $predicate limit 0,1"));
-    return db_value("select $column from $table $predicate limit 1");
+    $col = db_value("select $column from $table $predicate limit 1");
+    $info->add_item($info_text, $col);
+    return $col;
   }
   else 
     return '';

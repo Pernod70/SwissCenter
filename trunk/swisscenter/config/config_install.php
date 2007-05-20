@@ -85,7 +85,7 @@
 
         // Default cache location and limit (default is no limit)
         set_sys_pref('CACHE_DIR',SC_LOCATION.'cache');
-        set_sys_pref('CACHE_MAXSIZE_MB','0');
+        set_sys_pref('CACHE_MAXSIZE_MB','20');
 
         // Display the config page
         header('Location: index.php');
