@@ -497,7 +497,6 @@ PRIVACY_DATA_COLLECTION	= [b]Data Collection[/b] [p]Information relating to the 
 # -----------------------
 
 CAT_LIST_ALL            = All categories
-CAT_RECENTLY_ADDED      = Recently added
 IMAGE_RESIZE_TYPE	= Image generation
 IMAGE_RESIZE		= Resize (faster)
 IMAGE_RESAMPLE		= Resample (higher quality)
@@ -667,6 +666,10 @@ BROWSE_TEXT                = SwissCenter allows you to browse your media files i
 MUSIC_PLAY_NEXT            = Coming up
 MUSIC_PLAY_PREV            = Just played
 TRACK_LENGTH               = Length
+FILTER                     = Filter
+RECENTLY_ADDED             = Recently added
+REMOVE_FILTER              = Remove filter
+RECENTLY_ADDED_DAYS        = Within the last %s days
 
 #----------------------------------------------------------------------------------------------------
 # End-of-file

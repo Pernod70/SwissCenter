@@ -260,11 +260,14 @@ function page_inform( $seconds, $url, $title, $text)
 // array for debugging purposed
 //-------------------------------------------------------------------------------------------------
 
-function debug( $item )
+function debug()
 {
-  echo "<pre>";
-  print_r($item);
-  echo "</pre>";
+  for ($i=0;$i<@func_num_args();$i++)
+  {
+    echo "<pre>";
+    print_r(@func_get_arg($i));
+    echo "</pre>";
+  }
 }
 
 //-------------------------------------------------------------------------------------------------

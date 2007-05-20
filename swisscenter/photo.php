@@ -8,13 +8,14 @@
   require_once( realpath(dirname(__FILE__).'/base/rating.php'));
   require_once( realpath(dirname(__FILE__).'/base/playlist.php'));
   require_once( realpath(dirname(__FILE__).'/base/search.php'));
+  require_once( realpath(dirname(__FILE__).'/base/filter.php'));
 
   function display_photo_menu($cat_id)
   {
     if(empty($cat_id))
-      search_hist_init( 'photo.php', get_rating_filter() );
+      search_hist_init( 'photo.php', get_rating_filter().filter_get_predicate() );
     else
-      search_hist_init( 'photo.php?cat='.$cat_id, category_select_sql($cat_id, 2).get_rating_filter() );
+      search_hist_init( 'photo.php?cat='.$cat_id, category_select_sql($cat_id, 2).get_rating_filter().filter_get_predicate() );
 
     echo '<center>'.str('SELECT_OPTION').'</center><p>';
 
@@ -36,10 +37,10 @@
       $menu->display();
     }
     
-    if(!empty($cat_id))
-      page_footer('photo.php', array(array('text'=>str('QUICK_PLAY'), 'url' => quick_play_link(MEDIA_TYPE_PHOTO,$_SESSION["history"][0]["sql"]))));
-    else
-      page_footer('photo.php', array(array('text'=>str('QUICK_PLAY'), 'url' => quick_play_link(MEDIA_TYPE_PHOTO,$_SESSION["history"][0]["sql"]))));
+    $buttons = array();
+    $buttons[] = array('text' => str('QUICK_PLAY'),'url'  => quick_play_link(MEDIA_TYPE_PHOTO,$_SESSION["history"][0]["sql"]));
+    $buttons[] = array('text' => str('FILTER'),'url'  => 'get_filter.php?return='.urlencode('photo.php?cat='.$cat_id));
+    page_footer('photo.php', $buttons);
   }
 
 /**************************************************************************************************
@@ -48,7 +49,7 @@
 
   page_header(str('VIEW_PHOTO'),'');
 
-  if( isset($_REQUEST["cat"]) && !empty($_REQUEST["cat"]) )
+  if( category_count(MEDIA_TYPE_PHOTO)==1 || !empty($_REQUEST["cat"]) )
     display_photo_menu($_REQUEST["cat"]);
   else
     display_categories('photo.php', 2);

@@ -36,8 +36,7 @@ function load_style( $user_id = '')
     list ($x,$y) = explode(',',style_value('NOW_PROGRESS_BAR','300,820'));
     set_progress_bar_location( $x,$y );
     $dummy = @file_get_contents('http://'.client_ip().':2020/set_amx=ON');  
-  }
-         
+  }         
 }
  
 //-------------------------------------------------------------------------------------------------
