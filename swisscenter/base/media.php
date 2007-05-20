@@ -550,6 +550,7 @@ function process_media_directory( $dir, $id, $table, $file_exts, $recurse = true
   // Calculate the percentage of this media directory scanned. We only do this once per directory to reduce
   // the overhead, and we have to guess how much there is to do based on the amounr of media present the last
   // time it was scanned.
+  set_sys_pref('LAST_MEDIA_SCAN_UPDATE',time());
   $unverified = db_value("select count(*) from $table where location_id = $id and verified='N'");
   $total = db_value("select count(*) from $table where location_id = $id");
   if ($total>0)
