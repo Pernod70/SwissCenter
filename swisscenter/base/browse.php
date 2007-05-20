@@ -109,12 +109,10 @@
       $menu->add_down($url.'&page='.($page+1));
 
     for ($i=$start; $i<$end; $i++)
-    {
-      // Output a link to cause the specified playlist to be loaded into the session
-      $menu->add_item($array[$i]->name,$array[$i]->url);
-    }
+      $menu->add_item($array[$i]["name"], $array[$i]["url"]);
+
     $menu->display();
-   }
+  }
 
   // ----------------------------------------------------------------------------------
   // Fills the two arrays with the directory and file names to be found in the given
