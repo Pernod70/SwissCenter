@@ -478,7 +478,7 @@ function process_movie( $dir, $id, $file)
 function process_media_directory( $dir, $id, $table, $file_exts, $recurse = true )
 {
   send_to_log(4,'Scanning : '.$dir);
-
+  
   // Mark all the files in this directory as unverified
   db_sqlcommand("update $table set verified ='N' where dirname like'".db_escape_str($dir)."%'");
 
@@ -546,6 +546,14 @@ function process_media_directory( $dir, $id, $table, $file_exts, $recurse = true
     
   // Delete any files which cannot be verified
   db_sqlcommand("delete from $table where verified ='N' and dirname like '".db_escape_str($dir)."%'");   
+
+  // Calculate the percentage of this media directory scanned. We only do this once per directory to reduce
+  // the overhead, and we have to guess how much there is to do based on the amounr of media present the last
+  // time it was scanned.
+  $unverified = db_value("select count(*) from $table where location_id = $id and verified='N'");
+  $total = db_value("select count(*) from $table where location_id = $id");
+  if ($total>0)
+    db_sqlcommand("update media_locations set percent_scanned = ".(int)(100-($unverified/$total*100))." where location_id = $id ");
 
   // Remove the browser coords from the session to ensure it gets recalculated to the current browser
   unset($_SESSION["device"]);

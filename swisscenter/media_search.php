@@ -39,6 +39,7 @@
   //===========================================================================================
 
   media_indicator('BLINK');
+  db_sqlcommand("update media_locations set percent_scanned=0 where media_type in (".MEDIA_TYPE_MUSIC.",".MEDIA_TYPE_VIDEO.",".MEDIA_TYPE_PHOTO.")");
   
   process_media_dirs( MEDIA_TYPE_MUSIC );
   process_media_dirs( MEDIA_TYPE_VIDEO );
