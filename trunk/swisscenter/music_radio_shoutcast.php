@@ -16,11 +16,8 @@
    $ac  = count($genre);
    
    for ($i=0;$i<$ac;++$i) 
-   {
-     $object->name = ucwords($genre[$i]);
-     $object->url  = url_set_param( $url, $type, $genre[$i]);
-     $array[] = $object;
-   }
+     $array[] = array("name"=>ucwords($genre[$i]), "url"=>url_set_param( $url, $type, $genre[$i]));
+
    $page = $_REQUEST["page"];
 
    if (empty($page)) 
