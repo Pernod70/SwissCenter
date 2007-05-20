@@ -192,9 +192,13 @@
   {
     if (test_db() == 'OK' && !isset($_SESSION["device"]))
     { 
+      preg_match('#.*syabas/([^ ]*) .*#i',$_SERVER['HTTP_USER_AGENT'],$matches);
       $_SESSION["device"]["last_seen"]  = db_datestr();
       $_SESSION["device"]["ip_address"] = str_replace('\\','/',$_SERVER["REMOTE_ADDR"]);
-      $_SESSION["device"]["port"] = $_SERVER['SERVER_PORT']; 
+      $_SESSION["device"]["port"] = $_SERVER['SERVER_PORT'];       
+      if (!empty($matches))
+        $_SESSION["device"]["box_id"] = $matches[1];
+      
       get_player_type();
       get_screen_type();
       
