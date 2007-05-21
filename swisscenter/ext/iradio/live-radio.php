@@ -46,7 +46,6 @@ class liveradio extends iradio {
     }
     if (empty($url)) return FALSE;
     $uri = "http://".$this->iradiosite."/SearchResults.php3".$this->search_baseparams.$url."&OPag=".$this->numresults;
-#die($uri);
     $this->openpage($uri);
     $stationcount = 0;
     $startpos = strpos($this->page,'HREF="redirstation'); // seek for start position of block
@@ -81,6 +80,7 @@ class liveradio extends iradio {
       if ($stationcount == $this->numresults) break;
       $startpos = strpos($this->page,'HREF="redirstation',$epos);
     }
+    send_to_log(6,"IRadio: Read $stationcount stations.");
     if (!empty($cachename)) $this->write_cache($cachename,$this->station);
     return TRUE;
   }
@@ -96,6 +96,7 @@ class liveradio extends iradio {
   function get_siteparams() {
     if (is_array($this->params->mediatype)) return;
     $uri = 'http://'.$this->iradiosite.'/SearchStations.php3';
+    send_to_log(6,"IRadio: Retrieving site parameters from Live-Radio site ($uri)");
     $this->openpage($uri);
     # Media Types
     $spos = strpos($this->page,'<select name="OFee"');
@@ -111,6 +112,7 @@ class liveradio extends iradio {
       $optname = strtolower(substr($options,$spos,$epos - $spos));
       $this->params->mediatype[$optname] = $optval;
       $spos = strpos($options,'<option',$epos) -1;
+      send_to_log(8,"IRadio: Got site parameter $optname with value $optval");
     }
   }
 
@@ -123,6 +125,7 @@ class liveradio extends iradio {
    *        (call w/o param to disable restriction)
    */
   function restrict_mediatype($mtype="any") {
+    send_to_log(6,"IRadio: Restricting to stations in $mtype format");
     $this->get_siteparams();
     $mtype = strtolower($mtype);
     if (isset($this->params->mediatype[$mtype]))
@@ -142,6 +145,7 @@ class liveradio extends iradio {
    * @return boolean success FALSE on error or nothing found, TRUE otherwise
    */
   function search_genre($name) {
+    send_to_log(6,"IRadio: Initialize genre search for \"$name\"");
     return $this->parse("&Genre=$name&Cnt=&St=",$name);
   }
 
@@ -156,6 +160,7 @@ class liveradio extends iradio {
    * @return boolean success FALSE on error or nothing found, TRUE otherwise
    */
   function search_station($name) {
+    send_to_log(6,"IRadio: Initialize station search for \"$name\"");
     return $this->parse("&Genre=&Cnt=&St=$name",$name);
   }
 
@@ -170,6 +175,7 @@ class liveradio extends iradio {
    * @return boolean success FALSE on error or nothing found, TRUE otherwise
    */
   function search_country($name) {
+    send_to_log(6,"IRadio: Initialize country search for \"$name\"");
     return $this->parse("&Genre=&Cnt=$name&St=",$name);
   }
 

@@ -18,6 +18,8 @@
 define ('PROXY', "");
 define ('PROXY_PORT', "");
 
+if (!function_exists("send_to_log")) require_once ("logging.php");
+
 # ==========================================================[ Config Class ]===
 /** Configuration and structure part of the iradio classes
  * @package IRadio
@@ -75,6 +77,7 @@ class iradio {
     }
     $this->cache_dir = $dir;
     $this->cache_enabled = TRUE;
+    send_to_log(6,"IRadio: Cache directory set to $dir - Caching enabled.");
     $this->purge_cache();
     return TRUE;
   }
@@ -87,6 +90,7 @@ class iradio {
   function set_cache_expiration($seconds) {
     if (empty($seconds)) $this->cache_enabled = FALSE;
     $this->cache_expire = $seconds;
+    send_to_log(6,"IRadio: Cache expiration set to $seconds seconds.");
   }
 
   /** Set max numbers of stations for result lists
@@ -96,6 +100,7 @@ class iradio {
    */
   function set_max_results($num) {
     $this->numresults = $num;
+    send_to_log(6,"IRadio: Limiting station lists to max $num entries.");
   }
 
   /** Purge cache dir
@@ -104,13 +109,17 @@ class iradio {
    */
   function purge_cache() {
     if (!is_dir($this->cache_dir) || !is_writable($this->cache_dir)) return;
+    send_to_log(6,"IRadio: Purging cache...");
     $now = time();
     $thisdir = dir($this->cache_dir);
     while ($file=$thisdir->read()) {
       if ($file!="." && $file!="..") {
         $fname = $this->cache_dir . "/$file";
         $mod = filemtime($fname);
-        if ($mod && ($now - $mod > $this->cache_expire)) unlink($fname);
+        if ($mod && ($now - $mod > $this->cache_expire)) {
+          unlink($fname);
+          send_to_log(8,"IRadio: Removing outaged file \"$fname\" from cache.");
+        }
       }
     }
   }
@@ -128,14 +137,20 @@ class iradio {
     if (empty($name)) return FALSE;
     $filename = $this->cache_dir .$this->os_slash.$name;
     if (empty($record)) { // remove cache object
+      send_to_log(6,"IRadio: Empty result set. We do not cache this.");
       if (file_exists($filename)) return unlink($filename);
       else return TRUE;
     }
-    if (!$file = fopen($filename,'w')) return FALSE;
-    if (fwrite($file,serialize($record))===FALSE) {
-      fclose($file);
+    if (!$file = fopen($filename,'w')) {
+      send_to_log(3,"IRadio: Unable to open cache file $file for writing! Check file/directory permissions.");
       return FALSE;
     }
+    if (fwrite($file,serialize($record))===FALSE) {
+      fclose($file);
+      send_to_log(3,"IRadio: Could not write record to cache file $file!");
+      return FALSE;
+    }
+    send_to_log(6,"IRadio: Cached $filename");
     return fclose($file);
   }
 
@@ -150,10 +165,21 @@ class iradio {
     $this->purge_cache();
     if (empty($name)) return FALSE;
     $filename = $this->cache_dir .$this->os_slash.$name;
-    if (!$file = @fopen($filename,'r')) return FALSE;
+    if (!file_exists($filename)) {
+      send_to_log(6,"IRadio: Nothing cached for $name ($filename does not exist)");
+      return FALSE;
+    }
+    if (!$file = @fopen($filename,'r')) {
+      send_to_log(3,"IRadio: Error opening cache file \"$filename\" - wrong permissions!");
+      return FALSE;
+    }
     $object = fread($file,filesize($filename));
     $record = unserialize($object);
-    if (empty($record)) return FALSE;
+    if (empty($record)) {
+      send_to_log(6,"IRadio: Ooops - empty record cached?");
+      return FALSE;
+    }
+    send_to_log(6,"IRadio: Successfully read cache for $name from \"$filename\"");
     return $record;
   }
 
@@ -164,6 +190,7 @@ class iradio {
    */
   function set_site($url) {
     $this->iradiosite = $url;
+    send_to_log(6,"IRadio: Radio site set to $url");
   }
 
 # ------------------------------------------------------------[ Structures ]---
@@ -176,6 +203,7 @@ class iradio {
   function read_countries($filename="") {
     if (empty($filename)) $filename = dirname(__FILE__)."/countries.txt";
     if (!file_exists($filename)) return FALSE;
+    send_to_log(6,"IRadio: Reading country list from \"$filename\"");
     $list = file($filename);
     $lc = count($list);
     $errors = 0;
@@ -185,6 +213,7 @@ class iradio {
       if (substr($line,0,1)=="#") continue; // skip comments
       $this->countries[] = $line;
     }
+    send_to_log(6,"IRadio: ".count($this->countries)." countries read");
   }
 
   /** Retrieve the country list
@@ -197,6 +226,7 @@ class iradio {
       $this->read_countries();
       sort($this->countries);
     }
+    send_to_log(6,"IRadio: Country list was requested - sending it.");
     return $this->countries;
   }
 
@@ -210,6 +240,7 @@ class iradio {
    */
   function add_genre ($main,$sub,$comment="") {
     $this->genre[$main][$sub] = $comment;
+    send_to_log(8,"IRadio: Adding $sub to main genre $main");
     return TRUE;
   }
 
@@ -222,6 +253,7 @@ class iradio {
   function read_genres ($filename="") {
     if (empty($filename)) $filename = dirname(__FILE__)."/genres.txt";
     if (!file_exists($filename)) return FALSE;
+    send_to_log(6,"IRadio: Reading genres from \"$filename\"");
     $list = file($filename);
     $lc = count($list);
     $errors = 0;
@@ -232,7 +264,7 @@ class iradio {
       $item = explode(':',$line);
       if (!$this->add_genre($item[0],$item[1],$item[2])) ++$errors;
     }
-#    echo "Set up genres from '$filename'. Errors: $errors<br>";
+    send_to_log(6,"IRadio: Finished genre setup. Errors: $errors");
   }
 
   /** Sorting the genre list
@@ -240,6 +272,7 @@ class iradio {
    * @method sort_genres
    */
   function sort_genres() {
+    send_to_log(6,"IRadio: Sorting genre list");
     ksort($this->genre);
     foreach ($this->genre as $main=>$sub) {
       ksort($this->genre[$main]);
@@ -252,6 +285,7 @@ class iradio {
    * @return array genres (genre[main][sub])
    */
   function get_genres() {
+    send_to_log(6,"IRadio: Complete genre list was requested.");
     return $this->genre;
   }
 
@@ -261,6 +295,7 @@ class iradio {
    * @return array array[0..n] of genres
    */
   function get_maingenres() {
+    send_to_log(6,"IRadio: Maingenres requested.");
     foreach($this->genre as $main=>$name) {
       $list[] = $main;
     }
@@ -274,6 +309,7 @@ class iradio {
    * @return array array[0..n] of genres
    */
   function get_subgenres($maingenre) {
+    send_to_log(6,"IRadio: Subgenres requested.");
     foreach($this->genre[$maingenre] as $sub=>$name) {
       $list[] = $sub;
     }
@@ -305,6 +341,7 @@ class iradio {
     $station->nowplaying = $nowplaying;
     $station->website = $website;
     $this->station[] = $station;
+    send_to_log(8,"IRadio: Added station \"$name\" ($station->playlist)");
     return TRUE;
   }
 
@@ -319,6 +356,7 @@ class iradio {
    *      <LI>nowplaying: Currently played song</LI><LI>website: Stations WebSite</LI></UL>
    */
   function get_station() {
+    send_to_log(6,"IRadio: Station list was requested.");
     return $this->station;
   }
 
@@ -329,6 +367,7 @@ class iradio {
    * @return boolean success
    */
   function openpage($url) {
+    send_to_log(6,"IRadio: Retrieving content from radio site ($url)");
     $this->page = file_get_contents($url);
     return TRUE;
   }
