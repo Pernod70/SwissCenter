@@ -21,6 +21,8 @@ require_once( realpath(dirname(__FILE__).'/settings.php'));
 require_once( realpath(dirname(__FILE__).'/file.php'));
 require_once( realpath(dirname(__FILE__).'/image.php'));
 require_once( realpath(dirname(__FILE__).'/musicip.php'));
+require_once( realpath(dirname(__FILE__).'/../ext/iradio/shoutcast.php'));
+require_once( realpath(dirname(__FILE__).'/../ext/iradio/live-radio.php'));
 
 #-------------------------------------------------------------------------------------------------
 # PHP checks
@@ -279,6 +281,25 @@ function check_server_scheduler()
   }
 }
 
+#-------------------------------------------------------------------------------------------------
+# Radio Parser
+#-------------------------------------------------------------------------------------------------
+
+function check_shoutcast()
+{
+  $shoutcast = new shoutcast();
+  $result = $shoutcast->test();
+  unset($shoutcast);
+  return $result;
+}
+
+function check_liveradio()
+{
+  $liveradio = new liveradio();
+  $result = $liveradio->test();
+  unset ($liveradio);
+  return $result;
+}
 
 #-------------------------------------------------------------------------------------------------
 # Performs all the individual checks and puts them into an array. Typically, this function will be
@@ -308,6 +329,8 @@ Function get_check_results()
   $results['SERVER scheduler']       = check_server_scheduler();
   $results['MUSICIP api']            = musicip_available();
   $results['MUSICIP mixable']        = (musicip_mixable_percent() >= 50);
+  $results['ShoutCast parser']       = check_shoutcast();
+  $results['LiveRadio parser']       = check_liveradio();
   
   return $results;
 }
