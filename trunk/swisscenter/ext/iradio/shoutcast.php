@@ -82,6 +82,7 @@ class shoutcast extends iradio {
       if ($stationcount == $this->numresults) break;
       $startpos = strpos($this->page,"<a href=\"/sbin/shoutcast-playlist.pls",$epos);
     }
+    send_to_log(6,"IRadio: Read $stationcount stations.");
     if (!empty($cachename)) $this->write_cache($cachename,$this->station);
     return TRUE;
   }
@@ -97,6 +98,7 @@ class shoutcast extends iradio {
    * @return boolean success FALSE on error or nothing found, TRUE otherwise
    */
   function search_genre($name) {
+    send_to_log(6,"IRadio: Initialize genre search for \"$name\"");
     return $this->parse("?sgenre=$name",$name);
   }
 
@@ -111,6 +113,7 @@ class shoutcast extends iradio {
    * @return boolean success FALSE on error or nothing found, TRUE otherwise
    */
   function search_station($name) {
+    send_to_log(6,"IRadio: Initialize station search for \"$name\"");
     return $this->parse("?s=$name",$name);
   }
 
@@ -125,6 +128,7 @@ class shoutcast extends iradio {
    * @return boolean success FALSE on error or nothing found, TRUE otherwise
    */
   function search_country($name) {
+    send_to_log(6,"IRadio: Country search not supported - faking it:");
     return $this->search_station($name);
   }
 
