@@ -21,8 +21,8 @@
   if ($idx < count($tracks)-1)
     $next_info = $tracks[$idx+1];
     
-  // Generate and display the "Now PLaying" screen.    
-  $image = now_playing_image( $tracks[$idx], $prev_info, $next_info);
+  // Generate and display the "Now Playing" screen.    
+  $image = now_playing_image( $tracks[$idx], $prev_info, $next_info, ($idx+1).' / '.count($tracks) );
   $image->output('jpeg');
 
 /**************************************************************************************************

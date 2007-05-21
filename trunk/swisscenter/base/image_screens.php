@@ -31,7 +31,7 @@
     $y += $font_size;
   }
   
-  function now_playing_image( $current_track, $previous_track = '', $next_track = '' )
+  function now_playing_image( $current_track, $previous_track = '', $next_track = '', $tracks = '' )
   {
     $image     = new CImage();  
     $artfile   = new CImage();  
@@ -150,12 +150,14 @@
     }
     
     // Total so far
-    $pos=($idx+1).' / '.count($tracks);
-    $total_label  = convert_x(925,SCREEN_COORDS) - $image->get_text_width(str('TRACKS'),$detail_text_size);
-    $total_detail = convert_x(925,SCREEN_COORDS) - $image->get_text_width($pos,$detail_text_size);
+    if ($tracks != '')
+    {
+      $total_label  = convert_x(925,SCREEN_COORDS) - $image->get_text_width(str('TRACKS'),$detail_text_size);
+      $total_detail = convert_x(925,SCREEN_COORDS) - $image->get_text_width($tracks,$detail_text_size);
   
-    $image->text(str('TRACKS'), $total_label, convert_y(900,SCREEN_COORDS), $title_text_col, $detail_text_size);    
-    $image->text( $pos , $total_detail, convert_y(940,SCREEN_COORDS), $detail_text_col, $detail_text_size);    
+      $image->text(str('TRACKS'), $total_label, convert_y(900,SCREEN_COORDS), $title_text_col, $detail_text_size);    
+      $image->text( $tracks , $total_detail, convert_y(940,SCREEN_COORDS), $detail_text_col, $detail_text_size);    
+    }
    
     // return finished image
     return $image;
