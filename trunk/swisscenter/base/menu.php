@@ -195,12 +195,15 @@ class menu
     $right_icons = 0;
     $info_column = 0;
     
-    foreach ($this->menu_items as $item)
+    if($this->menu_items != null)
     {
-      if ( isset($item["left"]) )  $left_icons  = 1;
-      if ( isset($item["right"]) ) $right_icons = 1;
-      if ( isset($item["info"]) )  $info_column = 1;
-    }
+      foreach ($this->menu_items as $item)
+      {
+        if ( isset($item["left"]) )  $left_icons  = 1;
+        if ( isset($item["right"]) ) $right_icons = 1;
+        if ( isset($item["info"]) )  $info_column = 1;
+      }
+    }    
     
     $num_cols = 1 + $left_icons + $right_icons + $info_column;
 
