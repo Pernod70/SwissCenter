@@ -132,6 +132,36 @@ class shoutcast extends iradio {
     return $this->search_station($name);
   }
 
+  /** Test parser functionality
+   *  This method makes a simple request for maximum 2 stations of the genre
+   *  "pop" (there are always plenty of stations available), and then checks
+   *  the second station returned whether it has at least a name and a valid
+   *  playlist URL. If so, it returns TRUE - otherwise FALSE.
+   * @class shoutcast
+   * @method test
+   * @return boolean OK
+   */
+  function test() {
+    send_to_log(6,"IRadio: Testing ShoutCast interface");
+    $this->set_cache("");       // disable cache
+    $this->set_max_results(2);  // only 2 results needed
+    $this->search_genre("pop"); // init search
+    if (empty($this->station[1]->name)) {
+      send_to_log(3,"IRadio: ShoutCast parser returned empty station name");
+      return FALSE;
+    }
+    $url = parse_url($this->station[1]->playlist);
+    if (empty($url["host"])) {
+      send_to_log(3,"IRadio: ShoutCast parser returned invalid playlist: No hostname given");
+      return FALSE;
+    } elseif (empty($url["path"]) && empty($url["query"])) {
+      send_to_log(3,"IRadio: ShoutCast parser returned invalid playlist: No filename given");
+      return FALSE;
+    }
+    send_to_log(8,"IRadio: ShoutCast parser looks OK");
+    return TRUE;
+  }
+
 }
 
 ?>

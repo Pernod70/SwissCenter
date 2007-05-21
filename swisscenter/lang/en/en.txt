@@ -670,6 +670,12 @@ FILTER                     = Filter
 RECENTLY_ADDED             = Recently added
 REMOVE_FILTER              = Remove filter
 RECENTLY_ADDED_DAYS        = Within the last %s days
+FAIL_SHOUTCAST_TEST        = ShoutCast parser looks broken
+PASS_SHOUTCAST_TEST        = ShoutCast parser seems to work properly
+IRADIO_SHOUTCAST_DESC      = ShoutCast (%s) is a radio service on the internet, providing audio streams playable by most streaming devices (and programs). It provides the functionality to search by genre or station name, and returns many details for each station found, including a playlist URL. The ShoutCast parser used by SwissCenter parses the HTML of the result page, to display the result set in a way easy to read also on TV screens. However, it may break when the page structure will be changed by the ShoutCast staff.
+FAIL_LIVERADIO_TEST        = LiveRadio parser looks broken
+PASS_LIVERADIO_TEST        = LiveRadio parser seems to work properly
+IRADIO_LIVERADIO_DESC      = LiveRadio (%s) is an internet radio service similiar to ShoutCast. It provides the functionality to search by media type, genre, station name, country and even city - but many stations listed here are not supported by some hardware players. So the LiveRadio parser used by SwissCenter restricts the results to show only MP3 stations.
 
 #----------------------------------------------------------------------------------------------------
 # End-of-file

@@ -267,6 +267,10 @@ function check_display()
   if ( $results->result('MUSICIP api'))
     $component_tests->add_test( $musicip,"MUSICIP mixable",str('PASS_MIP_MIXABLE'),str('FAIL_MIP_MIXABLE'));
 
+  $iradio = $component_tests->add_section("Internet Radio Parser",2);
+  $component_tests->add_test( $iradio,"ShoutCast parser",str('PASS_SHOUTCAST_TEST'),str('FAIL_SHOUTCAST_TEST').'<p>'.str('IRADIO_SHOUTCAST_DESC','<a href="http://www.shoutcast.com/">www.shoutcast.com</a>'));
+  $component_tests->add_test( $iradio,"LiveRadio parser",str('PASS_LIVERADIO_TEST'),str('FAIL_LIVERADIO_TEST').'<p>'.str('IRADIO_LIVERADIO_DESC','<a href="http://www.live-radio.net/">www.live-radio.net</a>'));
+
   # ----------------------
 
   # Display test results
