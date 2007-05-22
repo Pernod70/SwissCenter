@@ -118,13 +118,13 @@ class test_summary
   # Add details about a specific test
   #-------------------------------------------------------------------------------------------------
 
-  function add_test( $section, $key, $pass, $fail)
+  function add_test( $section, $key, $pass, $fail, $cli=TRUE)
   {
     if ( key_exists($section,$this->sections) )
-    {      
+    {
       if (!$this->results->web_result($key))
         $this->sections[$section]["failed_web"][] = $fail;
-      elseif (!$this->results->cli_result($key))
+      elseif ($cli && !$this->results->cli_result($key))
         $this->sections[$section]["failed_cli"][] = $fail;
       else 
         $this->sections[$section]["passed"][] = $pass;
@@ -227,13 +227,13 @@ function check_display()
   $php = $core_tests->add_section("PHP",2);
   
   if (! is_server_simese() || version_compare(simese_version(),'1.31','<') )
-    $core_tests->add_test( $php, "PHP cli", str("PASS_PHP_CLI"), str("FAIL_PHP_CLI" ) );    
+    $core_tests->add_test( $php, "PHP cli", str("PASS_PHP_CLI"), str("FAIL_PHP_CLI" ), FALSE );
 
   $core_tests->add_test( $php, "PHP version", str("PASS_PHP_VERSION"), str("FAIL_PHP_VERSION",phpversion()) );
   $core_tests->add_test( $php, "PHP ini file", str("PASS_PHP_INI"), str("FAIL_PHP_INI"));
   $core_tests->add_test( $php, "PHP required mods", str("PASS_PHP_REQ_MODS"), str("FAIL_PHP_REQ_MODS", implode(', ',get_required_modules_list())) );
   $core_tests->add_test( $php, "PHP suggested mods", str("PASS_PHP_EXTRA_MODS"), str("FAIL_PHP_EXTRA_MODS", implode(', ',get_suggested_modules_list())) );
-  $core_tests->add_test( $php, "PHP fonts", str("PASS_PHP_FONTS"), str("FAIL_PHP_FONTS") );
+  $core_tests->add_test( $php, "PHP fonts", str("PASS_PHP_FONTS"), str("FAIL_PHP_FONTS"), FALSE );
 
   # ----------------------
   # MySQL Tests
@@ -268,8 +268,8 @@ function check_display()
     $component_tests->add_test( $musicip,"MUSICIP mixable",str('PASS_MIP_MIXABLE'),str('FAIL_MIP_MIXABLE'));
 
   $iradio = $component_tests->add_section("Internet Radio Parser",2);
-  $component_tests->add_test( $iradio,"ShoutCast parser",str('PASS_SHOUTCAST_TEST'),str('FAIL_SHOUTCAST_TEST').'<p>'.str('IRADIO_SHOUTCAST_DESC','<a href="http://www.shoutcast.com/">www.shoutcast.com</a>'));
-  $component_tests->add_test( $iradio,"LiveRadio parser",str('PASS_LIVERADIO_TEST'),str('FAIL_LIVERADIO_TEST').'<p>'.str('IRADIO_LIVERADIO_DESC','<a href="http://www.live-radio.net/">www.live-radio.net</a>'));
+  $component_tests->add_test( $iradio,"ShoutCast parser",str('PASS_SHOUTCAST_TEST'),str('FAIL_SHOUTCAST_TEST').'<p>'.str('IRADIO_SHOUTCAST_DESC','<a href="http://www.shoutcast.com/">www.shoutcast.com</a>'),FALSE);
+  $component_tests->add_test( $iradio,"LiveRadio parser",str('PASS_LIVERADIO_TEST'),str('FAIL_LIVERADIO_TEST').'<p>'.str('IRADIO_LIVERADIO_DESC','<a href="http://www.live-radio.net/">www.live-radio.net</a>'),FALSE);
 
   # ----------------------
 
