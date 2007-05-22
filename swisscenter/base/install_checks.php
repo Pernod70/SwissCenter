@@ -331,6 +331,14 @@ Function get_check_results()
   $results['MUSICIP mixable']        = (musicip_mixable_percent() >= 50);
   $results['ShoutCast parser']       = check_shoutcast();
   $results['LiveRadio parser']       = check_liveradio();
+
+  foreach ($results as $var=>$val)
+  {
+    if ($val !== FALSE)
+      send_to_log(8, $var.": Check passed");
+    else
+      send_to_log(3, $var.": Check FAILED");
+  }
   
   return $results;
 }
