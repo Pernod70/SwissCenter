@@ -35,7 +35,7 @@ class shoutcast extends iradio {
    * @param string cachename Name of the cache object to use
    * @return boolean success FALSE on error or nothing found, TRUE otherwise
    */
-  function parse($url,$cachename) {
+  function parse($url,$cachename,$iteration=1) {
     if (!empty($cachename)) { // try getting the data from cache
       $stations = $this->read_cache($cachename);
       if ($stations !== FALSE) {
@@ -48,6 +48,11 @@ class shoutcast extends iradio {
     $this->openpage($uri);
     $stationcount = 0;
     $startpos = strpos($this->page,">Type<"); // seek for start position of block
+    if ($startpos===FALSE) {
+      send_to_log(8,"IRadio: ShoutCast claims to find nothing (try #$iteration)");
+      if ($iteration < 3) return $this->parse($url,$cachename,++$iteration);
+      else return FALSE;
+    }
     $epos = $startpos +1; // prevent endless loop on broken pages
     while ($startpos) {
       $spos = strpos($this->page,"a href=",$startpos); // playlist
@@ -141,11 +146,21 @@ class shoutcast extends iradio {
    * @method test
    * @return boolean OK
    */
-  function test() {
+  function test($iteration=1) {
     send_to_log(6,"IRadio: Testing ShoutCast interface");
     $this->set_cache("");       // disable cache
-    $this->set_max_results(2);  // only 2 results needed
+    $this->set_max_results(5);  // only 5 results needed (smallest number accepted by ShoutCast website)
     $this->search_genre("pop"); // init search
+    if (count($this->station)==0) { // work around shoutcast claiming to find nothing
+      if ($iteration <3) {
+        send_to_log(6,"IRadio: ShoutCast claims to find nothing - retry #$iteration");
+        ++$iteration;
+        return $this->test($iteration);
+      } else {
+        send_to_log(3,"IRadio: ShoutCast still claims to have no stations listed - giving up after $iteration tries.");
+        return FALSE;
+      }
+    }
     if (empty($this->station[1]->name)) {
       send_to_log(3,"IRadio: ShoutCast parser returned empty station name");
       return FALSE;
