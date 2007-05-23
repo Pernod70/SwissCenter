@@ -1,7 +1,6 @@
 <?
   require_once( realpath(dirname(__FILE__).'/../../base/file.php'));
 
- 
   class lastfm
   {
     var $session_id;
@@ -124,59 +123,76 @@
         return false;
       }
       
-      send_to_log(1,'Now playing information',explode(newline(),$response));
-      return explode(newline(),$response);
+      // parse the information      
+      $data = array();
+      $response = substr($response,3);
+      foreach (explode("\n",$response) as $line)
+      {
+        $values = explode('=',$line);
+        if (!empty($values[0]))
+          $data[$values[0]] = $values[1];
+      }
+      
+      send_to_log(1,'Now playing information',$data);
+      
+      return $data;
     }
   
     /**
      * Function to access the LastFM stream and send it on to the end user.
      *
+     * @param integer $duration - the amount of time to stream in seconds (max 24 hours)
      */
     
-    function stream()
+    function stream( $duration =  86400, $capture_dir = '', $capture_file = '' )
     {
+      // headers
+      header("Content-type: audio/x-mpeg");
+      header('Connection: close');
+           
+      // Close open sessions, output buffering, etc
       ob_end_flush();      
-      send_to_log(1,'Attempting to stream',$this->stream_url);
+      ignore_user_abort(FALSE);
+      session_write_close();
+      set_time_limit($duration+5);
       
+      send_to_log(1,'Attempting to stream',$this->stream_url);
+      $time_end = time()+$duration;
+      
+      // Open the stream
       $stream = fopen($this->stream_url,'rb');
+      
+      // Are we capturing the stream?
+      $capture     = (!empty($capture_dir) && is_writable($capture_dir));
+      $capture_fsp = os_path($capture_dir,true).( empty($capture_file) ? date('Y-m-d_H-i-s').'.mp3' : $capture_file);
+      if ($capture && $stream) 
+        $file = fopen($capture_fsp,'wb');
+      
       $fbytessofar = 0; 
       if ($stream)
-      {
-        $file   = fopen('test.mp3','wb');
-        while ( !feof($stream) && $fbytessofar < 409600)
+      {          
+        while ( !feof($stream) && time() <= $time_end && (connection_status() == CONNECTION_NORMAL) )
         {
-            $fbuf = fread($stream,1024);
+            $fbuf = fread($stream,32*1024);
             $fbytessofar += strlen($fbuf);
 
-            if (strpos($fbuf,'SYNC') === false)
-              fwrite($file,$fbuf);
-            else 
-              $track = $this->now_playing();
+            if ( strpos($fbuf,'SYNC') !== false)
+              $fbuf=str_replace('SYNC','',$fbuf);              
 
-            echo '. ';
+            if ($capture)
+              fwrite($file,$fbuf);
+              
+            echo $fbuf;
             flush();
         }
           
-        fclose($file);
         fclose($stream);
       }
-    
-    }   
-    
+     
+      // Close the file on disk if we were capturing the stream.
+      if ($capture) 
+        @fclose($file);    
+    }       
   }    
   
-  
-  //
-  // Main Code
-  //
-  $time_limit = 300;
-  $time_end = time()+$time_limit;
-  
-  set_time_limit($time_limit);
-  
-  $lastfm = new lastfm();
-  $lastfm->login('rztaylor', md5('password') );
-  $lastfm->tune_to_station( 'lastfm://globaltags/pop' );
-  $lastfm->stream();
-        
 ?>

@@ -48,7 +48,14 @@
     # Album Art
     #---------- 
   
-    $art_fsp    = file_albumart($current_track["DIRNAME"].$current_track["FILENAME"]);
+    if ( isset($current_track["ALBUMART"]) && !empty($current_track["ALBUMART"]))
+      if ( is_remote_file($current_track["ALBUMART"]) )
+        $art_fsp = download_and_cache_image($current_track["ALBUMART"]);
+      else
+        $art_fsp = $current_track["ALBUMART"];
+    else
+      $art_fsp    = file_albumart($current_track["DIRNAME"].$current_track["FILENAME"]);
+    
     $art_x      = convert_x(70,SCREEN_COORDS);
     $art_y      = convert_y(200,SCREEN_COORDS);
     $art_w      = convert_x(280,SCREEN_COORDS);
@@ -123,7 +130,7 @@
     $time_text_y        += convert_y(60,SCREEN_COORDS);
    
     // Previous track details
-    if ( count($previous_track) >0)
+    if ( is_array($previous_track))
     {  
       $x = $image->get_text_width(str('MUSIC_PLAY_PREV').': ',$detail_text_size);
       $y = $time_text_y;
@@ -133,7 +140,7 @@
     }
   
     // Next track details
-    if ( count($next_track) >0)
+    if ( is_array($next_track))
     {  
       $x = $image->get_text_width(str('MUSIC_PLAY_NEXT').': ',$detail_text_size);
       $y = $time_text_y;
