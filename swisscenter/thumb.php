@@ -25,11 +25,7 @@
   
   // If the file is on the internet, download it into a temporary location first
   if ( is_remote_file($filename) )
-  {
-    $url = $filename;
-    $filename = get_sys_pref('cache_dir').'/SwissCenter_download_'.md5($filename).'_'.date('YmdH').'.'.file_ext($filename);
-    file_download_and_save($url, $filename);
-  }
+    $filename = download_and_cache_image($filename);
 
   // Other parameters passed in to the script
   $format     = strtolower(file_ext($filename));
