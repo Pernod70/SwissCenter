@@ -52,7 +52,7 @@ ART_FILES_ADD_TITLE	= Add a filename
 ART_FILES_CURRENT	= Current art files
 ART_FILES_DEL_BUTTON	= Remove selected files
 ART_FILES_PROMPT	= [em]Album/Film Art[/em] files are the names of image files that the SwissCenter should look for when it is displaying a browse function (Browse Videos, Browse Music by folder, etc) or when you have selected an album or film. [p] If any of the files you specify here are found within a directory, then the first one to be found will be displayed on the Swisscenter interface.
-ART_FILES_TITLE		= Album/Film art files
+ART_FILES_TITLE		= Album/Film Art Files
 ART_ID3_TAG		= ID3-Tag Covers
 ART_ID3_TAG_PROMPT	= If Album Art is present within the ID3-Tag of a music file, then it will be extracted and stored in the database as the preferred art to use on the SwissCenter interface. However, as this can cause the database to grow quite large you may disable this feature here if you wish.
 ART_UPDATE_OK		= Art information updated
@@ -103,7 +103,7 @@ CONFIG_DB_ROOT_PW	= "Root" password
 CONFIG_DB_ROOT_PW_TXT   = Unless you entered a value for the [em]root[/em] password during the installation of MySQL, then it is probably not set and you should leave this field blank.[p][em]Please Note: Creating the database can take several minutes to complete. Please be patient. [/em]
 CONFIG_TITLE            = SwissCenter Configuration Utility
 CONNECT_TEXT		= There are a number of features within the SwissCenter interface that make use of an internet connection either to retrieve information (eg: Weather Forecasts) and or to periodically poll for information (eg: New Updates).
-CONNECT_TITLE		= Connectivity
+CONNECT_TITLE		= Internet Connectivity
 CONTINUE		= Continue
 CUSTOM			= Custom
 DATABASE_ERROR		= A database error occurred
@@ -219,7 +219,7 @@ NO_PLAYLIST		= You do not have a playlist defined at the moment.
 ONE_ITEM		= 1 Item
 ONE_TRACK		= 1 Track
 OPTIONS			= Options
-ORG_TITLE		= Video Details
+ORG_TITLE		= Edit Video Details
 PASSWORD		= Password
 PHOTOS_NO_SELECTED	= No. photos
 PHOTOS_TIME_ALL		= Total play time
@@ -254,8 +254,8 @@ PLAYLIST_SAVE_PROMPT	= Please enter the name you would like to use for your play
 PLAY_NOW		= Play now
 PLEASE_SELECT		= Please select
 PREVIOUS		= Previous
-PRIVACY_COMMUNICATION	= [b]Unsolicited Email/Messages[/b] [p][ul][li]We will never send you unsolicited email.[li]Messages downloaded to the SwissCenter interface will relate only to the capabilities and operation of the interface. If you wish you may prevent even these messages from being downloaded by disabling the "Messages" feature in "Connectivity" section.[/ul]
-PRIVACY_POLICY		= Privacy policy
+PRIVACY_COMMUNICATION	= [b]Unsolicited Email/Messages[/b] [p][ul][li]We will never send you unsolicited email.[li]Messages downloaded to the SwissCenter interface will relate only to the capabilities and operation of the interface. If you wish you may prevent even these messages from being downloaded by disabling the "Messages" feature in the "Connectivity" section.[/ul]
+PRIVACY_POLICY		= Privacy Policy
 QUICK_PLAY		= Quick play
 RANGE			= Range
 REFINE_ACTOR		= Refine by actor
@@ -288,7 +288,7 @@ SCHEDULE_MINUTE_PROMPT	= The number of minutes past the hour
 SCHEDULE_MONTH_PROMPT	= 1 = January, 2 = February, etc 
 SCHEDULE_NONE		= Automatic Media Refresh - No longer Active
 SCHEDULE_NOTES		= [li]* denotes all possible values. [li]Multiple values can be specified using commas (1,5). [li]A range can be specified using a hyphen (1-5). [li]Both may be specified together (1-4,7).
-SCHEDULE_TITLE		= Scheduled tasks
+SCHEDULE_TITLE		= Scheduled Tasks
 SCHEDULE_UPDATED	= Automatic Media Refresh - Schedule Updated
 SCHEDULE_UPDATE_BUTTON	= Update schedule
 SCHEDULE_WEEKDAY_PROMPT	= 1 = Monday, 2 = Tuesday, etc
@@ -332,7 +332,7 @@ SUPPORT_PROG_HEADINGS	= Program, Location
 SUPPORT_PROG_TITLE	= Program locations
 SUPPORT_SYSPREF_TABLE	= Preference, Setting
 SUPPORT_SYSPREF_TITLE	= System preferences
-SUPPORT_TITLE		= Support info
+SUPPORT_TITLE		= Support Info
 SUPPORT_TXT		= If you are experiencing problems with the Swisscenter then please post a description of the problem you are having and any other relevant information (such as your operating system) to the [em]Help forum[/em] on the %s website. [p] All or some of the information shown below may be requested to help troubleshoot your problem.
 SUPPORT_USRPREF_TABLE	= User, Preference, Setting
 SUPPORT_USRPREF_TITLE	= User preferences
@@ -358,7 +358,7 @@ UPPERCASE		= Uppercase
 USERNAME		= Username
 USERS_ADDED_OK		= New user added
 USERS_ADD_BUTTON	= Add new user
-USERS_ADD_TITLE		= Manage Users
+USERS_ADD_TITLE		= User Management
 USERS_CONFIG_TITLE	= User Management
 USERS_DEL_BUTTON	= Remove selected users
 USERS_DEL_OK		= The selected users have been deleted
@@ -482,7 +482,7 @@ EXIFVALS_WHITE_BALANCE	= Auto, Manual
 
 PC_LINK_CONFIG          = Config
 MOVIE_EXTRA_SITE_PROMPT = Download info from
-MOVIE_OPTIONS		= Video Options
+MOVIE_OPTIONS		= Videos
 MEDIA_SEARCH_PROMPT	= Clicking the button below will begin a background scan of all your media locations. Media that is no longer present on your system will be removed from the database and any new or changed media will be added.
 RATING_SCHEME_PROMPT	= Certificate Scheme
 SIMESE_SCHED_PROMPT	= You may schedule automatic refreshes of the SwissCenter database by right clicking on the Simese icon in the taskbar and selecting [i]Update Media Scheduler[/i].
@@ -490,7 +490,7 @@ SIMESE_SCHED_PROMPT	= You may schedule automatic refreshes of the SwissCenter da
 # Updated text strings in v1.14
 
 MOVIE_EXTRA_DL_PROMPT	= When new video items are discovered during a "new media search", the SwissCenter will use the filename of the video file to search for and download additional video information (eg: Actors, Directors, etc) from the site you specify below.
-PRIVACY_DATA_COLLECTION	= [b]Data Collection[/b] [p]Information relating to the media files on your machine is collected and stored in a MySQL database located on the PC on which the SwissCenter software is installed. This information is used for the sole purpose of providing you with an interface to your media files on such devices as the Pinnacle Showcenter. At no point is this of any other information transmitted in any form to the authors of the SwissCenter, or to any other third party. [p]There is one exception to the above statemnet :- To obtain extra information regarding video files (such as actors, directors, etc) the filename is submitted as part of a search query to the website selected on the %s screen. If you would prefer that this informationis not transmitted then you should disable the "Video Info Download". 
+PRIVACY_DATA_COLLECTION	= [b]Data Collection[/b] [p]Information relating to the media files on your machine is collected and stored in a MySQL database located on the PC on which the SwissCenter software is installed. This information is used for the sole purpose of providing you with an interface to your media files on such devices as the Pinnacle Showcenter. At no point is this of any other information transmitted in any form to the authors of the SwissCenter, or to any other third party. [p]There is one exception to the above statemnet :- To obtain extra information regarding video files (such as actors, directors, etc) the filename is submitted as part of a search query to the website selected on the %s screen. If you would prefer that this information is not transmitted then you should disable the "Video Info Download". 
 
 # -----------------------
 # SwissCenter v1.14.1
@@ -590,9 +590,9 @@ CACHE_CONFIG_TITLE	= Cache Settings
 CACHE_PRECACHE          = Precache Images
 CACHE_PRECACHE_PROMPT   = Enabling this option will cause SwissCenter to generate thumbnails for all images that it finds during a media search.
 DROP_DATABASE           = Warning: You already have a SwissCenter database. [br]If you proceed, then all current information and settings will be lost.
-CONFIG_IMAGE_OPTIONS    = Image Options
-CONFIG_AUDIO_OPTIONS    = Audio Options
-CONFIG_RADIO_OPTIONS    = Radio Options
+CONFIG_IMAGE_OPTIONS    = Images
+CONFIG_AUDIO_OPTIONS    = Audio 
+CONFIG_RADIO_OPTIONS    = Internet Radio Options
 PASS_PHP_FONTS          = Successfully located a TrueType Font for generating "Now Playing" images.
 FAIL_PHP_FONTS          = Unable to locate a TrueType font. The "Now Playing" screen will be missing track information.
 NOW_PLAYING_SUPPORT     = Now Playing Screen
@@ -604,7 +604,7 @@ NOW_PLAYING_PROMPT      = Some hardware players allow a picture to be displayed 
 # SwissCenter v1.16
 # -----------------------
 
-PLAYLISTS 		   = Playlist Options
+PLAYLISTS 		   = Playlists
 
 BROWSE_COUNTRY             = Browse by country
 IRADIO_SEARCH              = Search for stations
@@ -676,6 +676,11 @@ IRADIO_SHOUTCAST_DESC      = ShoutCast (%s) is a radio service on the internet, 
 FAIL_LIVERADIO_TEST        = LiveRadio parser looks broken
 PASS_LIVERADIO_TEST        = LiveRadio parser seems to work properly
 IRADIO_LIVERADIO_DESC      = LiveRadio (%s) is an internet radio service similiar to ShoutCast. It provides the functionality to search by media type, genre, station name, country and even city - but many stations listed here are not supported by some hardware players. So the LiveRadio parser used by SwissCenter restricts the results to show only MP3 stations.
+INSTALLATION_TITLE         = Installation
+INSTALLATION_TESTS         = System Tests
+ADVANCED_OPTIONS           = Advanced Options
+MEDIA_REFRESH              = Search For New Media
+LICENSE                    = GPL License
 
 #----------------------------------------------------------------------------------------------------
 # End-of-file

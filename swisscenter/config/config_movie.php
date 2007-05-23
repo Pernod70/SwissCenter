@@ -556,16 +556,8 @@ function movie_info( $message = "")
         <p><span class="stdformlabel">'.str('EXTRA_REFRESH_WARNING','"'.str('ORG_TITLE').'"').'</span>'.'<br>&nbsp;';
   form_submit(str('EXTRA_REFRESH_GO'),2,'Left',240);
   form_end();
-
-  form_start('index.php', 150, 'conn');
-  form_hidden('section', 'MEDIA');
-  form_hidden('action', 'SEARCH');
-  echo '<p>&nbsp;<br><b>'.str('SETUP_SEARCH_NEW_MEDIA').'</b>
-        <p>'.str('MEDIA_SEARCH_PROMPT').'<br>&nbsp;';
-  form_submit(str('SETUP_SEARCH_NEW_MEDIA'),2,'left',240);
-  form_end();
 }
-  
+
 // ----------------------------------------------------------------------------------
 // Exports the movie details to a file
 // ----------------------------------------------------------------------------------

@@ -67,33 +67,37 @@
     $db_stat = test_db(DB_HOST,DB_USERNAME,DB_PASSWORD,DB_DATABASE); 
     $menu = new config_menu();
         
-    $menu->add_menu(str('CONFIGURATION'));
-    $menu->add_item(str('CONFIG_OVERVIEW')          ,'');
+    $menu->add_menu(str('INSTALLATION_TITLE'));
+    $menu->add_item(str('INSTALLATION_TESTS')          ,'');
     $menu->add_item(str('CONFIG_DB_CREATE')         ,'section=INSTALL&action=DISPLAY');
     
     if ($db_stat == 'OK')
   	{
       $menu->add_menu(str('CONFIGURATION'));
-      $menu->add_item(str('CACHE_CONFIG_TITLE')     ,'section=CACHE&action=DISPLAY');
   	  $menu->add_item(str('CATEGORIES')             ,'section=CATEGORY&action=DISPLAY');
-  	  $menu->add_item(str('BROWSE_OPTIONS')         ,'section=BROWSE&action=DISPLAY');
-	    $menu->add_item(str('CONNECT_TITLE')          ,'section=CONNECT&action=DISPLAY');
+  	  $menu->add_item(str('MEDIA_LOCATIONS')        ,'section=DIRS&action=DISPLAY');
   	  $menu->add_item(str('USERS_ADD_TITLE')        ,'section=USERS&action=DISPLAY');
   	  $menu->add_item(str('SCHEDULE_TITLE')         ,'section=SCHED&action=DISPLAY');
-  
+
       $menu->add_menu(str('MEDIA_MANAGEMENT'));
-  	  $menu->add_item(str('MEDIA_LOCATIONS')        ,'section=DIRS&action=DISPLAY');
   	  $menu->add_item(str('CONFIG_AUDIO_OPTIONS')   ,'section=AUDIO&action=DISPLAY');
   	  $menu->add_item(str('CONFIG_IMAGE_OPTIONS')   ,'section=IMAGE&action=DISPLAY');
-  	  $menu->add_item(str('CONFIG_RADIO_OPTIONS')   ,'section=RADIO&action=DISPLAY');
   	  $menu->add_item(str('PLAYLISTS')              ,'section=PLAYLISTS&action=DISPLAY');
   	  $menu->add_item(str('MOVIE_OPTIONS')          ,'section=MOVIE&action=INFO');
-  	  $menu->add_item(str('ART_FILES_TITLE')        ,'section=ART&action=DISPLAY');
   	  $menu->add_item(str('ORG_TITLE')              ,'section=MOVIE&action=DISPLAY');
+  	  $menu->add_item(str('MEDIA_REFRESH')          ,'section=MEDIA&action=REFRESH');
 
+      $menu->add_menu(str('ADVANCED_OPTIONS'));
+  	  $menu->add_item(str('ART_FILES_TITLE')        ,'section=ART&action=DISPLAY');
+  	  $menu->add_item(str('BROWSE_OPTIONS')         ,'section=BROWSE&action=DISPLAY');
+  	  $menu->add_item(str('CACHE_CONFIG_TITLE')     ,'section=CACHE&action=DISPLAY');
+	    $menu->add_item(str('CONNECT_TITLE')          ,'section=CONNECT&action=DISPLAY');
+  	  $menu->add_item(str('CONFIG_RADIO_OPTIONS')   ,'section=RADIO&action=DISPLAY');
+  	  $menu->add_item(str('SUPPORT_TITLE')          ,'section=SUPPORT&action=DISPLAY');
+  
       $menu->add_menu(str('INFORMATION'));
   	  $menu->add_item(str('PRIVACY_POLICY')         ,'section=PRIVACY&action=DISPLAY');
-  	  $menu->add_item(str('SUPPORT_TITLE')          ,'section=SUPPORT&action=DISPLAY');
+  	  $menu->add_item(str('LICENSE')                ,'section=LICENSE&action=DISPLAY');
   	}
   	
   	$menu->display();
