@@ -681,6 +681,7 @@ INSTALLATION_TESTS         = System Tests
 ADVANCED_OPTIONS           = Advanced Options
 MEDIA_REFRESH              = Search For New Media
 LICENSE                    = GPL License
+VIEWED_BY                  = Viewed by
 
 #----------------------------------------------------------------------------------------------------
 # End-of-file

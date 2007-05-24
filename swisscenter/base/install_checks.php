@@ -329,8 +329,12 @@ Function get_check_results()
   $results['SERVER scheduler']       = check_server_scheduler();
   $results['MUSICIP api']            = musicip_available();
   $results['MUSICIP mixable']        = (musicip_mixable_percent() >= 50);
-  $results['ShoutCast parser']       = check_shoutcast();
-  $results['LiveRadio parser']       = check_liveradio();
+  
+  if (internet_available())
+  {
+    $results['ShoutCast parser']       = check_shoutcast();
+    $results['LiveRadio parser']       = check_liveradio();
+  }
 
   foreach ($results as $var=>$val)
   {
