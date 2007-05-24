@@ -87,10 +87,9 @@ function movie_display_info(  $message = '' )
           <td valign=top>'.get_cert_name(get_nearest_cert_in_scheme($details[0]["CERTIFICATE"])).'</td>
           <td valign=top>'.$details[0]["YEAR"].'</td><td>';
 
-  foreach ( db_toarray("select * from users") as $row)
-    echo '<input type="checkbox" name="viewed" '.
-         (viewings_count( 3, $details[0]["FILE_ID"], $row["USER_ID"])>0 ? 'checked' : '').
-         '>'.$row["NAME"].'</input><br>';
+  foreach ( db_toarray("select * from users order by name") as $row)
+    if (viewings_count(3, $details[0]["FILE_ID"], $row["USER_ID"])>0)
+      echo $row["NAME"].'<br>';
   
   echo '</td></tr></table>
         <p align="center">';
@@ -181,10 +180,10 @@ function movie_display_thumbs($movie_list)
       $title_html = '';
     }
     
-    $img_url     = img_gen(file_albumart($movie["DIRNAME"].$movie["FILENAME"]) ,130,400,false,false,false,array('hspace'=>0,'vspace'=>4,'align'=>'left') );    
+    $img_url     = img_gen(file_albumart($movie["DIRNAME"].$movie["FILENAME"]) ,130,400,false,false,false,array('hspace'=>0,'vspace'=>4) );    
     $edit_url    = '?section=movie&action=display_info&movie_id='.$movie["FILE_ID"];
     $thumb_html .= '<td valign="top"><input type="checkbox" name="movie[]" value="'.$movie["FILE_ID"].'"></input></td>
-                    <td align="center" valign="middle"><a href="'.$edit_url.'">'.$img_url.'</a></td>';
+                    <td valign="middle"><a href="'.$edit_url.'">'.$img_url.'</a></td>';
     $title_html .= '<td width="25%" colspan="2" align="center" valign="middle"><a href="'.$edit_url.'">'.$movie["TITLE"].'</a></td>';    
   }
 
@@ -376,11 +375,20 @@ function movie_update_form_single()
         </tr><tr>
           <th>'.str('CERTIFICATE').'</th>
           <th>'.str('YEAR').'</th>
+          <th>'.str('VIEWED_BY').'</th>
         </tr><tr>
           <td>
           '.form_list_dynamic_html("rating",get_cert_list_sql(),$details[0]["CERTIFICATE"],true).'
           </td>
           <td><input name="year" size="6" value="'.$details[0]["YEAR"].'"></td>
+          <td>';
+  
+  foreach ( db_toarray("select * from users order by name") as $row)
+    echo '<input type="checkbox" name="viewed[]" value="'.$row["USER_ID"].'" '.
+         (viewings_count( 3, $details[0]["FILE_ID"], $row["USER_ID"])>0 ? 'checked' : '').
+         '>'.$row["NAME"].'<br>';
+            
+  echo '</td>
         </tr></table>
         <p align="center"><input type="submit" value="'.str('MOVIE_ADD_BUTTON').'">
         </form>';    
@@ -498,6 +506,26 @@ function movie_update_multiple()
   if (!empty($_REQUEST["genre_new"]))
     scdb_add_genres($movie_list, explode(',',$_REQUEST["genre_new"]));
 
+  // Process the "Viewed" checkboxes
+  if (count($_REQUEST["viewed"])>0)
+  {
+    foreach ( db_toarray("select * from users order by name") as $row)
+    {
+      if (in_array($row["USER_ID"],$_REQUEST["viewed"]))
+      {
+        foreach ($movie_list as $movie)
+          if (viewings_count( 3, $movie, $row["USER_ID"]) == 0)
+            db_insert_row('viewings',array("user_id"=>$row["USER_ID"], "media_type"=>3,"media_id"=>$movie,"total_viewings"=>1));
+      }
+      else 
+      {
+        // Remove all viewing information about these movies for this user
+        db_sqlcommand("delete from viewings where media_type=3 and user_id=$row[USER_ID]
+                      and media_id in (".implode(',',$movie_list).")");
+      }
+    }
+  }
+    
   scdb_remove_orphans();
   
   $redirect_to = $_SESSION["last_search_page"];
@@ -553,7 +581,7 @@ function movie_info( $message = "")
   form_hidden('refresh','YES');
   echo '<p>&nbsp;<br><b>'.str('EXTRA_REFRESH_TITLE').'</b>
         <p>'.str('EXTRA_REFRESH_DETAILS').'
-        <p><span class="stdformlabel">'.str('EXTRA_REFRESH_WARNING','"'.str('ORG_TITLE')'"').'</span>'.'<br>&nbsp;';
+        <p><span class="stdformlabel">'.str('EXTRA_REFRESH_WARNING','"'.str('ORG_TITLE').'"').'</span>'.'<br>&nbsp;';
   form_submit(str('EXTRA_REFRESH_GO'),2,'Left',240);
   form_end();
 }
