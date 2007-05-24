@@ -240,6 +240,44 @@ function play_file( $media_type, $file_id )
 }
 
 //-------------------------------------------------------------------------------------------------
+// Returns the href part of a link which will play a LastFM radio station.
+//-------------------------------------------------------------------------------------------------
+
+define('LASTFM_ARTIST','artist');
+define('LASTFM_TAG','globaltags');
+define('LASTFM_NEIGHBOUR','neighbour');
+
+function play_lastfm($station_type, $name = '' )
+{
+  $lastfm_url = server_address().'ext/lastfm/stream.php?'.current_session();
+  $station_id = '';
+  
+  switch ($station_type)
+  {
+    case LASTFM_ARTIST:
+         $station_id = "lastfm://artist/".urlencode($name)."/similarartists";
+         break;
+         
+    case LASTFM_TAG:
+         $station_id = "lastfm://globaltags/".urlencode($name)."";
+         break;
+
+    case LASTFM_NEIGHBOUR:
+         if (get_user_pref('LASTFM_USERNAME','N/A') != 'N/A') 
+           $station_id = "lastfm://artist/user/".get_user_pref('LASTFM_USERNAME')."/neighbours";
+         break;
+  }
+  
+  if ($station_id == '')
+  {
+    send_to_log(1,'Error in LastFM station name');
+    return '';
+  }
+  else
+    return 'href="'.$lastfm_url.'&generate_pls&station='.$station_id.'&x=.pls" pod="1,1,'.$lastfm_url.'&image_list"';
+}
+
+//-------------------------------------------------------------------------------------------------
 // Returns a link to play a collection of $media_type items (constrants defined above) which are
 // selected using the SQL statement in $spec
 //-------------------------------------------------------------------------------------------------

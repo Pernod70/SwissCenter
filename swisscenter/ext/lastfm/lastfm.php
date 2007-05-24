@@ -50,7 +50,7 @@
                    '&passwordmd5='.$md5_password.
                    '&debug=0&partner=';
                    
-      send_to_log(1,"Attempting to login with username '$username' and encrypted password '$md5_password'",$login_url);
+      send_to_log(1,"Attempting to login with username '$username' and encrypted password '$md5_password'");
       if ( ($response = file_get_contents($login_url)) === false)
       {
         send_to_log(1,'Failed to access the login URL');
@@ -79,13 +79,13 @@
     
     function tune_to_station($station)
     {
-      $station_enc = $station;
+      $station_enc = str_replace(' ','%20',strtolower($station));
       $tune_url = 'http://ws.audioscrobbler.com/radio/adjust.php'.
                   '?session='.$this->session_id.
                   '&url='.$station_enc.
                   '&debug=0'; 
   
-      send_to_log(1,'Attempting to change station',$tune_url);            
+      send_to_log(1,'Attempting to change station: '.$station);            
       if ( ($response = file_get_contents($tune_url)) === false)
       {
         send_to_log(1,'Failed to access the station changing URL');
@@ -99,7 +99,7 @@
       }
       else 
       {
-        send_to_log(1,'Tuned into station: ',$station);
+        send_to_log(1,'Tuned into station: ');
         return true;
       }
     }
@@ -112,16 +112,28 @@
 
     function now_playing()
     {
+      $time = time();
       $playing_url='http://ws.audioscrobbler.com/radio/np.php'.
                    '?session='.$this->session_id.
                    '&debug=0';
                    
-      send_to_log(1,'Attempting to obtain now playing information',$playing_url);            
-      if ( ($response = file_get_contents($playing_url)) === false)
+      send_to_log(1,'Attempting to obtain now playing information');            
+
+      for ($i=1; $i<=5; $i++)
       {
-        send_to_log(1,'Failed to access the now playing URL.');
-        return false;
-      }
+          if ( ($response = file_get_contents($playing_url)) === false)
+          {
+            send_to_log(1,'Failed to access the now playing URL.');
+            return false;
+          }
+          elseif ($this->get_pattern('/streaming=(.*)\n?/i',$response) == "false")
+          {
+            send_to_log(5,'Attempt '.$i.': LastFM is not streaming (or is unavailable).');
+            sleep(2);            
+          }
+          else 
+            break;
+      }      
       
       // parse the information      
       $data = array();
@@ -135,9 +147,12 @@
       
       send_to_log(1,'Now playing information',$data);
       
-      return $data;
+      if ( $data["streaming"] == "false")
+        return false;
+      else
+        return $data;
     }
-  
+      
     /**
      * Function to access the LastFM stream and send it on to the end user.
      *
@@ -161,6 +176,10 @@
       
       // Open the stream
       $stream = fopen($this->stream_url,'rb');
+      
+      // Wait until we're streaming (and exit if we can't get a stream)
+      if ( $this->now_playing() === false)
+        return false;      
       
       // Are we capturing the stream?
       $capture     = (!empty($capture_dir) && is_writable($capture_dir));
