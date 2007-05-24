@@ -137,8 +137,8 @@ function movie_lookup()
 function movie_display_list($movie_list)
 {
   echo '<table class="form_select_tab" width="100%"><tr>
-          <th width="3%">&nbsp;</th>
-          <th width="34%"> '.str('Title').' </th>
+          <th width="4%">&nbsp;</th>
+          <th width="33%"> '.str('Title').' </th>
           <th width="21%"> '.str('Actor').' </th>
           <th width="21%"> '.str('Director').' </th>
           <th width="21%"> '.str('Genre').' </th>
@@ -155,8 +155,8 @@ function movie_display_list($movie_list)
     $cert      = db_value("select name from certificates where cert_id=".nvl($movie["CERTIFICATE"],-1));
 
     echo '<table class="form_select_tab" width="100%"><tr>
-          <td valign="top" width="3%"><input type="checkbox" name="movie[]" value="'.$movie["FILE_ID"].'"></input><td>
-          <td valign="top" width="34%">
+          <td valign="top" width="4%"><input type="checkbox" name="movie[]" value="'.$movie["FILE_ID"].'"></input></td>
+          <td valign="top" width="33%">
              <a href="?section=movie&action=display_info&movie_id='.$movie["FILE_ID"].'">'.$movie["TITLE"].'</a><br>
              Certificate : '.nvl($cert).'<br>
              Year : '.nvl($movie["YEAR"]).'<br>
@@ -553,7 +553,7 @@ function movie_info( $message = "")
   form_hidden('refresh','YES');
   echo '<p>&nbsp;<br><b>'.str('EXTRA_REFRESH_TITLE').'</b>
         <p>'.str('EXTRA_REFRESH_DETAILS').'
-        <p><span class="stdformlabel">'.str('EXTRA_REFRESH_WARNING','"'.str('ORG_TITLE').'"').'</span>'.'<br>&nbsp;';
+        <p><span class="stdformlabel">'.str('EXTRA_REFRESH_WARNING','"'.str('ORG_TITLE')'"').'</span>'.'<br>&nbsp;';
   form_submit(str('EXTRA_REFRESH_GO'),2,'Left',240);
   form_end();
 }
