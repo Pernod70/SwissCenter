@@ -126,7 +126,7 @@ class test_summary
         $this->sections[$section]["failed_web"][] = $fail;
       elseif ($cli && !$this->results->cli_result($key))
         $this->sections[$section]["failed_cli"][] = $fail;
-      else 
+      else
         $this->sections[$section]["passed"][] = $pass;
     }
     else 
@@ -263,13 +263,16 @@ function check_display()
   # ----------------------
 
   $musicip = $component_tests->add_section("MusicIP",1);
-  $component_tests->add_test( $musicip,"MUSICIP api",str('PASS_MUSICIP_TEST'),str('FAIL_MUSICIP_TEST').'<p>'.str('MIP_DESC','<a href="http://www.musicip.com">www.musicip.com</a>'));
-  if ( $results->result('MUSICIP api'))
-    $component_tests->add_test( $musicip,"MUSICIP mixable",str('PASS_MIP_MIXABLE'),str('FAIL_MIP_MIXABLE'));
+  $component_tests->add_test( $musicip,"MUSICIP api",str('PASS_MUSICIP_TEST'),str('FAIL_MUSICIP_TEST').'<p>'.str('MIP_DESC','<a href="http://www.musicip.com">www.musicip.com</a>'),FALSE);
+  if ( $results->web_result('MUSICIP api'))
+    $component_tests->add_test( $musicip,"MUSICIP mixable",str('PASS_MIP_MIXABLE'),str('FAIL_MIP_MIXABLE'),FALSE);
 
-  $iradio = $component_tests->add_section("Internet Radio Parser",2);
-  $component_tests->add_test( $iradio,"ShoutCast parser",str('PASS_SHOUTCAST_TEST'),str('FAIL_SHOUTCAST_TEST').'<p>'.str('IRADIO_SHOUTCAST_DESC','<a href="http://www.shoutcast.com/">www.shoutcast.com</a>'),FALSE);
-  $component_tests->add_test( $iradio,"LiveRadio parser",str('PASS_LIVERADIO_TEST'),str('FAIL_LIVERADIO_TEST').'<p>'.str('IRADIO_LIVERADIO_DESC','<a href="http://www.live-radio.net/">www.live-radio.net</a>'),FALSE);
+  if (internet_available())
+  {
+    $iradio = $component_tests->add_section("Internet Radio Parser",2);
+    $component_tests->add_test( $iradio,"ShoutCast parser",str('PASS_SHOUTCAST_TEST'),str('FAIL_SHOUTCAST_TEST').'<p>'.str('IRADIO_SHOUTCAST_DESC','<a href="http://www.shoutcast.com/">www.shoutcast.com</a>'),FALSE);
+    $component_tests->add_test( $iradio,"LiveRadio parser",str('PASS_LIVERADIO_TEST'),str('FAIL_LIVERADIO_TEST').'<p>'.str('IRADIO_LIVERADIO_DESC','<a href="http://www.live-radio.net/">www.live-radio.net</a>'),FALSE);
+  }
 
   # ----------------------
 
