@@ -48,8 +48,12 @@
     $buttons = array();
     $buttons[] = array('text' => str('QUICK_PLAY'),'url'  => quick_play_link(MEDIA_TYPE_VIDEO,$_SESSION["history"][0]["sql"]));
     $buttons[] = array('text' => str('FILTER'),'url'  => 'get_filter.php?return='.urlencode('video.php?cat='.$cat_id));
-    page_footer('video.php', $buttons);
-                                        
+
+    // Make sure the "back" button goes to the correct page:
+    if (category_count(MEDIA_TYPE_VIDEO)==1)
+      page_footer('index.php', $buttons);
+    else
+      page_footer('video.php', $buttons);                                        
   }
   
 /**************************************************************************************************
