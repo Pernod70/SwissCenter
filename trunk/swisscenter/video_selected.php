@@ -23,21 +23,25 @@
     $directors = db_toarray("select d.director_name from directors_of_movie dom, directors d where dom.director_id = d.director_id and dom.movie_id=$movie");
     $actors    = db_toarray("select a.actor_name from actors_in_movie aim, actors a where aim.actor_id = a.actor_id and aim.movie_id=$movie");
     $genres    = db_toarray("select g.genre_name from genres_of_movie gom, genres g where gom.genre_id = g.genre_id and gom.movie_id=$movie");
+    $scheme    = get_rating_scheme_name();
+    $cert_img  = SC_LOCATION.'images/ratings/'.$scheme.'/'.get_cert_name( get_nearest_cert_in_scheme($info["CERTIFICATE"], $scheme)).'.gif';
+    $synlen    = 3500;
     
+    // This is a temporary fixkludge until the font sizing in the shorten() function is fixed.
+    if ( is_screen_hdtv()) $synlen = 7000;    
+       
     if (!empty($info["CERTIFICATE"]))
-      $cert = '('.get_cert_name( get_nearest_cert_in_scheme( $info["CERTIFICATE"], get_rating_scheme_name() ) ).')';
-    
-    echo font_colour_tags('PAGE_TITLE_COLOUR',str('TITLE')).' : '.shorten($info["TITLE"].$cert,721).'<p>';
-    
+      echo img_gen($cert_img,convert_x(180),convert_y(180),false,false,false,array("align"=>"right"));
+
     if ( !is_null($info["SYNOPSIS"]) )
     {
-      echo '<p>'.shorten($info["SYNOPSIS"],850,3);
-
-      if ( !is_null($info["YEAR"]) )
-        echo " [".$info["YEAR"]."]";
+      
+      echo '<p>'.font_tags(30).shorten($info["SYNOPSIS"],$synlen).'</font>';
     }
     else 
-      echo str('NO_SYNOPSIS_AVAILABLE');
+      echo font_tags(30).str('NO_SYNOPSIS_AVAILABLE').'</font>';
+      
+      
   }
   
   // Function that checks to see if the given attribute ($filter) is unique, and if so it
@@ -104,7 +108,10 @@
     if ( ($data = db_toarray("select media.*, a.actor_name, d.director_name, g.genre_name, ".get_cert_name_sql()." certificate_name from $sql_table $predicate")) === false)
       page_error( str('DATABASE_ERROR'));
 
-    page_header( $data[0]["TITLE"] ,'');
+    if (!empty($data[0]["YEAR"]))
+      page_header( $data[0]["TITLE"].' ('.$data[0]["YEAR"].')' ,'');
+    else 
+      page_header( $data[0]["TITLE"] );
 
     // Play now
     $menu->add_item( str('PLAY_NOW')    , play_sql_list(MEDIA_TYPE_VIDEO,"select distinct $select_fields from $sql_table $predicate order by title"));
@@ -125,8 +132,7 @@
     // Link to full cast & directors
     // $menu->add_item( str('MOVIE_INFO'), 'video_info.php?movie='.$data[0]["FILE_ID"],true);
     
-    // Display movie information and determine thumbnail
-    movie_details($data[0]["FILE_ID"]);
+    // Display thumbnail
     $folder_img = file_albumart($data[0]["DIRNAME"].$data[0]["FILENAME"]);
   }
 
@@ -164,13 +170,13 @@
   if (! empty($folder_img) )
   {
     echo '<p><table width="100%" cellpadding=0 cellspacing=0 border=0>
-          <tr><td valign=top width="'.convert_x(290).'" align="center">
-              <table width="100%"><tr><td height="'.convert_y(10).'"></td></tr><tr><td valign=top>
-                <center>'.img_gen($folder_img,250,300).'</center>
-              </td></tr></table></td>
+          <tr><td valign=top width="'.convert_x(280).'" align="left">
+              '.img_gen($folder_img,280,600).'
+              </td><td width="'.convert_x(20).'"></td>
               <td valign="top">';
+              movie_details($data[0]["FILE_ID"]);
               $menu->display(480);
-    echo '    </td></td></table>';
+    echo '    </td></table>';
   }
   else
   {

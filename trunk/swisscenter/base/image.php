@@ -631,14 +631,17 @@ class CImage
                    
           // Output the image
           header("Content-type: image/jpeg");
+          send_to_log(8,"Outputting JPEG image");
           imagejpeg($copy);
           break;
         case 'png':
           header("Content-type: image/png");
+          send_to_log(8,"Outputting PNG image");
           imagepng($this->image);
           break;
         case 'gif':
           header("Content-type: image/gif");
+          send_to_log(8,"Outputting GIF image");
           imagegif($this->image);
           break;
       }

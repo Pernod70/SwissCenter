@@ -344,12 +344,17 @@ function movie_update_form_single()
   $g_select = db_col_to_list("select genre_id from genres_of_movie where movie_id=".$movie_id);
 
   // Display movies that will be affected.
-  echo '<h1>'.$details[0]["TITLE"].'</h1>
+  echo '<h1>'.str('DETAILS_EDIT').'</h1>
         <form enctype="multipart/form-data" action="" method="post">
         <input type=hidden name="section" value="MOVIE">
         <input type=hidden name="action" value="UPDATE_SINGLE">
         <input type=hidden name="movie[]" value="'.$movie_id.'">
-        <table class="form_select_tab" width="100%" cellspacing=4><tr><td colspan="3" align="center">&nbsp<br>
+        <table class="form_select_tab" width="100%" cellspacing=4>
+        <tr><th colspan="32 align=center">'
+        .str('TITLE').'
+        </th></tr>
+        <tr><td colspan="3"><input name="title" size=90 value="'.$details[0]["TITLE"].'"></td></tr>
+        <tr><td colspan="3" align="center">&nbsp<br>
         '.str('MOVIE_ADD_PROMPT').'
         <br>&nbsp;</td></tr><tr>
         <th width="33%">'.str('ACTOR').'</th>
@@ -482,6 +487,8 @@ function movie_update_multiple()
     $columns["CERTIFICATE"] = $_REQUEST["rating"];
   if (!empty($_REQUEST["synopsis"]))
     $columns["SYNOPSIS"] = $_REQUEST["synopsis"];
+  if (!empty($_REQUEST["title"]))
+    $columns["TITLE"] = $_REQUEST["title"];
 
   // Update the MOVIES table?
   if (count($columns)>0)

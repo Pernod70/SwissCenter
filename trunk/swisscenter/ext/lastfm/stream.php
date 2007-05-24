@@ -4,6 +4,7 @@
  *************************************************************************************************/
 
   require_once( realpath(dirname(__FILE__).'/../../base/page.php'));
+  require_once( realpath(dirname(__FILE__).'/../../base/image.php'));
   require_once( realpath(dirname(__FILE__).'/../../base/image_screens.php'));
   require_once( realpath(dirname(__FILE__).'/lastfm.php'));
  
@@ -25,7 +26,7 @@
     header('Content-Type: audio/x-scpls');
     echo "[playlist]\n";
     echo "NumberOfEntries=1\n";
-    echo "File1=".server_address()."ext/lastfm/stream.php?".current_session()."\n";
+    echo "File1=".server_address()."ext/lastfm/stream.php?".current_session()."&station=".$_REQUEST["station"]."\n";
     echo "Title1=LastFM Radio Station\n";
     echo "Length1=-1\n";
     echo "Version=2\n";
@@ -36,9 +37,8 @@
     
     // Contacts lastfm and then displays a "Now Playing" screen.
     $lastfm = new lastfm();
-
-    if ($lastfm->login( get_user_pref('LASTFM_USERNAME') , get_user_pref('LASTFM_PASSWORD') ))
-      $info = $lastfm->now_playing();
+    $lastfm->login( get_user_pref('LASTFM_USERNAME'),get_user_pref('LASTFM_PASSWORD'));
+    $info = $lastfm->now_playing();
 
     // Generate and display the "Now Playing" screen.    
     $image = now_playing_image( array( "LENGTH"=>$info["trackduration"]
@@ -54,16 +54,13 @@
   else 
   {
     // Acts as a proxy and streams the lastfm music to the showcenter
-    $lastfm = new lastfm();
+    $lastfm  = new lastfm();
+    $station = $_REQUEST["station"];
+    
     if ($lastfm->login( get_user_pref('LASTFM_USERNAME') , get_user_pref('LASTFM_PASSWORD') ))
-      if ($lastfm->tune_to_station( 'lastfm://globaltags/pop' ))
-        $lastfm->stream( 600, 'E:\audio\capture' );
+      if ($lastfm->tune_to_station( $station) )
+        $lastfm->stream( 86400 );
   }
-
-// This is the link that needs to be generated to play a station
-//  echo '<a href="http://192.168.0.3:8080/ext/lastfm/stream.php?'.current_session().'&generate_pls&x=.pls" '.
-//        'pod="1,1,http://192.168.0.3:8080/ext/lastfm/stream.php?'.current_session().'&image_list">LastFM</a>';
-
   
 /**************************************************************************************************
                                                End of file
