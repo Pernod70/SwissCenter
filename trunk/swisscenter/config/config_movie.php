@@ -233,6 +233,8 @@ function movie_display( $message = '')
   echo '<h1>'.str('ORG_TITLE').'  ('.str('PAGE',$page).')</h1>';
   message($message);
   
+  $this_url = '?last_where='.$where.'&search='.$_REQUEST["search"].'&cat_id='.$_REQUEST["cat_id"].'&section=MOVIE&action=DISPLAY&page=';
+
   echo '<form enctype="multipart/form-data" action="" method="post">
         <table width="100%"><tr><td width="50%">
         <input type=hidden name="section" value="MOVIE">
@@ -240,8 +242,8 @@ function movie_display( $message = '')
         <input type=hidden name="last_where" value="'.$where.'">
         '.str('CATEGORY').' : 
         '.form_list_dynamic_html("cat_id","select cat_id,cat_name from categories",$_REQUEST["cat_id"],true,true,str('CATEGORY_LIST_ALL')).'&nbsp;
-        <a href="'.url_set_param(current_url(),'list','LIST').'"><img align="absbottom" border="0"  src="/images/details.gif"></a>
-        <a href="'.url_set_param(current_url(),'list','THUMBS').'"><img align="absbottom" border="0" src="/images/thumbs.gif"></a>  
+        <a href="'.url_set_param($this_url,'list','LIST').'"><img align="absbottom" border="0"  src="/images/details.gif"></a>
+        <a href="'.url_set_param($this_url,'list','THUMBS').'"><img align="absbottom" border="0" src="/images/thumbs.gif"></a>  
         </td><td width"50%" align="right">
         '.str('SEARCH').' : 
         <input name="search" value="'.$_REQUEST["search"].'" size=10>
@@ -252,16 +254,14 @@ function movie_display( $message = '')
         <input type=hidden name="section" value="MOVIE">
         <input type=hidden name="action" value="UPDATE">';
 
-  paginate('?last_where='.$where.'&search='.$_REQUEST["search"].'&cat_id='.$_REQUEST["cat_id"].'&section=MOVIE&action=DISPLAY&page='
-          ,$movie_count,$per_page,$page);
+  paginate($this_url,$movie_count,$per_page,$page);
 
   if ($list_type == 'THUMBS')
     movie_display_thumbs($movie_list);
   else
     movie_display_list($movie_list);
           
-  paginate('?last_where='.$where.'&search='.$_REQUEST["search"].'&cat_id='.$_REQUEST["cat_id"].'&section=MOVIE&action=DISPLAY&page='
-          ,$movie_count,$per_page,$page);
+  paginate($this_url,$movie_count,$per_page,$page);
 
   echo '<p><table width="100%"><tr><td align="center">
         <input type="Submit" name="subaction" value="'.str('DETAILS_EDIT').'"> &nbsp; 
