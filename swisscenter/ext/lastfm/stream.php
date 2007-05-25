@@ -39,13 +39,17 @@
     $lastfm = new lastfm();
     $lastfm->login( get_user_pref('LASTFM_USERNAME'),get_user_pref('LASTFM_PASSWORD'));
     $info = $lastfm->now_playing();
+    
+    // Get artist picture list
+    $photos = $lastfm->artist_images($info["artist"]);
+    send_to_log(1,'Artist photos',$photos);
 
     // Generate and display the "Now Playing" screen.    
     $image = now_playing_image( array( "LENGTH"=>$info["trackduration"]
                               , "ALBUMART"=>$info["albumcover_large"]
                               , "TITLE"=>$info["track"]
                               , "ARTIST"=>$info["artist"]
-                              , "ALBUM"=>$info["album"]) );
+                              , "ALBUM"=>$info["album"]),'','','',$photos );
 
     // Output the image to the browser
     $image->output('jpeg');

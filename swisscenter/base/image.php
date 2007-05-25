@@ -55,12 +55,12 @@ function image_get_scaled_xy(&$x,&$y,$box_x,$box_y)
 { 
   if ($x >0 && $y >0 && $box_x>0 && $box_y>0)
   {
-    if ( ($box_x/$x*$y > $box_y) )
+    if ( $box_x/$x*$y >= $box_y )
     {
       $newx = floor($box_y / $y * $x);
       $newy = $box_y;
     }
-    elseif ( ($box_y/$y*$x > $box_x) )
+    elseif ( $box_y/$y*$x >= $box_x )
     {
       $newx = $box_x;
       $newy = floor($box_x / $x * $y);
@@ -100,8 +100,7 @@ function preferred_resize( &$dimg, &$simg, $dx, $dy, $sx, $sy, $dw, $dh, $sw, $s
 function download_and_cache_image( $url)
 {
   $filename = get_sys_pref('cache_dir').'/SwissCenter_download_'.md5($url).'_'.date('YmdH').'.'.file_ext($url);
-  file_download_and_save($url, $filename);
-  return $filename;
+  return (file_download_and_save($url, $filename) ? $filename : false);
 }
 
 // -------------------------------------------------------------------------------------------------
@@ -328,8 +327,7 @@ class CImage
     }
     
     if ( is_file($filename))
-    {
-      
+    {      
       switch (strtolower(file_ext($filename)))
       {
         case 'jpg':
@@ -358,6 +356,8 @@ class CImage
         $this->exif_data = exif($this->src_fsp);
       }
     }
+    
+    return $this->image;
   }
 
   // -------------------------------------------------------------------------------------------------
@@ -444,12 +444,31 @@ class CImage
   {
     if ($this->image !== false)
     {
+      send_to_log(8,"Copying image to ($dest_x,$dest_y)");
       ImageAlphaBlending( $this->image, true);
       ImageCopy ( $this->image,  $src_image->get_image_ref() , $dest_x, $dest_y, 0,0, $src_image->get_width(), $src_image->get_height());
       $this->src_fsp  = false;
     }
   }
  
+  // -------------------------------------------------------------------------------------------------
+  // Resizes an image to fit a particular width or height.
+  // -------------------------------------------------------------------------------------------------
+
+  function resize_to_height($y, $rs_mode = '', $border_colour = false)
+  {
+    $x = floor($this->get_width() * ($y/$this->get_height()));
+    send_to_log(8,"Calculating width of image to fit a height of $y. New image size is ($x,$y)");
+    $this->resize($x,$y,0,true,$rs_mode,$border_colour);    
+  }
+  
+  function resize_to_width($w, $rs_mode = '', $border_colour = false)
+  {
+    $y = floor($this->get_height() * ($x/$this->get_width()));
+    send_to_log(8,"Calculating width of image to fit a width of $x. New image size is ($x,$y)");
+    $this->resize($x,$y,0,true,$rs_mode,$border_colour);    
+  }
+
   // -------------------------------------------------------------------------------------------------
   // Resizes the current image to the given X,Y dimensions. If $keep_aspect is true, then the image
   // will be scaled to the given X,Y size, but the aspect ratio will be maintained.
@@ -480,7 +499,9 @@ class CImage
       ImageSaveAlpha($this->image, true);
       $bgcolour = $this->allocate_colour(0,0,0,127);
       imagefill($this->image,0,0,$bgcolour);
+      send_to_log(8,"Built temporary image");
       preferred_resize($this->image, $old, ($x-$newx)/2, ($y-$newy)/2, 0, 0, $newx, $newy, $this->width, $this->height, $rs_mode);
+      send_to_log(8,"Resized/Stretched image");
 
       if ( $border_colour !== false)
         $this->rectangle( ($x-$newx)/2, ($y-$newy)/2, $newx-1, $newy-1,  $border_colour, false);

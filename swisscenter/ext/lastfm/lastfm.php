@@ -129,7 +129,7 @@
           elseif ($this->get_pattern('/streaming=(.*)\n?/i',$response) == "false")
           {
             send_to_log(6,'Attempt '.$i.': LastFM is not streaming (or is unavailable).');
-            sleep(2);            
+            sleep(3);            
           }
           else 
             break;
@@ -192,7 +192,7 @@
       {          
         while ( !feof($stream) && time() <= $time_end && (connection_status() == CONNECTION_NORMAL) )
         {
-            $fbuf = fread($stream,32*1024);
+            $fbuf = fread($stream,8*1024);
             $fbytessofar += strlen($fbuf);
 
             if ( strpos($fbuf,'SYNC') !== false)
@@ -223,11 +223,14 @@
     
     function artist_images( $artist, $original = false )
     {
+      send_to_log(5,'Looking up artist : '.$artist);
       $pics = array();
       $urls = array();
       
-      // $html = @file_get_contents('http://www.last.fm/music/'.urlencode($artist).'/+images');
-      $html = @file_get_contents('c:\test.html');
+      if (empty($artist))
+        return $pics;
+      
+      $html = @file_get_contents('http://www.last.fm/music/'.urlencode($artist).'/+images');
       if ($html === false)
         send_to_log(2,'Failed to access artist details on LastFM (details may not be available).');
       else

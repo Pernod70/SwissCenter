@@ -30,8 +30,59 @@
       
     $y += $font_size;
   }
+
+  //------------------------------------------------------------------------------------------------
+  // Adds a bar of images at the specified co-ordinates.
+  //------------------------------------------------------------------------------------------------
   
-  function now_playing_image( $current_track, $previous_track = '', $next_track = '', $tracks = '' )
+  function image_rand_pics( &$dest_img, $x, $y, $width, $height, $border_col, $images)
+  {
+    $chosen_photos = array();
+    $total_width = convert_x($width,SCREEN_COORDS);
+    
+    $count = 0;
+    while ($count < count($images))
+    {
+      $artist_photo = new CImage();
+      $count++;
+      
+      $pic_num = rand(0,count($images)-1);
+      $pic_fsp = download_and_cache_image($images[$pic_num]);        
+      if ($pic_fsp !== false)
+      {
+        array_splice($images,$pic_num,1);
+        if ( @$artist_photo->load_from_file( $pic_fsp) !== false)
+        {
+          @$artist_photo->resize_to_height( convert_y($height,SCREEN_COORDS), '', $border_col );
+          if ($total_width - $artist_photo->get_width() - convert_x(10,SCREEN_COORDS) > 0)
+          {
+            $chosen_photos[] = $artist_photo;
+            $total_width = $total_width - $artist_photo->get_width() - convert_x(10,SCREEN_COORDS);         
+          }
+          else 
+            break;
+        }
+      }
+    }
+    
+    if (count($chosen_photos)>0)
+    {
+      send_to_log(8,"Displaying ".count($chosen_photos)." of ".(count($images)+count($chosen_photos))." images in a row");
+      $spacing = floor(convert_x(10,SCREEN_COORDS) + $total_width/(count($chosen_photos)));
+      $start_x = convert_x($x,SCREEN_COORDS) + floor($spacing/2);
+      foreach ($chosen_photos as $artist_photo)
+      {
+        @$dest_img->copy($artist_photo, $start_x, convert_y($y,SCREEN_COORDS));          
+        $start_x = $start_x + $artist_photo->get_width() + $spacing;
+      }
+    }    
+  }
+
+  //------------------------------------------------------------------------------------------------
+  // Outputs a "Now Playing" image
+  //------------------------------------------------------------------------------------------------
+  
+  function now_playing_image( $current_track, $previous_track = '', $next_track = '', $tracks = '', $photos = '' )
   {
     $image     = new CImage();  
     $artfile   = new CImage();  
@@ -91,7 +142,7 @@
     # -----------------
     
     $label_text_size  = font_size( 25, SCREEN_COORDS);
-    $detail_text_size = font_size( 20, SCREEN_COORDS);  
+    $detail_text_size = font_size( 22, SCREEN_COORDS);  
     $label_text_col   = hexdec(style_value('NOW_LABEL_COLOUR','#000000'));
     $detail_text_col  = hexdec(style_value('NOW_DETAIL_COLOUR','#000000'));
   
@@ -120,7 +171,7 @@
     }
     
     # ------------------------
-    # Playing time Information
+    # Prev/Next track
     # ------------------------
     
     $time_text_width		 = convert_x(840,SCREEN_COORDS);
@@ -148,7 +199,18 @@
     	wrap($image, str('MUSIC_PLAY_NEXT').': ', $time_text_x, $time_text_y, $time_text_width, $title_text_col,  $detail_text_size);  	
     	wrap($image, $nextsong, $time_text_x+$x, $y, $time_text_width-$x, $detail_text_col,  $detail_text_size);
     }   
+
+    # ------------------------
+    # Photos
+    # ------------------------
     
+    if ( !is_array($previous_track) && !is_array($next_track) && is_array($photos))
+      image_rand_pics($image, 75, convert_tolog_y($time_text_y,SCREEN_COORDS)-20, 850, 120, $border_col, $photos);
+          
+    # ------------------------
+    # Playing time Information
+    # ------------------------    
+      
     // Time for this track
     if ($current_track["LENGTH"]>0)
     {
