@@ -50,10 +50,10 @@
                    '&passwordmd5='.$md5_password.
                    '&debug=0&partner=';
                    
-      send_to_log(1,"Attempting to login with username '$username' and encrypted password '$md5_password'");
+      send_to_log(5,"Attempting to login with username '$username' and encrypted password '$md5_password'");
       if ( ($response = file_get_contents($login_url)) === false)
       {
-        send_to_log(1,'Failed to access the login URL');
+        send_to_log(2,'Failed to access the login URL');
         return false;
       }
       
@@ -62,11 +62,11 @@
       
       if ($this->session_id == 'FAILED')
       {
-        send_to_log(1,'Authentication failed');
+        send_to_log(2,'Authentication failed');
         return false;
       }
       
-      send_to_log(1,'Successfully authenticated',array("Session"=>$this->session_id, "Stream URL"=>$this->stream_url) );
+      send_to_log(6,'Successfully authenticated',array("Session"=>$this->session_id, "Stream URL"=>$this->stream_url) );
       return true;
     }
     
@@ -85,21 +85,21 @@
                   '&url='.$station_enc.
                   '&debug=0'; 
   
-      send_to_log(1,'Attempting to change station: '.$station);            
+      send_to_log(5,'Attempting to change station: '.$station);            
       if ( ($response = file_get_contents($tune_url)) === false)
       {
-        send_to_log(1,'Failed to access the station changing URL');
+        send_to_log(2,'Failed to access the station changing URL');
         return false;
       }
       
       if ( strpos($this->get_pattern('/response=(.*)/i',$response),'OK' === false) )
       {
-        send_to_log(1,'Failed to change station.');
+        send_to_log(2,'Failed to change station.');
         return false;
       }
       else 
       {
-        send_to_log(1,'Tuned into station: ');
+        send_to_log(6,'Tuned into station: ');
         return true;
       }
     }
@@ -117,18 +117,18 @@
                    '?session='.$this->session_id.
                    '&debug=0';
                    
-      send_to_log(1,'Attempting to obtain now playing information');            
+      send_to_log(5,'Attempting to obtain now playing information');            
 
       for ($i=1; $i<=5; $i++)
       {
           if ( ($response = file_get_contents($playing_url)) === false)
           {
-            send_to_log(1,'Failed to access the now playing URL.');
+            send_to_log(2,'Failed to access the now playing URL.');
             return false;
           }
           elseif ($this->get_pattern('/streaming=(.*)\n?/i',$response) == "false")
           {
-            send_to_log(5,'Attempt '.$i.': LastFM is not streaming (or is unavailable).');
+            send_to_log(6,'Attempt '.$i.': LastFM is not streaming (or is unavailable).');
             sleep(2);            
           }
           else 
@@ -145,14 +145,14 @@
           $data[$values[0]] = $values[1];
       }
       
-      send_to_log(1,'Now playing information',$data);
+      send_to_log(8,'Now playing information',$data);
       
       if ( $data["streaming"] == "false")
         return false;
       else
         return $data;
     }
-      
+    
     /**
      * Function to access the LastFM stream and send it on to the end user.
      *
@@ -171,7 +171,7 @@
       session_write_close();
       set_time_limit($duration+5);
       
-      send_to_log(1,'Attempting to stream',$this->stream_url);
+      send_to_log(5,'Attempting to stream',$this->stream_url);
       $time_end = time()+$duration;
       
       // Open the stream
@@ -212,6 +212,45 @@
       if ($capture) 
         @fclose($file);    
     }       
+
+    /**
+     * Returns an array of URLs pointing to pictures of the given artist. 
+     *
+     * @param string $artist
+     * @param boolean $original - Returns either the original images (true) or thumbnails (false)
+     * @return array (of URLs)
+     */
+    
+    function artist_images( $artist, $original = false )
+    {
+      $pics = array();
+      $urls = array();
+      
+      // $html = @file_get_contents('http://www.last.fm/music/'.urlencode($artist).'/+images');
+      $html = @file_get_contents('c:\test.html');
+      if ($html === false)
+        send_to_log(2,'Failed to access artist details on LastFM (details may not be available).');
+      else
+      {
+        if ($urls = preg_match_all('#<a[^>]*href="([^"]*proposed[^"]*)"[^<]*<img[^>]*src="([^"]*proposed[^"]*)"#i',$html,$matches) === false)
+          send_to_log(5,'No photos found for "'.$artist.'"');
+        else 
+        {
+          for ($i=0; $i<count($matches[1]); $i++)
+          {
+            // Original or thumbnail image?
+            if ($original)          
+              $pics[] = $matches[1][$i];
+            else
+              $pics[] = $matches[2][$i];
+          }
+        }
+      }
+
+      // Return the array of URLs
+      return $pics;
+    }
+      
   }    
-  
+
 ?>
