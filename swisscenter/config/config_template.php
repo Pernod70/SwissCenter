@@ -13,7 +13,6 @@
   <link rel="stylesheet" type="text/css" media="screen" href="slider.css" />
   <script type="text/javascript" src="slider.js"></script>
   <script type="text/javascript" src="sdmenu.js"></script>
-  <script type="text/javascript" src="config.js"></script>
 	<script type="text/javascript">
   	var myMenu;
   	window.onload = function() 
