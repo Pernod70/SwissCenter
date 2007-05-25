@@ -107,6 +107,7 @@ function tvid( $code )
          break;
          
     case 'ELGATO':
+    case 'BUFFALO':
     case 'NEUSTON':
           $map = array( 'KEY_A'     => 'red'
                       , 'KEY_B'     => 'green'
