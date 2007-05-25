@@ -32,7 +32,7 @@
     form_start('index.php', 150, 'conn');
     form_hidden('section', 'SUPPORT');
     form_hidden('action', 'SET_DEBUG');
-    form_list_static('debug',str('DEBUG_MODE'), $list ,( (int)$log_mode>1 ? $log_mode:5),false,false);
+    form_list_static('debug',str('DEBUG_MODE'), $list ,( (int)$log_mode>=1 ? $log_mode:5),false,false);
     form_label(str('DEBUG_MODE_PROMPT'));
     form_submit(str('SAVE_SETTINGS'), 2);
     form_end();
