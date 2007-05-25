@@ -560,6 +560,7 @@ function file_download_and_save( $url, $filename, $overwrite = false )
         {
           @fwrite($out, $img);
           @fclose($out);
+          return true;
         }
         else 
           send_to_log(4,'Error : Unable to create Local file.');
@@ -568,10 +569,15 @@ function file_download_and_save( $url, $filename, $overwrite = false )
         send_to_log(4,'Error : Unable to download remote file.');
     }
     else 
+    {
       send_to_log(4,'Error : Local file exists (overwrite option not specified).');
+      return true;
+    }
   }
   else 
     send_to_log(4,'Error : The file specified is not a remote file.');
+    
+  return false;
 }
 
 //-------------------------------------------------------------------------------------------------

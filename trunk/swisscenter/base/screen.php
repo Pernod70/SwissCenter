@@ -128,6 +128,24 @@ function convert_y( $y, $coords = BROWSER_COORDS )
     return ceil($_SESSION["device"]["browser_y_res"] * $y / 1000);  
 }
 
+function convert_tolog_x( $x, $coords = BROWSER_COORDS )
+{
+  get_screen_type();  
+  if ( $coords == SCREEN_COORDS )
+    return ceil(1000 * $x / $_SESSION["device"]["screen_x_res"]);
+  else
+    return ceil(1000 * $x / $_SESSION["device"]["browser_x_res"]);
+}
+
+function convert_tolog_y( $y, $coords = BROWSER_COORDS )
+{
+  get_screen_type(); 
+  if ( $coords == SCREEN_COORDS )
+    return ceil(1000 * $y / $_SESSION["device"]["screen_y_res"]);  
+  else
+    return ceil(1000 * $y / $_SESSION["device"]["browser_y_res"]);  
+}
+
 #-------------------------------------------------------------------------------------------------
 # Returns the size (in pixels) given a size in logical coordinates
 #-------------------------------------------------------------------------------------------------

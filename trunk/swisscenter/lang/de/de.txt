@@ -33,6 +33,11 @@
 
 LANGUAGE		= Deutsch
 
+# Note: In some versions of Windows, the "Task Scheduler" service has been renamed. This appears to be
+#       the case with the German version. The string below overrides the name that Swisscenter looks for
+
+TASK_SCHEDULER          = taskplaner
+
 # Translated by Bernhard Gschwantner, swisscenter.co.uk@datenbankdesign.com
 
 # Mappings
