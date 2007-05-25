@@ -6,7 +6,7 @@
 
 <html>
 <head>
-  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  <meta http-equiv="content-type" content="text/html;charset=Windows-1252" />
   <title>SwissCenter Config</title>
   <link rel="stylesheet" type="text/css" media="screen" href="sdmenu.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="config.css" />

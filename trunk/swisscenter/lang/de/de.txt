@@ -665,6 +665,10 @@ IRADIO_LIVERADIO_DESC      = LiveRadio (%s) ist ein Internet-Radio Service ähnli
 
 ADVANCED_OPTIONS           = Erweiterte Optionen
 MEDIA_REFRESH              = Suche nach neuen Medien
+VIEWED_BY                  = Betrachtet von
+IRADIO_NO_STATIONS         = Keine Stationen gefunden.
+IRADIO_NO_STATIONS_MSG     = Es konnten keine Stationen zum Suchbegriff '%s' gefunden werden.
+BROWSE_OPTIONS             = Browse Optionen
 
 #----------------------------------------------------------------------------------------------------
 # End-of-file
