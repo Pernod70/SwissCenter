@@ -3,8 +3,6 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-require_once( realpath(dirname(__FILE__).'/../../private/db_prefs.php'));
-
 #-------------------------------------------------------------------------------------------------
 # Converts all keys to uppercase
 #  array     - The array to work on
@@ -36,19 +34,21 @@ function db_datestr( $time = '')
 
 function db_escape_str( $text )
 {
-  return stripslashes($text);
+  return mysql_real_escape_string($text);
 }
 
 #-------------------------------------------------------------------------------------------------
 # Tests the connection to the database using the details provided 
 #-------------------------------------------------------------------------------------------------
 
-function test_db($host, $username, $password, $database)
+function test_db($host = DB_HOST , $username = DB_USERNAME , $password = DB_PASSWORD , $database = DB_DATABASE)
 {
-  if (! $this->db_handle = @mysql_pconnect( $host, $username, $password))
-    return "!Unable to connect to MySQL using the Host, Username and Password Specified";
-  elseif (! mysql_select_db($database, $this->db_handle) )
-    return "!Connection to MySQL established, but unable to select the specified database";
+  if ( !defined('DB_HOST') || !defined('DB_USERNAME') || !defined('DB_PASSWORD') || !defined('DB_DATABASE'))
+    return 'FAIL';
+  elseif (! $db_handle = @mysql_pconnect( $host, $username, $password))
+    return '!'.str('DATABASE_NOCONNECT');
+  elseif (! mysql_select_db($database, $db_handle) )
+    return '!'.str('DATABASE_NOSELECT');
   else 
     return 'OK';
 }
@@ -61,7 +61,8 @@ function test_db($host, $username, $password, $database)
 
 function db_toarray( $sql)
 {
-  $data = array();  
+  $data = array();
+
   $recs    = new db_query( $sql );
   $success = $recs->db_success();
 
@@ -71,6 +72,19 @@ function db_toarray( $sql)
 
   $recs->destroy();
   return ($success ? $data : false );
+}
+
+#-------------------------------------------------------------------------------------------------
+# Searches the $col column of the $table table for the given $text.
+# If a matching row is found, then the $return_col column is returned, otherwise a null is returned.
+#-------------------------------------------------------------------------------------------------
+
+function db_lookup( $table, $col, $return_col, $text )
+{
+  if (db_value("select count(*) from $table where $col = '$text'") > 0)
+    return db_value("select $return_col from $table where $col = '$text'");
+  else
+    return null;
 }
 
 #-------------------------------------------------------------------------------------------------
@@ -123,10 +137,10 @@ function db_col_to_list( $sql)
 # Returns TRUE if the query completed successfully, otherwise the funtions returns FALSE 
 #-------------------------------------------------------------------------------------------------
 
-function db_sqlcommand ($sql)
+function db_sqlcommand ($sql, $log_errors = true)
 {
   $recs     = new db_query( $sql);
-  $success  = $recs->db_success();
+  $success  = $recs->db_success($log_errors);
   $recs->destroy();
   return ($success ? true : false );
 }
@@ -187,9 +201,6 @@ function db_value( $sql)
   $success = $recs->db_success();
   $result  = '';
 
-  if (!$success)
-    echo "Unable to query database - ".$recs->db_get_error();
-
   $result = @array_pop($recs->db_fetch_row());
   $recs->destroy();
 
@@ -244,7 +255,9 @@ function db_insert_row( $table, $fields )
     if     (!is_numeric($value) and empty($value))
       $vlist = $vlist.",null";
     elseif (is_string($value))
+    {
       $vlist = $vlist.",'".db_escape_str( un_magic_quote($value))."'";
+    }
     else
       $vlist = $vlist.",$value";
   }
@@ -277,6 +290,7 @@ class db_query
   var $db_handle;
   var $stmt_handle;
   var $rows_fetched;
+  var $sql_to_execute;
 
   #-------------------------------------------------------------------------------------------------
   # Constructor
@@ -284,16 +298,27 @@ class db_query
 
   function db_query($sql = '', $dbname = '')
   {
-    if ($dbname == '')
-      $dbname = DB_DATABASE;
-      
-    if ($this->db_handle = @mysql_pconnect( DB_HOST, DB_USERNAME, DB_PASSWORD ) )
+    if (!defined('DB_HOST'))
     {
-      if (mysql_select_db($dbname, $this->db_handle) )
+      $this->stmt_handle = false;
+    }
+    else
+    {
+    
+      if ($dbname == '')
+        $dbname = DB_DATABASE;
+        
+      if ($this->db_handle = @mysql_pconnect( DB_HOST, DB_USERNAME, DB_PASSWORD ) )
       {
-        $this->rows_fetched = 0;
-        if (! empty($sql) )
-         $this->stmt_handle = mysql_query( $sql, $this->db_handle);
+        if (mysql_select_db($dbname, $this->db_handle) )
+        {
+          $this->rows_fetched = 0;
+          if (! empty($sql) )
+          {
+            $this->sql_to_execute = $sql;
+            $this->stmt_handle = mysql_query( $sql, $this->db_handle);
+          }
+        }
       }
     }
   }
@@ -304,6 +329,7 @@ class db_query
 
   function destroy()
   {
+    @mysql_free_result($this->stmt_handle);  
     return true;
   }
 
@@ -331,17 +357,29 @@ class db_query
   #-------------------------------------------------------------------------------------------------
 
   function db_execute_sql($sql)
-  { return ( $this->stmt_handle = mysql_query( $sql, $this->db_handle) ); }
+  {
+    $this->sql_to_execute = $sql;
+    $this->stmt_handle = mysql_query($sql, $this->db_handle);
+    return $this->stmt_handle;
+  }
 
   function db_get_rows_fetched()
-  { return $this->rows_fetched; }
+  {
+    return $this->rows_fetched;
+  }
 
   function db_get_error()
-  { return mysql_error($this->db_handle); }
+  { 
+    if ($this->db_handle)
+      return mysql_error($this->db_handle);
+    else 
+      return '';
+  }
 
-  function db_success()
-  { return $this->stmt_handle; }
-
+  function db_success($log_error = true)
+  {     
+    return $this->stmt_handle;
+  }
 }
 
 /**************************************************************************************************
