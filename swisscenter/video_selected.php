@@ -23,16 +23,12 @@
     $directors = db_toarray("select d.director_name from directors_of_movie dom, directors d where dom.director_id = d.director_id and dom.movie_id=$movie");
     $actors    = db_toarray("select a.actor_name from actors_in_movie aim, actors a where aim.actor_id = a.actor_id and aim.movie_id=$movie");
     $genres    = db_toarray("select g.genre_name from genres_of_movie gom, genres g where gom.genre_id = g.genre_id and gom.movie_id=$movie");
-    $scheme    = get_rating_scheme_name();
-    $cert_img  = SC_LOCATION.'images/ratings/'.$scheme.'/'.get_cert_name( get_nearest_cert_in_scheme($info["CERTIFICATE"], $scheme)).'.gif';
     $synlen    = 3500;
     
     // This is a temporary fixkludge until the font sizing in the shorten() function is fixed.
     if ( is_screen_hdtv()) $synlen = 7000;    
-       
-    if (!empty($info["CERTIFICATE"]))
-      echo img_gen($cert_img,convert_x(180),convert_y(180),false,false,false,array("align"=>"right"));
 
+    // Synopsis
     if ( !is_null($info["SYNOPSIS"]) )
     {
       
@@ -96,6 +92,7 @@
   $predicate     = search_process_passed_params();
   $num_rows      = db_value("select count( distinct media.file_id) from $sql_table $predicate");
   $this_url      = url_set_param(current_url(),'add','N');
+  $cert_img      = '';
   
   //
   // A single movie has been matched/selected by the user, so display as much information as possible
@@ -165,13 +162,18 @@
 
     $info->display();
   }
+
+  // Certificate? Get the appropriate image.
+  $scheme    = get_rating_scheme_name();
+  if (!empty($data[0]["CERTIFICATE"]))
+    $cert_img  = img_gen(SC_LOCATION.'images/ratings/'.$scheme.'/'.get_cert_name( get_nearest_cert_in_scheme($data[0]["CERTIFICATE"], $scheme)).'.gif', convert_x(250), convert_y(180));
   
   // Is there a picture for us to display?
   if (! empty($folder_img) )
   {
     echo '<p><table width="100%" cellpadding=0 cellspacing=0 border=0>
           <tr><td valign=top width="'.convert_x(280).'" align="left">
-              '.img_gen($folder_img,280,600).'
+              '.img_gen($folder_img,280,550).'<br><center>'.$cert_img.'</center>
               </td><td width="'.convert_x(20).'"></td>
               <td valign="top">';
               movie_details($data[0]["FILE_ID"]);
