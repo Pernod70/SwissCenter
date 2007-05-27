@@ -259,6 +259,19 @@ function form_radio_static( $param, $prompt, $list, $value = "", $opt = false, $
 }
 
 #-------------------------------------------------------------------------------------------------
+# Prompts the user to upload a file.
+#-------------------------------------------------------------------------------------------------
+
+function form_upload( $param, $prompt, $size = 20 )
+{
+  echo '<tr>
+          <td>'.form_prompt($prompt,false).'</td>
+          <td><input type="file" name="'.$param.'" size="'.$size.'"></td>
+        </tr>';
+ 
+}
+
+#-------------------------------------------------------------------------------------------------
 # Creates a submit button.
 #
 # text - [opt] The text that should appear on the submit button if different to 'submit'
