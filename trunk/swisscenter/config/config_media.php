@@ -18,7 +18,7 @@ require_once( realpath(dirname(__FILE__).'/../base/media.php'));
     form_start('index.php', 150, 'conn');
     form_hidden('section', 'MEDIA');
     form_hidden('action', 'SEARCH');
-    echo '<p>&nbsp;<br><b>'.str('SETUP_SEARCH_NEW_MEDIA').'</b>
+    echo '<h1>'.str('SETUP_SEARCH_NEW_MEDIA').'</h1>
           <p>'.str('MEDIA_SEARCH_PROMPT').'<br>&nbsp;';
     form_submit(str('SETUP_SEARCH_NEW_MEDIA'),2,'left',240);
     form_end();
