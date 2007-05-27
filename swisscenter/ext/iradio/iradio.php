@@ -273,9 +273,12 @@ class iradio {
    */
   function sort_genres() {
     send_to_log(6,"IRadio: Sorting genre list");
-    ksort($this->genre);
-    foreach ($this->genre as $main=>$sub) {
-      ksort($this->genre[$main]);
+    if (is_array($this->genre) && count($this->genre)>0)
+    {
+      ksort($this->genre);
+      foreach ($this->genre as $main=>$sub) {
+        ksort($this->genre[$main]);
+      }
     }
   }
 
