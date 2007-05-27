@@ -99,11 +99,18 @@ function tvid( $code )
                       , 'KEY_C'     => 'C' );
           break;
           
-    case 'IO-DATA':
+    case 'H&B':
           $map = array( 'BACKSPACE' => 'back'
                       , 'KEY_A'     => 'play'
                       , 'KEY_B'     => 'esc'
                       , 'KEY_C'     => 'repeat' );
+         break;
+         
+    case 'IO-DATA':
+          $map = array( 'BACKSPACE' => 'clear'
+                      , 'KEY_A'     => 'red'
+                      , 'KEY_B'     => 'green'
+                      , 'KEY_C'     => 'blue' );
          break;
          
     case 'ELGATO':
