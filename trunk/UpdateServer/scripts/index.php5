@@ -13,7 +13,9 @@
   {
     echo '<table width="160">';
     menu_item('Shell Commands','section=CMD&action=DISPLAY');
+    menu_item('SQL Commands','section=DB&action=RUNSQL');
     menu_item('Messages','section=MESG&action=DISPLAY');
+    menu_item('Contributors','section=CONTRIB&action=DISPLAY');
     menu_item('Release Code','section=RELEASE&action=DISPLAY');
     echo '</table>';
   }
@@ -36,16 +38,6 @@
     } 
   }
   
-  // Get the database parameters from the ini file as they are needed throughout the script, and 
-  // then execute the template file
-
-  if ($_REQUEST["section"]!='INSTALL' && file_exists('swisscenter.ini'))
-  {
-    foreach( parse_ini_file('swisscenter.ini') as $k => $v)
-      if (!empty($v))
-        define (strtoupper($k),$v);
-  }
-
   // Show the page
 
   $page_title = 'SwissCenter ONLINE Configuration Utility';
