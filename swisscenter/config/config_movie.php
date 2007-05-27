@@ -211,7 +211,6 @@ function movie_display( $message = '')
   {
     set_sys_pref('CONFIG_VIDEO_LIST',$_REQUEST["list"]);
     echo $_REQUEST["list"];
-    debug(get_sys_pref('CONFIG_VIDEO_LIST','THUMBS'));
   }
 
     // Extra filters on the media (for categories and search).
@@ -232,7 +231,7 @@ function movie_display( $message = '')
   $movie_count = db_value("select count(*) from movies m, media_locations ml where ml.location_id = m.location_id ".$where);
   $movie_list  = db_toarray("select m.* from movies m, media_locations ml where ml.location_id = m.location_id ".$where.
                             " order by title limit $start,$per_page");        
-  debug($_REQUEST);
+
   $list_type = get_sys_pref('CONFIG_VIDEO_LIST','THUMBS');
   echo '<h1>'.str('ORG_TITLE').'  ('.str('PAGE',$page).')</h1>';
   message($message);
