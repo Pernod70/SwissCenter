@@ -135,13 +135,16 @@
             while ($row = $recs->db_fetch_row())
               $data[] = $row;      
           
-            // WOrk out what the headings are
-            foreach($data[0] as $col=>$val)
-              $heading[] = $col;
-          
-            // Display a pretty HTML table
-            echo '<p>';
-            array_to_table($data,join(',',$heading));
+            if (count($data)>0)
+            {
+              // Work out what the headings are
+              foreach($data[0] as $col=>$val)
+                $heading[] = $col;
+            
+              // Display a pretty HTML table
+              echo '<p>';
+              array_to_table($data,join(',',$heading));
+            }
           }
           else
           {
