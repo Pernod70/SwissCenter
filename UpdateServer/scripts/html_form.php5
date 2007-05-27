@@ -176,7 +176,7 @@ function form_list_dynamic_html ( $param, $sql, $value = "", $opt = false, $subm
           ' size="1"'.
           ($submit ? ' onChange="this.form.submit();"' : '').
           '>'.
-          '<option value=""> &lt;'.( empty($inital_txt) ? str('PLEASE_SELECT') : $inital_txt).'&gt; ';
+          '<option value=""> &lt;'.( empty($inital_txt) ? 'Please Select' : $inital_txt).'&gt; ';
 
   $recs = new db_query( $sql );
   if ($recs->db_success() )
@@ -218,7 +218,7 @@ function form_list_static_html( $param, $list, $value = "", $opt = false,  $ins 
   $html = '<select '.($opt ? '' : ' required ').' name="'.$param.'" size="1">';
 
   if ($ins)
-    $html.= '<option value=""> &lt;'.str('PLEASE_SELECT').'&gt; ';
+    $html.= '<option value=""> &lt;'.'Please Select'.'&gt; ';
 
   while( list($akey,$avalue) = each($list) )
     $html.= '<option '.( $avalue ==$value ? 'selected ' : '').'value="'.$avalue.'">'.$akey;

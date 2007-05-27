@@ -3,7 +3,7 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-require_once( realpath(dirname(__FILE__).'/../../private/db_prefs.php'));
+require_once( '/home/swisscenter/private/db_prefs.php');
 
 #-------------------------------------------------------------------------------------------------
 # Converts all keys to uppercase
@@ -43,11 +43,16 @@ function db_escape_str( $text )
 # Tests the connection to the database using the details provided 
 #-------------------------------------------------------------------------------------------------
 
-function test_db($host, $username, $password, $database)
+function test_db()
 {
-  if (! $this->db_handle = @mysql_pconnect( $host, $username, $password))
+//  echo DB_HOST.'<br>';
+//  echo DB_USERNAME.'<br>';
+//  echo DB_PASSWORD.'<br>';
+//  echo DB_DATABASE.'<br>';
+  $db = new db_query();
+  if (! $tdb->db_handle = @mysql_pconnect( DB_HOST, DB_USERNAME, DB_PASSWORD))
     return "!Unable to connect to MySQL using the Host, Username and Password Specified";
-  elseif (! mysql_select_db($database, $this->db_handle) )
+  elseif (! mysql_select_db(DB_DATABASE, $db->db_handle) )
     return "!Connection to MySQL established, but unable to select the specified database";
   else 
     return 'OK';
