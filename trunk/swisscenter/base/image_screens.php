@@ -211,11 +211,17 @@
     # Playing time Information
     # ------------------------    
       
+    // Adjust position of details according to player
+    if ($_SESSION["device"]["device_type"] == 'NETGEAR')
+      $adjust_y = -65; 
+    else
+      $adjust_y = 0; 
+	
     // Time for this track
     if ($current_track["LENGTH"]>0)
     {
-      $image->text(str('TRACK_LENGTH'), $time_text_x, convert_y(900,SCREEN_COORDS), $title_text_col, $detail_text_size);    
-      $image->text(hhmmss($current_track["LENGTH"]), $time_text_x, convert_y(940,SCREEN_COORDS), $detail_text_col, $detail_text_size);        
+      $image->text(str('TRACK_LENGTH'), $time_text_x, convert_y(900 + $adjust_y,SCREEN_COORDS), $title_text_col, $detail_text_size);    
+      $image->text(hhmmss($current_track["LENGTH"]), $time_text_x, convert_y(940 + $adjust_y,SCREEN_COORDS), $detail_text_col, $detail_text_size);        
     }
     
     // Total so far
@@ -224,8 +230,8 @@
       $total_label  = convert_x(925,SCREEN_COORDS) - $image->get_text_width(str('TRACKS'),$detail_text_size);
       $total_detail = convert_x(925,SCREEN_COORDS) - $image->get_text_width($tracks,$detail_text_size);
   
-      $image->text(str('TRACKS'), $total_label, convert_y(900,SCREEN_COORDS), $title_text_col, $detail_text_size);    
-      $image->text( $tracks , $total_detail, convert_y(940,SCREEN_COORDS), $detail_text_col, $detail_text_size);    
+      $image->text(str('TRACKS'), $total_label, convert_y(900 + $adjust_y,SCREEN_COORDS), $title_text_col, $detail_text_size);    
+      $image->text( $tracks , $total_detail, convert_y(940 + $adjust_y,SCREEN_COORDS), $detail_text_col, $detail_text_size);    
     }
    
     // return finished image
