@@ -140,6 +140,20 @@
     return explode(',',preg_replace($search, $replace, $matches[1]));
   }
   
+  /**
+   * Function to remove all details from the database regarding the specified movie
+   *
+   * @param integer $movie_id
+   */
+  
+  function purge_movie_details( $movie_id )
+  {
+    db_sqlcommand("delete from actors_in_movie where movie_id = $movie_id ");
+    db_sqlcommand("delete from directors_of_movie where movie_id = $movie_id ");
+    db_sqlcommand("delete from genres_of_movie where movie_id = $movie_id ");
+    db_sqlcommand("update movies set year=null, details_available='N', match_pc=null, certificate=null, synopsis=null where file_id = $movie_id");
+  }
+  
   // ----------------------------------------------------------------------------------------
   // This function gets the movie details for all movies in the database where the 
   // details_available flag is not set. (ie: no lookup has taken place).
@@ -149,7 +163,7 @@
   {
     if ( is_movie_check_enabled() )
     {
-      send_to_log(4,'Checking online for extra movie information from '.file_noext(get_sys_pref('movie_info_script','www.lovefilm.com.php')));
+      send_to_log(4,'Checking online for extra movie information from '.file_noext(get_sys_pref('movie_info_script','www.dvdloc8.com.php')));
 
       // Only try to update movie information for categories that have it enabled, and where the details_available column is null.
       $data = db_toarray("select file_id
@@ -184,9 +198,9 @@
   }
   else 
   {
-    $inc_file   = get_sys_pref('movie_info_script','www.lovefilm.com.php');
+    $inc_file   = get_sys_pref('movie_info_script','www.dvdloc8.com.php');
     if ( !file_exists($parser_dir.'/'.$inc_file) )
-      $inc_file = 'www.lovefilm.com.php';
+      $inc_file = 'www.dvdloc8.com.php';
   }
 
   // Include the appropriate file
