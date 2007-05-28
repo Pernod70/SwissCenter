@@ -16,6 +16,38 @@ function musicip_address()
 }
 
 // ----------------------------------------------------------------------------------
+// Tells the MusicIP server to rescan the specified directory for music files to add
+// to it's library.
+// ----------------------------------------------------------------------------------
+
+function musicip_server_add_dir( $dir )
+{
+  if (musicip_available())    
+    $temp = @file_get_contents(musicip_address().'server/add?root='.urlencode($dir));
+}
+
+// ----------------------------------------------------------------------------------
+// Tells the MusicIP server to refresh it's cache.
+// ----------------------------------------------------------------------------------
+
+function musicip_server_refresh_cache()
+{
+  if (musicip_available())    
+    $temp = @file_get_contents(musicip_address().'server/refresh');  
+}
+
+// ----------------------------------------------------------------------------------
+// Tells the MusicIP server to start validating any tracks that require it in the
+// background.
+// ----------------------------------------------------------------------------------
+
+function musicip_server_validate()
+{
+  if (musicip_available())    
+    $temp = @file_get_contents(musicip_address().'server/validate?action=Start');
+}
+
+// ----------------------------------------------------------------------------------
 // Returns true if a MusicIP webservice is available on the local machine using the
 // port defined in the config screen. The
 // ----------------------------------------------------------------------------------

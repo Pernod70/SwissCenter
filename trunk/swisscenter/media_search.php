@@ -52,6 +52,10 @@
   remove_orphaned_movie_info();
   eliminate_duplicates();
   media_indicator('OFF');
+ 
+  // Tell the MusicIP server (if present) to refresh it's cache and validate any new songs.
+  musicip_server_refresh_cache();
+  musicip_server_validate();
 
 /**************************************************************************************************
                                                End of file

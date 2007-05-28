@@ -10,6 +10,7 @@ require_once( realpath(dirname(__FILE__).'/image.php'));
 require_once( realpath(dirname(__FILE__).'/screen.php'));
 require_once( realpath(dirname(__FILE__).'/utils.php'));
 require_once( realpath(dirname(__FILE__).'/users.php'));
+require_once( realpath(dirname(__FILE__).'/musicip.php'));
 
 // Libraries for reading file metadata
 require_once( realpath(dirname(__FILE__).'/../ext/getid3/getid3.php'));
@@ -555,9 +556,13 @@ function process_media_directory( $dir, $id, $table, $file_exts, $recurse = true
   $total = db_value("select count(*) from $table where location_id = $id");
   if ($total>0)
     db_sqlcommand("update media_locations set percent_scanned = ".(int)(100-($unverified/$total*100))." where location_id = $id ");
-
+    
   // Remove the browser coords from the session to ensure it gets recalculated to the current browser
   unset($_SESSION["device"]);
+  
+  // Tell MusicIP to rescan this folder
+  musicip_server_add_dir($dir);
+    
 }
 
 /**************************************************************************************************

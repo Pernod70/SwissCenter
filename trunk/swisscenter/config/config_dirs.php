@@ -3,6 +3,8 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
+  require_once( realpath(dirname(__FILE__).'/../base/musicip.php'));
+
   // PHP caches information on whether files/dirs exist, permissions, etc - we need to clear the cache.
   clearstatcache();
 
@@ -136,6 +138,9 @@
         }
 
         dirs_display(str('MEDIA_LOC_UPDATE_OK'));
+        
+        // Tell MusicIP to add this location.
+        musicip_server_add_dir($dir);
       }
     }
     elseif(!empty($selected))
@@ -202,6 +207,9 @@
           symlink($dir,SC_LOCATION.'media/'.$id);
         
         dirs_display('',str('MEDIA_LOC_ADD_OK'));
+
+        // Tell MusicIP to add this location.
+        musicip_server_add_dir($dir);
       }
     }
   }
