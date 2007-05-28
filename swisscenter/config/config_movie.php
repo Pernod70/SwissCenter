@@ -4,7 +4,6 @@
  *************************************************************************************************/
   
 require_once( realpath(dirname(__FILE__).'/../base/media.php'));
-require_once( realpath(dirname(__FILE__).'/../ext/xml/export_movie.php'));
 
 // ----------------------------------------------------------------------------------
 // Get an array of online movie parsers for displaying in a form drop-down list.
