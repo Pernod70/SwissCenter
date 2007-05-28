@@ -13,6 +13,7 @@
 
   function impexp_display( $message = '')
   {
+    // Save Settings
     echo '<h1>'.str('EXPORT_SETTINGS').'</h1>';
     echo '<p>'.str('EXPORT_PROMPT');
 
@@ -20,10 +21,12 @@
     form_submit(str('EXPORT_SETTINGS_SUBMIT'),2,'left',240);
     form_end();       
 
-    echo '<h1>'.str('IMPORT_SETTINGS').'</h1>';
+    // Load settings
+    echo '<h1>'.str('IMPORT_SETTINGS').'</h1>';    
     
     if (is_array($message))
     {
+      // Details on errors encountered during the import.
       echo '<center><table width="90%" cellspacing=0 cellpadding=0 border=1><tr><td>';
       message('!'.str('IMPORT_FAILED'));
       echo('<ul>');
@@ -32,8 +35,8 @@
       echo '</ul></td></tr></table></center>';
     }
     else
-      message($message);
-      
+      message($message);      
+
     echo '<p>'.str('IMPORT_PROMPT');
 
     form_start('index.php', 150, 'conn');
@@ -41,7 +44,7 @@
     form_hidden('action', 'IMPORT');
     form_upload('filename',str('IMPORT_FILE'),40);
     form_submit(str('UPLOAD_FILE'));
-    form_end();       
+    form_end();           
   }
   
   /**

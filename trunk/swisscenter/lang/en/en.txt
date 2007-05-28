@@ -683,6 +683,27 @@ MEDIA_REFRESH              = Search For New Media
 LICENSE                    = GPL License
 VIEWED_BY                  = Viewed by
 
+# -----------------------
+# SwissCenter v1.18
+# -----------------------
+
+IMPEXP_TITLE               = Load/Save Settings
+EXPORT_SETTINGS            = Save Settings
+EXPORT_PROMPT              = Clicking on the button below will save all of your configuration settings to an XML file which you can then use to reconfigure Swisscenter if it becomes necessary to reinstall or recreate your database.[p][b]Please note:[/b] This option does not save details about the audio, video or photos that have been discovered by Swisscenter. Nor does it save Movie information which has been downloaded from the internet or manually entered.
+EXPORT_SETTINGS_SUBMIT     = Save Settings
+IMPORT_SETTINGS            = Load Settings
+IMPORT_PROMPT              = To restore your configuration from an earlier point in time, please select your settings XML file below. 
+IMPORT_FILE                = Settings XML File
+UPLOAD_FILE                = Upload file
+UPLOAD_FAILED              = File upload failed. 
+IMPORT_SUCCESS             = Settings successfully loaded.
+IMPORT_FAILED              = Errors occurred whilst importing the supplied settings file.
+
+IMP_USER_CERT_MISSING      = Failed to import user '%s' because certificate '%s' (Scheme:%s) does not exist.
+IMP_LOC_CERT_MISSING       = Failed to import media location '%s' because certificate '%s' (Scheme:%s) does not exist.
+IMP_LOC_TYPE_MISSING       = Failed to import media location '%s' because media type '%s' does not exist.
+IMP_LOC_CAT_MISSING        = Failed to import media location '%s' because category '%s' does not exist.
+
 #----------------------------------------------------------------------------------------------------
 # End-of-file
 #----------------------------------------------------------------------------------------------------

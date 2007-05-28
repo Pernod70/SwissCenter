@@ -265,15 +265,15 @@
           else
           {
             db_insert_row('users',array("name"=>$name, "maxcert"=>$cert_id, "pin"=>$pin) );   
-            $user_id = db_insert_id();
           }                    
         }
         
         // Import user preferences
         foreach ($this->xml->match($userpath.'/preferences[1]/setting') as $prefpath)
         {
-          $attrib = $this->xml->getAttributes($prefpath);
-          $value = $this->xml->getData($prefpath);
+          $attrib  = $this->xml->getAttributes($prefpath);
+          $value   = $this->xml->getData($prefpath);
+          $user_id = db_value("select user_id from users where name = '$name'");
           if (db_value("select count(*) from user_prefs where user_id=$user_id and name = '".$attrib["NAME"]."'") == 0)
             db_insert_row('user_prefs',array("user_id"=>$user_id, "name"=>$attrib["NAME"], "value"=>$value));
           else
@@ -331,7 +331,7 @@
           $errors[] = str('IMP_LOC_TYPE_MISSING',$path,$type);
         elseif (($cat_id = db_value("select cat_id from categories where cat_name='$cat_name'")) === false)               
           $errors[] = str('IMP_LOC_CAT_MISSING',$path,$cat_name);
-        else 
+        elseif (db_value("select count(*) from media_locations where name = '$path'") == 0)
           db_insert_row("media_locations", array("name"=>$path, "media_type"=>$type_id, "cat_id"=>$cat_id, "unrated"=>$cert_id));
       }
 

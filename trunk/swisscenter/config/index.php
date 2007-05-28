@@ -78,6 +78,7 @@
   	  $menu->add_item(str('MEDIA_LOCATIONS')        ,'section=DIRS&action=DISPLAY');
   	  $menu->add_item(str('USERS_ADD_TITLE')        ,'section=USERS&action=DISPLAY');
   	  $menu->add_item(str('SCHEDULE_TITLE')         ,'section=SCHED&action=DISPLAY');
+  	  $menu->add_item(str('IMPEXP_TITLE')           ,'section=IMPEXP&action=DISPLAY');
 
       $menu->add_menu(str('MEDIA_MANAGEMENT'));
   	  $menu->add_item(str('CONFIG_AUDIO_OPTIONS')   ,'section=AUDIO&action=DISPLAY');
