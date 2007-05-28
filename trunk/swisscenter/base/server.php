@@ -156,14 +156,16 @@
 
   function server_address()
   {
+    send_to_log(8,'Tring to identify the server address',$_SERVER);
+    send_to_log(8,'Device details (in the session)',$_SESSION["device"]);
     $server = $_SERVER['SERVER_NAME'];
     
     if (strpos($server,':') === false)
     {
-      if (!empty($_SERVER['SERVER_PORT']))
-        $server = $server.':'.$_SERVER['SERVER_PORT'];
-      else 
+      if (empty($_SERVER['SERVER_PORT']) || ($_SERVER["SERVER_PORT"] != $_SESSION["device"]["port"]) )
         $server = $server.':'.$_SESSION["device"]["port"]; 
+      else 
+        $server = $server.':'.$_SERVER['SERVER_PORT'];
     }
 
     return 'http://'.$server.'/';
@@ -190,7 +192,7 @@
 
   function record_client_details()
   {
-    if (test_db() == 'OK' && !isset($_SESSION["device"]))
+    if (test_db() == 'OK' && !isset($_SESSION["device"]) && strpos($_SERVER['HTTP_USER_AGENT'],'internal dummy connection') === false)
     { 
       preg_match('#.*syabas/([^ ]*) .*#i',$_SERVER['HTTP_USER_AGENT'],$matches);
       $_SESSION["device"]["last_seen"]  = db_datestr();
