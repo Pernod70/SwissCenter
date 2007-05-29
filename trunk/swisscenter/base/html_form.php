@@ -380,18 +380,20 @@ function form_select_table ( $param, $table_contents, $table_headings, $table_pa
             // Check the edit options to see if there are choices for this column or not
             $element_name = strtoupper($param.'_update:'.escape_form_names($cell_name));
             $cell_edit_options = $edit_options[$cell_name];
-            if(empty($cell_edit_options))
+            if (empty($cell_edit_options) || is_numeric($cell_edit_options))
             {
-              echo "<input type='text' name='".$element_name."' value='".$cell_value."'>";
+              echo '<input type="text" name="'.$element_name.'" value="'.$cell_value.'"'.
+                    ( is_numeric($cell_edit_options) ? ' size="'.$cell_edit_options.'"' : '').
+                    '>';
             }
-            elseif($cell_edit_options == "*")
+            elseif ($cell_edit_options == "*")
             {
               echo "<input type='password' name='".$element_name."' value='".$cell_value."'>";
             }
             else
             {
               if(is_array($cell_edit_options))
-                $options = $cell_edit_options;
+                $options = $cell_edit_options;                
               else
                 $options = db_toarray($cell_edit_options);
                 
