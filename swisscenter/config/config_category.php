@@ -34,7 +34,7 @@
       form_hidden('section', 'CATEGORY');
       form_hidden('action', 'MODIFY');
 
-      form_select_table('cat_ids', $data, str('NAME').',Download info'
+      form_select_table('cat_ids', $data, str('NAME').','.str('CAT_DOWNLOAD')
                        ,array('class'=>'form_select_tab','width'=>'100%'), 'cat_id'
                        ,array('CATEGORY'=>'','DOWNLOAD_INFO'=>$download_opts)
                        , $edit_id, 'cats');
