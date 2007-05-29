@@ -76,6 +76,11 @@
    else 
      return true;
  }
+ 
+ function delete_sys_pref( $name )
+ {
+   db_sqlcommand("delete from system_prefs where name='".strtoupper($name)."'");
+ }
 
  // ----------------------------------------------------------------------------------
  // Online movie checking

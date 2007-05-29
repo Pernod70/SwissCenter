@@ -704,6 +704,8 @@ IMP_LOC_CERT_MISSING       = Failed to import media location '%s' because certif
 IMP_LOC_TYPE_MISSING       = Failed to import media location '%s' because media type '%s' does not exist.
 IMP_LOC_CAT_MISSING        = Failed to import media location '%s' because category '%s' does not exist.
 
+OR                         = - or -
+
 #----------------------------------------------------------------------------------------------------
 # End-of-file
 #----------------------------------------------------------------------------------------------------
