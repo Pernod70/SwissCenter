@@ -7,6 +7,9 @@
 <html>
 <head>
   <meta http-equiv="content-type" content="text/html;charset=Windows-1252" />
+  <? if (!empty($_SESSION["meta-refresh"]))
+      echo '<meta http-equiv="refresh" content="'.($_SESSION["meta-refresh"]).'">';
+  ?>
   <title>SwissCenter Config</title>
   <link rel="stylesheet" type="text/css" media="screen" href="sdmenu.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="config.css" />
