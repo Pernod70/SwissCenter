@@ -39,6 +39,7 @@ LANGUAGE		= Deutsch
 TASK_SCHEDULER          = taskplaner
 
 # Translated by Bernhard Gschwantner, swisscenter.co.uk@datenbankdesign.com
+# Continued by Itzchak Rehberg (Izzy) from about v1.15.2
 
 # Mappings
 
@@ -675,9 +676,27 @@ IRADIO_NO_STATIONS         = Keine Stationen gefunden.
 IRADIO_NO_STATIONS_MSG     = Es konnten keine Stationen zum Suchbegriff '%s' gefunden werden.
 BROWSE_OPTIONS             = Browse Optionen
 
+# -----------------------
+# SwissCenter v1.18
+# -----------------------
+
+IMPEXP_TITLE               = Einstellungen Laden/Speichern
+EXPORT_SETTINGS            = Einstellungen Speichern
+EXPORT_PROMPT              = Mit einem Klick auf den Button unten werden alle Ihre Einstellungen in eine XML Datei geschrieben. Diese Datei ermöglicht eine Schnellkonfigurierung nach einer Neuinstallation bzw. Neuerstellung der Datenbank.[p][b]Bitte beachten Sie:[/b] Die Details der von Swisscenter erkannten Audio-, Video- und Fotodateien werden hierbei [i]nicht[/i] berücksichtigt - ebensowenig wie die aus dem Internet heruntergeladenen bzw. manuell erfassten Informationen zu diesen Dateien!
+EXPORT_SETTINGS_SUBMIT     = Einstellungen Speichern
+IMPORT_SETTINGS            = Einstellungen Laden
+IMPORT_PROMPT              = Um Ihre zu einem früheren Zeitpunkt gespeicherten Konfigurationsdaten wieder herzustellen, wählen Sie bitte unten die zugehörige XML Datei.
+IMPORT_FILE                = XML Konfigurations-Datei
+UPLOAD_FILE                = Datei hochladen
+UPLOAD_FAILED              = Dateiupload fehlgeschlagen.
+IMPORT_SUCCESS             = Einstellungen erfolgreich geladen.
+IMPORT_FAILED              = Beim Importieren der Einstellungen aus der XML Datei traten Fehler auf.
+
+IMP_USER_CERT_MISSING      = Konnte den Benutzer '%s' nicht importieren, da das Zertifikat '%s' (Scheme:%s) nicht exisitiert.
+IMP_LOC_CERT_MISSING       = Konnte den Medien-Speicherort '%s' nicht importieren, da das Zertifikat '%s' (Scheme:%s) nicht existiert.
+IMP_LOC_TYPE_MISSING       = Konnte den Medien-Speicherort '%s' nicht importieren, da der Medien-Typ '%s' nicht existiert.
+IMP_LOC_CAT_MISSING        = Konnte den Medien-Speicherort '%s' nicht importieren, da die Kategorie '%s' nicht existiert.
+
 #----------------------------------------------------------------------------------------------------
 # End-of-file
 #----------------------------------------------------------------------------------------------------
-
-
-
