@@ -53,7 +53,7 @@
   $cat_id     = get_sys_pref('MEDIA_SCAN_CATEGORY');
   delete_sys_pref('MEDIA_SCAN_MEDIA_TYPE');
   delete_sys_pref('MEDIA_SCAN_CATEGORY');
-  set_sys_pref('MEDIA_SCAN_STATUS','Started');
+  set_sys_pref('MEDIA_SCAN_STATUS',str('MEDIA_SCAN_STATUS_RUNNING'));
   
   // Set the percent_scanned to zero for all locations due to be scanned.
   db_sqlcommand("update media_locations set percent_scanned=0 
@@ -73,7 +73,10 @@
   remove_orphaned_movie_info();
   eliminate_duplicates();
   media_indicator('OFF');
-  set_sys_pref('MEDIA_SCAN_STATUS','Complete');
+  
+  // Update media search status
+  set_sys_pref('MEDIA_SCAN_STATUS',str('MEDIA_SCAN_STATUS_COMPLETE'));
+  db_sqlcommand("update media_locations set percent_scanned = null");
 
 /**************************************************************************************************
                                                End of file
