@@ -80,31 +80,35 @@ function nvl($text,$default = '&lt;Unknown&gt;')
     return $text;   
 }
 
-  // ----------------------------------------------------------------------------------------
-  // Removes common parts of filenames that we don't want to search for...
-  // (eg: file extension, file suffix ("CD1",etc) and non-alphanumeric chars.
-  // ----------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------
+// Removes common parts of filenames that we don't want to search for...
+// (eg: file extension, file suffix ("CD1",etc) and non-alphanumeric chars.
+// ----------------------------------------------------------------------------------------
+
+function strip_title ($title)
+{
+  $search  = array ( '/\.[^.]*$/U'
+                   , '/\(.*\)/'
+                   , '/\[.*]/'
+                   , '/\s\W/'
+                   , '/\W\s/'
+                   , '/\sCD[^\w].*/i'
+                   , '/ +$/'
+                   , '/_/'
+                   , '/\./');
   
-  function strip_title ($title)
-  {
-    $search  = array ( '/\.[^.]*$/U'
-                     , '/\(.*\)/'
-                     , '/\[.*]/'
-                     , '/\s\W/'
-                     , '/\W\s/'
-                     , '/\sCD[^\w].*/i'
-                     , '/ +$/');
-    
-    $replace = array ( ''
-                     , ' '
-                     , ' '
-                     , ' '
-                     , ' '
-                     , ' '
-                     , '');
-    
-    return preg_replace($search, $replace, $title);
-  }
+  $replace = array ( ''
+                   , ' '
+                   , ' '
+                   , ' '
+                   , ' '
+                   , ' '
+                   , ''
+                   , ' '
+                   , ' ');
+  
+  return preg_replace($search, $replace, $title);
+}
     
 // ----------------------------------------------------------------------------------
 // Returns the text between two given strings
