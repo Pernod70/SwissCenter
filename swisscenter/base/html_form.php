@@ -97,7 +97,7 @@ function form_slider( $param, $prompt, $min, $max, $size = 15, $value ='', $clas
 # $sizey - [opt] the number of rows in the text field (default 5)
 #-------------------------------------------------------------------------------------------------
 
-function form_text_html( $param, $sizex = 100, $sizey = 5, $value ='')
+function form_text_html( $param, $sizex = 100, $sizey = 5, $value ='', $opt = false)
 {
    return '<textarea '.($opt ? '' : ' required ').' rows="'.$sizey.'" cols="'.$sizex.'" name="'.$param.'">'.$value.'</textarea>';
 }
@@ -109,7 +109,7 @@ function form_text( $param, $prompt, $sizex = 100, $sizey = 5, $value ='', $opt 
          </tr>
          <tr>
            <td colspan="2">
-             '.form_text_html($param,$sizex,$sizey,$value).'
+             '.form_text_html($param,$sizex,$sizey,$value, $opt).'
            </td>
          </tr>';
 }
@@ -213,11 +213,18 @@ function form_list_dynamic( $param, $prompt, $sql, $value = "", $opt = false, $s
 # $list - an array of values to display in the drop-down list.
 #-------------------------------------------------------------------------------------------------
 
-function form_list_static_html( $param, $list, $value = "", $opt = false,  $ins = true )
+function form_list_static_html( $param, $list, $value = "", $opt = false,  $submit = false, $initial_txt = true )
 {
-  $html = '<select '.($opt ? '' : ' required ').' name="'.$param.'" size="1">';
+  $html = '<select '.
+          ($opt ? '' : ' required ').
+          ' name="'.$param.'"'.
+          ' size="1"'.
+          ($submit ? ' onChange="this.form.submit();"' : '').
+          '>';
 
-  if ($ins)
+  if ( is_string($initial_txt) )
+    $html.= '<option value=""> &lt;'.$initial_txt.'&gt; ';
+  elseif ($initial_txt)
     $html.= '<option value=""> &lt;'.str('PLEASE_SELECT').'&gt; ';
 
   while( list($akey,$avalue) = each($list) )
@@ -226,11 +233,11 @@ function form_list_static_html( $param, $list, $value = "", $opt = false,  $ins 
   return $html.'</select>';
 }
 
-function form_list_static( $param, $prompt, $list, $value = "", $opt = false,  $ins = true )
+function form_list_static( $param, $prompt, $list, $value = "", $opt = false,  $submit = false, $initial_txt = true )
 {
   echo '<tr>
           <td>'.form_prompt($prompt,$opt).'</td>
-          <td>'.form_list_static_html( $param, $list, $value, $opt, $ins).'</td>
+          <td>'.form_list_static_html( $param, $list, $value, $opt, $submit, $initial_txt).'</td>
         </tr>';
             
 }

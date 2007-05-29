@@ -100,7 +100,7 @@ function movie_display_info(  $message = '' )
           <input type=hidden name="section" value="MOVIE">
           <input type=hidden name="action" value="LOOKUP">
           <input type=hidden name="movie_id" value="'.$movie_id.'">
-          '.form_list_static_html('parser',$sites_list, get_sys_pref('movie_info_script','movie_dvdloc8.php'),false,false).'
+          '.form_list_static_html('parser',$sites_list, get_sys_pref('movie_info_script','movie_dvdloc8.php'),false,false,false).'
           &nbsp; <input type="Submit" name="subaction" value="'.str('LOOKUP_MOVIE').'"> &nbsp; 
           </form>
         </td>
@@ -583,7 +583,7 @@ function movie_info( $message = "")
   form_hidden('action', 'INFO');
   echo '<p><b>'.str('MOVIE_EXTRA_DL_TITLE').'</b>
         <p>'.str('MOVIE_EXTRA_DL_PROMPT');
-  form_list_static('site',str('MOVIE_EXTRA_SITE_PROMPT'),$sites_list,get_sys_pref('movie_info_script','movie_dvdloc8.php'),false,false);
+  form_list_static('site',str('MOVIE_EXTRA_SITE_PROMPT'),$sites_list,get_sys_pref('movie_info_script','movie_dvdloc8.php'),false,false,false);
   form_list_dynamic('scheme',str('RATING_SCHEME_PROMPT'),get_rating_scheme_list_sql(),get_rating_scheme_name(),false,false,null);
   form_radio_static('downloads',str('STATUS'),$list,get_sys_pref('movie_check_enabled','YES'),false,true);
   form_submit(str('SAVE_SETTINGS'),2,'left',240);

@@ -484,12 +484,16 @@ function file_thumbnail( $fsp )
   return $tn_image;
 }
 
-//-------------------------------------------------------------------------------------------------
-// Given a filename or folder, this function will return the filename of the album art associated
-// with it.
-//-------------------------------------------------------------------------------------------------
+/**
+ * Given a filename of directory, this function will return the filename of the album art 
+ * associated with it.
+ *
+ * @param string:path $fsp
+ * @param boolean $default_imgage - Should a default image be returned? Defaults to true
+ * @return string:path
+ */
 
-function file_albumart( $fsp )
+function file_albumart( $fsp, $default_imgage = true )
 {
   if (empty($fsp))
   {
@@ -527,10 +531,13 @@ function file_albumart( $fsp )
         $return = file_albumart(dirname($fsp));
 
       // OK, give up! Use a standard picture based on the filetype.
-      if ( $return == '' && in_array(strtolower(file_ext($fsp)), media_exts_movies()) )
-        $return = style_img('MISSING_FILM_ART',true,false);
-      elseif ( $return == '' && in_array(strtolower(file_ext($fsp)), media_exts_music()) )
-        $return = style_img('MISSING_ALBUM_ART',true,false);        
+      if ($return == '' && $default_imgage)
+      {
+        if ( in_array(strtolower(file_ext($fsp)), media_exts_movies()) )
+          $return = style_img('MISSING_FILM_ART',true,false);
+        elseif ( in_array(strtolower(file_ext($fsp)), media_exts_music()) )
+          $return = style_img('MISSING_ALBUM_ART',true,false);        
+      }
     }
   }
   
@@ -631,9 +638,9 @@ function php_cli_location()
     if ( !empty($loc))
     {
       if (file_exists( dirname($loc).'/cli/php.exe'))
-        return dirname($loc).'/cli/php.exe';
+        return str_replace('\\\\','\\',dirname($loc).'\\cli\\php.exe');
       else 
-        return $loc;
+        return str_replace('\\\\','\\',$loc);
     }
     else 
       return false;

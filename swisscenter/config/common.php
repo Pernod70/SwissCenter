@@ -14,13 +14,13 @@
       echo '<table class="form_select_tab" width="'.$width.'"><tr>';
   
       foreach (explode(',',$table_headings) as $value)
-        echo '<th>'.ucwords($value).'</th>';
+        echo '<th valign="top">'.ucwords($value).'</th>';
 
       foreach ($data as $row)
       {
         echo '</tr><tr>';
         foreach ($row as $cell)
-          echo '<td>'.$cell.'</td>';
+          echo '<td valign="top">'.$cell.'</td>';
       }  
   
       echo '</tr></table>';
