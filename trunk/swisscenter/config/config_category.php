@@ -51,7 +51,7 @@
       // Only display the "Download Info" options if the user has set the global download option
       if (is_movie_check_enabled() )
       {
-        form_list_static('dl_info',str('CAT_DOWNLOAD'),array( str('ENABLED')=>'Y',str('DISABLED')=>'N'),'Y',true);
+        form_list_static('dl_info',str('CAT_DOWNLOAD'),array( str('ENABLED')=>'Y',str('DISABLED')=>'N'),'Y');
         form_label(str('CAT_DOWNLOAD_PROMPT'));
       }
       else 

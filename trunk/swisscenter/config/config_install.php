@@ -105,20 +105,35 @@
   function install_runsql()
   {
     $sql = un_magic_quote($_REQUEST["sql"]);
-
+    $tabs = array();
+    
     echo "<h1>".str('CONFIG_SQL')."</h1>";
 
     if ( test_db() == 'OK' )
     {
+      // Build a list of tables for reference
+      foreach (db_col_to_list("show tables") as $tab)
+        $tabs[$tab] = $tab;
+
       form_start('index.php');
       form_hidden('section','INSTALL');
       form_hidden('action','RUNSQL');
       form_text('sql','SQL statement',100,5,$sql);
-      form_submit('Run SQL',1);
+      echo '<tr><td>';
+      echo form_submit_html('Run SQL');
+      echo '</td><td align="right"><b>Reference:</b> ';
+      echo form_list_static_html('tab',$tabs,'',true, true, 'Table List');
+      echo '</td></tr>';
       form_end();
       
       $stmts = explode(';',$sql);
       
+      // If the user selected a table from the list, don't execute the SQL in the command window
+      // but describe the table instead.
+      if (!empty($_REQUEST["tab"]))
+        $stmts = array("desc $_REQUEST[tab]");
+      
+      // Execute all the SQL statement and display the results.
       foreach ($stmts as $sql)
       {    
         $sql=trim($sql);
