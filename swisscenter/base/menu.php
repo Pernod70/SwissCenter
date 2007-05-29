@@ -177,6 +177,30 @@ class menu
   }
   
   /**
+   * Displays the given page of menu items (used for simplicity when building an array of menu items
+   * does not slow down the application)
+   *
+   * @param integer $page
+   * @param integer $size
+   */
+  
+  function display_page( $page=1, $size=650)
+  {
+    $start      = ($page-1) * MAX_PER_PAGE; 
+    $max_items  = count($this->menu_items);
+    $end        = min($start+MAX_PER_PAGE,$max_items);
+
+    if ($page > 1)
+      $this->add_up( url_add_param(current_url(),'page',($page-1)));
+
+    if ( $max_items > $end)
+      $this->add_down( url_add_param(current_url(),'page',($page+1)));
+
+    $this->menu_items = array_slice($this->menu_items,$start, MAX_PER_PAGE);
+    $this->display($size);    
+  }
+  
+  /**
    * Displays the menu
    *
    * @param integer $size - (0-1000) Width of the menu on screen.

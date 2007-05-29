@@ -156,7 +156,6 @@
 
   function server_address()
   {
-    send_to_log(8,'Tring to identify the server address',$_SERVER);
     send_to_log(8,'Device details (in the session)',$_SESSION["device"]);
     $server = $_SERVER['SERVER_NAME'];
     
