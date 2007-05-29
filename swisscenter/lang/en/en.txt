@@ -705,6 +705,25 @@ IMP_LOC_TYPE_MISSING       = Failed to import media location '%s' because media 
 IMP_LOC_CAT_MISSING        = Failed to import media location '%s' because category '%s' does not exist.
 
 OR                         = - or -
+MEDIA_SCAN_PROGRESS        = Media search progress
+MEDIA_SCAN_STATUS          = Current status
+MEDIA_SCAN_OVERALL         = Search completed
+MEDIA_SCAN_STATUS_PENDING  = Pending
+MEDIA_SCAN_STATUS_RUNNING  = Running
+MEDIA_SCAN_STATUS_COMPLETE = Complete
+PERCENT_SCANNED            = % Scanned
+
+EXPERT_OPTIONS             = Expert Options
+EXPERT_WARNING             = The controls on this page allow you to modify the internal workings of SwissCenter and should only be done by advanced users know what they are doing. [b]Use at your own risk[/b]
+EXPERT_EDIT_DB             = Edit The Database
+REFERENCE                  = Reference
+DB_TABLE_LIST              = Table List
+DB_RUN_SQL                 = Execute SQL
+DB_SQL_FAIL                = SQL command failed
+DB_SQL_SUCCESS             = SQL completed successfully.
+EXPERT_EDIT_PREFS          = Edit System Settings
+SYSPREF_DEL_BUTTON         = Delete selected preferences
+EXPERT_PREDS_UPDATED       = Preference updated 
 
 #----------------------------------------------------------------------------------------------------
 # End-of-file

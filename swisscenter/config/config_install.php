@@ -3,9 +3,6 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
   
-  // ----------------------------------------------------------------------------------
-  // Install form - get MySQL root password from user
-  // ----------------------------------------------------------------------------------
   /**
    * Displays a form to the user to prompt them for the details required to create a new
    * swisscenter database
@@ -96,92 +93,7 @@
       }
     }
   }
-  
-  /**
-   * Executes SQL entered by the user and displays the results.
-   *
-   */
-  
-  function install_runsql()
-  {
-    $sql = un_magic_quote($_REQUEST["sql"]);
-    $tabs = array();
-    
-    echo "<h1>".str('CONFIG_SQL')."</h1>";
-
-    if ( test_db() == 'OK' )
-    {
-      // Build a list of tables for reference
-      foreach (db_col_to_list("show tables") as $tab)
-        $tabs[$tab] = $tab;
-
-      form_start('index.php');
-      form_hidden('section','INSTALL');
-      form_hidden('action','RUNSQL');
-      form_text('sql','SQL statement',100,5,$sql);
-      echo '<tr><td>';
-      echo form_submit_html('Run SQL');
-      echo '</td><td align="right"><b>Reference:</b> ';
-      echo form_list_static_html('tab',$tabs,'',true, true, 'Table List');
-      echo '</td></tr>';
-      form_end();
-      
-      $stmts = explode(';',$sql);
-      
-      // If the user selected a table from the list, don't execute the SQL in the command window
-      // but describe the table instead.
-      if (!empty($_REQUEST["tab"]))
-        $stmts = array("desc $_REQUEST[tab]");
-      
-      // Execute all the SQL statement and display the results.
-      foreach ($stmts as $sql)
-      {    
-        $sql=trim($sql);
-        if (  in_array( strtolower(substr($sql,0,strpos($sql,' '))), array('select','show','desc')) )
-        {          
-          $data = array();
-          $recs    = new db_query( $sql );
-          $success = $recs->db_success();
-          $heading = array();
-        
-          if ($success)
-          {
-            // Fetch data into an array
-            while ($row = $recs->db_fetch_row())
-              $data[] = $row;      
-          
-            if (count($data)>0)
-            {
-              // Work out what the headings are
-              foreach($data[0] as $col=>$val)
-                $heading[] = $col;
-            
-              // Display a pretty HTML table
-              echo '<p>';
-              array_to_table($data,join(',',$heading));
-            }
-          }
-          else
-          {
-            message('!SQL command failed.');
-            echo $recs->db_get_error();
-          }
-            
-          $recs->destroy();
-        }
-        elseif (!empty($sql))
-        {
-          if ( db_sqlcommand($sql) )
-            message('SQL completed successfully.');
-          else 
-            message('!SQL command failed.');            
-        }
-      }
-    }
-    else
-      message("!Unable to connect to the database.");    
-  }
-
+ 
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/
