@@ -118,7 +118,7 @@ function movie_lookup()
   $movie_id = $_REQUEST["movie_id"];
   $details  = db_toarray("select * from movies where file_id=$movie_id");
   $filename = $details[0]["DIRNAME"].$details[0]["FILENAME"];
-  $title    = file_noext($details[0]["FILENAME"]);  
+  $title    = file_noext($details[0]["TITLE"]);  
 
   // Clear old details first
   purge_movie_details($movie_id);
