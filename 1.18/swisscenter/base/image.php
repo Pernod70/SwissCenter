@@ -144,7 +144,8 @@ function cache_filename( $filename, $x, $y, $rs_mode = '' )
   if ($rs_mode == '')
     $rs_mode = get_sys_pref('IMAGE_RESIZING','RESAMPLE');
     
-  $filetime = filemtime($filename);
+  if (file_ext($filename) != 'sql')
+    $filetime = @filemtime($filename);
     
   if ($cache_dir != '')
     return $cache_dir.'/SwissCenter_'.sha1($filename.$filetime).'_x'.$x.'y'.$y.'_'.strtolower($rs_mode).'.png';
