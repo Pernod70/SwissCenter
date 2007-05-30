@@ -30,7 +30,7 @@ function internet_check( $timeouts = 3)
 
 function internet_available()
 {
-  $check_type = get_sys_pref('internet_setting','AUTO');
+  $check_type = get_sys_pref('INTERNET_SETTING','AUTO');
 
   // Has the user selected 'Automatic' for the internet connection?
   if ( $check_type == 'AUTO' )
@@ -41,11 +41,6 @@ function internet_available()
       set_sys_pref('INTERNET_AVAILABLE', internet_check() );    
       set_sys_pref('INTERNET_CHECK_TIME', time()+900);    
     }    
-  }
-  else
-  {
-    // User has explicitly set the internet connection to enabled or disabled.
-    set_sys_pref('INTERNET_AVAILABLE', ( $check_type == 'YES') );    
   }
   
   // Return the status of the internet connection
