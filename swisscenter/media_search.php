@@ -8,6 +8,7 @@
   require_once( realpath(dirname(__FILE__).'/base/mysql.php'));
   require_once( realpath(dirname(__FILE__).'/base/utils.php'));
   require_once( realpath(dirname(__FILE__).'/base/media.php'));
+  require_once( realpath(dirname(__FILE__).'/base/musicip.php'));
   require_once( realpath(dirname(__FILE__).'/video_obtain_info.php'));
 
   set_time_limit(86400);
@@ -38,6 +39,10 @@
       send_to_log(4,'Refreshing '.strtoupper($table).' database');
       process_media_directory( str_suffix($location["NAME"],'/'), $location["LOCATION_ID"], $table, $types );
       send_to_log(4,'Completed refreshing '.strtoupper($table).' database');
+      
+      // Tell MusicIP to rescan this folder
+      if ($media_type == MEDIA_TYPE_MUSIC)
+        musicip_server_add_dir($location["NAME"]);    
     }
         
   }

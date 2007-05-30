@@ -140,7 +140,8 @@
         dirs_display(str('MEDIA_LOC_UPDATE_OK'));
         
         // Tell MusicIP to add this location.
-        musicip_server_add_dir($dir);
+        if ($type_id == MEDIA_TYPE_MUSIC)
+          musicip_server_add_dir($dir);
       }
     }
     elseif(!empty($selected))
@@ -209,7 +210,8 @@
         dirs_display('',str('MEDIA_LOC_ADD_OK'));
 
         // Tell MusicIP to add this location.
-        musicip_server_add_dir($dir);
+        if ( $_REQUEST["type"] == MEDIA_TYPE_MUSIC)
+          musicip_server_add_dir($dir);
       }
     }
   }
