@@ -1,0 +1,578 @@
+#----------------------------------------------------------------------------------------------------
+# SwissCenter language file 
+# -------------------------
+#
+# A SwissCenter languiage file consists of a mapping from internal program ID (eg: "ADD_PLAYLIST") 
+# to the actual text that should be displayed to the user (eg: "Tilføj to your playulist") as follows:
+# 
+#   <ID> = <text>
+#
+# NOTE: The text cannot span multiple lines. If a line break or paragraph break are required within
+#       the text then markup tags should be used (see below).
+#
+# The <text> may contain a limited number of markup tags which are indicated by square brackets
+# and perform an identical function to their HTML counterparts. The following tags are supported:
+#
+#  [br][/br]  [em][/em]  [p][/p]  [b][/b]  [i][/i]  [li][/li]  [ul][\ul]  [ol][/ul]
+#
+# In some circumstances, other text may need to be substituted within the text. Placeholders for
+# the position within the string where the substitution occurs are indicated with '%s'.
+#
+# EG: In the ID below, the number of tracks that has been found within the database is substituted 
+# for the %s within the string... so a search returning 4 tracks would be displayed to the user 
+# as "4 Tracks"
+#
+#   MANY_TRACKS= %s Tracks
+# 
+# Finally, Lines that begin with a hash (#) are considered to be comments and are ignored.
+#
+#----------------------------------------------------------------------------------------------------
+
+# The language contained within this file (in your own language: eg: "Deutsch" not "German")
+
+LANGUAGE		= Dansk
+# Mappings
+
+ACCESS_DENIED		= Ingen adgang
+ACTOR			= Skuespiller
+ADD_PLAYLIST		= Tilføj til din playlist
+ALBUM			= Album
+ANYWHERE_IN_NAME	= Hvor som helst i navn
+ARTIST			= Kunstner
+ART_ADDED_OK		= Grafik fil tilføjet
+ART_DELETE_OK		= De valgte filer er blevet fjernet
+ART_ERROR_FILENAME	= Skriv et filnavn
+ART_ERROR_FILETYPE	= Kun filer af typen JPG, JPEG, GIF eller PNG er gyldige
+ART_ERROR_QUOTE		= Filnavne kan ikke indeholde citationstegn
+ART_ERROR_SLASH		= Filnavne kan ikke indeholde stier
+ART_FILENAME_PROMPT	= Skriv navnet på en billedfil, der skal bruges til album/fil grafik, hvis det findes i et medie bibliotek.
+ART_FILES_ADD_BUTTON	= Tilføj filnavn
+ART_FILES_ADD_TITLE	= Tilføj et filnavn
+ART_FILES_CURRENT	= Grafik filer i øjeblikket
+ART_FILES_DEL_BUTTON	= Fjern valgte filer
+ART_FILES_PROMPT	= [em]Album/Film Grafik[/em] filer er navne på billedfiler, som SwissCenter skal kigge efter, når der vises en 'gennemse' funktion (Gennemse Film, Gennemse Musik pr. folder, etc.) eller når du har valgt et album eller en film. [p] Hvis en eller flere af disse filer findes i biblioteket, vil den første af dem blive vist i SwissCenter menuerne.
+ART_FILES_TITLE		= Album/Film Grafik
+ART_ID3_TAG		= ID3-Tag Covers
+ART_ID3_TAG_PROMPT	= Hvis 'Album Art' er defineret i musikfilens ID3-Tag, vil det blive udtrukket og gemt i databasen som den foretrukne grafik, der skal bruges til SwissCenter Interfacet. Vær dog opmærksom på at eftersom dette kan få databasen til at vokse betydeligt, kan du slå denne funktion fra, hvis du ønsker.
+ART_UPDATE_OK		= Grafik information opdateret
+AUTOMATIC		= Automatisk
+BROWSE_ACTOR		= Søg efter skuespiller
+BROWSE_ALBUM		= Søg efter album navn
+BROWSE_ARTIST		= Søg efter kunstner navn
+BROWSE_CERTIFICATE	= Søg efter max certifikat
+BROWSE_DIRECTOR		= Søg efter instruktør
+BROWSE_FILESYSTEM	= Gennemse filsystem
+BROWSE_GENRE		= Søg efter genre
+BROWSE_MOVIES		= Gennemse Film
+BROWSE_MUSIC		= Gennemse Musik
+BROWSE_PHOTOS		= Gennemse Billeder
+BROWSE_TITLE		= Søg efter titel
+BROWSE_TRACK		= Søg efter track navn
+BROWSE_YEAR		= Søg efter år
+CACHE_DIR		= Cache bibliotek
+CACHE_DIR_PROMPT	= Angiv det bibliotek hvor SwissCenter serveren skal cache billedfiler, der er blevet skaleret (f.eks., Grafik til et album, eller miniaturen til et billede)
+CACHE_ERROR_FULL_DIR	= Skriv den fulde sti til biblioteket
+CACHE_ERROR_MISSING	= Skriv et cache bibliotek
+CACHE_ERROR_NOT_EXIST	= Det bibliotek du har angivet eksisterer ikke
+CACHE_ERROR_NOT_NUMBER	= Den angivne cache størrelse er ikke et tal
+CACHE_ERROR_SIZE	= Angiv en cache størrelse (eller 0 for ubegrænset størrelse)
+CACHE_ERROR_SMALL	= Du har angivet en for lille cache størrelse
+CACHE_SIZE		= Maksimum størrelse
+CACHE_SIZE_PROMPT	= Dette er den maksimale plads (i megabytes) der vil blive brugt til cache af billedfiler (værdien 0 indikerer ubegrænset plads.) Når grænsen bliver nået, vil tidligere cahcede billeder blive slettet efter hvilke, der har været brugt mindst.
+CATEGORIES		= Kategorier
+CATEGORY		= Kategori
+CATEGORY_LIST_ALL	= Alle kategorier
+CATEGORY_PROMPT		= At specificere en kategori, hjælper dig til at sortere dine mediefiler i logiske grupper, som f.eks. "Lydbøger" og "Sprogunderisning" foruden "Generelt". Ved at bruge denne funktion kan du f.eks. afspille blandet musik, uden at et kapitel fra en lydbog bliver tilføjet playlisten.
+CAT_ADDED_OK		= Kategori tilføjet
+CAT_ADD_BUTTON		= Tilføj kategori
+CAT_ADD_TITLE		= Tilføj en ny Kategori
+CAT_DELETE_OK		= De valgte kategorier er blevet slettet
+CAT_DEL_BUTTON		= Fjern valgte kategorier
+CAT_ERROR_DELETE	= Kategorien %s kan ikke fjernes
+CAT_ERROR_EXISTS	= Kategorien findes allerede
+CAT_ERROR_NAME		= Skriv venligst et kategori navn
+CAT_UPDATE_OK		= Kategori information opdateret
+CERTIFICATE		= Certifikat
+CLEAR_NAME		= Ryd navn
+CONFIGURATION		= Konfiguration
+CONFIG_DB_CREATE	= Opret Database
+CONFIG_DB_CREATE_TXT    = Denne skærm lader dig oprette og fylde data i SwissCenter databasen. De parametre der vil blive brugt, vises nedenfor.
+CONFIG_DB_ERROR		= Ken ikke kontakte databasen - Er dine [i]Database Config[/i] indstillinger korrekte?
+CONFIG_DB_ROOT_PW	= "Root" password
+CONFIG_DB_ROOT_PW_TXT   = Med mindre du har specificeret et password til [em]root[/em] under installationen af MySQL, er dette sandsynligvis ikke sat og du skal bare lade feltet være blankt.[p][em]Bemærk: Det kan godt tage flere minutter at oprette databasen. Vær tålmodig! [/em]
+CONFIG_TITLE            = SwissCenter Konfiguration
+CONNECT_TEXT		= Der er nogen af funktionerne i SwissCenter interfacet, der skal bruge en Internet forbindelse, til at modtage information (f.eks. Vejrudsigt) og/eller periodisk tjekke om der er kommet nye informationer information (f.eks. Nyheds Opdateringer).
+CONNECT_TITLE		= Forbindelse
+CONTINUE		= Fortsæt
+CUSTOM			= Brugerdefineret
+DATABASE_ERROR		= Der er sket en fejl med databasen
+DATABASE_NAME		= Database navn
+DATABASE_NOCONNECT	= Kan ikke kontakte MySQL med de angivne værdier for vært, brugernavn og password
+DATABASE_NOSELECT	= Der er oprettet forbindelse til MySQL, men den angivne database kan ikke vælges
+DATE			= Dato
+DAY_1			= Man
+DAY_2			= Tir
+DAY_3			= Ons
+DAY_4			= Tor
+DAY_5			= Fre
+DAY_6			= Lør
+DAY_7			= Søn
+DB_CREATE_DB_ERR	= Kan ikke oprette database - Er dit MySQL "root" password korrekt?
+DB_CREATE_USER_ERR	= Kan ikke oprette bruger - Er dit MySQL "Root" password korrekt?
+DETAILS_CLEAR		= Ryd detaljer
+DETAILS_CLEARED_OK	= Detaljer ryddet
+DETAILS_EDIT		= Rediger detaljer
+DIRECTOR		= Instruktør
+DISABLED		= Deaktiveret
+DOWNLOADING		= Downloader...
+ENABLED			= Aktiveret
+EXTRA_REFRESH_DETAILS	= Hvis du kommer i den situation at du skal genindlæse alle de videoinformationer der er blevet downloadet fra Internettet, uanset af hvilken grund, kan du gøre det ved at klikke på nedenstående knap.
+EXTRA_REFRESH_GO	= Genindlæs alle ekstra informationer
+EXTRA_REFRESH_TITLE	= Genindlæser alle ekstra video informationer
+EXTRA_REFRESH_WARNING	= Vær dog opmærksom på, at hvis du manuelt har indtastet informationer via %s siden vil disse informationer gå tabt.
+FILENAME		= Filnavn
+FILE_EXISTS		= ADVARSEL: Der findes allerede en fil med det navn. Hvis du gemmer nu vil den eksisterende fil blive overskrevet.
+FINISHED		= Færdig
+GENRE			= Genre
+HOME			= Startside
+HOUR			= Time
+INFORMATION 		= Information
+INTERNET_RADIO		= Internet Radio
+INTERNET_RADIO_PROMPT	= Forbindelse til de individuelle Internet Radiostationer bliver oprettet direkte fra ShowCenteret, når det vælges af brugeren. Hvis dit showcenter ikke har en Internet forbindelse, bør du deaktivere denne funktion.
+LANG_CHANGE		= Skift Sprog
+LANG_SELECT		= Vælg det sprog du vil bruge
+LISTEN_MUSIC		= Lyt til Musik
+LISTEN_RADIO		= Lyt til Internet Radio
+LIST_VIEW		= Liste oversigt
+LOCATION		= Lokation
+LOCATION_PROMPT		= Angiv den fulde sti til det bibliotek hvor medier kan findes. F.eks. i Windows kan det være [em]"C:\Documents and Settings\Robert\My Documents\My Musik"[/em] eller på et Linux system kan det være [em]"/home/Robert/Musik"[/em]
+LOGFILE_ERROR		= Kan ikke skrive til logfilen:
+LOWERCASE		= Små bogstaver
+MACHINE_NAME		= Server navn
+MAIN_MENU		= Hovedmenu
+MANAGE_PLAYLISTS	= Rediger playlister
+MANY_ITEMS		= %s Elementer
+MANY_TRACKS		= %s Tracks
+MEDIA_LOCATIONS		= Medie Lokationer
+MEDIA_LOC_ADD_BUTTON	= Tilføj lokation
+MEDIA_LOC_ADD_OK	= Medie lokation tilføjet
+MEDIA_LOC_ADD_TITLE	= Tilføj en ny lokation
+MEDIA_LOC_DEL_BUTTON	= Fjern valgte lokationer
+MEDIA_LOC_DEL_OK	= Det valgte bibliotek er blevet fjernet
+MEDIA_LOC_ERROR_CAT	= Vælg en kategori
+MEDIA_LOC_ERROR_CERT	= Vælg hvilket certifikat, der skal være standard på ikke-certificerde medier.
+MEDIA_LOC_ERROR_DIRFAIL	= Det bibliotek du har specificeret eksisterer ikke
+MEDIA_LOC_ERROR_LOC	= Skriv en medie lokation
+MEDIA_LOC_ERROR_PATH 	= Skriv den fulde sti til biblioteket
+MEDIA_LOC_ERROR_TYPE	= Vælg en medie type
+MEDIA_LOC_HEADINGS	= Type, Kategori, Certifikat, Bibliotek
+MEDIA_LOC_UPDATE_OK	= Medie lokations information opdateret
+MEDIA_MANAGEMENT	= Medie håndtering
+MEDIA_TYPE		= Medie type
+MEDIA_TYPE_PROMPT	= Vælg den type medie der skal søges efter på denne lokation.
+MESSAGES		= Beskeder
+MESSAGES_DELETE		= Slet denne besked
+MESSAGES_KEEP		= Gem denne besked
+MESSAGES_NONE		= Der er ingen beskeder at vise
+MESSAGES_SELECT		= Vælg den besked du vil vise
+MESSAGES_VIEW		= Vis beskeder
+MESSAGE_STATUS_DELETED	= Slettet
+MESSAGE_STATUS_NEW	= Ny
+MESSAGE_STATUS_READ	= Læst
+MINUTE			= Minut
+MISSING_DB_TEXT		= Brug konfigurations siden til at oprette databasen
+MISSING_DB_TITLE	= Du har ikke oprettet en database
+MISSING_INI_TEXT	= Brug konfigurations siden til at oprettet en konfigurations fil
+MISSING_INI_TITLE	= Din SwissCenter konfigurations fil mangler.
+MISSING_MEDIA_TEXT	= Brug konfigurations siden til at tilføje medie lokationer. 
+MISSING_MEDIA_TITLE	= Du har ikke defineret nogen medie lokationer.
+MISSING_PERMS_TEXT	= Det bibliotek, hvor du har installeret SwissCenter, er ikke læs-/skrivbar for webserver brugeren.
+MISSING_PERMS_TITLE	= Installation forkert
+MISSING_SCHED_TEXT	= Windows servicen "Planlagte Opgaver" ("Task Scheduler") er krævet af SwissCenter for at kunne søge efter medie filer.
+MISSING_SCHED_TITLE	= Servicen "Planlagte Opgaver" ("Task Scheduler") kører ikke
+MISSING_SETUP_SQL	= Filen "Setup.sql" mangler i dit SwissCenter bibliotek.
+MODULE_MISSING_LINUX	= Modulet %s er ikke indlæst - du er måske nødt til at recompile PHP med den relevante valgmulighed valgt.
+MODULE_MISSING_TITLE	= Krævet PHP modul mangler
+MODULE_MISSING_WINDOWS  = Modulet %s er ikke indlæst - ret din php.ini fil for at aktivere det.
+MONTH			= Måned
+MOVIE_ADD_BUTTON	= Tilføj/Opdater detaljer
+MOVIE_ADD_PROMPT	= Skriv de detaljer, du ønsker at [em]tilføje[/em] til hver af de videoer der er listet ovenfor [br] (hold CTRL nede for at vælge flere elementer fra listen på én gang)
+MOVIE_CHANGES_MADE	= Ændringer foretaget
+MOVIE_ERROR_NO_SELECT	= Du har ikke valgt en film, der skal opdateres
+MOVIE_EXTRA_DL_TITLE	= Download ekstra video information
+MOVIE_EXTRA_REFRESH_OK	= Alle ekstra video informationer er planlagt til genindlæsning
+MOVIE_EXTRA_TITLE	= Ekstra video info
+MOVIE_NEW_PROMPT        = Du kan indtaste skuespillere, Instrutører eller Genrer, som ikke står i listerne nedenunder. [br] For at indtaste mere end et element ad gangen, separeres hvert element med et komma.
+MOVIE_UPD_TEXT		= Følgende film vil blive opdateret
+MOVIE_UPD_TTILE 	= Opdater Film
+MUSIC_PLAY_TIME		= Spilletid
+NAME			= Navn
+NEW			= Ny
+NEW_MESSAGES		= Nye Beskeder
+NEW_MESSAGES_PROMPT	= Der vil dagligt blive tjekket for nye meddelelser vedr. SwissCenter interfacet. Hvis en ny besked er tilgængelig, vil et ikon vises på hovedmenuen for at indikere at der er noget du skal se.
+NEXT			= Næste
+NOTES			= Noter
+NOW_PLAYING		= Nu Afspilles...
+NO_ITEMS_TO_DISPLAY	= Der er ingen elementer at vise
+NO_PLAYLIST		= Du har ikke defineret nogen playlist i øjeblikket.
+ONE_ITEM		= 1 Element
+ONE_TRACK		= 1 Track
+OPTIONS			= Valgmuligheder
+ORG_TITLE		= Video Detaljer
+PASSWORD		= Password
+PHOTOS_NO_SELECTED	= Ingen billeder
+PHOTOS_TIME_ALL		= Total spilletid
+PHOTOS_TIME_ONE		= Tid per billede
+PHP_VERSION_TEXT	= Du skal mindst have version 4.3.9 af PHP installeret
+PHP_VERSION_TITLE	= Din PHP version er for gammel.
+PIN_CHANGE		= Skift PIN
+PIN_CHANGED		= Din PIN kode er blevet skiftet
+PIN_CLEAR		= Ryd PIN
+PIN_CONFIRM_NEW		= Bekræft din nye PIN kode
+PIN_DELETE_LAST		= Slet sidste ciffer
+PIN_ENTER		= Indtast PIN
+PIN_ENTER_NEW		= Skriv din nye PIN kode
+PIN_ENTER_OLD		= Skriv din gamle PIN kode
+PIN_ENTER_PROMPT	= Skriv din pin kode ved at trykke på tallene på din fjernbetjening
+PIN_INCORRECT	 	= Forkert PIN kode
+PIN_MAXLEN		= PIN koden kan ikke være længere
+PIN_MISMATCH		= De to PIN koder er ikke ens. Koden er ikke skiftet.
+PLAY			= Afspil
+PLAYLISTS_CONFIG_PROMPT = Skriv den fulde sti til det bibliotek hvor playlists skal gemmes af SwissCenter. [p]F.eks.: I Windows kunne dette være [em]"C:\Documents and Settings\Robert\My Documents\My Playlists"[/em] eller på et LINUX system kunne det være [em]"/home/Robert/Playlists"[/em]
+PLAYLISTS_ERROR_DIR 	= Vælg en playlist lokation
+PLAYLISTS_ERROR_INVALID = Det bibliotek du har skrevet eksisterer ikke
+PLAYLISTS_ERROR_PATH	= Skriv den fulde sti til biblioteket
+PLAYLIST_APPEND		= Tilføj en anden playlist
+PLAYLIST_CLEAR		= Ryd playlisten
+PLAYLIST_EDIT		= Rediger playlisten
+PLAYLIST_LOAD		= Indlæs playlist
+PLAYLIST_LOAD_NEW	= Indlæs en ny playlist
+PLAYLIST_SAVE		= Gem playlist
+PLAYLIST_SAVE_CURRENT	= Gem den aktuelle playlist
+PLAYLIST_SAVE_PROMPT	= Skriv det navn, du vil bruge til din playlist
+PLAY_NOW		= Spil nu
+PLEASE_SELECT		= Vælg
+PREVIOUS		= Forrige
+PRIVACY_COMMUNICATION	= [b]Uopfordrede E-mails/Beskeder[/b] [p][ul][li]Vi vil aldrig sende uopfordrede E-mails.[li]Beskeder downloadet til SwissCenter Interfacet vil kun relatere til interfacets muligheder og brug. Hvis du ønsker det, kan selv disse beskeder fravælges at blive downloadet ved at deaktivere "Beskeder" funktionen under "Forbindelse".[/ul]
+PRIVACY_POLICY		= Privatlivs politik
+QUICK_PLAY		= Hurtig Afspilning
+RANGE			= Område
+REFINE_ACTOR		= Præciser på skuespiller
+REFINE_ALBUM		= Præciser på album
+REFINE_ARTIST		= Præciser på kunstner
+REFINE_CERTIFICATE	= Præciser på certifikat
+REFINE_DIRECTOR		= Præciser på instruktør
+REFINE_GENRE		= Præciser genre
+REFINE_TITLE		= Præciser på titel
+REFINE_YEAR		= Præciser på år
+REFRESH_DATABASE	= Opdater database
+REFRESH_DATABASE_PROMPT = Søg efter nye medier
+REFRESH_RUNNING		= Database opdateringen er startet i baggrunden og du kan fortsætte med at bruge systemet som normalt. Bemærk dog at ikke alle mediefiler vil være tilgængelige for afspilning indtil opdateringen er færdig. [p] Den første opdatering af databasen kan tage op til 10 minutter for hver 5000 mediefiler på dit system. Efterfølgende opdateringer er dog meget hurtigere.
+REMOTE_ACCESS_ERROR	= Fjernadgang til [em]SwissCenter Konfigurationen[/em] er deaktiveret af sikkerhedsgrunde.
+RETURN_MAIN_MENU	= Tilbage til hovedmenuen
+RETURN_TO_SELECTION	= Tilbage til valg
+ROOT_INSTALL_TEXT	= Du bør installere SwissCenter softwaren som webserver bruger - "root" installationer er ikke supporteret.
+ROOT_INSTALL_TITLE	= Installation blev foretaget som "root"
+SAVE_SETTINGS		= Gem indstillinger
+SAVE_SETTINGS_OK	= Indstillingerne er gemt
+SCHEDULE_AUTO_TITLE	= Automatisk opdatering af medier
+SCHEDULE_AUTO_TXT	= En søgning efter nye medier vil blive foretaget på det givne tidspunkt for hver af de dage der er specificeret nedenunder. Det anbefales af søgningen foretages dagligt på et tidspunkt, hvor du sandsynligvis ikke bruger computeren.
+SCHEDULE_DATE_PROMPT	= Dag på måneden
+SCHEDULE_ERROR_CHARS	= Gyldige tegn er en af %s
+SCHEDULE_ERROR_FIELDS	= Du skal angive en værdi for hvert af felterne
+SCHEDULE_ERROR_HOUR	= Indtast et gyldigt timetal (mellem 0 og 23)
+SCHEDULE_ERROR_MIN	= Indtast et gyldigt minuttal(mellem 0 og 59)
+SCHEDULE_HOUR_PROMPT	= Time på dagen
+SCHEDULE_MINUTE_PROMPT	= Antal minutter efter timeslaget
+SCHEDULE_MONTH_PROMPT	= 1 = Januar, 2 = Februar, etc 
+SCHEDULE_NONE		= Automatisk Medie opdatering - Ikke længere aktiv
+SCHEDULE_NOTES		= [li]* indikerer alle mulige værdier. [li]Flere linjer kan specificeres ved at bruge komma (1,5). [li]Et område kan specificeres med en bindestreg. [li]Både bindestreg og komma kan bruges samtidig (1-4,7).
+SCHEDULE_TITLE		= Planlagte opgaver
+SCHEDULE_UPDATED	= Automatisk medie opdatering - Tidsplan opdateret
+SCHEDULE_UPDATE_BUTTON	= Opdater tidsplan
+SCHEDULE_WEEKDAY_PROMPT	= 1 = Mandag, 2 = Tirsdag, etc
+SEARCH			= Søg
+SEARCH_ANYWHERE		= Hvor som helst i navn
+SEARCH_CLEAR		= Ryd søgning
+SEARCH_NO		= Nej, Start en ny søgning
+SEARCH_NO_ITEMS		= Der er ingen elementer, der matcher din søgning
+SEARCH_START		= I starten af navn
+SEARCH_YES		= Ja, Søg alligevel
+SELECT_ALL		= Vælg alt
+SELECT_CATEGORY		= Vælg en kategori fra listen:
+SELECT_ENTIRE_ALBUM	= Vælg hele albumet
+SELECT_OPTION		= Vælg et punkt på menuen herunder:
+SELECT_USER		= Vælg en bruger fra listen:
+SETUP			= Opsætning
+SETUP_CHANGE_UI		= Skift udseende
+SETUP_SEARCH_NEW_MEDIA	= Søg efter nye medier
+SETUP_TITLE		= Indstillinger og opsætning
+SETUP_UPDATE_SC		= Opdater SwissCenter
+SHUFFLE_OFF		= Slå tilfældig afspilning fra
+SHUFFLE_ON		= Slå tilfældig afspilning til
+SLIDESHOW		= Slideshow
+STARRING		= Medvirkende
+START_OF_NAME		= I starten af navn
+START_SLIDESHOW		= Start slideshow
+STATUS			= Status
+STYLE_CHECK_ONLINE	= Download udseender fra %s
+STYLE_CHOOSE		= Vælg udseende
+STYLE_DOWNLOAD		= Download Udseende
+STYLE_DOWNLOADING	= Downloader udseende - Vent venligst.
+STYLE_NONE_AVAILABLE	= Der er ikke nogen udseender tilgængelig
+STYLE_SHOW_INSTALLED	= Vis installerede udseender
+SUPPORT_CLIENTS_TITLE	= klienter fundet
+SUPPORT_CLINTS_TABLE	= IP Adresse, Agent string
+SUPPORT_DB_CONN_TABLE	= Forbindelsesdetaljer
+SUPPORT_DB_DB_LIST	= Databaser
+SUPPORT_DB_TABLE_LIST	= Tabel, Række
+SUPPORT_DB_TITLE	= Database indstillinger
+SUPPORT_PROG_HEADINGS	= Program, Lokation
+SUPPORT_PROG_TITLE	= Program lokationer
+SUPPORT_SYSPREF_TABLE	= Preference, Setting
+SUPPORT_SYSPREF_TITLE	= System indstillinger
+SUPPORT_TITLE		= Support info
+SUPPORT_TXT		= Hvis du oplever problemer med at bruge SwissCenter er du velkommen til at poste en beskrivelse af det problem du har samt alle andre relevante informationer (så som dit Operativ System) i vores [em]Hjælpe forum[/em] på %s hjemmesiden. [p] Alle eller nogle af de informationer, der vises herunder kan måske hjælpe med af fejlfinde på dit problem.
+SUPPORT_USRPREF_TABLE	= Bruger, Preference, Setting
+SUPPORT_USRPREF_TITLE	= Bruger Indstillinger
+THUMBNAIL_VIEW		= Ikon visning
+TIME			= Tid
+TITLE			= Titel
+TRACKS			= Tracks
+TRACKS_ADDED_TEXT	= De tracks du har valgt er blevet tilføjet til playlisten.[p] For at begynde afspilningen af tracksene i din playlist, eller redigere din playlist kan du på et hvert tidspunkt trykke på %s knappen på din fjernbetjening og så vælge %s .
+TRACKS_ADDED_TITLE	= Tracks Tilføjet
+TRACK_NAME		= Track navn
+UNRATED_CERTIFICATE	= Uklacificeret Certifikat
+UNRATED_CERT_PROMPT	= Du bør specificere et standard certifikat, der vil blive tildelt til hver af de filer på denne lokation, der ikke har et certifikat direkte tildelt.
+UPDATE			= Opdater
+UPDATE_CHECK		= Opdaterings Tjek
+UPDATE_CHECK_PROMPT	= Et dagligt tjek vil blive foretaget til %s hjemmesiden for at se om der er en ny version af SwissCenter tilgængelig. Hvis der er det, vil et ikon på hovedmenuen indikere dette.
+UPDATE_FAILED		= opdatering fejlede - prøv igen senere
+UPDATE_NONE		= Der er ingen opdateringer tilgængelig på dette tidspunkt
+UPDATE_SUCCESS		= Dit system er blevet opdateret
+UPDATE_TITLE		= Online opdatering
+UPDATING		= Opdaterer...
+UPDATING_PLEASE_WAIT	= Opdaterer - Vent venligst
+UPPERCASE		= Store bogstaver
+USERNAME		= Brugernavn
+USERS_ADDED_OK		= Ny bruger tilføjet
+USERS_ADD_BUTTON	= Tilføj ny bruger
+USERS_ADD_TITLE		= Administrer brugere
+USERS_CONFIG_TITLE	= Brugeradministration
+USERS_DEL_BUTTON	= Fjern valgte brugere
+USERS_DEL_OK		= Den valgte bruger er blevet slettet
+USERS_EDIT_OK		= Den valgte bruger er blevet ændret
+USERS_ERROR_CERT	= Vælg det højeste certifikat, som denne bruger må se.
+USERS_ERROR_DEFAULT	= Standardbrugeren kan ikke slettes
+USERS_ERROR_EXISTS	= Brugeren findes allerede, prøv et andet navn
+USERS_ERROR_NAME	= Skriv et brugernavn
+USERS_MAX_CERT		= Maksimum Certifikat
+USERS_MAX_CERT_PROMPT	= Vælg det [em]højeste[/em] certifikat, som denne bruger må se. Elementer med et højere certifikat end det du har angivet vil [em]ikke[/em] være synlige for brugeren.
+USERS_NAME_PROMPT	= Skriv navnet på brugeren som det skal fremgår i SwissCenter.
+USERS_PIN		= PIN kode
+USERS_PIN_PROMPT	= Du kan vælge at beskytte denne bruger med en PIN kode (som kan være op til 10 cifre lang)
+USERS_TABLE_HEADINGS	= Navn, PIN kode, Max Certifikat Synligt
+USER_CHANGE		= Rediger bruger
+USER_CHANGED		= Din bruger er blevet ændret
+VALUE			= Værdi
+VIEW_PHOTO		= Se Billeder
+VIEW_WEATHER		= Se vejrudsigten
+WATCH_MOVIE		= Se en Film
+WEATHER_5DAY		= Se 5-døgns prognosen
+WEATHER_BACK_TO_SEARCH	= Tilbage til søgesiden
+WEATHER_CHANNEL		= The Weather Channel
+WEATHER_CURRENT		= Vejret lige nu
+WEATHER_FEELS_LIKE	= Føles som
+WEATHER_FORECAST 	= Vejrudsigt
+WEATHER_FORECAST_PROMPT = Information om vejret lige nu (eller 5-døgns prognosen) hentes fra %s når det ønskes.
+WEATHER_HOME		= Sæt som hjem
+WEATHER_HUMIDITY	= Fugtighed
+WEATHER_IMPERIAL	= Skift til Amerikansk standard
+WEATHER_LOCATION	= Vælg en anden lokation
+WEATHER_MATCHING	= Byer der matcher din søgning
+WEATHER_MATCHING_TITLE	= Matchende Byer
+WEATHER_METRIC		= Skift til Metersystemet
+WEATHER_NO_CITY		= Der er ikke nogen byer, der matcher din søgning efter %s i SwissCenter databasen.[p] Vil du prøve at søge på  %s efter eventuelle matches alligevel? (skriv hele byens navn, før du søger)
+WEATHER_NO_MATCHING	= Desværre, %s har ikke en vejrudsigt for byen %s i øjeblikket.
+WEATHER_PRESSURE	= Tryk
+WEATHER_SELECT_CITY	= Vælg by: 
+WEATHER_UV		= UV index
+WEATHER_VISIBILITY	= Sigtbarhed
+WEATHER_WIND		= Vind
+WEEKDAY			= Ugedag
+YEAR			= År
+
+# -----------------------
+# SwissCenter v1.13
+# -----------------------
+
+COMPACT_VIEW		= Kompakt visning
+
+NO_SYNOPSIS_AVAILABLE	= Der er ikke nogen beskrivelse tilgængelig
+
+KEYBOARD_DEL		= SLET
+KEYBOARD_SPC		= SPACE
+
+PLAYLIST_LOAD_OK	= Playlist indlæst
+PLAYLIST_NAME_CANCEL	= Annuller - Gem Ikke
+PLAYLIST_NAME_USE	= Gem med dette filnavn
+
+PC_LINK_BACK		= Tilbage
+PC_LINK_HOME		= Startside
+PC_LINK_MOVIES		= Film
+PC_LINK_MUSIC		= Musik
+PC_LINK_PHOTOS		= Billeder
+
+SECONDS			= %s Sekunder
+MINUTES			= %s Minutter
+
+BROWSE_DATE		= Søg efter dato
+BROWSE_PHOTO_ALBUM	= Søg efter fotoalbum
+BROWSE_PHOTO_TITLE	= Søg efter titel
+PHOTO_ALBUM		= Billedalbum
+PHOTO_TITLE		= Titel
+PHOTO_PLAY_ORDER	= Afspilningsrækkefølge
+PHOTO_CHANGE_ORDER	= Ret afspilningsrækkefølge
+PHOTO_CHANGE_TIME	= Ret tid pr. billede
+PHOTO_ORDER_NAME	= Navn
+PHOTO_ORDER_DATE_TAKEN	= Dato taget
+PHOTO_ORDER_DATE_DISK	= Dato redigeret
+PHOTO_ORDER_DATE_RANDOM	= Tilfældig
+REFINE_PHOTO_ALBUM	= Præciser på billedalbum
+REFINE_PHOTO_TITLE	= Præciser på billed titel
+
+TIME_SECOND_SHORT	= s
+TIME_MINUTE_SHORT	= m
+TIME_HOUR_SHORT		= t
+TIME_DAY_SHORT		= d
+
+# -----------------------
+# SwissCenter v1.14
+# -----------------------
+
+PC_LINK_CONFIG          = Konfigurer
+MOVIE_EXTRA_SITE_PROMPT = Download info fra
+MOVIE_OPTIONS		= Video Indstillinger
+MEDIA_SEARCH_PROMPT	= Ved at klikke på knappen herunder vil du starte en baggrundsskanning på alle dine medie lokationer. Medier, der ikke længere findes på dit system vil blive fjernet fra databasen og alle nye eller ændrede medier vil blive tilføjet.
+RATING_SCHEME_PROMPT	= Certifikat Skema
+SIMESE_SCHED_PROMPT	= Du kan planlægge en automatisk opdatering af SwissCenter databasen ved at højreklikke på Simese ikonet i processlinjen og vælge [i]Update Media Scheduler[/i].
+
+# Updated text strings in v1.14
+
+MOVIE_EXTRA_DL_PROMPT	= Når en ny video er fundet gennem "Søg efter nye medier", vil SwissCenter bruge filnavnet på videofilen til at søge efter og downloade ekstra informationer om videoen (f.eks. Skuespillere, Instruktører osv.) fra den side du har valgt nedenunder.
+PRIVACY_DATA_COLLECTION	= [b]Data indsamling[/b] [p]Information relateret til mediefilerne på din maskine vil blive indsamlet og gemt i en MySQL database på den PC hvor SwissCenter er installeret. Denne information bruges med det ene formål at give dig et interface til dine medier på afspillere så som Pinnacle's Showcenter. På intet tidspunkt vil noget af denne information blive sendt i nogen som helst form til folkene bag SwissCenter, eller til nogen som helst 3. part. [p]Der er dog en undtagelse til det ovenstående: For at kunne modtage ekstra informationer om video filer (så som skuespillere, instruktører osv.) vil filnavnet blive sendt som en del af en søgestreng til den hjemmeside du har valgt på %s skærmen. Hvis du helst vil undgå at disse informationer bliver sendt, bør du slå funktionen "Download ekstra video information" fra.
+
+# -----------------------
+# SwissCenter v1.14.1
+# -----------------------
+
+CAT_LIST_ALL            = Alle Kategorier
+CAT_RECENTLY_ADDED      = Nyligt tilføjede
+IMAGE_RESIZE_TYPE	= Image generation
+IMAGE_RESIZE		= Skalér (hurtigere)
+IMAGE_RESAMPLE		= Resample (højere kvalitet)
+IMAGE_RESIZE_PROMPT	= Vælg hvilken metode der skal bruges af SwissCenter, når der dannes billeder i farten.
+CURRENT_VERSION		= Aktuel Version
+
+# -----------------------
+# SwissCenter v1.15
+# -----------------------
+
+# New text strings
+
+REFRESH_DIR             = Opdaterer
+REFRESH_DIR_BUTTON      = Opdater
+REFRESH_DIR_TEXT        = SwissCenter søger efter nye eller opdaterede medier og tilføjer disse til databasen. Dette kan tage et par minutter.
+SEARCH_WIKIPEDIA	= Slå op i Wikipedia
+RESUME_PLAYING          = Fortsæt afspilning
+INSTALL_TEST_TITLE	= Installations Tjek
+INSTALL_TEST_SUCCESS    = Følgende tests var succesfulde:
+INSTALL_TEST_FAIL_WEB   = Følgende tests fejlede:
+INSTALL_TEST_FAIL_CLI   = Følgende tests fejlede i baggrunden:
+CAT_DOWNLOAD            = Download Ekstra Info 
+CAT_DOWNLOAD_PROMPT     = Dette felt angiver om ekstra information skal downloades fra Internettet for filer tilknyttet denne kategori, når det er tilgængeligt.
+SYNOPSIS		= Beskrivelse
+RETURN_TO_LIST		= Tilbage til listen
+PAGE			= Side %s
+LOOKUP_MOVIE		= Slå filmen op
+LOOKUP_SUCCESS		= Film detaljer downloadet og gemt
+LOOKUP_FAILURE		= Kan ikke finde film detaljer.
+DEBUG_MINIMUM		= (Minimum)
+DEBUG_MAXIMUM		= (Maksimum)
+DEBUG_RECOMMENDED	= (Anbefalet)
+DEBUG_LEVEL		= Level %s %s
+
+INTERNET_SETTING        = Internet Forbindelse
+INTERNET_SETTING_PROMPT = Dette indikerer hvorvidt din PC har en Internetforbindelse, som SwissCenter kan bruge. Hvis du sætter værdien "Automatisk", vil SwissCenter forsøge at finde en Internetforbindelse automatisk.
+CONNECT_OPT_TEXT        = Du kan vælge at aktivere eller deaktivere specifikke funktioner, der gør brug af en Internetforbindelse herunder. Det anbefales at du lader alle funktioner være aktiveret.
+WIKI_LOOKUP             = Wikipedia opslag
+WIKI_LOOKUP_PROMPT      = Når denne funktion er aktiveret vil SwissCenter give dig mulighed for at søge efter information (så som kunstnere og film) på Wikipedia.
+
+FAIL_MYSQL_VERSION      = Din version af MySQL er ikke supporteret.
+FAIL_MYSQL_CONNECT	= Kan ikke forbinde til MySQL serveren.
+FAIL_MYSQL_DB           = Kan ikke forbide til SwissCenter databasen (har du oprettet den endnu?)
+FAIL_PHP_CLI            = Din PHP Version understøtter ikke kommando linjer. SwissCenter vil ikke være i stand til automatisk at søge efter nye medier.
+FAIL_PHP_INI		= Kan ikke finde 'php.ini'.
+FAIL_PHP_VERSION        = Din version af PHP er ikke supporteret (%s)..
+FAIL_PHP_REQ_MODS       = Ikke alle krævede PHP moduler er tilgængelige. (Krævede moduler er: [b]%s[/b]).
+FAIL_PHP_EXTRA_MODS     = Ikke alle anbefalede PHP moduler er tilgængelige. Nogle ikke-kritiske funktioner er derfor blevet deaktiveret.(anbefalede moduler er: [b]%s[/b]).
+FAIL_SERVER_SCHED	= Baggrundsjobs kan ikke køre - Dette kan være fordi 'cron' (Linux) eller 'planlagte opgaver' (Windows) er deaktiveret.
+FAIL_SWISS_INI		= Kan ikke finde filen 'SwissCenter.ini'. [br]Har du oprettet databasen endnu?
+FAIL_SWISS_LOCS         = Der er ikke defineret nogle medielokationer.
+FAIL_SWISS_LOG		= Kan ikke skrive til SwissCenter log filen (%s). 
+
+PASS_MYSQL_VERSION      = Din version af MySQL er supporteret.
+PASS_MYSQL_CONNECT	= Forbindelse oprettet til MySQL serveren.
+PASS_MYSQL_DB           = Forbindelse oprettet til SwissCenter databasen.
+PASS_PHP_CLI            = En kommando linje version af PHP er blevet fundet.
+PASS_PHP_INI            = Filen 'php.ini' er blevet fundet.
+PASS_PHP_VERSION        = Din version af PHP er supporteret.
+PASS_PHP_REQ_MODS       = Alle krævede PHP moduler er tilgængelige.
+PASS_PHP_EXTRA_MODS     = Alle anbefalede PHP moduler er tilgængelige.
+PASS_SERVER_SCHED	= Automatisk søgning efter nye medier er supporteret.
+PASS_SWISS_INI		= Filen 'SwissCenter.ini' er blevet fundet.
+PASS_SWISS_LOCS		= Medie lokationer er blevet fundet.
+PASS_SWISS_LOG		= Logning aktiveret.
+PASS_SWISS_ROOT_INS     = Installation blev foretaget af den anden bruger end Root.
+PASS_SWISS_RW_FILES     = Der er læse-/skriveadgang til SwissCenter installations biblioteket.
+
+# Updated text strings in v1.15
+
+DEBUG_MODE		= Logging Mode
+DEBUG_MODE_PROMPT	= [i]Logging Mode[/i] controls how much information will be written to the support.log file when using the SwissCenter. If you are reporting a bug that you are able to reproduce, please ensure that the Logging mode is set to the maksimum before capturing the log.
+
+# -----------------------
+# SwissCenter v1.15.2
+# -----------------------
+
+CACHE_STYLE             = Gem detaljer om Udseende i cachen
+CACHE_STYLE_PROMPT      = Når denne funktion er aktiveret, vil SwissCenter gemme alle detaljer om udseender i hukommelsen. Slå denne funktion fra, hvis du arbejder på et nyt udseende og har brug for at se ændringerne med det samme.
+CACHE_LANG              = Gem sprog strenge i cachen
+CACHE_LANG_PROMPT       = Når denne funktion er aktiveret, vil SwissCenter gemme alle tekststrngene i det valgte sprog i hukommelsen. Slå denne funktion fra, hvis du arbejder på en ny oversættelse og har brug for at se ændringerne med det samme.
+
+# Updated text strings in v1.15.2
+
+CACHE_CONFIG_TITLE	= Cache Indstillinger
+
+# -----------------------
+# SwissCenter v1.15.3
+# -----------------------
+
+CACHE_PRECACHE          = Cache Billeder på Forhånd
+CACHE_PRECACHE_PROMPT   = Hvis du har denne funktion slået til, vil SwissCenter generere små ikoner til alle de billeder, der bliver fundet under en medie-søgning.
+DROP_DATABASE           = ADVARSEL: Du har allerede en SwissCenter database. [br]Hvis du fortsætter vil alle aktuelle informationer og indstillinger gå tabt.
+CONFIG_IMAGE_OPTIONS    = Billed Indstillinger
+CONFIG_AUDIO_OPTIONS    = Lyd Indstillinger
+CONFIG_RADIO_OPTIONS    = Radio indstillinger
+PASS_PHP_FONTS          = Der er fundet en TrueType Font som kan bruges til at generere "Nu Afspilles..." billederne.
+FAIL_PHP_FONTS          = Kan ikke finde en TrueType font. "Nu Afspilles..." skærmen, vil ikke have informationer om sangen.
+NOW_PLAYING_SUPPORT     = Skærmen "Nu Afspilles..."
+NOW_PLAYING_PROMPT      = Nogle hardware afspillere tillader at der vises et billede mens en musikfil afspilles og SwissCenter bruger denne funktion til at vise detaljer om den sang der spilles.[p]I de fleste tilfælde vil SwissCenter selv være i stand til at bestemme hvorvidt din afspiller supporterer dette, men hvis du oplever problemer, er det muligt at ændre indstillingen her.
+
+# Updated text strings in v1.15.3
+
+PLAYLISTS 		= Playlist Indstillinger
+
+#----------------------------------------------------------------------------------------------------
+# End-of-file
+#----------------------------------------------------------------------------------------------------
