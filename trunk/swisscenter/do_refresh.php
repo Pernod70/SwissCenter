@@ -21,11 +21,12 @@
     $refresh_url = '/do_refresh.php?type=show';
 
     // Stop refreshing if the search is complete
-    if ($status == str('MEDIA_SCAN_STATUS_COMPLETE'))
-      $refresh_url = '';    
+    if ($status != str('MEDIA_SCAN_STATUS_COMPLETE'))
+      page_header( str('SETUP_SEARCH_NEW_MEDIA'), '','<meta http-equiv="refresh" content="5;URL='.$refresh_url.'">');
+    else
+      page_header( str('SETUP_SEARCH_NEW_MEDIA'));
 
     // Display a message tot he user
-    page_header( str('SETUP_SEARCH_NEW_MEDIA'), '','<meta http-equiv="refresh" content="5;URL='.$refresh_url.'">');
     echo str('REFRESH_RUNNING');    
 
     // and then the current status
@@ -122,7 +123,7 @@
   {
     $menu = new menu();
     page_header( str('SETUP_SEARCH_NEW_MEDIA'));          
-    echo '<center>'.str('SELECT_MEDIA_TYPE').'</center><p>';
+    echo '<center>'.str('SETUP_SEARCH_TYPE_TITLE').'</center><p>';
     $menu->add_item( str('PC_LINK_MUSIC') ,'/do_refresh.php?type=media_type&spec='.MEDIA_TYPE_MUSIC);
     $menu->add_item( str('PC_LINK_PHOTOS') ,'/do_refresh.php?type=media_type&spec='.MEDIA_TYPE_PHOTO);
     $menu->add_item( str('PC_LINK_MOVIES') ,'/do_refresh.php?type=media_type&spec='.MEDIA_TYPE_VIDEO);

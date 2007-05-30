@@ -725,6 +725,11 @@ EXPERT_EDIT_PREFS          = Edit System Settings
 SYSPREF_DEL_BUTTON         = Delete selected preferences
 EXPERT_PREDS_UPDATED       = Preference updated 
 
+SETUP_SEARCH_ALL           = Search all locations
+SETUP_SEARCH_TYPE          = Search a specific media type
+SETUP_SEARCH_CATEGORY      = Search a specific category
+SETUP_SEARCH_TYPE_TITLE    = Please select a media type
+
 #----------------------------------------------------------------------------------------------------
 # End-of-file
 #----------------------------------------------------------------------------------------------------
