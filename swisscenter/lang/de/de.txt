@@ -697,6 +697,31 @@ IMP_LOC_CERT_MISSING       = Konnte den Medien-Speicherort '%s' nicht importiere
 IMP_LOC_TYPE_MISSING       = Konnte den Medien-Speicherort '%s' nicht importieren, da der Medien-Typ '%s' nicht existiert.
 IMP_LOC_CAT_MISSING        = Konnte den Medien-Speicherort '%s' nicht importieren, da die Kategorie '%s' nicht existiert.
 
+OR                         = - oder -
+MEDIA_SCAN_PROGRESS        = Fortschritt der Mediensuche
+MEDIA_SCAN_STATUS          = Aktueller Status
+MEDIA_SCAN_OVERALL         = Suche abgeschlossen
+MEDIA_SCAN_STATUS_PENDING  = Anstehend
+MEDIA_SCAN_STATUS_RUNNING  = Läuft
+MEDIA_SCAN_STATUS_COMPLETE = Abgeschlossen
+PERCENT_SCANNED            = % Überprüft
+
+EXPERT_WARNING             = Die Einstellungen auf dieser Seite beeinflussen die internen Abläufe von SwissCenter. Daher sollten sie nur dann geändert werden, wenn man genau weiß, was man tut. Also: [b]Änderungen auf eigene Gefahr![/b]
+EXPERT_EDIT_DB             = Datenbank bearbeiten
+REFERENCE                  = Referenz
+DB_TABLE_LIST              = Tabellen
+DB_RUN_SQL                 = SQL ausführen
+DB_SQL_FAIL                = SQL Befehl fehlgeschlagen.
+DB_SQL_SUCCESS             = SQL erfolgreich ausgeführt.
+EXPERT_EDIT_PREFS          = Systemeinstellungen bearbeiten
+SYSPREF_DEL_BUTTON         = Ausgewählte Einstellungen löschen
+EXPERT_PREDS_UPDATED       = Einstellungen aktualisiert
+
+SETUP_SEARCH_ALL           = Alle Speicherorte durchsuchen
+SETUP_SEARCH_TYPE          = Einen bestimmten Medientyp suchen
+SETUP_SEARCH_CATEGORY      = Eine bestimmte Kategorie suchen
+SETUP_SEARCH_TYPE_TITLE    = Bitte wählen Sie einen Medientyp
+
 #----------------------------------------------------------------------------------------------------
 # End-of-file
 #----------------------------------------------------------------------------------------------------
