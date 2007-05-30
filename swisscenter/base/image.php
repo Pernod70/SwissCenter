@@ -10,7 +10,7 @@ require_once( realpath(dirname(__FILE__).'/../ext/exif/exif_reader.php'));
 
 if (!function_exists('imagerotate')) 
 {
-  function ImageRotate( $imgSrc, $angle, $dummy )
+  function ImageRotate( $imgSrc, $angle)
   {
     // ensuring we got really RightAngle (if not we choose the closest one)
     $angle = 360 - min( ( (int)(($angle+45) / 90) * 90), 270 );
@@ -43,8 +43,10 @@ if (!function_exists('imagerotate'))
 
 // Do we have the "gd" extension loaded? can we load it dynamically?
 if (!extension_loaded('gd'))
+{
   if (! dl('gd.so'))
     send_to_log(1,"Unable to perform image functions - PHP compiled without 'gd' support.");
+}
 
 // -------------------------------------------------------------------------------------------------
 // Modifies the ($x,$y) dimesnsions given for an image after it has been scaled to fit within the
@@ -441,7 +443,7 @@ class CImage
   // Copies a section of the given image onto the current image
   // -------------------------------------------------------------------------------------------------
 
-  function copy(&$src_image, $dest_x, $dest_y, $dest_w = 0, $dest_h = 0, $rs_mode = '')
+  function copy(&$src_image, $dest_x, $dest_y)
   {
     if ($this->image !== false)
     {
@@ -463,7 +465,7 @@ class CImage
     $this->resize($x,$y,0,true,$rs_mode,$border_colour);    
   }
   
-  function resize_to_width($w, $rs_mode = '', $border_colour = false)
+  function resize_to_width($x, $rs_mode = '', $border_colour = false)
   {
     $y = floor($this->get_height() * ($x/$this->get_width()));
     send_to_log(8,"Calculating width of image to fit a width of $x. New image size is ($x,$y)");
@@ -654,16 +656,19 @@ class CImage
           // Output the image
           header("Content-type: image/jpeg");
           send_to_log(8,"Outputting JPEG image");
+          ob_clean();
           imagejpeg($copy);
           break;
         case 'png':
           header("Content-type: image/png");
           send_to_log(8,"Outputting PNG image");
+          ob_clean();
           imagepng($this->image);
           break;
         case 'gif':
           header("Content-type: image/gif");
           send_to_log(8,"Outputting GIF image");
+          ob_clean();
           imagegif($this->image);
           break;
       }
