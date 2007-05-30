@@ -558,11 +558,7 @@ function process_media_directory( $dir, $id, $table, $file_exts, $recurse = true
     db_sqlcommand("update media_locations set percent_scanned = ".(int)(100-($unverified/$total*100))." where location_id = $id ");
     
   // Remove the browser coords from the session to ensure it gets recalculated to the current browser
-  unset($_SESSION["device"]);
-  
-  // Tell MusicIP to rescan this folder
-  musicip_server_add_dir($dir);
-    
+  unset($_SESSION["device"]);  
 }
 
 /**************************************************************************************************
