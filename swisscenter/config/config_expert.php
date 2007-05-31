@@ -14,7 +14,7 @@
     $tabs = array();
     
     echo "<h1>".str('EXPERT_EDIT_DB')."</h1>";
-    echo '<p>'.str('EXPERT_WARNING').'<p>';
+    echo '<p>'.str('EXPERT_WARNING','<a href="http://www.swisscenter.co.uk/components/com_mambowiki/index.php?title=Expert_Parameters_List">SwissCenter.co.uk</a>').'<p>';
 
     if ( test_db() == 'OK' )
     {
@@ -86,28 +86,55 @@
       }
     }
     else
+    {
       message("!Unable to connect to the database.");    
+    }
   }
+  
+  /**
+   * Displays a form to the user so that they can add new system preferences or edit existing
+   * ones manually.
+   *
+   * @param string $message - Sucess or Failure messsage.
+   * @param mixed $edit_id - Passed from the form-select_table() routine to indicate which row is currently being edited.
+   */
   
   function expert_sysprefs( $message = '', $edit_id = '')
   {
     echo "<h1>".str('EXPERT_EDIT_PREFS')."</h1>";
-    echo '<p>'.str('EXPERT_WARNING').'<p>';
-  
-    // Get a list of all of the cats from the database and display them
-    $data = db_toarray("select name, name pref, value from system_prefs order by 1");
+    echo '<p>'.str('EXPERT_WARNING','<a href="http://www.swisscenter.co.uk/components/com_mambowiki/index.php?title=Expert_Parameters_List">SwissCenter.co.uk</a>').'<p>';
+    message($message);
     
+    echo '<p>&nbsp;<br><b>'.str('SYSPREF_ADD_NEW').'</b>';
+    form_start('index.php', 150, 'prefs');
+    form_hidden('section', 'EXPERT');
+    form_hidden('action', 'SYSPREFS_NEW');
+    form_input('name',str('NAME'),40);
+    form_input('value',str('VALUE'),40);
+    form_submit(str('SYSPREF_ADD_NEW'));
+    form_end();    
+
+
+    echo '<p>&nbsp;<br><b>'.str('SYSPREF_EDIT_EXISTING').'</b>';
+    $data = db_toarray("select name, name pref, value from system_prefs order by 1");
     form_start('index.php', 150, 'prefs');
     form_hidden('section', 'EXPERT');
     form_hidden('action', 'SYSPREFS_MODIFY');
 
-    form_select_table( 'ids', $data, str('NAME').','.str('VALUE')
+    form_select_table( 'ids', $data, str('NAME').'|300,'.str('VALUE').'|300'
                      , array('class'=>'form_select_tab','width'=>'100%'), 'name'
                      , array('PREF'=>'30','VALUE'=>'30')
                      , $edit_id, 'prefs');
     form_submit(str('SYSPREF_DEL_BUTTON'), 1, 'center');
     form_end();
+    // Force the screen to be a bit wider
+    echo '<table width="670"><tr><td></td></tr></table>';
   }
+  
+  /**
+   * Updates a system preference entered by the user
+   *
+   */
   
   function expert_sysprefs_modify()
   {
@@ -123,7 +150,7 @@
       $id    = db_escape_str($update_data["PREF"]);
       
       db_sqlcommand("update system_prefs set value='$value' where name='$id'");
-      expert_sysprefs(str('EXPERT_PREDS_UPDATED'));
+      expert_sysprefs(str('EXPERT_PREFS_UPDATED'));
     }
     elseif(!empty($selected_ids))
     {
@@ -132,10 +159,31 @@
       foreach($selected_ids as $id)
         db_sqlcommand("delete from system_prefs where name='$id'");
   
-      expert_sysprefs(str('EXPERT_PREDS_UPDATED'));
+      expert_sysprefs(str('EXPERT_PREFS_UPDATED'));
     }
     else
       expert_sysprefs();    
+  }
+  
+  /**
+   * Adds a new system preference added by the user.
+   *
+   */
+  
+  function expert_sysprefs_new()
+  {
+    $name = $_REQUEST["name"];
+    $val  = $_REQUEST["value"];
+    
+    if ( !empty($name) )
+    {
+      if ( db_value("select count(*) from system_prefs where name ='$name'") == 0)
+        db_insert_row('system_prefs',array("NAME"=>$name,"VALUE"=>$val));
+      else 
+        db_sqlcommand("update system_prefs set value='$val' where name='$name'");              
+    }
+    
+    expert_sysprefs(str('EXPERT_PREFS_UPDATED'));    
   }
 
 /**************************************************************************************************

@@ -344,7 +344,13 @@ function form_select_table ( $param, $table_contents, $table_headings, $table_pa
     // Display headings for the table based on the column names in the dataset
     echo '<tr><th>&nbsp;</th>';
     foreach (explode(',',$table_headings) as $value)
-    {
+    { 
+      if (strpos($value,'|') !== false)
+      {
+        list($title, $size) = explode('|',$value);
+        echo '<th width="'.$size.'">'.$title.'</th>';
+      }
+      else
         echo '<th>'.ucwords($value).'</th>';
     }
 
@@ -373,7 +379,7 @@ function form_select_table ( $param, $table_contents, $table_headings, $table_pa
       {
         if ($cell_name != strtoupper($id_col))
         {
-          echo '<td>';
+          echo '<td valign="top">';
 
           if($editable && ($row[strtoupper($id_col)] == $edit))
           {

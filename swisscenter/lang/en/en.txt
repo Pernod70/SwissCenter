@@ -714,7 +714,7 @@ MEDIA_SCAN_STATUS_COMPLETE = Complete
 PERCENT_SCANNED            = % Scanned
 
 EXPERT_OPTIONS             = Expert Options
-EXPERT_WARNING             = The controls on this page allow you to modify the internal workings of SwissCenter and should only be done by advanced users know what they are doing. [b]Use at your own risk[/b]
+EXPERT_WARNING             = The controls on this page allow you to modify the internal workings of SwissCenter and should only be done by advanced users know what they are doing. For more details, see %s. [b]Use at your own risk[/b].
 EXPERT_EDIT_DB             = Edit The Database
 REFERENCE                  = Reference
 DB_TABLE_LIST              = Table List
@@ -722,13 +722,29 @@ DB_RUN_SQL                 = Execute SQL
 DB_SQL_FAIL                = SQL command failed
 DB_SQL_SUCCESS             = SQL completed successfully.
 EXPERT_EDIT_PREFS          = Edit System Settings
-SYSPREF_DEL_BUTTON         = Delete selected preferences
-EXPERT_PREDS_UPDATED       = Preference updated 
+SYSPREF_DEL_BUTTON         = Delete selected settings
+EXPERT_PREFS_UPDATED       = Settings updated 
 
 SETUP_SEARCH_ALL           = Search all locations
 SETUP_SEARCH_TYPE          = Search a specific media type
 SETUP_SEARCH_CATEGORY      = Search a specific category
 SETUP_SEARCH_TYPE_TITLE    = Please select a media type
+
+# -----------------------
+# SwissCenter v1.19
+# -----------------------
+
+SYSPREF_ADD_NEW            = Add a system setting
+SYSPREF_EDIT_EXISTING      = Modify a system setting
+
+BROWSE_WEB                 = Browse Web
+BROWSE_WEB_PROMPT          = This option allows you to use SwissCenter to browse simple Web pages, both on your local network and on the Internet (providing you have Internet connectivity).
+MISC_TITLE                 = Miscellaneous
+MISC_CONFIG_TITLE          = Miscellaneous Configuration
+FONTWIDTH_MULTIPLIER       = Font width Multiplier
+FONTWIDTH_MULTIPLIER_PROMPT = This option allows you to modify the maximum number of displayed characters in the SwissCenter menus. The value depends on the chosen font, and should be in the range of [b]1.0[/b] (default) to [b]2.2[/b].
+MISC_FONTWIDTH_MULTIPLIER_ERROR_NOT_NUMBER   = The font width multiplier is not a number
+MISC_FONTWIDTH_MULTIPLIER_ERROR_SMALL        = The font width multiplier is too small
 
 #----------------------------------------------------------------------------------------------------
 # End-of-file
