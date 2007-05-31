@@ -142,7 +142,9 @@ function quick_access_img( $position )
     case 'NEUSTON':
          $map = array('QUICK_RED','QUICK_GREEN','QUICK_BLUE');
          break;    
-
+    case 'H&B':
+         $map = array('QUICK_RED','QUICK_GREEN','QUICK_BLUE');
+         break;    
     case 'IO-DATA':
          $map = array('QUICK_PAUSE','QUICK_STOP','QUICK_REPEAT');
          break;
