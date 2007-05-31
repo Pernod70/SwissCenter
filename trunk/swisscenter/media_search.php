@@ -43,8 +43,8 @@
       // Tell MusicIP to rescan this folder
       if ($media_type == MEDIA_TYPE_MUSIC)
         musicip_server_add_dir($location["NAME"]);    
-    }
-        
+  }
+
   }
 
   //===========================================================================================
@@ -52,7 +52,7 @@
   //===========================================================================================
 
   media_indicator('BLINK');
-
+  
   // If there are parameters for the media search then read them and then remove them.
   $media_type = get_sys_pref('MEDIA_SCAN_MEDIA_TYPE');
   $cat_id     = get_sys_pref('MEDIA_SCAN_CATEGORY');
@@ -62,7 +62,7 @@
   
   // Set the percent_scanned to zero for all locations due to be scanned.
   db_sqlcommand("update media_locations set percent_scanned=0 
-                  where media_type != ".MEDIA_TYPE_RADIO.
+                  where (media_type not in (".MEDIA_TYPE_RADIO.",".MEDIA_TYPE_WEB."))".
                   (empty($cat_id) ? '' : " and cat_id = $cat_id").
                   (empty($media_type) ? '' : " and media_type = $media_type")
                );
@@ -78,7 +78,7 @@
   remove_orphaned_movie_info();
   eliminate_duplicates();
   media_indicator('OFF');
-  
+
   // Update media search status
   set_sys_pref('MEDIA_SCAN_STATUS',str('MEDIA_SCAN_STATUS_COMPLETE'));
   db_sqlcommand("update media_locations set percent_scanned = null");

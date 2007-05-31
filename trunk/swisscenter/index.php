@@ -25,6 +25,9 @@
     $menu->add_item( str('LISTEN_RADIO'),"music_radio.php",true);
 
   $menu->add_item( str('VIEW_PHOTO'),'photo.php',true);
+  
+  if (internet_available() && get_sys_pref('web_enabled','YES') == 'YES')
+  	$menu->add_item(str('BROWSE_WEB'),'web_urls.php',true);
 
   if (internet_available() && get_sys_pref('weather_enabled','YES') == 'YES')
     $menu->add_item( str('VIEW_WEATHER') ,'weather_cc.php',true);
