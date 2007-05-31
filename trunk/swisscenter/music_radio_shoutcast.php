@@ -53,7 +53,7 @@
  if (!empty($_REQUEST["class"])) 
  {
    if (!file_exists($cachedir)) 
-     mkdir($cachedir);
+     @mkdir($cachedir);
 
    send_to_log(8,"Initialize station cache. CacheDir: '$cachedir', Expiry: '".get_sys_pref('iradio_cache_expire',3600)."'");
    $iradio->set_cache( $cachedir );

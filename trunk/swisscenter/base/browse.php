@@ -11,6 +11,7 @@
   require_once( realpath(dirname(__FILE__).'/thumblist.php'));
   require_once( realpath(dirname(__FILE__).'/prefs.php'));
   require_once( realpath(dirname(__FILE__).'/media.php'));
+  require_once( realpath(dirname(__FILE__).'/playlist.php'));
   
   // ----------------------------------------------------------------------------------
   // Returns the number of items obeing displayed on a page
@@ -82,7 +83,7 @@
     for ($i=$start; $i<$end; $i++)
     {
       // Output a link to cause the specified playlist to be loaded into the session
-      $menu->add_info_item($stations[$i]->name, $stations[$i]->bitrate."k", $stations[$i]->playlist);
+      $menu->add_info_item($stations[$i]->name, $stations[$i]->bitrate."k", play_internet_radio($stations[$i]->playlist, $stations[$i]->name));
     }
     
     $menu->display();
