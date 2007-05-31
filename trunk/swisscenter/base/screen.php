@@ -44,6 +44,16 @@ function store_screen_size( $res = '')
   }
 }
 
+function get_browser_size()
+{
+  return $_SESSION["device"]["browser_x_res"].'x'.$_SESSION["device"]["browser_y_res"];
+}
+
+function get_screen_size()
+{
+  return $_SESSION["device"]["screen_x_res"].'x'.$_SESSION["device"]["screen_y_res"];
+}
+
 #-------------------------------------------------------------------------------------------------
 # This function determines the type of display that the user is using to view the SwissCenter on
 # and therefore how the interface should be adjusted to allow for different capabilities

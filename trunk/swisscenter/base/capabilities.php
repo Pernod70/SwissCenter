@@ -183,6 +183,11 @@ function media_exts_radio()
   return explode(',' ,'url');
 }
 
+function media_exts_web()
+{
+  return explode(',' ,'url');
+}
+
 function media_exts( $media_type )
 {
   switch ($media_type)
@@ -317,6 +322,27 @@ function now_playing_transition()
          return 0;
          break;
   }	
+}
+
+#-------------------------------------------------------------------------------------------------
+# This function returns a font size multiplier based on both the hardware player in use and the
+# screen resolution. The values in this function have been submitted by users to the forums for
+# what looks best on their devices.
+#-------------------------------------------------------------------------------------------------
+
+function player_fontsize_multiplier()
+{
+  // Has the user set an override?
+  if (get_sys_pref('FONTWIDTH_MULTIPLIER') == '')
+    return 1;
+  
+  // Return the multiplier value for this hardware + screen combination
+  switch ( get_player_type().'_'.get_browser_size() )
+  {
+    default:
+         return get_sys_pref('FONTWIDTH_MULTIPLIER',1);
+         break;
+  }	  
 }
 
 /**************************************************************************************************
