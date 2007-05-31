@@ -6,6 +6,7 @@
 require_once( realpath(dirname(__FILE__).'/file.php'));
 require_once( realpath(dirname(__FILE__).'/sched.php'));
 require_once( realpath(dirname(__FILE__).'/prefs.php'));
+require_once( realpath(dirname(__FILE__).'/stylelib.php'));
 
 $char_widths = array(   "A" => 096,  "B" => 192,  "C" => 240,  "D" => 224,  "E" => 224,  "F" => 224,  "G" => 240,  "H" => 240,
                         "I" => 064,  "J" => 160,  "K" => 224,  "L" => 176,  "M" => 256,  "N" => 240,  "O" => 256,  "P" => 224,
@@ -371,80 +372,6 @@ function arrayUnique( $array, $key )
   } 
 
   return $rArray;
-}
-
-// ----------------------------------------------------------------------------------
-// Truncates a string to the given width (in pixels), and adds an ellipse to 
-// indicate it has been shortened
-// ----------------------------------------------------------------------------------
-
-function shorten( $text, $width, $lines = 1, $font_size = 24, $dots = true, $word_trunc = true )
-{
-  if(empty($text))
-    return $text;
-    
-  global $char_widths;
-  $short_string = "";
-  $len          = 0;
-  $text         = (string)$text;
-
-  // The character sizes specified in the array are for a fixed size font. therefore, we 
-  // need to calculate the max_len for the font size we were given.  
-  $max_len = 24/$font_size * $width * 10; 
-
-  if ($lines > 1)
-  {
-    // Multiple lines
-    for ($lineno = 0; $lineno < $lines; $lineno++)
-    {
-      $line = shorten($text, $width, 1, $font_size, false);
-      $text = substr($text,strlen($line));
-      $short_string .= $line;
-    }
-  }
-  else 
-  {  
-    // Single line
-    for($index = 0; $index < strlen($text); $index++)
-    {
-      $current_char = $text[$index];
-      
-      if(!array_key_exists($current_char, $char_widths))
-        $char_len = 176;
-      else
-        $char_len = $char_widths[$current_char];
-  
-      if(($len + $char_len) < $max_len)
-      {
-        // Not reached the end of the space yet
-        $len += $char_len;
-        $short_string .= $current_char;
-      }
-      else
-      {
-        // Trims the string back to the last whitespace (max 8 chars will be trimmed)
-        if ( $word_trunc && (strlen($short_string) - strrpos($short_string,' ')) <10)
-          $short_string = substr($short_string,0,strrpos($short_string,' ')+1);
-        
-        break;
-      }
-    }
-  }
-  
-  if ($dots && strlen($short_string) < strlen($text))
-    $short_string .= "...";
-
-  return $short_string;
-}
-
-//
-// Calls the function above, but specifies that the string should be cut short without
-// backtracking to the last space.
-//
-
-function shorten_chars( $text, $trunc, $lines = 1, $font_size = 24, $dots = true )
-{
-  return shorten($text, $trunc, $lines, $font_size, $dots, false);
 }
 
 // ----------------------------------------------------------------------------------

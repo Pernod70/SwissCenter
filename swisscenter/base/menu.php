@@ -243,7 +243,7 @@ class menu
       foreach ($this->menu_items as $item)
       {
         $tvid++;
-        $text = shorten_chars($item["text"],$size-80,1,$this->font_size);
+        $text = shorten($item["text"], $size-80, 1, $this->font_size, true, false);
         
         // Single fixed background at the moment - may allow it to change based on position in the future.
         $background = $this->private_background_tags( $tvid, $width, $height);
