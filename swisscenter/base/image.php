@@ -10,7 +10,10 @@ require_once( realpath(dirname(__FILE__).'/../ext/exif/exif_reader.php'));
 
 if (!function_exists('imagerotate')) 
 {
-  function ImageRotate( $imgSrc, $angle)
+  // $bgcolour is a dummy value to ensure this function maps to the built-in one.
+  // It is not needed here as we are only rotating by 90 or 270 degrees, and therefore
+  // no background will be become visible.
+  function ImageRotate( $imgSrc, $angle, $bgcolour)
   {
     // ensuring we got really RightAngle (if not we choose the closest one)
     $angle = 360 - min( ( (int)(($angle+45) / 90) * 90), 270 );
@@ -501,7 +504,7 @@ class CImage
       ImageAlphaBlending( $this->image, false);
       ImageSaveAlpha($this->image, true);
       $bgcolour = $this->allocate_colour(0,0,0,127);
-      imagefill($this->image,0,0,$bgcolour);
+      imagefilledrectangle($this->image, 0, 0, $x, $y, $bgcolour);
       send_to_log(8,"Built temporary image");
       preferred_resize($this->image, $old, ($x-$newx)/2, ($y-$newy)/2, 0, 0, $newx, $newy, $this->width, $this->height, $rs_mode);
       send_to_log(8,"Resized/Stretched image");
@@ -650,7 +653,7 @@ class CImage
           // Create a copy to ensure transparency is converted to black.
           $copy = ImageCreateTrueColor($this->width,$this->height);
           $bgcolour = imagecolorallocate($copy, 0, 0, 0);
-          imagefill($copy,0,0,$bgcolour);
+          imagefilledrectangle($copy, 0, 0, $this->width, $this->height, $bgcolour);          
           imagecopy($copy, $this->image, 0,0 ,0,0, $this->width,$this->height);
                    
           // Output the image
