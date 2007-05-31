@@ -715,7 +715,7 @@ DB_SQL_FAIL                = SQL Befehl fehlgeschlagen.
 DB_SQL_SUCCESS             = SQL erfolgreich ausgeführt.
 EXPERT_EDIT_PREFS          = Systemeinstellungen bearbeiten
 SYSPREF_DEL_BUTTON         = Ausgewählte Einstellungen löschen
-EXPERT_PREDS_UPDATED       = Einstellungen aktualisiert
+EXPERT_PREFS_UPDATED       = Einstellungen aktualisiert
 
 SETUP_SEARCH_ALL           = Alle Speicherorte durchsuchen
 SETUP_SEARCH_TYPE          = Einen bestimmten Medientyp suchen

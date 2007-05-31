@@ -354,7 +354,7 @@ UPDATE_CHECK		= Update Controle
 UPDATE_CHECK_PROMPT	= Dagelijks wordt er op de %s website gekeken of er een nieuwere SwissCenter software versie beschikbaar is. Indien er een nieuwere versie is, zal er onderaan op het Hoofdmenu een pictogram verschijnen.
 UPDATE_FAILED		= Update mislukt - probeer het later nog een keer
 UPDATE_NONE		= Er zijn geen meer recente software versies aanwezig
-UPDATE_SUCCESS		= De software voor uw systeem is vernieuwd
+UPDATE_SUCCESS		= De software voor uw systeem is met succes vernieuwd
 UPDATE_TITLE		= Online update
 UPDATING		= Updating...
 UPDATING_PLEASE_WAIT	= Updating - Een ogenblik a.u.b.
@@ -473,7 +473,7 @@ COMPACT_VIEW = Compacte weergave
 NO_SYNOPSIS_AVAILABLE = Er is geen synopsis beschikbaar.
 KEYBOARD_DEL = VERWIJDER
 KEYBOARD_SPC = SPATIE
-PLAYLIST_LOAD_OK = Afspeellijst succesvol ingeladen.
+PLAYLIST_LOAD_OK = Afspeellijst correct ingeladen.
 PLAYLIST_NAME_CANCEL = Annuleer - Niet bewaren
 PLAYLIST_NAME_USE = Bewaren met deze bestandsnaam
 PC_LINK_BACK = Terug
@@ -664,6 +664,41 @@ IMP_USER_CERT_MISSING      = Import van gebruiker '%s' mislukte omdat certificaa
 IMP_LOC_CERT_MISSING       = Import van medialocatie '%s' mislukte omdat certificaat '%s' (Schema:%s) niet bestaat.
 IMP_LOC_TYPE_MISSING       = Import van medialocatie '%s' mislukte omdat mediatype '%s' niet bestaat.
 IMP_LOC_CAT_MISSING        = Import van medialocatie '%s' mislukte omdat categorie '%s' niet bestaat.
+
+OR                         = - of -
+MEDIA_SCAN_PROGRESS        = Media zoekopdracht voortgang
+MEDIA_SCAN_STATUS          = Huidige status
+MEDIA_SCAN_OVERALL         = Zoekopdracht voltooid
+MEDIA_SCAN_STATUS_PENDING  = In behandeling
+MEDIA_SCAN_STATUS_RUNNING  = Actief
+MEDIA_SCAN_STATUS_COMPLETE = Voltooid
+PERCENT_SCANNED            = % Gescand
+
+EXPERT_OPTIONS             = Expert Opties
+EXPERT_WARNING             = De elementen op deze pagina laten U toe de interne werking van SwissCenter te wijzigen. Dit mag enkel uitgevoerd wprden door geavanceerde gebruikers. [b]Gebruik op eigen risico ![/b]
+EXPERT_EDIT_DB             = Wijzig De Databnk
+REFERENCE                  = Referentie
+DB_TABLE_LIST              = Tabellenlijst
+DB_RUN_SQL                 = SQL Uitvoeren
+DB_SQL_FAIL                = SQL commando mislukt
+DB_SQL_SUCCESS             = SQL correct voltooid.
+EXPERT_EDIT_PREFS          = Wijzig Systeeminstellingen
+SYSPREF_DEL_BUTTON         = Verwijder geselecteerde voorkeuren
+EXPERT_PREFS_UPDATED       = Voorkeur gewijzigd
+
+SETUP_SEARCH_ALL           = Zoek in alle locaties
+SETUP_SEARCH_TYPE          = Zoek een specifiek mediatype
+SETUP_SEARCH_CATEGORY      = Zoek een specifieke categorie
+SETUP_SEARCH_TYPE_TITLE    = Selecteer een mediatype
+
+BROWSE_WEB                 = Surf op het Web
+BROWSE_WEB_PROMPT          = Met deze optie kan SwissCenter eenvoudige webpagina's weergeven, zowel van uw intern netwerk als van het Internet (indien uw internetconnectie werkzaam is).
+MISC_TITLE                 = Diversen 
+MISC_CONFIG_TITLE          = Diverse instellingen
+FONTWIDTH_MULTIPLIER       = Lettertypefactor
+FONTWIDTH_MULTIPLIER_PROMPT = Met deze optie wijzigt U het aantal getoonde karakters in de Swisscenter menus. De waarde hangt af van het gebruikte lettertype, and moet tussen [b]1.0[/b] (standaard) en [b]2.2[/b] liggen.
+MISC_FONTWIDTH_MULTIPLIER_ERROR_NOT_NUMBER   = De lettertypefactor moet een nummer zijn
+MISC_FONTWIDTH_MULTIPLIER_ERROR_SMALL        = De lettertypefactor is te klein
 
 #----------------------------------------------------------------------------------------------------
 # End-of-file
