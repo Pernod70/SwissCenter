@@ -240,6 +240,15 @@ function play_file( $media_type, $file_id )
 }
 
 //-------------------------------------------------------------------------------------------------
+// Returns the href part of a link to play a radio station
+//-------------------------------------------------------------------------------------------------
+
+function play_internet_radio( $playlist_url, $station_name )
+{
+  return 'href="'.$playlist_url.'" pod="1,1,'.server_address().'music_radio_image.php?list=&station='.urlencode($station_name).'"';  
+}
+
+//-------------------------------------------------------------------------------------------------
 // Returns the href part of a link which will play a LastFM radio station.
 //-------------------------------------------------------------------------------------------------
 
