@@ -596,7 +596,7 @@ CONFIG_RADIO_OPTIONS    = Internet Radio Options
 PASS_PHP_FONTS          = Successfully located a TrueType Font for generating "Now Playing" images.
 FAIL_PHP_FONTS          = Unable to locate a TrueType font. The "Now Playing" screen will be missing track information.
 NOW_PLAYING_SUPPORT     = Now Playing Screen
-NOW_PLAYING_PROMPT      = Some hardware players allow a picture to be displayed whilst a music track is played and SwissCenter uses this feature to display details on the current track. [p]In most cases, SwissCenter is able to automatically decide if your player supports this, but if you experience problems then it is possible to override the setting here.
+NOW_PLAYING_PROMPT      = Some hardware players allow a picture to be displayed whilst a music track is played - and they request it automatically on title change. SwissCenter uses this feature to display details on the current track.[p]In most cases, SwissCenter is able to automatically decide if your player supports this, but if you experience problems then it is possible to override the setting here.[p]So the settings mean: Enabled - the player requests the corresponding picture automatically. Disabled - the player does not request automatically, and SwissCenter tells it by the playlist to request a new one in a given time interval. Automatic - let SwissCenter find out.
 
 # Updated text strings in v1.15.3
 

@@ -605,7 +605,7 @@ CONFIG_RADIO_OPTIONS    = Internet-Radio
 PASS_PHP_FONTS          = Ein TrueType Font für die Erstellung der "Aktueller Titel" Bilder wurde erfolgreich lokalisiert.
 FAIL_PHP_FONTS          = Konnte keinen TrueType Font finden. Die Seite "Aktueller Titel" wird keine Track-Informationen enthalten.
 NOW_PLAYING_SUPPORT     = Seite "Aktueller Titel"
-NOW_PLAYING_PROMPT      = Einige Hardware-Player unterstützen die Anzeige einer Bilddatei während der Wiedergabe eines Musikstückes. SwissCenter nutzt diese Tatsache für die Darstellung von Details zum aktuellen Musikstück. [p]In den meisten Fällen kann SwissCenter automatisch feststellen, ob Ihr Player dies unterstützt. Sollte es dabei zu Problemen kommen, können Sie die entsprechende Einstellung hier ändern.
+NOW_PLAYING_PROMPT      = Einige Hardware-Player unterstützen die Anzeige einer Bilddatei während der Wiedergabe eines Musikstückes, wobei sie diese zum jeweiligen Stück explizit anfordern. SwissCenter nutzt diese Tatsache für die Darstellung von Details zum aktuellen Musikstück.[p]In den meisten Fällen kann SwissCenter automatisch feststellen, ob Ihr Player dies unterstützt. Sollte es dabei zu Problemen kommen (z.B. kein Bild bei der Wiedergabe einer MP3-Playliste, oder das Bild wird nicht aktualisiert), können Sie die entsprechende Einstellung hier ändern.[p]Die Einstellungen bedeuten dabei: Aktiviert - der Player fordert die Bilddatei selbständig an. Deaktiviert - Er tut dies nicht automatisch, und SwissCenter teilt ihm daher in der Playliste mit, es in bestimmten Zeitabständen neu zu laden. Automatisch - SwissCenter soll es selbst herausfinden.
 
 # Updated text strings in v1.15.3
 
