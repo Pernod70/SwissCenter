@@ -23,7 +23,7 @@ function musicip_address()
 function musicip_server_add_dir( $dir )
 {
   if (musicip_available())    
-    $temp = @file_get_contents(musicip_address().'server/add?root='.urlencode($dir));
+    $temp = @file_get_contents(musicip_address().'server/add?root='.urlencode(os_path($dir)));
 }
 
 // ----------------------------------------------------------------------------------
@@ -141,7 +141,7 @@ function musicip_mixable_percent()
       preg_match_all('/Mixable Songs *([0-9,]*)/i',$html,$matches);
       $mixable = str_replace(',','',$matches[1][0]);
   
-      return (int)($mixable/$songs*100);
+      return (int)($mixable/max($songs*100,1));
     }
     else 
       return false;
