@@ -16,8 +16,27 @@
 
 function search_hist_init( $url, $sql )
 {
+  $_SESSION["picker"]  = array();
   $_SESSION["history"] = array();
   $_SESSION["history"][] = array("url"=> $url, "sql"=>$sql);
+}
+
+function search_picker_init( $url )
+{
+  $_SESSION["picker"]  = array($url);
+}
+
+function search_picker_push( $url )
+{
+  $_SESSION["picker"][]  = $url;
+}
+
+function search_picker_pop()
+{
+  if (count($_SESSION["picker"]) == 0)
+    page_error(str('DATABASE_ERROR'));
+
+  return array_pop($_SESSION["picker"]);  
 }
 
 function search_hist_push( $url, $sql )
@@ -30,7 +49,7 @@ function search_hist_pop()
   if (count($_SESSION["history"]) == 0)
     page_error(str('DATABASE_ERROR'));
 
-  array_pop($_SESSION["history"]);
+  return array_pop($_SESSION["history"]);
 }
 
 function search_hist_most_recent()

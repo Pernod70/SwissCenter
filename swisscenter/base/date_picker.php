@@ -38,7 +38,7 @@
     echo '</tr></table>';
     
     // Save the history of the A-Z picker.
-    $_SESSION["last_picker"][count($_SESSION["history"])] = current_url();
+    search_picker_push( current_url() );
   }
   
 /**************************************************************************************************
