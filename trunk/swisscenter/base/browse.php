@@ -12,6 +12,7 @@
   require_once( realpath(dirname(__FILE__).'/prefs.php'));
   require_once( realpath(dirname(__FILE__).'/media.php'));
   require_once( realpath(dirname(__FILE__).'/playlist.php'));
+  require_once( realpath(dirname(__FILE__).'/search.php'));
   
   // ----------------------------------------------------------------------------------
   // Returns the number of items obeing displayed on a page
@@ -193,7 +194,7 @@
         // Output a link to cause the specified playlist to be loaded into the session
         $details   = $file_list[$i-count($dir_list)];  
         $viewed    = viewed_icon(viewings_count( $media_type, $details["dirname"].$details["filename"]));
-        eval('$link_url = output_link( "'.$details["dirname"].$details["filename"].'" );');        
+        $link_url  = output_link( $details["dirname"].$details["filename"]);
         $menu->add_item( ucwords(file_noext($details["filename"])) , $link_url, false, $viewed );
       }
     }
@@ -241,7 +242,7 @@
         else 
           $viewed = '';
           
-        eval('$link_url = output_link( "'.$details["dirname"].$details["filename"].'" );');        
+        $link_url = output_link( $details["dirname"].$details["filename"] );        
         $tlist->add_item( file_thumbnail($details["dirname"].$details["filename"]) , file_noext($details["filename"]) , $link_url , $viewed);
       }
     }
@@ -302,7 +303,7 @@
       
     // Should we present a link to select all files?
     if ($media_type > 0)
-      $buttons[] = array('text'=>str('SELECT_ALL'), 'url'=> play_dir( $media_type, $dir));
+      $buttons[] = array('text'=>str('SELECT_ALL'), 'url'=>  output_link( $details["dirname"]) );
       
     // Link to scan/refresh the directory
       $buttons[] = array('text'=>str('REFRESH_DIR_BUTTON'), 'url' => '/media_dir_refresh.php?media_type='.$media_type.'&dir='.urlencode($dir).'&return_url='.urlencode(current_url()) );
@@ -343,6 +344,9 @@
 
   function browse_db($heading, $sql_table, $back_url, $media_type = 0 )
   {
+    // Push this page onto the "picker" stack
+    search_picker_init( current_url() );
+    
     // Check page parameters, and if not set then assign default values.
     $dir_list        = array();
     $file_list       = array();

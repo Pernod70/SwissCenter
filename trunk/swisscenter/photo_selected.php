@@ -89,7 +89,7 @@
   $menu->display();
 
   // Display ABC buttons
-  page_footer( url_add_param($_SESSION["last_picker"][count($_SESSION["history"])-1],'del','y'), $buttons );
+  page_footer( url_add_param( search_picker_pop() ,'del','y'), $buttons );
 
 /**************************************************************************************************
                                                End of file
