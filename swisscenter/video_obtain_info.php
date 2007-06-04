@@ -93,7 +93,7 @@
 
     // Submit the search
     $search_page = $site_url.str_replace('#####',urlencode($film_title),$search_url);
-    send_to_log(6,'Fetching information from:',url_get_components($search_page));
+    send_to_log(6,'Fetching information from:',parse_url($search_page));
     $html        = file_get_contents( $search_page);    
 
     if ($html === false)
@@ -113,7 +113,7 @@
         else
         {
           $url = add_site_to_url($matches[1][$index],$site_url);
-          send_to_log(6,'Fetching information from:',url_get_components($url));
+          send_to_log(6,'Fetching information from:',parse_url($url));
           $html = file_get_contents( $url );
         }
       }

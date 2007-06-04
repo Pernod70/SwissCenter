@@ -332,17 +332,14 @@ function now_playing_transition()
 
 function player_fontsize_multiplier()
 {
-  // Has the user set an override?
-  if (get_sys_pref('FONTWIDTH_MULTIPLIER') == '')
-    return 1;
-  
-  // Return the multiplier value for this hardware + screen combination
-  switch ( get_player_type().'_'.get_browser_size() )
+  switch ( get_player_type().'/'.get_browser_size() )
   {
-    default:
-         return get_sys_pref('FONTWIDTH_MULTIPLIER',1);
-         break;
+    case 'PC/800x450':                  return 2.2; break;
+    case 'PINNACLE/624x496':            return 1.4; break;
   }	  
+  
+  // No-match, so return the default (1) or the currently set override.
+  return get_sys_pref('FONTWIDTH_MULTIPLIER',1);
 }
 
 /**************************************************************************************************
