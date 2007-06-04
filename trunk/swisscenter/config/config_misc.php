@@ -20,6 +20,8 @@
     form_label(str('FONTWIDTH_MULTIPLIER_PROMPT'));    
     form_submit(str('SAVE_SETTINGS'));
     form_end();
+    
+    array_to_table( db_toarray("select device_type,concat(browser_x_res,'x',browser_y_res) from clients order by 1,2"), 'Device,Resolution');
   }
 
   // ----------------------------------------------------------------------------------
@@ -30,10 +32,8 @@
   {
     $fontwidth_multiplier = $_REQUEST["fontwidth_multiplier"];
 
-    if (! form_mask($fontwidth_multiplier,'[0-9]'))
-      cache_display("!".str('MISC_FONTWIDTH_MULTIPLIER_ERROR_NOT_NUMBER'));
-    elseif ( $fontwidth_multiplier < 1.0 )
-      cache_display("!".str('MISC_FONTWIDTH_MULTIPLIER_ERROR_SMALL'));
+    if (! form_mask($fontwidth_multiplier,'[0-9]*'))
+      misc_display("!".str('MISC_FONTWIDTH_MULTIPLIER_ERROR_NOT_NUMBER'));
     else
     {
       set_sys_pref('FONTWIDTH_MULTIPLIER',$fontwidth_multiplier);

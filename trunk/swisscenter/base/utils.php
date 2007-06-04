@@ -7,6 +7,7 @@ require_once( realpath(dirname(__FILE__).'/file.php'));
 require_once( realpath(dirname(__FILE__).'/sched.php'));
 require_once( realpath(dirname(__FILE__).'/prefs.php'));
 require_once( realpath(dirname(__FILE__).'/stylelib.php'));
+require_once( realpath(dirname(__FILE__).'/urls.php'));
 
 $char_widths = array(   "A" => 096,  "B" => 192,  "C" => 240,  "D" => 224,  "E" => 224,  "F" => 224,  "G" => 240,  "H" => 240,
                         "I" => 064,  "J" => 160,  "K" => 224,  "L" => 176,  "M" => 256,  "N" => 240,  "O" => 256,  "P" => 224,
@@ -382,105 +383,6 @@ function arrayUnique( $array, $key )
 }
 
 // ----------------------------------------------------------------------------------
-// Adds the given paramter/value pair to the given URL
-// ----------------------------------------------------------------------------------
-
-function url_add_param($url, $param, $value)
-{
-  if (strpos($url,'?') === false)
-  {
-    // No existing paramters for this url
-    return $url.'?'.$param.'='.$value;
-  }
-  elseif (preg_match('/[?&]'.$param.'=/',$url) == 0) 
-  {
-    // Paramters present, but this is a new paramter to be appended
-    return $url.'&'.$param.'='.$value;  
-  }
-  else
-  {    
-    // Paramters present, and there is already a value for this paramter
-    return preg_replace('/([?&]'.$param.'=)[^&]*/','${1}'.$value,$url); 
-  }
-}
-
-// Array version of the url_add_param() function
-
-function url_add_params( $url, $array)
-{
-  foreach ($array as $param=>$value)
-    $url = url_add_param($url, $param, $value);
-
-  return $url;
-}
-
-// url_set_param() is actually just another name for url_add_param()
-
-function url_set_param($url, $param, $value)
-{ return url_add_param($url, $param, $value); }
-
-function url_set_params( $url, $array)
-{ return url_add_params( $url, $array); }
-
-// ----------------------------------------------------------------------------------
-// Removes the given paramter from the given URL
-// ----------------------------------------------------------------------------------
-
-function url_remove_param($url, $param)
-{
-  if (preg_match('/\?'.$param.'=/',$url) != 0) 
-  {
-    // Paramter present as the first parameter
-    return rtrim(preg_replace('/(\?'.$param.'=[^&]*)(&*)/','?',$url),'?'); 
-  }
-  elseif (preg_match('/&'.$param.'=/',$url) != 0) 
-  {
-    // Paramter present, but not the first one.
-    return preg_replace('/(&'.$param.'=[^&]*)/','',$url); 
-  }
-  else 
-  {
-    // Parameter not present, so just return the URL unaltered.
-    return $url;
-  }
-}
-
-// Array version of the url_remove_param() function
-
-function url_remove_params( $url, $array)
-{
-  foreach ($array as $value)
-    $url = url_remove_param($url, $value);
-
-  return $url;
-}
-
-// ----------------------------------------------------------------------------------
-// Splits an array into it's components and returns them as an array
-// ----------------------------------------------------------------------------------
-
-function url_get_components( $url )
-{
-  preg_match('¬(http://|ftp://|)(.*)/(.*)($|\?)(.*)$¬Ui',$url, $matches);
-  
-  $components = array( 'Site'   => $matches[2]
-                     , 'Path'   => dirname($matches[3])
-                     , 'Script' => basename($matches[3]) );
-
-  if (!empty($matches[5]))
-  {                     
-    $components["Params"] = array();
-    foreach ( explode('&',$matches[5]) as $p)
-    {
-      $pair = explode('=',$p);
-      $components["Params"][$pair[0]] = $pair[1];
-    }
-  }
-    
-  return $components;
-}
-
-// ----------------------------------------------------------------------------------
 // Returns the SwissCenter version (the highest of the last version to be updated to
 // online or the version of the database).
 // ----------------------------------------------------------------------------------
@@ -554,6 +456,18 @@ function dec2frac( $decimal)
    
   // now $rem holds the gcd of the numerator and denominator of our fraction
   return  ($num / $rem ) . "/" . ($den / $rem);
+}
+
+/**
+ * Returns the current time (as a unix timestamp) in the GMT timezone.
+ *
+ */
+
+function gmt_time()
+{
+  $time = time();
+  $gm_time = $time - date('Z', $time);
+  return $gm_time;
 }
 
 /**************************************************************************************************

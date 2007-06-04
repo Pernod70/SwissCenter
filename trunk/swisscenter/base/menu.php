@@ -151,7 +151,7 @@ class menu
     if ( style_is_colour($bg_style))
       return ' bgcolor="'.style_value($bg_style).'" ';
     elseif ( style_is_image($bg_style))
-      return  ' background="/thumb.php?src='.rawurlencode(style_img($bg_style,true)).'&x='.($width+6).'&y='.($height+9).'&stretch=Y" ';
+      return  ' background="/thumb.php?src='.rawurlencode(style_img($bg_style,true)).'&x='.(convert_x($width)+6).'&y='.(convert_y($height)+6).'&stretch=Y" ';
     else 
       return '';
   }
@@ -210,8 +210,6 @@ class menu
   {
     $num_cols    = 1;
     $tvid        = 0;
-    $width       = convert_x($size);
-    $height      = convert_y(40);
     $font_open   = font_tags($this->font_size);
 
     // Work out how many columns we will be displaying as there could be two text columns and two icon columns.
@@ -231,6 +229,15 @@ class menu
     
     $num_cols = 1 + $left_icons + $right_icons + $info_column;
 
+    // Sizes of the menu (taking into consideration the left, right and info columns)
+    $info_width    = 75;
+    $info_width_px = convert_x($info_width);
+    $width         = $size - ($info_column == 1 ? $info_width : 0);
+    $width_px      = convert_x($width);
+    $height        = 40;
+    $height_px     = convert_y($height);
+
+    
     // Start the table definition to contain the menu
     echo '<center><table cellspacing="3" cellpadding="3" border="0">';
 
@@ -243,32 +250,33 @@ class menu
       foreach ($this->menu_items as $item)
       {
         $tvid++;
-        $text = shorten($item["text"], $size-80, 1, $this->font_size, true, false);
+        $text = shorten($item["text"], $width-80, 1, $this->font_size, true, false);
         
         // Single fixed background at the moment - may allow it to change based on position in the future.
-        $background = $this->private_background_tags( $tvid, $width, $height);
+        $background      = $this->private_background_tags( $tvid, $width, $height);
+        $info_background = $this->private_background_tags( $tvid, $info_width, $height);
                 
         // Start row  
         echo '<tr>';
         
         // Left icon?
         if ($left_icons == 1)
-          echo '<td align="right" valign="middle" height="'.convert_y(40).'">'.$item["left"].'</td>';
+          echo '<td align="right" valign="middle" height="'.$height_px.'">'.$item["left"].'</td>';
         
         // Main text  
-        echo '<td valign="middle" width="'.convert_x($size).'" height="'.convert_y(40).'" '.$background.'>'.
-               '<a style="width:'.(convert_x($size)-2).'" '.
+        echo '<td valign="middle" width="'.$width_px.'" height="'.$height_px.'" '.$background.'>'.
+               '<a style="width:'.($width_px-2).'" '.
                  $item["url"].' TVID="'.$tvid.'" name="'.$tvid.'">'.$font_open.'&nbsp;&nbsp;&nbsp;'.$tvid.'. '.$text.'</font>'.
                '</a>'.
               '</td>';
         
         // Info columns?
         if ($info_column == 1)
-          echo '<td align="right"'.$background.'>'.$font_open.$item["info"].'</font></td>';
+          echo '<td align="right" '.$info_background.' width="'.$info_width_px.'">'.$font_open.$item["info"].'</font></td>';
               
         // Right icon?
         if ($right_icons == 1)
-          echo '<td align="right" valign="middle" height="'.convert_y(40).'">'.$item["right"].'</td>';
+          echo '<td align="right" valign="middle" height="'.$height_px.'">'.$item["right"].'</td>';
           
         // End row
         echo '</tr>';

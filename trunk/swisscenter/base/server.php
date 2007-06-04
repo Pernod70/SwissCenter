@@ -158,20 +158,17 @@
   {
     send_to_log(8,'Device details (in the session)',$_SESSION["device"]);
     $server = $_SERVER['SERVER_NAME'];
-
-    $port = get_sys_pref('SERVER_PORT','x');
-    if ($port=='x')    
+    $override = get_sys_pref('SERVER_PORT');
+    
+    if (strpos($server,':') === false)
     {
-      if (strpos($server,':') === false)
-      {
-        if (empty($_SERVER['SERVER_PORT']) || ($_SERVER["SERVER_PORT"] != $_SESSION["device"]["port"]) )
-          $server = $server.':'.$_SESSION["device"]["port"]; 
-        else 
-          $server = $server.':'.$_SERVER['SERVER_PORT'];
-      }
+      if (!empty($override))
+        $server = $server.':'.$override;
+      elseif (empty($_SERVER['SERVER_PORT']) || ($_SERVER["SERVER_PORT"] != $_SESSION["device"]["port"]) )
+        $server = $server.':'.$_SESSION["device"]["port"]; 
+      else 
+        $server = $server.':'.$_SERVER['SERVER_PORT'];
     }
-    else
-      $server .= ':'.$port;
 
     return 'http://'.$server.'/';
   }
