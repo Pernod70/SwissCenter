@@ -59,10 +59,12 @@ CREATE TABLE users (
   pin             varchar(10) default null
   ,
   PRIMARY KEY  (user_id),
-  FOREIGN KEY(maxcert) REFERENCES certificates (cert_id) ON DELETE SET NULL
+  FOREIGN KEY  (maxcert) REFERENCES certificates (cert_id) ON DELETE SET NULL
 ) TYPE=MyISAM;
 
-INSERT INTO users (user_id,maxcert,name) VALUES (1,7,'Default');
+CREATE TEMPORARY TABLE tt_cert AS SELECT * FROM certificates ORDER BY rank DESC LIMIT 1;
+INSERT INTO users (user_id,name) VALUES (1,'Default');
+UPDATE users,tt_cert SET users.maxcert = tt_cert.cert_id;
 
 -- -------------------------------------------------------------------------------------------------
 -- Table structure for table `media_types`
