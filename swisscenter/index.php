@@ -7,17 +7,20 @@
   require_once( realpath(dirname(__FILE__).'/base/playlist.php'));
   require_once( realpath(dirname(__FILE__).'/base/users.php'));
   require_once( realpath(dirname(__FILE__).'/base/file.php'));
+  require_once( realpath(dirname(__FILE__).'/base/patching.php'));
   require_once( realpath(dirname(__FILE__).'/messages_db.php'));
 
-  page_header( str('MAIN_MENU'));
-
-  $menu       = new menu();
-  $icons      = new iconbar();
-  $media_type = '';
-  $file_id    = 0;
-
-  // Menu Items
-
+  /**
+   * Check for and apply any oustanding database patches.
+   */
+  
+  apply_database_patches();
+  
+  /**
+   * Menu Items
+   */
+  
+  $menu = new menu();
   $menu->add_item(str('WATCH_MOVIE'),'video.php',true);
   $menu->add_item(str('LISTEN_MUSIC'),'music.php',true);
 
@@ -35,7 +38,11 @@
   if (pl_enabled())
     $menu->add_item( str('MANAGE_PLAYLISTS'),'manage_pl.php',true);
 
-  // Icons
+  /**
+   * Icons
+   */
+  
+  $icons = new iconbar();
 
   if (get_num_users() > 1)
     $icons->add_icon("ICON_USER",get_current_user_name(),'change_user.php');
@@ -43,17 +50,18 @@
   if (internet_available() && update_available() )
     $icons->add_icon("ICON_UPDATE",str('UPDATE'),'run_update.php');
 
-  $num_new = count_messages_with_status(MESSAGE_STATUS_NEW);
-  if(($num_new) > 0)
+  if ( count_messages_with_status(MESSAGE_STATUS_NEW) > 0)
     $icons->add_icon("ICON_MAIL",str('NEW'),"messages.php?return=".current_url());
 
   $icons->add_icon("ICON_SETUP",str('SETUP'),"config.php");
 
-  // Display the page content
+  /**
+   * Display the page content
+   */
 
+  page_header( str('MAIN_MENU'));
   echo '<center>'.str('SELECT_OPTION').'</center><p>';
-  $menu->display();
-  
+  $menu->display();  
   page_footer('', '', $icons);
 
 /**************************************************************************************************

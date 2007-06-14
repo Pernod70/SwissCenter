@@ -3,41 +3,41 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-  $update_location = 'http://update.swisscenter.co.uk/release/';
+$update_location = 'http://update.swisscenter.co.uk/release/';
 
-  require_once( realpath(dirname(__FILE__).'/base/page.php'));
-  require_once( realpath(dirname(__FILE__).'/base/utils.php'));
-  require_once( realpath(dirname(__FILE__).'/base/file.php'));
-  require_once( realpath(dirname(__FILE__).'/base/prefs.php'));
-  set_time_limit(60*25);
+require_once( realpath(dirname(__FILE__).'/base/page.php'));
+require_once( realpath(dirname(__FILE__).'/base/utils.php'));
+require_once( realpath(dirname(__FILE__).'/base/file.php'));
+require_once( realpath(dirname(__FILE__).'/base/prefs.php'));
+set_time_limit(60*25);
 
-  function chksum_files($pre, $dir, &$files)
+function chksum_files($pre, $dir, &$files)
+{
+  if ($dir!='media/' && $dir!='cache/')
   {
-    if ($dir!='media/')
+    if ($dh = opendir($pre.$dir))
     {
-      if ($dh = opendir($pre.$dir))
+      while (($file = readdir($dh)) !== false)
       {
-        while (($file = readdir($dh)) !== false)
-        {
-          if (is_dir($pre.$dir.$file) && ($file) !='.' && ($file) !='..')
-            chksum_files(  $pre, $dir.$file.'/', $files);
-          if (is_file($pre.$dir.$file) && ($file) !='.' && ($file) !='..')
-            $files[] = array('filename'=>$dir.$file
-                            ,'checksum'=> md5(file_get_contents($pre.$dir.$file)) );
-        }
-        closedir($dh);
+        if (is_dir($pre.$dir.$file) && ($file) !='.' && ($file) !='..')
+          chksum_files(  $pre, $dir.$file.'/', $files);
+        if (is_file($pre.$dir.$file) && ($file) !='.' && ($file) !='..')
+          $files[] = array('filename'=>$dir.$file
+                          ,'checksum'=> md5(file_get_contents($pre.$dir.$file)) );
       }
-      else 
-        send_to_log(1,"ERROR : Unable to open directory for reading.",$pre.$dir);
+      closedir($dh);
     }
+    else 
+      send_to_log(1,"ERROR : Unable to open directory for reading.",$pre.$dir);
   }
+}
 
- function set_last_update($release_dir)
- {
-   $last_update = file_get_contents($release_dir.'last_update.txt');
-   set_sys_pref('LAST_UPDATE',$last_update);
-   set_sys_pref('UPDATE_AVAILABLE',false);
- }
+function set_last_update($release_dir)
+{
+ $last_update = file_get_contents($release_dir.'last_update.txt');
+ set_sys_pref('LAST_UPDATE',$last_update);
+ set_sys_pref('UPDATE_AVAILABLE',false);
+}
    
 //*************************************************************************************************
 // Main Code
@@ -164,19 +164,6 @@
         unlink($a["existing"]);
         rename($a["downloaded"],$a["existing"]);
         send_to_log(4,"'".$a["existing"]."' updated");
-
-        // If the file that has been updated is a database update, then apply it to the database
-        if ( preg_match('/.*update_[0-9]*.sql/',$a["existing"]) )
-        {
-          foreach ( split(";",implode(" ",file($a["existing"]))) as $sql)
-            if ( strlen(trim($sql)) > 0 ) 
-            {
-              if (db_sqlcommand($sql))
-                send_to_log(6,"SQL command executed : ".$sql);
-              else 
-                send_to_log(1,"SQL command failed : ".$sql);
-            }
-        } 
       }
 
       $updated = true;
