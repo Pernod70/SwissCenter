@@ -53,14 +53,10 @@ function make_url_path( $fsp )
   // rather than trying to access it directly
   if ( is_unix() )
   {
-    foreach ( db_toarray("select name,concat('media/',location_id) dir from media_locations order by length(name) desc") as $dir)
+    foreach ( db_toarray("select name,concat('media/',location_id) dir from media_locations") as $dir)
     {
       if (strpos($fsp, $dir["NAME"]) == 0)
-      {
-        // $fsp = $dir["DIR"] . substr( $fsp, strlen( $dir["NAME"] ) );
-        $fsp = substr_replace($fsp, $dir["DIR"], 0, strlen($dir["NAME"]));
-        continue;
-      }
+        $fsp = $dir["DIR"].substr($fsp, strlen($dir["NAME"]));
     }
   }  
   
