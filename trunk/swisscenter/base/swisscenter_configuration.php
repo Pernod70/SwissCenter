@@ -58,12 +58,16 @@
     
     function export_sys_prefs()
     {
+      $exceptions = array('	DATABASE_PATCH','	DATABASE_UPDATE','DATABASE_VERSION');
       $xpath = $this->xml->appendChild($this->settings_path,'<system />');
       $data = db_toarray("select * from system_prefs");
       if ($data !== false && count($data)>0)
       {
         foreach ($data as $row)
-          $this->xml->appendChild($xpath,'<setting name="'.$row["NAME"].'">'.$row["VALUE"].'</setting>'); 
+        {
+          if ( !in_array($row["NAME"],$exceptions) )
+            $this->xml->appendChild($xpath,'<setting name="'.$row["NAME"].'">'.$row["VALUE"].'</setting>'); 
+        }
       }
     }
     
