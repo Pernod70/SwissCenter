@@ -74,8 +74,7 @@
       {
         // Run the setup file and all database update files
         db_sqlfile('../setup.sql');
-        foreach (dir_to_array('../database','update_[0-9.]*.sql') as $file)
-          db_sqlfile($file);            
+        apply_database_patches();
 
         // Write an ini file with the database parameters in it
         write_ini ( DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE );

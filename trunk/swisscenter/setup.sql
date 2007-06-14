@@ -3,45 +3,101 @@
 -- *************************************************************************************************
 
 -- -------------------------------------------------------------------------------------------------
+-- Table structure for table `certificates`
+-- -------------------------------------------------------------------------------------------------
+
+CREATE TABLE certificates (
+  cert_id          int unsigned auto_increment primary key not null,
+  name             varchar(7) not null,
+  rank             int not null,
+  description      varchar(200) null,
+  scheme           text
+) TYPE=MyISAM;
+
+INSERT INTO certificates (name, rank, scheme, description) VALUES ('G',      10, 'MPAA','General Audiences');
+INSERT INTO certificates (name, rank, scheme, description) VALUES ('Uc',     10, 'BBFC','Suitable for pre-school');
+INSERT INTO certificates (name, rank, scheme, description) VALUES ('U',      20, 'BBFC','Minimum age 4 years');
+INSERT INTO certificates (name, rank, scheme, description) VALUES ('PG',     30, 'BBFC','Parental guidance recommended');
+INSERT INTO certificates (name, rank, scheme, description) VALUES ('12A',    35, 'BBFC','Minimum age 12 years (unless accompanied)');
+INSERT INTO certificates (name, rank, scheme, description) VALUES ('12',     40, 'BBFC','Minimum age 12 years');
+INSERT INTO certificates (name, rank, scheme, description) VALUES ('PG-13',  50, 'MPAA','Parents Strongly Cautioned');
+INSERT INTO certificates (name, rank, scheme, description) VALUES ('15',     60, 'BBFC','Minimum age 15 years');
+INSERT INTO certificates (name, rank, scheme, description) VALUES ('R',      70, 'MPAA','Restricted');
+INSERT INTO certificates (name, rank, scheme, description) VALUES ('NC-17',  80, 'MPAA','Not suitable for viewers under 17');
+INSERT INTO certificates (name, rank, scheme, description) VALUES ('18',     90, 'BBFC','Minimum age 18 years');
+INSERT INTO certificates (name, rank, scheme, description) VALUES ('XXX',   100, 'MPAA','Adult');
+INSERT INTO certificates (name, rank, scheme, description) VALUES ('R18',   100, 'BBFC','Restricted distribution, minimum age 18 years');
+INSERT INTO certificates (name, rank, scheme, description) VALUES ('PG',     30, 'MPAA','Parental guidance recommended');
+INSERT INTO certificates (name, rank, scheme, description) VALUES ('UR',      5, 'MPAA','Un-Rated Family content');
+INSERT INTO certificates (name, rank, scheme, description) VALUES ('NR',     90, 'MPAA','Not Rated Adult content');
+
+-- -------------------------------------------------------------------------------------------------
+-- Table structure for table `categories`
+-- -------------------------------------------------------------------------------------------------
+
+CREATE TABLE categories (
+  cat_id          Int unsigned auto_increment not null primary key,
+  cat_name        varchar(100) not null unique,
+  download_info   varchar(1) default 'N'
+) TYPE=MyISAM;
+
+INSERT INTO categories (cat_name,download_info) VALUES ( 'General'           ,'N');
+INSERT INTO categories (cat_name,download_info) VALUES ( 'Music Videos'      ,'N');
+INSERT INTO categories (cat_name,download_info) VALUES ( 'Audio Books'       ,'N');
+INSERT INTO categories (cat_name,download_info) VALUES ( 'Films'             ,'Y');
+INSERT INTO categories (cat_name,download_info) VALUES ( 'Language Learning' ,'N');
+INSERT INTO categories (cat_name,download_info) VALUES ( 'TV Series'         ,'N');
+
+-- -------------------------------------------------------------------------------------------------
 -- Table structure for table `users`
 -- -------------------------------------------------------------------------------------------------
 
 CREATE TABLE users (
-  user_id         int(10) unsigned NOT NULL auto_increment,
-  name            text
+  user_id         int(10) unsigned not null auto_increment,
+  name            text,
+  maxcert         int unsigned default 1,
+  pin             varchar(10) default null
   ,
-  PRIMARY KEY  (user_id)
+  PRIMARY KEY  (user_id),
+  FOREIGN KEY(maxcert) REFERENCES certificates (cert_id) ON DELETE SET NULL
 ) TYPE=MyISAM;
 
-INSERT INTO users (user_id,name) VALUES (1,'Default');
+INSERT INTO users (user_id,maxcert,name) VALUES (1,7,'Default');
 
 -- -------------------------------------------------------------------------------------------------
 -- Table structure for table `media_types`
 -- -------------------------------------------------------------------------------------------------
 
 CREATE TABLE media_types (
-  media_id     int(10) unsigned  NOT NULL auto_increment,
-  media_name   varchar(20)
+  media_id     int(10) unsigned  not null auto_increment,
+  media_name   varchar(20),
+  media_table  varchar(20) null
   ,
   PRIMARY KEY  (media_id)
 ) TYPE=MyISAM;
 
-INSERT INTO media_types (media_id,media_name) VALUES (1,'Music');
-INSERT INTO media_types (media_id,media_name) VALUES (2,'Photo');
-INSERT INTO media_types (media_id,media_name) VALUES (3,'Video');
-INSERT INTO media_types (media_id,media_name) VALUES (4,'Radio');
+INSERT INTO media_types (media_id,media_name,media_table) VALUES (1,'Music','mp3s');
+INSERT INTO media_types (media_id,media_name,media_table) VALUES (2,'Photo','photos');
+INSERT INTO media_types (media_id,media_name,media_table) VALUES (3,'Video','movies');
+INSERT INTO media_types (media_id,media_name,media_table) VALUES (4,'Radio','');
 
 -- -------------------------------------------------------------------------------------------------
 -- Table structure for table `media_locations`
 -- -------------------------------------------------------------------------------------------------
 
 CREATE TABLE media_locations (
-  location_id     int(10) unsigned NOT NULL auto_increment,
+  location_id     int(10) unsigned not null auto_increment,
   name            text,
-  media_type	  int(10) unsigned 
+  media_type	    int(10) unsigned,
+  download_info   char(1) default 'Y',
+  cat_id          int unsigned not null default 1,
+  unrated         int unsigned not null default 1,
+  percent_scanned integer
   ,
   PRIMARY KEY  (location_id),
-  FOREIGN KEY  (media_type) REFERENCES media_types (media_id) ON DELETE CASCADE
+  FOREIGN KEY  (media_type) REFERENCES media_types (media_id) ON DELETE CASCADE,
+  FOREIGN KEY  (cat_id)     REFERENCES categories  (cat_id)   ON DELETE SET DEFAULT,
+  FOREIGN KEY  (unrated)    REFERENCES certificates(cert_id)  ON DELETE SET DEFAULT
 ) TYPE=MyISAM;
 
 -- -------------------------------------------------------------------------------------------------
@@ -53,47 +109,12 @@ CREATE TABLE messages (
   title           varchar(255),
   added           varchar(20) NOT NULL,
   message_text    text,
-  deleted         int(10) unsigned
+  status          int unsigned default 0
   ,
   PRIMARY KEY  (message_id)
 ) TYPE=MyISAM;
 
-insert into messages (title,message_text,added) values ('Welcome to the Swisscenter','This is the messages section, where you will be informed of new features and updates to the SwissCenter interface whenever you perform an automatic update.',curdate());
-
--- -------------------------------------------------------------------------------------------------
--- Table structure for table `ratings`
--- -------------------------------------------------------------------------------------------------
-
-CREATE TABLE ratings (
-  name          varchar(10) NOT NULL default '',
-  short_desc    varchar(100) NOT NULL,
-  description   text
-  ,
-  PRIMARY KEY  (name)
-) TYPE=MyISAM;
-
-INSERT INTO ratings (name,short_desc,description) VALUES ('U'  ,'Universal','It is impossible to predict what might upset any particular child. '
-                                                                'But a \'U\' film should be suitable for audiences aged four years and over. Works aimed at '
-                                                                'children should be set within a positive moral framework and should offer reassuring '
-                                                                'counterbalances to any violence, threat or horror.');
-
-INSERT INTO ratings (name,short_desc,description) VALUES ('PG' ,'Parental Guidance','Unaccompanied children of any age may watch. A \'PG\' film should not '
-                                                                'disturb a child aged around eight or older. However, parents are advised to consider whether '
-                                                                'the content may upset younger or more sensitive children.');
-
-INSERT INTO ratings (name,short_desc,description) VALUES ('12' ,'Minimum Age 12','No-one younger than 12 may see a \'12A\' film in a cinema unless '
-                                                                'accompanied by an adult. No-one younger than 12 may rent or buy a \'12\' rated video.');
-
-INSERT INTO ratings (name,short_desc,description) VALUES ('15' ,'Minimum Age 15','No-one younger than 15 may see a \'15\' film in a cinema. No-one '
-                                                                'younger than 15 may rent or buy a \'15\' rated video.');
-
-INSERT INTO ratings (name,short_desc,description) VALUES ('18' ,'Minimum Age 18','No-one younger than 18 may see an \'18\' film in a cinema. No-one '
-                                                                'younger than 18 may rent or buy an \'18\' rated video.');
-
-INSERT INTO ratings (name,short_desc,description) VALUES ('R18','Sexual Content','The \'R18\' category is a special and legally restricted classification '
-                                                                'primarily for explicit videos of consenting sex between adults. Such videos may be supplied '
-                                                                'to adults only in licensed sex shops. \'R18\' videos may not be supplied by mail order.');
-
+insert into messages (title,message_text,added) values ('Welcome to the Swisscenter','This is the messages section, where you will be informed of new features and updates to the SwissCenter interface whenever you perform an automatic update.',now());
 
 -- -------------------------------------------------------------------------------------------------
 -- Table structure for table `art_files`
@@ -114,12 +135,22 @@ INSERT INTO art_files (filename) VALUES ('folder.png');
 -- -------------------------------------------------------------------------------------------------
 
 CREATE TABLE clients (
-  ip_address   varchar(100) NOT NULL default '',
-  box_id       varchar(100),
-  current_user int unsigned
+  ip_address       varchar(100) NOT NULL default '',
+  box_id           varchar(100),
+  user_id          int(10) unsigned,
+  agent_string     text, 
+  device_type      text,
+  last_seen        datetime     default null,
+  screen_type      text         default null,
+  screen_x_res     int unsigned default null,
+  screen_y_res     int unsigned default null,
+  browser_x_res    int unsigned default null,
+  browser_y_res    int unsigned default null,
+  aspect           text         default null,
+  port             integer
   ,
   PRIMARY KEY  (ip_address),
-  FOREIGN KEY (current_user) references users (user_id)
+  FOREIGN KEY (user_id) references users (user_id)
 ) TYPE=MyISAM;
 
 -- -------------------------------------------------------------------------------------------------
@@ -159,51 +190,260 @@ INSERT INTO user_prefs (user_id,name,value) VALUES (1,'STYLE','KDE');
 -- -------------------------------------------------------------------------------------------------
 
 CREATE TABLE movies (
-  file_id int(10) unsigned NOT NULL auto_increment,
-  dirname text,
-  filename text,
-  title text,
-  size int(11) default NULL,
-  length int(11) default NULL,
-  lengthstring text,
-  verified char(1)
+  file_id             int(10) unsigned not null auto_increment,
+  dirname             text,
+  filename            text,
+  title               text,
+  size                int(11) default null,
+  length              int(11) default null,
+  lengthstring        text,
+  verified            char(1),
+  year                varchar(4),
+  details_available   varchar(1),
+  match_pc            int(10),
+  discovered          datetime default null,
+  location_id         int unsigned,
+  certificate         int unsigned null,
+  synopsis            text
   ,
   PRIMARY KEY  (file_id),
-  KEY title (title(50))
+  FOREIGN KEY  (location_id) REFERENCES media_locations (location_id) ON DELETE CASCADE,
+  FOREIGN KEY  (certificate) REFERENCES certificates(cert_id) ON DELETE SET NULL,
+  KEY title    (title(50))
 ) TYPE=MyISAM;
 
-ALTER TABLE movies add (rating varchar(10) default NULL);
-ALTER TABLE movies add FOREIGN KEY (rating) REFERENCES ratings (name);
+CREATE UNIQUE INDEX movies_fsp_u1 ON movies (dirname(250),filename(250));
+
+-- -------------------------------------------------------------------------------------------------
+-- Table structure for table `actors`
+-- -------------------------------------------------------------------------------------------------
+
+CREATE TABLE actors (
+  actor_id     int(10) unsigned  NOT NULL auto_increment,
+  actor_name   text
+  ,
+  PRIMARY KEY  (actor_id),
+  UNIQUE (actor_name(100))
+) TYPE=MyISAM;
+
+-- -------------------------------------------------------------------------------------------------
+-- Table structure for table `directors`
+-- -------------------------------------------------------------------------------------------------
+
+CREATE TABLE directors (
+  director_id     int(10) unsigned  NOT NULL auto_increment,
+  director_name   text
+  ,
+  PRIMARY KEY  (director_id),
+  UNIQUE (director_name(100))
+) TYPE=MyISAM;
+
+-- -------------------------------------------------------------------------------------------------
+-- Table structure for table `genres`
+-- -------------------------------------------------------------------------------------------------
+
+CREATE TABLE genres (
+  genre_id     int(10) unsigned  NOT NULL auto_increment,
+  genre_name   text
+  ,
+  PRIMARY KEY  (genre_id),
+  UNIQUE (genre_name(100))
+) TYPE=MyISAM;
+
+-- -------------------------------------------------------------------------------------------------
+-- Table structure for table `actors_in_movie`
+-- -------------------------------------------------------------------------------------------------
+
+CREATE TABLE actors_in_movie (
+  movie_id     int(10) unsigned,
+  actor_id     int(10) unsigned
+  ,
+  PRIMARY KEY (movie_id, actor_id),
+  FOREIGN KEY  (actor_id) REFERENCES actors (actor_id) ON DELETE CASCADE
+) TYPE=MyISAM;
+
+-- -------------------------------------------------------------------------------------------------
+-- Table structure for table `directors_of_movie`
+-- -------------------------------------------------------------------------------------------------
+
+CREATE TABLE directors_of_movie (
+  movie_id     int(10) unsigned,
+  director_id  int(10) unsigned
+  ,
+  PRIMARY KEY (movie_id, director_id),
+  FOREIGN KEY  (director_id) REFERENCES directors (director_id) ON DELETE CASCADE
+) TYPE=MyISAM;
+
+-- -------------------------------------------------------------------------------------------------
+-- Table structure for table `genres_of_movie`
+-- -------------------------------------------------------------------------------------------------
+
+CREATE TABLE genres_of_movie (
+  movie_id     int(10) unsigned,
+  genre_id     int(10) unsigned
+  ,
+  PRIMARY KEY (movie_id, genre_id),
+  FOREIGN KEY  (genre_id) REFERENCES genres (genre_id) ON DELETE CASCADE
+) TYPE=MyISAM;
 
 -- -------------------------------------------------------------------------------------------------
 -- Table structure for table `mp3s`
 -- -------------------------------------------------------------------------------------------------
 
 CREATE TABLE mp3s (
-  file_id int(10) unsigned NOT NULL auto_increment,
-  dirname text,
-  filename text,
-  size int(11) default NULL,
-  length int(11) default NULL,
-  lengthstring text,
-  bitrate text,
-  version text,
-  title text,
-  artist text,
-  album text,
-  year text,
-  track varchar(50) default NULL,
-  genre text,
-  verified char(1)
+  file_id          int(10) unsigned not null auto_increment,
+  dirname          text,
+  filename         text,
+  size int(11)     default null,
+  length int(11)   default null,
+  lengthstring     text,
+  bitrate          text,
+  version          text,
+  title            text,
+  artist           text,
+  album            text,
+  year             text,
+  track            varchar(50) default null,
+  genre            text,
+  verified         char(1),
+  discovered       datetime default null,
+  location_id      int unsigned,
+  certificate      int unsigned null,
+  bitrate_mode     text default null
   ,
   PRIMARY KEY  (file_id),
-  KEY title (title(50)),
-  KEY artist (artist(50)),
-  KEY album (album(50)),
-  KEY genre (genre(50)),
-  KEY year (year(50)),
-  KEY dirname (dirname(255)),
+  FOREIGN KEY  (location_id) REFERENCES media_locations (location_id) ON DELETE CASCADE,
+  FOREIGN KEY (certificate)  REFERENCES certificates(cert_id)         ON DELETE SET NULL,
+  KEY title    (title(50)),
+  KEY artist   (artist(50)),
+  KEY album    (album(50)),
+  KEY genre    (genre(50)),
+  KEY year     (year(50)),
+  KEY dirname  (dirname(255)),
   KEY filename (dirname(255))
+) TYPE=MyISAM;
+
+CREATE UNIQUE INDEX mp3s_fsp_u1   ON mp3s   (dirname(250),filename(250));
+
+-- -------------------------------------------------------------------------------------------------
+-- Table structure for table `mp3_albumart`
+-- -------------------------------------------------------------------------------------------------
+
+CREATE TABLE mp3_albumart (
+  file_id          int unsigned not null,
+  image            mediumblob not null
+  ,
+  FOREIGN KEY (file_id) references mp3s (file_id)
+) TYPE=MyISAM;
+
+CREATE INDEX mp3s_art_n1 ON mp3_albumart (file_id);
+
+-- -------------------------------------------------------------------------------------------------
+-- Table structure for table `photos`
+-- -------------------------------------------------------------------------------------------------
+
+CREATE TABLE photos (
+  file_id             int(10) unsigned not null auto_increment,
+  dirname             text,
+  filename            text,
+  size                int(11) default null,
+  width               int(11) default null,
+  height              int(11) default null,
+  date_modified       varchar(50),
+  date_created        varchar(50),
+  verified            char(1) default null,
+  discovered          datetime default null,
+  location_id         int unsigned,
+  certificate         int unsigned null,
+  exif_exposure_mode  text default null,
+  exif_exposure_time  text default null,
+  exif_fnumber        text default null,
+  exif_focal_length   text default null,
+  exif_image_source   text default null,
+  exif_make           text default null,
+  exif_model          text default null,
+  exif_orientation    text default null,
+  exif_white_balance  text default null,
+  exif_flash          text default null,
+  exif_iso            text default null,
+  exif_light_source   text default null,
+  exif_exposure_prog  text default null,
+  exif_meter_mode     text default null,
+  exif_capture_type   text default null
+  ,
+  PRIMARY KEY  (file_id),
+  FOREIGN KEY  (location_id) REFERENCES media_locations (location_id) ON DELETE CASCADE,
+  FOREIGN KEY (certificate)  REFERENCES certificates(cert_id)         ON DELETE SET NULL,
+  KEY dirname  (dirname(255)),
+  KEY filename (dirname(255))
+) TYPE=MyISAM;
+
+CREATE UNIQUE INDEX photos_fsp_u1 ON photos (dirname(250),filename(250));
+
+-- -------------------------------------------------------------------------------------------------
+-- Create table to hold photo "albums" information. 
+-- -------------------------------------------------------------------------------------------------
+
+CREATE TABLE photo_albums (
+  file_id          int(10) unsigned not null auto_increment,
+  dirname          text,
+  title            text,
+  verified         char(1),
+  discovered       datetime default null,
+  location_id      int unsigned,
+  certificate      int unsigned null
+  ,
+  PRIMARY KEY  (file_id),
+  FOREIGN KEY  (certificate) REFERENCES certificates(cert_id) ON DELETE SET NULL,
+  FOREIGN KEY  (location_id) REFERENCES media_locations (location_id) ON DELETE CASCADE,
+  KEY title    (title(50))
+) TYPE=MyISAM;
+
+-- -------------------------------------------------------------------------------------------------
+-- Table structure for table `viewings`
+-- -------------------------------------------------------------------------------------------------
+
+CREATE TABLE viewings
+( user_id          int(10) unsigned NOT NULL 
+, media_type       int(10) unsigned NOT NULL 
+, media_id         int(10) unsigned NOT NULL 
+, last_viewed      datetime NOT NULL
+, total_viewings   int(10) unsigned default 0
+) TYPE=MyISAM;
+
+CREATE INDEX viewings_n1 ON viewings (media_id);
+
+-- -------------------------------------------------------------------------------------------------
+-- Table structure for table `viewings`
+-- -------------------------------------------------------------------------------------------------
+
+CREATE TABLE rss_subscriptions (
+  id               int auto_increment,
+  type             int not null,
+  url              text not null,
+  title            varchar(50) not null,
+  update_frequency int not null default 60,
+  last_update      datetime not null
+  ,
+  PRIMARY KEY  (id)
+) TYPE=MyISAM;
+
+-- -------------------------------------------------------------------------------------------------
+-- Table structure for table `viewings`
+-- -------------------------------------------------------------------------------------------------
+
+CREATE TABLE rss_items (
+  id               int auto_increment,
+  subscription_id  int not null,
+  title            text not null,
+  url              text,
+  description      text not null,
+  published_date   datetime not null,
+  timestamp        int not null,
+  guid             text,
+  linked_file      text
+  ,
+  PRIMARY KEY  (id)
 ) TYPE=MyISAM;
 
 -- -------------------------------------------------------------------------------------------------
@@ -4608,6 +4848,12 @@ INSERT INTO cities (name) VALUES ('Zwedru');
 INSERT INTO cities (name) VALUES ('Zwolle');
 
 COMMIT;
+
+-- -------------------------------------------------------------------------------------------------
+-- Set the current database version number
+-- -------------------------------------------------------------------------------------------------
+
+INSERT INTO system_prefs (name, value) VALUES('DATABASE_VERSION','1.18');
 
 -- *************************************************************************************************
 --   SWISScenter Source                                                              Robert Taylor

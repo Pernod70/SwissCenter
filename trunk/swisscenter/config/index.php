@@ -12,6 +12,7 @@
   require_once( realpath(dirname(__FILE__).'/../base/rating.php'));
   require_once( realpath(dirname(__FILE__).'/../base/categories.php'));
   require_once( realpath(dirname(__FILE__).'/../base/db_abstract.php'));
+  require_once( realpath(dirname(__FILE__).'/../base/patching.php'));
   require_once( realpath(dirname(__FILE__).'/common.php'));
 
   // ----------------------------------------------------------------------------------
@@ -144,21 +145,15 @@
   }
   
   /**
-   * Get the database parameters from the ini file as they are needed throughout the script, 
-   * and then execute the template file
+   * Apply any outstanding database patches and then execute the template.
    */
   
-  if ($_REQUEST["section"]!='INSTALL' && file_exists('swisscenter.ini'))
-  {
-    foreach( parse_ini_file('swisscenter.ini') as $k => $v)
-      if (!empty($v))
-        define (strtoupper($k),$v);
-  }
+  apply_database_patches();
 
   $page_title = '<a href="/"><img border=0 align="right" hspace=8 src="/images/close.gif"></a>'.str('CONFIG_TITLE');
   $page_width = '750px';
   include("config_template.php");
-
+  
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/
