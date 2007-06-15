@@ -3,7 +3,9 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-  function show_picker( $url="", $search, $case = '' )
+require_once( realpath(dirname(__FILE__).'/search.php'));
+
+function show_picker( $url="", $search, $case = '' )
   {
     if ($case == '' || $case == 'U')
       $keys = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_,.'-#";
