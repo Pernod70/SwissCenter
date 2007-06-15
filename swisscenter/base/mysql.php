@@ -39,6 +39,11 @@ function db_escape_str( $text )
   return @mysql_real_escape_string($text);
 }
 
+function db_escape_wildcards( $text )
+{
+  return str_replace("%","\%",str_replace("_","\_",$text));
+}
+
 #-------------------------------------------------------------------------------------------------
 # Tests the connection to the database using the details provided 
 #-------------------------------------------------------------------------------------------------
