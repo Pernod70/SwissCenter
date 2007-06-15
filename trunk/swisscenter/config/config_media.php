@@ -38,9 +38,9 @@ require_once( realpath(dirname(__FILE__).'/../base/media.php'));
     
     echo '</table></center';
     
-    // Stop refreshing if the search is complete
-    if ($status == str('MEDIA_SCAN_STATUS_COMPLETE'))
-      unset($_SESSION["meta-refresh"]);    
+    // Refresh the page to update the progress if the scan is still running
+    if ($status != str('MEDIA_SCAN_STATUS_COMPLETE'))
+      echo '<script type="text/javascript"> setTimeout("location.replace(\'index.php?section=MEDIA&action=PROGRESS\')",10000); </script>';
   }
   
   /**
@@ -60,7 +60,6 @@ require_once( realpath(dirname(__FILE__).'/../base/media.php'));
     media_refresh_now();
 
     // Show progress
-    $_SESSION["meta-refresh"] = '5;/config/index.php?section=MEDIA&action=PROGRESS';
     header('Location: /config/index.php?section=MEDIA&action=PROGRESS');
   }
   
