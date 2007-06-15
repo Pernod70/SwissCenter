@@ -31,6 +31,7 @@
   $item_count = 0;
   $effect     = 8;
   $delay      = (count($data) > 1 ? get_user_pref('PHOTO_PLAY_TIME','5') : 3600); 
+  $max_size   = max_playlist_size();
   
   send_to_log(7,'Generating list of pictures to send to the networked media player.');
 
@@ -40,7 +41,7 @@
   
     foreach ($data as $row)
     {
-      if ($item_count >= max_playlist_size() )
+      if ($item_count >= $max_size )
         break;
         
       if ( is_null($row["TITLE"]) )
