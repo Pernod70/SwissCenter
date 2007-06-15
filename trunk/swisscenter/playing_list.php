@@ -12,6 +12,7 @@
   $transition = now_playing_transition();
   $url        = $server."playing_image.php?".current_session();
   $data       = get_tracklist();                            
+  $max_size   = max_playlist_size();
 
   if (support_now_playing())
   {
@@ -28,6 +29,9 @@
     
     foreach ($data as $row)
     {    
+      if ($idx >= $max_size)
+        break;
+        
       send_to_log(7,' - '.$url."&idx$idx=&type=.jpg");
       echo "$timeout|$transition| |$url&idx=$idx&type=.jpg|\n";    
       $idx++;
