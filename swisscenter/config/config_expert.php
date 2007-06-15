@@ -106,7 +106,7 @@
     message($message);
     
     echo '<p>&nbsp;<br><b>'.str('SYSPREF_ADD_NEW').'</b>';
-    form_start('index.php', 150, 'prefs');
+    form_start('index.php', 150);
     form_hidden('section', 'EXPERT');
     form_hidden('action', 'SYSPREFS_NEW');
     form_input('name',str('NAME'),40);
