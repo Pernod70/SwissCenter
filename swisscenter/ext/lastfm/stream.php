@@ -62,8 +62,10 @@
     $station = $_REQUEST["station"];
     
     if ($lastfm->login( get_user_pref('LASTFM_USERNAME') , get_user_pref('LASTFM_PASSWORD') ))
+    {
       if ($lastfm->tune_to_station( $station) )
         $lastfm->stream( 86400 );
+    }
   }
   
 /**************************************************************************************************
