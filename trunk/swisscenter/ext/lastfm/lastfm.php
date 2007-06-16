@@ -1,6 +1,18 @@
 <?
   require_once( realpath(dirname(__FILE__).'/../../base/file.php'));
-
+  
+  function lastfm_enabled()
+  {
+    if (!internet_available())
+      return false;
+    elseif (get_user_pref('LASTFM_USERNAME') == '')
+      return false;
+    elseif (get_user_pref('LASTFM_PASSWORD') == '')
+      return false;
+    else 
+      return true;
+  }
+  
   class lastfm
   {
     var $session_id;
@@ -112,7 +124,6 @@
 
     function now_playing()
     {
-      $time = time();
       $playing_url='http://ws.audioscrobbler.com/radio/np.php'.
                    '?session='.$this->session_id.
                    '&debug=0';
@@ -211,6 +222,8 @@
       // Close the file on disk if we were capturing the stream.
       if ($capture) 
         @fclose($file);    
+        
+      return true;
     }       
 
     /**
@@ -225,7 +238,7 @@
     {
       send_to_log(5,'Looking up artist : '.$artist);
       $pics = array();
-      $urls = array();
+      $matches = array();
       
       if (empty($artist))
         return $pics;
@@ -235,7 +248,7 @@
         send_to_log(2,'Failed to access artist details on LastFM (details may not be available).');
       else
       {
-        if ($urls = preg_match_all('#<a[^>]*href="([^"]*proposed[^"]*)"[^<]*<img[^>]*src="([^"]*proposed[^"]*)"#i',$html,$matches) === false)
+        if (preg_match_all('#<a[^>]*href="([^"]*proposed[^"]*)"[^<]*<img[^>]*src="([^"]*proposed[^"]*)"#i',$html,$matches) === false)
           send_to_log(5,'No photos found for "'.$artist.'"');
         else 
         {
