@@ -430,11 +430,13 @@ function process_movie( $dir, $id, $file)
   $filepath = os_path($dir.$file);
   $id3      = $getID3->analyze($filepath);
   
+  // Check to see if the filename is a "VTS_nn_n.VOB" file, and if it is, use the containing directory as the video title.
+  $data["title"]        = strip_title( preg_match('/vts_[0-9]*_[0-9]*.vob/i',$file) > 0 ? basename($dir) : $file);
+  
   // Standard information about the file 
   $data["dirname"]      = $dir;
   $data["filename"]     = $file;
   $data["location_id"]  = $id;
-  $data["title"]        = strip_title($file);
   $data["size"]         = filesize($dir.$file);
   $data["verified"]     = 'Y';
   $data["discovered"]   = db_datestr(filemtime($filepath));
