@@ -413,6 +413,31 @@ function process_photo( $dir, $id, $file)
 }
 
 /**
+ * Given the file path to a VOB file, this function will attempt to determine the correct
+ * title to store in the database. This is to account for files ripped directly from DVD
+ * and still in the same format (eg: filenames such as "VTS_01_1.vob").
+ *
+ * @param string $fsp
+ */
+
+function determine_dvd_name( $fsp )
+{
+  // Only attempt to determine the DVD title if this is a VOB file
+  if (file_ext($fsp) == 'vob' )
+  {
+    // Process files that match the pattern "VTS_nn_n.vob"
+    if ( preg_match('/vts_[0-9]*_[0-9]*.vob/i', basename($fsp) ) > 0 )
+    {
+      $fsp = dirname($fsp);
+      if ( strtolower(basename($fsp)) == 'video_ts' )
+        $fsp = dirname($fsp);    
+    }
+  }
+
+  return strip_title( basename($fsp) );  
+}
+
+/**
  * Takes the specified file and checks the format to determine if it should be added to the 
  * appropriate media table in the database.
  *
@@ -430,12 +455,10 @@ function process_movie( $dir, $id, $file)
   $filepath = os_path($dir.$file);
   $id3      = $getID3->analyze($filepath);
   
-  // Check to see if the filename is a "VTS_nn_n.VOB" file, and if it is, use the containing directory as the video title.
-  $data["title"]        = strip_title( preg_match('/vts_[0-9]*_[0-9]*.vob/i',$file) > 0 ? basename($dir) : $file);
-  
   // Standard information about the file 
   $data["dirname"]      = $dir;
   $data["filename"]     = $file;
+  $data["title"]        = determine_dvd_name( $dir.$file );
   $data["location_id"]  = $id;
   $data["size"]         = filesize($dir.$file);
   $data["verified"]     = 'Y';
@@ -469,6 +492,70 @@ function process_movie( $dir, $id, $file)
 }
 
 /**
+ * Updates the percentage of a media location that has been scanned
+ *
+ * @param string $table - The database table being updated by the scan
+ * @param integer $location_id - The location ID being scanned
+ */
+
+function update_scan_progress( $table, $location_id)
+{
+  set_sys_pref('LAST_MEDIA_SCAN_UPDATE',time());
+  
+  $unverified = db_value("select count(*) from $table where location_id = $location_id and verified='N'");
+  $total      = db_value("select count(*) from $table where location_id = $location_id");
+  
+  if ($total>0)
+    db_sqlcommand("update media_locations set percent_scanned = ".(int)(100-($unverified/$total*100))." where location_id = $location_id ");  
+}
+
+/**
+ * Returns TRUE or FALSE depending upon whether the file specified has a modification 
+ * time newer that that recorded in the database. If there is no corresponding record
+ * in the database then the function returns TRUE.
+ *
+ * @param string $table
+ * @param integer $location
+ * @param string $dir
+ * @param string $file
+ * @return boolean
+ */
+
+function file_newer_than_db( $table, $location, $dir, $file )
+{
+  // Date of file of disk (this might fail on linux systems if the file > 2Gb)
+  if ( @filemtime($dir.$file) > 0 )
+    $file_date = db_datestr(@filemtime($dir.$file));
+          
+  // Date of the file in the database
+  $db_date = db_value("select discovered from $table 
+                        where location_id = $location
+                          and dirname     = '".db_escape_str($dir)."' 
+                          and filename    = '".db_escape_str($file)."'" );
+
+  if ( !is_null($db_date) && ($db_date >= $file_date) )
+  {
+    // Record exists in database, and there have been no modifications to the file
+    db_sqlcommand("update $table 
+                      set verified     = 'Y' 
+                    where location_id  = $location
+                      and dirname      = '".db_escape_str($dir)."' 
+                      and filename     = '".db_escape_str($file)."'" );
+  }
+  elseif (!is_null($db_date) && $db_date < $file_date)
+  {
+    // Record exists in database, and the file has been modified
+    send_to_log(6,"File has been modified ($file_date > $db_date)");
+    db_sqlcommand("delete from $table 
+                    where location_id = $location
+                      and dirname     = '".db_escape_str($dir)."' 
+                      and filename    = '".db_escape_str($file)."'" );
+  }
+  
+  return (is_null($db_date) || $db_date < $file_date);
+}
+
+/**
  * Recursive scan through the directory, finding all the MP3 files.
  *
  * @param directory $dir - directory to search
@@ -480,6 +567,10 @@ function process_movie( $dir, $id, $file)
 
 function process_media_directory( $dir, $id, $table, $file_exts, $recurse = true )
 {
+  // Standard files to ignore (lowercase only - case insensitive match).
+  $files_to_ignore = array( 'video_ts.vob' );
+  $dirs_to_ignore  = array( '.' , '..' );  
+  
   send_to_log(4,'Scanning : '.$dir);
   
   // Mark all the files in this directory as unverified
@@ -492,7 +583,7 @@ function process_media_directory( $dir, $id, $table, $file_exts, $recurse = true
       if (@is_dir($dir.$file))
       {
         // Regular directory
-        if ((get_sys_pref('IGNORE_HIDDEN_FILES',1) && strpos($file,'.')!==0) || (!get_sys_pref('IGNORE_HIDDEN_FILES',1) && (($file) !='.' && ($file) !='..')))
+        if ( !in_array(strtolower($file),$dirs_to_ignore) && (get_sys_pref('IGNORE_HIDDEN_DIRECTORIES','NO')=="NO" || strpos($file,'.')!==0))
         {
           if ($table == 'photos')
             add_photo_album($dir.$file, $id);
@@ -501,38 +592,10 @@ function process_media_directory( $dir, $id, $table, $file_exts, $recurse = true
             process_media_directory( $dir.$file.'/', $id, $table, $file_exts);
         }
       }
-      elseif ( in_array(strtolower(file_ext($file)),$file_exts) )
+      elseif ( !in_array(strtolower($file),$files_to_ignore) && in_array(strtolower(file_ext($file)),$file_exts))
       {
-        if ( @filemtime($dir.$file) > 0 )
-          $file_date = db_datestr(@filemtime($dir.$file));
-          
-        $db_date   = db_value("select discovered from $table 
-                                where location_id=$id 
-                                  and dirname='".db_escape_str($dir)."' 
-                                  and filename='".db_escape_str($file)."'");
-
-        if ( !is_null($db_date) && ($db_date >= $file_date) )
+        if ( file_newer_than_db( $table, $id, $dir, $file) )
         {
-          // Record exists in database, and there have been no modifications to the file
-          db_sqlcommand("update $table set verified ='Y' 
-                          where location_id=$id 
-                            and dirname='".db_escape_str($dir)."' 
-                            and filename='".db_escape_str($file)."'");
-        }
-        else
-        {
-          if (!is_null($db_date) && $file_date > $db_date)
-          {
-            send_to_log(6,"File has been modified ($file_date > $db_date)");
-
-            // Record exists, but the modification time of the file is more recent
-            db_sqlcommand("delete from $table 
-                            where location_id=$id 
-                              and dirname='".db_escape_str($dir)."' 
-                              and filename='".db_escape_str($file)."'");
-          }
-            
-          // Add the file's details to the database.
           switch ($table)
           {
             case 'mp3s'   : process_mp3(   $dir, $id, $file);  break;
@@ -547,18 +610,12 @@ function process_media_directory( $dir, $id, $table, $file_exts, $recurse = true
   else 
     send_to_log(1,'Unable to read the directory contents. Are the permissions correct?',$dir);
     
+  // Set the percentage of this media directory scanned. 
+  update_scan_progress($table, $id);
+    
   // Delete any files which cannot be verified
   db_sqlcommand("delete from $table where verified ='N' and dirname like '".db_escape_str($dir)."%'");   
 
-  // Calculate the percentage of this media directory scanned. We only do this once per directory to reduce
-  // the overhead, and we have to guess how much there is to do based on the amounr of media present the last
-  // time it was scanned.
-  set_sys_pref('LAST_MEDIA_SCAN_UPDATE',time());
-  $unverified = db_value("select count(*) from $table where location_id = $id and verified='N'");
-  $total = db_value("select count(*) from $table where location_id = $id");
-  if ($total>0)
-    db_sqlcommand("update media_locations set percent_scanned = ".(int)(100-($unverified/$total*100))." where location_id = $id ");
-    
   // Remove the browser coords from the session to ensure it gets recalculated to the current browser
   unset($_SESSION["device"]);  
 }

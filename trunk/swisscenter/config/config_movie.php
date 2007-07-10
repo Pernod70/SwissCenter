@@ -83,14 +83,17 @@ function movie_display_info(  $message = '' )
           <th>'.str('YEAR').'</th>
           <th>'.str('VIEWED_BY').'</th>
         </tr><tr>
-          <td valign=top>'.get_cert_name(get_nearest_cert_in_scheme($details[0]["CERTIFICATE"])).'</td>
+          <td valign=top>'.get_cert_name(get_nearest_cert_in_scheme($details[0]["CERTIFICATE"])).'&nbsp;</td>
           <td valign=top>'.$details[0]["YEAR"].'</td><td>';
 
   foreach ( db_toarray("select * from users order by name") as $row)
     if (viewings_count(3, $details[0]["FILE_ID"], $row["USER_ID"])>0)
       echo $row["NAME"].'<br>';
   
-  echo '</td></tr></table>
+  echo '</td></tr>
+        <tr><th colspan=3>'.str('LOCATION_ON_DISK').'</th></tr>
+        <tr><td colspan=3>'.$details[0]["DIRNAME"].$details[0]["FILENAME"].'&nbsp;</td></tr>
+        </table>
         <p align="center">';
 
   // Get movie information from online source
