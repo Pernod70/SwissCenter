@@ -23,6 +23,8 @@
     $menu = new menu();
     if (get_sys_pref('browse_music_artist_enabled','YES') == 'YES')
       $menu->add_item( str('BROWSE_ARTIST') ,"music_search.php?sort=artist",true);
+    if (get_sys_pref('browse_music_album_artist_enabled','YES') == 'YES')
+      $menu->add_item( str('BROWSE_ALBUM_ARTIST') ,"music_search.php?sort=band",true);
     if (get_sys_pref('browse_music_album_enabled','YES') == 'YES') 
       $menu->add_item( str('BROWSE_ALBUM') ,"music_search.php?sort=album",true);
     if (get_sys_pref('browse_music_track_enabled','YES') == 'YES') 

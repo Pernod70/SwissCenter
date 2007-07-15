@@ -10,6 +10,7 @@
   switch ($column)
   {
     case "album":
+    case "band":
     case "artist":
     case "genre":
     case "year":

@@ -250,7 +250,7 @@ function process_mp3( $dir, $id, $file)
   $data["verified"]     = 'Y';
   $data["discovered"]   = db_datestr(filemtime($filepath));
 
-  if (in_array( $id3["fileformat"],array('mp3','asf')) )
+  if (in_array( $id3["fileformat"],array('mp3','asf','riff')) )
   {
     if ( ! isset($id3["error"]) )
     {
@@ -260,7 +260,7 @@ function process_mp3( $dir, $id, $file)
       $data["length"]       = floor($id3["playtime_seconds"]);
       $data["lengthstring"] = $id3["playtime_string"];
       $data["bitrate"]      = floor($id3["bitrate"]);
-      $data["bitrate_mode"] = strtoupper($id3["audio"][" bitrate_mode"]);
+      $data["bitrate_mode"] = strtoupper($id3["audio"]["bitrate_mode"]);
       $data["version"]      = 0;
       $data["title"]        = array_last($id3["comments"]["title"]);
       $data["artist"]       = array_last($id3["comments"]["artist"]);
@@ -268,6 +268,7 @@ function process_mp3( $dir, $id, $file)
       $data["year"]         = array_last($id3["comments"]["year"]);
       $data["track"]        = array_last($id3["comments"]["track"]);
       $data["genre"]        = array_last($id3["comments"]["genre"]);
+      $data["band"]        = array_last($id3["comments"]["band"]);
                    
       if (!db_insert_row( "mp3s", $data))
         send_to_log(2,'Unable to add MP3 to the database');
