@@ -31,6 +31,7 @@
     
     form_label('<p>&nbsp;<br><b>'.str('BROWSE_MUSIC').'</b>','L');
     form_radio_static('music_artist',str('BROWSE_ARTIST'),$option_vals,get_sys_pref('browse_music_artist_enabled','YES'),false,true);
+    form_radio_static('music_album_artist',str('BROWSE_ALBUM_ARTIST'),$option_vals,get_sys_pref('browse_music_album_artist_enabled','YES'),false,true);
     form_radio_static('music_album',str('BROWSE_ALBUM'),$option_vals,get_sys_pref('browse_music_album_enabled','YES'),false,true);
     form_radio_static('music_track',str('BROWSE_TRACK'),$option_vals,get_sys_pref('browse_music_track_enabled','YES'),false,true);
     form_radio_static('music_genre',str('BROWSE_GENRE'),$option_vals,get_sys_pref('browse_music_genre_enabled','YES'),false,true);
@@ -68,9 +69,11 @@
       $failed = true;
     
     if ( $_REQUEST["music_artist"] == 'YES' || $_REQUEST["music_album"] == 'YES' || $_REQUEST["music_track"] == 'YES' || 
-         $_REQUEST["music_genre"] == 'YES' || $_REQUEST["music_year"] == 'YES' || $_REQUEST["music_filesystem"] == 'YES' )
+         $_REQUEST["music_genre"] == 'YES' || $_REQUEST["music_year"] == 'YES' || $_REQUEST["music_filesystem"] == 'YES' ||
+	 $_REQUEST["music_album_artist"] == 'YES' )
     {
       set_sys_pref('browse_music_artist_enabled',$_REQUEST["music_artist"]);
+      set_sys_pref('browse_music_album_artist_enabled',$_REQUEST["music_album_artist"]);
       set_sys_pref('browse_music_album_enabled',$_REQUEST["music_album"]);
       set_sys_pref('browse_music_track_enabled',$_REQUEST["music_track"]);
       set_sys_pref('browse_music_genre_enabled',$_REQUEST["music_genre"]);
