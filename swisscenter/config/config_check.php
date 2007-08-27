@@ -1,4 +1,4 @@
-<?
+<?php
 /**************************************************************************************************
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
@@ -118,7 +118,7 @@ class test_summary
   # Add details about a specific test
   #-------------------------------------------------------------------------------------------------
 
-  function add_test( $section, $key, $pass, $fail, $cli=TRUE)
+  function add_test( $section, $key, $pass, $fail, $cli=FALSE)
   {
     if ( key_exists($section,$this->sections) )
     {

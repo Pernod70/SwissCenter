@@ -1,4 +1,4 @@
-<?
+<?php
 /**************************************************************************************************
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
@@ -34,7 +34,7 @@
     if ($status == str('MEDIA_SCAN_STATUS_RUNNING'))
       echo ' ('.(int)$overall.'%)';
     
-    // ANd then finally a menu option to nagivate away from this page.
+    // And then finally a menu option to nagivate away from this page.
     echo '</center><p>';
     $menu->add_item(str('CONTINUE'),'/');
     $menu->display();

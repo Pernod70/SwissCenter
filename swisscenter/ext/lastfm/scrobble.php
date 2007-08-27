@@ -1,4 +1,4 @@
-<?
+<?php
   require_once( realpath(dirname(__FILE__).'/../../base/page.php'));
 
   require_once( realpath(dirname(__FILE__).'/../../base/file.php'));
