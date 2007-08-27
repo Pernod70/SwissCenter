@@ -1,4 +1,4 @@
-<?
+<?php
 
 require_once( realpath(dirname(__FILE__).'/../xml/XPath.class.php'));
     
