@@ -1,4 +1,4 @@
-<?
+<?php
 /**************************************************************************************************
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
@@ -50,6 +50,15 @@ function down_link( $url)
     return '';
 }
 
+function charset()
+{
+  $cfg = str('PLAYER_PAGE_CHARSET');
+  if (empty($cfg))
+    return 'charset=Windows-1252';
+  else
+    return 'charset='.$cfg;
+}
+
 //-------------------------------------------------------------------------------------------------
 // Outputs the initial page layout, body and style settings and prepares the page for output to the
 // "main" area.
@@ -75,7 +84,7 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
   if ($focus_colour == '')
     $focus_colour = style_value("PAGE_FOCUS_COLOUR",'#FFFFFF');
   
-  header('Content-type: text/html; charset=Windows-1252');
+  header('Content-type: text/html; '.charset());
   echo '<html>
         <head>'.$meta.'
         <meta SYABAS-FULLSCREEN>
@@ -83,7 +92,7 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
         <meta SYABAS-BACKGROUND="'.$background_image.'">
         <meta syabas-keyoption="caps"><meta myibox-pip="0,0,0,0,0"><meta http-equiv="content-type" content="text/html;charset=Windows-1252">
         <meta name="generator" content="lyra-box UI">
-        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+        <meta http-equiv="Content-Type" content="text/html; '.charset().'">
         <title>'.$title.'</title>
         <style>
           body {font-family: arial; font-size: 14px; background-repeat: no-repeat; }
