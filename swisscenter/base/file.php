@@ -1,4 +1,4 @@
-<?
+<?php
 /**************************************************************************************************
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
@@ -174,29 +174,6 @@ function make_abs_file( $fsp, $dir )
       return $fsp;
     else
       return str_suffix($dir,'/').$fsp;
-  }
-}
-
-//-------------------------------------------------------------------------------------------------
-// OS path returns the given path with all occurances of '/' and '\' changed to the
-// approrpiate form for the current OS. If $addslash is true, then a trailing slash
-// or backslash is added as appropriate.
-//-------------------------------------------------------------------------------------------------
-function os_path( $path, $addslash=false )
-{
-  if ( substr(PHP_OS,0,3)=='WIN' )
-  {
-    if ($addslash)
-      return str_suffix(preg_replace('/\//', '\\', $path),'\\');
-    else
-      return str_replace('/', '\\', $path);
-  }
-  else
-  {
-    if ($addslash)
-      return str_suffix(preg_replace('/\//', '/', $path),'/');
-    else
-      return $path;
   }
 }
 
@@ -587,9 +564,13 @@ function file_download_and_save( $url, $filename, $overwrite = false )
   return false;
 }
 
-//-------------------------------------------------------------------------------------------------
-// Download a JPG image from the given URL and save it into the filmart/albumart file specified
-//-------------------------------------------------------------------------------------------------
+/**
+ * Downloads a JPG image from the given URL and saves it into the filmart/albumart file specified
+ *
+ * @param URL $url
+ * @param string $fsp
+ * @param string $film_title (not used)
+ */
 
 function file_save_albumart( $url, $fsp, $film_title )
 {
@@ -597,9 +578,66 @@ function file_save_albumart( $url, $fsp, $film_title )
     file_download_and_save($url,$fsp);
 }
 
-//-------------------------------------------------------------------------------------------------
-// Returns the location of the PHP.INI file
-//-------------------------------------------------------------------------------------------------
+/**
+ * Returns the appropriate path delimiter based on the user's operating system.
+ *
+ * @return string
+ */
+
+function path_delim()
+{
+  if ( is_windows() )
+    return '\\';
+ else
+    return '/';
+}
+
+/**
+ * Returns the given path will all occurances of '/' and '\' changed to the appropriate
+ * fom for the current OS. 
+ *
+ * @param string $path - Path to convert
+ * @param boolean $addslash - [false] Adds a trailing folder delimiter
+ * @return string
+ */
+
+function os_path( $path, $addslash=false )
+{
+  if ( is_windows() )
+  {
+    $delim1 = '/';
+    $delim2 = '\\';
+  }
+  else
+  {
+    $delim1 = '\\';
+    $delim2 = '/';
+  }
+
+  $dir = str_replace($delim1, $delim2, $dir);
+  $dir = rtrim($dir, $delim2);
+  
+  if ($addslash)
+    $dir = $dir.path_delim();
+  
+  return $dir;
+}
+  
+
+/**
+ * Alternative alias for os_path()
+ */
+
+function normalize_path( $dir )
+{ 
+  return os_path($dir); 
+}
+
+/**
+ * Returns the location of the PHP.INI file
+ *
+ * @return string
+ */
 
 function  php_ini_location()
 {
@@ -627,23 +665,41 @@ function  php_ini_location()
       $location = trim($matches[1]);
   }
 
+  // fix for PHP 5.x.x parsing
+  if ( strpos($location, 'php.ini') == false)
+  {
+    $location = $location.path_delim().'php.ini';
+  }
+  
   return $location; 
 }
+
+/**
+ * Returns the location of the PHP CLI executable
+ *
+ * @return string
+ */
 
 function php_cli_location()
 {
   if ( is_windows() )
   { 
-    $loc = $_SERVER["SCRIPT_FILENAME"];
-    if ( !empty($loc))
+    // fix for PHP 5.x.x or of own PHP installation is used
+    $location = getenv("ORIG_SCRIPT_FILENAME"); 
+    if ( !empty($location))
+      return $location;
+
+    $location = $_SERVER["SCRIPT_FILENAME"];
+    if ( !empty($location))
     {
-      if (file_exists( dirname($loc).'/cli/php.exe'))
-        return str_replace('\\\\','\\',dirname($loc).'\\cli\\php.exe');
+      if (file_exists( dirname($location).'/cli/php.exe'))
+        return str_replace('\\\\','\\',dirname($location).'\\cli\\php.exe');
       else 
-        return str_replace('\\\\','\\',$loc);
+        return str_replace('\\\\','\\',$location);
     }
-    else 
-      return false;
+    
+    // Unable to find a cli location
+    return false;
   }
   else
   {
@@ -653,6 +709,17 @@ function php_cli_location()
     else 
       return $location;
   }
+}
+
+/**
+ * Returns the windows directory (otherwise known as the systemroot).
+ *
+ * @return string
+ */
+
+function system_root()
+{
+  return $_ENV['SystemRoot'];
 }
 
 /**************************************************************************************************
