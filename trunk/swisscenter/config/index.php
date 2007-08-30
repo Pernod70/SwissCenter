@@ -1,4 +1,4 @@
-<?
+<?php
 /**************************************************************************************************
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
@@ -103,10 +103,10 @@
   	  $menu->add_item(str('EXPERT_EDIT_DB')         ,'section=EXPERT&action=RUNSQL');
   	  $menu->add_item(str('EXPERT_EDIT_PREFS')      ,'section=EXPERT&action=SYSPREFS');
 
-  	  $menu->add_menu(str('INFORMATION'));
+      $menu->add_menu(str('INFORMATION'));
   	  $menu->add_item(str('PRIVACY_POLICY')         ,'section=PRIVACY&action=DISPLAY');
   	  $menu->add_item(str('LICENSE')                ,'section=LICENSE&action=DISPLAY');
-  	}
+	}
   	
   	$menu->display();
   }

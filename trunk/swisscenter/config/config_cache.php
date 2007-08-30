@@ -1,4 +1,4 @@
-<?
+<?php
 /**************************************************************************************************
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
@@ -18,7 +18,7 @@
     form_start('index.php',160);
     form_hidden('section','CACHE');
     form_hidden('action','UPDATE');
-    form_input('dir',str('CACHE_DIR'),40,'', os_path(un_magic_quote($dir)) );
+    form_input('dir',str('CACHE_DIR'),40,'', os_path($dir) );
     form_label(str('CACHE_DIR_PROMPT'));
     form_input('size',str('CACHE_SIZE'),3,'', $size);
     form_label(str('CACHE_SIZE_PROMPT'));    
@@ -36,9 +36,9 @@
 
   function cache_update()
   {
-    $dir = rtrim(str_replace('\\','/',stripslashes($_REQUEST["dir"])),'/');
     $size = $_REQUEST["size"];
-
+    $dir  = normalize_path($_REQUEST["dir"]);
+    
     if (empty($dir))
       cache_display("!".str('CACHE_ERROR_MISSING'));
     elseif ($size == '')
