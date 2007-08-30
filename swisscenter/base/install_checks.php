@@ -1,4 +1,4 @@
-<?
+<?php
 /**************************************************************************************************
    SWISScenter Source                                                              Robert Taylor
 
@@ -76,10 +76,15 @@ function check_php_suggested_modules()
 
 function check_php_ttf()
 {
-  $defaults = array(get_sys_pref('TTF_FONT'), "Arial", "/usr/share/fonts/truetype/msttcorefonts/Arial.ttf", "luxisr");
+  if (is_windows())
+    $font_path = system_root().path_delim()."Fonts".path_delim()."Arial.ttf";
+  else
+    $font_path = "/usr/share/fonts/truetype/msttcorefonts/Arial.ttf";
+	
+  $defaults = array(get_sys_pref('TTF_FONT'), $font_path, "luxisr");
   $img      = new CImage();
   $font_ok  = false;
-  
+
   foreach ($defaults as $font) 
   {
     if ($img->text('Test',0,0,0,14,$font) !== false )
