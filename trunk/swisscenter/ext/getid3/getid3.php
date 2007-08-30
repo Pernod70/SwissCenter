@@ -109,42 +109,42 @@ class getID3
 		// IMPORTANT: This path cannot have spaces in it. If neccesary, use the 8dot3 equivalent
 		//   ie for "C:/Program Files/Apache/" put "C:/PROGRA~1/APACHE/"
 		// IMPORTANT: This path must include the trailing slash
-		if (GETID3_OS_ISWINDOWS && !defined('GETID3_HELPERAPPSDIR')) {
-			$helperappsdir = GETID3_INCLUDEPATH.'..'.DIRECTORY_SEPARATOR.'helperapps'; // must not have any space in this path
-
-			if (!is_dir($helperappsdir)) {
-
-				$this->startup_error .= '"'.$helperappsdir.'" cannot be defined as GETID3_HELPERAPPSDIR because it does not exist';
-
-			} elseif (strpos(realpath($helperappsdir), ' ') !== false) {
-
-				$DirPieces = explode(DIRECTORY_SEPARATOR, realpath($helperappsdir));
-				$DirPieces8 = $DirPieces;
-
-				$CLIdir = $DirPieces[0].' && cd \\';
-				for ($i = 1; $i < count($DirPieces); $i++) {
-				  if (strpos($DirPieces[$i], ' ') === false) {
-				    $CLIdir .= ' && cd '.$DirPieces[$i];
-				  } else {
-				    ob_start();
-				    system($CLIdir.' && dir /ad /x');
-				    $subdirsraw = explode("\n", ob_get_contents());
-				    ob_end_clean();
-				    foreach ($subdirsraw as $dummy => $line) {
-				      if (eregi('^[0-9]{4}/[0-9]{2}/[0-9]{2}  [0-9]{2}:[0-9]{2} [AP]M    <DIR>          ([^ ]{8})     '.preg_quote($DirPieces[$i]).'$', trim($line), $matches)) {
-				        $CLIdir .= ' && cd '.$matches[1];
-				        break;
-				      }
-				    }
-				    $DirPieces8[$i] = $matches[1];
-				  }
-				}
-				$helperappsdir = implode(DIRECTORY_SEPARATOR, $DirPieces8);
-
-			}
-			define('GETID3_HELPERAPPSDIR', realpath($helperappsdir).DIRECTORY_SEPARATOR);
-
-		}
+//		if (GETID3_OS_ISWINDOWS && !defined('GETID3_HELPERAPPSDIR')) {
+//			$helperappsdir = GETID3_INCLUDEPATH.'..'.DIRECTORY_SEPARATOR.'helperapps'; // must not have any space in this path
+//
+//			if (!is_dir($helperappsdir)) {
+//
+//				$this->startup_error .= '"'.$helperappsdir.'" cannot be defined as GETID3_HELPERAPPSDIR because it does not exist';
+//
+//			} elseif (strpos(realpath($helperappsdir), ' ') !== false) {
+//
+//				$DirPieces = explode(DIRECTORY_SEPARATOR, realpath($helperappsdir));
+//				$DirPieces8 = $DirPieces;
+//
+//				$CLIdir = $DirPieces[0].' && cd \\';
+//				for ($i = 1; $i < count($DirPieces); $i++) {
+//				  if (strpos($DirPieces[$i], ' ') === false) {
+//				    $CLIdir .= ' && cd '.$DirPieces[$i];
+//				  } else {
+//				    ob_start();
+//				    system($CLIdir.' && dir /ad /x');
+//				    $subdirsraw = explode("\n", ob_get_contents());
+//				    ob_end_clean();
+//				    foreach ($subdirsraw as $dummy => $line) {
+//				      if (eregi('^[0-9]{4}/[0-9]{2}/[0-9]{2}  [0-9]{2}:[0-9]{2} [AP]M    <DIR>          ([^ ]{8})     '.preg_quote($DirPieces[$i]).'$', trim($line), $matches)) {
+//				        $CLIdir .= ' && cd '.$matches[1];
+//				        break;
+//				      }
+//				    }
+//				    $DirPieces8[$i] = $matches[1];
+//				  }
+//				}
+//				$helperappsdir = implode(DIRECTORY_SEPARATOR, $DirPieces8);
+//
+//			}
+//			define('GETID3_HELPERAPPSDIR', realpath($helperappsdir).DIRECTORY_SEPARATOR);
+//
+//		}
 
 	}
 
