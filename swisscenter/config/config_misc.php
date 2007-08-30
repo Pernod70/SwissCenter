@@ -33,7 +33,9 @@
     $fontwidth_multiplier = $_REQUEST["fontwidth_multiplier"];
 
     if (! form_mask($fontwidth_multiplier,'[0-9]*'))
-      misc_display("!".str('MISC_FONTWIDTH_MULTIPLIER_ERROR_NOT_NUMBER'));
+      misc_display("!".str('MISC_FONTWIDTH_MULTIPLIER_NOT_NUMBER'));
+    elseif ( $fontwidth_multiplier < 0.5 )
+      misc_display("!".str('MISC_FONTWIDTH_MULTIPLIER_TOO_SMALL'));
     else
     {
       set_sys_pref('FONTWIDTH_MULTIPLIER',$fontwidth_multiplier);
