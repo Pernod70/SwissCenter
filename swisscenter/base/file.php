@@ -601,7 +601,7 @@ function path_delim()
  * @return string
  */
 
-function os_path( $path, $addslash=false )
+function os_path( $dir, $addslash=false )
 {
   if ( is_windows() )
   {
