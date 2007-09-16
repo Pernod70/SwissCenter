@@ -15,6 +15,8 @@ require_once( realpath(dirname(__FILE__).'/musicip.php'));
 // Libraries for reading file metadata
 require_once( realpath(dirname(__FILE__).'/../ext/getid3/getid3.php'));
 require_once( realpath(dirname(__FILE__).'/../ext/exif/exif_reader.php'));
+require_once( realpath(dirname(__FILE__).'/../ext/iptc/iptc.php'));
+require_once( realpath(dirname(__FILE__).'/../ext/xmp/xmp.php'));
 
 /**
  * Removes orphaned media files and albumart from the database (rows that exist in
@@ -294,7 +296,7 @@ function process_mp3( $dir, $id, $file)
   else
   {
     // File extension is MP3, but the file itself isn't!
-    send_to_log(3,'GETID3 claims this is not an MP3 - adding it anyway, but no ID3 tag information could be read.');
+    send_to_log(3,'GETID3 claims this is not an MP3 (found '.$id3["fileformat"].') - adding it anyway, but no ID3 tag information could be read.');
     if ( db_insert_row( "mp3s", $data) === false )
       send_to_log(1,'Unable to add MP3 to the database');
   }
@@ -342,9 +344,57 @@ function process_photo( $dir, $id, $file)
   send_to_log(4,'New Photo found : '.$file);
   $filepath = os_path($dir.$file);
   $data     = array();
+  $iptcxmp  = array();
+  
+  // Get ID3 data (file format)
   $getID3   = new getID3;
   $id3      = $getID3->analyze($filepath);
+  
+  // Get EXIF data
   $exif     = exif($dir.$file);
+  if ($exif['Make'] != "")
+    send_to_log(5,'Found EXIF data : Yes');
+  else
+    send_to_log(5,'Found EXIF data : No');
+  
+  // Get IPTC (IIM legacy) data
+  $getIPTC  = new Image_IPTC($filepath);
+  if ($getIPTC->isValid())
+  {
+  	send_to_log(5,'Found IPTC data : Yes');
+    $iptc = $getIPTC->getAllTags();
+    set_var($iptcxmp['byline'],array2string($iptc['2#080']));
+    set_var($iptcxmp['caption'],array2string($iptc["2#120"]));
+    set_var($iptcxmp['keywords'],array2string($iptc["2#025"]));
+    set_var($iptcxmp['city'],array2string($iptc["2#090"]));
+    set_var($iptcxmp['country'],array2string($iptc["2#101"]));
+    set_var($iptcxmp['province_state'],array2string($iptc["2#095"]));
+    set_var($iptcxmp['suppcategories'],array2string($iptc["2#020"]));
+    set_var($iptcxmp['date_created'],array2string($iptc["2#055"]));
+    set_var($iptcxmp['location'],array2string($iptc["2#092"]));
+  }
+  else
+    send_to_log(5,'Found IPTC data : No');
+  
+  // Get XMP data
+  $getXMP  = new Image_XMP($filepath);
+  if ($getXMP->isValid())
+  {
+  	send_to_log(5,'Found XMP data : Yes');
+  	$xmp = $getXMP->getAllTags();
+    set_var($iptcxmp['byline'],array2string($xmp['dc:creator']));
+    set_var($iptcxmp['caption'],array2string($xmp['dc:description']));
+    set_var($iptcxmp['keywords'],array2string($xmp['dc:subject']));
+    set_var($iptcxmp['city'],array2string($xmp['photoshop:City']));
+    set_var($iptcxmp['country'],array2string($xmp['photoshop:Country']));
+    set_var($iptcxmp['province_state'],array2string($xmp['photoshop:State']));
+    set_var($iptcxmp['suppcategories'],array2string($xmp['photoshop:SupplementalCategories']));
+    set_var($iptcxmp['date_created'],array2string($xmp['photoshop:DateCreated']));
+    set_var($iptcxmp['location'],array2string($xmp['Iptc4xmpCore:Location']));
+    set_var($iptcxmp['rating'],array2string($xmp['xap:Rating']));
+  }
+  else
+    send_to_log(5,'Found XMP data : No');
 
   if (in_array( $id3["fileformat"],array('jpg','gif','png','jpeg')) )
   {
@@ -376,6 +426,16 @@ function process_photo( $dir, $id, $file)
                    , "exif_exposure_prog"  => $exif['ExpProg']
                    , "exif_meter_mode"     => $exif['MeterMode']
                    , "exif_capture_type"   => $exif['SceneCaptureType']
+        		   , "iptc_caption"		   => $iptcxmp['caption']
+		           , "iptc_suppcategory"   => $iptcxmp['suppcategories']
+		           , "iptc_keywords"	   => $iptcxmp['keywords']
+        		   , "iptc_city"		   => $iptcxmp['city']
+		           , "iptc_province_state" => $iptcxmp['province_state']
+		           , "iptc_country"	       => $iptcxmp['country']
+        		   , "iptc_byline"		   => $iptcxmp['byline']
+		           , "iptc_date_created"   => $iptcxmp['date_created']
+         		   , "iptc_location"	   => $iptcxmp['location']
+		           , "xmp_rating"		   => $iptcxmp['rating']
                    );
                    
       if (db_insert_row( "photos", $data))
