@@ -268,9 +268,9 @@ function process_mp3( $dir, $id, $file)
       $data["artist"]       = array_last($id3["comments"]["artist"]);
       $data["album"]        = array_last($id3["comments"]["album"]);
       $data["year"]         = array_last($id3["comments"]["year"]);
-      $data["track"]        = array_last($id3["comments"]["track"]);
+      $data["track"]        = array_last($id3["comments"]["tracknum"]);
       $data["genre"]        = array_last($id3["comments"]["genre"]);
-      $data["band"]        = array_last($id3["comments"]["band"]);
+      $data["band"]         = array_last($id3["comments"]["band"]);
                    
       if (!db_insert_row( "mp3s", $data))
         send_to_log(2,'Unable to add MP3 to the database');
