@@ -297,19 +297,26 @@ class Image_XMP
     		case 'rdf:nodeID':
     			// Attributes are ignored
     			break;
-    		
-    		case 'rdf:li':
-    			// Property member
-    			if ($xml_elem['type'] == 'complete')
-    			{
-	    			if ($current_property <> '')
-	    			{
-	    				$xmp_array[$current_property][$container_index] = $xml_elem['value'];
-	    				$container_index += 1;
-	    			}
-//	    		else unidentified attribute!!
-    			}
-    			
+
+        case 'rdf:li':
+          // Property member
+          if ($xml_elem['type'] == 'complete')
+          {
+            if (array_key_exists('attributes', $xml_elem))
+            {
+              // If Lang Alt (language alternatives) then ensure we take the default language
+              if ($xml_elem['attributes']['xml:lang'] != 'x-default')
+                 break;
+            }
+            if ($current_property <> '')
+            {
+              $xmp_array[$current_property][$container_index] = $xml_elem['value'];
+              $container_index += 1;
+            }
+          //else unidentified attribute!!
+          }
+          break;
+
     		case 'rdf:Seq':
     		case 'rdf:Bag':
     		case 'rdf:Alt':

@@ -361,17 +361,17 @@ function process_photo( $dir, $id, $file)
   $getIPTC  = new Image_IPTC($filepath);
   if ($getIPTC->isValid())
   {
-  	send_to_log(5,'Found IPTC data : Yes');
+    send_to_log(5,'Found IPTC data : Yes');
     $iptc = $getIPTC->getAllTags();
-    set_var($iptcxmp['byline'],array2string($iptc['2#080']));
-    set_var($iptcxmp['caption'],array2string($iptc["2#120"]));
-    set_var($iptcxmp['keywords'],array2string($iptc["2#025"]));
-    set_var($iptcxmp['city'],array2string($iptc["2#090"]));
-    set_var($iptcxmp['country'],array2string($iptc["2#101"]));
-    set_var($iptcxmp['province_state'],array2string($iptc["2#095"]));
-    set_var($iptcxmp['suppcategories'],array2string($iptc["2#020"]));
-    set_var($iptcxmp['date_created'],array2string($iptc["2#055"]));
-    set_var($iptcxmp['location'],array2string($iptc["2#092"]));
+    set_var($iptcxmp['byline'],         implode(',',$iptc['2#080']));
+    set_var($iptcxmp['caption'],        implode(',',$iptc["2#120"]));
+    set_var($iptcxmp['keywords'],       implode(',',$iptc["2#025"]));
+    set_var($iptcxmp['city'],           implode(',',$iptc["2#090"]));
+    set_var($iptcxmp['country'],        implode(',',$iptc["2#101"]));
+    set_var($iptcxmp['province_state'], implode(',',$iptc["2#095"]));
+    set_var($iptcxmp['suppcategories'], implode(',',$iptc["2#020"]));
+    set_var($iptcxmp['date_created'],   implode(',',$iptc["2#055"]));
+    set_var($iptcxmp['location'],       implode(',',$iptc["2#092"]));
   }
   else
     send_to_log(5,'Found IPTC data : No');
@@ -380,22 +380,28 @@ function process_photo( $dir, $id, $file)
   $getXMP  = new Image_XMP($filepath);
   if ($getXMP->isValid())
   {
-  	send_to_log(5,'Found XMP data : Yes');
-  	$xmp = $getXMP->getAllTags();
-    set_var($iptcxmp['byline'],array2string($xmp['dc:creator']));
-    set_var($iptcxmp['caption'],array2string($xmp['dc:description']));
-    set_var($iptcxmp['keywords'],array2string($xmp['dc:subject']));
-    set_var($iptcxmp['city'],array2string($xmp['photoshop:City']));
-    set_var($iptcxmp['country'],array2string($xmp['photoshop:Country']));
-    set_var($iptcxmp['province_state'],array2string($xmp['photoshop:State']));
-    set_var($iptcxmp['suppcategories'],array2string($xmp['photoshop:SupplementalCategories']));
-    set_var($iptcxmp['date_created'],array2string($xmp['photoshop:DateCreated']));
-    set_var($iptcxmp['location'],array2string($xmp['Iptc4xmpCore:Location']));
-    set_var($iptcxmp['rating'],array2string($xmp['xap:Rating']));
+    send_to_log(5,'Found XMP data : Yes');
+    $xmp = $getXMP->getAllTags();
+    set_var($iptcxmp['byline'],         implode(',',$xmp['dc:creator']));
+    set_var($iptcxmp['caption'],        implode(',',$xmp['dc:description']));
+    set_var($iptcxmp['keywords'],       implode(',',$xmp['dc:subject']));
+    set_var($iptcxmp['city'],           implode(',',$xmp['photoshop:City']));
+    set_var($iptcxmp['country'],        implode(',',$xmp['photoshop:Country']));
+    set_var($iptcxmp['province_state'], implode(',',$xmp['photoshop:State']));
+    set_var($iptcxmp['suppcategories'], implode(',',$xmp['photoshop:SupplementalCategories']));
+    set_var($iptcxmp['date_created'],   implode(',',$xmp['photoshop:DateCreated']));
+    set_var($iptcxmp['location'],       implode(',',$xmp['Iptc4xmpCore:Location']));
+    if (is_numeric($xmp['xap:Rating']))
+      $iptcxmp['rating'] = str_repeat('*',$xmp['xap:Rating']);
+    else
+      $iptcxmp['rating'] = str('NOT_RATED');
   }
   else
+  {
+    $iptcxmp['rating'] = str('NOT_RATED');
     send_to_log(5,'Found XMP data : No');
-
+  }
+  
   if (in_array( $id3["fileformat"],array('jpg','gif','png','jpeg')) )
   {
     if ( ! isset($id3["error"]) )
@@ -426,16 +432,16 @@ function process_photo( $dir, $id, $file)
                    , "exif_exposure_prog"  => $exif['ExpProg']
                    , "exif_meter_mode"     => $exif['MeterMode']
                    , "exif_capture_type"   => $exif['SceneCaptureType']
-        		   , "iptc_caption"		   => $iptcxmp['caption']
-		           , "iptc_suppcategory"   => $iptcxmp['suppcategories']
-		           , "iptc_keywords"	   => $iptcxmp['keywords']
-        		   , "iptc_city"		   => $iptcxmp['city']
-		           , "iptc_province_state" => $iptcxmp['province_state']
-		           , "iptc_country"	       => $iptcxmp['country']
-        		   , "iptc_byline"		   => $iptcxmp['byline']
-		           , "iptc_date_created"   => $iptcxmp['date_created']
-         		   , "iptc_location"	   => $iptcxmp['location']
-		           , "xmp_rating"		   => $iptcxmp['rating']
+                   , "iptc_caption"        => $iptcxmp['caption']
+                   , "iptc_suppcategory"   => $iptcxmp['suppcategories']
+                   , "iptc_keywords"       => $iptcxmp['keywords']
+                   , "iptc_city"           => $iptcxmp['city']
+                   , "iptc_province_state" => $iptcxmp['province_state']
+                   , "iptc_country"        => $iptcxmp['country']
+                   , "iptc_byline"         => $iptcxmp['byline']
+                   , "iptc_date_created"   => $iptcxmp['date_created']
+                   , "iptc_location"       => $iptcxmp['location']
+                   , "xmp_rating"          => $iptcxmp['rating']
                    );
                    
       if (db_insert_row( "photos", $data))
