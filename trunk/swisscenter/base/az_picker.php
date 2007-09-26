@@ -5,9 +5,11 @@
 
 require_once( realpath(dirname(__FILE__).'/search.php'));
 
-function show_picker( $url="", $search, $case = '' )
+function show_picker( $url="", $search, $case = '', $validchars = '' )
   {
-    if ($case == '' || $case == 'U')
+    if ( !empty($validchars) )
+      $keys = strtoupper($validchars);
+    elseif ($case == '' || $case == 'U')
       $keys = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_,.'-#";
     else
       $keys = "abcdefghijklmnopqrstuvwxyz0123456789_,.'-#";
@@ -30,8 +32,10 @@ function show_picker( $url="", $search, $case = '' )
       $this_key = substr($keys,($n-1),1);
       $url = url_set_param($url,'last','KEY_'.$this_key);
       $url = url_set_param($url,'search',rawurlencode($search.$this_key));
+      $link = '<a href="'.$url.'" name="KEY_'.$this_key.'">'.$this_key.'</a>';
+           
       echo '<td width="'.convert_x(35).'" height="'.convert_y(50).'"'.style_background('KEYBOARD_KEY_BACKGROUND').'
-                align="center"><a href="'.$url.'" name="KEY_'.$this_key.'">'.$this_key.'</a></td>';
+                align="center">'.$link.'</td>';
 
       // End of row? start another
       if ($n % $cols == 0)

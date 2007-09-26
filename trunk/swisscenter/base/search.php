@@ -116,11 +116,16 @@ function  search_media_page( $heading, $title, $media_type, $joined_tables, $col
   
   if ( $data === false || $num_rows === false)
     page_error(str('DATABASE_ERROR'));
+    
+  if ($prefix == '')
+    $valid = strtoupper(join(db_col_to_list(" select distinct substring($column,".(strlen($search)+1).",1) display from $main_table_sql $joined_tables where $column !='0' and $restrict_sql order by 1")));
+  else
+    $valid = '';
 
   // Start outputting the page
   page_header( $heading, $title.' : '.$search, '', $focus );
   echo '<table border=0 width="100%"><tr><td width="'.convert_x(300).'" valign="top">';
-  show_picker( url_set_param($this_url,'page',0), $search);
+  show_picker( url_set_param($this_url,'page',0), $search, '', $valid);
   echo '</td><td valign=top>';
 
   if (empty($data))
