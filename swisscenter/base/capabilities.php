@@ -195,6 +195,8 @@ function media_exts( $media_type )
     case MEDIA_TYPE_MUSIC : return media_exts_music();  break;
     case MEDIA_TYPE_PHOTO : return media_exts_photos(); break;
     case MEDIA_TYPE_VIDEO : return media_exts_movies(); break;
+    case MEDIA_TYPE_WEB   : return media_exts_web();    break;
+    case MEDIA_TYPE_TV    : return media_exts_movies(); break;
   }
   
   // Should never happen
