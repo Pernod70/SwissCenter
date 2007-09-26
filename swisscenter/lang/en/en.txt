@@ -665,6 +665,7 @@ EXIFVALS_ORIENTATION	   = Normal, Flip Horizontal, Rotate 180, Flip Vertical, Tr
 
 BROWSE_OPTIONS             = Browse Options
 BROWSE_TEXT                = SwissCenter allows you to browse your media files in a number of different ways. To reduce the complexity of the interface or to customise it more to your liking you can disable any of the "Browse by..." options shown below. If only one option is enabled then SwissCenter will jump straight to that option instead of showing a menu. [p]Please note that you must leave at least [b]one[/b] option enabled in each group.
+CONFIG_BROWSE_NONE_SELECTED = Settings not saved, you must select at least one option in each group
 MUSIC_PLAY_NEXT            = Coming up
 MUSIC_PLAY_PREV            = Just played
 TRACK_LENGTH               = Length
@@ -749,6 +750,7 @@ FONTWIDTH_MULTIPLIER_PROMPT = This option allows you to modify the maximum numbe
 MISC_FONTWIDTH_NOT_NUMBER   = The font width multiplier is not a number
 MISC_FONTWIDTH_TOO_SMALL    = The font width multiplier is too small
 LOCATION_ON_DISK            = Location On Disk
+NOT_RATED                   = Not Rated
 
 #----------------------------------------------------------------------------------------------------
 # End-of-file

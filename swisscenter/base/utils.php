@@ -467,27 +467,6 @@ function gmt_time()
 }
 
 /**
- * Concatenates an array into a single string with separators.
- *
- * @param array $array
- * @param string $separator
- */
-function array2string( $array, $separator = ';' ) 
-{ 
-	$string_array = '';
-  if (is_array($array) && sizeof($array) > 0)
-  {
-  	$string_array = $array[0];
-    for ($i = 1; $i < sizeof($array); $i++)
-      $string_array .= $separator.$array[$i]; 
-  } 
-  else 
-  	$string_array = $array;
-  	
-  return $string_array;
-}
-
-/**
  * Sets a variable only if it's value is not null.
  *
  * @param $var - variable to be set
