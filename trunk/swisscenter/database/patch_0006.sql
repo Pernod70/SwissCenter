@@ -6,8 +6,6 @@
 -- Create a new table "tv" to contain details on TV recordings.
 -- -------------------------------------------------------------------------------------------------
 
-ALTER TABLE mp3s ADD ( band TEXT default null);
-
 CREATE TABLE tv (
   file_id             int(10) unsigned not null auto_increment,
   dirname             text,
