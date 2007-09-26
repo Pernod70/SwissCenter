@@ -6,7 +6,7 @@
 -- Change the xmp_rating to TEXT
 -- -------------------------------------------------------------------------------------------------
 
-ALTER TABLE photos MODIFY COLUMN xmp_rating TEXT DEFAULT NULL;
+ALTER TABLE photos MODIFY COLUMN xmp_rating text;
 
 -- *************************************************************************************************
 --   SWISScenter Source                                                              Nigel Barnes
