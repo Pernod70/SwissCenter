@@ -17,6 +17,17 @@
     case "title":
         $title       = str('PHOTO_ALBUM');
         break;
+    case "iptc_byline":
+    case "iptc_caption":
+    case "iptc_city":
+    case "iptc_country":
+    case "iptc_keywords":
+    case "iptc_location":
+    case "iptc_province_state":
+    case "iptc_suppcategory":
+    case "xmp_rating":
+        $title       = str(strtoupper(($column)));
+        break;
     default :
         send_to_log(1,'Unknown $column in photo_album_search.php');
         page_error('Unexpected error - please see log for details');

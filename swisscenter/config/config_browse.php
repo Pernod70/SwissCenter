@@ -41,7 +41,17 @@
     form_label('<p>&nbsp;<br><b>'.str('BROWSE_PHOTOS').'</b>','L');
     form_radio_static('photo_album',str('BROWSE_PHOTO_ALBUM'),$option_vals,get_sys_pref('browse_photo_album_enabled','YES'),false,true);
     form_radio_static('photo_title',str('BROWSE_PHOTO_TITLE'),$option_vals,get_sys_pref('browse_photo_title_enabled','YES'),false,true);
+    form_radio_static('photo_author',str('BROWSE_IPTC_BYLINE'),$option_vals,get_sys_pref('browse_iptc_byline_enabled','YES'),false,true);
+//    form_radio_static('photo_caption',str('BROWSE_IPTC_CAPTION'),$option_vals,get_sys_pref('browse_iptc_caption_enabled','YES'),false,true);
+    form_radio_static('photo_location',str('BROWSE_IPTC_LOCATION'),$option_vals,get_sys_pref('browse_iptc_location_enabled','YES'),false,true);
+    form_radio_static('photo_city',str('BROWSE_IPTC_CITY'),$option_vals,get_sys_pref('browse_iptc_city_enabled','YES'),false,true);
+    form_radio_static('photo_state',str('BROWSE_IPTC_PROVINCE_STATE'),$option_vals,get_sys_pref('browse_iptc_province_state_enabled','YES'),false,true);
+    form_radio_static('photo_country',str('BROWSE_IPTC_COUNTRY'),$option_vals,get_sys_pref('browse_iptc_country_enabled','YES'),false,true);
+//    form_radio_static('photo_keywords',str('BROWSE_IPTC_KEYWORDS'),$option_vals,get_sys_pref('browse_iptc_keywords_enabled','YES'),false,true);
+//    form_radio_static('photo_category',str('BROWSE_IPTC_SUPPCATEGORY'),$option_vals,get_sys_pref('browse_iptc_suppcategory_enabled','YES'),false,true);
+    form_radio_static('photo_rating',str('BROWSE_XMP_RATING'),$option_vals,get_sys_pref('browse_xmp_rating_enabled','YES'),false,true);
     form_radio_static('photo_filesystem',str('BROWSE_FILESYSTEM'),$option_vals,get_sys_pref('browse_photo_filesystem_enabled','YES'),false,true);
+    
     echo '<tr><td></td><td>&nbsp;<br>'.form_submit_html(str('SAVE_SETTINGS')).'</td></tr>';
     form_end();
   }
@@ -70,7 +80,7 @@
     
     if ( $_REQUEST["music_artist"] == 'YES' || $_REQUEST["music_album"] == 'YES' || $_REQUEST["music_track"] == 'YES' || 
          $_REQUEST["music_genre"] == 'YES' || $_REQUEST["music_year"] == 'YES' || $_REQUEST["music_filesystem"] == 'YES' ||
-	 $_REQUEST["music_album_artist"] == 'YES' )
+         $_REQUEST["music_album_artist"] == 'YES' )
     {
       set_sys_pref('browse_music_artist_enabled',$_REQUEST["music_artist"]);
       set_sys_pref('browse_music_album_artist_enabled',$_REQUEST["music_album_artist"]);
@@ -83,10 +93,24 @@
     else
       $failed = true;
       
-    if ( $_REQUEST["photo_album"] == 'YES' || $_REQUEST["photo_title"] == 'YES' || $_REQUEST["photo_filesystem"] == 'YES' )
+    if ( $_REQUEST["photo_album"] == 'YES' || $_REQUEST["photo_title"] == 'YES' || 
+         $_REQUEST["photo_author"] == 'YES' || $_REQUEST["photo_caption"] == 'YES' || 
+         $_REQUEST["photo_city"] == 'YES' || $_REQUEST["photo_country"] == 'YES' || 
+         $_REQUEST["photo_keywords"] == 'YES' || $_REQUEST["photo_location"] == 'YES' || 
+         $_REQUEST["photo_state"] == 'YES' || $_REQUEST["photo_category"] == 'YES' || 
+         $_REQUEST["photo_rating"] == 'YES' || $_REQUEST["photo_filesystem"] == 'YES' )
     {
       set_sys_pref('browse_photo_album_enabled',$_REQUEST["photo_album"]);
       set_sys_pref('browse_photo_title_enabled',$_REQUEST["photo_title"]);
+      set_sys_pref('browse_iptc_byline_enabled',$_REQUEST["photo_author"]);
+//      set_sys_pref('browse_iptc_caption_enabled',$_REQUEST["photo_caption"]);
+      set_sys_pref('browse_iptc_city_enabled',$_REQUEST["photo_city"]);
+      set_sys_pref('browse_iptc_country_enabled',$_REQUEST["photo_country"]);
+//      set_sys_pref('browse_iptc_keywords_enabled',$_REQUEST["photo_keywords"]);
+      set_sys_pref('browse_iptc_location_enabled',$_REQUEST["photo_location"]);
+      set_sys_pref('browse_iptc_province_state_enabled',$_REQUEST["photo_state"]);
+//      set_sys_pref('browse_iptc_suppcategory_enabled',$_REQUEST["photo_category"]);
+      set_sys_pref('browse_xmp_rating_enabled',$_REQUEST["photo_rating"]);
       set_sys_pref('browse_photo_filesystem_enabled',$_REQUEST["photo_filesystem"]);
     } 
     else

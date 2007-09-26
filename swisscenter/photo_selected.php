@@ -72,6 +72,15 @@
     $menu->add_item(str('START_SLIDESHOW'), play_sql_list(MEDIA_TYPE_PHOTO,"select media.* from $sql_table $predicate order by $play_order") );
     search_check_filter( $menu, str('REFINE_PHOTO_ALBUM'),  'title',  $sql_table, $predicate, $refine_url );
     search_check_filter( $menu, str('REFINE_PHOTO_TITLE'),  'filename',  $sql_table, $predicate, $refine_url );
+    search_check_filter( $menu, str('REFINE_IPTC_BYLINE'),  'iptc_byline',  $sql_table, $predicate, $refine_url );
+    search_check_filter( $menu, str('REFINE_IPTC_CAPTION'), 'iptc_caption',  $sql_table, $predicate, $refine_url );
+    search_check_filter( $menu, str('REFINE_IPTC_LOCATION'),'iptc_location',  $sql_table, $predicate, $refine_url );
+    search_check_filter( $menu, str('REFINE_IPTC_CITY'),    'iptc_city',  $sql_table, $predicate, $refine_url );
+    search_check_filter( $menu, str('REFINE_IPTC_PROVINCE_STATE'),  'iptc_province_state',  $sql_table, $predicate, $refine_url );
+    search_check_filter( $menu, str('REFINE_IPTC_COUNTRY'), 'iptc_country',  $sql_table, $predicate, $refine_url );
+//    search_check_filter( $menu, str('REFINE_IPTC_KEYWORDS'),'iptc_keywords',  $sql_table, $predicate, $refine_url );
+//    search_check_filter( $menu, str('REFINE_IPTC_SUPPCATEGORY'),    'iptc_suppcategory',  $sql_table, $predicate, $refine_url );
+    search_check_filter( $menu, str('REFINE_XMP_RATING'),    'xmp_rating',  $sql_table, $predicate, $refine_url ); 
 
     // TO-DO
     // Expand to parent album

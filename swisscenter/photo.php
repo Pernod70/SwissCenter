@@ -24,6 +24,24 @@
       $menu->add_item( str('BROWSE_PHOTO_ALBUM') ,"photo_search.php?sort=title",true);
     if (get_sys_pref('browse_photo_title_enabled','YES') == 'YES')
       $menu->add_item( str('BROWSE_PHOTO_TITLE') ,"photo_search.php?sort=filename",true);
+    if (get_sys_pref('browse_iptc_byline_enabled','YES') == 'YES') 
+      $menu->add_item( str('BROWSE_IPTC_BYLINE')  ,"photo_search.php?sort=iptc_byline",true);
+//    if (get_sys_pref('browse_iptc_caption_enabled','YES') == 'YES')
+//      $menu->add_item( str('BROWSE_IPTC_CAPTION') ,"photo_search.php?sort=iptc_caption",true);
+    if (get_sys_pref('browse_iptc_location_enabled','YES') == 'YES')
+      $menu->add_item( str('BROWSE_IPTC_LOCATION') ,"photo_search.php?sort=iptc_location",true);
+    if (get_sys_pref('browse_iptc_city_enabled','YES') == 'YES')
+      $menu->add_item( str('BROWSE_IPTC_CITY') ,"photo_search.php?sort=iptc_city",true);
+    if (get_sys_pref('browse_iptc_province_state_enabled','YES') == 'YES') 
+      $menu->add_item( str('BROWSE_IPTC_PROVINCE_STATE')  ,"photo_search.php?sort=iptc_province_state",true);
+    if (get_sys_pref('browse_iptc_country_enabled','YES') == 'YES') 
+      $menu->add_item( str('BROWSE_IPTC_COUNTRY')  ,"photo_search.php?sort=iptc_country",true);
+//    if (get_sys_pref('browse_iptc_keywords_enabled','YES') == 'YES')
+//      $menu->add_item( str('BROWSE_IPTC_KEYWORDS') ,"photo_search.php?sort=iptc_keywords",true);
+//    if (get_sys_pref('browse_iptc_suppcategory_enabled','YES') == 'YES')
+//      $menu->add_item( str('BROWSE_IPTC_SUPPCATEGORY') ,"photo_search.php?sort=iptc_suppcategory",true);
+    if (get_sys_pref('browse_xmp_rating_enabled','YES') == 'YES')
+      $menu->add_item( str('BROWSE_XMP_RATING') ,"photo_search.php?sort=xmp_rating",true);
     if (get_sys_pref('browse_photo_filesystem_enabled','YES') == 'YES') 
       $menu->add_item( str('BROWSE_FILESYSTEM')  ,"photo_browse.php",true);
     
