@@ -202,7 +202,7 @@ function viewed_icon( $viewed, $total=1)
 }
 
 //-------------------------------------------------------------------------------------------------
-// The following functions all relate explicitly to searchign for new media.
+// The following functions all relate explicitly to searching for new media.
 //-------------------------------------------------------------------------------------------------
 
 /**
@@ -559,6 +559,154 @@ function process_movie( $dir, $id, $file)
 }
 
 /**
+ * Expands the pattern entered by the user (which contains placeholders for the programme,
+ * series, episode and title) into a full regular expression.
+ *
+ * @param string $pattern - User entered pattern containing placeholders.
+ * @return string
+ */
+
+function tv_expand_pattern( $pattern )
+{
+  $eparts = array  ( '{p}' => '(.+)'
+                   , '{s}' => '([0-9]+)'
+                   , '{e}' => '([0-9]+)'
+                   , '{t}' => '(.+)'
+                   );
+
+  foreach ($eparts as $key => $val)
+    $pattern = str_replace($key,$val,$pattern);
+    
+  return '¬'.$pattern.'¬i';
+}
+  
+/**
+ * Given a pattern and the position of a placeholder within the pattern, this function will 
+ * return the database field into which the metadata should be inserted.
+ *
+ * @param string $pattern - User entered pattern containing placeholders.
+ * @param integer $position - The placeholder position (starting at 1).
+ * @return string
+ */
+
+function tv_pattern_field( $pattern, $position )
+{
+  preg_match_all('¬\{.\}¬',$pattern, $matches);
+  switch ( strtolower($matches[0][$position-1]) )
+  {
+    case '{p}': return 'programme';
+    case '{s}': return 'series';
+    case '{e}': return 'episode';
+    case '{t}': return 'title';
+    default: return false;
+  }
+}
+
+/**
+ * Given the path and filename of a media file (minus the extension) this function
+ * will return an array of database fields
+ *
+ * @param string $fsp - path (relative to the media location) and filename, minus the extension
+ * @return array
+ */
+
+function get_tvseries_info( $fsp )
+{
+  $details = array();
+  $exprs   = db_col_to_list("select expression from tv_expressions order by pos");
+  send_to_log(8,"Expressions to test for path '$fsp'",$exprs);
+  
+  // Convert periods to spaces?
+  if ( get_sys_pref('TVSERIES_CONVERT_DOTS_TO_SPACES','NO') == 'YES' )
+    $fsp = str_replace('.',' ',$str);
+
+  // Try all the patterns, stopping as soon as a successful match is made.
+  foreach ($exprs as $pattern)
+  {
+    $regexp = tv_expand_pattern($pattern);
+    if ( preg_match_all($regexp, $fsp, $matches) >= 1)
+    {
+      for ( $pos=1; $pos < count($matches); $pos++ )
+      {
+        $field = tv_pattern_field($pattern,$pos);
+        if ($field !== false)
+          $details[$field] = $matches[$pos][0];
+      }
+
+      break;
+    }      
+  }
+  
+  // Trim off any unwanted characters (spaces, '-'s) from the programme and episode titles
+  $details['programme'] = trim(trim($details['programme'],'-'));
+  $details['title']     = trim(trim($details['title'],'-'));
+  
+  send_to_log(8,'Metadata search results',$details);
+  return $details;
+}
+
+/**
+ * Takes the specified file and checks the format to determine if it should be added to the 
+ * appropriate media table in the database.
+ *
+ * @param directory $dir
+ * @param integer $id - Media Location ID
+ * @param filename $file
+ */
+
+function process_tv( $dir, $id, $file)
+{
+  send_to_log(4,'New TV episode found : '.$file);
+  $types    = array('riff','mpeg');
+  $data     = array();
+  $getID3   = new getID3;
+  $filepath = os_path($dir.$file);
+  $id3      = $getID3->analyze($filepath);
+  
+  // Standard information about the file 
+  $data["dirname"]      = $dir;
+  $data["filename"]     = $file;
+  $data["title"]        = $dir.$file;
+  $data["location_id"]  = $id;
+  $data["size"]         = filesize($dir.$file);
+  $data["verified"]     = 'Y';
+  $data["discovered"]   = db_datestr(filemtime($filepath));
+  
+  // Determine the part of the path to process for metadata about the episode.
+  $media_loc_dir = db_value("select name from media_locations where location_id=$id");
+  $meta_fsp = substr($dir,strlen($media_loc_dir)+1).file_noext($file);
+  
+  $data = array_merge($data, get_tvseries_info($meta_fsp) );
+  send_to_log(1,'Metadata results', $data );
+  
+  if ( in_array(strtolower($id3["fileformat"]), $types))
+  {
+    if ( ! isset($id3["error"]) )
+    {
+      // Tag data successfully obtained, so record the following information
+      getid3_lib::CopyTagsToComments($id3);
+      $data["size"]          = $id3["filesize"];
+      $data["length"]        = floor($id3["playtime_seconds"]);
+      $data["lengthstring"]  = $id3["playtime_string"];                     
+    }
+    else
+    {
+      // File is a valid movie format, but there were (critical) problems reading the tag info.
+      send_to_log(2,"GETID3 claims there are errors in the video file");
+      foreach ($id3["error"] as $err)
+        send_to_log(2,' - '.$err);
+    }
+
+  }
+  else
+    send_to_log(3,"GETID3 claims this is not a valid movie (format is '$id3[fileformat]')");
+
+  // Insert the row into the database
+  if ( db_insert_row( "tv", $data) === false )
+    send_to_log(1,'Unable to add TV episode to the database');  
+}
+
+/**
  * Updates the percentage of a media location that has been scanned
  *
  * @param string $table - The database table being updated by the scan
@@ -665,9 +813,10 @@ function process_media_directory( $dir, $id, $table, $file_exts, $recurse = true
         {
           switch ($table)
           {
-            case 'mp3s'   : process_mp3(   $dir, $id, $file);  break;
-            case 'movies' : process_movie( $dir, $id, $file);  break;
-            case 'photos' : process_photo( $dir, $id, $file);  break;
+            case 'mp3s'   : process_mp3   ( $dir, $id, $file);  break;
+            case 'movies' : process_movie ( $dir, $id, $file);  break;
+            case 'photos' : process_photo ( $dir, $id, $file);  break;
+            case 'tv'     : process_tv    ( $dir, $id, $file);  break;
           }
         }
       }
