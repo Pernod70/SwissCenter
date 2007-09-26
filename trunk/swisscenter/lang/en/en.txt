@@ -738,6 +738,7 @@ SETUP_SEARCH_TYPE_TITLE    = Please select a media type
 # -----------------------
 
 BAND                        = Album Artist
+CAT_PARENT                  = Parent Category
 SYSPREF_ADD_NEW             = Add a system setting
 SYSPREF_EDIT_EXISTING       = Modify a system setting
 BROWSE_ALBUM_ARTIST         = Browse by album artist name
@@ -750,7 +751,38 @@ FONTWIDTH_MULTIPLIER_PROMPT = This option allows you to modify the maximum numbe
 MISC_FONTWIDTH_NOT_NUMBER   = The font width multiplier is not a number
 MISC_FONTWIDTH_TOO_SMALL    = The font width multiplier is too small
 LOCATION_ON_DISK            = Location On Disk
+
+BROWSE_IPTC_BYLINE          = Browse by author
+BROWSE_IPTC_CAPTION         = Browse by description
+BROWSE_IPTC_CITY            = Browse by city
+BROWSE_IPTC_COUNTRY         = Browse by country
+BROWSE_IPTC_DATE_CREATED    = Browse by date created
+BROWSE_IPTC_KEYWORDS        = Browse by keywords
+BROWSE_IPTC_LOCATION        = Browse by location
+BROWSE_IPTC_PROVINCE_STATE  = Browse by province/state
+BROWSE_IPTC_SUPPCATEGORY    = Browse by supplementary categories
+BROWSE_XMP_RATING           = Browse by rating
+IPTC_BYLINE                 = Author
+IPTC_CAPTION                = Description
+IPTC_CITY                   = City
+IPTC_COUNTRY                = Country
+IPTC_DATE_CREATED           = Date Created
+IPTC_KEYWORDS               = Keywords
+IPTC_LOCATION               = Location
+IPTC_PROVINCE_STATE         = Province/State
+IPTC_SUPPCATEGORY           = Supplementary Categories
+XMP_RATING                  = Rating
 NOT_RATED                   = Not Rated
+REFINE_IPTC_BYLINE          = Refine by author
+REFINE_IPTC_CAPTION         = Refine by description
+REFINE_IPTC_CITY            = Refine by city
+REFINE_IPTC_COUNTRY         = Refine by country
+REFINE_IPTC_DATE_CREATED    = Refine by date created
+REFINE_IPTC_KEYWORDS        = Refine by keywords
+REFINE_IPTC_LOCATION        = Refine by location
+REFINE_IPTC_PROVINCE_STATE  = Refine by province/state
+REFINE_IPTC_SUPPCATEGORY    = Refine by supplementary categories
+REFINE_XMP_RATING           = Refine by rating
 
 #----------------------------------------------------------------------------------------------------
 # End-of-file
