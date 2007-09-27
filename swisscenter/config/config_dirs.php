@@ -34,7 +34,8 @@
     form_select_table('loc_id',$data, str('MEDIA_LOC_HEADINGS')
                      ,array('class'=>'form_select_tab','width'=>'100%'),'location_id',
                       array('DIRECTORY'=>'','TYPE'=>'select media_id,media_name from media_types order by 2',
-                            'CATEGORY'=>'select cat_id,cat_name from categories order by cat_name',
+                            'CATEGORY'=>'select cat_id,cat_name from categories where cat_id not in ('.
+                                         implode(',', db_col_to_list('select distinct parent_id from categories')).') order by cat_name',
                             'CERTIFICATE'=>get_cert_list_sql()), $edit, 'dirs');
     form_submit(str('MEDIA_LOC_DEL_BUTTON'),1,'center');
     form_end();
@@ -48,7 +49,9 @@
     form_label(str('LOCATION_PROMPT'));
     form_list_dynamic('type',str('MEDIA_TYPE'),"select media_id,media_name from media_types order by 2",$_REQUEST['type']);
     form_label(str('MEDIA_TYPE_PROMPT'));
-    form_list_dynamic('cat', str('CATEGORY'),"select cat_id,cat_name from categories order by cat_name", $_REQUEST['cat']);
+    form_list_dynamic('cat', str('CATEGORY'),"select cat_id,cat_name from categories where cat_id not in (".
+                                              implode(',', db_col_to_list('select distinct parent_id from categories')).") 
+                                              order by cat_name", $_REQUEST['cat']);
     form_label(str('CATEGORY_PROMPT')); 
     form_list_dynamic('cert', str('UNRATED_CERTIFICATE'), get_cert_list_sql(), $_REQUEST['cert']);
     form_label(str('UNRATED_CERT_PROMPT'));
