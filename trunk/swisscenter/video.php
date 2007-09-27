@@ -17,6 +17,11 @@
     else
       search_hist_init( 'video.php?cat='.$cat_id, category_select_sql($cat_id, 3).get_rating_filter().filter_get_predicate() );
 
+    if ($cat_id < 0)
+      $prev_page = "video.php?subcat=".abs($cat_id);
+    else
+      $prev_page = "video.php?subcat=".db_value("select parent_id from categories where cat_id=$cat_id");
+      
     echo '<center>'.str('SELECT_OPTION').'</center><p>';
 
     $menu = new menu();
@@ -37,7 +42,7 @@
       
     if ($menu->num_items() == 1)
     {
-      search_hist_init( 'video.php', category_select_sql($cat_id, 3).get_rating_filter() );
+      search_hist_init( $prev_page, category_select_sql($cat_id, 3).get_rating_filter() );
       header('Location: '.server_address().$menu->item_url(0));
     } 
     else
@@ -53,7 +58,7 @@
     if (category_count(MEDIA_TYPE_VIDEO)==1)
       page_footer('index.php', $buttons);
     else
-      page_footer('video.php', $buttons);                                        
+      page_footer($prev_page, $buttons );
   }
   
 /**************************************************************************************************
@@ -64,7 +69,9 @@
   
   if( category_count(MEDIA_TYPE_VIDEO)==1 || !empty($_REQUEST["cat"]) )
     display_video_menu($_REQUEST["cat"]);
-  else
+  elseif ( !empty($_REQUEST["subcat"]) )
+    display_categories('video.php', 3, $_REQUEST["subcat"]);
+  else 
     display_categories('video.php', 3);
 
 /**************************************************************************************************

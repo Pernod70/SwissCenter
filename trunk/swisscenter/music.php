@@ -17,6 +17,11 @@
     else
       search_hist_init( 'music.php?cat='.$cat_id, category_select_sql($cat_id, 1).get_rating_filter().filter_get_predicate() );
 
+    if ($cat_id < 0)
+      $prev_page = "music.php?subcat=".abs($cat_id);
+    else
+      $prev_page = "music.php?subcat=".db_value("select parent_id from categories where cat_id=$cat_id");  
+    
     // Prompt the user to select an item
     echo '<center>'.str('SELECT_OPTION').'</center><p>';
 
@@ -38,7 +43,7 @@
     
     if ($menu->num_items() == 1)
     {
-      search_hist_init( 'music.php', category_select_sql($cat_id, 1).get_rating_filter() );
+      search_hist_init( $prev_page, category_select_sql($cat_id, 1).get_rating_filter() );
       header('Location: '.server_address().$menu->item_url(0));
     } 
     else
@@ -54,7 +59,7 @@
     if (category_count(MEDIA_TYPE_MUSIC)==1)
       page_footer('index.php', $buttons);
     else
-      page_footer('music.php', $buttons);                                        
+      page_footer($prev_page, $buttons );
   }
 
  /**************************************************************************************************
@@ -65,6 +70,8 @@
   
   if( category_count(MEDIA_TYPE_MUSIC)==1 || !empty($_REQUEST["cat"]) )
     display_music_menu($_REQUEST["cat"]);
+  elseif ( !empty($_REQUEST["subcat"]) )
+    display_categories('music.php', 1, $_REQUEST["subcat"]);
   else
     display_categories('music.php', 1);
 
