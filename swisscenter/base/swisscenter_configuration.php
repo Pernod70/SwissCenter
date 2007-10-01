@@ -335,8 +335,16 @@
           $errors[] = str('IMP_LOC_TYPE_MISSING',$path,$type);
         elseif (($cat_id = db_value("select cat_id from categories where cat_name='$cat_name'")) === false)               
           $errors[] = str('IMP_LOC_CAT_MISSING',$path,$cat_name);
-        elseif (db_value("select count(*) from media_locations where name = '$path'") == 0)
-          db_insert_row("media_locations", array("name"=>$path, "media_type"=>$type_id, "cat_id"=>$cat_id, "unrated"=>$cert_id));
+        elseif (db_value("select count(*) from media_locations where name = '$path' and media_type=$type_id") == 0)
+        {
+          if ( db_insert_row("media_locations", array("name"=>$path, "media_type"=>$type_id, "cat_id"=>$cat_id, "unrated"=>$cert_id)) !== false)
+          {
+            $id = db_value("select location_id from media_locations where name='$path' and media_type=".$type_id);            
+            
+            if (! is_windows() )
+              symlink($path,SC_LOCATION.'media/'.$id);
+          }
+        }
       }
 
       if (count($errors)>0)
