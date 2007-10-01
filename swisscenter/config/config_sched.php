@@ -200,7 +200,7 @@
     {
       // Find and replace old crontab entry
       syscall('crontab -l | grep -v "'.SC_LOCATION.'media_search.php" | grep -v "^#" > /tmp/swisscron');
-      syscall("echo '$mins $hrs $dates $months $days ".'"'.os_path(PHP_LOCATION).'" "'.SC_LOCATION.'media_search.php"\' >> /tmp/swisscron');
+      syscall("echo '$mins $hrs $dates $months $days ".'"'.os_path(php_cli_location()).'" "'.SC_LOCATION.'media_search.php"\' >> /tmp/swisscron');
       syscall("crontab /tmp/swisscron");
 
       // Was it successfully added?
