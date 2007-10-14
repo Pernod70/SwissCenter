@@ -269,6 +269,7 @@ function process_mp3( $dir, $id, $file)
       $data["album"]        = array_last($id3["comments"]["album"]);
       $data["year"]         = array_last($id3["comments"]["year"]);
       $data["track"]        = array_last($id3["comments"]["tracknum"]);
+      $data["disc"]         = array_last($id3["id3v2"]["TPOS"][0]["data"]);
       $data["genre"]        = array_last($id3["comments"]["genre"]);
       $data["band"]         = array_last($id3["comments"]["band"]);
                    
