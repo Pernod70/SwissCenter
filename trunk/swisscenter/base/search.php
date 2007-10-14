@@ -146,7 +146,7 @@ function  search_media_page( $heading, $title, $media_type, $joined_tables, $col
 
     foreach ($data as $row)
     {
-      $viewed = explode(':',db_value($viewed_sql." where $column = '".$row["DISPLAY"]."' and $restrict_sql group by $column"));
+      $viewed = explode(':',db_value($viewed_sql." where $column = '".db_escape_str($row["DISPLAY"])."' and $restrict_sql group by $column"));
       $menu->add_item($row["DISPLAY"],url_set_param($choose_url,'name',rawurlencode($row["DISPLAY"])), false, viewed_icon($viewed[0], $viewed[1]) );
     }
 
