@@ -95,7 +95,7 @@ function generate_tracklist( $seed, $shuffle, $spec_type, $spec, $media_type = n
 
           $predicate = "dirname like '".implode("%' or dirname like '",$all_dirs)."%' ".get_rating_filter();
           if ($media_type == 1)
-            $tracks     = db_toarray("select * from $table media ".get_rating_join()."where $predicate order by album,lpad(track,10,'0'),title"); 
+            $tracks     = db_toarray("select * from $table media ".get_rating_join()."where $predicate order by album,lpad(disc,10,'0'),lpad(track,10,'0'),title"); 
           else
             $tracks     = db_toarray("select * from $table media ".get_rating_join()."where $predicate order by filename"); 
           break;
