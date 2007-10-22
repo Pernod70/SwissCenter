@@ -49,6 +49,8 @@ function get_player_type()
       $type = 'ELGATO';
     elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-NGR-')!== false )
       $type = 'NETGEAR';
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-SYB-')!== false )
+      $type = 'SYABAS';
     elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'MSIE')!== false )
       $type = 'PC';
     elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'Mozilla')!== false )
@@ -120,6 +122,14 @@ function tvid( $code )
                       , 'KEY_B'     => 'green'
                       , 'KEY_C'     => 'blue' );
          break;
+         
+    case 'SYABAS':
+         $map = array(  'BACKSPACE' => 'back'
+                      , 'KEY_A'     => 'red'
+                      , 'KEY_B'     => 'green'
+                      , 'KEY_C'     => 'blue'
+                      );
+         break;
   }
 
   
@@ -148,6 +158,9 @@ function quick_access_img( $position )
     case 'IO-DATA':
          $map = array('QUICK_PAUSE','QUICK_STOP','QUICK_REPEAT');
          break;
+    case 'SYABAS':
+         $map = array('QUICK_FAST_REWIND','QUICK_FAST_FORWARD','QUICK_NEXT');
+         break;    
 
     default:
          $map = array('QUICK_A','QUICK_B','QUICK_C');
@@ -265,6 +278,7 @@ function support_now_playing()
     {
       case 'BUFFALO':
       case 'IO-DATA':
+      case 'SYABAS':
            $result = false;
            break;
       default:
@@ -293,6 +307,7 @@ function now_playing_sync_type()
   {
     case 'BUFFALO':
     case 'IO-DATA':
+    case 'SYABAS':
          $result = 2;
          break;
   }
