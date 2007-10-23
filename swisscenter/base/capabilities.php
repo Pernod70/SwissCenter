@@ -124,12 +124,17 @@ function tvid( $code )
          break;
          
     case 'SYABAS':
-         $map = array(  'BACKSPACE' => 'back'
+          $map = array( 'BACKSPACE' => 'back'
                       , 'KEY_A'     => 'red'
                       , 'KEY_B'     => 'green'
-                      , 'KEY_C'     => 'blue'
-                      );
-         break;
+                      , 'KEY_C'     => 'blue' );
+          break;
+         
+    case 'NETGEAR':
+          $map = array( 'KEY_A'     => 'green'
+                      , 'KEY_B'     => 'red'
+                      , 'KEY_C'     => 'yellow' );
+          break;
   }
 
   
@@ -160,7 +165,10 @@ function quick_access_img( $position )
          break;
     case 'SYABAS':
          $map = array('QUICK_FAST_REWIND','QUICK_FAST_FORWARD','QUICK_NEXT');
-         break;    
+         break;
+    case 'NETGEAR':
+         $map = array('QUICK_NGR_GREEN','QUICK_NGR_RED','QUICK_NGR_YELLOW');
+         break;   
 
     default:
          $map = array('QUICK_A','QUICK_B','QUICK_C');
@@ -178,7 +186,7 @@ function quick_access_img( $position )
 
 function media_exts_movies()
 {
-  return explode(',' ,'asf,avi,dat,divx,m2v,mpe,mpeg,mpg,ts,tp,vob,wmv,xvid');
+  return explode(',' ,'asf,avi,dat,divx,m2v,mpe,mpeg,mpg,ts,tp,vob,wmv,xvid,dvr-ms');
 }
 
 function media_exts_music()
