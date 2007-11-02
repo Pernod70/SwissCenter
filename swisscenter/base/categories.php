@@ -7,12 +7,13 @@
   require_once( realpath(dirname(__FILE__).'/mysql.php'));
   require_once( realpath(dirname(__FILE__).'/rating.php'));
   
-  define('CAT_ALL', -1);
-  define('CAT_NEW', -2);
-
-  // -------------------------------------------------------------------------------------------------
-  // Displays a menu of categories and allows you to choose one.
-  // -------------------------------------------------------------------------------------------------
+  /**
+   * Displays a menu of categories and allows you to choose one.
+   *
+   * @param URL $next_page - URL of page to go to once a category has been chosen
+   * @param integer $media_type - The type of media for which we want to display categories
+   * @param integer $parent_id - [Optional] parent ID if we wish to display subcategories
+   */
 
   function display_categories($next_page, $media_type, $parent_id=0)
   {
@@ -77,10 +78,14 @@
     }
   }
   
-  // -------------------------------------------------------------------------------------------------
-  // Returns the SQL condition required to filter by category
-  // -------------------------------------------------------------------------------------------------
-
+  /**
+   * Returns the SQL condition required to filter by category
+   *
+   * @param integer $cat_id - The ID of the category to filter on
+   * @param integer $media_type - The type of media.
+   * @return string
+   */
+  
   function category_select_sql($cat_id, $media_type)
   {
     // > 0 indicates normal categories, < 0 indicates all sub-categories
@@ -101,19 +106,24 @@
     return $sql;
   }
   
-  // -------------------------------------------------------------------------------------------------
-  // Returns the SQL needed to populate a drop-down list of categories.
-  // -------------------------------------------------------------------------------------------------
-
+  /**
+   * Returns the SQL needed to populate a drop-down list of categories.
+   *
+   * @return string
+   */
+  
   function category_list_sql()
   {
     return 'select cat_id,cat_name from categories order by cat_name';
   }
   
-  // -------------------------------------------------------------------------------------------------
-  // Returns the number of categories
-  // -------------------------------------------------------------------------------------------------
-
+  /**
+   * Returns the number of categories
+   *
+   * @param integer $media_type - The type of media
+   * @return integer
+   */
+  
   function category_count($media_type)
   {
     $media_table = db_value("select media_table from media_types where media_id=$media_type");
@@ -131,6 +141,7 @@
    * @param array $category_ids - end node category id's containing media
    * @return array $valid_category_ids - all category id's containing media
    */
+  
   function category_parents($category_ids)
   {
     $valid_category_ids = array();
@@ -157,6 +168,7 @@
    * @param array $cat_id - category id to list children from
    * @return array $category_ids - all child category id's
    */
+  
   function category_children($cat_id)
   {
     $valid_category_ids = array();
@@ -177,6 +189,7 @@
     }
     return $valid_category_ids;
   }
+  
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/

@@ -220,7 +220,7 @@
   elseif ($media == 2) // Photos
   {
     // We have to perform on-the-fly resizing for images because we can't redirect them through the thumb.php 
-    // script. No idea why, but it seems to hand the showcenter firmware responsible for displaying slideshows.  
+    // script. No idea why, but it seems the showcenter firmware responsible for displaying slideshows doesn't support redirects.
     send_to_log(7,'Attempting to stream the following Photo',$tracks[$idx]);
     store_request_details( $media, $file_id);  
     output_image( $file_id, ucfirst($location), convert_x(1000, SCREEN_COORDS), convert_y(1000, SCREEN_COORDS) );
