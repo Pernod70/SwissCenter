@@ -67,9 +67,9 @@
 
   page_header( str('WATCH_MOVIE') ,'');
   
-  if( category_count(MEDIA_TYPE_VIDEO)==1 || !empty($_REQUEST["cat"]) )
+  if( category_count(MEDIA_TYPE_VIDEO)==1 || isset($_REQUEST["cat"]) )
     display_video_menu($_REQUEST["cat"]);
-  elseif ( !empty($_REQUEST["subcat"]) )
+  elseif ( isset($_REQUEST["subcat"]) )
     display_categories('video.php', 3, $_REQUEST["subcat"]);
   else 
     display_categories('video.php', 3);

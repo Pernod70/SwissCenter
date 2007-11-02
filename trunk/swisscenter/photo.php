@@ -77,9 +77,9 @@
 
   page_header(str('VIEW_PHOTO'),'');
 
-  if( category_count(MEDIA_TYPE_PHOTO)==1 || !empty($_REQUEST["cat"]) )
+  if( category_count(MEDIA_TYPE_PHOTO)==1 || isset($_REQUEST["cat"]) )
     display_photo_menu($_REQUEST["cat"]);
-  elseif ( !empty($_REQUEST["subcat"]) )
+  elseif ( isset($_REQUEST["subcat"]) )
     display_categories('photo.php', 2, $_REQUEST["subcat"]);
   else
     display_categories('photo.php', 2);
