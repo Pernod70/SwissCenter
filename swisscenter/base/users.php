@@ -173,4 +173,21 @@ function get_num_users()
   return db_value('SELECT count(*) FROM users');
 }
 
+/**
+ * Returns whether or not a user is admin (Super User).
+ *
+ * @return boolean
+ */
+
+function is_user_admin()
+{
+  $user_id = get_current_user_id();
+
+  if(!empty($user_id))
+  {
+    $admin = db_value("select admin from users where user_id=$user_id");
+  }
+
+  return ($admin==1);
+}
 ?>

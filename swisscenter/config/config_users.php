@@ -9,7 +9,11 @@
   
   function users_display($modify_msg = '', $add_msg = '', $edit_id = 0)
   {
-    $data = db_toarray("select user_id, u.Name 'Name', u.Pin, c.name 'Max Certificate Viewable' 
+    $data = db_toarray("select user_id, u.Name 'Name', u.Pin, c.name 'Max Certificate Viewable', 
+                                  (CASE u.Admin WHEN 0 THEN '".str('NO')."'
+                                                WHEN 1 THEN '".str('YES')."'
+                                                ELSE '".str('NO')."'
+                                                END) 'Super User'
                           from users u, certificates c 
                          where u.maxcert=c.cert_id order by u.name asc");
     
@@ -21,8 +25,10 @@
     form_hidden("action", "MODIFY");
     form_select_table("user_id", $data, str('USERS_TABLE_HEADINGS')
                      ,array("class"=>"form_select_tab","width"=>"100%"), "user_id",
-                      array("NAME"=>"",
+                      array("NAME"=>"5",
                             "MAX CERTIFICATE VIEWABLE"=>get_cert_list_sql(),
+                            "SUPER USER"=>array( array("VAL"=>0,"NAME"=>str('NO')),
+                                                 array("VAL"=>1,"NAME"=>str('YES'))),
                             "PIN"=>"*")
                       , $edit_id, "users");
     form_submit(str('USERS_DEL_BUTTON'), 1 ,"center");
@@ -39,6 +45,8 @@
     form_label(str('USERS_MAX_CERT_PROMPT'));
     form_input('pin',str('USERS_PIN'),5,10);
     form_label(str('USERS_PIN_PROMPT'));
+    form_list_static("admin",str('ADMIN'),array( str('YES')=>1,str('NO')=>0), $_REQUEST["admin"]);
+    form_label(str('USERS_ADMIN_PROMPT'));
     form_submit(str('USERS_ADD_BUTTON'), 2);
     form_end();
   }
@@ -48,6 +56,7 @@
     $name = $_REQUEST["name"];
     $cert = $_REQUEST["cert"];
     $pin  = $_REQUEST["pin"];
+    $admin = $_REQUEST["admin"];
     
     if(empty($name))
     {
@@ -67,7 +76,7 @@
       }
       else
       {
-        $data = array("name"=>$name, "maxcert"=>$cert,'pin'=>$pin);
+        $data = array("name"=>$name, "maxcert"=>$cert,'pin'=>$pin,'admin'=>$admin);
 
         if(db_insert_row("users", $data) === false)
           users_display(db_error());
@@ -93,6 +102,7 @@
       $name = $update_data["NAME"];
       $max_cert = $update_data["MAX_CERTIFICATE_VIEWABLE"];
       $pin = $update_data["PIN"];
+      $admin = $update_data["SUPER_USER"];
       
       if(empty($name))
       {
@@ -106,7 +116,7 @@
         else
           $sql = $sql.",pin='".db_escape_str($pin)."'";
         
-        $sql = $sql.",maxcert=$max_cert where user_id=$user_id";
+        $sql = $sql.",maxcert=$max_cert, admin=$admin where user_id=$user_id";
         
         db_sqlcommand($sql);
         users_display(str('USERS_EDIT_OK'));
