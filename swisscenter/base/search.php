@@ -39,6 +39,14 @@ function search_picker_pop()
   return array_pop($_SESSION["picker"]);  
 }
 
+function search_picker_most_recent()
+{
+  if (count($_SESSION["picker"]) == 0)
+    page_error(str('DATABASE_ERROR'));
+
+  return $_SESSION["picker"][count($_SESSION["picker"])-1]; 
+}
+
 function search_hist_push( $url, $sql )
 {
   $_SESSION["history"][] = array("url"=> $url, "sql"=>$sql);

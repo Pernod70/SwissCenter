@@ -190,7 +190,7 @@
   else
     $buttons[] = array('text'=>str('SHUFFLE_OFF'), 'url'=> url_set_param($this_url,'shuffle','off') );
 
-  page_footer( url_add_param( search_picker_pop() ,'del','y'), $buttons );
+  page_footer( url_add_param( search_picker_most_recent() ,'del','y'), $buttons );
 
 /**************************************************************************************************
                                                End of file
