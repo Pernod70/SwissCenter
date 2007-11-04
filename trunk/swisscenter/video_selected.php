@@ -90,6 +90,7 @@
                     ' where 1=1 ';  
   $select_fields = "file_id, dirname, filename, title location_id, certificate";
   $predicate     = search_process_passed_params();
+  $file_ids      = db_col_to_list("select media.file_id from movies media ".get_rating_join()." where 1=1 $predicate");
   $num_rows      = db_value("select count( distinct media.file_id) from $sql_table $predicate");
   $this_url      = url_set_param(current_url(),'add','N');
   $cert_img      = '';
@@ -128,6 +129,10 @@
     // TO-DO
     // Link to full cast & directors
     // $menu->add_item( str('MOVIE_INFO'), 'video_info.php?movie='.$data[0]["FILE_ID"],true);
+    
+    // Delete media
+    if (is_user_admin())
+      $menu->add_item( str('DELETE_MEDIA'), 'video_delete.php?del='.implode(',',$file_ids),true);
     
     // Display thumbnail
     $folder_img = file_albumart($data[0]["DIRNAME"].$data[0]["FILENAME"]);
