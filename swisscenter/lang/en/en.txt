@@ -754,6 +754,9 @@ LOCATION_ON_DISK            = Location On Disk
 
 ADMIN                       = Super User
 USERS_ADMIN_PROMPT          = A Super User will have access to more options on the media player. Such priviledges include being able to delete media.
+CONFIRM_DELETE              = Delete the following media file(s)?
+DELETE_MEDIA                = Delete Media
+MEDIA_DELETED               = Media Deleted
 YES                         = Yes
 NO                          = No
 
