@@ -10,6 +10,7 @@
   require_once( realpath(dirname(__FILE__).'/base/media.php'));
   require_once( realpath(dirname(__FILE__).'/base/musicip.php'));
   require_once( realpath(dirname(__FILE__).'/video_obtain_info.php'));
+  require_once( realpath(dirname(__FILE__).'/itunes_import.php'));
 
   set_time_limit(86400);
   ini_set('memory_limit',-1);
@@ -59,6 +60,7 @@
   delete_sys_pref('MEDIA_SCAN_MEDIA_TYPE');
   delete_sys_pref('MEDIA_SCAN_CATEGORY');
   set_sys_pref('MEDIA_SCAN_STATUS',str('MEDIA_SCAN_STATUS_RUNNING'));
+  $itunes_library = get_sys_pref('ITUNES_LIBRARY');
   
   // Set the percent_scanned to zero for all locations due to be scanned.
   db_sqlcommand("update media_locations set percent_scanned=0 
@@ -70,6 +72,10 @@
   // Scan the appropriate media directories
   process_media_dirs( $media_type, $cat_id );
 
+  // Scan the iTunes library for playlists
+  if (is_file($itunes_library))
+    parse_itunes_file($itunes_library);
+  
   // update video details from the Internet if enabled
   if ( is_movie_check_enabled() )
     extra_get_all_movie_details();

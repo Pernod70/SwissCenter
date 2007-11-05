@@ -125,19 +125,17 @@
 
   function process_itunes_track( $values)
   {
-    global $fsp_search, $fsp_replace;
-    
-    $fsp = str_replace($fsp_search,$fsp_replace, path_from_file_url($values["Location"]) );
-    $location_id = db_value("select location_id from media_locations where instr('".$fsp."',name)>0 and media_type=1");
-    $swiss_id = db_value("select file_id from mp3s where dirname='".dirname($fsp)."/' and filename='".basename($fsp)."'");          
+    $fsp = path_from_file_url($values["Location"]);
+    $location_id = db_value("select location_id from media_locations where instr('".db_escape_str($fsp)."',name)>0 and media_type=1");
+    $swiss_id = db_value("select file_id from mp3s where dirname='".db_escape_str(dirname($fsp))."/' and filename='".db_escape_str(basename($fsp))."'");
     
     // Perform some sanity checking on the file
     if (!is_file($fsp) )
       send_to_log(5,'File found in iTunes library cannot be located on disk',$fsp);
     elseif ( !is_readable($fsp) )
       send_to_log(5,'SwissCenter does not have permissions to read the file found in the iTunes library',$fsp);
-    elseif ( strpos($values["Kind"],'MPEG') === false )
-      send_to_log(5,'SwissCenter does not support files of type "'.$values["Kind"].'"');
+    elseif ( strpos($values["Kind"],'MPEG audio') === false )
+      send_to_log(5,'SwissCenter does not support files of type "'.$values["Kind"].'"',$fsp);
     elseif ( empty($location_id) )
       send_to_log(5,'File found in iTunes library is not within a SwissCenter media location',$fsp);
     else
@@ -145,7 +143,7 @@
       if ( empty($swiss_id) )
       {
         process_mp3( dirname($fsp).'/' , $location_id, basename($fsp));
-        $swiss_id = db_value("select file_id from mp3s where dirname='".dirname($fsp)."/' and filename='".basename($fsp)."'");          
+        $swiss_id = db_value("select file_id from mp3s where dirname='".db_escape_str(dirname($fsp))."/' and filename='".db_escape_str(basename($fsp))."'");
       }
 
       // Record the mapping between the iTunes ID and the swisscenter ID
@@ -166,10 +164,6 @@
 
   function parse_itunes_file( $filename )
   {
-    // (Temporarily) hardcoded values
-    $fsp_search     = 'Z:/';
-    $fsp_replace    = '/data/';
-
     // Initialize global variables
     $current_section = '';
     $key_info        = array();
@@ -178,15 +172,18 @@
     $tag             = '';
     $key             = '';
     
+    send_to_log(4,'Parsing the iTunes Music Library for Playlists');
+    
     // Clear the iTunes mapping table before generating any playlists
     db_sqlcommand("delete from itunes_map");
     
     // Create XML parser
-    $xmlparser = xml_parser_create();
+    $xmlparser = xml_parser_create("UTF-8");
     if ($xmlparser !== false)
     {
       xml_set_element_handler($xmlparser, "start_tag", "end_tag"); 
-      xml_set_character_data_handler($xmlparser, "tag_contents");       
+      xml_set_character_data_handler($xmlparser, "tag_contents"); 
+      xml_parser_set_option($xml_parser, XML_OPTION_TARGET_ENCODING, "UTF-8");
       
       // Read and process XML file
       $fp = fopen($filename, "r");
