@@ -792,6 +792,11 @@ REFINE_IPTC_PROVINCE_STATE  = Refine by province/state
 REFINE_IPTC_SUPPCATEGORY    = Refine by supplementary categories
 REFINE_XMP_RATING           = Refine by rating
 
+ITUNES_LIBRARY              = iTunes Library File
+ITUNES_CONFIG_PROMPT        = Please specify the fully qualified path of your "iTunes Music Library.xml" file. This will be used to add/replace your iTunes playlists in SwissCenter.[p]For example: On Windows this might be [em]"C:\Documents and Settings\Robert\My Music\iTunes\iTunes Music Library.xml"[/em] 
+ITUNES_ERROR_INVALID        = I'm sorry, the file you specified must be "iTunes Music Library.xml"
+ITUNES_ERROR_PATH	          = Please enter the fully qualified path of your "iTunes Music Library.xml"
+
 #----------------------------------------------------------------------------------------------------
 # End-of-file
 #----------------------------------------------------------------------------------------------------
