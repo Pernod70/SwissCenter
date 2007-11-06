@@ -130,10 +130,6 @@
     // Link to full cast & directors
     // $menu->add_item( str('MOVIE_INFO'), 'video_info.php?movie='.$data[0]["FILE_ID"],true);
     
-    // Delete media
-    if (is_user_admin())
-      $menu->add_item( str('DELETE_MEDIA'), 'video_delete.php?del='.implode(',',$file_ids),true);
-    
     // Display thumbnail
     $folder_img = file_albumart($data[0]["DIRNAME"].$data[0]["FILENAME"]);
   }
@@ -167,6 +163,10 @@
 
     $info->display();
   }
+
+  // Delete media (limited to a small number of files)
+  if (is_user_admin() && count($data)<=8 )
+    $menu->add_item( str('DELETE_MEDIA'), 'video_delete.php?del='.implode(',',$file_ids),true);    
 
   // Certificate? Get the appropriate image.
   $scheme    = get_rating_scheme_name();

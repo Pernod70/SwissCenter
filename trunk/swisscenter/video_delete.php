@@ -46,8 +46,8 @@
       
     foreach ($data as $row)
     {
-     // Delete the media file (including image and subtitles)
-      foreach(glob($row["DIRNAME"].file_noext($row["FILENAME"]).".*") as $file)
+      // Delete the media file (including image and subtitles)
+      foreach( find_in_dir_all_exts( $row["DIRNAME"], file_noext($row["FILENAME"]) ) as $file)
       {
         send_to_log(8, "Deleting file: $file");
         unlink($file);
@@ -79,7 +79,7 @@
               foreach ($data as $row)
               {
                 // Display files to be deleted (including image and subtitles)
-                foreach(glob($row["DIRNAME"].file_noext($row["FILENAME"]).".*") as $file)
+                foreach( find_in_dir_all_exts( $row["DIRNAME"], file_noext($row["FILENAME"]) ) as $file)
                   echo '<li>'.basename($file);
               }
               echo '</ul></p>';
