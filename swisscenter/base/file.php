@@ -138,7 +138,7 @@ function send_to_log($level, $item, $var = '')
         @fwrite($handle, $time.$item.newline());
         if (!empty($var))
         {
-          $out = explode("\n",print_r($var,true));
+          $out = explode("\n",print_r(str_replace("\r",'',$var),true));
           foreach ($out as $line)
             @fwrite($handle,$time.$line.newline());
         }
@@ -280,6 +280,31 @@ function find_in_dir($dir, $filename)
     return false;
   else
     return str_suffix($dir,'/').$actual;
+}
+
+/**
+ * Returns all files in the specified directory that match the base filename supplied (ie: <filename>.* )
+ *
+ * @param path $dir
+ * @param fsp $filename_noext
+ * @return array of strings
+ */
+
+function find_in_dir_all_exts( $dir, $filename_noext )
+{
+  $matches = array();
+
+  if ($dh = opendir($dir))
+  {
+    while ( ($file = readdir($dh)) !== false )
+    {
+      if (file_noext($file) == $filename_noext)
+        $matches[] = os_path($dir,true).$file;
+    }
+    closedir($dh);
+  }
+  
+  return $matches;
 }
 
 //-------------------------------------------------------------------------------------------------
