@@ -2,7 +2,6 @@
 /**************************************************************************************************
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
- require_once( realpath(dirname(__FILE__).'/../base/image.php'));
 
   // ----------------------------------------------------------------------------------
   // Display current config
@@ -24,8 +23,6 @@
     form_label(str('IMAGE_RESIZE_PROMPT'));
     form_radio_static('precache',str('CACHE_PRECACHE'),$option_vals, get_sys_pref('CACHE_PRECACHE_IMAGES','NO'),false,true);
     form_label(str('CACHE_PRECACHE_PROMPT'));
-    form_input('fontname',str('TTF_FONT'),30,'',get_sys_pref('TTF_FONT',0));
-    form_label(str('TTF_FONT_PROMPT'));
     form_submit(str('SAVE_SETTINGS'));
     form_end();
   }
@@ -36,19 +33,10 @@
 
   function image_update()
   {
-    $img = new CImage();
-    $msg = '';
-    $fontname = $_REQUEST["fontname"];
-
-    if ( $img->text('Test',0,0,0,14,$fontname) === FALSE) 
-      $msg = str('FAIL_PHP_FONT_SET');
-    else 
-      set_sys_pref('TTF_FONT',$fontname);
-
     set_sys_pref('IMAGE_RESIZING',$_REQUEST["resize"]);
     set_sys_pref('IMAGE_ROTATE',$_REQUEST["rotate"]);
     set_sys_pref('CACHE_PRECACHE_IMAGES',$_REQUEST["precache"]);
-    image_display(str('SAVE_SETTINGS_OK').$msg);
+    image_display(str('SAVE_SETTINGS_OK'));
   }
 
 /**************************************************************************************************

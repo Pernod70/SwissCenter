@@ -76,25 +76,37 @@ function check_php_suggested_modules()
 
 function check_php_ttf()
 {
-  if (is_windows())
-    $font_path = system_root().path_delim()."Fonts".path_delim()."Arial.ttf";
-  else
-    $font_path = "/usr/share/fonts/truetype/msttcorefonts/Arial.ttf";
-	
-  $defaults = array(get_sys_pref('TTF_FONT'), $font_path, "luxisr");
   $img      = new CImage();
-  $font_ok  = false;
+  $defaults = array();
 
+  // Test the currently stored preference.
+  if ($img->text('Test',0,0,0,14,get_sys_pref('TTF_FONT')) !== false )
+    return true;
+
+  // No font found, so try the default locations for fonts based on the operating system
+  if (is_windows())
+  {
+    $defaults[] = system_root().path_delim()."Fonts".path_delim()."Arial.ttf";
+  }
+  else
+  {
+    $defaults[] = "/usr/share/fonts/truetype/msttcorefonts/Arial.ttf";
+    $defaults[] = 'luxisr';
+  }
+	
+  // Test each default in turn.
   foreach ($defaults as $font) 
   {
     if ($img->text('Test',0,0,0,14,$font) !== false )
-    {
-      set_sys_pref('TTF_FONT',$font);
-      $font_ok = true;
+    {      
+      // Font can be used! 
+      set_sys_pref('TTF_FONT',db_escape_str($font));
+      return true;
     }
   }
 
-  return $font_ok;
+  // No fonts found.
+  return false;
 }
 
 #-------------------------------------------------------------------------------------------------
