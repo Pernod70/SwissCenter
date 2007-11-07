@@ -744,7 +744,7 @@ function php_cli_location()
 
 function system_root()
 {
-  return $_ENV['SystemRoot'];
+  return str_replace('\\\\','\\',$_ENV['SystemRoot']);
 }
 
 /**************************************************************************************************
