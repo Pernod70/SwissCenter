@@ -141,7 +141,7 @@ function musicip_mixable_percent()
       preg_match_all('/Mixable Songs *([0-9,]*)/i',$html,$matches);
       $mixable = str_replace(',','',$matches[1][0]);
   
-      return (int)($mixable/max($songs*100,1));
+      return (int)($mixable/max($songs,1)*100);
     }
     else 
       return false;
