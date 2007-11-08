@@ -307,13 +307,16 @@ function form_submit_html( $text = "Submit", $width = '')
 # to the form as to which rows in the table were selected by the user.
 #
 # Additionally you may pass an associative array of edit options. The keys in the array and the
-# names of the table headings and must be all uppercase. The values can be one of three things:
-#   * An empty string - This indicates a text editable field
+# names of the table headings and must be all uppercase. The values can be one of:
+#
+#   * An empty string, which indicates a text editable field
+#   * An exclamation mark ("!") which indicates the field should not be made editable.
+#   * An asterisk ("*") which indicates the field should be considered a password and blanked out.
+#   * An array - This array is an array of arrays, each element of the outer array is a single row
+#     in a table, the child arrays are column name/value pairs
 #   * A string - This is a sql statement that returns exactly 2 columns, the first an ID that will
 #     be used as the value of the selected item, and the second a string to display. This will be
 #     displayed as a drop down list
-#   * An array - This array is an array of arrays, each element of the outer array is a single row
-#     in a table, the child arrays are column name/value pairs
 #
 # If an array of edit options is passed then an edit button will be placed on each row. It can
 # be determined if the edit button was clicked and for which row by calling form_select_table_edit()
@@ -348,10 +351,10 @@ function form_select_table ( $param, $table_contents, $table_headings, $table_pa
       if (strpos($value,'|') !== false)
       {
         list($title, $size) = explode('|',$value);
-        echo '<th width="'.$size.'">'.$title.'</th>';
+        echo '<th valign="bottom" width="'.$size.'">'.$title.'</th>';
       }
       else
-        echo '<th>'.ucwords($value).'</th>';
+        echo '<th valign="bottom">'.ucwords($value).'</th>';
     }
 
     if($editable)
@@ -386,17 +389,22 @@ function form_select_table ( $param, $table_contents, $table_headings, $table_pa
             // Check the edit options to see if there are choices for this column or not
             $element_name = strtoupper($param.'_update:'.escape_form_names($cell_name));
             $cell_edit_options = $edit_options[$cell_name];
-            if (empty($cell_edit_options) || is_numeric($cell_edit_options))
+
+            if ($cell_edit_options == "!") 
+            {
+              echo $cell_value;
+            }
+            elseif ($cell_edit_options == "*") 
+            {
+              echo "<input type='password' name='".$element_name."' value='".$cell_value."'>";
+            }
+            elseif (empty($cell_edit_options) || is_numeric($cell_edit_options)) 
             {
               echo '<input type="text" name="'.$element_name.'" value="'.$cell_value.'"'.
                     ( is_numeric($cell_edit_options) ? ' size="'.$cell_edit_options.'"' : '').
                     '>';
             }
-            elseif ($cell_edit_options == "*")
-            {
-              echo "<input type='password' name='".$element_name."' value='".$cell_value."'>";
-            }
-            else
+            else 
             {
               if(is_array($cell_edit_options))
                 $options = $cell_edit_options;                
@@ -420,7 +428,7 @@ function form_select_table ( $param, $table_contents, $table_headings, $table_pa
           else
           {
             $cell_edit_options = $edit_options[$cell_name];
-            if($cell_edit_options == "*")
+            if($cell_edit_options == "*" && !empty($cell_value))
               echo "********";
             else
               echo $cell_value;
@@ -437,7 +445,7 @@ function form_select_table ( $param, $table_contents, $table_headings, $table_pa
         else if($row[strtoupper($id_col)] == $edit)
         {
           echo '<td align="center" width="60"><a href="javascript:update_'.$formname.'(\''.$row[strtoupper($id_col)].'\');"><img alt="Ok" title="Ok" src="/images/ico_tick.gif" border="0"></a>';
-          echo '&nbsp;&nbsp;<a href="javascript:cancel_'.$formname.'();"><img alt="Cancel" title="Cancel" src="/images/ico_cross.gif" border="0"></a></td>';
+          echo '&nbsp;<a href="javascript:cancel_'.$formname.'();"><img alt="Cancel" title="Cancel" src="/images/ico_cross.gif" border="0"></a></td>';
         }
         else
           echo '<td>&nbsp;</td>';

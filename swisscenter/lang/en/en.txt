@@ -241,7 +241,7 @@ PIN_INCORRECT	 	= That PIN is incorrect
 PIN_MAXLEN		= Maximum PIN length reached
 PIN_MISMATCH		= The PIN numbers did not match, not changed
 PLAY			= Play
-PLAYLISTS_CONFIG_PROMPT = Please specify the fully qualified directory where playlists should be stored by the SwissCenter. [p]For example: On Windows this might be [em]"C:\Documents and Settings\ Robert\My Documents\My Playlists"[/em] or on  a LINUX system it might be [em]"/home/Robert/Playlists"[/em]
+PLAYLISTS_CONFIG_PROMPT = Please specify the fully qualified directory where playlists should be stored by the SwissCenter. [p]For example: On Windows this might be [em]"C:\Documents and Settings\Robert\My Documents\My Playlists"[/em] or on  a LINUX system it might be [em]"/home/Robert/Playlists"[/em]
 PLAYLISTS_ERROR_DIR 	= Please select a playlist location
 PLAYLISTS_ERROR_INVALID = I'm sorry, the directory you specified does not exist
 PLAYLISTS_ERROR_PATH	= Please enter a fully qualified directory path
@@ -594,7 +594,7 @@ CACHE_PRECACHE_PROMPT   = Enabling this option will cause SwissCenter to generat
 DROP_DATABASE           = Warning: You already have a SwissCenter database. [br]If you proceed, then all current information and settings will be lost.
 CONFIG_IMAGE_OPTIONS    = Images
 CONFIG_AUDIO_OPTIONS    = Audio 
-CONFIG_RADIO_OPTIONS    = Internet Radio Options
+CONFIG_RADIO_OPTIONS    = Internet Radio
 PASS_PHP_FONTS          = Successfully located a TrueType Font for generating "Now Playing" images.
 FAIL_PHP_FONTS          = Unable to locate a TrueType font. The "Now Playing" screen will be missing track information.
 NOW_PLAYING_SUPPORT     = Now Playing Screen
@@ -757,6 +757,7 @@ USERS_ADMIN_PROMPT          = A Super User will have access to more options on t
 CONFIRM_DELETE              = Delete the following media file(s)?
 DELETE_MEDIA                = Delete Media
 MEDIA_DELETED               = Media Deleted
+TAG                         = Tag
 YES                         = Yes
 NO                          = No
 
@@ -795,7 +796,29 @@ REFINE_XMP_RATING           = Refine by rating
 ITUNES_LIBRARY              = iTunes Library File
 ITUNES_CONFIG_PROMPT        = Please specify the fully qualified path of your "iTunes Music Library.xml" file. This will be used to add/replace your iTunes playlists in SwissCenter.[p]For example: On Windows this might be [em]"C:\Documents and Settings\Robert\My Music\iTunes\iTunes Music Library.xml"[/em] 
 ITUNES_ERROR_INVALID        = I'm sorry, the file you specified must be "iTunes Music Library.xml"
-ITUNES_ERROR_PATH	          = Please enter the fully qualified path of your "iTunes Music Library.xml"
+ITUNES_ERROR_PATH           = Please enter the fully qualified path of your "iTunes Music Library.xml"
+
+CONFIG_SHOUTCAST_TITLE      = Shoutcast Options
+CONFIG_LASTFM_TITLE         = LastFM Options
+CONFIG_LASTFM_CLEAR         = Clear selected login details
+
+LASTFM                      = Last.FM
+LASTFM_WHATIS               = What is LastFM?
+LASTFM_ABOUT                = Last.fm is the world's largest social music platform with over 20 million active users based in more than 232 countries. Using a unique music recommendation system known as "Audioscrobbler", Last.fm builds a detailed profile of each user's musical taste by recording details of all the songs the user listens to, either on the streamed radio stations or on the user's computer or portable music device. [p] Users can create custom radio stations and playlists from any of the audio tracks in Last.fm's music library, but are not able to listen to individual tracks on demand, or to download tracks unless the rightsholder has previously authorised it. Registration is required to acquire a profile but is not necessary to view any part of the site or to listen to radio stations.
+LASTFM_PROMPT_GENERAL       = Browse stations
+LASTFM_PROMPT_PERSONAL      = Your personal stations
+LASTFM_LOGIN_HEADINGS       = User,LastFM[br]Username,LastFM[br]Password,Scrobble?,Images?
+LASTFM_TAGS                 = Available tags
+LASTFM_ARTIST               = Available artists / groups
+LASTFM_ENABLED_PROMPT       = When enabled, SwissCenter can connect to the Last.FM website and access personalised radio streams.
+
+LISTEN_LASTFM               = Listen to Last.FM Station
+LISTEN_LASTFM_TAGS          = Play music with a specific tag
+LISTEN_LASTFM_ARTISTS       = Play music similar to an artist or group
+LISTEN_LASTFM_MY_STATION    = Play your station
+LISTEN_LASTFM_RECOMMEND     = Play your recommendations
+LISTEN_LASTFM_LOVED         = Play your loved tracks
+LISTEN_LASTFM_NEIGHBOURHOOD = Play your neighbourhood
 
 #----------------------------------------------------------------------------------------------------
 # End-of-file

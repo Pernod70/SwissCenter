@@ -182,7 +182,7 @@
               </td><td width="'.convert_x(20).'"></td>
               <td valign="top">';
               movie_details($data[0]["FILE_ID"]);
-              $menu->display(480);
+              $menu->display(1, 480);
     echo '    </td></table>';
   }
   else

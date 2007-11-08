@@ -79,7 +79,7 @@
     function export_users()
     {
       $xpath = $this->xml->appendChild($this->settings_path,'<users />');
-      $data = db_toarray("select u.name username, c.name certificate, c.scheme, u.pin from users u, certificates c where u.maxcert = c.cert_id");
+      $data = db_toarray("select u.user_id, u.name username, c.name certificate, c.scheme, u.pin from users u, certificates c where u.maxcert = c.cert_id");
       if ($data !== false && count($data)>0)
       {
         foreach ($data as $row)
@@ -88,7 +88,7 @@
           $this->xml->appendChild($user_path, '<max_cert scheme="'.$row["SCHEME"].'">'.$row["CERTIFICATE"].'</max_cert>');
           $this->xml->appendChild($user_path, '<pin>'.$row["PIN"].'</pin>');
           $pref_path = $this->xml->appendChild($user_path, '<preferences />');
-          $prefs = db_toarray("select * from user_prefs");
+          $prefs = db_toarray("select * from user_prefs where user_id=$row[USER_ID]");
           if ($prefs != false && count($prefs)>0)
           {
             foreach ($prefs as $pref)
@@ -272,12 +272,14 @@
           }                    
         }
         
+        // Determine the user_id for importing settings.
+        $user_id = db_value("select user_id from users where name = '$name'");
+        
         // Import user preferences
         foreach ($this->xml->match($userpath.'/preferences[1]/setting') as $prefpath)
         {
           $attrib  = $this->xml->getAttributes($prefpath);
           $value   = $this->xml->getData($prefpath);
-          $user_id = db_value("select user_id from users where name = '$name'");
           if (db_value("select count(*) from user_prefs where user_id=$user_id and name = '".$attrib["NAME"]."'") == 0)
             db_insert_row('user_prefs',array("user_id"=>$user_id, "name"=>$attrib["NAME"], "value"=>$value));
           else

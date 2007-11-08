@@ -80,7 +80,7 @@
         <table cellspacing=0 border=0 cellpadding=0 width="100%">
           <tr>
             <td width="'.convert_x(640).'">';
-              $menu->display(560);
+              $menu->display(1, 560);
   echo '    </td>
             <td align="center" valign="top"><a href="'.weather_link().'">'.img_gen(SC_LOCATION.'/weather/logo.gif',130,130,false,false,'RESIZE').'</a></td>
           </tr>

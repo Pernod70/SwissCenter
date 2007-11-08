@@ -24,6 +24,7 @@
     
     // The playlist (pls) that causes the showcenter to connect to our proxy script
     header('Content-Type: audio/x-scpls');
+    header('Content-Disposition: attachment; filename="Lastfm.pls"');
     echo "[playlist]\n";
     echo "NumberOfEntries=1\n";
     echo "File1=".server_address()."ext/lastfm/stream.php?".current_session()."&station=".$_REQUEST["station"]."\n";
@@ -41,15 +42,20 @@
     $info = $lastfm->now_playing();
     
     // Get artist picture list
-    $photos = $lastfm->artist_images($info["artist"]);
-    send_to_log(1,'Artist photos',$photos);
+    if (get_user_pref('LASTFM_IMAGES','YES') == 'YES')
+    {
+      $photos = $lastfm->artist_images($info["artist"]);
+      send_to_log(6,'Artist photos',$photos);
+    }
 
     // Generate and display the "Now Playing" screen.    
     $image = now_playing_image( array( "LENGTH"=>$info["trackduration"]
-                              , "ALBUMART"=>$info["albumcover_large"]
-                              , "TITLE"=>$info["track"]
-                              , "ARTIST"=>$info["artist"]
-                              , "ALBUM"=>$info["album"]),'','','',$photos );
+                                     , "ALBUMART"=>$info["albumcover_large"]
+                                     , "TITLE"=>$info["track"]
+                                     , "ARTIST"=>$info["artist"]
+                                     , "ALBUM"=>$info["album"]
+                                     )
+                              , '', '', '', $photos );
 
     // Output the image to the browser
     $image->output('jpeg');

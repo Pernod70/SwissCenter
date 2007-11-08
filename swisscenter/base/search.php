@@ -158,7 +158,7 @@ function  search_media_page( $heading, $title, $media_type, $joined_tables, $col
       $menu->add_item($row["DISPLAY"],url_set_param($choose_url,'name',rawurlencode($row["DISPLAY"])), false, viewed_icon($viewed[0], $viewed[1]) );
     }
 
-    $menu->display(540);
+    $menu->display(1, 540);
   }
 
   echo '</td></tr></table>';

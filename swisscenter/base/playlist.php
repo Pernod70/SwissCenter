@@ -255,6 +255,7 @@ function play_internet_radio( $playlist_url, $station_name )
 define('LASTFM_ARTIST','artist');
 define('LASTFM_TAG','globaltags');
 define('LASTFM_NEIGHBOUR','neighbour');
+define('LASTFM_USER','user');
 
 function play_lastfm($station_type, $name = '' )
 {
@@ -263,6 +264,10 @@ function play_lastfm($station_type, $name = '' )
   
   switch ($station_type)
   {
+    case LASTFM_USER:
+         $station_id = "lastfm://user/".get_user_pref('LASTFM_USERNAME')."/$name";
+         break;
+         
     case LASTFM_ARTIST:
          $station_id = "lastfm://artist/".urlencode($name)."/similarartists";
          break;

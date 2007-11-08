@@ -37,6 +37,9 @@
     form_radio_static('radio',str('INTERNET_RADIO'),$option_vals,get_sys_pref('radio_enabled','YES'),false,true);
     form_label(str('INTERNET_RADIO_PROMPT'));
 
+    form_radio_static('lastfm',str('LASTFM'),$option_vals,get_sys_pref('lastfm_enabled','YES'),false,true);
+    form_label(str('LASTFM_ENABLED_PROMPT'));
+
     form_radio_static('web',str('BROWSE_WEB'),$option_vals,get_sys_pref('web_enabled','YES'),false,true);
     form_label(str('BROWSE_WEB_PROMPT'));
     
@@ -78,6 +81,7 @@
     set_sys_pref('wikipedia_lookups',$_REQUEST["wiki"]);
     set_sys_pref('updates_enabled',$_REQUEST["update"]);
     set_sys_pref('messages_enabled',$_REQUEST["messages"]);
+    set_sys_pref('lastfm_enabled',$_REQUEST["lastfm"]);
     connect_display(str('SAVE_SETTINGS_OK'));
   }
   

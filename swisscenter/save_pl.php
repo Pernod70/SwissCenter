@@ -40,7 +40,7 @@
       $menu->add_item(str('PLAYLIST_NAME_USE'),'manage_pl.php?save='.rawurlencode($base_dir.$search.'.m3u'));
       
     $menu->add_item(str('PLAYLIST_NAME_CANCEL'),'manage_pl.php');
-    $menu->display(300);
+    $menu->display(1, 300);
       
     echo '</td></tr></table>';
   

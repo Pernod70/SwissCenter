@@ -184,7 +184,7 @@ class menu
    * @param integer $size
    */
   
-  function display_page( $page=1, $size=650)
+  function display_page( $page=1, $tvid=1, $size=650)
   {
     $start      = ($page-1) * MAX_PER_PAGE; 
     $max_items  = count($this->menu_items);
@@ -197,7 +197,7 @@ class menu
       $this->add_down( url_add_param(current_url(),'page',($page+1)));
 
     $this->menu_items = array_slice($this->menu_items,$start, MAX_PER_PAGE);
-    $this->display($size);    
+    $this->display($tvid, $size);    
   }
   
   /**
@@ -206,10 +206,9 @@ class menu
    * @param integer $size - (0-1000) Width of the menu on screen.
    */
   
-  function display( $size=650 )
+  function display( $tvid = 1, $size=650 )
   {
     $num_cols    = 1;
-    $tvid        = 0;
     $font_open   = font_tags($this->font_size);
 
     // Work out how many columns we will be displaying as there could be two text columns and two icon columns.
@@ -249,7 +248,6 @@ class menu
     {
       foreach ($this->menu_items as $item)
       {
-        $tvid++;
         $text = shorten($item["text"], $width-80, 1, $this->font_size, true, false);
         
         // Single fixed background at the moment - may allow it to change based on position in the future.
@@ -280,6 +278,7 @@ class menu
           
         // End row
         echo '</tr>';
+        $tvid++;
       }
     }
 
