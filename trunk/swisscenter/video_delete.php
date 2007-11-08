@@ -83,7 +83,7 @@
                   echo '<li>'.basename($file);
               }
               echo '</ul></p>';
-              $menu->display(480);
+              $menu->display(1, 480);
     echo '    </td></table>';
   }
   else

@@ -56,7 +56,7 @@
 
     echo '<td><center><font color="'.style_value("PAGE_TITLE_COLOUR").'" size="4">'.$day.'</font><p>'
          .img_gen(SC_LOCATION.'/weather/large/'.$xml_fc["dayf"][$i]["d"]["icon"].'.gif',100,130,false,false,'RESIZE').'<br>';
-          $fc->display(100);
+          $fc->display( 1,100);
     echo  img_gen(SC_LOCATION.'/weather/large/'.$xml_fc["dayf"][$i]["n"]["icon"].'.gif',100,130,false,false,'RESIZE').'<br>
           </center><p></td>';
   }
@@ -66,7 +66,7 @@
         <table cellspacing=0 cellpadding=0 width="100%">
           <tr>
             <td width="'.convert_x(640).'">';
-              $menu->display(560);
+              $menu->display( 1,560);
   echo '    </td>
             <td align="center" valign="bottom"><a href="'.weather_link().'">'.img_gen(SC_LOCATION.'/weather/logo.gif',130,130,false,false,'RESIZE').'</a></td>
           </tr>

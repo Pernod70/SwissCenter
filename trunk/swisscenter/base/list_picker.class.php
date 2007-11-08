@@ -15,6 +15,7 @@ class list_picker
   var $search;
   var $page;
   var $focus;
+  var $back_url;
   
   function list_picker()
   {
@@ -41,7 +42,12 @@ class list_picker
     return 0;
   }
   
-  function display_nodata()
+  function data_valid_chars( $search_string )
+  {
+    return '';    
+  }
+  
+  function display_nodata( $search_string)
   {
     echo '';
   }
@@ -63,18 +69,18 @@ class list_picker
   
   function display()
   {        
+    // Get data
+    $sql_search    = $this->prefix.db_escape_wildcards($this->search).'%';
+    $data          = $this->data_list($sql_search, ($this->page*MAX_PER_PAGE), MAX_PER_PAGE);
+    $num_rows      = $this->data_count($sql_search);
+
     // Header
     page_header( $this->display_title($this->search), $this->display_subtitle($this->search),'', $this->focus);
     
     // A-Z picker
     echo '<table border=0 height="320px" width="100%"><tr><td width="200px" valign="top">';
-    show_picker( $this->url.'?any='.$this->prefix.'&search=', $this->search);
-    echo '</td><td valign=top>';
-    
-    // Get data
-    $sql_search    = $this->prefix.db_escape_wildcards($this->search).'%';
-    $data          = $this->data_list($sql_search, ($this->page*MAX_PER_PAGE), MAX_PER_PAGE);
-    $num_rows      = $this->data_count($sql_search);
+    show_picker( $this->url.'?any='.$this->prefix.'&search=', $this->search, '', ( empty($this->prefix) ? $this->data_valid_chars($sql_search) : '' ) );
+    echo '</td><td valign=top>';    
     
     if ( $num_rows == 0)
     {
@@ -94,7 +100,7 @@ class list_picker
       foreach ($data as $item)
         $this->menu->add_item($this->display_format_name($item), $this->link_url($item), true);
     
-      $this->menu->display( 480 );
+      $this->menu->display( 1, 480 );
     }
     
     echo '</td></tr></table>';
@@ -103,7 +109,7 @@ class list_picker
     $buttons   = array();
     $buttons[] = array('id'=>'A', 'text'=>str('SEARCH_ANYWHERE'), 'url'=>$this->url.'?search='.rawurlencode($this->search).'&any='.(empty($this->prefix) ? '%' : ''));
     $buttons[] = array('id'=>'B', 'text'=>str('SEARCH_CLEAR'),    'url'=>$this->url.'?any='.$this->prefix);    
-    page_footer('music_radio.php', $buttons);
+    page_footer( $this->back_url , $buttons);
   }
 }
 

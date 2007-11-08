@@ -85,8 +85,9 @@ function url_remove_params( $url, $array)
  * @return string
  */
 
-function http_post( $url, $data )
+function http_post( $url, $data, $timeout = 5 )
 {
+  send_to_log(5,"Sending HTTP POST Request to $url");
   $current = parse_url( current_url() );
   $url = parse_url($url);
   $host = (isset($url["host"]) ? $url["host"] : $current["host"] );
@@ -95,34 +96,47 @@ function http_post( $url, $data )
 
   // Generate the request header
   $data_len  = strlen($data);
-  $request   = "POST $path HTTP/1.1\n".
-               "Host: $host\n".   
-               "Content-Type: application/x-www-form-urlencoded\n".
-               "Content-Length: $data_len\n".
-               "\n".
-               "$data\n";
+  $request   = "POST $path HTTP/1.1\r\n".
+               "Host: $host\r\n".   
+               "Content-Type: application/x-www-form-urlencoded\r\n".
+               "Content-Length: $data_len\r\n".
+               "Connection: close\r\n".
+               "\r\n".
+               "$data";
 
   // Open the connection to the host
-  echo "<p>about to open $host : $port";
-  send_to_log(8,'Attempting HTTP POST request', array('Url'=>$host,'Port'=>$port,'Data'=>$request));
-  if ( ($socket = fsockopen($host, $port, &$errno, &$errstr)) === false)
+  send_to_log(8,"HTTP POST Request (Host: $host Port: $port)",explode("\n",$request));
+  if ( ($socket = fsockopen($host, $port, &$errno, &$errstr, $timeout)) === false)
   {
-    send_to_log(1,"Failed to open socket to '$host' on port '$port'.");
+    send_to_log(2,"Failed to open socket to '$host' on port '$port'.");
     return false;    
   }
   
   // Send POST request
   fputs($socket, $request);
   
+  // Ensure we are reading in blocking mode, and with the specified timeout
+  stream_set_blocking( $socket, TRUE );
+  stream_set_timeout( $socket, $timeout );
+  $info = stream_get_meta_data( $socket ); 
+
   // Get the response
   $response = '';
-  while (!feof($socket))
+  while (!feof($socket) && (!$info['timed_out']))
+  {
     $response .= fgets($socket, 256);
+    $info = stream_get_meta_data($socket);
+  }
   
-  /// Close the socket
+  // Record the fact that the socket timed out.
+  if ($info['timed_out'])
+    send_to_log(2,"Socket timed out while attempting a HTTP POST to '$socket:$port'");
+  
+  // Close the socket
   fclose($socket);
     
   // Return result;
+  send_to_log(8,"HTTP POST Response",explode("\n",$response));
   return $response;
 }
 

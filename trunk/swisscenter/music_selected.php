@@ -88,7 +88,7 @@
                 <center>'.img_gen($folder_img,250,300).'</center>
               </td></tr></table></td>
               <td valign="top">';
-              $menu->display(480);
+              $menu->display(1, 480);
     echo '    </td></td></table>';
   }
   else

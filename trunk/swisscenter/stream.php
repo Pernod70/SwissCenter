@@ -11,6 +11,7 @@
   require_once( realpath(dirname(__FILE__).'/base/users.php'));
   require_once( realpath(dirname(__FILE__).'/base/media.php'));
   require_once( realpath(dirname(__FILE__).'/base/playlist.php'));
+  require_once( realpath(dirname(__FILE__).'/ext/lastfm/lastfm.php'));
 
 /**
  * Outputs the image file to the browser.
@@ -210,12 +211,20 @@
     send_to_log(7,'Attempting to stream the following Audio file',$tracks[$idx]);
     store_request_details( $media, $file_id);  
 
+    // If the user has enabled Lasty.FM support, then send a "now playing" notification
+    if (lastfm_scrobble_enabled())
+      lastfm_now_playing( $tracks[$idx]["ARTIST"], $tracks[$idx]["TITLE"], $tracks[$idx]["ALBUM"], $tracks[$idx]["LENGTH"], $tracks[$idx]["TRACK"] );
+      
     if ($tracks[$idx]["LENGTH"] > 0)
       $headers[] = "TimeSeekRange.dlna.org: npt=0-/".$tracks[$idx]["LENGTH"];
 
     $headers[] = "Content-type: audio/x-mpeg";
     $headers[] = "Last-Changed: ".date('r',filemtime($location));
     stream_file($media, $file_id, $location, $headers);
+    
+    // Submit the track to last.FM
+    if (lastfm_scrobble_enabled())
+      lastfm_scrobble( $tracks[$idx]["ARTIST"], $tracks[$idx]["TITLE"], $tracks[$idx]["ALBUM"], $tracks[$idx]["LENGTH"], $tracks[$idx]["TRACK"] );
   }
   elseif ($media == 2) // Photos
   {
