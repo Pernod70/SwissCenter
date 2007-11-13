@@ -124,9 +124,10 @@
     $menu = new menu();
     page_header( str('SETUP_SEARCH_NEW_MEDIA'));          
     echo '<center>'.str('SETUP_SEARCH_TYPE_TITLE').'</center><p>';
-    $menu->add_item( str('PC_LINK_MUSIC') ,'/do_refresh.php?type=media_type&spec='.MEDIA_TYPE_MUSIC);
-    $menu->add_item( str('PC_LINK_PHOTOS') ,'/do_refresh.php?type=media_type&spec='.MEDIA_TYPE_PHOTO);
-    $menu->add_item( str('PC_LINK_MOVIES') ,'/do_refresh.php?type=media_type&spec='.MEDIA_TYPE_VIDEO);
+    $menu->add_item( str('MUSIC') ,'/do_refresh.php?type=media_type&spec='.MEDIA_TYPE_MUSIC);
+    $menu->add_item( str('PHOTOS') ,'/do_refresh.php?type=media_type&spec='.MEDIA_TYPE_PHOTO);
+    $menu->add_item( str('TVSERIES') ,'/do_refresh.php?type=media_type&spec='.MEDIA_TYPE_TV);
+    $menu->add_item( str('VIDEO') ,'/do_refresh.php?type=media_type&spec='.MEDIA_TYPE_VIDEO);
     $menu->display();
     page_footer( '/do_refresh.php' );              
   }

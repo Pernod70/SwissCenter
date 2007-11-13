@@ -70,7 +70,7 @@
     }
 
     // Don't use "stream.php" for movies until we can get the (lack of) subtitles bug sorted out!
-    if ($media_type == 3 ) // Movie
+    if ($media_type == MEDIA_TYPE_VIDEO || $media_type == MEDIA_TYPE_TV ) // Movie
     {
       // Record the fact the movie was viewed.
       store_request_details( $media_type, $file_id); 
