@@ -742,7 +742,7 @@ CAT_PARENT                  = Parent Category
 SYSPREF_ADD_NEW             = Add a system setting
 SYSPREF_EDIT_EXISTING       = Modify a system setting
 BROWSE_ALBUM_ARTIST         = Browse by album artist name
-BROWSE_WEB                  = Browse web
+BROWSE_WEB                  = Browse the web
 BROWSE_WEB_PROMPT           = This option allows you to use SwissCenter to browse simple Web pages, both on your local network and on the Internet (providing you have Internet connectivity).
 MISC_TITLE                  = Miscellaneous
 MISC_CONFIG_TITLE           = Miscellaneous Configuration
@@ -819,6 +819,25 @@ LISTEN_LASTFM_MY_STATION    = Play your station
 LISTEN_LASTFM_RECOMMEND     = Play your recommendations
 LISTEN_LASTFM_LOVED         = Play your loved tracks
 LISTEN_LASTFM_NEIGHBOURHOOD = Play your neighbourhood
+
+MUSIC                       = Music
+PHOTOS                      = Photos
+TVSERIES                    = TV Series
+VIDEO                       = Video
+
+WATCH_TV                    = Watch a TV show
+PROGRAMME                   = Programme
+SERIES                      = Series
+EPISODE_SUFFIX              = (Episode %s)
+VIEW_UNVIEWED               = Show unviewed
+VIEW_ALL                    = Show all
+
+FILTER_VIEWED               = Played status
+FILTER_VIEWED_NONE          = Not played at all
+FILTER_VIEWED_NOTFINISHED   = Not played or partially played
+FILTER_VIEWED_PLAYED        = Partially or completely played
+FILTER_VIEWED_FINISHED      = Completely played
+FILTER_ACTIVE_SUFFIX        = (active)
 
 #----------------------------------------------------------------------------------------------------
 # End-of-file

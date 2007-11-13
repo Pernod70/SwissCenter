@@ -20,6 +20,7 @@ class list_picker
   function list_picker()
   {
     $this->url = '';
+    $this->back_url = '';
     $this->menu = new menu();
     $this->prefix = $_REQUEST["any"];
     $this->search = rawurldecode($_REQUEST["search"]);
@@ -79,23 +80,27 @@ class list_picker
     
     // A-Z picker
     echo '<table border=0 height="320px" width="100%"><tr><td width="200px" valign="top">';
-    show_picker( $this->url.'?any='.$this->prefix.'&search=', $this->search, '', ( empty($this->prefix) ? $this->data_valid_chars($sql_search) : '' ) );
+    show_picker( url_add_params($this->url,array("any"=>$this->prefix,"search"=>''))
+               , $this->search
+               , ''
+               , ( empty($this->prefix) ? $this->data_valid_chars($sql_search) : '' ) 
+               );
     echo '</td><td valign=top>';    
     
     if ( $num_rows == 0)
     {
       // If there's nothing to display, we might want to output a message or some alternative content
-      $this->display_nodata();
+      $this->display_nodata($sql_search);
     }
     else
     {    
       // There's a previous page, so display a link
       if ($this->page > 0)
-        $this->menu->add_up( $this->url.'?last='.MAX_PER_PAGE.'&search='.rawurlencode($this->search).'&any='.$this->prefix.'&page='.($this->page-1));
+        $this->menu->add_up( url_add_params($this->url, array("last"=>MAX_PER_PAGE, "search"=>rawurlencode($this->search),'any'=>$this->prefix, 'page'=>($this->page-1)) ));
     
       // There's a next page, so display a link
       if (($this->page+1)*MAX_PER_PAGE < $num_rows)
-        $this->menu->add_down( $this->url.'?last=1&search='.rawurlencode($this->search).'&any='.$this->prefix.'&page='.($this->page+1));
+        $this->menu->add_down( url_add_params($this->url, array("last"=>1, "search"=>rawurlencode($this->search),'any'=>$this->prefix, 'page'=>($this->page+1)) ));
     
       foreach ($data as $item)
         $this->menu->add_item($this->display_format_name($item), $this->link_url($item), true);
@@ -111,6 +116,7 @@ class list_picker
     $buttons[] = array('id'=>'B', 'text'=>str('SEARCH_CLEAR'),    'url'=>$this->url.'?any='.$this->prefix);    
     page_footer( $this->back_url , $buttons);
   }
+  
 }
 
 /**************************************************************************************************

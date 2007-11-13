@@ -93,17 +93,21 @@
     {
       $locations = db_col_to_list("select location_id from media_locations where cat_id=$cat_id and media_type=$media_type");
       if(!empty($locations))
-        $sql = " and media.location_id in (".implode($locations,",").")";
+        return " and media.location_id in (".implode($locations,",").")";
     }
     elseif ($cat_id < 0)
     {
       $locations = db_col_to_list("select location_id from media_locations where cat_id in (".
                                   implode(",",category_children(-$cat_id)).") and media_type=$media_type");
       if(!empty($locations))
-        $sql = " and media.location_id in (".implode($locations,",").")";
+        return " and media.location_id in (".implode($locations,",").")";
     }
-    
-    return $sql;
+    else 
+    {
+      // If no $cat_id is specified (or it is 0) then the user wants to see all categories and
+      // therefore there is no need to return any SQL at all. 
+      return '';
+    }
   }
   
   /**

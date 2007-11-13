@@ -27,7 +27,7 @@
     // Get a list of matching locations
     $media_locations = db_toarray("select * 
                                    from media_locations
-                                   where media_type != ".MEDIA_TYPE_RADIO.
+                                   where (media_type not in (".MEDIA_TYPE_RADIO.",".MEDIA_TYPE_WEB."))".
                                    (empty($cat_id) ? '' : " and cat_id = $cat_id").
                                    (empty($media_type) ? '' : " and media_type = $media_type")
                                  );
@@ -57,10 +57,11 @@
   // If there are parameters for the media search then read them and then remove them.
   $media_type = get_sys_pref('MEDIA_SCAN_MEDIA_TYPE');
   $cat_id     = get_sys_pref('MEDIA_SCAN_CATEGORY');
+  $itunes_library = get_sys_pref('ITUNES_LIBRARY');
+
   delete_sys_pref('MEDIA_SCAN_MEDIA_TYPE');
   delete_sys_pref('MEDIA_SCAN_CATEGORY');
   set_sys_pref('MEDIA_SCAN_STATUS',str('MEDIA_SCAN_STATUS_RUNNING'));
-  $itunes_library = get_sys_pref('ITUNES_LIBRARY');
   
   // Set the percent_scanned to zero for all locations due to be scanned.
   db_sqlcommand("update media_locations set percent_scanned=0 
