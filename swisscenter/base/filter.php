@@ -19,6 +19,14 @@
   {
     return $_SESSION["filter"]["predicate"];
   }
+  
+  function filter_text()
+  {
+    if (filter_get_name() == '' )
+      return str('FILTER');
+    else 
+      return str('FILTER').' '.str('FILTER_ACTIVE_SUFFIX');
+  }
     
 /**************************************************************************************************
                                                End of file

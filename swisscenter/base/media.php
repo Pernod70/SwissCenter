@@ -154,6 +154,81 @@ function viewings_count( $media_type, $file, $user = '')
 }
 
 /**
+ * Returns the appropriate style identifier for the number of items viewed compared to the total number of items
+ *
+ * @param integer $viewed
+ * @param integer $total
+ * @return integer
+ */
+
+function viewed_icon( $viewed, $total=1)
+{
+  if ($viewed == 0)
+    return 'IMG_VIEWED_0';
+  elseif ($viewed >= $total)
+    return 'IMG_VIEWED_4';
+  elseif ($viewed/$total <0.34)
+    return 'IMG_VIEWED_1';
+  elseif ($viewed/$total <0.67)
+    return 'IMG_VIEWED_2';
+  else
+    return 'IMG_VIEWED_3';
+}
+
+/**
+ * Returns the SQL join which makes it possible to restrict media based on the number of times it has been viewed, or when
+ * it was last viewed.
+ *
+ * @param integer $media_type - Use the defined constants MEDIA_TYPE_xxx
+ * @param integer $user_id - The user whose viewings are to be checked (defaults to the current user if not specified)
+ *
+ * @return string (SQL join)
+ */
+
+function viewed_join( $media_type, $user_id = '' )
+{
+  $user_id   = nvl($user_id, get_current_user_id());
+  return " left outer join viewings v on (media.file_id = v.media_id and v.user_id = $user_id and v.media_type = $media_type) ";
+}
+
+/**
+ * Returns the SQL predicate  which restricts the media returned to those that have been viewed as specified.
+ *
+ * @param char $operator - The comparison operator to use against the number of viewings (defaults to '=')
+ * @param integer $viewings - The number of viewings (or more) to match against (defaults to zero)
+ * @returnstring (SQL predicate)
+ */
+
+function viewed_n_times_predicate( $operator = '=', $viewings = 0)
+{
+  return " and IFNULL(v.total_viewings,0) $operator $viewings ";
+}
+
+/**
+ * Returns the SQL predicate (for the HAVING clause) that restricts the media returned to those with a particular
+ * viewing state.
+ *
+ * @param string $status - Viewing state ("viewed:none", "viewed:notcomplete" , "viewed:started" or "viewed:complete")
+ * @return string (SQL predicate)
+ */
+
+function viewed_status_predicate( $status )
+{
+  $calc = "sum(if(v.total_viewings>0,1,0))/greatest(count(*),1)";
+  
+  if (strtolower($status) == 'viewed:none')
+    return " $calc = 0 ";
+  elseif (strtolower($status) == 'viewed:notcomplete')
+    return " $calc < 1 ";
+  elseif (strtolower($status) == 'viewed:started')
+    return " $calc > 0 ";
+  elseif (strtolower($status) == 'viewed:complete')
+    return " $calc = 1 ";
+  else
+    return " 1=1 ";
+}
+
+/**
  * Increment the downloads counter so that we can track which files are played by which user,
  * and how often. Also store the details on the last file played in the user's preferences.
  *
@@ -179,27 +254,6 @@ function store_request_details( $media, $file_id )
   }  
 }
 
-/**
- * Returns the appropriate style identifier for the number of items viewed compared to the total number of items
- *
- * @param integer $viewed
- * @param integer $total
- * @return integer
- */
-
-function viewed_icon( $viewed, $total=1)
-{
-  if ($viewed == 0)
-    return 'IMG_VIEWED_0';
-  elseif ($viewed >= $total)
-    return 'IMG_VIEWED_4';
-  elseif ($viewed/$total <0.34)
-    return 'IMG_VIEWED_1';
-  elseif ($viewed/$total <0.67)
-    return 'IMG_VIEWED_2';
-  else
-    return 'IMG_VIEWED_3';
-}
 
 //-------------------------------------------------------------------------------------------------
 // The following functions all relate explicitly to searching for new media.
@@ -571,7 +625,7 @@ function tv_expand_pattern( $pattern )
 {
   $eparts = array  ( '{p}' => '(.+)'
                    , '{s}' => '([0-9]+)'
-                   , '{e}' => '([0-9]+)'
+                   , '{e}' => '([0-9&-]+)'
                    , '{t}' => '(.+)'
                    );
 
