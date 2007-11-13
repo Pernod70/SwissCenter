@@ -8,6 +8,7 @@
   require_once( realpath(dirname(__FILE__).'/base/users.php'));
   require_once( realpath(dirname(__FILE__).'/base/file.php'));
   require_once( realpath(dirname(__FILE__).'/base/patching.php'));
+  require_once( realpath(dirname(__FILE__).'/base/filter.php'));
   require_once( realpath(dirname(__FILE__).'/messages_db.php'));
 
   /**
@@ -21,7 +22,9 @@
    */
   
   $menu = new menu();
+  $page = (empty($_REQUEST["page"]) ? 1 : $_REQUEST["page"]);
   $menu->add_item(str('WATCH_MOVIE'),'video.php',true);
+  $menu->add_item(str('WATCH_TV'),'tv.php',true);
   $menu->add_item(str('LISTEN_MUSIC'),'music.php',true);
 
   if (internet_available() && get_sys_pref('radio_enabled','YES') == 'YES')
@@ -61,8 +64,11 @@
 
   page_header( str('MAIN_MENU'));
   echo '<center>'.str('SELECT_OPTION').'</center><p>';
-  $menu->display();  
+  $menu->display_page($page);  
   page_footer('', '', $icons);
+  
+  // Clear any active filters
+  filter_set();
 
 /**************************************************************************************************
                                                End of file
