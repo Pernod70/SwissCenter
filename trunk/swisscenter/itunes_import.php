@@ -115,7 +115,6 @@
     {
       array2file($playlist, $file);
       send_to_log(4,"Writing playlist: ".$file);
-      send_to_log(8,"Playlist contents ",$playlist);
     }
   }
   
