@@ -131,6 +131,32 @@
         dirs_display('',"!".str('MEDIA_LOC_ERROR_PATH'));
       else
       {
+        // Update dirs for all media at the old location, otherwise they will orphaned after the next scan
+        $type_id_old = db_value("select media_type from media_locations where location_id=$id");
+        if ($type_id==$type_id_old)
+        {
+          // Location same media type so update existing media with new dirname
+          // (if media is not physically moved to new location then it will be removed during next scan)
+          $table = db_value("select mt.media_table from media_types mt, media_locations ml 
+                              where ml.media_type = mt.media_id and ml.location_id=$id");
+          $dir_old = db_escape_str(db_value("select name from media_locations where location_id=$id"));
+          foreach ( db_toarray("select file_id, dirname from $table where location_id=$id") as $row)
+          {
+            $dir_new = str_replace($dir_old, $dir, $row["DIRNAME"]);
+            db_sqlcommand("update $table set dirname='$dir_new' where file_id=".$row["FILE_ID"]);
+          }
+        }
+        else
+        {
+          // Location changed type so remove media from location
+          // (same as removing and adding location)
+          db_sqlcommand("delete from maa using mp3s m, mp3_albumart maa where m.file_id = maa.file_id and m.location_id=".$id);
+          db_sqlcommand("delete from media_locations where location_id=".$id);
+          db_sqlcommand("delete from mp3s where location_id=$id");
+          db_sqlcommand("delete from movies where location_id=$id");
+          db_sqlcommand("delete from photos where location_id=$id");
+        }
+        
         db_sqlcommand("update media_locations set name='$dir',media_type=$type_id,cat_id=$cat_id,unrated=$cert 
                         where location_id=$id");
         
