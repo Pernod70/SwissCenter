@@ -58,6 +58,7 @@
   $media_type = get_sys_pref('MEDIA_SCAN_MEDIA_TYPE');
   $cat_id     = get_sys_pref('MEDIA_SCAN_CATEGORY');
   $itunes_library = get_sys_pref('ITUNES_LIBRARY');
+  $itunes_date    = get_sys_pref('ITUNES_LIBRARY_DATE');
 
   delete_sys_pref('MEDIA_SCAN_MEDIA_TYPE');
   delete_sys_pref('MEDIA_SCAN_CATEGORY');
@@ -75,7 +76,17 @@
 
   // Scan the iTunes library for playlists
   if (is_file($itunes_library))
-    parse_itunes_file($itunes_library);
+  {
+    // Date of file
+    $file_date = db_datestr(@filemtime($itunes_library));
+    if ( is_null($itunes_date) || ($itunes_date < $file_date) )
+    {
+      parse_itunes_file($itunes_library);
+      set_sys_pref('ITUNES_LIBRARY_DATE', $file_date);
+    }
+    else
+      send_to_log(4,'Skipping the iTunes Music Library, not changed since last update');
+  }
   
   // update video details from the Internet if enabled
   if ( is_movie_check_enabled() )
