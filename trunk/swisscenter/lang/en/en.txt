@@ -752,6 +752,9 @@ MISC_FONTWIDTH_NOT_NUMBER   = The font width multiplier is not a number
 MISC_FONTWIDTH_TOO_SMALL    = The font width multiplier is too small
 LOCATION_ON_DISK            = Location On Disk
 
+REFRESH_METADATA            = Refresh Metadata
+REFRESH_METADATA_PROMPT     = Select this option to force all media metadata to be refreshed. This should only be used after a SwissCenter update that introduces new metadata functionality.
+
 ADMIN                       = Super User
 USERS_ADMIN_PROMPT          = A Super User will have access to more options on the media player. Such priviledges include being able to delete media.
 CONFIRM_DELETE              = Delete the following media file(s)?

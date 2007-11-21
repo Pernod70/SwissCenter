@@ -277,6 +277,47 @@ function db_insert_row( $table, $fields )
   return db_sqlcommand($sql);
 }
 
+#-------------------------------------------------------------------------------------------------
+# Updates row in the database.
+#
+# Note that the fields are given as an associative array. Each KEY value in the
+# array is the column name, and each VALUE in the array is the value to insert for
+# that particular field.
+#
+# NOTE: All strings will be automatically escaped.
+#
+# Returns TRUE on success, FALSE otherwise (and populates the $errmsg variable)
+#
+# table   - the table to insert the row into.
+# id      - id of row to update.
+# fields  - an associative array containing the values to insert into the table.
+#-------------------------------------------------------------------------------------------------
+
+function db_update_row( $table, $id, $fields )
+{
+  $flist = '';
+  $vlist = '';
+  $sql = "update $table set ";
+
+  foreach( $fields as $key => $value )
+  {
+    $flist = $key;
+    if     (!is_numeric($value) and empty($value))
+      $vlist = "null";
+    elseif (is_string($value))
+    {
+      $vlist = "'".db_escape_str( un_magic_quote($value))."'";
+    }
+    else
+      $vlist = $value;
+      
+    $sql = $sql.$flist."=".$vlist.",";
+  }
+
+  $sql = trim($sql,',')." where file_id=$id";
+
+  return db_sqlcommand($sql);
+}
 
 #-------------------------------------------------------------------------------------------------
 # Gets the id of the last inserted row with an auto_increment field

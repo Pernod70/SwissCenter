@@ -326,16 +326,33 @@ function process_mp3( $dir, $id, $file)
       $data["disc"]         = array_last($id3["id3v2"]["TPOS"][0]["data"]);
       $data["genre"]        = array_last($id3["comments"]["genre"]);
       $data["band"]         = array_last($id3["comments"]["band"]);
-                   
-      if (!db_insert_row( "mp3s", $data))
-        send_to_log(2,'Unable to add MP3 to the database');
-        
-      if ( get_sys_pref('USE_ID3_ART','YES') == 'YES' && isset($id3["id3v2"]["APIC"][0]["data"]))
+      
+      $file_id = db_value("select file_id from mp3s where concat(dirname,filename)='".db_escape_str($dir.$file)."'");
+      if ( $file_id )
       {
-        $file_id = db_value("select file_id from mp3s where concat(dirname,filename)='".db_escape_str($dir.$file)."'");
-        db_insert_row('mp3_albumart',array("file_id"=>$file_id, "image"=>addslashes($id3["id3v2"]["APIC"][0]["data"]) ));
-        send_to_log(4,"Image found within ID3 tag - will use as album art");
+        // Update the existing record
+        send_to_log(5,'Updating MP3  : '.$file);
+        $success = db_update_row( "mp3s", $file_id, $data);
       }
+      else
+      {
+        // Insert the row into the database
+        send_to_log(5,'Adding MP3    : '.$file);
+        $success = db_insert_row( "mp3s", $data);
+      }
+      
+      if ($success )
+      {
+        if (get_sys_pref('USE_ID3_ART','YES') == 'YES' && isset($id3["id3v2"]["APIC"][0]["data"]))
+        {
+          $file_id = db_value("select file_id from mp3s where concat(dirname,filename)='".db_escape_str($dir.$file)."'");
+          db_sqlcommand("delete from mp3_albumart where file_id=$file_id");
+          db_insert_row('mp3_albumart',array("file_id"=>$file_id, "image"=>addslashes($id3["id3v2"]["APIC"][0]["data"]) ));
+          send_to_log(4,"Image found within ID3 tag - will use as album art");
+        }
+      }
+      else
+        send_to_log(2,'Unable to add/update MP3 to the database');
         
     }
     else
@@ -352,8 +369,22 @@ function process_mp3( $dir, $id, $file)
   {
     // File extension is MP3, but the file itself isn't!
     send_to_log(3,'GETID3 claims this is not an MP3 (found '.$id3["fileformat"].') - adding it anyway, but no ID3 tag information could be read.');
-    if ( db_insert_row( "mp3s", $data) === false )
-      send_to_log(1,'Unable to add MP3 to the database');
+    $file_id = db_value("select file_id from mp3s where concat(dirname,filename)='".db_escape_str($dir.$file)."'");
+    if ( $file_id )
+    {
+      // Update the existing record
+      send_to_log(5,'Updating MP3  : '.$file);
+      $success = db_update_row( "mp3s", $file_id, $data);
+    }
+    else
+    {
+      // Insert the row into the database
+      send_to_log(5,'Adding MP3    : '.$file);
+      $success = db_insert_row( "mp3s", $data);
+    }
+    
+    if ( !$success )
+      send_to_log(2,'Unable to add/update MP3 to the database');
   }
 }
 
@@ -498,8 +529,22 @@ function process_photo( $dir, $id, $file)
                    , "iptc_location"       => $iptcxmp['location']
                    , "xmp_rating"          => $iptcxmp['rating']
                    );
-                   
-      if (db_insert_row( "photos", $data))
+
+      $file_id = db_value("select file_id from photos where concat(dirname,filename)='".db_escape_str($dir.$file)."'");
+      if ( $file_id )
+      {
+        // Update the existing record
+        send_to_log(5,'Updating Photo  : '.$file);
+        $success = db_update_row( "photos", $file_id, $data);
+      }
+      else
+      {        
+        // Insert the row into the database 
+        send_to_log(5,'Adding Photo    : '.$file);     
+        $success = db_insert_row( "photos", $data);
+      }
+      
+      if ( $success )
       {
         // Pre-cache the image thumbnail if the user has selected that option.
         $browsers = db_toarray("select distinct browser_x_res, browser_y_res from clients");
@@ -516,7 +561,7 @@ function process_photo( $dir, $id, $file)
         }
       }
       else
-        send_to_log(2,'Unable to add photo to the database');
+        send_to_log(2,'Unable to add/update photo to the database');
     }
     else
     {
@@ -580,7 +625,6 @@ function process_movie( $dir, $id, $file)
   // Standard information about the file 
   $data["dirname"]      = $dir;
   $data["filename"]     = $file;
-  $data["title"]        = determine_dvd_name( $dir.$file );
   $data["location_id"]  = $id;
   $data["size"]         = filesize($dir.$file);
   $data["verified"]     = 'Y';
@@ -608,9 +652,25 @@ function process_movie( $dir, $id, $file)
   else
     send_to_log(3,"GETID3 claims this is not a valid movie");
 
-  // Insert the row into the database
-  if ( db_insert_row( "movies", $data) === false )
-    send_to_log(1,'Unable to add movie to the database');
+  $file_id = db_value("select file_id from movies where concat(dirname,filename)='".db_escape_str($dir.$file)."'");
+  if ( $file_id )
+  {
+    // Update the existing record
+    send_to_log(5,'Updating Movie  : '.$file);
+    $success = db_update_row( "movies", $file_id, $data);
+  }
+  else
+  {
+    // Only set the title for a new record (an existing title may have been edited)
+    $data["title"] = determine_dvd_name( $dir.$file );
+    
+    // Insert the row into the database
+    send_to_log(5,'Adding Movie    : '.$file);
+    $success = db_insert_row( "movies", $data);
+  }
+  
+  if ( !$success )
+    send_to_log(1,'Unable to add/update movie to the database');
 }
 
 /**
@@ -756,9 +816,22 @@ function process_tv( $dir, $id, $file)
   else
     send_to_log(3,"GETID3 claims this is not a valid movie (format is '$id3[fileformat]')");
 
-  // Insert the row into the database
-  if ( db_insert_row( "tv", $data) === false )
-    send_to_log(1,'Unable to add TV episode to the database');  
+  $file_id = db_value("select file_id from tv where concat(dirname,filename)='".db_escape_str($dir.$file)."'");
+  if ( $file_id )
+  {
+    // Update the existing record
+    send_to_log(5,'Updating TV episode  : '.$file);
+    $success = db_update_row( "tv", $file_id, $data);
+  }
+  else
+  {
+    // Insert the row into the database
+    send_to_log(5,'Adding TV episode    : '.$file);
+    $success = db_insert_row( "tv", $data);
+  }
+  
+  if ( !$success )
+    send_to_log(1,'Unable to add/update TV episode to the database');
 }
 
 /**
@@ -816,10 +889,6 @@ function file_newer_than_db( $table, $location, $dir, $file )
   {
     // Record exists in database, and the file has been modified
     send_to_log(6,"File has been modified ($file_date > $db_date)");
-    db_sqlcommand("delete from $table 
-                    where location_id = $location
-                      and dirname     = '".db_escape_str($dir)."' 
-                      and filename    = '".db_escape_str($file)."'" );
   }
   
   return (is_null($db_date) || $db_date < $file_date);
@@ -835,7 +904,7 @@ function file_newer_than_db( $table, $location, $dir, $file )
  * @param boolean $recurse - Process subdirectories?
  */
 
-function process_media_directory( $dir, $id, $table, $file_exts, $recurse = true )
+function process_media_directory( $dir, $id, $table, $file_exts, $recurse = true, $update = false)
 {
   // Standard files to ignore (lowercase only - case insensitive match).
   $files_to_ignore = array( 'video_ts.vob' );
@@ -859,12 +928,12 @@ function process_media_directory( $dir, $id, $table, $file_exts, $recurse = true
             add_photo_album($dir.$file, $id);
 
           if ($recurse)
-            process_media_directory( $dir.$file.'/', $id, $table, $file_exts);
+            process_media_directory( $dir.$file.'/', $id, $table, $file_exts, $recurse, $update);
         }
       }
       elseif ( !in_array(strtolower($file),$files_to_ignore) && in_array(strtolower(file_ext($file)),$file_exts))
       {
-        if ( file_newer_than_db( $table, $id, $dir, $file) )
+        if ( file_newer_than_db( $table, $id, $dir, $file ) || $update )
         {
           switch ($table)
           {

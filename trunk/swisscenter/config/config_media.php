@@ -54,6 +54,7 @@ require_once( realpath(dirname(__FILE__).'/../base/media.php'));
     // as this is the only way of passing the info to the background process in Simese.
     set_sys_pref('MEDIA_SCAN_MEDIA_TYPE',$_REQUEST["type"]);
     set_sys_pref('MEDIA_SCAN_CATEGORY',$_REQUEST["cat"]);
+    set_sys_pref('REFRESH_METADATA',$_REQUEST["refresh"]);
     set_sys_pref('MEDIA_SCAN_STATUS',str('MEDIA_SCAN_STATUS_PENDING'));
  
     // Call the media search in the background.    
@@ -70,6 +71,8 @@ require_once( realpath(dirname(__FILE__).'/../base/media.php'));
 
   function media_refresh()
   {  
+    $option_vals = array( str('YES')=>true,str('NO')=>false);
+    
     echo '<h1>'.str('SETUP_SEARCH_NEW_MEDIA').'</h1>
           <p>'.str('MEDIA_SEARCH_PROMPT').'<br>&nbsp;';
 
@@ -79,7 +82,10 @@ require_once( realpath(dirname(__FILE__).'/../base/media.php'));
     form_list_dynamic('type',str('MEDIA_TYPE'),"select media_id,media_name from media_types where media_id<>".MEDIA_TYPE_RADIO." order by 2",$_REQUEST['type'],true,false,'All Media Types');
     echo '<tr><td></td><td> &nbsp; &nbsp; '.str('OR').'</td></tr>';
     form_list_dynamic('cat', str('CATEGORY'),"select cat_id,cat_name from categories order by cat_name", $_REQUEST['cat'],true,false,'All Categories');
-    echo '<tr><td></td><td>&nbsp;</td></tr>';    
+    echo '<tr><td></td><td>&nbsp;</td></tr>';
+    form_radio_static('refresh',str('REFRESH_METADATA'),$option_vals,get_sys_pref('REFRESH_METADATA',false),false,true);
+    form_label(str('REFRESH_METADATA_PROMPT'));
+    echo '<tr><td></td><td>&nbsp;</td></tr>';
     form_submit(str('SETUP_SEARCH_NEW_MEDIA'),2);
     form_end();
   }
