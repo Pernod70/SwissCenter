@@ -22,7 +22,7 @@
   // records which are no longer available.
   // ----------------------------------------------------------------------------------
 
-  function process_media_dirs( $media_type = '', $cat_id = '')
+  function process_media_dirs( $media_type = '', $cat_id = '', $update = false)
   {
     // Get a list of matching locations
     $media_locations = db_toarray("select * 
@@ -38,7 +38,7 @@
       $table = db_value("select media_table from media_types where  media_id = $location[MEDIA_TYPE]");
       $types = media_exts( $location["MEDIA_TYPE"] );
       send_to_log(4,'Refreshing '.strtoupper($table).' database');
-      process_media_directory( str_suffix($location["NAME"],'/'), $location["LOCATION_ID"], $table, $types );
+      process_media_directory( str_suffix($location["NAME"],'/'), $location["LOCATION_ID"], $table, $types, true, $update );
       send_to_log(4,'Completed refreshing '.strtoupper($table).' database');
       
       // Tell MusicIP to rescan this folder
@@ -57,11 +57,13 @@
   // If there are parameters for the media search then read them and then remove them.
   $media_type = get_sys_pref('MEDIA_SCAN_MEDIA_TYPE');
   $cat_id     = get_sys_pref('MEDIA_SCAN_CATEGORY');
+  $update     = get_sys_pref('REFRESH_METADATA', false);
   $itunes_library = get_sys_pref('ITUNES_LIBRARY');
   $itunes_date    = get_sys_pref('ITUNES_LIBRARY_DATE');
 
   delete_sys_pref('MEDIA_SCAN_MEDIA_TYPE');
   delete_sys_pref('MEDIA_SCAN_CATEGORY');
+  delete_sys_pref('REFRESH_METADATA');
   set_sys_pref('MEDIA_SCAN_STATUS',str('MEDIA_SCAN_STATUS_RUNNING'));
   
   // Set the percent_scanned to zero for all locations due to be scanned.
@@ -72,7 +74,7 @@
                );
 
   // Scan the appropriate media directories
-  process_media_dirs( $media_type, $cat_id );
+  process_media_dirs( $media_type, $cat_id, $update );
 
   // Scan the iTunes library for playlists
   if (is_file($itunes_library))
