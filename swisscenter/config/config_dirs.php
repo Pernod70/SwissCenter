@@ -150,7 +150,8 @@
         {
           // Location changed type so remove media from location
           // (same as removing and adding location)
-          db_sqlcommand("delete from maa using mp3s m, mp3_albumart maa where m.file_id = maa.file_id and m.location_id=".$id);
+          db_sqlcommand("delete from ma using mp3s m, media_art ma where m.art_sha1 = ma.art_sha1 and m.location_id=".$id);
+          db_sqlcommand("delete from ma using movies m, media_art ma where m.art_sha1 = ma.art_sha1 and m.location_id=".$id);
           db_sqlcommand("delete from media_locations where location_id=".$id);
           db_sqlcommand("delete from mp3s where location_id=$id");
           db_sqlcommand("delete from movies where location_id=$id");
@@ -181,7 +182,8 @@
         if (! is_windows() )
           unlink(SC_LOCATION.'media/'.$id);
 
-        db_sqlcommand("delete from maa using mp3s m, mp3_albumart maa where m.file_id = maa.file_id and m.location_id=".$id);
+        db_sqlcommand("delete from ma using mp3s m, media_art ma where m.art_sha1 = ma.art_sha1 and m.location_id=".$id);
+        db_sqlcommand("delete from ma using movies m, media_art ma where m.art_sha1 = ma.art_sha1 and m.location_id=".$id);
         db_sqlcommand("delete from media_locations where location_id=".$id);
         db_sqlcommand("delete from mp3s where location_id=$id");
         db_sqlcommand("delete from movies where location_id=$id");

@@ -491,11 +491,11 @@ function file_thumbnail( $fsp )
  * associated with it.
  *
  * @param string:path $fsp
- * @param boolean $default_imgage - Should a default image be returned? Defaults to true
+ * @param boolean $default_image - Should a default image be returned? Defaults to true
  * @return string:path
  */
 
-function file_albumart( $fsp, $default_imgage = true )
+function file_albumart( $fsp, $default_image = true )
 {
   if (empty($fsp))
   {
@@ -514,12 +514,17 @@ function file_albumart( $fsp, $default_imgage = true )
   else
   {
     $return    = '';
-    $id3_image = db_value("select m.file_id from mp3s m,mp3_albumart ma where m.file_id = ma.file_id and concat(m.dirname,m.filename) = '".db_escape_str($fsp)."'");
-    
+    if ( in_array(strtolower(file_ext($fsp)), media_exts_movies()) )
+      $id3_image = db_value("select a.art_sha1 from movies m, media_art a where m.art_sha1 = a.art_sha1 and concat(m.dirname,m.filename) = '".db_escape_str($fsp)."'");
+    elseif ( in_array(strtolower(file_ext($fsp)), media_exts_music()) )
+      $id3_image = db_value("select a.art_sha1 from mp3s m, media_art a where m.art_sha1 = a.art_sha1 and concat(m.dirname,m.filename) = '".db_escape_str($fsp)."'");
+    else
+      $id3_image = null;
+
     if ( !empty($id3_image) )
     {
       // This file has album art contained within the ID3 tag
-      $return = 'select image from mp3_albumart where file_id='.$id3_image.'.sql';
+      $return = "select image from media_art where art_sha1='".$id3_image."'.sql";
     }
     else 
     {
@@ -533,7 +538,7 @@ function file_albumart( $fsp, $default_imgage = true )
         $return = file_albumart(dirname($fsp));
 
       // OK, give up! Use a standard picture based on the filetype.
-      if ($return == '' && $default_imgage)
+      if ($return == '' && $default_image)
       {
         if ( in_array(strtolower(file_ext($fsp)), media_exts_movies()) )
           $return = style_img('MISSING_FILM_ART',true,false);
