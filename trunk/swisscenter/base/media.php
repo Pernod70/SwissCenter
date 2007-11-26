@@ -25,10 +25,12 @@ require_once( realpath(dirname(__FILE__).'/../ext/xmp/xmp.php'));
 
 function remove_orphaned_records()
 {
-  @db_sqlcommand('delete from mp3_albumart  '.
-                 ' using mp3_albumart left outer join mp3s  '.
-                 '    on mp3_albumart.file_id = mp3s.file_id '.
-                 ' where mp3s.file_id is null');
+  @db_sqlcommand('delete from media_art '.
+                 ' using media_art left outer join mp3s  '.
+                 '    on media_art.art_sha1 = mp3s.art_sha1 '.
+                 ' left outer join movies '.
+                 '    on media_art.art_sha1 = movies.art_sha1 '.
+                 ' where mp3s.art_sha1 is null and movies.art_sha1 is null');
   
   @db_sqlcommand('delete from mp3s  '.
                  ' using mp3s  left outer join media_locations  '.
@@ -291,7 +293,7 @@ function media_refresh_now()
 
 function process_mp3( $dir, $id, $file)
 {
-  send_to_log(4,'New MP3 found : '.$file);
+  send_to_log(4,'Found MP3    : '.$file);
   $filepath = os_path($dir.$file);
   $data     = array();
   $getID3   = new getID3;
@@ -326,32 +328,32 @@ function process_mp3( $dir, $id, $file)
       $data["disc"]         = array_last($id3["id3v2"]["TPOS"][0]["data"]);
       $data["genre"]        = array_last($id3["comments"]["genre"]);
       $data["band"]         = array_last($id3["comments"]["band"]);
+      if (get_sys_pref('USE_ID3_ART','YES') == 'YES' && isset($id3["id3v2"]["APIC"][0]["data"]))
+      {
+        send_to_log(4,"Image found within ID3 tag - will use as album art");
+        $data["art_sha1"]   = sha1($id3["id3v2"]["APIC"][0]["data"]);
+        // Store media art if it doesn't already exist
+        if ( !db_value("select art_sha1 from media_art where art_sha1='".$data["art_sha1"]."'") )
+          db_insert_row('media_art',array("art_sha1"=>$data["art_sha1"], "image"=>addslashes($id3["id3v2"]["APIC"][0]["data"]) ));
+      }
+      else
+        $data["art_sha1"]   = null;
       
       $file_id = db_value("select file_id from mp3s where concat(dirname,filename)='".db_escape_str($dir.$file)."'");
       if ( $file_id )
       {
         // Update the existing record
-        send_to_log(5,'Updating MP3  : '.$file);
+        send_to_log(5,'Updating MP3 : '.$file);
         $success = db_update_row( "mp3s", $file_id, $data);
       }
       else
       {
         // Insert the row into the database
-        send_to_log(5,'Adding MP3    : '.$file);
+        send_to_log(5,'Adding MP3   : '.$file);
         $success = db_insert_row( "mp3s", $data);
       }
       
-      if ($success )
-      {
-        if (get_sys_pref('USE_ID3_ART','YES') == 'YES' && isset($id3["id3v2"]["APIC"][0]["data"]))
-        {
-          $file_id = db_value("select file_id from mp3s where concat(dirname,filename)='".db_escape_str($dir.$file)."'");
-          db_sqlcommand("delete from mp3_albumart where file_id=$file_id");
-          db_insert_row('mp3_albumart',array("file_id"=>$file_id, "image"=>addslashes($id3["id3v2"]["APIC"][0]["data"]) ));
-          send_to_log(4,"Image found within ID3 tag - will use as album art");
-        }
-      }
-      else
+      if ( !$success )
         send_to_log(2,'Unable to add/update MP3 to the database');
         
     }
@@ -427,7 +429,7 @@ function process_photo( $dir, $id, $file)
 {
   global $cache_dir;
 
-  send_to_log(4,'New Photo found : '.$file);
+  send_to_log(4,'Found Photo    : '.$file);
   $filepath = os_path($dir.$file);
   $data     = array();
   $iptcxmp  = array();
@@ -534,13 +536,13 @@ function process_photo( $dir, $id, $file)
       if ( $file_id )
       {
         // Update the existing record
-        send_to_log(5,'Updating Photo  : '.$file);
+        send_to_log(5,'Updating Photo : '.$file);
         $success = db_update_row( "photos", $file_id, $data);
       }
       else
       {        
         // Insert the row into the database 
-        send_to_log(5,'Adding Photo    : '.$file);     
+        send_to_log(5,'Adding Photo   : '.$file);     
         $success = db_insert_row( "photos", $data);
       }
       
@@ -615,8 +617,8 @@ function determine_dvd_name( $fsp )
 
 function process_movie( $dir, $id, $file)
 {
-  send_to_log(4,'New movie found : '.$file);
-  $types    = array('riff','mpeg');
+  send_to_log(4,'Found Video    : '.$file);
+  $types    = array('riff','mpeg','asf');
   $data     = array();
   $getID3   = new getID3;
   $filepath = os_path($dir.$file);
@@ -650,22 +652,23 @@ function process_movie( $dir, $id, $file)
 
   }
   else
-    send_to_log(3,"GETID3 claims this is not a valid movie");
+    send_to_log(3,"GETID3 claims this is not a valid video: ".$id3["fileformat"]);
 
   $file_id = db_value("select file_id from movies where concat(dirname,filename)='".db_escape_str($dir.$file)."'");
   if ( $file_id )
   {
     // Update the existing record
-    send_to_log(5,'Updating Movie  : '.$file);
+    send_to_log(5,'Updating Video : '.$file);
     $success = db_update_row( "movies", $file_id, $data);
   }
   else
   {
     // Only set the title for a new record (an existing title may have been edited)
-    $data["title"] = determine_dvd_name( $dir.$file );
+    if ( empty($data["title"]) )
+      $data["title"] = determine_dvd_name( $dir.$file );
     
     // Insert the row into the database
-    send_to_log(5,'Adding Movie    : '.$file);
+    send_to_log(5,'Adding Video   : '.$file);
     $success = db_insert_row( "movies", $data);
   }
   
