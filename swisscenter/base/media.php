@@ -640,7 +640,39 @@ function process_movie( $dir, $id, $file)
       getid3_lib::CopyTagsToComments($id3);
       $data["size"]          = $id3["filesize"];
       $data["length"]        = floor($id3["playtime_seconds"]);
-      $data["lengthstring"]  = $id3["playtime_string"];                     
+      $data["lengthstring"]  = $id3["playtime_string"]; 
+      
+      // Get metadata from asf files
+      if ( strtolower($id3["fileformat"]) == 'asf' )
+      {
+        if (file_ext($file) == 'dvr-ms') // created by Windows Media Center
+        {
+          // Synopsis including Subtitle
+          $data["synopsis"] = empty($id3["comments"]["subtitle"]) ? '' :'"'.array_last($id3["comments"]["subtitle"]).'" - ';
+          $data["synopsis"] = $data["synopsis"].array_last($id3["comments"]["subtitledescription"]);
+          if (substr(array_last($id3["comments"]["originalreleasetime"]),0,4) != '0001')
+            $data["year"]   = substr(array_last($id3["comments"]["originalreleasetime"]),0,4);
+          else
+            $data["year"]   = substr(array_last($id3["comments"]["mediaoriginalbroadcastdatetime"]),0,4);
+          $data["details_available"] = 'Y';
+
+          if (get_sys_pref('USE_ID3_ART','YES') == 'YES' && isset($id3["asf"]["extended_content_description_object"]["content_descriptors"][40]["data"]))
+          {
+            send_to_log(4,"Image found within ID3 tag - will use as video art");
+            $data["art_sha1"]  = sha1($id3["asf"]["extended_content_description_object"]["content_descriptors"][40]["data"]);
+           // Store media art if it doesn't already exist
+            if ( !db_value("select art_sha1 from media_art where art_sha1='".$data["art_sha1"]."'") )
+              db_insert_row('media_art',array("art_sha1"=>$data["art_sha1"], "image"=>addslashes($id3["asf"]["extended_content_description_object"]["content_descriptors"][40]["data"]) ));
+          }
+          else
+            $data["art_sha1"]  = null;
+        }
+        else 
+        {
+          // TODO: Other asf formats should be added here depending on what metadata they contain
+          send_to_log(8,'Found ID3:',$id3);
+        }
+      }
     }
     else
     {
@@ -649,7 +681,6 @@ function process_movie( $dir, $id, $file)
       foreach ($id3["error"] as $err)
         send_to_log(2,' - '.$err);
     }
-
   }
   else
     send_to_log(3,"GETID3 claims this is not a valid video: ".$id3["fileformat"]);
@@ -672,7 +703,19 @@ function process_movie( $dir, $id, $file)
     $success = db_insert_row( "movies", $data);
   }
   
-  if ( !$success )
+  if ( $success )
+  {
+    // Add additional info requiring file_id
+    $file_id = db_value("select file_id from movies where concat(dirname,filename)='".db_escape_str($dir.$file)."'");
+    if (file_ext($file) == 'dvr-ms')
+    {
+      $mediacredits = explode(';', $id3["comments"]["mediacredits"][0]);
+      scdb_add_actors   ($file_id, explode('/', $mediacredits[0]));
+      scdb_add_directors($file_id, explode('/', $mediacredits[1]));
+      scdb_add_genres   ($file_id, explode(',', $id3["comments"]["genre"][0]));
+    }
+  }
+  else
     send_to_log(1,'Unable to add/update movie to the database');
 }
 
