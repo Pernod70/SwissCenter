@@ -139,11 +139,11 @@
           // (if media is not physically moved to new location then it will be removed during next scan)
           $table = db_value("select mt.media_table from media_types mt, media_locations ml 
                               where ml.media_type = mt.media_id and ml.location_id=$id");
-          $dir_old = db_escape_str(db_value("select name from media_locations where location_id=$id"));
+          $dir_old = db_value("select name from media_locations where location_id=$id");
           foreach ( db_toarray("select file_id, dirname from $table where location_id=$id") as $row)
           {
             $dir_new = str_replace($dir_old, $dir, $row["DIRNAME"]);
-            db_sqlcommand("update $table set dirname='$dir_new' where file_id=".$row["FILE_ID"]);
+            db_sqlcommand("update $table set dirname='".db_escape_str($dir_new)."' where file_id=".$row["FILE_ID"]);
           }
         }
         else
