@@ -80,7 +80,7 @@
     // Only converts URI's using the "file://" system
     if ( strpos($url,'file://') !== false)
     {
-      $url = str_replace('\\','/',urldecode($url));
+      $url = str_replace('\\','/',rawurldecode($url));
       $url = substr($url, strpos($url,'://')+3);
       $url = substr($url, strpos($url,'/')+1);
     }
@@ -124,7 +124,7 @@
 
   function process_itunes_track( $values)
   {
-    $fsp = path_from_file_url($values["Location"]);
+    $fsp = utf8_decode(path_from_file_url($values["Location"]));
     $location_id = db_value("select location_id from media_locations where instr('".db_escape_str($fsp)."',name)>0 and media_type=1");
     $swiss_id = db_value("select file_id from mp3s where dirname='".db_escape_str(dirname($fsp))."/' and filename='".db_escape_str(basename($fsp))."'");
     
@@ -182,7 +182,6 @@
     {
       xml_set_element_handler($xmlparser, "start_tag", "end_tag"); 
       xml_set_character_data_handler($xmlparser, "tag_contents"); 
-      xml_parser_set_option($xml_parser, XML_OPTION_TARGET_ENCODING, "UTF-8");
       
       // Read and process XML file
       $fp = fopen($filename, "r");
