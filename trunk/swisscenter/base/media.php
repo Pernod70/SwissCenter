@@ -324,17 +324,19 @@ function process_mp3( $dir, $id, $file)
       $data["artist"]       = array_last($id3["comments"]["artist"]);
       $data["album"]        = array_last($id3["comments"]["album"]);
       $data["year"]         = array_last($id3["comments"]["year"]);
-      $data["track"]        = array_last($id3["comments"]["tracknum"]);
-      $data["disc"]         = array_last($id3["id3v2"]["TPOS"][0]["data"]);
+      $data["track"]        = isset($id3["comments"]["tracknum"]) ? array_last($id3["comments"]["tracknum"]) : array_last($id3["comments"]["track"]);
+      $data["disc"]         = isset($id3["id3v2"]["TPOS"][0]["data"]) ? array_last($id3["id3v2"]["TPOS"][0]["data"]) : array_last($id3["comments"]["partofset"]);
       $data["genre"]        = array_last($id3["comments"]["genre"]);
-      $data["band"]         = array_last($id3["comments"]["band"]);
-      if (get_sys_pref('USE_ID3_ART','YES') == 'YES' && isset($id3["id3v2"]["APIC"][0]["data"]))
+      $data["band"]         = isset($id3["comments"]["band"]) ? array_last($id3["comments"]["band"]) : array_last($id3["comments"]["albumartist"]);
+      
+      if (get_sys_pref('USE_ID3_ART','YES') == 'YES' && (isset($id3["id3v2"]["APIC"][0]["data"]) || isset($id3["asf"]["comments"]["picture"])))
       {
         send_to_log(4,"Image found within ID3 tag - will use as album art");
-        $data["art_sha1"]   = sha1($id3["id3v2"]["APIC"][0]["data"]);
+        $image = isset($id3["id3v2"]["APIC"][0]["data"]) ? $id3["id3v2"]["APIC"][0]["data"] : $id3["asf"]["comments"]["picture"];
+        $data["art_sha1"]   = sha1($image);
         // Store media art if it doesn't already exist
         if ( !db_value("select art_sha1 from media_art where art_sha1='".$data["art_sha1"]."'") )
-          db_insert_row('media_art',array("art_sha1"=>$data["art_sha1"], "image"=>addslashes($id3["id3v2"]["APIC"][0]["data"]) ));
+          db_insert_row('media_art',array("art_sha1"=>$data["art_sha1"], "image"=>addslashes($image) ));
       }
       else
         $data["art_sha1"]   = null;
@@ -656,13 +658,13 @@ function process_movie( $dir, $id, $file)
             $data["year"]   = substr(array_last($id3["comments"]["mediaoriginalbroadcastdatetime"]),0,4);
           $data["details_available"] = 'Y';
 
-          if (get_sys_pref('USE_ID3_ART','YES') == 'YES' && isset($id3["asf"]["extended_content_description_object"]["content_descriptors"][40]["data"]))
+          if (get_sys_pref('USE_ID3_ART','YES') == 'YES' && isset($id3["asf"]["comments"]["picture"]))
           {
             send_to_log(4,"Image found within ID3 tag - will use as video art");
-            $data["art_sha1"]  = sha1($id3["asf"]["extended_content_description_object"]["content_descriptors"][40]["data"]);
+            $data["art_sha1"]  = sha1($id3["asf"]["comments"]["picture"]);
            // Store media art if it doesn't already exist
             if ( !db_value("select art_sha1 from media_art where art_sha1='".$data["art_sha1"]."'") )
-              db_insert_row('media_art',array("art_sha1"=>$data["art_sha1"], "image"=>addslashes($id3["asf"]["extended_content_description_object"]["content_descriptors"][40]["data"]) ));
+              db_insert_row('media_art',array("art_sha1"=>$data["art_sha1"], "image"=>addslashes($id3["asf"]["comments"]["picture"]) ));
           }
           else
             $data["art_sha1"]  = null;
