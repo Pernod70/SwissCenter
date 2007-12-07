@@ -736,7 +736,7 @@ class getid3_asf
 
 							case 'wm/albumartist':
 							case 'artist':
-								$thisfile_asf_comments['artist'] = array($this->TrimTerm($thisfile_asf_extendedcontentdescriptionobject_contentdescriptor_current['value']));
+								$thisfile_asf_comments['albumartist'] = array($this->TrimTerm($thisfile_asf_extendedcontentdescriptionobject_contentdescriptor_current['value']));
 								break;
 
 							case 'wm/albumtitle':
@@ -749,16 +749,21 @@ class getid3_asf
 								$thisfile_asf_comments['genre'] = array($this->TrimTerm($thisfile_asf_extendedcontentdescriptionobject_contentdescriptor_current['value']));
 								break;
 
+						  case 'wm/partofset':
+								$thisfile_asf_comments['partofset'] = array($this->TrimTerm($thisfile_asf_extendedcontentdescriptionobject_contentdescriptor_current['value']));
+								break;
+								
 							case 'wm/tracknumber':
 							case 'tracknumber':
-								$thisfile_asf_comments['track'] = array(intval($this->TrimTerm($thisfile_asf_extendedcontentdescriptionobject_contentdescriptor_current['value'])));
+								$thisfile_asf_comments['track'] = array($this->TrimTerm($thisfile_asf_extendedcontentdescriptionobject_contentdescriptor_current['value']));
 								break;
 
 							case 'wm/track':
-								if (empty($thisfile_asf_comments['track'])) {
-									$thisfile_asf_comments['track'] = array(1 + $this->TrimConvert($thisfile_asf_extendedcontentdescriptionobject_contentdescriptor_current['value']));
-								}
-								break;
+							  $thisfile_asf_comments['tracknum'] = array(1 + $this->TrimConvert($thisfile_asf_extendedcontentdescriptionobject_contentdescriptor_current['value']));
+								if (strstr($thisfile_asf_comments['tracknum'], '/')) {
+					        list($thisfile_asf_comments['tracknum'], $thisfile_asf_comments['totaltracks']) = explode('/', $thisfile_asf_comments['tracknum']);
+				        }
+							  break;
 
 							case 'wm/year':
 							case 'year':
@@ -834,6 +839,7 @@ class getid3_asf
 								$thisfile_asf_extendedcontentdescriptionobject_contentdescriptor_current['dataoffset'] = $wm_picture_offset;
 								$thisfile_asf_extendedcontentdescriptionobject_contentdescriptor_current['data'] = substr($thisfile_asf_extendedcontentdescriptionobject_contentdescriptor_current['value'], $wm_picture_offset);
 								unset($thisfile_asf_extendedcontentdescriptionobject_contentdescriptor_current['value']);
+								$thisfile_asf_comments['picture'] = $thisfile_asf_extendedcontentdescriptionobject_contentdescriptor_current['data'];
 
 								break;
 
