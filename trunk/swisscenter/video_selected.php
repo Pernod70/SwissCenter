@@ -30,14 +30,9 @@
 
     // Synopsis
     if ( !is_null($info["SYNOPSIS"]) )
-    {
-      
-      echo '<p>'.font_tags(30).shorten($info["SYNOPSIS"],$synlen).'</font>';
-    }
+      echo '<p>'.font_tags(32).shorten($info["SYNOPSIS"],$synlen).'</font>';
     else 
-      echo font_tags(30).str('NO_SYNOPSIS_AVAILABLE').'</font>';
-      
-      
+      echo '<p>'.font_tags(32).str('NO_SYNOPSIS_AVAILABLE').'</font>';
   }
   
   // Function that checks to see if the given attribute ($filter) is unique, and if so it
@@ -88,9 +83,11 @@
                     left outer join genres g on gom.genre_id = g.genre_id".
                     get_rating_join().
                     ' where 1=1 ';  
-  $select_fields = "file_id, dirname, filename, title location_id, certificate";
+  $select_fields = "file_id, dirname, filename, title, year, length";
   $predicate     = search_process_passed_params();
-  $file_ids      = db_col_to_list("select media.file_id from movies media ".get_rating_join()." where 1=1 $predicate");
+  $file_ids      = db_col_to_list("select distinct media.file_id from $sql_table $predicate");
+  $playtime      = db_value("select sum(length) from movies where file_id in (".implode(',',$file_ids).")");
+  $num_unique    = db_value("select count( distinct synopsis) from movies where file_id in (".implode(',',$file_ids).")");
   $num_rows      = db_value("select count( distinct media.file_id) from $sql_table $predicate");
   $this_url      = url_set_param(current_url(),'add','N');
   $cert_img      = '';
@@ -100,7 +97,7 @@
   // on the screen, along with commands to "Play Now" or "Add to Playlist".
   //
     
-  if ($num_rows == 1)
+  if ($num_rows == 1 || $num_unique == 1)
   {    
     // Single match, so get the details from the database and display them
     if ( ($data = db_toarray("select media.*, a.actor_name, d.director_name, g.genre_name, ".get_cert_name_sql()." certificate_name from $sql_table $predicate")) === false)
@@ -112,7 +109,7 @@
       page_header( $data[0]["TITLE"] );
 
     // Play now
-    $menu->add_item( str('PLAY_NOW')    , play_sql_list(MEDIA_TYPE_VIDEO,"select distinct $select_fields from $sql_table $predicate order by title"));
+    $menu->add_item( str('PLAY_NOW')    , play_sql_list(MEDIA_TYPE_VIDEO,"select distinct $select_fields from $sql_table $predicate order by title, filename"));
 
     // Resume playing
     if ( support_resume() && file_exists( bookmark_file($data[0]["DIRNAME"].$data[0]["FILENAME"]) ))
@@ -120,15 +117,15 @@
         
     // Add to your current plpaylist
     if (pl_enabled())
-      $menu->add_item( str('ADD_PLAYLIST') ,'add_playlist.php?sql='.rawurlencode("select distinct $select_fields from movies where file_id=".$data[0]["FILE_ID"]),true);
+      $menu->add_item( str('ADD_PLAYLIST') ,'add_playlist.php?sql='.rawurlencode("select distinct $select_fields from $sql_table $predicate order by title, filename"),true);
 
     // Add a link to search wikipedia
     if (internet_available() && get_sys_pref('wikipedia_lookups','YES') == 'YES' )
       $menu->add_item( str('SEARCH_WIKIPEDIA'), lang_wikipedia_search( ucwords(strip_title($data[0]["TITLE"])) ) ,true);
       
-    // TO-DO
     // Link to full cast & directors
-    // $menu->add_item( str('MOVIE_INFO'), 'video_info.php?movie='.$data[0]["FILE_ID"],true);
+    if ($data[0]["DETAILS_AVAILABLE"] == 'Y')
+      $menu->add_item( str('VIDEO_INFO'), 'video_info.php?movie='.$data[0]["FILE_ID"],true);
     
     // Display thumbnail
     $folder_img = file_albumart($data[0]["DIRNAME"].$data[0]["FILENAME"]);
@@ -145,7 +142,7 @@
     // More than one track matches, so output filter details and menu options to add new filters
     page_header( str('MANY_ITEMS',$num_rows),'');
 
-    if ( ($data = db_toarray("select dirname from $sql_table $predicate group by dirname")) === false )
+    if ( ($data = db_toarray("select file_id, dirname from $sql_table $predicate group by dirname")) === false )
       page_error( str('DATABASE_ERROR') );
 
     if ( count($data)==1)
@@ -154,10 +151,10 @@
     $info->add_item( str('TITLE')       , distinct_info('title',$sql_table, $predicate));
     $info->add_item( str('YEAR')        , distinct_info('year',$sql_table, $predicate));
     $info->add_item( str('CERTIFICATE') , distinct_info(/*'certificate'*/get_cert_name_sql(),$sql_table, $predicate));
-    $menu->add_item( str('PLAY_NOW')    , play_sql_list(MEDIA_TYPE_VIDEO,"select distinct $select_fields from $sql_table $predicate order by title"));
+    $menu->add_item( str('PLAY_NOW')    , play_sql_list(MEDIA_TYPE_VIDEO,"select distinct $select_fields from $sql_table $predicate order by title, filename"));
 
     if (pl_enabled())
-      $menu->add_item( str('ADD_PLAYLIST') ,'add_playlist.php?sql='.rawurlencode("select distinct $select_fields from $sql_table $predicate order by title"),true);
+      $menu->add_item( str('ADD_PLAYLIST') ,'add_playlist.php?sql='.rawurlencode("select distinct $select_fields from $sql_table $predicate order by title, filename"),true);
 
     check_filters( array('title','year','certificate','genre_name','actor_name','director_name'), $sql_table, $predicate, $menu);
 
@@ -165,7 +162,7 @@
   }
 
   // Delete media (limited to a small number of files)
-  if (is_user_admin() && count($data)<=8 )
+  if (is_user_admin() && $num_rows<=8 )
     $menu->add_item( str('DELETE_MEDIA'), 'video_delete.php?del='.implode(',',$file_ids),true);    
 
   // Certificate? Get the appropriate image.
@@ -181,7 +178,11 @@
               '.img_gen($folder_img,280,550).'<br><center>'.$cert_img.'</center>
               </td><td width="'.convert_x(20).'"></td>
               <td valign="top">';
+              // Movie synopsis
               movie_details($data[0]["FILE_ID"]);
+              // Running Time
+    if (!is_null($playtime))
+      echo   '<p>'.font_tags(32).str('RUNNING_TIME').': '.hhmmss($playtime).'</font>';
               $menu->display(1, 480);
     echo '    </td></table>';
   }
