@@ -482,6 +482,27 @@ function set_var( &$var, $value )
 		return true;
 	}
 }
+
+/**
+ * Find position of last occurrence of a string in a string.
+ * This is similar to the PHP5 function strripos.
+ *
+ * @param string $string
+ * @param string $searchFor
+ * @param string $startFrom
+ * @return integer
+ */
+function strrpos_str($string, $searchFor, $startFrom = 0) 
+{ 
+  $addLen = strlen ($searchFor);
+  $endPos = $startFrom - $addLen;
+  while (true)
+  {
+    if (($newPos = strpos ($string, $searchFor, $endPos + $addLen)) === false) break;
+    $endPos = $newPos;
+  }
+  return ($endPos >= 0) ? $endPos : false;
+}
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/

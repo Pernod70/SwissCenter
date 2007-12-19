@@ -156,6 +156,7 @@
           db_sqlcommand("delete from mp3s where location_id=$id");
           db_sqlcommand("delete from movies where location_id=$id");
           db_sqlcommand("delete from photos where location_id=$id");
+          db_sqlcommand("delete from tv where location_id=$id");
         }
         
         db_sqlcommand("update media_locations set name='$dir',media_type=$type_id,cat_id=$cat_id,unrated=$cert 
@@ -188,6 +189,7 @@
         db_sqlcommand("delete from mp3s where location_id=$id");
         db_sqlcommand("delete from movies where location_id=$id");
         db_sqlcommand("delete from photos where location_id=$id");
+        db_sqlcommand("delete from tv where location_id=$id");
       }
 
       dirs_display(str('MEDIA_LOC_DEL_OK'));

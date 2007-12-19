@@ -94,6 +94,9 @@
   if ( is_movie_check_enabled() )
     extra_get_all_movie_details();
   
+  if ( is_tv_check_enabled() )
+    extra_get_all_tv_details();
+  
   remove_orphaned_records();
   remove_orphaned_movie_info();
   eliminate_duplicates();
