@@ -781,7 +781,7 @@ function get_tvseries_info( $fsp )
   
   // Convert periods to spaces?
   if ( get_sys_pref('TVSERIES_CONVERT_DOTS_TO_SPACES','NO') == 'YES' )
-    $fsp = str_replace('.',' ',$str);
+    $fsp = str_replace('.',' ',$fsp);
 
   // Try all the patterns, stopping as soon as a successful match is made.
   foreach ($exprs as $pattern)
@@ -819,7 +819,7 @@ function get_tvseries_info( $fsp )
 
 function process_tv( $dir, $id, $file)
 {
-  send_to_log(4,'New TV episode found : '.$file);
+  send_to_log(4,'Found TV episode : '.$file);
   $types    = array('riff','mpeg');
   $data     = array();
   $getID3   = new getID3;

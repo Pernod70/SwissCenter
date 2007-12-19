@@ -154,6 +154,20 @@
     db_sqlcommand("update movies set year=null, details_available='N', match_pc=null, certificate=null, synopsis=null where file_id = $movie_id");
   }
   
+  /**
+   * Function to remove all details from the database regarding the specified tv show
+   *
+   * @param integer $tv_id
+   */
+  
+  function purge_tv_details( $tv_id )
+  {
+    db_sqlcommand("delete from actors_in_tv where tv_id = $tv_id ");
+    db_sqlcommand("delete from directors_of_tv where tv_id = $tv_id ");
+    db_sqlcommand("delete from genres_of_tv where tv_id = $tv_id ");
+    db_sqlcommand("update tv set title=null, year=null, details_available='N', synopsis=null where file_id = $tv_id");
+  }
+  
   // ----------------------------------------------------------------------------------------
   // This function gets the movie details for all movies in the database where the 
   // details_available flag is not set. (ie: no lookup has taken place).
@@ -168,7 +182,7 @@
       // Only try to update movie information for categories that have it enabled, and where the details_available column is null.
       $data = db_toarray("select file_id
                                , concat(dirname,filename) fsp
-                               , filename title
+                               , title
                             from movies m, media_locations ml, categories c
                            where m.location_id = ml.location_id
                              and ml.cat_id = c.cat_id
@@ -185,28 +199,70 @@
       send_to_log(4,'Online movie check is DISABLED');
   }   
 
+  // ----------------------------------------------------------------------------------------
+  // This function gets the tv show details for all tv shows in the database where the 
+  // details_available flag is not set. (ie: no lookup has taken place).
+  // ----------------------------------------------------------------------------------------
+
+  function extra_get_all_tv_details ()
+  {
+    if ( is_tv_check_enabled() )
+    {
+      send_to_log(4,'Checking online for extra tv information from '.file_noext(get_sys_pref('tv_info_script','')));
+
+      // Only try to update tv information where the details_available column is null.
+      $data = db_toarray("select file_id
+                               , concat(dirname,filename) fsp
+                               , programme
+                               , episode
+                               , series
+                            from tv t, media_locations ml, categories c
+                           where t.location_id = ml.location_id
+                             and ml.cat_id = c.cat_id
+                             and t.details_available is null
+                             and  c.download_info = 'Y' ");
+    
+      // Process each tv show
+      foreach ($data as $row)
+        extra_get_tv_details( $row["FILE_ID"], $row["FSP"], $row["PROGRAMME"], $row["SERIES"], $row["EPISODE"] );
+          
+      send_to_log(4,'Online tv show check complete');
+    }
+    else 
+      send_to_log(4,'Online tv show check is DISABLED');
+  }   
 
   // ----------------------------------------------------------------------------------------
-  // Determine which movie database the user has requested that we use.
+  // Determine which movie and tv database the user has requested that we use.
   // ----------------------------------------------------------------------------------------
 
   $parser_dir = realpath( dirname(__FILE__).'/ext/parsers' );
 
   if ( isset($_REQUEST["parser"]) && !empty($_REQUEST["parser"]) )
   {
-    $inc_file=$_REQUEST["parser"];
+    $inc_parser_file=$_REQUEST["parser"];
+    
+    // Include the requested parser file
+    send_to_log(4,'Including parser file '.$parser_dir.'/'.$inc_parser_file);
+    require_once( $parser_dir.'/'.$inc_parser_file );
   }
   else 
   {
-    $inc_file   = get_sys_pref('movie_info_script','www.dvdloc8.com.php');
-    if ( !file_exists($parser_dir.'/'.$inc_file) )
-      $inc_file = 'www.dvdloc8.com.php';
+    $inc_movie_file   = get_sys_pref('movie_info_script','movie_www.dvdloc8.com.php');
+    if ( !file_exists($parser_dir.'/'.$inc_movie_file) )
+      $inc_movie_file = 'movie_www.dvdloc8.com.php';
+      
+    $inc_tv_file   = get_sys_pref('tv_info_script','tv_www.epguides.com.php');
+    if ( !file_exists($parser_dir.'/'.$inc_tv_file) )
+      $inc_tv_file = 'tv_www.dvdloc8.com.php';
+
+    // Include the appropriate files
+    send_to_log(4,'Including movie parser file '.$parser_dir.'/'.$inc_movie_file);
+    require_once( $parser_dir.'/'.$inc_movie_file );
+    send_to_log(4,'Including tv parser file '.$parser_dir.'/'.$inc_tv_file);
+    require_once( $parser_dir.'/'.$inc_tv_file );
   }
 
-  // Include the appropriate file
-  send_to_log(4,'Including parser file '.$parser_dir.'/'.$inc_file);
-  require_once( $parser_dir.'/'.$inc_file );
-  
   /**************************************************************************************************
                                                End of file
  **************************************************************************************************/
