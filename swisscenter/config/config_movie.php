@@ -215,10 +215,7 @@ function movie_display( $message = '')
 
   // Changing List type?
   if (!empty($_REQUEST["list"]) )
-  {
     set_sys_pref('CONFIG_VIDEO_LIST',$_REQUEST["list"]);
-    echo $_REQUEST["list"];
-  }
 
     // Extra filters on the media (for categories and search).
   if (!empty($_REQUEST["cat_id"]) )
@@ -228,7 +225,7 @@ function movie_display( $message = '')
     $where .= "and m.title like '%$_REQUEST[search]%' ";
     
   // If the user has changed category, then shunt them back to page 1.
-  if ($_REQUEST["last_where"] != $where)
+  if (un_magic_quote($_REQUEST["last_where"]) != $where)
   {
     $page = 1;
     $start = 0;
@@ -251,7 +248,7 @@ function movie_display( $message = '')
         <input type=hidden name="action" value="DISPLAY">
         <input type=hidden name="last_where" value="'.$where.'">
         '.str('CATEGORY').' : 
-        '.form_list_dynamic_html("cat_id","select cat_id,cat_name from categories order by cat_name",$_REQUEST["cat_id"],true,true,str('CATEGORY_LIST_ALL')).'&nbsp;
+        '.form_list_dynamic_html("cat_id","select distinct c.cat_id,c.cat_name from categories c left join media_locations ml on c.cat_id=ml.cat_id where ml.media_type=3 order by c.cat_name",$_REQUEST["cat_id"],true,true,str('CATEGORY_LIST_ALL')).'&nbsp;
         <a href="'.url_set_param($this_url,'list','LIST').'"><img align="absbottom" border="0"  src="/images/details.gif"></a>
         <a href="'.url_set_param($this_url,'list','THUMBS').'"><img align="absbottom" border="0" src="/images/thumbs.gif"></a>  
         </td><td width"50%" align="right">

@@ -41,6 +41,11 @@ function remove_orphaned_records()
                  ' using movies left outer join media_locations  '.
                  '    on media_locations.location_id = movies.location_id  '.
                  ' where media_locations.location_id is null');
+                 
+  @db_sqlcommand('delete from tv '.
+                 ' using tv left outer join media_locations  '.
+                 '    on media_locations.location_id = tv.location_id  '.
+                 ' where media_locations.location_id is null');
   
   @db_sqlcommand('delete from photos '.
                  ' using photos left outer join media_locations '.
@@ -60,20 +65,43 @@ function remove_orphaned_records()
 
 function remove_orphaned_movie_info()
 {
-  @db_sqlcommand('delete from actors '.
-                 ' using actors left outer join actors_in_movie '.
-                 '    on actors.actor_id = actors_in_movie.actor_id '.
-                 ' where actors_in_movie.actor_id is null');  
+  @db_sqlcommand('delete from actors_in_movie '.
+                 ' using actors_in_movie left outer join movies '.
+                 '    on actors_in_movie.movie_id = movies.file_id '.
+                 ' where movies.file_id is null');  
 
-  @db_sqlcommand('delete from genres '.
-                 ' using genres left outer join genres_of_movie '.
-                 '    on genres.genre_id = genres_of_movie.genre_id '.
-                 ' where genres_of_movie.genre_id is null');  
+  @db_sqlcommand('delete from genres_of_movie '.
+                 ' using genres_of_movie left outer join movies '.
+                 '    on genres_of_movie.movie_id = movies.file_id '.
+                 ' where movies.file_id is null');  
 
-  @db_sqlcommand('delete from directors '.
-                 ' using directors left outer join directors_of_movie '.
-                 '    on directors.director_id = directors_of_movie.director_id '.
-                 ' where directors_of_movie.director_id is null');  
+  @db_sqlcommand('delete from directors_of_movie '.
+                 ' using directors_of_movie left outer join movies '.
+                 '    on directors_of_movie.movie_id = movies.file_id '.
+                 ' where movies.file_id is null');  
+}
+
+/**
+ * Removes orphaned actors, directors and genres from the tv tables.
+ *
+ */
+
+function remove_orphaned_tv_info()
+{
+  @db_sqlcommand('delete from actors_in_tv '.
+                 ' using actors_in_tv left outer join tv '.
+                 '    on actors_in_tv.tv_id = tv.file_id '.
+                 ' where tv.file_id is null');  
+
+  @db_sqlcommand('delete from genres_of_tv '.
+                 ' using genres_of_tv left outer join tv '.
+                 '    on genres_of_tv.tv_id = tv.file_id '.
+                 ' where tv.file_id is null');  
+
+  @db_sqlcommand('delete from directors_of_tv '.
+                 ' using directors_of_tv left outer join tv '.
+                 '    on directors_of_tv.tv_id = tv.file_id '.
+                 ' where tv.file_id is null');  
 }
 
 /**

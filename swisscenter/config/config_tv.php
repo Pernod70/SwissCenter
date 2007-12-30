@@ -29,9 +29,9 @@ function tv_display_info(  $message = '' )
   // Get actor/director/genre lists
   $tv_id       = $_REQUEST["tv_id"];
   $details     = db_toarray("select * from tv where file_id=".$tv_id);
-  $actors      = db_toarray("select actor_name name from actors a, actors_in_tv aim where aim.actor_id = a.actor_id and tv_id=".$tv_id);
-  $directors   = db_toarray("select director_name name from directors d, directors_of_tv dom where dom.director_id = d.director_id and tv_id=".$tv_id);
-  $genres      = db_toarray("select genre_name name from genres g, genres_of_tv gom where gom.genre_id = g.genre_id and tv_id=".$tv_id);
+  $actors      = db_toarray("select actor_name name from actors a, actors_in_tv ait where ait.actor_id = a.actor_id and tv_id=".$tv_id);
+  $directors   = db_toarray("select director_name name from directors d, directors_of_tv dot where dot.director_id = d.director_id and tv_id=".$tv_id);
+  $genres      = db_toarray("select genre_name name from genres g, genres_of_tv got where got.genre_id = g.genre_id and tv_id=".$tv_id);
   $filename    = $details[0]["DIRNAME"].$details[0]["FILENAME"];
   $sites_list  = get_parsers_list();
   $exists_js   = '';
@@ -89,10 +89,12 @@ function tv_display_info(  $message = '' )
           echo $name["NAME"].'<br>';
               
   echo '<br>&nbsp;</td></tr></tr><tr>
+          <th>'.str('CERTIFICATE').'</th>
           <th>'.str('YEAR').'</th>
           <th>'.str('VIEWED_BY').'</th>
         </tr><tr>
-          <td valign=top>'.$details[0]["YEAR"].'&nbsp;</td><td>';
+          <td valign=top>'.get_cert_name(get_nearest_cert_in_scheme($details[0]["CERTIFICATE"])).'&nbsp;</td>
+          <td valign=top>'.$details[0]["YEAR"].'</td><td>';
 
   foreach ( db_toarray("select * from users order by name") as $row)
     if (viewings_count(6, $details[0]["FILE_ID"], $row["USER_ID"])>0)
@@ -165,20 +167,46 @@ function tv_display_list($tv_list)
                                  and tv_id=$tv[FILE_ID] order by 1");
     $genres    = db_col_to_list("select genre_name from genres g, genres_of_tv got where g.genre_id = got.genre_id 
                                  and tv_id=$tv[FILE_ID] order by 1");
+    $cert      = db_value("select name from certificates where cert_id=".nvl($tv["CERTIFICATE"],-1));
 
     echo '<table class="form_select_tab" width="100%"><tr>
           <td valign="top" width="4%"><input type="checkbox" name="tv[]" value="'.$tv["FILE_ID"].'"></input></td>
           <td valign="top" width="33%">
-             <a href="?section=tv&action=display_info&tv_id='.$tv["FILE_ID"].'">'.$tv["PROGRAMME"].'</a><br>
+             <a href="?section=tv&action=display_info&tv_id='.$tv["FILE_ID"].'">'.$tv["PROGRAMME"].' - '.$tv["TITLE"].'</a><br>
              Series : '.nvl($tv["SERIES"]).'<br>
              Episode : '.nvl($tv["EPISODE"]).'<br>
              Year : '.nvl($tv["YEAR"]).'<br>
+             Certificate : '.nvl($cert).'<br>
            </td>
            <td valign="top" width="21%">'.nvl(implode("<br>",$actors)).'</td>
            <td valign="top" width="21%">'.nvl(implode("<br>",$directors)).'</td>
            <td valign="top" width="21%">'.nvl(implode("<br>",$genres)).'</td>
           </tr></table>';  	
   }
+}
+
+function tv_display_thumbs($tv_list)
+{
+  $cnt = 0;
+
+  foreach ($tv_list as $tv)
+  {
+    if ($cnt++ % 4 == 0)
+    {
+      echo '<table class="form_select_tab" width="100%"><tr>'.$thumb_html.'</tr><tr>'.$title_html.'</table>';
+      $thumb_html = '';
+      $title_html = '';
+    }
+    
+    $img_url     = img_gen(file_albumart($tv["DIRNAME"].$tv["FILENAME"]) ,130,400,false,false,false,array('hspace'=>0,'vspace'=>4) );    
+    $edit_url    = '?section=tv&action=display_info&tv_id='.$tv["FILE_ID"];
+    $thumb_html .= '<td valign="top"><input type="checkbox" name="tv[]" value="'.$tv["FILE_ID"].'"></input></td>
+                    <td valign="middle"><a href="'.$edit_url.'">'.$img_url.'</a></td>';
+    $title_html .= '<td width="25%" colspan="2" align="center" valign="middle"><a href="'.$edit_url.'">'.$tv["PROGRAMME"].' - '.$tv["TITLE"].(empty($tv["EPISODE"]) ? '' : str('EPISODE_SUFFIX',$tv["EPISODE"])).'</a></td>';    
+  }
+
+  // and last row...
+  echo '<table class="form_select_tab" width="100%"><tr>'.$thumb_html.'</tr><tr>'.$title_html.'</table>';
 }
 
 // ----------------------------------------------------------------------------------
@@ -196,12 +224,19 @@ function tv_display( $message = '')
   if (empty($message) && isset($_REQUEST["message"]))
     $message = urldecode($_REQUEST["message"]);
 
-  // Extra filters on the media (for search).
+  // Changing List type?
+  if (!empty($_REQUEST["list"]) )
+    set_sys_pref('CONFIG_VIDEO_LIST',$_REQUEST["list"]);
+    
+  // Extra filters on the media (for categories and search).
+  if (!empty($_REQUEST["cat_id"]) )
+    $where .= "and ml.cat_id = $_REQUEST[cat_id] ";
+ 
   if (!empty($_REQUEST["search"]) )
     $where .= "and t.programme like '%$_REQUEST[search]%' ";
     
   // If the user has changed category, then shunt them back to page 1.
-  if ($_REQUEST["last_where"] != $where)
+  if (un_magic_quote($_REQUEST["last_where"]) != $where)
   {
     $page = 1;
     $start = 0;
@@ -223,6 +258,10 @@ function tv_display( $message = '')
         <input type=hidden name="section" value="TV">
         <input type=hidden name="action" value="DISPLAY">
         <input type=hidden name="last_where" value="'.$where.'">
+        '.str('CATEGORY').' : 
+        '.form_list_dynamic_html("cat_id","select distinct c.cat_id,c.cat_name from categories c left join media_locations ml on c.cat_id=ml.cat_id where ml.media_type=6 order by c.cat_name",$_REQUEST["cat_id"],true,true,str('CATEGORY_LIST_ALL')).'&nbsp;
+        <a href="'.url_set_param($this_url,'list','LIST').'"><img align="absbottom" border="0"  src="/images/details.gif"></a>
+        <a href="'.url_set_param($this_url,'list','THUMBS').'"><img align="absbottom" border="0" src="/images/thumbs.gif"></a>  
         </td><td width"50%" align="right">
         '.str('SEARCH').' : 
         <input name="search" value="'.$_REQUEST["search"].'" size=10>
@@ -235,7 +274,10 @@ function tv_display( $message = '')
 
   paginate($this_url,$tv_count,$per_page,$page);
 
-  tv_display_list($tv_list);
+  if ($list_type == 'THUMBS')
+    tv_display_thumbs($tv_list);
+  else
+    tv_display_list($tv_list);
           
   paginate($this_url,$tv_count,$per_page,$page);
 
@@ -274,8 +316,8 @@ function tv_clear_details()
     db_sqlcommand('delete from actors_in_tv where tv_id = '.$value);
     db_sqlcommand('delete from directors_of_tv where tv_id = '.$value);
     db_sqlcommand('delete from genres_of_tv where tv_id = '.$value);
-    db_sqlcommand('update tv set year=null where file_id = '.$value);
-//    remove_orphaned_tv_info();
+    db_sqlcommand('update tv set year=null,certificate=null where file_id = '.$value);
+    remove_orphaned_tv_info();
     scdb_remove_orphans();
     $cleared = true;
   }
@@ -362,9 +404,13 @@ function tv_update_form_single()
         </tr><tr>
           <td colspan="3">'.form_text_html('synopsis',90,6,$details[0]["SYNOPSIS"],true).'</td>
         </tr><tr>
+          <th>'.str('CERTIFICATE').'</th>
           <th>'.str('YEAR').'</th>
           <th>'.str('VIEWED_BY').'</th>
         </tr><tr>
+          <td>
+          '.form_list_dynamic_html("rating",get_cert_list_sql(),$details[0]["CERTIFICATE"],true).'
+          </td>
           <td><input name="year" size="6" value="'.$details[0]["YEAR"].'"></td>
           <td>';
   
@@ -425,8 +471,12 @@ function tv_update_form_multiple( $tv_list )
         </tr><tr>
           <td colspan="3">'.form_text_html('synopsis',65,3,'',true).'</td>
         </tr><tr>
+          <th>'.str('CERTIFICATE').'</th>
           <th>'.str('YEAR').'</th>
         </tr><tr>
+          <td>
+          '.form_list_dynamic_html("rating",get_cert_list_sql(),'',true).'
+          </td>
           <td><input name="year" size="6"></td>
         </tr></table>
         <p align="center"><input type="submit" value="'.str('MOVIE_ADD_BUTTON').'">
@@ -459,10 +509,18 @@ function tv_update_multiple()
   
   if (!empty($_REQUEST["year"]))
     $columns["YEAR"] = $_REQUEST["year"];
+  if (!empty($_REQUEST["rating"]))
+    $columns["CERTIFICATE"] = $_REQUEST["rating"];
   if (!empty($_REQUEST["synopsis"]))
     $columns["SYNOPSIS"] = $_REQUEST["synopsis"];
+  if (!empty($_REQUEST["programme"]))
+    $columns["PROGRAMME"] = $_REQUEST["programme"];
   if (!empty($_REQUEST["title"]))
     $columns["TITLE"] = $_REQUEST["title"];
+  if (!empty($_REQUEST["series"]))
+    $columns["SERIES"] = $_REQUEST["series"];
+  if (!empty($_REQUEST["episode"]))
+    $columns["EPISODE"] = $_REQUEST["episode"];
 
   // Update the TV table?
   if (count($columns)>0)
@@ -535,7 +593,7 @@ function tv_info( $message = "")
   
   if (!empty($_REQUEST["refresh"]))
   {
-    db_sqlcommand('update tv set year = null, details_available = null, synopsis = null');
+    db_sqlcommand('update tv set year = null, certificate = null, details_available = null, synopsis = null');
     db_sqlcommand('delete from directors_of_tv');
     db_sqlcommand('delete from actors_in_tv');
     db_sqlcommand('delete from genres_of_tv');
@@ -552,6 +610,7 @@ function tv_info( $message = "")
   echo '<p><b>'.str('MOVIE_EXTRA_DL_TITLE').'</b>
         <p>'.str('MOVIE_EXTRA_DL_PROMPT');
   form_list_static('site',str('MOVIE_EXTRA_SITE_PROMPT'),$sites_list,get_sys_pref('tv_info_script','movie_dvdloc8.php'),false,false,false);
+  form_list_dynamic('scheme',str('RATING_SCHEME_PROMPT'),get_rating_scheme_list_sql(),get_rating_scheme_name(),false,false,null);
   form_radio_static('downloads',str('STATUS'),$list,get_sys_pref('tv_check_enabled','YES'),false,true);
   form_submit(str('SAVE_SETTINGS'),2,'left',240);
   form_end();
