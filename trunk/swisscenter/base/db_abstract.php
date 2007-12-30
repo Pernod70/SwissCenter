@@ -227,29 +227,20 @@
   
   function scdb_remove_orphans ()
   {
-    $actors    = db_toarray("select a.actor_id
-                             from actors a left outer join actors_in_movie aim on (a.actor_id = aim.actor_id)
-                             where movie_id is null;");
-    
-    $actors    = array_merge($actors, db_toarray("select a.actor_id
-                             from actors a left outer join actors_in_tv ait on (a.actor_id = ait.actor_id)
-                             where tv_id is null;"));
+    $actors    = db_toarray("select a.actor_id from actors a 
+                             left outer join actors_in_movie aim on (a.actor_id = aim.actor_id)
+                             left outer join actors_in_tv ait on (a.actor_id = ait.actor_id)
+                             where movie_id is null and tv_id is null;");
 
-    $directors = db_toarray("select d.director_id
-                          from directors d left outer join directors_of_movie dom on (d.director_id = dom.director_id)
-                          where movie_id is null;");
-    
-    $directors = array_merge($directors, db_toarray("select d.director_id
-                          from directors d left outer join directors_of_tv dot on (d.director_id = dot.director_id)
-                          where tv_id is null;"));
+    $directors = db_toarray("select d.director_id from directors d 
+                             left outer join directors_of_movie dom on (d.director_id = dom.director_id)
+                             left outer join directors_of_tv dot on (d.director_id = dot.director_id)
+                             where movie_id is null and tv_id is null;");
 
-    $genres    = db_toarray("select g.genre_id
-                             from genres g left outer join genres_of_movie gom on (g.genre_id = gom.genre_id)
-                             where movie_id is null;");
-    
-    $genres    = array_merge($genres, db_toarray("select g.genre_id
-                             from genres g left outer join genres_of_tv got on (g.genre_id = got.genre_id)
-                             where tv_id is null;"));
+    $genres    = db_toarray("select g.genre_id from genres g 
+                             left outer join genres_of_movie gom on (g.genre_id = gom.genre_id)
+                             left outer join genres_of_tv got on (g.genre_id = got.genre_id)
+                             where movie_id is null and tv_id is null;");
 
     foreach ($actors as $row)
       db_sqlcommand("delete from actors where actor_id = ".$row["ACTOR_ID"],false);
