@@ -131,9 +131,12 @@ function tvid( $code )
           break;
          
     case 'NETGEAR':
-          $map = array( 'KEY_A'     => 'green'
-                      , 'KEY_B'     => 'red'
-                      , 'KEY_C'     => 'yellow' );
+          $map = array( 'KEY_A'     => 'play'
+                      , 'KEY_B'     => 'setup'
+                      , 'KEY_C'     => 'blue'
+                      , 'MUSIC'     => 'green'
+                      , 'MOVIE'     => 'red'
+                      , 'PHOTO'     => 'yellow' );
           break;
   }
 
@@ -167,7 +170,7 @@ function quick_access_img( $position )
          $map = array('QUICK_FAST_REWIND','QUICK_FAST_FORWARD','QUICK_NEXT');
          break;
     case 'NETGEAR':
-         $map = array('QUICK_NGR_GREEN','QUICK_NGR_RED','QUICK_NGR_YELLOW');
+         $map = array('QUICK_NGR_A','QUICK_NGR_B','QUICK_NGR_C');
          break;   
 
     default:
