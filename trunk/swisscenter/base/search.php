@@ -87,7 +87,10 @@ function  search_media_page( $heading, $title, $media_type, $joined_tables, $col
   
   // Should we delete the last entry on the history stack?
   if (isset($_REQUEST["del"]) && strtoupper($_REQUEST["del"]) == 'Y')
+  {
     search_hist_pop();
+    search_picker_pop();
+  }
 
   // Get important paramters from the URL
   $this_url       = url_set_param(current_url(),'del','N');
@@ -130,6 +133,10 @@ function  search_media_page( $heading, $title, $media_type, $joined_tables, $col
   else
     $valid = '';
 
+  // Remove last picker state (del='N' if we have not arrived here from another page) 
+  if (isset($_REQUEST["del"]) && strtoupper($_REQUEST["del"]) == 'N')
+    search_picker_pop();
+    
   // Start outputting the page
   page_header( $heading, $title.' : '.$search, '', $focus );
   echo '<table border=0 width="100%"><tr><td width="'.convert_x(300).'" valign="top">';
@@ -202,13 +209,17 @@ function search_process_passed_params()
     set_user_pref('shuffle',$_REQUEST["shuffle"]);
   }
 
+  // Add page to history, otherwise pop picker
   if (isset($_REQUEST["add"]) && strtoupper($_REQUEST["add"]) == 'Y')
   {
-    $hist_url  = url_add_param(current_url(),'p_del','Y');
-    $hist_url  = url_set_param($hist_url,'add','N');
+    $hist_url  = url_set_param(current_url(),'add','N');
     search_hist_push( $hist_url , $predicate );
   }
-
+  else
+  {
+    search_picker_pop();
+  }
+  
   return $predicate;
 }
 
