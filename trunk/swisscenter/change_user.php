@@ -13,11 +13,11 @@
     
     echo '<center>'.str('SELECT_USER').'</center><p>';
 
-    $sql = "SELECT user_id, name FROM users";
+    $condition = "";
     if(is_user_selected())
-      $sql = $sql." WHERE user_id <> ".get_current_user_id();
+      $condition = " WHERE user_id <> ".get_current_user_id();
       
-    $data = db_toarray($sql);
+    $data = db_toarray("SELECT user_id, name FROM users $condition order by name");
 
     if($data !== false)
     {
@@ -62,10 +62,16 @@
   function change_user($user_id, $pin = null)
   {
     // Change user and let them know
-    $ok = change_current_user_id($user_id, $pin);
+    $last = get_current_user_id();
+    $ok   = change_current_user_id($user_id, $pin);
+    
     if($ok)
     {
-      page_inform(2,"index.php",str('USER_CHANGE'),str('USER_CHANGED'));
+      // Only confirm the user was changed if we are switching user
+      if ($last !== false)
+        page_inform(2,"index.php",str('USER_CHANGE'),str('USER_CHANGED'));
+      else
+        header('Location: index.php');
     }
     else
       page_inform(2,"index.php",str('USER_CHANGE'),str('PIN_INCORRECT'));
