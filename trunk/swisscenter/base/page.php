@@ -285,7 +285,7 @@ function debug()
 
 // Log details of the page request
 send_to_log(1,"------------------------------------------------------------------------------");
-send_to_log(1,"Page Requested : ".current_url());
+send_to_log(1,"Page Requested : ".current_url()." by client (".client_ip().")");
 
 // If in design mode, then we want to force loading of styles and/or language strings.
 if ( get_sys_pref('CACHE_STYLE_DETAILS','YES') == 'NO' )

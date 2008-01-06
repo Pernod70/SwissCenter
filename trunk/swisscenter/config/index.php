@@ -96,16 +96,15 @@
   	  $menu->add_item(str('ART_FILES_TITLE')        ,'section=ART&action=DISPLAY');
   	  $menu->add_item(str('BROWSE_OPTIONS')         ,'section=BROWSE&action=DISPLAY');
   	  $menu->add_item(str('CACHE_CONFIG_TITLE')     ,'section=CACHE&action=DISPLAY');
-	  $menu->add_item(str('CONNECT_TITLE')          ,'section=CONNECT&action=DISPLAY');
+	    $menu->add_item(str('CONNECT_TITLE')          ,'section=CONNECT&action=DISPLAY');
   	  $menu->add_item(str('MISC_TITLE')             ,'section=MISC&action=DISPLAY');
-  	  
-  	  $menu->add_item(str('SUPPORT_TITLE')          ,'section=SUPPORT&action=DISPLAY');
-  
+  	    
       $menu->add_menu(str('EXPERT_OPTIONS'));
   	  $menu->add_item(str('EXPERT_EDIT_DB')         ,'section=EXPERT&action=RUNSQL');
   	  $menu->add_item(str('EXPERT_EDIT_PREFS')      ,'section=EXPERT&action=SYSPREFS');
 
       $menu->add_menu(str('INFORMATION'));
+  	  $menu->add_item(str('SUPPORT_TITLE')          ,'section=SUPPORT&action=DISPLAY');
   	  $menu->add_item(str('PRIVACY_POLICY')         ,'section=PRIVACY&action=DISPLAY');
   	  $menu->add_item(str('LICENSE')                ,'section=LICENSE&action=DISPLAY');
 	}

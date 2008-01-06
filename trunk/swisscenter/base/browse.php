@@ -339,7 +339,7 @@
   // Ouputs all the details for browsing the files/dirs listed in the database and
   // choosing an individual file.
   //
-  // NOTE: £sql_table should be of the form "from <tablename> where <conditions>"
+  // NOTE: $sql_table should be of the form "from <tablename> where <conditions>"
   // ----------------------------------------------------------------------------------
 
   function browse_db($heading, $sql_table, $back_url, $media_type = 0 )
