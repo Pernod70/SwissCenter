@@ -5,7 +5,8 @@
 
   require_once( realpath(dirname(__FILE__).'/base/search.php'));
 
-  $column    = $_REQUEST["sort"];
+  $column        = $_REQUEST["sort"];
+  $joined_tables = get_rating_join().viewed_join(MEDIA_TYPE_MUSIC);
 
   switch ($column)
   {
@@ -21,7 +22,7 @@
       break;
   }
 
-  search_media_page( str('LISTEN_MUSIC'), $title, MEDIA_TYPE_MUSIC, '', $column, 'music_selected.php');
+  search_media_page( str('LISTEN_MUSIC'), $title, MEDIA_TYPE_MUSIC, $joined_tables , $column, 'music_selected.php');
 
 /**************************************************************************************************
                                                End of file

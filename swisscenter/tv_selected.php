@@ -14,9 +14,16 @@
   $view_status    = $_REQUEST["view_status"];
   $page           = nvl($_REQUEST["page"],1);
   $predicate      = get_rating_filter().category_select_sql($_REQUEST["cat"], MEDIA_TYPE_TV);
-  $series         = db_col_to_list("select distinct series from tv media ".get_rating_join()." where programme = '$programme' $predicate order by 1");
-  $current_series = nvl($_REQUEST["series"], $series[0]["SERIES"]);
+
+  $series         = db_col_to_list("select distinct series 
+                                      from tv media ".get_rating_join().viewed_join(MEDIA_TYPE_TV)." 
+                                     where programme = '$programme' $predicate.".
+                                           viewed_n_times_predicate( ($view_status == 'unviewed' ? '=' : '>='),0)."
+                                  order by 1");
+
+  $current_series = (in_array($_REQUEST["series"], $series) ? $_REQUEST["series"] : $series[0]);
   $this_url       = current_url();
+
   $episodes       = db_toarray("select *
                                   from tv media ".get_rating_join().viewed_join(MEDIA_TYPE_TV)."
                                  where programme = '$programme'".(empty($current_series) ? "" : " 
