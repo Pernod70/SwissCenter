@@ -11,13 +11,23 @@
    Main page output
  *************************************************************************************************/
 
-  $movie_id = $_REQUEST["movie"];
-  
   // Get actor/director/genre lists
-  $info      = db_toarray("select * from movies where file_id=$movie_id");
-  $directors = db_col_to_list("select d.director_name name from directors_of_movie dom, directors d where dom.director_id = d.director_id and dom.movie_id=$movie_id");
-  $actors    = db_col_to_list("select a.actor_name name from actors_in_movie aim, actors a where aim.actor_id = a.actor_id and aim.movie_id=$movie_id");
-  $genres    = db_col_to_list("select g.genre_name name from genres_of_movie gom, genres g where gom.genre_id = g.genre_id and gom.movie_id=$movie_id");
+  if (isset($_REQUEST["tv"]))
+  {
+    $tv_id = $_REQUEST["tv"];
+    $info      = db_toarray("select * from tv where file_id=$tv_id");
+    $directors = db_col_to_list("select d.director_name name from directors_of_tv dot, directors d where dot.director_id = d.director_id and dot.tv_id=$tv_id");
+    $actors    = db_col_to_list("select a.actor_name name from actors_in_tv ait, actors a where ait.actor_id = a.actor_id and ait.tv_id=$tv_id");
+    $genres    = db_col_to_list("select g.genre_name name from genres_of_tv got, genres g where got.genre_id = g.genre_id and got.tv_id=$tv_id");
+  }
+  else
+  {
+    $movie_id = $_REQUEST["movie"];
+    $info      = db_toarray("select * from movies where file_id=$movie_id");
+    $directors = db_col_to_list("select d.director_name name from directors_of_movie dom, directors d where dom.director_id = d.director_id and dom.movie_id=$movie_id");
+    $actors    = db_col_to_list("select a.actor_name name from actors_in_movie aim, actors a where aim.actor_id = a.actor_id and aim.movie_id=$movie_id");
+    $genres    = db_col_to_list("select g.genre_name name from genres_of_movie gom, genres g where gom.genre_id = g.genre_id and gom.movie_id=$movie_id");
+  }
   
   // Save the previous page
   $history = search_hist_most_recent();
