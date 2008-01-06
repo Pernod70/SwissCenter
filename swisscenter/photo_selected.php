@@ -24,7 +24,17 @@
   $this_url   = url_set_param(current_url(),'add','N');
   $play_order = get_user_pref('PHOTO_PLAY_ORDER','filename');
   $delay      = get_user_pref('PHOTO_PLAY_TIME',5);
+  $music      = nvl($_SESSION["background_music"],'*'); // default to the current playlist
+  
+  // What do we output to the user when it comes to describing the currently selected background music?
+  if ($music == '')
+    $music_txt = str('PHOTOS_MUSIC_NONE');
+  elseif ($music='*')
+    $music_txt = str('PHOTOS_MUSIC_CURRENT');
+  else
+    $music_txt = $music; 
 
+  // Work out what to display
   if ($count == 1)
   {
     $pic   = array_pop(db_toarray("select * from $sql_table $predicate"));
@@ -60,6 +70,7 @@
     $info->add_item(str('PHOTOS_NO_SELECTED')  , $count);
     $info->add_item(str('PHOTOS_TIME_ONE')     , $delay.' Seconds');
     $info->add_item(str('PHOTOS_TIME_ALL')     , hhmmss($delay * $count));
+    $info->add_item(str('PHOTOS_MUSIC_INFO')   , $music_txt);
 
     switch ($play_order)
     {
@@ -86,10 +97,12 @@
     // Expand to parent album
   }
 
+    $menu->add_item(str('PHOTOS_MUSIC_CHANGE'), 'photo_change_music.php', true);
+  
   if ($count >1)
   {
-    $menu->add_item( str('PHOTO_CHANGE_ORDER'), 'photo_change_order.php', true);
     $menu->add_item( str('PHOTO_CHANGE_TIME'), 'photo_change_time.php', true);
+    $menu->add_item( str('PHOTO_CHANGE_ORDER'), 'photo_change_order.php', true);
   }
 
   // Display Page

@@ -180,8 +180,11 @@
 
   // Retrieve the tracklist, and the index (idx) of the item to stream.
   send_to_log(1,'Stream request');
-  $tracks = get_tracklist();
-  $idx    = $_REQUEST["idx"];
+  
+  $tracklist    = nvl($_REQUEST["tracklist"],'');
+  $tracks       = get_tracklist($tracklist);
+  $idx          = $_REQUEST["idx"];
+  
   $_SESSION["LAST_RESPONSE_IDX"] = $idx;
   
   $server       = server_address();

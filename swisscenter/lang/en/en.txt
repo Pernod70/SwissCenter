@@ -848,6 +848,11 @@ FILTER_VIEWED_PLAYED        = Partially or completely played
 FILTER_VIEWED_FINISHED      = Completely played
 FILTER_ACTIVE_SUFFIX        = (active)
 
+PHOTOS_MUSIC_INFO           = Background music
+PHOTOS_MUSIC_CHANGE         = Change background music
+PHOTOS_MUSIC_NONE           = None
+PHOTOS_MUSIC_CURRENT        = Current playlist
+
 #----------------------------------------------------------------------------------------------------
 # End-of-file
 #----------------------------------------------------------------------------------------------------

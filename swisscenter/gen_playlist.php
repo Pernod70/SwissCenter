@@ -27,9 +27,10 @@
 */
 
   // Generate the playlist based on the values passed as part of the request
-  generate_tracklist( $_REQUEST["seed"], ($_SESSION["shuffle"] == "on"), $_REQUEST["spec_type"], $_REQUEST["spec"], $_REQUEST["media_type"]);
+  $tracklist = nvl($_REQUEST["tracklist"],'');
+  generate_tracklist( $_REQUEST["seed"], ($_SESSION["shuffle"] == "on"), $_REQUEST["spec_type"], $_REQUEST["spec"], $_REQUEST["media_type"], $tracklist);
 
-  $data       = get_tracklist();                            
+  $data       = get_tracklist($tracklist);                            
   $server     = server_address();
   $max_size   = max_playlist_size();
   $resume     = (isset($_REQUEST["resume"]) && $_REQUEST["resume"] == 'Y');
@@ -79,7 +80,7 @@
       $url = $server.make_url_path(ucfirst($row["DIRNAME"]).$row["FILENAME"]);
     }
     else
-      $url = $server.'stream.php?'.current_session().'&media_type='.$media_type.'&idx='.$item_count.'&ext=.'.file_ext($row["FILENAME"]);
+      $url = $server.'stream.php?'.current_session().'&tracklist='.$tracklist.'&media_type='.$media_type.'&idx='.$item_count.'&ext=.'.file_ext($row["FILENAME"]);
     
     // Build up the playlist row to send to the player, including the title of the movie (for the on-screen display)
     $title = rtrim(nvl( $row["TITLE"] , file_noext(basename($row["FILENAME"])) ));
