@@ -18,11 +18,17 @@
   // Decode & assign page parameters to variables.
   $history = search_hist_most_recent();
   $cert_img = '';
+  switch ($_REQUEST["media_type"])
+  {
+    case MEDIA_TYPE_TV    : $media_table = 'tv'    ; break;
+    case MEDIA_TYPE_VIDEO :
+    default               : $media_table = 'movies'; break;
+  }
   
   if (isset($_REQUEST["del"]))
   {
     // Get the file details from the database
-    if ( ($data = db_toarray("select dirname, filename, title, year, certificate from movies where file_id in (".$_REQUEST["del"].")")) === false)
+    if ( ($data = db_toarray("select dirname, filename, title, year, certificate from $media_table where file_id in (".$_REQUEST["del"].")")) === false)
       page_error( str('DATABASE_ERROR'));
 
     if (!empty($data[0]["YEAR"]))
@@ -31,7 +37,7 @@
       page_header( $data[0]["TITLE"] );
 
     // Delete options
-    $menu->add_item( str('YES'), 'video_delete.php?delete='.$_REQUEST["del"]);
+    $menu->add_item( str('YES'), 'video_delete.php?delete='.$_REQUEST["del"].'&media_type='.$_REQUEST["media_type"]);
     $menu->add_item( str('NO'), url_add_param( $history["url"] ,'del','y'));
     
     // Display thumbnail
@@ -41,7 +47,7 @@
   elseif (isset($_REQUEST["delete"]))
   {
     // Get the file details from the database
-    if ( ($data = db_toarray("select file_id, dirname, filename from movies where file_id in (".$_REQUEST["delete"].")")) === false)
+    if ( ($data = db_toarray("select file_id, dirname, filename from $media_table where file_id in (".$_REQUEST["delete"].")")) === false)
       page_error( str('DATABASE_ERROR'));
       
     foreach ($data as $row)
@@ -54,7 +60,7 @@
       }
     
       // Remove media from database
-      db_sqlcommand("delete from movies where file_id=".$row['FILE_ID']);
+      db_sqlcommand("delete from $media_table where file_id=".$row['FILE_ID']);
     }
     remove_orphaned_movie_info();
 

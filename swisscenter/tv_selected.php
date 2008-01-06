@@ -22,7 +22,7 @@
                                   order by 1");
 
   $current_series = (in_array($_REQUEST["series"], $series) ? $_REQUEST["series"] : $series[0]);
-  $this_url       = current_url();
+  $this_url       = url_set_param(current_url(),'del','N');
 
   $episodes       = db_toarray("select *
                                   from tv media ".get_rating_join().viewed_join(MEDIA_TYPE_TV)."
@@ -30,7 +30,13 @@
                                    and series = $current_series $predicate").
                                        viewed_n_times_predicate( ($view_status == 'unviewed' ? '=' : '>='),0)."
                               order by episode");
-
+               
+  // Should we delete the last entry on the history stack?
+  if (isset($_REQUEST["del"]) && strtoupper($_REQUEST["del"]) == 'Y')
+    search_hist_pop();
+  
+  search_hist_push( $this_url , $predicate );
+    
   if ( $view_status == 'unviewed')
     $buttons[] = array('text'=>str('VIEW_ALL'), 'url'=> url_set_param($this_url,'view_status','all') );
   else 
@@ -59,11 +65,13 @@
   foreach ($episodes as $ep)
   {
     $viewed = viewed_icon(viewings_count( MEDIA_TYPE_TV, $ep["FILE_ID"]));
-    $menu->add_item( "$ep[TITLE] ".(empty($ep["EPISODE"]) ? '' : str('EPISODE_SUFFIX',$ep["EPISODE"])), play_file( MEDIA_TYPE_TV, $ep["FILE_ID"]), false, $viewed);
+    $menu->add_item( "$ep[TITLE] ".(empty($ep["EPISODE"]) ? '' : str('EPISODE_SUFFIX',$ep["EPISODE"])), url_add_params('/tv_episode_selected.php', array("file_id"=>$ep["FILE_ID"],"add"=>"Y")), false, $viewed);
   }
 
-  $menu->display_page( $page );
-  page_footer( search_picker_most_recent(), $buttons );
+  if ($menu->num_items() > 0)
+    $menu->display_page( $page );
+    
+  page_footer( url_add_params( search_picker_most_recent(), array("p_del"=>"y","del"=>"y") ), $buttons );
 
 /**************************************************************************************************
                                                End of file
