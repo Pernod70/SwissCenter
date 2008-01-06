@@ -9,16 +9,19 @@
   require_once( realpath(dirname(__FILE__).'/az_picker.php'));
   require_once( realpath(dirname(__FILE__).'/rating.php'));
   require_once( realpath(dirname(__FILE__).'/media.php'));
+  require_once( realpath(dirname(__FILE__).'/filter.php'));
   
 #-------------------------------------------------------------------------------------------------
 # Functions for managing the search history.
 #-------------------------------------------------------------------------------------------------
 
-function search_hist_init( $url, $sql )
+function search_hist_init( $url = '', $sql = '')
 {
   $_SESSION["picker"]  = array();
   $_SESSION["history"] = array();
-  $_SESSION["history"][] = array("url"=> $url, "sql"=>$sql);
+  
+  if (!empty($url))
+    $_SESSION["history"][] = array("url"=> $url, "sql"=>$sql);
 }
 
 function search_picker_init( $url )
@@ -104,32 +107,40 @@ function  search_media_page( $heading, $title, $media_type, $joined_tables, $col
 
   // variables that form the SQL statement
   $main_table     = get_media_table($media_type);
-  $main_table_sql = "$main_table media ".get_rating_join();
+  $main_table_sql = "$main_table media ";
   $restrict_sql   = "$column like '$prefix".db_escape_str(str_replace('_','\_',$search))."%' $history[sql]";
   
-  $viewed_sql     = "select concat( sum(if(viewings.total_viewings>0,1,0)),':',count(*) ) view_status
-                     from $main_table_sql $joined_tables
-                     left outer join viewings on (media.file_id = viewings.media_id and viewings.media_type= $media_type)";
+  $viewed_sql     = "select concat( sum(if(v.total_viewings>0,1,0)),':',count(*) ) view_status
+                     from $main_table_sql $joined_tables";
 
   // Adding necessary paramters to the target URL (for when an item is selected)
   $choose_url = url_set_param($choose_url,'add','Y');
   $choose_url = url_set_param($choose_url,'type',$column);
 
   // Get the matching records from the database.
-  $data       = db_toarray("   select distinct $column display 
+  $data       = db_toarray("   select $column display 
                                  from $main_table_sql $joined_tables
                                 where $column != '0' and $restrict_sql 
+                             group by $column
+                               having ".viewed_status_predicate( filter_get_name() )."
                              order by 1 limit ".(($page*MAX_PER_PAGE)).",".MAX_PER_PAGE);
   
-  $num_rows   = db_value("     select count(distinct $column) 
-                                 from $main_table_sql $joined_tables
-                                where $column != '0' and $restrict_sql");
-  
+  $num_rows   = count(db_toarray("     select $column
+                                         from $main_table_sql $joined_tables
+                                        where $column != '0' and $restrict_sql
+                                     group by $column
+                                       having ".viewed_status_predicate( filter_get_name()) ));
+
   if ( $data === false || $num_rows === false)
     page_error(str('DATABASE_ERROR'));
     
   if ($prefix == '')
-    $valid = strtoupper(join(db_col_to_list(" select distinct substring($column,".(strlen($search)+1).",1) display from $main_table_sql $joined_tables where $column !='0' and $restrict_sql order by 1")));
+    $valid = strtoupper(join(db_col_to_list(" select distinct upper(substring($column,".(strlen($search)+1).",1)) display 
+                                                from $main_table_sql $joined_tables 
+                                               where $column !='0' and $restrict_sql 
+                                            group by $column
+                                              having ".viewed_status_predicate( filter_get_name() )."
+                                            order by 1")));
   else
     $valid = '';
 

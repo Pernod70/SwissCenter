@@ -9,19 +9,20 @@
   $menu = new menu();
   $current = current_url();
   
-  page_header(str('FILTER'));  
+  page_header( filter_text());  
   switch ($_REQUEST["option"])
   {
     case 'viewed':
       if (empty($_REQUEST["value"]))
       {
-        $menu->add_item( str('FILTER_VIEWED_NONE'), url_set_param($current,'value','none'), true);
-        $menu->add_item( str('FILTER_VIEWED_PART'), url_set_param($current,'value','part'), true);
-        $menu->add_item( str('FILTER_VIEWED_COMPLETE'), url_set_param($current,'value','all'), true);
+        $menu->add_item( str('FILTER_VIEWED_NONE'),        url_set_param($current,'value','none'), true);
+        $menu->add_item( str('FILTER_VIEWED_NOTFINISHED'), url_set_param($current,'value','notcomplete'), true);
+        $menu->add_item( str('FILTER_VIEWED_PLAYED'),      url_set_param($current,'value','started'), true);
+        $menu->add_item( str('FILTER_VIEWED_FINISHED'),    url_set_param($current,'value','complete'), true);
       }
       else 
       {
-        filter_set( str('FILTER_VIEWED'), '');
+        filter_set("viewed:".$_REQUEST["value"]);
         header('Location: '.urldecode($_REQUEST["return"]));
       }
       break;
@@ -61,7 +62,7 @@
       break;      
       
     default:
-//      $menu->add_item( str('FILTER_VIEWED'), url_set_param($current,'option','viewed'), true);
+      $menu->add_item( str('FILTER_VIEWED'), url_set_param($current,'option','viewed'), true);
 //      $menu->add_item( str('FILTER_POPULAR'), url_set_param($current,'option','popular'), true);
       $menu->add_item( str('RECENTLY_ADDED'), url_set_param($current,'option','date'), true);
       $menu->add_item( str('REMOVE_FILTER'), url_set_param($current,'option','none'), true);

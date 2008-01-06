@@ -12,7 +12,8 @@
                     left outer join actors_in_movie aim      on media.file_id   = aim.movie_id
                     left outer join actors a                 on aim.actor_id    = a.actor_id
                     left outer join directors d              on dom.director_id = d.director_id
-                    left outer join genres g                 on gom.genre_id    = g.genre_id';
+                    left outer join genres g                 on gom.genre_id    = g.genre_id'.
+                    get_rating_join().viewed_join(MEDIA_TYPE_VIDEO);
   
   switch ($column)
   {
@@ -30,8 +31,8 @@
       break;
   }
 
-  search_media_page( str('WATCH_MOVIE'), $title, MEDIA_TYPE_VIDEO, $joined_tables, $column, 'video_selected.php')
-
+  search_media_page( str('WATCH_MOVIE'), $title, MEDIA_TYPE_VIDEO, $joined_tables, $column, 'video_selected.php');
+  
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/

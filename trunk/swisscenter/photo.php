@@ -62,7 +62,7 @@
     
     $buttons = array();
     $buttons[] = array('text' => str('QUICK_PLAY'),'url'  => quick_play_link(MEDIA_TYPE_PHOTO,$_SESSION["history"][0]["sql"]));
-    $buttons[] = array('text' => str('FILTER'),'url'  => 'get_filter.php?return='.urlencode('photo.php?cat='.$cat_id));
+    $buttons[] = array('text' => filter_text(),'url'  => 'get_filter.php?return='.urlencode('photo.php?cat='.$cat_id));
 
     // Make sure the "back" button goes to the correct page:
     if (category_count(MEDIA_TYPE_PHOTO)==1)
