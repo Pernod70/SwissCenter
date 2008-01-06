@@ -17,7 +17,7 @@
     else
       search_hist_init( 'photo.php?cat='.$cat_id, category_select_sql($cat_id, 2).get_rating_filter().filter_get_predicate() );
 
-    if ($cat_id < 0)
+    if ($cat_id <= 0)
       $prev_page = "photo.php?subcat=".abs($cat_id);
     else
       $prev_page = "photo.php?subcat=".db_value("select parent_id from categories where cat_id=$cat_id");
@@ -57,7 +57,7 @@
     } 
     else
     {
-      $menu->display();
+      $menu->display(1, style_value("MENU_PHOTO_WIDTH"), style_value("MENU_PHOTO_ALIGN"));
     }
     
     $buttons = array();
@@ -75,7 +75,7 @@
    Main page output
  *************************************************************************************************/
 
-  page_header(str('VIEW_PHOTO'),'');
+  page_header(str('VIEW_PHOTO'), '','',1,false,'',MEDIA_TYPE_PHOTO);
 
   if( category_count(MEDIA_TYPE_PHOTO)==1 || isset($_REQUEST["cat"]) )
     display_photo_menu($_REQUEST["cat"]);

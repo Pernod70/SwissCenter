@@ -68,10 +68,10 @@
  if (empty($_REQUEST["by_genre"]) && empty($_REQUEST["by_country"]))
  {
    // Select Browse Type
-   page_header(str('IRADIO_SEARCH'));
+   page_header(str('IRADIO_SEARCH') , '','',1,false,'',MEDIA_TYPE_RADIO);
    $menu->add_item(str('BROWSE_GENRE'), url_add_param($current_url,'by_genre','1') );
    $menu->add_item(str('BROWSE_COUNTRY'), url_add_param($current_url,'by_country','1') );
-   $menu->display();   
+   $menu->display(1, style_value("MENU_RADIO_WIDTH"), style_value("MENU_RADIO_ALIGN"));
    page_footer('music_radio.php');
  }
  else

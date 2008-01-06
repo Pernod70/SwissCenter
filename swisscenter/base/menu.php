@@ -204,9 +204,10 @@ class menu
    * Displays the menu
    *
    * @param integer $size - (0-1000) Width of the menu on screen.
+   * @param string  $align - center, left, right.
    */
   
-  function display( $tvid = 1, $size=650 )
+  function display( $tvid = 1, $size=650, $align="center" )
   {
     $num_cols    = 1;
     $font_open   = font_tags($this->font_size);
@@ -238,7 +239,7 @@ class menu
 
     
     // Start the table definition to contain the menu
-    echo '<center><table cellspacing="3" cellpadding="3" border="0">';
+    echo '<center><table align="'.$align.'" cellspacing="3" cellpadding="3" border="0">';
 
     // Link to previous page
     $this->private_nav_cell($left_icons+1, $num_cols, up_link($this->up));    
