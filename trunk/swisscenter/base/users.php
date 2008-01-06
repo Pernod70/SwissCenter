@@ -32,6 +32,32 @@ function get_current_user_name()
 }
 
 /**
+ * Returns the last user that was logged on to the system
+ *
+ * @return integer - User ID (or false if there was no *valid* last user
+ */
+
+function get_last_user()
+{
+  $user_id = get_sys_pref('LAST_USER');
+  if ( db_value("select count(*) from users where user_id = $user_id") != 0)
+    return $user_id;
+  else 
+    return false;
+}
+
+/**
+ * Sets the last user that was logged on to the system
+ *
+ * @param integer $user_id - User ID
+ */
+
+function set_last_user( $user_id )
+{
+  set_sys_pref('LAST_USER',$user_id);  
+}
+
+/**
  * Sets the current user to the ID given provided the supplied PIN is correct.
  *
  * @param integer $user_id - User to make current
@@ -46,7 +72,7 @@ function change_current_user_id($user_id, $pin = null)
   
   if($ok)
   {
-    set_sys_pref('LAST_USER',$user_id);
+    set_last_user( $user_id );
     $_SESSION["CURRENT_USER"] = $user_id;
     load_style();
   }

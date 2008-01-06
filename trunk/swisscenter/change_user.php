@@ -81,8 +81,7 @@
    Main page
  *************************************************************************************************/
 
-  // if there isn't a user selected already, then use the system parameter LAST_USER to decide
-  // which style to use.
+  // if there isn't a user selected already, then use the style for the last valid user to be logged on.
   if (!is_user_selected())
     load_style(get_sys_pref('LAST_USER'));
 
