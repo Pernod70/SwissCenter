@@ -55,7 +55,7 @@ function find_media_in_db( $fsp, &$media_type, &$file_id)
  * @param enum $media_type - Only required for (dir|file) types. (MEDIA_TYPE_MUSIC, etc)
  */
 
-function generate_tracklist( $seed, $shuffle, $spec_type, $spec, $media_type = null)
+function generate_tracklist( $seed, $shuffle, $spec_type, $spec, $media_type = null, $tracklist_name = '')
 {
   $tracks = array();
   $details["seed"] = nvl($_REQUEST["seed"],0);
@@ -106,7 +106,10 @@ function generate_tracklist( $seed, $shuffle, $spec_type, $spec, $media_type = n
   if ($shuffle && count($tracks)>1 && $spec_type != 'dir')
     shuffle_fisherYates($tracks,$seed);
 
-  $_SESSION["current_playlist"] = array("spec" => $details, "tracks" => $tracks);
+  if ($tracklist_name == '')
+    $tracklist_name = 'current_playlist';
+
+  $_SESSION[$tracklist_name] = array("spec" => $details, "tracks" => $tracks);
   send_to_log(8,'Generated the following playlist', $_SESSION["current_playlist"]);
 }
 
@@ -114,9 +117,12 @@ function generate_tracklist( $seed, $shuffle, $spec_type, $spec, $media_type = n
 // Returns an array containing all the tracks in the currently playing tracklist
 //-------------------------------------------------------------------------------------------------
 
-function get_tracklist()
+function get_tracklist( $tracklist_name = '')
 {  
-  return $_SESSION["current_playlist"]["tracks"];
+  if ($tracklist_name == '')
+    $tracklist_name = 'current_playlist';
+    
+  return $_SESSION[$tracklist_name]["tracks"];
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -127,9 +133,29 @@ function slideshow_link_by_browser( $params )
 {  
   if (is_hardware_player())
   {
+    $bg_music_spec = nvl($_SESSION["background_music"],'*');
+    
+    // At the moment we only support the current playlist. However, in the future we will allow the
+    // user to specify a saved playlist.
+    if ($bg_music_spec != '')
+    {
+      if (count($_SESSION["playlist"]) > 0)
+      {
+        $audio = 'gen_playlist.php?tracklist=background&spec_type=playlist&'.current_session().'&seed='.mt_rand(); 
+        send_to_log(5,'Using current playlist as background music', $audio);
+      }
+      else 
+        $audio = 'MUTE';
+    }
+    else 
+    {
+      $audio = "MUTE";
+    }
+
+   
    // We send the href as MUTE becasue we don't want any music playing. Otherwise (I guess) we would
    // send a link to a page that generates a music playlist
-   $link .= 'href="MUTE" pod="1,1,'.server_address().'gen_photolist.php?'.$params.'" ';
+   $link .= 'href="'.$audio.'" pod="1,1,'.server_address().'gen_photolist.php?'.$params.'" ';
   }
   else 
   {
