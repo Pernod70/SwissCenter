@@ -93,7 +93,10 @@ class tv_series_picker extends list_picker
  * Initialise the search history, as this is a top-level search page.
  */
 
- search_hist_init();
+if(empty($_REQUEST["cat"]))
+  search_hist_init( 'tv.php', get_rating_filter().filter_get_predicate() );
+else
+  search_hist_init( 'tv.php?cat='.$_REQUEST["cat"], category_select_sql($_REQUEST["cat"], MEDIA_TYPE_TV).get_rating_filter().filter_get_predicate() );
 
 /**
  *  If the user has not selected a category, then display a page to select the appropriate category, otherwise
