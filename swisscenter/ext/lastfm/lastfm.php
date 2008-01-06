@@ -464,7 +464,7 @@
       return false;
     elseif (get_user_pref('LASTFM_PASSWORD') == '')
       return false;
-    elseif (get_sys_pref('LASTFM_ENABLED','YES') != 'YES')
+    elseif (get_sys_pref('LASTFM_ENABLED','NO') != 'YES')
       return false;
     else 
       return true;

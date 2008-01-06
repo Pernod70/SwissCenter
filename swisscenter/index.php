@@ -16,6 +16,14 @@
    */
   
   apply_database_patches();
+
+  /**
+   * Output the page header immediately, as it performs the authentication check and will redirect
+   * the user to the "change_user" screen if there are multiple users to choose from or a password
+   * is required.
+   */
+  
+  page_header( str('MAIN_MENU'));
   
   /**
    * Menu Items
@@ -62,7 +70,6 @@
    * Display the page content
    */
 
-  page_header( str('MAIN_MENU'));
   echo '<center>'.str('SELECT_OPTION').'</center><p>';
   $menu->display_page($page);  
   page_footer('', '', $icons);
