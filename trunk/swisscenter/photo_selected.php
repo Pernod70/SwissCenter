@@ -106,9 +106,9 @@
   }
 
   // Display Page
-  page_header(str('SLIDESHOW'),'');
+  page_header(str('SLIDESHOW'),'','',1,false,'',MEDIA_TYPE_PHOTO);
   $info->display();
-  $menu->display();
+  $menu->display(1, style_value("MENU_PHOTO_WIDTH"), style_value("MENU_PHOTO_ALIGN"));
 
   // Display ABC buttons
   page_footer( url_add_params( search_picker_most_recent(), array("p_del"=>"y","del"=>"y") ), $buttons );

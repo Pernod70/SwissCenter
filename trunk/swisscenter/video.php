@@ -17,7 +17,7 @@
     else
       search_hist_init( 'video.php?cat='.$cat_id, category_select_sql($cat_id, 3).get_rating_filter().filter_get_predicate() );
 
-    if ($cat_id < 0)
+    if ($cat_id <= 0)
       $prev_page = "video.php?subcat=".abs($cat_id);
     else
       $prev_page = "video.php?subcat=".db_value("select parent_id from categories where cat_id=$cat_id");
@@ -47,7 +47,7 @@
     } 
     else
     {
-      $menu->display();
+      $menu->display(1, style_value("MENU_VIDEO_WIDTH"), style_value("MENU_VIDEO_ALIGN"));
     }
     
     $buttons = array();
@@ -65,7 +65,7 @@
    Main page output
    *************************************************************************************************/
 
-  page_header( str('WATCH_MOVIE') ,'');
+  page_header( str('WATCH_MOVIE') , '','',1,false,'',MEDIA_TYPE_VIDEO);
   
   if( category_count(MEDIA_TYPE_VIDEO)==1 || isset($_REQUEST["cat"]) )
     display_video_menu($_REQUEST["cat"]);

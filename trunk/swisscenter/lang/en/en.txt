@@ -853,6 +853,9 @@ PHOTOS_MUSIC_CHANGE         = Change background music
 PHOTOS_MUSIC_NONE           = None
 PHOTOS_MUSIC_CURRENT        = Current playlist
 
+PC_LINK_TV                  = TV Shows
+PC_LINK_RADIO	              = Radio
+
 #----------------------------------------------------------------------------------------------------
 # End-of-file
 #----------------------------------------------------------------------------------------------------

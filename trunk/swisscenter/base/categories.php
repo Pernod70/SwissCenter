@@ -66,7 +66,36 @@
       else
         $menu->add_item($cats[$i]["CAT_NAME"], $next_page."?cat=".$cats[$i]["CAT_ID"], true);
     }
-    $menu->display();
+    
+    // Determine menu properties for this media type
+    switch ($media_type)
+    {
+      case MEDIA_TYPE_MUSIC :
+        $width = style_value("MENU_MUSIC_WIDTH");
+        $align = style_value("MENU_MUSIC_ALIGN");
+        break;
+      case MEDIA_TYPE_PHOTO :
+        $width = style_value("MENU_PHOTO_WIDTH");
+        $align = style_value("MENU_PHOTO_ALIGN");
+        break;
+      case MEDIA_TYPE_VIDEO :
+        $width = style_value("MENU_VIDEO_WIDTH");
+        $align = style_value("MENU_VIDEO_ALIGN");
+        break;
+      case MEDIA_TYPE_RADIO :
+        $width = style_value("MENU_RADIO_WIDTH");
+        $align = style_value("MENU_RADIO_ALIGN");
+        break;
+      case MEDIA_TYPE_TV    :
+        $width = style_value("MENU_TV_WIDTH");
+        $align = style_value("MENU_TV_ALIGN");
+        break;
+      default               :
+        $width = 650;
+        $align = 'center';
+    }
+    
+    $menu->display(1, $width, $align);
     
     // Make sure the "back" button goes to the correct page:
     if ($parent_id==0)

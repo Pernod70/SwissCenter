@@ -23,7 +23,7 @@
    * is required.
    */
   
-  page_header( str('MAIN_MENU'));
+  page_header( str('MAIN_MENU'),'','',1,false,'',0);
   
   /**
    * Menu Items
@@ -71,7 +71,7 @@
    */
 
   echo '<center>'.str('SELECT_OPTION').'</center><p>';
-  $menu->display_page($page);  
+  $menu->display_page($page, 1, style_value("MENU_INDEX_WIDTH"), style_value("MENU_INDEX_ALIGN"));  
   page_footer('', '', $icons);
   
   // Clear any active filters

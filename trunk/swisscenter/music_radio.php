@@ -20,9 +20,9 @@
   $menu->add_item(str('BOOKMARKS'), './music_radio_urls.php');
 
   // Display the page
-  page_header(str('LISTEN_RADIO'));
+  page_header(str('LISTEN_RADIO') , '','',1,false,'',MEDIA_TYPE_RADIO);
   echo '<center>'.str('SELECT_OPTION').'</center><p>';
-  $menu->display();
+  $menu->display(1, style_value("MENU_RADIO_WIDTH"), style_value("MENU_RADIO_ALIGN"));
   page_footer('./index.php');
 
 /**************************************************************************************************

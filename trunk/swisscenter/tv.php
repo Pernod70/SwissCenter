@@ -112,7 +112,7 @@ if( category_count(MEDIA_TYPE_TV) <= 1 || isset($_REQUEST["cat"]) )
 }
 else 
 {
-  page_header( str('WATCH_TV') ,'');
+  page_header( str('WATCH_TV') , '','',1,false,'',MEDIA_TYPE_TV);
   display_categories('tv.php', MEDIA_TYPE_TV );
 }  
 

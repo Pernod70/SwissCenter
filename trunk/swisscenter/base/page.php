@@ -64,7 +64,7 @@ function charset()
 // "main" area.
 //-------------------------------------------------------------------------------------------------
 
-function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth = false, $focus_colour = '')
+function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth = false, $focus_colour = '', $background = -1)
 {
   // Check if the user has been selected and prompt for logon if needed
   if(!$skip_auth && !is_user_selected())
@@ -79,7 +79,20 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
   else
     $headings               = '<td height="'.convert_y(170).'" align="center"><h2>'.$title.'&nbsp;</h2>'.$tagline.'&nbsp;</td>';
 
-  $background_image       = '/thumb.php?type=jpg&stretch=Y&x='.convert_x(1000).'&y='.convert_y(1000).'&src='.rawurlencode(SC_LOCATION.style_img("PAGE_BACKGROUND"));
+  // Set the background image, defaults to PAGE_BACKGROUND if specified image does not exist
+  $page_background = style_img("PAGE_BACKGROUND");
+  switch ($background)
+  {
+    case 0                : if (style_img_exists("PAGE_INDEX")) $page_background = style_img("PAGE_INDEX"); break;
+    case MEDIA_TYPE_MUSIC : if (style_img_exists("PAGE_MUSIC")) $page_background = style_img("PAGE_MUSIC"); break;
+    case MEDIA_TYPE_PHOTO : if (style_img_exists("PAGE_PHOTO")) $page_background = style_img("PAGE_PHOTO"); break;
+    case MEDIA_TYPE_VIDEO : if (style_img_exists("PAGE_VIDEO")) $page_background = style_img("PAGE_VIDEO"); break;
+    case MEDIA_TYPE_RADIO : if (style_img_exists("PAGE_RADIO")) $page_background = style_img("PAGE_RADIO"); break;
+    case MEDIA_TYPE_TV    : if (style_img_exists("PAGE_TV")) $page_background = style_img("PAGE_TV"); break;
+    default               : $page_background = style_img("PAGE_BACKGROUND"); break;
+  }
+
+  $background_image       = '/thumb.php?type=jpg&stretch=Y&x='.convert_x(1000).'&y='.convert_y(1000).'&src='.rawurlencode(SC_LOCATION.$page_background);
   
   if ($focus_colour == '')
     $focus_colour = style_value("PAGE_FOCUS_COLOUR",'#FFFFFF');
@@ -237,6 +250,8 @@ function page_footer( $back, $buttons= '', $iconbar = 0 )
          pc_nav_button(str('PC_LINK_CONFIG') , '/config/index.php').
          pc_nav_button(str('PC_LINK_MUSIC')  , '/music.php').
          pc_nav_button(str('PC_LINK_MOVIES') , '/video.php').
+         pc_nav_button(str('PC_LINK_TV')     , '/tv.php').
+         pc_nav_button(str('PC_LINK_RADIO')  , '/music_radio.php').
          pc_nav_button(str('PC_LINK_PHOTOS') , '/photo.php').
          pc_nav_button(str('PC_LINK_BACK')   , $back).
          '</tr></table>';
