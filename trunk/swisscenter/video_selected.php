@@ -115,7 +115,7 @@
     if ( support_resume() && file_exists( bookmark_file($data[0]["DIRNAME"].$data[0]["FILENAME"]) ))
       $menu->add_item( str('RESUME_PLAYING') , resume_file(MEDIA_TYPE_VIDEO,$data[0]["FILE_ID"]), true);
         
-    // Add to your current plpaylist
+    // Add to your current playlist
     if (pl_enabled())
       $menu->add_item( str('ADD_PLAYLIST') ,'add_playlist.php?sql='.rawurlencode("select distinct $select_fields from $sql_table $predicate order by title, filename"),true);
 
@@ -196,7 +196,7 @@
   else
     $buttons[] = array('text'=>str('SHUFFLE_OFF'), 'url'=> url_set_param($this_url,'shuffle','off') );
 
-  page_footer( url_add_param( search_picker_most_recent() ,'del','y'), $buttons );
+  page_footer( url_add_params( search_picker_most_recent(), array("p_del"=>"y","del"=>"y") ), $buttons );
 
 /**************************************************************************************************
                                                End of file

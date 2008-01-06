@@ -90,13 +90,11 @@ function  search_media_page( $heading, $title, $media_type, $joined_tables, $col
   
   // Should we delete the last entry on the history stack?
   if (isset($_REQUEST["del"]) && strtoupper($_REQUEST["del"]) == 'Y')
-  {
     search_hist_pop();
-    search_picker_pop();
-  }
 
   // Get important paramters from the URL
   $this_url       = url_set_param(current_url(),'del','N');
+  $this_url       = url_set_param($this_url,'p_del','Y');
   $search         = ( isset($_REQUEST["search"]) ? un_magic_quote(rawurldecode($_REQUEST["search"])) : '');
   $prefix         = ( isset($_REQUEST["any"]) ? $_REQUEST["any"] : '');
   $page           = ( empty($_REQUEST["page"]) ? 0 : $_REQUEST["page"]);
@@ -144,8 +142,8 @@ function  search_media_page( $heading, $title, $media_type, $joined_tables, $col
   else
     $valid = '';
 
-  // Remove last picker state (del='N' if we have not arrived here from another page) 
-  if (isset($_REQUEST["del"]) && strtoupper($_REQUEST["del"]) == 'N')
+  // Remove last picker state before adding the new one 
+  if (isset($_REQUEST["p_del"]) && strtoupper($_REQUEST["p_del"]) == 'Y')
     search_picker_pop();
     
   // Start outputting the page
@@ -195,7 +193,7 @@ function  search_media_page( $heading, $title, $media_type, $joined_tables, $col
     $buttons[] = array('text'=>str('SELECT_ALL'),   'url'=>url_set_param($choose_url,'name',rawurlencode('%'.$search.'%')) );
   }
 
-  page_footer( $history["url"], $buttons);
+  page_footer( url_add_param($history["url"],'p_del','Y'), $buttons);
 }
   
 #-------------------------------------------------------------------------------------------------
@@ -219,14 +217,16 @@ function search_process_passed_params()
     $_SESSION["shuffle"] = $_REQUEST["shuffle"];
     set_user_pref('shuffle',$_REQUEST["shuffle"]);
   }
-
-  // Add page to history, otherwise pop picker
+  
+  // Add page to history
   if (isset($_REQUEST["add"]) && strtoupper($_REQUEST["add"]) == 'Y')
   {
     $hist_url  = url_set_param(current_url(),'add','N');
+    $hist_url  = url_set_param($hist_url,'p_del','N');
     search_hist_push( $hist_url , $predicate );
   }
-  else
+  
+  if (isset($_REQUEST["p_del"]) && strtoupper($_REQUEST["p_del"]) == 'Y')
   {
     search_picker_pop();
   }
