@@ -16,7 +16,7 @@
 //*************************************************************************************************
 
   // Decode & assign page parameters to variables.
-  $history = search_hist_most_recent();
+  $history = search_hist_pop();
   $cert_img = '';
   switch ($_REQUEST["media_type"])
   {
@@ -97,7 +97,7 @@
     $menu->display();
   }
 
-  page_footer( url_add_param( $history["url"] ,'del','y') );
+  page_footer( url_add_param($history["url"],'add','Y') );
 
 /**************************************************************************************************
                                                End of file

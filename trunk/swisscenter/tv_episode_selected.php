@@ -21,7 +21,7 @@
   function tv_details ($tv)
   {
     $info      = array_pop(db_toarray("select synopsis from tv where file_id=$tv"));
-    $synlen    = 3500;
+    $synlen    = 1500;
     
     // This is a temporary fixkludge until the font sizing in the shorten() function is fixed.
     if ( is_screen_hdtv()) $synlen = 7000;    
@@ -86,7 +86,7 @@
 
   // Delete media (limited to a small number of files)
   if (is_user_admin())
-    $menu->add_item( str('DELETE_MEDIA'), 'video_delete.php?del='.$file_id.'&media_type=6',true);    
+    $menu->add_item( str('DELETE_MEDIA'), 'video_delete.php?del='.$file_id.'&media_type='.MEDIA_TYPE_TV,true);    
 
   // Certificate? Get the appropriate image.
   $scheme    = get_rating_scheme_name();

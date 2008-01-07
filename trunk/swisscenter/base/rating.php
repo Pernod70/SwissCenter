@@ -55,9 +55,12 @@
   
   function get_nearest_cert_in_scheme($id, $target_scheme= '')
   {
+    if ( empty($id) )
+      return false;
+    
     if ( $target_scheme == '')
-      $target_scheme = get_rating_scheme_name();
-      
+      $target_scheme = get_rating_scheme_name();      
+    
     $current_rank = db_value("select rank from certificates where cert_id=$id");
     if ($current_rank !== false)  
       return db_value("select cert_id from certificates where rank >=$current_rank and scheme = '$target_scheme' order by rank limit 1");
