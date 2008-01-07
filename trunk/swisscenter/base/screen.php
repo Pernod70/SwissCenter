@@ -206,7 +206,7 @@ function font_tags( $size = false, $colour = false)
   elseif ($colour[0] == '#')
     $colour_param = 'color="'.$colour.'"';
   else
-    $colour_param = 'color="'.style_value($name,'#FFFFFF').'"';
+    $colour_param = 'color="'.style_value($colour,'#FFFFFF').'"';
   
   return "<font $size_param $colour_param>";
 }

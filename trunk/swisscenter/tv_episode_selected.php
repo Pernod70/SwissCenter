@@ -18,19 +18,22 @@
    *
    * @param int $tv file_id
    */
-  function tv_details ($tv)
+  function tv_details ($tv, $num_menu_items)
   {
     $info      = array_pop(db_toarray("select synopsis from tv where file_id=$tv"));
-    $synlen    = 1500;
-    
-    // This is a temporary fixkludge until the font sizing in the shorten() function is fixed.
-    if ( is_screen_hdtv()) $synlen = 7000;    
+    $synlen    = ( is_screen_hdtv() ? 1200 : 325) * (9-$num_menu_items);
 
     // Synopsis
     if ( !is_null($info["SYNOPSIS"]) )
-      echo '<p>'.font_tags(32).shorten($info["SYNOPSIS"],$synlen).'</font>';
+    {
+      $text = shorten($info["SYNOPSIS"],$synlen);
+      if (strlen($text) != strlen($info["SYNOPSIS"]))
+        $text = $text.' <a href="/video_synopsis.php?media_type='.MEDIA_TYPE_TV.'&file_id='.$tv.'">'.font_colour_tags('PAGE_TEXT_BOLD_COLOUR','[more]').'</a>';
+    }
     else 
-      echo '<p>'.font_tags(32).str('NO_SYNOPSIS_AVAILABLE').'</font>';
+      $text = str('NO_SYNOPSIS_AVAILABLE');
+      
+    echo '<p>'.font_tags(32).$text.'</font>';      
   }
 
 //*************************************************************************************************
@@ -102,7 +105,7 @@
               </td><td width="'.convert_x(20).'"></td>
               <td valign="top">';
               // Episode synopsis
-              tv_details($data[0]["FILE_ID"]);
+              tv_details($data[0]["FILE_ID"],$menu->num_items());
               // Running Time
     if (!is_null($data[0]["LENGTH"]))
       echo   '<p>'.font_tags(32).str('RUNNING_TIME').': '.hhmmss($data[0]["LENGTH"]).'</font>';

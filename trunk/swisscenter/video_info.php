@@ -59,24 +59,24 @@
   // Cast
   if ($actors)
   {
-    echo '<b>'.font_tags(32).str('ACTOR').':</font></b><br>';
+    echo '<b>'.font_tags(32,'PAGE_TEXT_BOLD_COLOUR').str('ACTOR').':</font></b><br>';
     echo font_tags(32).implode(', ', $actors).'</font><br><br>';
   }
         
   // Director
   if ($directors)
   {
-    echo '<b>'.font_tags(32).str('DIRECTOR').':</font></b><br>';
+    echo '<b>'.font_tags(32,'PAGE_TEXT_BOLD_COLOUR').str('DIRECTOR').':</font></b><br>';
     echo font_tags(32).implode(', ', $directors).'</font><br><br>';
   }
         
   // Genres
   if ($genres)
   {
-    echo '<b>'.font_tags(32).str('GENRE').':</font></b><br>';
+    echo '<b>'.font_tags(32,'PAGE_TEXT_BOLD_COLOUR').str('GENRE').':</font></b><br>';
     echo font_tags(32).implode(', ', $genres).'</font><br><br>';
   }
-  
+  font_colour_tags()
   echo '</td></table>';
 
   page_footer( url_add_param($history["url"], 'add','Y') );
