@@ -23,7 +23,7 @@
     $directors = db_toarray("select d.director_name from directors_of_movie dom, directors d where dom.director_id = d.director_id and dom.movie_id=$movie");
     $actors    = db_toarray("select a.actor_name from actors_in_movie aim, actors a where aim.actor_id = a.actor_id and aim.movie_id=$movie");
     $genres    = db_toarray("select g.genre_name from genres_of_movie gom, genres g where gom.genre_id = g.genre_id and gom.movie_id=$movie");
-    $synlen    = 3500;
+    $synlen    = 1500;
     
     // This is a temporary fixkludge until the font sizing in the shorten() function is fixed.
     if ( is_screen_hdtv()) $synlen = 7000;    

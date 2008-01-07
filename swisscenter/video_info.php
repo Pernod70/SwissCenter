@@ -30,7 +30,7 @@
   }
   
   // Save the previous page
-  $history = search_hist_most_recent();
+  $history = search_hist_pop();
   
   if (!empty($info[0]["YEAR"]))
     page_header( $info[0]["TITLE"].' ('.$info[0]["YEAR"].')' ,'');
@@ -79,7 +79,7 @@
   
   echo '</td></table>';
 
-  page_footer( url_add_param( $history["url"] ,'del','y') );
+  page_footer( url_add_param($history["url"], 'add','Y') );
 
 /**************************************************************************************************
                                                End of file
