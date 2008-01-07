@@ -17,22 +17,25 @@
   // Displays the details for a single movie (identified by the movie ID) including the title, year, certificate
   // and synopsis (where available).
   
-  function movie_details ($movie)
+  function movie_details ($movie, $num_menu_items)
   {
     $info      = array_pop(db_toarray("select * from movies where file_id=$movie"));
     $directors = db_toarray("select d.director_name from directors_of_movie dom, directors d where dom.director_id = d.director_id and dom.movie_id=$movie");
     $actors    = db_toarray("select a.actor_name from actors_in_movie aim, actors a where aim.actor_id = a.actor_id and aim.movie_id=$movie");
     $genres    = db_toarray("select g.genre_name from genres_of_movie gom, genres g where gom.genre_id = g.genre_id and gom.movie_id=$movie");
-    $synlen    = 1500;
-    
-    // This is a temporary fixkludge until the font sizing in the shorten() function is fixed.
-    if ( is_screen_hdtv()) $synlen = 7000;    
+    $synlen    = ( is_screen_hdtv() ? 1200 : 325) * (9-$num_menu_items);
 
     // Synopsis
     if ( !is_null($info["SYNOPSIS"]) )
-      echo '<p>'.font_tags(32).shorten($info["SYNOPSIS"],$synlen).'</font>';
+    {
+      $text = shorten($info["SYNOPSIS"],$synlen);
+      if (strlen($text) != strlen($info["SYNOPSIS"]))
+        $text = $text.' <a href="/video_synopsis.php?media_type='.MEDIA_TYPE_VIDEO.'&file_id='.$movie.'">'.font_colour_tags('PAGE_TEXT_BOLD_COLOUR','[more]').'</a>';
+    }
     else 
-      echo '<p>'.font_tags(32).str('NO_SYNOPSIS_AVAILABLE').'</font>';
+      $text = str('NO_SYNOPSIS_AVAILABLE');
+      
+    echo '<p>'.font_tags(32).$text.'</font>';          
   }
   
   // Function that checks to see if the given attribute ($filter) is unique, and if so it
@@ -178,11 +181,13 @@
               '.img_gen($folder_img,280,550).'<br><center>'.$cert_img.'</center>
               </td><td width="'.convert_x(20).'"></td>
               <td valign="top">';
+    
               // Movie synopsis
-              movie_details($data[0]["FILE_ID"]);
+              movie_details($data[0]["FILE_ID"],$menu->num_items());
+              
               // Running Time
-    if (!is_null($playtime))
-      echo   '<p>'.font_tags(32).str('RUNNING_TIME').': '.hhmmss($playtime).'</font>';
+              if (!is_null($playtime))
+                echo   '<p>'.font_tags(32).str('RUNNING_TIME').': '.hhmmss($playtime).'</font>';
               $menu->display(1, 480);
     echo '    </td></table>';
   }
