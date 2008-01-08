@@ -208,7 +208,7 @@
   {
     if ( is_tv_check_enabled() )
     {
-      send_to_log(4,'Checking online for extra tv information from '.file_noext(get_sys_pref('tv_info_script','')));
+      send_to_log(4,'Checking online for extra tv information from '.file_noext(get_sys_pref('tv_info_script','www.epguides.com.php')));
 
       // Only try to update tv information where the details_available column is null.
       $data = db_toarray("select file_id
@@ -243,23 +243,44 @@
     $inc_parser_file=$_REQUEST["parser"];
     
     // Include the requested parser file
-    send_to_log(4,'Including parser file '.$parser_dir.'/'.$inc_parser_file);
-    require_once( $parser_dir.'/'.$inc_parser_file );
+    if ( file_exists($parser_dir.'/'.$inc_parser_file) )
+    {
+      send_to_log(4,'Including parser file '.$parser_dir.'/'.$inc_parser_file);
+      require_once( $parser_dir.'/'.$inc_parser_file );
+    }
+    elseif ( file_exists($parser_dir.'/movie/'.$inc_parser_file) )
+    {
+      send_to_log(4,'Including parser file '.$parser_dir.'/movie/'.$inc_parser_file);
+      require_once( $parser_dir.'/movie/'.$inc_parser_file );
+    }
+    elseif ( file_exists($parser_dir.'/tv/'.$inc_parser_file) )
+    {
+      send_to_log(4,'Including parser file '.$parser_dir.'/tv/'.$inc_parser_file);
+      require_once( $parser_dir.'/tv/'.$inc_parser_file );
+    }
   }
   else 
   {
-    $inc_movie_file   = get_sys_pref('movie_info_script','movie_www.dvdloc8.com.php');
-    if ( !file_exists($parser_dir.'/'.$inc_movie_file) )
-      $inc_movie_file = 'movie_www.dvdloc8.com.php';
+    $inc_movie_file   = get_sys_pref('movie_info_script','www.dvdloc8.com.php');
+    if ( !file_exists($parser_dir.'/'.$inc_movie_file) && !file_exists($parser_dir.'/movie/'.$inc_movie_file))
+      $inc_movie_file = 'www.dvdloc8.com.php';
       
-    $inc_tv_file   = get_sys_pref('tv_info_script','tv_www.epguides.com.php');
-    if ( !file_exists($parser_dir.'/'.$inc_tv_file) )
-      $inc_tv_file = 'tv_www.dvdloc8.com.php';
+    $inc_tv_file   = get_sys_pref('tv_info_script','www.epguides.com.php');
+    if ( !file_exists($parser_dir.'/tv/'.$inc_tv_file) )
+      $inc_tv_file = 'www.epguides.com.php';
 
     // Include the appropriate files
-    send_to_log(4,'Including movie parser file '.$parser_dir.'/'.$inc_movie_file);
-    require_once( $parser_dir.'/'.$inc_movie_file );
-    send_to_log(4,'Including tv parser file '.$parser_dir.'/'.$inc_tv_file);
+    if ( file_exists($parser_dir.'/movie/'.$inc_movie_file) )
+    {
+      send_to_log(4,'Including parser file '.$parser_dir.'/movie/'.$inc_movie_file);
+      require_once( $parser_dir.'/movie/'.$inc_movie_file );
+    }
+    elseif ( file_exists($parser_dir.'/'.$inc_movie_file) )
+    {
+      send_to_log(4,'Including parser file '.$parser_dir.'/'.$inc_movie_file);
+      require_once( $parser_dir.'/'.$inc_movie_file );
+    }
+    send_to_log(4,'Including tv parser file '.$parser_dir.'/tv/'.$inc_tv_file);
     require_once( $parser_dir.'/'.$inc_tv_file );
   }
 

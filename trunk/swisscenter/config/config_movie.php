@@ -11,9 +11,13 @@ require_once( realpath(dirname(__FILE__).'/../base/media.php'));
 
 function get_parsers_list()
 {
-  $parsers = dir_to_array( realpath(dirname(__FILE__).'/../ext/parsers') , 'movie_.*\.php' );
+  $parsers_old = dir_to_array( realpath(dirname(__FILE__).'/../ext/parsers') , '.*\.php' );
+  $parsers = dir_to_array( realpath(dirname(__FILE__).'/../ext/parsers/movie') , '.*\.php' );
   $sites_list = array();
   
+  foreach ($parsers_old as $file)
+    $sites_list[file_noext($file)] = basename($file);  
+    
   foreach ($parsers as $file)
     $sites_list[file_noext($file)] = basename($file);  
   
@@ -240,7 +244,7 @@ function movie_display( $message = '')
   echo '<h1>'.str('ORG_TITLE').'  ('.str('PAGE',$page).')</h1>';
   message($message);
   
-  $this_url = '?last_where='.$where.'&search='.$_REQUEST["search"].'&cat_id='.$_REQUEST["cat_id"].'&section=MOVIE&action=DISPLAY&page=';
+  $this_url = '?last_where='.urlencode($where).'&search='.$_REQUEST["search"].'&cat_id='.$_REQUEST["cat_id"].'&section=MOVIE&action=DISPLAY&page=';
 
   echo '<form enctype="multipart/form-data" action="" method="post">
         <table width="100%"><tr><td width="50%">
