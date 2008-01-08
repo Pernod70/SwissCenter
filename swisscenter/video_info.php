@@ -76,7 +76,7 @@
     echo '<b>'.font_tags(32,'PAGE_TEXT_BOLD_COLOUR').str('GENRE').':</font></b><br>';
     echo font_tags(32).implode(', ', $genres).'</font><br><br>';
   }
-  font_colour_tags()
+  
   echo '</td></table>';
 
   page_footer( url_add_param($history["url"], 'add','Y') );
