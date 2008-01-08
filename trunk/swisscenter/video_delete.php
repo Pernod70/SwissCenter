@@ -65,7 +65,7 @@
     }
     remove_orphaned_movie_info();
 
-    page_inform(2,url_add_params( search_picker_most_recent() , array('add'=>'N','del'=>'N')),'',str('MEDIA_DELETED'));
+    page_inform(2,url_add_param( search_picker_most_recent() , 'del','y'),'',str('MEDIA_DELETED'));
   }
 
   // Certificate? Get the appropriate image.
