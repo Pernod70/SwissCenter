@@ -16,7 +16,8 @@
 //*************************************************************************************************
 
   // Decode & assign page parameters to variables.
-  $history = search_hist_pop();
+  $history = search_hist_most_recent();
+  
   $cert_img = '';
   switch ($_REQUEST["media_type"])
   {
@@ -38,7 +39,7 @@
 
     // Delete options
     $menu->add_item( str('YES'), 'video_delete.php?delete='.$_REQUEST["del"].'&media_type='.$_REQUEST["media_type"]);
-    $menu->add_item( str('NO'), url_add_param( $history["url"] ,'del','y'));
+    $menu->add_item( str('NO'), url_add_params( $history["url"] , array('add'=>'N','del'=>'N')));
     
     // Display thumbnail
     $folder_img = file_albumart($data[0]["DIRNAME"].$data[0]["FILENAME"]);
@@ -64,7 +65,7 @@
     }
     remove_orphaned_movie_info();
 
-    page_inform(2,url_add_param( search_picker_most_recent() ,'del','y'),'',str('MEDIA_DELETED'));
+    page_inform(2,url_add_params( search_picker_most_recent() , array('add'=>'N','del'=>'N')),'',str('MEDIA_DELETED'));
   }
 
   // Certificate? Get the appropriate image.
@@ -97,7 +98,7 @@
     $menu->display();
   }
 
-  page_footer( url_add_param($history["url"],'add','Y') );
+  page_footer( url_add_params($history["url"],array('add'=>'N','del'=>'N')) );
 
 /**************************************************************************************************
                                                End of file
