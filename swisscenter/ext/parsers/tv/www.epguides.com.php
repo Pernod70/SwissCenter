@@ -31,16 +31,16 @@
    * @param string $programme
    * @param string $series
    * @param string $episode
+   * @param string $title
    * @return bool
    */
-  function extra_get_tv_details($id, $filename, $programme, $series='', $episode='')
+  function extra_get_tv_details($id, $filename, $programme, $series='', $episode='', $title='')
   {
     // The site URL (may be used later)
-    $site_url     = 'http://www.epguides.com/';
-    $search_url   = 'http://www.google.com/search?hl=en&q=&q=site%3Aepguides.com&q=#####&btnI=Search';
+    $site_url     = 'http://epguides.com/';
+    $search_url   = 'http://www.google.com/search?hl=en&q=&q=site%3Aepguides.com&q=#####';
     $search_title = str_replace(' ','+',$programme);
-//    $file_path    = db_value("select dirname from tv where file_id = $id");
-//    $file_name    = db_value("select filename from tv where file_id = $id");
+    $details      = db_toarray("select dirname, filename from tv where file_id = $id");
     
     send_to_log(4,"Searching for details about ".$programme." Season: ".$series." Episode: ".$episode." online at ".$site_url);                   
                             
@@ -48,11 +48,17 @@
     $url_load = str_replace('#####',$search_title,$search_url);
     $html     = file_get_contents( $url_load );
 
+    // Determine URL of first returned item, then load the page
+    $start        = strpos($html, $site_url);
+    $end          = strpos($html,'"',$start+1);
+    $epguides_url = substr($html,$start,$end-$start);
+    $html         = file_get_contents( $epguides_url );
+    
     if ($html != false)
     {
       // Download and store Albumart if there is none present (cast photo)
-//      if ( file_albumart($file_path.$file_name) == '')
-//      {
+      if ( file_albumart($file_path.$file_name) == '')
+      {
         $matches = array ();
         $matches = get_images_from_html($html);
         for ($i = 0; $i<count($matches[1]); $i++)
@@ -60,11 +66,11 @@
           if ((strpos($matches[1][$i],'cast') !== false) || (strpos($matches[1][$i],'logo') !== false))
           {
             $pos = strpos($matches[1][$i], "http://");
-//            $orig_ext = file_ext($matches[1][$i]);
-//            file_save_albumart( ($pos===false ? $site_url : "").$matches[1][$i] , $file_path.file_noext($file_name).'.'.$orig_ext , $series);
+            $orig_ext = file_ext($matches[1][$i]);
+            file_save_albumart( ($pos===false ? $epguides_url : "").$matches[1][$i] , $details[0]["DIRNAME"].file_noext($details[0]["FILENAME"]).'.'.$orig_ext , $series);
           }
         }
-//      }
+      }
     
       // Check that page contains links to tv.com
       if (strpos($html,'www.tv.com') !== false)
@@ -84,13 +90,23 @@
         $matches = get_urls_from_html($html_genres,"genre");
         $new_genres = $matches[2];
       
-        // Get link for required Episode
+        // Search for link for required Episode by series-episode
         $start = strpos($html,$series.'-'.sprintf("%2s", $episode));
         $end = strpos($html,"</pre>",$start+1);
         $html_episode = substr($html,$start,$end-$start);
         $matches = get_urls_from_html($html_episode, 'summary.html');
-              
-        if (count($matches[1])>0)
+
+        // Couldn't find episode so try to match episode title
+        if ($start === false && $title <> '')
+        {
+          $end = strpos(strtolower($html),strtolower($title));
+          $start = strrpos(substr($html,0,$end),"<a");
+          $end = strpos($html,"</pre>",$start+1);
+          $html_episode = substr($html,$start,$end-$start);
+          $matches = get_urls_from_html($html_episode, 'summary.html');   
+        }
+        
+        if ($start > 0 && count($matches[1])>0)
         {
           // Get page containing Episode Summary
           $url_load = substr($matches[1][0],strrpos_str($matches[1][0],'http'));
@@ -222,7 +238,8 @@
     }
     
     // Mark the file as attempted to get details, but none available
-    $columns = array ( "DETAILS_AVAILABLE" => 'N');
+    $columns = array ( "TITLE"             => $title
+                     , "DETAILS_AVAILABLE" => 'N');
     scdb_set_tv_attribs ($id, $columns);
     return false;
   }

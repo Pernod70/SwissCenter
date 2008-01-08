@@ -11,7 +11,7 @@ require_once( realpath(dirname(__FILE__).'/../base/media.php'));
 
 function get_parsers_list()
 {
-  $parsers = dir_to_array( realpath(dirname(__FILE__).'/../ext/parsers') , 'tv_.*\.php' );
+  $parsers = dir_to_array( realpath(dirname(__FILE__).'/../ext/parsers/tv') , '.*\.php' );
   $sites_list = array();
   
   foreach ($parsers as $file)
@@ -136,7 +136,7 @@ function tv_lookup()
   purge_tv_details($tv_id);
   
   // Lookup tv show
-  if ( extra_get_tv_details($tv_id, $filename, $details[0]["PROGRAMME"], $details[0]["SERIES"], $details[0]["EPISODE"]) )
+  if ( extra_get_tv_details($tv_id, $filename, $details[0]["PROGRAMME"], $details[0]["SERIES"], $details[0]["EPISODE"], $details[0]["TITLE"]) )
     tv_display_info( str('LOOKUP_SUCCESS') );
   else 
     tv_display_info( '!'.str('LOOKUP_FAILURE') );
@@ -251,7 +251,7 @@ function tv_display( $message = '')
   echo '<h1>'.str('TV_DETAILS').'  ('.str('PAGE',$page).')</h1>';
   message($message);
   
-  $this_url = '?last_where='.$where.'&search='.$_REQUEST["search"].'&cat_id='.$_REQUEST["cat_id"].'&section=TV&action=DISPLAY&page=';
+  $this_url = '?last_where='.urlencode($where).'&search='.$_REQUEST["search"].'&cat_id='.$_REQUEST["cat_id"].'&section=TV&action=DISPLAY&page=';
 
   echo '<form enctype="multipart/form-data" action="" method="post">
         <table width="100%"><tr><td width="50%">
@@ -553,7 +553,7 @@ function tv_update_multiple()
       if (in_array($row["USER_ID"],$_REQUEST["viewed"]))
       {
         foreach ($tv_list as $tv)
-          if (viewings_count( 6, $movie, $row["USER_ID"]) == 0)
+          if (viewings_count( 6, $tv, $row["USER_ID"]) == 0)
             db_insert_row('viewings',array("user_id"=>$row["USER_ID"], "media_type"=>6,"media_id"=>$tv,"total_viewings"=>1));
       }
       else 
