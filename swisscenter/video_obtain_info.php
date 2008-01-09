@@ -216,6 +216,7 @@
                                , programme
                                , episode
                                , series
+                               , title
                             from tv t, media_locations ml, categories c
                            where t.location_id = ml.location_id
                              and ml.cat_id = c.cat_id
@@ -224,7 +225,7 @@
     
       // Process each tv show
       foreach ($data as $row)
-        extra_get_tv_details( $row["FILE_ID"], $row["FSP"], $row["PROGRAMME"], $row["SERIES"], $row["EPISODE"] );
+        extra_get_tv_details( $row["FILE_ID"], $row["FSP"], $row["PROGRAMME"], $row["SERIES"], $row["EPISODE"], $row["TITLE"] );
           
       send_to_log(4,'Online tv show check complete');
     }
@@ -272,16 +273,16 @@
     // Include the appropriate files
     if ( file_exists($parser_dir.'/movie/'.$inc_movie_file) )
     {
-      send_to_log(4,'Including parser file '.$parser_dir.'/movie/'.$inc_movie_file);
+      send_to_log(4,'Including movie parser file '.$parser_dir.'/movie/'.$inc_movie_file);
       require_once( $parser_dir.'/movie/'.$inc_movie_file );
     }
     elseif ( file_exists($parser_dir.'/'.$inc_movie_file) )
     {
-      send_to_log(4,'Including parser file '.$parser_dir.'/'.$inc_movie_file);
+      send_to_log(4,'Including movie parser file '.$parser_dir.'/'.$inc_movie_file);
       require_once( $parser_dir.'/'.$inc_movie_file );
     }
     send_to_log(4,'Including tv parser file '.$parser_dir.'/tv/'.$inc_tv_file);
-    require_once( $parser_dir.'/'.$inc_tv_file );
+    require_once( $parser_dir.'/tv/'.$inc_tv_file );
   }
 
   /**************************************************************************************************
