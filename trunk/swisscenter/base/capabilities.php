@@ -140,7 +140,12 @@ function tvid( $code )
           break;
   }
 
-  
+  // Get codes from system prefs that have been defined by user
+  $tvid_prefs = db_toarray("select name, value from system_prefs where name like 'TVID_".get_player_type()."_%'");
+  if (!empty($tvid_prefs))
+    foreach ($tvid_prefs as $tvid)
+      $map[substr($tvid['NAME'], strlen(get_player_type())+6)] = $tvid['VALUE'];
+
   // Return the appropriate TVID html code.
   if (array_key_exists($code,$map))
     return ' TVID="'.$map[$code].'" ';
