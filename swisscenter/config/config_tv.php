@@ -431,6 +431,9 @@ function tv_update_form_single()
 
 function tv_update_form_multiple( $tv_list )
 {
+  $programme = db_toarray("select distinct programme from tv where file_id in (".implode(',',$tv_list).")");
+  $series    = db_toarray("select distinct series from tv where file_id in (".implode(',',$tv_list).")");
+  $episode   = db_toarray("select distinct episode from tv where file_id in (".implode(',',$tv_list).")");
   $actors    = db_toarray("select actor_name name from actors order by 1");
   $directors = db_toarray("select director_name name from directors order by 1");
   $genres    = db_toarray("select genre_name name from genres order by 1");
@@ -438,7 +441,7 @@ function tv_update_form_multiple( $tv_list )
   // Display tv shows that will be affected.
   echo '<h1>'.str('MOVIE_UPD_TTILE').'</h1>
        <center>'.str('MOVIE_UPD_TEXT').'<p>';
-       array_to_table(db_toarray("select concat(programme,' - ',IF(title IS NULL, 'n/a',title),' (Series ',IF(series IS NULL, '?',series) ,', Episode ',IF(episode IS NULL, '?',episode) ,')') as tv_programme from tv where file_id in (".implode(',',$tv_list).")"),str('Programme'));
+       array_to_table(db_toarray("select concat(programme,' - ',IF(title IS NULL, 'n/a',title),' (Series ',IF(series IS NULL, '?',series) ,', Episode ',IF(episode IS NULL, '?',episode) ,')') as tv_programme from tv where file_id in (".implode(',',$tv_list).")"),str('Title'));
     
   echo '</center>
         <form enctype="multipart/form-data" action="" method="post">
@@ -449,6 +452,15 @@ function tv_update_form_multiple( $tv_list )
     echo '<input type=hidden name="tv[]" value="'.$tv_id.'">';
           
   echo '<table class="form_select_tab" width="100%" cellspacing=4><tr>
+        <tr>
+        <th width="33%">'.str('PROGRAMME').'</th>
+        <th width="33%">'.str('SERIES').'</th>
+        <th width="33%">'.str('EPISODE').'</th>   
+        </tr><tr>
+        <td><input name="programme" size=25 value="'.(count($programme)==1 ? $programme[0]["PROGRAMME"] : '').'"></td>
+        <td><input name="series" size=6 value="'.(count($series)==1 ? $series[0]["SERIES"] : '').'"></td>
+        <td><input name="episode" size=6 value="'.(count($episode)==1 ? $episode[0]["EPISODE"] : '').'"></td>
+        </tr><tr>
         <th width="33%">'.str('ACTOR').'</th>
         <th width="33%">'.str('DIRECTOR').'</th>
         <th width="33%">'.str('GENRE').'</th>   
