@@ -23,6 +23,7 @@
 
   $menu->add_item(str('LANG_CHANGE'),'change_lang.php',true);
   $menu->add_item(str('SETUP_CHANGE_UI'),'style.php',true);
+  $menu->add_item(str('SETUP_REMOTE'),'remote_tvid.php',true);
   $menu->add_item(str('PIN_CHANGE'), 'change_pin.php');
   $menu->add_item(str('SETUP_SEARCH_NEW_MEDIA'),'do_refresh.php', true);
 

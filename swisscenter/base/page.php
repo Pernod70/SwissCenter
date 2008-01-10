@@ -201,7 +201,7 @@ function pc_nav_button($text, $url)
 // Adds an iconbar if there is one but only if there are no buttons
 //-------------------------------------------------------------------------------------------------
 
-function page_footer( $back, $buttons= '', $iconbar = 0 )
+function page_footer( $back, $buttons= '', $iconbar = 0, $links=true )
 {
   echo '    </td>
             <td width="'.convert_x(50).'"></td>
@@ -257,10 +257,11 @@ function page_footer( $back, $buttons= '', $iconbar = 0 )
          '</tr></table>';
   }
   
-  echo '<a href="'.$back.'" '.tvid('BACKSPACE').'></a>
-        <a href="music.php" '.tvid('MUSIC').'></a>
-        <a href="video.php" '.tvid('MOVIE').'></a>
-        <a href="photo.php" '.tvid('PHOTO').'></a>';
+  if ( $links )
+    echo '<a href="'.$back.'" '.tvid('BACKSPACE').'></a>
+          <a href="music.php" '.tvid('MUSIC').'></a>
+          <a href="video.php" '.tvid('MOVIE').'></a>
+          <a href="photo.php" '.tvid('PHOTO').'></a>';
 
   echo '</body>
         </html>';
