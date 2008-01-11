@@ -503,6 +503,26 @@ function strrpos_str($string, $searchFor, $startFrom = 0)
   }
   return ($endPos >= 0) ? $endPos : false;
 }
+
+/**
+ * Returns the MySQL version.
+ *
+ * @return unknown
+ */
+function mysql_version()
+{
+  if ( ($db = @mysql_pconnect( DB_HOST, DB_USERNAME, DB_PASSWORD )) )
+  {  
+    $stmt = mysql_query( 'select version()', $db);
+    if ($row = mysql_fetch_array( $stmt, MYSQL_ASSOC ))
+      return array_pop($row); 
+    else 
+      return false;
+  }  
+  else 
+    return false;
+}
+
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/

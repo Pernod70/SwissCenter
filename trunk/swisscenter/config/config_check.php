@@ -210,7 +210,7 @@ function check_display()
   # SwissCenter configuration Tests
   # ----------------------
                            
-  $swiss = $core_tests->add_section("SwissCenter",4);
+  $swiss = $core_tests->add_section("SwissCenter ".swisscenter_version(),4);
 
   // It only makes sense to check for root installations on UNIX.
   if (is_unix())
@@ -224,7 +224,7 @@ function check_display()
   # PHP Tests
   # ----------------------
   
-  $php = $core_tests->add_section("PHP",2);
+  $php = $core_tests->add_section("PHP ".phpversion(),2);
   
   if (! is_server_simese() || version_compare(simese_version(),'1.31','<') )
     $core_tests->add_test( $php, "PHP cli", str("PASS_PHP_CLI"), str("FAIL_PHP_CLI" ), FALSE );
@@ -244,7 +244,7 @@ function check_display()
 
   if ( $results->result('SWISS ini file'))
   {                         
-    $mysql = $core_tests->add_section("MySQL",3);
+    $mysql = $core_tests->add_section("MySQL ".mysql_version(),3);
   
     $core_tests->add_test( $mysql, "MYSQL connect", str("PASS_MYSQL_CONNECT"), str("FAIL_MYSQL_CONNECT"));  
     $core_tests->add_test( $mysql, "MYSQL version", str("PASS_MYSQL_VERSION"), str("FAIL_MYSQL_VERSION"));
@@ -255,7 +255,7 @@ function check_display()
   # Webserver Tests
   # ----------------------
 
-  $server = $core_tests->add_section("Webserver",1);
+  $server = $core_tests->add_section("Webserver ".(is_server_simese() ? "Simese ".simese_version() : ""),1);
   $core_tests->add_test( $server, "SERVER scheduler", str("PASS_SERVER_SCHED"), str("FAIL_SERVER_SCHED"));
 
   # ----------------------
