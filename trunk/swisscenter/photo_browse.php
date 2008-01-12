@@ -11,7 +11,7 @@
 
   function output_link( $file )
   {
-    return '/photo_selected.php?name='.rawurlencode(" concat(dirname,filename) like '".db_escape_str($file)."%'");
+    return '/photo_selected.php?name='.rawurlencode(" concat(media.dirname,media.filename) like '".db_escape_str($file)."%'");
   }
 
   $sql = 'from photos media'.get_rating_join().'where 1=1';
