@@ -17,7 +17,7 @@
 
   $series         = db_col_to_list("select distinct series 
                                       from tv media ".get_rating_join().viewed_join(MEDIA_TYPE_TV)." 
-                                     where programme = '$programme' $predicate.".
+                                     where programme = '$programme' $predicate ".
                                            viewed_n_times_predicate( ($view_status == 'unviewed' ? '=' : '>='),0)."
                                   order by 1");
 
