@@ -767,17 +767,36 @@ LASTFM_ABOUT                = Last.FM is 's werelds grootste sociale muziekplatf
 LASTFM_PROMPT_GENERAL       = Zoek stations
 LASTFM_PROMPT_PERSONAL      = Uw persoonlijke stations
 LASTFM_LOGIN_HEADINGS       = Gebruiker,LastFM[br]Gebruikersnaam,LastFM[br]Wachtwoord,Scrobble?,Afbeeldingen?
-LASTFM_TAGS                 = Beschikbare labels (tags)
+LASTFM_TAGS                 = Beschikbare labels
 LASTFM_ARTIST               = Beschikbare artiesten / groepen
 LASTFM_ENABLED_PROMPT       = Indien ingeschakeld kan SwissCenter verbinding maken met de Last.FM internetpagina and toegang krijgen tot persoonlijke radio streams.
 
 LISTEN_LASTFM               = Luister naar Last.FM station
-LISTEN_LASTFM_TAGS          = Speel muziek met een specifiek label (tag)
-LISTEN_LASTFM_ARTISTS       = Speel muziek gelijksoortig aan een artiest of groep
+LISTEN_LASTFM_TAGS          = Speel muziek met een specifiek label
+LISTEN_LASTFM_ARTISTS       = Speel muziek gelijksoortig aan een artiest
 LISTEN_LASTFM_MY_STATION    = Speel uw station
 LISTEN_LASTFM_RECOMMEND     = Speel uw aanbevelingen
 LISTEN_LASTFM_LOVED         = Speel uw favoriete nummers
 LISTEN_LASTFM_NEIGHBOURHOOD = Speel uw omgeving
+
+MUSIC                       = Muziek
+PHOTOS                      = Foto's
+TVSERIES                    = TV series
+VIDEO                       = Video
+
+WATCH_TV                    = Bekijk een TV show
+PROGRAMME                   = Programma
+SERIES                      = Series
+EPISODE_SUFFIX              = (Episode %s)
+VIEW_UNVIEWED               = Onbekeken show
+VIEW_ALL                    = Laat allen zien
+
+FILTER_VIEWED               = Afspeelstatus
+FILTER_VIEWED_NONE          = Niet gespeeld
+FILTER_VIEWED_NOTFINISHED   = Niet of gedeeltelijk gespeeld
+FILTER_VIEWED_PLAYED        = Gedeeltelijk of volledig gespeeld
+FILTER_VIEWED_FINISHED      = Volledig gespeeld
+FILTER_ACTIVE_SUFFIX        = (active)
 
 #----------------------------------------------------------------------------------------------------
 # End-of-file
