@@ -233,7 +233,7 @@ function tv_display( $message = '')
     $where .= "and ml.cat_id = $_REQUEST[cat_id] ";
  
   if (!empty($_REQUEST["search"]) )
-    $where .= "and t.programme like '%$_REQUEST[search]%' ";
+    $where .= "and (t.programme like '%$_REQUEST[search]%' or t.title like '%$_REQUEST[search]%') ";
     
   // If the user has changed category, then shunt them back to page 1.
   if (un_magic_quote($_REQUEST["last_where"]) != $where)
