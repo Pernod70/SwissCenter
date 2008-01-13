@@ -136,7 +136,8 @@ function tvid( $code )
                       , 'KEY_C'     => 'blue'
                       , 'MUSIC'     => 'green'
                       , 'MOVIE'     => 'red'
-                      , 'PHOTO'     => 'yellow' );
+                      , 'PHOTO'     => 'yellow'
+                      , 'HOME'      => 'setup' );
           break;
   }
 
