@@ -184,7 +184,7 @@ class menu
    * @param integer $size
    */
   
-  function display_page( $page=1, $tvid=1, $size=650)
+  function display_page( $page=1, $tvid=1, $size=650, $align="center" )
   {
     $start      = ($page-1) * MAX_PER_PAGE; 
     $max_items  = count($this->menu_items);
@@ -197,7 +197,7 @@ class menu
       $this->add_down( url_add_param(current_url(),'page',($page+1)));
 
     $this->menu_items = array_slice($this->menu_items,$start, MAX_PER_PAGE);
-    $this->display($tvid, $size);    
+    $this->display($tvid, $size, $align);    
   }
   
   /**
