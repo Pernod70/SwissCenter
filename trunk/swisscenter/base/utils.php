@@ -55,7 +55,8 @@ function make_url_path( $fsp )
   {
     foreach ( db_toarray("select name,concat('media/',location_id) dir from media_locations") as $dir)
     {
-      if (strpos($fsp, $dir["NAME"]) == 0)
+      $pos = strpos($fsp, $dir["NAME"]); 
+      if ( $pos == 0 and $pos !== false)
         $fsp = $dir["DIR"].substr($fsp, strlen($dir["NAME"]));
     }
   }  

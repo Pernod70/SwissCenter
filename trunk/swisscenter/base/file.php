@@ -584,7 +584,7 @@ function file_download_and_save( $url, $filename, $overwrite = false )
     }
     else 
     {
-      send_to_log(4,'Error : Local file exists (overwrite option not specified).');
+      send_to_log(5,'File already exists locally.');
       return true;
     }
   }
