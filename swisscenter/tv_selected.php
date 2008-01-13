@@ -42,7 +42,7 @@
   else 
     $buttons[] = array('text'=>str('VIEW_UNVIEWED'), 'url'=> url_set_param($this_url,'view_status','unviewed') );  
 
-  page_header( $programme);
+  page_header( $programme,'','',1,false,'',MEDIA_TYPE_TV );
   
   // There may only be a single series for the selected programme
   if (count($series) > 1)
@@ -69,7 +69,7 @@
   }
 
   if ($menu->num_items() > 0)
-    $menu->display_page( $page );
+    $menu->display_page( $page,1,style_value("MENU_TV_WIDTH"),style_value("MENU_TV_ALIGN") );
     
   page_footer( url_add_params( search_picker_most_recent(), array("p_del"=>"y","del"=>"y") ), $buttons );
 
