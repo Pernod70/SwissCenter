@@ -15,6 +15,7 @@
   $tvid_default  = array('QUICK_MUSIC'=>'MUSIC',
                          'QUICK_MOVIE'=>'MOVIE',
                          'QUICK_PHOTO'=>'PHOTO',
+                         'QUICK_HOME' =>'HOME',
                          'QUICK_KEY_A'=>'KEY_A',
                          'QUICK_KEY_B'=>'KEY_B',
                          'QUICK_KEY_C'=>'KEY_C',

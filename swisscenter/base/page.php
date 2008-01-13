@@ -259,6 +259,7 @@ function page_footer( $back, $buttons= '', $iconbar = 0, $links=true )
   
   if ( $links )
     echo '<a href="'.$back.'" '.tvid('BACKSPACE').'></a>
+          <a href="index.php" '.tvid('HOME').'></a>
           <a href="music.php" '.tvid('MUSIC').'></a>
           <a href="video.php" '.tvid('MOVIE').'></a>
           <a href="photo.php" '.tvid('PHOTO').'></a>';
