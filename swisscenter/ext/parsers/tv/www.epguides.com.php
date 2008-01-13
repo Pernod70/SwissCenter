@@ -20,6 +20,7 @@
    
    Version history:
    26-Sep-2007: v1.0:     First public release
+   11-Jan-2008: v1.1:     Stores series and episode if match was found by title.
 
  *************************************************************************************************/
 
@@ -57,7 +58,7 @@
     if ($html != false)
     {
       // Download and store Albumart if there is none present (cast photo)
-      if ( file_albumart($file_path.$file_name) == '')
+      if ( file_albumart($details[0]["DIRNAME"].$details[0]["FILENAME"], false) == '')
       {
         $matches = array ();
         $matches = get_images_from_html($html);
@@ -100,10 +101,18 @@
         if ($start === false && $title <> '')
         {
           $end = strpos(strtolower($html),strtolower($title));
-          $start = strrpos(substr($html,0,$end),"<a");
-          $end = strpos($html,"</pre>",$start+1);
-          $html_episode = substr($html,$start,$end-$start);
-          $matches = get_urls_from_html($html_episode, 'summary.html');   
+          if ($end > 0) // Found episode title
+          {
+            $start = strrpos(substr($html,0,$end),"<a")-40;
+            $end = strpos($html,"</pre>",$start+1);
+            $html_episode = substr($html,$start,$end-$start);
+            $sep = strpos($html_episode,'-');
+            $series  = substr($html_episode,$sep-2,2);
+            if (!is_numeric($series)) $series = 0;
+            $episode = substr($html_episode,$sep+1,2);
+            if (!is_numeric($episode)) $episode = 0;
+            $matches = get_urls_from_html($html_episode, 'summary.html');
+          }
         }
         
         if ($start > 0 && count($matches[1])>0)
@@ -143,6 +152,8 @@
           $new_actors = $matches[2];
                 
           $columns = array ( "TITLE"             => $title
+                           , "SERIES"            => $series
+                           , "EPISODE"           => $episode
                            , "YEAR"              => $year
                            , "DETAILS_AVAILABLE" => 'Y'
                            , "SYNOPSIS"          => $synopsis_ep);
