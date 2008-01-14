@@ -36,7 +36,7 @@ require_once( realpath(dirname(__FILE__).'/../base/media.php'));
     if ($status == str('MEDIA_SCAN_STATUS_RUNNING'))
       echo '<tr><th>'.str('MEDIA_SCAN_OVERALL').'</th><td align="right">'.(int)$overall.'%</td>';
     
-    echo '</table></center';
+    echo '</table></center>';
     
     // Refresh the page to update the progress if the scan is still running
     if ($status != str('MEDIA_SCAN_STATUS_COMPLETE'))
