@@ -38,7 +38,7 @@ function convert_link ( $wiki, $link )
 
   // Fake the browser type and download (file_get_contents only supports HTTP/1.0 not HTTP/1.1)
   ini_set('user_agent','MSIE 4\.0b2;'); 
-  $html = file_get_contents('http://'.$wiki.$url);
+  $html = utf8_decode(file_get_contents('http://'.$wiki.$url));
    
   if ($html === false)
   {
