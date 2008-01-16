@@ -198,7 +198,40 @@
         $menu->add_item( ucwords(file_noext($details["filename"])) , $link_url, false, $viewed );
       }
     }
-    $menu->display();
+    
+    // Determine menu properties for this media type
+    switch ($media_type)
+    {
+      case MEDIA_TYPE_MUSIC :
+        $width = style_value("MENU_MUSIC_WIDTH");
+        $align = style_value("MENU_MUSIC_ALIGN");
+        break;
+      case MEDIA_TYPE_PHOTO :
+        $width = style_value("MENU_PHOTO_WIDTH");
+        $align = style_value("MENU_PHOTO_ALIGN");
+        break;
+      case MEDIA_TYPE_VIDEO :
+        $width = style_value("MENU_VIDEO_WIDTH");
+        $align = style_value("MENU_VIDEO_ALIGN");
+        break;
+      case MEDIA_TYPE_RADIO :
+        $width = style_value("MENU_RADIO_WIDTH");
+        $align = style_value("MENU_RADIO_ALIGN");
+        break;
+      case MEDIA_TYPE_TV    :
+        $width = style_value("MENU_TV_WIDTH");
+        $align = style_value("MENU_TV_ALIGN");
+        break;
+      case MEDIA_TYPE_WEB   :
+        $width = style_value("MENU_WEB_WIDTH");
+        $align = style_value("MENU_WEB_ALIGN");
+        break;
+      default               :
+        $width = 650;
+        $align = 'center';
+    }
+    
+    $menu->display(1, $width, $align);
    }
 
   // ----------------------------------------------------------------------------------
@@ -291,7 +324,7 @@
     }
     else
     {
-      page_header( $heading, substr($dir,0,-1),'',1,false);
+      page_header( $heading, substr($dir,0,-1),'',1,false,'',$media_type);
       display_names ($url, $dir, $dir_list, $file_list, $page, $media_type);
       $buttons[] = array('text'=>str('THUMBNAIL_VIEW'), 'url'=>$url.'?thumbs=FULL&DIR='.rawurlencode($dir) );
     }

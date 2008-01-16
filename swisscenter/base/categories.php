@@ -90,6 +90,10 @@
         $width = style_value("MENU_TV_WIDTH");
         $align = style_value("MENU_TV_ALIGN");
         break;
+      case MEDIA_TYPE_WEB   :
+        $width = style_value("MENU_WEB_WIDTH");
+        $align = style_value("MENU_WEB_ALIGN");
+        break;
       default               :
         $width = 650;
         $align = 'center';
