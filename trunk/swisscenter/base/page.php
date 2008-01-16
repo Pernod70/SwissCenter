@@ -88,7 +88,8 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
     case MEDIA_TYPE_PHOTO : if (style_img_exists("PAGE_PHOTO")) $page_background = style_img("PAGE_PHOTO"); break;
     case MEDIA_TYPE_VIDEO : if (style_img_exists("PAGE_VIDEO")) $page_background = style_img("PAGE_VIDEO"); break;
     case MEDIA_TYPE_RADIO : if (style_img_exists("PAGE_RADIO")) $page_background = style_img("PAGE_RADIO"); break;
-    case MEDIA_TYPE_TV    : if (style_img_exists("PAGE_TV")) $page_background = style_img("PAGE_TV"); break;
+    case MEDIA_TYPE_TV    : if (style_img_exists("PAGE_TV"))    $page_background = style_img("PAGE_TV"); break;
+    case MEDIA_TYPE_WEB   : if (style_img_exists("PAGE_WEB"))   $page_background = style_img("PAGE_WEB"); break;
     default               : $page_background = style_img("PAGE_BACKGROUND"); break;
   }
 
