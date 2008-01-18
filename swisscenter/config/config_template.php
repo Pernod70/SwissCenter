@@ -6,7 +6,7 @@
 
 <html>
 <head>
-  <meta http-equiv="content-type" content="text/html;charset=<?php echo str('CONFIG_PAGE_CHARSET'); ?>" />
+  <meta http-equiv="content-type" content="text/html;charset=<?php echo get_sys_pref('CONFIG_PAGE_CHARSET','Windows-1252') ?>" />
   <title>SwissCenter Config</title>
   <link rel="stylesheet" type="text/css" media="screen" href="sdmenu.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="config.css" />
