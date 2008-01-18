@@ -74,7 +74,7 @@
 
   $styles        = styles_list();
   $page          = $_REQUEST["page"];
-  $n_per_page    = 4;
+  $n_per_page    = 8;
   $start         = $page * ($n_per_page);
   $end           = min( count($styles), $start+$n_per_page);
   $tlist         = new thumb_list(550);
@@ -104,7 +104,7 @@
       $tlist->set_down( 'style.php?online='.$_REQUEST["online"].'&page='.($page+1) ); 
     }
   
-    $tlist->set_num_cols(2);
+    $tlist->set_num_cols(4);
     $tlist->set_thumbnail_size(192,202);
     $tlist->display();
   }
