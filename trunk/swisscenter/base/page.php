@@ -52,11 +52,7 @@ function down_link( $url)
 
 function charset()
 {
-  $cfg = str('PLAYER_PAGE_CHARSET');
-  if (empty($cfg))
-    return 'charset=Windows-1252';
-  else
-    return 'charset='.$cfg;
+  return 'charset='.get_sys_pref('PLAYER_PAGE_CHARSET','Windows-1252');
 }
 
 //-------------------------------------------------------------------------------------------------
