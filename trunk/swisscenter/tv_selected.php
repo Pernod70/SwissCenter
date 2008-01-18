@@ -26,7 +26,7 @@
 
   $episodes       = db_toarray("select *
                                   from tv media ".get_rating_join().viewed_join(MEDIA_TYPE_TV)."
-                                 where programme = '$programme'".(empty($current_series) ? "" : " 
+                                 where programme = '$programme'".(is_null($current_series) ? "" : " 
                                    and series = $current_series $predicate").
                                        viewed_n_times_predicate( ($view_status == 'unviewed' ? '=' : '>='),0)."
                               order by episode");
