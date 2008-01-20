@@ -336,7 +336,7 @@
       
     // Should we present a link to select all files?
     if ($media_type > 0)
-      $buttons[] = array('text'=>str('SELECT_ALL'), 'url'=>  output_link( $details["dirname"]) );
+      $buttons[] = array('text'=>str('SELECT_ALL'), 'url'=>  output_link( '%/'.$dir) );
       
     // Link to scan/refresh the directory
       $buttons[] = array('text'=>str('REFRESH_DIR_BUTTON'), 'url' => '/media_dir_refresh.php?media_type='.$media_type.'&dir='.urlencode($dir).'&return_url='.urlencode(current_url()) );
