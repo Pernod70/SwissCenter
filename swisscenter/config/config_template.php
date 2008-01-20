@@ -11,6 +11,16 @@
   <link rel="stylesheet" type="text/css" media="screen" href="sdmenu.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="config.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="slider.css" />
+  <script type="text/javascript" defer="defer">
+  function handleClick (name, state)
+  {
+    var Input=document.getElementsByName(name);
+    for( var i=0; i<Input.length; i++)
+    {
+      Input[i].checked=state;                
+    }
+  }  
+  </script>  
   <script type="text/javascript" src="slider.js"></script>
   <script type="text/javascript" src="sdmenu.js"></script>
 	<script type="text/javascript">

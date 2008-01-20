@@ -247,7 +247,7 @@ function movie_display( $message = '')
   $this_url = '?last_where='.urlencode($where).'&search='.$_REQUEST["search"].'&cat_id='.$_REQUEST["cat_id"].'&section=MOVIE&action=DISPLAY&page=';
 
   echo '<form enctype="multipart/form-data" action="" method="post">
-        <table width="100%"><tr><td width="50%">
+        <table width="100%"><tr><td width="70%">
         <input type=hidden name="section" value="MOVIE">
         <input type=hidden name="action" value="DISPLAY">
         <input type=hidden name="last_where" value="'.$where.'">
@@ -255,6 +255,8 @@ function movie_display( $message = '')
         '.form_list_dynamic_html("cat_id","select distinct c.cat_id,c.cat_name from categories c left join media_locations ml on c.cat_id=ml.cat_id where ml.media_type=3 order by c.cat_name",$_REQUEST["cat_id"],true,true,str('CATEGORY_LIST_ALL')).'&nbsp;
         <a href="'.url_set_param($this_url,'list','LIST').'"><img align="absbottom" border="0"  src="/images/details.gif"></a>
         <a href="'.url_set_param($this_url,'list','THUMBS').'"><img align="absbottom" border="0" src="/images/thumbs.gif"></a>  
+        <img align="absbottom" border="0" src="/images/select_all.gif" onclick=\'handleClick("movie[]", true)\'>
+        <img align="absbottom" border="0" src="/images/select_none.gif" onclick=\'handleClick("movie[]", false)\'>
         </td><td width"50%" align="right">
         '.str('SEARCH').' : 
         <input name="search" value="'.$_REQUEST["search"].'" size=10>
@@ -618,7 +620,7 @@ function movie_export()
   elseif ( export_movie_to_xml($movie["FILE_ID"], $filename))
     movie_display_info(str('MOVIE_EXPORT_SUCCESS'));
   else
-    movie_display_info("!".str('MOVIE_EXPORT_FAILURE'));
+    movie_display_info("!".str('MOVIE_EXPOR'.str('SELECT_ALL').'<input onclick=\'handleClick("tv[]")\' type="checkbox" id="selectall" ></input>T_FAILURE'));
 }
 /**************************************************************************************************
                                                End of file
