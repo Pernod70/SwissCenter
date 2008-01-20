@@ -620,7 +620,7 @@ function movie_export()
   elseif ( export_movie_to_xml($movie["FILE_ID"], $filename))
     movie_display_info(str('MOVIE_EXPORT_SUCCESS'));
   else
-    movie_display_info("!".str('MOVIE_EXPOR'.str('SELECT_ALL').'<input onclick=\'handleClick("tv[]")\' type="checkbox" id="selectall" ></input>T_FAILURE'));
+    movie_display_info("!".str('MOVIE_EXPORT_FAILURE'));
 }
 /**************************************************************************************************
                                                End of file
