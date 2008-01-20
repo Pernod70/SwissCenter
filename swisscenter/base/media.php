@@ -804,7 +804,7 @@ function tv_pattern_field( $pattern, $position )
 function get_tvseries_info( $fsp )
 {
   $details = array();
-  $exprs   = db_col_to_list("select expression from tv_expressions order by pos");
+  $exprs   = db_toarray("select pos,expression from tv_expressions order by pos");
   send_to_log(8,"Expressions to test for path '$fsp'",$exprs);
   
   // Convert periods to spaces?
@@ -814,12 +814,13 @@ function get_tvseries_info( $fsp )
   // Try all the patterns, stopping as soon as a successful match is made.
   foreach ($exprs as $pattern)
   {
-    $regexp = tv_expand_pattern($pattern);
+    $regexp = tv_expand_pattern($pattern["EXPRESSION"]);
     if ( preg_match_all($regexp, $fsp, $matches) >= 1)
     {
+      $details["rule"] = $pattern["POS"];
       for ( $pos=1; $pos < count($matches); $pos++ )
       {
-        $field = tv_pattern_field($pattern,$pos);
+        $field = tv_pattern_field($pattern["EXPRESSION"],$pos);
         if ($field !== false)
           $details[$field] = $matches[$pos][0];
       }
