@@ -31,6 +31,8 @@
 # The language contained within this file
 
 LANGUAGE			= Nederlands
+PLAYER_PAGE_CHARSET = Windows-1252
+CONFIG_PAGE_CHARSET = Windows-1252
 
 # Mappings
 
@@ -625,6 +627,7 @@ EXIFVALS_ORIENTATION	   = normaal, horizontaal spiegelen, omdraaien, vertikaal s
 
 BROWSE_OPTIONS             = Zoekopties
 BROWSE_TEXT                = Met SwissCenter kunt U op verschillende manieren door uw mediabestanden bladeren. Om de complexiteit van de interface te verminderen of om de weergave naar uw eigen inzichten aan te passen, kunt U hieronder de "Blader via..." opties afschakelen. Indien slechts een optie aangeschakeld is, zal SwissCenter het menu negeren en rechtstreeks naar die optie doorschakelen.[p]Noot : U dient minstens [b]één[/b] optie in elke groep aan te schakelen.
+CONFIG_BROWSE_NONE_SELECTED = De instellingen zijn niet opgeslagen, u moet minimaal een optie in iedere groep selecteren
 MUSIC_PLAY_NEXT            = Volgende
 MUSIC_PLAY_PREV            = Vorige
 TRACK_LENGTH               = Speelduur
@@ -637,7 +640,8 @@ PASS_SHOUTCAST_TEST        = ShoutCast-ontleder lijkt correct te werken
 IRADIO_SHOUTCAST_DESC      = ShoutCast (%s) is een radiodienst op het internet die radiostromen aanbiedt, afspeelbaar op de meeste streamingtoestellen. Deze functie staat toe te zoeken via genre of station, en geeft details voor alle gevonden stations, inclusief een URL voor de afspeellijst. The Shoutcast-ontleder in SwissCenter ontleedt de HTML van de ontvangen pagina, en toont de resultaten in een op TV-schermen leesbaar resultaat. De functie kan echter falen wanneer de paginastructuur door het ShoutCast-personeel gewijzigd wordt.[p]Soms geeft ShoutCast geen resultaten voor een zoekpoging. In dat geval kunt U de pagina best opnieuw verversen, om U ervan te verzekeren dat het probleem zich niet hier situeert.
 FAIL_LIVERADIO_TEST        = LiveRadio parser lijkt defect
 PASS_LIVERADIO_TEST        = LiveRadio parser lijkt correct te werken
-IRADIO_LIVERADIO_DESC      = LiveRadio (%s) is een internet radio-dienst, gelijkaardig aan ShoutCast. Het biedt de mogelijkheid te zoeken via mediatype, genre, station, land en zelfs stad - maar vele van de opgelijste stations worden niet ondersteund door sommige hardwarespelers. Bijgevolg limiteert de LiveRadio-ontleder in SwissCenter de resultaten tot MP3-stations.INSTALLATION_TITLE         = Installatie
+IRADIO_LIVERADIO_DESC      = LiveRadio (%s) is een internet radio-dienst, gelijkaardig aan ShoutCast. Het biedt de mogelijkheid te zoeken via mediatype, genre, station, land en zelfs stad - maar vele van de opgelijste stations worden niet ondersteund door sommige hardwarespelers. Bijgevolg limiteert de LiveRadio-ontleder in SwissCenter de resultaten tot MP3-stations.
+INSTALLATION_TITLE         = Installatie
 INSTALLATION_TESTS         = Systeemtesten
 ADVANCED_OPTIONS           = Geavanceerde opties
 MEDIA_REFRESH              = Zoek naar nieuwe media
@@ -709,6 +713,11 @@ FONTWIDTH_MULTIPLIER_PROMPT = Met deze optie wijzigt U het aantal getoonde karak
 MISC_FONTWIDTH_NOT_NUMBER   = De lettertypefactor moet een nummer zijn.
 MISC_FONTWIDTH_TOO_SMALL    = De lettertypefactor is te klein.
 LOCATION_ON_DISK            = Locatie op schijf
+RUNNING_TIME                = Looptijd
+VIDEO_INFO                  = Video informatie
+
+REFRESH_METADATA            = Ververs metadata
+REFRESH_METADATA_PROMPT     = Selecteer deze optie wanneer alle media metadata moeten worden ververst. Voor deze mogelijkheid moet alleen worden gekozen, in het geval dat een SwissCenter update tot een nieuwe metadata functionaliteit leidt
 
 ADMIN                       = Administrator
 USERS_ADMIN_PROMPT          = Een administrator heeft toegang tot meer opties op de mediaspeler. Hieronder valt de mogelijkheid om media te verwijderen.
@@ -784,10 +793,14 @@ PHOTOS                      = Foto's
 TVSERIES                    = TV series
 VIDEO                       = Video
 
+TV_OPTIONS                  = TV series
+TV_DETAILS                  = Bewerk TV series details
 WATCH_TV                    = Bekijk een TV show
 PROGRAMME                   = Programma
 SERIES                      = Series
+EPISODE                     = Episode
 EPISODE_SUFFIX              = (Episode %s)
+LOOKUP_TV                   = Zoek een TV episode
 VIEW_UNVIEWED               = Onbekeken show
 VIEW_ALL                    = Laat allen zien
 
@@ -797,6 +810,33 @@ FILTER_VIEWED_NOTFINISHED   = Niet of gedeeltelijk gespeeld
 FILTER_VIEWED_PLAYED        = Gedeeltelijk of volledig gespeeld
 FILTER_VIEWED_FINISHED      = Volledig gespeeld
 FILTER_ACTIVE_SUFFIX        = (active)
+
+PHOTOS_MUSIC_INFO           = achtergrondmuziek
+PHOTOS_MUSIC_CHANGE         = verander achtergrondmuziek
+PHOTOS_MUSIC_NONE           = geen achtergrondmuziek
+PHOTOS_MUSIC_CURRENT        = huidige afspeellijst
+
+PC_LINK_TV                  = TV shows
+PC_LINK_RADIO	            = Radio
+
+# -----------------------
+# SwissCenter v1.20
+# -----------------------
+
+SETUP_REMOTE                = Setup afstandsbediening
+REMOTE_PROMPT               = Selecteer the functieknop die verandert moet worden:
+QUICK_HOME                  = Sneltoets startpagina
+QUICK_MUSIC                 = Sneltoets muziek
+QUICK_MOVIE                 = Sneltoets video
+QUICK_PHOTO                 = Sneltoets foto
+QUICK_KEY_A                 = Sneltoets A
+QUICK_KEY_B                 = Sneltoets B
+QUICK_KEY_C                 = Sneltoets C
+BACKSPACE                   = Vorige pagina
+PGDN                        = Pagina naar beneden
+PGUP                        = Pagina naar boven
+PRESS_KEY_NOW               = Voer nu '####' in!
+TVID_RESET_DEFAULT          = Terugzetten standaardwaarden van TVID
 
 #----------------------------------------------------------------------------------------------------
 # End-of-file
