@@ -31,7 +31,8 @@
                                                  array("VAL"=>1,"NAME"=>str('YES'))),
                             "PIN"=>"*")
                       , $edit_id, "users");
-    form_submit(str('USERS_DEL_BUTTON'), 1 ,"center");
+    if (!$edit_id)
+      form_submit(str('USERS_DEL_BUTTON'), 1 ,"center");
     form_end();
     
     echo "<p><h1>".str('USERS_ADD_BUTTON')."</h1>";

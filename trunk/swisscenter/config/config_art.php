@@ -23,7 +23,8 @@
     form_select_table('filename',$data,str('FILENAME')
                      ,array('class'=>'form_select_tab','width'=>'100%'),'filename',
                       array('NAME'=>''), $edit_id, 'art');
-    form_submit(str('ART_FILES_DEL_BUTTON'),1,'center');
+    if (!$edit_id)
+      form_submit(str('ART_FILES_DEL_BUTTON'),1,'center');
     form_end();
   
     echo '<p><h1>'.str('ART_FILES_ADD_TITLE').'<p>';

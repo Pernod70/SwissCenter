@@ -41,7 +41,8 @@
                        ,array('class'=>'form_select_tab','width'=>'100%'), 'cat_id'
                        ,array('CATEGORY'=>'','CATEGORY_PARENT'=>$parent_names,'DOWNLOAD_INFO'=>$download_opts)
                        , $edit_id, 'cats');
-      form_submit(str('CAT_DEL_BUTTON'), 1, 'center');
+      if (!$edit_id)
+        form_submit(str('CAT_DEL_BUTTON'), 1, 'center');
       form_end();
       
       echo "<p><h1>".str('CAT_ADD_TITLE')."</h1>";

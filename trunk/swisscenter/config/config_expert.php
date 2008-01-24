@@ -125,7 +125,8 @@
                      , array('class'=>'form_select_tab','width'=>'100%'), 'name'
                      , array('PREF'=>'30','VALUE'=>'30')
                      , $edit_id, 'prefs');
-    form_submit(str('SYSPREF_DEL_BUTTON'), 1, 'center');
+    if (!$edit_id)
+      form_submit(str('SYSPREF_DEL_BUTTON'), 1, 'center');
     form_end();
     // Force the screen to be a bit wider
     echo '<table width="670"><tr><td></td></tr></table>';
