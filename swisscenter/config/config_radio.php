@@ -45,7 +45,8 @@
                             )
                      , $lastfm_edit_id
                      , "lastfm_auth");
-    form_submit(str('CONFIG_LASTFM_CLEAR'), 1 ,"center");
+    if (!$lastfm_edit_id)                      
+      form_submit(str('CONFIG_LASTFM_CLEAR'), 1 ,"center");
     form_end();
 
     echo '<p><h1>'.str('CONFIG_SHOUTCAST_TITLE').'</h1><p>';

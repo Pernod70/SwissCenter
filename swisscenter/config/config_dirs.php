@@ -37,7 +37,8 @@
                             'CATEGORY'=>'select cat_id,cat_name from categories where cat_id not in ('.
                                          implode(',', db_col_to_list('select distinct parent_id from categories')).') order by cat_name',
                             'CERTIFICATE'=>get_cert_list_sql()), $edit, 'dirs');
-    form_submit(str('MEDIA_LOC_DEL_BUTTON'),1,'center');
+    if (!$edit)
+      form_submit(str('MEDIA_LOC_DEL_BUTTON'),1,'center');
     form_end();
   
     echo '<p><h1>'.str('MEDIA_LOC_ADD_TITLE').'<p>';
