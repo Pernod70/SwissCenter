@@ -16,7 +16,7 @@ CREATE TABLE actors_in_tv (
   ,
   PRIMARY KEY (tv_id, actor_id),
   FOREIGN KEY  (actor_id) REFERENCES actors (actor_id) ON DELETE CASCADE
-);
+) TYPE=MyISAM;
 
 CREATE TABLE directors_of_tv (
   tv_id        int(10) unsigned,
@@ -24,7 +24,7 @@ CREATE TABLE directors_of_tv (
   ,
   PRIMARY KEY (tv_id, director_id),
   FOREIGN KEY  (director_id) REFERENCES directors (director_id) ON DELETE CASCADE
-);
+) TYPE=MyISAM;
 
 CREATE TABLE genres_of_tv (
   tv_id        int(10) unsigned,
@@ -32,7 +32,7 @@ CREATE TABLE genres_of_tv (
   ,
   PRIMARY KEY (tv_id, genre_id),
   FOREIGN KEY  (genre_id) REFERENCES genres (genre_id) ON DELETE CASCADE
-);
+) TYPE=MyISAM;
 
 -- *************************************************************************************************
 --   SWISScenter Source                                                              Nigel Barnes

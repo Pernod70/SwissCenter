@@ -50,7 +50,10 @@
 
   function get_cert_name($cert_id)
   {
-    return db_value("select name from certificates where cert_id=$cert_id");
+    if ( $cert_id == NULL ) 
+      return NULL;
+    else
+      return db_value("select name from certificates where cert_id=$cert_id");
   }
   
   function get_nearest_cert_in_scheme($id, $target_scheme= '')

@@ -335,7 +335,7 @@
       echo '<a href="'.$url.'?page='.floor(($ir_key-1)*(($total_pages-1)/8)).'&DIR='.rawurlencode($dir).'" '.tvid($ir_key).'></a>';
       
     // Should we present a link to select all files?
-    if ($media_type > 0)
+    if ($media_type > 0 && $media_type !== MEDIA_TYPE_WEB)
       $buttons[] = array('text'=>str('SELECT_ALL'), 'url'=>  output_link( '%/'.$dir) );
       
     // Link to scan/refresh the directory
