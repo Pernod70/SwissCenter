@@ -624,7 +624,7 @@ function path_delim()
 
 /**
  * Returns the given path will all occurances of '/' and '\' changed to the appropriate
- * fom for the current OS. 
+ * form for the current OS. 
  *
  * @param string $path - Path to convert
  * @param boolean $addslash - [false] Adds a trailing folder delimiter

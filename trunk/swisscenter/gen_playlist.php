@@ -54,7 +54,7 @@
     }
     else
     {
-      find_media_in_db($row["DIRNAME"].$row["FILENAME"], $media_type, $file_id);
+      list($media_type, $file_id) = find_media_in_db($row["DIRNAME"].$row["FILENAME"]);
     }
       
     // If this is a hardware player, then we might wish to resume playback of a file partway through

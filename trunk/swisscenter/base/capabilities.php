@@ -193,6 +193,11 @@ function quick_access_img( $position )
 # Returns an array of file extensions that are supported by the hardware player.
 #-------------------------------------------------------------------------------------------------
 
+function media_exts_playlists()
+{
+  return explode(',' ,'m3u,wpl');
+}
+
 function media_exts_movies()
 {
   return explode(',' ,'asf,avi,dat,divx,m2v,mpe,mpeg,mpg,ts,tp,vob,wmv,xvid,dvr-ms');
