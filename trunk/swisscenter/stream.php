@@ -157,7 +157,7 @@
     {
 	  	$fbytestoget = min($fbytestoget, $fbytes-$fbytessofar);
   		
-      if (!$fbytestoget || (($fbuf=fgets($fh,$fbytestoget)) === FALSE) ) 
+      if (!$fbytestoget || (($fbuf=fread($fh,$fbytestoget)) === FALSE) ) 
         break;
         
   	  $fbytessofar += strlen($fbuf);
@@ -251,6 +251,3 @@
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/
-?>
-
-
