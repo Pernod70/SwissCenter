@@ -6,42 +6,11 @@
 require_once( realpath(dirname(__FILE__).'/infotab.php'));
 require_once( realpath(dirname(__FILE__).'/utils.php'));
 require_once( realpath(dirname(__FILE__).'/file.php'));
+require_once( realpath(dirname(__FILE__).'/media.php'));
 require_once( realpath(dirname(__FILE__).'/mysql.php'));
 require_once( realpath(dirname(__FILE__).'/page.php'));
 require_once( realpath(dirname(__FILE__).'/rating.php'));
-
-//-------------------------------------------------------------------------------------------------
-// Sets the $media_type and $file_id to the values for the media file specified in $fsp.
-// returns $file_id and $media_type set to '' if nothing is found.
-//-------------------------------------------------------------------------------------------------
-
-function find_media_in_db( $fsp, &$media_type, &$file_id)
-{
-  // Try music first
-  $media_type = MEDIA_TYPE_MUSIC;
-  $file_id    = db_value("select file_id from mp3s where concat(dirname,filename)='".db_escape_str($fsp)."' limit 1");
-
-  if (is_null($file_id))
-  {
-    // Nothing found, so try movies
-    $media_type = MEDIA_TYPE_VIDEO;
-    $file_id    = db_value("select file_id from movies where concat(dirname,filename)='".db_escape_str($fsp)."' limit 1");
-  }
-
-  if (is_null($file_id))
-  {
-    // still nothing... try photos
-    $media_type = MEDIA_TYPE_PHOTO;
-    $file_id    = db_value("select file_id from photos where concat(dirname,filename)='".db_escape_str($fsp)."' limit 1");
-  }
-
-  if (is_null($file_id))
-  {
-    // Still nothing... set the variables to '' to indicate nothing could be found
-    $media_type = '';
-    $file_id    = '';
-  }
-}
+require_once( realpath(dirname(__FILE__).'/../ext/xml/XPath.class.php'));
 
 /**
  * Creates a playlist that will be sent to the hardware player based on the parameters
@@ -450,49 +419,109 @@ function pl_info ()
   $info->display();
 }
 
+/**
+ * Validates that the specified file (including path) exists in the SwussCenter database.
+ * 
+ * Returns FALSE on error, or if the file is not valid. 
+ * Otherwise returns the media file details from the database.
+ *
+ * @param unknown_type $fsp
+ */
+
+function pl_validate_file( $fsp )
+{
+  // Convert windows path delimiters to PHP/Unix style (for the database comparison).
+  if (is_windows())
+    $fsp = str_replace('\\','/',$fsp);
+
+  $info = find_media_get_full_details( $fsp);
+  if ($info !== false)
+    return $info;
+
+  send_to_log(8,'The following file cannot be found in the SwissCenter database: '.$fsp);
+  return false;
+}
+
+/**
+ * Parses a M3U playlist file and extracts an array of files referenced by the file
+ * with no further processing.
+ *
+ * @param filename $fsp
+ * @return array
+ */
+
+function load_pl_m3u( $fsp )
+{
+  send_to_log(6,'Playlist is of type: M3U');
+  $filelist = array();
+  
+  if (($lines = file($fsp)) !== false)
+  {
+    foreach ($lines as $l)
+    {
+      $entry = rtrim($l);
+      if ($entry[0] != '#' && !empty($entry) )
+        $filelist[] = $entry;
+    }
+  }
+  else 
+    send_to_log(1,'Unable to read playlist file.');
+
+  return $filelist;  
+}
+
+/**
+ * Parses a WPL playlist file (Windows Media Playlist) and extracts an array of files 
+ * referenced by the file  with no further processing.
+ *
+ * @param filename $fsp
+ * @return array
+ */
+
+function load_pl_wpl( $fsp )
+{
+  send_to_log(6,'Playlist is of type: WPL (Windows media player)');
+  $filelist = array();
+
+  $xml = new XPath(FALSE, array(XML_OPTION_CASE_FOLDING => TRUE, XML_OPTION_SKIP_WHITE => TRUE) );
+  if ( $xml->importFromFile($fsp) !== false)
+  {  
+    foreach ($xml->match('/smil/body/seq/media') as $filepath)
+    {
+      $attrib = $xml->getAttributes($filepath);    
+      $filelist[] = $attrib["SRC"];
+    }
+  }
+  else 
+    send_to_log(1,'Unable to read playlist file or format not recognised/supported.');  
+    
+  return $filelist;  
+}
+
 //-------------------------------------------------------------------------------------------------
 // Loads the contents of the file into the current session.
 //-------------------------------------------------------------------------------------------------
 
 function load_pl ($file)
 {
-  $tracks = array();
+  send_to_log(5,'Attempting to load playlist : '.$file);
   
-  if (($lines = file($file)) !== false)
+  switch ( file_ext($file) )
   {
-    send_to_log(5,'Loading playlist',$file);
-    foreach ($lines as $l)
-    {
-      $entry = rtrim($l);
-      if (!empty($entry) && $entry[0] != '#')
-      {
-        if ($entry[1] == ':')
-          $fsp = $entry;                                          
-        elseif ($entry[0] == '\\')
-          $fsp = substr(get_sys_pref("playlists"),0,2).$entry;   
-        else 
-          $fsp = make_abs_file($entry,get_sys_pref("playlists")); 
-
-        // Get all the details from the database that match this filename
-        $fsp = str_replace('\\','/',$fsp);
-        $info_music = db_toarray("select * from mp3s where dirname = '".db_escape_str(str_suffix(dirname($fsp),'/'))."' and filename='".db_escape_str(basename($fsp))."' ");
-        $info_movie = db_toarray("select * from movies where dirname = '".db_escape_str(str_suffix(dirname($fsp),'/'))."' and filename='".db_escape_str(basename($fsp))."' ");
-        $info_photo = db_toarray("select * from photos where dirname = '".db_escape_str(str_suffix(dirname($fsp),'/'))."' and filename='".db_escape_str(basename($fsp))."' ");      
-        $all = $info_movie + $info_music + $info_photo;
-        
-        // To quote highlander..."there can be only one".
-        if ( count($all) == 1)
-        {
-          $item = array_pop($all);
-          send_to_log(8,'Found FILE_ID='.$item["FILE_ID"].' : '.$fsp);
-          $tracks[] = $item;
-        }
-        else 
-          send_to_log(8,'Unable to locate : '.$fsp);
-      }
-    }
+    case 'm3u' : $filelist = load_pl_m3u( $file ); break;
+    case 'wpl' : $filelist = load_pl_wpl( $file ); break;
+    default    : send_to_log(1,'Unknown playlist format'); break;
   }
-  
+
+  // Search through the list of filenames and try to load them into the playlist.    
+  $tracks = array();
+  foreach( $filelist as $fsp )
+  {
+    $info = pl_validate_file( make_abs_file($fsp,get_sys_pref("playlists")) );
+    if ($info !== false)
+      $tracks[] = $info;    
+  }
+
   return $tracks;
 }
 

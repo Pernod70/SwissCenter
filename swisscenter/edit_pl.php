@@ -4,6 +4,7 @@
  *************************************************************************************************/
 
   require_once( realpath(dirname(__FILE__).'/base/page.php'));
+  require_once( realpath(dirname(__FILE__).'/base/media.php'));
   require_once( realpath(dirname(__FILE__).'/base/utils.php'));
   require_once( realpath(dirname(__FILE__).'/base/playlist.php'));
 
@@ -73,9 +74,7 @@
   for ($i=$start; $i < $end; $i++)
   {
     // Get the link address for playing this file.
-    $file_id       = '';
-    $media_type    = '';
-    find_media_in_db( $items[$i]["DIRNAME"].$items[$i]["FILENAME"], $media_type, $file_id);
+    list($media_type, $file_id) = find_media_in_db( $items[$i]["DIRNAME"].$items[$i]["FILENAME"]);
     $play_link     = play_file( $media_type, $file_id);
 
     $up_link       = 'edit_pl.php?up='.$i;

@@ -148,6 +148,52 @@ function get_media_table( $media_type )
 }
   
 /**
+ * Returns the $media_type and $file_id of the piece of media in the database that matches the
+ * specified file (including full path).
+ *
+ * @param string $fsp - File location, including full path
+ * @return array($media_type, $file_id)
+ */
+
+function find_media_in_db( $fsp)
+{
+  $media_type = false;
+  $file_id = false;
+  
+  $types = db_toarray("select media_id, media_table from media_types where media_table is not null");
+  foreach ($types as $type)
+  {
+    $file_id = db_value("select file_id from $type[MEDIA_TABLE] where concat(dirname,filename)='".db_escape_str($fsp)."' limit 1");
+
+    if (! is_null($file_id))   
+      return array( $type["MEDIA_ID"], $file_id);
+  }
+  
+  // We didn't find anything
+  return array(false, false);
+}
+
+/**
+ * Returns the full information for the specified piece of media (by path+filename) if it can 
+ * be found in the database. Otherwise FALSE is returned.
+ *
+ * @param string $fsp
+ * @return array
+ */
+
+function find_media_get_full_details( $fsp )
+{
+  // Zearch for the item in the database
+  list($media_type, $file_id) = find_media_in_db($fsp);
+  
+  // Return the full details (or FALSE if the item could not be found)
+  if ($media_type === false)
+    return false;
+  else 
+    return db_row("select * from ".get_media_table($media_type)." where file_id = $file_id");
+}
+
+/**
  * Returns the number of times that the specified media file has been viewed.
  *
  * @param enum $media_type - MEDIA_TYPE_MUSIC | MEDIA_TYPE_PHOTO | MEDIA_TYPE_RADIO | MEDIA_TYPE_VIDEO
