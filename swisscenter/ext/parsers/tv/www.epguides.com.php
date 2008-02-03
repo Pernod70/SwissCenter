@@ -21,6 +21,7 @@
    Version history:
    26-Sep-2007: v1.0:     First public release
    11-Jan-2008: v1.1:     Stores series and episode if match was found by title.
+   28-Jan-2008: v1.2:     Encoded URL containing Programme name and improved search and error handling.
 
  *************************************************************************************************/
 
@@ -37,38 +38,83 @@
    */
   function extra_get_tv_details($id, $filename, $programme, $series='', $episode='', $title='')
   {
+    // First letter of number for menu selection
+    $num_char     = array('1'=>'o','2'=>'t','3'=>'t','4'=>'f','5'=>'f','6'=>'s','7'=>'s','8'=>'e','9'=>'n');
     // The site URL (may be used later)
     $site_url     = 'http://epguides.com/';
-    $search_url   = 'http://www.google.com/search?hl=en&q=&q=site%3Aepguides.com&q=#####';
-    $search_title = str_replace(' ','+',$programme);
-    $details      = db_toarray("select dirname, filename from tv where file_id = $id");
+    $search_url   = 'http://www.google.com/search?q=site%3Aepguides.com&q=+Titles+#####';
+    $search_title = str_replace('%20','+',urlencode($programme));
     
     send_to_log(4,"Searching for details about ".$programme." Season: ".$series." Episode: ".$episode." online at ".$site_url);                   
-                            
-    // Get page from epguides.com using Google 'I'm Feeling Lucky'
-    $url_load = str_replace('#####',$search_title,$search_url);
-    $html     = file_get_contents( $url_load );
+    
+    // Form URL of epguides menu page
+    if (preg_match("([a-zA-Z])",$programme{0}) > 0)
+      $url_load = $site_url.'menu'.$programme{0};
+    elseif  (preg_match("([1-9])",$programme{0}) > 0)
+      $url_load = $site_url.'menu'.$num_char[$programme{0}];
+    else
+      $url_load = null;
 
-    // Determine URL of first returned item, then load the page
-    $start        = strpos($html, $site_url);
-    $end          = strpos($html,'"',$start+1);
-    $epguides_url = substr($html,$start,$end-$start);
-    $html         = file_get_contents( $epguides_url );
+    // Get epguides menu page and search for match
+    if (!empty($url_load))
+    {
+      send_to_log(6,'Fetching information from: '.$url_load);
+      $html     = file_get_contents( $url_load );
+      $matches  = get_urls_from_html($html, '');
+      $index    = best_match(ucwords(strtolower($programme)), $matches[2], $accuracy);
+      if ($index === false)
+        $epguides_url = false;          
+      else
+        $epguides_url = add_site_to_url($matches[1][$index],$url_load);
+    }
+    
+    // Get page from epguides.com using Google search (only if previous search on menu page failed)
+    if (empty($epguides_url))
+    {
+      $url_load = str_replace('#####',$search_title,$search_url);
+      send_to_log(6,'Fetching information from: '.$url_load);
+      $html     = file_get_contents( $url_load );
+      
+      if ($html === false)
+      {
+        send_to_log(2,'Failed to access the URL.');
+      }
+      else
+      {
+        // Is the text that signifies a successful search present within the HTML?    
+        if (strpos(strtolower($html),strtolower('Results')) !== false)
+        {
+          // Determine URL of first returned item
+          $start        = strpos($html, $site_url);
+          $end          = strpos($html,'"',$start+1);
+          $epguides_url = substr($html,$start,$end-$start);
+          $epguides_url = substr($epguides_url,0,strrpos($epguides_url,'/'));
+        }
+        else
+        {
+          send_to_log(4,"No Match found.");
+          $epguides_url = false;
+        }
+      }
+    }
+    
+    send_to_log(6,'Fetching information from: '.$epguides_url);
+    $html = file_get_contents( $epguides_url );
     
     if ($html != false)
     {
-      // Download and store Albumart if there is none present (cast photo)
-      if ( file_albumart($details[0]["DIRNAME"].$details[0]["FILENAME"], false) == '')
+      // Determine the URL of the albumart and attempt to download it.
+      if ( file_albumart($filename, false) == '')
       {
-        $matches = array ();
         $matches = get_images_from_html($html);
         for ($i = 0; $i<count($matches[1]); $i++)
         {
-          if ((strpos($matches[1][$i],'cast') !== false) || (strpos($matches[1][$i],'logo') !== false))
+          if ((strpos($matches[1][$i],'cast') !== false) || (strpos($matches[1][$i],'logo') !== false && strpos($matches[1][$i],'NO_logo') == false))
           {
-            $pos = strpos($matches[1][$i], "http://");
-            $orig_ext = file_ext($matches[1][$i]);
-            file_save_albumart( ($pos===false ? $epguides_url : "").$matches[1][$i] , $details[0]["DIRNAME"].file_noext($details[0]["FILENAME"]).'.'.$orig_ext , $series);
+            file_save_albumart( add_site_to_url($matches[1][$i], $epguides_url)
+                              , dirname($filename).'/'.file_noext($filename).'.'.file_ext($matches[1][$i])
+                              , $series);
+            break;
           }
         }
       }
@@ -78,31 +124,42 @@
       {    
         // Get link for tv.com Summary
         $matches = get_urls_from_html($html, 'full_summary=1');
-        
-        // Get page containing Series Summary
-        $url_load = substr($matches[1][0],strrpos_str($matches[1][0],'http'));
-        send_to_log(6,'Fetching information from:',parse_url($url_load));
-        $html_summary = file_get_contents( $url_load );
+        if (count($matches[1]) == 0)
+          $matches = get_urls_from_html($html, 'ShowMainServlet');
+        if (count($matches[1]) > 0)
+        {
+          // Get page containing Series Summary
+          $url_load = substr($matches[1][0],strrpos_str($matches[1][0],'http'));
+          $url_load = $matches[1][0];
+          send_to_log(6,'Fetching information from: '.$url_load);
+          $html_summary = file_get_contents( $url_load );
             
-        // Genre (allowing for Category and Categories)
-        $start = strpos($html_summary,"Show Categor");
-        $end = strpos($html_summary,"</div>",$start+1);
-        $html_genres = substr($html_summary,$start,$end-$start);
-        $matches = get_urls_from_html($html_genres,"genre");
-        $new_genres = $matches[2];
-      
+          // Genre (allowing for Category and Categories)
+          $start = strpos($html_summary,"Show Categor");
+          $end = strpos($html_summary,"</div>",$start+1);
+          $html_genres = substr($html_summary,$start,$end-$start);
+          $matches = get_urls_from_html($html_genres,"genre");
+          scdb_add_tv_genres ( $id, $matches[2] );
+        }
+        else 
+          send_to_log(6,'Cannot find link to tv.com summary page for specified series.');
+        
         // Search for link for required Episode by series-episode
         $start = strpos($html,$series.'-'.sprintf("%2s", $episode));
-        $end = strpos($html,"</pre>",$start+1);
-        $html_episode = substr($html,$start,$end-$start);
-        $matches = get_urls_from_html($html_episode, 'summary.html');
+        if ($start !== false)
+        {
+          $end = strpos($html,"</pre>",$start+1);
+          $html = substr($html,$start,$end-$start);
+        }
+        $matches = get_urls_from_html($html, 'summary.html');
 
         // Couldn't find episode so try to match episode title
         if ($start === false && $title <> '')
         {
-          $end = strpos(strtolower($html),strtolower($title));
-          if ($end > 0) // Found episode title
+          $index = best_match(ucwords(strtolower($title)), $matches[2], $accuracy);  
+          if ($index !== false)
           {
+            $end = strpos(strtolower($html),strtolower($matches[2][$index]));
             $start = strrpos(substr($html,0,$end),"<a")-40;
             $end = strpos($html,"</pre>",$start+1);
             $html_episode = substr($html,$start,$end-$start);
@@ -115,12 +172,12 @@
           }
         }
         
-        if ($start > 0 && count($matches[1])>0)
+        if ($start !== false && count($matches[1])>0)
         {
           // Get page containing Episode Summary
           $url_load = substr($matches[1][0],strrpos_str($matches[1][0],'http'));
           $title    = $matches[2][0];
-          send_to_log(6,'Fetching information from:',parse_url($url_load));
+          send_to_log(6,'Fetching information from: '.$url_load);
           $html = file_get_contents( $url_load );
                 
           // Year
@@ -139,34 +196,29 @@
           $start = strpos($html,"Director:");
           $end = strpos($html,"<tr>",$start+1);
           $html_directed = substr($html,$start,$end-$start);
-          $matches = array ();
           $matches = get_urls_from_html($html_directed,"summary.html");
-          $new_directors = $matches[2];
+          scdb_add_tv_directors ( $id, $matches[2] );
         
           // Actor(s)
           $start = strpos($html,"Star:");
           $end = strpos($html,"<tr>",$start+1);
           $html_actors = substr($html,$start,$end-$start);
-          $matches = array ();
           $matches = get_urls_from_html($html_actors,"summary.html");
-          $new_actors = $matches[2];
-                
+          scdb_add_tv_actors ( $id, $matches[2] );
+          
+          // Store the single-value movie attributes in the database   
           $columns = array ( "TITLE"             => $title
                            , "SERIES"            => $series
                            , "EPISODE"           => $episode
                            , "YEAR"              => $year
                            , "DETAILS_AVAILABLE" => 'Y'
                            , "SYNOPSIS"          => $synopsis_ep);
-          
-          scdb_add_tv_directors($id, $new_directors);
-          scdb_add_tv_actors   ($id, $new_actors);
-          scdb_add_tv_genres   ($id, $new_genres);    
           scdb_set_tv_attribs  ($id, $columns);
           return true;
         }
         else
         {
-          send_to_log(4,"Cannot find specified episode.");
+          send_to_log(4,"Cannot find link to tv.com Episode page.");
         }
       }
       // Check that page contains links to epguides.com
@@ -177,75 +229,98 @@
         
         // Get link for required Episode
         $start = strpos($html,$series.'-'.sprintf("%2s", $episode));
-        $end = strpos($html,"</pre>",$start+1);
-        $html_episode = substr($html,$start,$end-$start);
-        $matches = get_urls_from_html($html_episode, 'guide.shtml');
+        if ($start !== false)
+        {
+          $end = strpos($html,"</pre>",$start+1);
+          $html_episode = substr($html,$start,$end-$start);
+          $matches = get_urls_from_html($html_episode, 'guide.shtml');
+        }
+        else 
+          $matches = array(); 
               
         if (count($matches[1])>0)
         {
           // Get page containing Episode Summary
-          $url_load = substr($matches[1][0],strrpos_str($matches[1][0],'http'));
+          $url_load = add_site_to_url($matches[1][0],$epguides_url);
           $title    = $matches[2][0];
-          send_to_log(6,'Fetching information from:',parse_url($url_load));
+          send_to_log(6,'Fetching information from: '.$url_load);
           $html = file_get_contents( $url_load );
+          
+          // Determine the URL of the albumart and attempt to download it.
+          if ( file_albumart($filename, false) == '')
+          {
+            $matches = get_images_from_html($html);
+            for ($i = 0; $i<count($matches[1]); $i++)
+            {
+              if ((strpos($matches[1][$i],'cast') !== false) || (strpos($matches[1][$i],'logo') !== false && strpos($matches[1][$i],'NO_logo') == false))
+              {
+                file_save_albumart( add_site_to_url($matches[1][$i], $epguides_url)
+                                  , dirname($filename).'/'.file_noext($filename).'.'.file_ext($matches[1][$i])
+                                  , $series);
+                break;
+              }
+            }
+          }
           
           // Crop returned page to required episode
           $start = strpos($html,$series.'-'.sprintf("%2s", $episode));
-          $end = strpos($html,"</pre>",$start+1);
-          $html_episode = substr($html,$start,$end-$start);
+          if ($start !== false)
+          {
+            $end = strpos($html,"</pre>",$start+1);
+            $html_episode = substr($html,$start,$end-$start);
+            
+            // Year
+            $year  = substr_between_strings($html,'First Aired:','&nbsp');
+            $year  = substr($year,strlen($year)-4);
+  
+            // Synopsis
+            $start = strpos($html,'<div id="main-col">');
+            $end = strpos($html,'class="ta-r mt-10 f-bold">',$start+1);
+            $html_synopsis = substr($html,$start,$end-$start);
+            $start = strrpos_str($html_synopsis,'div>');
+            $html_synopsis = substr($html_synopsis,$start);
+            $synopsis_ep  = substr_between_strings($html_synopsis,'div>','<div');
+  
+            // Director(s)
+            $start = strpos($html,"Director:");
+            $end = strpos($html,"<tr>",$start+1);
+            $html_directed = substr($html,$start,$end-$start);
+            $matches = get_urls_from_html($html_directed,"summary.html");
+            scdb_add_tv_directors ( $id, $matches[2] );
           
-          // Year
-          $year  = substr_between_strings($html,'First Aired:','&nbsp');
-          $year  = substr($year,strlen($year)-4);
-
-          // Synopsis
-          $start = strpos($html,'<div id="main-col">');
-          $end = strpos($html,'class="ta-r mt-10 f-bold">',$start+1);
-          $html_synopsis = substr($html,$start,$end-$start);
-          $start = strrpos_str($html_synopsis,'div>');
-          $html_synopsis = substr($html_synopsis,$start);
-          $synopsis_ep  = substr_between_strings($html_synopsis,'div>','<div');
-
-          // Director(s)
-          $start = strpos($html,"Director:");
-          $end = strpos($html,"<tr>",$start+1);
-          $html_directed = substr($html,$start,$end-$start);
-          $matches = array ();
-          $matches = get_urls_from_html($html_directed,"summary.html");
-          $new_directors = $matches[2];
-        
-          // Actor(s)
-          $start = strpos($html,"Star:");
-          $end = strpos($html,"<tr>",$start+1);
-          $html_actors = substr($html,$start,$end-$start);
-          $matches = array ();
-          $matches = get_urls_from_html($html_actors,"summary.html");
-          $new_actors = $matches[2];
-                
-          $columns = array ( "TITLE"             => $title
-                           , "YEAR"              => $year
-                           , "DETAILS_AVAILABLE" => 'Y'
-                           , "SYNOPSIS"          => $synopsis_ep);
-          
-          scdb_add_tv_directors($id, $new_directors);
-          scdb_add_tv_actors   ($id, $new_actors);
-          scdb_add_tv_genres   ($id, $new_genres);    
-          scdb_set_tv_attribs  ($id, $columns);
-          return true;
+            // Actor(s)
+            $start = strpos($html,"Star:");
+            $end = strpos($html,"<tr>",$start+1);
+            $html_actors = substr($html,$start,$end-$start);
+            $matches = get_urls_from_html($html_actors,"summary.html");
+            scdb_add_tv_actors ( $id, $matches[2] );
+            
+            // Store the single-value movie attributes in the database
+            $columns = array ( "TITLE"             => $title
+                             , "YEAR"              => $year
+                             , "DETAILS_AVAILABLE" => 'Y'
+                             , "SYNOPSIS"          => $synopsis_ep);
+            scdb_set_tv_attribs  ($id, $columns);
+            return true;
+          }
+          else 
+          {
+            send_to_log(4,"Cannot find details for specified episode at epguides.com.");
+          }
         }
         else
         {
-          send_to_log(4,"Cannot find specified episode.");
+          send_to_log(4,"Cannot find link to epguides.com Episode page.");
         }      
       }
       else
       {
-        send_to_log(4,"Cannot find specified series.");
+        send_to_log(4,"Cannot find links for series/episodes.");
       }
     }
     else
     {
-      send_to_log(2,'Failed to access the URL.');
+      send_to_log(4,"Cannot find link to epguides.com Programme page.");
     }
     
     // Mark the file as attempted to get details, but none available
