@@ -107,7 +107,7 @@
   // Function selected so prompt to press remote key to map
   if (isset($_REQUEST["func"]))
   {
-    echo '<center>'.str_replace('####', str($_REQUEST["func"]), str('PRESS_KEY_NOW')).'</center>';
+    echo '<center>'.str('PRESS_KEY_NOW', str($_REQUEST["func"])).'</center>';
   }
   
   page_footer( '','',0,false );

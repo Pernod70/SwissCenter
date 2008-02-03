@@ -31,8 +31,6 @@
 # The language contained within this file (in your own language: eg: "Deutsch" not "German")
 
 LANGUAGE		= English
-PLAYER_PAGE_CHARSET     = Windows-1252
-CONFIG_PAGE_CHARSET     = Windows-1252
 
 # Mappings
 
@@ -857,7 +855,7 @@ PC_LINK_TV                  = TV Shows
 PC_LINK_RADIO	              = Radio
 
 # -----------------------
-# SwissCenter v1.20
+# SwissCenter v1.19.2
 # -----------------------
 
 SETUP_REMOTE                = Remote control setup
@@ -872,8 +870,25 @@ QUICK_KEY_C                 = Quick Key C
 BACKSPACE                   = Previous Page
 PGDN                        = Page Down
 PGUP                        = Page Up
-PRESS_KEY_NOW               = Press '####' now!
+PRESS_KEY_NOW               = Press '%s' now!
 TVID_RESET_DEFAULT          = Reset TVID codes to default
+
+# -----------------------
+# SwissCenter v1.19.3
+# -----------------------
+
+LANG_EDITOR                 = Language Editor
+LANG_PROMPT                 = Language definitions consist of mapping an internal ID (eg: "ADD_PLAYLIST") to the actual text to be displayed. The <text> may contain a limited number of markup tags which are indicated by square brackets and perform an identical function to their HTML counterparts. The following tags are supported:[br]&#91;br&#93;&#91;/br&#93;  &#91;em&#93;&#91;/em&#93;  &#91;p&#93;&#91;/p&#93;  &#91;b&#93;&#91;/b&#93;  &#91;i&#93;&#91;/i&#93;  &#91;li&#93;&#91;/li&#93;  &#91;ul&#93;&#91;/ul&#93;  &#91;ol&#93;&#91;/ul&#93;[p]In some circumstances, other text may need to be substituted within the text. Placeholders for the position within the string where the substitution occurs are indicated with '&#37;s'.[br]eg: In the ID below, the number of tracks that has been found within the database is substituted for the &#37;s within the string... so a search returning 4 tracks would be displayed to the user as &quot;4 Tracks&quot;[br]MANY_TRACKS= &#37;s Tracks
+LANG_SELECT                 = Language
+LANG_DELETE_BUTTON          = Delete selected language texts
+LANG_TEXT_ID                = Text Id
+LANG_TEXT                   = Text
+LANG_TRANS                  = Translation
+LANG_ADD_NEW                = Add a new language text
+LANG_ADD_BUTTON             = Add language text
+LANG_EDIT                   = Edit language translation
+LANG_SAVE_BUTTON            = Save changes
+LANG_CANCEL_BUTTON          = Cancel
 
 #----------------------------------------------------------------------------------------------------
 # End-of-file
