@@ -43,7 +43,6 @@
       
     for ($i=0; $i<count($haystack); $i++)
     {
-      $haystack[$i] = strip_title($haystack[$i]);
       $chars = similar_text($needle,$haystack[$i],$pc);
       $haystack[$i] .= " (".round($pc,2)."%)";
       
