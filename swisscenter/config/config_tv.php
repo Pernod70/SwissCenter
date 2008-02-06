@@ -48,9 +48,8 @@ function tv_display_info(  $message = '' )
          )
         </center>';
         message($message);
-  echo '<table class="form_select_tab" width="100%" cellspacing=4>';
-  
-  echo '<tr>
+  echo '<table class="form_select_tab" width="100%" cellspacing=4>
+        <tr>
           <th>'.str('PROGRAMME').'</th>
           <th>'.str('SERIES').'</th>
           <th>'.str('EPISODE').'</th>
@@ -113,7 +112,7 @@ function tv_display_info(  $message = '' )
           <input type=hidden name="section" value="TV">
           <input type=hidden name="action" value="LOOKUP">
           <input type=hidden name="tv_id" value="'.$tv_id.'">
-          '.form_list_static_html('parser',$sites_list, get_sys_pref('tv_info_script','www.epguides.com'),false,false,false).'
+          '.form_list_static_html('parser',$sites_list, get_sys_pref('tv_info_script','www.epguides.com.php'),false,false,false).'
           &nbsp; <input type="Submit" name="subaction" value="'.str('LOOKUP_TV').'"> &nbsp; 
           </form>
         </td>
@@ -254,11 +253,11 @@ function tv_display( $message = '')
   $this_url = '?last_where='.urlencode($where).'&search='.$_REQUEST["search"].'&cat_id='.$_REQUEST["cat_id"].'&section=TV&action=DISPLAY&page=';
 
   echo '<form enctype="multipart/form-data" action="" method="post">
-        <table width="100%"><tr><td width="70%">
-        <input type=hidden name="section" value="TV">
-        <input type=hidden name="action" value="DISPLAY">
-        <input type=hidden name="last_where" value="'.$where.'">
-        '.str('CATEGORY').' : 
+        <table width="100%"><tr><td width="70%">';
+  form_hidden('section','TV');
+  form_hidden('action','DISPLAY');
+  form_hidden('last_where',$where);
+  echo  str('CATEGORY').' : 
         '.form_list_dynamic_html("cat_id","select distinct c.cat_id,c.cat_name from categories c left join media_locations ml on c.cat_id=ml.cat_id where ml.media_type=6 order by c.cat_name",$_REQUEST["cat_id"],true,true,str('CATEGORY_LIST_ALL')).'&nbsp;
         <a href="'.url_set_param($this_url,'list','LIST').'"><img align="absbottom" border="0"  src="/images/details.gif"></a>
         <a href="'.url_set_param($this_url,'list','THUMBS').'"><img align="absbottom" border="0" src="/images/thumbs.gif"></a>  
@@ -267,12 +266,12 @@ function tv_display( $message = '')
         </td><td width"50%" align="right">
         '.str('SEARCH').' : 
         <input name="search" value="'.$_REQUEST["search"].'" size=10>
-        </form>
-        </td></tr></table>';
+        </td></tr></table>
+        </form>';
   
-  echo '<form enctype="multipart/form-data" action="" method="post">
-        <input type=hidden name="section" value="TV">
-        <input type=hidden name="action" value="UPDATE">';
+  echo '<form enctype="multipart/form-data" action="" method="post">';
+  form_hidden('section','TV');
+  form_hidden('action','UPDATE');
 
   paginate($this_url,$tv_count,$per_page,$page);
 
@@ -623,7 +622,7 @@ function tv_info( $message = "")
   form_hidden('action', 'INFO');
   echo '<p><b>'.str('MOVIE_EXTRA_DL_TITLE').'</b>
         <p>'.str('MOVIE_EXTRA_DL_PROMPT');
-  form_list_static('site',str('MOVIE_EXTRA_SITE_PROMPT'),$sites_list,get_sys_pref('tv_info_script','movie_dvdloc8.php'),false,false,false);
+  form_list_static('site',str('MOVIE_EXTRA_SITE_PROMPT'),$sites_list,get_sys_pref('tv_info_script','www.epguides.com.php'),false,false,false);
   form_list_dynamic('scheme',str('RATING_SCHEME_PROMPT'),get_rating_scheme_list_sql(),get_rating_scheme_name(),false,false,null);
   form_radio_static('downloads',str('STATUS'),$list,get_sys_pref('tv_check_enabled','YES'),false,true);
   form_submit(str('SAVE_SETTINGS'),2,'left',240);

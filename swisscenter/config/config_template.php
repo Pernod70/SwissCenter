@@ -38,7 +38,7 @@
 </head>
 <body style="margin:20px;" background="../images/bgr.png">
  
-<table width="<?php echo $page_width; ?>" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="eeeeee">
+<table width="95%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="eeeeee">
 <tr>
   <td width="6" bgcolor="#FFFFFF">
   <img src="../images/dot.gif" width="1" height="1" alt="spacer" />
