@@ -382,7 +382,7 @@ function process_mp3( $dir, $id, $file)
   $data["verified"]     = 'Y';
   $data["discovered"]   = db_datestr(filemtime($filepath));
 
-  if (in_array( $id3["fileformat"],array('mp3','asf','riff')) )
+  if (in_array( $id3["fileformat"], media_exts_with_GetID3_support() ))
   {
     if ( ! isset($id3["error"]) )
     {
@@ -446,7 +446,7 @@ function process_mp3( $dir, $id, $file)
   else
   {
     // File extension is MP3, but the file itself isn't!
-    send_to_log(3,'GETID3 claims this is not an MP3 (found '.$id3["fileformat"].') - adding it anyway, but no ID3 tag information could be read.');
+    send_to_log(3,'This filetype is not supported by the GetID3 library, so although it will be added thre will not be any supplemental information available.');
     $file_id = db_value("select file_id from mp3s where concat(dirname,filename)='".db_escape_str($dir.$file)."'");
     if ( $file_id )
     {
@@ -566,7 +566,7 @@ function process_photo( $dir, $id, $file)
     send_to_log(5,'Found XMP data : No');
   }
   
-  if (in_array( $id3["fileformat"],array('jpg','gif','png','jpeg')) )
+  if (in_array( $id3["fileformat"], media_exts_with_GetID3_support() ))
   {
     if ( ! isset($id3["error"]) )
     {
@@ -694,7 +694,6 @@ function determine_dvd_name( $fsp )
 function process_movie( $dir, $id, $file)
 {
   send_to_log(4,'Found Video    : '.$file);
-  $types    = array('riff','mpeg','asf');
   $data     = array();
   $getID3   = new getID3;
   $filepath = os_path($dir.$file);
@@ -708,7 +707,7 @@ function process_movie( $dir, $id, $file)
   $data["verified"]     = 'Y';
   $data["discovered"]   = db_datestr(filemtime($filepath));
   
-  if ( in_array(strtolower($id3["fileformat"]), $types))
+  if ( in_array(strtolower($id3["fileformat"]), media_exts_with_GetID3_support()))
   {
     if ( ! isset($id3["error"]) )
     {
@@ -895,7 +894,6 @@ function get_tvseries_info( $fsp )
 function process_tv( $dir, $id, $file)
 {
   send_to_log(4,'Found TV episode : '.$file);
-  $types    = array('riff','mpeg');
   $data     = array();
   $getID3   = new getID3;
   $filepath = os_path($dir.$file);
@@ -917,7 +915,7 @@ function process_tv( $dir, $id, $file)
   $data = array_merge($data, get_tvseries_info($meta_fsp) );
   send_to_log(1,'Metadata results', $data );
   
-  if ( in_array(strtolower($id3["fileformat"]), $types))
+  if ( in_array(strtolower($id3["fileformat"]), media_exts_with_GetID3_support() ))
   {
     if ( ! isset($id3["error"]) )
     {

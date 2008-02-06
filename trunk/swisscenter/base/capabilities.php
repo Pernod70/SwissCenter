@@ -238,6 +238,11 @@ function media_exts( $media_type )
   return array();
 }
 
+function media_exts_with_GetID3_support()
+{
+  return explode(',' ,'mp3,asf,riff,flac,jpg,jpeg,gif,png,mpeg,mpg');
+}
+
 #-------------------------------------------------------------------------------------------------
 # Returns an array of PHP modules that are required/suggested to be installed for this player type
 #-------------------------------------------------------------------------------------------------
