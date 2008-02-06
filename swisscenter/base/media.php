@@ -879,6 +879,7 @@ function get_tvseries_info( $fsp )
   $details['title']     = trim(trim($details['title'],'-'));
   
   send_to_log(8,'Metadata search results',$details);
+  unset($details["rule"]);
   return $details;
 }
 
