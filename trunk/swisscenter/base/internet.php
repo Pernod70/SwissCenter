@@ -41,10 +41,16 @@ function internet_available()
       set_sys_pref('INTERNET_AVAILABLE', internet_check() );    
       set_sys_pref('INTERNET_CHECK_TIME', time()+900);    
     }    
+    
+    // Return the status of the internet connection
+    return get_sys_pref('INTERNET_AVAILABLE',false);
   }
-  
-  // Return the status of the internet connection
-  return get_sys_pref('INTERNET_AVAILABLE',false);
+  else 
+  {
+    // Don't attempt to determine whether the connection is available, just return the
+    // setting specified by the user.
+    return $check_type;
+  }
 }
 
 #-------------------------------------------------------------------------------------------------
