@@ -397,11 +397,29 @@ function process_mp3( $dir, $id, $file)
       $data["title"]        = array_last($id3["comments"]["title"]);
       $data["artist"]       = array_last($id3["comments"]["artist"]);
       $data["album"]        = array_last($id3["comments"]["album"]);
-      $data["year"]         = array_last($id3["comments"]["year"]);
-      $data["track"]        = isset($id3["comments"]["tracknum"]) ? array_last($id3["comments"]["tracknum"]) : array_last($id3["comments"]["track"]);
-      $data["disc"]         = isset($id3["id3v2"]["TPOS"][0]["data"]) ? array_last($id3["id3v2"]["TPOS"][0]["data"]) : array_last($id3["comments"]["partofset"]);
       $data["genre"]        = array_last($id3["comments"]["genre"]);
-      $data["band"]         = isset($id3["comments"]["band"]) ? array_last($id3["comments"]["band"]) : array_last($id3["comments"]["albumartist"]);
+      
+      // Get specific comments for each file format
+      switch ($id3["fileformat"])
+      {
+        case 'asf':
+        case 'mp3':
+          $data["year"]     = array_last($id3["comments"]["year"]);
+          $data["track"]    = isset($id3["comments"]["tracknum"]) ? array_last($id3["comments"]["tracknum"]) : array_last($id3["comments"]["track"]);
+          $data["disc"]     = isset($id3["id3v2"]["TPOS"][0]["data"]) ? array_last($id3["id3v2"]["TPOS"][0]["data"]) : array_last($id3["comments"]["partofset"]);
+          $data["band"]     = isset($id3["comments"]["band"]) ? array_last($id3["comments"]["band"]) : array_last($id3["comments"]["albumartist"]);
+          break;
+        case 'flac':
+          $data["year"]     = array_last($id3["comments"]["date"]);
+          $data["track"]    = array_last($id3["comments"]["tracknumber"]);
+          if (strstr($data["track"], '/'))
+            list($data["track"], $dummy) = explode('/', $data["track"]);
+          $data["disc"]     = array_last($id3["comments"]["discnumber"]);
+          if (strstr($data["disc"], '/'))
+            list($data["disc"], $dummy) = explode('/', $data["disc"]);
+          $data["band"]     = array_last($id3["comments"]["ensemble"]);
+          break;
+      }
       
       if (get_sys_pref('USE_ID3_ART','YES') == 'YES' && (isset($id3["id3v2"]["APIC"][0]["data"]) || isset($id3["asf"]["comments"]["picture"])))
       {
@@ -446,7 +464,7 @@ function process_mp3( $dir, $id, $file)
   else
   {
     // File extension is MP3, but the file itself isn't!
-    send_to_log(3,'This filetype is not supported by the GetID3 library, so although it will be added thre will not be any supplemental information available.');
+    send_to_log(3,'This filetype is not supported by the GetID3 library, so although it will be added there will not be any supplemental information available.');
     $file_id = db_value("select file_id from mp3s where concat(dirname,filename)='".db_escape_str($dir.$file)."'");
     if ( $file_id )
     {

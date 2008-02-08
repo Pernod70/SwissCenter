@@ -205,7 +205,7 @@ function media_exts_movies()
 
 function media_exts_music()
 {
-  return explode(',' ,'ac3,mp2,mp3,ogg,wav,wma');
+  return explode(',' ,'ac3,mp2,mp3,ogg,wav,wma,flac');
 }
 
 function media_exts_photos()
