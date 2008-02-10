@@ -7,25 +7,19 @@
   require_once( realpath(dirname(__FILE__).'/base/page.php'));
   require_once( realpath(dirname(__FILE__).'/base/prefs.php'));
 
-  function trim_tvid($tvid)
-  {
-    return substr($tvid,7,strlen($tvid)-9);
-  }
-
-  $tvid_default  = array('QUICK_MUSIC'=>'MUSIC',
-                         'QUICK_MOVIE'=>'MOVIE',
-                         'QUICK_PHOTO'=>'PHOTO',
-                         'QUICK_HOME' =>'HOME',
-                         'QUICK_KEY_A'=>'KEY_A',
-                         'QUICK_KEY_B'=>'KEY_B',
-                         'QUICK_KEY_C'=>'KEY_C',
-                         'BACKSPACE'  =>'BACKSPACE');
-//                         'PGUP'       =>'PGUP',
-//                         'PGDN'       =>'PGDN');
+  $tvid_sc = array('QUICK_MUSIC'=>'MUSIC',
+                   'QUICK_MOVIE'=>'MOVIE',
+                   'QUICK_PHOTO'=>'PHOTO',
+                   'QUICK_HOME' =>'HOME',
+                   'QUICK_KEY_A'=>'KEY_A',
+                   'QUICK_KEY_B'=>'KEY_B',
+                   'QUICK_KEY_C'=>'KEY_C',
+                   'BACKSPACE'  =>'BACKSPACE');
+//                   'PGUP'       =>'PGUP',
+//                   'PGDN'       =>'PGDN');
 
   // The following is a list of all known possible TVID codes that are recognised 
-  $tvid_list     = array(
-                         'MUSIC',
+  $tvid_list     = array('MUSIC',
                          'MOVIE',
                          'PHOTO',
                          'RED',
@@ -77,8 +71,8 @@
   
   if (isset($_REQUEST["tvid"]))
   {
-    // Remote key recognised so save it to the system_prefs
-    set_sys_pref('TVID_'.get_player_type().'_'.strtoupper($tvid_default[$_REQUEST["tvid_sel"]]), strtoupper($_REQUEST["tvid"]));
+    // Remote key recognised so save it to the tvid_prefs
+    set_tvid_pref(get_player_type(), $tvid_sc[$_REQUEST["tvid_sel"]], $_REQUEST["tvid"]);
   }
   elseif (isset($_REQUEST["func"]))
   { 
@@ -86,17 +80,17 @@
     foreach ($tvid_list as $tvid)
       echo '<a href="remote_tvid.php?tvid='.$tvid.'&tvid_sel='.$_REQUEST["func"].'" tvid="'.$tvid.'"></a>';
   }             
-  elseif (isset($_REQUEST["default"]) && strtoupper($_REQUEST["default"]) == 'Y')
+  elseif (isset($_REQUEST["default"]) && $_REQUEST["default"] == 'Y')
   {
     // Reset all tvid codes to the hardcoded defaults
-    db_sqlcommand("delete from system_prefs where name like 'TVID_".get_player_type()."_%'",false);
+    db_sqlcommand("update tvid_prefs set tvid_custom=null where player_type='".get_player_type()."'",false);
   }
   
   // Show the current configuration
   $menu = new menu();
   
-  foreach (array_keys($tvid_default) as $tvid_key)
-    $menu->add_item(str($tvid_key).' -> ['.strtoupper(get_sys_pref('TVID_'.get_player_type().'_'.$tvid_default[$tvid_key], trim_tvid(tvid($tvid_default[$tvid_key])))).']', url_set_param('remote_tvid.php','func',$tvid_key));
+  foreach (array_keys($tvid_sc) as $tvid_key)
+    $menu->add_item(str($tvid_key).' -> ['.get_tvid_pref(get_player_type(), $tvid_sc[$tvid_key]).']', url_set_param('remote_tvid.php','func',$tvid_key));
   
   // Add menu options to reset values to default, and to exit
   $menu->add_item(str('TVID_RESET_DEFAULT'), url_set_param('remote_tvid.php','default','Y'));

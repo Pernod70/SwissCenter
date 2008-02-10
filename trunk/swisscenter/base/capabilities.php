@@ -88,70 +88,8 @@ function max_playlist_size()
 
 function tvid( $code )
 {
-  // Define empty array
-  $map = array();
-  $code = strtoupper($code);
-
-  // Depending on hardware player, override default values by storing in the $map array
-  switch ( get_player_type() )
-  {
-    case 'PINNACLE SC200':
-          $map = array( 'KEY_A'     => 'A'
-                      , 'KEY_B'     => 'B'
-                      , 'KEY_C'     => 'C' );
-          break;
-          
-    case 'H&B':
-          $map = array( 'BACKSPACE' => 'clear'
-                      , 'KEY_A'     => 'red'
-                      , 'KEY_B'     => 'green'
-                      , 'KEY_C'     => 'blue' );
-         break;
-         
-    case 'IO-DATA':
-          $map = array( 'BACKSPACE' => 'back'
-                      , 'KEY_A'     => 'play'
-                      , 'KEY_B'     => 'esc'
-                      , 'KEY_C'     => 'repeat' );
-         break;
-         
-    case 'ELGATO':
-    case 'BUFFALO':
-    case 'NEUSTON':
-          $map = array( 'KEY_A'     => 'red'
-                      , 'KEY_B'     => 'green'
-                      , 'KEY_C'     => 'blue' );
-         break;
-         
-    case 'SYABAS':
-          $map = array( 'BACKSPACE' => 'back'
-                      , 'KEY_A'     => 'red'
-                      , 'KEY_B'     => 'green'
-                      , 'KEY_C'     => 'blue' );
-          break;
-         
-    case 'NETGEAR':
-          $map = array( 'KEY_A'     => 'play'
-                      , 'KEY_B'     => 'setup'
-                      , 'KEY_C'     => 'blue'
-                      , 'MUSIC'     => 'green'
-                      , 'MOVIE'     => 'red'
-                      , 'PHOTO'     => 'yellow'
-                      , 'HOME'      => 'setup' );
-          break;
-  }
-
-  // Get codes from system prefs that have been defined by user
-  $tvid_prefs = db_toarray("select name, value from system_prefs where name like 'TVID_".get_player_type()."_%'");
-  if (!empty($tvid_prefs))
-    foreach ($tvid_prefs as $tvid)
-      $map[substr($tvid['NAME'], strlen(get_player_type())+6)] = $tvid['VALUE'];
-
   // Return the appropriate TVID html code.
-  if (array_key_exists($code,$map))
-    return ' TVID="'.$map[$code].'" ';
-  else 
-    return ' TVID="'.$code.'" ';
+  return ' TVID="'.get_tvid_pref( get_player_type(), $code ).'" ';
 }
 
 #-------------------------------------------------------------------------------------------------
