@@ -8,7 +8,7 @@
  require_once( realpath(dirname(__FILE__).'/server.php'));
  
  // ----------------------------------------------------------------------------------
- // USER proferences
+ // USER preferences
  // ----------------------------------------------------------------------------------
 
  function get_user_pref( $pref, $default = '', $user_id = '')
@@ -98,6 +98,39 @@
  function is_tv_check_enabled()
  {
    return (internet_available() && get_sys_pref('tv_check_enabled','YES') == 'YES');
+ }
+ 
+ // ----------------------------------------------------------------------------------
+ // TVID preferences
+ // ----------------------------------------------------------------------------------
+
+ function get_tvid_pref( $player_type, $tvid )
+ {
+   $data = db_toarray("select tvid_custom, tvid_default from tvid_prefs where player_type='".$player_type."' and tvid_sc='".$tvid."'");
+
+   if ($data == false)
+     return $tvid;
+   elseif (!is_null($data[0]["TVID_CUSTOM"]))
+     return $data[0]["TVID_CUSTOM"];
+   elseif (!is_null($data[0]["TVID_DEFAULT"]))
+     return $data[0]["TVID_DEFAULT"];
+ }
+ 
+ function set_tvid_pref( $player_type, $tvid, $tvid_pref )
+ {
+   if (db_value("select count(*) from tvid_prefs where player_type='".$player_type."' and tvid_sc='".$tvid."'") == 0)
+     $result = db_insert_row('tvid_prefs', array("PLAYER_TYPE"  => $player_type, 
+                                                 "TVID_SC"      => $tvid, 
+                                                 "TVID_CUSTOM"  => $tvid_pref) );
+   else
+     $result = db_sqlcommand("update tvid_prefs set tvid_custom ='".$tvid_pref."' where player_type='".$player_type."' and tvid_sc='".$tvid."'",false);
+ 
+   if (!$result)
+     send_to_log(1,"Unable to store tvid preference '$player_type','$tvid' = '$tvid_pref'");
+   else
+     send_to_log(6,"Set tvid preference '$player_type','$tvid' to '$tvid_pref'");
+
+   return $result;
  }
 /**************************************************************************************************
                                                End of file
