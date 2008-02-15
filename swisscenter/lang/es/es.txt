@@ -856,6 +856,25 @@ PHOTOS_MUSIC_CURRENT        = Lista de reproducción actual
 PC_LINK_TV                  = Programas de TV
 PC_LINK_RADIO	              = Radio
 
+# -----------------------
+# SwissCenter v1.19.1
+# -----------------------
+
+SETUP_REMOTE = Configuración de mando a distancia
+REMOTE_PROMPT = Selecciona el botón de función a cambiar:
+QUICK_HOME = Inicio rápido
+QUICK_MUSIC = Música rápido
+QUICK_MOVIE = Video rápido
+QUICK_PHOTO = Fotos rápido
+QUICK_KEY_A = Tecla rápida A
+QUICK_KEY_B = Tecla rápida B
+QUICK_KEY_C = Tecla rápida C
+BACKSPACE = Página anterior
+PGDN = Avanzar página
+PGUP = Retroceder página
+PRESS_KEY_NOW = Pulsa '####' ahora!
+TVID_RESET_DEFAULT = Resetear códigos TVID por defecto
+
 #----------------------------------------------------------------------------------------------------
 # Fin-de-fichero
 #----------------------------------------------------------------------------------------------------
