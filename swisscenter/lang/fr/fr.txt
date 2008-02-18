@@ -29,7 +29,7 @@
 
 # The language contained within this file
 
-LANGUAGE		= French
+LANGUAGE		= Français
 
 # Mappings
 

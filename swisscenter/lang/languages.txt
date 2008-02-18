@@ -3,5 +3,6 @@ Deutsch,de
 English,en
 Español,es
 Français,fr
+Italiano,it
 Nederlands,nl
 Polish,pl
