@@ -31,8 +31,6 @@
 # El idioma que contiene este archivo es el Español
 
 LANGUAGE		= Español
-PLAYER_PAGE_CHARSET     = Windows-1252
-CONFIG_PAGE_CHARSET     = Windows-1252
 
 # Ordenes
 
@@ -872,7 +870,7 @@ QUICK_KEY_C = Tecla rápida C
 BACKSPACE = Página anterior
 PGDN = Avanzar página
 PGUP = Retroceder página
-PRESS_KEY_NOW = Pulsa '####' ahora!
+PRESS_KEY_NOW = Pulsa '%s' ahora!
 TVID_RESET_DEFAULT = Resetear códigos TVID por defecto
 
 #----------------------------------------------------------------------------------------------------

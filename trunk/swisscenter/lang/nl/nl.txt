@@ -31,8 +31,6 @@
 # The language contained within this file
 
 LANGUAGE			= Nederlands
-PLAYER_PAGE_CHARSET = Windows-1252
-CONFIG_PAGE_CHARSET = Windows-1252
 
 # Mappings
 
@@ -835,7 +833,7 @@ QUICK_KEY_C                 = Sneltoets C
 BACKSPACE                   = Vorige pagina
 PGDN                        = Pagina naar beneden
 PGUP                        = Pagina naar boven
-PRESS_KEY_NOW               = Voer nu '####' in!
+PRESS_KEY_NOW               = Voer nu '%s' in!
 TVID_RESET_DEFAULT          = Terugzetten standaardwaarden van TVID
 
 #----------------------------------------------------------------------------------------------------
