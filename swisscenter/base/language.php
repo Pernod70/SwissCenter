@@ -5,32 +5,51 @@
 
 require_once( realpath(dirname(__FILE__).'/prefs.php'));
 require_once( realpath(dirname(__FILE__).'/utils.php'));
+require_once( realpath(dirname(__FILE__).'/../ext/xml/xmlbuilder.php'));
 
 //-------------------------------------------------------------------------------------------------
 // This procedure loads the language definitions into the session (and also updates the system 
 // preference for the default language);
 //-------------------------------------------------------------------------------------------------
 
-function load_lang_strings ( $lang = 'en-gb' )
+function load_lang_strings ( $lang = 'en-gb', $session = 'language' )
 {
-  $lang_file = SC_LOCATION."lang/$lang/$lang.txt";
+  global $tag, $id, $text, $version, $keys;
+  $lang_file = SC_LOCATION."lang/$lang/$lang.xml";
   $keys      = array();
   
   if (file_exists($lang_file))
   {
-    foreach (explode("\n",str_replace("\r",null,file_get_contents($lang_file))) as $line)
-      if ( strlen($line) > 0 && $line[0] != '#')
+    // Create XML parser
+    $xmlparser = xml_parser_create();
+    if ($xmlparser !== false)
+    {
+      xml_set_element_handler($xmlparser, "start_tag_lang", "end_tag_lang"); 
+      xml_set_character_data_handler($xmlparser, "tag_contents_lang"); 
+
+      // Read and process XML file
+      $data = file_get_contents($lang_file);
+      if ($data !== false)
       {
-      	$ex = explode('=',$line,2);
-        $keys[strtoupper(trim($ex[0]))] = ltrim($ex[1]);
-      }      
-      
-    send_to_log(6,"Loaded $lang language file");
-    
-    if ( isset($_SESSION["language"]) && is_array($_SESSION["language"]))
-      $_SESSION["language"] = array_merge( (array)$_SESSION["language"] , (array)$keys );
+        $data = eregi_replace(">"."[[:space:]]+"."<","><",$data);
+        if (!xml_parse($xmlparser, $data)) 
+          send_to_log(2,'XML parse error: '.xml_error_string(xml_get_error_code($xmlparser)).xml_get_current_line_number($xmlparser)); 
+        else
+        {
+          send_to_log(6,"Loaded $lang language file into $session");
+          if ( isset($_SESSION[$session]) && is_array($_SESSION[$session]))
+            $_SESSION[$session] = array_merge( (array)$_SESSION[$session] , (array)$keys );
+          else 
+            $_SESSION[$session] = $keys;
+        }
+      }
+      else 
+        send_to_log(6,'Unable to read the language file: ',$lang_file);
+
+      xml_parser_free($xmlparser);
+    }
     else 
-      $_SESSION["language"] = $keys;      
+      send_to_log(2,'Unable to create an expat XML parser - is the "xml" extension loaded into PHP?');
   }
 }
 
@@ -76,7 +95,7 @@ function str( $key )
   if (!isset($_SESSION["language"]) )
     load_lang();
     
-  if (! isset($_SESSION["language"][strtoupper($key)]) )
+  if (!isset($_SESSION["language"][strtoupper($key)]) )
   {
     $txt = '['.strtoupper($key).']';
     
@@ -84,11 +103,21 @@ function str( $key )
       for ($i=1;$i<$num_args;$i++)
         $txt.= ' ['.@func_get_arg($i).']';
     
+    // Automatically add any unknown strings to the base language file (DEVELOPERS ONLY)
+    if (get_sys_pref('IS_DEVELOPMENT','NO') == 'YES')
+    {
+      $_SESSION["language_base"] = array();
+      load_lang_strings("en", "language_base");
+      $_SESSION["language_base"][strtoupper($key)] = array('TEXT'    => '',
+                                                           'VERSION' => swisscenter_version());
+      save_lang('en', $_SESSION["language_base"]);
+    }
+
     return $txt;
   }
   else
   {
-    $string = $_SESSION["language"][strtoupper($key)];
+    $string = $_SESSION["language"][strtoupper($key)]['TEXT'];
     $txt    = '';
     $i      = 1;
     
@@ -131,6 +160,101 @@ function lang_wikipedia_search( $search_terms )
     $lang = substr($lang,0,strpos($lang,'-'));
 
   return '/wikipedia_proxy.php?wiki='.urlencode($lang.'.wikipedia.org').'&url='.urlencode('/w/index.php').'&search='.urlencode($search_terms);
+}
+
+//-------------------------------------------------------------------------------------------------
+// Callback functions to perform parsing of the language files.
+//-------------------------------------------------------------------------------------------------
+
+function start_tag_lang($parser, $name, $attribs) 
+{ 
+  global $tag, $id, $text, $version;
+  if ($name == 'STRING') { $text = ''; }
+  $tag = $name;
+}
+  
+function end_tag_lang($parser, $name)
+{ 
+  global $tag, $id, $text, $version, $keys;
+  if ($name == 'STRING') { $keys[strtoupper(trim($id))] = array('TEXT'    => ltrim($text),
+                                                                'VERSION' => $version); }
+}
+  
+function tag_contents_lang($parser, $data) 
+{ 
+  global $tag, $id, $text, $version;
+  if ($tag == "ID")      { $id = $data; }
+  if ($tag == "TEXT")    { $text .= utf8_decode($data); }
+  if ($tag == "VERSION") { $version = $data; }
+}
+
+//-------------------------------------------------------------------------------------------------
+// Save the language definitions to XML file.
+//-------------------------------------------------------------------------------------------------
+
+function save_lang( $lang, $language )
+{
+  $lang_file = SC_LOCATION."lang/$lang/$lang.xml";
+
+  // Order the language array by key
+  ksort( $language );
+  
+  $xml = new XmlBuilder();
+  $xml->Push('swisscenter');
+  $xml->Push('languages');
+  $xml->Push('language', array('name'     => $lang,
+                               'fullname' => trim($language['LANGUAGE']['TEXT'])));
+  foreach ($language as $id=>$text)
+  {
+    if (!empty($text['TEXT']))
+    {
+      $xml->Push('string');
+      $xml->Element('id', strtoupper(trim($id)));
+      $xml->Element('text', utf8_encode(trim($text['TEXT'])));
+      $xml->Element('version', $text['VERSION']);
+      $xml->Pop('string');
+    }
+  }
+  $xml->Pop('language');
+  $xml->Pop('languages');
+  $xml->Pop('swisscenter');
+    
+  if ($fsp = fopen(SC_LOCATION."lang/$lang/$lang.xml", 'wb'))
+  {
+	  fwrite($fsp, $xml->getXml());
+    fclose($fsp);
+    send_to_log(6,"Saved $lang_file language file");
+  }
+  else 
+    send_to_log(6,"Failed to save language file: $lang_file");
+}
+
+//-------------------------------------------------------------------------------------------------
+// Converts language ini file to new xml format. 
+//-------------------------------------------------------------------------------------------------
+
+function language_ini2xml( $lang )
+{
+  // Where is the SwissCenter installed?
+  define('SC_LOCATION', str_replace('\\','/',realpath(dirname(dirname(__FILE__)))).'/' );
+  
+  $lang_file = SC_LOCATION."lang/$lang/$lang.txt";
+  $language  = array();
+  
+  if (file_exists($lang_file))
+  { 
+    foreach (explode("\n",str_replace("\r",null,file_get_contents($lang_file))) as $line)
+    {
+      if ( strlen($line) > 0 && $line[0] != '#')
+      {
+      	$ex = explode('=',$line,2);
+        $language[strtoupper(trim($ex[0]))] = array('TEXT'=>ltrim($ex[1]), 'VERSION'=>'1.19');
+      }
+    }
+    
+    // Save the language file in xml
+    save_lang($lang, $language);
+  }
 }
 
 /**************************************************************************************************

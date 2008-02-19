@@ -96,6 +96,7 @@
   	  $menu->add_item(str('ART_FILES_TITLE')        ,'section=ART&action=DISPLAY');
   	  $menu->add_item(str('BROWSE_OPTIONS')         ,'section=BROWSE&action=DISPLAY');
   	  $menu->add_item(str('CACHE_CONFIG_TITLE')     ,'section=CACHE&action=DISPLAY');
+  	  $menu->add_item(str('LANG_EDITOR')            ,'section=LANGUAGE&action=DISPLAY');
 	    $menu->add_item(str('CONNECT_TITLE')          ,'section=CONNECT&action=DISPLAY');
   	  $menu->add_item(str('MISC_TITLE')             ,'section=MISC&action=DISPLAY');
   	    
@@ -152,7 +153,6 @@
   apply_database_patches();
 
   $page_title = '<a href="/"><img border=0 align="right" hspace=8 src="/images/close.gif"></a>'.str('CONFIG_TITLE');
-  $page_width = '750px';
   include("config_template.php");
   
 /**************************************************************************************************
