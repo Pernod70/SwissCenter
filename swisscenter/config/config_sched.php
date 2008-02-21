@@ -1,8 +1,12 @@
 <?php
+
 /**************************************************************************************************
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
-  
+
+  define('SIMESE_SCHEDULE','simese/SimeseSchedule.ini');
+
+
   // ----------------------------------------------------------------------------------
   // Display current config
   // ----------------------------------------------------------------------------------
@@ -12,10 +16,7 @@
     if (is_windows())
     {
       if (is_server_simese() && simese_version() >= 1.31)
-      {
-        echo "<h1>".str('SCHEDULE_TITLE')."</h1>";
-        echo str("SIMESE_SCHED_PROMPT");
-      }
+        sched_display_simese( $message );
       else
         sched_display_win( $message);
     }
@@ -90,10 +91,84 @@
              </form></center>
              ';
   }
-  
-  // ----------------------------------------------------------------------------------
-  // Update the schedule 
-  // ----------------------------------------------------------------------------------
+
+  function sched_display_simese( $message = '')
+  {
+    $schedule = array();
+    
+    // Parse the schedule file
+    if ( file_exists(SIMESE_SCHEDULE) )
+    {
+      foreach ( file(SIMESE_SCHEDULE) as $line )
+      {
+        preg_match('/.*=(.*) (.*):(.*)/', $line, $results);
+        $schedule[] = array( "days"=>explode(',',$results[1]) , "hr"=>$results[2], "mi"=>$results[3]);
+      }
+    }
+    
+    // Blank line for extra schedule information, or in case no schedule exists
+    $schedule[] = array( "days"=>array(), "hr"=>'', "mi"=>''); 
+
+    echo "<h1>".str('SCHEDULE_TITLE')."</h1>";
+    message($message);
+
+    echo '<p><b>'.str('SCHEDULE_AUTO_TITLE').'</b><p>'.str('SCHEDULE_AUTO_TXT').'
+          <center>
+             <form name="" enctype="multipart/form-data" action="index.php" method="post">
+               <input type=hidden name="section" value="SCHED">
+               <input type=hidden name="action" value="UPDATE_SIMESE">
+               <table width="400" class="form_select_tab" border=0 >
+               <tr>
+                 <th style="text-align=center;">'.str('TIME').'</th>
+                 <th style="text-align=center;">'.str('DAY_1').'</th>
+                 <th style="text-align=center;">'.str('DAY_2').'</th>
+                 <th style="text-align=center;">'.str('DAY_3').'</th>
+                 <th style="text-align=center;">'.str('DAY_4').'</th>
+                 <th style="text-align=center;">'.str('DAY_5').'</th>
+                 <th style="text-align=center;">'.str('DAY_6').'</th>
+                 <th style="text-align=center;">'.str('DAY_7').'</th>
+               </tr>';
+    
+    $line = 0;
+    foreach ($schedule as $entry)
+    {
+      $line++;
+      echo '   <tr>
+                 <td style="text-align=center;">
+                   <input size="1" name="hr'.$line.'" value="'.$entry["hr"].'"> 
+                   <input size="1" name="mi'.$line.'" value="'.$entry["mi"].'">
+                 </td>
+                 <td style="text-align=center;">
+                   <input type="checkbox" name="day'.$line.'[]" value="M" '. (in_array('M',$entry["days"]) ? 'checked' : '').'>
+                 </td>
+                 <td style="text-align=center;">
+                   <input type="checkbox" name="day'.$line.'[]" value="T" '. (in_array('T',$entry["days"]) ? 'checked' : '').'>
+                 </td>
+                 <td style="text-align=center;">
+                   <input type="checkbox" name="day'.$line.'[]" value="W" '. (in_array('W',$entry["days"]) ? 'checked' : '').'>
+                 </td>
+                 <td style="text-align=center;">
+                   <input type="checkbox" name="day'.$line.'[]" value="Th" '.(in_array('Th',$entry["days"]) ? 'checked' : '').'>
+                 </td>
+                 <td style="text-align=center;">
+                   <input type="checkbox" name="day'.$line.'[]" value="F" '. (in_array('F',$entry["days"]) ? 'checked' : '').'>
+                 </td>
+                 <td style="text-align=center;">
+                   <input type="checkbox" name="day'.$line.'[]" value="S" '. (in_array('S',$entry["days"]) ? 'checked' : '').'>
+                 </td>
+                 <td style="text-align=center;">
+                   <input type="checkbox" name="day'.$line.'[]" value="Su" '.(in_array('Su',$entry["days"]) ? 'checked' : '').'>
+                 </td>
+               </tr>';
+    }
+    
+    echo '     </tr>
+               </table><br>
+                 <input type="hidden" name="lines" value="'.$line.'">
+                 <input type="submit" value="'.str('SCHEDULE_UPDATE_BUTTON').'">
+             </form></center>
+             ';
+  }
 
   function sched_display_linux( $message = '')
   {
@@ -156,6 +231,10 @@
           ';
   }
 
+  // ----------------------------------------------------------------------------------
+  // Update the schedule 
+  // ----------------------------------------------------------------------------------
+
   function sched_update_win()
   {   
     $hrs  = $_REQUEST["hr"];
@@ -184,6 +263,48 @@
     }
   }
 
+  function sched_update_simese()
+  {
+    $file_contents = '';
+    $message = '';
+
+    for ($line=1; $line <= $_REQUEST["lines"]; $line++)
+    {
+      $hrs  = $_REQUEST["hr".$line];
+      $mins = $_REQUEST["mi".$line];
+      $days = $_REQUEST["day".$line];
+    
+      if ($hrs != '' && ($hrs <0 || $hrs > 23 || !is_numeric($hrs)) )
+      {
+        $message = str('SCHEDULE_ERROR_HOUR');
+        break;
+      }
+      elseif ($mins != '' && ($mins <0 || $mins > 59 || !is_numeric($mins)) )
+      {
+        $message = str('SCHEDULE_ERROR_MIN');
+        break;
+      }
+      elseif ($mins != '' && $hrs != '' && count($days) >0 )
+        $file_contents .= "MediaRefresh=".implode(',',$days)." $hrs:$mins".newline();
+    }
+    
+    if ($message == '')
+    {
+      // Remove old schedule file
+      @unlink(SIMESE_SCHEDULE);
+      
+      if (strlen($file_contents)>0)
+      {
+        write_binary_file( SIMESE_SCHEDULE, $file_contents );
+        sched_display(str('SCHEDULE_UPDATED'));
+      }
+      else 
+        sched_display(str('SCHEDULE_NONE'));              
+    }
+    else 
+      sched_display('!'.$message);        
+  }
+  
   function sched_update_linux()
   {   
     $hrs    = $_REQUEST["hour"];
