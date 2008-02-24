@@ -34,21 +34,6 @@ function check_php_version()
   return ( version_compare(phpversion(),'4.3.9','>=') );
 }
 
-
-function check_php_ini_location()
-{
-  $location = php_ini_location();
-  send_to_log(5,'- PHP ini location : '.$location);
-  return ($location !== false);
-}
-
-
-function check_php_cli()
-{
-  send_to_log(5,'- PHP CLI location : '.php_cli_location());
-  return (php_cli_location() !== false);
-}
-
 function check_php_required_modules()
 {
   foreach ( get_required_modules_list() as $module)
@@ -60,7 +45,6 @@ function check_php_required_modules()
       
   return true;
 }
-
 
 function check_php_suggested_modules()
 {
@@ -128,7 +112,6 @@ function check_mysql_connect()
     return false;
 }
 
-
 function check_mysql_version()
 {
   if ( ($db = @mysql_pconnect( DB_HOST, DB_USERNAME, DB_PASSWORD )) )
@@ -146,7 +129,6 @@ function check_mysql_version()
   else 
     return false;
 }
-
 
 function check_mysql_database_exists()
 {
@@ -195,7 +177,6 @@ function check_web_version()
   }
 }
 
-
 #-------------------------------------------------------------------------------------------------
 # SwissCenter configuration
 #-------------------------------------------------------------------------------------------------
@@ -222,7 +203,6 @@ function check_swiss_write_log_dir()
   return is_writeable(dirname(logfile_location()));  
 }
 
-
 function check_swiss_ini_file()
 {
   $result =  file_exists(SC_LOCATION.'/config/swisscenter.ini');
@@ -232,7 +212,6 @@ function check_swiss_ini_file()
       
   return $result;
 }
-
 
 function check_swiss_media_locations()
 {
@@ -244,7 +223,6 @@ function check_swiss_media_locations()
   return $result;
 }
 
-
 function check_swiss_write_rootdir()
 {
   $result =  ( is_readable(SC_LOCATION) && is_writable(SC_LOCATION) );  
@@ -254,7 +232,6 @@ function check_swiss_write_rootdir()
       
   return $result;
 }
-
 
 function check_not_root_install()
 {
@@ -316,52 +293,6 @@ function check_liveradio()
   $result = $liveradio->test();
   unset ($liveradio);
   return $result;
-}
-
-#-------------------------------------------------------------------------------------------------
-# Performs all the individual checks and puts them into an array. Typically, this function will be
-# called twice - once from the webserver, and once via the CLI. The results will then be compared
-# and presented to the user in the configuration screen.
-#-------------------------------------------------------------------------------------------------
-
-Function get_check_results()
-{
-  send_to_log(5,'Webserver PHP Tests...');
-
-  $results = array();
-  $results['PHP version']            = check_php_version();
-  $results['PHP required mods']      = check_php_required_modules();
-  $results['PHP suggested mods']     = check_php_suggested_modules();
-  $results['PHP ini file']           = check_php_ini_location();
-  $results['PHP cli']                = check_php_cli();
-  $results['PHP fonts']              = check_php_ttf();
-  $results['MYSQL version']          = check_mysql_version();
-  $results['MYSQL connect']          = check_mysql_connect();
-  $results['MYSQL database']         = check_mysql_database_exists();
-  $results['SWISS ini file']         = check_swiss_ini_file();
-  $results['SWISS write log']        = check_swiss_write_log_dir();
-  $results['SWISS write root']       = check_swiss_write_rootdir();
-  $results['SWISS root install']     = check_not_root_install();
-  $results['SWISS media locs']       = check_swiss_media_locations();
-  $results['SERVER scheduler']       = check_server_scheduler();
-  $results['MUSICIP api']            = musicip_available();
-  $results['MUSICIP mixable']        = (musicip_mixable_percent() >= 50);
-  
-  if (internet_available())
-  {
-    $results['ShoutCast parser']       = check_shoutcast();
-    $results['LiveRadio parser']       = check_liveradio();
-  }
-
-  foreach ($results as $var=>$val)
-  {
-    if ($val !== FALSE)
-      send_to_log(8, $var.": Check passed");
-    else
-      send_to_log(3, $var.": Check FAILED");
-  }
-  
-  return $results;
 }
 
 #-------------------------------------------------------------------------------------------------

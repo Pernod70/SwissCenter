@@ -41,9 +41,9 @@
     form_end();
     
     echo "<h2>".str('SUPPORT_PROG_TITLE')."</h2>";
-    $opts = array( array('Program'=>'PHP (CLI Version)','Location'=>os_path(php_cli_location()) ),
-                   array('Program'=>'PHP ini file','Location'=>os_path(php_ini_location()).' <a href="index.php?section=SUPPORT&action=show_phpinfo">(PHP settings)</a>' ),
-                   array('Program'=>'Swisscenter','Location'=>os_path(SC_LOCATION)),
+    $opts = array( array( "Program" => 'Swisscenter', 'Location' =>os_path(SC_LOCATION))
+                 , array( "Program" => "wget",        'Location' => wget_location())
+                 , array( "Program" => "bgrun",       'Location' => bgrun_location())
                  );
     array_to_table($opts, str('SUPPORT_PROG_HEADINGS'));    
   

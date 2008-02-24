@@ -653,9 +653,8 @@ function os_path( $dir, $addslash=false )
   return $dir;
 }
   
-
 /**
- * Alternative alias for os_path()
+ * Alias for os_path()
  */
 
 function normalize_path( $dir )
@@ -664,81 +663,31 @@ function normalize_path( $dir )
 }
 
 /**
- * Returns the location of the PHP.INI file
+ * Returns the location of the BGRUN command
  *
  * @return string
  */
 
-function  php_ini_location()
+function bgrun_location()
 {
-  $location = false;
-
-  // Fetch phpinfo text
-  ob_start();
-  phpinfo(INFO_GENERAL);
-  $text = ob_get_contents();
-  ob_end_clean();
-  
-  // Process the output depending on what format it is in.
-  if ( strpos( $text, '<!DOCTYPE html') !== false)
-  {  
-    // HTML format
-    preg_match('#php.ini.*<td class="v">(.*?)<#',$text,$matches);
-    if (!empty($matches[1]))
-      $location = trim($matches[1]);
-  }
+  if (is_windows())
+    return os_path(SC_LOCATION.'ext/bgrun/bgrun.exe');
   else 
-  { 
-    // Text format
-    preg_match('#php.ini.*=>(.*)\n#',$text,$matches);
-    if (!empty($matches[1]))
-      $location = trim($matches[1]);
-  }
-
-  // fix for PHP 5.x.x parsing
-  if ( strpos($location, 'php.ini') == false)
-  {
-    $location = $location.path_delim().'php.ini';
-  }
-  
-  return $location; 
+    return '';
 }
 
 /**
- * Returns the location of the PHP CLI executable
+ * Returns the location of the WGET command
  *
  * @return string
  */
 
-function php_cli_location()
+function wget_location()
 {
-  if ( is_windows() )
-  { 
-    // fix for PHP 5.x.x or of own PHP installation is used
-    $location = getenv("ORIG_SCRIPT_FILENAME"); 
-    if ( !empty($location))
-      return $location;
-
-    $location = $_SERVER["SCRIPT_FILENAME"];
-    if ( !empty($location))
-    {
-      if (file_exists( dirname($location).'/cli/php.exe'))
-        return str_replace('\\\\','\\',dirname($location).'\\cli\\php.exe');
-      else 
-        return str_replace('\\\\','\\',$location);
-    }
-    
-    // Unable to find a cli location
-    return false;
-  }
-  else
-  {
-    $location = trim(shell_exec("which php php4 | grep '^/' | head -1"));
-    if (empty($location) || strpos($location,'no php') !== false)
-      return false;
-    else 
-      return $location;
-  }
+  if (is_windows())
+    return os_path(SC_LOCATION.'ext/wget/wget.exe');
+  else 
+    return trim(shell_exec("which wget | grep '^/' | head -1"));
 }
 
 /**

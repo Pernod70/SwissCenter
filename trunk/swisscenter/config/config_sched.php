@@ -5,8 +5,7 @@
  *************************************************************************************************/
 
   define('SIMESE_SCHEDULE','simese/SimeseSchedule.ini');
-
-
+  
   // ----------------------------------------------------------------------------------
   // Display current config
   // ----------------------------------------------------------------------------------
@@ -28,16 +27,19 @@
   {
     $at_hrs ='12';
     $at_mins='00';
+    $at_days = array();
   
     // Get the current schedule information
     $sched = syscall('at');
     foreach(explode("\n",$sched) as $line)
-      if (strpos($line,os_path(SC_LOCATION.'media_search.php')) && strpos($line,'Each '))
+    {
+      if (strpos($line,'media_search.php') && strpos($line,'Each '))
       {
          $at_days = explode(' ',trim(substr($line,17,19)));
          $at_hrs  = trim(substr($line,36,2));
          $at_mins = trim(substr($line,39,2));
       }
+    }
 
     echo "<h1>".str('SCHEDULE_TITLE')."</h1>";
     message($message);
@@ -250,12 +252,13 @@
       // Find and remove old schedule entry
       $sched = syscall('at');
       foreach(explode("\n",$sched) as $line)
-        if (strpos($line,os_path(SC_LOCATION.'media_search.php')) && strpos($line,'Each '))
+        if (strpos($line,'media_search.php') && strpos($line,'Each '))
          syscall('at '.substr(ltrim($line),0,strpos(ltrim($line),' ')).' /delete');
 
       if (count($days)>0)
       {
-        run_background('media_search.php', implode(',',$days) , $hrs.':'.$mins );
+        // Create an "at" job to run at the specified time on the specified days
+        exec ("at $hrs:$mins /every:".implode(',',$days).' CMD /C "'.wget_location().'" -O :null '.server_address().'media_search.php');
         sched_display(str('SCHEDULE_UPDATED'));        
       }
       else
@@ -321,7 +324,7 @@
     {
       // Find and replace old crontab entry
       syscall('crontab -l | grep -v "'.SC_LOCATION.'media_search.php" | grep -v "^#" > /tmp/swisscron');
-      syscall("echo '$mins $hrs $dates $months $days ".'"'.os_path(php_cli_location()).'" "'.SC_LOCATION.'media_search.php"\' >> /tmp/swisscron');
+      syscall("echo '$mins $hrs $dates $months $days ".'"'.wget_location().'" -O /dev/null "'.server_address().'media_search.php"\' >> /tmp/swisscron');
       syscall("crontab /tmp/swisscron");
 
       // Was it successfully added?
