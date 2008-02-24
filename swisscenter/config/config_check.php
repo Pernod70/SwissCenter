@@ -7,66 +7,6 @@ require_once( realpath(dirname(__FILE__).'/../base/sched.php'));
 require_once( realpath(dirname(__FILE__).'/../base/install_checks.php'));
 
 // ----------------------------------------------------------------------------------
-// A class to perform the various tests (both as the Webserver and via the command
-// line). Member functions allow other objects to query the test result.
-// ----------------------------------------------------------------------------------
-
-class test_results
-{
-
-  var $web_results;
-  var $cli_results;
-  
-  #-------------------------------------------------------------------------------------------------
-  # Constructor
-  #-------------------------------------------------------------------------------------------------
-
-  function test_results()
-  {    
-    $this->cli_results = array();
-    
-    // Get the results of all the installation tests when run via the webserver
-    $this->web_results = get_check_results();
-    
-    // Simese hangs when you attempt to run a PHP script in the foreground, but we don't really need to
-    // run the tests under the CLI version of PHP as that's how simese operates normally anyway.
-    if (! is_server_simese())
-    {
-      // Now run the same tests again via the command line.
-      // This will reveal any differences between the webserver install (which might be using mod_php) 
-      // and the command line version - for instance, they might be on totally difference versions.
-      $cli = run_foreground('config/cli_test.php');
-      if ($cli !== false)
-      {
-        $cli = explode("\n",str_replace("\r",'',$cli));
-        $cli = unserialize(implode("\n",$cli));
-        $this->cli_results = $cli;
-      }
-    }
-  }
-  
-  #-------------------------------------------------------------------------------------------------
-  # Returns the result of a test (true for pass, false for fail)
-  #-------------------------------------------------------------------------------------------------
-
-  function cli_result( $key )
-  {
-    return ( count($this->cli_results) == 0 || ( key_exists($key,$this->cli_results) && $this->cli_results[$key] ) );
-  }
-  
-  function web_result( $key )
-  {
-    return ( key_exists($key,$this->web_results) && $this->web_results[$key] );
-  }
-  
-  function result( $key)
-  {
-    return ($this->cli_result($key) && $this->web_result($key));
-  }
-  
-}
-
-// ----------------------------------------------------------------------------------
 // A class to output the test results onto the page in a pretty format!
 // ----------------------------------------------------------------------------------
 
@@ -74,30 +14,20 @@ class test_summary
 {
   var $title;
   var $sections;
-  var $results;
   
   var $pass_img = 'pass.png';
   var $fail_img = 'fail.png';
 
-  #-------------------------------------------------------------------------------------------------
-  # Constructor
-  #-------------------------------------------------------------------------------------------------
-
-  function test_summary( $title, $result_obj)
+  function test_summary( $title )
   {    
     $this->sections = array();
     $this->title    = $title;
-    $this->results  = $result_obj;
   }
 
-  #-------------------------------------------------------------------------------------------------
-  # functions to set the pass/fail icons used.
-  #-------------------------------------------------------------------------------------------------
-
-  function pass_icon( $icon )
+  function set_pass_icon( $icon )
   { $this->pass_img = $icon; }
   
-  function fail_icon( $icon )
+  function set_fail_icon( $icon )
   { $this->fail_img = $icon; }
   
   #-------------------------------------------------------------------------------------------------
@@ -107,9 +37,8 @@ class test_summary
   function add_section( $heading, $position )
   {
     $this->sections[$position] = array( "heading" => $heading
-                                      , "passed" => array()
-                                      , "failed_cli" => array() 
-                                      , "failed_web" => array()  );
+                                      , "passed"  => array()
+                                      , "failed"  => array()  );
     return $position;
   }
   
@@ -118,16 +47,14 @@ class test_summary
   # Add details about a specific test
   #-------------------------------------------------------------------------------------------------
 
-  function add_test( $section, $key, $pass, $fail, $cli=FALSE)
+  function add_test( $section, $result, $pass, $fail)
   {
     if ( key_exists($section,$this->sections) )
     {
-      if (!$this->results->web_result($key))
-        $this->sections[$section]["failed_web"][] = $fail;
-      elseif ($cli && !$this->results->cli_result($key))
-        $this->sections[$section]["failed_cli"][] = $fail;
-      else
+      if ($result)
         $this->sections[$section]["passed"][] = $pass;
+      else
+        $this->sections[$section]["failed"][] = $fail;
     }
     else 
       echo '<li>'.$section.' - '.$key;
@@ -145,7 +72,7 @@ class test_summary
           <p><center>';
     foreach ($this->sections as $section)
     {
-      $failures = (count($section["failed_cli"]) + count($section["failed_web"]) > 0);
+      $failures = (count($section["failed"]) > 0);
       
       // Show the heading for this section (complete with pass/fail icon)
       echo '<p><table border=1 noshade width="90%" cellspacing=0 cellpadding=8 bgcolor="#ffffff">
@@ -166,22 +93,14 @@ class test_summary
           echo '</ul></font>';
         }
         
-        if (count($section["failed_web"]) > 0)
+        if (count($section["failed"]) > 0)
         {
           echo '<p>'.str('INSTALL_TEST_FAIL_WEB').'<font color="#660000"><ul>';
-          foreach ($section["failed_web"] as $msg)
+          foreach ($section["failed"] as $msg)
             echo '<li>'.$msg;
           echo '</ul></font>';
         }
   
-        if (count($section["failed_cli"]) > 0)
-        {
-          echo '<p>'.str('INSTALL_TEST_FAIL_CLI').'<font color="#660000"><ul>';
-          foreach ($section["failed_cli"] as $msg)
-            echo '<li>'.$msg;
-          echo '</ul></font>';
-        }
-
         echo '</td>';
       }
 
@@ -200,40 +119,34 @@ class test_summary
 
 function check_display()
 {
-  load_lang();
-  $results         = new test_results();
-  $core_tests      = new test_summary( str('INSTALL_TEST_TITLE'), $results);
-  $component_tests = new test_summary( str('EXTRAS_TEST_TITLE'), $results);
-  $component_tests->fail_icon('question.png');
+  $core_tests      = new test_summary( str('INSTALL_TEST_TITLE') );
+  $component_tests = new test_summary( str('EXTRAS_TEST_TITLE') );
+  $component_tests->set_fail_icon('question.png');
   
   # ----------------------
   # SwissCenter configuration Tests
   # ----------------------
                            
-  $swiss = $core_tests->add_section("SwissCenter ".swisscenter_version(),4);
+  $swiss = $core_tests->add_section("SwissCenter : v".swisscenter_version(),4);
 
   // It only makes sense to check for root installations on UNIX.
   if (is_unix())
-    $core_tests->add_test( $swiss, "SWISS root install", str("PASS_SWISS_ROOT_INS"), str("ROOT_INSTALL_TEXT"));
+    $core_tests->add_test( $swiss, check_not_root_install(), str("PASS_SWISS_ROOT_INS"), str("ROOT_INSTALL_TEXT"));
 
-  $core_tests->add_test( $swiss, "SWISS write root", str("PASS_SWISS_RW_FILES"), str("MISSING_PERMS_TEXT"));
-  $core_tests->add_test( $swiss, "SWISS ini file", str("PASS_SWISS_INI"), str("FAIL_SWISS_INI"));
-  $core_tests->add_test( $swiss, "SWISS write log", str("PASS_SWISS_LOG"), str("FAIL_SWISS_LOG", logfile_location()) );
+  $core_tests->add_test( $swiss, check_swiss_write_rootdir(), str("PASS_SWISS_RW_FILES"), str("MISSING_PERMS_TEXT"));
+  $core_tests->add_test( $swiss, check_swiss_ini_file(), str("PASS_SWISS_INI"), str("FAIL_SWISS_INI"));
+  $core_tests->add_test( $swiss, check_swiss_write_log_dir(), str("PASS_SWISS_LOG"), str("FAIL_SWISS_LOG", logfile_location()) );
                       
   # ----------------------
   # PHP Tests
   # ----------------------
   
-  $php = $core_tests->add_section("PHP ".phpversion(),2);
+  $php = $core_tests->add_section("PHP : v".phpversion(),2);
   
-  if (! is_server_simese() || version_compare(simese_version(),'1.31','<') )
-    $core_tests->add_test( $php, "PHP cli", str("PASS_PHP_CLI"), str("FAIL_PHP_CLI" ), FALSE );
-
-  $core_tests->add_test( $php, "PHP version", str("PASS_PHP_VERSION"), str("FAIL_PHP_VERSION",phpversion()) );
-  $core_tests->add_test( $php, "PHP ini file", str("PASS_PHP_INI"), str("FAIL_PHP_INI"));
-  $core_tests->add_test( $php, "PHP required mods", str("PASS_PHP_REQ_MODS"), str("FAIL_PHP_REQ_MODS", implode(', ',get_required_modules_list())) );
-  $core_tests->add_test( $php, "PHP suggested mods", str("PASS_PHP_EXTRA_MODS"), str("FAIL_PHP_EXTRA_MODS", implode(', ',get_suggested_modules_list())) );
-  $core_tests->add_test( $php, "PHP fonts", str("PASS_PHP_FONTS"), str("FAIL_PHP_FONTS"), FALSE );
+  $core_tests->add_test( $php, check_php_version(), str("PASS_PHP_VERSION"), str("FAIL_PHP_VERSION",phpversion()) );
+  $core_tests->add_test( $php, check_php_required_modules(), str("PASS_PHP_REQ_MODS"), str("FAIL_PHP_REQ_MODS", implode(', ',get_required_modules_list())) );
+  $core_tests->add_test( $php, check_php_suggested_modules(), str("PASS_PHP_EXTRA_MODS"), str("FAIL_PHP_EXTRA_MODS", implode(', ',get_suggested_modules_list())) );
+  $core_tests->add_test( $php, check_php_ttf(), str("PASS_PHP_FONTS"), str("FAIL_PHP_FONTS"), FALSE );
 
   # ----------------------
   # MySQL Tests
@@ -242,36 +155,42 @@ function check_display()
   # If there is no swisscenter.ini file present, then we will not be able to connect to the database
   # because that is where the connection details are stored.
 
-  if ( $results->result('SWISS ini file'))
+  if ( check_swiss_ini_file() )
   {                         
-    $mysql = $core_tests->add_section("MySQL ".mysql_version(),3);
+    $mysql = $core_tests->add_section("MySQL : v".mysql_version(),3);
   
-    $core_tests->add_test( $mysql, "MYSQL connect", str("PASS_MYSQL_CONNECT"), str("FAIL_MYSQL_CONNECT"));  
-    $core_tests->add_test( $mysql, "MYSQL version", str("PASS_MYSQL_VERSION"), str("FAIL_MYSQL_VERSION"));
-    $core_tests->add_test( $mysql, "MYSQL database", str("PASS_MYSQL_DB"), str("FAIL_MYSQL_DB"));
+    $core_tests->add_test( $mysql, check_mysql_connect(), str("PASS_MYSQL_CONNECT"), str("FAIL_MYSQL_CONNECT"));  
+    $core_tests->add_test( $mysql, check_mysql_version(), str("PASS_MYSQL_VERSION"), str("FAIL_MYSQL_VERSION"));
+    $core_tests->add_test( $mysql, check_mysql_database_exists(), str("PASS_MYSQL_DB"), str("FAIL_MYSQL_DB"));
   }
                       
   # ----------------------
   # Webserver Tests
   # ----------------------
 
-  $server = $core_tests->add_section("Webserver ".(is_server_simese() ? "Simese ".simese_version() : ""),1);
-  $core_tests->add_test( $server, "SERVER scheduler", str("PASS_SERVER_SCHED"), str("FAIL_SERVER_SCHED"));
+  $server = $core_tests->add_section("Webserver ".(is_server_simese() ? ": Simese v".simese_version() : ""),1);
+  $core_tests->add_test( $server, check_server_scheduler(), str("PASS_SERVER_SCHED"), str("FAIL_SERVER_SCHED"));
 
   # ----------------------
-  # Extra component tests
+  # Music IP
   # ----------------------
 
   $musicip = $component_tests->add_section("MusicIP",1);
-  $component_tests->add_test( $musicip,"MUSICIP api",str('PASS_MUSICIP_TEST'),str('FAIL_MUSICIP_TEST').'<p>'.str('MIP_DESC','<a href="http://www.musicip.com">www.musicip.com</a>'),FALSE);
-  if ( $results->web_result('MUSICIP api'))
-    $component_tests->add_test( $musicip,"MUSICIP mixable",str('PASS_MIP_MIXABLE'),str('FAIL_MIP_MIXABLE'),FALSE);
+  
+  $component_tests->add_test( $musicip, musicip_available(), str('PASS_MUSICIP_TEST'),str('FAIL_MUSICIP_TEST').'<p>'.str('MIP_DESC','<a href="http://www.musicip.com">www.musicip.com</a>'),FALSE);
+
+  if ( musicip_available() )
+    $component_tests->add_test( $musicip, (musicip_mixable_percent() >=50),str('PASS_MIP_MIXABLE'),str('FAIL_MIP_MIXABLE'),FALSE);
+
+  # ----------------------
+  # Internet Radio
+  # ----------------------
 
   if (internet_available())
   {
     $iradio = $component_tests->add_section("Internet Radio Parser",2);
-    $component_tests->add_test( $iradio,"ShoutCast parser",str('PASS_SHOUTCAST_TEST'),str('FAIL_SHOUTCAST_TEST').'<p>'.str('IRADIO_SHOUTCAST_DESC','<a href="http://www.shoutcast.com/">www.shoutcast.com</a>'),FALSE);
-    $component_tests->add_test( $iradio,"LiveRadio parser",str('PASS_LIVERADIO_TEST'),str('FAIL_LIVERADIO_TEST').'<p>'.str('IRADIO_LIVERADIO_DESC','<a href="http://www.live-radio.net/">www.live-radio.net</a>'),FALSE);
+    $component_tests->add_test( $iradio, check_shoutcast(), str('PASS_SHOUTCAST_TEST'),str('FAIL_SHOUTCAST_TEST').'<p>'.str('IRADIO_SHOUTCAST_DESC','<a href="http://www.shoutcast.com/">www.shoutcast.com</a>'),FALSE);
+    $component_tests->add_test( $iradio, check_liveradio(), str('PASS_LIVERADIO_TEST'),str('FAIL_LIVERADIO_TEST').'<p>'.str('IRADIO_LIVERADIO_DESC','<a href="http://www.live-radio.net/">www.live-radio.net</a>'),FALSE);
   }
 
   # ----------------------
