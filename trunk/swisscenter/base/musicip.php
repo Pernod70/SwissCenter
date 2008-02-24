@@ -78,7 +78,41 @@ function musicip_available( $recheck = false)
 // Returns a link to a MusicIP playlist.
 // ----------------------------------------------------------------------------------
 
-function musicip_mix_link( $type, $value )
+function musicip_mix_link( $tables, $predicate )
+{
+  $num_rows    = db_value("select count(*) from $tables $predicate");
+  $num_artists = db_value("select count(distinct artist) from $tables $predicate");
+  $num_albums  = db_value("select count(distinct album) from $tables $predicate");
+  
+  if (  $num_rows == 1 )
+    return musicip_mix_song( db_value("select concat(dirname,filename) from $tables $predicate"));
+  elseif ( $num_albums == 1 && $num_artists == 1 )
+    return musicip_mix_album( db_value("select distinct concat(artist,'@@',album) from $tables $predicate"));
+  elseif ( $num_albums == 1)
+    return musicip_mix_album( db_value("select distinct album from $tables $predicate"));
+  elseif ( $num_artists == 1)
+    return musicip_mix_artist( db_value("select distinct artist from $tables $predicate"));
+  else 
+  {
+    $tracks = array();
+    $fsp = musicip_tempplaylist_name();
+    $count = 0;
+
+    // Fetch the tracks the user has written and prepare to write the first 200 (for speed) into a temporary playlist file.
+    foreach (db_toarray("select dirname,filename from $tables $predicate") as $row)
+    {
+      $tracks[$count++] = os_path($row["DIRNAME"].$row["FILENAME"]);
+      if ($count > 200)
+        break;
+    }
+
+    // Write the playlist.
+    array2file($tracks, $fsp);
+    return musicip_mix_playlist( $fsp );
+  }
+}
+
+function musicip_api_call( $type, $value )
 {
   // Settings for the mix...
   $params = array( 'content'    => 'm3u'
@@ -90,6 +124,7 @@ function musicip_mix_link( $type, $value )
                  , 'style'      => get_sys_pref('MUSICIP_STYLE',20)
                  , 'variety'    => get_sys_pref('MUSICIP_VARIETY',0)
                  , $type        => urlencode($value)
+                 , 'ext'        => '.m3u'
                  );
                        
   // Save the playlist generating URL into the session for when the playlist is needed.
@@ -103,17 +138,31 @@ function musicip_mix_link( $type, $value )
 
 function musicip_mix_song( $song )
 {
-  return musicip_mix_link('song',$song);
+  send_to_log(6,'MusicIP mix for song = '.$filelist);
+  return musicip_api_call('song',$song);
 }
 
 function musicip_mix_artist( $artist )
 {
-  return musicip_mix_link('artist',$artist);
+  send_to_log(6,'MusicIP mix for artist = '.$artist);
+  return musicip_api_call('artist',$artist);
 }
 
 function musicip_mix_album ( $album )
 {
-  return musicip_mix_link('album',$album);
+  send_to_log(6,'MusicIP mix for album = '.$album);
+  return musicip_api_call('album',$album);
+}
+
+function musicip_mix_playlist ( $album )
+{
+  send_to_log(6,'MusicIP mix for currently selected tracks');
+  return musicip_api_call('playlist', musicip_tempplaylist_name());
+}
+
+function musicip_tempplaylist_name()
+{
+  return get_sys_pref('cache_dir', SC_LOCATION).'/MusicIP_TempPlaylist_'.$_SESSION["device"]["ip_address"].'.m3u';
 }
 
 // ----------------------------------------------------------------------------------

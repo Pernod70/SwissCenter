@@ -513,6 +513,8 @@ function load_pl ($file)
     default    : send_to_log(1,'Unknown playlist format'); break;
   }
 
+  send_to_log(6,'Playlist tracks',$filelist);
+  
   // Search through the list of filenames and try to load them into the playlist.    
   $tracks = array();
   foreach( $filelist as $fsp )
