@@ -50,7 +50,7 @@ function dir_to_array ($dir, $pattern = '.*', $opts = 7 )
   $dir = os_path($dir,true);
 
   $contents = array();
-  if ($dh = opendir($dir))
+  if ($dh = @opendir($dir))
   {
     while (($file = readdir($dh)) !== false)
     {
@@ -264,7 +264,7 @@ function dir_size($dir, $subdirs = false)
 function find_in_dir($dir, $filename)
 {
   $actual = '';
-  if ($dh = opendir($dir))
+  if ($dh = @opendir($dir))
   {
     while ( $actual == '' && ($file = readdir($dh)) !== false )
     {
@@ -294,7 +294,7 @@ function find_in_dir_all_exts( $dir, $filename_noext )
 {
   $matches = array();
 
-  if ($dh = opendir($dir))
+  if ($dh = @opendir($dir))
   {
     while ( ($file = readdir($dh)) !== false )
     {
@@ -425,7 +425,7 @@ function force_rmdir($dir)
   else 
   {
     // Recurse sub_directory first, then delete it.
-    if ($dh = opendir($dir))
+    if ($dh = @opendir($dir))
     {
       while (($file = readdir($dh)) !== false)
       {
