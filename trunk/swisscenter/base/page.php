@@ -71,14 +71,21 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
   }
   
   if (get_screen_type() == 'NTSC')
-    $headings               = '<td height="'.convert_y(60).'" align="center"><b>'.$title.'</b> : '.$tagline.'&nbsp;</td>';
+    if (file_exists($title))
+      $headings             = '<td height="'.convert_y(60).'" align="center">'.img_gen($title,convert_x(1000),convert_y(60)).'</td>';
+    else
+      $headings             = '<td height="'.convert_y(60).'" align="center"><b>'.$title.'</b> : '.$tagline.'&nbsp;</td>';
   else
-    $headings               = '<td height="'.convert_y(170).'" align="center"><h2>'.$title.'&nbsp;</h2>'.$tagline.'&nbsp;</td>';
+    if (file_exists($title))
+      $headings             = '<td height="'.convert_y(170).'" align="center">'.img_gen($title,convert_x(1000),convert_y(170)).'</td>';
+    else
+      $headings             = '<td height="'.convert_y(170).'" align="center"><h2>'.$title.'&nbsp;</h2>'.$tagline.'&nbsp;</td>';
 
   // Set the background image, defaults to PAGE_BACKGROUND if specified image does not exist
   $page_background = style_img("PAGE_BACKGROUND");
   switch ($background)
   {
+    case 999              : if (style_img_exists("PAGE_CONFIG"))$page_background = style_img("PAGE_CONFIG"); break;
     case 0                : if (style_img_exists("PAGE_INDEX")) $page_background = style_img("PAGE_INDEX"); break;
     case MEDIA_TYPE_MUSIC : if (style_img_exists("PAGE_MUSIC")) $page_background = style_img("PAGE_MUSIC"); break;
     case MEDIA_TYPE_PHOTO : if (style_img_exists("PAGE_PHOTO")) $page_background = style_img("PAGE_PHOTO"); break;

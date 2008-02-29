@@ -6,7 +6,7 @@
   require_once( realpath(dirname(__FILE__).'/base/page.php'));
   require_once( realpath(dirname(__FILE__).'/messages_db.php'));
 
-  page_header( str('SETUP_TITLE'), str('CURRENT_VERSION').' '.swisscenter_version());
+  page_header( str('SETUP_TITLE'), str('CURRENT_VERSION').' '.swisscenter_version(),'',1,false,'',999);
 
   echo '<p align="center">'.str('SELECT_OPTION');
   $menu = new menu();
@@ -32,7 +32,7 @@
     $menu->add_item(str('SETUP_UPDATE_SC'),'run_update.php');
 
 
-  $menu->display();
+  $menu->display(1, style_value("MENU_CONFIG_WIDTH"), style_value("MENU_CONFIG_ALIGN"));  
   page_footer( 'index.php' );
 
 /**************************************************************************************************
