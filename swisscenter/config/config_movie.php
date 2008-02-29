@@ -305,21 +305,22 @@ function movie_update()
 
 function movie_clear_details()
 {
-  $cleared = false;
-  foreach ($_REQUEST["movie"] as $value)
+  $movie_list = $_REQUEST["movie"];
+  if (count($movie_list) == 0)
+    movie_display("!".str('MOVIE_ERROR_NO_SELECT'));
+  else
   {
-    db_sqlcommand('delete from actors_in_movie where movie_id = '.$value);
-    db_sqlcommand('delete from directors_of_movie where movie_id = '.$value);
-    db_sqlcommand('delete from genres_of_movie where movie_id = '.$value);
-    db_sqlcommand('update movies set year=null,certificate=null where file_id = '.$value);
-    remove_orphaned_movie_info();
-    scdb_remove_orphans();
-    $cleared = true;
-  }
-  if ($cleared)
+    foreach ($movie_list as $value)
+    {
+      db_sqlcommand('delete from actors_in_movie where movie_id = '.$value);
+      db_sqlcommand('delete from directors_of_movie where movie_id = '.$value);
+      db_sqlcommand('delete from genres_of_movie where movie_id = '.$value);
+      db_sqlcommand('update movies set year=null,certificate=null where file_id = '.$value);
+      remove_orphaned_movie_info();
+      scdb_remove_orphans();
+    }
     movie_display(str('DETAILS_CLEARED_OK'));
-  else 
-    movie_display();
+  }
 }
 
 // ----------------------------------------------------------------------------------
