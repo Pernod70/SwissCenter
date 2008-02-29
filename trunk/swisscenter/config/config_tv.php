@@ -311,21 +311,22 @@ function tv_update()
 
 function tv_clear_details()
 {
-  $cleared = false;
-  foreach ($_REQUEST["tv"] as $value)
+  $tv_list = $_REQUEST["tv"];
+  if (count($tv_list) == 0)
+    tv_display("!".str('MOVIE_ERROR_NO_SELECT'));
+  else
   {
-    db_sqlcommand('delete from actors_in_tv where tv_id = '.$value);
-    db_sqlcommand('delete from directors_of_tv where tv_id = '.$value);
-    db_sqlcommand('delete from genres_of_tv where tv_id = '.$value);
-    db_sqlcommand('update tv set year=null,certificate=null where file_id = '.$value);
-    remove_orphaned_tv_info();
-    scdb_remove_orphans();
-    $cleared = true;
-  }
-  if ($cleared)
+    foreach ($tv_list as $value)
+    {
+      db_sqlcommand('delete from actors_in_tv where tv_id = '.$value);
+      db_sqlcommand('delete from directors_of_tv where tv_id = '.$value);
+      db_sqlcommand('delete from genres_of_tv where tv_id = '.$value);
+      db_sqlcommand('update tv set year=null,certificate=null where file_id = '.$value);
+      remove_orphaned_tv_info();
+      scdb_remove_orphans();
+    }
     tv_display(str('DETAILS_CLEARED_OK'));
-  else 
-    tv_display();
+  }
 }
 
 // ----------------------------------------------------------------------------------
@@ -530,9 +531,9 @@ function tv_update_multiple()
     $columns["PROGRAMME"] = $_REQUEST["programme"];
   if (!empty($_REQUEST["title"]))
     $columns["TITLE"] = $_REQUEST["title"];
-  if (!empty($_REQUEST["series"]))
+  if (is_numeric($_REQUEST["series"]))
     $columns["SERIES"] = $_REQUEST["series"];
-  if (!empty($_REQUEST["episode"]))
+  if (is_numeric($_REQUEST["episode"]))
     $columns["EPISODE"] = $_REQUEST["episode"];
 
   // Update the TV table?
