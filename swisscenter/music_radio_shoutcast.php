@@ -23,7 +23,7 @@
    if (empty($page)) 
      $page = 0;
 
-   browse_array($url,$array,$page);
+   browse_array($url,$array,$page,MEDIA_TYPE_RADIO);
  }
 
 /**************************************************************************************************
@@ -82,7 +82,7 @@
      if (empty($_REQUEST["maingenre"]) )
      {
        // Choose main genre
-       page_header(str('IRADIO_MAINGENRE SELECT'));
+       page_header(str('IRADIO_MAINGENRE SELECT'),'','',1,false,'',MEDIA_TYPE_RADIO);
        $genres = $iradio->get_maingenres();
        send_to_log(8,"Browsing by genre chosen. Main genre list:",$genres);
        make_genre_menu($genres,"maingenre");
@@ -91,7 +91,7 @@
      elseif (empty($_REQUEST["subgenre"]) )
      {
        // Choose sub-genre
-       page_header(str('IRADIO_SUBGENRE_SELECT'));
+       page_header(str('IRADIO_SUBGENRE_SELECT'),'','',1,false,'',MEDIA_TYPE_RADIO);
        $genres = $iradio->get_subgenres($_REQUEST["maingenre"]);
        send_to_log(8,"Browsing by genre chosen. Main genre: '".$_REQUEST["maingenre"]."', sub-genre list:",$genres);
        make_genre_menu($genres,"subgenre");
@@ -108,7 +108,7 @@
        if (count($stations) >0 )
        {
          (isset($_REQUEST["page"])) ? $page = $_REQUEST["page"] : $page = 0;
-         page_header(str('IRADIO_STATION_SELECT'));         
+         page_header(str('IRADIO_STATION_SELECT'),'','',1,false,'',MEDIA_TYPE_RADIO);
          display_iradio($current_url, $stations, $page);
          page_footer( $back_url );
        }
@@ -123,7 +123,7 @@
      if (empty($_REQUEST["country"]) )
      {
        // Browse by Country/Language
-       page_header(str('IRADIO_COUNTRY_SELECT'));
+       page_header(str('IRADIO_COUNTRY_SELECT'),'','',1,false,'',MEDIA_TYPE_RADIO);
        $countries = $iradio->get_countries();
        send_to_log(8,"Station search for country initialized. Country array:",$countries);
        make_genre_menu($countries,"country");
@@ -140,7 +140,7 @@
        if (count($stations) >0 )
        {
          (isset($_REQUEST["page"])) ? $page = $_REQUEST["page"] : $page = 0;
-         page_header(str('IRADIO_STATION_SELECT'));
+         page_header(str('IRADIO_STATION_SELECT'),'','',1,false,'',MEDIA_TYPE_RADIO);
          display_iradio($current_url,$stations,$page);
          page_footer( $back_url );
        }

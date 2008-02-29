@@ -40,7 +40,7 @@
         
     // What directories do we want to exclude?
     if (is_windows())
-      $exclude = array('/RECYCLER/i','/System Volume Information/i','/^\./');
+      $exclude = array('/RECYCLER/i','/System Volume Information/i');
     else 
       $exclude = array('/^\./');
       
@@ -87,7 +87,7 @@
       $menu->add_info_item($stations[$i]->name, $stations[$i]->bitrate."k", play_internet_radio($stations[$i]->playlist, $stations[$i]->name));
     }
     
-    $menu->display();
+    $menu->display(1,style_value("MENU_RADIO_WIDTH"), style_value("MENU_RADIO_ALIGN"));
    }
 
   // ----------------------------------------------------------------------------------
@@ -95,7 +95,7 @@
   // (first parameter is the calling URL without the "page" parameter)
   // ----------------------------------------------------------------------------------
 
-  function browse_array ($url, $array, $page)
+  function browse_array ($url, $array, $page, $media_type=0)
   {
     $menu      = new menu();
     $no_items  = items_per_page();
@@ -113,7 +113,39 @@
     for ($i=$start; $i<$end; $i++)
       $menu->add_item($array[$i]["name"], $array[$i]["url"]);
 
-    $menu->display();
+    // Determine menu properties for this media type
+    switch ($media_type)
+    {
+      case MEDIA_TYPE_MUSIC :
+        $width = style_value("MENU_MUSIC_WIDTH");
+        $align = style_value("MENU_MUSIC_ALIGN");
+        break;
+      case MEDIA_TYPE_PHOTO :
+        $width = style_value("MENU_PHOTO_WIDTH");
+        $align = style_value("MENU_PHOTO_ALIGN");
+        break;
+      case MEDIA_TYPE_VIDEO :
+        $width = style_value("MENU_VIDEO_WIDTH");
+        $align = style_value("MENU_VIDEO_ALIGN");
+        break;
+      case MEDIA_TYPE_RADIO :
+        $width = style_value("MENU_RADIO_WIDTH");
+        $align = style_value("MENU_RADIO_ALIGN");
+        break;
+      case MEDIA_TYPE_TV    :
+        $width = style_value("MENU_TV_WIDTH");
+        $align = style_value("MENU_TV_ALIGN");
+        break;
+      case MEDIA_TYPE_WEB   :
+        $width = style_value("MENU_WEB_WIDTH");
+        $align = style_value("MENU_WEB_ALIGN");
+        break;
+      default               :
+        $width = 650;
+        $align = 'center';
+    }
+    
+    $menu->display(1, $width, $align);
   }
 
   // ----------------------------------------------------------------------------------
@@ -335,7 +367,7 @@
       echo '<a href="'.$url.'?page='.floor(($ir_key-1)*(($total_pages-1)/8)).'&DIR='.rawurlencode($dir).'" '.tvid($ir_key).'></a>';
       
     // Should we present a link to select all files?
-    if ($media_type > 0 && $media_type !== MEDIA_TYPE_WEB)
+    if ($media_type > 0 && $media_type !== MEDIA_TYPE_WEB && $media_type !== MEDIA_TYPE_RADIO)
       $buttons[] = array('text'=>str('SELECT_ALL'), 'url'=>  output_link( '%/'.$dir) );
       
     // Link to scan/refresh the directory
