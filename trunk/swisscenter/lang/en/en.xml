@@ -738,6 +738,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>DETAILS_EXPORT</id>
+        <text>Export details</text>
+        <version>1.19</version>
+      </string>
+      <string>
         <id>DIRECTOR</id>
         <text>Director</text>
         <version>1.19</version>
@@ -1448,6 +1453,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>LANG_DELETE_OK</id>
+        <text>The selected texts have been removed</text>
+        <version>1.19</version>
+      </string>
+      <string>
         <id>LANG_EDIT</id>
         <text>Edit language translation</text>
         <version>1.19</version>
@@ -1455,6 +1465,11 @@
       <string>
         <id>LANG_EDITOR</id>
         <text>Language Editor</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LANG_ERROR_NO_SELECT</id>
+        <text>You did not select any texts to delete</text>
         <version>1.19</version>
       </string>
       <string>
@@ -1485,6 +1500,11 @@
       <string>
         <id>LANG_TRANS</id>
         <text>Translation</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LANG_UPDATE_OK</id>
+        <text>Language information updated</text>
         <version>1.19</version>
       </string>
       <string>

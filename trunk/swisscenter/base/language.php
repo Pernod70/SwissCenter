@@ -56,6 +56,7 @@ function load_lang_strings ( $lang = 'en-gb', $session = 'language' )
 function load_lang ($current_lang = '')
 {
   // First load english so that we at least have a string for every token.
+  $_SESSION['language'] = array();
   load_lang_strings('en');
   
   // If a language name was not given then try to work out which language to use
@@ -206,7 +207,7 @@ function save_lang( $lang, $language )
                                'fullname' => trim($language['LANGUAGE']['TEXT'])));
   foreach ($language as $id=>$text)
   {
-    if (!empty($text['TEXT']))
+    if ($lang=='en' || !empty($text['TEXT']))
     {
       $xml->Push('string');
       $xml->Element('id', strtoupper(trim($id)));
