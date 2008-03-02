@@ -1,7 +1,8 @@
-<?
+<?php
+
 /**************************************************************************************************
-   SWISScenter Source                                                              Robert Taylor
- *************************************************************************************************/
+                                              Start of file
+ ***************************************************************************************************/
 
   include_once('common.php5');
   include_once('mysql.php5');
@@ -12,11 +13,20 @@
   function display_menu()
   {
     echo '<table width="160">';
-    menu_item('Shell Commands','section=CMD&action=DISPLAY');
-    menu_item('SQL Commands','section=DB&action=RUNSQL');
-    menu_item('Messages','section=MESG&action=DISPLAY');
-    menu_item('Contributors','section=CONTRIB&action=DISPLAY');
-    menu_item('Release Code','section=RELEASE&action=DISPLAY');
+    if ($_ENV["REMOTE_USER"] == 'admin')
+    {
+      menu_item('Shell Commands','section=CMD&action=DISPLAY');
+      menu_item('SQL Commands','section=DB&action=RUNSQL');
+      menu_item('Messages','section=MESG&action=DISPLAY');
+      menu_item('Contributors','section=CONTRIB&action=DISPLAY');
+    }
+    
+    if ($_ENV["REMOTE_USER"] == 'pernod' || $_ENV["REMOTE_USER"] == 'admin')
+    {
+      menu_item('Release Code','section=RELEASE&action=DISPLAY');
+    }
+
+    menu_item('Upload Style','section=STYLE&action=DISPLAY');
     echo '</table>';
   }
  
@@ -24,18 +34,21 @@
  
   function display_content()
   {
-    if (!empty($_REQUEST["section"]))
+    $section=$_REQUEST["section"];
+    $action=$_REQUEST["action"];
+
+    if (!empty($section))
     {
-      $func = (strtoupper($_REQUEST["section"]).'_'.strtoupper($_REQUEST["action"]));
-      include_once('config_'.strtolower($_REQUEST["section"]).'.php5');
+      $func = (strtoupper($section).'_'.strtoupper($action));
+      include_once('config_'.strtolower($section).'.php5');
       $func();
     }
-    else 
+    else
     {
-      // The user has not specified an action, so run installation tests and display the results.
-      include_once('config_cmd.php5');
-     cmd_display();
-    } 
+      echo '<p><h1>Welcome...</h1>
+            <p>Welcome to the SwissCenter online configuration utiliuty. 
+               Depending upon your access level, there will be several menu items listed to the left.';
+    }
   }
   
   // Show the page
@@ -47,4 +60,3 @@
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/
-?>
