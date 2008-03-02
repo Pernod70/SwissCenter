@@ -12,7 +12,7 @@
  
  function make_genre_menu($genre,$type) 
  {
-   $url = current_url();
+   $url = url_remove_param(current_url(), 'page');
    $ac  = count($genre);
    
    for ($i=0;$i<$ac;++$i) 
@@ -109,7 +109,7 @@
        {
          (isset($_REQUEST["page"])) ? $page = $_REQUEST["page"] : $page = 0;
          page_header(str('IRADIO_STATION_SELECT'),'','',1,false,'',MEDIA_TYPE_RADIO);
-         display_iradio($current_url, $stations, $page);
+         display_iradio(url_remove_param( $current_url, 'page'), $stations, $page);
          page_footer( $back_url );
        }
        else
@@ -141,7 +141,7 @@
        {
          (isset($_REQUEST["page"])) ? $page = $_REQUEST["page"] : $page = 0;
          page_header(str('IRADIO_STATION_SELECT'),'','',1,false,'',MEDIA_TYPE_RADIO);
-         display_iradio($current_url,$stations,$page);
+         display_iradio(url_remove_param( $current_url, 'page'),$stations,$page);
          page_footer( $back_url );
        }
        else

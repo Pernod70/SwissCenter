@@ -146,7 +146,7 @@ class liveradio extends iradio {
    */
   function search_genre($name) {
     send_to_log(6,"IRadio: Initialize genre search for \"$name\"");
-    return $this->parse("&Genre=$name&Cnt=&St=",$name);
+    return $this->parse("&Genre=".str_replace(' ','+',$name)."&Cnt=&St=",str_replace(' ','_',$name));
   }
 
   /** Searching for a station
@@ -161,7 +161,7 @@ class liveradio extends iradio {
    */
   function search_station($name) {
     send_to_log(6,"IRadio: Initialize station search for \"$name\"");
-    return $this->parse("&Genre=&Cnt=&St=$name",$name);
+    return $this->parse("&Genre=&Cnt=&St=".str_replace(' ','+',$name),str_replace(' ','_',$name));
   }
 
   /** Searching by country
@@ -176,7 +176,7 @@ class liveradio extends iradio {
    */
   function search_country($name) {
     send_to_log(6,"IRadio: Initialize country search for \"$name\"");
-    return $this->parse("&Genre=&Cnt=$name&St=",$name);
+    return $this->parse("&Genre=&Cnt=".str_replace(' ','+',$name)."&St=",str_replace(' ','_',$name));
   }
 
   /** Test parser functionality
