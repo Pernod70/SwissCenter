@@ -1,10 +1,10 @@
-<?
+<?php
+
+/**************************************************************************************************
+                                              Start of file
+ ***************************************************************************************************/
 
 define(BASE_URL,'http://tools.assembla.com/svn/swiss/tags/');
-
-//*************************************************************************************************
-// Routines to fetch files from a SVN repository
-//*************************************************************************************************
 
   function file_get_contents_authenticated( $url, $username = '', $password = '')
   {
@@ -209,8 +209,8 @@ function release_fetch()
   zip_files('../source/',"../$reldir/", $files,$dirs);
 
   echo '<li>Creating a zipfile with the release in it';
-  exec('rm -f ../swisscenter.zip');
-  exec('cd ../source ; zip -r ../swisscenter.zip *');
+  exec('rm -f /home/swisscenter/www/update/swisscenter.zip');
+  exec('cd /home/swisscenter/www/update/source ; zip -r ../swisscenter.zip *');
 
   echo '<li>Copying the zipfile to the download area';
   exec('cp /home/swisscenter/www/update/swisscenter.zip /home/swisscenter/www/www/downloads/swisscenter.zip');
@@ -222,4 +222,3 @@ function release_fetch()
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/
-?>

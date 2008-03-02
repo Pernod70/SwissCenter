@@ -1,11 +1,81 @@
-<?
+<?php
+
 /**************************************************************************************************
-   SWISScenter Source                                                              Robert Taylor
- *************************************************************************************************/
+                                              Start of file
+ ***************************************************************************************************/
+   
+  define ('DIR_TO_ARRAY_SHOW_FILES',1);
+  define ('DIR_TO_ARRAY_SHOW_DIRS', 2);
+  define ('DIR_TO_ARRAY_FULL_PATH',4);
   
-  //
-  // Shows the result of an SQL statement as a HTML table
-  //
+  function dir_to_array ($dir, $pattern = '.*', $opts = 7 )
+  {
+    $dir = os_path($dir,true);
+  
+    $contents = array();
+    if ($dh = @opendir($dir))
+    {
+      while (($file = readdir($dh)) !== false)
+      {
+        if ( preg_match('/'.$pattern.'/',$file) && 
+             (  (is_dir($dir.$file)  && ($opts & DIR_TO_ARRAY_SHOW_DIRS))
+             || (is_file($dir.$file) && ($opts & DIR_TO_ARRAY_SHOW_FILES)) ) )
+        {
+          if ($opts & DIR_TO_ARRAY_FULL_PATH)
+            $contents[] = os_path($dir.$file);
+          else 
+            $contents[] = $file;
+        }
+      }
+      closedir($dh);
+    }
+    
+    sort($contents);
+    return $contents;
+  }
+
+function newline()
+{
+  if ( substr(PHP_OS,0,3)=='WIN' )
+    return "\r\n";
+  else 
+    return "\n";
+}
+
+function array2file( $array, $filename)
+  {
+    $success = false;
+    $str = implode(newline(), $array);
+    if ( $handle = @fopen($filename, 'wt') )
+    {
+       if ( fwrite($handle, $str) !== FALSE)
+         $success = true;
+       fclose($handle);
+    }
+    return $success;
+  }
+
+  function os_path( $dir, $addslash=false )
+  {
+    if ( is_windows() )
+    {
+      $delim1 = '/';
+      $delim2 = '\\';
+    }
+    else
+    {
+      $delim1 = '\\';
+      $delim2 = '/';
+    }
+  
+    $dir = str_replace($delim1, $delim2, $dir);
+    $dir = rtrim($dir, $delim2);
+    
+    if ($addslash)
+      $dir = $dir.$delim2;
+    
+    return $dir;
+  }
   
   function array_to_table( $data, $width = '100%' )
   {  
@@ -26,11 +96,21 @@
       echo '</tr></table>';
     }
   }
+
+  function get_os_type()
+  {
+    if ( substr(PHP_OS,0,3)=='WIN' )
+      return 'WINDOWS';
+    else
+      return 'UNIX';
+  }
   
-  //
-  // Display an error or success message to the user
-  //
+  function is_windows()
+  { return get_os_type() == "WINDOWS"; }
   
+  function is_unix()
+  { return get_os_type() == "UNIX"; } 
+    
   function message ($text)
   {
     if (!empty($text))
@@ -41,11 +121,6 @@
         echo '<p class="message">'.$text.'</p>';
     }
   }    
-  
-  //
-  // Displays a series of links to the previous page, next page and all pages 
-  // inbetween (appending the page number to the specified target URL).
-  //
     
   function paginate( $url, $total_items, $per_page, $current_page)
   {
@@ -61,10 +136,6 @@
             echo '<a href="'.$url.($current_page+1).'">Next</a>';      
     echo '</tr></table>';
   }  
-
-  //
-  // Outputs a menu item link
-  //
   
   function menu_item($text, $params, $background = 'menu_bgr.png')
   {
@@ -74,15 +145,33 @@
          </td></tr>';
   }
  
-function un_magic_quote( $text )
+  function un_magic_quote( $text )
+  {
+    if ( get_magic_quotes_gpc() == 1)
+      return stripslashes($text);
+    else
+      return $text;
+  }
+  
+  function debug($var)
+  {
+    echo '<pre>';
+    print_r($var);
+    echo '</pre>';
+  }
+
+function file_ext( $filename )
 {
-  if ( get_magic_quotes_gpc() == 1)
-    return stripslashes($text);
-  else
-    return $text;
+  return strtolower(array_pop(explode( '.' , $filename)));
 }
 
+function file_noext( $filename )
+{
+  $parts = explode( '.' , $filename);
+  unset($parts[count($parts)-1]);
+  return basename(implode('.',$parts));
+}
+  
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/
-?>

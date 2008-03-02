@@ -1,20 +1,8 @@
-<?
+<?php
+
 /**************************************************************************************************
-
- Description:
- ------------
-
- Package to generate standard looking forms.
-
- There are a number of parameters common to most procedures which are detailed as follows.
- Exceptions will be highlighted in the function header comments.
-
- $param   - The name to use as the parameter of the field when passed to the handling page.
- $prompt  - The text to output to a user before the field.
- $opt     - [opt] TRUE if the field in optional. Defaults to FALSE
- $value   - [opt] The initial value to insert/highlight in the field. Defaults to none
-
- *************************************************************************************************/
+                                              Start of file
+ ***************************************************************************************************/
 
 require_once( realpath(dirname(__FILE__).'/mysql.php5'));
 
@@ -65,6 +53,21 @@ function form_input( $param, $prompt, $size = 15, $maxlength = '',$value ='', $o
              ' size='.$size.
              ' name="'.$param.'"
                value="'.$value.'"></td>
+        </tr>';
+}
+
+#-------------------------------------------------------------------------------------------------
+# Creates a file upload form.
+#-------------------------------------------------------------------------------------------------
+
+function form_file( $param, $prompt, $opt = false)
+{
+  echo '<tr>
+          <td>'.form_prompt($prompt,$opt).'</td>
+          <td><input '.
+              ($opt ? '' : ' required ').
+             ' type="file"'.
+             ' name="'.$param.'"></td>
         </tr>';
 }
 
@@ -497,5 +500,3 @@ function form_mask( $value, $mask )
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/
-?>
-
