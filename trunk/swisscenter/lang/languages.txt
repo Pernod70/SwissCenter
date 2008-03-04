@@ -5,4 +5,5 @@ Español,es
 Français,fr
 Italiano,it
 Nederlands,nl
-Polish,pl
+Norsk,no
+Polski,pl
