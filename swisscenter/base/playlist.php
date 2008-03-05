@@ -304,6 +304,7 @@ function play_sql_list( $media_type, $spec)
          $link   = 'href="gen_playlist.php?'.$params.'" pod="'.now_playing_sync_type().',1,'.server_address().'playing_list.php?'.$params.'" ';
          break;
          
+    case MEDIA_TYPE_TV:
     case MEDIA_TYPE_VIDEO:
          $link   = 'href="gen_playlist.php?'.$params.'" vod="playlist" ';
          break;
