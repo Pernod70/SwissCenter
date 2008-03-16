@@ -92,6 +92,12 @@ function tvid( $code )
   return ' TVID="'.get_tvid_pref( get_player_type(), $code ).'" ';
 }
 
+function tvid_code( $code )
+{
+  // Return the appropriate TVID code.
+  return get_tvid_pref( get_player_type(), $code );
+}
+
 #-------------------------------------------------------------------------------------------------
 # Returns the correct STYLE tag to use to display a link to the quick-access buttons (eg: ABC)
 #-------------------------------------------------------------------------------------------------
