@@ -2908,6 +2908,116 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>RSS_ADD_BUTTON</id>
+        <text>Add RSS feed</text>
+        <version>1.19.2</version>
+      </string>
+      <string>
+        <id>RSS_ADD_OK</id>
+        <text>RSS feed added</text>
+        <version>1.19.2</version>
+      </string>
+      <string>
+        <id>RSS_ADD_TITLE</id>
+        <text>Add a new RSS feed</text>
+        <version>1.19.2</version>
+      </string>
+      <string>
+        <id>RSS_AUDIO</id>
+        <text>Audio</text>
+        <version>1.19.2</version>
+      </string>
+      <string>
+        <id>RSS_CACHE</id>
+        <text>Cache</text>
+        <version>1.19.2</version>
+      </string>
+      <string>
+        <id>RSS_CACHE_LABEL</id>
+        <text>Specify the number of items that this feed should cache. When this limit is met then older items will be deleted. Specify '0' to keep all items.</text>
+        <version>1.19.2</version>
+      </string>
+      <string>
+        <id>RSS_DEL_BUTTON</id>
+        <text>Remove selected RSS feeds</text>
+        <version>1.19.2</version>
+      </string>
+      <string>
+        <id>RSS_DEL_OK</id>
+        <text>The selected RSS feeds have been removed</text>
+        <version>1.19.2</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_CACHE</id>
+        <text>Please enter the number of items to cache for the RSS feed</text>
+        <version>1.19.2</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_TITLE</id>
+        <text>Please enter a title for the RSS feed</text>
+        <version>1.19.2</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_TYPE</id>
+        <text>Please select the type of the RSS feed</text>
+        <version>1.19.2</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_URL</id>
+        <text>Please enter a URL for the RSS feed</text>
+        <version>1.19.2</version>
+      </string>
+      <string>
+        <id>RSS_FEEDS</id>
+        <text>RSS Feeds</text>
+        <version>1.19.2</version>
+      </string>
+      <string>
+        <id>RSS_FEED_PROMPT</id>
+        <text>This option allows you to use SwissCenter to view RSS feeds, including audio and video podcasts.</text>
+        <version>1.19.2</version>
+      </string>
+      <string>
+        <id>RSS_IMAGE</id>
+        <text>Image</text>
+        <version>1.19.2</version>
+      </string>
+      <string>
+        <id>RSS_ITEM_URL</id>
+        <text>Goto URL</text>
+        <version>1.19.2</version>
+      </string>
+      <string>
+        <id>RSS_PLAY_LINK</id>
+        <text>Play linked file</text>
+        <version>1.19.2</version>
+      </string>
+      <string>
+        <id>RSS_TITLE</id>
+        <text>Title</text>
+        <version>1.19.2</version>
+      </string>
+      <string>
+        <id>RSS_TYPE</id>
+        <text>Type</text>
+        <version>1.19.2</version>
+      </string>
+      <string>
+        <id>RSS_UPDATE_OK</id>
+        <text>RSS information updated</text>
+        <version>1.19.2</version>
+      </string>
+      <string>
+        <id>RSS_URL</id>
+        <text>URL</text>
+        <version>1.19.2</version>
+      </string>
+      <string>
+        <id>RSS_VIDEO</id>
+        <text>Video</text>
+        <version>1.19.2</version>
+      </string>
+      <string>
         <id>RUNNING_TIME</id>
         <text>Running Time</text>
         <version>1.19</version>
@@ -3066,6 +3176,11 @@
         <id>SELECT_OPTION</id>
         <text>Please select an option from the list:</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>SELECT_RSS_FEED</id>
+        <text>Please select a RSS feed from the list:</text>
+        <version>1.19.2</version>
       </string>
       <string>
         <id>SELECT_USER</id>

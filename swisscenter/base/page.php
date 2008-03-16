@@ -34,18 +34,18 @@ function current_session()
 // Procedures to output up/down links
 //-------------------------------------------------------------------------------------------------
 
-function up_link( $url)
+function up_link( $url, $focusload = true )
 {
   if (!empty($url))
-    return '<a href="'.$url.'" TVID="PGUP" ONFOCUSLOAD>'.img_gen(SC_LOCATION.style_img("PAGE_UP"),40,20,false,false,'RESIZE').'</a>';
+    return '<a href="'.$url.'" TVID="PGUP" '.($focusload ? 'ONFOCUSLOAD' : '').'>'.img_gen(SC_LOCATION.style_img("PAGE_UP"),40,20,false,false,'RESIZE').'</a>';
   else 
     return '';
 }
 
-function down_link( $url)
+function down_link( $url, $focusload = true )
 {
   if (!empty($url))
-    return '<a href="'.$url.'" TVID="PGDN" ONFOCUSLOAD>'.img_gen(SC_LOCATION.style_img("PAGE_DOWN"),40,20,false,false,'RESIZE').'</a>';
+    return '<a href="'.$url.'" TVID="PGDN" '.($focusload ? 'ONFOCUSLOAD' : '').'>'.img_gen(SC_LOCATION.style_img("PAGE_DOWN"),40,20,false,false,'RESIZE').'</a>';
   else 
     return '';
 }
@@ -225,12 +225,12 @@ function page_footer( $back, $buttons= '', $iconbar = 0, $links=true )
         if (substr($link,0,5) != 'href=')
           $link = 'href="'.$link.'"';
           
-        $link = '<a '.$link.tvid('KEY_'.substr('ABC',$i,1)).'>'.$buttons[$i]["text"].'</a>';
+        $link = '<a '.$link.tvid('KEY_'.substr('ABC',$i,1)).'name="'.tvid_code('KEY_'.substr('ABC',$i,1)).'">'.img_gen(SC_LOCATION.style_img(quick_access_img($i)),50,60).$buttons[$i]["text"].'</a>';
       }
       else
-        $link = $buttons[$i]["text"];
+        $link = img_gen(SC_LOCATION.style_img(quick_access_img($i)),50,60).$buttons[$i]["text"];
 
-        echo '<td align="center">'.img_gen(SC_LOCATION.style_img(quick_access_img($i)),50,60).$link.'</td>';
+      echo '<td align="center">'.$link.'</td>';
     }
   }
   elseif(!empty($iconbar))
@@ -290,15 +290,15 @@ function page_inform( $seconds, $url, $title, $text)
 // array for debugging purposed
 //-------------------------------------------------------------------------------------------------
 
-function debug()
-{
-  for ($i=0;$i<@func_num_args();$i++)
-  {
-    echo "<pre>";
-    print_r(@func_get_arg($i));
-    echo "</pre>";
-  }
-}
+//function debug()
+//{
+//  for ($i=0;$i<@func_num_args();$i++)
+//  {
+//    echo "<pre>";
+//    print_r(@func_get_arg($i));
+//    echo "</pre>";
+//  }
+//}
 
 //-------------------------------------------------------------------------------------------------
 // Actions that should be taken at the start of every page

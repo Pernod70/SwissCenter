@@ -43,6 +43,9 @@
     form_radio_static('web',str('BROWSE_WEB'),$option_vals,get_sys_pref('web_enabled','YES'),false,true);
     form_label(str('BROWSE_WEB_PROMPT'));
     
+    form_radio_static('rss',str('RSS_FEEDS'),$option_vals,get_sys_pref('rss_enabled','YES'),false,true);
+    form_label(str('RSS_FEED_PROMPT'));
+    
     form_radio_static('weather',str('WEATHER_FORECAST'),$option_vals,get_sys_pref('weather_enabled','YES'),false,true);
     form_label(str('WEATHER_FORECAST_PROMPT', '<a href="http://www.weather.com">'.str('WEATHER_CHANNEL').'</a>'));
     
@@ -77,6 +80,7 @@
   {
     set_sys_pref('radio_enabled',$_REQUEST["radio"]);
     set_sys_pref('web_enabled',$_REQUEST["web"]);
+    set_sys_pref('rss_enabled',$_REQUEST["rss"]);
     set_sys_pref('weather_enabled',$_REQUEST["weather"]);
     set_sys_pref('wikipedia_lookups',$_REQUEST["wiki"]);
     set_sys_pref('updates_enabled',$_REQUEST["update"]);

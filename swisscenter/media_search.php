@@ -9,6 +9,7 @@
   require_once( realpath(dirname(__FILE__).'/base/utils.php'));
   require_once( realpath(dirname(__FILE__).'/base/media.php'));
   require_once( realpath(dirname(__FILE__).'/base/musicip.php'));
+  require_once( realpath(dirname(__FILE__).'/base/rss.php'));
   require_once( realpath(dirname(__FILE__).'/video_obtain_info.php'));
   require_once( realpath(dirname(__FILE__).'/itunes_import.php'));
 
@@ -96,6 +97,10 @@
   
   if ( is_tv_check_enabled() )
     extra_get_all_tv_details();
+  
+  // Update RSS feeds 
+  if (internet_available() && get_sys_pref('rss_enabled','YES') == 'YES')
+    rss_update_subscriptions();
   
   remove_orphaned_records();
   remove_orphaned_movie_info();
