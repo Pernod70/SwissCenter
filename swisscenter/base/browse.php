@@ -91,6 +91,42 @@
    }
 
   // ----------------------------------------------------------------------------------
+  // Displays the rss feeds to the user in "text menu" format
+  // ----------------------------------------------------------------------------------
+
+  function display_rss ($url, $rss_feeds, $page=0)
+  {
+    $menu      = new menu();
+    $no_items  = items_per_page();
+    $start     = $page * ($no_items);
+    $end       = min(count($rss_feeds), $start+$no_items);
+    $up        = ($page > 0);
+    $down      = ($end < count($rss_feeds));
+
+    if ($up)
+      $menu->add_up(url_add_param($url,'page',($page-1)));
+
+    if ($down)
+      $menu->add_down(url_add_param($url,'page',($page+1)));
+
+    for ($i=$start; $i<$end; $i++)
+    {
+      // Count items in subscription
+      $count = db_value("select count(*) from rss_items where subscription_id=".$rss_feeds[$i]['ID']);
+      // Output a link to display the specified rss feed
+      $menu->add_info_item($rss_feeds[$i]['TITLE'].' ('.$count.')', $rss_feeds[$i]['TYPE'], ($count==0 ? current_url() : url_add_param($url,'sub_id',$rss_feeds[$i]['ID'])));
+    }
+    
+    echo '<p><table width="100%" cellpadding=0 cellspacing=0 border=0>
+          <tr><td valign=top width="'.convert_x(280).'" align="left">
+              '.img_gen(style_img('MISSING_RSS_ART',true,false),280,450).'
+              </td><td width="'.convert_x(20).'"></td>
+              <td valign="top">';
+              $menu->display( 1,520 );
+    echo '    </td></table>';
+  }
+   
+  // ----------------------------------------------------------------------------------
   // Browse a given array (of objects, properties name & url) in "text menu" format
   // (first parameter is the calling URL without the "page" parameter)
   // ----------------------------------------------------------------------------------

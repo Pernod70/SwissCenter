@@ -43,6 +43,9 @@
   if ( (internet_available() && get_sys_pref('web_enabled','YES') == 'YES') || get_sys_pref('OVERRIDE_ENABLE_WEBLINKS','NO') == 'YES')
   	$menu->add_item(str('BROWSE_WEB'),'web_urls.php',true);
 
+  if (internet_available() && get_sys_pref('rss_enabled','YES') == 'YES')
+    $menu->add_item( str('RSS_FEEDS') ,'rss_feeds.php',true);
+    
   if (internet_available() && get_sys_pref('weather_enabled','YES') == 'YES')
     $menu->add_item( str('VIEW_WEATHER') ,'weather_cc.php',true);
 
