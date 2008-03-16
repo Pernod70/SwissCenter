@@ -2,6 +2,7 @@
 /**************************************************************************************************
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
+
  require_once( realpath(dirname(__FILE__).'/settings.php'));
  require_once( realpath(dirname(__FILE__).'/../ext/magpie/rss_fetch.inc'));
 
@@ -9,9 +10,9 @@
  define('MAGPIE_CACHE_DIR', get_sys_pref('CACHE_DIR', realpath(dirname(__FILE__).'/../cache')).'/rss/feeds');
  define('RSS_CONTENT_DIR', get_sys_pref('CACHE_DIR', realpath(dirname(__FILE__).'/../cache')).'/rss/content');
 
- define('RSS_TYPE_HTML', 0);
+ define('RSS_TYPE_HTML', 2);
  define('RSS_TYPE_PODCAST', 1);
- define('RSS_TYPE_VODCAST', 2);
+ define('RSS_TYPE_VODCAST', 3);
  
  define('RSS_MAX_FILE_LENGTH', 1073741824);  // 10 MB max length
 
@@ -20,9 +21,23 @@
  */
  function rss_get_subscriptions()
  {
-   return db_toarray("SELECT id, url, title, UNIX_TIMESTAMP(last_update + INTERVAL update_frequency MINUTE) 'next_update' FROM rss_subscriptions");
+   return db_toarray("SELECT id, url, title, (CASE type
+                                              WHEN 1 THEN '".str('RSS_AUDIO')."'
+                                              WHEN 2 THEN '".str('RSS_IMAGE')."'
+                                              WHEN 3 THEN '".str('RSS_VIDEO')."'
+                                              ELSE 'Unknown' 
+                                              END) type, cache,
+                                              UNIX_TIMESTAMP(last_update + INTERVAL update_frequency MINUTE) 'next_update' 
+                                              FROM rss_subscriptions ORDER BY title");
  }
  
+ /**
+ * Gets the rss subscription items from the database
+ */
+ function rss_get_subscription_items($sub_id, $order='asc')
+ {
+   return db_toarray("SELECT * FROM rss_items WHERE subscription_id = $sub_id ORDER BY published_date $order"); 
+ }
  
  /**
  * Update the RSS information in the database
@@ -32,22 +47,28 @@
    send_to_log(4, "Updating RSS Subscriptions");
    $subs = rss_get_subscriptions();
    
+   // Ensure local cache folders exist
+   if(!file_exists(MAGPIE_CACHE_DIR)) { mkdir(MAGPIE_CACHE_DIR); }
+   if(!file_exists(RSS_CONTENT_DIR)) { mkdir(RSS_CONTENT_DIR); }
+   
    foreach($subs as $sub)
    {
      if(empty($sub["NEXT_UPDATE"]) || ($sub["NEXT_UPDATE"] < time()))
      {
        send_to_log(4, "Fetching RSS data from ".$sub["URL"]);
        $rss = fetch_rss($sub['URL']);
-
+       
+       rss_update_subscription($sub["ID"], $rss->channel, $rss->image);
+       
        foreach($rss->items as $item)
        {
-         rss_update_item($sub["ID"], $item);
+         rss_update_item($sub["ID"], $item, $sub["CACHE"]);
        }
 
        db_sqlcommand("UPDATE rss_subscriptions SET last_update='".db_datestr()."'");
      }
      else
-       send_to_log(4, "Skipping update for '".$sub["TITLE"]."', next update ".date("'Y.m.d H:i:s'", $sub["NEXT_UPDATE"]));
+       send_to_log(5, "Skipping update for '".$sub["TITLE"]."', next update ".date("'Y.m.d H:i:s'", $sub["NEXT_UPDATE"]));
    }
  }
  
@@ -78,9 +99,7 @@
     
     $sql .= " AND subscription_id=$sub_id";
 
-   
    return db_row($sql);
- 
  }
  
  
@@ -91,7 +110,7 @@
  * @param integer $sub_id - The ID of the subscription that this item is for
  * @param object $item - The item to update
  */
- function rss_update_item($sub_id, $item)
+ function rss_update_item($sub_id, $item, $cache)
  {
    send_to_log(4, "Updating item", $item);
    
@@ -99,35 +118,50 @@
                       "guid" => $item["guid"],
                       "title" => $item["title"],
                       "url" => $item["link"],
-                      "timestamp" => $item["date_timestamp"],
-                      "published_date" => db_datestr(strtotime($item["pubdate"])),
-                      "description" => $item["description"]
+                      "timestamp" => (empty($item["date_timestamp"]) ? time() : $item["date_timestamp"]),
+                      "published_date" => (empty($item["pubdate"]) ? db_datestr(strtotime("now")) : db_datestr(strtotime($item["pubdate"]))),
+                      "description" => (empty($item["description"]) ? $item["atom_content"] : $item["description"])
                      );
-
-          
    
    // Add the item to the database
    $existing_item = rss_get_existing_item($sub_id, $item);
    $existing_id = $existing_item["ID"];
-
-   if(empty($existing_id))
+   $cache_items = rss_get_subscription_items($sub_id); 
+   
+   // Only add the item if it is more recent than the oldest cached
+   if ( ($cache == 0) || (count($cache_items) < $cache) || 
+        ($item_data["published_date"] >= $cache_items[0]["PUBLISHED_DATE"]) )
    {
-     db_insert_row("rss_items", $item_data);
-     
-     $existing_id = db_insert_id();
-   }
-   else
-   {
-     $sql = "UPDATE rss_items SET ".db_array_to_set_list($item_data).
+     if(empty($existing_id))
+     {
+       db_insert_row("rss_items", $item_data);
+       
+       $existing_id = db_insert_id();
+     }
+     else
+     {
+       $sql = "UPDATE rss_items SET ".db_array_to_set_list($item_data).
             " WHERE id=$existing_id";
             
-     db_sqlcommand($sql);
+       db_sqlcommand($sql);
+     }
+  
+     // Download the linked item if needed
+     if($url = rss_need_linkedfile($sub_id, $existing_item, $item))
+       rss_fetch_linked_item($existing_id, $url);
    }
-
-
-   // Download the linked item if needed
-   if($url = rss_need_linkedfile($sub_id, $existing_item, $item))
-     rss_fetch_linked_item($existing_id, $url);
+   
+   // Delete expired items
+   if ($cache > 0)
+   {
+     $cache_items = rss_get_subscription_items($sub_id);
+     for ($i = 0; $i < (count($cache_items) - $cache); $i++) 
+     {
+       $linked_file = db_value("select linked_file from rss_items where id=".$cache_items[$i]['ID']);
+       if (!empty($linked_file)) unlink($linked_file);
+       db_sqlcommand("delete from rss_items where id=".$cache_items[$i]['ID']);
+     }
+   }
  }
  
  
@@ -139,7 +173,7 @@
  */
  function rss_get_subscription($sub_id)
  {
-   $sql = "SELECT url, title, update_frequency, last_update, type FROM rss_subscriptions WHERE id=$sub_id";
+   $sql = "SELECT * FROM rss_subscriptions WHERE id=$sub_id";
    
    return db_row($sql);
  }
@@ -175,7 +209,7 @@
      }
      else
      {
-       send_to_log(4, "Skipping download of file, not changed");
+       send_to_log(5, "Skipping download of file, not changed");
      }
    }
  }
@@ -208,7 +242,7 @@
    if(($result = $snoopy->fetch($url)) != false)
    {
      // Update the item in the database with the new filename for the link
-     $sql = "UPDATE rss_items SET ".db_array_to_set_list(array("linked_file" => $rss_file)).
+     $sql = "UPDATE rss_items SET ".db_array_to_set_list(array("linked_file" => addslashes(os_path($rss_file)))).
             " WHERE id=$item_id";
 
      db_sqlcommand($sql);
@@ -224,8 +258,31 @@
    return $result;
  }
 
-
- rss_update_subscriptions(); 
-
-
+/**
+ * Updates the subscription details.
+ * 
+ * @param integer $sub_id - The ID of the subscription
+ * @param object $channel - The subscription details
+ * @param object $image - The image details
+ */
+ function rss_update_subscription($sub_id, $channel, $image)
+ {
+   send_to_log(4, "Updating subscription details", $channel);
+   
+   if (!empty($image["url"]))
+     $img = file_get_contents($image["url"]);
+   else 
+     $img = '';
+     
+   // Update the subscription in the database with description and image
+   $sql = "UPDATE rss_subscriptions SET ".db_array_to_set_list(array("description" => $channel["description"],
+                                                                     "image_url"   => $image["url"],
+                                                                     "image"       => addslashes($img)))." WHERE id=$sub_id";
+            
+   db_sqlcommand($sql);
+ }
+ 
+ /**************************************************************************************************
+                                               End of file
+ **************************************************************************************************/
 ?>

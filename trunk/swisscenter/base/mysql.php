@@ -231,7 +231,7 @@ function db_array_to_set_list( $array)
     if     (!is_numeric($value) and empty($value))
       $columns[] = $key."=null";
     elseif (is_string($value))
-      $columns[] = $key ."='".db_escape_str(stripslashes($value))."'";
+      $columns[] = $key ."='".db_escape_str( un_magic_quote($value))."'";
     else
       $columns[] = $key."=".$value;
   }
