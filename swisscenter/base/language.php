@@ -96,7 +96,7 @@ function str( $key )
   if (!isset($_SESSION["language"]) )
     load_lang();
     
-  if (!isset($_SESSION["language"][strtoupper($key)]) )
+  if (!isset($_SESSION["language"][strtoupper($key)]) || $_SESSION["language"][strtoupper($key)]['TEXT'] == '')
   {
     $txt = '['.strtoupper($key).']';
     
@@ -107,11 +107,14 @@ function str( $key )
     // Automatically add any unknown strings to the base language file (DEVELOPERS ONLY)
     if (get_sys_pref('IS_DEVELOPMENT','NO') == 'YES')
     {
-      $_SESSION["language_base"] = array();
-      load_lang_strings("en", "language_base");
-      $_SESSION["language_base"][strtoupper($key)] = array('TEXT'    => '',
-                                                           'VERSION' => swisscenter_version());
-      save_lang('en', $_SESSION["language_base"]);
+      if (!isset($_SESSION["language_base"][strtoupper($key)]) )
+      {
+        $_SESSION["language_base"] = array();
+        load_lang_strings("en", "language_base");
+        $_SESSION["language_base"][strtoupper($key)] = array('TEXT'    => '',
+                                                             'VERSION' => swisscenter_version());
+        save_lang('en', $_SESSION["language_base"]);
+      }
     }
 
     return $txt;
