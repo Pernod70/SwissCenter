@@ -15,7 +15,7 @@
   // to parse it. On my system, the iTunes library file is over 13 Mbytes - not good!
   //-------------------------------------------------------------------------------------------------
 
-  function start_tag($parser, $name, $attribs) 
+  function start_tag_itunes($parser, $name, $attribs) 
   { 
      global $tag, $key, $level, $current_section, $key_info, $dict_info, $contents;
      $tag = $name;
@@ -28,7 +28,7 @@
      }
   }
   
-  function end_tag($parser, $name) 
+  function end_tag_itunes($parser, $name) 
   { 
      global $tag, $key, $level, $current_section, $key_info, $dict_info, $contents;
 
@@ -64,7 +64,7 @@
      }
   }
   
-  function tag_contents($parser, $data) 
+  function tag_contents_itunes($parser, $data) 
   { 
      global $contents;
      $contents .= $data;
@@ -180,18 +180,21 @@
     $xmlparser = xml_parser_create("UTF-8");
     if ($xmlparser !== false)
     {
-      xml_set_element_handler($xmlparser, "start_tag", "end_tag"); 
-      xml_set_character_data_handler($xmlparser, "tag_contents"); 
+      xml_set_element_handler($xmlparser, "start_tag_itunes", "end_tag_itunes"); 
+      xml_set_character_data_handler($xmlparser, "tag_contents_itunes"); 
       
       // Read and process XML file
       $fp = fopen($filename, "r");
       if ($fp !== false)
       {
-        while ($data = fread($fp, 4095))
+        while ($data = fread($fp, 8192))
         {
           $data = eregi_replace(">"."[[:space:]]+"."<","><",$data);
           if (!xml_parse($xmlparser, $data , feof($fp))) 
+          {
             send_to_log(8,'XML parse error: '.xml_error_string(xml_get_error_code($xmlparser)).xml_get_current_line_number($xmlparser)); 
+            break;
+          } 
         }
       }
       else 
