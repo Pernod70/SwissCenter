@@ -72,17 +72,23 @@ function get_screen_type()
 {
   if (!isset($_SESSION["device"]["screen_type"]))
   {
+    // Retrieve the AGENT_STRING from the database if it's not provided by the client
+    if ( empty($_SESSION["device"]["agent_string"]) )
+      $_SESSION["device"]["agent_string"] = db_value("select agent_string from clients where ip_address='".str_replace('\\','/',$_SERVER["REMOTE_ADDR"])."'");
+
+    // Determine the resolution based on the client type
     if ( is_pc() )
     {
       store_browser_size('800x450');
       store_screen_size('800x450');
     }
+    elseif ( get_player_type()=='POPCORN')
+    {
+      store_screen_size( preg_get( "/TV Res([0-9]+x[0-9]+)/i", $_SESSION["device"]["agent_string"]) );
+      store_browser_size( preg_get( "/Browser Res([0-9]+x[0-9]+)/i", $_SESSION["device"]["agent_string"]) );
+    }
     else 
     {
-      // Retrieve the AGENT_STRING from the database if it's not provided by the client
-      if ( empty($_SESSION["device"]["agent_string"]) )
-        $_SESSION["device"]["agent_string"] = db_value("select agent_string from clients where ip_address='".str_replace('\\','/',$_SERVER["REMOTE_ADDR"])."'");
-      
       preg_match_all("/[0-9]*x[0-9]*/",$_SESSION["device"]["agent_string"],$matches);  
       store_browser_size($matches[0][0]);
       store_screen_size($matches[0][1]);

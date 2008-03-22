@@ -7,8 +7,8 @@
  require_once( realpath(dirname(__FILE__).'/../ext/magpie/rss_fetch.inc'));
 
  // Define the cache location used for rss files
- define('MAGPIE_CACHE_DIR', get_sys_pref('CACHE_DIR', realpath(dirname(__FILE__).'/../cache')).'/rss/feeds');
- define('RSS_CONTENT_DIR', get_sys_pref('CACHE_DIR', realpath(dirname(__FILE__).'/../cache')).'/rss/content');
+ define('MAGPIE_CACHE_DIR', get_sys_pref('CACHE_DIR').'/rss/feeds');
+ define('RSS_CONTENT_DIR', get_sys_pref('CACHE_DIR').'/rss/content');
 
  define('RSS_TYPE_HTML', 2);
  define('RSS_TYPE_PODCAST', 1);
@@ -48,8 +48,12 @@
    $subs = rss_get_subscriptions();
    
    // Ensure local cache folders exist
-   if(!file_exists(MAGPIE_CACHE_DIR)) { mkdir(MAGPIE_CACHE_DIR); }
-   if(!file_exists(RSS_CONTENT_DIR)) { mkdir(RSS_CONTENT_DIR); }
+   if (!file_exists(get_sys_pref('CACHE_DIR').'/rss'))
+     @mkdir(get_sys_pref('CACHE_DIR').'/rss');
+   if (!file_exists(MAGPIE_CACHE_DIR))
+     @mkdir(MAGPIE_CACHE_DIR);
+   if (!file_exists(RSS_CONTENT_DIR))
+     @mkdir(RSS_CONTENT_DIR);
    
    foreach($subs as $sub)
    {

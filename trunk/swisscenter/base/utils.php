@@ -22,7 +22,21 @@ $char_widths = array(   "A" => 096,  "B" => 192,  "C" => 240,  "D" => 224,  "E" 
                         "3" => 176,  "4" => 176,  "5" => 176,  "6" => 176,  "7" => 176,  "8" => 176,  "9" => 176,  ":" => 064,
                         ";" => 064,  "=" => 192,  ">" => 192,  "?" => 176,  "@" => 304,  "<" => 192,  " " => 112,  );
 
-
+/**
+ * Simple function to search a string using a regular expression and then 
+ * return the first captured pattern 
+ * 
+ * @param string $pattern - Pattern to use when searching
+ * @param string $subject - The string to search
+ * @return string
+ */
+                        
+function preg_get( $pattern, $subject )
+{
+  preg_match( $pattern, $subject, $matches);
+  return (isset($matches[1]) ? $matches[1] : '');
+}
+                        
 // ----------------------------------------------------------------------------------
 // A better alternative to the "shuffle" routine in PHP - this version generates a
 // more random shuffle (and can be seeded to always return the same shuffled list).

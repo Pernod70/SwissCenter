@@ -96,7 +96,7 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
     default               : $page_background = style_img("PAGE_BACKGROUND"); break;
   }
 
-  $background_image       = '/thumb.php?type=jpg&stretch=Y&x='.convert_x(1000).'&y='.convert_y(1000).'&src='.rawurlencode(SC_LOCATION.$page_background);
+  $background_image       = '/thumb.php?type=jpg&stretch=Y&x='.convert_x(1000, SCREEN_COORDS).'&y='.convert_y(1000, SCREEN_COORDS).'&src='.rawurlencode(SC_LOCATION.$page_background);
   
   if ($focus_colour == '')
     $focus_colour = style_value("PAGE_FOCUS_COLOUR",'#FFFFFF');
@@ -112,7 +112,8 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
         <meta http-equiv="Content-Type" content="text/html; '.charset().'">
         <title>'.$title.'</title>
         <style>
-          body {font-family: arial; font-size: 14px; background-repeat: no-repeat; }
+          body {font-family: arial; font-size: 14px; background-repeat: no-repeat; color: '.style_value("PAGE_TEXT_COLOUR",'#FFFFFF').';}
+          td { color: '.style_value("PAGE_TEXT_COLOUR",'#FFFFFF').';}
           a {color:'.style_value("PAGE_LINKS_COLOUR",'#FFFFFF').'; text-decoration: none;}
         </style>
         </head>
@@ -290,15 +291,15 @@ function page_inform( $seconds, $url, $title, $text)
 // array for debugging purposed
 //-------------------------------------------------------------------------------------------------
 
-//function debug()
-//{
-//  for ($i=0;$i<@func_num_args();$i++)
-//  {
-//    echo "<pre>";
-//    print_r(@func_get_arg($i));
-//    echo "</pre>";
-//  }
-//}
+function dump()
+{
+  for ($i=0;$i<@func_num_args();$i++)
+  {
+    echo "<pre>";
+    print_r(@func_get_arg($i));
+    echo "</pre>";
+  }
+}
 
 //-------------------------------------------------------------------------------------------------
 // Actions that should be taken at the start of every page

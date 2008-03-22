@@ -56,7 +56,7 @@
       send_to_log(1,'Unable to process image specified : '.$filename);  
     
     // Optimisation: If a rotate needs to be done, swap the X/Y sizes over
-    if (get_sys_pref('IMAGE_ROTATE','YES')!='NO' && $image->rotate_by_exif_swaps_dims())
+    if (get_sys_pref('IMAGE_ROTATE','YES')!='NO' && $image->rotate_by_exif_changes_aspect())
       list($x,$y) = array($y,$x);
 
     // Resize it to the required size, whilst maintaining the correct aspect ratio

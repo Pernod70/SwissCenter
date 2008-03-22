@@ -17,7 +17,7 @@ class infotab
   #-------------------------------------------------------------------------------------------------
   var $items;
   var $cols = array( "1" => array("width"=>"", "align"=>"right")
-                   , "2" => array("width"=>"", "align"=>"left"));
+                   , "2" => array("width"=>"49%", "align"=>"left"));
 
   #-------------------------------------------------------------------------------------------------
   # Member Functions
@@ -34,7 +34,7 @@ class infotab
     $this->cols[$col][$param] = $val;
   }
 
-  function display( $trunc=640, $lines=1, $align="center" )
+  function display( $trunc=640, $lines=1)
   {
     $col_opts = array();
 
@@ -47,15 +47,21 @@ class infotab
 
     if (! empty($this->items))
     {
-      echo '<'.$align.'><table cellpadding=0 cellspacing=0 border=0>';
+      echo '<table cellpadding="0" cellspacing="0" border="0" width="100%">';
       foreach ($this->items as $item)
       {
         $text = shorten($item["text"],$trunc*$lines);
           
         if (!is_null( $item["text"]))
-          echo '<tr><td'.$col_opts[1].'><font color="'.style_value("PAGE_TITLE_COLOUR",'#FFFFFF').'">'.$item["title"].'</font></td><td width="6"></td><td'.$col_opts[2].'>'.$text.'</td></tr>';
+        {
+          echo '<tr>'.newline();
+          echo '<td'.$col_opts[1].'><font color="'.style_value("PAGE_TITLE_COLOUR",'#FFFFFF').'">'.$item["title"].'</font></td>'.newline();
+          echo '<td width="2%"></td>'.newline();
+          echo '<td'.$col_opts[2].'>'.$text.'</td>'.newline();
+          echo '</tr>'.newline();
+        }
       }
-      echo '</table></'.$align.'>';
+      echo '</table>';
     }
   }
 
