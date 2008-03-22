@@ -51,6 +51,8 @@ function get_player_type()
       $type = 'NETGEAR';
     elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-SYB-')!== false )
       $type = 'SYABAS';
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-POP-')!== false )
+      $type = 'POPCORN';
     elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'MSIE')!== false )
       $type = 'PC';
     elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'Mozilla')!== false )
@@ -249,6 +251,7 @@ function support_now_playing()
     {
       case 'BUFFALO':
       case 'IO-DATA':
+      case 'POPCORN':
       case 'SYABAS':
            $result = false;
            break;

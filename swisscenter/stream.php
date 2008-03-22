@@ -15,31 +15,30 @@
 
 /**
  * Outputs the image file to the browser.
- * 
- * Although it would be faster to rsize the image and *then* rotate, it doesn't give the
- * expected result in PHP. As an example, take an image of 4000 x 6000 pixels that needs
- * to be displayed on a 1600x1200 screen:
- * 
- *   Image (4000,6000) -> Resize (800,1200)     -> Rotate 90 (1200,800) = Image of 1200 x 800
- *   Image (4000,6000) -> Rotate 90 (6000,4000) -> Resize (1600,1066)   = Image of 1600 x 1066
  *
+ *   Note: We only use a cache file if it is relatively new (<5 mins) so that changes
+ *         to slideshow options are picked up.
+ * 
  * @param integer $file_id
  * @param string $filename
  * @param integer $x
  * @param integer $y
  */
 
-  function output_image( $file_id, $filename, $x, $y)
+  function output_image( $file_id, $filename)
   {
+    $x = convert_x(1000, SCREEN_COORDS);
+    $y = convert_y(1000, SCREEN_COORDS); 
+    
     $cache_file = cache_filename($filename, $x, $y);
-    if ( $cache_file !== false && file_exists($cache_file) )
+    if ( !false &&  $cache_file !== false && file_exists($cache_file) && (time()-filemtime($filename) < 300) )
     {
       send_to_log(6,"Cached file exists for $filename at ($x x $y)");
       output_cached_file($cache_file, 'jpg');
     }
     else
     {
-      $image = new CImage();
+     $image = new CImage();
       
       // Load the image from disk
       if (strtolower(file_ext($filename)) == 'sql')
@@ -49,16 +48,44 @@
       else  
         send_to_log(1,'Unable to process image specified : '.$filename);  
 
+      // Will a rotate (due to the exif information) be required?
+      $aspect_changes = ( get_sys_pref('IMAGE_ROTATE','YES')!='NO' && $image->rotate_by_exif_changes_aspect() );
+        
       // Optimisation: If a rotate needs to be done, swap the X/Y sizes over
-      if (get_sys_pref('IMAGE_ROTATE','YES')!='NO' && $image->rotate_by_exif_swaps_dims())
+      if ($aspect_changes)
         list($x,$y) = array($y,$x);
 
-      // Only resize images to make them smaller!
-      // if ( $image->get_width() > $x || $image->get_height() > $y)
-      $image->resize($x, $y);        
+      // Resize the image to fit the screen (but only scale-up the images if the user has specified that we should)
+      if ( get_sys_pref('IMAGE_SCALE_UP','YES') == 'YES' || $image->get_width() > $x || $image->get_height() > $y )
+      {
+        $aspects_match       = ( ($image->get_width() > $image->get_height()) == ($x > $y) );
+        $output_is_landscape = ( ($x > $y && !$aspect_changes) || ($x < $y && $aspect_changes) );
+        
+        // Fill the screen completely?
+        if ( get_sys_pref('IMAGE_LANDSCAPE_CROP','YES') == 'YES' && $aspects_match && $output_is_landscape )
+        {
+          send_to_log(1,"Original output size is $x x $y");
+          $old = $image;
+          $image = new CImage($x,$y);
+          
+          // Calculate the necessary size to ensure the screen is filled whilst maintaining the aspect ratio
+          if (!$aspect_changes)
+            $x = floor($y * ($old->get_width() / $old->get_height()));
+          else 
+            $y = floor($x * ($old->get_height() / $old->get_width()));
+            
+          // Resize and then crop to the exact screen size
+          $old->resize($x, $y); 
+          $image->copy($old, -floor(($old->get_width()-$image->get_width())/2) , -floor(($old->get_height()-$image->get_height())/2) );                   
+        }
+        else
+        {
+          $image->resize($x, $y);        
+        }
+      }
 
       // Rotate/mirror the image as specified in the EXIF data (if enabled)
-      if (get_sys_pref('IMAGE_ROTATE','YES')!='NO')
+      if (get_sys_pref('IMAGE_ROTATE','YES') =='YES')
         $image->rotate_by_exif();
         
       $image->output('jpg');
@@ -235,7 +262,7 @@
     // script. No idea why, but it seems the showcenter firmware responsible for displaying slideshows doesn't support redirects.
     send_to_log(7,'Attempting to stream the following Photo',$tracks[$idx]);
     store_request_details( $media, $file_id);  
-    output_image( $file_id, ucfirst($location), convert_x(1000, SCREEN_COORDS), convert_y(1000, SCREEN_COORDS) );
+    output_image( $file_id, ucfirst($location) );
   }
   else 
   { 

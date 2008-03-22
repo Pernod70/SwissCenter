@@ -604,7 +604,7 @@ class CImage
    * @return boolean
    */
   
-  function rotate_by_exif_swaps_dims()
+  function rotate_by_exif_changes_aspect()
   {
     if ( $this->exif_data !== false)
       return ( $this->exif_data['Orientation'] >=5 && $this->exif_data['Orientation']<=8);
