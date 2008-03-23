@@ -163,7 +163,7 @@ function make_abs_file( $fsp, $dir )
 {
   if ( substr(PHP_OS,0,3)=='WIN' )
   {
-    if (substr($fsp,1,2) == ':\\')
+    if (substr($fsp,0,2) == '\\\\' || substr($fsp,1,2) == ':\\')
       return $fsp;
     else
       return str_suffix($dir,'\\').$fsp;
