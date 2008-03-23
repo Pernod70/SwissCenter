@@ -520,7 +520,7 @@ function load_pl ($file)
   $tracks = array();
   foreach( $filelist as $fsp )
   {
-    $info = pl_validate_file( make_abs_file($fsp,get_sys_pref("playlists")) );
+    $info = pl_validate_file( make_abs_file($fsp,dirname($file)) );
     if ($info !== false)
       $tracks[] = $info;    
   }
