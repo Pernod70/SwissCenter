@@ -62,6 +62,7 @@ class MagpieRSS {
     var $intextinput        = false;
     var $inimage            = false;
     var $current_namespace  = false;
+    var $content_mode       = false;
     
 
     /**
@@ -234,7 +235,10 @@ class MagpieRSS {
             
             $this->incontent = $el;
             
-            
+            if ( isset($attrs['mode']) ) 
+                $this->content_mode = $attrs['mode'];
+            else 
+                $this->content_mode = false;
         }
         
         // if inside an Atom content construct (e.g. content or summary) field treat tags as text
@@ -271,14 +275,31 @@ class MagpieRSS {
         else {
             array_unshift($this->stack, $el);
         }
+        
+        // handle all other attributes (usually found in extensions)
+        if ( $this->feed_type == RSS and 
+             $el !== 'enclosure' and 
+             count($attrs) > 0 )
+        {
+            foreach ( $attrs as $idx=>$attr )
+                $this->append( $el.'_'.$idx, $attrs[$idx] );
+        }
     }
-    
-
     
     function feed_cdata ($p, $text) {
         if ($this->feed_type == ATOM and $this->incontent) 
         {
-            $this->append_content( $text );
+            switch ( $this->content_mode )
+            {
+                case 'escaped':
+                    $this->append_content( html_entity_decode($text) );
+                    break;
+                case 'base64':
+                    $this->append_content( base64_decode($text) );
+                    break;
+                default:
+                    $this->append_content( $text );
+            }
         }
         else {
             $current_el = join('_', array_reverse($this->stack));
@@ -338,8 +359,6 @@ class MagpieRSS {
         $str1 .= $str2;
     }
     
-    
-    
     function append_content($text) {
         if ( $this->initem ) {
             $this->concat( $this->current_item[ $this->incontent ], $text );
@@ -356,7 +375,15 @@ class MagpieRSS {
         }
         if ( $this->current_namespace ) 
         {
-            if ( $this->initem ) {
+            if ($this->inimage) {
+                if ( $this->initem ) {
+                    $this->concat( $this->current_item[ $this->current_namespace ]['image'][ $el ], $text );
+                }
+                elseif  ($this->inchannel) {
+                    $this->concat( $this->channel[ $this->current_namespace ]['image'][ $el ], $text );
+                }
+            }
+            elseif ( $this->initem ) {
                 $this->concat(
                     $this->current_item[ $this->current_namespace ][ $el ], $text);
             }
@@ -368,23 +395,23 @@ class MagpieRSS {
                 $this->concat(
                     $this->textinput[ $this->current_namespace][ $el ], $text );
             }
-            elseif ($this->inimage) {
-                $this->concat(
-                    $this->image[ $this->current_namespace ][ $el ], $text );
-            }
         }
         else {
-            if ( $this->initem ) {
+            if ( $this->inimage ) {
+                if ( $this->initem ) {
+                    $this->concat( $this->current_item['image'][ $el ], $text );
+                }
+                elseif ( $this->inchannel ) {
+                    $this->concat( $this->channel['image'][ $el ], $text );
+                }
+            }
+            elseif ( $this->initem ) {
                 $this->concat(
                     $this->current_item[ $el ], $text);
             }
             elseif ($this->intextinput) {
                 $this->concat(
                     $this->textinput[ $el ], $text );
-            }
-            elseif ($this->inimage) {
-                $this->concat(
-                    $this->image[ $el ], $text );
             }
             elseif ($this->inchannel) {
                 $this->concat(

@@ -5,7 +5,7 @@
 Snoopy - the PHP net client
 Author: Monte Ohrt <monte@ispi.net>
 Copyright (c): 1999-2000 ispi, all rights reserved
-Version: 1.0
+Version: 1.01
 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -31,7 +31,7 @@ CTO, ispi
 Lincoln, NE 68510
 
 The latest version of Snoopy can be obtained from:
-http://snoopy.sourceforge.com
+http://snoopy.sourceforge.net/
 
 *************************************************/
 
@@ -45,7 +45,10 @@ class Snoopy
 	var $port			=	80;					// port we are connecting to
 	var $proxy_host		=	"";					// proxy host to use
 	var $proxy_port		=	"";					// proxy port to use
-	var $agent			=	"Snoopy v1.0";		// agent we masquerade as
+	var $proxy_user		=	"";					// proxy user to use
+	var $proxy_pass		=	"";					// proxy password to use
+	
+	var $agent			=	"Snoopy v1.2.3";	// agent we masquerade as
 	var	$referer		=	"";					// referer info to pass
 	var $cookies		=	array();			// array of cookies to pass
 												// $cookies["username"]="joe";
@@ -58,7 +61,7 @@ class Snoopy
 	var $maxframes		=	0;					// frame content depth maximum. 0 = disallow
 	var $expandlinks	=	true;				// expand links to fully qualified URLs.
 												// this only applies to fetchlinks()
-												// or submitlinks()
+												// submitlinks(), and submittext()
 	var $passcookies	=	true;				// pass set cookies back through redirects
 												// NOTE: this currently does not respect
 												// dates, domains or paths.
@@ -82,8 +85,12 @@ class Snoopy
 												// set to 0 to disallow timeouts
 	var $timed_out		=	false;				// if a read operation timed out
 	var	$status			=	0;					// http request status
-	
-	var	$curl_path		=	"/usr/bin/curl";
+
+	var $temp_dir		=	"/tmp";				// temporary directory that the webserver
+												// has permission to write to.
+												// under Windows, this should be C:\temp
+
+	var	$curl_path		=	"/usr/local/bin/curl";
 												// Snoopy will use cURL for fetching
 												// SSL content if a full system path to
 												// the cURL binary is supplied here.
@@ -94,9 +101,6 @@ class Snoopy
 												// library functions built into php,
 												// as these functions are not stable
 												// as of this Snoopy release.
-	
-	// send Accept-encoding: gzip?
-	var $use_gzip		= true;	
 	
 	/**** Private variables ****/	
 	
@@ -134,8 +138,12 @@ class Snoopy
 			$this->user = $URI_PARTS["user"];
 		if (!empty($URI_PARTS["pass"]))
 			$this->pass = $URI_PARTS["pass"];
+		if (empty($URI_PARTS["query"]))
+			$URI_PARTS["query"] = '';
+		if (empty($URI_PARTS["path"]))
+			$URI_PARTS["path"] = '';
 				
-		switch($URI_PARTS["scheme"])
+		switch(strtolower($URI_PARTS["scheme"]))
 		{
 			case "http":
 				$this->host = $URI_PARTS["host"];
@@ -150,7 +158,7 @@ class Snoopy
 					}
 					else
 					{
-						$path = $URI_PARTS["path"].(isset($URI_PARTS["query"]) ? "?".$URI_PARTS["query"] : "");
+						$path = $URI_PARTS["path"].($URI_PARTS["query"] ? "?".$URI_PARTS["query"] : "");
 						// no proxy, send only the path
 						$this->_httprequest($path, $fp, $URI, $this->_httpmethod);
 					}
@@ -197,10 +205,11 @@ class Snoopy
 				return true;					
 				break;
 			case "https":
-				if(!$this->curl_path || (!is_executable($this->curl_path))) {
-					$this->error = "Bad curl ($this->curl_path), can't fetch HTTPS \n";
+				if(!$this->curl_path)
 					return false;
-				}
+				if(function_exists("is_executable"))
+				    if (!is_executable($this->curl_path))
+				        return false;
 				$this->host = $URI_PARTS["host"];
 				if(!empty($URI_PARTS["port"]))
 					$this->port = $URI_PARTS["port"];
@@ -275,7 +284,7 @@ class Snoopy
 
 	function _striplinks($document)
 	{	
-		preg_match_all("'<\s*a\s+.*href\s*=\s*			# find <a href=
+		preg_match_all("'<\s*a\s.*?href\s*=\s*			# find <a href=
 						([\"\'])?					# find single or double quote
 						(?(1) (.*?)\\1 | ([^\s\>]+))		# if quote found, match up to next matching
 													# quote, otherwise match up to next space
@@ -337,16 +346,27 @@ class Snoopy
 		$search = array("'<script[^>]*?>.*?</script>'si",	// strip out javascript
 						"'<[\/\!]*?[^<>]*?>'si",			// strip out html tags
 						"'([\r\n])[\s]+'",					// strip out white space
-						"'&(quote|#34);'i",					// replace html entities
-						"'&(amp|#38);'i",
-						"'&(lt|#60);'i",
-						"'&(gt|#62);'i",
-						"'&(nbsp|#160);'i",
+						"'&(quot|#34|#034|#x22);'i",		// replace html entities
+						"'&(amp|#38|#038|#x26);'i",			// added hexadecimal values
+						"'&(lt|#60|#060|#x3c);'i",
+						"'&(gt|#62|#062|#x3e);'i",
+						"'&(nbsp|#160|#xa0);'i",
 						"'&(iexcl|#161);'i",
 						"'&(cent|#162);'i",
 						"'&(pound|#163);'i",
-						"'&(copy|#169);'i"
-						);				
+						"'&(copy|#169);'i",
+						"'&(reg|#174);'i",
+						"'&(deg|#176);'i",
+						"'&(#39|#039|#x27);'",
+						"'&(euro|#8364);'i",				// europe
+						"'&a(uml|UML);'",					// german
+						"'&o(uml|UML);'",
+						"'&u(uml|UML);'",
+						"'&A(uml|UML);'",
+						"'&O(uml|UML);'",
+						"'&U(uml|UML);'",
+						"'&szlig;'i",
+						);
 		$replace = array(	"",
 							"",
 							"\\1",
@@ -358,7 +378,19 @@ class Snoopy
 							chr(161),
 							chr(162),
 							chr(163),
-							chr(169));
+							chr(169),
+							chr(174),
+							chr(176),
+							chr(39),
+							chr(128),
+							"ä",
+							"ö",
+							"ü",
+							"Ä",
+							"Ö",
+							"Ü",
+							"ß",
+						);
 					
 		$text = preg_replace($search,$replace,$document);
 								
@@ -379,14 +411,20 @@ class Snoopy
 		preg_match("/^[^\?]+/",$URI,$match);
 
 		$match = preg_replace("|/[^\/\.]+\.[^\/\.]+$|","",$match[0]);
+		$match = preg_replace("|/$|","",$match);
+		$match_part = parse_url($match);
+		$match_root =
+		$match_part["scheme"]."://".$match_part["host"];
 				
 		$search = array( 	"|^http://".preg_quote($this->host)."|i",
-							"|^(?!http://)(\/)?(?!mailto:)|i",
+							"|^(\/)|i",
+							"|^(?!http://)(?!mailto:)|i",
 							"|/\./|",
 							"|/[^\/]+/\.\./|"
 						);
 						
 		$replace = array(	"",
+							$match_root."/",
 							$match."/",
 							"/",
 							"/"
@@ -409,6 +447,7 @@ class Snoopy
 	
 	function _httprequest($url,$fp,$URI,$http_method,$content_type="",$body="")
 	{
+		$cookie_headers = '';
 		if($this->passcookies && $this->_redirectaddr)
 			$this->setcookies();
 			
@@ -418,25 +457,14 @@ class Snoopy
 		$headers = $http_method." ".$url." ".$this->_httpversion."\r\n";		
 		if(!empty($this->agent))
 			$headers .= "User-Agent: ".$this->agent."\r\n";
-		if(!empty($this->host) && !isset($this->rawheaders['Host']))
-			$headers .= "Host: ".$this->host."\r\n";
+		if(!empty($this->host) && !isset($this->rawheaders['Host'])) {
+			$headers .= "Host: ".$this->host;
+			if(!empty($this->port))
+				$headers .= ":".$this->port;
+			$headers .= "\r\n";
+		}
 		if(!empty($this->accept))
 			$headers .= "Accept: ".$this->accept."\r\n";
-		
-		if($this->use_gzip) {
-			// make sure PHP was built with --with-zlib
-			// and we can handle gzipp'ed data
-			if ( function_exists(gzinflate) ) {
-			   $headers .= "Accept-encoding: gzip\r\n";
-			}
-			else {
-			   trigger_error(
-			   	"use_gzip is on, but PHP was built without zlib support.".
-				"  Requesting file(s) without gzip encoding.", 
-				E_USER_NOTICE);
-			}
-		}
-		
 		if(!empty($this->referer))
 			$headers .= "Referer: ".$this->referer."\r\n";
 		if(!empty($this->cookies))
@@ -469,7 +497,12 @@ class Snoopy
 		if(!empty($body))	
 			$headers .= "Content-length: ".strlen($body)."\r\n";
 		if(!empty($this->user) || !empty($this->pass))	
-			$headers .= "Authorization: BASIC ".base64_encode($this->user.":".$this->pass)."\r\n";
+			$headers .= "Authorization: Basic ".base64_encode($this->user.":".$this->pass)."\r\n";
+		
+		//add proxy auth headers
+		if(!empty($this->proxy_user))	
+			$headers .= 'Proxy-Authorization: ' . 'Basic ' . base64_encode($this->proxy_user . ':' . $this->proxy_pass)."\r\n";
+
 
 		$headers .= "\r\n";
 		
@@ -482,9 +515,6 @@ class Snoopy
 		
 		$this->_redirectaddr = false;
 		unset($this->headers);
-		
-		// content was returned gzip encoded?
-		$is_gzipped = false;
 						
 		while($currentHeader = fgets($fp,$this->_maxlinelen))
 		{
@@ -494,15 +524,14 @@ class Snoopy
 				return false;
 			}
 				
-		//	if($currentHeader == "\r\n")
-			if(preg_match("/^\r?\n$/", $currentHeader) )
-			      break;
+			if($currentHeader == "\r\n")
+				break;
 						
 			// if a header begins with Location: or URI:, set the redirect
 			if(preg_match("/^(Location:|URI:)/i",$currentHeader))
 			{
 				// get URL portion of the redirect
-				preg_match("/^(Location:|URI:)\s+(.*)/",chop($currentHeader),$matches);
+				preg_match("/^(Location:|URI:)[ ]+(.*)/i",chop($currentHeader),$matches);
 				// look for :// in the Location header to see if hostname is included
 				if(!preg_match("|\:\/\/|",$matches[2]))
 				{
@@ -526,16 +555,11 @@ class Snoopy
                 }				
 				$this->response_code = $currentHeader;
 			}
-			
-			if (preg_match("/Content-Encoding: gzip/", $currentHeader) ) {
-				$is_gzipped = true;
-			}
-			
+				
 			$this->headers[] = $currentHeader;
 		}
 
-		# $results = fread($fp, $this->maxlength);
-		$results = "";
+		$results = '';
     $readlen = 0;
     
     if($this->output_fp == false)
@@ -556,22 +580,6 @@ class Snoopy
       $read_chunksize = min($this->maxlength - $readlen, $read_chunksize);
     }    
     
-    
-		// gunzip
-		if ( $is_gzipped )
-    {
-      if($this->output_fp == false)
-      {
-        // per http://www.php.net/manual/en/function.gzencode.php
-        $results = substr($results, 10);
-        $results = gzinflate($results);
-      }
-      else
-      {
-        // decompress the file
-      }
-		}
-		
 		if ($this->read_timeout > 0 && $this->_check_timeout($fp))
 		{
 			$this->status=-100;
@@ -580,7 +588,8 @@ class Snoopy
 		
 		// check if there is a a redirect meta tag
 		
-		if(preg_match("'<meta[\s]*http-equiv[^>]*?content[\s]*=[\s]*[\"\']?\d+;[\s]+URL[\s]*=[\s]*([^\"\']*?)[\"\']?>'i",$results,$match))
+		if(preg_match("'<meta[\s]*http-equiv[^>]*?content[\s]*=[\s]*[\"\']?\d+;[\s]*URL[\s]*=[\s]*([^\"\']*?)[\"\']?>'i",$results,$match))
+
 		{
 			$this->_redirectaddr = $this->_expandlinks($match[1],$URI);	
 		}
@@ -626,7 +635,10 @@ class Snoopy
 		if(!empty($this->agent))
 			$headers[] = "User-Agent: ".$this->agent;
 		if(!empty($this->host))
-			$headers[] = "Host: ".$this->host;
+			if(!empty($this->port))
+				$headers[] = "Host: ".$this->host.":".$this->port;
+			else
+				$headers[] = "Host: ".$this->host;
 		if(!empty($this->accept))
 			$headers[] = "Accept: ".$this->accept;
 		if(!empty($this->referer))
@@ -664,20 +676,20 @@ class Snoopy
 			$headers[] = "Authorization: BASIC ".base64_encode($this->user.":".$this->pass);
 			
 		for($curr_header = 0; $curr_header < count($headers); $curr_header++) {
-			$cmdline_params .= " -H \"".$headers[$curr_header]."\"";
+			$safer_header = strtr( $headers[$curr_header], "\"", " " );
+			$cmdline_params .= " -H \"".$safer_header."\"";
 		}
-			  	                         
+		
 		if(!empty($body))
 			$cmdline_params .= " -d \"$body\"";
 		
 		if($this->read_timeout > 0)
 			$cmdline_params .= " -m ".$this->read_timeout;
 		
-		$headerfile = uniqid(time());
-		
-		# accept self-signed certs
-		$cmdline_params .= " -k"; 
-		exec($this->curl_path." -D \"/tmp/$headerfile\"".escapeshellcmd($cmdline_params)." ".escapeshellcmd($URI),$results,$return);
+		$headerfile = tempnam($temp_dir, "sno");
+
+		$safer_URI = strtr( $URI, "\"", " " ); // strip quotes from the URI to avoid shell access
+		exec($this->curl_path." -D \"$headerfile\"".$cmdline_params." \"".$safer_URI."\"",$results,$return);
 		
 		if($return)
 		{
@@ -688,7 +700,7 @@ class Snoopy
 			
 		$results = implode("\r\n",$results);
 		
-		$result_headers = file("/tmp/$headerfile");
+		$result_headers = file("$headerfile");
 						
 		$this->_redirectaddr = false;
 		unset($this->headers);
@@ -700,7 +712,7 @@ class Snoopy
 			if(preg_match("/^(Location: |URI: )/i",$result_headers[$currentHeader]))
 			{
 				// get URL portion of the redirect
-				preg_match("/^(Location: |URI:)(.*)/",chop($result_headers[$currentHeader]),$matches);
+				preg_match("/^(Location: |URI:)\s+(.*)/",chop($result_headers[$currentHeader]),$matches);
 				// look for :// in the Location header to see if hostname is included
 				if(!preg_match("|\:\/\/|",$matches[2]))
 				{
@@ -717,19 +729,14 @@ class Snoopy
 			}
 		
 			if(preg_match("|^HTTP/|",$result_headers[$currentHeader]))
-			{
-			    $this->response_code = $result_headers[$currentHeader];
-			    if(preg_match("|^HTTP/[^\s]*\s(.*?)\s|",$this->response_code, $match))
-			    {
-				$this->status= $match[1];
-                	    }
-			}
+				$this->response_code = $result_headers[$currentHeader];
+
 			$this->headers[] = $result_headers[$currentHeader];
 		}
 
 		// check if there is a a redirect meta tag
 		
-		if(preg_match("'<meta[\s]*http-equiv[^>]*?content[\s]*=[\s]*[\"\']?\d+;[\s]+URL[\s]*=[\s]*([^\"\']*?)[\"\']?>'i",$results,$match))
+		if(preg_match("'<meta[\s]*http-equiv[^>]*?content[\s]*=[\s]*[\"\']?\d+;[\s]*URL[\s]*=[\s]*([^\"\']*?)[\"\']?>'i",$results,$match))
 		{
 			$this->_redirectaddr = $this->_expandlinks($match[1],$URI);	
 		}
@@ -748,7 +755,7 @@ class Snoopy
 		else
 			$this->results = $results;
 
-		unlink("/tmp/$headerfile");
+		unlink("$headerfile");
 		
 		return true;
 	}
@@ -762,8 +769,8 @@ class Snoopy
 	{
 		for($x=0; $x<count($this->headers); $x++)
 		{
-		if(preg_match("/^set-cookie:[\s]+([^=]+)=([^;]+)/i", $this->headers[$x],$match))
-			$this->cookies[$match[1]] = $match[2];
+		if(preg_match('/^set-cookie:[\s]+([^=]+)=([^;]+)/i', $this->headers[$x],$match))
+			$this->cookies[$match[1]] = urldecode($match[2]);
 		}
 	}
 
@@ -797,6 +804,7 @@ class Snoopy
 		if(!empty($this->proxy_host) && !empty($this->proxy_port))
 			{
 				$this->_isproxy = true;
+				
 				$host = $this->proxy_host;
 				$port = $this->proxy_port;
 			}
@@ -862,6 +870,7 @@ class Snoopy
 	{
 		settype($formvars, "array");
 		settype($formfiles, "array");
+		$postdata = '';
 
 		if (count($formvars) == 0 && count($formfiles) == 0)
 			return;

@@ -101,10 +101,10 @@ function rss_modify()
     {
       // Delete any linked files from the cache
       $cache_items = rss_get_subscription_items($id);
-      for ($i = 0; $i < (count($cache_items) - 1); $i++) 
+      for ($i = 0; $i < (count($cache_items) ); $i++) 
       {
         $linked_file = db_value("select linked_file from rss_items where id=".$cache_items[$i]['ID']);
-        send_to_log(6,'Deleting cached linked file: '.$linked_file);
+        send_to_log(5,'Deleting cached linked file: '.$linked_file);
         if (!empty($linked_file)) unlink($linked_file);
       }
       // Delete subscription and related items

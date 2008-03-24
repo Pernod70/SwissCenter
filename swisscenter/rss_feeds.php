@@ -3,6 +3,7 @@
    SWISScenter Source                                                              Nigel Barnes
  *************************************************************************************************/
 
+  require_once( realpath(dirname(__FILE__).'/base/media.php'));
   require_once( realpath(dirname(__FILE__).'/base/page.php'));
   require_once( realpath(dirname(__FILE__).'/base/browse.php'));
   require_once( realpath(dirname(__FILE__).'/base/rss.php'));
@@ -11,7 +12,7 @@
   {
     $menu     = new menu();
     $page     = (isset($_REQUEST["page"]) ? $_REQUEST["page"] : 1);
-    $sub_data = rss_get_subscription($sub_id);
+    $sub_data = rss_get_subscription_details($sub_id);
     $items    = rss_get_subscription_items($sub_id, 'desc');
     $synlen   = ( is_screen_hdtv() ? 1200 : 325) * 4;
 
@@ -33,15 +34,19 @@
         $img = style_img('MISSING_RSS_ART',true,false);
       
       echo '<p><table width="100%" cellpadding=0 cellspacing=0 border=0>
-            <tr><td valign=top width="'.convert_x(280).'" align="left">
-                '.img_gen($img,280,550).'
-                </td><td width="'.convert_x(20).'"></td>
+            <tr><td valign=top width="'.convert_x(280).'" align="center"><br>
+                '.img_gen($img,280,500).'<br>';
+      echo str('RSS_LAST_UPDATED').'<br>'.date('Y-m-d H:i',strtotime($sub_data["LAST_UPDATE"])).'</td>';
+      echo '    <td width="'.convert_x(20).'"></td>
                 <td valign="top">';
                 $menu->display_page( $page,1,520 );
       echo '    </td></table>';   
     }
     
-    page_footer( url_remove_params(search_picker_most_recent(), array('sub_id', 'page') ));
+    // Define buttons for linked file and url.
+    $buttons = array();
+    $buttons[] = array('text'=>str('RSS_REFRESH'), 'url'=> 'rss_feeds.php?update_id='.$sub_id);
+    page_footer( url_remove_params(search_picker_most_recent(), array('sub_id', 'page') ), $buttons );
   }
   
   /**************************************************************************************************
@@ -50,19 +55,35 @@
        
   $rss_feeds = rss_get_subscriptions();
 
-  if ( isset($_REQUEST["sub_id"]) )
+  if ( isset($_REQUEST["update_id"]) )
+  {
+    page_inform(5,"rss_feeds.php?sub_id=".$_REQUEST["update_id"], str('RSS_FEEDS'), str('RSS_UPDATE'));
+    // Store the parameters to the media search (rss subscription id) in the system_prefs table
+    // as this is the only way of passing the info to the background process in Simese.
+    set_sys_pref('MEDIA_SCAN_RSS',$_REQUEST["update_id"]);
+    set_sys_pref('MEDIA_SCAN_STATUS',str('MEDIA_SCAN_STATUS_PENDING'));
+    
+    // Call the media search in the background.    
+    media_refresh_now();
+  }
+  elseif ( !empty($_REQUEST["sub_id"]) )
+  {
     display_rss_feed($_REQUEST["sub_id"]);
+  } 
   elseif ( count($rss_feeds) >0 )
   {
     (isset($_REQUEST["page"])) ? $page = $_REQUEST["page"] : $page = 0;
     page_header(str('RSS_FEEDS'));
-    echo '<center>'.str('SELECT_RSS_FEED').'</center><p>';
-    display_rss(url_remove_param( current_url(), 'page'), $rss_feeds, $page);
-    page_footer('index.php');
+    display_rss(url_remove_param(current_url(),'page'), $rss_feeds, $page);
+    
+    // Define buttons for linked file and url.
+    $buttons = array();
+    $buttons[] = array('text'=>str('RSS_REFRESH'), 'url'=> 'rss_feeds.php?update_id=0');
+    page_footer('index.php', $buttons);
   }
   else
   {
-    page_inform(5,'index.php',str('RSS_FEEDS'),str('NO_ITEMS_TO_DISPLAY'));
+    page_inform(2,'index.php',str('RSS_FEEDS'),str('NO_ITEMS_TO_DISPLAY'));
   }
 
 /**************************************************************************************************

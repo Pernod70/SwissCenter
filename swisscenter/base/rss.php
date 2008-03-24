@@ -17,10 +17,13 @@
  define('RSS_MAX_FILE_LENGTH', 1073741824);  // 10 MB max length
 
  /**
- * Gets the rss subscriptions from the database
- */
- function rss_get_subscriptions()
+  * Gets the rss subscription details from the database
+  *
+  * @param int $sub_id - subscription id to get (0=All)
+  */
+ function rss_get_subscriptions( $sub_id=0 )
  {
+   $where = (empty($sub_id) ? '' : 'WHERE id='.$sub_id);
    return db_toarray("SELECT id, url, title, (CASE type
                                               WHEN 1 THEN '".str('RSS_AUDIO')."'
                                               WHEN 2 THEN '".str('RSS_IMAGE')."'
@@ -28,11 +31,14 @@
                                               ELSE 'Unknown' 
                                               END) type, cache,
                                               UNIX_TIMESTAMP(last_update + INTERVAL update_frequency MINUTE) 'next_update' 
-                                              FROM rss_subscriptions ORDER BY title");
+                                              FROM rss_subscriptions $where ORDER BY title");
  }
  
  /**
  * Gets the rss subscription items from the database
+ * 
+ * @param integer $sub_id - subscription id to get (0=All)
+ * @param string $order - order of returned items ('asc' or 'desc')
  */
  function rss_get_subscription_items($sub_id, $order='asc')
  {
@@ -41,11 +47,13 @@
  
  /**
  * Update the RSS information in the database
+ * 
+ * @param int $sub_id - subscription id to update (0=All)
  */
- function rss_update_subscriptions()
+ function rss_update_subscriptions( $sub_id )
  {
    send_to_log(4, "Updating RSS Subscriptions");
-   $subs = rss_get_subscriptions();
+   $subs = rss_get_subscriptions( $sub_id );
    
    // Ensure local cache folders exist
    if (!file_exists(get_sys_pref('CACHE_DIR').'/rss'))
@@ -62,17 +70,22 @@
        send_to_log(4, "Fetching RSS data from ".$sub["URL"]);
        $rss = fetch_rss($sub['URL']);
        
-       rss_update_subscription($sub["ID"], $rss->channel, $rss->image);
+       rss_update_subscription($sub["ID"], $rss->channel);
        
-       foreach($rss->items as $item)
+       foreach($rss->items as $key=>$item)
        {
          rss_update_item($sub["ID"], $item, $sub["CACHE"]);
+         // Set the percentage of this subscription updated.
+         update_rss_progress($sub["ID"], (int)(($key+1)/count($rss->items)*100));
        }
-
-       db_sqlcommand("UPDATE rss_subscriptions SET last_update='".db_datestr()."'");
+       update_rss_progress($sub["ID"], 100);
+       db_sqlcommand("UPDATE rss_subscriptions SET last_update='".db_datestr()."' WHERE id=".$sub["ID"]);
      }
      else
-       send_to_log(5, "Skipping update for '".$sub["TITLE"]."', next update ".date("'Y.m.d H:i:s'", $sub["NEXT_UPDATE"]));
+     {
+       send_to_log(4, "Skipping update for '".$sub["TITLE"]."', next update ".date("'Y.m.d H:i:s'", $sub["NEXT_UPDATE"]));
+       update_rss_progress($sub["ID"], 100);
+     }
    }
  }
  
@@ -116,7 +129,7 @@
  */
  function rss_update_item($sub_id, $item, $cache)
  {
-   send_to_log(4, "Updating item", $item);
+   send_to_log(4, "Updating item", $item["title"]);
    
    $item_data = array("subscription_id" => $sub_id,
                       "guid" => $item["guid"],
@@ -124,8 +137,10 @@
                       "url" => $item["link"],
                       "timestamp" => (empty($item["date_timestamp"]) ? time() : $item["date_timestamp"]),
                       "published_date" => (empty($item["pubdate"]) ? db_datestr(strtotime("now")) : db_datestr(strtotime($item["pubdate"]))),
-                      "description" => (empty($item["description"]) ? $item["atom_content"] : $item["description"])
+                      "description" => (empty($item["atom_content"]) ? $item["description"] : $item["atom_content"])
                      );
+   
+   send_to_log(8, "Updating item details", $item);
    
    // Add the item to the database
    $existing_item = rss_get_existing_item($sub_id, $item);
@@ -175,7 +190,7 @@
  * @param integer $sub_id - The subscription id
  * @return array - The subscription details
  */
- function rss_get_subscription($sub_id)
+ function rss_get_subscription_details($sub_id)
  {
    $sql = "SELECT * FROM rss_subscriptions WHERE id=$sub_id";
    
@@ -193,8 +208,7 @@
  */
  function rss_need_linkedfile($sub_id, $existing_item, $new_item)
  {
-   $sub = rss_get_subscription($sub_id);
-   
+   $sub = rss_get_subscription_details($sub_id);
  
    if((($sub["TYPE"] == RSS_TYPE_PODCAST) ||
        ($sub["TYPE"] == RSS_TYPE_VODCAST)) &&
@@ -213,7 +227,7 @@
      }
      else
      {
-       send_to_log(5, "Skipping download of file, not changed");
+       send_to_log(4, "Skipping download of file, not changed");
      }
    }
  }
@@ -241,7 +255,6 @@
    $snoopy = new Snoopy();
    $snoopy->output_fp = $fd;
    $snoopy->maxlength = RSS_MAX_FILE_LENGTH;
-   $snoopy->usegzip = false;
    
    if(($result = $snoopy->fetch($url)) != false)
    {
@@ -267,25 +280,45 @@
  * 
  * @param integer $sub_id - The ID of the subscription
  * @param object $channel - The subscription details
- * @param object $image - The image details
  */
- function rss_update_subscription($sub_id, $channel, $image)
- {
-   send_to_log(4, "Updating subscription details", $channel);
-   
-   if (!empty($image["url"]))
-     $img = file_get_contents($image["url"]);
+ function rss_update_subscription($sub_id, $channel)
+ { 
+   // use itunes image if available
+   if ( !empty($channel['itunes']['image_href']) )
+     $image = $channel['itunes']['image_href'];
+   elseif ( !empty($channel['media']['thumbnail']) )
+     $image = $channel['media']['thumbnail'];
+   elseif (!empty($channel['image']['url']))
+     $image = $channel['image']['url'];
    else 
-     $img = '';
-     
+     $image = '';
+   if ( !empty($image) )
+     $img = file_get_contents($image);
+   
+   // use itunes summary if available
+   if ( !empty($channel['itunes']['summary']) )
+     $channel['description'] = $channel['itunes']['summary'];
+   
+   send_to_log(4, "Updating subscription details", array("description" => $channel["description"],
+                                                         "image_url"   => $image));
+
    // Update the subscription in the database with description and image
    $sql = "UPDATE rss_subscriptions SET ".db_array_to_set_list(array("description" => $channel["description"],
-                                                                     "image_url"   => $image["url"],
+                                                                     "image_url"   => $image,
                                                                      "image"       => addslashes($img)))." WHERE id=$sub_id";
             
    db_sqlcommand($sql);
  }
  
+ /**
+ * Updates the percentage of a rss feed that has been updated
+ *
+ * @param integer $sub_id - The subscription ID being updated
+ */
+ function update_rss_progress( $sub_id, $percent )
+ {
+   db_sqlcommand("update rss_subscriptions set percent_scanned = $percent where id = $sub_id ");  
+ }
  /**************************************************************************************************
                                                End of file
  **************************************************************************************************/

@@ -118,7 +118,7 @@
     }
     
     echo '<p><table width="100%" cellpadding=0 cellspacing=0 border=0>
-          <tr><td valign=top width="'.convert_x(280).'" align="left">
+          <tr><td valign=top width="'.convert_x(280).'" align="left"><br>
               '.img_gen(style_img('MISSING_RSS_ART',true,false),280,450).'
               </td><td width="'.convert_x(20).'"></td>
               <td valign="top">';
