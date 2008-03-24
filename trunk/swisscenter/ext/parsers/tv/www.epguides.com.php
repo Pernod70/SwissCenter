@@ -22,6 +22,7 @@
    26-Sep-2007: v1.0:     First public release
    11-Jan-2008: v1.1:     Stores series and episode if match was found by title.
    28-Jan-2008: v1.2:     Encoded URL containing Programme name and improved search and error handling.
+   04_Mar-2008: v1.3:     Minor fixes to url and episode searching.
 
  *************************************************************************************************/
 
@@ -130,7 +131,6 @@
         {
           // Get page containing Series Summary
           $url_load = substr($matches[1][0],strrpos_str($matches[1][0],'http'));
-          $url_load = $matches[1][0];
           send_to_log(6,'Fetching information from: '.$url_load);
           $html_summary = file_get_contents( $url_load );
             
@@ -145,6 +145,8 @@
           send_to_log(6,'Cannot find link to tv.com summary page for specified series.');
         
         // Search for link for required Episode by series-episode
+        $start = strpos($html,'Episode #');
+        $html = substr($html,$start);
         $start = strpos($html,$series.'-'.sprintf("%2s", $episode));
         if ($start !== false)
         {

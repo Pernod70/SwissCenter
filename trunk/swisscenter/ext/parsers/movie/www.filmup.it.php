@@ -36,7 +36,8 @@
     $url_load = str_replace('#####',$search_title,$search_url);
     send_to_log(6,'Fetching information from: '.$url_load);
     $html     = file_get_contents( $url_load );
-
+    $accuracy = 0;
+    
     if ($html === false)
     {
       send_to_log(2,'Failed to access the URL.');
@@ -90,6 +91,7 @@
 
       // Store the single-value movie attributes in the database
       $columns = array ( "YEAR"              => $year
+                       , "MATCH_PC"          => $accuracy
                        , "DETAILS_AVAILABLE" => 'Y'
                        , "SYNOPSIS"          => $synopsis);
       scdb_set_movie_attribs ($id, $columns);
@@ -101,7 +103,7 @@
     }
     
     // Mark the file as attempted to get details, but none available
-    $columns = array ( "DETAILS_AVAILABLE" => 'N');
+    $columns = array ( "MATCH_PC" => $accuracy, "DETAILS_AVAILABLE" => 'N');
     scdb_set_movie_attribs ($id, $columns);
     return false;
   }
