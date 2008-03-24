@@ -14,7 +14,7 @@
 
   $sub_id   = $_REQUEST["sub_id"];
   $item_id  = $_REQUEST["item_id"];
-  $sub_data = rss_get_subscription($sub_id);
+  $sub_data = rss_get_subscription_details($sub_id);
   $items    = rss_get_subscription_items($sub_id, 'desc'); 
   
   // Find index of current, next and previous items
@@ -31,7 +31,7 @@
     }
   }
 
-  page_header( $sub_data["TITLE"], $items[$idx_current]["TITLE"], '',get_tvid_pref( get_player_type(), 'KEY_A' ) );
+  page_header( $sub_data["TITLE"], $items[$idx_current]["TITLE"].' - '.date('Y-m-d H:i',strtotime($items[$idx_current]["PUBLISHED_DATE"])), '',get_tvid_pref( get_player_type(), 'KEY_A' ) );
 
   // Show the channel image for audio and video feeds.
   if ($sub_data["TYPE"]==MEDIA_TYPE_MUSIC || $sub_data["TYPE"]==MEDIA_TYPE_VIDEO)

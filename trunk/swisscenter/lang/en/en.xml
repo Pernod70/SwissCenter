@@ -33,6 +33,21 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>ALL_CATEGORIES</id>
+        <text>All Categories</text>
+        <version>1.19.2</version>
+      </string>
+      <string>
+        <id>ALL_MEDIA_TYPES</id>
+        <text>All Media Types</text>
+        <version>1.19.2</version>
+      </string>
+      <string>
+        <id>ALL_RSS_FEEDS</id>
+        <text>All RSS Feeds</text>
+        <version>1.19.2</version>
+      </string>
+      <string>
         <id>ANYWHERE_IN_NAME</id>
         <text>Anywhere in name</text>
         <version>1.19</version>
@@ -2848,6 +2863,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>REFRESH_ITUNES</id>
+        <text>Scan iTunes Library</text>
+        <version>1.19.2</version>
+      </string>
+      <string>
+        <id>REFRESH_ITUNES_PROMPT</id>
+        <text>Select this option to include scanning your iTunes library for playlists with this Media Search.</text>
+        <version>1.19.2</version>
+      </string>
+      <string>
         <id>REFRESH_METADATA</id>
         <text>Refresh Metadata</text>
         <version>1.19</version>
@@ -2988,8 +3013,18 @@
         <version>1.19.2</version>
       </string>
       <string>
+        <id>RSS_LAST_UPDATED</id>
+        <text>Last updated:</text>
+        <version>1.19.2</version>
+      </string>
+      <string>
         <id>RSS_PLAY_LINK</id>
         <text>Play linked file</text>
+        <version>1.19.2</version>
+      </string>
+      <string>
+        <id>RSS_REFRESH</id>
+        <text>Update feed(s)</text>
         <version>1.19.2</version>
       </string>
       <string>
@@ -3000,6 +3035,11 @@
       <string>
         <id>RSS_TYPE</id>
         <text>Type</text>
+        <version>1.19.2</version>
+      </string>
+      <string>
+        <id>RSS_UPDATE</id>
+        <text>SwissCenter is now updating your RSS feed(s). This may take a few minutes, so please be patient.</text>
         <version>1.19.2</version>
       </string>
       <string>
