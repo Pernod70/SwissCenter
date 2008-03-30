@@ -611,6 +611,8 @@ function tv_info( $message = "")
     db_sqlcommand('delete from directors_of_tv');
     db_sqlcommand('delete from actors_in_tv');
     db_sqlcommand('delete from genres_of_tv');
+    set_sys_pref('MEDIA_SCAN_TYPE','MEDIA');
+    set_sys_pref('MEDIA_SCAN_MEDIA_TYPE',MEDIA_TYPE_TV);
     media_refresh_now();
     $message = str('MOVIE_EXTRA_REFRESH_OK');
   }

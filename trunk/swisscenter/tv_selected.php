@@ -41,8 +41,18 @@
     search_hist_pop();
   
   search_hist_push( $this_url , $predicate );
-  page_header( $programme,'','',1,false,'',MEDIA_TYPE_TV );
   
+  // Random banner image
+  $banner_imgs = dir_to_array($episodes[0]['DIRNAME'].'banners/','banner_*.*');
+  $banner_img = $banner_imgs[rand(0,count($banner_imgs)-1)];
+  
+  // Random series image
+  $series_imgs = dir_to_array($episodes[0]['DIRNAME'].'banners/','series'.sprintf("%02d", $current_series).'_*.*');
+  $series_img = $series_imgs[rand(0,count($series_imgs)-1)];
+
+  page_header( file_exists($banner_img) ? $banner_img : $programme,'','',1,false,'',
+               file_exists($series_img) ? -1 : MEDIA_TYPE_TV );
+    
   // There may only be a single series for the selected programme
   if (count($series) > 1)
   {
@@ -68,7 +78,22 @@
   }
 
   if ($menu->num_items() > 0)
-    $menu->display_page( $page,1,style_value("MENU_TV_WIDTH"),style_value("MENU_TV_ALIGN") );
+  {
+    if (file_exists($series_img) )
+    {
+      echo '<p><table width="100%" cellpadding=0 cellspacing=0 border=0>
+            <tr><td valign=top width="'.convert_x(280).'" align="left">
+                '.img_gen($series_img,280,550).'
+                </td><td width="'.convert_x(20).'"></td>
+                <td valign="top">';
+                $menu->display_page( $page,1,480,'right' );
+      echo '    </td></table>';
+    }
+    else
+    {
+      $menu->display_page( $page,1,style_value("MENU_TV_WIDTH"),style_value("MENU_TV_ALIGN") );
+    }
+  }
     
   $buttons = array();
   $buttons[] = array('text' => str('QUICK_PLAY'),'url' => play_sql_list(MEDIA_TYPE_TV, $episodes_sql));                                
