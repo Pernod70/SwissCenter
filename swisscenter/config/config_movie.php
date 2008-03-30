@@ -578,6 +578,8 @@ function movie_info( $message = "")
     db_sqlcommand('delete from directors_of_movie');
     db_sqlcommand('delete from actors_in_movie');
     db_sqlcommand('delete from genres_of_movie');
+    set_sys_pref('MEDIA_SCAN_TYPE','MEDIA');
+    set_sys_pref('MEDIA_SCAN_MEDIA_TYPE',MEDIA_TYPE_VIDEO);
     media_refresh_now();
     $message = str('MOVIE_EXTRA_REFRESH_OK');
   }

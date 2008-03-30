@@ -61,9 +61,9 @@
     page_error( str('DATABASE_ERROR'));
 
   if (!empty($data[0]["YEAR"]))
-    page_header( $data[0]["TITLE"].' ('.$data[0]["YEAR"].')' ,'');
+    page_header( $data[0]["PROGRAMME"], $data[0]["TITLE"].' ('.$data[0]["YEAR"].')' ,'');
   else 
-    page_header( $data[0]["TITLE"] );
+    page_header( $data[0]["PROGRAMME"], $data[0]["TITLE"] );
 
   // Play now
   $menu->add_item( str('PLAY_NOW'), play_file( MEDIA_TYPE_TV, $data[0]["FILE_ID"]));
