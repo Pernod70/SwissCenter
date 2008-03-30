@@ -271,6 +271,13 @@ class MagpieRSS {
             
             $this->append($link_el, $attrs['href']);
         }
+        // MediaRSS extensions cause us problems with their group and content elements,
+        // so ensure they are all at a single level in the media namespace. MediaRSS
+        // element data may be overwritten but we don't use it anyway!
+        elseif ($this->current_namespace == 'media') {
+            if (count( $this->stack ) > 0) array_shift($this->stack);
+            array_unshift($this->stack, $el);
+        }
         // set stack[0] to current element
         else {
             array_unshift($this->stack, $el);

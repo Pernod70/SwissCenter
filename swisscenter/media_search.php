@@ -60,11 +60,12 @@
   $rss_sub_id = get_sys_pref('MEDIA_SCAN_RSS');
   $media_type = get_sys_pref('MEDIA_SCAN_MEDIA_TYPE');
   $cat_id     = get_sys_pref('MEDIA_SCAN_CATEGORY');
-  $itunes     = get_sys_pref('MEDIA_SCAN_ITUNES', true);
-  $update     = get_sys_pref('REFRESH_METADATA', false);
+  $itunes     = get_sys_pref('MEDIA_SCAN_ITUNES','YES');
+  $update     = get_sys_pref('REFRESH_METADATA','NO');
   $itunes_library = get_sys_pref('ITUNES_LIBRARY');
   $itunes_date    = get_sys_pref('ITUNES_LIBRARY_DATE');
 
+  delete_sys_pref('MEDIA_SCAN_TYPE');
   delete_sys_pref('MEDIA_SCAN_RSS');
   delete_sys_pref('MEDIA_SCAN_MEDIA_TYPE');
   delete_sys_pref('MEDIA_SCAN_CATEGORY');
@@ -76,14 +77,13 @@
   if ($scan_type == '' || $scan_type == 'MEDIA')
   {
     // Set the percent_scanned to zero for all locations due to be scanned.
-    db_sqlcommand("update media_locations set percent_scanned=0 
-                    where media_table<>''".
+    db_sqlcommand("update media_locations set percent_scanned=0 where 1=1".
                     (empty($cat_id) ? '' : " and cat_id = $cat_id").
                     (empty($media_type) ? '' : " and media_type = $media_type")
                  );
   
     // Scan the appropriate media directories
-    process_media_dirs( $media_type, $cat_id, $update );
+    process_media_dirs( $media_type, $cat_id, $update=='YES' );
     
     // Update video details from the Internet if enabled
     if ( is_movie_check_enabled() )
@@ -93,7 +93,7 @@
       extra_get_all_tv_details();
  
     // Scan the iTunes library for playlists
-    if ($itunes && is_file($itunes_library))
+    if ($itunes=='YES' && is_file($itunes_library))
     {
       // Date of file
       $file_date = db_datestr(@filemtime($itunes_library));

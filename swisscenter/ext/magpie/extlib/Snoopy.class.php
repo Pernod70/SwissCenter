@@ -460,7 +460,9 @@ class Snoopy
 		if(!empty($this->host) && !isset($this->rawheaders['Host'])) {
 			$headers .= "Host: ".$this->host;
 			if(!empty($this->port))
-				$headers .= ":".$this->port;
+				if ($this->port != 80) {
+					$headers .= ":".$this->port;
+				}
 			$headers .= "\r\n";
 		}
 		if(!empty($this->accept))
@@ -561,6 +563,8 @@ class Snoopy
 
 		$results = '';
     $readlen = 0;
+    // reset file pointer (may already contain redirection page)
+    rewind($this->output_fp);
     
     if($this->output_fp == false)
       $read_chunksize = $this->maxlength;

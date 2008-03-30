@@ -13,7 +13,7 @@ require_once( realpath(dirname(__FILE__).'/../base/media.php'));
   function media_progress()
   {
     $status  = get_sys_pref('MEDIA_SCAN_STATUS');
-    $scan_type = get_sys_pref('MEDIA_SCAN_TYPE');
+    $scan_type = $_REQUEST["type"];
 
     // Inform the user that it is happening.
     echo '<h1>'.str('SETUP_SEARCH_NEW_MEDIA').'</h1>'.
@@ -65,7 +65,7 @@ require_once( realpath(dirname(__FILE__).'/../base/media.php'));
     
     // Refresh the page to update the progress if the scan is still running
     if ($status != str('MEDIA_SCAN_STATUS_COMPLETE'))
-      echo '<script type="text/javascript"> setTimeout("location.replace(\'index.php?section=MEDIA&action=PROGRESS\')",10000); </script>';
+      echo '<script type="text/javascript"> setTimeout("location.replace(\'index.php?section=MEDIA&action=PROGRESS&type='.$scan_type.'\')",10000); </script>';
   }
   
   /**
@@ -89,7 +89,7 @@ require_once( realpath(dirname(__FILE__).'/../base/media.php'));
     media_refresh_now();
 
     // Show progress
-    header('Location: /config/index.php?section=MEDIA&action=PROGRESS');
+    header('Location: /config/index.php?section=MEDIA&action=PROGRESS&type='.$_REQUEST["scan_type"]);
   }
   
   /**
@@ -99,7 +99,7 @@ require_once( realpath(dirname(__FILE__).'/../base/media.php'));
 
   function media_refresh()
   {  
-    $option_vals = array( str('YES')=>true,str('NO')=>false);
+    $option_vals = array( str('YES')=>'YES',str('NO')=>'NO');
     
     echo '<h1>'.str('SETUP_SEARCH_NEW_MEDIA').'</h1>
           <p>'.str('MEDIA_SEARCH_PROMPT').'<br>&nbsp;';
@@ -112,9 +112,9 @@ require_once( realpath(dirname(__FILE__).'/../base/media.php'));
     echo '<tr><td></td><td> &nbsp; &nbsp; '.str('OR').'</td></tr>';
     form_list_dynamic('cat', str('CATEGORY'),"select cat_id,cat_name from categories order by cat_name", $_REQUEST['cat'],true,false,str('ALL_CATEGORIES'));
     echo '<tr><td></td><td>&nbsp;</td></tr>';
-    form_radio_static('refresh',str('REFRESH_METADATA'),$option_vals,get_sys_pref('REFRESH_METADATA',false),false,true);
+    form_radio_static('refresh',str('REFRESH_METADATA'),$option_vals,get_sys_pref('REFRESH_METADATA','NO'),false,true);
     form_label(str('REFRESH_METADATA_PROMPT'));
-    form_radio_static('itunes',str('REFRESH_ITUNES'),$option_vals,get_sys_pref('REFRESH_ITUNES',false),false,true);
+    form_radio_static('itunes',str('REFRESH_ITUNES'),$option_vals,get_sys_pref('MEDIA_SCAN_ITUNES','NO'),false,true);
     form_label(str('REFRESH_ITUNES_PROMPT'));
     echo '<tr><td></td><td>&nbsp;</td></tr>';
     form_submit(str('SETUP_SEARCH_NEW_MEDIA'),2);
