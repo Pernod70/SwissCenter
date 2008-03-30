@@ -76,7 +76,7 @@
        {
          rss_update_item($sub["ID"], $item, $sub["CACHE"]);
          // Set the percentage of this subscription updated.
-         update_rss_progress($sub["ID"], (int)(($key+1)/count($rss->items)*100));
+         update_rss_progress($sub["ID"], (int)(($key+1)/$sub["CACHE"]*100));
        }
        update_rss_progress($sub["ID"], 100);
        db_sqlcommand("UPDATE rss_subscriptions SET last_update='".db_datestr()."' WHERE id=".$sub["ID"]);
@@ -133,11 +133,11 @@
    
    $item_data = array("subscription_id" => $sub_id,
                       "guid" => $item["guid"],
-                      "title" => $item["title"],
+                      "title" => $item["title"].' ',
                       "url" => $item["link"],
                       "timestamp" => (empty($item["date_timestamp"]) ? time() : $item["date_timestamp"]),
                       "published_date" => (empty($item["pubdate"]) ? db_datestr(strtotime("now")) : db_datestr(strtotime($item["pubdate"]))),
-                      "description" => (empty($item["atom_content"]) ? $item["description"] : $item["atom_content"])
+                      "description" => (empty($item["atom_content"]) ? $item["description"].' ' : $item["atom_content"])
                      );
    
    send_to_log(8, "Updating item details", $item);
@@ -294,6 +294,8 @@
      $image = '';
    if ( !empty($image) )
      $img = file_get_contents($image);
+   else 
+     $img = null;
    
    // use itunes summary if available
    if ( !empty($channel['itunes']['summary']) )
