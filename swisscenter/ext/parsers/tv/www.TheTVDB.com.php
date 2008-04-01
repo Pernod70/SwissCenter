@@ -21,6 +21,7 @@
    
    Version history:
    08-Mar-2008: v1.0:     First public release
+   31-Mar-2008: v1.1:     Fixed episode year and now informs user if episode details are not found.
 
  *************************************************************************************************/
 
@@ -115,61 +116,68 @@ function extra_get_tv_details($id, $filename, $programme, $series='', $episode='
       else
         $ep = best_match(ucwords(strtolower($title)), $tvdb_episodes['EPISODENAME'], $accuracy);
       
-      // Download episode image
-      if (!empty($tvdb_episodes['FILENAME'][$ep]))
-        file_save_albumart( add_site_to_url($tvdb_episodes['FILENAME'][$ep], $bannermirror.'/banners/')
-                          , dirname($filename).'/'.file_noext($filename).'.'.file_ext($tvdb_episodes['FILENAME'][$ep])
-                          , '');
-      
-      scdb_add_tv_directors( $id, explode('|', trim($tvdb_episodes['DIRECTOR'][$ep],'|')) );
-      scdb_add_tv_actors   ( $id, explode('|', trim($tvdb_episodes['GUESTSTARS'][$ep],'|')) );
-      scdb_add_tv_actors   ( $id, explode('|', trim($tvdb_series['ACTORS'],'|')) );
-      scdb_add_tv_genres   ( $id, explode('|', trim($tvdb_series['GENRE'],'|')) );
-
-      // Store the single-value attributes in the database
-      $columns = array ( "TITLE"             => $tvdb_episodes['EPISODENAME'][$ep]
-                       , "SERIES"            => $tvdb_episodes['SEASONNUMBER'][$ep]
-                       , "EPISODE"           => $tvdb_episodes['EPISODENUMBER'][$ep]
-                       , "YEAR"              => $tvdb_episodes['FIRSTAIRED'][$ep]
-                       , "DETAILS_AVAILABLE" => 'Y'
-                       , "SYNOPSIS"          => $tvdb_episodes['OVERVIEW'][$ep]);
-      scdb_set_tv_attribs  ( $id, $columns );
-      
-      // Parse and download the banners
-      $tvdb_banners = array();
-      parse_xml($banner_cache, 'start_tag_tvdb_banner', 'end_tag_tvdb_banner', 'tag_contents_tvdb_banner');
-
-      // Programme banners (save to cache before copying to video folder)
-      if (isset($tvdb_banners[trim($series)]))
+      if ($ep !== false)
       {
-        foreach ($tvdb_banners[trim($series)] as $banner_path)
-        {
-          if (!file_exists($cache_dir.'/banners/'.basename($banner_path)))
-            file_save_albumart( add_site_to_url($banner_path, $bannermirror.'/banners/')
-                              , $cache_dir.'/banners/'.basename($banner_path)
-                              , '');
-          if (!file_exists(dirname($filename).'/banners/series'.sprintf("%02d", $series).'_'.basename($banner_path)))
-            copy($cache_dir.'/banners/'.basename($banner_path),
-                 dirname($filename).'/banners/series'.sprintf("%02d", $series).'_'.basename($banner_path));
-        }
-      }
+        // Download episode image
+        if (!empty($tvdb_episodes['FILENAME'][$ep]))
+          file_save_albumart( add_site_to_url($tvdb_episodes['FILENAME'][$ep], $bannermirror.'/banners/')
+                            , dirname($filename).'/'.file_noext($filename).'.'.file_ext($tvdb_episodes['FILENAME'][$ep])
+                            , '');
         
-      // Series banner (save to cache before copying to video folder)
-      if (isset($tvdb_banners['BANNER']))
-      {
-        foreach ($tvdb_banners['BANNER'] as $banner_path)
+        scdb_add_tv_directors( $id, explode('|', trim($tvdb_episodes['DIRECTOR'][$ep],'|')) );
+        scdb_add_tv_actors   ( $id, explode('|', trim($tvdb_episodes['GUESTSTARS'][$ep],'|')) );
+        scdb_add_tv_actors   ( $id, explode('|', trim($tvdb_series['ACTORS'],'|')) );
+        scdb_add_tv_genres   ( $id, explode('|', trim($tvdb_series['GENRE'],'|')) );
+  
+        // Store the single-value attributes in the database
+        $columns = array ( "TITLE"             => $tvdb_episodes['EPISODENAME'][$ep]
+                         , "SERIES"            => $tvdb_episodes['SEASONNUMBER'][$ep]
+                         , "EPISODE"           => $tvdb_episodes['EPISODENUMBER'][$ep]
+                         , "YEAR"              => substr($tvdb_episodes['FIRSTAIRED'][$ep],0,4)
+                         , "DETAILS_AVAILABLE" => 'Y'
+                         , "SYNOPSIS"          => $tvdb_episodes['OVERVIEW'][$ep]);
+        scdb_set_tv_attribs  ( $id, $columns );
+        
+        // Parse and download the banners
+        $tvdb_banners = array();
+        parse_xml($banner_cache, 'start_tag_tvdb_banner', 'end_tag_tvdb_banner', 'tag_contents_tvdb_banner');
+
+        // Programme banners (save to cache before copying to video folder)
+        if (isset($tvdb_banners[trim($series)]))
         {
-          if (!file_exists($cache_dir.'/banners/'.basename($banner_path)))
-            file_save_albumart( add_site_to_url($banner_path, $bannermirror.'/banners/')
-                              , $cache_dir.'/banners/'.basename($banner_path)
-                              , '');
-          if (!file_exists(dirname($filename).'/banners/banner_'.basename($banner_path)))
-            copy($cache_dir.'/banners/'.basename($banner_path),
-                 dirname($filename).'/banners/banner_'.basename($banner_path));
-        }   
+          foreach ($tvdb_banners[trim($series)] as $banner_path)
+          {
+            if (!file_exists($cache_dir.'/banners/'.basename($banner_path)))
+              file_save_albumart( add_site_to_url($banner_path, $bannermirror.'/banners/')
+                                , $cache_dir.'/banners/'.basename($banner_path)
+                                , '');
+            if (!file_exists(dirname($filename).'/banners/series'.sprintf("%02d", $series).'_'.basename($banner_path)))
+              copy($cache_dir.'/banners/'.basename($banner_path),
+                   dirname($filename).'/banners/series'.sprintf("%02d", $series).'_'.basename($banner_path));
+          }
+        }
+          
+        // Series banner (save to cache before copying to video folder)
+        if (isset($tvdb_banners['BANNER']))
+        {
+          foreach ($tvdb_banners['BANNER'] as $banner_path)
+          {
+            if (!file_exists($cache_dir.'/banners/'.basename($banner_path)))
+              file_save_albumart( add_site_to_url($banner_path, $bannermirror.'/banners/')
+                                , $cache_dir.'/banners/'.basename($banner_path)
+                                , '');
+            if (!file_exists(dirname($filename).'/banners/banner_'.basename($banner_path)))
+              copy($cache_dir.'/banners/'.basename($banner_path),
+                   dirname($filename).'/banners/banner_'.basename($banner_path));
+          }   
+        }
+        
+        return true;
       }
-      
-      return true;
+      else
+      {
+        send_to_log(4,"Cannot find details for specified episode at tvdb.");
+      }
     }
     else
     {
@@ -460,7 +468,7 @@ function tag_contents_tvdb_episode($parser, $data)
     case 'DIRECTOR':     { $tvdb_episode['DIRECTOR'] .= $data; break; }
     case 'EPISODENAME':  { $tvdb_episode['EPISODENAME'] .= $data; break; }
     case 'EPISODENUMBER':{ $tvdb_episode['EPISODENUMBER'] .= $data; break; }
-    case 'FIRSTAIRED':   { $tvdb_episode['FIRSTAIRED'] .= date('Y',strtotime($data)); break; }
+    case 'FIRSTAIRED':   { $tvdb_episode['FIRSTAIRED'] .= $data; break; }
     case 'GUESTSTARS':   { $tvdb_episode['GUESTSTARS'] .= $data; break; }
     case 'OVERVIEW':     { $tvdb_episode['OVERVIEW'] .= $data; break; }
     case 'SEASONNUMBER': { $tvdb_episode['SEASONNUMBER'] .= $data; break; }
