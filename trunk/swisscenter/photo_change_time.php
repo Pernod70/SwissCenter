@@ -17,7 +17,7 @@
   }
   else 
   {
-    page_header( str('PHOTO_CHANGE_ORDER'), '');
+    page_header( str('PHOTO_CHANGE_TIME'), '');
 
     echo '<p align="center">'.str('SELECT_OPTION');
     $menu = new menu();
