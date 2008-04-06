@@ -70,6 +70,11 @@
        send_to_log(4, "Fetching RSS data from ".$sub["URL"]);
        $rss = fetch_rss($sub['URL']);
        
+       if (!empty($rss->ERROR))
+         send_to_log(1, "MagpieRSS Error:", $rss->ERROR);
+       if (!empty($rss->WARNING))
+         send_to_log(2, "MagpieRSS Warning:", $rss->WARNING);
+         
        rss_update_subscription($sub["ID"], $rss->channel);
        
        foreach($rss->items as $key=>$item)
@@ -133,11 +138,11 @@
    
    $item_data = array("subscription_id" => $sub_id,
                       "guid" => $item["guid"],
-                      "title" => $item["title"].' ',
+                      "title" => utf8_decode($item["title"]).' ',
                       "url" => $item["link"],
                       "timestamp" => (empty($item["date_timestamp"]) ? time() : $item["date_timestamp"]),
                       "published_date" => (empty($item["pubdate"]) ? db_datestr(strtotime("now")) : db_datestr(strtotime($item["pubdate"]))),
-                      "description" => (empty($item["atom_content"]) ? $item["description"].' ' : $item["atom_content"])
+                      "description" => utf8_decode(empty($item["atom_content"]) ? $item["description"].' ' : $item["atom_content"])
                      );
    
    send_to_log(8, "Updating item details", $item);
@@ -305,7 +310,7 @@
                                                          "image_url"   => $image));
 
    // Update the subscription in the database with description and image
-   $sql = "UPDATE rss_subscriptions SET ".db_array_to_set_list(array("description" => $channel["description"],
+   $sql = "UPDATE rss_subscriptions SET ".db_array_to_set_list(array("description" => utf8_decode($channel["description"]),
                                                                      "image_url"   => $image,
                                                                      "image"       => addslashes($img)))." WHERE id=$sub_id";
             
