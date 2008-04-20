@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <swisscenter>
   <languages>
-    <language name="es" fullname="Espa�ol">
+    <language name="es" fullname="Español">
       <string>
         <id>ACCESS_DENIED</id>
         <text>Acceso denegado</text>
@@ -31,6 +31,21 @@
         <id>ALBUM</id>
         <text>Album</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>ALL_CATEGORIES</id>
+        <text>Todas las categorías</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>ALL_MEDIA_TYPES</id>
+        <text>Todos los tipos de fichero multimedia</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>ALL_RSS_FEEDS</id>
+        <text>Todos los marcadores RSS</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>ANYWHERE_IN_NAME</id>
@@ -69,8 +84,8 @@
       </string>
       <string>
         <id>ART_ERROR_SLASH</id>
-        <text>Un nombre de archivo no puede contener referncias de directorio</text>
-        <version>1.19</version>
+        <text>Un nombre de archivo no puede contener referencias de directorio</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>ART_FILENAME_PROMPT</id>
@@ -738,6 +753,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>DETAILS_EXPORT</id>
+        <text>Exportar detalles</text>
+        <version>1.20</version>
+      </string>
+      <string>
         <id>DIRECTOR</id>
         <text>Director</text>
         <version>1.19</version>
@@ -904,8 +924,8 @@
       </string>
       <string>
         <id>EXPERT_OPTIONS</id>
-        <text>Opciones de expero</text>
-        <version>1.19</version>
+        <text>Opciones de experto</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>EXPERT_PREFS_UPDATED</id>
@@ -1423,14 +1443,84 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>LANG_ADD_BUTTON</id>
+        <text>Añadir texto de idioma</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_ADD_NEW</id>
+        <text>Añadir un nuevo idioma de texto</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_CANCEL_BUTTON</id>
+        <text>Cancelar</text>
+        <version>1.20</version>
+      </string>
+      <string>
         <id>LANG_CHANGE</id>
         <text>Cambiar idioma</text>
         <version>1.19</version>
       </string>
       <string>
+        <id>LANG_DELETE_BUTTON</id>
+        <text>Borrar textos del idioma seleccionados</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_DELETE_OK</id>
+        <text>Los textos seleccionados han sido eliminados</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_EDIT</id>
+        <text>Editar traducción a un idioma</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_EDITOR</id>
+        <text>Editor de idiomas</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_ERROR_NO_SELECT</id>
+        <text>No has seleccionado ningún texto para borrar</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_PROMPT</id>
+        <text>Las definiciones de idioma consisten en mapear un identificador interno (v.g. &quot;ADD_PLAYLIST&quot;) al texto que se mostrará realmente. El &lt;texto&gt; puede contener un número limitado de tags que se indican por corchetes y desempeñan una función idéntica a su contrapartida en HTML. Los siguientes tags están soportados: [br]&amp;#91;br&amp;#93;&amp;#91;/br&amp;#93; &amp;#91;em&amp;#93;&amp;#91;/em&amp;#93; &amp;#91;p&amp;#93;&amp;#91;/p&amp;#93; &amp;#91;b&amp;#93;&amp;#91;/b&amp;#93; &amp;#91;i&amp;#93;&amp;#91;/i&amp;#93; &amp;#91;li&amp;#93;&amp;#91;/li&amp;#93; &amp;#91;ul&amp;#93;&amp;#91;/ul&amp;#93; &amp;#91;ol&amp;#93;&amp;#91;/ul&amp;#93;[p] Bajo algunas circunstancias, puede ser necesario sustituir algún otro texto dentro del texto. Hay marcadores para la posición dentro de la cadena donde sucede esa sustitución y se indican con '&amp;#37;s'.[br]v.g.: En el identificador a continuación, el número de pistas encontrado en la base de datos se sustituye por el  &amp;#37;s en la cadena... así, una búsqueda que devuelva 4 pistas se mostraría al usuario como &quot;4 pistas&quot;; [br]MANY_TRACKS= &amp;#37;s pistas</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_SAVE_BUTTON</id>
+        <text>Guardar cambios</text>
+        <version>1.20</version>
+      </string>
+      <string>
         <id>LANG_SELECT</id>
         <text>Seleccionar el idioma que quieres usar</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>LANG_TEXT</id>
+        <text>Texto</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_TEXT_ID</id>
+        <text>Identificador del texto</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_TRANS</id>
+        <text>Traducción</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_UPDATE_OK</id>
+        <text>Información de idioma actualizada</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>LASTFM</id>
@@ -1684,8 +1774,8 @@
       </string>
       <string>
         <id>MEDIA_MANAGEMENT</id>
-        <text>Administración de archivos multimedia</text>
-        <version>1.19</version>
+        <text>Admon. de archivos</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>MEDIA_REFRESH</id>
@@ -2773,6 +2863,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>REFRESH_ITUNES</id>
+        <text>Escanear biblioteca iTunes</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>REFRESH_ITUNES_PROMPT</id>
+        <text>Elige esta opción para incluir el escaneo de tu biblioteca de iTunes para buscar listas de reproducción con esta búsqueda de ficheros multimedia.</text>
+        <version>1.20</version>
+      </string>
+      <string>
         <id>REFRESH_METADATA</id>
         <text>Actualizar metadatos</text>
         <version>1.19</version>
@@ -2831,6 +2931,131 @@
         <id>ROOT_INSTALL_TITLE</id>
         <text>La instalación se realizó como &quot;root&quot;</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>RSS_ADD_BUTTON</id>
+        <text>Añadir marcador RSS</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ADD_OK</id>
+        <text>Marcador RSS añadido</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ADD_TITLE</id>
+        <text>Añadir un nuevo marcador RSS</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_AUDIO</id>
+        <text>Audio</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_CACHE</id>
+        <text>Cache</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_CACHE_LABEL</id>
+        <text>Especifica el número de elementos que este marcador debería cachear. Cuando se llega a este límite los elementos más antiguos se borran. Especifica '0' para mantener todos los elementos.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_DEL_BUTTON</id>
+        <text>Borrar marcadores RSS seleccionados</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_DEL_OK</id>
+        <text>Los marcadores RSS seleccionados han sido eliminados</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_CACHE</id>
+        <text>Por favor, introduce el número de elementos a cachear para el marcador RSS</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_TITLE</id>
+        <text>Por favor, introduce un título para el marcador RSS</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_TYPE</id>
+        <text>Por favor, elige el tipo de marcador RSS</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_URL</id>
+        <text>Por favor, introduce una URL para el marcador RSS</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_FEEDS</id>
+        <text>Marcadores RSS</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_FEED_PROMPT</id>
+        <text>Esta opción te permite usar SwissCenter para ver marcadores RSS, incluyendo podcasts de audio y video.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_IMAGE</id>
+        <text>Imagen</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ITEM_URL</id>
+        <text>Ir a la URL</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_LAST_UPDATED</id>
+        <text>Actualizado por última vez:</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_PLAY_LINK</id>
+        <text>Reproducir archivo enlazado</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_REFRESH</id>
+        <text>Actualizar marcador(es)</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_TITLE</id>
+        <text>Título</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_TYPE</id>
+        <text>Tipo</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_UPDATE</id>
+        <text>SwissCenter está actualizando tu(s) marcador(es) RSS. Puede tardar unos minutos, así que sé paciente.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_UPDATE_OK</id>
+        <text>Información RSS actualizada</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_URL</id>
+        <text>URL</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_VIDEO</id>
+        <text>Video</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>RUNNING_TIME</id>
@@ -2991,6 +3216,11 @@
         <id>SELECT_OPTION</id>
         <text>Selecciona una opción de la lista:</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>SELECT_RSS_FEED</id>
+        <text>Por favor, elige un marcador RSS de la lista:</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>SELECT_USER</id>
@@ -3644,13 +3874,13 @@
       </string>
       <string>
         <id>WIKI_LOOKUP</id>
-        <text>Wikipedia Lookups</text>
-        <version>1.19</version>
+        <text>Búsquedas en la Wikipedia</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>WIKI_LOOKUP_PROMPT</id>
-        <text>When this option is enabled, SwissCenter will include the option to lookup information (such as artists and movies) on the Wikipedia site.</text>
-        <version>1.19</version>
+        <text>Cuando se habilita esta opción, SwissCenter incluirá la opción de buscar la información (como artistas y películas) en la web de la Wikipedia.</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>XMP_RATING</id>

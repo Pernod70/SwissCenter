@@ -33,6 +33,21 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>ALL_CATEGORIES</id>
+        <text>Alle categorieën</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>ALL_MEDIA_TYPES</id>
+        <text>Alle media typen</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>ALL_RSS_FEEDS</id>
+        <text>Alle RSS feeds</text>
+        <version>1.20</version>
+      </string>
+      <string>
         <id>ANYWHERE_IN_NAME</id>
         <text>Ergens in de naam</text>
         <version>1.19</version>
@@ -99,8 +114,8 @@
       </string>
       <string>
         <id>ART_FILES_PROMPT</id>
-        <text>[em]Albumhoes[/em] bestanden zijn bestanden die SwissCenter gebruikt om een muziekalbum- of filmhoes te tonen, wanneer u een zoekfunctie gebruikt zoek in films, zoek in muziek, enz.) of wanneer er een album of film geselecteerd is.[p]Indien er verschillede van bovenstaande bestanden gevonden worden, zal SwissCenter het eerste dat gevonden wordt, tonen.</text>
-        <version>1.19</version>
+        <text>[em]Albumhoes[/em] bestanden zijn bestanden die SwissCenter gebruikt om een muziekalbum- of videohoes te tonen, wanneer u een zoekfunctie gebruikt zoek in video's, zoek in muziek, enz.) of wanneer er een album of video geselecteerd is.[p]Indien er verschillede van bovenstaande bestanden gevonden worden, zal SwissCenter het eerste dat gevonden wordt, tonen.</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>ART_FILES_TITLE</id>
@@ -239,8 +254,8 @@
       </string>
       <string>
         <id>BROWSE_MOVIES</id>
-        <text>Zoek in films</text>
-        <version>1.19</version>
+        <text>Zoek in video's</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>BROWSE_MUSIC</id>
@@ -444,8 +459,8 @@
       </string>
       <string>
         <id>CAT_ERROR_DELETE</id>
-        <text>Categorie %s kan niet worden verwijderd</text>
-        <version>1.19</version>
+        <text>Categorie %s kan niet worden verwijderd.</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>CAT_ERROR_EXISTS</id>
@@ -454,8 +469,8 @@
       </string>
       <string>
         <id>CAT_ERROR_NAME</id>
-        <text>Voer een category naam in.</text>
-        <version>1.19</version>
+        <text>Voer een categorie naam in.</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>CAT_LIST_ALL</id>
@@ -544,8 +559,8 @@
       </string>
       <string>
         <id>CONFIG_LASTFM_TITLE</id>
-        <text>LastFM opties</text>
-        <version>1.19</version>
+        <text>Last.FM opties</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>CONFIG_MIP_OPTIONS</id>
@@ -743,6 +758,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>DETAILS_EXPORT</id>
+        <text>Details exporteren</text>
+        <version>1.20</version>
+      </string>
+      <string>
         <id>DIRECTOR</id>
         <text>Regisseur</text>
         <version>1.19</version>
@@ -899,8 +919,8 @@
       </string>
       <string>
         <id>EXPERT_EDIT_DB</id>
-        <text>Wijzig de databnk</text>
-        <version>1.19</version>
+        <text>Wijzig de databank</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>EXPERT_EDIT_PREFS</id>
@@ -919,8 +939,8 @@
       </string>
       <string>
         <id>EXPERT_WARNING</id>
-        <text>De elementen op deze pagina laten U toe de interne werking van SwissCenter te wijzigen. Dit mag enkel uitgevoerd wprden door geavanceerde gebruikers. [b]Gebruik op eigen risico ![/b]</text>
-        <version>1.19</version>
+        <text>De elementen op deze pagina bieden u de mogelijkheid de interne werking van SwissCenter te wijzigen. Dit mag enkel uitgevoerd worden door (zeer) ervaren gebruikers. [b]Het gebruik van deze mogelijkheid is op eigen risico![/b]</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>EXPORT_PROMPT</id>
@@ -979,13 +999,13 @@
       </string>
       <string>
         <id>FAIL_MYSQL_CONNECT</id>
-        <text>De verbinding met de MySQL-server heeft gefaald.</text>
-        <version>1.19</version>
+        <text>De verbinding met de MySQL-server is mislukt.</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>FAIL_MYSQL_DB</id>
-        <text>De verbinding met de SwissCenter-databank heeft gefaald (Hebt U die gecreëerd?)</text>
-        <version>1.19</version>
+        <text>De verbinding met de SwissCenter-databank is mislukt (Heeft u de SwissCenter databank al aangemaakt?)</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>FAIL_MYSQL_VERSION</id>
@@ -1039,8 +1059,8 @@
       </string>
       <string>
         <id>FAIL_SWISS_INI</id>
-        <text>Het 'swisscenter.ini'-bestand is niet gevonden. [br]Hebt U de SwissCenter-databank al aangemaakt ?</text>
-        <version>1.19</version>
+        <text>Het 'swisscenter.ini'-bestand is niet gevonden. [br]Heeft u de SwissCenter-databank al aangemaakt ?</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>FAIL_SWISS_LOCS</id>
@@ -1079,23 +1099,23 @@
       </string>
       <string>
         <id>FILTER_VIEWED_FINISHED</id>
-        <text>Volledig gespeeld</text>
-        <version>1.19</version>
+        <text>Volledig afgespeeld</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>FILTER_VIEWED_NONE</id>
-        <text>Niet gespeeld</text>
-        <version>1.19</version>
+        <text>Niet afgespeeld</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>FILTER_VIEWED_NOTFINISHED</id>
-        <text>Niet of gedeeltelijk gespeeld</text>
-        <version>1.19</version>
+        <text>Niet of gedeeltelijk afgespeeld</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>FILTER_VIEWED_PLAYED</id>
-        <text>Gedeeltelijk of volledig gespeeld</text>
-        <version>1.19</version>
+        <text>Gedeeltelijk of volledig afgespeeld</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>FINISHED</id>
@@ -1109,8 +1129,8 @@
       </string>
       <string>
         <id>FONTWIDTH_MULTIPLIER_PROMPT</id>
-        <text>Met deze optie wijzigt U het aantal getoonde karakters in de Swisscenter menus. De waarde hangt af van het gebruikte lettertype, and moet tussen [b]1.0[/b] (standaard) en [b]2.2[/b] liggen.</text>
-        <version>1.19</version>
+        <text>Met deze optie wijzigt U het aantal getoonde karakters in de SwissCenter menu's. De waarde hangt af van het gebruikte lettertype, and moet tussen [b]1.0[/b] (standaard) en [b]2.2[/b] liggen.</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>GENRE</id>
@@ -1189,23 +1209,23 @@
       </string>
       <string>
         <id>IMP_LOC_CAT_MISSING</id>
-        <text>Import van medialocatie '%s' mislukte omdat categorie '%s' niet bestaat.</text>
-        <version>1.19</version>
+        <text>Het importeren van medialocatie '%s' is mislukt doordat categorie '%s' niet bestaat.</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>IMP_LOC_CERT_MISSING</id>
-        <text>Import van medialocatie '%s' mislukte omdat certificaat '%s' (Schema:%s) niet bestaat.</text>
-        <version>1.19</version>
+        <text>Het importeren van medialocatie '%s' is mislukt doordat certificaat '%s' (Schema:%s) niet bestaat.</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>IMP_LOC_TYPE_MISSING</id>
-        <text>Import van medialocatie '%s' mislukte omdat mediatype '%s' niet bestaat.</text>
-        <version>1.19</version>
+        <text>Het importeren van medialocatie '%s' is mislukt doordat mediatype '%s' niet bestaat.</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>IMP_USER_CERT_MISSING</id>
-        <text>Import van gebruiker '%s' mislukte omdat certificaat '%s' (Schema:%s) niet bestaat.</text>
-        <version>1.19</version>
+        <text>Het importeren van gebruiker '%s' is mislukt doordat certificaat '%s' (Schema:%s) niet bestaat.</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>INFORMATION</id>
@@ -1224,13 +1244,13 @@
       </string>
       <string>
         <id>INSTALL_TEST_FAIL_CLI</id>
-        <text>De volgende controles faalden in achtergrondmodus:</text>
-        <version>1.19</version>
+        <text>De volgende controles in achtergrondmodus zijn mislukt:</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>INSTALL_TEST_FAIL_WEB</id>
-        <text>De volgende controles faalden:</text>
-        <version>1.19</version>
+        <text>De volgende controles zijn mislukt:</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>INSTALL_TEST_SUCCESS</id>
@@ -1294,8 +1314,8 @@
       </string>
       <string>
         <id>IPTC_LOCATION</id>
-        <text>Locactie</text>
-        <version>1.19</version>
+        <text>Locatie</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>IPTC_PROVINCE_STATE</id>
@@ -1344,8 +1364,8 @@
       </string>
       <string>
         <id>IRADIO_LIVERADIO_DESC</id>
-        <text>LiveRadio (%s) is een internet radio-dienst, gelijkaardig aan ShoutCast. Het biedt de mogelijkheid te zoeken via mediatype, genre, station, land en zelfs stad - maar vele van de opgelijste stations worden niet ondersteund door sommige hardwarespelers. Bijgevolg limiteert de LiveRadio-ontleder in SwissCenter de resultaten tot MP3-stations.</text>
-        <version>1.19</version>
+        <text>LiveRadio (%s) is een internet radio-dienst, gelijkwaardig aan ShoutCast. Het biedt de mogelijkheid te zoeken op mediatype, genre, station, land en zelfs stad - maar veel van de weergegeven stations worden niet ondersteund door sommige hardwarespelers. Om deze reden beperkt de LiveRadio-ontleder in SwissCenter de resultaten tot MP3-stations.</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>IRADIO_MAINGENRE SELECT</id>
@@ -1379,8 +1399,8 @@
       </string>
       <string>
         <id>IRADIO_SHOUTCAST_DESC</id>
-        <text>ShoutCast (%s) is een radiodienst op het internet die radiostromen aanbiedt, afspeelbaar op de meeste streamingtoestellen. Deze functie staat toe te zoeken via genre of station, en geeft details voor alle gevonden stations, inclusief een URL voor de afspeellijst. The Shoutcast-ontleder in SwissCenter ontleedt de HTML van de ontvangen pagina, en toont de resultaten in een op TV-schermen leesbaar resultaat. De functie kan echter falen wanneer de paginastructuur door het ShoutCast-personeel gewijzigd wordt.[p]Soms geeft ShoutCast geen resultaten voor een zoekpoging. In dat geval kunt U de pagina best opnieuw verversen, om U ervan te verzekeren dat het probleem zich niet hier situeert.</text>
-        <version>1.19</version>
+        <text>ShoutCast (%s) is een radiodienst op het internet die radiostromen aanbiedt, afspeelbaar op de meeste streamingtoestellen. Deze functie biedt de mogelijkheid te zoeken op genre of station, en geeft details voor alle gevonden stations, inclusief een URL voor de afspeellijst. De Shoutcast-ontleder in SwissCenter ontleedt de HTML van de ontvangen pagina, en toont de resultaten in een op TV-schermen leesbaar resultaat. De functie kan echter mislukken wanneer de paginastructuur door het ShoutCast-personeel gewijzigd wordt.[p]Soms geeft ShoutCast geen resultaten voor een zoekpoging. Ververs in dat geval de pagina, om uit te sluiten dat dit de oorzaak van het probleem is.</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>IRADIO_STATION_SELECT</id>
@@ -1428,14 +1448,84 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>LANG_ADD_BUTTON</id>
+        <text>Voeg een vertaling toe</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_ADD_NEW</id>
+        <text>Voeg een nieuwe vertaling toe</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_CANCEL_BUTTON</id>
+        <text>Annuleer</text>
+        <version>1.20</version>
+      </string>
+      <string>
         <id>LANG_CHANGE</id>
         <text>Verander de taal</text>
         <version>1.19</version>
       </string>
       <string>
+        <id>LANG_DELETE_BUTTON</id>
+        <text>Verwijder de geselecteerde vertaling</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_DELETE_OK</id>
+        <text>De geselecteerde vertaling is verwijderd.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_EDIT</id>
+        <text>Wijzig een vertaling</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_EDITOR</id>
+        <text>Taal editor</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_ERROR_NO_SELECT</id>
+        <text>U heeft geen vertaling geselecteerd die moet worden verwijderd.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_PROMPT</id>
+        <text>Taaldefinities bestaan uit de verbindingen tussen interne IDs (bv: &quot;ADD_PLAYLIST&quot;) en werkelijk weergegeven tekst. De &lt;tekst&gt; kan worden opgemaakt met behulp van een beperkt aantal markeercodes die identiek zijn aan de HTML-markeercodes en moeten tussen rechte haken worden geplaatst. De volgende codes kunnen worden gebruikt:[br]&amp;#91;br&amp;#93;&amp;#91;/br&amp;#93;  &amp;#91;em&amp;#93;&amp;#91;/em&amp;#93;  &amp;#91;p&amp;#93;&amp;#91;/p&amp;#93;  &amp;#91;b&amp;#93;&amp;#91;/b&amp;#93;  &amp;#91;i&amp;#93;&amp;#91;/i&amp;#93;  &amp;#91;li&amp;#93;&amp;#91;/li&amp;#93;  &amp;#91;ul&amp;#93;&amp;#91;/ul&amp;#93;  &amp;#91;ol&amp;#93;&amp;#91;/ul&amp;#93;[p]In sommige gevallen kan het nodig zijn om een variabel onderdeel in de tekst te plaatsen. Deze wordt in de tekst aangegeven met '&amp;#37;s'.[br]bv: In de onderstaande ID, wordt het aantal nummers dat in de databank is gevonden vervangen door &amp;#37;s. Een zoekresultaat van vier nummers wordt weergegeven als &quot;4 nummers&quot;;[br]MANY_TRACKS=&amp;#37;s nummers.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_SAVE_BUTTON</id>
+        <text>Bewaar veranderingen</text>
+        <version>1.20</version>
+      </string>
+      <string>
         <id>LANG_SELECT</id>
         <text>Selecteer een taal</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>LANG_TEXT</id>
+        <text>Tekst</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_TEXT_ID</id>
+        <text>Tekst ID</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_TRANS</id>
+        <text>Vertaling</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_UPDATE_OK</id>
+        <text>Taalinformatie is geactualiseerd</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>LASTFM</id>
@@ -1444,8 +1534,8 @@
       </string>
       <string>
         <id>LASTFM_ABOUT</id>
-        <text>Last.FM is 's werelds grootste sociale muziekplatform met meer dan 20 miljoen actieve gebruikers in meer dan 232 landen. Gebruik makend van een uniek aanbevelingssysteem, bekend als &quot;audioscrobbler&quot;, Last.FM creëert een gedetailleerd profiel van de muzieksmaak van iedere individuele gebruiker door details van alle nummers waarnaar de gebruiker naar luistert vast te leggen. Dit kan geschieden op basis van beluisterde radio streams of eigen muziek opgeslagen op PC of draagbare speler. [p] Gebruikers kunnen radio stations of afpeellijsten op maat maken vanuit alle audio die in de Last.FM muziekbibliotheek is opgenomen; het is echter niet mogelijk om individuele nummers op te vragen en te beluisteren. Ook is het niet mogelijk om audio te downloaden, tenzij de eigenaar van de audio hiertoe vooraf toestemming heeft verleend. Registratie is vereist om een profiel aan te maken, maar registratie is niet noodzakelijk om de internetpagina van Last.FM te bekijken of om naar de radiostations te luisteren.</text>
-        <version>1.19</version>
+        <text>Last.FM is 's werelds grootste sociale muziekplatform met meer dan 20 miljoen actieve gebruikers in meer dan 232 landen. Door gebruik te maken van een uniek aanbevelingssysteem, bekend als &quot;audioscrobbler&quot;, creëert Last.FM een gedetailleerd profiel van de muzieksmaak van iedere individuele gebruiker door details van alle nummers waarnaar de gebruiker naar luistert vast te leggen. Dit kan gebeuren op basis van beluisterde radio streams of eigen muziek opgeslagen op PC of draagbare speler. [p] Gebruikers kunnen radio stations of afpeellijsten op maat maken vanuit alle audio die in de Last.FM muziekbibliotheek is opgenomen; het is echter niet mogelijk om individuele nummers op te vragen en te beluisteren. Ook is het niet mogelijk om audio te downloaden, tenzij de eigenaar van de audio hiertoe vooraf toestemming heeft verleend. Registratie is vereist om een profiel aan te maken, maar registratie is niet noodzakelijk om de internetpagina van Last.FM te bekijken of om naar de radiostations te luisteren.</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>LASTFM_ARTIST</id>
@@ -1479,8 +1569,8 @@
       </string>
       <string>
         <id>LASTFM_WHATIS</id>
-        <text>Wat is LastFM?</text>
-        <version>1.19</version>
+        <text>Wat is Last.FM?</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>LENGTH_MM</id>
@@ -1489,8 +1579,8 @@
       </string>
       <string>
         <id>LICENSE</id>
-        <text>GPL licensie</text>
-        <version>1.19</version>
+        <text>GPL licentie</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>LISTEN_LASTFM</id>
@@ -1974,8 +2064,8 @@
       </string>
       <string>
         <id>MOVIE_ADD_PROMPT</id>
-        <text>Voeg detailinformatie toe aan de films die hierboven staan; ndien u de CRTL-toets vasthoudt, kunt u meerdere items in de lijst selecteren.</text>
-        <version>1.19</version>
+        <text>Voeg detailinformatie toe aan de films die hierboven staan; indien u de CRTL-toets vasthoudt, kunt u verschillende items in de lijst selecteren.</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>MOVIE_CHANGES_MADE</id>
@@ -2099,13 +2189,13 @@
       </string>
       <string>
         <id>NOW_PLAYING_PROMPT</id>
-        <text>Sommige hardware spelers staan het toe om een afbeelding te tonen tijdens het spelen van muziek en SwissCenter gebruikt deze mogelijkheid om details over het huidige nummer te tonen. [p]In de meeste gevallen, is SwissCenter in staat om automatisch te bepalen of uw speler dit ondersteunt, indien u echter problemen ondervindt is het mogelijk om de instelling hier handmatig te bepalen.</text>
-        <version>1.19</version>
+        <text>Sommige hardware spelers bieden de mogelijkheid een afbeelding te tonen tijdens het spelen van muziek en SwissCenter gebruikt deze mogelijkheid om details over het huidige nummer te tonen. [p]In de meeste gevallen, is SwissCenter in staat om automatisch te bepalen of uw speler dit ondersteunt. Indien u echter problemen ondervindt, is het mogelijk om de instelling hier handmatig te bepalen.</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>NOW_PLAYING_SUPPORT</id>
-        <text>Speelt nu scherm</text>
-        <version>1.19</version>
+        <text>SPEELT NU scherm</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>NO_ITEMS_TO_DISPLAY</id>
@@ -2778,6 +2868,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>REFRESH_ITUNES</id>
+        <text>Doorzoek iTunes bibliotheek</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>REFRESH_ITUNES_PROMPT</id>
+        <text>Selecteer deze optie om het zoeken van uw iTunes bibliotheek naar afspeellijsten met deze bijwerking van de media.</text>
+        <version>1.20</version>
+      </string>
+      <string>
         <id>REFRESH_METADATA</id>
         <text>Ververs metadata</text>
         <version>1.19</version>
@@ -2799,8 +2899,8 @@
       </string>
       <string>
         <id>REMOTE_PROMPT</id>
-        <text>Selecteer the functieknop die verandert moet worden:</text>
-        <version>1.19</version>
+        <text>Selecteer the functieknop die moet worden veranderd:</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>REMOVE_FILTER</id>
@@ -2836,6 +2936,131 @@
         <id>ROOT_INSTALL_TITLE</id>
         <text>De installatie is uitgevoerd onder het &quot;root&quot; gebruikersaccount</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>RSS_ADD_BUTTON</id>
+        <text>Voeg een RSS feed toe</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ADD_OK</id>
+        <text>RSS feed toegevoegd</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ADD_TITLE</id>
+        <text>Voeg een nieuwe RSS feed toe</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_AUDIO</id>
+        <text>Audio</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_CACHE</id>
+        <text>Buffer</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_CACHE_LABEL</id>
+        <text>Geef het aantal items dat deze feed in de buffer moet opnemen. Wanneer deze limiet wordt overschreden zullen de oudere items worden verwijderd. Met een '0' worden alle items behouden.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_DEL_BUTTON</id>
+        <text>Verwijder de geselecteerde RSS feeds.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_DEL_OK</id>
+        <text>De geselecteerde RSS feeds zijn  verwijderd.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_CACHE</id>
+        <text>Geef het aantal items aan dat voor de RSS feed in de buffer moet worden opgenomen.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_TITLE</id>
+        <text>Voer de titel van de RSS feed in.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_TYPE</id>
+        <text>Selecteer het type RSS feed</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_URL</id>
+        <text>Voer de URL in van de RSS feed</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_FEEDS</id>
+        <text>RSS feeds</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_FEED_PROMPT</id>
+        <text>Deze optie maakt het mogelijk om SwissCenter te gebruiken om RSS feeds, inclusief audio en video podscasts, te bekijken.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_IMAGE</id>
+        <text>Afbeelding</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ITEM_URL</id>
+        <text>Ga naar de URL</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_LAST_UPDATED</id>
+        <text>Geactualiseerd:</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_PLAY_LINK</id>
+        <text>Het bestand afspelen</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_REFRESH</id>
+        <text>Actualiseer feed(s)</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_TITLE</id>
+        <text>Titel</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_TYPE</id>
+        <text>Type</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_UPDATE</id>
+        <text>SwissCenter is bezig uw RSS feed(s) te actualiseren. Dit kan een paar minuten duren. Een ogenblikje geduld aub.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_UPDATE_OK</id>
+        <text>De RSS informatie is geactualiseerd.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_URL</id>
+        <text>URL</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_VIDEO</id>
+        <text>Video</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>RUNNING_TIME</id>
@@ -2909,8 +3134,8 @@
       </string>
       <string>
         <id>SCHEDULE_NOTES</id>
-        <text>[li]* betekent alle mogelijke waarden. [li]Meerdere waarden kunnen gespecifieerd worden met kommas (1,5). [li]Een bereik kan gespecifieerd worden met een streepje (1-5). [li]Allebij kunnen tegelijk toegepast worden (1-4,7).</text>
-        <version>1.19</version>
+        <text>[li]* betekent alle mogelijke waarden. [li]Verschillende waarden kunnen gescheiden worden door kommas (1,5). [li]Een bereik kan gespecificeerd worden met een streepje (1-5). [li]Beide kunnen tegelijk toegepast worden (1-4,7).</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>SCHEDULE_TITLE</id>
@@ -2996,6 +3221,11 @@
         <id>SELECT_OPTION</id>
         <text>Selecteer een optie uit de lijst:</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>SELECT_RSS_FEED</id>
+        <text>Selecteer een RSS feed uit de lijst:</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>SELECT_USER</id>
@@ -3114,8 +3344,8 @@
       </string>
       <string>
         <id>STYLE_DOWNLOADING</id>
-        <text>Bezig met stijl te downloaden - Even geduld a.u.b.</text>
-        <version>1.19</version>
+        <text>Bezig downloaden van stijl - even geduld aub.</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>STYLE_NONE_AVAILABLE</id>
@@ -3214,8 +3444,8 @@
       </string>
       <string>
         <id>SYSPREF_EDIT_EXISTING</id>
-        <text>Pas een systeeminstelling aan</text>
-        <version>1.19</version>
+        <text>Wijzig een systeeminstelling</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>TAG</id>
@@ -3319,8 +3549,8 @@
       </string>
       <string>
         <id>UNRATED_CERT_PROMPT</id>
-        <text>U moet een standaard leeftijdsgrens opgeven voor alle films, op deze media locatie, waarvoor geen expliciete kijkwijzer classificatie voor opgegeven is.</text>
-        <version>1.19</version>
+        <text>U moet een standaard leeftijdsgrens opgeven voor alle video's, op deze media locatie, waarvoor geen expliciete kijkwijzer classificatie voor opgegeven is.</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>UPDATE</id>
@@ -3334,8 +3564,8 @@
       </string>
       <string>
         <id>UPDATE_CHECK_PROMPT</id>
-        <text>Dagelijks wordt er op de %s website gekeken of er een nieuwere SwissCenter software versie beschikbaar is. Indien er een nieuwere versie is, zal er onderaan op het Hoofdmenu een pictogram verschijnen.</text>
-        <version>1.19</version>
+        <text>Dagelijks wordt er op de %s website gekeken of er een nieuwe versie van de SwissCenter software beschikbaar is. Indien er een recentere versie beschikbaar is, zal onderaan het hoofdmenu een pictogram verschijnen.</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>UPDATE_FAILED</id>
@@ -3344,8 +3574,8 @@
       </string>
       <string>
         <id>UPDATE_NONE</id>
-        <text>Er zijn geen meer recente software versies aanwezig.</text>
-        <version>1.19</version>
+        <text>Er zijn geen recentere software versies beschikbaar.</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>UPDATE_SUCCESS</id>
@@ -3429,8 +3659,8 @@
       </string>
       <string>
         <id>USERS_ERROR_CERT</id>
-        <text>Geef de maximum leeftijdsgrens naar waar deze gebruiker mag kijken.</text>
-        <version>1.19</version>
+        <text>Geef de maximum leeftijdsgrens aan waar deze gebruiker naar mag kijken.</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>USERS_ERROR_DEFAULT</id>
@@ -3509,8 +3739,8 @@
       </string>
       <string>
         <id>VIEW_ALL</id>
-        <text>Laat allen zien</text>
-        <version>1.19</version>
+        <text>Laat alle zien</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>VIEW_PHOTO</id>
@@ -3519,8 +3749,8 @@
       </string>
       <string>
         <id>VIEW_UNVIEWED</id>
-        <text>Onbekeken show</text>
-        <version>1.19</version>
+        <text>Nog niet bekeken</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>VIEW_WEATHER</id>
@@ -3529,8 +3759,8 @@
       </string>
       <string>
         <id>WATCH_MOVIE</id>
-        <text>Bekijk films</text>
-        <version>1.19</version>
+        <text>Bekijk een video</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>WATCH_TV</id>
