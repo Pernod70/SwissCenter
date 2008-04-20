@@ -33,6 +33,21 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>ALL_CATEGORIES</id>
+        <text>Alle Kategorien</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>ALL_MEDIA_TYPES</id>
+        <text>Alle Medientypen</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>ALL_RSS_FEEDS</id>
+        <text>Alle RSS-Feeds</text>
+        <version>1.20</version>
+      </string>
+      <string>
         <id>ANYWHERE_IN_NAME</id>
         <text>Im gesamten Namen</text>
         <version>1.19</version>
@@ -89,8 +104,8 @@
       </string>
       <string>
         <id>ART_FILES_CURRENT</id>
-        <text>Aktuelle Coverdateien</text>
-        <version>1.19</version>
+        <text>Aktuelle Cover-Dateien</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>ART_FILES_DEL_BUTTON</id>
@@ -104,13 +119,13 @@
       </string>
       <string>
         <id>ART_FILES_TITLE</id>
-        <text>Album-/Filmcover</text>
-        <version>1.19</version>
+        <text>Album-/Film-Cover</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>ART_ID3_TAG</id>
-        <text>ID3-Tag Covers</text>
-        <version>1.19</version>
+        <text>ID3-Tag Cover</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>ART_ID3_TAG_PROMPT</id>
@@ -128,9 +143,14 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>BACKSPACE</id>
+        <text>vorige Seite</text>
+        <version>1.20</version>
+      </string>
+      <string>
         <id>BAND</id>
-        <text>Künstler</text>
-        <version>1.19</version>
+        <text>Album-Künstler</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>BOOKMARKS</id>
@@ -149,8 +169,8 @@
       </string>
       <string>
         <id>BROWSE_ALBUM_ARTIST</id>
-        <text>Nach Album Künstlername anzeigen</text>
-        <version>1.19</version>
+        <text>Nach Album-Künstlernamen anzeigen</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>BROWSE_ARTIST</id>
@@ -299,8 +319,8 @@
       </string>
       <string>
         <id>CACHE_CONFIG_TITLE</id>
-        <text>Cache Einstellungen</text>
-        <version>1.19</version>
+        <text>Cache-Einstellungen</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>CACHE_DIR</id>
@@ -344,8 +364,8 @@
       </string>
       <string>
         <id>CACHE_LANG</id>
-        <text>Übersetzungen cachen</text>
-        <version>1.19</version>
+        <text>Übersetzungen zwischenspeichern</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>CACHE_LANG_PROMPT</id>
@@ -359,8 +379,8 @@
       </string>
       <string>
         <id>CACHE_PRECACHE_PROMPT</id>
-        <text>Ist diese Option aktiviert, wird SwissCenter Thumbnails (kleine vorschaubilder) für alle Bilder erstellen, die es während der Mediensuche findet.</text>
-        <version>1.19</version>
+        <text>Ist diese Option aktiviert, wird SwissCenter Thumbnails (kleine Vorschaubilder) für alle Bilder erstellen, die es während der Mediensuche findet.</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>CACHE_SIZE</id>
@@ -374,8 +394,8 @@
       </string>
       <string>
         <id>CACHE_STYLE</id>
-        <text>Style-Details cachen</text>
-        <version>1.19</version>
+        <text>Style-Details zwischenspeichern</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>CACHE_STYLE_PROMPT</id>
@@ -534,8 +554,8 @@
       </string>
       <string>
         <id>CONFIG_LASTFM_CLEAR</id>
-        <text>Gewählte Details löschen.</text>
-        <version>1.19</version>
+        <text>Gewählte Details löschen</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>CONFIG_LASTFM_TITLE</id>
@@ -748,6 +768,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>DETAILS_EXPORT</id>
+        <text>Details exportieren</text>
+        <version>1.20</version>
+      </string>
+      <string>
         <id>DIRECTOR</id>
         <text>Regisseur</text>
         <version>1.19</version>
@@ -934,13 +959,13 @@
       </string>
       <string>
         <id>EXPORT_SETTINGS</id>
-        <text>Einstellungen Speichern</text>
-        <version>1.19</version>
+        <text>Einstellungen speichern</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>EXPORT_SETTINGS_SUBMIT</id>
-        <text>Einstellungen Speichern</text>
-        <version>1.19</version>
+        <text>Einstellungen speichern</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>EXTRAS_TEST_TITLE</id>
@@ -1049,8 +1074,8 @@
       </string>
       <string>
         <id>FAIL_SWISS_LOCS</id>
-        <text>Es wurden keine Medien Speicherorte definiert.</text>
-        <version>1.19</version>
+        <text>Es wurden keine Speicherorte für Medien definiert.</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>FAIL_SWISS_LOG</id>
@@ -1139,8 +1164,8 @@
       </string>
       <string>
         <id>IMAGE_EXIF_ROTATE_PROMPT</id>
-        <text>Die meisten modernen Digital-Kameras hinterlegen in den Fotos auch die Information, ob das Foto im &quot;Portrait&quot; oder &quot;Lanschafts&quot; Modus aufgenommen wurde. Ist diese Funktion hier aktiviert, wird SwissCenter die Bilder auch entsprechend darstellen.</text>
-        <version>1.19</version>
+        <text>Die meisten modernen Digital-Kameras hinterlegen in den Fotos auch die Information, ob das Foto im Portrait- oder Landschaftsmodus aufgenommen wurde. Ist diese Funktion hier aktiviert, wird SwissCenter die Bilder auch entsprechend drehen und darstellen.</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>IMAGE_RESAMPLE</id>
@@ -1164,8 +1189,8 @@
       </string>
       <string>
         <id>IMPEXP_TITLE</id>
-        <text>Einstellungen Laden/Speichern</text>
-        <version>1.19</version>
+        <text>Einstellungen laden/speichern</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>IMPORT_FAILED</id>
@@ -1184,8 +1209,8 @@
       </string>
       <string>
         <id>IMPORT_SETTINGS</id>
-        <text>Einstellungen Laden</text>
-        <version>1.19</version>
+        <text>Einstellungen laden</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>IMPORT_SUCCESS</id>
@@ -1259,8 +1284,8 @@
       </string>
       <string>
         <id>INTERNET_SETTING</id>
-        <text>Internet Verbindung</text>
-        <version>1.19</version>
+        <text>Internet-Verbindung</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>INTERNET_SETTING_PROMPT</id>
@@ -1354,8 +1379,8 @@
       </string>
       <string>
         <id>IRADIO_MAINGENRE SELECT</id>
-        <text>Bitte wählen Sie das Main-Genre für die Suche:</text>
-        <version>1.19</version>
+        <text>Bitte wählen Sie das Haupt-Genre für die Suche:</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>IRADIO_MAX_STATIONS</id>
@@ -1398,6 +1423,26 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>ITUNES_CONFIG_PROMPT</id>
+        <text>Bitte geben Sie den vollständigen Pfad zur folgenden Datei an: &quot;iTunes Music Library.xml&quot;. Diese Angabe wird benutzt, um Ihre iTunes-Playlist in Swisscenter hinzuzufügen oder zu ersetzen.[p]Beispielsweise kann der Pfad unter Windows XP so aussehen: [em]&quot;C:\Dokumente und Einstellungen\Robert\My Music\iTunes\iTunes Music Library.xml&quot;[/em]</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>ITUNES_ERROR_INVALID</id>
+        <text>Achtung, Sie müssen die Datei &quot;iTunes Music Library.xml&quot; angeben!</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>ITUNES_ERROR_PATH</id>
+        <text>Bitte geben Sie den vollständigen Pfad zur Datei &quot;iTunes Music Library.xml&quot; an!</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>ITUNES_LIBRARY</id>
+        <text>iTunes-Bibliothek</text>
+        <version>1.20</version>
+      </string>
+      <string>
         <id>KEYBOARD_DEL</id>
         <text>ENTF</text>
         <version>1.19</version>
@@ -1413,14 +1458,84 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>LANG_ADD_BUTTON</id>
+        <text>Text hinzufügen</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_ADD_NEW</id>
+        <text>Füge einen neuen Text hinzu</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_CANCEL_BUTTON</id>
+        <text>Abbrechen</text>
+        <version>1.20</version>
+      </string>
+      <string>
         <id>LANG_CHANGE</id>
         <text>Sprache wechseln</text>
         <version>1.19</version>
       </string>
       <string>
+        <id>LANG_DELETE_BUTTON</id>
+        <text>Ausgewählten Text löschen</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_DELETE_OK</id>
+        <text>Der ausgewählte Text wurde gelöscht.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_EDIT</id>
+        <text>Sprachdatei bearbeiten</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_EDITOR</id>
+        <text>Sprachdatei-Editor</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_ERROR_NO_SELECT</id>
+        <text>Sie haben keinen Text zum Löschen ausgewählt.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_PROMPT</id>
+        <text>Sprachdateien bestehen aus einer Zuordnung zwischen interner ID (z.B. &quot;ADD_PLAYLIST&quot;) und dem tatsächlichen Text, der angezeigt werden soll. Der &lt;Text&gt; kann eine begrenzte Anzahl von Formatierungen (Tags) beinhalten, die durch eckige Klammern gekennzeichnet werden. Die Formatierungen verhalten sich entsprechend ihrer in HTML üblichen Pendants. Die folgenden Tags werden unterstützt: :[br]&amp;#91;br&amp;#93;&amp;#91;/br&amp;#93; &amp;#91;em&amp;#93;&amp;#91;/em&amp;#93; &amp;#91;p&amp;#93;&amp;#91;/p&amp;#93; &amp;#91;b&amp;#93;&amp;#91;/b&amp;#93; &amp;#91;i&amp;#93;&amp;#91;/i&amp;#93; &amp;#91;li&amp;#93;&amp;#91;/li&amp;#93; &amp;#91;ul&amp;#93;&amp;#91;/ul&amp;#93; &amp;#91;ol&amp;#93;&amp;#91;/ul&amp;#93;[p] In einigen Passagen kann es notwendig sein, das Textteile durch neuen Text ersetzt werden müssen.. Solche Platzhalter werden durch folgende Zeichen gekennzeichent: '&amp;#37;s'.[br]Im folgenden Beispiel wird die Anzahl der Musikstücke aus der Datenbank ausgelesen und an die Stelle des &amp;#37;s kopiert, so dass bei einer Suche mit vier Treffern das Ergebnis als &quot;4 Tracks&quot; angezeigt wird.[br]MANY_TRACKS= &amp;#37;s Tracks</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_SAVE_BUTTON</id>
+        <text>Änderungen speichern</text>
+        <version>1.20</version>
+      </string>
+      <string>
         <id>LANG_SELECT</id>
         <text>Bitte wählen Sie die gewünschte Sprache</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>LANG_TEXT</id>
+        <text>Text</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_TEXT_ID</id>
+        <text>Text-ID</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_TRANS</id>
+        <text>Übersetzung</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_UPDATE_OK</id>
+        <text>Sprachdatei aktualisiert</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>LASTFM</id>
@@ -2293,6 +2408,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>PGDN</id>
+        <text>Seite runter</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>PGUP</id>
+        <text>Seite hoch</text>
+        <version>1.20</version>
+      </string>
+      <string>
         <id>PHOTOS</id>
         <text>Fotos</text>
         <version>1.19</version>
@@ -2548,6 +2673,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>PRESS_KEY_NOW</id>
+        <text>Jetzt '%s' drücken!</text>
+        <version>1.20</version>
+      </string>
+      <string>
         <id>PREVIOUS</id>
         <text>Zurück</text>
         <version>1.19</version>
@@ -2571,6 +2701,41 @@
         <id>PROGRAMME</id>
         <text>Serie</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>QUICK_HOME</id>
+        <text>Schnelltaste Home</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>QUICK_KEY_A</id>
+        <text>Schnelltaste A</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>QUICK_KEY_B</id>
+        <text>Schnelltaste B</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>QUICK_KEY_C</id>
+        <text>Schnelltaste C</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>QUICK_MOVIE</id>
+        <text>Schnelltaste Filme</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>QUICK_MUSIC</id>
+        <text>Schnelltaste Musik</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>QUICK_PHOTO</id>
+        <text>Schnelltaste Fotos</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>QUICK_PLAY</id>
@@ -2728,6 +2893,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>REFRESH_ITUNES</id>
+        <text>iTunes-Bibliothek scannen</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>REFRESH_ITUNES_PROMPT</id>
+        <text>Wählen Sie diese Option, wenn während der Mediensuche auch die iTunes-Bibliothek einbezogen werden soll.</text>
+        <version>1.20</version>
+      </string>
+      <string>
         <id>REFRESH_METADATA</id>
         <text>Metadata aktualisieren</text>
         <version>1.19</version>
@@ -2746,6 +2921,11 @@
         <id>REMOTE_ACCESS_ERROR</id>
         <text>Der entfernte Zugriff auf das [em]SwissCenter-Konfigurations-Utility[/em] ist aus Sicherheitsgründen deaktiviert.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>REMOTE_PROMPT</id>
+        <text>Wählen Sie die Funktionstaste, die Sie ändern möchten:</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>REMOVE_FILTER</id>
@@ -2781,6 +2961,131 @@
         <id>ROOT_INSTALL_TITLE</id>
         <text>Die Installation wurde als &quot;root&quot; gestartet</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>RSS_ADD_BUTTON</id>
+        <text>RSS-Feed hinzufügen</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ADD_OK</id>
+        <text>RSS-Feed erfolgreich hinzugefügt</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ADD_TITLE</id>
+        <text>RSS-Feeds hinzufügen</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_AUDIO</id>
+        <text>Audio</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_CACHE</id>
+        <text>Cache</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_CACHE_LABEL</id>
+        <text>Geben Sie bitte die Anzahl der Feed-Einträge ein, die zwischengespeichert werden sollen. Wenn der Wert erreicht ist, werden die ältesten RSS-Einträge gelöscht. Geben Sie eine '0' an, wenn Sie immer alle Feed-Einträge behalten wollen.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_DEL_BUTTON</id>
+        <text>Ausgewählte RSS-Feeds entfernen</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_DEL_OK</id>
+        <text>Die ausgewählten RSS-Feeds wurden gelöscht.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_CACHE</id>
+        <text>Bitte geben Sie die Anzahl der RSS-Einträge an, die für diesen Feed zwischengespeichert werden sollen.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_TITLE</id>
+        <text>Bitte geben Sie einen Titel für den RSS-Feed an</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_TYPE</id>
+        <text>Bitte geben Sie die Art des RSS-Feeds an!</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_URL</id>
+        <text>Bitte geben Sie die URL für den RSS-Feed an!</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_FEEDS</id>
+        <text>RSS-Feeds</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_FEED_PROMPT</id>
+        <text>Diese Einstellung erlaubt es SwissCenter, RSS-Feeds (inkl. Audio- und Video-Podcasts) zu betrachten.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_IMAGE</id>
+        <text>Bilder</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ITEM_URL</id>
+        <text>Gehe zu URL</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_LAST_UPDATED</id>
+        <text>Letzte Aktualisierung:</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_PLAY_LINK</id>
+        <text>Link abspielen</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_REFRESH</id>
+        <text>Feed(s) aktualisieren</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_TITLE</id>
+        <text>Titel</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_TYPE</id>
+        <text>Typ</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_UPDATE</id>
+        <text>SwissCenter aktualisiert jetzt die RSS-Feeds. Dieser Vorgang kann einige Minuten dauern, bitte gedulden Sie sich.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_UPDATE_OK</id>
+        <text>RSS-Informationen aktualisiert</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_URL</id>
+        <text>URL</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_VIDEO</id>
+        <text>Video</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>RUNNING_TIME</id>
@@ -2943,6 +3248,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>SELECT_RSS_FEED</id>
+        <text>Bitte wählen Sie einen RSS-Feed aus der Liste:</text>
+        <version>1.20</version>
+      </string>
+      <string>
         <id>SELECT_USER</id>
         <text>Bitte wählen Sie einen Benutzer aus der Liste:</text>
         <version>1.19</version>
@@ -2961,6 +3271,11 @@
         <id>SETUP_CHANGE_UI</id>
         <text>Oberflächen-Stil wählen</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>SETUP_REMOTE</id>
+        <text>Fernbedienung konfigurieren</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>SETUP_SEARCH_ALL</id>
@@ -3236,6 +3551,11 @@
         <id>TTF_FONT_PROMPT</id>
         <text>Dieser Font wird für die Anzeige von Track-Informationen während der Musik-Wiedergabe benutzt, sofern der Player das unterstützt (und es in der Konfiguration aktiviert wurde). Mögliche Werte sind: Ein Font-Name (z.B. 'Arial'), der Name einer Font-Datei inkl. des kompletten Pfades. Ein leeres Feld aktiviert die automatische Erkennung.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>TVID_RESET_DEFAULT</id>
+        <text>Auf Standardwerte zurücksetzen</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>TVSERIES</id>
