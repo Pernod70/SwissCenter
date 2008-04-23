@@ -144,7 +144,7 @@
                 <td>'.htmlspecialchars($text["ENGLISH"]).'</td></tr>';
       form_hidden('edit_id',$text["ID"]);
       form_hidden('lang_id',$lang_id);
-      form_input('translation',str('LANG_TRANS'),50,'',htmlspecialchars($text["TRANSLATION"]["TEXT"]));
+      form_input('translation',str('LANG_TRANS'),100,'',htmlspecialchars($text["TRANSLATION"]["TEXT"]));
       form_submit(str('LANG_SAVE_BUTTON'),2);
       form_end();
     }
