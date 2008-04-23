@@ -22,6 +22,7 @@
    Version history:
    08-Mar-2008: v1.0:     First public release
    31-Mar-2008: v1.1:     Fixed episode year and now informs user if episode details are not found.
+   23-Apr-2008: v1.2:     Fixed downloading of series 0 (Special) banners.
 
  *************************************************************************************************/
 
@@ -509,7 +510,7 @@ function end_tag_tvdb_banner($parser, $name)
               $tvdb_banners['BANNER'][] = $tvdb_banner['BANNERPATH'];
             break;
           case 'season':
-            if ($tvdb_banner['BANNERTYPE2'] == 'season' && !empty($tvdb_banner['SEASON']))
+            if ($tvdb_banner['BANNERTYPE2'] == 'season' && is_numeric($tvdb_banner['SEASON']))
               $tvdb_banners[trim($tvdb_banner['SEASON'])][] = $tvdb_banner['BANNERPATH'];
             break;
           default:
