@@ -33,6 +33,21 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>ALL_CATEGORIES</id>
+        <text>Alle kategorier</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>ALL_MEDIA_TYPES</id>
+        <text>Alle media typer</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>ALL_RSS_FEEDS</id>
+        <text>Alle RSS kanaler</text>
+        <version>1.20</version>
+      </string>
+      <string>
         <id>ANYWHERE_IN_NAME</id>
         <text>Hele navnet</text>
         <version>1.19</version>
@@ -304,8 +319,8 @@
       </string>
       <string>
         <id>CACHE_CONFIG_TITLE</id>
-        <text>Forhåndslager</text>
-        <version>1.19</version>
+        <text>Mellomlagring</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>CACHE_DIR</id>
@@ -334,13 +349,13 @@
       </string>
       <string>
         <id>CACHE_ERROR_NOT_NUMBER</id>
-        <text>The value you entered for the cache size is not a number</text>
-        <version>1.19</version>
+        <text>Verdien du speisifiserte for mellomlager størrelse er ikke et nummer</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>CACHE_ERROR_SIZE</id>
-        <text>Tast inn størrelse på mellomlagert (eller 0 for et ubegrenset mellomlager)</text>
-        <version>1.19</version>
+        <text>Tast inn størrelse på mellomlagret (eller 0 for et ubegrenset mellomlager)</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>CACHE_ERROR_SMALL</id>
@@ -364,8 +379,8 @@
       </string>
       <string>
         <id>CACHE_PRECACHE_PROMPT</id>
-        <text>Dersom denne opsjonen aktiveres vil SwissCenter generere ikoner for all bilder som blir funnet i et media søk.</text>
-        <version>1.19</version>
+        <text>Dersom denne opsjonen aktiveres vil SwissCenter generere ikoner for alle bilder som blir funnet i et media søk.</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>CACHE_SIZE</id>
@@ -589,8 +604,8 @@
       </string>
       <string>
         <id>CURRENT_VERSION</id>
-        <text>Gjeldende Versjon</text>
-        <version>1.19</version>
+        <text>Gjeldende versjon</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>CUSTOM</id>
@@ -736,6 +751,11 @@
         <id>DETAILS_EDIT</id>
         <text>Editer detaljer</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>DETAILS_EXPORT</id>
+        <text>Eksport detaljer</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>DIRECTOR</id>
@@ -1014,8 +1034,8 @@
       </string>
       <string>
         <id>FAIL_PHP_REQ_MODS</id>
-        <text>Ikke alle PHP moduler som kreves av SwissCenter er tilgjengelige (nkritiske moduler er: [b]%s[/b]).</text>
-        <version>1.19</version>
+        <text>Ikke alle PHP moduler som kreves av SwissCenter er tilgjengelige (kritiske moduler er: [b]%s[/b]).</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>FAIL_PHP_VERSION</id>
@@ -1339,8 +1359,8 @@
       </string>
       <string>
         <id>IRADIO_LIVERADIO_DESC</id>
-        <text>LiveRadio (%s) er en internet radio tjeneste tilsvarende ShoutCast. Den tilbyr funksjonalitet for å søke etter media type, sjanger, statsjons navn, land and til og med by - men mange stasjoner listet her er ikke støttet av enkelte media spillere. På grunn av dette begrenser SwissCenter sin LiveRadio parser seg til kun å inkludere MP3 stasjoner.</text>
-        <version>1.19</version>
+        <text>LiveRadio (%s) er en internet radio tjeneste tilsvarende ShoutCast. Den tilbyr funksjonalitet for å søke etter media type, sjanger, stasjons navn, land og til og med by - men mange stasjoner listet her er ikke støttet av enkelte media spillere. På grunn av dette begrenser SwissCenter sin LiveRadio parser seg til kun å inkludere MP3 stasjoner.</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>IRADIO_MAINGENRE SELECT</id>
@@ -1423,14 +1443,84 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>LANG_ADD_BUTTON</id>
+        <text>Legg til ny tekst</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_ADD_NEW</id>
+        <text>Legg til ny tekst</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_CANCEL_BUTTON</id>
+        <text>Avbryt</text>
+        <version>1.20</version>
+      </string>
+      <string>
         <id>LANG_CHANGE</id>
         <text>Endre språk</text>
         <version>1.19</version>
       </string>
       <string>
+        <id>LANG_DELETE_BUTTON</id>
+        <text>Slett valgte språk tekster</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_DELETE_OK</id>
+        <text>De valgte tekstene har blitt slettet</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_EDIT</id>
+        <text>Editer oversettelsen</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_EDITOR</id>
+        <text>Språk editor</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_ERROR_NO_SELECT</id>
+        <text>Du har ikke valgt språk tekster for sletting</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_PROMPT</id>
+        <text>Støtte for flere språk gjøres ved at en intern ID (f.eks. &quot;ADD:PLAYLIST&quot;) referer til den aktuelle teksten som skal vises. Denne &lt;teksten&gt; kan inneholde enkel formatering som spesifiseres med firkant parenteser motsvarende HTML formatering. Følgende formaterings tegn støttes:[br]&amp;#91;br&amp;#93;&amp;#91;/br&amp;#93; &amp;#91;em&amp;#93;&amp;#91;/em&amp;#93; &amp;#91;p&amp;#93;&amp;#91;/p&amp;#93; &amp;#91;b&amp;#93;&amp;#91;/b&amp;#93; &amp;#91;i&amp;#93;&amp;#91;/i&amp;#93; &amp;#91;li&amp;#93;&amp;#91;/li&amp;#93; &amp;#91;ul&amp;#93;&amp;#91;/ul&amp;#93; &amp;#91;ol&amp;#93;&amp;#91;/ul&amp;#93;[p]I noen tilfeller vil det kunne være behov for å erstatte eller sette inn ord i tekst strengen. Posisjonen i strengen hvor teksten skal erstattes markeres med '&amp;#37;s'.[br]F.eks.: I ID'en under vil antall spor som har blitt funnet i databasen erstatte &amp;#37;s i strengen... slik at et søk som returnere 4 spor vil vises til brukeren som &quot;4 spor&quot;;[br]MANY_TRACKS= &amp;#37;s spor</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_SAVE_BUTTON</id>
+        <text>Spar endringer</text>
+        <version>1.20</version>
+      </string>
+      <string>
         <id>LANG_SELECT</id>
         <text>Velg språket du ønsker å bruke</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>LANG_TEXT</id>
+        <text>Tekst</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_TEXT_ID</id>
+        <text>Tekst id</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_TRANS</id>
+        <text>Oversettelse</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_UPDATE_OK</id>
+        <text>Språk informasjon er oppdatert</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>LASTFM</id>
@@ -1509,8 +1599,8 @@
       </string>
       <string>
         <id>LISTEN_LASTFM_NEIGHBOURHOOD</id>
-        <text>Play your neighbourhood</text>
-        <version>1.19</version>
+        <text>Spill av ditt nærmiljø</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>LISTEN_LASTFM_RECOMMEND</id>
@@ -1979,8 +2069,8 @@
       </string>
       <string>
         <id>MOVIE_ERROR_NO_SELECT</id>
-        <text>Du valgte ingen videor for oppdatering</text>
-        <version>1.19</version>
+        <text>Du valgte ingen videoer for oppdatering</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>MOVIE_EXTRA_DL_PROMPT</id>
@@ -2009,8 +2099,8 @@
       </string>
       <string>
         <id>MOVIE_NEW_PROMPT</id>
-        <text>Du kan legge til nye skuespillere, regisører eller sjangre som ikke er listet i boksene under. [br] For å legge til mer enn en kan du skille ordene med komma.</text>
-        <version>1.19</version>
+        <text>Du kan legge til nye skuespillere, regissører eller sjangre som ikke er listet i boksene under. [br] For å legge til mer enn en kan du skille ordene med komma.</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>MOVIE_OPTIONS</id>
@@ -2629,8 +2719,8 @@
       </string>
       <string>
         <id>RATING_SCHEME_PROMPT</id>
-        <text>Sertifikat Scheme</text>
-        <version>1.19</version>
+        <text>Klassifisering</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>RECENTLY_ADDED</id>
@@ -2773,6 +2863,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>REFRESH_ITUNES</id>
+        <text>Oppdater iTunes bibliotek</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>REFRESH_ITUNES_PROMPT</id>
+        <text>Velg denne opsjonen for å inkludere skanning av ditt iTunes spilleliste bibliotek i dette media søket.</text>
+        <version>1.20</version>
+      </string>
+      <string>
         <id>REFRESH_METADATA</id>
         <text>Oppdater metadata</text>
         <version>1.19</version>
@@ -2831,6 +2931,131 @@
         <id>ROOT_INSTALL_TITLE</id>
         <text>Installasjonen ble utført som &quot;root&quot;</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>RSS_ADD_BUTTON</id>
+        <text>Legg til RSS kanal</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ADD_OK</id>
+        <text>RSS kanal har blitt lagt til</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ADD_TITLE</id>
+        <text>Legg til ny RSS kanal</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_AUDIO</id>
+        <text>Lyd</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_CACHE</id>
+        <text>Mellomlager</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_CACHE_LABEL</id>
+        <text>Spesifiser antall meldinger som skal mellomlagres for denne kanalen. Når denne grensen nåes vil eldre meldinger bli slettet. Spesifiser '0' for å beholde alle meldinger.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_DEL_BUTTON</id>
+        <text>Fjern valgte RSS kanaler</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_DEL_OK</id>
+        <text>De valgte RSS kanalene har blitt fjernet</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_CACHE</id>
+        <text>Antall RSS meldinger som skal mellomlagres må spesifiseres</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_TITLE</id>
+        <text>Tittel for RSS kanal må spesifiseres</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_TYPE</id>
+        <text>Type RSS kanal må velges</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_URL</id>
+        <text>URL for RSS kanal må spesifiseres</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_FEEDS</id>
+        <text>RSS kanaler</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_FEED_PROMPT</id>
+        <text>Dette valget åpner for å benytte SwissCenter for å lese RSS kanaler, inklusive video og podcast.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_IMAGE</id>
+        <text>Bilde</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ITEM_URL</id>
+        <text>Gå til URL</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_LAST_UPDATED</id>
+        <text>Sist oppdatert:</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_PLAY_LINK</id>
+        <text>Spill av filen</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_REFRESH</id>
+        <text>Oppdater kanal(er)</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_TITLE</id>
+        <text>Tittel</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_TYPE</id>
+        <text>Type</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_UPDATE</id>
+        <text>SwissCenter oppdaterer dine RSS kanal(er). Dette kan ta flere minutter så vær tålmodig.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_UPDATE_OK</id>
+        <text>RSS informasjon oppdatert</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_URL</id>
+        <text>URL</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_VIDEO</id>
+        <text>Video</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>RUNNING_TIME</id>
@@ -2991,6 +3216,11 @@
         <id>SELECT_OPTION</id>
         <text>Velg et alternativ:</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>SELECT_RSS_FEED</id>
+        <text>Velg RSS kanal fra listen:</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>SELECT_USER</id>
@@ -3259,8 +3489,8 @@
       </string>
       <string>
         <id>TRACKS_ADDED_TEXT</id>
-        <text>Sporene du valgte har blitt lagt til spillelisten.[p] For å spille av sporene i spillelisten eller for å endre spillelisten, trykker du på %s tasten på din fjernkontroll velger så %s opsjonen.</text>
-        <version>1.19</version>
+        <text>Sporene du valgte har blitt lagt til spillelisten.[p] For å spille av sporene i spillelisten eller for å endre spillelisten, trykker du på %s tasten på fjernkontrollen og velger deretter %s opsjonen.</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>TRACKS_ADDED_TITLE</id>
@@ -3474,8 +3704,8 @@
       </string>
       <string>
         <id>USER_CHANGE</id>
-        <text>Endre bruker</text>
-        <version>1.19</version>
+        <text>Velg bruker</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>USER_CHANGED</id>
@@ -3649,8 +3879,8 @@
       </string>
       <string>
         <id>WIKI_LOOKUP_PROMPT</id>
-        <text>Når denne opsjonen er valgt vil SwissCenter inkludere et valg for oppslag av informasjon (som f.eks artister og filmer) i Wikipedia.</text>
-        <version>1.19</version>
+        <text>Når denne opsjonen er valgt vil SwissCenter inkludere et valg for oppslag av informasjon (som f.eks. artister og filmer) i Wikipedia.</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>XMP_RATING</id>

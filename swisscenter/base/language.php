@@ -207,7 +207,7 @@ function save_lang( $lang, $language )
   $xml->Push('swisscenter');
   $xml->Push('languages');
   $xml->Push('language', array('name'     => $lang,
-                               'fullname' => trim($language['LANGUAGE']['TEXT'])));
+                               'fullname' => utf8_encode(trim($language['LANGUAGE']['TEXT']))));
   foreach ($language as $id=>$text)
   {
     if ($lang=='en' || !empty($text['TEXT']))
