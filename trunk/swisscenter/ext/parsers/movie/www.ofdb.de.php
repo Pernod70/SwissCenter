@@ -14,6 +14,7 @@
    10-Jan-2008: v1.1:     Added image download, and removed 'more' from synopsis.
    11-Jan-2008: v1.2:     Fixed bug with search, and now gets full synopsis.
    01-Feb-2008: v1.3:     Improved accuracy of search results.
+   05-Apr-2008: v1.4:     Fixed image and synopsis due to site changes. Page is now UTF8 encoded.
 
  *************************************************************************************************/
 
@@ -65,7 +66,7 @@
             $ofdb_url = str_replace('review','film',$ofdb_url);
           }
           send_to_log(6,'Fetching information from: '.$ofdb_url);
-          $html = file_get_contents( $ofdb_url );
+          $html = utf8_decode(file_get_contents( $ofdb_url ));
         }
       }
       else
@@ -82,7 +83,7 @@
       // Determine the URL of the albumart and attempt to download it.
       if ( file_albumart($filename, false) == '')
       {
-        $img_addr = get_html_tag_attrib($html,'img','images/film/','src');
+        $img_addr = get_html_tag_attrib($html,'img','img.ofdb.de/film/','src');
         if ($img_addr !== false)
           file_save_albumart( add_site_to_url($img_addr, $site_url)
                             , dirname($filename).'/'.file_noext($filename).'.'.file_ext($img_addr)
@@ -124,8 +125,9 @@
       $end = strpos($html,"</tr>",$start+1);
       $html_synopsis = substr($html,$start,$end-$start);
       // Get page with full synopsis
-      $matches = get_urls_from_html($html_synopsis,"inhalt");
-      $html = file_get_contents( $site_url.$matches[1][0] );
+      $matches = get_urls_from_html($html_synopsis,"plot");
+      send_to_log(6,'Fetching information from: ',$site_url.$matches[1][0]);
+      $html = utf8_decode(file_get_contents( $site_url.$matches[1][0] ));
       $synopsis  = substr_between_strings($html,'</b><br><br>','</p>');
  
       // Store the single-value movie attributes in the database
