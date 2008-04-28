@@ -14,9 +14,12 @@
     $page     = (isset($_REQUEST["page"]) ? $_REQUEST["page"] : 1);
     $sub_data = rss_get_subscription_details($sub_id);
     $items    = rss_get_subscription_items($sub_id, 'desc');
-    $synlen   = ( is_screen_hdtv() ? 1200 : 325) * 4;
-
-    search_picker_init( current_url() );
+    $synlen   = ( is_screen_hdtv() ? 1920 : 520);
+    
+    if ( strpos(search_picker_most_recent(), 'sub_id') > 0 ) search_picker_pop();
+    $back_url = search_picker_most_recent();
+    search_picker_push( current_url() );
+    
     page_header( $sub_data["TITLE"], shorten($sub_data["DESCRIPTION"],$synlen) );
     
     // Build up a menu of subscription items that the user can select from.
@@ -35,7 +38,7 @@
       
       echo '<p><table width="100%" cellpadding=0 cellspacing=0 border=0>
             <tr><td valign=top width="'.convert_x(280).'" align="center"><br>
-                '.img_gen($img,280,500).'<br>';
+                '.img_gen($img,280,450).'<br>';
       echo str('RSS_LAST_UPDATED').'<br>'.date('Y-m-d H:i',strtotime($sub_data["LAST_UPDATE"])).'</td>';
       echo '    <td width="'.convert_x(20).'"></td>
                 <td valign="top">';
@@ -46,7 +49,7 @@
     // Define buttons for linked file and url.
     $buttons = array();
     $buttons[] = array('text'=>str('RSS_REFRESH'), 'url'=> 'rss_feeds.php?update_id='.$sub_id);
-    page_footer( url_remove_params(search_picker_most_recent(), array('sub_id', 'page') ), $buttons );
+    page_footer( $back_url, $buttons );
   }
   
   /**************************************************************************************************
@@ -60,6 +63,7 @@
     page_inform(5,"rss_feeds.php?sub_id=".$_REQUEST["update_id"], str('RSS_FEEDS'), str('RSS_UPDATE'));
     // Store the parameters to the media search (rss subscription id) in the system_prefs table
     // as this is the only way of passing the info to the background process in Simese.
+    set_sys_pref('MEDIA_SCAN_TYPE','RSS');
     set_sys_pref('MEDIA_SCAN_RSS',$_REQUEST["update_id"]);
     set_sys_pref('MEDIA_SCAN_STATUS',str('MEDIA_SCAN_STATUS_PENDING'));
     
@@ -73,6 +77,7 @@
   elseif ( count($rss_feeds) >0 )
   {
     (isset($_REQUEST["page"])) ? $page = $_REQUEST["page"] : $page = 0;
+    search_picker_init( current_url() );
     page_header(str('RSS_FEEDS'));
     display_rss(url_remove_param(current_url(),'page'), $rss_feeds, $page);
     
