@@ -380,13 +380,13 @@
       if ( $length > 30)
       {
         $data = 's='.$this->session_id.
-                '&a[0]='.rawurlencode($artist).
-                '&t[0]='.rawurlencode($track).
+                '&a[0]='.rawurlencode(utf8_encode($artist)).
+                '&t[0]='.rawurlencode(utf8_encode($track)).
                 '&i[0]='.rawurlencode($started_playing).
                 '&o[0]=P'.
                 '&r[0]='.
                 '&l[0]='.rawurlencode($length).
-                '&b[0]='.rawurlencode($album).
+                '&b[0]='.rawurlencode(utf8_encode($album)).
                 '&n[0]='.rawurlencode($track_no).
                 '&m[0]=';
   
@@ -424,9 +424,9 @@
     function playing ( $artist, $track, $album, $length, $track_no )
     {
       $data = 's='.$this->session_id.
-              '&a='.rawurlencode($artist).
-              '&t='.rawurlencode($track).
-              '&b='.rawurlencode($album).
+              '&a='.rawurlencode(utf8_encode($artist)).
+              '&t='.rawurlencode(utf8_encode($track)).
+              '&b='.rawurlencode(utf8_decode($album)).
               '&l='.rawurlencode($length).
               '&n='.rawurlencode($track_no).
               '&m=';
@@ -464,7 +464,7 @@
       return false;
     elseif (get_user_pref('LASTFM_PASSWORD') == '')
       return false;
-    elseif (get_sys_pref('LASTFM_ENABLED','NO') != 'YES')
+    elseif (get_sys_pref('LASTFM_ENABLED','YES') != 'YES')
       return false;
     else 
       return true;
