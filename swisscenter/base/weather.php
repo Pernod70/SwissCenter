@@ -84,7 +84,8 @@ function purge_weather()
 function get_weather_xml( $loc, $type, $val )
 {
   $units  = get_user_pref("weather_units");
-  $url    = 'http://xoap.weather.com/weather/local/'.$loc.'?unit='.$units.'&prod=xoap&par='.PARTNER_ID.'&key='.LICENSE_KEY;
+//  $url    = 'http://xoap.weather.com/weather/local/'.$loc.'?unit='.$units.'&prod=xoap&par='.PARTNER_ID.'&key='.LICENSE_KEY;
+  $url    = 'http://xoap.weather.com/weather/local/'.$loc.'?unit='.$units.'&par=&key=';
   $xml    = db_value("select xml from weather where url='$url' and type='$type'");
 
   if (empty($xml))
