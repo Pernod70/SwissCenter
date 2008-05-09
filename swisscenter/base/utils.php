@@ -475,8 +475,11 @@ function dec2frac( $decimal)
  */
 function gmt_time()
 { 
-  if (!isset($_SESSION['GMT Offset']))
-  {
+  $offset = get_sys_pref('GMT_OFFSET',false);
+  
+  // We only trust the stored offset if was calculated less than 24 hours ago. This is to ensure that DST changes take effect.
+  if ( $offset === false || get_sys_pref_modified_date('GMT_OFFSET') < db_datestr(time()-86400))
+  {  
     // Get the GMT time from a web service
     send_to_log(6,'Attempting to get GMT Standard Time from a web service');
     $data = 'timeZoneName='.rawurlencode('GMT Standard Time');
@@ -488,8 +491,9 @@ function gmt_time()
       $date = substr($date,0,19);
       $date = str_replace('T',' ',$date);
       $time = strtotime($date);
-      // Set GMT offset in SESSION
-      $_SESSION['GMT Offset'] = (time() - $time);
+      
+      // Store the offset in the database
+      set_sys_pref('GMT_OFFSET', (time()-$time));
     }
     else
     {
@@ -502,7 +506,7 @@ function gmt_time()
   }
   else
   {
-    $time = time() - $_SESSION['GMT Offset'];
+    $time = time() - $offset;
     send_to_log(6,'Using previously stored GMT time',date('r',$time));
   }
   return $time;
