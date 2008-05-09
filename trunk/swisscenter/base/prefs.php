@@ -11,6 +11,19 @@
  // USER preferences
  // ----------------------------------------------------------------------------------
 
+ function get_user_pref_modified_date( $pref, $user_id = '' )
+ {
+   if ($user_id == '')
+     $user_id = get_current_user_id();
+
+   $result = db_value("select modified from user_prefs where user_id = ".$user_id." and name='".strtoupper($pref)."'");
+
+   if (!$result || is_null($result))
+     return false;
+   else 
+     return $result;
+ }
+ 
  function get_user_pref( $pref, $default = '', $user_id = '')
  {
    if ($user_id == '')
@@ -33,7 +46,7 @@
    if(!empty($user))
    {
      db_sqlcommand("delete from user_prefs where name='".strtoupper($name)."' and user_id=".$user);
-     $result = db_insert_row('user_prefs', array("USER_ID"=>$user, "NAME"=>strtoupper($name), "VALUE"=>$value) );
+     $result = db_insert_row('user_prefs', array("USER_ID"=>$user, "NAME"=>strtoupper($name), "VALUE"=>$value, "MODIFIED"=>db_datestr()) );
 
      if (!$result)
        send_to_log(1,"Unable to store preferemce '$name' = '$value' for user '$user'");
@@ -47,6 +60,16 @@
  // ----------------------------------------------------------------------------------
  // SYSTEM preferences
  // ----------------------------------------------------------------------------------
+
+ function get_sys_pref_modified_date( $pref )
+ {
+   $result = db_value("select modified from system_prefs where name='".strtoupper($pref)."'");
+
+   if (!$result || is_null($result))
+     return false;
+   else 
+     return $result;
+ }
 
  function get_sys_pref( $pref, $default = '' )
  {
@@ -64,7 +87,7 @@
    if (db_value("select count(*) from system_prefs where name='".strtoupper($name)."' and value='$value'") == 0)
    {
      db_sqlcommand("delete from system_prefs where name='".strtoupper($name)."'");
-     $result = db_insert_row('system_prefs', array("NAME"=>strtoupper($name), "VALUE"=>$value) );
+     $result = db_insert_row('system_prefs', array("NAME"=>strtoupper($name), "VALUE"=>$value, "MODIFIED"=>db_datestr()) );
   
      if (!$result)
        send_to_log(1,"Unable to store system preference '$name' = '$value'");
