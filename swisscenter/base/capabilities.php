@@ -153,7 +153,7 @@ function media_exts_movies()
 
 function media_exts_music()
 {
-  return explode(',' ,'ac3,mp2,mp3,ogg,wav,wma,flac');
+  return explode(',' ,'ac3,m4a,mp2,mp3,ogg,wav,wma,flac');
 }
 
 function media_exts_photos()
@@ -188,7 +188,7 @@ function media_exts( $media_type )
 
 function media_exts_with_GetID3_support()
 {
-  return explode(',' ,'mp3,asf,riff,flac,jpg,jpeg,gif,png,mpeg,mpg');
+  return explode(',' ,'mp3,mp4,asf,riff,flac,jpg,jpeg,gif,png,mpeg,mpg');
 }
 
 #-------------------------------------------------------------------------------------------------
