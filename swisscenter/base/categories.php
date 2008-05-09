@@ -17,7 +17,7 @@
 
   function display_categories($next_page, $media_type, $parent_id=0)
   {
-    echo '<center>'.str('SELECT_CATEGORY').'</center><p>';
+    echo '<p>';
     
     $special    = array( array("CAT_NAME"=>str('CAT_LIST_ALL'),"CAT_ID"=>-$parent_id) );
 

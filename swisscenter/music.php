@@ -22,8 +22,7 @@
     else
       $prev_page = "music.php?subcat=".db_value("select parent_id from categories where cat_id=$cat_id");  
     
-    // Prompt the user to select an item
-    echo '<center>'.str('SELECT_OPTION').'</center><p>';
+    echo '<p>';
 
     $menu = new menu();
     if (get_sys_pref('browse_music_artist_enabled','YES') == 'YES')

@@ -73,7 +73,7 @@
    * Display the page content
    */
 
-  echo '<center>'.str('SELECT_OPTION').'</center><p>';
+  echo '<p>';
   $menu->display_page($page, 1, style_value("MENU_INDEX_WIDTH"), style_value("MENU_INDEX_ALIGN"));  
   page_footer('', '', $icons);
   

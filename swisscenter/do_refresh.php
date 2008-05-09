@@ -91,7 +91,7 @@
     $menu->add_item(str('SETUP_SEARCH_ALL'),'/do_refresh.php?type=all');
     $menu->add_item(str('SETUP_SEARCH_TYPE'),'/do_refresh.php?type=media_type',true);
     $menu->add_item(str('SETUP_SEARCH_CATEGORY'),'/do_refresh.php?type=category',true);
-    echo '<center>'.str('SELECT_OPTION').'</center><p>';
+    echo '<p>';
     $menu->display();
     page_footer( 'config.php' );      
   }
