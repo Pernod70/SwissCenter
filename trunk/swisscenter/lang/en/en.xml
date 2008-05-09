@@ -3213,11 +3213,6 @@
         <version>1.19</version>
       </string>
       <string>
-        <id>SELECT_OPTION</id>
-        <text>Please select an option from the list:</text>
-        <version>1.19</version>
-      </string>
-      <string>
         <id>SELECT_RSS_FEED</id>
         <text>Please select a RSS feed from the list:</text>
         <version>1.19.2</version>

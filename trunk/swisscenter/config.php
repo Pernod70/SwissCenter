@@ -8,7 +8,7 @@
 
   page_header( str('SETUP_TITLE'), str('CURRENT_VERSION').' '.swisscenter_version(),'',1,false,'',999);
 
-  echo '<p align="center">'.str('SELECT_OPTION');
+  echo '<p>';
   $menu = new menu();
 
   // Are there any new messages to display to the user?

@@ -25,7 +25,7 @@
   {
     page_header( str('PHOTO_CHANGE_ORDER'), '');
 
-    echo '<p align="center">'.str('SELECT_OPTION');
+    echo '<p>';
     $menu = new menu();
 
     $menu->add_item( str('PHOTO_ORDER_NAME'),        'photo_change_order.php?order=filename');

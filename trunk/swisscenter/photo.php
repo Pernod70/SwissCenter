@@ -22,7 +22,7 @@
     else
       $prev_page = "photo.php?subcat=".db_value("select parent_id from categories where cat_id=$cat_id");
       
-    echo '<center>'.str('SELECT_OPTION').'</center><p>';
+    echo '<p>';
 
     $menu = new menu();
     if (get_sys_pref('browse_photo_album_enabled','YES') == 'YES')

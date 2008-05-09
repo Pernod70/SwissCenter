@@ -19,7 +19,7 @@
   {
     page_header( str('PHOTO_CHANGE_TIME'), '');
 
-    echo '<p align="center">'.str('SELECT_OPTION');
+    echo '<p>';
     $menu = new menu();
 
     $menu->add_item( str('SECONDS',5),        'photo_change_time.php?time=5');
