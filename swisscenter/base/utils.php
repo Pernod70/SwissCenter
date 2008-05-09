@@ -473,12 +473,39 @@ function dec2frac( $decimal)
  * Returns the current time (as a unix timestamp) in the GMT timezone.
  *
  */
-
 function gmt_time()
-{
-  $time = time();
-  $gm_time = $time - date('Z', $time);
-  return $gm_time;
+{ 
+  if (!isset($_SESSION['GMT Offset']))
+  {
+    // Get the GMT time from a web service
+    send_to_log(6,'Attempting to get GMT Standard Time from a web service');
+    $data = 'timeZoneName='.rawurlencode('GMT Standard Time');
+    $response = http_post('http://www.markitup.com:80/WebServices/TimeZones.asmx/CurrentDateTime', $data, 1);
+    
+    if (strpos($response,'OK') !== false)
+    {
+      $date = substr_between_strings($response,'TimeZones">','</dateTime>');
+      $date = substr($date,0,19);
+      $date = str_replace('T',' ',$date);
+      $time = strtotime($date);
+      // Set GMT offset in SESSION
+      $_SESSION['GMT Offset'] = (time() - $time);
+    }
+    else
+    {
+      // Return PHP time() - UTC Offset + DST 
+      $time = time();
+      $time -= date('Z', $time);
+      $time += date('I', $time) * 3600;
+      send_to_log(2,'Unable to get GMT time from web service, using PHP time',date('r',$time));
+    }
+  }
+  else
+  {
+    $time = time() - $_SESSION['GMT Offset'];
+    send_to_log(6,'Using previously stored GMT time',date('r',$time));
+  }
+  return $time;
 }
 
 /**
