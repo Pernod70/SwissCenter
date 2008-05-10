@@ -516,7 +516,7 @@ function gmt_time()
   $offset = get_sys_pref('GMT_OFFSET',false);
   
   // We only trust the stored offset if was calculated less than 24 hours ago. This is to ensure that DST changes take effect.
-  if ( true || $offset === false || get_sys_pref_modified_date('GMT_OFFSET') < db_datestr(time()-86400))
+  if ( $offset === false || get_sys_pref_modified_date('GMT_OFFSET') < db_datestr(time()-86400))
   {  
     // Get the GMT time from a web service
     send_to_log(6,'Attempting to get GMT Standard Time from NIST timeserver');
