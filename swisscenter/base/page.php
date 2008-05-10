@@ -81,19 +81,26 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
     else
       $headings             = '<td height="'.convert_y(170).'" align="center"><h2>'.$title.'&nbsp;</h2>'.$tagline.'&nbsp;</td>';
 
-  // Set the background image, defaults to PAGE_BACKGROUND if specified image does not exist
+  // The default background is specified by PAGE_BACKGROUND
   $page_background = style_img("PAGE_BACKGROUND");
-  switch ($background)
+  
+  // Test to see if this page has a special background, and if so if this has been set in the style.
+  if (is_string($background))
+  { 
+    if (style_img_exists($background))   
+      $page_background = style_img($background);
+  }
+  elseif (is_numeric($background))
   {
-    case 999              : if (style_img_exists("PAGE_CONFIG"))$page_background = style_img("PAGE_CONFIG"); break;
-    case 0                : if (style_img_exists("PAGE_INDEX")) $page_background = style_img("PAGE_INDEX"); break;
-    case MEDIA_TYPE_MUSIC : if (style_img_exists("PAGE_MUSIC")) $page_background = style_img("PAGE_MUSIC"); break;
-    case MEDIA_TYPE_PHOTO : if (style_img_exists("PAGE_PHOTO")) $page_background = style_img("PAGE_PHOTO"); break;
-    case MEDIA_TYPE_VIDEO : if (style_img_exists("PAGE_VIDEO")) $page_background = style_img("PAGE_VIDEO"); break;
-    case MEDIA_TYPE_RADIO : if (style_img_exists("PAGE_RADIO")) $page_background = style_img("PAGE_RADIO"); break;
-    case MEDIA_TYPE_TV    : if (style_img_exists("PAGE_TV"))    $page_background = style_img("PAGE_TV"); break;
-    case MEDIA_TYPE_WEB   : if (style_img_exists("PAGE_WEB"))   $page_background = style_img("PAGE_WEB"); break;
-    default               : $page_background = style_img("PAGE_BACKGROUND"); break;
+    switch ($background)
+    {
+      case MEDIA_TYPE_MUSIC : if (style_img_exists("PAGE_MUSIC")) $page_background = style_img("PAGE_MUSIC"); break;
+      case MEDIA_TYPE_PHOTO : if (style_img_exists("PAGE_PHOTO")) $page_background = style_img("PAGE_PHOTO"); break;
+      case MEDIA_TYPE_VIDEO : if (style_img_exists("PAGE_VIDEO")) $page_background = style_img("PAGE_VIDEO"); break;
+      case MEDIA_TYPE_RADIO : if (style_img_exists("PAGE_RADIO")) $page_background = style_img("PAGE_RADIO"); break;
+      case MEDIA_TYPE_TV    : if (style_img_exists("PAGE_TV"))    $page_background = style_img("PAGE_TV"); break;
+      case MEDIA_TYPE_WEB   : if (style_img_exists("PAGE_WEB"))   $page_background = style_img("PAGE_WEB"); break;
+    }
   }
 
   $background_image       = '/thumb.php?type=jpg&stretch=Y&x='.convert_x(1000, SCREEN_COORDS).'&y='.convert_y(1000, SCREEN_COORDS).'&src='.rawurlencode(SC_LOCATION.$page_background);

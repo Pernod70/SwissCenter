@@ -380,7 +380,7 @@
     
     if ( get_user_pref("DISPLAY_THUMBS") == "FULL" )
     {
-      page_header( $heading, substr($dir,0,-1),'',1,false);
+      page_header( $heading, substr($dir,0,-1),'',1,false,'','PAGE_KEYBOARD');
       display_thumbs ($url, $dir, $dir_list, $file_list, $page, $media_type);
       $buttons[] = array('text'=>str('COMPACT_VIEW'), 'url'=>$url.'?thumbs=COMPACT&DIR='.rawurlencode($dir) );
     }
