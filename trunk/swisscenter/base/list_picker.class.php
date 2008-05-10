@@ -76,7 +76,7 @@ class list_picker
     $num_rows      = $this->data_count($sql_search);
 
     // Header
-    page_header( $this->display_title($this->search), $this->display_subtitle($this->search),'', $this->focus);
+    page_header( $this->display_title($this->search), $this->display_subtitle($this->search),'', $this->focus, false,'','PAGE_KEYBOARD');
     
     // A-Z picker
     echo '<table border=0 height="320px" width="100%"><tr><td width="200px" valign="top">';

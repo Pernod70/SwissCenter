@@ -23,7 +23,7 @@
    * is required.
    */
   
-  page_header( str('MAIN_MENU'),'','',1,false,'',0);
+  page_header( str('MAIN_MENU'),'','',1,false,'','PAGE_INDEX');
   
   /**
    * Menu Items
