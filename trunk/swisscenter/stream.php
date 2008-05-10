@@ -241,10 +241,6 @@
     send_to_log(7,'Attempting to stream the following Audio file',$tracks[$idx]);
     store_request_details( $media, $file_id);  
 
-    // If the user has enabled Lasty.FM support, then send a "now playing" notification
-    if (lastfm_scrobble_enabled())
-      lastfm_now_playing( $tracks[$idx]["ARTIST"], $tracks[$idx]["TITLE"], $tracks[$idx]["ALBUM"], $tracks[$idx]["LENGTH"], $tracks[$idx]["TRACK"] );
-      
     if ($tracks[$idx]["LENGTH"] > 0)
       $headers[] = "TimeSeekRange.dlna.org: npt=0-/".$tracks[$idx]["LENGTH"];
 
