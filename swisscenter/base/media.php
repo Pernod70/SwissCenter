@@ -408,6 +408,14 @@ function process_mp3( $dir, $id, $file)
           $data["track"]    = isset($id3["comments"]["tracknum"]) ? array_last($id3["comments"]["tracknum"]) : array_last($id3["comments"]["track"]);
           $data["disc"]     = isset($id3["id3v2"]["TPOS"][0]["data"]) ? array_last($id3["id3v2"]["TPOS"][0]["data"]) : array_last($id3["comments"]["partofset"]);
           $data["band"]     = isset($id3["comments"]["band"]) ? array_last($id3["comments"]["band"]) : array_last($id3["comments"]["albumartist"]);
+          $image            = isset($id3["id3v2"]["APIC"][0]["data"]) ? $id3["id3v2"]["APIC"][0]["data"] : $id3["asf"]["comments"]["picture"];
+          break;
+        case 'mp4':
+          $data["year"]     = array_last($id3["comments"]["year"]);
+          $data["track"]    = isset($id3["comments"]["tracknumber"]) ? base_convert(bin2hex(substr(array_last($id3["comments"]["tracknumber"]),0,1)),16,10) : null;
+          $data["disc"]     = isset($id3["comments"]["discnumber"]) ? base_convert(bin2hex(substr(array_last($id3["comments"]["discnumber"]),0,1)),16,10) : null;
+          $data["band"]     = array_last($id3["comments"]["albumartist"]);
+          $image            = isset($id3["comments"]["picture"]) ? array_last($id3["comments"]["picture"]) : null;
           break;
         case 'flac':
           $data["year"]     = array_last($id3["comments"]["date"]);
@@ -418,13 +426,13 @@ function process_mp3( $dir, $id, $file)
           if (strstr($data["disc"], '/'))
             list($data["disc"], $dummy) = explode('/', $data["disc"]);
           $data["band"]     = array_last($id3["comments"]["ensemble"]);
+          $image            = isset($id3["id3v2"]["APIC"][0]["data"]) ? $id3["id3v2"]["APIC"][0]["data"] : $id3["asf"]["comments"]["picture"];
           break;
       }
       
-      if (get_sys_pref('USE_ID3_ART','YES') == 'YES' && (isset($id3["id3v2"]["APIC"][0]["data"]) || isset($id3["asf"]["comments"]["picture"])))
+      if (get_sys_pref('USE_ID3_ART','YES') == 'YES' && !empty($image))
       {
         send_to_log(4,"Image found within ID3 tag - will use as album art");
-        $image = isset($id3["id3v2"]["APIC"][0]["data"]) ? $id3["id3v2"]["APIC"][0]["data"] : $id3["asf"]["comments"]["picture"];
         $data["art_sha1"]   = sha1($image);
         // Store media art if it doesn't already exist
         if ( !db_value("select art_sha1 from media_art where art_sha1='".$data["art_sha1"]."'") )
@@ -464,7 +472,7 @@ function process_mp3( $dir, $id, $file)
   else
   {
     // File extension is MP3, but the file itself isn't!
-    send_to_log(3,'This filetype is not supported by the GetID3 library, so although it will be added there will not be any supplemental information available.');
+    send_to_log(3,'This filetype ('.$id3["fileformat"].') is not supported by the GetID3 library, so although it will be added there will not be any supplemental information available.');
     $file_id = db_value("select file_id from mp3s where concat(dirname,filename)='".db_escape_str($dir.$file)."'");
     if ( $file_id )
     {
