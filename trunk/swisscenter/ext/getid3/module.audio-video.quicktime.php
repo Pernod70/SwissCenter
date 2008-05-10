@@ -1239,7 +1239,7 @@ class getid3_quicktime
 		static $handyatomtranslatorarray = array();
 		if (empty($handyatomtranslatorarray)) {
 			$handyatomtranslatorarray['©cpy'] = 'copyright';
-			$handyatomtranslatorarray['©day'] = 'creation_date';
+			$handyatomtranslatorarray['©day'] = 'year';
 			$handyatomtranslatorarray['©dir'] = 'director';
 			$handyatomtranslatorarray['©ed1'] = 'edit1';
 			$handyatomtranslatorarray['©ed2'] = 'edit2';
@@ -1276,6 +1276,12 @@ class getid3_quicktime
 			$handyatomtranslatorarray['©ope'] = 'composer';
 			$handyatomtranslatorarray['©url'] = 'url';
 			$handyatomtranslatorarray['©enc'] = 'encoder';
+			
+			// http://atomicparsley.sourceforge.net/mpeg-4files.html
+			$handyatomtranslatorarray['aART'] = 'albumartist';
+			$handyatomtranslatorarray['trkn'] = 'tracknumber';
+			$handyatomtranslatorarray['disk'] = 'discnumber';
+			$handyatomtranslatorarray['covr'] = 'picture';
 		}
 		if (isset($handyatomtranslatorarray[$keyname])) {
 			$ThisFileInfo['quicktime']['comments'][$handyatomtranslatorarray[$keyname]][] = $data;
