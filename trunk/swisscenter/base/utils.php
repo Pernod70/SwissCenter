@@ -470,30 +470,66 @@ function dec2frac( $decimal)
 }
 
 /**
+ * Returns the date/time in GMT from a NIST time-server. The default timeserver used
+ * is time-a.timefreq.bldrdoc.gov, however any of the following are valid:
+ * 
+ *   time-a.timefreq.bldrdoc.gov
+ *   time-b.timefreq.bldrdoc.gov
+ *   time-c.timefreq.bldrdoc.gov
+ *   time-d.timefreq.bldrdoc.gov
+ *
+ * @param string $timeserver - hostname of timeserver
+ * @param integer $socket -socket (13)
+ * @return timestamp
+ */
+
+function query_time_server ($timeserver = 'time-a.timefreq.bldrdoc.gov', $socket = 13) 
+{
+  $fp = fsockopen($timeserver,$socket,$err,$errstr,2);
+  
+  if ($fp) 
+  {
+    fputs($fp,"\n");
+    $value = fread($fp,49);
+    fclose($fp);
+  }
+  
+  if ($value !== false && $value > 0)
+  {
+    $components = explode(' ',$value);
+    dump($components);
+    list( $h, $min, $s) = explode(':',$components[2]);
+    list( $y, $m, $d) = explode('-',$components[1]);
+    return mktime( $h, $min, $s, $m, $d, $y);
+  }
+  else  
+    return false;  
+}
+
+/**
  * Returns the current time (as a unix timestamp) in the GMT timezone.
  *
  */
+
 function gmt_time()
 { 
   $offset = get_sys_pref('GMT_OFFSET',false);
   
   // We only trust the stored offset if was calculated less than 24 hours ago. This is to ensure that DST changes take effect.
-  if ( $offset === false || get_sys_pref_modified_date('GMT_OFFSET') < db_datestr(time()-86400))
+  if ( true || $offset === false || get_sys_pref_modified_date('GMT_OFFSET') < db_datestr(time()-86400))
   {  
     // Get the GMT time from a web service
-    send_to_log(6,'Attempting to get GMT Standard Time from a web service');
-    $data = 'timeZoneName='.rawurlencode('GMT Standard Time');
-    $response = http_post('http://www.markitup.com:80/WebServices/TimeZones.asmx/CurrentDateTime', $data, 1);
+    send_to_log(6,'Attempting to get GMT Standard Time from NIST timeserver');
+    $gmt = query_time_server();
     
-    if (strpos($response,'OK') !== false)
+    if ($gmt !== false)
     {
-      $date = substr_between_strings($response,'TimeZones">','</dateTime>');
-      $date = substr($date,0,19);
-      $date = str_replace('T',' ',$date);
-      $time = strtotime($date);
+      $time = $gmt;
+      $offset = time()-$gmt;      
+      send_to_log(5,'Your system time ('.date('Y.m.d H:i:s').') is '.abs($offset).' seconds '.($offset > 0 ? 'ahead of' : 'behind').' GMT');
       
       // Store the offset in the database
-      set_sys_pref('GMT_OFFSET', (time()-$time));
+      set_sys_pref('GMT_OFFSET', $offset);
     }
     else
     {
@@ -509,6 +545,7 @@ function gmt_time()
     $time = time() - $offset;
     send_to_log(6,'Using previously stored GMT time',date('r',$time));
   }
+  
   return $time;
 }
 
@@ -518,6 +555,7 @@ function gmt_time()
  * @param $var - variable to be set
  * @param $value - value to be set
  */
+
 function set_var( &$var, $value ) 
 { 
 	if (is_null($value)) 
@@ -538,6 +576,7 @@ function set_var( &$var, $value )
  * @param string $startFrom
  * @return integer
  */
+
 function strrpos_str($string, $searchFor, $startFrom = 0) 
 { 
   $addLen = strlen ($searchFor);
@@ -555,6 +594,7 @@ function strrpos_str($string, $searchFor, $startFrom = 0)
  *
  * @return unknown
  */
+
 function mysql_version()
 {
   if ( ($db = @mysql_pconnect( DB_HOST, DB_USERNAME, DB_PASSWORD )) )

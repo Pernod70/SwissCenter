@@ -392,7 +392,7 @@
   
         if ( !empty($this->submission_url) )
         {
-          send_to_log(6,'Attempting to scrobble song',array("Artist"=>$artist, "Track"=>$track, "Album"=>$album));
+          send_to_log(6,'Attempting to scrobble song',array("Artist"=>$artist, "Track"=>$track, "Album"=>$album,"Date/Time"=>date('Y.m.d H:i:s',$started_playing)));
           $response = http_post( $this->submission_url, $data, 1);
           
           if (strpos($response,'OK') !== false)
