@@ -14,6 +14,7 @@
                             , 'fast_search_action.php?keywords=#####&searchtype=title'
                             , 'results of your search'
                             , 'viewdvd'
+                            , true
                             , true );
                         
     // Did we managed to get a HTML page containing the details?                                

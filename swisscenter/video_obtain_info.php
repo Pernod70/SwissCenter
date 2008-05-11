@@ -43,7 +43,7 @@
       
     for ($i=0; $i<count($haystack); $i++)
     {
-      $chars = similar_text($needle,$haystack[$i],$pc);
+      $chars = similar_text(trim($needle),trim($haystack[$i]),$pc);
       $haystack[$i] .= " (".round($pc,2)."%)";
       
       if ( ($chars > $best_match["chars"] && $pc >= $best_match["pc"]) || $pc > $best_match["pc"])
@@ -77,9 +77,10 @@
   // $success_text -- A seach is deemed to be successful if a page is returned which contains this text
   // $link_string -- Part of the href that indicates a link is to the full details.
   // $change_word_order -- if TRUE then titles such as "The Abyss" will be changed to "Abyss, The".
+  // strip_title -- if TRUE then titles returned from the site are stripped of text in brackets. ie."300 [Blu-ray]" becomes "300".
   // ----------------------------------------------------------------------------------------
 
-  function search_for_movie ( $title, $site_url, $search_url, $success_text, $link_string, $change_word_order = false)
+  function search_for_movie ( $title, $site_url, $search_url, $success_text, $link_string, $change_word_order = false, $strip_title = false )
   {
     $film_title  = ucwords(strip_title( $title ));
     $accuracy = 0;
@@ -105,6 +106,8 @@
       if (strpos(strtolower($html),strtolower($success_text)) !== false)
       {
         $matches     = get_urls_from_html($html, $link_string);
+        if ($strip_title)
+          $matches[2] = preg_replace(array('/\(.*\)/','/\[.*]/'), '', $matches[2]);
         $index       = best_match($film_title, $matches[2], $accuracy);
         
         if ($index === false)
