@@ -11,6 +11,15 @@
   require_once( realpath(dirname(__FILE__).'/base/filter.php'));
   require_once( realpath(dirname(__FILE__).'/messages_db.php'));
 
+  function media_exists( $media_type )
+  {
+    $table = db_value("select media_table from media_types where media_id = $media_type");
+    if ( db_value("select 'YES' from $table limit 1") == 'YES')
+      return true;
+    else 
+      return false;
+  }
+  
   /**
    * Check for and apply any oustanding database patches.
    */
@@ -31,24 +40,43 @@
   
   $menu = new menu();
   $page = (empty($_REQUEST["page"]) ? 1 : $_REQUEST["page"]);
-  $menu->add_item(str('WATCH_MOVIE'),'video.php',true);
-  $menu->add_item(str('WATCH_TV'),'tv.php',true);
-  $menu->add_item(str('LISTEN_MUSIC'),'music.php',true);
+  
+  // Only display the video options if the user has some videos stored in the database.
+  if ( media_exists(MEDIA_TYPE_VIDEO))
+    $menu->add_item(str('WATCH_MOVIE'),'video.php',true);
+  
+  // Only display the TV Series options if the user has some TV episodes stored in the database.
+  if ( media_exists(MEDIA_TYPE_TV))
+    $menu->add_item(str('WATCH_TV'),'tv.php',true);
+  
+  // Only display the music options if the user has some music stored in the database.
+  if ( media_exists(MEDIA_TYPE_MUSIC))
+    $menu->add_item(str('LISTEN_MUSIC'),'music.php',true);
 
+  // Only display the Internet radio options if an internet connection is active and the user has enabled internet radio support
   if (internet_available() && get_sys_pref('radio_enabled','YES') == 'YES')
     $menu->add_item( str('LISTEN_RADIO'),"music_radio.php",true);
 
-  $menu->add_item( str('VIEW_PHOTO'),'photo.php',true);
-  
-  if ( (internet_available() && get_sys_pref('web_enabled','YES') == 'YES') || get_sys_pref('OVERRIDE_ENABLE_WEBLINKS','NO') == 'YES')
+  // Only display the photo options if the user has some photos stored in the database.
+  if ( media_exists(MEDIA_TYPE_PHOTO))
+    $menu->add_item( str('VIEW_PHOTO'),'photo.php',true);
+
+  // Only display the web links option if an internet connection is active, the user has enabled weblinks and defined some media locations
+  // OR the override flag is set.
+  if ( ( internet_available() && get_sys_pref('web_enabled','YES') == 'YES' 
+           && db_value("select 'YES' from media_locations where media_type=".MEDIA_TYPE_WEB." limit 1") == 'YES' )
+      || get_sys_pref('OVERRIDE_ENABLE_WEBLINKS','NO') == 'YES')
   	$menu->add_item(str('BROWSE_WEB'),'web_urls.php',true);
 
-  if (internet_available() && get_sys_pref('rss_enabled','YES') == 'YES')
+  // Only display the RSS options if an internet connection is active, the user has enabled RSS support and has defined some subscriptions.
+  if (internet_available() && get_sys_pref('rss_enabled','YES') == 'YES' && db_value("select 'YES' from rss_subscriptions limit 1") == 'YES')
     $menu->add_item( str('RSS_FEEDS') ,'rss_feeds.php',true);
     
+  // Only display the weather options if an internet connection is active and the user has enabled weather support
   if (internet_available() && get_sys_pref('weather_enabled','YES') == 'YES')
     $menu->add_item( str('VIEW_WEATHER') ,'weather_cc.php',true);
 
+  // Only display the playlist options if the user has enabled playlist support
   if (pl_enabled())
     $menu->add_item( str('MANAGE_PLAYLISTS'),'manage_pl.php',true);
 
