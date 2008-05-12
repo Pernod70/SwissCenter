@@ -50,9 +50,9 @@
   $series_imgs = dir_to_array($episodes[0]['DIRNAME'].'banners/','series'.sprintf("%02d", $current_series).'_*.*');
   $series_img = $series_imgs[rand(0,count($series_imgs)-1)];
 
-  page_header( file_exists($banner_img) ? $banner_img : $programme,'','',1,false,'',
-               file_exists($series_img) ? -1 : MEDIA_TYPE_TV );
-    
+  page_header( $programme,'','',1,false,'',file_exists($series_img) ? -1 : MEDIA_TYPE_TV,
+               file_exists($banner_img) ? $banner_img : false );
+               
   // There may only be a single series for the selected programme
   if (count($series) > 1)
   {
@@ -81,7 +81,7 @@
   {
     if (file_exists($series_img) )
     {
-      echo '<p><table width="100%" cellpadding=0 cellspacing=0 border=0>
+      echo '<table width="100%" cellpadding=0 cellspacing=0 border=0>
             <tr><td valign=top width="'.convert_x(280).'" align="left">
                 '.img_gen($series_img,280,550).'
                 </td><td width="'.convert_x(20).'"></td>
