@@ -77,17 +77,20 @@
 //*************************************************************************************************
 
   // Decode & assign page parameters to variables.
-  $sql_table     = "movies media
-                    left outer join directors_of_movie dom on media.file_id = dom.movie_id
-                    left outer join genres_of_movie gom on media.file_id = gom.movie_id
-                    left outer join actors_in_movie aim on media.file_id = aim.movie_id
-                    left outer join actors a on aim.actor_id = a.actor_id
-                    left outer join directors d on dom.director_id = d.director_id
-                    left outer join genres g on gom.genre_id = g.genre_id".
-                    get_rating_join().
-                    ' where 1=1 ';  
   $select_fields = "file_id, dirname, filename, title, year, length";
   $predicate     = search_process_passed_params();
+  $sql_table     = "movies media ";
+  // Only join tables that are actually required
+  if (strpos($predicate,'director_name like') > 0)
+    $sql_table  .= 'left outer join directors_of_movie dom on media.file_id = dom.movie_id '.
+                   'left outer join directors d on dom.director_id = d.director_id ';
+  if (strpos($predicate,'actor_name like') > 0)
+    $sql_table  .= 'left outer join actors_in_movie aim on media.file_id = aim.movie_id '.
+                   'left outer join actors a on aim.actor_id = a.actor_id ';
+  if (strpos($predicate,'genre_name like') > 0)
+    $sql_table  .= 'left outer join genres_of_movie gom on media.file_id = gom.movie_id '.
+                   'left outer join genres g on gom.genre_id = g.genre_id ';
+  $sql_table    .= get_rating_join().' where 1=1 ';
   $file_ids      = db_col_to_list("select distinct media.file_id from $sql_table $predicate");
   $playtime      = db_value("select sum(length) from movies where file_id in (".implode(',',$file_ids).")");
   $num_unique    = db_value("select count( distinct synopsis) from movies where file_id in (".implode(',',$file_ids).")");
