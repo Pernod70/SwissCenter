@@ -18,10 +18,10 @@
    *
    * @param int $tv file_id
    */
-  function tv_details ($tv, $num_menu_items)
+  function tv_details ($tv, $num_menu_items, $width)
   {
     $info      = array_pop(db_toarray("select synopsis from tv where file_id=$tv"));
-    $synlen    = ( is_screen_hdtv() ? 1200 : 325) * (9-$num_menu_items);
+    $synlen    = ( is_screen_hdtv() ? 1920 : 520) * (9-$num_menu_items) * $width;
 
     // Synopsis
     if ( !is_null($info["SYNOPSIS"]) )
@@ -60,10 +60,12 @@
   if ( ($data = db_toarray("select media.*, ".get_cert_name_sql()." certificate_name from $sql_table and file_id=$file_id")) === false)
     page_error( str('DATABASE_ERROR'));
 
-  if (!empty($data[0]["YEAR"]))
-    page_header( $data[0]["PROGRAMME"], $data[0]["TITLE"].' ('.$data[0]["YEAR"].')' ,'');
-  else 
-    page_header( $data[0]["PROGRAMME"], $data[0]["TITLE"] );
+  // Random banner image
+  $banner_imgs = dir_to_array($data[0]['DIRNAME'].'banners/','banner_*.*');
+  $banner_img = $banner_imgs[rand(0,count($banner_imgs)-1)];
+  
+  page_header( $data[0]["PROGRAMME"], $data[0]["TITLE"].(empty($data[0]["YEAR"]) ? '' : ' ('.$data[0]["YEAR"].')') ,'',1,false,'',-1,
+               file_exists($banner_img) ? $banner_img : false );
 
   // Play now
   $menu->add_item( str('PLAY_NOW'), play_file( MEDIA_TYPE_TV, $data[0]["FILE_ID"]));
@@ -96,8 +98,25 @@
   if (!empty($data[0]["CERTIFICATE"]))
     $cert_img  = img_gen(SC_LOCATION.'images/ratings/'.$scheme.'/'.get_cert_name( get_nearest_cert_in_scheme($data[0]["CERTIFICATE"], $scheme)).'.gif', convert_x(250), convert_y(180));
   
-  // Is there a picture for us to display?
-  if (! empty($folder_img) )
+  // Format the page according to whether banner and image is available.
+  if (file_exists($banner_img))
+  {
+    echo '<p><center>'.$data[0]["TITLE"].(empty($data[0]["YEAR"]) ? '' : ' ('.$data[0]["YEAR"].')').'</center>';
+    // Episode synopsis
+    tv_details($data[0]["FILE_ID"],$menu->num_items()+1,1);
+    // Running Time
+    if (!is_null($data[0]["LENGTH"]))
+      echo '<p>'.font_tags(32).str('RUNNING_TIME').': '.hhmmss($data[0]["LENGTH"]).'</font>';
+    // Image and Menu
+    echo '<table width="100%" cellpadding=0 cellspacing=0 border=0>
+          <tr><td valign=top width="'.convert_x(280).'" align="left">
+              '.img_gen($folder_img,280,400).'<br><center>'.$cert_img.'</center>
+              </td><td width="'.convert_x(20).'"></td>
+              <td valign="top">';
+              $menu->display(1, 480);
+    echo '    </td></table>';
+  }
+  else
   {
     echo '<p><table width="100%" cellpadding=0 cellspacing=0 border=0>
           <tr><td valign=top width="'.convert_x(280).'" align="left">
@@ -105,16 +124,12 @@
               </td><td width="'.convert_x(20).'"></td>
               <td valign="top">';
               // Episode synopsis
-              tv_details($data[0]["FILE_ID"],$menu->num_items());
+              tv_details($data[0]["FILE_ID"],$menu->num_items(),0.625);
               // Running Time
     if (!is_null($data[0]["LENGTH"]))
       echo   '<p>'.font_tags(32).str('RUNNING_TIME').': '.hhmmss($data[0]["LENGTH"]).'</font>';
               $menu->display(1, 480);
     echo '    </td></table>';
-  }
-  else
-  {
-    $menu->display();
   }
 
   page_footer( url_add_param( $back_url["url"] ,'del','y') );
