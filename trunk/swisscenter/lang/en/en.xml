@@ -1268,6 +1268,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>INTERNET_SERVICES</id>
+        <text>Internet services</text>
+        <version>1.20</version>
+      </string>
+      <string>
         <id>INTERNET_SETTING</id>
         <text>Internet Connection</text>
         <version>1.19</version>
@@ -3229,8 +3234,8 @@
       </string>
       <string>
         <id>SETUP</id>
-        <text>Setup</text>
-        <version>1.19</version>
+        <text>Configuration</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>SETUP_CHANGE_UI</id>

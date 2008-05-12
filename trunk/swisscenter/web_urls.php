@@ -17,7 +17,7 @@
 
   browse_fs( str('BROWSE_WEB')
            , db_col_to_list("select name from media_locations where media_type=".MEDIA_TYPE_WEB)
-           , 'index.php'
+           , 'index.php?submenu=internet'
            , array('url')
            , MEDIA_TYPE_WEB
            );

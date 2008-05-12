@@ -84,11 +84,11 @@
     // Define buttons for linked file and url.
     $buttons = array();
     $buttons[] = array('text'=>str('RSS_REFRESH'), 'url'=> 'rss_feeds.php?update_id=0');
-    page_footer('index.php', $buttons);
+    page_footer('index.php?submenu=internet', $buttons);
   }
   else
   {
-    page_inform(2,'index.php',str('RSS_FEEDS'),str('NO_ITEMS_TO_DISPLAY'));
+    page_inform(2,'index.php?submenu=internet',str('RSS_FEEDS'),str('NO_ITEMS_TO_DISPLAY'));
   }
 
 /**************************************************************************************************
