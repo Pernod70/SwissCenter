@@ -330,6 +330,29 @@ function image_resized_xy( $filename, &$x, &$y )
 
 }
 
+/**
+ * Checks that a socket is open and listening for requests.
+ *
+ * @param string $address
+ * @param integer $port
+ * @param integer $timeouts
+ * @return boolean
+ */
+
+function socket_check( $address, $port, $timeouts = 3)
+{
+  $temp = '';
+
+  for ($i=0; $i < $timeouts; $i++)
+    if ( $sock = @fsockopen($address, $port, $temp, $temp, 0.5))
+    {
+      fclose($sock);
+      return true; 
+    }
+
+  return false;
+}
+  
 // ----------------------------------------------------------------------------------
 // Sets the status of the "New Media" indicator light on the showcenter box
 // ----------------------------------------------------------------------------------
@@ -344,7 +367,10 @@ function media_indicator( $status )
     if (count($boxes)>0)
     {
       foreach($boxes as $ip)
-        $dummy = @file_get_contents('http://'.$ip.':2020/LED_indicate.cgi?%7FStatusLED='.$status);
+      {
+        if (socket_check($ip,2020,1))
+          $dummy = @file_get_contents('http://'.$ip.':2020/LED_indicate.cgi?%7FStatusLED='.$status);
+      }
     }
   }
 }
