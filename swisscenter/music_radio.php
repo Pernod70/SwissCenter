@@ -23,7 +23,7 @@
   page_header(str('LISTEN_RADIO') , '','',1,false,'',MEDIA_TYPE_RADIO);
   echo '<p>';
   $menu->display(1, style_value("MENU_RADIO_WIDTH"), style_value("MENU_RADIO_ALIGN"));
-  page_footer('./index.php');
+  page_footer('./index.php?submenu=internet');
 
 /**************************************************************************************************
                                                End of file

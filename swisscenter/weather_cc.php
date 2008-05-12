@@ -91,7 +91,7 @@
   else
     $buttons[] = array('text'=>str('WEATHER_METRIC'), 'url'=>'weather_cc.php?loc='.$loc_id.'&units=m' );
 
-  page_footer('index.php', $buttons);
+  page_footer('index.php?submenu=internet', $buttons);
 
 /**************************************************************************************************
                                                End of file
