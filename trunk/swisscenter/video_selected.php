@@ -77,6 +77,14 @@
 //*************************************************************************************************
 
   // Decode & assign page parameters to variables.
+  $sql_table_all = 'movies media '.
+                   'left outer join directors_of_movie dom on media.file_id = dom.movie_id '.
+                   'left outer join genres_of_movie gom on media.file_id = gom.movie_id '.
+                   'left outer join actors_in_movie aim on media.file_id = aim.movie_id '.
+                   'left outer join actors a on aim.actor_id = a.actor_id '.
+                   'left outer join directors d on dom.director_id = d.director_id '.
+                   'left outer join genres g on gom.genre_id = g.genre_id'.
+                    get_rating_join().' where 1=1 ';
   $select_fields = "file_id, dirname, filename, title, year, length";
   $predicate     = search_process_passed_params();
   $sql_table     = "movies media ";
@@ -94,7 +102,7 @@
   $file_ids      = db_col_to_list("select distinct media.file_id from $sql_table $predicate");
   $playtime      = db_value("select sum(length) from movies where file_id in (".implode(',',$file_ids).")");
   $num_unique    = db_value("select count( distinct synopsis) from movies where file_id in (".implode(',',$file_ids).")");
-  $num_rows      = db_value("select count( distinct media.file_id) from $sql_table $predicate");
+  $num_rows      = count($file_ids);
   $this_url      = url_set_param(current_url(),'add','N');
   $cert_img      = '';
   
@@ -106,7 +114,7 @@
   if ($num_rows == 1 || $num_unique == 1)
   {    
     // Single match, so get the details from the database and display them
-    if ( ($data = db_toarray("select media.*, a.actor_name, d.director_name, g.genre_name, ".get_cert_name_sql()." certificate_name from $sql_table $predicate")) === false)
+    if ( ($data = db_toarray("select media.*, ".get_cert_name_sql()." certificate_name from $sql_table $predicate")) === false)
       page_error( str('DATABASE_ERROR'));
 
     if (!empty($data[0]["YEAR"]))
@@ -146,7 +154,7 @@
   {
 
     // More than one track matches, so output filter details and menu options to add new filters
-    page_header( str('MANY_ITEMS',$num_rows),'');
+    page_header( str('MANY_ITEMS',$num_unique),'');
 
     if ( ($data = db_toarray("select file_id, dirname from $sql_table $predicate group by dirname")) === false )
       page_error( str('DATABASE_ERROR') );
@@ -162,7 +170,7 @@
     if (pl_enabled())
       $menu->add_item( str('ADD_PLAYLIST') ,'add_playlist.php?sql='.rawurlencode("select distinct $select_fields from $sql_table $predicate order by title, filename"),true);
 
-    check_filters( array('title','year','certificate','genre_name','actor_name','director_name'), $sql_table, $predicate, $menu);
+    check_filters( array('title','year','certificate','genre_name','actor_name','director_name'), $sql_table_all, $predicate, $menu);
 
     $info->display();
   }
