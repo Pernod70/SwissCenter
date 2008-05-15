@@ -11,11 +11,11 @@
   {
     $resize_vals  = array( str('IMAGE_RESIZE')=>'RESIZE',str('IMAGE_RESAMPLE')=>'RESAMPLE');
     $option_vals  = array( str('ENABLED')=>'YES',str('DISABLED')=>'NO');
-    $transitions  = array( str('TRANS_RANDOM')           => 0, str('TRANS_WIPE_DOWN')        => 1,
+    $transitions  = array( str('TRANS_NO_EFFECT')        => 0, str('TRANS_WIPE_DOWN')        => 1,
                            str('TRANS_WIPE_UP')          => 2, str('TRANS_OPEN_VERTICAL')    => 3,
                            str('TRANS_CLOSE_VERTICAL')   => 4, str('TRANS_SPLIT_VERTICAL_1') => 5,
                            str('TRANS_SPLIT_VERTICAL_2') => 6, str('TRANS_INTERLACE')        => 7,
-                           str('TRANS_FADE_BLACK')       => 8 );
+                           str('TRANS_FADE_BLACK')       => 8, str('TRANS_RANDOM')           => 9 );
 
     echo "<h1>".str('CONFIG_IMAGE_OPTIONS')."</h1>";
     message($message);

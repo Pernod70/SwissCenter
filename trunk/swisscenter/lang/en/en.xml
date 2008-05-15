@@ -1179,7 +1179,7 @@
       </string>
       <string>
         <id>IMAGE_TRANS_PROMPT</id>
-        <text>Transition effects available for slideshows. May not be supported by all players.</text>
+        <text>Transition effects available for slideshows. These effects may differ for different players, and some players may not support transitions at all.</text>
         <version>1.20</version>
       </string>
       <string>
@@ -3530,6 +3530,11 @@
       <string>
         <id>TRANS_INTERLACE</id>
         <text>Interlace</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>TRANS_NO_EFFECT</id>
+        <text>No Effect</text>
         <version>1.20</version>
       </string>
       <string>

@@ -25,7 +25,7 @@
    */
   function display_internet_menu()
   {
-    page_header( str('INTERNET_SERVICES'),'','',1,false,'','PAGE_WEB');
+    page_header( str('INTERNET_SERVICES'),'','',1,false,'','PAGE_INTERNET');
   
     /**
      * Menu Items
@@ -56,7 +56,7 @@
     * Display the page content
     */
     echo '<p>';
-    $menu->display_page($page, 1, style_value("MENU_WEB_WIDTH"), style_value("MENU_WEB_ALIGN"));  
+    $menu->display_page($page, 1, style_value("MENU_INTERNET_WIDTH"), style_value("MENU_INTERNET_ALIGN"));  
     page_footer('index.php');
   }
   
