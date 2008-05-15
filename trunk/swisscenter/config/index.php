@@ -84,7 +84,6 @@
 
       $menu->add_menu(str('MEDIA_MANAGEMENT'));
   	  $menu->add_item(str('CONFIG_AUDIO_OPTIONS')   ,'section=AUDIO&action=DISPLAY');
-  	  $menu->add_item(str('CONFIG_IMAGE_OPTIONS')   ,'section=IMAGE&action=DISPLAY');
   	  $menu->add_item(str('PLAYLISTS')              ,'section=PLAYLISTS&action=DISPLAY');
   	  $menu->add_item(str('CONFIG_RADIO_OPTIONS')   ,'section=RADIO&action=DISPLAY');
   	  $menu->add_item(str('MOVIE_OPTIONS')          ,'section=MOVIE&action=INFO');
@@ -95,10 +94,11 @@
 
       $menu->add_menu(str('ADVANCED_OPTIONS'));
   	  $menu->add_item(str('ART_FILES_TITLE')        ,'section=ART&action=DISPLAY');
+  	  $menu->add_item(str('CONFIG_IMAGE_OPTIONS')   ,'section=IMAGE&action=DISPLAY');
   	  $menu->add_item(str('BROWSE_OPTIONS')         ,'section=BROWSE&action=DISPLAY');
-  	  $menu->add_item(str('CACHE_CONFIG_TITLE')     ,'section=CACHE&action=DISPLAY');
   	  $menu->add_item(str('LANG_EDITOR')            ,'section=LANGUAGE&action=DISPLAY');
 	    $menu->add_item(str('CONNECT_TITLE')          ,'section=CONNECT&action=DISPLAY');
+	    $menu->add_item(str('CACHE_CONFIG_TITLE')     ,'section=CACHE&action=DISPLAY');
   	  $menu->add_item(str('MISC_TITLE')             ,'section=MISC&action=DISPLAY');
   	    
       $menu->add_menu(str('EXPERT_OPTIONS'));
