@@ -1173,6 +1173,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IMAGE_TRANSITIONS</id>
+        <text>Transition Effects</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>IMAGE_TRANS_PROMPT</id>
+        <text>Transition effects available for slideshows. May not be supported by all players.</text>
+        <version>1.20</version>
+      </string>
+      <string>
         <id>IMPEXP_TITLE</id>
         <text>Load/Save Settings</text>
         <version>1.19</version>
@@ -3506,6 +3516,51 @@
         <id>TRACK_NAME</id>
         <text>Track name</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>TRANS_CLOSE_VERTICAL</id>
+        <text>Close Vertical</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>TRANS_FADE_BLACK</id>
+        <text>Fade to Black</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>TRANS_INTERLACE</id>
+        <text>Interlace</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>TRANS_OPEN_VERTICAL</id>
+        <text>Open Vertical</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>TRANS_RANDOM</id>
+        <text>Random</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>TRANS_SPLIT_VERTICAL_1</id>
+        <text>Split Vertical 1</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>TRANS_SPLIT_VERTICAL_2</id>
+        <text>Split Vertical 2</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>TRANS_WIPE_DOWN</id>
+        <text>Wipe Down</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>TRANS_WIPE_UP</id>
+        <text>Wipe Up</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>TTF_FONT</id>
