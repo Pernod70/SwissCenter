@@ -19,7 +19,7 @@
   {
     page_header( str('PHOTOS_MUSIC_CHANGE'), '');
 
-    echo '<p align="center">'.str('SELECT_OPTION');
+    echo '<p>';
     $menu = new menu();
 
     $menu->add_item( str('PHOTOS_MUSIC_NONE'),        'photo_change_music.php?music=');
