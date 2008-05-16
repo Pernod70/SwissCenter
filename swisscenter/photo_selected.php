@@ -105,10 +105,27 @@
     $menu->add_item( str('PHOTO_CHANGE_ORDER'), 'photo_change_order.php', true);
   }
 
+  $folder_img = file_albumart( db_value("select concat(media.dirname,media.filename) from $sql_table $predicate order by $play_order limit 0,1") );
+  
   // Display Page
   page_header(str('SLIDESHOW'),'');
-  $info->display();
-  $menu->display();
+  if (! empty($folder_img) )
+  {
+    $info->display();
+    echo '<p><table width="100%" cellpadding=0 cellspacing=0 border=0>
+          <tr><td valign=top width="'.convert_x(290).'" align="center">
+              <table width="100%"><tr><td height="'.convert_y(10).'"></td></tr><tr><td valign=top>
+                <center>'.img_gen($folder_img,250,300).'</center>
+              </td></tr></table></td>
+              <td valign="top">';
+              $menu->display(1, 480);
+    echo '    </td></td></table>';
+  }
+  else
+  {
+    $info->display();
+    $menu->display();
+  }
 
   // Display ABC buttons
   page_footer( url_add_params( search_picker_most_recent(), array("p_del"=>"y","del"=>"y") ), $buttons );
