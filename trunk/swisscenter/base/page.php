@@ -279,7 +279,7 @@ function page_footer( $back, $buttons= '', $iconbar = 0, $links=true )
          pc_nav_button(str('PC_LINK_MUSIC')  , '/music.php').
          pc_nav_button(str('PC_LINK_MOVIES') , '/video.php').
          pc_nav_button(str('PC_LINK_TV')     , '/tv.php').
-         pc_nav_button(str('PC_LINK_RADIO')  , '/music_radio.php').
+         pc_nav_button(str('PC_LINK_INTERNET'),'/index.php?submenu=internet').
          pc_nav_button(str('PC_LINK_PHOTOS') , '/photo.php').
          pc_nav_button(str('PC_LINK_BACK')   , $back).
          '</tr></table>';
