@@ -2368,6 +2368,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>PC_LINK_INTERNET</id>
+        <text>Internet</text>
+        <version>1.20</version>
+      </string>
+      <string>
         <id>PC_LINK_MOVIES</id>
         <text>Videos</text>
         <version>1.19</version>
@@ -2380,11 +2385,6 @@
       <string>
         <id>PC_LINK_PHOTOS</id>
         <text>Photos</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>PC_LINK_RADIO</id>
-        <text>Radio</text>
         <version>1.19</version>
       </string>
       <string>
