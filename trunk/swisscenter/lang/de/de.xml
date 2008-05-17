@@ -1188,6 +1188,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IMAGE_TRANSITIONS</id>
+        <text>Übergangseffekte</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>IMAGE_TRANS_PROMPT</id>
+        <text>Übergangseffekte für Diashows. Diese Effekte können sich bei verschiedenen Media-Playern unterschiedlich auswirken und manche unterstützen sie gar nicht.</text>
+        <version>1.20</version>
+      </string>
+      <string>
         <id>IMPEXP_TITLE</id>
         <text>Einstellungen laden/speichern</text>
         <version>1.20</version>
@@ -1281,6 +1291,11 @@
         <id>INTERNET_RADIO_PROMPT</id>
         <text>Verbindungen zu einzelnen Internet-Radiostationen werden direkt vom ShowCenter aufgebaut, wenn ein Benutzer eine Station wählt. Wenn Ihr ShowCenter keinen direkten Internetzugang hat, dann sollten Sie diese Funktion deaktivieren.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>INTERNET_SERVICES</id>
+        <text>Internet Dienste</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>INTERNET_SETTING</id>
@@ -3541,6 +3556,56 @@
         <id>TRACK_NAME</id>
         <text>Track-Name</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>TRANS_CLOSE_VERTICAL</id>
+        <text>Vertikal schließen</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>TRANS_FADE_BLACK</id>
+        <text>Schwarz überblenden</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>TRANS_INTERLACE</id>
+        <text>Jalousie</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>TRANS_NO_EFFECT</id>
+        <text>kein Effekt</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>TRANS_OPEN_VERTICAL</id>
+        <text>Vertikal öffnen</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>TRANS_RANDOM</id>
+        <text>Zufällig</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>TRANS_SPLIT_VERTICAL_1</id>
+        <text>Vertikal teilen 1</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>TRANS_SPLIT_VERTICAL_2</id>
+        <text>Vertikal teilen 2</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>TRANS_WIPE_DOWN</id>
+        <text>nach Unten wischen</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>TRANS_WIPE_UP</id>
+        <text>nach Oben wischen</text>
+        <version>1.20</version>
       </string>
       <string>
         <id>TTF_FONT</id>
