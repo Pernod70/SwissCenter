@@ -1204,6 +1204,9 @@ class getid3_id3v2
 			$parsedFrame['picturetype']      = $this->APICPictureTypeLookup($frame_picturetype);
 			$parsedFrame['description']      = $frame_description;
 			$parsedFrame['data']             = substr($parsedFrame['data'], $frame_terminatorpos + strlen($this->TextEncodingTerminatorLookup($frame_textencoding)));
+			if (!empty($parsedFrame['framenameshort']) && !empty($parsedFrame['data'])) {
+				$ThisFileInfo['id3v2']['comments'][$parsedFrame['framenameshort']][] = getid3_lib::iconv_fallback($parsedFrame['encoding'], $ThisFileInfo['id3v2']['encoding'], $parsedFrame['data']);			
+			}
 
 			$imagechunkcheck = getid3_lib::GetDataImageSize($parsedFrame['data']);
 			if (($imagechunkcheck[2] >= 1) && ($imagechunkcheck[2] <= 3)) {
@@ -2875,8 +2878,10 @@ class getid3_id3v2
 
 		/** This is not a comment!
 
+		  APIC	picture
 			COM	comment
 			COMM	comment
+			PIC	picture
 			TAL	album
 			TALB	album
 			TBP	bpm
@@ -2910,11 +2915,13 @@ class getid3_id3v2
 			TP2	band
 			TP3	conductor
 			TP4	remixer
+			TPA	partofset
 			TPB	publisher
 			TPE1	artist
 			TPE2	band
 			TPE3	conductor
 			TPE4	remixer
+			TPOS	partofset
 			TPUB	publisher
 			TRC	isrc
 			TRCK	track
