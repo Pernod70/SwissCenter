@@ -403,21 +403,30 @@ function process_mp3( $dir, $id, $file)
       switch ($id3["fileformat"])
       {
         case 'asf':
-        case 'mp3':
           $data["year"]     = array_last($id3["comments"]["year"]);
           $data["track"]    = isset($id3["comments"]["tracknum"]) ? array_last($id3["comments"]["tracknum"]) : array_last($id3["comments"]["track"]);
-          $data["disc"]     = isset($id3["id3v2"]["TPOS"][0]["data"]) ? array_last($id3["id3v2"]["TPOS"][0]["data"]) : array_last($id3["comments"]["partofset"]);
-          $data["band"]     = isset($id3["comments"]["band"]) ? array_last($id3["comments"]["band"]) : array_last($id3["comments"]["albumartist"]);
-          $image            = isset($id3["id3v2"]["APIC"][0]["data"]) ? $id3["id3v2"]["APIC"][0]["data"] : $id3["asf"]["comments"]["picture"];
+          $data["disc"]     = array_last($id3["comments"]["partofset"]);
+          $data["band"]     = array_last($id3["comments"]["albumartist"]);
+          $image            = array_last($id3["comments"]["picture"]);
+          break;
+        case 'mp3':
+        case 'riff':
+          $data["year"]     = array_last($id3["comments"]["year"]);
+          $data["track"]    = isset($id3["comments"]["tracknum"]) ? array_last($id3["comments"]["tracknum"]) : array_last($id3["comments"]["track"]);
+          $data["disc"]     = array_last($id3["comments"]["partofset"]);
+          $data["band"]     = array_last($id3["comments"]["band"]);
+          $image            = array_last($id3["comments"]["picture"]);
           break;
         case 'mp4':
+        case 'quicktime':
           $data["year"]     = array_last($id3["comments"]["year"]);
           $data["track"]    = isset($id3["comments"]["tracknumber"]) ? base_convert(bin2hex(substr(array_last($id3["comments"]["tracknumber"]),0,1)),16,10) : null;
-          $data["disc"]     = isset($id3["comments"]["discnumber"]) ? base_convert(bin2hex(substr(array_last($id3["comments"]["discnumber"]),0,1)),16,10) : null;
+          $data["disc"]     = isset($id3["comments"]["discnumber"])  ? base_convert(bin2hex(substr(array_last($id3["comments"]["discnumber"]),0,1)),16,10) : null;
           $data["band"]     = array_last($id3["comments"]["albumartist"]);
-          $image            = isset($id3["comments"]["picture"]) ? array_last($id3["comments"]["picture"]) : null;
+          $image            = array_last($id3["comments"]["picture"]);
           break;
         case 'flac':
+        case 'ogg':
           $data["year"]     = array_last($id3["comments"]["date"]);
           $data["track"]    = array_last($id3["comments"]["tracknumber"]);
           if (strstr($data["track"], '/'))
@@ -426,7 +435,7 @@ function process_mp3( $dir, $id, $file)
           if (strstr($data["disc"], '/'))
             list($data["disc"], $dummy) = explode('/', $data["disc"]);
           $data["band"]     = array_last($id3["comments"]["ensemble"]);
-          $image            = isset($id3["id3v2"]["APIC"][0]["data"]) ? $id3["id3v2"]["APIC"][0]["data"] : $id3["asf"]["comments"]["picture"];
+          $image            = base64_decode(array_last($id3["comments"]["coverart"]));
           break;
       }
       
