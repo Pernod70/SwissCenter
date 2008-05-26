@@ -187,6 +187,9 @@ function set_last_update($release_dir)
         
   }    
   
+  // Refresh style and language
+  load_style();
+  load_lang();
   
 /**************************************************************************************************
                                                End of file
