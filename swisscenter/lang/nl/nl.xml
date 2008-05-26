@@ -1178,6 +1178,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IMAGE_TRANSITIONS</id>
+        <text>Overgangseffecten</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>IMAGE_TRANS_PROMPT</id>
+        <text>Beschikbare overgangseffecten voor diavoorstellingen. De effecten kunnen - afhankelijk van uw speler - van elkaar afwijken. Ook kan het voorkomen dat uw speler de sommige overgangseffecten niet ondersteunt.</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
         <id>IMPEXP_TITLE</id>
         <text>Instellingen laden/opslaan</text>
         <version>1.19</version>
@@ -1271,6 +1281,11 @@
         <id>INTERNET_RADIO_PROMPT</id>
         <text>Verbindingen naar Internet radiostations worden direct door Showcenter gemaakt. Indien uw ShowCenter geen directe toegang heeft tot internet kunt u deze functie uitschakelen.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>INTERNET_SERVICES</id>
+        <text>Internet toepassingen</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>INTERNET_SETTING</id>
@@ -2356,6 +2371,11 @@
         <id>PC_LINK_HOME</id>
         <text>Startpagina</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PC_LINK_INTERNET</id>
+        <text>Internet</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>PC_LINK_MOVIES</id>
@@ -3511,6 +3531,56 @@
         <id>TRACK_NAME</id>
         <text>Nummer</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>TRANS_CLOSE_VERTICAL</id>
+        <text>Sluit vertikaal</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_FADE_BLACK</id>
+        <text>Naar zwart vervagen</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_INTERLACE</id>
+        <text>Ineengevlochten</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_NO_EFFECT</id>
+        <text>Geen effect</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_OPEN_VERTICAL</id>
+        <text>Vertikaal geopend</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_RANDOM</id>
+        <text>Willekeurige effecten</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_SPLIT_VERTICAL_1</id>
+        <text>Vertikaal gesplitst 1</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_SPLIT_VERTICAL_2</id>
+        <text>Vertikaal gesplitst 2</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_WIPE_DOWN</id>
+        <text>Naar beneden verschijnen</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_WIPE_UP</id>
+        <text>Naar boven verschijnen</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>TTF_FONT</id>
