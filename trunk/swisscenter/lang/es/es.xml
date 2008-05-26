@@ -119,8 +119,8 @@
       </string>
       <string>
         <id>ART_FILES_TITLE</id>
-        <text>Archivos de imagen para Album/Peliculas</text>
-        <version>1.19</version>
+        <text>Arte Albums/Peliculas</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>ART_ID3_TAG</id>
@@ -264,8 +264,8 @@
       </string>
       <string>
         <id>BROWSE_OPTIONS</id>
-        <text>Opciones de exploración</text>
-        <version>1.19</version>
+        <text>Opciones exploración</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>BROWSE_PHOTOS</id>
@@ -919,8 +919,8 @@
       </string>
       <string>
         <id>EXPERT_EDIT_PREFS</id>
-        <text>Editar opciones del sistema</text>
-        <version>1.19</version>
+        <text>Opciones del sistema</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>EXPERT_OPTIONS</id>
@@ -1173,9 +1173,19 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IMAGE_TRANSITIONS</id>
+        <text>Efectos de transición</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>IMAGE_TRANS_PROMPT</id>
+        <text>Efectos de transición disponibles para las presentaciones. Estos efectos pueden ser diferentes según el reproductor y algunos reproductores pueden no soportar las transiciones en absoluto.</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
         <id>IMPEXP_TITLE</id>
-        <text>Cargar/Guardar configuración</text>
-        <version>1.19</version>
+        <text>Cargar/Guardar config.</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>IMPORT_FAILED</id>
@@ -1266,6 +1276,11 @@
         <id>INTERNET_RADIO_PROMPT</id>
         <text>Las conexiones a emisoras de radio de Internet individuales se realizan desde el Receptor multimedia. Puede deshabilitar esta característica si su Receptor multimedia no tiene conexión directa a Internet.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>INTERNET_SERVICES</id>
+        <text>Servicios de Internet</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>INTERNET_SETTING</id>
@@ -1614,13 +1629,13 @@
       </string>
       <string>
         <id>LISTEN_MUSIC</id>
-        <text>Escuchar Música</text>
-        <version>1.19</version>
+        <text>Escuchar música</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>LISTEN_RADIO</id>
-        <text>Escuchar Radio Internet</text>
-        <version>1.19</version>
+        <text>Escuchar radio por  Internet</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>LIST_VIEW</id>
@@ -1704,8 +1719,8 @@
       </string>
       <string>
         <id>MEDIA_LOCATIONS</id>
-        <text>Directorios de archivos multimedia</text>
-        <version>1.19</version>
+        <text>Directorios de archivos</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>MEDIA_LOC_ADD_BUTTON</id>
@@ -1779,8 +1794,8 @@
       </string>
       <string>
         <id>MEDIA_REFRESH</id>
-        <text>Buscar nuevos archivos multimedia</text>
-        <version>1.19</version>
+        <text>Buscar nuevos archiv.</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>MEDIA_SCAN_OVERALL</id>
@@ -2229,8 +2244,8 @@
       </string>
       <string>
         <id>ORG_TITLE</id>
-        <text>Editar detalles de película</text>
-        <version>1.19</version>
+        <text>Editar detalles película</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>PAGE</id>
@@ -2353,6 +2368,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>PC_LINK_INTERNET</id>
+        <text>Internet</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
         <id>PC_LINK_MOVIES</id>
         <text>Películas</text>
         <version>1.19</version>
@@ -2374,8 +2394,8 @@
       </string>
       <string>
         <id>PC_LINK_TV</id>
-        <text>Programas de TV</text>
-        <version>1.19</version>
+        <text>Shows TV</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>PERCENT_SCANNED</id>
@@ -3508,6 +3528,56 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>TRANS_CLOSE_VERTICAL</id>
+        <text>Cierre vertical</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_FADE_BLACK</id>
+        <text>Fundido a negro</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_INTERLACE</id>
+        <text>Entrelazado</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_NO_EFFECT</id>
+        <text>Sin efecto</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_OPEN_VERTICAL</id>
+        <text>Apertura vertical</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_RANDOM</id>
+        <text>Aleatorio</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_SPLIT_VERTICAL_1</id>
+        <text>Partición vertical 1</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_SPLIT_VERTICAL_2</id>
+        <text>Partición vertical 2</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_WIPE_DOWN</id>
+        <text>Barrido abajo</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_WIPE_UP</id>
+        <text>Barrido arriba</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
         <id>TTF_FONT</id>
         <text>Fuente TrueType</text>
         <version>1.19</version>
@@ -3529,8 +3599,8 @@
       </string>
       <string>
         <id>TV_DETAILS</id>
-        <text>Editar detalles de series de TV</text>
-        <version>1.19</version>
+        <text>Editar detalles series</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>TV_OPTIONS</id>
