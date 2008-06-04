@@ -43,11 +43,19 @@ function extra_get_tv_details($id, $filename, $programme, $series='', $episode='
   $site_url = 'http://thetvdb.com/';
   $accuracy = 0;
   
+  // Supported languages (hardcoded from languages.xml)
+  $languages = array('da','fi','nl','de','it','es','fr','pl','hu','el','tr','ru','he','ja','pt','zh','cs','en','sv','no');
+  
   send_to_log(4,"Searching for details about ".$programme." Season: ".$series." Episode: ".$episode." online at ".$site_url);
 
-  // Users preferred language
+  // Users preferred language (use 'en' if not supported)
   $language = substr(get_sys_pref('DEFAULT_LANGUAGE','en'),0,2);
-  
+  if ( !in_array($language, $languages) )
+  {
+    $language = 'en';
+    send_to_log(5,"User language '".$language."' not supported, using 'en'");
+  }
+    
   // Ensure local cache folders exist
   $cache_dir = get_sys_pref('cache_dir').'/tvdb';
   if(!file_exists($cache_dir)) { @mkdir($cache_dir); }
@@ -76,10 +84,11 @@ function extra_get_tv_details($id, $filename, $programme, $series='', $episode='
       if ($series_cache_time < (time() - 21600))
       {
         send_to_log(4,'Downloading remote file to the local filesystem',$series_url);
-        @copy($series_url, $series_zip_cache);
+        if (!@copy($series_url, $series_zip_cache))
+          send_to_log(6,'Failed to copy remote file to',$series_zip_cache);
         // Extract zip contents
         $zip = @zip_open($series_zip_cache);
-        if ($zip)
+        if (is_resource($zip))
         {
           while ($zip_entry = zip_read($zip)) 
           {
@@ -96,9 +105,9 @@ function extra_get_tv_details($id, $filename, $programme, $series='', $episode='
         }
         else
         {
-          send_to_log(6,'Failed to get series zip from www.thetvdb.com');
+          send_to_log(6,"Failed to open series zip from www.thetvdb.com. (zip_open errno=$zip)");
         }
-        zip_close($zip);
+        @zip_close($zip);
       }
       
       // Parse the Full Series Record
