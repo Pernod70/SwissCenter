@@ -110,7 +110,8 @@ require_once( realpath(dirname(__FILE__).'/../base/media.php'));
     form_hidden('scan_type', 'MEDIA');
     form_list_dynamic('type',str('MEDIA_TYPE'),"select media_id,media_name from media_types where media_table<>'' order by 2",$_REQUEST['type'],true,false,str('ALL_MEDIA_TYPES'));
     echo '<tr><td></td><td> &nbsp; &nbsp; '.str('OR').'</td></tr>';
-    form_list_dynamic('cat', str('CATEGORY'),"select cat_id,cat_name from categories order by cat_name", $_REQUEST['cat'],true,false,str('ALL_CATEGORIES'));
+    form_list_dynamic('cat', str('CATEGORY'),"select distinct(c.cat_id), c.cat_name from media_locations ml, categories c
+                                              where ml.cat_id = c.cat_id order by c.cat_name", $_REQUEST['cat'],true,false,str('ALL_CATEGORIES'));
     echo '<tr><td></td><td>&nbsp;</td></tr>';
     form_radio_static('refresh',str('REFRESH_METADATA'),$option_vals,get_sys_pref('REFRESH_METADATA','NO'),false,true);
     form_label(str('REFRESH_METADATA_PROMPT'));

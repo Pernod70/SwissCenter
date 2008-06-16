@@ -49,7 +49,7 @@ function internet_available()
   {
     // Don't attempt to determine whether the connection is available, just return the
     // setting specified by the user.
-    return $check_type;
+    return ( $check_type == 'YES' ? true : false );
   }
 }
 
