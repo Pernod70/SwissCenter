@@ -25,13 +25,6 @@ require_once( realpath(dirname(__FILE__).'/../ext/xmp/xmp.php'));
 
 function remove_orphaned_records()
 {
-  @db_sqlcommand('delete from media_art '.
-                 ' using media_art left outer join mp3s  '.
-                 '    on media_art.art_sha1 = mp3s.art_sha1 '.
-                 ' left outer join movies '.
-                 '    on media_art.art_sha1 = movies.art_sha1 '.
-                 ' where mp3s.art_sha1 is null and movies.art_sha1 is null');
-  
   @db_sqlcommand('delete from mp3s  '.
                  ' using mp3s  left outer join media_locations  '.
                  '    on media_locations.location_id = mp3s.location_id '.
@@ -56,6 +49,33 @@ function remove_orphaned_records()
                  ' using photo_albums left outer join photos '.
                  '    on photo_albums.dirname = left(photos.dirname,length(photo_albums.dirname)) '.
                  ' where left(photos.dirname,length(photo_albums.dirname)) is null');
+                 
+  @db_sqlcommand('delete from media_art '.
+                 ' using media_art left outer join mp3s  '.
+                 '    on media_art.art_sha1 = mp3s.art_sha1 '.
+                 ' left outer join movies '.
+                 '    on media_art.art_sha1 = movies.art_sha1 '.
+                 ' where mp3s.art_sha1 is null and movies.art_sha1 is null');
+  
+  @db_sqlcommand('delete from viewings '.
+                 ' using viewings left outer join mp3s '.
+                 '    on viewings.media_id = mp3s.file_id '.
+                 ' where viewings.media_type = '.MEDIA_TYPE_MUSIC.' and mp3s.file_id is null');
+                 
+  @db_sqlcommand('delete from viewings '.
+                 ' using viewings left outer join photos '.
+                 '    on viewings.media_id = photos.file_id '.
+                 ' where viewings.media_type = '.MEDIA_TYPE_PHOTO.' and photos.file_id is null');
+                 
+  @db_sqlcommand('delete from viewings '.
+                 ' using viewings left outer join movies '.
+                 '    on viewings.media_id = movies.file_id '.
+                 ' where viewings.media_type = '.MEDIA_TYPE_VIDEO.' and movies.file_id is null');
+                 
+  @db_sqlcommand('delete from viewings '.
+                 ' using viewings left outer join tv '.
+                 '    on viewings.media_id = tv.file_id '.
+                 ' where viewings.media_type = '.MEDIA_TYPE_TV.' and tv.file_id is null');
 }
 
 /**
@@ -124,6 +144,12 @@ function eliminate_duplicates()
                  ' GROUP BY dirname,filename               '.
                  '   HAVING count(*)>1');
   
+  @db_sqlcommand('   CREATE TEMPORARY TABLE tv_del AS      '. 
+                 '   SELECT max(file_id) file_id           '.
+                 '     FROM tv                             '.
+                 ' GROUP BY dirname,filename               '.
+                 '   HAVING count(*)>1');
+  
   @db_sqlcommand('   CREATE TEMPORARY TABLE photos_del AS  '.
                  '   SELECT max(file_id) file_id           '.
                  '     FROM photos                         '.
@@ -132,6 +158,7 @@ function eliminate_duplicates()
   
   @db_sqlcommand('DELETE FROM mp3s   USING mp3s, mp3s_del     WHERE mp3s.file_id = mp3s_del.file_id');
   @db_sqlcommand('DELETE FROM movies USING movies, movies_del WHERE movies.file_id = movies_del.file_id');
+  @db_sqlcommand('DELETE FROM tv     USING tv, tv_del         WHERE tv.file_id = tv_del.file_id');
   @db_sqlcommand('DELETE FROM photos USING photos, photos_del WHERE photos.file_id = photos_del.file_id');  
 }
 
@@ -216,8 +243,11 @@ function viewings_count( $media_type, $file, $user = '')
   elseif ( is_string($file))
   {
     $table = get_media_table($media_type);
-    $val = db_value("select total_viewings from viewings, $table 
-                      where viewings.media_id = $table.file_id 
+    if (empty($table))
+      $val = false;
+    else
+      $val = db_value("select total_viewings from viewings, $table 
+                        where user_id = $user and viewings.media_id = $table.file_id 
                         and media_type = $media_type and concat(dirname,filename) = '".db_escape_str($file)."'");
   }
   else 
@@ -314,6 +344,9 @@ function viewed_status_predicate( $status )
 
 function store_request_details( $media, $file_id )
 {  
+  // Return if no file_id is given
+  if ( empty($file_id) ) return;
+  
   // Current user
   $user_id = get_current_user_id();
 

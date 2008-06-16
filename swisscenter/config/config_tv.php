@@ -322,9 +322,8 @@ function tv_clear_details()
       db_sqlcommand('delete from directors_of_tv where tv_id = '.$value);
       db_sqlcommand('delete from genres_of_tv where tv_id = '.$value);
       db_sqlcommand('update tv set year=null,certificate=null where file_id = '.$value);
-      remove_orphaned_tv_info();
-      scdb_remove_orphans();
     }
+    scdb_remove_orphans();
     tv_display(str('DETAILS_CLEARED_OK'));
   }
 }

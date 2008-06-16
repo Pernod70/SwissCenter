@@ -316,9 +316,8 @@ function movie_clear_details()
       db_sqlcommand('delete from directors_of_movie where movie_id = '.$value);
       db_sqlcommand('delete from genres_of_movie where movie_id = '.$value);
       db_sqlcommand('update movies set year=null,certificate=null where file_id = '.$value);
-      remove_orphaned_movie_info();
-      scdb_remove_orphans();
     }
+    scdb_remove_orphans();
     movie_display(str('DETAILS_CLEARED_OK'));
   }
 }

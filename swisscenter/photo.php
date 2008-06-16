@@ -52,7 +52,7 @@
     
     if ($menu->num_items() == 1)
     {
-      search_hist_init( $prev_page, category_select_sql($cat_id, 2).get_rating_filter() );
+      search_hist_init( $prev_page, category_select_sql($cat_id, 2).get_rating_filter().filter_get_predicate() );
       header('Location: '.server_address().$menu->item_url(0));
     } 
     else

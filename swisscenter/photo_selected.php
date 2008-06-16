@@ -105,7 +105,7 @@
     $menu->add_item( str('PHOTO_CHANGE_ORDER'), 'photo_change_order.php', true);
   }
 
-  $folder_img = file_albumart( db_value("select concat(media.dirname,media.filename) from $sql_table $predicate order by $play_order limit 0,1") );
+  $folder_img = file_albumart( db_value("select concat(media.dirname,media.filename) from $sql_table $predicate order by media.$play_order limit 0,1") );
   
   // Display Page
   page_header(str('SLIDESHOW'),'');
