@@ -1205,7 +1205,9 @@ class getid3_id3v2
 			$parsedFrame['description']      = $frame_description;
 			$parsedFrame['data']             = substr($parsedFrame['data'], $frame_terminatorpos + strlen($this->TextEncodingTerminatorLookup($frame_textencoding)));
 			if (!empty($parsedFrame['framenameshort']) && !empty($parsedFrame['data'])) {
-				$ThisFileInfo['id3v2']['comments'][$parsedFrame['framenameshort']][] = getid3_lib::iconv_fallback($parsedFrame['encoding'], $ThisFileInfo['id3v2']['encoding'], $parsedFrame['data']);			
+			  if (!isset($ThisFileInfo['id3v2']['comments'][$parsedFrame['framenameshort']]) || ($parsedFrame['picturetypeid'] == 3)) {
+					$ThisFileInfo['id3v2']['comments'][$parsedFrame['framenameshort']][0] = getid3_lib::iconv_fallback($parsedFrame['encoding'], $ThisFileInfo['id3v2']['encoding'], $parsedFrame['data']);
+				}
 			}
 
 			$imagechunkcheck = getid3_lib::GetDataImageSize($parsedFrame['data']);
