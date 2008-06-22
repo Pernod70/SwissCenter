@@ -5499,7 +5499,7 @@ class XPath extends XPathEngine {
       $pos += $afterText ? 1 : 0;
       $parentNode['textParts'] = array_merge(
                                    array_slice($parentNode['textParts'], 0, $pos),
-                                   '',
+                                   array(''),
                                    array_slice($parentNode['textParts'], $pos)
                                  );
       
@@ -5581,7 +5581,7 @@ class XPath extends XPathEngine {
       $pos -= $afterText ? 0 : 1;
       $parentNode['textParts'] = array_merge(
                                    array_slice($parentNode['textParts'], 0, $pos),
-                                   '',
+                                   array(''),
                                    array_slice($parentNode['textParts'], $pos)
                                  );
       // We are going from bottom to top, but the user will want results from top to bottom.
