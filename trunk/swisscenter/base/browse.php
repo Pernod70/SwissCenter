@@ -245,17 +245,17 @@
     $down      = ($end < count($dir_list)+count($file_list));
 
     if ($up)
-      $menu->add_up($url.'?page='.($page-1).'&DIR='.rawurlencode($dir));
+      $menu->add_up(url_add_params($url,array('page'=>($page-1), 'DIR'=>rawurlencode($dir))));
 
     if ($down)
-      $menu->add_down($url.'?page='.($page+1).'&DIR='.rawurlencode($dir));
+      $menu->add_down(url_add_params($url,array('page'=>($page+1),'DIR'=>rawurlencode($dir))));
 
     for ($i=$start; $i<$end; $i++)
     {
       if ($i < count($dir_list))
       {
         // Output a link to call this page again, but passing in the selected directory.
-        $menu->add_item($dir_list[$i]["filename"],$url.'?DIR='.rawurlencode($dir.$dir_list[$i]["filename"].'/'), true);
+        $menu->add_item($dir_list[$i]["filename"], url_add_param($url,'DIR',rawurlencode($dir.$dir_list[$i]["filename"].'/')), true);
       }
       else
       {
@@ -331,7 +331,7 @@
       {
         // Directory Icon or thumbnail for the directory if one exists
         $image = file_thumbnail($dir_list[$i]["dirname"].$dir_list[$i]["filename"]);
-        $tlist->add_item($image, $dir_list[$i]["filename"], $url.'?DIR='.rawurlencode($dir.$dir_list[$i]["filename"].'/') );
+        $tlist->add_item($image, $dir_list[$i]["filename"], url_add_param($url,'DIR',rawurlencode($dir.$dir_list[$i]["filename"].'/')) );
       }
       else
       {
@@ -349,10 +349,10 @@
     }
 
     if ($up)   
-      $tlist->set_up( $url.'?page='.($page-1).'&DIR='.rawurlencode($dir) ); 
+      $tlist->set_up( url_add_params($url, array('page'=>($page-1),'DIR'=>rawurlencode($dir)) ) ); 
 
     if ($down) 
-      $tlist->set_down( $url.'?page='.($page+1).'&DIR='.rawurlencode($dir) ); 
+      $tlist->set_down( url_add_params($url, array('page'=>($page+1),'DIR'=>rawurlencode($dir)) ) ) ; 
 
     $tlist->display();
    }
@@ -372,7 +372,7 @@
     tidy_lists ( $dir_list, $file_list );
     
     // Page settings
-    $url         = $_SERVER["PHP_SELF"];
+    $url         = url_remove_param(current_url(),'thumbs');
     $page        = ( !isset($_REQUEST["page"]) ? 0 : $_REQUEST["page"]);
     $dir         = ( empty($_REQUEST["DIR"]) ? '' : un_magic_quote(rawurldecode($_REQUEST["DIR"])));
     $buttons     = array();
@@ -382,19 +382,19 @@
     {
       page_header( $heading, substr($dir,0,-1),'',1,false,'','PAGE_KEYBOARD');
       display_thumbs ($url, $dir, $dir_list, $file_list, $page, $media_type);
-      $buttons[] = array('text'=>str('COMPACT_VIEW'), 'url'=>$url.'?thumbs=COMPACT&DIR='.rawurlencode($dir) );
+      $buttons[] = array('text'=>str('COMPACT_VIEW'), 'url'=>url_add_params($url, array('thumbs'=>'COMPACT','DIR'=>rawurlencode($dir))) );
     }
     elseif ( get_user_pref("DISPLAY_THUMBS") == "COMPACT" )
     {
       page_header( $heading, substr($dir,0,-1),'',1,false,style_value("PAGE_FOCUS_IMAGES"));
       display_thumbs ($url, $dir, $dir_list, $file_list, $page, $media_type);
-      $buttons[] = array('text'=>str('LIST_VIEW'), 'url'=>$url.'?thumbs=NO&DIR='.rawurlencode($dir) );
+      $buttons[] = array('text'=>str('LIST_VIEW'), 'url'=>url_add_params($url, array('thumbs'=>'NO','DIR'=>rawurlencode($dir))) );
     }
     else
     {
       page_header( $heading, substr($dir,0,-1),'',1,false,'',$media_type);
       display_names ($url, $dir, $dir_list, $file_list, $page, $media_type);
-      $buttons[] = array('text'=>str('THUMBNAIL_VIEW'), 'url'=>$url.'?thumbs=FULL&DIR='.rawurlencode($dir) );
+      $buttons[] = array('text'=>str('THUMBNAIL_VIEW'), 'url'=>url_add_params($url, array('thumbs'=>'FULL','DIR'=>rawurlencode($dir))) );
     }
     
     // Output some links to allow the user to jump though all pages returned using the keys "1" to "9" on the
@@ -413,7 +413,7 @@
     if ( empty($dir) )
       page_footer( $back_url, $buttons );
     else
-      page_footer( $url.'?DIR='.rawurlencode(parent_dir($dir)), $buttons );
+      page_footer( url_add_param($url, 'DIR', rawurlencode(parent_dir($dir))), $buttons );
   }
   
   // ----------------------------------------------------------------------------------

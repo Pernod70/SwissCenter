@@ -21,7 +21,7 @@
   // Load a playlist (Overwriting or appending to the existing playlist)  
   if (!empty($fsp))
   {
-    $tracks = load_pl($fsp);
+    $tracks = load_pl($fsp, $failed);
 
     // Either replace the existing playlist or merge the two together.
     if ($action == "replace")
@@ -29,7 +29,11 @@
     else
       set_current_playlist( $custom, array_merge($_SESSION["playlist"], $tracks) );
 
-    page_inform(2,"manage_pl.php",str('PLAYLIST_LOAD'),str('PLAYLIST_LOAD_OK'));
+    if (count($failed) > 0)
+      page_inform(5,"manage_pl.php",str('PLAYLIST_LOAD'),str('PLAYLIST_LOAD_FAIL', count($tracks), count($failed)).
+                                        '<p>'.implode('<br>', array_slice($failed,0,8)));
+    else
+      page_inform(2,"manage_pl.php",str('PLAYLIST_LOAD'),str('PLAYLIST_LOAD_OK'));
   }
   else 
   {

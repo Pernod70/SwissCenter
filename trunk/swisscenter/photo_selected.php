@@ -24,7 +24,7 @@
   $this_url   = url_set_param(current_url(),'add','N');
   $play_order = get_user_pref('PHOTO_PLAY_ORDER','filename');
   $delay      = get_user_pref('PHOTO_PLAY_TIME',5);
-  $music      = nvl($_SESSION["background_music"],'*'); // default to the current playlist
+  $music      = isset($_SESSION["background_music"]) ? $_SESSION["background_music"] : '*'; // default to the current playlist
   
   // What do we output to the user when it comes to describing the currently selected background music?
   if ($music == '')

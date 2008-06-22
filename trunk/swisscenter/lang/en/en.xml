@@ -2603,6 +2603,21 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>PLAYLIST_DELETE</id>
+        <text>Delete a playlist</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>PLAYLIST_DELETED</id>
+        <text>Playlist Deleted</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>PLAYLIST_DELETE_CONFIRM</id>
+        <text>Delete playlist?</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
         <id>PLAYLIST_EDIT</id>
         <text>Edit the playlist</text>
         <version>1.19</version>
@@ -2611,6 +2626,11 @@
         <id>PLAYLIST_LOAD</id>
         <text>Load playlist</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_LOAD_FAIL</id>
+        <text>Playlist loaded %s tracks, %s were not found in the database.</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>PLAYLIST_LOAD_NEW</id>
