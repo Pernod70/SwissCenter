@@ -18,11 +18,7 @@
   if ( isset($_REQUEST["save"]) && !empty($_REQUEST["save"]))
     save_pl($_REQUEST['save']);
 
-  if ( isset($_REQUEST["clear"]) && !empty($_REQUEST["clear"]))
-    clear_pl();
-
   // Clear the Playlist
-
   if ( isset($_REQUEST["clear"]) && !empty($_REQUEST["clear"]))
     clear_pl();
 
@@ -46,10 +42,14 @@
     $menu->add_item(str('PLAYLIST_LOAD_NEW'),'load_pl.php?action=replace', true);
     $menu->add_item(str('PLAYLIST_APPEND'),'load_pl.php?action=append', true);
     $menu->add_item( str('PLAYLIST_SAVE_CURRENT'),'save_pl.php', true);
+    if (is_user_admin())
+      $menu->add_item( str('PLAYLIST_DELETE'),'delete_pl.php', true);
   }
   else
   {
     $menu->add_item(str('PLAYLIST_LOAD_NEW'),'load_pl.php?action=replace',true);
+    if (is_user_admin())
+      $menu->add_item(str('PLAYLIST_DELETE'),'delete_pl.php', true);
   }
 
   // Buttons (Shuffle on/off)
