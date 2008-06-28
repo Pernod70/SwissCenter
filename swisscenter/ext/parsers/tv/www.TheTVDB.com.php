@@ -23,6 +23,7 @@
    08-Mar-2008: v1.0:     First public release
    31-Mar-2008: v1.1:     Fixed episode year and now informs user if episode details are not found.
    23-Apr-2008: v1.2:     Fixed downloading of series 0 (Special) banners.
+   25-Jun-2008: v1.3:     Improved zip support on Linux installations.
 
  *************************************************************************************************/
 
@@ -74,40 +75,63 @@ function extra_get_tv_details($id, $filename, $programme, $series='', $episode='
     {
       global $tvdb_series, $tvdb_episodes, $tvdb_banners;
 
-      $series_url       = $xmlmirror.'/api/FA3F6F720A61DE71/series/'.$series_id.'/all/'.$language.'.zip';
+      $series_zip_url   = $xmlmirror.'/api/FA3F6F720A61DE71/series/'.$series_id.'/all/'.$language.'.zip';
+      $series_xml_url   = $xmlmirror.'/api/FA3F6F720A61DE71/series/'.$series_id.'/all/'.$language.'.xml';
+      $banner_xml_url   = $xmlmirror.'/api/FA3F6F720A61DE71/series/'.$series_id.'/banners.xml';
       $series_zip_cache = $cache_dir.'/'.$series_id.'_'.$language.'.zip';
       $series_cache     = $cache_dir.'/'.$series_id.'_'.$language.'.xml';
       $banner_cache     = $cache_dir.'/'.$series_id.'_banners.xml';
       
       // Ensure local copy of full series zip is uptodate (cache valid for 6 hours)
-      $series_cache_time  = (file_exists($series_zip_cache) ? filemtime($series_zip_cache) : 0);
+      $series_cache_time  = (file_exists($series_cache) ? filemtime($series_cache) : 0);
       if ($series_cache_time < (time() - 21600))
       {
-        send_to_log(4,'Downloading remote file to the local filesystem',$series_url);
-        if (!@copy($series_url, $series_zip_cache))
-          send_to_log(6,'Failed to copy remote file to',$series_zip_cache);
-        // Extract zip contents
-        $zip = @zip_open($series_zip_cache);
-        if (is_resource($zip))
+        if (is_synology())
         {
-          while ($zip_entry = zip_read($zip)) 
-          {
-            // Get file contents from zip
-            $entry = zip_entry_open($zip,$zip_entry);
-            $zfilename = zip_entry_name($zip_entry);
-            $zfilesize = zip_entry_filesize($zip_entry);
-            $zcontents = zip_entry_read($zip_entry, $zfilesize);
-            $fp=@fopen($cache_dir.'/'.$series_id.'_'.$zfilename,"w");
-            @fwrite($fp,$zcontents);
-            @fclose($fp);
-            zip_entry_close($zip_entry);
-          }
+          // Synology has no zip support so download non-zipped data
+          send_to_log(4,'Downloading remote file to the local filesystem',$series_xml_url);
+          if (!@copy($series_xml_url, $series_cache))
+            send_to_log(6,'Failed to copy remote file to',$series_cache);
+          send_to_log(4,'Downloading remote file to the local filesystem',$banner_xml_url);
+          if (!@copy($banner_xml_url, $banner_cache))
+            send_to_log(6,'Failed to copy remote file to',$banner_cache);
         }
         else
         {
-          send_to_log(6,"Failed to open series zip from www.thetvdb.com. (zip_open errno=$zip)");
+          send_to_log(4,'Downloading remote file to the local filesystem',$series_url);
+          if (!@copy($series_url, $series_zip_cache))
+            send_to_log(6,'Failed to copy remote file to',$series_zip_cache);
+          else
+          {
+            // Extract zip contents
+            if ( extension_loaded('zip') && is_resource($zip = @zip_open($series_zip_cache)) )
+            {
+              while ($zip_entry = zip_read($zip)) 
+              {
+                // Get file contents from zip
+                $entry = zip_entry_open($zip,$zip_entry);
+                $zfilename = zip_entry_name($zip_entry);
+                $zfilesize = zip_entry_filesize($zip_entry);
+                $zcontents = zip_entry_read($zip_entry, $zfilesize);
+                $fp=@fopen($cache_dir.'/'.$series_id.'_'.$zfilename,"w");
+                @fwrite($fp,$zcontents);
+                @fclose($fp);
+                zip_entry_close($zip_entry);
+              }
+              @zip_close($zip);
+            }
+            elseif (is_unix())
+            {
+              // On LINUX machines, we can use the standard "unzip" command to 
+              // perform the same functions as the zip extension
+              exec('unzip '.$series_zip_cache.' -d '.$cache_dir);
+            }
+            else
+            {
+              send_to_log(6,"Failed to open series zip from www.thetvdb.com. (zip_open errno=$zip)");
+            }
+          }
         }
-        @zip_close($zip);
       }
       
       // Parse the Full Series Record
