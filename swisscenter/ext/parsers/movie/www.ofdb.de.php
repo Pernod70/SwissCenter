@@ -15,6 +15,7 @@
    11-Jan-2008: v1.2:     Fixed bug with search, and now gets full synopsis.
    01-Feb-2008: v1.3:     Improved accuracy of search results.
    05-Apr-2008: v1.4:     Fixed image and synopsis due to site changes. Page is now UTF8 encoded.
+   28-Jun-2008: v1.5:     Removed year ie.(2007) when matching titles, also changed word order.
 
  *************************************************************************************************/
 
@@ -41,6 +42,12 @@
     $html     = file_get_contents( $url_load );
     $accuracy = 0;
 
+    // Change the word order
+    if ( substr($title,0,4)=='The ' ) $title = substr($title,5).', The';
+    if ( substr($title,0,4)=='Der ' ) $title = substr($title,5).', Der';
+    if ( substr($title,0,4)=='Die ' ) $title = substr($title,5).', Die';
+    if ( substr($title,0,4)=='Das ' ) $title = substr($title,5).', Das';
+      
     if ($html === false)
     {
       send_to_log(2,'Failed to access the URL.');
@@ -51,7 +58,8 @@
       if (strpos(strtolower($html),strtolower('Ergebnisse')) !== false)
       {
         $matches = get_urls_from_html($html, '');
-        $index   = best_match('OFDb '.$title, $matches[2], $accuracy);
+        $matches[2] = preg_replace(array('/\(.*\)/','/\[.*]/'), '', $matches[2]);
+        $index   = best_match('OFDb - '.$title, $matches[2], $accuracy);
         
         if ($index === false)
           $html = false;
