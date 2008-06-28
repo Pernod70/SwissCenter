@@ -23,6 +23,28 @@
   function is_unix()
   { return get_os_type() == "UNIX"; } 
   
+  function is_synology()
+  { 
+    // Have we already done the Sybology test?
+    if (! isset($_SESSION["Synology"]) )
+    {
+      if ( preg_match('/phpinfo/', ini_get('disable_functions')) == 0)
+      {
+        // Is phpinfo() available for us to use?
+        ob_start();
+        phpinfo(8);
+        $info = ob_get_contents();
+        ob_end_clean();
+        $_SESSION["Synology"] = !(stristr($info, 'synology') === false);
+      }
+      else
+      {
+        $_SESSION["Synology"] = ($_SERVER["SERVER_NAME"] == "synology");
+      }
+    }
+    return $_SESSION["Synology"];
+  }
+  
   // ----------------------------------------------------------------------------------
   // Returns the webserver type
   // ----------------------------------------------------------------------------------
