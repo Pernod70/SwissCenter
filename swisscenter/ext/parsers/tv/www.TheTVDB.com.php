@@ -98,8 +98,8 @@ function extra_get_tv_details($id, $filename, $programme, $series='', $episode='
         }
         else
         {
-          send_to_log(4,'Downloading remote file to the local filesystem',$series_url);
-          if (!@copy($series_url, $series_zip_cache))
+          send_to_log(4,'Downloading remote file to the local filesystem',$series_zip_url);
+          if (!@copy($series_zip_url, $series_zip_cache))
             send_to_log(6,'Failed to copy remote file to',$series_zip_cache);
           else
           {
