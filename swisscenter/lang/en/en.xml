@@ -1058,6 +1058,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>FAIL_SWISS_CACHE</id>
+        <text>Unable to write to the SwissCenter cache directory (%s).</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
         <id>FAIL_SWISS_INI</id>
         <text>Unable to locate the 'swisscenter.ini' file. [br]Have you created a SwissCenter database yet?</text>
         <version>1.19</version>
@@ -2331,6 +2336,11 @@
         <id>PASS_SHOUTCAST_TEST</id>
         <text>ShoutCast parser seems to work properly</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_CACHE</id>
+        <text>Able to Read/Write to the SwissCenter cache directory.</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>PASS_SWISS_INI</id>
