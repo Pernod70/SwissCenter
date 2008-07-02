@@ -203,6 +203,11 @@ function check_swiss_write_log_dir()
   return is_writeable(dirname(logfile_location()));  
 }
 
+function check_swiss_write_cache_dir()
+{
+  return is_writeable(get_sys_pref('cache_dir'));  
+}
+
 function check_swiss_ini_file()
 {
   $result =  file_exists(SC_LOCATION.'/config/swisscenter.ini');
