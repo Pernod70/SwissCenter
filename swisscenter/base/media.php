@@ -947,7 +947,6 @@ function get_tvseries_info( $fsp )
   $details['title']     = trim(trim($details['title'],'-'));
   
   send_to_log(8,'Metadata search results',$details);
-  unset($details["rule"]);
   return $details;
 }
 
@@ -982,7 +981,7 @@ function process_tv( $dir, $id, $file)
   $meta_fsp = substr($dir,strlen($media_loc_dir)+1).file_noext($file);
   
   $data = array_merge($data, get_tvseries_info($meta_fsp) );
-  send_to_log(1,'Metadata results', $data );
+  unset($data["rule"]);
   
   if ( in_array(strtolower($id3["fileformat"]), media_exts_with_GetID3_support() ))
   {

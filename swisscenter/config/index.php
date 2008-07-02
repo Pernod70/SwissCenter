@@ -102,6 +102,7 @@
   	  $menu->add_item(str('MISC_TITLE')             ,'section=MISC&action=DISPLAY');
   	    
       $menu->add_menu(str('EXPERT_OPTIONS'));
+  	  $menu->add_item(str('TV_EXPRESSIONS')         ,'section=TV_EXPR&action=DISPLAY');
   	  $menu->add_item(str('EXPERT_EDIT_DB')         ,'section=EXPERT&action=RUNSQL');
   	  $menu->add_item(str('EXPERT_EDIT_PREFS')      ,'section=EXPERT&action=SYSPREFS');
 

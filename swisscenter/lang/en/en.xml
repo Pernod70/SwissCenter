@@ -953,6 +953,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>EXPRESSION</id>
+        <text>Expression</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
         <id>EXTRAS_TEST_TITLE</id>
         <text>Additional Components</text>
         <version>1.19</version>
@@ -2688,6 +2693,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>PRIORITY</id>
+        <text>Priority</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
         <id>PRIVACY_COMMUNICATION</id>
         <text>[b]Unsolicited Email/Messages[/b] [p][ul][li]We will never send you unsolicited email.[li]Messages downloaded to the SwissCenter interface will relate only to the capabilities and operation of the interface. If you wish you may prevent even these messages from being downloaded by disabling the &quot;Messages&quot; feature in the &quot;Connectivity&quot; section.[/ul]</text>
         <version>1.19</version>
@@ -3609,8 +3619,88 @@
       </string>
       <string>
         <id>TV_DETAILS</id>
-        <text>Edit TV Series Details</text>
-        <version>1.19</version>
+        <text>Edit TV Details</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TV_EXPRESSIONS</id>
+        <text>TV Expressions</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ADD</id>
+        <text>Add a new TV expression</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ADDED_OK</id>
+        <text>TV expression added</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ADD_BUTTON</id>
+        <text>Add TV expression</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_DEFAULTS</id>
+        <text>Restore defaults</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_DELETE_OK</id>
+        <text>TV expression(s) deleted</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_DEL_BUTTON</id>
+        <text>Remove selected expressions</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ERROR_INVALID</id>
+        <text>Please enter a valid expression</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ERROR_MISSING</id>
+        <text>Please enter a Priority and Expression</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_PROMPT</id>
+        <text>The details for a TV series are determined from the filename and path using regular expressions. The file is compared with the following expressions until a match is found. These expressions contain placeholders for programme {p}, series {s}, episode {e}, and title {t}. You must have at least one of these placeholders in each expression to extract details. If you require assistance with this then you should post in the forums.</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST</id>
+        <text>Test expressions</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_BUTTON</id>
+        <text>Test expressions</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_FAILED</id>
+        <text>Failed to match with any expressions</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_PROMPT</id>
+        <text>Enter a filename including path to test whether your current expressions will identify the correct details. eg. C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep End.avi</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_SUCCESS</id>
+        <text>Matched  %s. Found Programme: %s, Series: %s, Episode: %s, Title: %s</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_UPDATE_OK</id>
+        <text>TV expression updated</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>TV_OPTIONS</id>
