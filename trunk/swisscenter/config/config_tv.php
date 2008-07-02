@@ -636,7 +636,7 @@ function tv_info( $message = "")
   form_hidden('refresh','YES');
   echo '<p>&nbsp;<br><b>'.str('EXTRA_REFRESH_TITLE').'</b>
         <p>'.str('EXTRA_REFRESH_DETAILS').'
-        <p><span class="stdformlabel">'.str('EXTRA_REFRESH_WARNING','"'.str('ORG_TITLE').'"').'</span>'.'<br>&nbsp;';
+        <p><span class="stdformlabel">'.str('EXTRA_REFRESH_WARNING','"'.str('TV_DETAILS').'"').'</span>'.'<br>&nbsp;';
   form_submit(str('EXTRA_REFRESH_GO'),2,'Left',240);
   form_end();
 }
