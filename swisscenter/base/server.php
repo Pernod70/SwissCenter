@@ -230,12 +230,30 @@
       
       if (strlen($_SESSION["device"]["ip_address"]) > 0 )
       {
-    	  db_sqlcommand("delete from clients where ip_address='".$_SESSION["device"]["ip_address"]."'");
+        $_SESSION["device"]["mac_addr"] = get_mac_addr($_SESSION["device"]["ip_address"]);
+    	  db_sqlcommand("delete from clients where ip_address='".$_SESSION["device"]["ip_address"]."' or mac_addr='".$_SESSION["device"]["mac_addr"]."'");
     	  db_insert_row('clients',$_SESSION["device"]);
       }
     }
   }
 
+  #-------------------------------------------------------------------------------------------------
+  # Get the MAC address of a client on the LAN.
+  #-------------------------------------------------------------------------------------------------
+  
+  function get_mac_addr($ip)
+  {
+    exec("arp -a ".$ip, $output);
+    foreach($output as $line)
+    {
+      if (preg_match("/[0-9A-F]{2}[-:][0-9A-F]{2}[-:][0-9A-F]{2}[-:][0-9A-F]{2}[-:][0-9A-F]{2}[-:][0-9A-F]{2}/i", $line, $matches))
+      {
+        $mac = $matches[0];
+      }
+    }
+    return str_replace('-',':',$mac);
+  }
+  
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/
