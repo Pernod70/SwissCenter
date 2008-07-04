@@ -48,6 +48,7 @@
   
   function do_refresh_all()
   {
+    set_sys_pref('MEDIA_SCAN_TYPE','MEDIA');
     set_sys_pref('MEDIA_SCAN_STATUS',str('MEDIA_SCAN_STATUS_PENDING'));
     media_refresh_now();
     show_progress();
@@ -61,7 +62,6 @@
   
   function do_refresh_cat( $spec )
   {
-    set_sys_pref('MEDIA_SCAN_MEDIA_TYPE','');
     set_sys_pref('MEDIA_SCAN_CATEGORY',$spec);
     do_refresh_all();
   }
@@ -75,7 +75,6 @@
   function do_refresh_type( $spec )
   {
     set_sys_pref('MEDIA_SCAN_MEDIA_TYPE',$spec);
-    set_sys_pref('MEDIA_SCAN_CATEGORY','');
     do_refresh_all();
   }
   
@@ -144,15 +143,24 @@
   if ( $type == 'show' || $status != str('MEDIA_SCAN_STATUS_COMPLETE') )
     show_progress();
   elseif ( $type == 'all' )
+  {
+    clear_media_scan_prefs();
     do_refresh_all();
+  }
   elseif ( $type == 'media_type' && empty($spec) )
     choose_type();
   elseif ( $type == 'media_type' )
+  {
+    clear_media_scan_prefs();
     do_refresh_type($spec);
+  }
   elseif ( $type == 'category' && empty($spec) )
     choose_category();
   elseif ( $type == 'category' )
+  {
+    clear_media_scan_prefs();
     do_refresh_cat($spec);
+  }
   else
     choose_main_opt();  
 

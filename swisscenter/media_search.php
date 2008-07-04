@@ -45,7 +45,7 @@
       // Tell MusicIP to rescan this folder
       if ($media_type == MEDIA_TYPE_MUSIC)
         musicip_server_add_dir($location["NAME"]);    
-  }
+    }
 
   }
 
@@ -61,16 +61,14 @@
   $media_type = get_sys_pref('MEDIA_SCAN_MEDIA_TYPE');
   $cat_id     = get_sys_pref('MEDIA_SCAN_CATEGORY');
   $itunes     = get_sys_pref('MEDIA_SCAN_ITUNES','YES');
-  $update     = get_sys_pref('REFRESH_METADATA','NO');
+  $update     = get_sys_pref('MEDIA_SCAN_REFRESH_METADATA','NO');
   $itunes_library = get_sys_pref('ITUNES_LIBRARY');
   $itunes_date    = get_sys_pref('ITUNES_LIBRARY_DATE');
+  $media_types    = db_col_to_list("select distinct(media_type) from media_locations where 1=1".
+                                  (empty($cat_id) ? '' : " and cat_id = $cat_id").
+                              (empty($media_type) ? '' : " and media_type = $media_type"));
 
-  delete_sys_pref('MEDIA_SCAN_TYPE');
-  delete_sys_pref('MEDIA_SCAN_RSS');
-  delete_sys_pref('MEDIA_SCAN_MEDIA_TYPE');
-  delete_sys_pref('MEDIA_SCAN_CATEGORY');
-  delete_sys_pref('MEDIA_SCAN_ITUNES');
-  delete_sys_pref('REFRESH_METADATA');
+  db_sqlcommand("delete from system_prefs where name like 'media_scan_%'"); 
   set_sys_pref('MEDIA_SCAN_STATUS',str('MEDIA_SCAN_STATUS_RUNNING'));
   
   // Do a media search if a RSS update has not been requested
@@ -86,11 +84,17 @@
     process_media_dirs( $media_type, $cat_id, $update=='YES' );
     
     // Update video details from the Internet if enabled
-    if ( is_movie_check_enabled() )
+    if ( is_movie_check_enabled() && in_array(MEDIA_TYPE_VIDEO, $media_types) )
+    {
+      set_sys_pref('MEDIA_SCAN_STATUS',str('MEDIA_SCAN_STATUS_MOVIE'));
       extra_get_all_movie_details();
+    }
     
-    if ( is_tv_check_enabled() )
+    if ( is_tv_check_enabled() && in_array(MEDIA_TYPE_TV, $media_types) )
+    {
+      set_sys_pref('MEDIA_SCAN_STATUS',str('MEDIA_SCAN_STATUS_TV'));
       extra_get_all_tv_details();
+    }
  
     // Scan the iTunes library for playlists
     if ($itunes=='YES' && is_file($itunes_library))
@@ -99,12 +103,21 @@
       $file_date = db_datestr(@filemtime($itunes_library));
       if ( is_null($itunes_date) || ($itunes_date < $file_date) )
       {
+        set_sys_pref('MEDIA_SCAN_STATUS',str('MEDIA_SCAN_STATUS_ITUNES'));
         parse_itunes_file($itunes_library);
         set_sys_pref('ITUNES_LIBRARY_DATE', $file_date);
       }
       else
         send_to_log(4,'Skipping the iTunes Music Library, not changed since last update');
     }
+    
+    // Remove media from library no longer in media locations
+    set_sys_pref('MEDIA_SCAN_STATUS',str('MEDIA_SCAN_STATUS_CLEANUP'));
+    remove_orphaned_records();
+    remove_orphaned_movie_info();
+    remove_orphaned_tv_info();
+    scdb_remove_orphans();
+    eliminate_duplicates();
   }
     
   // Update RSS feeds
@@ -122,11 +135,6 @@
     }
   }
   
-  remove_orphaned_records();
-  remove_orphaned_movie_info();
-  remove_orphaned_tv_info();
-  scdb_remove_orphans();
-  eliminate_duplicates();
   media_indicator('OFF');
 
   // Update media search status

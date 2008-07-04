@@ -163,6 +163,16 @@ function eliminate_duplicates()
 }
 
 /**
+ * Remove all MEDIA_SCAN settings from SYSTEM_PREFS.
+ *
+ */
+
+function clear_media_scan_prefs()
+{
+  db_sqlcommand("delete from system_prefs where name like 'media_scan_%'"); 
+}
+
+/**
  * Returns the database table name for the specified media type.
  *
  * @param integer $media_type

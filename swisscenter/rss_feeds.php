@@ -63,6 +63,7 @@
     page_inform(5,"rss_feeds.php?sub_id=".$_REQUEST["update_id"], str('RSS_FEEDS'), str('RSS_UPDATE'));
     // Store the parameters to the media search (rss subscription id) in the system_prefs table
     // as this is the only way of passing the info to the background process in Simese.
+    clear_media_scan_prefs();
     set_sys_pref('MEDIA_SCAN_TYPE','RSS');
     set_sys_pref('MEDIA_SCAN_RSS',$_REQUEST["update_id"]);
     set_sys_pref('MEDIA_SCAN_STATUS',str('MEDIA_SCAN_STATUS_PENDING'));

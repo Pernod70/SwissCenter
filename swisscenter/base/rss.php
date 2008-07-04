@@ -92,6 +92,7 @@
        update_rss_progress($sub["ID"], 100);
      }
    }
+   send_to_log(4,'Finished updating RSS subscriptions');
  }
  
  
