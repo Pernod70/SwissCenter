@@ -1823,9 +1823,24 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MEDIA_SCAN_STATUS_CLEANUP</id>
+        <text>Cleaning database</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
         <id>MEDIA_SCAN_STATUS_COMPLETE</id>
         <text>Complete</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_ITUNES</id>
+        <text>Parsing iTunes library</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_MOVIE</id>
+        <text>Parsing movie details</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>MEDIA_SCAN_STATUS_PENDING</id>
@@ -1836,6 +1851,11 @@
         <id>MEDIA_SCAN_STATUS_RUNNING</id>
         <text>Running</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_TV</id>
+        <text>Parsing TV details</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>MEDIA_SEARCH_PROMPT</id>

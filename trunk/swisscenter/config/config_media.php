@@ -75,12 +75,13 @@ require_once( realpath(dirname(__FILE__).'/../base/media.php'));
 
   function media_search()
   {
-    // Store the parameters to the media search (catgory, media tyoe) in the system_prefs table
+    // Store the parameters to the media search (category, media type) in the system_prefs table
     // as this is the only way of passing the info to the background process in Simese.
+    clear_media_scan_prefs();
     set_sys_pref('MEDIA_SCAN_TYPE',$_REQUEST["scan_type"]);
     set_sys_pref('MEDIA_SCAN_MEDIA_TYPE',$_REQUEST["type"]);
     set_sys_pref('MEDIA_SCAN_CATEGORY',$_REQUEST["cat"]);
-    set_sys_pref('REFRESH_METADATA',$_REQUEST["refresh"]);
+    set_sys_pref('MEDIA_SCAN_REFRESH_METADATA',$_REQUEST["refresh"]);
     set_sys_pref('MEDIA_SCAN_ITUNES',$_REQUEST["itunes"]);
     set_sys_pref('MEDIA_SCAN_RSS',$_REQUEST["rss_id"]);
     set_sys_pref('MEDIA_SCAN_STATUS',str('MEDIA_SCAN_STATUS_PENDING'));
@@ -113,7 +114,7 @@ require_once( realpath(dirname(__FILE__).'/../base/media.php'));
     form_list_dynamic('cat', str('CATEGORY'),"select distinct(c.cat_id), c.cat_name from media_locations ml, categories c
                                               where ml.cat_id = c.cat_id order by c.cat_name", $_REQUEST['cat'],true,false,str('ALL_CATEGORIES'));
     echo '<tr><td></td><td>&nbsp;</td></tr>';
-    form_radio_static('refresh',str('REFRESH_METADATA'),$option_vals,get_sys_pref('REFRESH_METADATA','NO'),false,true);
+    form_radio_static('refresh',str('REFRESH_METADATA'),$option_vals,get_sys_pref('MEDIA_SCAN_REFRESH_METADATA','NO'),false,true);
     form_label(str('REFRESH_METADATA_PROMPT'));
     form_radio_static('itunes',str('REFRESH_ITUNES'),$option_vals,get_sys_pref('MEDIA_SCAN_ITUNES','NO'),false,true);
     form_label(str('REFRESH_ITUNES_PROMPT'));
