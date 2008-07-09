@@ -170,22 +170,26 @@
     $indent           = convert_x(30,SCREEN_COORDS); 
   
     $image->text(str('TRACK_NAME'),  $text_x, $text_y, $label_text_col, $label_text_size);
-    wrap($image, nvl($current_track["TITLE"],file_noext($current_track["FILENAME"])), $text_x + $indent, $text_y+=($detail_text_size*2.5), $text_width, $detail_text_col, $detail_text_size);
+    $text_y+=($detail_text_size*2.5);
+    wrap($image, nvl($current_track["TITLE"],file_noext($current_track["FILENAME"])), $text_x + $indent, $text_y, $text_width, $detail_text_col, $detail_text_size);
   
     if (!empty($current_track["ARTIST"]))
     {
       $image->text(str('ARTIST'), $text_x, $text_y, $label_text_col, $label_text_size);
-      wrap($image, $current_track["ARTIST"], $text_x + $indent, $text_y+=($detail_text_size*2.5), $text_width, $detail_text_col, $detail_text_size);
+      $text_y+=($detail_text_size*2.5);
+      wrap($image, $current_track["ARTIST"], $text_x + $indent, $text_y, $text_width, $detail_text_col, $detail_text_size);
     }
     if (!empty($current_track["ALBUM"]))
     {
       $image->text(str('ALBUM'),  $text_x, $text_y, $label_text_col, $label_text_size);
-      wrap($image, $current_track["ALBUM"], $text_x + $indent, $text_y+=($detail_text_size*2.5), $text_width, $detail_text_col, $detail_text_size);
+      $text_y+=($detail_text_size*2.5);
+      wrap($image, $current_track["ALBUM"], $text_x + $indent, $text_y, $text_width, $detail_text_col, $detail_text_size);
     }
     if (!empty($current_track["YEAR"]))
     {
       $image->text(str('YEAR'),  $text_x, $text_y, $label_text_col, $label_text_size);
-      wrap($image, $current_track["YEAR"], $text_x + $indent, $text_y+=($detail_text_size*2.5), $text_width, $detail_text_col, $detail_text_size);
+      $text_y+=($detail_text_size*2.5);
+      wrap($image, $current_track["YEAR"], $text_x + $indent, $text_y, $text_width, $detail_text_col, $detail_text_size);
     }
     
     # ------------------------
