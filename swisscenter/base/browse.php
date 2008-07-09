@@ -371,6 +371,9 @@
     // Remove unwanted directories and/or files
     tidy_lists ( $dir_list, $file_list );
     
+    // Make sure that the session variable for "shuffle" matches the user's preference (because it will have been set "on" for quick play).
+    $_SESSION["shuffle"] = get_user_pref('shuffle','off');
+  
     // Page settings
     $url         = url_remove_param(current_url(),'thumbs');
     $page        = ( !isset($_REQUEST["page"]) ? 0 : $_REQUEST["page"]);
