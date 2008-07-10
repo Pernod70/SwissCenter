@@ -363,16 +363,6 @@
         <version>1.19</version>
       </string>
       <string>
-        <id>CACHE_LANG</id>
-        <text>Cache language strings</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>CACHE_LANG_PROMPT</id>
-        <text>When enabled, SwissCenter will cache all language strings details in memory. Disable this feature if you are adding a translation and need to see changes reflected immediately.</text>
-        <version>1.19</version>
-      </string>
-      <string>
         <id>CACHE_PRECACHE</id>
         <text>Precache Images</text>
         <version>1.19</version>

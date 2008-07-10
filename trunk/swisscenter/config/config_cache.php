@@ -23,9 +23,7 @@
     form_input('size',str('CACHE_SIZE'),3,'', $size);
     form_label(str('CACHE_SIZE_PROMPT'));    
     form_radio_static('style',str('CACHE_STYLE'),$option_vals, get_sys_pref('CACHE_STYLE_DETAILS','YES'),false,true);
-    form_label(str('CACHE_STYLE_PROMPT'));    
-    form_radio_static('lang',str('CACHE_LANG'),$option_vals, get_sys_pref('CACHE_LANGUAGE_STRINGS','YES'),false,true);
-    form_label(str('CACHE_LANG_PROMPT'));    
+    form_label(str('CACHE_STYLE_PROMPT'));     
     form_submit(str('SAVE_SETTINGS'));
     form_end();
   }
@@ -54,7 +52,6 @@
     else
     {
       set_sys_pref('CACHE_STYLE_DETAILS',$_REQUEST["style"]);
-      set_sys_pref('CACHE_LANGUAGE_STRINGS',$_REQUEST["lang"]);
       set_sys_pref('CACHE_DIR',$dir);
       set_sys_pref('CACHE_MAXSIZE_MB',$size);
       cache_display(str('SAVE_SETTINGS_OK'));

@@ -335,9 +335,6 @@ send_to_log(1,"Page Requested : ".current_url()." by client (".client_ip().")");
 // If in design mode, then we want to force loading of styles and/or language strings.
 if ( get_sys_pref('CACHE_STYLE_DETAILS','YES') == 'NO' )
   load_style();
-  
-if ( get_sys_pref('CACHE_LANGUAGE_STRINGS','YES') == 'NO' )  
-  load_lang();
 
 /**************************************************************************************************
                                                End of file
