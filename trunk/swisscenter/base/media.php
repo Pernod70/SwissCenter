@@ -200,7 +200,7 @@ function find_media_in_db( $fsp)
   $types = db_toarray("select media_id, media_table from media_types where media_table is not null");
   foreach ($types as $type)
   {
-    $file_id = db_value("select file_id from $type[MEDIA_TABLE] where concat(dirname,filename)='".db_escape_str($fsp)."' limit 1");
+    $file_id = db_value("select file_id from $type[MEDIA_TABLE] where dirname='".db_escape_str(dirname($fsp).'/')."' and filename='".db_escape_str(basename($fsp))."' limit 1");
 
     if (! is_null($file_id))   
       return array( $type["MEDIA_ID"], $file_id);
@@ -258,7 +258,7 @@ function viewings_count( $media_type, $file, $user = '')
     else
       $val = db_value("select total_viewings from viewings, $table 
                         where user_id = $user and viewings.media_id = $table.file_id 
-                        and media_type = $media_type and concat(dirname,filename) = '".db_escape_str($file)."'");
+                        and media_type = $media_type and dirname='".db_escape_str(dirname($file).'/')."' and filename='".db_escape_str(basename($file))."'");
   }
   else 
   {
@@ -493,7 +493,7 @@ function process_mp3( $dir, $id, $file)
       else
         $data["art_sha1"]   = null;
       
-      $file_id = db_value("select file_id from mp3s where concat(dirname,filename)='".db_escape_str($dir.$file)."'");
+      $file_id = db_value("select file_id from mp3s where dirname='".db_escape_str($dir)."' and filename='".db_escape_str($file)."'");
       if ( $file_id )
       {
         // Update the existing record
@@ -525,7 +525,7 @@ function process_mp3( $dir, $id, $file)
   {
     // File extension is MP3, but the file itself isn't!
     send_to_log(3,'This filetype ('.$id3["fileformat"].') is not supported by the GetID3 library, so although it will be added there will not be any supplemental information available.');
-    $file_id = db_value("select file_id from mp3s where concat(dirname,filename)='".db_escape_str($dir.$file)."'");
+    $file_id = db_value("select file_id from mp3s where dirname='".db_escape_str($dir)."' and filename='".db_escape_str($file)."'");
     if ( $file_id )
     {
       // Update the existing record
@@ -686,7 +686,7 @@ function process_photo( $dir, $id, $file)
                    , "xmp_rating"          => $iptcxmp['rating']
                    );
 
-      $file_id = db_value("select file_id from photos where concat(dirname,filename)='".db_escape_str($dir.$file)."'");
+      $file_id = db_value("select file_id from photos where dirname='".db_escape_str($dir)."' and filename='".db_escape_str($file)."'");
       if ( $file_id )
       {
         // Update the existing record
@@ -838,7 +838,7 @@ function process_movie( $dir, $id, $file)
   else
     send_to_log(3,"GETID3 claims this is not a valid video: ".$id3["fileformat"]);
 
-  $file_id = db_value("select file_id from movies where concat(dirname,filename)='".db_escape_str($dir.$file)."'");
+  $file_id = db_value("select file_id from movies where dirname='".db_escape_str($dir)."' and filename='".db_escape_str($file)."'");
   if ( $file_id )
   {
     // Update the existing record
@@ -859,7 +859,7 @@ function process_movie( $dir, $id, $file)
   if ( $success )
   {
     // Add additional info requiring file_id
-    $file_id = db_value("select file_id from movies where concat(dirname,filename)='".db_escape_str($dir.$file)."'");
+    $file_id = db_value("select file_id from movies where dirname='".db_escape_str($dir)."' and filename='".db_escape_str($file)."'");
     if (file_ext($file) == 'dvr-ms')
     {
       $mediacredits = explode(';', $id3["comments"]["mediacredits"][0]);
@@ -1015,7 +1015,7 @@ function process_tv( $dir, $id, $file)
   else
     send_to_log(3,"GETID3 claims this is not a valid movie (format is '$id3[fileformat]')");
 
-  $file_id = db_value("select file_id from tv where concat(dirname,filename)='".db_escape_str($dir.$file)."'");
+  $file_id = db_value("select file_id from tv where dirname='".db_escape_str($dir)."' and filename='".db_escape_str($file)."'");
   if ( $file_id )
   {
     // Update the existing record
