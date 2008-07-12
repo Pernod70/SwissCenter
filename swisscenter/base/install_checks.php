@@ -208,6 +208,16 @@ function check_swiss_write_cache_dir()
   return is_writeable(get_sys_pref('cache_dir'));  
 }
 
+function check_swiss_write_playlist_dir()
+{
+  $result =  ( is_readable(get_sys_pref('playlists')) && is_writable(get_sys_pref('playlists')) );  
+
+  if (!$result)
+    send_to_log(5,'- Unable to access playlist directory ('.get_sys_pref('playlists').').');
+      
+  return $result;
+}
+
 function check_swiss_ini_file()
 {
   $result =  file_exists(SC_LOCATION.'/config/swisscenter.ini');
