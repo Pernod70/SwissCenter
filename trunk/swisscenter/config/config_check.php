@@ -136,6 +136,7 @@ function check_display()
   $core_tests->add_test( $swiss, check_swiss_write_rootdir(), str("PASS_SWISS_RW_FILES"), str("MISSING_PERMS_TEXT"));
   $core_tests->add_test( $swiss, check_swiss_ini_file(), str("PASS_SWISS_INI"), str("FAIL_SWISS_INI"));
   $core_tests->add_test( $swiss, check_swiss_write_cache_dir(), str("PASS_SWISS_CACHE"), str("FAIL_SWISS_CACHE", get_sys_pref('cache_dir')) );
+  $core_tests->add_test( $swiss, check_swiss_write_playlist_dir(), str("PASS_SWISS_PLAYLIST"), str("FAIL_SWISS_PLAYLIST", get_sys_pref('playlists')) );
   $core_tests->add_test( $swiss, check_swiss_write_log_dir(), str("PASS_SWISS_LOG"), str("FAIL_SWISS_LOG", logfile_location()) );
                       
   # ----------------------
