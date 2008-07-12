@@ -43,12 +43,12 @@ define(BASE_URL,'http://tools.assembla.com/svn/swiss/tags/');
     foreach ( get_page_links($base_url) as $url )
     {
       if ( $url[strlen($url)-1] == '/' )
-        download_files( $base_url.$url, $dir.'/'.$url);
+        download_files( $base_url.$url, $dir.'/'.urldecode($url));
       else     
       {
-        if (! file_exists($dir.'/'.$url) )
+        if (! file_exists($dir.'/'.urldecode($url)) )
         {
-          file_put_contents( $dir.'/'.$url, file_get_contents_authenticated($base_url.$url));
+          file_put_contents( $dir.'/'.urldecode($url), file_get_contents_authenticated($base_url.$url));
         }
       }
     }
