@@ -83,6 +83,8 @@
       $url = str_replace('\\','/',rawurldecode($url));
       $url = substr($url, strpos($url,'://')+3);
       $url = substr($url, strpos($url,'/')+1);
+      // If not a local Windows path then make UNC
+      if ( strpos($url,':/') === false ) $url = '/'.$url;
     }
     return $url;
   }
@@ -133,7 +135,7 @@
       send_to_log(5,'File found in iTunes library cannot be located on disk',$fsp);
     elseif ( !is_readable($fsp) )
       send_to_log(5,'SwissCenter does not have permissions to read the file found in the iTunes library',$fsp);
-    elseif ( strpos($values["Kind"],'MPEG audio') === false )
+    elseif ( !in_array(file_ext($fsp), array_merge(media_exts_movies(), media_exts_music())) )
       send_to_log(5,'SwissCenter does not support files of type "'.$values["Kind"].'"',$fsp);
     elseif ( empty($location_id) )
       send_to_log(5,'File found in iTunes library is not within a SwissCenter media location',$fsp);
