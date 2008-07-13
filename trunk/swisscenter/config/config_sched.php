@@ -310,15 +310,15 @@
   
   function sched_update_linux()
   {   
-    $hrs    = $_REQUEST["hour"];
+    $hrs    = ($_REQUEST["hour"] =='' ? '*' : $_REQUEST["hour"]);
     $mins   = $_REQUEST["minute"];
-    $dates  = $_REQUEST["date"];
-    $months = $_REQUEST["month"];
-    $days   = $_REQUEST["day"];
+    $dates  = ($_REQUEST["date"] =='' ? '*' : $_REQUEST["date"]);
+    $months = ($_REQUEST["month"]=='' ? '*' : $_REQUEST["month"]);
+    $days   = ($_REQUEST["day"]  =='' ? '*' : $_REQUEST["day"]);
     
     if ( preg_match("/[^-,*0123456789]/",($hrs.$mins.$dates.$months.$days)) != 0)
       sched_display('!'.str('SCHEDULE_ERROR_CHARS','"0123456789-,*"'));
-    elseif ($hrs == '' || $mins == '' || $dates == '' || $months == '' || $days == '')
+    elseif ($mins == '')
       sched_display('!'.str('SCHEDULE_ERROR_FIELDS'));
     else
     {

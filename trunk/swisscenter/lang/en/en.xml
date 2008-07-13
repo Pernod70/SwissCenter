@@ -3169,8 +3169,8 @@
       </string>
       <string>
         <id>SCHEDULE_ERROR_FIELDS</id>
-        <text>You must specify a value for every field</text>
-        <version>1.19</version>
+        <text>You must always specify a value for the minute</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>SCHEDULE_ERROR_HOUR</id>
