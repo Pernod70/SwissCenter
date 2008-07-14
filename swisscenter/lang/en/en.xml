@@ -1158,6 +1158,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IMAGE_LANDSCAPE_CROP</id>
+        <text>Crop to screen</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>IMAGE_LANDSCAPE_CROP_PROMPT</id>
+        <text>By default SwissCenter will center landscape photos and crop them to match the aspect ratio of the TV. However, if you prefer the entire image to be displayed (with black bars at the top and bottom) then you should disable this option.</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
         <id>IMAGE_RESAMPLE</id>
         <text>Resample (higher quality)</text>
         <version>1.19</version>
@@ -1176,6 +1186,16 @@
         <id>IMAGE_RESIZE_TYPE</id>
         <text>Image generation</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>IMAGE_SCALE_UP</id>
+        <text>Enlarge images</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>IMAGE_SCALE_UP_PROMPT</id>
+        <text>Enabling this option will cause SwissCenter to enlarge small images so that they fill the entire screen.</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>IMAGE_TRANSITIONS</id>
