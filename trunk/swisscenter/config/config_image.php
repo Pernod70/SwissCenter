@@ -22,10 +22,14 @@
     form_start('index.php');
     form_hidden('section','IMAGE');
     form_hidden('action','UPDATE');
-    form_radio_static('trans',str('IMAGE_TRANSITIONS'),$transitions,get_sys_pref('PHOTO_TRANSITION_EFFECT',8),false,true);
+    form_list_static('trans',str('IMAGE_TRANSITIONS'),$transitions,get_sys_pref('PHOTO_TRANSITION_EFFECT',8),false,false,false);
     form_label(str('IMAGE_TRANS_PROMPT'));
     form_radio_static('rotate',str('IMAGE_EXIF_ROTATE'),$option_vals, get_sys_pref('IMAGE_ROTATE','YES'),false,true);
     form_label(str('IMAGE_EXIF_ROTATE_PROMPT'));
+    form_radio_static('scaleup',str('IMAGE_SCALE_UP'),$option_vals, get_sys_pref('IMAGE_SCALE_UP','YES'),false,true);
+    form_label(str('IMAGE_SCALE_UP_PROMPT'));
+    form_radio_static('crop',str('IMAGE_LANDSCAPE_CROP'),$option_vals, get_sys_pref('IMAGE_LANDSCAPE_CROP','YES'),false,true);
+    form_label(str('IMAGE_LANDSCAPE_CROP_PROMPT'));
     form_radio_static('resize',str('IMAGE_RESIZE_TYPE'),$resize_vals, get_sys_pref('IMAGE_RESIZING','RESAMPLE'),false,true);
     form_label(str('IMAGE_RESIZE_PROMPT'));
     form_radio_static('precache',str('CACHE_PRECACHE'),$option_vals, get_sys_pref('CACHE_PRECACHE_IMAGES','NO'),false,true);
@@ -44,6 +48,8 @@
     set_sys_pref('IMAGE_RESIZING',$_REQUEST["resize"]);
     set_sys_pref('IMAGE_ROTATE',$_REQUEST["rotate"]);
     set_sys_pref('CACHE_PRECACHE_IMAGES',$_REQUEST["precache"]);
+    set_sys_pref('IMAGE_SCALE_UP',$_REQUEST["scaleup"]);
+    set_sys_pref('IMAGE_LANDSCAPE_CROP',$_REQUEST["crop"]);
     image_display(str('SAVE_SETTINGS_OK'));
   }
 
