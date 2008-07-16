@@ -14,9 +14,16 @@ require_once( realpath(dirname(__FILE__).'/stylelib.php'));
 
 function get_current_user_id()
 {
-  if (isset($_SESSION["CURRENT_USER"]))
-    return $_SESSION["CURRENT_USER"];
-  else 
+  // User is logged in?
+  if (isset($_SESSION["CURRENT_USER"]) )
+  {
+    // User has a PIN and is therefore subject to a timeout?
+    if ( has_pin($_SESSION["CURRENT_USER"]) && time() > $_SESSION["CURRENT_USER_TIMEOUT"])
+      return false;
+    else
+      return $_SESSION["CURRENT_USER"];
+  }
+  else
     return false;
 }
 
@@ -42,7 +49,7 @@ function get_last_user()
   $user_id = get_sys_pref('LAST_USER');
   if ( db_value("select count(*) from users where user_id = $user_id") != 0)
     return $user_id;
-  else 
+  else
     return false;
 }
 
@@ -54,7 +61,7 @@ function get_last_user()
 
 function set_last_user( $user_id )
 {
-  set_sys_pref('LAST_USER',$user_id);  
+  set_sys_pref('LAST_USER',$user_id);
 }
 
 /**
@@ -69,14 +76,15 @@ function change_current_user_id($user_id, $pin = null)
 {
   // Check the pin in the db
   $ok = check_pin($user_id, $pin);
-  
+
   if($ok)
   {
     set_last_user( $user_id );
     $_SESSION["CURRENT_USER"] = $user_id;
+    $_SESSION["CURRENT_USER_TIMEOUT"] = (time() + get_sys_pref('USER_TIMEOUT',14400));
     load_style();
   }
-  
+
   return $ok;
 }
 
@@ -91,12 +99,12 @@ function change_current_user_id($user_id, $pin = null)
 function check_pin($user_id, $pin)
 {
   $sql = "SELECT count(*) FROM users WHERE user_id=".$user_id." AND pin";
-  
+
   if(empty($pin))
     $sql = $sql." IS NULL";
   else
     $sql = $sql."=".$pin;
-    
+
   return db_value($sql);
 }
 
@@ -110,7 +118,7 @@ function check_pin($user_id, $pin)
 function has_pin($user_id)
 {
   $pin = db_value("SELECT pin FROM users WHERE user_id=".$user_id);
-  
+
   return !empty($pin);
 }
 
@@ -138,7 +146,7 @@ function change_pin($user_id, $pin)
 function is_user_selected()
 {
   $current_user_id = get_current_user_id();
-  
+
   // If there is no user then try and change to a default user and try again
   if(empty($current_user_id))
   {
@@ -149,7 +157,7 @@ function is_user_selected()
       $current_user_id = get_current_user_id();
     }
   }
-  
+
   return !empty($current_user_id);
 }
 
@@ -181,7 +189,7 @@ function get_default_user()
 {
   // Look for only a single user with no PIN
   $data = db_toarray('SELECT name,user_id FROM users WHERE pin IS NULL');
-  
+
   if(count($data) == 1)
     return $data[0]["USER_ID"];
   else
