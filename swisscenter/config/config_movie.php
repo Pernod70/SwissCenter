@@ -156,12 +156,12 @@ function movie_display_list($movie_list)
 
   foreach ($movie_list as $movie)
   {
-    $actors    = db_col_to_list("select actor_name from actors a,actors_in_movie aim where a.actor_id=aim.actor_id 
-                                 and movie_id=$movie[FILE_ID] order by 1");
-    $directors = db_col_to_list("select director_name from directors d, directors_of_movie dom where d.director_id = dom.director_id 
-                                 and movie_id=$movie[FILE_ID] order by 1");
-    $genres    = db_col_to_list("select genre_name from genres g, genres_of_movie gom where g.genre_id = gom.genre_id 
-                                 and movie_id=$movie[FILE_ID] order by 1");
+    $actors    = db_col_to_list("select actor_name from actors a,actors_in_movie aim where a.actor_id=aim.actor_id ".
+                                "and movie_id=$movie[FILE_ID] order by 1");
+    $directors = db_col_to_list("select director_name from directors d, directors_of_movie dom where d.director_id = dom.director_id ".
+                                "and movie_id=$movie[FILE_ID] order by 1");
+    $genres    = db_col_to_list("select genre_name from genres g, genres_of_movie gom where g.genre_id = gom.genre_id ".
+                                "and movie_id=$movie[FILE_ID] order by 1");
     $cert      = db_value("select name from certificates where cert_id=".nvl($movie["CERTIFICATE"],-1));
 
     echo '<table class="form_select_tab" width="100%"><tr>
@@ -170,6 +170,8 @@ function movie_display_list($movie_list)
              <a href="?section=movie&action=display_info&movie_id='.$movie["FILE_ID"].'">'.$movie["TITLE"].'</a><br>
              Certificate : '.nvl($cert).'<br>
              Year : '.nvl($movie["YEAR"]).'<br>
+             Viewed by : '.implode(', ',db_col_to_list("select u.name from users u, viewings v where ".
+                                                       "v.user_id=u.user_id and v.media_type=".MEDIA_TYPE_VIDEO." and v.media_id=".$movie["FILE_ID"])).'
            </td>
            <td valign="top" width="21%">'.nvl(implode("<br>",$actors)).'</td>
            <td valign="top" width="21%">'.nvl(implode("<br>",$directors)).'</td>
@@ -363,16 +365,16 @@ function movie_update_form_single()
         <input type=hidden name="action" value="UPDATE_SINGLE">
         <input type=hidden name="movie[]" value="'.$movie_id.'">
         <table class="form_select_tab" width="100%" cellspacing=4>
-        <tr><th colspan="32 align=center">'
+        <tr><th colspan="32 align=center"><input type="hidden" name="update_title" value="yes">'
         .str('TITLE').'
         </th></tr>
         <tr><td colspan="3"><input name="title" size=90 value="'.$details[0]["TITLE"].'"></td></tr>
         <tr><td colspan="3" align="center">&nbsp<br>
         '.str('MOVIE_ADD_PROMPT').'
         <br>&nbsp;</td></tr><tr>
-        <th width="33%">'.str('ACTOR').'</th>
-        <th width="33%">'.str('DIRECTOR').'</th>
-        <th width="33%">'.str('GENRE').'</th>   
+        <th width="33%"><input type="hidden" name="update_actors" value="yes">'.str('ACTOR').'</th>
+        <th width="33%"><input type="hidden" name="update_directors" value="yes">'.str('DIRECTOR').'</th>
+        <th width="33%"><input type="hidden" name="update_genres" value="yes">'.str('GENRE').'</th>   
         </tr><tr>
         <td><select name="actors[]" multiple size="8">
         '.list_option_elements($actors, $a_select).'
@@ -387,13 +389,13 @@ function movie_update_form_single()
         <td width="33%"><input name="director_new" size=25></td>
         <td width="33%"><input name="genre_new" size=25></td>
         </tr><tr>
-          <th colspan="3">'.str('Synopsis').'</th>
+          <th colspan="3"><input type="hidden" name="update_synopsis" value="yes">'.str('Synopsis').'</th>
         </tr><tr>
           <td colspan="3">'.form_text_html('synopsis',90,6,$details[0]["SYNOPSIS"],true).'</td>
         </tr><tr>
-          <th>'.str('CERTIFICATE').'</th>
-          <th>'.str('YEAR').'</th>
-          <th>'.str('VIEWED_BY').'</th>
+          <th><input type="hidden" name="update_rating" value="yes">'.str('CERTIFICATE').'</th>
+          <th><input type="hidden" name="update_year" value="yes">'.str('YEAR').'</th>
+          <th><input type="hidden" name="update_viewed" value="yes">'.str('VIEWED_BY').'</th>
         </tr><tr>
           <td>
           '.form_list_dynamic_html("rating",get_cert_list_sql(),$details[0]["CERTIFICATE"],true).'
@@ -421,11 +423,15 @@ function movie_update_form_multiple( $movie_list )
   $actors    = db_toarray("select actor_name name from actors order by 1");
   $directors = db_toarray("select director_name name from directors order by 1");
   $genres    = db_toarray("select genre_name name from genres order by 1");
+  $synopsis  = db_toarray("select distinct synopsis from movies where file_id in (".implode(',',$movie_list).")");
+  $cert      = db_toarray("select distinct certificate from movies where file_id in (".implode(',',$movie_list).")");
+  $year      = db_toarray("select distinct year from movies where file_id in (".implode(',',$movie_list).")");
 
   // Display movies that will be affected.
   echo '<h1>'.str('MOVIE_UPD_TTILE').'</h1>
+        <input type="hidden" name="update_title" value="no">
        <center>'.str('MOVIE_UPD_TEXT').'<p>';
-       array_to_table(db_toarray("select title from movies where file_id in (".implode(',',$movie_list).")"),str('Title'));      
+       array_to_table(db_toarray("select title, filename from movies where file_id in (".implode(',',$movie_list).")"),str('Title').','.str('Filename'));      
     
   echo '</center>
         <form enctype="multipart/form-data" action="" method="post">
@@ -436,9 +442,9 @@ function movie_update_form_multiple( $movie_list )
     echo '<input type=hidden name="movie[]" value="'.$movie_id.'">';
           
   echo '<table class="form_select_tab" width="100%" cellspacing=4><tr>
-        <th width="33%">'.str('ACTOR').'</th>
-        <th width="33%">'.str('DIRECTOR').'</th>
-        <th width="33%">'.str('GENRE').'</th>   
+        <th width="33%"><input type="checkbox" name="update_actors" value="yes">'.str('ACTOR').'</th>
+        <th width="33%"><input type="checkbox" name="update_directors" value="yes">'.str('DIRECTOR').'</th>
+        <th width="33%"><input type="checkbox" name="update_genres" value="yes">'.str('GENRE').'</th>   
         </tr><tr>
         <tr><td colspan="3" align="center">'.str('MOVIE_ADD_PROMPT').'</td></tr>
         <td><select name="actors[]" multiple size="8">
@@ -454,17 +460,24 @@ function movie_update_form_multiple( $movie_list )
         <td width="33%"><input name="director_new" size=25></td>
         <td width="33%"><input name="genre_new" size=25></td>
         </tr><tr>
-          <th colspan="3">'.str('Synopsis').'</th>
+          <th colspan="3"><input type="checkbox" name="update_synopsis" value="yes">'.str('Synopsis').'</th>
         </tr><tr>
-          <td colspan="3">'.form_text_html('synopsis',65,3,'',true).'</td>
+          <td colspan="3">'.form_text_html('synopsis',90,6,(count($synopsis)==1 ? $synopsis[0]["SYNOPSIS"] : ''),true).'</td>
         </tr><tr>
-          <th>'.str('CERTIFICATE').'</th>
-          <th>'.str('YEAR').'</th>
+          <th><input type="checkbox" name="update_rating" value="yes">'.str('CERTIFICATE').'</th>
+          <th><input type="checkbox" name="update_year" value="yes">'.str('YEAR').'</th>
+          <th><input type="checkbox" name="update_viewed" value="yes">'.str('VIEWED_BY').'</th>
         </tr><tr>
           <td>
-          '.form_list_dynamic_html("rating",get_cert_list_sql(),'',true).'
+          '.form_list_dynamic_html("rating",get_cert_list_sql(),(count($cert)==1 ? $cert[0]["CERTIFICATE"] : ''),true).'
           </td>
-          <td><input name="year" size="6"></td>
+          <td><input name="year" size="6" value="'.(count($year)==1 ? $year[0]["YEAR"] : '').'"></td>
+          <td>';
+          
+  foreach ( db_toarray("select * from users order by name") as $row)
+    echo '<input type="checkbox" name="viewed[]" value="'.$row["USER_ID"].'">'.$row["NAME"].'<br>';
+         
+  echo '</td>
         </tr></table>
         <p align="center"><input type="submit" value="'.str('MOVIE_ADD_BUTTON').'">
         </form>';    
@@ -494,13 +507,13 @@ function movie_update_multiple()
   $movie_list = $_REQUEST["movie"];
   $columns    = array();
   
-  if (!empty($_REQUEST["year"]))
+  if ($_REQUEST["update_year"] == 'yes')
     $columns["YEAR"] = $_REQUEST["year"];
-  if (!empty($_REQUEST["rating"]))
+  if ($_REQUEST["update_rating"] == 'yes' && !empty($_REQUEST["rating"]))
     $columns["CERTIFICATE"] = $_REQUEST["rating"];
-  if (!empty($_REQUEST["synopsis"]))
+  if ($_REQUEST["update_synopsis"] == 'yes')
     $columns["SYNOPSIS"] = $_REQUEST["synopsis"];
-  if (!empty($_REQUEST["title"]))
+  if ($_REQUEST["update_title"] == 'yes')
     $columns["TITLE"] = $_REQUEST["title"];
 
   // Update the MOVIES table?
@@ -511,37 +524,47 @@ function movie_update_multiple()
   }
  
   // Add Actors/Genres/Directors?
-  if (count($_REQUEST["actors"]) >0)
-    scdb_add_actors($movie_list,$_REQUEST["actors"]);
-  if (!empty($_REQUEST["actor_new"]))
-    scdb_add_actors($movie_list, explode(',',$_REQUEST["actor_new"]));
+  if ($_REQUEST["update_actors"] == 'yes')
+  {
+    if (count($_REQUEST["actors"]) >0)
+      scdb_add_actors($movie_list,$_REQUEST["actors"]);
+    if (!empty($_REQUEST["actor_new"]))
+      scdb_add_actors($movie_list, explode(',',$_REQUEST["actor_new"]));
+  }
 
-  if (count($_REQUEST["directors"]) >0)
-    scdb_add_directors($movie_list,$_REQUEST["directors"]);
-  if (!empty($_REQUEST["director_new"]))
-    scdb_add_directors($movie_list, explode(',',$_REQUEST["director_new"]));
+  if ($_REQUEST["update_directors"] == 'yes')
+  {
+    if (count($_REQUEST["directors"]) >0)
+      scdb_add_directors($movie_list,$_REQUEST["directors"]);
+    if (!empty($_REQUEST["director_new"]))
+      scdb_add_directors($movie_list, explode(',',$_REQUEST["director_new"]));
+  }
 
-  if (count($_REQUEST["genres"]) >0)
-    scdb_add_genres($movie_list,$_REQUEST["genres"]);   
-  if (!empty($_REQUEST["genre_new"]))
-    scdb_add_genres($movie_list, explode(',',$_REQUEST["genre_new"]));
+  if ($_REQUEST["update_genres"] == 'yes')
+  {
+    if (count($_REQUEST["genres"]) >0)
+      scdb_add_genres($movie_list,$_REQUEST["genres"]);   
+    if (!empty($_REQUEST["genre_new"]))
+      scdb_add_genres($movie_list, explode(',',$_REQUEST["genre_new"]));
+  }
 
   // Process the "Viewed" checkboxes
-  if (count($_REQUEST["viewed"])>0)
+  if ($_REQUEST["update_viewed"] == 'yes')
   {
     foreach ( db_toarray("select * from users order by name") as $row)
     {
       if (in_array($row["USER_ID"],$_REQUEST["viewed"]))
       {
+        // Set viewed status for these movies for this user
         foreach ($movie_list as $movie)
-          if (viewings_count( 3, $movie, $row["USER_ID"]) == 0)
-            db_insert_row('viewings',array("user_id"=>$row["USER_ID"], "media_type"=>3,"media_id"=>$movie,"total_viewings"=>1));
+          if (viewings_count(MEDIA_TYPE_VIDEO, $movie, $row["USER_ID"]) == 0)
+            db_insert_row('viewings',array("user_id"=>$row["USER_ID"], "media_type"=>MEDIA_TYPE_VIDEO, "media_id"=>$movie, "total_viewings"=>1));
       }
       else 
       {
         // Remove all viewing information about these movies for this user
-        db_sqlcommand("delete from viewings where media_type=3 and user_id=$row[USER_ID]
-                      and media_id in (".implode(',',$movie_list).")");
+        db_sqlcommand("delete from viewings where media_type=".MEDIA_TYPE_VIDEO." and user_id=$row[USER_ID] ".
+                      "and media_id in (".implode(',',$movie_list).")");
       }
     }
   }
