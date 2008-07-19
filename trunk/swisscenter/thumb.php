@@ -28,6 +28,7 @@
 
   // Parameters to the script. Need to do more extensive checking on them!
   $filename   = un_magic_quote(urldecode($_REQUEST["src"]));
+  if (strpos($filename,'.')===0) { $filename = SC_LOCATION.ltrim($filename,'.'); }
   $overname   = ( isset($_REQUEST["overlay"]) ? un_magic_quote(urldecode($_REQUEST["overlay"])) : '' );
   
   // If the file is on the internet, download it into a temporary location first
