@@ -74,6 +74,19 @@
     apply_database_patches();
   
     /**
+     * Automatically load playlist
+     */
+    
+    if ( !isset($_SESSION["playlist_autoloaded"]) && get_sys_pref('PLAYLIST_AUTOLOAD','')!=='' )
+    {
+      $fsp    = get_sys_pref('PLAYLIST_AUTOLOAD');
+      $name   = file_noext(basename($fsp));
+      $tracks = load_pl($fsp, $failed);
+      set_current_playlist($name, $tracks);
+      $_SESSION["playlist_autoloaded"] = 'yes';
+    }
+    
+    /**
      * Output the page header immediately, as it performs the authentication check and will redirect
      * the user to the "change_user" screen if there are multiple users to choose from or a password
      * is required.

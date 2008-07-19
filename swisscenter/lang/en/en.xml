@@ -2663,6 +2663,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>PLAYLIST_AUTOLOAD</id>
+        <text>Playlist to autoload</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>PLAYLIST_AUTOLOAD_PROMPT</id>
+        <text>Select a playlist to be automatically loaded at startup. This is useful if you find yourself always having to select the same playlist for background music before viewing photos.</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
         <id>PLAYLIST_CLEAR</id>
         <text>Clear the playlist</text>
         <version>1.19</version>
