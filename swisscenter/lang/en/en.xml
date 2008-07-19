@@ -13,6 +13,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>ADDITIONAL_COMPONENTS</id>
+        <text>Other Components</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
         <id>ADD_PLAYLIST</id>
         <text>Add to your playlist</text>
         <version>1.19</version>
@@ -551,6 +556,11 @@
         <id>CONFIG_MIP_OPTIONS</id>
         <text>MusicIP</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_MUSICIP</id>
+        <text>MusicIP Settings</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>CONFIG_RADIO_OPTIONS</id>
@@ -1814,8 +1824,8 @@
       </string>
       <string>
         <id>MEDIA_MANAGEMENT</id>
-        <text>Media management</text>
-        <version>1.19</version>
+        <text>Media Management</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>MEDIA_REFRESH</id>
