@@ -189,7 +189,7 @@
   // directory. The array $filetypes specified which file extensions are to be allowed.
   // ----------------------------------------------------------------------------------
 
-  function dir_contents_FS( $dir, $filetypes, &$dir_list, &$file_list)
+  function dir_contents_FS( $dir, $filetypes, &$dir_list, &$file_list, $recursive=false)
   {
     if (($dh = @opendir($dir)) !== false)
     {
@@ -197,7 +197,9 @@
       {
         if (is_dir($dir.$name) && $name != '.' && $name != '..')
         {
-          $dir_list[]  = array("dirname" => $dir, "filename" => $name);          
+          $dir_list[]  = array("dirname" => $dir, "filename" => $name);
+          if ($recursive)
+            dir_contents_FS(str_suffix($dir.$name,'/'), $filetypes, $dir_list, $file_list, $recursive);
         }
         elseif ( in_array(file_ext(strtolower($name)), $filetypes))
         {

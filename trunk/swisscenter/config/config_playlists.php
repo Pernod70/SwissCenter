@@ -14,10 +14,15 @@
     // Get list of available playlists
     $dir_list  = array();
     $file_list = array();
-    dir_contents_FS(str_suffix(get_sys_pref('PLAYLISTS'),'/'), media_exts_playlists(), $dir_list, $file_list);
+    dir_contents_FS(str_suffix(get_sys_pref('PLAYLISTS'),'/'), media_exts_playlists(), $dir_list, $file_list, true);
     $playlists = array();
     foreach ($file_list as $file)
-      $playlists[file_noext($file["filename"])] = $file["dirname"].$file["filename"];
+    {
+      $playlist_name = str_replace(str_suffix(get_sys_pref('PLAYLISTS'),'/'), '', $file["dirname"].$file["filename"]);
+      $parts = explode( '.', $playlist_name );
+      unset($parts[count($parts)-1]);
+      $playlists[implode('.',$parts)] = $file["dirname"].$file["filename"];
+    }
     
     echo '<p><h1>'.str('PLAYLISTS').'<p>';
     message($message);
