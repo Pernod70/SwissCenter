@@ -15,7 +15,7 @@
   {
     page_header(str('WEATHER_MATCHING_TITLE'),str('WEATHER_MATCHING'));
     
-    echo '&nbsp;<center><p>'
+    echo '&nbsp;<center><p>'.font_tags(32)
          .str('WEATHER_NO_MATCHING'
              ,'<font color="'.style_value("PAGE_TEXT_BOLD_COLOUR",'#FFFFFF').'">The Weather Channel</font>'
              ,'<font color="'.style_value("PAGE_TEXT_BOLD_COLOUR",'#FFFFFF').'">'.$_REQUEST["name"].'</font>')

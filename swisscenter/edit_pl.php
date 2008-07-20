@@ -85,7 +85,7 @@
 
     echo '<tr>'.
            '<td valign="middle" width="'.convert_x($width).'" height="'.convert_y(40).'">'.
-           '  &nbsp;&nbsp;&nbsp;<a '.$play_link.' TVID="'.$i.'" name="'.$i.'">'.$text.'</a>'.
+           '  &nbsp;&nbsp;&nbsp;<a '.$play_link.' TVID="'.$i.'" name="'.$i.'">'.font_tags(32).$text.'</a>'.
            '</td>'.
            '<td valign="middle" width="'.convert_x(40).'" height="'.convert_y(40).'">'.
            '<a href="'.$up_link.'" name="'.$i.'u">'.img_gen($up_img,40,40).'</a>'.

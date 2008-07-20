@@ -27,14 +27,14 @@
     $next_url = $ok_url.'&pin='.$pin;
   
 
-  echo '<p><center><font color="'.style_value("PAGE_TITLE_COLOUR").'">'.$message.'</font></center><p>&nbsp;<p>';
+  echo '<p><center>'.font_tags(32, style_value("PAGE_TITLE_COLOUR")).$message.'</center><p>&nbsp;<p>';
   
   if(strlen($pin) > 0)
-    echo '<center><font size="large">&gt; &nbsp; '.str_repeat("*", strlen($pin)).' &nbsp; &lt;</font></center>';
+    echo '<center>'.font_tags(32).'&gt; &nbsp; '.str_repeat("*", strlen($pin)).' &nbsp; &lt;</center>';
   else
-    echo '<center><font size="large">&gt; &nbsp; &nbsp; &lt;</font></center>';
+    echo '<center>'.font_tags(32).'&gt; &nbsp; &nbsp; &lt;</center>';
   
-  echo '<p>&nbsp;<p align="center"><a href="'.$next_url.'">OK</a></center>';
+  echo '<p>&nbsp;<p align="center"><a href="'.$next_url.'">'.font_tags(32).'OK</a></center>';
 
   if(strlen($pin) < 10)
   {
