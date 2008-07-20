@@ -379,7 +379,7 @@ function build_pl($sql)
 
   page_header(str('TRACKS_ADDED_TITLE'));
 
-  echo str('TRACKS_ADDED_TEXT'
+  echo font_tags(32).str('TRACKS_ADDED_TEXT'
           ,'<font color="'.style_value("PAGE_TEXT_BOLD_COLOUR".'#FFFFFF').'">'.str('HOME').'</font>'
           ,'<font color="'.style_value("PAGE_TEXT_BOLD_COLOUR",'#FFFFFF').'">"'.str('MANAGE_PLAYLISTS').'"</font>');
 
@@ -415,7 +415,7 @@ function pl_info ()
   }
   else
   {
-    echo '<center>'.str('NO_PLAYLIST').'</center>';
+    echo '<center>'.font_tags(32).str('NO_PLAYLIST').'</center>';
   }
   $info->display();
 }

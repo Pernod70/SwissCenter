@@ -76,14 +76,14 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
     if ($banner)
       $headings = '<td height="'.convert_y(60).'" align="center">&nbsp;</td>';
     else
-      $headings = '<td height="'.convert_y(60).'" align="center"><b>'.$title.'</b> : '.$tagline.'&nbsp;</td>';
+      $headings = '<td height="'.convert_y(60).'" align="center"><b>'.$title.'</b> : '.font_tags(32).$tagline.'&nbsp;</td>';
   }
   else
   {
     if ($banner)
       $headings = '<td height="'.convert_y(170).'" align="center"><h2>&nbsp;</h2>&nbsp;</td>';
     else
-      $headings = '<td height="'.convert_y(170).'" align="center"><h2>'.$title.'&nbsp;</h2>'.$tagline.'&nbsp;</td>';
+      $headings = '<td height="'.convert_y(170).'" align="center"><h2>'.$title.'&nbsp;</h2>'.font_tags(32).$tagline.'&nbsp;</td>';
   }
   
   // The default background is specified by PAGE_BACKGROUND
@@ -171,7 +171,7 @@ function page_error($message)
 {
   ob_clean();
   page_header( "Error", "", "", "1", true );
-  echo "<center>$message</center><p>";
+  echo "<center>".font_tags(32).$message."</center><p>";
   $menu = new menu();
   $menu->add_item(str('RETURN_MAIN_MENU'),'/index.php',true);
   $menu->display();
@@ -253,10 +253,10 @@ function page_footer( $back, $buttons= '', $iconbar = 0, $links=true )
         if (substr($link,0,5) != 'href=')
           $link = 'href="'.$link.'"';
           
-        $link = '<a '.$link.tvid('KEY_'.substr('ABC',$i,1)).'name="'.tvid_code('KEY_'.substr('ABC',$i,1)).'">'.img_gen(SC_LOCATION.style_img(quick_access_img($i)),50,60).$buttons[$i]["text"].'</a>';
+        $link = '<a '.$link.tvid('KEY_'.substr('ABC',$i,1)).'name="'.tvid_code('KEY_'.substr('ABC',$i,1)).'">'.img_gen(SC_LOCATION.style_img(quick_access_img($i)),50,60).font_tags(32).$buttons[$i]["text"].'</a>';
       }
       else
-        $link = img_gen(SC_LOCATION.style_img(quick_access_img($i)),50,60).$buttons[$i]["text"];
+        $link = img_gen(SC_LOCATION.style_img(quick_access_img($i)),50,60).font_tags(32).$buttons[$i]["text"];
 
       echo '<td align="center">'.$link.'</td>';
     }
@@ -309,7 +309,7 @@ function page_inform( $seconds, $url, $title, $text)
 {
   send_to_log(8,"Displaying message",array("message"=>$text, "time"=>$seconds, "url"=>$url));
   page_header($title,"",'<meta http-equiv="refresh" content="'.$seconds.';URL='.$url.'">');
-  echo "<p>&nbsp;<p>&nbsp;<p><center>".$text."</center>";
+  echo "<p>&nbsp;<p>&nbsp;<p><center>".font_tags(32).$text."</center>";
   page_footer('/');  
 }
 

@@ -57,14 +57,14 @@
   if (count($series) > 1)
   {
     // Output a link to the various series/seasons available for this programme.s
-    echo '<center><font color="'.style_value("PAGE_TITLE_COLOUR",'#FFFFFF').'">'.str('SERIES').'</font>';
+    echo '<center>'.font_tags(32, style_value("PAGE_TITLE_COLOUR",'#FFFFFF')).str('SERIES').'</font>';
     
     foreach ($series as $s)
     {
       if ($s == $current_series)
-        echo '&nbsp; <a href="'.url_add_params($this_url,array("series"=>$s,"page"=>1)).'"><font color="'.style_value("PAGE_TITLE_COLOUR",'#FFFFFF').'">'.$s.'</font></a>';
+        echo '&nbsp; <a href="'.url_add_params($this_url,array("series"=>$s,"page"=>1)).'">',font_tags(32, style_value("PAGE_TITLE_COLOUR",'#FFFFFF')).$s.'</font></a>';
       else
-        echo '&nbsp; <a href="'.url_add_params($this_url,array("series"=>$s,"page"=>1)).'">'.$s.'</a>';
+        echo '&nbsp; <a href="'.url_add_params($this_url,array("series"=>$s,"page"=>1)).'">'.font_tags(32).$s.'</a>';
     }
         
     echo '</center>';

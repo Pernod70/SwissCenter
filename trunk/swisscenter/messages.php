@@ -22,7 +22,7 @@
     {
       page_header( str('MESSAGES'), "" );
       // Display a list of all the outstanding messages
-      echo '<center><font color="'.style_value("PAGE_TEXT").'">'.str('MESSAGES_SELECT').'</font></center></br>';
+      echo '<center>'.font_tags(32, style_value("PAGE_TEXT")).str('MESSAGES_SELECT').'</center></br>';
 
       // Find out what page we are on, default to page 0 (first page)      
       $page = $_REQUEST["page"];
@@ -79,15 +79,15 @@
     
     // Render the message
     echo '<table align="center" width="80%">';
-    echo '<tr><td><font color="'.style_value("PAGE_TITLE_COLOUR").'">'
+    echo '<tr><td>'.font_tags(32, style_value("PAGE_TITLE_COLOUR"))
           .'Date:'.$data["ADDED"].'</td>'
-          .'<td align="right"><font color="'.style_value("PAGE_TITLE_COLOUR").'">'
+          .'<td align="right">'.font_tags(32, style_value("PAGE_TITLE_COLOUR"))
           .'Status:'.$message_status_string[$data["STATUS"]].'</td></tr>';
     echo '<tr><td height="8" colspan="2"><img src="/images/dot.gif"></td></tr>';
-    echo '<tr><td colspan="2" align="center"><font color="'.style_value("PAGE_TITLE_COLOUR").'">'
-          .$data["TITLE"].'</font></td></tr>';
-    echo '<tr><td colspan="2"><font color="'.style_value("PAGE_TEXT").'">'
-          .$data["MESSAGE_TEXT"].'</font></td></tr>';
+    echo '<tr><td colspan="2" align="center">'.font_tags(32, style_value("PAGE_TITLE_COLOUR"))
+          .$data["TITLE"].'</td></tr>';
+    echo '<tr><td colspan="2">'.font_tags(32, style_value("PAGE_TEXT"))
+          .$data["MESSAGE_TEXT"].'</td></tr>';
     echo '</table><p>';
 
     // Add the keep and delete links, if there was a keep or delete page to return

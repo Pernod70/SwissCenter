@@ -17,7 +17,6 @@
   {
     page_header( str('LANG_CHANGE'), '');
 
-    echo '<p align="center">'.str('LANG_SELECT');
     $menu = new menu();
 
     foreach (explode("\n",str_replace("\r",null,file_get_contents(SC_LOCATION.'lang/languages.txt'))) as $line)

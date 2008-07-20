@@ -53,9 +53,9 @@ class iconbar
            . '&nbsp;';
 
       if(!empty($icon["link"]))
-        echo '<a href="'.$icon["link"].'"><font size="1">'.$icon["text"].'</font></a>';
+        echo '<a href="'.$icon["link"].'">'.font_tags(32).$icon["text"].'</a>';
       else 
-        echo '<font size="1">'.$icon["text"].'</font>';
+        echo font_tags(32).$icon["text"];
 
       echo '</td>';
     }

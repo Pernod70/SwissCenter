@@ -25,9 +25,9 @@
 
   // Display the page
   page_header(str('LISTEN_LASTFM'));
-  echo '<center>'.str('LASTFM_PROMPT_GENERAL').'</center>';
+  echo '<center>'.font_tags(32).str('LASTFM_PROMPT_GENERAL').'</center>';
   $general_menu->display();
-  echo '<center>'.str('LASTFM_PROMPT_PERSONAL').'</center>';
+  echo '<center>'.font_tags(32).str('LASTFM_PROMPT_PERSONAL').'</center>';
   $personal_menu->display( $general_menu->num_items()+1 );
   page_footer('./music_radio.php');
 

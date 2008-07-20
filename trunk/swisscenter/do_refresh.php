@@ -26,8 +26,8 @@
     else
       page_header( str('SETUP_SEARCH_NEW_MEDIA'));
 
-    // Display a message tot he user
-    echo str('REFRESH_RUNNING');    
+    // Display a message to the user
+    echo font_tags(32).str('REFRESH_RUNNING');    
 
     // and then the current status
     echo '<p>&nbsp;<br><center><font color="'.style_value("PAGE_TITLE_COLOUR",'#FFFFFF').'">'.str('MEDIA_SCAN_STATUS').' :</font> '.$status;
@@ -104,7 +104,7 @@
   {
     $menu = new menu();
     page_header( str('SETUP_SEARCH_NEW_MEDIA'));          
-    echo '<center>'.str('SELECT_CATEGORY').'</center><p>';
+    echo '<center>'.font_tags(32).str('SELECT_CATEGORY').'</center><p>';
     foreach (db_toarray("select * from categories order by cat_name") as $cat)
     {
       $menu->add_item($cat["CAT_NAME"],'/do_refresh.php?type=category&spec='.$cat["CAT_ID"]);
@@ -122,7 +122,7 @@
   {
     $menu = new menu();
     page_header( str('SETUP_SEARCH_NEW_MEDIA'));          
-    echo '<center>'.str('SETUP_SEARCH_TYPE_TITLE').'</center><p>';
+    echo '<center>'.font_tags(32).str('SETUP_SEARCH_TYPE_TITLE').'</center><p>';
     $menu->add_item( str('MUSIC') ,'/do_refresh.php?type=media_type&spec='.MEDIA_TYPE_MUSIC);
     $menu->add_item( str('PHOTOS') ,'/do_refresh.php?type=media_type&spec='.MEDIA_TYPE_PHOTO);
     $menu->add_item( str('TVSERIES') ,'/do_refresh.php?type=media_type&spec='.MEDIA_TYPE_TV);

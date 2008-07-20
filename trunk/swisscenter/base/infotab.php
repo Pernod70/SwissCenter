@@ -16,6 +16,7 @@ class infotab
   # Member Variables
   #-------------------------------------------------------------------------------------------------
   var $items;
+  var $font_size = 32;
   var $cols = array( "1" => array("width"=>"", "align"=>"right")
                    , "2" => array("width"=>"49%", "align"=>"left"));
 
@@ -55,9 +56,9 @@ class infotab
         if (!is_null( $item["text"]))
         {
           echo '<tr>'.newline();
-          echo '<td'.$col_opts[1].'><font color="'.style_value("PAGE_TITLE_COLOUR",'#FFFFFF').'">'.$item["title"].'</font></td>'.newline();
+          echo '<td'.$col_opts[1].'>'.font_tags($this->font_size, style_value("PAGE_TITLE_COLOUR",'#FFFFFF')).$item["title"].'</td>'.newline();
           echo '<td width="2%"></td>'.newline();
-          echo '<td'.$col_opts[2].'>'.$text.'</td>'.newline();
+          echo '<td'.$col_opts[2].'>'.font_tags($this->font_size).$text.'</td>'.newline();
           echo '</tr>'.newline();
         }
       }
