@@ -793,6 +793,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>EP_NEXT</id>
+        <text>Next Episode</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>EP_PREV</id>
+        <text>Previous Episode</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
         <id>EXIFVALS_EXPOSE_MODE</id>
         <text>Auto, Manual, Auto Bracket</text>
         <version>1.19</version>

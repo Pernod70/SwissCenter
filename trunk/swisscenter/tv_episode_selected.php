@@ -101,7 +101,7 @@
   // Format the page according to whether banner and image is available.
   if (file_exists($banner_img))
   {
-    echo '<p><center>'.$data[0]["TITLE"].(empty($data[0]["YEAR"]) ? '' : ' ('.$data[0]["YEAR"].')').'</center>';
+    echo '<p><center>'.font_tags(32).$data[0]["TITLE"].(empty($data[0]["YEAR"]) ? '' : ' ('.$data[0]["YEAR"].')').'</center>';
     // Episode synopsis
     tv_details($data[0]["FILE_ID"],$menu->num_items()+1,1);
     // Running Time
@@ -132,7 +132,20 @@
     echo '    </td></table>';
   }
 
-  page_footer( url_add_param( $back_url["url"] ,'del','y') );
+  // Buttons for Next and Previous episodes
+  $prev = db_value("select file_id from tv media ".get_rating_join()." where programme = '".$data[0]["PROGRAMME"]."'".
+                  (is_null($data[0]["SERIES"]) ? "" : " and series = ".$data[0]["SERIES"]).get_rating_filter().
+                  " and episode < ".$data[0]["EPISODE"]." order by episode desc limit 1");
+  $next = db_value("select file_id from tv media ".get_rating_join()." where programme = '".$data[0]["PROGRAMME"]."'".
+                  (is_null($data[0]["SERIES"]) ? "" : " and series = ".$data[0]["SERIES"]).get_rating_filter().
+                  " and episode > ".$data[0]["EPISODE"]." order by episode asc limit 1");
+  $buttons = array();
+  if ( is_numeric($prev) )
+    $buttons[] = array('text'=>str('EP_PREV'), 'url'=> url_add_params('/tv_episode_selected.php', array("file_id"=>$prev, "add"=>"Y", "del"=>"Y")) );
+  if ( is_numeric($next) )
+    $buttons[] = array('text'=>str('EP_NEXT'), 'url'=> url_add_params('/tv_episode_selected.php', array("file_id"=>$next, "add"=>"Y", "del"=>"Y")) );
+  
+  page_footer( url_add_param( $back_url["url"] ,'del','y'), $buttons );
 
 /**************************************************************************************************
                                                End of file
