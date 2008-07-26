@@ -246,15 +246,20 @@
         else
         {
           // Find all images of the artist on the page using a regular expression.
-          if (preg_match_all('#<a[^>]*href="([^"]*images/[0-]*[^"]*)"[^<]*<img[^>]*src="([^"]*)"#i',$html,$matches) >0 )
+          if (preg_match_all('#<img src="(.*/serve/.*)" />#Ui',$html,$matches) >0 )
           {
+          	dump($matches);
             for ($i=0; $i<count($matches[1]); $i++)
             {
               // Original or thumbnail image?
               if ($original)          
                 $pics[] = $matches[1][$i];
               else
-                $pics[] = $matches[2][$i];
+              {
+              	$url_components = explode('/',$matches[1][$i]);
+              	$url_components[ count($url_components)-2] = '_';
+                $pics[] = implode('/',$url_components);
+              }
             }
           }
           else 
