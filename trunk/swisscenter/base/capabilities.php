@@ -253,7 +253,6 @@ function support_now_playing()
     {
       case 'BUFFALO':
       case 'IO-DATA':
-      case 'POPCORN':
       case 'SYABAS':
            $result = false;
            break;
@@ -283,9 +282,11 @@ function now_playing_sync_type()
   {
     case 'BUFFALO':
     case 'IO-DATA':
-    case 'POPCORN':
     case 'SYABAS':
          $result = 2;
+         break;
+    case 'POPCORN':
+         $result = 5;
          break;
   }
 
