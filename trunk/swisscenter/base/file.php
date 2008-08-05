@@ -16,7 +16,7 @@ function large_filesize( $fsp )
   {
     return filesize($fsp);
   }
-  else 
+  else
   {
     $details = preg_split('/ +/',exec('ls -l "'.$fsp.'"'));
     send_to_log(8,'File details from "ls -l '.$fsp.'" command',$details);
@@ -32,7 +32,7 @@ function newline()
 {
   if ( substr(PHP_OS,0,3)=='WIN' )
     return "\r\n";
-  else 
+  else
     return "\n";
 }
 
@@ -54,19 +54,19 @@ function dir_to_array ($dir, $pattern = '.*', $opts = 7 )
   {
     while (($file = readdir($dh)) !== false)
     {
-      if ( preg_match('/'.$pattern.'/',$file) && 
+      if ( preg_match('/'.$pattern.'/',$file) &&
            (  (is_dir($dir.$file)  && ($opts & DIR_TO_ARRAY_SHOW_DIRS))
            || (is_file($dir.$file) && ($opts & DIR_TO_ARRAY_SHOW_FILES)) ) )
       {
         if ($opts & DIR_TO_ARRAY_FULL_PATH)
           $contents[] = os_path($dir.$file);
-        else 
+        else
           $contents[] = $file;
       }
     }
     closedir($dh);
   }
-  
+
   sort($contents);
   return $contents;
 }
@@ -92,7 +92,7 @@ function bookmark_file( $fsp )
 //-------------------------------------------------------------------------------------------------
 // Routine to add a message and (optionally) the contents of a variable to the swisscenter log.
 //
-// NOTE: If the logv has become more than 1Mb in size then it is archived and a new log is 
+// NOTE: If the logv has become more than 1Mb in size then it is archived and a new log is
 //       started. Only one generation of logs is archived (so current log and old log only)
 //
 // ERRORS
@@ -116,7 +116,7 @@ function bookmark_file( $fsp )
 function send_to_log($level, $item, $var = '')
 {
   $log_level = ( defined('LOG_MODE') && (int)LOG_MODE > 0 ? LOG_MODE : 5);
-  
+
   if (!empty($item) && $log_level >= $level )
   {
     $log = logfile_location();
@@ -124,14 +124,14 @@ function send_to_log($level, $item, $var = '')
     if ( $log !== false )
     {
       $time = '['.date('Y.m.d H:i:s').'] ';
-      
+
       // If the file > 1Mb then archive it and start a new log.
       if (@filesize($log) > 1048576)
       {
         @unlink($log.'.old');
         @rename($log,$log.'.old');
       }
-      
+
       // Write log entry to file.
       if ($handle = fopen($log, 'a'))
       {
@@ -143,8 +143,8 @@ function send_to_log($level, $item, $var = '')
             @fwrite($handle,$time.$line.newline());
         }
         fclose($handle);
-      }   
-      else 
+      }
+      else
       {
         echo str('LOGFILE_ERROR').' '.$log;
         exit;
@@ -275,7 +275,7 @@ function find_in_dir($dir, $filename)
     }
     closedir($dh);
   }
-  
+
   if (empty($actual))
     return false;
   else
@@ -303,7 +303,7 @@ function find_in_dir_all_exts( $dir, $filename_noext )
     }
     closedir($dh);
   }
-  
+
   return $matches;
 }
 
@@ -364,11 +364,11 @@ function update_ini( $file, $var, $value )
     else
       $contents[$i] = rtrim($contents[$i]);
   }
-  
+
   // If no match was found, then this must be a new paramter
   if (!$found)
    $contents[] = strtoupper($var).'='.$value;
-  
+
   // Overwrite the existing file with the contents of the updated array
   if (! array2file($contents, $file) )
     send_to_log(1,'Error writing to INI file');
@@ -398,11 +398,11 @@ function file_icon( $fsp )
   elseif ( in_array($ext,media_exts_photos()) )
     return style_img('ICON_IMAGE',true);
   else
-    return style_img('ICON_UNKNOWN',true);  
+    return style_img('ICON_UNKNOWN',true);
 }
 
 //-------------------------------------------------------------------------------------------------
-// Returns the correct directory image - If there is no image within the current 
+// Returns the correct directory image - If there is no image within the current
 // style, then one from the default directory is used instead.
 //-------------------------------------------------------------------------------------------------
 
@@ -422,7 +422,7 @@ function force_rmdir($dir)
     // It's a file - so just delete it!
     unlink($dir);
   }
-  else 
+  else
   {
     // Recurse sub_directory first, then delete it.
     if ($dh = @opendir($dir))
@@ -470,14 +470,14 @@ function file_thumbnail( $fsp )
     send_to_log(3,"Warning : File/Directory doesn't exist in file.php:file_thumbnail",$fsp);
     $tn_image = file_icon('xxx');
   }
-  else 
+  else
   {
     $tn_image = file_albumart($fsp);
 
     if (empty($tn_image))
     {
       if (@is_dir($fsp) )
-        $tn_image = dir_icon();      
+        $tn_image = dir_icon();
       else
         $tn_image = file_icon($fsp);
     }
@@ -487,7 +487,7 @@ function file_thumbnail( $fsp )
 }
 
 /**
- * Given a filename of directory, this function will return the filename of the album art 
+ * Given a filename of directory, this function will return the filename of the album art
  * associated with it.
  *
  * @param string:path $fsp
@@ -506,11 +506,11 @@ function file_albumart( $fsp, $default_image = true )
   {
     // Is there an image file with the same name as those listed in the configuration page?
     $return = find_in_dir($fsp, db_col_to_list("select filename from art_files"));
-    
+
     // No albumart for this folder found... is there albumart for the parent folder?
     if ($return === false && dirname($fsp) != $fsp)
-      $return = file_albumart(dirname($fsp));    
-  } 
+      $return = file_albumart(dirname($fsp));
+  }
   else
   {
     $return    = '';
@@ -526,7 +526,7 @@ function file_albumart( $fsp, $default_image = true )
       // This file has album art contained within the ID3 tag
       $return = "select image from media_art where art_sha1='".$id3_image."'.sql";
     }
-    else 
+    else
     {
       // Search the directory for an image with the same name as that given, but with an image extension
       foreach ( explode(',' ,ALBUMART_EXT) as $type)
@@ -543,11 +543,11 @@ function file_albumart( $fsp, $default_image = true )
         if ( in_array(strtolower(file_ext($fsp)), media_exts_movies()) )
           $return = style_img('MISSING_FILM_ART',true,false);
         elseif ( in_array(strtolower(file_ext($fsp)), media_exts_music()) )
-          $return = style_img('MISSING_ALBUM_ART',true,false);        
+          $return = style_img('MISSING_ALBUM_ART',true,false);
       }
     }
   }
-  
+
   return $return;
 }
 
@@ -567,30 +567,30 @@ function file_download_and_save( $url, $filename, $overwrite = false )
   {
     if ($overwrite || !file_exists($filename))
     {
-      $img = file_get_contents(str_replace(' ','%20',$url));
+      $img = @file_get_contents(str_replace(' ','%20',$url));
       if ($img !== false)
-      {        
+      {
         if ($out = @fopen($filename, "wb") )
         {
           @fwrite($out, $img);
           @fclose($out);
           return true;
         }
-        else 
+        else
           send_to_log(4,'Error : Unable to create Local file.');
       }
-      else 
+      else
         send_to_log(4,'Error : Unable to download remote file.');
     }
-    else 
+    else
     {
       send_to_log(5,'File already exists locally.');
       return true;
     }
   }
-  else 
+  else
     send_to_log(4,'Error : The file specified is not a remote file.');
-    
+
   return false;
 }
 
@@ -624,7 +624,7 @@ function path_delim()
 
 /**
  * Returns the given path will all occurances of '/' and '\' changed to the appropriate
- * form for the current OS. 
+ * form for the current OS.
  *
  * @param string $path - Path to convert
  * @param boolean $addslash - [false] Adds a trailing folder delimiter
@@ -646,20 +646,20 @@ function os_path( $dir, $addslash=false )
 
   $dir = str_replace($delim1, $delim2, $dir);
   $dir = rtrim($dir, $delim2);
-  
+
   if ($addslash)
     $dir = $dir.path_delim();
-  
+
   return $dir;
 }
-  
+
 /**
  * Alias for os_path()
  */
 
 function normalize_path( $dir )
-{ 
-  return os_path($dir); 
+{
+  return os_path($dir);
 }
 
 /**
@@ -672,7 +672,7 @@ function bgrun_location()
 {
   if (is_windows())
     return os_path(SC_LOCATION.'ext/bgrun/bgrun.exe');
-  else 
+  else
     return '';
 }
 
@@ -686,7 +686,7 @@ function wget_location()
 {
   if (is_windows())
     return os_path(SC_LOCATION.'ext/wget/wget.exe');
-  else 
+  else
     return trim(shell_exec("which wget | grep '^/' | head -1"));
 }
 
