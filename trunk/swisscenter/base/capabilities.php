@@ -13,7 +13,7 @@ require_once( realpath(dirname(__FILE__).'/prefs.php'));
 # Returns the type of hardware player that the SwissCenter is communicating with.
 #
 # NOTE: If the player type has already been determined and is stored in the session, then we use
-#       that instead. This is a workaround for the fact that the sigma designs hardware doesn't 
+#       that instead. This is a workaround for the fact that the sigma designs hardware doesn't
 #       send a User Agent String when sending GET requests for playlists and media content.
 #-------------------------------------------------------------------------------------------------
 
@@ -21,7 +21,7 @@ function get_player_type()
 {
   if (isset($_SESSION["device"]["device_type"]))
     return $_SESSION["device"]["device_type"];
-  else 
+  else
   {
     if (!key_exists('HTTP_USER_AGENT',$_SERVER))
       $type = 'UNKNOWN';
@@ -76,6 +76,25 @@ function is_hardware_player()
 function is_pc()
 { return get_player_type() == "PC"; }
 
+function get_player_firmware_datestr( $agent = NULL )
+{
+  if (is_hardware_player())
+    return preg_get('/([0-9]{6})/',nvl($agent,$_SERVER['HTTP_USER_AGENT']));
+  else
+    return false;
+}
+
+function get_player_firmware_date( $agent = NULL )
+{
+  if (is_hardware_player())
+  {
+    $datestr = get_player_firmware_date();
+    return mktime(0,0,0,substr($datestr,2,2),substr($datestr,4,2),2000+substr($datestr,0,2));
+  }
+  else
+    return false;
+}
+
 #-------------------------------------------------------------------------------------------------
 # Maximum size playlist that the hardware players can accept.
 #-------------------------------------------------------------------------------------------------
@@ -113,10 +132,10 @@ function quick_access_img( $position )
     case 'ELGATO':
     case 'NEUSTON':
          $map = array('QUICK_RED','QUICK_GREEN','QUICK_BLUE');
-         break;    
+         break;
     case 'H&B':
          $map = array('QUICK_RED','QUICK_GREEN','QUICK_BLUE');
-         break;    
+         break;
     case 'IO-DATA':
          $map = array('QUICK_PAUSE','QUICK_STOP','QUICK_REPEAT');
          break;
@@ -125,7 +144,7 @@ function quick_access_img( $position )
          break;
     case 'NETGEAR':
          $map = array('QUICK_NGR_A','QUICK_NGR_B','QUICK_NGR_C');
-         break;   
+         break;
 
     default:
          $map = array('QUICK_A','QUICK_B','QUICK_C');
@@ -133,7 +152,7 @@ function quick_access_img( $position )
 
   if (isset($map[$position]))
     return $map[$position];
-  else 
+  else
     return false;
 }
 
@@ -174,14 +193,14 @@ function media_exts_web()
 function media_exts( $media_type )
 {
   switch ($media_type)
-  {  
+  {
     case MEDIA_TYPE_MUSIC : return media_exts_music();  break;
     case MEDIA_TYPE_PHOTO : return media_exts_photos(); break;
     case MEDIA_TYPE_VIDEO : return media_exts_movies(); break;
     case MEDIA_TYPE_WEB   : return media_exts_web();    break;
     case MEDIA_TYPE_TV    : return media_exts_movies(); break;
   }
-  
+
   // Should never happen
   return array();
 }
@@ -213,7 +232,7 @@ function get_suggested_modules_list()
 function set_progress_bar_location( $x, $y )
 {
   $dummy = @file_get_contents('http://'.client_ip().':2020/pod_audio_info.cgi?x='
-           .convert_x($x,SCREEN_COORDS).'&y='.convert_y($y,SCREEN_COORDS));  
+           .convert_x($x,SCREEN_COORDS).'&y='.convert_y($y,SCREEN_COORDS));
 }
 
 #-------------------------------------------------------------------------------------------------
@@ -223,7 +242,7 @@ function set_progress_bar_location( $x, $y )
 function support_resume()
 {
   $result = false;
-  
+
   switch ( get_player_type() )
   {
     case 'IO-DATA':
@@ -243,10 +262,10 @@ function support_resume()
 #-------------------------------------------------------------------------------------------------
 
 function support_now_playing()
-{ 
+{
   $user_opt = get_sys_pref('SUPPORT_NOW_PLAYING','AUTO');
   $result   = ($user_opt == 'YES');
-  
+
   if ($user_opt == 'AUTO')
   {
     switch ( get_player_type() )
@@ -277,7 +296,7 @@ function support_now_playing()
 function now_playing_sync_type()
 {
   $result = 3;  // Default values for players unless we discover otherwise.
-  
+
   switch ( get_player_type() )
   {
     case 'BUFFALO':
@@ -290,9 +309,9 @@ function now_playing_sync_type()
          break;
   }
 
-  return $result;  
+  return $result;
 }
-  
+
 #-------------------------------------------------------------------------------------------------
 # The transition effect to use between "Now Playing" screens.
 #
@@ -316,7 +335,7 @@ function now_playing_transition()
     default:
          return 0;
          break;
-  }	
+  }
 }
 
 #-------------------------------------------------------------------------------------------------
@@ -331,8 +350,8 @@ function player_fontsize_multiplier()
   {
     case 'PC/800x450':                  return 2.2; break;
     case 'PINNACLE/624x496':            return 1.4; break;
-  }	  
-  
+  }
+
   // No-match, so return the default (1) or the currently set override.
   return get_sys_pref('FONTWIDTH_MULTIPLIER',1);
 }
