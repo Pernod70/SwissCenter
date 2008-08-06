@@ -12,7 +12,7 @@
   $menu = new menu();
 
   $menu->add_item(str('SETUP_UPDATE_SC_RELEASE'),'run_update.php');
-  $menu->add_item(str('SETUP_UPDATE_SC_SVN'),'run_update.php');
+  $menu->add_item(str('SETUP_UPDATE_SC_SVN'),'run_svn_update.php');
 
   $menu->display(1, style_value("MENU_CONFIG_WIDTH"), style_value("MENU_CONFIG_ALIGN"));
   page_footer( 'config.php' );
