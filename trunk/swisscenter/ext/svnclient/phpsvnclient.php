@@ -437,7 +437,6 @@ class phpSVNclient
     {
         $results = array();
         $files = $this->getDirectoryFiles($path);
-        send_to_log(8,"Getting list of files from Subversion for the path : ".$path);
 
         // Only files with a revision later than that specified should be returned
         foreach ($files as $fsp)
