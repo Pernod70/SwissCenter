@@ -17,13 +17,13 @@
     {
       menu_item('Shell Commands','section=CMD&action=DISPLAY');
       menu_item('SQL Commands','section=DB&action=RUNSQL');
-      menu_item('Messages','section=MESG&action=DISPLAY');
       menu_item('Contributors','section=CONTRIB&action=DISPLAY');
     }
     
     if ($_ENV["REMOTE_USER"] == 'pernod' || $_ENV["REMOTE_USER"] == 'admin')
     {
       menu_item('Release Code','section=RELEASE&action=DISPLAY');
+      menu_item('Messages','section=MESG&action=DISPLAY');
     }
 
     menu_item('Upload Style','section=STYLE&action=DISPLAY');
