@@ -29,10 +29,10 @@
 
   // Does the User have internet connectivity?
   if (internet_available())
-    $menu->add_item(str('SETUP_UPDATE_SC'),'run_update.php');
+    $menu->add_item(str('SETUP_UPDATE_SC'),'update_options.php',true);
 
 
-  $menu->display(1, style_value("MENU_CONFIG_WIDTH"), style_value("MENU_CONFIG_ALIGN"));  
+  $menu->display(1, style_value("MENU_CONFIG_WIDTH"), style_value("MENU_CONFIG_ALIGN"));
   page_footer( 'index.php' );
 
 /**************************************************************************************************

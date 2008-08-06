@@ -1549,8 +1549,22 @@
       </string>
       <string>
         <id>LANG_PROMPT</id>
-        <text>Language definitions consist of mapping an internal ID (eg: &quot;ADD_PLAYLIST&quot;) to the actual text to be displayed. The &lt;text&gt; may contain a limited number of markup tags which are indicated by square brackets and perform an identical function to their HTML counterparts. The following tags are supported:[br]&amp;#91;br&amp;#93;&amp;#91;/br&amp;#93;  &amp;#91;em&amp;#93;&amp;#91;/em&amp;#93;  &amp;#91;p&amp;#93;&amp;#91;/p&amp;#93;  &amp;#91;b&amp;#93;&amp;#91;/b&amp;#93;  &amp;#91;i&amp;#93;&amp;#91;/i&amp;#93;  &amp;#91;li&amp;#93;&amp;#91;/li&amp;#93;  &amp;#91;ul&amp;#93;&amp;#91;/ul&amp;#93;  &amp;#91;ol&amp;#93;&amp;#91;/ul&amp;#93;[p]In some circumstances, other text may need to be substituted within the text. Placeholders for the position within the string where the substitution occurs are indicated with '&amp;#37;s'.[br]eg: In the ID below, the number of tracks that has been found within the database is substituted for the &amp;#37;s within the string... so a search returning 4 tracks would be displayed to the user as &quot;4 Tracks&quot;;[br]MANY_TRACKS= &amp;#37;s Tracks</text>
-        <version>1.19</version>
+        <text>Language definitions consist of mapping an internal ID (eg: &quot;ADD_PLAYLIST&quot;) to the actual text to be displayed. The text may contain a limited number of markup tags which are indicated by square brackets and perform an identical function to their HTML counterparts. 
+
+[p]The following tags are supported:
+[ul]
+[li]&amp;#91;br&amp;#93; - A line break[/li]
+[li]&amp;#91;p&amp;#93;&amp;#91;/p&amp;#93; - A new paragraph[/li]
+[li]&amp;#91;b&amp;#93;&amp;#91;/b&amp;#93; - Bold[/li]
+[li]&amp;#91;i&amp;#93;&amp;#91;/i&amp;#93; - Italics[/li]
+[li]&amp;#91;em&amp;#93; and &amp;#91;/em&amp;#93; - Emphasis[/li]
+[li]&amp;#91;ol&amp;#93;&amp;#91;/ol&amp;#93; - An ordered list[/li]
+[li]&amp;#91;ul&amp;#93;&amp;#91;/ul&amp;#93; - An unordered list[/li]
+[li]&amp;#91;li&amp;#93;&amp;#91;/li&amp;#93; - A list item within an ordered or unordered list[/li]
+[/ul]
+
+[p]In some circumstances, other text may need to be substituted within the text. Placeholders for the position within the string where the substitution occurs are indicated with '&amp;#37;s'. For example, In the ID &quot;MANY_TRACKS&quot; the number of tracks that has been found within the database is substituted for the &amp;#37;s within the string... so a search returning 4 tracks would be displayed to the user as &quot;4 Tracks&quot;;</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>LANG_SAVE_BUTTON</id>
@@ -3403,6 +3417,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>SETUP_UPDATE_SC_RELEASE</id>
+        <text>Update to the latest stable release</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>SETUP_UPDATE_SC_SVN</id>
+        <text>Update to the latest development build</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
         <id>SHUFFLE_OFF</id>
         <text>Turn shuffle off</text>
         <version>1.19</version>
@@ -3786,6 +3810,11 @@
         <id>TV_OPTIONS</id>
         <text>TV Series</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>UNKNOWN_ERROR</id>
+        <text>An unknown error occurred. Please post a bug report to the forums describing the actions you were performing at the time.</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>UNRATED_CERTIFICATE</id>

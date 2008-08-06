@@ -89,6 +89,20 @@ function svn_update_filelist( $path )
   return $files;
 }
 
+/**
+ * Updates the Swisscenter installation to the version specified by the $path
+ * ("/trunk/swisscenter" by default - the current development build).
+ *
+ * Possbile return values are:
+ *
+ * ERROR    - An error occurred during the update
+ * NONE     - No update is available at the moment
+ * UPDATED  - The update was successful
+ *
+ * @param string $path
+ * @return string
+ */
+
 function svn_update( $path = '/trunk/swisscenter/')
 {
   set_time_limit(0);
@@ -101,7 +115,7 @@ function svn_update( $path = '/trunk/swisscenter/')
   if ($path[strlen($path)-1] != '/' || $path[0] != '/')
   {
     send_to_log(1,'ERROR: Update path should begin and end with a slash.');
-    return false;
+    return 'ERROR';
   }
 
   // Create update directory to hold files if it doesn't already exist
@@ -110,7 +124,7 @@ function svn_update( $path = '/trunk/swisscenter/')
     if ( mkdir($updates_path) === false )
     {
       send_to_log(1,'ERROR: Unable to create directory.',$updates_path);
-      return false;
+      return 'ERROR';
     }
   }
 
@@ -123,7 +137,7 @@ function svn_update( $path = '/trunk/swisscenter/')
   if (count($file_list) == 0)
   {
     send_to_log(4,"No updates available.");
-    return true;
+    return 'NONE';
   }
 
   send_to_log(4,"Downloading files");
@@ -155,7 +169,7 @@ function svn_update( $path = '/trunk/swisscenter/')
           {
             // Error downloading file
             send_to_log(1,"ERROR: Unable to download file",$url);
-            return false;
+            return 'ERROR';
           }
           else
           {
@@ -193,5 +207,5 @@ function svn_update( $path = '/trunk/swisscenter/')
 
   // Update complete
   set_sys_pref("SVN_REVISION",$max_revision);
-  return true;
+  return 'UPDATED';
 }
