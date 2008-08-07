@@ -275,6 +275,12 @@ function support_now_playing()
       case 'SYABAS':
            $result = false;
            break;
+      case 'POPCORN':
+           if ( get_player_firmware_datestr() >= '080725' )
+             $result = true;
+           else
+             $result = false;
+           break;
       default:
            $result = true;
     }
@@ -305,7 +311,10 @@ function now_playing_sync_type()
          $result = 2;
          break;
     case 'POPCORN':
-         $result = 5;
+         if ( get_player_firmware_datestr() >= '080725' )
+           $result = 5;
+         else
+           $result = 2;
          break;
   }
 
