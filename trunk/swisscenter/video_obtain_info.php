@@ -7,6 +7,7 @@
   require_once( realpath(dirname(__FILE__).'/base/db_abstract.php'));
   require_once( realpath(dirname(__FILE__).'/base/utils.php'));
   require_once( realpath(dirname(__FILE__).'/base/rating.php'));
+  require_once( realpath(dirname(__FILE__).'/base/xml_sidecar.php'));
   
   // ----------------------------------------------------------------------------------------
   // Gets the value of an attrbute for a particluar tag (often the "alt" of an "img" tag)
@@ -183,7 +184,7 @@
 
       // Only try to update movie information for categories that have it enabled, and where the details_available column is null.
       $data = db_toarray("select file_id
-                               , concat(dirname,filename) fsp
+                               , dirname, filename
                                , title
                             from movies m, media_locations ml, categories c
                            where m.location_id = ml.location_id
@@ -193,7 +194,18 @@
     
       // Process each movie
       foreach ($data as $row)
-        extra_get_movie_details( $row["FILE_ID"], $row["FSP"], $row["TITLE"] );
+      {
+        // DVD Video details are stored in the parent folder
+        if ( strtoupper($row["FILENAME"]) == 'VIDEO_TS.IFO' )
+         $filename = rtrim($row["DIRNAME"],'/').".xml";
+       else
+         $filename = $row["DIRNAME"].$row["FILENAME"];
+
+        extra_get_movie_details( $row["FILE_ID"], $filename, $row["TITLE"] );
+        // Export to XML
+        if ( get_sys_pref('movie_xml_save','NO') == 'YES' )
+          export_video_to_xml( $row["FILE_ID"], $filename );
+      }
           
       send_to_log(4,'Online movie check complete');
     }
@@ -227,7 +239,12 @@
     
       // Process each tv show
       foreach ($data as $row)
+      {
         extra_get_tv_details( $row["FILE_ID"], $row["FSP"], $row["PROGRAMME"], $row["SERIES"], $row["EPISODE"], $row["TITLE"] );
+        // Export to XML
+        if ( get_sys_pref('tv_xml_save','NO') == 'YES' )
+          export_tv_to_xml( $row["FILE_ID"] );
+      }
           
       send_to_log(4,'Online tv show check complete');
     }

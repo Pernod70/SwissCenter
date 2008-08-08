@@ -4,6 +4,8 @@
  *************************************************************************************************/
   
 require_once( realpath(dirname(__FILE__).'/../base/media.php'));
+require_once( realpath(dirname(__FILE__).'/../base/sched.php'));
+require_once( realpath(dirname(__FILE__).'/../base/xml_sidecar.php'));
 
 // ----------------------------------------------------------------------------------
 // Get an array of online movie parsers for displaying in a form drop-down list.
@@ -131,8 +133,13 @@ function movie_lookup()
   purge_movie_details($movie_id);
   
   // Lookup movie
-  if ( extra_get_movie_details($movie_id, $filename,$title) )
+  if ( extra_get_movie_details($movie_id, $filename, $title) )
+  {
+    // Export to XML
+    if ( get_sys_pref('movie_xml_save','NO') == 'YES' )
+      export_video_to_xml($movie_id);
     movie_display_info( str('LOOKUP_SUCCESS') );
+  }
   else 
     movie_display_info( '!'.str('LOOKUP_FAILURE') );
 }
@@ -156,6 +163,7 @@ function movie_display_list($movie_list)
 
   foreach ($movie_list as $movie)
   {
+    $media_type = db_value("select media_type from media_locations ml, movies m where ml.location_id=m.location_id and m.file_id=".$movie["FILE_ID"]);
     $actors    = db_col_to_list("select actor_name from actors a,actors_in_movie aim where a.actor_id=aim.actor_id ".
                                 "and movie_id=$movie[FILE_ID] order by 1");
     $directors = db_col_to_list("select director_name from directors d, directors_of_movie dom where d.director_id = dom.director_id ".
@@ -171,7 +179,7 @@ function movie_display_list($movie_list)
              Certificate : '.nvl($cert).'<br>
              Year : '.nvl($movie["YEAR"]).'<br>
              Viewed by : '.implode(', ',db_col_to_list("select u.name from users u, viewings v where ".
-                                                       "v.user_id=u.user_id and v.media_type=".MEDIA_TYPE_VIDEO." and v.media_id=".$movie["FILE_ID"])).'
+                                                       "v.user_id=u.user_id and v.media_type=$media_type and v.media_id=".$movie["FILE_ID"])).'
            </td>
            <td valign="top" width="21%">'.nvl(implode("<br>",$actors)).'</td>
            <td valign="top" width="21%">'.nvl(implode("<br>",$directors)).'</td>
@@ -347,6 +355,7 @@ function movie_update_form_single()
 {
   // Get actor/director/genre lists
   $movie_id    = $_REQUEST["movie"][0];
+  $media_type  = db_value("select media_type from media_locations ml, movies m where ml.location_id=m.location_id and m.file_id=$movie_id");
   $details     = db_toarray("select * from movies where file_id=".$movie_id);
   $actors      = db_toarray("select actor_name name, actor_id id from actors order by 1");
   $directors   = db_toarray("select director_name name, director_id id from directors order by 1");
@@ -405,7 +414,7 @@ function movie_update_form_single()
   
   foreach ( db_toarray("select * from users order by name") as $row)
     echo '<input type="checkbox" name="viewed[]" value="'.$row["USER_ID"].'" '.
-         (viewings_count( 3, $details[0]["FILE_ID"], $row["USER_ID"])>0 ? 'checked' : '').
+         (viewings_count( $media_type, $details[0]["FILE_ID"], $row["USER_ID"])>0 ? 'checked' : '').
          '>'.$row["NAME"].'<br>';
             
   echo '</td>
@@ -527,25 +536,25 @@ function movie_update_multiple()
   if ($_REQUEST["update_actors"] == 'yes')
   {
     if (count($_REQUEST["actors"]) >0)
-      scdb_add_actors($movie_list,$_REQUEST["actors"]);
+      scdb_add_actors($movie_list,un_magic_quote($_REQUEST["actors"]));
     if (!empty($_REQUEST["actor_new"]))
-      scdb_add_actors($movie_list, explode(',',$_REQUEST["actor_new"]));
+      scdb_add_actors($movie_list, explode(',',un_magic_quote($_REQUEST["actor_new"])));
   }
 
   if ($_REQUEST["update_directors"] == 'yes')
   {
     if (count($_REQUEST["directors"]) >0)
-      scdb_add_directors($movie_list,$_REQUEST["directors"]);
+      scdb_add_directors($movie_list,un_magic_quote($_REQUEST["directors"]));
     if (!empty($_REQUEST["director_new"]))
-      scdb_add_directors($movie_list, explode(',',$_REQUEST["director_new"]));
+      scdb_add_directors($movie_list, explode(',',un_magic_quote($_REQUEST["director_new"])));
   }
 
   if ($_REQUEST["update_genres"] == 'yes')
   {
     if (count($_REQUEST["genres"]) >0)
-      scdb_add_genres($movie_list,$_REQUEST["genres"]);   
+      scdb_add_genres($movie_list,un_magic_quote($_REQUEST["genres"]));   
     if (!empty($_REQUEST["genre_new"]))
-      scdb_add_genres($movie_list, explode(',',$_REQUEST["genre_new"]));
+      scdb_add_genres($movie_list, explode(',',un_magic_quote($_REQUEST["genre_new"])));
   }
 
   // Process the "Viewed" checkboxes
@@ -557,8 +566,11 @@ function movie_update_multiple()
       {
         // Set viewed status for these movies for this user
         foreach ($movie_list as $movie)
-          if (viewings_count(MEDIA_TYPE_VIDEO, $movie, $row["USER_ID"]) == 0)
-            db_insert_row('viewings',array("user_id"=>$row["USER_ID"], "media_type"=>MEDIA_TYPE_VIDEO, "media_id"=>$movie, "total_viewings"=>1));
+        {
+          $media_type = db_value("select media_type from media_locations ml, movies m where ml.location_id=m.location_id and m.file_id=$movie");
+          if (viewings_count($media_type, $movie, $row["USER_ID"]) == 0)
+            db_insert_row('viewings',array("user_id"=>$row["USER_ID"], "media_type"=>$media_type, "media_id"=>$movie, "total_viewings"=>1));
+        }
       }
       else 
       {
@@ -571,6 +583,11 @@ function movie_update_multiple()
     
   scdb_remove_orphans();
   
+  // Export to XML
+  if ( get_sys_pref('movie_xml_save','NO') == 'YES' )
+    foreach ($movie_list as $movie)
+      export_video_to_xml($movie);
+
   $redirect_to = $_SESSION["last_search_page"];
   $redirect_to = url_add_param($redirect_to, 'message',   str('MOVIE_CHANGES_MADE'));
   $redirect_to = url_set_param($redirect_to ,'subaction', '');
@@ -591,6 +608,7 @@ function movie_info( $message = "")
     set_rating_scheme_name($_REQUEST['scheme']);
     set_sys_pref('movie_info_script',$_REQUEST['site']);
     set_sys_pref('movie_check_enabled',$_REQUEST["downloads"]);
+    set_sys_pref('movie_xml_save',$_REQUEST["xml_save"]);
     $message = str('SAVE_SETTINGS_OK');
   }
   
@@ -606,6 +624,13 @@ function movie_info( $message = "")
     $message = str('MOVIE_EXTRA_REFRESH_OK');
   }
   
+  if (!empty($_REQUEST["export"]))
+  {
+    set_sys_pref('EXPORT_XML','VIDEO');
+    run_background('media_export_xml.php');
+    $message = str('MOVIE_EXTRA_EXPORT_OK');
+  }
+  
   echo "<h1>".str('MOVIE_OPTIONS')."</h1>";
   message($message);
   
@@ -617,6 +642,7 @@ function movie_info( $message = "")
   form_list_static('site',str('MOVIE_EXTRA_SITE_PROMPT'),$sites_list,get_sys_pref('movie_info_script','www.dvdloc8.com.php'),false,false,false);
   form_list_dynamic('scheme',str('RATING_SCHEME_PROMPT'),get_rating_scheme_list_sql(),get_rating_scheme_name(),false,false,null);
   form_radio_static('downloads',str('STATUS'),$list,get_sys_pref('movie_check_enabled','YES'),false,true);
+  form_radio_static('xml_save',str('XML_SAVE'),$list,get_sys_pref('movie_xml_save','NO'),false,true);
   form_submit(str('SAVE_SETTINGS'),2,'left',240);
   form_end();
 
@@ -629,24 +655,17 @@ function movie_info( $message = "")
         <p><span class="stdformlabel">'.str('EXTRA_REFRESH_WARNING','"'.str('ORG_TITLE').'"').'</span>'.'<br>&nbsp;';
   form_submit(str('EXTRA_REFRESH_GO'),2,'Left',240);
   form_end();
+  
+  form_start('index.php', 150, 'conn');
+  form_hidden('section', 'MOVIE');
+  form_hidden('action', 'INFO');
+  form_hidden('export','YES');
+  echo '<p>&nbsp;<br><b>'.str('EXTRA_EXPORT_TITLE').'</b>
+        <p>'.str('EXTRA_EXPORT_DETAILS');
+  form_submit(str('EXTRA_EXPORT_GO'),2,'Left',240);
+  form_end();
 }
 
-// ----------------------------------------------------------------------------------
-// Exports the movie details to a file
-// ----------------------------------------------------------------------------------
-
-function movie_export()
-{
-  $movie = array_pop(db_toarray("select * from movies where file_id = ".$_REQUEST["movie_id"]));
-  $filename = substr($movie["DIRNAME"].$movie["FILENAME"],0,strrpos($movie["DIRNAME"].$movie["FILENAME"],'.')).".xml";
-
-  if ( ! is_writable(dirname($filename)) )
-    movie_display_info("!".str('MOVIE_EXPORT_NOT_WRITABLE'));
-  elseif ( export_movie_to_xml($movie["FILE_ID"], $filename))
-    movie_display_info(str('MOVIE_EXPORT_SUCCESS'));
-  else
-    movie_display_info("!".str('MOVIE_EXPORT_FAILURE'));
-}
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/

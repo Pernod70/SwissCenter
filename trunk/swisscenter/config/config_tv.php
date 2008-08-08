@@ -4,6 +4,8 @@
  *************************************************************************************************/
 
 require_once( realpath(dirname(__FILE__).'/../base/media.php'));
+require_once( realpath(dirname(__FILE__).'/../base/sched.php'));
+require_once( realpath(dirname(__FILE__).'/../base/xml_sidecar.php'));
 
 // ----------------------------------------------------------------------------------
 // Get an array of online tv parsers for displaying in a form drop-down list.
@@ -136,7 +138,12 @@ function tv_lookup()
 
   // Lookup tv show
   if ( extra_get_tv_details($tv_id, $filename, $details[0]["PROGRAMME"], $details[0]["SERIES"], $details[0]["EPISODE"], $details[0]["TITLE"]) )
+  {
+    // Export to XML
+    if ( get_sys_pref('tv_xml_save','NO') == 'YES' )
+      export_tv_to_xml($tv_id);
     tv_display_info( str('LOOKUP_SUCCESS') );
+  }
   else
     tv_display_info( '!'.str('LOOKUP_FAILURE') );
 }
@@ -560,25 +567,25 @@ function tv_update_multiple()
   if ($_REQUEST["update_actors"] == 'yes')
   {
     if (count($_REQUEST["actors"]) >0)
-      scdb_add_tv_actors($tv_list,$_REQUEST["actors"]);
+      scdb_add_tv_actors($tv_list,un_magic_quote($_REQUEST["actors"]));
     if (!empty($_REQUEST["actor_new"]))
-      scdb_add_tv_actors($tv_list, explode(',',$_REQUEST["actor_new"]));
+      scdb_add_tv_actors($tv_list, explode(',',un_magic_quote($_REQUEST["actor_new"])));
   }
 
   if ($_REQUEST["update_directors"] == 'yes')
   {
     if (count($_REQUEST["directors"]) >0)
-      scdb_add_tv_directors($tv_list,$_REQUEST["directors"]);
+      scdb_add_tv_directors($tv_list,un_magic_quote($_REQUEST["directors"]));
     if (!empty($_REQUEST["director_new"]))
-      scdb_add_tv_directors($tv_list, explode(',',$_REQUEST["director_new"]));
+      scdb_add_tv_directors($tv_list, explode(',',un_magic_quote($_REQUEST["director_new"])));
   }
 
   if ($_REQUEST["update_genres"] == 'yes')
   {
     if (count($_REQUEST["genres"]) >0)
-      scdb_add_tv_genres($tv_list,$_REQUEST["genres"]);
+      scdb_add_tv_genres($tv_list,un_magic_quote($_REQUEST["genres"]));
     if (!empty($_REQUEST["genre_new"]))
-      scdb_add_tv_genres($tv_list, explode(',',$_REQUEST["genre_new"]));
+      scdb_add_tv_genres($tv_list, explode(',',un_magic_quote($_REQUEST["genre_new"])));
   }
 
   // Process the "Viewed" checkboxes
@@ -604,6 +611,11 @@ function tv_update_multiple()
 
   scdb_remove_orphans();
 
+  // Export to XML
+  if ( get_sys_pref('tv_xml_save','NO') == 'YES' )
+    foreach ($tv_list as $tv)
+      export_tv_to_xml($tv);
+      
   $redirect_to = $_SESSION["last_search_page"];
   $redirect_to = url_add_param($redirect_to, 'message', str('MOVIE_CHANGES_MADE'));
   $redirect_to = url_set_param($redirect_to ,'subaction', '');
@@ -624,6 +636,7 @@ function tv_info( $message = "")
     set_rating_scheme_name($_REQUEST['scheme']);
     set_sys_pref('tv_info_script',$_REQUEST['site']);
     set_sys_pref('tv_check_enabled',$_REQUEST["downloads"]);
+    set_sys_pref('tv_xml_save',$_REQUEST["xml_save"]);
     set_sys_pref('tvseries_convert_dots_to_spaces',$_REQUEST["dots"]);
     $message = str('SAVE_SETTINGS_OK');
   }
@@ -640,6 +653,13 @@ function tv_info( $message = "")
     $message = str('MOVIE_EXTRA_REFRESH_OK');
   }
 
+  if (!empty($_REQUEST["export"]))
+  {
+    set_sys_pref('EXPORT_XML','TV');
+    run_background('media_export_xml.php');
+    $message = str('MOVIE_EXTRA_EXPORT_OK');
+  }
+  
   echo "<h1>".str('TV_OPTIONS')."</h1>";
   message($message);
 
@@ -651,6 +671,7 @@ function tv_info( $message = "")
   form_list_static('site',str('MOVIE_EXTRA_SITE_PROMPT'),$sites_list,get_sys_pref('tv_info_script','www.epguides.com.php'),false,false,false);
   form_list_dynamic('scheme',str('RATING_SCHEME_PROMPT'),get_rating_scheme_list_sql(),get_rating_scheme_name(),false,false,null);
   form_radio_static('downloads',str('STATUS'),$list,get_sys_pref('tv_check_enabled','YES'),false,true);
+  form_radio_static('xml_save',str('XML_SAVE'),$list,get_sys_pref('tv_xml_save','NO'),false,true);
   form_submit(str('SAVE_SETTINGS'),2,'left',240);
   form_end();
 
@@ -663,24 +684,17 @@ function tv_info( $message = "")
         <p><span class="stdformlabel">'.str('EXTRA_REFRESH_WARNING','"'.str('TV_DETAILS').'"').'</span>'.'<br>&nbsp;';
   form_submit(str('EXTRA_REFRESH_GO'),2,'Left',240);
   form_end();
+  
+  form_start('index.php', 150, 'conn');
+  form_hidden('section', 'TV');
+  form_hidden('action', 'INFO');
+  form_hidden('export','YES');
+  echo '<p>&nbsp;<br><b>'.str('EXTRA_EXPORT_TITLE').'</b>
+        <p>'.str('EXTRA_EXPORT_DETAILS');
+  form_submit(str('EXTRA_EXPORT_GO'),2,'Left',240);
+  form_end();
 }
 
-// ----------------------------------------------------------------------------------
-// Exports the tv episode details to a file
-// ----------------------------------------------------------------------------------
-
-function tv_export()
-{
-  $tv = array_pop(db_toarray("select * from tv where file_id = ".$_REQUEST["tv_id"]));
-  $filename = substr($tv["DIRNAME"].$tv["FILENAME"],0,strrpos($tv["DIRNAME"].$tv["FILENAME"],'.')).".xml";
-
-  if ( ! is_writable(dirname($filename)) )
-    tv_display_info("!".str('MOVIE_EXPORT_NOT_WRITABLE'));
-  elseif ( export_movie_to_xml($tv["FILE_ID"], $filename))
-    tv_display_info(str('MOVIE_EXPORT_SUCCESS'));
-  else
-    tv_display_info("!".str('MOVIE_EXPORT_FAILURE'));
-}
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/
