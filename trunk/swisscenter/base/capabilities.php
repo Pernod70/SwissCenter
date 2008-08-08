@@ -55,6 +55,8 @@ function get_player_type()
       $type = 'POPCORN';
     elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-QPG-')!== false )
       $type = 'POPCORN';
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-HDD-')!== false )
+      $type = 'POPCORN';
     elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'MSIE')!== false )
       $type = 'PC';
     elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'Mozilla')!== false )
