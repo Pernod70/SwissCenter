@@ -867,6 +867,19 @@ function process_movie( $dir, $id, $file)
       scdb_add_directors($file_id, explode('/', $mediacredits[1]));
       scdb_add_genres   ($file_id, explode(',', $id3["comments"]["genre"][0]));
     }
+    
+    // DVD Video details are stored in the parent folder
+    if ( strtoupper($file) == 'VIDEO_TS.IFO' )
+      $filename = rtrim($dir,'/').".xml";
+    else
+      $filename = substr($dir.$file,0,strrpos($dir.$file,'.')).".xml";
+    
+    // Check for an accompanying XML file containing details
+    if ( file_exists($filename) )
+    {
+      send_to_log(5,'Importing video details: '.$filename);
+      import_movie_from_xml($file_id, $filename);
+    }
   }
   else
     send_to_log(1,'Unable to add/update movie to the database');
@@ -1031,6 +1044,18 @@ function process_tv( $dir, $id, $file)
   
   if ( !$success )
     send_to_log(1,'Unable to add/update TV episode to the database');
+  else 
+  {
+    // Check for an accompanying XML file containing details
+    $filename = substr($dir.$file,0,strrpos($dir.$file,'.')).".xml";
+    if ( file_exists($filename) )
+    {
+      if ( !$file_id )
+        $file_id = db_value("select file_id from tv where dirname='".db_escape_str($dir)."' and filename='".db_escape_str($file)."'");
+      send_to_log(5,'Importing TV episode details');
+      import_tv_from_xml($file_id, $filename);
+    }
+  }
 }
 
 /**

@@ -973,14 +973,29 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>EXTRA_EXPORT_DETAILS</id>
+        <text>Any extra information such as synopsis, actors, etc can be exported to an XML sidecar file. This can then be used to re-import video details whenever a new database is created. The above option 'Use XML sidecar files' must first be 'Enabled'.</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>EXTRA_EXPORT_GO</id>
+        <text>Export all extra information to XML</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>EXTRA_EXPORT_TITLE</id>
+        <text>Export extra information</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
         <id>EXTRA_REFRESH_DETAILS</id>
         <text>If you encounter a situation where you need to refresh all the video information that was downloaded from the internet, for what ever reason, then you may do so by clicking on the button below.</text>
         <version>1.19</version>
       </string>
       <string>
         <id>EXTRA_REFRESH_GO</id>
-        <text>Refresh All Extra Information</text>
-        <version>1.19</version>
+        <text>Refresh all extra information</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>EXTRA_REFRESH_TITLE</id>
@@ -2175,6 +2190,11 @@
         <id>MOVIE_EXTRA_DL_TITLE</id>
         <text>Downloading extra video information</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>MOVIE_EXTRA_EXPORT_OK</id>
+        <text>All extra video information is being exported to XML</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>MOVIE_EXTRA_REFRESH_OK</id>
@@ -4160,6 +4180,11 @@
         <id>WIKI_LOOKUP_PROMPT</id>
         <text>When this option is enabled, SwissCenter will include the option to lookup information (such as artists and movies) on the Wikipedia site.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>XML_SAVE</id>
+        <text>Use XML sidecar files</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>XMP_RATING</id>
