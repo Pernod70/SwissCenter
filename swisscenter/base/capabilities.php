@@ -192,6 +192,11 @@ function media_exts_web()
   return explode(',' ,'url');
 }
 
+function media_exts_dvd()
+{
+  return explode(',' ,'ifo,img,iso');
+}
+
 function media_exts( $media_type )
 {
   switch ($media_type)
@@ -201,6 +206,7 @@ function media_exts( $media_type )
     case MEDIA_TYPE_VIDEO : return media_exts_movies(); break;
     case MEDIA_TYPE_WEB   : return media_exts_web();    break;
     case MEDIA_TYPE_TV    : return media_exts_movies(); break;
+    case MEDIA_TYPE_DVD   : return media_exts_dvd();    break;
   }
 
   // Should never happen

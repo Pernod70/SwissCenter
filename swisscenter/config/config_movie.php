@@ -58,8 +58,12 @@ function movie_display_info(  $message = '' )
           <th colspan="3">'.str('SYNOPSIS').'</th>
         </tr><tr>
           <td colspan="3">';
+
+  // DVD Video details are stored in the parent folder
+  if ( strtoupper($details[0]["FILENAME"]) == 'VIDEO_TS.IFO' )
+    $filename = rtrim($details[0]["DIRNAME"],'/').".dvd";
   
-  $folder_img = file_albumart($details[0]["DIRNAME"].$details[0]["FILENAME"]);
+  $folder_img = file_albumart($filename);
   if (!empty($folder_img))
     echo img_gen($folder_img,100,200,false,false,false,array('hspace'=>0,'vspace'=>4,'align'=>'left') );
   
@@ -126,7 +130,12 @@ function movie_lookup()
 
   $movie_id = $_REQUEST["movie_id"];
   $details  = db_toarray("select * from movies where file_id=$movie_id");
-  $filename = $details[0]["DIRNAME"].$details[0]["FILENAME"];
+  
+  // DVD Video details are stored in the parent folder
+  if ( strtoupper($details[0]["FILENAME"]) == 'VIDEO_TS.IFO' )
+    $filename = rtrim($details[0]["DIRNAME"],'/').".xml";
+  else
+    $filename = $details[0]["DIRNAME"].$details[0]["FILENAME"];
   $title    = strip_title($details[0]["TITLE"]);  
 
   // Clear old details first
@@ -201,7 +210,12 @@ function movie_display_thumbs($movie_list)
       $title_html = '';
     }
     
-    $img_url     = img_gen(file_albumart($movie["DIRNAME"].$movie["FILENAME"]) ,130,400,false,false,false,array('hspace'=>0,'vspace'=>4) );    
+    // Form dummy filename for DVD folders
+    $filename = $movie["DIRNAME"].$movie["FILENAME"];
+    if (is_dir($filename))
+      $filename = str_suffix($filename,'/').basename($filename).'.dvd';
+      
+    $img_url     = img_gen(file_albumart($filename) ,130,400,false,false,false,array('hspace'=>0,'vspace'=>4) );    
     $edit_url    = '?section=movie&action=display_info&movie_id='.$movie["FILE_ID"];
     $thumb_html .= '<td valign="top"><input type="checkbox" name="movie[]" value="'.$movie["FILE_ID"].'"></input></td>
                     <td valign="middle"><a href="'.$edit_url.'">'.$img_url.'</a></td>';
@@ -262,7 +276,7 @@ function movie_display( $message = '')
   form_hidden('action','DISPLAY');
   form_hidden('last_where',$where);
   echo  str('CATEGORY').' : 
-        '.form_list_dynamic_html("cat_id","select distinct c.cat_id,c.cat_name from categories c left join media_locations ml on c.cat_id=ml.cat_id where ml.media_type=3 order by c.cat_name",$_REQUEST["cat_id"],true,true,str('CATEGORY_LIST_ALL')).'&nbsp;
+        '.form_list_dynamic_html("cat_id","select distinct c.cat_id,c.cat_name from categories c left join media_locations ml on c.cat_id=ml.cat_id where ml.media_type=".MEDIA_TYPE_VIDEO." or ml.media_type=".MEDIA_TYPE_DVD." order by c.cat_name",$_REQUEST["cat_id"],true,true,str('CATEGORY_LIST_ALL')).'&nbsp;
         <a href="'.url_set_param($this_url,'list','LIST').'"><img align="absbottom" border="0"  src="/images/details.gif"></a>
         <a href="'.url_set_param($this_url,'list','THUMBS').'"><img align="absbottom" border="0" src="/images/thumbs.gif"></a>  
         <img align="absbottom" border="0" src="/images/select_all.gif" onclick=\'handleClick("movie[]", true)\'>
@@ -575,7 +589,7 @@ function movie_update_multiple()
       else 
       {
         // Remove all viewing information about these movies for this user
-        db_sqlcommand("delete from viewings where media_type=".MEDIA_TYPE_VIDEO." and user_id=$row[USER_ID] ".
+        db_sqlcommand("delete from viewings where media_type in (".MEDIA_TYPE_VIDEO.",".MEDIA_TYPE_DVD.") and user_id=$row[USER_ID] ".
                       "and media_id in (".implode(',',$movie_list).")");
       }
     }

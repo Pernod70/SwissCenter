@@ -1853,8 +1853,8 @@
       </string>
       <string>
         <id>MEDIA_LOC_HEADINGS</id>
-        <text>Type, Category, Certificate, Directory</text>
-        <version>1.19</version>
+        <text>Type, Category, Certificate, Directory, Network Share</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>MEDIA_LOC_UPDATE_OK</id>
@@ -2255,6 +2255,16 @@
         <id>NAME</id>
         <text>Name</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>NETWORK_SHARE</id>
+        <text>Network Share</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>NETWORK_SHARE_PROMPT</id>
+        <text>The network share is only required for the media type 'DVD Video', and will be ignored for all other media types. This is the SMB/NFS network share link and must be entered in the form [em]'NETWORK_SHARE/DVD'[/em] where DVD is the 'Share Name' defined in Setup-&gt;Network Share on your Popcorn Hour (or other NMT).</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>NEW</id>
@@ -4050,6 +4060,11 @@
         <id>VIEW_WEATHER</id>
         <text>View weather forecast</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>WATCH_DVD</id>
+        <text>Watch a DVD</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>WATCH_MOVIE</id>
