@@ -177,7 +177,7 @@
     function export_media_locations()
     {
       $xpath = $this->xml->appendChild($this->settings_path,'<media_locations />');
-      $data = db_toarray("select  ml.name, cat.cat_name, c.scheme, c.name certificate, mt.media_name
+      $data = db_toarray("select  ml.name, cat.cat_name, c.scheme, c.name certificate, mt.media_name, ml.network_share
                             from media_locations ml, categories cat , certificates c, media_types mt
                            where ml.cat_id = cat.cat_id 
                              and c.cert_id = ml.unrated
@@ -191,6 +191,7 @@
           $this->xml->appendChild( $loc_xpath, '<path>'.utf8_encode(htmlspecialchars($row["NAME"])).'</path>');
           $this->xml->appendChild( $loc_xpath, '<default_certificate scheme="'.$row["SCHEME"].'">'.$row["CERTIFICATE"].'</default_certificate>');
           $this->xml->appendChild( $loc_xpath, '<category>'.utf8_encode(htmlspecialchars($row["CAT_NAME"])).'</category>');
+          $this->xml->appendChild( $loc_xpath, '<share>'.utf8_encode(htmlspecialchars($row["NETWORK_SHARE"])).'</share>');
         }
       }
     }
@@ -411,6 +412,7 @@
         $type        = $this->xml->getData($locpath.'/type[1]');
         $path        = html_entity_decode(utf8_decode($this->xml->getData($locpath.'/path[1]')));
         $cat_name    = html_entity_decode(utf8_decode($this->xml->getData($locpath.'/category[1]')));
+        $share       = html_entity_decode(utf8_decode($this->xml->getData($locpath.'/share[1]')));
         $cert_name   = $this->xml->getData($locpath.'/default_certificate[1]');
         $attrib      = $this->xml->getAttributes($locpath.'/default_certificate[1]');
         $scheme_name = $attrib["SCHEME"];
@@ -423,7 +425,7 @@
           $errors[] = str('IMP_LOC_CAT_MISSING',$path,$cat_name);
         elseif (db_value("select count(*) from media_locations where name = '".db_escape_str(un_magic_quote($path))."' and media_type=$type_id") == 0)
         {
-          if ( db_insert_row("media_locations", array("name"=>$path, "media_type"=>$type_id, "cat_id"=>$cat_id, "unrated"=>$cert_id)) !== false)
+          if ( db_insert_row("media_locations", array("name"=>$path, "media_type"=>$type_id, "cat_id"=>$cat_id, "unrated"=>$cert_id, "network_share"=>$share)) !== false)
           {
             $id = db_value("select location_id from media_locations where name='".db_escape_str(un_magic_quote($path))."' and media_type=".$type_id);            
             

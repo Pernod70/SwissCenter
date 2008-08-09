@@ -197,9 +197,9 @@
       {
         // DVD Video details are stored in the parent folder
         if ( strtoupper($row["FILENAME"]) == 'VIDEO_TS.IFO' )
-         $filename = rtrim($row["DIRNAME"],'/').".xml";
-       else
-         $filename = $row["DIRNAME"].$row["FILENAME"];
+          $filename = rtrim($row["DIRNAME"],'/').".xml";
+        else
+          $filename = $row["DIRNAME"].$row["FILENAME"];
 
         extra_get_movie_details( $row["FILE_ID"], $filename, $row["TITLE"] );
         // Export to XML

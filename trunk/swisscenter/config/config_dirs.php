@@ -18,7 +18,7 @@
     if (!is_windows() && !file_exists(SC_LOCATION.'media'))
       mkdir(SC_LOCATION.'media');
     
-    $data = db_toarray("select location_id,media_name 'Type', cat_name 'Category', cert.name 'Certificate', ml.name 'Directory'  from media_locations ml, media_types mt, categories cat, certificates cert where ml.unrated=cert.cert_id and mt.media_id = ml.media_type and ml.cat_id = cat.cat_id order by 2,3,4");
+    $data = db_toarray("select location_id,media_name 'Type', cat_name 'Category', cert.name 'Certificate', ml.name 'Directory', ml.network_share 'Share' from media_locations ml, media_types mt, categories cat, certificates cert where ml.unrated=cert.cert_id and mt.media_id = ml.media_type and ml.cat_id = cat.cat_id order by 2,3,4");
     
     // Try to determine sensible default values for "Category" and "Certification".
     if (empty($_REQUEST["cat"]))
@@ -33,7 +33,7 @@
     form_hidden('action','MODIFY');
     form_select_table('loc_id',$data, str('MEDIA_LOC_HEADINGS')
                      ,array('class'=>'form_select_tab','width'=>'100%'),'location_id',
-                      array('DIRECTORY'=>'','TYPE'=>'select media_id,media_name from media_types order by 2',
+                      array('DIRECTORY'=>'', 'SHARE'=>'', 'TYPE'=>'select media_id,media_name from media_types order by 2',
                             'CATEGORY'=>'select cat_id,cat_name from categories where cat_id not in ('.
                                          implode(',', db_col_to_list('select distinct parent_id from categories')).') order by cat_name',
                             'CERTIFICATE'=>get_cert_list_sql()), $edit, 'dirs');
@@ -48,6 +48,8 @@
     form_hidden('action','NEW');
     form_input('location',str('LOCATION'),50,'',un_magic_quote($_REQUEST['location']));
     form_label(str('LOCATION_PROMPT'));
+    form_input('share',str('NETWORK_SHARE'),50,'',un_magic_quote($_REQUEST['share']));
+    form_label(str('NETWORK_SHARE_PROMPT'));
     form_list_dynamic('type',str('MEDIA_TYPE'),"select media_id,media_name from media_types order by 2",$_REQUEST['type']);
     form_label(str('MEDIA_TYPE_PROMPT'));
     form_list_dynamic('cat', str('CATEGORY'),"select cat_id,cat_name from categories where cat_id not in (".
@@ -107,7 +109,8 @@
     {
       // Update the row given in the database and redisplay the dirs
       // Process the directory passed in
-      $dir = db_escape_str(rtrim(str_replace('\\','/',un_magic_quote($update["DIRECTORY"])),'/'));
+      $dir = rtrim(str_replace('\\','/',un_magic_quote($update["DIRECTORY"])),'/');
+      $share = rtrim(str_replace('\\','/',un_magic_quote($update["SHARE"])),'/');
       $type_id = $update["TYPE"];
       $cat_id  = $update["CATEGORY"];
       $id      = $update["LOC_ID"];
@@ -159,7 +162,7 @@
           db_sqlcommand("delete from tv where location_id=$id");
         }
         
-        db_sqlcommand("update media_locations set name='$dir',media_type=$type_id,cat_id=$cat_id,unrated=$cert 
+        db_sqlcommand("update media_locations set name='".db_escape_str($dir)."',media_type=$type_id,cat_id=$cat_id,unrated=$cert,network_share='".db_escape_str($share)."' 
                         where location_id=$id");
         
         if (! is_windows() )
@@ -206,6 +209,7 @@
   {
     // Process the directory passed in
     $dir = rtrim(str_replace('\\','/',un_magic_quote($_REQUEST["location"])),'/');
+    $share = rtrim(str_replace('\\','/',un_magic_quote($_REQUEST["share"])),'/');
     
     if (empty($_REQUEST["type"]))
       dirs_display('',"!".str('MEDIA_LOC_ERROR_TYPE'));
@@ -227,7 +231,8 @@
       $new_row = array( 'name'       => $dir
                       , 'media_type' => $_REQUEST["type"]
                       , 'cat_id'     => $_REQUEST["cat"]
-                      , 'unrated'    => $_REQUEST["cert"]);
+                      , 'unrated'    => $_REQUEST["cert"]
+                      , 'network_share' => $_REQUEST["share"]);
 
       send_to_log(4,'Adding new media location',$new_row);
                       

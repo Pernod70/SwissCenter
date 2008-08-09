@@ -84,7 +84,7 @@
     process_media_dirs( $media_type, $cat_id, $update=='YES' );
     
     // Update video details from the Internet if enabled
-    if ( is_movie_check_enabled() && in_array(MEDIA_TYPE_VIDEO, $media_types) )
+    if ( is_movie_check_enabled() && (in_array(MEDIA_TYPE_VIDEO, $media_types) || in_array(MEDIA_TYPE_DVD, $media_types)) )
     {
       set_sys_pref('MEDIA_SCAN_STATUS',str('MEDIA_SCAN_STATUS_MOVIE'));
       extra_get_all_movie_details();

@@ -70,7 +70,7 @@ function remove_orphaned_records()
   @db_sqlcommand('delete from viewings '.
                  ' using viewings left outer join movies '.
                  '    on viewings.media_id = movies.file_id '.
-                 ' where viewings.media_type = '.MEDIA_TYPE_VIDEO.' and movies.file_id is null');
+                 ' where viewings.media_type in ('.MEDIA_TYPE_VIDEO.','.MEDIA_TYPE_DVD.') and movies.file_id is null');
                  
   @db_sqlcommand('delete from viewings '.
                  ' using viewings left outer join tv '.
@@ -745,11 +745,11 @@ function process_photo( $dir, $id, $file)
 
 function determine_dvd_name( $fsp )
 {
-  // Only attempt to determine the DVD title if this is a VOB file
-  if (file_ext($fsp) == 'vob' )
+  // Only attempt to determine the DVD title if this is a IFO or VOB file
+  if ( in_array(file_ext($fsp), array('ifo','vob')) )
   {
     // Process files that match the pattern "VTS_nn_n.vob"
-    if ( preg_match('/vts_[0-9]*_[0-9]*.vob/i', basename($fsp) ) > 0 )
+    if ( file_ext($fsp)=='ifo' || preg_match('/vts_[0-9]*_[0-9]*.vob/i', basename($fsp) ) > 0 )
     {
       $fsp = dirname($fsp);
       if ( strtolower(basename($fsp)) == 'video_ts' )
@@ -1155,7 +1155,7 @@ function process_media_directory( $dir, $id, $table, $file_exts, $recurse = true
             process_media_directory( $dir.$file.'/', $id, $table, $file_exts, $recurse, $update);
         }
       }
-      elseif ( !in_array(strtolower($file),$files_to_ignore) && in_array(strtolower(file_ext($file)),$file_exts))
+      elseif ( !in_array(strtolower($file),$files_to_ignore) && in_array(strtolower(file_ext($file)),$file_exts) && preg_match('/vts_[0-9]*_[0-9]*.ifo/i', basename($file)) == 0 )
       {
         if ( file_newer_than_db( $table, $id, $dir, $file ) || $update )
         {
