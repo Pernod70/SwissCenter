@@ -14,7 +14,7 @@
   function media_exists( $media_type )
   {
     $table = db_value("select media_table from media_types where media_id = $media_type");
-    if ( db_value("select 'YES' from $table limit 1") == 'YES')
+    if ( db_value("select 'YES' from $table t, media_locations ml where t.location_id=ml.location_id and ml.media_type=$media_type limit 1") == 'YES')
       return true;
     else
       return false;
