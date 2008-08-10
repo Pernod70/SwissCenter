@@ -27,7 +27,7 @@ function chksum_files($pre, $dir, &$files)
       }
       closedir($dh);
     }
-    else 
+    else
       send_to_log(1,"ERROR : Unable to open directory for reading.",$pre.$dir);
   }
 }
@@ -38,20 +38,20 @@ function set_last_update($release_dir)
  set_sys_pref('LAST_UPDATE',$last_update);
  set_sys_pref('UPDATE_AVAILABLE',false);
 }
-   
+
 //*************************************************************************************************
 // Main Code
-//*************************************************************************************************  
-    
+//*************************************************************************************************
+
   $local   = array();
   $update  = array();
   $actions = array();
   $errors  = 0;
   $updated = false;
-  
-  // Get file checksums from the online update file  
+
+  // Get file checksums from the online update file
   $file_contents = file_get_contents($update_location.'filelist.txt');
-  
+
   if ($file_contents === false)
   {
     $errtxt = "Unable to download update file";
@@ -66,7 +66,7 @@ function set_last_update($release_dir)
       $local = unserialize(file_get_contents('filelist.txt'));
     else
       chksum_files('./','',$local);
-    
+
     // Create update directory to hold files if it doesn't already exist
     if (!file_exists('updates'))
     {
@@ -76,13 +76,13 @@ function set_last_update($release_dir)
         $errors += 1;
       }
     }
-    
-    // Download the required files    
+
+    // Download the required files
     foreach ($update["files"] as $test)
-    {   
+    {
       $filename = md5( $test["filename"].$test["checksum"]).'.bin';
       $tmp_file = 'updates/'.md5( $test["filename"].$test["checksum"]).'.update';
-  
+
       if (!in_array($test,$local) )
       {
         if (file_exists($tmp_file))
@@ -96,13 +96,13 @@ function set_last_update($release_dir)
           // New or changed file
           $file_contents = file_get_contents($update_location.$filename);
           send_to_log(4,$tmp_file." - downloading");
-  
+
           if ($file_contents === false)
           {
             $errtxt = "<p>Unable to download file : ".$test["filename"]." (".$filename.")";
             $errors += 1;
           }
-          else 
+          else
           {
             $text = @gzuncompress($file_contents);
             if ($text === false)
@@ -110,12 +110,12 @@ function set_last_update($release_dir)
               $errtxt = "Error uncompressing file : ".$filename;
               $errors += 1;
             }
-            else 
+            else
             {
               $out = fopen($tmp_file, "w");
               fwrite($out, $text);
               fclose($out);
-              
+
               if (!file_exists($tmp_file))
               {
                 $errtxt = 'Unable to write file : '.$tmp_file;
@@ -126,13 +126,13 @@ function set_last_update($release_dir)
                 send_to_log(4,$tmp_file." - stored on disk ready for rename");
                 $actions[] = array("downloaded"=>$tmp_file, "existing"=>$test["filename"]);
               }
-            }          
+            }
           }
         }
       }
     }
-    
-    // Sync directory structure  
+
+    // Sync directory structure
     foreach ($update["dirs"] as $dir)
     {
       if (!file_exists($dir["directory"]))
@@ -142,12 +142,12 @@ function set_last_update($release_dir)
          send_to_log(1,'ERROR: Unable to create directory.',SC_LOCATION.$dir["directory"]);
          $errors += 1;
         }
-        else 
+        else
           send_to_log(4,"'".$dir["directory"]."' directory created : ");
       }
     }
   }
-  
+
   // Any errors so far?
   if ($errors !=0)
   {
@@ -173,24 +173,25 @@ function set_last_update($release_dir)
       $_SESSION = array();
       $out = fopen("filelist.txt", "w");
       fwrite($out, serialize($update["files"]));
-      fclose($out);   
+      fclose($out);
       set_last_update($update_location);
+      set_sys_pref("SVN_REVISION","");
       send_to_log(4,"Update complete");
       header("Location: /update_outcome.php?status=UPDATED");
    }
-   else 
+   else
    {
       set_last_update($update_location);
       send_to_log(4,"No files to update");
       header("Location: /update_outcome.php?status=NONE");
    }
-        
-  }    
-  
+
+  }
+
   // Refresh style and language
   load_style();
   load_lang();
-  
+
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/
