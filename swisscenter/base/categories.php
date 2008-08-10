@@ -94,6 +94,10 @@
         $width = style_value("MENU_WEB_WIDTH");
         $align = style_value("MENU_WEB_ALIGN");
         break;
+      case MEDIA_TYPE_DVD   :
+        $width = style_value("MENU_VIDEO_WIDTH");
+        $align = style_value("MENU_VIDEO_ALIGN");
+        break;
       default               :
         $width = 650;
         $align = 'center';

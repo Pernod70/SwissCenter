@@ -118,14 +118,14 @@ function  search_media_page( $heading, $title, $media_type, $joined_tables, $col
   // Get the matching records from the database.
   $data       = db_toarray("   select $column display 
                                  from $main_table_sql $joined_tables
-                                where $column != '0' and $restrict_sql 
+                                where $column != '0' and $restrict_sql and ml.media_type=$media_type
                              group by $column
                                having ".viewed_status_predicate( filter_get_name() )."
                              order by 1 limit ".(($page*MAX_PER_PAGE)).",".MAX_PER_PAGE);
   
   $num_rows   = count(db_toarray("     select $column
                                          from $main_table_sql $joined_tables
-                                        where $column != '0' and $restrict_sql
+                                        where $column != '0' and $restrict_sql and ml.media_type=$media_type
                                      group by $column
                                        having ".viewed_status_predicate( filter_get_name()) ));
 
@@ -135,7 +135,7 @@ function  search_media_page( $heading, $title, $media_type, $joined_tables, $col
   if ($prefix == '')
     $valid = strtoupper(join(db_col_to_list(" select distinct upper(substring($column,".(strlen($search)+1).",1)) display 
                                                 from $main_table_sql $joined_tables 
-                                               where $column !='0' and $restrict_sql 
+                                               where $column !='0' and $restrict_sql and ml.media_type=$media_type 
                                             group by $column
                                               having ".viewed_status_predicate( filter_get_name() )."
                                             order by 1")));
@@ -184,13 +184,15 @@ function  search_media_page( $heading, $title, $media_type, $joined_tables, $col
   {
     $buttons[] = array('text'=>str('SEARCH_ANYWHERE'), 'url'=>url_add_param($this_url,'any','%') );
     $buttons[] = array('text'=>str('SEARCH_CLEAR'), 'url'=>url_add_param($this_url,'search','') );
-    $buttons[] = array('text'=>str('SELECT_ALL'),   'url'=>url_set_param($choose_url,'name',rawurlencode($search.'%')) );
+    if ( $media_type !== MEDIA_TYPE_DVD )
+      $buttons[] = array('text'=>str('SELECT_ALL'),   'url'=>url_set_param($choose_url,'name',rawurlencode($search.'%')) );
   }
   else
   {
     $buttons[] = array('text'=>str('SEARCH_START'), 'url'=>url_add_param($this_url,'any','') );
     $buttons[] = array('text'=>str('SEARCH_CLEAR'), 'url'=>url_add_param($this_url,'search','') );
-    $buttons[] = array('text'=>str('SELECT_ALL'),   'url'=>url_set_param($choose_url,'name',rawurlencode('%'.$search.'%')) );
+    if ( $media_type !== MEDIA_TYPE_DVD )
+      $buttons[] = array('text'=>str('SELECT_ALL'),   'url'=>url_set_param($choose_url,'name',rawurlencode('%'.$search.'%')) );
   }
 
   page_footer( url_add_param($history["url"],'p_del','Y'), $buttons);

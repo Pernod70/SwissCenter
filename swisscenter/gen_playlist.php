@@ -74,10 +74,27 @@
     if ($media_type == MEDIA_TYPE_VIDEO || $media_type == MEDIA_TYPE_TV ) // Movie
     {
       // Record the fact the movie was viewed.
-      store_request_details( $media_type, $file_id); 
+      store_request_details( $media_type, $file_id);
 
-      send_to_log(7,'Attempting to stream the following video',array( "File ID"=>$file_id, "Media Type"=>$media_type, "Location"=>ucfirst($row["DIRNAME"]).$row["FILENAME"] ));
-      $url = $server.make_url_path(ucfirst($row["DIRNAME"]).$row["FILENAME"]);
+      send_to_log(7,'Attempting to stream the following video',array( "File ID"=>$file_id, "Media Type"=>$media_type, "Location"=>$row["DIRNAME"].$row["FILENAME"] ));
+      $url = $server.make_url_path($row["DIRNAME"].$row["FILENAME"]);
+    }
+    elseif ($media_type == MEDIA_TYPE_DVD ) // DVD Video - THIS IS NOT USED!!
+    {
+      // Record the fact the dvd was viewed.
+      store_request_details( $media_type, $file_id);
+
+      // Get the SMB/NFS network share reference
+      $data = db_toarray("select m.dirname, m.filename, ml.name, ml.network_share from movies m, media_locations ml where file_id=$file_id and m.location_id=ml.location_id");
+      // If DVD Video then pass folder name
+      if ( strtoupper($data[0]["FILENAME"]) == 'VIDEO_TS.IFO' )
+        $file = rtrim($data[0]["DIRNAME"],'/');
+      else
+        $file = $data[0]["DIRNAME"].$data[0]["FILENAME"];
+      $file = str_replace($data[0]["NAME"], "", $file);
+
+      send_to_log(7,'Attempting to play the following dvd',array( "File ID"=>$file_id, "Media Type"=>$media_type, "Location"=>$row["DIRNAME"].$row["FILENAME"] ));
+      $url = 'file:///opt/sybhttpd/localhost.drives/'.$data[0]["NETWORK_SHARE"].$file;
     }
     else
       $url = $server.'stream.php?'.current_session().'&tracklist='.$tracklist.'&media_type='.$media_type.'&idx='.$item_count.'&ext=.'.file_ext($row["FILENAME"]);
