@@ -127,7 +127,12 @@ function check_display()
   # SwissCenter configuration Tests
   # ----------------------
 
-  $swiss = $core_tests->add_section("SwissCenter : v".swisscenter_version(),4);
+  if (get_sys_pref("SVN_REVISION") == "")
+    $version = swisscenter_version();
+  else
+    $version = 'SVN Revision ['.get_sys_pref("SVN_REVISION").']';
+
+  $swiss = $core_tests->add_section("SwissCenter : v".$version,4);
 
   // It only makes sense to check for root installations on UNIX.
   if (is_unix())

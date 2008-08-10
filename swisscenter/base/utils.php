@@ -23,20 +23,20 @@ $char_widths = array(   "A" => 096,  "B" => 192,  "C" => 240,  "D" => 224,  "E" 
                         ";" => 064,  "=" => 192,  ">" => 192,  "?" => 176,  "@" => 304,  "<" => 192,  " " => 112,  );
 
 /**
- * Simple function to search a string using a regular expression and then 
- * return the first captured pattern 
- * 
+ * Simple function to search a string using a regular expression and then
+ * return the first captured pattern
+ *
  * @param string $pattern - Pattern to use when searching
  * @param string $subject - The string to search
  * @return string
  */
-                        
+
 function preg_get( $pattern, $subject )
 {
   preg_match( $pattern, $subject, $matches);
   return (isset($matches[1]) ? $matches[1] : '');
 }
-                        
+
 // ----------------------------------------------------------------------------------
 // A better alternative to the "shuffle" routine in PHP - this version generates a
 // more random shuffle (and can be seeded to always return the same shuffled list).
@@ -46,7 +46,7 @@ function shuffle_fisherYates(&$array, $seed = false)
 {
    if ($seed !== false)
      mt_srand($seed);
-     
+
    $total = count($array);
    for ($i = 0; $i<$total; $i++)
    {
@@ -55,7 +55,7 @@ function shuffle_fisherYates(&$array, $seed = false)
          $array[$i] = $array[$j];
          $array[$j] = $temp;
    }
-} 
+}
 
 //-------------------------------------------------------------------------------------------------
 // Makes the given filepath acceptable to the webserver (\ become /)
@@ -69,12 +69,12 @@ function make_url_path( $fsp )
   {
     foreach ( db_toarray("select name,concat('media/',location_id) dir from media_locations") as $dir)
     {
-      $pos = strpos($fsp, $dir["NAME"]); 
+      $pos = strpos($fsp, $dir["NAME"]);
       if ( $pos == 0 and $pos !== false)
         $fsp = $dir["DIR"].substr($fsp, strlen($dir["NAME"]));
     }
-  }  
-  
+  }
+
   $parts = split('/',str_replace('\\','/',$fsp));
 
   // On windows, we should ensure that the drive letter is converted to uppercase
@@ -82,8 +82,8 @@ function make_url_path( $fsp )
     $parts[0] = strtoupper($parts[0]);
 
   for ($i=0; $i<count($parts); $i++)
-    $parts[$i] = rawurlencode($parts[$i]);    
-  
+    $parts[$i] = rawurlencode($parts[$i]);
+
   return join('/',$parts);
 }
 
@@ -96,8 +96,8 @@ function nvl($text,$default = '&lt;Unknown&gt;')
 {
   if (empty($text) || is_null($text))
     return $default;
-  else 
-    return $text;   
+  else
+    return $text;
 }
 
 // ----------------------------------------------------------------------------------------
@@ -116,7 +116,7 @@ function strip_title ($title)
                    , '/ +$/'
                    , '/_/'
                    , '/\./');
-  
+
   $replace = array ( ''
                    , ' '
                    , ' '
@@ -126,10 +126,10 @@ function strip_title ($title)
                    , ''
                    , ' '
                    , ' ');
-  
+
   return preg_replace($search, $replace, $title);
 }
-    
+
 // ----------------------------------------------------------------------------------
 // Returns the text between two given strings
 // ----------------------------------------------------------------------------------
@@ -149,7 +149,7 @@ function substr_between_strings( &$string, $startstr, $endstr)
 
     if (strpos($text,'>') === false)
       return ltrim(rtrim($text));
-    else 
+    else
       return ltrim(rtrim(substr($text,strpos($text,'>')+1)));
   }
 }
@@ -159,10 +159,10 @@ function substr_between_strings( &$string, $startstr, $endstr)
 // regular expression ($search) within the href portion of the link.
 // ----------------------------------------------------------------------------------
 
-function get_urls_from_html ($string, $search ) 
+function get_urls_from_html ($string, $search )
 {
   preg_match_all ('/<a.*href="(.*'.$search.'[^"]*)"[^>]*>(.*)<\/a>/Ui', $string, &$matches);
-  
+
   for ($i = 0; $i<count($matches[2]); $i++)
     $matches[2][$i] = preg_replace('/<[^>]*>/','',$matches[2][$i]);
 
@@ -178,7 +178,7 @@ function add_site_to_url ( $url, $site )
 {
   if ( strpos($url,'http:/') === false)
     return rtrim($site,'/').'/'.ltrim($url,'/');
-  else 
+  else
     return $url;
 }
 
@@ -186,9 +186,9 @@ function add_site_to_url ( $url, $site )
 // Returns all the hyperlinks is the given string
 // ----------------------------------------------------------------------------------
 
-function get_images_from_html ($string) 
+function get_images_from_html ($string)
 {
-  preg_match_all ('/<img.*src="([^"]*)"[^>]*>/i', $string, &$matches);  
+  preg_match_all ('/<img.*src="([^"]*)"[^>]*>/i', $string, &$matches);
   return $matches;
 }
 
@@ -199,18 +199,18 @@ function get_images_from_html ($string)
 function syscall($command)
 {
   $result = false;
-  
+
   if ($proc = popen("($command)","r"))
   {
-    while (!feof($proc)) 
+    while (!feof($proc))
       $result .= fgets($proc, 1000);
-      
+
     pclose($proc);
   }
 
-  return $result; 
+  return $result;
 }
-  
+
 // ----------------------------------------------------------------------------------
 // Returns whether the search string is in the array (case-insensitive)
 // ----------------------------------------------------------------------------------
@@ -354,12 +354,12 @@ function socket_check( $address, $port, $timeouts = 3)
     if ( $sock = @fsockopen($address, $port, $temp, $temp, 0.5))
     {
       fclose($sock);
-      return true; 
+      return true;
     }
 
   return false;
 }
-  
+
 // ----------------------------------------------------------------------------------
 // Sets the status of the "New Media" indicator light on the showcenter box
 // ----------------------------------------------------------------------------------
@@ -386,29 +386,29 @@ function media_indicator( $status )
 // Sorts an array of arrays based on the given key in the nested array.
 // ----------------------------------------------------------------------------------
 
-function array_sort( &$array, $key ) 
-{ 
+function array_sort( &$array, $key )
+{
   if (is_array($array) && sizeof($array) > 0)
   {
     for ($i = 0; $i < sizeof($array); $i++)
-      $sort_values[$i] = $array[$i][$key]; 
+      $sort_values[$i] = $array[$i][$key];
 
-    asort ($sort_values); 
-    reset ($sort_values); 
+    asort ($sort_values);
+    reset ($sort_values);
 
     while (list ($arr_key, $arr_val) = each ($sort_values))
-      $sorted_arr[] = $array[$arr_key]; 
+      $sorted_arr[] = $array[$arr_key];
 
-    $array = $sorted_arr; 
-  } 
+    $array = $sorted_arr;
+  }
 }
 
 // ----------------------------------------------------------------------------------
 // Makes an array contain unique values for the given key within the nested array.
 // ----------------------------------------------------------------------------------
 
-function arrayUnique( $array, $key ) 
-{ 
+function arrayUnique( $array, $key )
+{
   $rArray = array();
   if (is_array($array) && sizeof($array) > 0)
   {
@@ -421,7 +421,7 @@ function arrayUnique( $array, $key )
         $keys[]   = $array[$i][$key];
       }
     }
-  } 
+  }
 
   return $rArray;
 }
@@ -435,6 +435,7 @@ function swisscenter_version()
 {
   return max( get_sys_pref('last_update') ,get_sys_pref('database_version'));
 }
+
 // ----------------------------------------------------------------------------------
 // Attempts to convert a decimal number to a fraction. Firstly, the standard shutter
 // speeds are used to determine if one of them is +/- 5% of the value.
@@ -446,58 +447,58 @@ function dec2frac( $decimal)
   if ($decimal == 0)
     return '';
 
-  $speeds = array(  '1/8000' => 1/8000,   '1/7500' => 1/7500,   '1/7000' => 1/7000,   '1/6500' => 1/6500,   '1/6000' => 1/6000, 
-                    '1/5500' => 1/5500,   '1/5000' => 1/5000,   '1/4500' => 1/4500,   '1/4000' => 1/4000,   '1/3500' => 1/3500, 
-                    '1/3000' => 1/3000,   '1/2500' => 1/2500,   '1/2000' => 1/2000,   '1/1500' => 1/1500,   '1/1000' => 1/1000, 
-                    '1/750'  => 1/750,    '1/500'  => 1/500,    '1/350'  => 1/350,    '1/250'  => 1/250,    '1/180'  => 1/180,  
-                    '1/125'  => 1/125,    '1/90'   => 1/90,     '1/60'   => 1/60,     '1/45'   => 1/45,     '1/30'   => 0/30,   
-                    '1/20'   => 1/20,     '1/15'   => 1/15,     '1/10'   => 1/10,     '1/8'    => 1/8,      '1/6'    => 1/6,    
-                    '1/4'    => 1/4,      '0"3'    => 0.3,      '0"5'    => 0.5,      '0"7'    => 0.7,      '1"'     => 1,      
-                    '1"5'    => 1.5,      '2"'     => 2,        '3"'     => 3,        '4"'     => 4,        '6"'     => 096,      
+  $speeds = array(  '1/8000' => 1/8000,   '1/7500' => 1/7500,   '1/7000' => 1/7000,   '1/6500' => 1/6500,   '1/6000' => 1/6000,
+                    '1/5500' => 1/5500,   '1/5000' => 1/5000,   '1/4500' => 1/4500,   '1/4000' => 1/4000,   '1/3500' => 1/3500,
+                    '1/3000' => 1/3000,   '1/2500' => 1/2500,   '1/2000' => 1/2000,   '1/1500' => 1/1500,   '1/1000' => 1/1000,
+                    '1/750'  => 1/750,    '1/500'  => 1/500,    '1/350'  => 1/350,    '1/250'  => 1/250,    '1/180'  => 1/180,
+                    '1/125'  => 1/125,    '1/90'   => 1/90,     '1/60'   => 1/60,     '1/45'   => 1/45,     '1/30'   => 0/30,
+                    '1/20'   => 1/20,     '1/15'   => 1/15,     '1/10'   => 1/10,     '1/8'    => 1/8,      '1/6'    => 1/6,
+                    '1/4'    => 1/4,      '0"3'    => 0.3,      '0"5'    => 0.5,      '0"7'    => 0.7,      '1"'     => 1,
+                    '1"5'    => 1.5,      '2"'     => 2,        '3"'     => 3,        '4"'     => 4,        '6"'     => 096,
                     '8"'     => 128,        '10"'    => 160,       '15"'    => 240,       '20"'    => 320,       '30"'    => 30       ) ;
-                    
+
   // Try to match to the above shutter speeds.
   foreach ($speeds as $key => $val)
     if ($decimal > ($val*0.95) && $decimal < ($val*1.05))
       return $key;
-  
+
   $decimal = (string)$decimal;
 
   $num = '';
   $den = 1;
   $dec = false;
-  
+
   // find least reduced fractional form of number
   for( $i = 0, $ix = strlen( $decimal ); $i < $ix; $i++ )
   {
    // build the denominator as we 'shift' the decimal to the right
    if( $dec ) $den *= 10;
-   
+
    // find the decimal place/ build the numerator
    if( $decimal{$i} == '.' ) $dec = true;
    else $num .= $decimal{$i};
   }
   $num = (int)$num;
-   
+
   // whole number, just return it
-  if( $den == 1 ) 
+  if( $den == 1 )
     return $num;
-   
+
   $num2 = $num;
   $den2 = $den;
   $rem  = 1;
-  
+
   // Euclid's Algorithm (to find the gcd)
-  while( $num2 % $den2 ) 
+  while( $num2 % $den2 )
   {
    $rem = $num2 % $den2;
    $num2 = $den2;
    $den2 = $rem;
   }
-  
-  if( $den2 != $den ) 
+
+  if( $den2 != $den )
     $rem = $den2;
-   
+
   // now $rem holds the gcd of the numerator and denominator of our fraction
   return  ($num / $rem ) . "/" . ($den / $rem);
 }
@@ -505,7 +506,7 @@ function dec2frac( $decimal)
 /**
  * Returns the date/time in GMT from a NIST time-server. The default timeserver used
  * is time-a.timefreq.bldrdoc.gov, however any of the following are valid:
- * 
+ *
  *   time-a.timefreq.bldrdoc.gov
  *   time-b.timefreq.bldrdoc.gov
  *   time-c.timefreq.bldrdoc.gov
@@ -516,17 +517,17 @@ function dec2frac( $decimal)
  * @return timestamp
  */
 
-function query_time_server ($timeserver = 'time-a.timefreq.bldrdoc.gov', $socket = 13) 
+function query_time_server ($timeserver = 'time-a.timefreq.bldrdoc.gov', $socket = 13)
 {
   $fp = fsockopen($timeserver,$socket,$err,$errstr,2);
-  
-  if ($fp) 
+
+  if ($fp)
   {
     fputs($fp,"\n");
     $value = fread($fp,49);
     fclose($fp);
   }
-  
+
   if ($value !== false && $value > 0)
   {
     $components = explode(' ',$value);
@@ -535,8 +536,8 @@ function query_time_server ($timeserver = 'time-a.timefreq.bldrdoc.gov', $socket
     list( $y, $m, $d) = explode('-',$components[1]);
     return mktime( $h, $min, $s, $m, $d, $y);
   }
-  else  
-    return false;  
+  else
+    return false;
 }
 
 /**
@@ -545,28 +546,28 @@ function query_time_server ($timeserver = 'time-a.timefreq.bldrdoc.gov', $socket
  */
 
 function gmt_time()
-{ 
+{
   $offset = get_sys_pref('GMT_OFFSET',false);
-  
+
   // We only trust the stored offset if was calculated less than 24 hours ago. This is to ensure that DST changes take effect.
   if ( $offset === false || get_sys_pref_modified_date('GMT_OFFSET') < db_datestr(time()-86400))
-  {  
+  {
     // Get the GMT time from a web service
     send_to_log(6,'Attempting to get GMT Standard Time from NIST timeserver');
     $gmt = query_time_server();
-    
+
     if ($gmt !== false)
     {
       $time = $gmt;
-      $offset = time()-$gmt;      
+      $offset = time()-$gmt;
       send_to_log(5,'Your system time ('.date('Y.m.d H:i:s').') is '.abs($offset).' seconds '.($offset > 0 ? 'ahead of' : 'behind').' GMT');
-      
+
       // Store the offset in the database
       set_sys_pref('GMT_OFFSET', $offset);
     }
     else
     {
-      // Return PHP time() - UTC Offset + DST 
+      // Return PHP time() - UTC Offset + DST
       $time = time();
       $time -= date('Z', $time);
       $time += date('I', $time) * 3600;
@@ -578,7 +579,7 @@ function gmt_time()
     $time = time() - $offset;
     send_to_log(6,'Using previously stored GMT time',date('r',$time));
   }
-  
+
   return $time;
 }
 
@@ -589,9 +590,9 @@ function gmt_time()
  * @param $value - value to be set
  */
 
-function set_var( &$var, $value ) 
-{ 
-	if (is_null($value)) 
+function set_var( &$var, $value )
+{
+	if (is_null($value))
 		return false;
 	else
 	{
@@ -610,8 +611,8 @@ function set_var( &$var, $value )
  * @return integer
  */
 
-function strrpos_str($string, $searchFor, $startFrom = 0) 
-{ 
+function strrpos_str($string, $searchFor, $startFrom = 0)
+{
   $addLen = strlen ($searchFor);
   $endPos = $startFrom - $addLen;
   while (true)
@@ -631,14 +632,14 @@ function strrpos_str($string, $searchFor, $startFrom = 0)
 function mysql_version()
 {
   if ( ($db = @mysql_pconnect( DB_HOST, DB_USERNAME, DB_PASSWORD )) )
-  {  
+  {
     $stmt = mysql_query( 'select version()', $db);
     if ($row = mysql_fetch_array( $stmt, MYSQL_ASSOC ))
-      return array_pop($row); 
-    else 
+      return array_pop($row);
+    else
       return false;
-  }  
-  else 
+  }
+  else
     return false;
 }
 
