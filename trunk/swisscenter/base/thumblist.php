@@ -26,6 +26,7 @@ class thumb_list
   var $n_cols = 4;
   var $n_rows = 2;
   var $tn_size = array("X"=>THUMBNAIL_X_SIZE, "Y"=>THUMBNAIL_Y_SIZE); 
+  var $tn_font_size = 15;
 
   #-------------------------------------------------------------------------------------------------
   # Get/Set attributes
@@ -64,6 +65,11 @@ class thumb_list
   function set_thumbnail_size ($x, $y)
   {
     $this->tn_size = array("X"=>$x,"Y"=>$y);
+  }
+  
+  function set_font_size ($size)
+  {
+    $this->tn_font_size = $size;
   }
   
   #-------------------------------------------------------------------------------------------------
@@ -138,14 +144,14 @@ class thumb_list
         for ($col=0; $col < $max_col_this_row ; $col++)
         {
           $cell_no = $row*$this->n_cols+$col;
-          $text    = shorten($this->items[$cell_no]["txt"],$cell_width, 2, 10); 
+          $text    = shorten($this->items[$cell_no]["txt"], $cell_width, 2, $this->tn_font_size); 
           
           // highlight this thumbnail?
 	        if (!empty($this->items[$cell_no]["highlight"]))
             $text = "<b>$text</b>";
 
           echo '<td valign="top" width="'.convert_x($cell_width).'"><center>'.'<a name="'.($cell_no + 1).'" '
-               .$this->items[$cell_no]["url"].'>'.'<font size="1">'.$text.'</font></a></center></td>';
+               .$this->items[$cell_no]["url"].'>'.font_tags($this->tn_font_size).$text.'</font></a></center></td>';
         }
   
         echo "</tr><tr>";      
