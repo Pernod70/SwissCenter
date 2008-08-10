@@ -17,11 +17,12 @@
    * Displays the synopsis for a single tv episode (identified by the file_id).
    *
    * @param int $tv file_id
+   * @param real $width fraction of screen width to use
    */
   function tv_details ($tv, $num_menu_items, $width)
   {
     $info      = array_pop(db_toarray("select synopsis from tv where file_id=$tv"));
-    $synlen    = ( is_screen_hdtv() ? 1920 : 520) * (9-$num_menu_items) * $width;
+    $synlen    = $_SESSION["device"]["browser_x_res"] * (9-$num_menu_items) * $width;
 
     // Synopsis
     if ( !is_null($info["SYNOPSIS"]) )
