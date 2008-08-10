@@ -56,13 +56,13 @@
               .'&pagedel='.$pagedel);
       }
 
-      // Add up/down buttons as needed for prev/next page      
-      if ($page > 0)
-        $menu->add_up( '?return='.$_REQUEST["return"].'&page='.($page-1));
-
-      // We are not on the last page, so output a link to go "down" a page of entries.
-      if (($page+1)*MAX_PER_PAGE < $num)
-        $menu->add_down( '?return='.$_REQUEST["return"].'&page='.($page+1));
+      // Add up/down buttons as needed for prev/next page
+      $last_page = ceil($num/MAX_PER_PAGE)-1;
+      if ($num > MAX_PER_PAGE)
+      {
+        $menu->add_up( '?return='.$_REQUEST["return"].'&page='.($page > 0 ? ($page-1) : $last_page));
+        $menu->add_down( '?return='.$_REQUEST["return"].'&page='.($page < $last_page ? ($page+1) : 0));
+      }
       
       // Render the menu
       $menu->display();

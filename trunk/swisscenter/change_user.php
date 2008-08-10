@@ -24,13 +24,15 @@
       $page       = (isset($_REQUEST["page"]) ? $_REQUEST["page"] : 1);
       $start      = ($page-1) * MAX_PER_PAGE; 
       $end        = min($start+MAX_PER_PAGE,count($data));
+      $last_page  = ceil(count($data)/MAX_PER_PAGE);
 
-      $menu = new menu();    
-      if ($page > 1)
-        $menu->add_up( url_add_param(current_url(),'page',($page-1)));
+      $menu = new menu();
       
-      if ( count($data) > $end)
-        $menu->add_down( url_add_param(current_url(),'page',($page+1)));
+      if (count($data) > MAX_PER_PAGE)
+      {
+        $menu->add_up( url_add_param(current_url(),'page',($page > 1 ? ($page-1) : $last_page)) );
+        $menu->add_down( url_add_param(current_url(),'page',($page < $last_page ? ($page+1) : 1)) );
+      }
       
       for ($i=$start; $i<$end; $i++)
         $menu->add_item($data[$i]["NAME"], "change_user.php?id=".$data[$i]["USER_ID"]);

@@ -37,14 +37,13 @@
     }
     else
     {
-
-      // We are not on the first page, so output a link to go "up" a page of entries.
-      if ($page > 0)
-        $menu->add_up( $this_url.'?last='.MAX_PER_PAGE.'&search='.rawurlencode($search).'&any='.$prefix.'&page='.($page-1));
-
-      // We are not on the last page, so output a link to go "down" a page of entries.
-      if (($page+1)*MAX_PER_PAGE < $num_rows)
-        $menu->add_down( $this_url.'?last=1&search='.rawurlencode($search).'&any='.$prefix.'&page='.($page+1));
+      // Add up/down buttons as needed for prev/next page
+      $last_page = ceil($num_rows/MAX_PER_PAGE)-1;
+      if ($num_rows > MAX_PER_PAGE)
+      {
+        $menu->add_up( $this_url.'?last='.MAX_PER_PAGE.'&search='.rawurlencode($search).'&any='.$prefix.'&page='.($page > 0 ? ($page-1) : $last_page));
+        $menu->add_down( $this_url.'?last=1&search='.rawurlencode($search).'&any='.$prefix.'&page='.($page < $last_page ? ($page+1) : 0));
+      }
 
       foreach ($data as $row)
         $menu->add_item($row["NAME"],'city_selected.php?name='.rawurlencode($row["NAME"]),true);

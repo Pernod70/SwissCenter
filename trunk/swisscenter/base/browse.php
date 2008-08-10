@@ -72,14 +72,13 @@
     $no_items  = items_per_page();
     $start     = $page * ($no_items);
     $end       = min(count($stations), $start+$no_items);
-    $up        = ($page > 0);
-    $down      = ($end < count($stations));
+    $last_page = ceil(count($stations)/items_per_page())-1;
 
-    if ($up)
-      $menu->add_up($url.'&page='.($page-1));
-
-    if ($down)
-      $menu->add_down($url.'&page='.($page+1));
+    if (count($stations) > items_per_page())
+    {
+      $menu->add_up( url_add_param($url,'page',($page > 0 ? ($page-1) : $last_page)) );
+      $menu->add_down( url_add_param($url,'page',($page < $last_page ? ($page+1) : 0)) );
+    }
 
     for ($i=$start; $i<$end; $i++)
     {
@@ -100,14 +99,13 @@
     $no_items  = items_per_page();
     $start     = $page * ($no_items);
     $end       = min(count($rss_feeds), $start+$no_items);
-    $up        = ($page > 0);
-    $down      = ($end < count($rss_feeds));
+    $last_page = ceil(count($rss_feeds)/items_per_page())-1;
 
-    if ($up)
-      $menu->add_up(url_add_param($url,'page',($page-1)));
-
-    if ($down)
-      $menu->add_down(url_add_param($url,'page',($page+1)));
+    if (count($rss_feeds) > items_per_page())
+    {
+      $menu->add_up( url_add_param($url,'page',($page > 0 ? ($page-1) : $last_page)) );
+      $menu->add_down( url_add_param($url,'page',($page < $last_page ? ($page+1) : 0)) );
+    }
 
     for ($i=$start; $i<$end; $i++)
     {
@@ -137,14 +135,13 @@
     $no_items  = items_per_page();
     $start     = $page * ($no_items);
     $end       = min(count($array), $start+$no_items);
-    $up        = ($page > 0);
-    $down      = ($end < count($array));
+    $last_page = ceil(count($array)/items_per_page())-1;
 
-    if ($up)
-      $menu->add_up($url.'&page='.($page-1));
-
-    if ($down)
-      $menu->add_down($url.'&page='.($page+1));
+    if (count($array) > items_per_page())
+    {
+      $menu->add_up( url_add_param($url,'page',($page > 0 ? ($page-1) : $last_page)) );
+      $menu->add_down( url_add_param($url,'page',($page < $last_page ? ($page+1) : 0)) );
+    }
 
     for ($i=$start; $i<$end; $i++)
       $menu->add_item($array[$i]["name"], $array[$i]["url"]);
@@ -247,14 +244,13 @@
     $no_items  = items_per_page();
     $start     = $page * ($no_items);
     $end       = min(count($dir_list)+count($file_list) , $start+$no_items);
-    $up        = ($page > 0);
-    $down      = ($end < count($dir_list)+count($file_list));
+    $last_page = ceil((count($dir_list)+count($file_list))/items_per_page())-1;
 
-    if ($up)
-      $menu->add_up(url_add_params($url,array('page'=>($page-1), 'DIR'=>rawurlencode($dir))));
-
-    if ($down)
-      $menu->add_down(url_add_params($url,array('page'=>($page+1),'DIR'=>rawurlencode($dir))));
+    if ((count($dir_list)+count($file_list)) > items_per_page())
+    {
+      $menu->add_up( url_add_params($url,array('page'=>($page > 0 ? ($page-1) : $last_page), 'DIR'=>rawurlencode($dir))));
+      $menu->add_down( url_add_params($url,array('page'=>($page < $last_page ? ($page+1) : 0), 'DIR'=>rawurlencode($dir))));
+    }
 
     for ($i=$start; $i<$end; $i++)
     {

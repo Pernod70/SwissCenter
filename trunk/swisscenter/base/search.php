@@ -158,14 +158,12 @@ function  search_media_page( $heading, $title, $media_type, $joined_tables, $col
   }
   else
   {
-    // We are not on the first page, so output a link to go "up" a page of entries.
-    if ($page > 0)
-      $menu->add_up( url_add_param($this_url,'page',$page-1));
-
-    // We are not on the last page, so output a link to go "down" a page of entries.
-    if (($page+1)*MAX_PER_PAGE < $num_rows)
+    // Display links for previous and next pages
+    $last_page = ceil($num_rows/MAX_PER_PAGE)-1;
+    if ($num_rows > MAX_PER_PAGE)
     {
-      $menu->add_down( url_add_param($this_url,'page',$page+1));
+      $menu->add_up( url_add_param($this_url,'page',($page > 0 ? ($page-1) : $last_page)) );
+      $menu->add_down( url_add_param($this_url,'page',($page < $last_page ? ($page+1) : 0)) );
     }
 
     foreach ($data as $row)

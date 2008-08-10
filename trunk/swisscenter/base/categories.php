@@ -49,14 +49,15 @@
     $page       = (isset($_REQUEST["cat_page"]) ? $_REQUEST["cat_page"] : 1);
     $start      = ($page-1) * MAX_PER_PAGE; 
     $end        = min($start+MAX_PER_PAGE,count($cats));
+    $last_page  = ceil(count($cats)/MAX_PER_PAGE);
 
-    $menu = new menu();    
+    $menu = new menu();
 
-    if ($page > 1)
-      $menu->add_up( url_add_param(current_url(),'cat_page',($page-1)));
-
-    if ( count($cats) > $end)
-      $menu->add_down( url_add_param(current_url(),'cat_page',($page+1)));
+    if (count($cats) > MAX_PER_PAGE)
+    {
+      $menu->add_up( url_add_param(current_url(),'cat_page',($page > 1 ? ($page-1) : $last_page)) );
+      $menu->add_down( url_add_param(current_url(),'cat_page',($page < $last_page ? ($page+1) : 1)) );
+    }
 
     for ($i=$start; $i<$end; $i++) 
     { 

@@ -93,14 +93,14 @@ class list_picker
       $this->display_nodata($sql_search);
     }
     else
-    {    
-      // There's a previous page, so display a link
-      if ($this->page > 0)
-        $this->menu->add_up( url_add_params($this->url, array("last"=>MAX_PER_PAGE, "search"=>rawurlencode($this->search),'any'=>$this->prefix, 'page'=>($this->page-1)) ));
-    
-      // There's a next page, so display a link
-      if (($this->page+1)*MAX_PER_PAGE < $num_rows)
-        $this->menu->add_down( url_add_params($this->url, array("last"=>1, "search"=>rawurlencode($this->search),'any'=>$this->prefix, 'page'=>($this->page+1)) ));
+    {
+      // Display links for previous and next pages
+      $last_page  = ceil($num_rows/MAX_PER_PAGE)-1;
+      if ($num_rows > MAX_PER_PAGE)
+      {
+        $this->menu->add_up( url_add_params($this->url, array("last"=>MAX_PER_PAGE, "search"=>rawurlencode($this->search),'any'=>$this->prefix, 'page'=>($this->page > 0 ? ($this->page-1) : $last_page)) ));
+        $this->menu->add_down( url_add_params($this->url, array("last"=>1, "search"=>rawurlencode($this->search),'any'=>$this->prefix, 'page'=>($this->page < $last_page ? ($this->page+1) : 0)) ));
+      }
     
       foreach ($data as $item)
         $this->menu->add_item($this->display_format_name($item), $this->link_url($item), true);
