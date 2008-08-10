@@ -176,6 +176,10 @@
         $width = style_value("MENU_WEB_WIDTH");
         $align = style_value("MENU_WEB_ALIGN");
         break;
+      case MEDIA_TYPE_DVD   :
+        $width = style_value("MENU_DVD_WIDTH");
+        $align = style_value("MENU_DVD_ALIGN");
+        break;
       default               :
         $width = 650;
         $align = 'center';
@@ -296,6 +300,10 @@
         $width = style_value("MENU_WEB_WIDTH");
         $align = style_value("MENU_WEB_ALIGN");
         break;
+      case MEDIA_TYPE_DVD   :
+        $width = style_value("MENU_DVD_WIDTH");
+        $align = style_value("MENU_DVD_ALIGN");
+        break;
       default               :
         $width = 650;
         $align = 'center';
@@ -408,7 +416,7 @@
       echo '<a href="'.$url.'?page='.floor(($ir_key-1)*(($total_pages-1)/8)).'&DIR='.rawurlencode($dir).'" '.tvid($ir_key).'></a>';
       
     // Should we present a link to select all files?
-    if ($media_type > 0 && $media_type !== MEDIA_TYPE_WEB && $media_type !== MEDIA_TYPE_RADIO)
+    if ($media_type > 0 && !in_array($media_type, array(MEDIA_TYPE_WEB, MEDIA_TYPE_RADIO, MEDIA_TYPE_DVD)))
       $buttons[] = array('text'=>str('SELECT_ALL'), 'url'=>  output_link( '%/'.$dir) );
       
     // Link to scan/refresh the directory

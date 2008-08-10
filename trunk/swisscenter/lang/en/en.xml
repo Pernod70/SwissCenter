@@ -203,6 +203,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>BROWSE_DVD</id>
+        <text>Browse DVD's</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
         <id>BROWSE_FILESYSTEM</id>
         <text>Browse filesystem</text>
         <version>1.19</version>
@@ -2353,8 +2358,8 @@
       </string>
       <string>
         <id>ORG_TITLE</id>
-        <text>Edit Video Details</text>
-        <version>1.19</version>
+        <text>Edit Video/DVD Details</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>PAGE</id>

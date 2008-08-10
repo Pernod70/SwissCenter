@@ -263,9 +263,16 @@ function array_last( &$array )
 function un_magic_quote( $text )
 {
   if ( get_magic_quotes_gpc() == 1)
-    return stripslashes($text);
-  else
-    return $text;
+  {
+    if ( is_array($text) )
+    {
+      foreach ($text as $key=>$value)
+        $text[$key] = stripslashes($value);
+    }
+    else
+      $text = stripslashes($text);
+  }
+  return $text;
 }
 
 // ----------------------------------------------------------------------------------
