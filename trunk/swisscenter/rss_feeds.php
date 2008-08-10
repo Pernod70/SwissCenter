@@ -14,7 +14,7 @@
     $page     = (isset($_REQUEST["page"]) ? $_REQUEST["page"] : 1);
     $sub_data = rss_get_subscription_details($sub_id);
     $items    = rss_get_subscription_items($sub_id, 'desc');
-    $synlen   = ( is_screen_hdtv() ? 1920 : 520);
+    $synlen   = $_SESSION["device"]["browser_x_res"];
     
     if ( strpos(search_picker_most_recent(), 'sub_id') > 0 ) search_picker_pop();
     $back_url = search_picker_most_recent();
