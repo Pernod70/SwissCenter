@@ -246,7 +246,7 @@
         else
         {
           // Find all images of the artist on the page using a regular expression.
-          if (preg_match_all('#<img src="(.*/serve/.*)" />#Ui',$html,$matches) >0 )
+          if (preg_match_all('#<img.*src="(.*/serve/.*)" />#Ui',$html,$matches) >0 )
           {
           	dump($matches);
             for ($i=0; $i<count($matches[1]); $i++)
@@ -328,7 +328,7 @@
       $this->submission_url = '';
 
       // Parameters for the handshake
-      $timenow = time();
+      $timenow = gmt_time();
       $hs_url  = 'http://post.audioscrobbler.com/'.
                  '?hs=true'.
                  '&p=1.2'.
