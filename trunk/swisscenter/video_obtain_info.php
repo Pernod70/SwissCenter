@@ -180,7 +180,7 @@
   {
     if ( is_movie_check_enabled() )
     {
-      send_to_log(4,'Checking online for extra movie information from '.file_noext(get_sys_pref('movie_info_script','www.dvdloc8.com.php')));
+      send_to_log(4,'Checking online for extra movie information from '.file_noext(get_sys_pref('movie_info_script','www.imdb.com.php')));
 
       // Only try to update movie information for categories that have it enabled, and where the details_available column is null.
       $data = db_toarray("select file_id
@@ -222,7 +222,7 @@
   {
     if ( is_tv_check_enabled() )
     {
-      send_to_log(4,'Checking online for extra tv information from '.file_noext(get_sys_pref('tv_info_script','www.epguides.com.php')));
+      send_to_log(4,'Checking online for extra tv information from '.file_noext(get_sys_pref('tv_info_script','www.TheTVDB.com.php')));
 
       // Only try to update tv information where the details_available column is null.
       $data = db_toarray("select file_id
@@ -281,13 +281,13 @@
   }
   else 
   {
-    $inc_movie_file   = get_sys_pref('movie_info_script','www.dvdloc8.com.php');
+    $inc_movie_file   = get_sys_pref('movie_info_script','www.imdb.com.php');
     if ( !file_exists($parser_dir.'/'.$inc_movie_file) && !file_exists($parser_dir.'/movie/'.$inc_movie_file))
-      $inc_movie_file = 'www.dvdloc8.com.php';
+      $inc_movie_file = 'www.imdb.com.php';
       
-    $inc_tv_file   = get_sys_pref('tv_info_script','www.epguides.com.php');
+    $inc_tv_file   = get_sys_pref('tv_info_script','www.TheTVDB.com.php');
     if ( !file_exists($parser_dir.'/tv/'.$inc_tv_file) )
-      $inc_tv_file = 'www.epguides.com.php';
+      $inc_tv_file = 'www.TheTVDB.com.php';
 
     // Include the appropriate files
     if ( file_exists($parser_dir.'/movie/'.$inc_movie_file) )
