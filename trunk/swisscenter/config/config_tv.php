@@ -36,19 +36,12 @@ function tv_display_info(  $message = '' )
   $genres      = db_toarray("select genre_name name from genres g, genres_of_tv got where got.genre_id = g.genre_id and tv_id=".$tv_id);
   $filename    = $details[0]["DIRNAME"].$details[0]["FILENAME"];
   $sites_list  = get_parsers_list();
-  $exists_js   = '';
-
-  // If a tv XML file already exists, use javascript to ask the user whether to overwrite it.
-  if ( file_exists(substr($filename,0,strrpos($filename,'.')).".xml") )
-    $exists_js = 'onClick="javascript:return confirm(\''.addslashes(str_replace('"','',str('MOVIE_EXPORT_OVERWRITE'))).'?\')"';
 
   // Display tv shows that will be affected.
   echo '<h1>'.$details[0]["PROGRAMME"].(empty($details[0]["TITLE"]) ? '' : ' - '.$details[0]["TITLE"]).'</h1><center>
          ( <a href="'.$_SESSION["last_search_page"].'">'.str('RETURN_TO_LIST').'</a>
          | <a href="?section=TV&action=UPDATE_FORM_SINGLE&tv[]='.$tv_id.'">'.str('DETAILS_EDIT').'</a>
-         <!--| <a href="?section=TV&action=EXPORT&tv_id='.$tv_id.'" '.$exists_js.'>'.str('DETAILS_EXPORT').'</a> -->
-         )
-        </center>';
+         ) </center>';
         message($message);
   echo '<table class="form_select_tab" width="100%" cellspacing=4>
         <tr>
@@ -615,7 +608,7 @@ function tv_update_multiple()
   if ( get_sys_pref('tv_xml_save','NO') == 'YES' )
     foreach ($tv_list as $tv)
       export_tv_to_xml($tv);
-      
+
   $redirect_to = $_SESSION["last_search_page"];
   $redirect_to = url_add_param($redirect_to, 'message', str('MOVIE_CHANGES_MADE'));
   $redirect_to = url_set_param($redirect_to ,'subaction', '');
@@ -659,7 +652,7 @@ function tv_info( $message = "")
     run_background('media_export_xml.php');
     $message = str('MOVIE_EXTRA_EXPORT_OK');
   }
-  
+
   echo "<h1>".str('TV_OPTIONS')."</h1>";
   message($message);
 
@@ -684,7 +677,7 @@ function tv_info( $message = "")
         <p><span class="stdformlabel">'.str('EXTRA_REFRESH_WARNING','"'.str('TV_DETAILS').'"').'</span>'.'<br>&nbsp;';
   form_submit(str('EXTRA_REFRESH_GO'),2,'Left',240);
   form_end();
-  
+
   form_start('index.php', 150, 'conn');
   form_hidden('section', 'TV');
   form_hidden('action', 'INFO');

@@ -2,7 +2,7 @@
 /**************************************************************************************************
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
-  
+
 require_once( realpath(dirname(__FILE__).'/../base/media.php'));
 require_once( realpath(dirname(__FILE__).'/../base/sched.php'));
 require_once( realpath(dirname(__FILE__).'/../base/xml_sidecar.php'));
@@ -16,13 +16,13 @@ function get_parsers_list()
   $parsers_old = dir_to_array( realpath(dirname(__FILE__).'/../ext/parsers') , '.*\.php' );
   $parsers = dir_to_array( realpath(dirname(__FILE__).'/../ext/parsers/movie') , '.*\.php' );
   $sites_list = array();
-  
+
   foreach ($parsers_old as $file)
-    $sites_list[file_noext($file)] = basename($file);  
-    
+    $sites_list[file_noext($file)] = basename($file);
+
   foreach ($parsers as $file)
-    $sites_list[file_noext($file)] = basename($file);  
-  
+    $sites_list[file_noext($file)] = basename($file);
+
   return $sites_list;
 }
 
@@ -40,19 +40,12 @@ function movie_display_info(  $message = '' )
   $genres      = db_toarray("select genre_name name from genres g, genres_of_movie gom where gom.genre_id = g.genre_id and movie_id=".$movie_id);
   $filename    = $details[0]["DIRNAME"].$details[0]["FILENAME"];
   $sites_list  = get_parsers_list();
-  $exists_js   = '';
 
-  // If a movie XML file already exists, use javascript to ask the user whether to overwrite it.
-  if ( file_exists(substr($filename,0,strrpos($filename,'.')).".xml") )
-    $exists_js = 'onClick="javascript:return confirm(\''.addslashes(str_replace('"','',str('MOVIE_EXPORT_OVERWRITE'))).'?\')"';  
-    
   // Display movies that will be affected.
   echo '<h1>'.$details[0]["TITLE"].'</h1><center>
-         ( <a href="'.$_SESSION["last_search_page"].'">'.str('RETURN_TO_LIST').'</a> 
-         | <a href="?section=MOVIE&action=UPDATE_FORM_SINGLE&movie[]='.$movie_id.'">'.str('DETAILS_EDIT').'</a> 
-         <!--| <a href="?section=MOVIE&action=EXPORT&movie_id='.$movie_id.'" '.$exists_js.'>'.str('DETAILS_EXPORT').'</a> -->
-         )
-        </center>';
+         ( <a href="'.$_SESSION["last_search_page"].'">'.str('RETURN_TO_LIST').'</a>
+         | <a href="?section=MOVIE&action=UPDATE_FORM_SINGLE&movie[]='.$movie_id.'">'.str('DETAILS_EDIT').'</a>
+         ) </center>';
         message($message);
   echo '<table class="form_select_tab" width="100%" cellspacing=4><tr>
           <th colspan="3">'.str('SYNOPSIS').'</th>
@@ -62,32 +55,32 @@ function movie_display_info(  $message = '' )
   // DVD Video details are stored in the parent folder
   if ( strtoupper($details[0]["FILENAME"]) == 'VIDEO_TS.IFO' )
     $filename = rtrim($details[0]["DIRNAME"],'/').".dvd";
-  
+
   $folder_img = file_albumart($filename);
   if (!empty($folder_img))
     echo img_gen($folder_img,100,200,false,false,false,array('hspace'=>0,'vspace'=>4,'align'=>'left') );
-  
+
   echo  $details[0]["SYNOPSIS"].'<br>&nbsp;</td>
         </tr><tr>
         <th width="33%">'.str('ACTOR').'</th>
         <th width="33%">'.str('DIRECTOR').'</th>
-        <th width="33%">'.str('GENRE').'</th>   
+        <th width="33%">'.str('GENRE').'</th>
         </tr><tr>
         <td valign=top>';
-  
+
         foreach ($actors as $name)
           echo $name["NAME"].'<br>';
-          
+
   echo '<br>&nbsp;</td><td valign=top>';
-  
+
         foreach ($directors as $name)
           echo $name["NAME"].'<br>';
-          
+
   echo '<br>&nbsp;</td><td valign=top>';
-  
+
         foreach ($genres as $name)
           echo $name["NAME"].'<br>';
-          
+
   echo '<br>&nbsp;</td></tr></tr><tr>
           <th>'.str('CERTIFICATE').'</th>
           <th>'.str('YEAR').'</th>
@@ -99,7 +92,7 @@ function movie_display_info(  $message = '' )
   foreach ( db_toarray("select * from users order by name") as $row)
     if (viewings_count(3, $details[0]["FILE_ID"], $row["USER_ID"])>0)
       echo $row["NAME"].'<br>';
-  
+
   echo '</td></tr>
         <tr><th colspan=3>'.str('LOCATION_ON_DISK').'</th></tr>
         <tr><td colspan=3>'.$details[0]["DIRNAME"].$details[0]["FILENAME"].'&nbsp;</td></tr>
@@ -114,10 +107,10 @@ function movie_display_info(  $message = '' )
           <input type=hidden name="action" value="LOOKUP">
           <input type=hidden name="movie_id" value="'.$movie_id.'">
           '.form_list_static_html('parser',$sites_list, get_sys_pref('movie_info_script','www.imdb.com.php'),false,false,false).'
-          &nbsp; <input type="Submit" name="subaction" value="'.str('LOOKUP_MOVIE').'"> &nbsp; 
+          &nbsp; <input type="Submit" name="subaction" value="'.str('LOOKUP_MOVIE').'"> &nbsp;
           </form>
         </td>
-        </tr></table>';  
+        </tr></table>';
 }
 
 // ----------------------------------------------------------------------------------
@@ -130,17 +123,17 @@ function movie_lookup()
 
   $movie_id = $_REQUEST["movie_id"];
   $details  = db_toarray("select * from movies where file_id=$movie_id");
-  
+
   // DVD Video details are stored in the parent folder
   if ( strtoupper($details[0]["FILENAME"]) == 'VIDEO_TS.IFO' )
     $filename = rtrim($details[0]["DIRNAME"],'/').".xml";
   else
     $filename = $details[0]["DIRNAME"].$details[0]["FILENAME"];
-  $title    = strip_title($details[0]["TITLE"]);  
+  $title    = strip_title($details[0]["TITLE"]);
 
   // Clear old details first
   purge_movie_details($movie_id);
-  
+
   // Lookup movie
   if ( extra_get_movie_details($movie_id, $filename, $title) )
   {
@@ -149,7 +142,7 @@ function movie_lookup()
       export_video_to_xml($movie_id);
     movie_display_info( str('LOOKUP_SUCCESS') );
   }
-  else 
+  else
     movie_display_info( '!'.str('LOOKUP_FAILURE') );
 }
 
@@ -193,7 +186,7 @@ function movie_display_list($movie_list)
            <td valign="top" width="21%">'.nvl(implode("<br>",$actors)).'</td>
            <td valign="top" width="21%">'.nvl(implode("<br>",$directors)).'</td>
            <td valign="top" width="21%">'.nvl(implode("<br>",$genres)).'</td>
-          </tr></table>';  	
+          </tr></table>';
   }
 }
 
@@ -209,17 +202,17 @@ function movie_display_thumbs($movie_list)
       $thumb_html = '';
       $title_html = '';
     }
-    
+
     // Form dummy filename for DVD folders
     $filename = $movie["DIRNAME"].$movie["FILENAME"];
     if (is_dir($filename))
       $filename = str_suffix($filename,'/').basename($filename).'.dvd';
-      
-    $img_url     = img_gen(file_albumart($filename) ,130,400,false,false,false,array('hspace'=>0,'vspace'=>4) );    
+
+    $img_url     = img_gen(file_albumart($filename) ,130,400,false,false,false,array('hspace'=>0,'vspace'=>4) );
     $edit_url    = '?section=movie&action=display_info&movie_id='.$movie["FILE_ID"];
     $thumb_html .= '<td valign="top"><input type="checkbox" name="movie[]" value="'.$movie["FILE_ID"].'"></input></td>
                     <td valign="middle"><a href="'.$edit_url.'">'.$img_url.'</a></td>';
-    $title_html .= '<td width="25%" colspan="2" align="center" valign="middle"><a href="'.$edit_url.'">'.$movie["TITLE"].'</a></td>';    
+    $title_html .= '<td width="25%" colspan="2" align="center" valign="middle"><a href="'.$edit_url.'">'.$movie["TITLE"].'</a></td>';
   }
 
   // and last row...
@@ -235,9 +228,9 @@ function movie_display( $message = '')
   $_SESSION["last_search_page"] = current_url( true );
   $per_page    = get_user_pref('PC_PAGINATION',20);
   $page        = (empty($_REQUEST["page"]) ? 1 : $_REQUEST["page"]);
-  $start       = ($page-1)*$per_page;    
+  $start       = ($page-1)*$per_page;
   $where       = '';
-  
+
   if (empty($message) && isset($_REQUEST["message"]))
     $message = urldecode($_REQUEST["message"]);
 
@@ -248,26 +241,26 @@ function movie_display( $message = '')
     // Extra filters on the media (for categories and search).
   if (!empty($_REQUEST["cat_id"]) )
     $where .= "and ml.cat_id = $_REQUEST[cat_id] ";
- 
+
   if (!empty($_REQUEST["search"]) )
     $where .= "and m.title like '%$_REQUEST[search]%' ";
-    
+
   // If the user has changed category, then shunt them back to page 1.
   if (un_magic_quote($_REQUEST["last_where"]) != $where)
   {
     $page = 1;
     $start = 0;
   }
-  
+
   // SQL to fetch matching rows
   $movie_count = db_value("select count(*) from movies m, media_locations ml where ml.location_id = m.location_id ".$where);
   $movie_list  = db_toarray("select m.* from movies m, media_locations ml where ml.location_id = m.location_id ".$where.
-                            " order by title limit $start,$per_page");        
+                            " order by title limit $start,$per_page");
 
   $list_type = get_sys_pref('CONFIG_VIDEO_LIST','THUMBS');
   echo '<h1>'.str('ORG_TITLE').'  ('.str('PAGE',$page).')</h1>';
   message($message);
-  
+
   $this_url = '?last_where='.urlencode($where).'&search='.$_REQUEST["search"].'&cat_id='.$_REQUEST["cat_id"].'&section=MOVIE&action=DISPLAY&page=';
 
   echo '<form enctype="multipart/form-data" action="" method="post">
@@ -275,18 +268,18 @@ function movie_display( $message = '')
   form_hidden('section','MOVIE');
   form_hidden('action','DISPLAY');
   form_hidden('last_where',$where);
-  echo  str('CATEGORY').' : 
+  echo  str('CATEGORY').' :
         '.form_list_dynamic_html("cat_id","select distinct c.cat_id,c.cat_name from categories c left join media_locations ml on c.cat_id=ml.cat_id where ml.media_type=".MEDIA_TYPE_VIDEO." or ml.media_type=".MEDIA_TYPE_DVD." order by c.cat_name",$_REQUEST["cat_id"],true,true,str('CATEGORY_LIST_ALL')).'&nbsp;
         <a href="'.url_set_param($this_url,'list','LIST').'"><img align="absbottom" border="0"  src="/images/details.gif"></a>
-        <a href="'.url_set_param($this_url,'list','THUMBS').'"><img align="absbottom" border="0" src="/images/thumbs.gif"></a>  
+        <a href="'.url_set_param($this_url,'list','THUMBS').'"><img align="absbottom" border="0" src="/images/thumbs.gif"></a>
         <img align="absbottom" border="0" src="/images/select_all.gif" onclick=\'handleClick("movie[]", true)\'>
         <img align="absbottom" border="0" src="/images/select_none.gif" onclick=\'handleClick("movie[]", false)\'>
         </td><td width"50%" align="right">
-        '.str('SEARCH').' : 
+        '.str('SEARCH').' :
         <input name="search" value="'.$_REQUEST["search"].'" size=10>
         </td></tr></table>
         </form>';
-  
+
   echo '<form enctype="multipart/form-data" action="" method="post">';
   form_hidden('section','MOVIE');
   form_hidden('action','UPDATE');
@@ -297,12 +290,12 @@ function movie_display( $message = '')
     movie_display_thumbs($movie_list);
   else
     movie_display_list($movie_list);
-          
+
   paginate($this_url,$movie_count,$per_page,$page);
 
   echo '<p><table width="100%"><tr><td align="center">
-        <input type="Submit" name="subaction" value="'.str('DETAILS_EDIT').'"> &nbsp; 
-        <input type="Submit" name="subaction" value="'.str('DETAILS_CLEAR').'"> &nbsp; 
+        <input type="Submit" name="subaction" value="'.str('DETAILS_EDIT').'"> &nbsp;
+        <input type="Submit" name="subaction" value="'.str('DETAILS_CLEAR').'"> &nbsp;
         </td></tr></table>
         </form>';
 }
@@ -317,7 +310,7 @@ function movie_update()
     movie_clear_details();
   elseif ($_REQUEST["subaction"] == str('DETAILS_EDIT'))
     movie_update_form();
-  elseif (empty($_REQUEST["subaction"])) 
+  elseif (empty($_REQUEST["subaction"]))
     movie_display();
   else
     send_to_log(1,'Unknown value recieved for "subaction" parameter : '.$_REQUEST["subaction"]);
@@ -374,7 +367,7 @@ function movie_update_form_single()
   $actors      = db_toarray("select actor_name name, actor_id id from actors order by 1");
   $directors   = db_toarray("select director_name name, director_id id from directors order by 1");
   $genres      = db_toarray("select genre_name name, genre_id id from genres order by 1");
-  
+
   // Because we can't use subqueries for the above lists, we now need to determine which
   // rows should be shown as selected.
   $a_select = db_col_to_list("select actor_id from actors_in_movie where movie_id=".$movie_id);
@@ -397,7 +390,7 @@ function movie_update_form_single()
         <br>&nbsp;</td></tr><tr>
         <th width="33%"><input type="hidden" name="update_actors" value="yes">'.str('ACTOR').'</th>
         <th width="33%"><input type="hidden" name="update_directors" value="yes">'.str('DIRECTOR').'</th>
-        <th width="33%"><input type="hidden" name="update_genres" value="yes">'.str('GENRE').'</th>   
+        <th width="33%"><input type="hidden" name="update_genres" value="yes">'.str('GENRE').'</th>
         </tr><tr>
         <td><select name="actors[]" multiple size="8">
         '.list_option_elements($actors, $a_select).'
@@ -425,16 +418,16 @@ function movie_update_form_single()
           </td>
           <td><input name="year" size="6" value="'.$details[0]["YEAR"].'"></td>
           <td>';
-  
+
   foreach ( db_toarray("select * from users order by name") as $row)
     echo '<input type="checkbox" name="viewed[]" value="'.$row["USER_ID"].'" '.
          (viewings_count( $media_type, $details[0]["FILE_ID"], $row["USER_ID"])>0 ? 'checked' : '').
          '>'.$row["NAME"].'<br>';
-            
+
   echo '</td>
         </tr></table>
         <p align="center"><input type="submit" value="'.str('MOVIE_ADD_BUTTON').'">
-        </form>';    
+        </form>';
 }
 
 // ----------------------------------------------------------------------------------
@@ -454,8 +447,8 @@ function movie_update_form_multiple( $movie_list )
   echo '<h1>'.str('MOVIE_UPD_TTILE').'</h1>
         <input type="hidden" name="update_title" value="no">
        <center>'.str('MOVIE_UPD_TEXT').'<p>';
-       array_to_table(db_toarray("select title, filename from movies where file_id in (".implode(',',$movie_list).")"),str('Title').','.str('Filename'));      
-    
+       array_to_table(db_toarray("select title, filename from movies where file_id in (".implode(',',$movie_list).")"),str('Title').','.str('Filename'));
+
   echo '</center>
         <form enctype="multipart/form-data" action="" method="post">
         <input type=hidden name="section" value="MOVIE">
@@ -463,11 +456,11 @@ function movie_update_form_multiple( $movie_list )
 
   foreach ($movie_list as $movie_id)
     echo '<input type=hidden name="movie[]" value="'.$movie_id.'">';
-          
+
   echo '<table class="form_select_tab" width="100%" cellspacing=4><tr>
         <th width="33%"><input type="checkbox" name="update_actors" value="yes">'.str('ACTOR').'</th>
         <th width="33%"><input type="checkbox" name="update_directors" value="yes">'.str('DIRECTOR').'</th>
-        <th width="33%"><input type="checkbox" name="update_genres" value="yes">'.str('GENRE').'</th>   
+        <th width="33%"><input type="checkbox" name="update_genres" value="yes">'.str('GENRE').'</th>
         </tr><tr>
         <tr><td colspan="3" align="center">'.str('MOVIE_ADD_PROMPT').'</td></tr>
         <td><select name="actors[]" multiple size="8">
@@ -496,14 +489,14 @@ function movie_update_form_multiple( $movie_list )
           </td>
           <td><input name="year" size="6" value="'.(count($year)==1 ? $year[0]["YEAR"] : '').'"></td>
           <td>';
-          
+
   foreach ( db_toarray("select * from users order by name") as $row)
     echo '<input type="checkbox" name="viewed[]" value="'.$row["USER_ID"].'">'.$row["NAME"].'<br>';
-         
+
   echo '</td>
         </tr></table>
         <p align="center"><input type="submit" value="'.str('MOVIE_ADD_BUTTON').'">
-        </form>';    
+        </form>';
 }
 
 // ----------------------------------------------------------------------------------
@@ -523,13 +516,13 @@ function movie_update_single()
 
 // ----------------------------------------------------------------------------------
 // Processes the input from the multiple movie update form
-// ----------------------------------------------------------------------------------  
+// ----------------------------------------------------------------------------------
 
 function movie_update_multiple()
 {
   $movie_list = $_REQUEST["movie"];
   $columns    = array();
-  
+
   if ($_REQUEST["update_year"] == 'yes')
     $columns["YEAR"] = $_REQUEST["year"];
   if ($_REQUEST["update_rating"] == 'yes' && !empty($_REQUEST["rating"]))
@@ -545,7 +538,7 @@ function movie_update_multiple()
     $columns["DETAILS_AVAILABLE"] = 'Y';
     scdb_set_movie_attribs($movie_list, $columns);
   }
- 
+
   // Add Actors/Genres/Directors?
   if ($_REQUEST["update_actors"] == 'yes')
   {
@@ -566,7 +559,7 @@ function movie_update_multiple()
   if ($_REQUEST["update_genres"] == 'yes')
   {
     if (count($_REQUEST["genres"]) >0)
-      scdb_add_genres($movie_list,un_magic_quote($_REQUEST["genres"]));   
+      scdb_add_genres($movie_list,un_magic_quote($_REQUEST["genres"]));
     if (!empty($_REQUEST["genre_new"]))
       scdb_add_genres($movie_list, explode(',',un_magic_quote($_REQUEST["genre_new"])));
   }
@@ -586,7 +579,7 @@ function movie_update_multiple()
             db_insert_row('viewings',array("user_id"=>$row["USER_ID"], "media_type"=>$media_type, "media_id"=>$movie, "total_viewings"=>1));
         }
       }
-      else 
+      else
       {
         // Remove all viewing information about these movies for this user
         db_sqlcommand("delete from viewings where media_type in (".MEDIA_TYPE_VIDEO.",".MEDIA_TYPE_DVD.") and user_id=$row[USER_ID] ".
@@ -594,9 +587,9 @@ function movie_update_multiple()
       }
     }
   }
-    
+
   scdb_remove_orphans();
-  
+
   // Export to XML
   if ( get_sys_pref('movie_xml_save','NO') == 'YES' )
     foreach ($movie_list as $movie)
@@ -616,7 +609,7 @@ function movie_info( $message = "")
 {
   $list       = array( str('ENABLED')=>'YES',str('DISABLED')=>'NO');
   $sites_list = get_parsers_list();
-      
+
   if (!empty($_REQUEST["downloads"]))
   {
     set_rating_scheme_name($_REQUEST['scheme']);
@@ -625,7 +618,7 @@ function movie_info( $message = "")
     set_sys_pref('movie_xml_save',$_REQUEST["xml_save"]);
     $message = str('SAVE_SETTINGS_OK');
   }
-  
+
   if (!empty($_REQUEST["refresh"]))
   {
     db_sqlcommand('update movies set year = null, certificate = null, match_pc = null, details_available = null, synopsis = null');
@@ -637,17 +630,17 @@ function movie_info( $message = "")
     media_refresh_now();
     $message = str('MOVIE_EXTRA_REFRESH_OK');
   }
-  
+
   if (!empty($_REQUEST["export"]))
   {
     set_sys_pref('EXPORT_XML','VIDEO');
     run_background('media_export_xml.php');
     $message = str('MOVIE_EXTRA_EXPORT_OK');
   }
-  
+
   echo "<h1>".str('MOVIE_OPTIONS')."</h1>";
   message($message);
-  
+
   form_start('index.php', 150, 'conn');
   form_hidden('section', 'MOVIE');
   form_hidden('action', 'INFO');
@@ -669,7 +662,7 @@ function movie_info( $message = "")
         <p><span class="stdformlabel">'.str('EXTRA_REFRESH_WARNING','"'.str('ORG_TITLE').'"').'</span>'.'<br>&nbsp;';
   form_submit(str('EXTRA_REFRESH_GO'),2,'Left',240);
   form_end();
-  
+
   form_start('index.php', 150, 'conn');
   form_hidden('section', 'MOVIE');
   form_hidden('action', 'INFO');
