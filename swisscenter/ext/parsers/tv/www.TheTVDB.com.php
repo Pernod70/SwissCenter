@@ -24,6 +24,7 @@
    31-Mar-2008: v1.1:     Fixed episode year and now informs user if episode details are not found.
    23-Apr-2008: v1.2:     Fixed downloading of series 0 (Special) banners.
    25-Jun-2008: v1.3:     Improved zip support on Linux installations.
+   08-Jul-2008: v1.4:     Added parsing of actors.xml.
 
  *************************************************************************************************/
 
@@ -78,23 +79,28 @@ function extra_get_tv_details($id, $filename, $programme, $series='', $episode='
       $series_zip_url   = $xmlmirror.'/api/FA3F6F720A61DE71/series/'.$series_id.'/all/'.$language.'.zip';
       $series_xml_url   = $xmlmirror.'/api/FA3F6F720A61DE71/series/'.$series_id.'/all/'.$language.'.xml';
       $banner_xml_url   = $xmlmirror.'/api/FA3F6F720A61DE71/series/'.$series_id.'/banners.xml';
+      $actors_xml_url   = $xmlmirror.'/api/FA3F6F720A61DE71/series/'.$series_id.'/actors.xml';
       $series_zip_cache = $cache_dir.'/'.$series_id.'_'.$language.'.zip';
       $series_cache     = $cache_dir.'/'.$series_id.'_'.$language.'.xml';
       $banner_cache     = $cache_dir.'/'.$series_id.'_banners.xml';
+      $actors_cache     = $cache_dir.'/'.$series_id.'_banners.xml';
       
       // Ensure local copy of full series zip is uptodate (cache valid for 6 hours)
       $series_cache_time  = (file_exists($series_cache) ? filemtime($series_cache) : 0);
       if ($series_cache_time < (time() - 21600))
       {
-        if (is_synology())
+        if ( !extension_loaded('zip') )
         {
-          // Synology has no zip support so download non-zipped data
+          // Zip extension not loaded so download non-zipped data
           send_to_log(4,'Downloading remote file to the local filesystem',$series_xml_url);
           if (!@copy($series_xml_url, $series_cache))
             send_to_log(6,'Failed to copy remote file to',$series_cache);
           send_to_log(4,'Downloading remote file to the local filesystem',$banner_xml_url);
           if (!@copy($banner_xml_url, $banner_cache))
             send_to_log(6,'Failed to copy remote file to',$banner_cache);
+//          send_to_log(4,'Downloading remote file to the local filesystem',$actors_xml_url);
+//          if (!@copy($actors_xml_url, $actors_cache))
+//            send_to_log(6,'Failed to copy remote file to',$actors_cache);
         }
         else
         {
@@ -104,7 +110,7 @@ function extra_get_tv_details($id, $filename, $programme, $series='', $episode='
           else
           {
             // Extract zip contents
-            if ( extension_loaded('zip') && is_resource($zip = @zip_open($series_zip_cache)) )
+            if ( is_resource($zip = @zip_open($series_zip_cache)) )
             {
               while ($zip_entry = zip_read($zip)) 
               {
@@ -205,6 +211,23 @@ function extra_get_tv_details($id, $filename, $programme, $series='', $episode='
                    dirname($filename).'/banners/banner_'.basename($banner_path));
           }   
         }
+        
+        // Parse and download the actor images
+//        $tvdb_actors = array();
+//        parse_xml($actors_cache, 'start_tag_tvdb_actors', 'end_tag_tvdb_actors', 'tag_contents_tvdb_actors');
+//        
+//        // Actor images (save to cache before copying to video folder)
+//        foreach ($tvdb_actors as $actor)
+//        {
+//          scdb_add_tv_actors   ( $id, explode('|', trim($tvdb_series['ACTORS'],'|')) );
+//            if (!file_exists($cache_dir.'/banners/'.basename($banner_path)))
+//              file_save_albumart( add_site_to_url($banner_path, $bannermirror.'/banners/')
+//                                , $cache_dir.'/banners/'.basename($banner_path)
+//                                , '');
+//            if (!file_exists(dirname($filename).'/banners/series'.sprintf("%02d", $series).'_'.basename($banner_path)))
+//              copy($cache_dir.'/banners/'.basename($banner_path),
+//                   dirname($filename).'/banners/series'.sprintf("%02d", $series).'_'.basename($banner_path));
+//        }
         
         return true;
       }
@@ -569,6 +592,53 @@ function tag_contents_tvdb_banner($parser, $data)
     case 'BANNERTYPE2': { $tvdb_banner['BANNERTYPE2'] .= $data; break; }
     case 'LANGUAGE':    { $tvdb_banner['LANGUAGE'] .= $data; break; }
     case 'SEASON':      { $tvdb_banner['SEASON'] .= $data; break; }
+  }
+}
+
+function start_tag_tvdb_actors($parser, $name, $attribs)
+{
+  global $tag; 
+  global $tvdb_actor;
+  
+  switch ($name)
+  {
+    // Actors
+    case 'ACTOR':
+      $tvdb_actor = array();
+      break;
+    default:
+      $tag = $name;
+  }
+}
+
+function end_tag_tvdb_actors($parser, $name)
+{
+  global $tvdb_actor, $tvdb_actors;
+
+  switch ($name)
+  {
+    // Actors
+    case 'ACTOR':
+      $tvdb_actors[$tvdb_actor['ID']][] = $tvdb_actor;
+      break;
+    default:
+  }
+}
+
+function tag_contents_tvdb_actors($parser, $data)
+{
+  global $tag;
+  global $tvdb_actor;
+
+  $data = utf8_decode($data);
+  
+  switch ($tag)
+  {
+    // Actors
+    case 'ID':    { $tvdb_actor['ID'] .= $data; break; }
+    case 'IMAGE': { $tvdb_actor['IMAGE'] .= $data; break; }
+    case 'NAME':  { $tvdb_actor['NAME'] .= $data; break; }
+    case 'ROLE':  { $tvdb_actor['ROLE'] .= $data; break; }
   }
 }
 
