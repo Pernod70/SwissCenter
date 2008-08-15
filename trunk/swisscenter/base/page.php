@@ -26,7 +26,7 @@ function current_session()
 {
   if (isset($_COOKIE["PHPSESSID"]))
     return 'session_id='.$_COOKIE["PHPSESSID"];
-  else 
+  else
     return 'session_id='.substr(SID,strpos(SID,'=')+1);
 }
 
@@ -37,16 +37,16 @@ function current_session()
 function up_link( $url, $focusload = true )
 {
   if (!empty($url))
-    return '<a href="'.$url.'" TVID="PGUP" '.($focusload ? 'ONFOCUSLOAD' : '').'>'.img_gen(SC_LOCATION.style_img("PAGE_UP"),40,20,false,false,'RESIZE').'</a>';
-  else 
+    return '<a href="'.$url.'" '.tvid("PGUP").' '.($focusload ? 'ONFOCUSLOAD' : '').'>'.img_gen(SC_LOCATION.style_img("PAGE_UP"),40,20,false,false,'RESIZE').'</a>';
+  else
     return '';
 }
 
 function down_link( $url, $focusload = true )
 {
   if (!empty($url))
-    return '<a href="'.$url.'" TVID="PGDN" '.($focusload ? 'ONFOCUSLOAD' : '').'>'.img_gen(SC_LOCATION.style_img("PAGE_DOWN"),40,20,false,false,'RESIZE').'</a>';
-  else 
+    return '<a href="'.$url.'" '.tvid("PGDN").' '.($focusload ? 'ONFOCUSLOAD' : '').'>'.img_gen(SC_LOCATION.style_img("PAGE_DOWN"),40,20,false,false,'RESIZE').'</a>';
+  else
     return '';
 }
 
@@ -69,7 +69,7 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
     header('Location: '.server_address().'change_user.php');
     exit;
   }
-  
+
   // Display headings, only if there is no banner
   if (is_screen_ntsc())
   {
@@ -85,14 +85,14 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
     else
       $headings = '<td height="'.convert_y(170).'" align="center"><h2>'.$title.'&nbsp;</h2>'.font_tags(32).$tagline.'&nbsp;</td>';
   }
-  
+
   // The default background is specified by PAGE_BACKGROUND
   $page_background = style_img("PAGE_BACKGROUND");
-  
+
   // Test to see if this page has a special background, and if so if this has been set in the style.
   if (is_string($background))
-  { 
-    if (style_img_exists($background))   
+  {
+    if (style_img_exists($background))
       $page_background = style_img($background);
   }
   elseif (is_numeric($background))
@@ -128,7 +128,7 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
 
   if ($focus_colour == '')
     $focus_colour = style_value("PAGE_FOCUS_COLOUR",'#FFFFFF');
-  
+
   header('Content-type: text/html; '.charset());
   echo '<html>
         <head>'.$meta.'
@@ -153,11 +153,11 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
                vlink="'.       style_value("PAGE_LINKS_COLOUR",'#FFFFFF').'"
                bgcolor="'.     style_value("PAGE_BACKGROUND_COLOUR",'#FFFFFF').'"
                TOPMARGIN="0" LEFTMARGIN="0" MARGINHEIGHT="0" MARGINWIDTH="0">';
-  
+
   echo '<table width="'.convert_x(1000).'" border="0" cellpadding="0" cellspacing="0">
         <tr>'.$headings.'</tr>
         </table>
-        
+
         <table width="'.convert_x(1000).'" border="0" cellpadding="0" cellspacing="0">
           <tr>
             <td width="'.convert_x(50).'" height="'.convert_y(670).'" ></td>
@@ -190,28 +190,28 @@ function img_gen( $filename, $x, $y, $type = false, $stretch = false, $rs_mode =
   $html = '';
   foreach ($html_params as $n => $v)
     $html .= $n.'="'.$v.'" ';
-    
+
   // Build the paramters for the thumb.php script
   $img_params = '/thumb.php?src='.rawurlencode($filename).'&x='.convert_x($x).'&y='.convert_y($y);
-  
+
   if ($type !== false)
     $img_params .='&type='.$type;
-  
+
   if ($stretch !== false)
     $img_params .='&stretch=Y';
-    
+
   if ($rs_mode !== false)
     $img_params .='&rs_mode='.$rs_mode;
 
-  
+
   $browser = $_SERVER['HTTP_USER_AGENT'];
   if ( strpos($browser,'MSIE ') !== false && preg_replace('/^.*MSIE (.*);.*$/Ui','\1',$browser) < 7)
   {
     $filter = "filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='$img_params',sizingMethod='crop');";
     return '<img '.$html.' style="'.$filter.'" width="'.convert_x($x).'" height="'.convert_y($y).'" src="/images/dot.gif" border=0>';
   }
-  else      
-    return '<img '.$html.' width="'.convert_x($x).'" height="'.convert_y($y).'" src="'.$img_params.'" border=0>';  
+  else
+    return '<img '.$html.' width="'.convert_x($x).'" height="'.convert_y($y).'" src="'.$img_params.'" border=0>';
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -253,7 +253,7 @@ function page_footer( $back, $buttons= '', $iconbar = 0, $links=true )
         $link = $buttons[$i]["url"];
         if (substr($link,0,5) != 'href=')
           $link = 'href="'.$link.'"';
-          
+
         $link = '<a '.$link.tvid('KEY_'.substr('ABC',$i,1)).'name="'.tvid_code('KEY_'.substr('ABC',$i,1)).'">'.img_gen(SC_LOCATION.style_img(quick_access_img($i)),50,60).font_tags(32).$buttons[$i]["text"].'</a>';
       }
       else
@@ -268,12 +268,12 @@ function page_footer( $back, $buttons= '', $iconbar = 0, $links=true )
     $iconbar->display();
     echo '</td>';
   }
-  
+
 
   echo '    <td width="'.convert_x(50).'"></td>
           </tr>
         </table>';
-  
+
   // Test the browser, and if the user is viewing from a browser other than the one on the
   // showcenter then output a "Back" Button (as this would normally be a IR remote button).
   if ( is_pc() )
@@ -288,7 +288,7 @@ function page_footer( $back, $buttons= '', $iconbar = 0, $links=true )
          pc_nav_button(str('PC_LINK_BACK')   , $back).
          '</tr></table>';
   }
-  
+
   if ( $links )
     echo '<a href="'.$back.'" '.tvid('BACKSPACE').'></a>
           <a href="index.php" '.tvid('HOME').'></a>
@@ -304,13 +304,13 @@ function page_footer( $back, $buttons= '', $iconbar = 0, $links=true )
 // Displays the given message in the center of the screen for the amount of seconds given and then
 // redirects the user to the next page.
 //-------------------------------------------------------------------------------------------------
-   
+
 function page_inform( $seconds, $url, $title, $text)
 {
   send_to_log(8,"Displaying message",array("message"=>$text, "time"=>$seconds, "url"=>$url));
   page_header($title,"",'<meta http-equiv="refresh" content="'.$seconds.';URL='.$url.'">');
   echo "<p>&nbsp;<p>&nbsp;<p><center>".font_tags(32).$text."</center>";
-  page_footer('/');  
+  page_footer('/');
 }
 
 //-------------------------------------------------------------------------------------------------
