@@ -37,9 +37,6 @@
 
  *************************************************************************************************/
 
-  // Needed to provide access to the get_rating_scheme_name() function.
-  require_once( SC_LOCATION.'base/rating.php' );
-
   function extra_get_movie_details($id, $filename, $title)
   {
     // Perform search for matching titles

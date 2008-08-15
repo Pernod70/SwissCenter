@@ -132,7 +132,7 @@ function check_display()
   else
     $version = 'SVN Revision ['.get_sys_pref("SVN_REVISION").']';
 
-  $swiss = $core_tests->add_section("SwissCenter : v".$version,4);
+  $swiss = $core_tests->add_section("SwissCenter : ".$version,4);
 
   // It only makes sense to check for root installations on UNIX.
   if (is_unix())
