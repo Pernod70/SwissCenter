@@ -189,13 +189,12 @@ class menu
     $start      = ($page-1) * MAX_PER_PAGE; 
     $max_items  = count($this->menu_items);
     $end        = min($start+MAX_PER_PAGE,$max_items);
-    $last_page  = ceil($max_items/MAX_PER_PAGE);
 
-    if ($max_items > MAX_PER_PAGE)
-    {
-      $this->add_up( url_add_param(current_url(),'page',($page > 1 ? ($page-1) : $last_page)) );
-      $this->add_down( url_add_param(current_url(),'page',($page < $last_page ? ($page+1) : 1)) );
-    }
+    if ($page > 1)
+      $this->add_up( url_add_param(current_url(),'page',($page-1)));
+
+    if ( $max_items > $end)
+      $this->add_down( url_add_param(current_url(),'page',($page+1)));
 
     $this->menu_items = array_slice($this->menu_items,$start, MAX_PER_PAGE);
     $this->display($tvid, $size, $align);    
