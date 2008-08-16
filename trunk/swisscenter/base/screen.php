@@ -5,6 +5,7 @@
 
 define('BROWSER_COORDS',1);
 define('SCREEN_COORDS',2);
+define('BROWSER_SCREEN_COORDS',3);
 
 function store_browser_size( $res )
 {
@@ -24,6 +25,24 @@ function store_browser_size( $res )
   }
 }
 
+function store_browser_scr_size( $res )
+{
+  // Some HD hardware use different screen resolutions for browser and viewing media.
+  
+  if (!empty($res))
+  {
+    list ($x, $y) = explode('x',$res);
+    $_SESSION["device"]["browser_scr_x_res"] = $x;
+    $_SESSION["device"]["browser_scr_y_res"] = $y;
+  }
+  else 
+  {
+    list ($x, $y) = explode('x',$res);  
+    $_SESSION["device"]["browser_scr_x_res"] = $_SESSION["device"]["screen_x_res"];
+    $_SESSION["device"]["browser_scr_y_res"] = $_SESSION["device"]["screen_y_res"];      
+  }
+}
+
 function store_screen_size( $res = '')
 {
   if (!empty($res))
@@ -34,7 +53,7 @@ function store_screen_size( $res = '')
   }
   else 
   {
-    // We have not been provided with the actual scrren size, so deduce it from the browser sizes.
+    // We have not been provided with the actual screen size, so deduce it from the browser sizes.
     if ($_SESSION["device"]["browser_x_res"] != 624 )
       store_screen_size('1280x720'); // HDTV
     elseif ($_SESSION["device"]["browser_y_res"] == 496 )
@@ -47,6 +66,11 @@ function store_screen_size( $res = '')
 function get_browser_size()
 {
   return $_SESSION["device"]["browser_x_res"].'x'.$_SESSION["device"]["browser_y_res"];
+}
+
+function get_browser_scr_size()
+{
+  return $_SESSION["device"]["browser_scr_x_res"].'x'.$_SESSION["device"]["browser_scr_y_res"];
 }
 
 function get_screen_size()
@@ -80,22 +104,25 @@ function get_screen_type()
     if ( is_pc() )
     {
       store_browser_size('800x450');
+      store_browser_scr_size('800x450');
       store_screen_size('800x450');
     }
     elseif ( get_player_type()=='POPCORN')
     {
       store_screen_size( preg_get( "/TV Res([0-9]+x[0-9]+)/i", $_SESSION["device"]["agent_string"]) );
       store_browser_size( preg_get( "/Browser Res([0-9]+x[0-9]+)/i", $_SESSION["device"]["agent_string"]) );
+      store_browser_scr_size( preg_get( "/;\s*Res([0-9]+x[0-9]+)/i", $_SESSION["device"]["agent_string"]) );
     }
     else 
     {
       preg_match_all("/[0-9]*x[0-9]*/",$_SESSION["device"]["agent_string"],$matches);  
       store_browser_size($matches[0][0]);
       store_screen_size($matches[0][1]);
+      store_browser_scr_size($matches[0][1]);
     }
     
     // What type of screen is it... Widescreen (16:9) or normal (4:3)?
-    $_SESSION["device"]["aspect"] = ($_SESSION["device"]["browser_x_res"]/16*9 == $_SESSION["device"]["browser_y_res"] ? '16:9' : '4:3');
+    $_SESSION["device"]["aspect"] = ($_SESSION["device"]["browser_scr_x_res"]/16*9 == $_SESSION["device"]["browser_scr_y_res"] ? '16:9' : '4:3');
   
     // How do we classify this screen... PAL, NTSC or HDTV?
     if ( $_SESSION["device"]["browser_x_res"] == 624)
@@ -128,9 +155,11 @@ function is_screen_hdtv()
 
 function convert_x( $x, $coords = BROWSER_COORDS )
 {
-  get_screen_type();  
+  get_screen_type();
   if ( $coords == SCREEN_COORDS )
     return ceil($_SESSION["device"]["screen_x_res"] * $x / 1000);
+  elseif ( $coords == BROWSER_SCREEN_COORDS )
+    return ceil($_SESSION["device"]["browser_scr_x_res"] * $x / 1000);
   else
     return ceil($_SESSION["device"]["browser_x_res"] * $x / 1000);
 }
@@ -139,9 +168,11 @@ function convert_y( $y, $coords = BROWSER_COORDS )
 {
   get_screen_type(); 
   if ( $coords == SCREEN_COORDS )
-    return ceil($_SESSION["device"]["screen_y_res"] * $y / 1000);  
+    return ceil($_SESSION["device"]["screen_y_res"] * $y / 1000);
+  elseif ( $coords == BROWSER_SCREEN_COORDS )
+    return ceil($_SESSION["device"]["browser_scr_y_res"] * $y / 1000);
   else
-    return ceil($_SESSION["device"]["browser_y_res"] * $y / 1000);  
+    return ceil($_SESSION["device"]["browser_y_res"] * $y / 1000);
 }
 
 function convert_tolog_x( $x, $coords = BROWSER_COORDS )
@@ -149,6 +180,8 @@ function convert_tolog_x( $x, $coords = BROWSER_COORDS )
   get_screen_type();  
   if ( $coords == SCREEN_COORDS )
     return ceil(1000 * $x / $_SESSION["device"]["screen_x_res"]);
+  elseif ( $coords == BROWSER_SCREEN_COORDS )
+    return ceil(1000 * $x / $_SESSION["device"]["browser_scr_x_res"]);
   else
     return ceil(1000 * $x / $_SESSION["device"]["browser_x_res"]);
 }
@@ -157,9 +190,11 @@ function convert_tolog_y( $y, $coords = BROWSER_COORDS )
 {
   get_screen_type(); 
   if ( $coords == SCREEN_COORDS )
-    return ceil(1000 * $y / $_SESSION["device"]["screen_y_res"]);  
+    return ceil(1000 * $y / $_SESSION["device"]["screen_y_res"]);
+  elseif ( $coords == BROWSER_SCREEN_COORDS )
+    return ceil(1000 * $y / $_SESSION["device"]["browser_scr_y_res"]);
   else
-    return ceil(1000 * $y / $_SESSION["device"]["browser_y_res"]);  
+    return ceil(1000 * $y / $_SESSION["device"]["browser_y_res"]);
 }
 
 #-------------------------------------------------------------------------------------------------

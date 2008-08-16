@@ -367,6 +367,7 @@ function player_fontsize_multiplier()
   {
     case 'PC/800x450':                  return 2.2; break;
     case 'PINNACLE/624x496':            return 1.4; break;
+    case 'POPCORN/1100x656':            return 2.2; break;
   }
 
   // No-match, so return the default (1) or the currently set override.
