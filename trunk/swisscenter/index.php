@@ -49,14 +49,9 @@
     * Display the page content
     */
     if ($menu->num_items() == 1)
-    {
-      search_hist_init('index.php');
       header('Location: '.server_address().$menu->item_url(0));
-    }
     else
-    {
       $menu->display(1, style_value("MENU_VIDEO_WIDTH"), style_value("MENU_VIDEO_ALIGN"));
-    }
 
     page_footer('index.php');
   }
@@ -86,8 +81,8 @@
     	$menu->add_item(str('BROWSE_WEB'),'web_urls.php',true);
 
     // Only display the RSS options if an internet connection is active, the user has enabled RSS support and has defined some subscriptions.
-    if (internet_available() && get_sys_pref('flickr_enabled','YES') == 'YES' )
-      $menu->add_item( str('FLICKR_PHOTOS') ,'photo_flickr.php',true);
+//    if (internet_available() && get_sys_pref('flickr_enabled','YES') == 'YES' )
+//      $menu->add_item( str('FLICKR_PHOTOS') ,'photo_flickr.php',true);
 
     // Only display the RSS options if an internet connection is active, the user has enabled RSS support and has defined some subscriptions.
     if (internet_available() && get_sys_pref('rss_enabled','YES') == 'YES' && db_value("select 'YES' from rss_subscriptions limit 1") == 'YES')
@@ -101,14 +96,9 @@
     * Display the page content
     */
     if ($menu->num_items() == 1)
-    {
-      search_hist_init('index.php');
       header('Location: '.server_address().$menu->item_url(0));
-    }
     else
-    {
       $menu->display(1, style_value("MENU_INTERNET_WIDTH"), style_value("MENU_INTERNET_ALIGN"));
-    }
 
     page_footer('index.php');
   }
@@ -171,7 +161,7 @@
     // Only display the Internet options if an internet connection is active and internet options are enabled.
     if (internet_available() && (get_sys_pref('weather_enabled','YES') == 'YES' || get_sys_pref('radio_enabled','YES') == 'YES'
           || (get_sys_pref('web_enabled','YES') == 'YES' && db_value("select 'YES' from media_locations where media_type=".MEDIA_TYPE_WEB." limit 1") == 'YES')
-          ||  get_sys_pref('OVERRIDE_ENABLE_WEBLINKS','NO') == 'YES'
+          ||  get_sys_pref('OVERRIDE_ENABLE_WEBLINKS','NO') == 'YES' || get_sys_pref('flickr_enabled','YES') == 'YES'
           || (get_sys_pref('rss_enabled','YES') == 'YES' && db_value("select 'YES' from rss_subscriptions limit 1") == 'YES')) )
       $menu->add_item( str('INTERNET_SERVICES'),"index.php?submenu=internet",true);
 
