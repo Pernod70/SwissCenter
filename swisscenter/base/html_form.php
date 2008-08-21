@@ -396,7 +396,7 @@ function form_select_table ( $param, $table_contents, $table_headings, $table_pa
             }
             elseif ($cell_edit_options == "*") 
             {
-              echo "<input type='password' name='".$element_name."' value='".$cell_value."'>";
+              echo '<input type="password" name="'.$element_name.'" value="'.$cell_value.'">';
             }
             elseif (empty($cell_edit_options) || is_numeric($cell_edit_options)) 
             {
@@ -411,12 +411,12 @@ function form_select_table ( $param, $table_contents, $table_headings, $table_pa
               else
                 $options = db_toarray($cell_edit_options);
                 
-              echo "<select name='".$element_name."'>";
+              echo '<select name="'.$element_name.'">';
               
               foreach($options as $option)
               {
                 $option_data = array_values($option);
-                echo "<option value='".$option_data[0]."'";
+                echo '<option value="'.$option_data[0].'"';
                 if(strtoupper($cell_value) == strtoupper($option_data[1]))
                   echo " selected='selected'";
                   

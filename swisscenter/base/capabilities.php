@@ -98,6 +98,48 @@ function get_player_firmware_date( $agent = NULL )
 }
 
 #-------------------------------------------------------------------------------------------------
+# Returns an array of all Network Shares defined in attached NMT players
+#-------------------------------------------------------------------------------------------------
+
+function get_nmt_network_shares()
+{
+  // IP addresses of all connected NMT's
+  $nmt = db_col_to_list("select ip_address from clients where box_id like '%POP%'");
+  $shares = array();
+  foreach ( $nmt as $ip )
+  {
+    // Get Network Shares page from NMT
+    $html = file_get_contents('http://'.$ip.':8883/network_share.html');
+
+    // Identify defined Network Shares
+    preg_match_all('/<td height="40" class="txt">.*&nbsp;(.*)<\/td>/',$html,$matches);
+    for ($i = 0; $i<count($matches[1]); $i++)
+    {
+      switch ( true )
+      {
+        case strstr( $matches[1][$i], 'nfs' ):
+          preg_match('/.*nfs:\/\/(.*)/', $matches[1][$i], $unc);
+          $shares[] = array( 'path' => '[NFS] '.str_replace('/', ':', $unc[1]),
+                             'name' => $matches[1][$i] );
+          break;
+          
+        case strstr( $matches[1][$i], 'smb' ):
+          preg_match('/.*smb:\/\/(.*)/', $matches[1][$i], $unc);
+          $shares[] = array( 'path' => '[SMB] '.str_replace('/', ':', $unc[1]),
+                             'name' => $matches[1][$i] );
+          break;
+          
+        default:
+          $shares[] = array( 'path' => 'NETWORK_SHARE/'.$matches[1][$i],
+                             'name' => $matches[1][$i] );
+          break;
+      }
+    }
+  }
+  return $shares;
+}
+
+#-------------------------------------------------------------------------------------------------
 # Maximum size playlist that the hardware players can accept.
 #-------------------------------------------------------------------------------------------------
 

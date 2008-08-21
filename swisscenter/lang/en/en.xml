@@ -1852,6 +1852,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MEDIA_LOC_ERROR_SHARE</id>
+        <text>Please select a network share</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
         <id>MEDIA_LOC_ERROR_TYPE</id>
         <text>Please select a media type</text>
         <version>1.19</version>
@@ -2268,7 +2273,7 @@
       </string>
       <string>
         <id>NETWORK_SHARE_PROMPT</id>
-        <text>The network share is only required for the media type 'DVD Video', and will be ignored for all other media types. This is the SMB/NFS network share link and must be entered in the form [em]'NETWORK_SHARE/DVD'[/em] where DVD is the 'Share Name' defined in Setup-&gt;Network Share on your Popcorn Hour (or other NMT).</text>
+        <text>The network share is only required for the media type 'DVD Video', and will be ignored for all other media types. To play DVD Videos you must first setup a SMB or NFS network share on your NMT to allow access to your DVD images, then associate the network share with this media location.</text>
         <version>1.20.1</version>
       </string>
       <string>

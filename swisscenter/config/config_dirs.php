@@ -17,9 +17,34 @@
     // Ensure that on Linux/Unix systems there is a "media" directory present for symbolic links to go in.
     if (!is_windows() && !file_exists(SC_LOCATION.'media'))
       mkdir(SC_LOCATION.'media');
+      
+    // Retrieve list of Network Shares from NMT
+    $share_opts = get_nmt_network_shares();
+    send_to_log(6,'Identified network shares',$share_opts);
     
-    $data = db_toarray("select location_id,media_name 'Type', cat_name 'Category', cert.name 'Certificate', ml.name 'Directory', ml.network_share 'Share' from media_locations ml, media_types mt, categories cat, certificates cert where ml.unrated=cert.cert_id and mt.media_id = ml.media_type and ml.cat_id = cat.cat_id order by 2,3,4");
-    
+    // Form arrays for dropdowns and SQL case for network shares 
+    $share_list = array();
+    if (count($share_opts)>0)
+    {
+      $share_sql_case = "(CASE ml.network_share ";
+      for ($i = 0; $i<count($share_opts); $i++)
+      {
+        $share_sql_case .= "WHEN '".db_escape_str($share_opts[$i]["path"])."' THEN '".db_escape_str($share_opts[$i]["name"])."' ";
+        $share_list[$share_opts[$i]["name"]] = $share_opts[$i]["path"];
+      }
+      $share_sql_case .= "ELSE '".str('PLEASE_SELECT')."' END) ";
+    }
+    else
+    {
+      $share_sql_case = "'".str('PLEASE_SELECT')."' ";
+    }
+    $share_opts = array_merge(array(array("path"=>'', "name"=>'')), $share_opts);
+
+    $data = db_toarray("select location_id,media_name 'Type', cat_name 'Category', cert.name 'Certificate', ml.name 'Directory', ".
+                       "(CASE media_name WHEN 'DVD Video' THEN ".$share_sql_case."ELSE '' END) 'Share' ".
+                       "from media_locations ml, media_types mt, categories cat, certificates cert ".
+                       "where ml.unrated=cert.cert_id and mt.media_id = ml.media_type and ml.cat_id = cat.cat_id order by 2,3,4");
+
     // Try to determine sensible default values for "Category" and "Certification".
     if (empty($_REQUEST["cat"]))
       $_REQUEST["cat"] = db_value("select cat_id from categories where cat_name='General'");
@@ -33,7 +58,7 @@
     form_hidden('action','MODIFY');
     form_select_table('loc_id',$data, str('MEDIA_LOC_HEADINGS')
                      ,array('class'=>'form_select_tab','width'=>'100%'),'location_id',
-                      array('DIRECTORY'=>'', 'SHARE'=>'', 'TYPE'=>'select media_id,media_name from media_types order by 2',
+                      array('DIRECTORY'=>'', 'SHARE'=>$share_opts, 'TYPE'=>'select media_id,media_name from media_types order by 2',
                             'CATEGORY'=>'select cat_id,cat_name from categories where cat_id not in ('.
                                          implode(',', db_col_to_list('select distinct parent_id from categories')).') order by cat_name',
                             'CERTIFICATE'=>get_cert_list_sql()), $edit, 'dirs');
@@ -48,7 +73,7 @@
     form_hidden('action','NEW');
     form_input('location',str('LOCATION'),50,'',un_magic_quote($_REQUEST['location']));
     form_label(str('LOCATION_PROMPT'));
-    form_input('share',str('NETWORK_SHARE'),50,'',un_magic_quote($_REQUEST['share']));
+    form_list_static('share',str('NETWORK_SHARE'), $share_list, un_magic_quote($_REQUEST['share']));
     form_label(str('NETWORK_SHARE_PROMPT'));
     form_list_dynamic('type',str('MEDIA_TYPE'),"select media_id,media_name from media_types order by 2",$_REQUEST['type']);
     form_label(str('MEDIA_TYPE_PROMPT'));
@@ -125,7 +150,9 @@
       elseif (empty($cert))
         dirs_display('',"!".str('MEDIA_LOC_ERROR_CERT'));
       elseif (empty($dir))
-        dirs_display('',"!".str('MEDIA_LOC_ERROR_LOC'));     
+        dirs_display('',"!".str('MEDIA_LOC_ERROR_LOC'));
+      elseif (empty($share) && $type_id==MEDIA_TYPE_DVD)
+        dirs_display('',"!".str('MEDIA_LOC_ERROR_SHARE'));
       elseif (!file_exists($dir))
       {
         log_dir_failure($dir);
@@ -219,6 +246,8 @@
       dirs_display('',"!".str('MEDIA_LOC_ERROR_CERT'));
     elseif (empty($_REQUEST["location"]))
       dirs_display('',"!".str('MEDIA_LOC_ERROR_LOC'));
+    elseif (empty($share) && $_REQUEST["type"]==MEDIA_TYPE_DVD)
+      dirs_display('',"!".str('MEDIA_LOC_ERROR_SHARE'));
     elseif (!file_exists($dir))
     {
       log_dir_failure($dir);
