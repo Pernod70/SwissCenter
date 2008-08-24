@@ -3017,6 +3017,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>REFRESH_CLEANUP</id>
+        <text>Cleanup database</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>REFRESH_CLEANUP_PROMPT</id>
+        <text>Selecting database cleanup will remove any orphaned records from the database such as media no longer in a media location and actors/directors no longer referenced. This will increase the time taken for the media search and should be used when media has been removed.</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
         <id>REFRESH_DATABASE</id>
         <text>Refresh database</text>
         <version>1.19</version>

@@ -83,6 +83,7 @@ require_once( realpath(dirname(__FILE__).'/../base/media.php'));
     set_sys_pref('MEDIA_SCAN_CATEGORY',$_REQUEST["cat"]);
     set_sys_pref('MEDIA_SCAN_REFRESH_METADATA',$_REQUEST["refresh"]);
     set_sys_pref('MEDIA_SCAN_ITUNES',$_REQUEST["itunes"]);
+    set_sys_pref('MEDIA_SCAN_CLEANUP',$_REQUEST["cleanup"]);
     set_sys_pref('MEDIA_SCAN_RSS',$_REQUEST["rss_id"]);
     set_sys_pref('MEDIA_SCAN_STATUS',str('MEDIA_SCAN_STATUS_PENDING'));
  
@@ -118,6 +119,8 @@ require_once( realpath(dirname(__FILE__).'/../base/media.php'));
     form_label(str('REFRESH_METADATA_PROMPT'));
     form_radio_static('itunes',str('REFRESH_ITUNES'),$option_vals,get_sys_pref('MEDIA_SCAN_ITUNES','NO'),false,true);
     form_label(str('REFRESH_ITUNES_PROMPT'));
+    form_radio_static('cleanup',str('REFRESH_CLEANUP'),$option_vals,get_sys_pref('MEDIA_SCAN_CLEANUP','NO'),false,true);
+    form_label(str('REFRESH_CLEANUP_PROMPT'));
     echo '<tr><td></td><td>&nbsp;</td></tr>';
     form_submit(str('SETUP_SEARCH_NEW_MEDIA'),2);
     form_end();
