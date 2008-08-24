@@ -50,6 +50,7 @@
   {
     set_sys_pref('MEDIA_SCAN_TYPE','MEDIA');
     set_sys_pref('MEDIA_SCAN_STATUS',str('MEDIA_SCAN_STATUS_PENDING'));
+    set_sys_pref('MEDIA_SCAN_CLEANUP','NO');
     media_refresh_now();
     show_progress();
   }

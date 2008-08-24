@@ -62,6 +62,7 @@
   $cat_id     = get_sys_pref('MEDIA_SCAN_CATEGORY');
   $itunes     = get_sys_pref('MEDIA_SCAN_ITUNES','YES');
   $update     = get_sys_pref('MEDIA_SCAN_REFRESH_METADATA','NO');
+  $cleanup    = get_sys_pref('MEDIA_SCAN_CLEANUP','YES');
   $itunes_library = get_sys_pref('ITUNES_LIBRARY');
   $itunes_date    = get_sys_pref('ITUNES_LIBRARY_DATE');
   $media_types    = db_col_to_list("select distinct(media_type) from media_locations where 1=1".
@@ -113,10 +114,13 @@
     
     // Remove media from library no longer in media locations
     set_sys_pref('MEDIA_SCAN_STATUS',str('MEDIA_SCAN_STATUS_CLEANUP'));
-    remove_orphaned_records();
-    remove_orphaned_movie_info();
-    remove_orphaned_tv_info();
-    scdb_remove_orphans();
+    if ($cleanup=='YES')
+    {
+      remove_orphaned_records();
+      remove_orphaned_movie_info();
+      remove_orphaned_tv_info();
+      scdb_remove_orphans();
+    }
     eliminate_duplicates();
   }
     
