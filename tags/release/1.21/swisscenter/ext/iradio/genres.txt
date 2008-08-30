@@ -1,0 +1,49 @@
+# List of genres you may add to. Lines starting with a hash (#) are comments
+# and thus ignored by the class. Each line consists of minimum 2 elements,
+# separated by a colon: Main Genre, Sub Genre, and optional comment. Additional
+# elements are ignored for now. Remember to always include the main genre as
+# its own sub genre if you want to be able to search for it
+rock:hardrock
+rock:punk
+rock:metal
+rock:rock
+rock:blues
+classic:classic
+classic:symphonic
+classic:opera
+country:country
+country:bluegrass
+country:western
+jazz:jazz
+jazz:swing
+jazz:big band
+jazz:smooth jazz
+jazz:acid jazz
+jazz:blues
+folk:folk
+folk:celtic
+pop:pop
+pop:70s
+pop:80s
+pop:90s
+pop:50s
+pop:top40
+pop:oldies
+world:world
+world:middle eastern
+world:reggae
+world:asian
+world:african
+world:latin
+world:russian
+electronic:electronic
+electronic:drum and bass
+electronic:ambient
+electronic:trance
+electronic:techno
+electronic:house
+hip hop:hip hop
+hip hop:rap
+hip hop:turntablism
+hip hop:old school
+hip hop:new school
