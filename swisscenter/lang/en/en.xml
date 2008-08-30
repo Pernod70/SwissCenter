@@ -2272,6 +2272,11 @@
         <version>1.20.1</version>
       </string>
       <string>
+        <id>NETWORK_SHARE_MSG</id>
+        <text>Could not detect any network shares. If you have a NMT player then it must be switched on.</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>NETWORK_SHARE_PROMPT</id>
         <text>The network share is only required for the media type 'DVD Video', and will be ignored for all other media types. To play DVD Videos you must first setup a SMB or NFS network share on your NMT to allow access to your DVD images, then associate the network share with this media location.</text>
         <version>1.20.1</version>

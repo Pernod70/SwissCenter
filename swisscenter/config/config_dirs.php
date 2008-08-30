@@ -74,7 +74,10 @@
     form_input('location',str('LOCATION'),50,'',un_magic_quote($_REQUEST['location']));
     form_label(str('LOCATION_PROMPT'));
     form_list_static('share',str('NETWORK_SHARE'), $share_list, un_magic_quote($_REQUEST['share']));
-    form_label(str('NETWORK_SHARE_PROMPT'));
+    if (count($share_opts)==1)
+      form_label(str('NETWORK_SHARE_MSG'));
+    else
+      form_label(str('NETWORK_SHARE_PROMPT'));
     form_list_dynamic('type',str('MEDIA_TYPE'),"select media_id,media_name from media_types order by 2",$_REQUEST['type']);
     form_label(str('MEDIA_TYPE_PROMPT'));
     form_list_dynamic('cat', str('CATEGORY'),"select cat_id,cat_name from categories where cat_id not in (".

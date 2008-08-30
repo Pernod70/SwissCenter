@@ -111,10 +111,13 @@ function get_nmt_network_shares()
   foreach ( $nmt as $ip )
   {
     // Get Network Shares page from NMT
-    $html = file_get_contents('http://'.$ip.':8883/network_share.html');
+    if (socket_check($ip,8883,1))
+      $html = @file_get_contents('http://'.$ip.':8883/network_share.html');
+    else
+      $html = '';
 
     // Identify defined Network Shares
-    preg_match_all('/<td height="40" class="txt">.*&nbsp;(.*)<\/td>/',$html,$matches);
+    preg_match_all('/<td height="\d+" class="txt">.*&nbsp;(.*)<\/td>/',$html,$matches);
     for ($i = 0; $i<count($matches[1]); $i++)
     {
       switch ( true )
