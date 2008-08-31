@@ -13,6 +13,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>ADDITIONAL_COMPONENTS</id>
+        <text>Extra componenten</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>ADD_PLAYLIST</id>
         <text>Toevoegen aan lijst</text>
         <version>1.19</version>
@@ -198,6 +203,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>BROWSE_DVD</id>
+        <text>Zoek in DVD's</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>BROWSE_FILESYSTEM</id>
         <text>Zoek binnen mappen</text>
         <version>1.19</version>
@@ -284,8 +294,8 @@
       </string>
       <string>
         <id>BROWSE_TEXT</id>
-        <text>Met SwissCenter kunt U op verschillende manieren door uw mediabestanden bladeren. Om de complexiteit van de interface te verminderen of om de weergave naar uw eigen inzichten aan te passen, kunt U hieronder de &quot;Blader via...&quot; opties afschakelen. Indien slechts een optie aangeschakeld is, zal SwissCenter het menu negeren en rechtstreeks naar die optie doorschakelen.[p]Noot : U dient minstens [b]één[/b] optie in elke groep aan te schakelen.</text>
-        <version>1.19</version>
+        <text>Met SwissCenter kunt U op verschillende manieren in uw mediabestanden zoeken. Om de complexiteit van de interface te verminderen of om de weergave naar uw eigen inzichten aan te passen, kunt U hieronder de &quot;Zoek in ...&quot; opties uitschakelen. Indien slechts een optie ingeschakeld is, zal SwissCenter het menu negeren en rechtstreeks naar die optie doorschakelen.[p]Noot : U dient minstens [b]één[/b] optie in elke groep in te schakelen.</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>BROWSE_TITLE</id>
@@ -568,6 +578,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>CONFIG_MUSICIP</id>
+        <text>MusicIP instellingen</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>CONFIG_RADIO_OPTIONS</id>
         <text>Radio opties</text>
         <version>1.19</version>
@@ -798,6 +813,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>EP_NEXT</id>
+        <text>Volgende episode</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>EP_PREV</id>
+        <text>Vorige episode</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>EXIFVALS_EXPOSE_MODE</id>
         <text>Automatisch, handmatig, auto bracket</text>
         <version>1.19</version>
@@ -958,9 +983,29 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>EXPRESSION</id>
+        <text>Expressie</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>EXTRAS_TEST_TITLE</id>
         <text>Additionele componenten</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>EXTRA_EXPORT_DETAILS</id>
+        <text>Alle extra informatie - zoals synopsis, acteurs, etc. - kan worden geëxporteerd naar een zogenoemd 'XML sidecar' bestand. Wanneer een nieuwe database wordt gecreëerd kan dit bestand worden gebruikt om eerder vastgelegde video details te importeren. Echter, voordat van deze mogelijkheid gebruikt kan worden gemaakt, moet de optie &quot;Gebruik 'XML sidecar' bestanden&quot; worden ingeschakeld.</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>EXTRA_EXPORT_GO</id>
+        <text>Exporteer alle extra informatie naar XML</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>EXTRA_EXPORT_TITLE</id>
+        <text>Exporteer extra informatie</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>EXTRA_REFRESH_DETAILS</id>
@@ -1058,6 +1103,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>FAIL_SWISS_CACHE</id>
+        <text>SwissCenter kan de buffer directory niet benaderen (%s).</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>FAIL_SWISS_INI</id>
         <text>Het 'swisscenter.ini'-bestand is niet gevonden. [br]Heeft u de SwissCenter-databank al aangemaakt ?</text>
         <version>1.20</version>
@@ -1071,6 +1121,11 @@
         <id>FAIL_SWISS_LOG</id>
         <text>Niet mogelijk om naar het SwissCenter-logbestand (%s) te schrijven.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_SWISS_PLAYLIST</id>
+        <text>SwissCenter kan de afspeellijsten directory niet benaderen (%s).</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>FILENAME</id>
@@ -1158,6 +1213,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IMAGE_LANDSCAPE_CROP</id>
+        <text>Aanpassen aan het scherm</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>IMAGE_LANDSCAPE_CROP_PROMPT</id>
+        <text>Standaard centreert SwissCenter liggende foto's en past deze aan zodat het gehele scherm van de TV wordt gevuld. Echter, indien u de gehele foto op het scherm wil zien (met zwarte balken aan de boven- en onderzijde) moet u deze optie uitschakelen.</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>IMAGE_RESAMPLE</id>
         <text>resampelen (hogere kwaliteit)</text>
         <version>1.19</version>
@@ -1176,6 +1241,16 @@
         <id>IMAGE_RESIZE_TYPE</id>
         <text>Afbeeldingsaanmaak</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>IMAGE_SCALE_UP</id>
+        <text>Vergroot afbeeldingen</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>IMAGE_SCALE_UP_PROMPT</id>
+        <text>Met deze optie vergroot SwissCenter kleine afbeeldingen zodat deze het gehele beeld zullen vullen.</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>IMAGE_TRANSITIONS</id>
@@ -1359,8 +1434,8 @@
       </string>
       <string>
         <id>IRADIO_COUNTRY_SELECT</id>
-        <text>Selecteer het te zoeken land:</text>
-        <version>1.19</version>
+        <text>Selecteer een land</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>IRADIO_ERROR_CACHE_EXPIRE</id>
@@ -1384,8 +1459,8 @@
       </string>
       <string>
         <id>IRADIO_MAINGENRE SELECT</id>
-        <text>Selecteer het te zoeken hoofdgenre:</text>
-        <version>1.19</version>
+        <text>Selecteer een hoofdgenre</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>IRADIO_MAX_STATIONS</id>
@@ -1419,13 +1494,13 @@
       </string>
       <string>
         <id>IRADIO_STATION_SELECT</id>
-        <text>Selecteer het te zoeken station:</text>
-        <version>1.19</version>
+        <text>Selecteer een station</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>IRADIO_SUBGENRE_SELECT</id>
-        <text>Selecteer het te zoeken subgenre:</text>
-        <version>1.19</version>
+        <text>Selecteer een subgenre</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>ITUNES_CONFIG_PROMPT</id>
@@ -1778,6 +1853,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MEDIA_LOC_ERROR_SHARE</id>
+        <text>Selecteer een gedeelde netwerklocatie</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>MEDIA_LOC_ERROR_TYPE</id>
         <text>Selecteer een mediatype</text>
         <version>1.19</version>
@@ -1818,9 +1898,24 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MEDIA_SCAN_STATUS_CLEANUP</id>
+        <text>Opruimen database</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>MEDIA_SCAN_STATUS_COMPLETE</id>
         <text>Voltooid</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_ITUNES</id>
+        <text>Analyseren van uw iTunes bibliotheek</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_MOVIE</id>
+        <text>Analyseren film details</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>MEDIA_SCAN_STATUS_PENDING</id>
@@ -1831,6 +1926,11 @@
         <id>MEDIA_SCAN_STATUS_RUNNING</id>
         <text>Actief</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_TV</id>
+        <text>Analyseren TV details</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>MEDIA_SEARCH_PROMPT</id>
@@ -1844,8 +1944,8 @@
       </string>
       <string>
         <id>MEDIA_TYPE_PROMPT</id>
-        <text>Selecteer het mediatype naar waar op deze locatie moet worden gezocht.</text>
-        <version>1.19</version>
+        <text>Selecteer het mediatype waarnaar op deze locatie moet worden gezocht.</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>MESSAGES</id>
@@ -2103,6 +2203,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MOVIE_EXTRA_EXPORT_OK</id>
+        <text>Alle extra video informatie wordt geëxporteerd naar XML</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>MOVIE_EXTRA_REFRESH_OK</id>
         <text>Alle extra filminformatie staat ingepland voor verversing.</text>
         <version>1.19</version>
@@ -2161,6 +2266,16 @@
         <id>NAME</id>
         <text>Naam</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>NETWORK_SHARE</id>
+        <text>Gedeelde netwerklocatie</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>NETWORK_SHARE_PROMPT</id>
+        <text>De gedeelde netwerklocatie is alleen van toepassing voor het media type 'DVD video' en wordt genegeerd in geval van alle andere media typen. Om DVD videos te kunnen afspelen moet u eerst een SMB of NFS gedeelde netwerklocatie op uw NMT installeren om toegang tot uw DVD afbeeldingen te verkrijgen. Daarna dient de gedeelde netwerk locatie te worden verbonden met deze medialocatie.</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>NEW</id>
@@ -2333,6 +2448,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>PASS_SWISS_CACHE</id>
+        <text>SwissCenter kan (naar) de buffer directory lezen en schrijven</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>PASS_SWISS_INI</id>
         <text>Het 'swisscenter.ini'-bestand is gevonden.</text>
         <version>1.19</version>
@@ -2346,6 +2466,11 @@
         <id>PASS_SWISS_LOG</id>
         <text>Logging ingeschakeld</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_PLAYLIST</id>
+        <text>SwissCenter kan (naar) de afspeellijsten directory lezen en schrijven</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>PASS_SWISS_ROOT_INS</id>
@@ -2608,9 +2733,34 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>PLAYLIST_AUTOLOAD</id>
+        <text>Automatische afspeellijst</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>PLAYLIST_AUTOLOAD_PROMPT</id>
+        <text>Selecteer een afspeellijst die automatisch wordt geladen bij het opstarten. Deze optie kan handig zijn wanneer als achtergrondmuziek bij het bekijken van fotos steeds dezelfde afspeellijst wordt geslecteerd.</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>PLAYLIST_CLEAR</id>
         <text>Wis de afspeellijst</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_DELETE</id>
+        <text>Verwijder een afspeellijst</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>PLAYLIST_DELETED</id>
+        <text>Afspeellijst verwijderd</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>PLAYLIST_DELETE_CONFIRM</id>
+        <text>Wilt u de afspeellijst verwijderen?</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>PLAYLIST_EDIT</id>
@@ -2621,6 +2771,11 @@
         <id>PLAYLIST_LOAD</id>
         <text>Laad een afspeellijst</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_LOAD_FAIL</id>
+        <text>De afspeellijst heeft %s titels geladen, %s konden niet worden gevonden in de database.</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>PLAYLIST_LOAD_NEW</id>
@@ -2676,6 +2831,11 @@
         <id>PREVIOUS</id>
         <text>Vorige</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PRIORITY</id>
+        <text>Prioriteit</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>PRIVACY_COMMUNICATION</id>
@@ -2861,6 +3021,16 @@
         <id>REFINE_YEAR</id>
         <text>Verfijn via jaartal</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>REFRESH_CLEANUP</id>
+        <text>Opruimen database</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>REFRESH_CLEANUP_PROMPT</id>
+        <text>Met 'opruimen database' zullen alle niet-gerelateede records, zoals media zonder medialocatie of acteurs en regiseurs zonder verwijzing, uit de database worden verwijderd. Met deze optie zal de tijd voor het doorzoeken van uw medialocaties meer tijd in beslag nemen. Daarom is het raadzaam deze optie alleen gebruikt worden wanneer media is verwijderd.</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>REFRESH_DATABASE</id>
@@ -3308,6 +3478,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>SETUP_UPDATE_SC_RELEASE</id>
+        <text>Update naar de laatste officiële versie</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>SETUP_UPDATE_SC_SVN</id>
+        <text>Update naar de laatste bèta versie</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>SHUFFLE_OFF</id>
         <text>Zet afspelen in willekeurige volgorde uit</text>
         <version>1.19</version>
@@ -3608,9 +3788,95 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>TV_EXPRESSIONS</id>
+        <text>TV expressies</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ADD</id>
+        <text>Voeg een nieuwe TV expressie toe</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ADDED_OK</id>
+        <text>TV expressie toegevoegd</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ADD_BUTTON</id>
+        <text>TV expressie toevoegen</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_DEFAULTS</id>
+        <text>Herstel systeeminstellingen</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_DELETE_OK</id>
+        <text>TV expressie(s) verwijderd</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_DEL_BUTTON</id>
+        <text>Verwijder de geselecteerde expressies</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ERROR_INVALID</id>
+        <text>Voer een geldige expressie in</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ERROR_MISSING</id>
+        <text>Voer een prioriteit en expressie in</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_PROMPT</id>
+        <text>De details voor een TV serie worden bepaald aan de hand van de bestandsnaam en bijbehorend pad door middel van vaste &quot;TV expressies&quot;. Het bestand wordt vergeleken met de volgende expressies totdat een overeenkomst is gevonden. De expressies bevatten verwijzingen ('placeholders') naar programma {p}, serie {s}, episode {e} en titel {t}. Een expressie moet minimaal één 'placeholder' bevatten. Voor nadere informatie of hulp wordt u verwezen naar de SwissCenter fora.</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST</id>
+        <text>Test expressies</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_BUTTON</id>
+        <text>Test expressies</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_FAILED</id>
+        <text>Er kunnen geen overeenkomsten worden gevonden met de gegeven expressies.</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_PROMPT</id>
+        <text>Voer een bestandsnaam inclusief pad in om te testen of uw huidige expressies de juiste details kunnen vinden.
+bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep End.avi</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_SUCCESS</id>
+        <text>Overeenkomsten  %s. Gevonden programma: %s, Serie: %s, Episode: %s, Titel: %s</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_UPDATE_OK</id>
+        <text>TV expressie geactualiseerd</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>TV_OPTIONS</id>
         <text>TV series</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>UNKNOWN_ERROR</id>
+        <text>Er is een onbekende fout opgetreden. Wilt u een foutmelding op het SwissCenter forum plaatsen, waarbij u aangeeft welke activiteiten u uitvoerde op het moment dat de fout opgetrad?</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>UNRATED_CERTIFICATE</id>
@@ -3828,6 +4094,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>WATCH_DVD</id>
+        <text>Bekijk een DVD</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>WATCH_MOVIE</id>
         <text>Bekijk een video</text>
         <version>1.20</version>
@@ -3956,6 +4227,11 @@
         <id>WIKI_LOOKUP_PROMPT</id>
         <text>Wanneer deze optie is geactiveerd zal SwissCenter de mogelijkheid toevoegen om informatie op te zoeken (zoals artiesten en films) op de Wikipedia site.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>XML_SAVE</id>
+        <text>Gebruik 'XML sidecar' bestanden</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>XMP_RATING</id>
