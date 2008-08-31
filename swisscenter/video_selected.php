@@ -43,7 +43,7 @@
 
   function distinct_info ($filter, $sql_table, $predicate)
   {
-    if (db_value("select count(distinct $filter) from $sql_table $predicate" == 1) )
+    if (db_value("select count(distinct $filter) from $sql_table $predicate") == 1)
       return db_value("select $filter from $sql_table limit 1,1");
     else
       return '';
@@ -84,7 +84,7 @@
                    'left outer join actors a on aim.actor_id = a.actor_id '.
                    'left outer join directors d on dom.director_id = d.director_id '.
                    'left outer join genres g on gom.genre_id = g.genre_id'.
-                    get_rating_join().' where 1=1 ';
+                    get_rating_join().' where 1=1 and ml.media_type='.MEDIA_TYPE_VIDEO;
   $select_fields = "file_id, dirname, filename, title, year, length";
   $predicate     = search_process_passed_params();
   $sql_table     = "movies media ";
@@ -98,7 +98,7 @@
   if (strpos($predicate,'genre_name like') > 0)
     $sql_table  .= 'left outer join genres_of_movie gom on media.file_id = gom.movie_id '.
                    'left outer join genres g on gom.genre_id = g.genre_id ';
-  $sql_table    .= get_rating_join().' where 1=1 ';
+  $sql_table    .= get_rating_join().' where 1=1 and ml.media_type='.MEDIA_TYPE_VIDEO;
   $file_ids      = db_col_to_list("select distinct media.file_id from $sql_table $predicate");
   $playtime      = db_value("select sum(length) from movies where file_id in (".implode(',',$file_ids).")");
   $num_unique    = db_value("select count( distinct synopsis) from movies where file_id in (".implode(',',$file_ids).")");
