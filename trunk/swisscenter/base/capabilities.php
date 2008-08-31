@@ -216,7 +216,7 @@ function media_exts_playlists()
 
 function media_exts_movies()
 {
-  return explode(',' ,'asf,avi,dat,divx,m2v,mkv,mpe,mpeg,mpg,ts,tp,vob,wmv,xvid,dvr-ms');
+  return explode(',' ,'asf,avi,dat,divx,m2ts,m2v,mkv,mpe,mpeg,mpg,ts,tp,vob,wmv,xvid,dvr-ms');
 }
 
 function media_exts_music()
