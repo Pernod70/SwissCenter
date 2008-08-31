@@ -51,7 +51,7 @@
       form_hidden('section', 'CATEGORY');
       form_hidden('action', 'ADD');
       form_input('cat_name', str('NAME'), 60, 100, $cat_name);
-      form_list_dynamic('parent_id', str('CAT_PARENT'),"select cat_id,cat_name from categories order by cat_name", $_REQUEST['parent_id']);
+      form_list_dynamic('parent_id', str('CAT_PARENT'),"select cat_id,cat_name from categories order by cat_name", is_numeric($_REQUEST['parent_id']) ? $_REQUEST['parent_id'] : 0);
 
       // Only display the "Download Info" options if the user has set the global download option
       if (is_movie_check_enabled() )
@@ -76,7 +76,7 @@
   function category_add()
   {
     $cat     = rtrim(un_magic_quote($_REQUEST["cat_name"]));
-    $parent_id = $_REQUEST["parent_id"];
+    $parent_id = (is_numeric($_REQUEST["parent_id"]) ? $_REQUEST["parent_id"] : 0);
     $dl_info = rtrim(un_magic_quote($_REQUEST["dl_info"]));
     
     if(empty($cat))
