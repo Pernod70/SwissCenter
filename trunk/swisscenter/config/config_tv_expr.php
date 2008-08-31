@@ -88,7 +88,7 @@
     {
       $oldpos = $update_data["POS"];
       $pos    = $update_data["PRIORITY"];
-      $expr   = $update_data["EXPRESSION"];
+      $expr   = un_magic_quote($update_data["EXPRESSION"]);
       if ( !is_numeric($pos) || empty($expr) )
         tv_expr_display("!".str('TV_EXPR_ERROR_MISSING'));
       elseif ( @preg_match(tv_expand_pattern($expr),'') === false )
