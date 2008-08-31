@@ -43,7 +43,7 @@
 
   function distinct_info ($filter, $sql_table, $predicate)
   {
-    if (db_value("select count(distinct $filter) from $sql_table $predicate" == 1) )
+    if (db_value("select count(distinct $filter) from $sql_table $predicate") == 1)
       return db_value("select $filter from $sql_table limit 1,1");
     else
       return '';
@@ -61,12 +61,12 @@
       {
         switch ($filter)
         {
-          case 'title'         : $menu->add_item( str('REFINE_TITLE')       ,"video_search.php?sort=title",true); break;
-          case 'year'          : $menu->add_item( str('REFINE_YEAR')        ,"video_search.php?sort=year",true);   break;
-          case 'certificate'   : $menu->add_item( str('REFINE_CERTIFICATE') ,"video_search.php?sort=certificate",true);  break;
-          case 'genre_name'    : $menu->add_item( str('REFINE_GENRE') 	    ,"video_search.php?sort=genre",true);  break;
-          case 'actor_name'    : $menu->add_item( str('REFINE_ACTOR')       ,"video_search.php?sort=actor",true);  break;
-          case 'director_name' : $menu->add_item( str('REFINE_DIRECTOR')    ,"video_search.php?sort=director",true);  break;
+          case 'title'         : $menu->add_item( str('REFINE_TITLE')       ,"video_dvd_search.php?sort=title",true); break;
+          case 'year'          : $menu->add_item( str('REFINE_YEAR')        ,"video_dvd_search.php?sort=year",true);   break;
+          case 'certificate'   : $menu->add_item( str('REFINE_CERTIFICATE') ,"video_dvd_search.php?sort=certificate",true);  break;
+          case 'genre_name'    : $menu->add_item( str('REFINE_GENRE') 	    ,"video_dvd_search.php?sort=genre",true);  break;
+          case 'actor_name'    : $menu->add_item( str('REFINE_ACTOR')       ,"video_dvd_search.php?sort=actor",true);  break;
+          case 'director_name' : $menu->add_item( str('REFINE_DIRECTOR')    ,"video_dvd_search.php?sort=director",true);  break;
         }
       }
     }
@@ -84,7 +84,7 @@
                    'left outer join actors a on aim.actor_id = a.actor_id '.
                    'left outer join directors d on dom.director_id = d.director_id '.
                    'left outer join genres g on gom.genre_id = g.genre_id'.
-                    get_rating_join().' where 1=1 ';
+                    get_rating_join().' where 1=1 and ml.media_type='.MEDIA_TYPE_DVD;
   $select_fields = "file_id, dirname, filename, title, year, length";
   $predicate     = search_process_passed_params();
   $sql_table     = "movies media ";
@@ -98,7 +98,7 @@
   if (strpos($predicate,'genre_name like') > 0)
     $sql_table  .= 'left outer join genres_of_movie gom on media.file_id = gom.movie_id '.
                    'left outer join genres g on gom.genre_id = g.genre_id ';
-  $sql_table    .= get_rating_join().' where 1=1 ';
+  $sql_table    .= get_rating_join().' where 1=1 and ml.media_type='.MEDIA_TYPE_DVD;
   $file_ids      = db_col_to_list("select distinct media.file_id from $sql_table $predicate");
   $playtime      = db_value("select sum(length) from movies where file_id in (".implode(',',$file_ids).")");
   $num_unique    = db_value("select count( distinct synopsis) from movies where file_id in (".implode(',',$file_ids).")");
