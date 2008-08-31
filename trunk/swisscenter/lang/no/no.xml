@@ -13,6 +13,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>ADDITIONAL_COMPONENTS</id>
+        <text>Tillegg</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>ADD_PLAYLIST</id>
         <text>Legg til i spillelisten</text>
         <version>1.19</version>
@@ -196,6 +201,11 @@
         <id>BROWSE_DIRECTOR</id>
         <text>Bla etter regissør</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_DVD</id>
+        <text>Bla i DVD'er</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>BROWSE_FILESYSTEM</id>
@@ -563,6 +573,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>CONFIG_MUSICIP</id>
+        <text>MusicIP innstillinger</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>CONFIG_RADIO_OPTIONS</id>
         <text>Internet radio</text>
         <version>1.19</version>
@@ -793,6 +808,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>EP_NEXT</id>
+        <text>Neste episode</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>EP_PREV</id>
+        <text>Foregående episode</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>EXIFVALS_EXPOSE_MODE</id>
         <text>Auto, Manuell, Auto Bracket</text>
         <version>1.19</version>
@@ -953,9 +978,29 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>EXPRESSION</id>
+        <text>Makro</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>EXTRAS_TEST_TITLE</id>
         <text>Ekstra komponenter</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>EXTRA_EXPORT_DETAILS</id>
+        <text>Tilleggsinformasjon som sammendrag, skuespiller etc. kan eksporteres til en XML sidecar fil. Denne filen kan siden benyttes for å lese tilbake video detaljer når en ny database opprettes. Vaget 'Bruk XML sidecar' (se ovenfor) må først aktiveres.</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>EXTRA_EXPORT_GO</id>
+        <text>Eksporter all informasjon til XML</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>EXTRA_EXPORT_TITLE</id>
+        <text>Eksporter ekstra informasjon</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>EXTRA_REFRESH_DETAILS</id>
@@ -965,7 +1010,7 @@
       <string>
         <id>EXTRA_REFRESH_GO</id>
         <text>Oppdater all ekstra informasjon</text>
-        <version>1.19</version>
+        <version>1.21</version>
       </string>
       <string>
         <id>EXTRA_REFRESH_TITLE</id>
@@ -1053,6 +1098,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>FAIL_SWISS_CACHE</id>
+        <text>Kan ikke skrive til SwissCenter hurtiglagrings området (%s).</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>FAIL_SWISS_INI</id>
         <text>Kan ikke lokalisere &quot;swisscenter.ini&quot; filen. [br]Har du laget en SwissCenter database?</text>
         <version>1.19</version>
@@ -1066,6 +1116,11 @@
         <id>FAIL_SWISS_LOG</id>
         <text>Kan ikke skrive til SwissCenter logg filen (%s).</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_SWISS_PLAYLIST</id>
+        <text>Kan ikke skrive til SwissCenter spilleliste området (%s).</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>FILENAME</id>
@@ -1153,6 +1208,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IMAGE_LANDSCAPE_CROP</id>
+        <text>Beskjær</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>IMAGE_LANDSCAPE_CROP_PROMPT</id>
+        <text>SwissCenter vil som standard sentrere landskaps orienterte bilder og beskjære dem for å tilpasse de til TV'ens skjerm format. Hvis du derimot foretrekker å vise hele bildet (med sorte felter på topp og i bunn) skal du deaktivere denne opsjonen.</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>IMAGE_RESAMPLE</id>
         <text>Lage et utsnitt (bedre kvalitet)</text>
         <version>1.19</version>
@@ -1171,6 +1236,26 @@
         <id>IMAGE_RESIZE_TYPE</id>
         <text>Bilde generering</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>IMAGE_SCALE_UP</id>
+        <text>Forstørr bilder</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>IMAGE_SCALE_UP_PROMPT</id>
+        <text>Ved å aktivere denne opsjonen vil SwissCenter forstørre små bilder slik at de fyller hele skjermen.</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>IMAGE_TRANSITIONS</id>
+        <text>Overgangs effekter</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>IMAGE_TRANS_PROMPT</id>
+        <text>Overgangs effekter tilgjengelig for bildevisning. Disse effektene kan variere for ulike spillere og noen spillere vil ikke støtte noen overganger.</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>IMPEXP_TITLE</id>
@@ -1266,6 +1351,11 @@
         <id>INTERNET_RADIO_PROMPT</id>
         <text>Tilknytning til individuelle internet radio stasjoner gjøres direkte fra ShowCenter boksen når dette velges av brukeren. Hvis din ShowCenter ikke har direkte aksess til internet bør du deaktivere denne funksjonen.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>INTERNET_SERVICES</id>
+        <text>Internet tjenester</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>INTERNET_SETTING</id>
@@ -1489,8 +1579,8 @@
       </string>
       <string>
         <id>LANG_PROMPT</id>
-        <text>Støtte for flere språk gjøres ved at en intern ID (f.eks. &quot;ADD:PLAYLIST&quot;) referer til den aktuelle teksten som skal vises. Denne &lt;teksten&gt; kan inneholde enkel formatering som spesifiseres med firkant parenteser motsvarende HTML formatering. Følgende formaterings tegn støttes:[br]&amp;#91;br&amp;#93;&amp;#91;/br&amp;#93; &amp;#91;em&amp;#93;&amp;#91;/em&amp;#93; &amp;#91;p&amp;#93;&amp;#91;/p&amp;#93; &amp;#91;b&amp;#93;&amp;#91;/b&amp;#93; &amp;#91;i&amp;#93;&amp;#91;/i&amp;#93; &amp;#91;li&amp;#93;&amp;#91;/li&amp;#93; &amp;#91;ul&amp;#93;&amp;#91;/ul&amp;#93; &amp;#91;ol&amp;#93;&amp;#91;/ul&amp;#93;[p]I noen tilfeller vil det kunne være behov for å erstatte eller sette inn ord i tekst strengen. Posisjonen i strengen hvor teksten skal erstattes markeres med '&amp;#37;s'.[br]F.eks.: I ID'en under vil antall spor som har blitt funnet i databasen erstatte &amp;#37;s i strengen... slik at et søk som returnere 4 spor vil vises til brukeren som &quot;4 spor&quot;;[br]MANY_TRACKS= &amp;#37;s spor</text>
-        <version>1.20</version>
+        <text>Støtte for flere språk gjøres ved at en intern ID (f.eks. &quot;ADD_PLAYLIST&quot;) refererer til den aktuelle teksten som skal vises. Denne &lt;teksten&gt; kan inneholde enkel formatering som spesifiseres med firkant parenteser tilsvarende det som benyttes til HTML formatering. [p]Følgende formaterings tegn støttes:[ul] [li]&amp;#91;br&amp;#93; - linjeskift[/li] [li]&amp;#91;p&amp;#93;&amp;#91;/p&amp;#93; - nytt avsnitt[/li] [li]&amp;#91;b&amp;#93;&amp;#91;/b&amp;#93; - fet[/li] [li]&amp;#91;i&amp;#93;&amp;#91;/i&amp;#93; - kursiv[/li] [li]&amp;#91;em&amp;#93;&amp;#91;/em&amp;#93; - uthevet[/li] [li]&amp;#91;ol&amp;#93;&amp;#91;/ol&amp;#93; - sortert liste[/li] [li]&amp;#91;ul&amp;#93;&amp;#91;/ul&amp;#93; - usortert liste[/li] [li]&amp;#91;li&amp;#93;&amp;#91;/li&amp;#93; - et element i en sortert eller usortert liste[/li] [/ul] [p]I noen tilfeller vil det kunne være behov for å erstatte eller sette inn ord i tekst strengen. Posisjonen i strengen hvor teksten skal erstattes markeres med '&amp;#37;s'. F.eks. i ID'en &quot;MANY_TRACKS=&amp;#37;s spor&quot; vil antall spor som har blitt funnet i databasen erstatte &amp;#37;s i strengen... slik at et søk som returnerer 4 spor vil vises til brukeren som &quot;4 spor&quot;.</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>LANG_SAVE_BUTTON</id>
@@ -1758,14 +1848,19 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MEDIA_LOC_ERROR_SHARE</id>
+        <text>Spesisifiser en nettverks referanse</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>MEDIA_LOC_ERROR_TYPE</id>
         <text>Velg media type</text>
         <version>1.19</version>
       </string>
       <string>
         <id>MEDIA_LOC_HEADINGS</id>
-        <text>Type, Kategori, Sertifikat, Katalog</text>
-        <version>1.19</version>
+        <text>Type, Kategori, Sertifikat, Katalog, Nettverks referanse</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>MEDIA_LOC_UPDATE_OK</id>
@@ -1774,8 +1869,8 @@
       </string>
       <string>
         <id>MEDIA_MANAGEMENT</id>
-        <text>Media redigering</text>
-        <version>1.19</version>
+        <text>Media oppsett</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>MEDIA_REFRESH</id>
@@ -1798,9 +1893,24 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MEDIA_SCAN_STATUS_CLEANUP</id>
+        <text>Rydder i databasen</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>MEDIA_SCAN_STATUS_COMPLETE</id>
         <text>Fullført</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_ITUNES</id>
+        <text>Leser iTunes biblioteket</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_MOVIE</id>
+        <text>Leser film detaljer</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>MEDIA_SCAN_STATUS_PENDING</id>
@@ -1811,6 +1921,11 @@
         <id>MEDIA_SCAN_STATUS_RUNNING</id>
         <text>Kjører</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_TV</id>
+        <text>Leser TV detaljer</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>MEDIA_SEARCH_PROMPT</id>
@@ -2083,6 +2198,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MOVIE_EXTRA_EXPORT_OK</id>
+        <text>All ekstra video informasjon blir eksportert til XML</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>MOVIE_EXTRA_REFRESH_OK</id>
         <text>All ekstra video informasjon er planlagt for oppdatering</text>
         <version>1.19</version>
@@ -2141,6 +2261,16 @@
         <id>NAME</id>
         <text>Navn</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>NETWORK_SHARE</id>
+        <text>Nettverk referanse</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>NETWORK_SHARE_PROMPT</id>
+        <text>Denne nettverks referansen vil kun bli benyttet for media type 'DVD video', og vil utelates for alle andre media typer. For å spille DVD videoer må du først definere en SMB eller NFS nettverks referanse på din NMT for å tillatte adgang til dine DVD kopier, deretter må du koble nettverks referansen mot denne media typen.</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>NEW</id>
@@ -2229,8 +2359,8 @@
       </string>
       <string>
         <id>ORG_TITLE</id>
-        <text>Video detaljer</text>
-        <version>1.19</version>
+        <text>Video/DVD detaljer</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>PAGE</id>
@@ -2313,6 +2443,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>PASS_SWISS_CACHE</id>
+        <text>Les/skriv til SwissCenter hutiglagrings katalog er OK.</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>PASS_SWISS_INI</id>
         <text>Filen &quot;swisscenter.ini&quot; ble funnet.</text>
         <version>1.19</version>
@@ -2326,6 +2461,11 @@
         <id>PASS_SWISS_LOG</id>
         <text>Logging er aktivert.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_PLAYLIST</id>
+        <text>Les/skriv til SwissCenter spilleliste katalog er Ok.</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>PASS_SWISS_ROOT_INS</id>
@@ -2351,6 +2491,11 @@
         <id>PC_LINK_HOME</id>
         <text>Hjem</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PC_LINK_INTERNET</id>
+        <text>Internet</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>PC_LINK_MOVIES</id>
@@ -2583,9 +2728,34 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>PLAYLIST_AUTOLOAD</id>
+        <text>Automatisk spilleliste</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>PLAYLIST_AUTOLOAD_PROMPT</id>
+        <text>Velg en spilleliste som automatisk skal lastes ved oppstart. Dette er nyttig hvis du ønsker en standard spilleliste for bakgrunnsmusikk ved fremvisning av bilder.</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>PLAYLIST_CLEAR</id>
         <text>Nullstill spillelisten</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_DELETE</id>
+        <text>Slett en spilleliste</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>PLAYLIST_DELETED</id>
+        <text>Spillelisten er slettet</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>PLAYLIST_DELETE_CONFIRM</id>
+        <text>Slett spilleliste?</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>PLAYLIST_EDIT</id>
@@ -2596,6 +2766,11 @@
         <id>PLAYLIST_LOAD</id>
         <text>Last spilleliste</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_LOAD_FAIL</id>
+        <text>Lastet %s spor fra spillelisten, %s ble ikke funnet i databasen.</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>PLAYLIST_LOAD_NEW</id>
@@ -2651,6 +2826,11 @@
         <id>PREVIOUS</id>
         <text>Foregående</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PRIORITY</id>
+        <text>Prioritet</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>PRIVACY_COMMUNICATION</id>
@@ -2836,6 +3016,16 @@
         <id>REFINE_YEAR</id>
         <text>Selekter på år</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>REFRESH_CLEANUP</id>
+        <text>Rydd i databasen</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>REFRESH_CLEANUP_PROMPT</id>
+        <text>Valget database opprydding vil slette unødvendig informasjon fra databasen som f.ek. media som ikke lenger finnes på disk og skuespillere/regissører det ikke lenger refereres til. Slik informasjon vil øke tiden det tar å søke etter nye media og bør derfor benyttes når media har blitt fjernet.</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>REFRESH_DATABASE</id>
@@ -3094,8 +3284,8 @@
       </string>
       <string>
         <id>SCHEDULE_ERROR_FIELDS</id>
-        <text>Du må spesifisere en verdi for hvert felt</text>
-        <version>1.19</version>
+        <text>Du må alltid spesifisere en verdi for minutt</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>SCHEDULE_ERROR_HOUR</id>
@@ -3234,8 +3424,8 @@
       </string>
       <string>
         <id>SETUP</id>
-        <text>Oppsett</text>
-        <version>1.19</version>
+        <text>Konfigurasjon</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>SETUP_CHANGE_UI</id>
@@ -3281,6 +3471,16 @@
         <id>SETUP_UPDATE_SC</id>
         <text>Oppdater SwissCenter</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>SETUP_UPDATE_SC_RELEASE</id>
+        <text>Oppgrader til siste stabile versjon</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>SETUP_UPDATE_SC_SVN</id>
+        <text>Oppgrader til siste beta versjon</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>SHUFFLE_OFF</id>
@@ -3508,6 +3708,56 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>TRANS_CLOSE_VERTICAL</id>
+        <text>Lukk vertikalt</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_FADE_BLACK</id>
+        <text>Visk ut til sort</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_INTERLACE</id>
+        <text>Miks bilder</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_NO_EFFECT</id>
+        <text>Ingen effekt</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_OPEN_VERTICAL</id>
+        <text>Åpne vertikalt</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_RANDOM</id>
+        <text>Blandet</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_SPLIT_VERTICAL_1</id>
+        <text>Del vertikalt 1</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_SPLIT_VERTICAL_2</id>
+        <text>Del vertikalt 2</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_WIPE_DOWN</id>
+        <text>Slett nedover</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_WIPE_UP</id>
+        <text>Slett oppover</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
         <id>TTF_FONT</id>
         <text>TrueType font</text>
         <version>1.19</version>
@@ -3529,13 +3779,98 @@
       </string>
       <string>
         <id>TV_DETAILS</id>
-        <text>TV serie detaljer</text>
-        <version>1.19</version>
+        <text>TV detaljer</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPRESSIONS</id>
+        <text>TV makroer</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ADD</id>
+        <text>Legg til en ny TV makro</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ADDED_OK</id>
+        <text>TV makro lagt til</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ADD_BUTTON</id>
+        <text>Legg til TV makro</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_DEFAULTS</id>
+        <text>Tibakestill til standard verdier</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_DELETE_OK</id>
+        <text>TV makro(er) slettet</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_DEL_BUTTON</id>
+        <text>Slett valgte makroer</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ERROR_INVALID</id>
+        <text>Skriv inn en gyldig makro</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ERROR_MISSING</id>
+        <text>Skriv inn en prioritet og en makro</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_PROMPT</id>
+        <text>Detaljer for en TV serie bestemmes ut fra filnavn og bane ved bruk av makroer. Filen sammenlignes med de følgende makroene inntil et treff finnes. Disse makroene inneholder markører for program {p}, serier {s}, episode {e} og tittel {t}. Du må ha minst en av disse markørene i hver makro for å trekke ut detaljer. Hvis du har behov for assistanse med dette kan du stille spørsmål i forumet.</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST</id>
+        <text>Test makroer</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_BUTTON</id>
+        <text>Test makroer</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_FAILED</id>
+        <text>Ingen treff for noen makroer</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_PROMPT</id>
+        <text>Spesifiser et fullt filnavn for å teste hvorvidt dine gjeldende makroer vil kunne identifisere korrekte detaljer: Eks.: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep End.avi</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_SUCCESS</id>
+        <text>Treff %s. Funnet program: %s, serie: %s, episode: %s, tittel: %s</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_UPDATE_OK</id>
+        <text>TV makro oppdatert</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>TV_OPTIONS</id>
         <text>TV serier</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>UNKNOWN_ERROR</id>
+        <text>Ukjent feil. Registrer en feilrapport i forumet som beskriver aktiviteten du gjorde frem til feilen inntraff.</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>UNRATED_CERTIFICATE</id>
@@ -3753,6 +4088,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>WATCH_DVD</id>
+        <text>Se på DVD</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>WATCH_MOVIE</id>
         <text>Se på video</text>
         <version>1.19</version>
@@ -3881,6 +4221,11 @@
         <id>WIKI_LOOKUP_PROMPT</id>
         <text>Når denne opsjonen er valgt vil SwissCenter inkludere et valg for oppslag av informasjon (som f.eks. artister og filmer) i Wikipedia.</text>
         <version>1.20</version>
+      </string>
+      <string>
+        <id>XML_SAVE</id>
+        <text>Bruk XML sidecar filer</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>XMP_RATING</id>
