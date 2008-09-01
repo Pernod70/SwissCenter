@@ -152,8 +152,9 @@
   
   function tv_expr_test()
   {
-    $fsp  = file_noext(un_magic_quote($_REQUEST["filename"]));
-    $data = get_tvseries_info($fsp);
+    $fsp  = un_magic_quote($_REQUEST["filename"]);
+    $meta_fsp = dirname($fsp).'/'.file_noext($fsp);
+    $data = get_tvseries_info($meta_fsp);
     
     if ( !isset($data["rule"]) )
       tv_expr_display("!".str('TV_EXPR_TEST_FAILED'));
