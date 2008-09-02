@@ -30,15 +30,15 @@ define("PHPSVN_NORMAL_REQUEST",'<?xml version="1.0" encoding="utf-8"?><propfind 
 define("PHPSVN_VERSION_REQUEST",'<?xml version="1.0" encoding="utf-8"?><propfind xmlns="DAV:"><prop><checked-in xmlns="DAV:"/></prop></propfind>');
 define("PHPSVN_LOGS_REQUEST",'<?xml version="1.0" encoding="utf-8"?> <S:log-report xmlns:S="svn:"> <S:start-revision>%d</S:start-revision><S:end-revision>%d</S:end-revision><S:path></S:path></S:log-report>');
 
-define("SVN_MD5_CHECKSUM","lp3:md5-checksum");
+define("SVN_MD5_CHECKSUM","lp2:md5-checksum");
 define("SVN_CONTENT_TYPE","lp1:getcontenttype");
 define("SVN_CREATE_DATE","lp1:creationdate");
 define("SVN_AUTHOR","lp1:creator-displayname");
 define("SVN_LAST_COMMIT","lp1:version-name");
 define("SVN_LAST_MODIFIED","lp1:getlastmodified");
 define("SVN_URL","D:href");
-define("SVN_RELATIVE_URL","lp3:baseline-relative-path");
-define("SVN_FILE_ID","lp3:repository-uuid");
+define("SVN_RELATIVE_URL","lp2:baseline-relative-path");
+define("SVN_FILE_ID","lp2:repository-uuid");
 define("SVN_STATUS","D:status");
 define("SVN_IN_FILE","D:propstat");
 define("SVN_FILE","D:response");
