@@ -1,0 +1,4253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<swisscenter>
+  <languages>
+    <language name="nl" fullname="Nederlands">
+      <string>
+        <id>ACCESS_DENIED</id>
+        <text>Toegang geweigerd</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ACTOR</id>
+        <text>Acteur</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ADDITIONAL_COMPONENTS</id>
+        <text>Extra componenten</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>ADD_PLAYLIST</id>
+        <text>Toevoegen aan lijst</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ADMIN</id>
+        <text>Administrator</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ADVANCED_OPTIONS</id>
+        <text>Geavanceerde opties</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ALBUM</id>
+        <text>Album</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ALL_CATEGORIES</id>
+        <text>Alle categorieën</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>ALL_MEDIA_TYPES</id>
+        <text>Alle media typen</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>ALL_RSS_FEEDS</id>
+        <text>Alle RSS feeds</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>ANYWHERE_IN_NAME</id>
+        <text>Ergens in de naam</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ARTIST</id>
+        <text>Artiest</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_ADDED_OK</id>
+        <text>Albumhoesbestand toegevoegd</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_DELETE_OK</id>
+        <text>De geselecteerde bestanden zijn verwijderd.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_ERROR_FILENAME</id>
+        <text>Geef een bestandsnaam</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_ERROR_FILETYPE</id>
+        <text>Alleen bestandsnamen die eindigen op: JPG, JPEG, GIF or PNG zijn geldig</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_ERROR_QUOTE</id>
+        <text>Bestandsnamen mogen geen aanhalingstekens bevatten</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_ERROR_SLASH</id>
+        <text>Bestandsnamen mogen niet de naam van een map bevatten.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_FILENAME_PROMPT</id>
+        <text>Specificeer de naam van het albumhoesbestand. Het albumhoesbestand moet opgeslagen zijn in een map waar de mediabestanden staan.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_FILES_ADD_BUTTON</id>
+        <text>Bestandsnaam toevoegen</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_FILES_ADD_TITLE</id>
+        <text>Voeg bestandsnaam toe</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_FILES_CURRENT</id>
+        <text>Huidige bestanden die als albumhoes worden herkend:</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_FILES_DEL_BUTTON</id>
+        <text>Verwijder geselecteerde bestanden</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_FILES_PROMPT</id>
+        <text>[em]Albumhoes[/em] bestanden zijn bestanden die SwissCenter gebruikt om een muziekalbum- of videohoes te tonen, wanneer u een zoekfunctie gebruikt zoek in video's, zoek in muziek, enz.) of wanneer er een album of video geselecteerd is.[p]Indien er verschillede van bovenstaande bestanden gevonden worden, zal SwissCenter het eerste dat gevonden wordt, tonen.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>ART_FILES_TITLE</id>
+        <text>Albumhoesbestanden</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_ID3_TAG</id>
+        <text>ID3-Tag voor albumhoes.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_ID3_TAG_PROMPT</id>
+        <text>Indien informatie over de albumhoes aanwezig is in de ID3-tag zal deze gebruikt worden en opgeslagen in de databank. Let op: de databank zal hierdoor veel schijfruimte in beslag gaan nemen. U kunt deze feature uitschakelen.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_UPDATE_OK</id>
+        <text>Albumhoes informatie is bijgewerkt.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>AUTOMATIC</id>
+        <text>Automatisch</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BACKSPACE</id>
+        <text>Vorige pagina</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BAND</id>
+        <text>Album, artiest</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BOOKMARKS</id>
+        <text>Bladwijzers</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_ACTOR</id>
+        <text>Zoek op acteur</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_ALBUM</id>
+        <text>Zoek op albumnaam</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_ALBUM_ARTIST</id>
+        <text>Zoek op album, artiest</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_ARTIST</id>
+        <text>Zoek op artiestennaam</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_CERTIFICATE</id>
+        <text>Zoek op kijkwijzer leeftijd</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_COUNTRY</id>
+        <text>Zoek op land</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_DATE</id>
+        <text>Zoek op datum</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_DIRECTOR</id>
+        <text>Zoek op regisseur</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_DVD</id>
+        <text>Zoek in DVD's</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>BROWSE_FILESYSTEM</id>
+        <text>Zoek binnen mappen</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_GENRE</id>
+        <text>Zoek op genre</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_IPTC_BYLINE</id>
+        <text>Zoek op auteur</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_IPTC_CAPTION</id>
+        <text>Zoek op omschrijving</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_IPTC_CITY</id>
+        <text>Zoek op stad</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_IPTC_COUNTRY</id>
+        <text>Zoek op land</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_IPTC_DATE_CREATED</id>
+        <text>Zoek op creatiedatum</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_IPTC_KEYWORDS</id>
+        <text>Zoek op sleutelwoorden</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_IPTC_LOCATION</id>
+        <text>Zoek op locatie</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_IPTC_PROVINCE_STATE</id>
+        <text>Zoek op provincie/staat</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_IPTC_SUPPCATEGORY</id>
+        <text>Zoek op aanvullende categorieën</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_MOVIES</id>
+        <text>Zoek in video's</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>BROWSE_MUSIC</id>
+        <text>Zoek in muziek</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_OPTIONS</id>
+        <text>Zoekopties</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_PHOTOS</id>
+        <text>Zoek in foto's</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_PHOTO_ALBUM</id>
+        <text>Zoek op fotoalbum</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_PHOTO_TITLE</id>
+        <text>Zoek op titel</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_TEXT</id>
+        <text>Met SwissCenter kunt U op verschillende manieren in uw mediabestanden zoeken. Om de complexiteit van de interface te verminderen of om de weergave naar uw eigen inzichten aan te passen, kunt U hieronder de &quot;Zoek in ...&quot; opties uitschakelen. Indien slechts een optie ingeschakeld is, zal SwissCenter het menu negeren en rechtstreeks naar die optie doorschakelen.[p]Noot : U dient minstens [b]één[/b] optie in elke groep in te schakelen.</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>BROWSE_TITLE</id>
+        <text>Zoek op titel</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_TRACK</id>
+        <text>Zoek op nummer</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_WEB</id>
+        <text>Surf op het web</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_WEB_PROMPT</id>
+        <text>Met deze optie kan SwissCenter eenvoudige webpagina's weergeven, zowel van uw intern netwerk als van het Internet (indien uw internetconnectie werkzaam is).</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_XMP_RATING</id>
+        <text>Zoek op kwalificatie</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_YEAR</id>
+        <text>Zoek op jaar</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_CONFIG_TITLE</id>
+        <text>Buffer</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_DIR</id>
+        <text>Map waarin de buffer is opgeslagen:</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_DIR_PROMPT</id>
+        <text>Geef de map waar de SwissCenter server de gebufferde beelden zal opslaan (bijvoorbeeld: foto of fotominiatuur)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_ERROR_FULL_DIR</id>
+        <text>Geef een geldige naam van een map.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_ERROR_MISSING</id>
+        <text>Geef een naam voor de map waar de buffer geplaatst wordt.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_ERROR_NOT_EXIST</id>
+        <text>De opgegeven mapnaam bestaat niet.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_ERROR_NOT_NUMBER</id>
+        <text>De ingegeven waarde voor de buffergrootte is geen numerieke waarde</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_ERROR_SIZE</id>
+        <text>Geef de waarde van de buffergrootte (0 voor een oneindig grote buffer).</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_ERROR_SMALL</id>
+        <text>De opgegeven buffergrootte is te klein</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_LANG</id>
+        <text>Taalstrings bufferen</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_LANG_PROMPT</id>
+        <text>Wanneer geactiveerd zal SwissCenter alle taalstrings bufferen in het geheugen. Zet deze optie uit indien u een vertaling toevoegt en de wijzigingen onmiddelijk wilt zien.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_PRECACHE</id>
+        <text>Afbeeldingen precachen</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_PRECACHE_PROMPT</id>
+        <text>Het aanzetten van deze optie zorgt ervoor dat SwissCenter miniaturen genereert voor alle afbeeldingen die het vindt tijdens een media-indexering.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_SIZE</id>
+        <text>Bufferlimiet</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_SIZE_PROMPT</id>
+        <text>Dit is de hoeveelheid schijfruimte die gebruikt wordt om gebufferde beeldbestanden in op te slaan. (de waarde 0 betekent een oneindige buffer). De gebufferde bestanden die het langst niet meer gebruikt zijn, worden verwijderd als deze bufferlimiet is bereikt.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_STYLE</id>
+        <text>Stijldetails bufferen</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_STYLE_PROMPT</id>
+        <text>Wanneer geactiveerd zal SwissCenter alle stijldetails bufferen in het geheugen. Zet deze optie uit indien u een nieuwe stijl ontwikkelt en wijzigingen onmiddelijk wilt zien.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CATEGORIES</id>
+        <text>Categorieën</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CATEGORY</id>
+        <text>Categorie</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CATEGORY_LIST_ALL</id>
+        <text>Alle categorieën</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CATEGORY_PROMPT</id>
+        <text>Categorieën helpen u mediabestanden te sorteren in logische groepen zoals &quot;Audio Boeken&quot; en &quot;Een taal leren&quot; of &quot;Algemeen&quot;. Deze functie geeft u bijvoorbeeld de mogelijkheid een willekeurige muziekselectie af te spelen zonder dat daarbij een stuk uit een audioboek wordt afgespeeld.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_ADDED_OK</id>
+        <text>Categorie toegevoegd</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_ADD_BUTTON</id>
+        <text>Categorie toevoegen</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_ADD_TITLE</id>
+        <text>Voeg een nieuwe categorie toe.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_DELETE_OK</id>
+        <text>De geselecteerde categorieën zijn verwijderd.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_DEL_BUTTON</id>
+        <text>Verwijder de geselecteerde categorieën</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_DOWNLOAD</id>
+        <text>Extra Informatie downloaden</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_DOWNLOAD_PROMPT</id>
+        <text>Dit veld bepaalt het downloaden van extra op het Internet beschikbare informatie voor bestanden van deze categorie.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_ERROR_DELETE</id>
+        <text>Categorie %s kan niet worden verwijderd.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>CAT_ERROR_EXISTS</id>
+        <text>De naam van de categorie bestaat al.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_ERROR_NAME</id>
+        <text>Voer een categorie naam in.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>CAT_LIST_ALL</id>
+        <text>Alle categorieën</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_PARENT</id>
+        <text>Parent categorie</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_RECENTLY_ADDED</id>
+        <text>Recent toegevoegd</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_UPDATE_OK</id>
+        <text>Categorie informatie is bijgewerkt.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CERTIFICATE</id>
+        <text>Leeftijdsgrens</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CLEAR_NAME</id>
+        <text>Wis naam</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>COMPACT_VIEW</id>
+        <text>Compacte weergave</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIGURATION</id>
+        <text>Configuratie</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_AUDIO_OPTIONS</id>
+        <text>Audio opties</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_BROWSE_NONE_SELECTED</id>
+        <text>De instellingen zijn niet opgeslagen, u moet minimaal een optie in iedere groep selecteren</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_DB_CREATE</id>
+        <text>Creëer de databank</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_DB_CREATE_TXT</id>
+        <text>Dit scherm staat u toe om de SwissCenter databank aan te maken en te vullen. De parameters die gebruikt zullen worden om de databank op te bouwen worden hieronder getoond.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_DB_ERROR</id>
+        <text>Niet in staat de databank te benaderen - zijn uw [i]Databank Configuratie[/i] instellingen correct?</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_DB_ROOT_PW</id>
+        <text>&quot;root&quot; paswoord</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_DB_ROOT_PW_TXT</id>
+        <text>Tenzij u een waarde heeft ingevuld voor het [em]root[/em] paswoord tijdens de installatie van MySQL en u dus het toen opgegeven paswoord hier moet invullen, kunt u dit veld het beste blanco laten.[p][em]Opmerking: Het aanmaken van de databank kan mogelijk een aantal minuten duren. Wees a.u.b. geduldig. [/em]</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_IMAGE_OPTIONS</id>
+        <text>Afbeeldings opties</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_LASTFM_CLEAR</id>
+        <text>Wis de geselecteerde inlog details</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_LASTFM_TITLE</id>
+        <text>Last.FM opties</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>CONFIG_MIP_OPTIONS</id>
+        <text>MusicIP</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_MUSICIP</id>
+        <text>MusicIP instellingen</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>CONFIG_RADIO_OPTIONS</id>
+        <text>Radio opties</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_SHOUTCAST_TITLE</id>
+        <text>Shoutcast opties</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_TITLE</id>
+        <text>SwissCenter configuratie hulpprogramma</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIRM_DELETE</id>
+        <text>Verwijder de volgende mediabestanden?</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONNECT_OPT_TEXT</id>
+        <text>U kunt hieronder ervoor kiezen om bepaalde mogelijkheden aan of uit te zetten die gebruik maken van een internetverbinding. Het wordt aanbevolen alle mogelijkheden aan te laten.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONNECT_TEXT</id>
+        <text>Een aantal SwissCenter functies maakt gebruik van een Internet connectie om informatie op te halen (bv: Weersvoorspellingen) of om periodiek naar informatie te zoeken (bv: Nieuwe software versies).</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONNECT_TITLE</id>
+        <text>Internet</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONTINUE</id>
+        <text>Ga verder</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CURRENT_VERSION</id>
+        <text>Huidige versie</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CUSTOM</id>
+        <text>Aangepast</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DATABASE_ERROR</id>
+        <text>Er is een databankfout opgetreden.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DATABASE_NAME</id>
+        <text>Databank naam</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DATABASE_NOCONNECT</id>
+        <text>Kan geen verbinding met MySQL maken met de gespecificeerde Host, gebruikersnaam en Passwoord</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DATABASE_NOSELECT</id>
+        <text>Verbinding met MySQL is gemaakt, maar de opgegeven databank kan niet worden geselecteerd</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DATE</id>
+        <text>Datum</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DAY_1</id>
+        <text>Ma</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DAY_2</id>
+        <text>Di</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DAY_3</id>
+        <text>Wo</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DAY_4</id>
+        <text>Do</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DAY_5</id>
+        <text>Vr</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DAY_6</id>
+        <text>Za</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DAY_7</id>
+        <text>Zo</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DB_CREATE_DB_ERR</id>
+        <text>Databank kan niet worden aangemaakt - Is uw MySQL &quot;root&quot; passwoord juist?</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DB_CREATE_USER_ERR</id>
+        <text>Gebruiker kan niet worden aangemaakt - Is uw MySQL &quot;root&quot; passwoord juist?</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DB_RUN_SQL</id>
+        <text>SQL uitvoeren</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DB_SQL_FAIL</id>
+        <text>SQL commando is mislukt.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DB_SQL_SUCCESS</id>
+        <text>SQL is correct voltooid.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DB_TABLE_LIST</id>
+        <text>Tabellenlijst</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DEBUG_LEVEL</id>
+        <text>Niveau %s %s</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DEBUG_MAXIMUM</id>
+        <text>(Maximum)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DEBUG_MINIMUM</id>
+        <text>(Minimum)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DEBUG_MODE</id>
+        <text>Logmodus</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DEBUG_MODE_PROMPT</id>
+        <text>De logmodus bepaalt hoeveel informatie tijdens het gebruik van SwissCenter naar het 'support.log'-bestand geschreven wordt. Gelieve U ervan te verzekeren dat de Logmodus op maximum staat, vooraleer een logbestand mee te sturen bij de rapportering van een reproduceerbare fout.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DEBUG_RECOMMENDED</id>
+        <text>(Aanbevolen)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DELETE_MEDIA</id>
+        <text>Verwijder media</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DETAILS_CLEAR</id>
+        <text>Wis details</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DETAILS_CLEARED_OK</id>
+        <text>Details zijn gewist.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DETAILS_EDIT</id>
+        <text>Bewerk details</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DETAILS_EXPORT</id>
+        <text>Details exporteren</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>DIRECTOR</id>
+        <text>Regisseur</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DISABLED</id>
+        <text>Uitgeschakeld</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DOWNLOADING</id>
+        <text>Bezig met downloaden...</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DROP_DATABASE</id>
+        <text>Waarschuwing: U heeft reeds een SwissCenter databank. [br]Indien u door gaat met deze actie gaan alle huidige instellingen en informatie verloren.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ENABLED</id>
+        <text>Ingeschakeld</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EPISODE</id>
+        <text>Episode</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EPISODE_SUFFIX</id>
+        <text>(Episode %s)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EP_NEXT</id>
+        <text>Volgende episode</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>EP_PREV</id>
+        <text>Vorige episode</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>EXIFVALS_EXPOSE_MODE</id>
+        <text>Automatisch, handmatig, auto bracket</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIFVALS_EXP_PROG</id>
+        <text>Handmatig, programma, aperture mode, shutter priority, program creative, program action, staand, liggend</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIFVALS_FLASH</id>
+        <text>Niet geflitst, geflitst</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIFVALS_LIGHT_SOURCE</id>
+        <text>Onbekend, daglicht, fluorescerend, Tungsten (gloeilamp/wolfraam), flitslicht, helder weer, bewolkt, share, daglicht fluorescerend, dagwit fluorescerend, helder wit fluorescerend, wit fluorescerend, standarad licht A, standaard licht B, standaard licht C, D55, D65, D75, D50, ISO studio tungsten</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIFVALS_METER_MODE</id>
+        <text>Onbekend, gemiddeld, gecentreerd, spot, multi-spot, patroon, gedeeltelijk</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIFVALS_ORIENTATION</id>
+        <text>normaal, horizontaal spiegelen, omdraaien, vertikaal spiegelen, transponeren, rechts roteren, overdwarsen, links roteren</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIFVALS_SCENE_TYPE</id>
+        <text>Standaard, liggend, staand, nacht scene</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIFVALS_WHITE_BALANCE</id>
+        <text>Automatisch, handmatig</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_EXPOSE_MODE</id>
+        <text>Blootstellingsmodus</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_EXPOSE_PROG</id>
+        <text>Blootstellingsprogramma</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_EXPOSE_TIME</id>
+        <text>Blootstellingsperiode</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_EXPOSURE</id>
+        <text>Blootstelling</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_FLASH</id>
+        <text>Flits</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_FNUMBER</id>
+        <text>F-nummer</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_FOCAL_LENGTH</id>
+        <text>Focale lengte</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_ISO</id>
+        <text>ISO snelheid</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_LIGHT_SOURCE</id>
+        <text>Lichtbron</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_MAKE</id>
+        <text>Merk</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_METER_MODE</id>
+        <text>Metering modus</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_MODEL</id>
+        <text>Model</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_ORIENTATION</id>
+        <text>oriëntatie</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_SCENCE_CAPTURE</id>
+        <text>Scence modus</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_SOURCE</id>
+        <text>Afbeeldingsbron</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_WHITE_BALANCE</id>
+        <text>Witbalans</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXPERT_EDIT_DB</id>
+        <text>Wijzig de databank</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>EXPERT_EDIT_PREFS</id>
+        <text>Wijzig systeeminstellingen</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXPERT_OPTIONS</id>
+        <text>Expert opties</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXPERT_PREFS_UPDATED</id>
+        <text>Voorkeur gewijzigd</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXPERT_WARNING</id>
+        <text>De elementen op deze pagina bieden u de mogelijkheid de interne werking van SwissCenter te wijzigen. Dit mag enkel uitgevoerd worden door (zeer) ervaren gebruikers. [b]Het gebruik van deze mogelijkheid is op eigen risico![/b]</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>EXPORT_PROMPT</id>
+        <text>De toets hieronder bewaart al uw instellingen in een XML-bestand, dat U kunt gebruiken om SwissCenter te herconfigureren indien U ooit zou moeten herinstalleren of uw databank opnieuw aanmaken.[p][b]Let op:[/b] Deze optie bewaart GEEN details over door SwissCenter gevonden audio, video of foto's. Ook wordt geen filminformatie (gedownload van Internet of handmatig ingebracht) bewaard.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXPORT_SETTINGS</id>
+        <text>Instellingen opslaan</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXPORT_SETTINGS_SUBMIT</id>
+        <text>Instellingen opslaan</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXPRESSION</id>
+        <text>Expressie</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>EXTRAS_TEST_TITLE</id>
+        <text>Additionele componenten</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXTRA_EXPORT_DETAILS</id>
+        <text>Alle extra informatie - zoals synopsis, acteurs, etc. - kan worden geëxporteerd naar een zogenoemd 'XML sidecar' bestand. Wanneer een nieuwe database wordt gecreëerd kan dit bestand worden gebruikt om eerder vastgelegde video details te importeren. Echter, voordat van deze mogelijkheid gebruikt kan worden gemaakt, moet de optie &quot;Gebruik 'XML sidecar' bestanden&quot; worden ingeschakeld.</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>EXTRA_EXPORT_GO</id>
+        <text>Exporteer alle extra informatie naar XML</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>EXTRA_EXPORT_TITLE</id>
+        <text>Exporteer extra informatie</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>EXTRA_REFRESH_DETAILS</id>
+        <text>Indien zich een situatie voordoet waarbij u alle gedownloade filmgegevens moet verversen, dient u op de knop te drukken.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXTRA_REFRESH_GO</id>
+        <text>Ververs alle extra Informatie</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXTRA_REFRESH_TITLE</id>
+        <text>Alle extra filminformatie wordt ververst.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXTRA_REFRESH_WARNING</id>
+        <text>Wees ervan bewust dat handmatig ingevoerde informatie van %s pagina verloren gaat.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_LIVERADIO_TEST</id>
+        <text>LiveRadio parser lijkt defect</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_MIP_MIXABLE</id>
+        <text>Een ontoereikend percentage (&lt;50%) van uw muziek werd reeds geanalyseerd door MusicIP. De door MusicIP aangemaakte afspeellijsten zullen vermoedelijk niet accuraat genoeg zijn.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_MUSICIP_TEST</id>
+        <text>MusicIP is niet geinstalleerd (of slecht geconfigureerd).</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_MYSQL_CONNECT</id>
+        <text>De verbinding met de MySQL-server is mislukt.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>FAIL_MYSQL_DB</id>
+        <text>De verbinding met de SwissCenter-databank is mislukt (Heeft u de SwissCenter databank al aangemaakt?)</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>FAIL_MYSQL_VERSION</id>
+        <text>Uw MySQL-versie wordt niet ondersteund.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_PHP_CLI</id>
+        <text>Een CLI-versie van PHP werd niet gevonden. SwissCenter kan geen nieuwe mediabestanden zoeken.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_PHP_EXTRA_MODS</id>
+        <text>Niet alle voor SwissCenter aanbevolen PHP-modules (%s) zijn beschikbaar. Enkele niet-kritische functies zijn uitgeschakeld.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_PHP_FONTS</id>
+        <text>TrueType lettertype [b]niet[/b] gevonden. Het &quot;Speelt Nu&quot; scherm zal geen informatie over het muzieknummer tonen.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_PHP_FONT_SET</id>
+        <text>... maar het lettertype lijkt niet correct (of niet beschikbaar)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_PHP_INI</id>
+        <text>Het 'php.ini'-bestand werd niet gevonden.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_PHP_REQ_MODS</id>
+        <text>Niet alle voor SwissCenter noodzakelijke PHP-modules (%s) zijn beschikbaar.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_PHP_VERSION</id>
+        <text>Uw PHP-versie (%s) wordt niet ondersteund.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_SERVER_SCHED</id>
+        <text>Achtergrondtaken konden niet uitgevoerd worden - misschien is cron (linux) of de task scheduler service (windows) uitgeschakeld.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_SHOUTCAST_TEST</id>
+        <text>ShoutCast-ontleder lijkt niet functioneel</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_SWISS_CACHE</id>
+        <text>SwissCenter kan de buffer directory niet benaderen (%s).</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>FAIL_SWISS_INI</id>
+        <text>Het 'swisscenter.ini'-bestand is niet gevonden. [br]Heeft u de SwissCenter-databank al aangemaakt ?</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>FAIL_SWISS_LOCS</id>
+        <text>De medialokaties zijn niet gedefinieerd.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_SWISS_LOG</id>
+        <text>Niet mogelijk om naar het SwissCenter-logbestand (%s) te schrijven.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_SWISS_PLAYLIST</id>
+        <text>SwissCenter kan de afspeellijsten directory niet benaderen (%s).</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>FILENAME</id>
+        <text>Bestandsnaam</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FILE_EXISTS</id>
+        <text>WAARSCHUWING: Er bestaat al een bestand met deze naam. Indien u het bestand opslaat overschrijft u het bestaande bestand.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FILTER</id>
+        <text>Filter</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FILTER_ACTIVE_SUFFIX</id>
+        <text>(active)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FILTER_VIEWED</id>
+        <text>Afspeelstatus</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FILTER_VIEWED_FINISHED</id>
+        <text>Volledig afgespeeld</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>FILTER_VIEWED_NONE</id>
+        <text>Niet afgespeeld</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>FILTER_VIEWED_NOTFINISHED</id>
+        <text>Niet of gedeeltelijk afgespeeld</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>FILTER_VIEWED_PLAYED</id>
+        <text>Gedeeltelijk of volledig afgespeeld</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>FINISHED</id>
+        <text>Klaar</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FONTWIDTH_MULTIPLIER</id>
+        <text>Lettertypefactor</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FONTWIDTH_MULTIPLIER_PROMPT</id>
+        <text>Met deze optie wijzigt U het aantal getoonde karakters in de SwissCenter menu's. De waarde hangt af van het gebruikte lettertype, and moet tussen [b]1.0[/b] (standaard) en [b]2.2[/b] liggen.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>GENRE</id>
+        <text>Genre</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>HOME</id>
+        <text>Startpagina</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>HOUR</id>
+        <text>Uur</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMAGE_EXIF_ROTATE</id>
+        <text>Automatisch roteren</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMAGE_EXIF_ROTATE_PROMPT</id>
+        <text>De meeste moderne camera's houden bij of de camera in 'Portret' of 'Landschap' modus is wanneer een foto genomen wordt. Deze optie aanschakelen laat SwissCenter toe om de foto automatisch te roteren vooraleer hem op het scherm te tonen.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMAGE_LANDSCAPE_CROP</id>
+        <text>Aanpassen aan het scherm</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>IMAGE_LANDSCAPE_CROP_PROMPT</id>
+        <text>Standaard centreert SwissCenter liggende foto's en past deze aan zodat het gehele scherm van de TV wordt gevuld. Echter, indien u de gehele foto op het scherm wil zien (met zwarte balken aan de boven- en onderzijde) moet u deze optie uitschakelen.</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>IMAGE_RESAMPLE</id>
+        <text>resampelen (hogere kwaliteit)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMAGE_RESIZE</id>
+        <text>Grootte wijzigen (sneller)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMAGE_RESIZE_PROMPT</id>
+        <text>Kies a.u.b. de methode die door SwissCenter gebruikt dient te worden om afbeeldingen on the fly aan te maken.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMAGE_RESIZE_TYPE</id>
+        <text>Afbeeldingsaanmaak</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMAGE_SCALE_UP</id>
+        <text>Vergroot afbeeldingen</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>IMAGE_SCALE_UP_PROMPT</id>
+        <text>Met deze optie vergroot SwissCenter kleine afbeeldingen zodat deze het gehele beeld zullen vullen.</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>IMAGE_TRANSITIONS</id>
+        <text>Overgangseffecten</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>IMAGE_TRANS_PROMPT</id>
+        <text>Beschikbare overgangseffecten voor diavoorstellingen. De effecten kunnen - afhankelijk van uw speler - van elkaar afwijken. Ook kan het voorkomen dat uw speler de sommige overgangseffecten niet ondersteunt.</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>IMPEXP_TITLE</id>
+        <text>Instellingen laden/opslaan</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMPORT_FAILED</id>
+        <text>Er zijn fouten opgetreden tijdens het importeren van het opgegeven instellingenbestand.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMPORT_FILE</id>
+        <text>XML Instellingenbestand</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMPORT_PROMPT</id>
+        <text>Selecteer hieronder uw XML instellingenbestand om uw configuratie naar een vroeger punt te herstellen.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMPORT_SETTINGS</id>
+        <text>Instellingen laden</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMPORT_SUCCESS</id>
+        <text>Instellingen zijn correct geladen.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMP_LOC_CAT_MISSING</id>
+        <text>Het importeren van medialocatie '%s' is mislukt doordat categorie '%s' niet bestaat.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>IMP_LOC_CERT_MISSING</id>
+        <text>Het importeren van medialocatie '%s' is mislukt doordat certificaat '%s' (Schema:%s) niet bestaat.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>IMP_LOC_TYPE_MISSING</id>
+        <text>Het importeren van medialocatie '%s' is mislukt doordat mediatype '%s' niet bestaat.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>IMP_USER_CERT_MISSING</id>
+        <text>Het importeren van gebruiker '%s' is mislukt doordat certificaat '%s' (Schema:%s) niet bestaat.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>INFORMATION</id>
+        <text>Informatie</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>INSTALLATION_TESTS</id>
+        <text>Systeemtesten</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>INSTALLATION_TITLE</id>
+        <text>Installatie</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>INSTALL_TEST_FAIL_CLI</id>
+        <text>De volgende controles in achtergrondmodus zijn mislukt:</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>INSTALL_TEST_FAIL_WEB</id>
+        <text>De volgende controles zijn mislukt:</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>INSTALL_TEST_SUCCESS</id>
+        <text>De volgende controles zijn geslaagd:</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>INSTALL_TEST_TITLE</id>
+        <text>Installatiecontroles</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>INTERNET_RADIO</id>
+        <text>Internetradio</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>INTERNET_RADIO_PROMPT</id>
+        <text>Verbindingen naar Internet radiostations worden direct door Showcenter gemaakt. Indien uw ShowCenter geen directe toegang heeft tot internet kunt u deze functie uitschakelen.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>INTERNET_SERVICES</id>
+        <text>Internet toepassingen</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>INTERNET_SETTING</id>
+        <text>Internetverbinding</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>INTERNET_SETTING_PROMPT</id>
+        <text>Dit specificeert of uw PC een internetverbinding heeft die SwissCenter kan gebruiken. Indien u de optie op 'Automatisch' instelt zal SwissCenter automatisch proberen te detecteren of u een internetverbinding heeft.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IPTC_BYLINE</id>
+        <text>Auteur</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IPTC_CAPTION</id>
+        <text>Omschrijving</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IPTC_CITY</id>
+        <text>Stad</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IPTC_COUNTRY</id>
+        <text>Land</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IPTC_DATE_CREATED</id>
+        <text>Creatiedatum</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IPTC_KEYWORDS</id>
+        <text>Sleutelwoorden</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IPTC_LOCATION</id>
+        <text>Locatie</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>IPTC_PROVINCE_STATE</id>
+        <text>Provincie/state</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IPTC_SUPPCATEGORY</id>
+        <text>Aanvullende categorieën</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_CACHE_EXPIRE</id>
+        <text>Buffer timeout</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_CACHE_EXPIRE_PROMPT</id>
+        <text>SwissCenter kan stationinformatie bufferen. Maar aangezien de lijst van stations voortdurend wijzigt, moeten we de buffer regelmatig verversen. Een uur (3600s) is een goed compromis.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_CLASS_SELECT</id>
+        <text>Selecteer de radioservice:</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_COUNTRY_SELECT</id>
+        <text>Selecteer een land</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>IRADIO_ERROR_CACHE_EXPIRE</id>
+        <text>U moet een numerieke waarde voor 'Secs to keep stations' opgeven! Geef 0 (nul) om uit te schakelen.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_ERROR_MAXNUM</id>
+        <text>U moet een numerieke waarde voor 'Max stations/genre'! opgeven!</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_ERROR_MAXNUM_ZERO</id>
+        <text>U moet een [b][i]numerieke, niet-nul[/i][/b] waarde voor 'Max stations/genre'! opgeven!</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_LIVERADIO_DESC</id>
+        <text>LiveRadio (%s) is een internet radio-dienst, gelijkwaardig aan ShoutCast. Het biedt de mogelijkheid te zoeken op mediatype, genre, station, land en zelfs stad - maar veel van de weergegeven stations worden niet ondersteund door sommige hardwarespelers. Om deze reden beperkt de LiveRadio-ontleder in SwissCenter de resultaten tot MP3-stations.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>IRADIO_MAINGENRE SELECT</id>
+        <text>Selecteer een hoofdgenre</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>IRADIO_MAX_STATIONS</id>
+        <text>Max stations/genre</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_MAX_STATIONS_PROMPT</id>
+        <text>Maximum aantal te ontvangen stations per genre. Meer is [b]niet[/b] beter : een te hoog getal zal niet alleen de ontvangsttijd doen stijgen (en dus de kans op een browser timeout), maar ook de kans op een &quot;out-of-memory&quot; error in PHP. Een goed nummer is 24. Verminder dit, indien U een van de hier vermelde mogelijke problemen ervaart.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_NO_STATIONS</id>
+        <text>Geen stations gevonden</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_NO_STATIONS_MSG</id>
+        <text>Geen stations gevonden die aan uw zoekvoorwaarde '%s' voldoen.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_SEARCH</id>
+        <text>Zoek naar stations</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_SHOUTCAST_DESC</id>
+        <text>ShoutCast (%s) is een radiodienst op het internet die radiostromen aanbiedt, afspeelbaar op de meeste streamingtoestellen. Deze functie biedt de mogelijkheid te zoeken op genre of station, en geeft details voor alle gevonden stations, inclusief een URL voor de afspeellijst. De Shoutcast-ontleder in SwissCenter ontleedt de HTML van de ontvangen pagina, en toont de resultaten in een op TV-schermen leesbaar resultaat. De functie kan echter mislukken wanneer de paginastructuur door het ShoutCast-personeel gewijzigd wordt.[p]Soms geeft ShoutCast geen resultaten voor een zoekpoging. Ververs in dat geval de pagina, om uit te sluiten dat dit de oorzaak van het probleem is.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>IRADIO_STATION_SELECT</id>
+        <text>Selecteer een station</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>IRADIO_SUBGENRE_SELECT</id>
+        <text>Selecteer een subgenre</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>ITUNES_CONFIG_PROMPT</id>
+        <text>Specificeer the volledige pad van uw &quot;iTunes Music Libarary.xml&quot;-bestand. Dit zal worden gebruikt om uw iTunes afspeellijst in de SwissCenter toe te voegen dan wel te vervangen. [p]Bijvoorbeeld: in Windows kan het pad als volgt zijn: [em]&quot;C:\Documents and Settings\Robert\My Music\iTunes\iTunes Music Library.xml&quot;[/em]</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ITUNES_ERROR_INVALID</id>
+        <text>Het spijt me, maar het bestand dat u specificeert moet &quot;iTunes Music Library.xml&quot; zijn.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ITUNES_ERROR_PATH</id>
+        <text>Voer het volledige pad in van uw &quot;iTunes Music Library.xml&quot;</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ITUNES_LIBRARY</id>
+        <text>iTunes Library File</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>KEYBOARD_DEL</id>
+        <text>VERWIJDER</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>KEYBOARD_SPC</id>
+        <text>SPATIE</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LANGUAGE</id>
+        <text>Nederlands</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LANG_ADD_BUTTON</id>
+        <text>Voeg een vertaling toe</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_ADD_NEW</id>
+        <text>Voeg een nieuwe vertaling toe</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_CANCEL_BUTTON</id>
+        <text>Annuleer</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_CHANGE</id>
+        <text>Verander de taal</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LANG_DELETE_BUTTON</id>
+        <text>Verwijder de geselecteerde vertaling</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_DELETE_OK</id>
+        <text>De geselecteerde vertaling is verwijderd.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_EDIT</id>
+        <text>Wijzig een vertaling</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_EDITOR</id>
+        <text>Taal editor</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_ERROR_NO_SELECT</id>
+        <text>U heeft geen vertaling geselecteerd die moet worden verwijderd.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_PROMPT</id>
+        <text>Taaldefinities bestaan uit de verbindingen tussen interne IDs (bv: &quot;ADD_PLAYLIST&quot;) en werkelijk weergegeven tekst. De &lt;tekst&gt; kan worden opgemaakt met behulp van een beperkt aantal markeercodes die identiek zijn aan de HTML-markeercodes en moeten tussen rechte haken worden geplaatst. De volgende codes kunnen worden gebruikt:[br]&amp;#91;br&amp;#93;&amp;#91;/br&amp;#93;  &amp;#91;em&amp;#93;&amp;#91;/em&amp;#93;  &amp;#91;p&amp;#93;&amp;#91;/p&amp;#93;  &amp;#91;b&amp;#93;&amp;#91;/b&amp;#93;  &amp;#91;i&amp;#93;&amp;#91;/i&amp;#93;  &amp;#91;li&amp;#93;&amp;#91;/li&amp;#93;  &amp;#91;ul&amp;#93;&amp;#91;/ul&amp;#93;  &amp;#91;ol&amp;#93;&amp;#91;/ul&amp;#93;[p]In sommige gevallen kan het nodig zijn om een variabel onderdeel in de tekst te plaatsen. Deze wordt in de tekst aangegeven met '&amp;#37;s'.[br]bv: In de onderstaande ID, wordt het aantal nummers dat in de databank is gevonden vervangen door &amp;#37;s. Een zoekresultaat van vier nummers wordt weergegeven als &quot;4 nummers&quot;;[br]MANY_TRACKS=&amp;#37;s nummers.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_SAVE_BUTTON</id>
+        <text>Bewaar veranderingen</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_SELECT</id>
+        <text>Selecteer een taal</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LANG_TEXT</id>
+        <text>Tekst</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_TEXT_ID</id>
+        <text>Tekst ID</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_TRANS</id>
+        <text>Vertaling</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_UPDATE_OK</id>
+        <text>Taalinformatie is geactualiseerd</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LASTFM</id>
+        <text>Last.FM</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LASTFM_ABOUT</id>
+        <text>Last.FM is 's werelds grootste sociale muziekplatform met meer dan 20 miljoen actieve gebruikers in meer dan 232 landen. Door gebruik te maken van een uniek aanbevelingssysteem, bekend als &quot;audioscrobbler&quot;, creëert Last.FM een gedetailleerd profiel van de muzieksmaak van iedere individuele gebruiker door details van alle nummers waarnaar de gebruiker naar luistert vast te leggen. Dit kan gebeuren op basis van beluisterde radio streams of eigen muziek opgeslagen op PC of draagbare speler. [p] Gebruikers kunnen radio stations of afpeellijsten op maat maken vanuit alle audio die in de Last.FM muziekbibliotheek is opgenomen; het is echter niet mogelijk om individuele nummers op te vragen en te beluisteren. Ook is het niet mogelijk om audio te downloaden, tenzij de eigenaar van de audio hiertoe vooraf toestemming heeft verleend. Registratie is vereist om een profiel aan te maken, maar registratie is niet noodzakelijk om de internetpagina van Last.FM te bekijken of om naar de radiostations te luisteren.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LASTFM_ARTIST</id>
+        <text>Beschikbare artiesten / groepen</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LASTFM_ENABLED_PROMPT</id>
+        <text>Indien ingeschakeld kan SwissCenter verbinding maken met de Last.FM internetpagina and toegang krijgen tot persoonlijke radio streams.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LASTFM_LOGIN_HEADINGS</id>
+        <text>Gebruiker,LastFM[br]Gebruikersnaam,LastFM[br]Wachtwoord,Scrobble?,Afbeeldingen?</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LASTFM_PROMPT_GENERAL</id>
+        <text>Zoek stations</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LASTFM_PROMPT_PERSONAL</id>
+        <text>Uw persoonlijke stations</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LASTFM_TAGS</id>
+        <text>Beschikbare labels</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LASTFM_WHATIS</id>
+        <text>Wat is Last.FM?</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LENGTH_MM</id>
+        <text>mm</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LICENSE</id>
+        <text>GPL licentie</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LISTEN_LASTFM</id>
+        <text>Luister naar Last.FM station</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LISTEN_LASTFM_ARTISTS</id>
+        <text>Speel muziek gelijksoortig aan een artiest</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LISTEN_LASTFM_LOVED</id>
+        <text>Speel uw favoriete nummers</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LISTEN_LASTFM_MY_STATION</id>
+        <text>Speel uw station</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LISTEN_LASTFM_NEIGHBOURHOOD</id>
+        <text>Speel uw omgeving</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LISTEN_LASTFM_RECOMMEND</id>
+        <text>Speel uw aanbevelingen</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LISTEN_LASTFM_TAGS</id>
+        <text>Speel muziek met een specifiek label</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LISTEN_MUSIC</id>
+        <text>Luister naar muziek</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LISTEN_RADIO</id>
+        <text>Luister naar internetradio</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LIST_VIEW</id>
+        <text>Lijst</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LOCATION</id>
+        <text>Locatie</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LOCATION_ON_DISK</id>
+        <text>Locatie op schijf</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LOCATION_PROMPT</id>
+        <text>Geef de volledige padnaam van de map waarin de mediabestanden kunnen worden gevonden B.v: Onder Windows[em]&quot;C:\Documents en Settings\Aad\Mijn Documenten\Mijn Muziek&quot;[/em] of op een Linux systeem [em]&quot;/home/Aad/Muziek&quot;[/em]</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LOGFILE_ERROR</id>
+        <text>Logbestand kan niet worden weggeschreven:</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LOOKUP_FAILURE</id>
+        <text>Filmgegevens niet gevonden.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LOOKUP_MOVIE</id>
+        <text>Filmgegevens opzoeken</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LOOKUP_SUCCESS</id>
+        <text>Filmgegevens gedownloaded en opgeslagen.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LOOKUP_TV</id>
+        <text>Zoek een TV episode</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LOWERCASE</id>
+        <text>Kleine letters</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MACHINE_NAME</id>
+        <text>Machine naam</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MAIN_MENU</id>
+        <text>Hoofdmenu</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MANAGE_PLAYLISTS</id>
+        <text>Afspeellijsten beheren</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MANY_ITEMS</id>
+        <text>%s Items</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MANY_TRACKS</id>
+        <text>%s Nummers</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_DELETED</id>
+        <text>Media verwijderd</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOCATIONS</id>
+        <text>Medialocaties</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ADD_BUTTON</id>
+        <text>Locatie toevoegen</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ADD_OK</id>
+        <text>Medialocatie toegevoegd</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ADD_TITLE</id>
+        <text>Voeg een nieuwe locatie toe</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_DEL_BUTTON</id>
+        <text>Verwijder de geselecteerde locaties</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_DEL_OK</id>
+        <text>De geselecteerde mappen zijn verwijderd.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ERROR_CAT</id>
+        <text>Selecteer een categorie</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ERROR_CERT</id>
+        <text>Selecteer een kijkwijzer leeftijdsgrens voor &quot;Voor alle leeftijden&quot;.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ERROR_DIRFAIL</id>
+        <text>De opgegeven map bestaat niet.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ERROR_LOC</id>
+        <text>Geef een medialocatie</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ERROR_PATH</id>
+        <text>Geef een volledige padnaam van de map</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ERROR_SHARE</id>
+        <text>Selecteer een gedeelde netwerklocatie</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ERROR_TYPE</id>
+        <text>Selecteer een mediatype</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_HEADINGS</id>
+        <text>Type, Categorie, Leeftijdsgrens, Map</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_UPDATE_OK</id>
+        <text>Medialocatie informatie bijgewerkt.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_MANAGEMENT</id>
+        <text>Mediabeheer</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_REFRESH</id>
+        <text>Zoek naar nieuwe media</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_OVERALL</id>
+        <text>Zoekopdracht voltooid</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_PROGRESS</id>
+        <text>Media zoekopdracht voortgang</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS</id>
+        <text>Huidige status</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_CLEANUP</id>
+        <text>Opruimen database</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_COMPLETE</id>
+        <text>Voltooid</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_ITUNES</id>
+        <text>Analyseren van uw iTunes bibliotheek</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_MOVIE</id>
+        <text>Analyseren film details</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_PENDING</id>
+        <text>In behandeling</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_RUNNING</id>
+        <text>Actief</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_TV</id>
+        <text>Analyseren TV details</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>MEDIA_SEARCH_PROMPT</id>
+        <text>Het klikken op de onderstaande knop start een indexering van al uw media locaties. Media die niet langer op uw systeem aanwezig is, zal uit de databank verwijderd worden en nieuwe of gewijzigde media zal worden toegevoegd.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE</id>
+        <text>Mediatype</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_PROMPT</id>
+        <text>Selecteer het mediatype waarnaar op deze locatie moet worden gezocht.</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>MESSAGES</id>
+        <text>Berichten</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MESSAGES_DELETE</id>
+        <text>Verwijder dit bericht</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MESSAGES_KEEP</id>
+        <text>Verwijder dit bericht niet</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MESSAGES_NONE</id>
+        <text>Er zijn geen berichten</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MESSAGES_SELECT</id>
+        <text>Selecteer een bericht</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MESSAGES_VIEW</id>
+        <text>Lees berichten</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MESSAGE_STATUS_DELETED</id>
+        <text>Verwijderd</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MESSAGE_STATUS_NEW</id>
+        <text>Nieuw</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MESSAGE_STATUS_READ</id>
+        <text>Gelezen</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MINUTE</id>
+        <text>Minuut</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MINUTES</id>
+        <text>%s minuten</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_DESC</id>
+        <text>MusicIP (gratis beschikbaar op %s) is een interessante applicatie die uw muziekcollectie analyseert, een een &quot;akoestische vingerafdruk&quot; aanmaakt voor elk nummer. Deze informatie wordt dan gebruikt om een persoonlijke afspeellijst van gelijkaardige nummers aan te maken, gebaseerd op titel, artiest of album. [p]Indien MusicIP op hetzelfde toestel als SwissCenter geinstalleerd is, worden binnen de SwissCenter interface extra features beschikbaar voor het genereren en beluisteren van MusicIP afspeellijsten.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_INVALID_PORT</id>
+        <text>MusicIP-server op poort %s niet gevonden</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_MIX_SONG</id>
+        <text>Soortgelijke nummers</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_NOT_FOUND</id>
+        <text>Er kan geen MusicIP server gevonden worden.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_PORT</id>
+        <text>MusicIP Poort</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_PORT_PROMPT</id>
+        <text>Geef het poortnummer waarop de MusicIP server actief is. De standaard ingestelde poort is 10002. [p][b]Noot:[/b]  MusicIP moet op dezelfde server als SwissCenter geinstalleerd zijn.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_REJECT</id>
+        <text>Herhaal artiest</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_REJECT_PROMPT</id>
+        <text>Voorkomt dat dezelfde artiest twee maal gespeeld wordt binnen eenzelfde tijdsbestek (of aantal nummers).</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_SIZE</id>
+        <text>Grootte van de afspeellijst</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_SIZE_PROMPT</id>
+        <text>Het aantal nummers in een afspeellijst, dat MusicIP moet aanmaken.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_STYLE</id>
+        <text>Stijl</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_STYLE_PROMPT</id>
+        <text>Met deze instelling bepaalt U hoe sterk de stijl van de artiesten in de mix moet overeenkomen met het oorspronkelijke nummer. Een hoog getal zal waarschijnlijk resulteren in de selectie van slechts enkele verschillende artiesten, terwijl een laag getal meer variatie in stijl zal toelaten.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_VARIETY</id>
+        <text>Variatie</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_VARIETY_PROMPT</id>
+        <text>Bepaalt de variatie in de mix. Hoe hoger het getal, hoe meer variatie in de mix.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_WHATIS</id>
+        <text>Wat is MusicIP?</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISC_CONFIG_TITLE</id>
+        <text>Diverse instellingen</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISC_FONTWIDTH_NOT_NUMBER</id>
+        <text>De lettertypefactor moet een nummer zijn.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISC_FONTWIDTH_TOO_SMALL</id>
+        <text>De lettertypefactor is te klein.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISC_TITLE</id>
+        <text>Diversen</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISSING_DB_TEXT</id>
+        <text>Gebruik het configuratie hulpprogramma om een databank te maken.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISSING_DB_TITLE</id>
+        <text>De databank is nog niet aangemaakt.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISSING_INI_TEXT</id>
+        <text>Gebruik het configuratie hulpprogramma om het configuratiebestand te maken.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISSING_INI_TITLE</id>
+        <text>Het SwissCenter configuratiebestand is niet aanwezig.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISSING_MEDIA_TEXT</id>
+        <text>Gebruik het configuratie hulpprogramma om medialocaties toe te voegen.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISSING_MEDIA_TITLE</id>
+        <text>Er zijn geen medialocaties gedefinieerd.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISSING_PERMS_TEXT</id>
+        <text>De map waarin het SwissCenter programma is ge?nstalleerd is niet lees- of schrijfbaar voor de server.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISSING_PERMS_TITLE</id>
+        <text>Installatie is niet correct.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISSING_SCHED_TEXT</id>
+        <text>De windows &quot;Task Scheduler&quot; service is nodig voor SwissCenter om in de achtergrond naar mediabestanden te kunnen zoeken.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISSING_SCHED_TITLE</id>
+        <text>&quot;Task Scheduler&quot; service draait niet.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISSING_SETUP_SQL</id>
+        <text>Het &quot;setup.sql&quot; bestand in de SwissCenter map is niet aanwezig</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MODULE_MISSING_LINUX</id>
+        <text>De %s module is niet geladen. Hercompileer PHP met de juiste opties.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MODULE_MISSING_TITLE</id>
+        <text>Vereiste PHP module is niet aanwezig.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MODULE_MISSING_WINDOWS</id>
+        <text>De %s module is niet geladen. Pas het php.ini bestand aan.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MONTH</id>
+        <text>Maand</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MOVIE_ADD_BUTTON</id>
+        <text>Details toevoegen/wijzigen</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MOVIE_ADD_PROMPT</id>
+        <text>Voeg detailinformatie toe aan de films die hierboven staan; indien u de CRTL-toets vasthoudt, kunt u verschillende items in de lijst selecteren.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>MOVIE_CHANGES_MADE</id>
+        <text>Wijzigingen toegepast</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MOVIE_ERROR_NO_SELECT</id>
+        <text>U hebt geen film geselecteerd.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MOVIE_EXTRA_DL_PROMPT</id>
+        <text>Wanneer er nieuwe mediabestanden door SwissCenter worden gevonden tijdens het ?Zoeken naar nieuwe media?, zal de bestandsnaam worden gebruikt voor het zoeken op internet naar extra filminformatie. De online videotheek-website %s zal worden gebruikt voor extra informatie zoals acteurs, regisseurs, enz.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MOVIE_EXTRA_DL_TITLE</id>
+        <text>Bezig met extra filminformatie te downloaden ...</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MOVIE_EXTRA_EXPORT_OK</id>
+        <text>Alle extra video informatie wordt geëxporteerd naar XML</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>MOVIE_EXTRA_REFRESH_OK</id>
+        <text>Alle extra filminformatie staat ingepland voor verversing.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MOVIE_EXTRA_SITE_PROMPT</id>
+        <text>Download info van</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MOVIE_EXTRA_TITLE</id>
+        <text>Extra filminformatie</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MOVIE_NEW_PROMPT</id>
+        <text>Acteurs, regisseurs of genres die hierboven niet vermeld staan, kunt u invoeren.[br] U kunt meerdere gegevens invoeren door ze te scheiden d.m.v. een komma.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MOVIE_OPTIONS</id>
+        <text>Video opties</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MOVIE_UPD_TEXT</id>
+        <text>De volgende films zullen worden bijgewerkt:</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MOVIE_UPD_TTILE</id>
+        <text>Films bijwerken</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MUSIC</id>
+        <text>Muziek</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MUSIC_PLAY_NEXT</id>
+        <text>Volgende</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MUSIC_PLAY_PREV</id>
+        <text>Vorige</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MUSIC_PLAY_TIME</id>
+        <text>Speelduur</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NAME</id>
+        <text>Naam</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NETWORK_SHARE</id>
+        <text>Gedeelde netwerklocatie</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>NETWORK_SHARE_PROMPT</id>
+        <text>De gedeelde netwerklocatie is alleen van toepassing voor het media type 'DVD video' en wordt genegeerd in geval van alle andere media typen. Om DVD videos te kunnen afspelen moet u eerst een SMB of NFS gedeelde netwerklocatie op uw NMT installeren om toegang tot uw DVD afbeeldingen te verkrijgen. Daarna dient de gedeelde netwerk locatie te worden verbonden met deze medialocatie.</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>NEW</id>
+        <text>Nieuw</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NEW_MESSAGES</id>
+        <text>Nieuwe berichten</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NEW_MESSAGES_PROMPT</id>
+        <text>Dagelijks wordt gekeken of er nieuwe belangrijke berichten zijn betreffende SwissCenter. Indien er nieuwe berichten zijn zal er een pictogram onderaan op het Hoofdmenu verschijnen.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NEXT</id>
+        <text>Volgende</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NO</id>
+        <text>Nee</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NOTES</id>
+        <text>Notities</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NOT_RATED</id>
+        <text>Niet gekwalificeerd</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING</id>
+        <text>SPEELT NU</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_PROMPT</id>
+        <text>Sommige hardware spelers bieden de mogelijkheid een afbeelding te tonen tijdens het spelen van muziek en SwissCenter gebruikt deze mogelijkheid om details over het huidige nummer te tonen. [p]In de meeste gevallen, is SwissCenter in staat om automatisch te bepalen of uw speler dit ondersteunt. Indien u echter problemen ondervindt, is het mogelijk om de instelling hier handmatig te bepalen.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_SUPPORT</id>
+        <text>SPEELT NU scherm</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>NO_ITEMS_TO_DISPLAY</id>
+        <text>Er zijn geen items om weer te geven.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NO_PLAYLIST</id>
+        <text>Er is op dit moment geen afspeellijst gedefinieerd.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NO_SYNOPSIS_AVAILABLE</id>
+        <text>Er is geen synopsis beschikbaar.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ONE_ITEM</id>
+        <text>1 item</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ONE_TRACK</id>
+        <text>1 nummer</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>OPTIONS</id>
+        <text>Opties</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>OR</id>
+        <text>- of -</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ORG_TITLE</id>
+        <text>Filmdetails bijwerken</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PAGE</id>
+        <text>Pagina %s</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASSWORD</id>
+        <text>Wachtwoord</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_LIVERADIO_TEST</id>
+        <text>LiveRadio parser lijkt correct te werken</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_MIP_MIXABLE</id>
+        <text>MusicIP heeft een toereikend percentage (meer dan 50%) van uw muziek geanalyseerd</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_MUSICIP_TEST</id>
+        <text>MusicIP-dienst gedetecteerd.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_MYSQL_CONNECT</id>
+        <text>Verbinding met MySQL-server geslaagd.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_MYSQL_DB</id>
+        <text>Verbinding met SwissCenter-databank geslaagd.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_MYSQL_VERSION</id>
+        <text>Uw MySQL-versie wordt ondersteund.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_PHP_CLI</id>
+        <text>Een CLI-versie van PHP is gevonden.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_PHP_EXTRA_MODS</id>
+        <text>Alle aanbevolen PHP-modules zijn beschikbaar.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_PHP_FONTS</id>
+        <text>TrueType lettertype voor het genereren van &quot;Speelt Nu&quot; informatie gevonden.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_PHP_INI</id>
+        <text>Het 'php.ini'-bestand is gevonden.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_PHP_REQ_MODS</id>
+        <text>Alle noodzakelijke PHP-modules zijn beschikbaar.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_PHP_VERSION</id>
+        <text>Uw PHP-versie wordt ondersteund.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_SERVER_SCHED</id>
+        <text>Het automatisch zoeken naar nieuwe media wordt ondersteund.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_SHOUTCAST_TEST</id>
+        <text>ShoutCast-ontleder lijkt correct te werken</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_CACHE</id>
+        <text>SwissCenter kan (naar) de buffer directory lezen en schrijven</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_INI</id>
+        <text>Het 'swisscenter.ini'-bestand is gevonden.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_LOCS</id>
+        <text>De medialokaties zijn gedefinieerd.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_LOG</id>
+        <text>Logging ingeschakeld</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_PLAYLIST</id>
+        <text>SwissCenter kan (naar) de afspeellijsten directory lezen en schrijven</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_ROOT_INS</id>
+        <text>De installatieprocedure werd door een niet-root gebruiker uitgevoerd.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_RW_FILES</id>
+        <text>De SwissCenter installatiefolder kan gelezen en beschreven worden.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PC_LINK_BACK</id>
+        <text>Terug</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PC_LINK_CONFIG</id>
+        <text>Configuratie</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PC_LINK_HOME</id>
+        <text>Startpagina</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PC_LINK_INTERNET</id>
+        <text>Internet</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>PC_LINK_MOVIES</id>
+        <text>Video's</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PC_LINK_MUSIC</id>
+        <text>Muziek</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PC_LINK_PHOTOS</id>
+        <text>Foto's</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PC_LINK_RADIO</id>
+        <text>Radio</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PC_LINK_TV</id>
+        <text>TV shows</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PERCENT_SCANNED</id>
+        <text>% gescand</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PGDN</id>
+        <text>Pagina naar beneden</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PGUP</id>
+        <text>Pagina naar boven</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTOS</id>
+        <text>Foto's</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTOS_MUSIC_CHANGE</id>
+        <text>verander achtergrondmuziek</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTOS_MUSIC_CURRENT</id>
+        <text>huidige afspeellijst</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTOS_MUSIC_INFO</id>
+        <text>achtergrondmuziek</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTOS_MUSIC_NONE</id>
+        <text>geen achtergrondmuziek</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTOS_NO_SELECTED</id>
+        <text>Aantal foto's gevonden:</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTOS_TIME_ALL</id>
+        <text>Totale speelduur</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTOS_TIME_ONE</id>
+        <text>Tijd per foto</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTO_ALBUM</id>
+        <text>Fotoalbum</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTO_CHANGE_ORDER</id>
+        <text>Wijzig afspeelvolgorde</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTO_CHANGE_TIME</id>
+        <text>Wijzig tijd per foto</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTO_ORDER_DATE_DISK</id>
+        <text>Datum gewijzigd</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTO_ORDER_DATE_RANDOM</id>
+        <text>Willekeurig</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTO_ORDER_DATE_TAKEN</id>
+        <text>Datum gemaakt</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTO_ORDER_NAME</id>
+        <text>Naam</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTO_PLAY_ORDER</id>
+        <text>Afspeelvolgorde</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTO_TITLE</id>
+        <text>Titel</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHP_VERSION_TEXT</id>
+        <text>Versie 4.3.9 of hoger van PHP moet geïnstalleerd zijn</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHP_VERSION_TITLE</id>
+        <text>U heeft een oude PHP versie.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PIN_CHANGE</id>
+        <text>Verander de PIN-code</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PIN_CHANGED</id>
+        <text>Uw PIN-code is veranderd.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PIN_CLEAR</id>
+        <text>Wis de PIN-code</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PIN_CONFIRM_NEW</id>
+        <text>Bevestig de nieuwe PIN-code</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PIN_DELETE_LAST</id>
+        <text>Verwijder het laatste cijfer</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PIN_ENTER</id>
+        <text>Voer uw PIN-code in</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PIN_ENTER_NEW</id>
+        <text>Voer uw nieuwe PIN-code in</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PIN_ENTER_OLD</id>
+        <text>Voer uw oude PIN-code in</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PIN_ENTER_PROMPT</id>
+        <text>Maak gebruik van de cijfertoetsen op de afstandsbediening om een PIN-code in te voeren</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PIN_INCORRECT</id>
+        <text>De PIN-code is onjuist.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PIN_MAXLEN</id>
+        <text>De maximum lengte van de PIN-code is bereikt.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PIN_MISMATCH</id>
+        <text>De PIN-code komt niet overeen, PIN-code is niet veranderd.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAY</id>
+        <text>Speel</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLISTS</id>
+        <text>Afspeellijsten</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLISTS_CONFIG_PROMPT</id>
+        <text>Geef de naam van een map waarin de afspeellijsten kunnen worden opgeslagen. [p]Bijvoorbeeld: Onder Windows [em]&quot;C:\Documents and Settings\Aad\Mijn Documenten\Mijn Afspeellijsten&quot;[/em] of op een LINUX systeem [em]&quot;/home/Aad/Afspeellijsten&quot;[/em].</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLISTS_ERROR_DIR</id>
+        <text>Kies de locatie van een afspeellijst</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLISTS_ERROR_INVALID</id>
+        <text>De naam van de map bestaat niet</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLISTS_ERROR_PATH</id>
+        <text>Geef de volledige padnaam op voor map</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_APPEND</id>
+        <text>Voeg een afspeellijst toe</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_AUTOLOAD</id>
+        <text>Automatische afspeellijst</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>PLAYLIST_AUTOLOAD_PROMPT</id>
+        <text>Selecteer een afspeellijst die automatisch wordt geladen bij het opstarten. Deze optie kan handig zijn wanneer als achtergrondmuziek bij het bekijken van fotos steeds dezelfde afspeellijst wordt geslecteerd.</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>PLAYLIST_CLEAR</id>
+        <text>Wis de afspeellijst</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_DELETE</id>
+        <text>Verwijder een afspeellijst</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>PLAYLIST_DELETED</id>
+        <text>Afspeellijst verwijderd</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>PLAYLIST_DELETE_CONFIRM</id>
+        <text>Wilt u de afspeellijst verwijderen?</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>PLAYLIST_EDIT</id>
+        <text>Bewerk de afspeellijst</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_LOAD</id>
+        <text>Laad een afspeellijst</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_LOAD_FAIL</id>
+        <text>De afspeellijst heeft %s titels geladen, %s konden niet worden gevonden in de database.</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>PLAYLIST_LOAD_NEW</id>
+        <text>Laad een nieuwe afspeellijst</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_LOAD_OK</id>
+        <text>Afspeellijst correct ingeladen.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_NAME_CANCEL</id>
+        <text>Annuleer - niet bewaren</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_NAME_USE</id>
+        <text>Bewaren met deze bestandsnaam</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_SAVE</id>
+        <text>Sla afspeellijst op</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_SAVE_CURRENT</id>
+        <text>Sla de huidige afspeellijst op</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_SAVE_PROMPT</id>
+        <text>Geef een naam die u wil gebruiken voor deze afspeellijst.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAY_NOW</id>
+        <text>Speel nu</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLEASE_SELECT</id>
+        <text>Selecteer</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PRESS_KEY_NOW</id>
+        <text>Voer nu '%s' in!</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PREVIOUS</id>
+        <text>Vorige</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PRIORITY</id>
+        <text>Prioriteit</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>PRIVACY_COMMUNICATION</id>
+        <text>[b]Ongevraagde Email/Berichten[/b] [p][ul][li]Wij zullen u nooit ongevraagde mail sturen.[li]Berichten die naar SwissCenter worden gestuurd hebben alleen betrekking op de mogelijkheden en de werking van het programma. Indien u ook deze berichten niet wilt ontvangen, kunt u deze uitschakelen in het menu &quot;Internet&quot;.[/ul]</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PRIVACY_DATA_COLLECTION</id>
+        <text>[b]Data Verzameling[/b] [p]Informatie die betrekking heeft op de mediabestanden op uw systeem worden opgeslagen in een MySQL databank op de PC waarop de SwissCenter software is ge?nstalleerd. Deze informatie wordt alleen gebruikt om gegevens over deze mediabestanden op apparaten zoals Pinnacle Showcenter te tonen. Er wordt nooit informatie, in welke vorm dan ook, verstuurd naar de makers van SwissCenter of naar een andere partij. [p]Er is een uitzondering hierop:- Om extra film informatie (zoals acteurs, regisseurs, filmbeschrijving etc.) te verkrijgen wordt een zoekstring, met daarin de bestandsnaam, verstuurd naar de www.lovefilm.com website. Indien u niet wenst dat deze informatie wordt verstuurd kunt u de &quot;Film Info Download&quot; optie uitschakelen op &quot;Extra Filminformatie&quot; pagina.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PRIVACY_POLICY</id>
+        <text>Privacyverklaring</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PROGRAMME</id>
+        <text>Programma</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>QUICK_HOME</id>
+        <text>Sneltoets startpagina</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>QUICK_KEY_A</id>
+        <text>Sneltoets A</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>QUICK_KEY_B</id>
+        <text>Sneltoets B</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>QUICK_KEY_C</id>
+        <text>Sneltoets C</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>QUICK_MOVIE</id>
+        <text>Sneltoets video</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>QUICK_MUSIC</id>
+        <text>Sneltoets muziek</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>QUICK_PHOTO</id>
+        <text>Sneltoets foto</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>QUICK_PLAY</id>
+        <text>Snel afspelen</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>RANGE</id>
+        <text>Bereik</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>RATING_SCHEME_PROMPT</id>
+        <text>Certificaatschema</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>RECENTLY_ADDED</id>
+        <text>Recent toegevoegd</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>RECENTLY_ADDED_DAYS</id>
+        <text>Gedurende de %s dagen</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFERENCE</id>
+        <text>Referentie</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_ACTOR</id>
+        <text>Verfijn via acteur</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_ALBUM</id>
+        <text>Verfijn via albumnaam</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_ARTIST</id>
+        <text>Verfijn via artiestennaam</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_CERTIFICATE</id>
+        <text>Verfijn via leeftijdsgrens</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_DIRECTOR</id>
+        <text>Verfijn via regisseur</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_GENRE</id>
+        <text>Verfijn via genre</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_IPTC_BYLINE</id>
+        <text>Verfijn via auteur</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_IPTC_CAPTION</id>
+        <text>Verfijn via omschrijving</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_IPTC_CITY</id>
+        <text>Verfijn via stad</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_IPTC_COUNTRY</id>
+        <text>Verfijn via land</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_IPTC_DATE_CREATED</id>
+        <text>Verfijn via creatiedatum</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_IPTC_KEYWORDS</id>
+        <text>Verfijn via sleutelwoorden</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_IPTC_LOCATION</id>
+        <text>Verfijn via locatie</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_IPTC_PROVINCE_STATE</id>
+        <text>Verfijn via provincie/staat</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_IPTC_SUPPCATEGORY</id>
+        <text>Verfijn via aanvullende categorieën</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_PHOTO_ALBUM</id>
+        <text>Verfijn via fotoalbum</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_PHOTO_TITLE</id>
+        <text>Verfijn via titel</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_TITLE</id>
+        <text>Verfijn via titel</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_XMP_RATING</id>
+        <text>Verfijn via kwalificatie</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_YEAR</id>
+        <text>Verfijn via jaartal</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFRESH_CLEANUP</id>
+        <text>Opruimen database</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>REFRESH_CLEANUP_PROMPT</id>
+        <text>Met 'opruimen database' zullen alle niet-gerelateede records, zoals media zonder medialocatie of acteurs en regiseurs zonder verwijzing, uit de database worden verwijderd. Met deze optie zal de tijd voor het doorzoeken van uw medialocaties meer tijd in beslag nemen. Daarom is het raadzaam deze optie alleen gebruikt worden wanneer media is verwijderd.</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>REFRESH_DATABASE</id>
+        <text>Ververs de databank</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFRESH_DATABASE_PROMPT</id>
+        <text>Bezig met zoeken naar nieuwe media...</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFRESH_DIR</id>
+        <text>Bezig met verversen</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFRESH_DIR_BUTTON</id>
+        <text>Ververs</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFRESH_DIR_TEXT</id>
+        <text>SwissCenter is aan het zoeken naar nieuwe of gewijzigde media en voegt deze toe aan de databank. Dit kan enkele momenten duren, dus vragen wij om uw geduld.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFRESH_ITUNES</id>
+        <text>Doorzoek iTunes bibliotheek</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>REFRESH_ITUNES_PROMPT</id>
+        <text>Selecteer deze optie om het zoeken van uw iTunes bibliotheek naar afspeellijsten met deze bijwerking van de media.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>REFRESH_METADATA</id>
+        <text>Ververs metadata</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFRESH_METADATA_PROMPT</id>
+        <text>Selecteer deze optie wanneer alle media metadata moeten worden ververst. Voor deze mogelijkheid moet alleen worden gekozen, in het geval dat een SwissCenter update tot een nieuwe metadata functionaliteit leidt</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFRESH_RUNNING</id>
+        <text>Het bijwerken van de databank is in de achtergrond gestart; U kunt het systeem ondertussen normaal blijven gebruiken. Het duurt ongeveer 10 minuten om 5000 mediabestanden bij te werken. Let op: Alle mediabestanden zijn pas beschikbaar als het refresh proces klaar is.[p]De eerste keer kan het refresh proces wat langer duren. Het systeem doorzoekt ongeveer 5000 mediabestanden in 10 minuten. Daaropvolgende data refresh operaties zullen sneller verlopen.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REMOTE_ACCESS_ERROR</id>
+        <text>Toegang op afstand naar [em]SwissCenter Configuratie Hulpprogramma's[/em] is om veiligheidsredenen uitgeschakeld.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REMOTE_PROMPT</id>
+        <text>Selecteer the functieknop die moet worden veranderd:</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>REMOVE_FILTER</id>
+        <text>Verwijder filter</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>RESUME_PLAYING</id>
+        <text>Afspelen hervatten</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>RETURN_MAIN_MENU</id>
+        <text>Terug naar het hoofdmenu</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>RETURN_TO_LIST</id>
+        <text>Keer terug naar lijst</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>RETURN_TO_SELECTION</id>
+        <text>Terug naar het vorige scherm</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ROOT_INSTALL_TEXT</id>
+        <text>U dient de SwissCenter software te installeren als een webserver-gebruiker. Installaties onder het root-gebruikersaccount worden niet ondersteund.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ROOT_INSTALL_TITLE</id>
+        <text>De installatie is uitgevoerd onder het &quot;root&quot; gebruikersaccount</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>RSS_ADD_BUTTON</id>
+        <text>Voeg een RSS feed toe</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ADD_OK</id>
+        <text>RSS feed toegevoegd</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ADD_TITLE</id>
+        <text>Voeg een nieuwe RSS feed toe</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_AUDIO</id>
+        <text>Audio</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_CACHE</id>
+        <text>Buffer</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_CACHE_LABEL</id>
+        <text>Geef het aantal items dat deze feed in de buffer moet opnemen. Wanneer deze limiet wordt overschreden zullen de oudere items worden verwijderd. Met een '0' worden alle items behouden.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_DEL_BUTTON</id>
+        <text>Verwijder de geselecteerde RSS feeds.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_DEL_OK</id>
+        <text>De geselecteerde RSS feeds zijn  verwijderd.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_CACHE</id>
+        <text>Geef het aantal items aan dat voor de RSS feed in de buffer moet worden opgenomen.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_TITLE</id>
+        <text>Voer de titel van de RSS feed in.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_TYPE</id>
+        <text>Selecteer het type RSS feed</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_URL</id>
+        <text>Voer de URL in van de RSS feed</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_FEEDS</id>
+        <text>RSS feeds</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_FEED_PROMPT</id>
+        <text>Deze optie maakt het mogelijk om SwissCenter te gebruiken om RSS feeds, inclusief audio en video podscasts, te bekijken.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_IMAGE</id>
+        <text>Afbeelding</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ITEM_URL</id>
+        <text>Ga naar de URL</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_LAST_UPDATED</id>
+        <text>Geactualiseerd:</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_PLAY_LINK</id>
+        <text>Het bestand afspelen</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_REFRESH</id>
+        <text>Actualiseer feed(s)</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_TITLE</id>
+        <text>Titel</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_TYPE</id>
+        <text>Type</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_UPDATE</id>
+        <text>SwissCenter is bezig uw RSS feed(s) te actualiseren. Dit kan een paar minuten duren. Een ogenblikje geduld aub.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_UPDATE_OK</id>
+        <text>De RSS informatie is geactualiseerd.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_URL</id>
+        <text>URL</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_VIDEO</id>
+        <text>Video</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RUNNING_TIME</id>
+        <text>Looptijd</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SAVE_SETTINGS</id>
+        <text>Instellingen opslaan</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SAVE_SETTINGS_OK</id>
+        <text>De instellingen zijn opgeslagen.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_AUTO_TITLE</id>
+        <text>Automatisch zoeken naar media</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_AUTO_TXT</id>
+        <text>Nieuwe mediabestanden worden gezocht op het opgegeven tijdstip op de geselecteerde dagen. Het is aan te bevelen om het systeem dagelijks naar nieuwe mediabestanden te laten zoeken, op een tijdstip waarop u de PC waarschijnlijk niet gebruikt.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_DATE_PROMPT</id>
+        <text>Dag van de maand</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_ERROR_CHARS</id>
+        <text>Geldige karakters zijn %s</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_ERROR_FIELDS</id>
+        <text>U moet een geldige waarde geven voor elk veld.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_ERROR_HOUR</id>
+        <text>Voer een geldig uur in (tussen 0 en 23)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_ERROR_MIN</id>
+        <text>Voer een geldige minuut (tussen 0 en 59)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_HOUR_PROMPT</id>
+        <text>Het uur van de dag</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_MINUTE_PROMPT</id>
+        <text>Het aantal minuten achter het uur</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_MONTH_PROMPT</id>
+        <text>1 = januari, 2 = februari, etc.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_NONE</id>
+        <text>Het automatisch zoeken naar nieuwe mediabestanden is niet langer actief</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_NOTES</id>
+        <text>[li]* betekent alle mogelijke waarden. [li]Verschillende waarden kunnen gescheiden worden door kommas (1,5). [li]Een bereik kan gespecificeerd worden met een streepje (1-5). [li]Beide kunnen tegelijk toegepast worden (1-4,7).</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>SCHEDULE_TITLE</id>
+        <text>Ingeplande taken</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_UPDATED</id>
+        <text>Het automatisch zoeken naar mediabestanden - Rooster is aangepast</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_UPDATE_BUTTON</id>
+        <text>Pas rooster aan</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_WEEKDAY_PROMPT</id>
+        <text>1 = maandag, 2 = dinsdag, etc.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SEARCH</id>
+        <text>Zoek</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SEARCH_ANYWHERE</id>
+        <text>Ergens in de naam</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SEARCH_CLEAR</id>
+        <text>Wis zoekopdracht</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SEARCH_NO</id>
+        <text>Nee</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SEARCH_NO_ITEMS</id>
+        <text>Er zijn geen items gevonden die voldoen aan uw zoekcriteria.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SEARCH_START</id>
+        <text>Begin van de naam</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SEARCH_WIKIPEDIA</id>
+        <text>0pzoeken in Wikipedia</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SEARCH_YES</id>
+        <text>Ja, zoek toch</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SECONDS</id>
+        <text>%s seconden</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SELECT_ALL</id>
+        <text>Selecteer alles</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SELECT_CATEGORY</id>
+        <text>Selecteer een categorie uit de lijst:</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SELECT_ENTIRE_ALBUM</id>
+        <text>Selecteer het album</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SELECT_OPTION</id>
+        <text>Selecteer een optie uit de lijst:</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SELECT_RSS_FEED</id>
+        <text>Selecteer een RSS feed uit de lijst:</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>SELECT_USER</id>
+        <text>Selecteer een gebruiker uit de lijst:</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SERIES</id>
+        <text>Series</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SETUP</id>
+        <text>Instellingen</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SETUP_CHANGE_UI</id>
+        <text>Verander het uiterlijk</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SETUP_REMOTE</id>
+        <text>Setup afstandsbediening</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SETUP_SEARCH_ALL</id>
+        <text>Zoek in alle locaties</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SETUP_SEARCH_CATEGORY</id>
+        <text>Zoek een specifieke categorie</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SETUP_SEARCH_NEW_MEDIA</id>
+        <text>Zoek mediabestanden</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SETUP_SEARCH_TYPE</id>
+        <text>Zoek een specifiek mediatype</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SETUP_SEARCH_TYPE_TITLE</id>
+        <text>Selecteer een mediatype</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SETUP_TITLE</id>
+        <text>Voorkeuren en instellingen</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SETUP_UPDATE_SC</id>
+        <text>Update SwissCenter</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SETUP_UPDATE_SC_RELEASE</id>
+        <text>Update naar de laatste officiële versie</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>SETUP_UPDATE_SC_SVN</id>
+        <text>Update naar de laatste bèta versie</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>SHUFFLE_OFF</id>
+        <text>Zet afspelen in willekeurige volgorde uit</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SHUFFLE_ON</id>
+        <text>Zet afspelen in willekeurige volgorde aan</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SIMESE_SCHED_PROMPT</id>
+        <text>U kunt automatische verversingen van de SwissCenter databank inplannen door met de rechter muis knop te klikken op het Simese icoon in de taakbalk en [i]update media scheduler[/i] te selecteren.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SLIDESHOW</id>
+        <text>Diashow</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>STARRING</id>
+        <text>Hoofdrol</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>START_OF_NAME</id>
+        <text>Begin van de naam</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>START_SLIDESHOW</id>
+        <text>Start de diashow</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>STATUS</id>
+        <text>Status</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>STYLE_CHECK_ONLINE</id>
+        <text>Download stijlen van %s</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>STYLE_CHOOSE</id>
+        <text>Kies stijl</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>STYLE_DOWNLOAD</id>
+        <text>Download Stijl</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>STYLE_DOWNLOADING</id>
+        <text>Bezig downloaden van stijl - even geduld aub.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>STYLE_NONE_AVAILABLE</id>
+        <text>Er zijn geen stijlen beschikbaar.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>STYLE_SHOW_INSTALLED</id>
+        <text>Toon geinstalleerde stijlen</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_CLIENTS_TITLE</id>
+        <text>Clienten ontdekt</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_CLINTS_TABLE</id>
+        <text>IP adres, agent string</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_DB_CONN_TABLE</id>
+        <text>Verbindingsdetails</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_DB_DB_LIST</id>
+        <text>Databanken</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_DB_TABLE_LIST</id>
+        <text>Tabel, Rijen</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_DB_TITLE</id>
+        <text>Databankinstellingen</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_PROG_HEADINGS</id>
+        <text>Programma, Locatie</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_PROG_TITLE</id>
+        <text>Programmalocaties</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_SYSPREF_TABLE</id>
+        <text>Voorkeuren en instellingen</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_SYSPREF_TITLE</id>
+        <text>Systeemvoorkeuren</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_TITLE</id>
+        <text>Ondersteuningsinformatie</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_TXT</id>
+        <text>Indien er problemen met SwissCenter zijn, kunt u me mailen. Beschrijf het probleem en andere belangrijke gegevens zoals operating systeem. Het [em]Help forum[/em] kunt u vinden op de %s website. [p] De onderstaande informatie is nodig om uw probleem te onderzoeken..</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_USRPREF_TABLE</id>
+        <text>Gebruikers, voorkeuren en instellingen</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_USRPREF_TITLE</id>
+        <text>Voorkeursinstellingen</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SYNOPSIS</id>
+        <text>Synopsis</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SYSPREF_ADD_NEW</id>
+        <text>Voeg een systeeminstelling toe</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SYSPREF_DEL_BUTTON</id>
+        <text>Verwijder geselecteerde voorkeuren</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SYSPREF_EDIT_EXISTING</id>
+        <text>Wijzig een systeeminstelling</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>TAG</id>
+        <text>Label (Tag)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>THUMBNAIL_VIEW</id>
+        <text>Miniatuurweergave</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TIME</id>
+        <text>Tijd</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TIME_DAY_SHORT</id>
+        <text>d</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TIME_HOUR_SHORT</id>
+        <text>u</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TIME_MINUTE_SHORT</id>
+        <text>m</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TIME_SECOND_SHORT</id>
+        <text>s</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TITLE</id>
+        <text>Titel</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TRACKS</id>
+        <text>Nummers</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TRACKS_ADDED_TEXT</id>
+        <text>De nummers die u hebt geselecteerd zijn toegevoegd aan de afspeellijst.[p] Om deze nummers af te spelen of om de afspeellijst aan te passen, druk op de %s knop van de afstandsbediening en kies dan de optie: %s.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TRACKS_ADDED_TITLE</id>
+        <text>Toegevoegde nummers</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TRACK_LENGTH</id>
+        <text>Speelduur</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TRACK_NAME</id>
+        <text>Nummer</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TRANS_CLOSE_VERTICAL</id>
+        <text>Sluit vertikaal</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_FADE_BLACK</id>
+        <text>Naar zwart vervagen</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_INTERLACE</id>
+        <text>Ineengevlochten</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_NO_EFFECT</id>
+        <text>Geen effect</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_OPEN_VERTICAL</id>
+        <text>Vertikaal geopend</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_RANDOM</id>
+        <text>Willekeurige effecten</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_SPLIT_VERTICAL_1</id>
+        <text>Vertikaal gesplitst 1</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_SPLIT_VERTICAL_2</id>
+        <text>Vertikaal gesplitst 2</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_WIPE_DOWN</id>
+        <text>Naar beneden verschijnen</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_WIPE_UP</id>
+        <text>Naar boven verschijnen</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TTF_FONT</id>
+        <text>TrueType lettertype</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TTF_FONT_PROMPT</id>
+        <text>Lettertype dat gebruikt wordt om de muziek-informatie op het 'Speelt Nu' scherm te tonen, indien dit ondersteund wordt (en ingeschakeld is). Geef een lettertype-bestandsnaam op, inclusief het volledige pad naar het bestand ; laat dit veld leeg voor automatische detectie van een lettertype.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TVID_RESET_DEFAULT</id>
+        <text>Terugzetten standaardwaarden van TVID</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TVSERIES</id>
+        <text>TV series</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TV_DETAILS</id>
+        <text>Bewerk TV series details</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TV_EXPRESSIONS</id>
+        <text>TV expressies</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ADD</id>
+        <text>Voeg een nieuwe TV expressie toe</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ADDED_OK</id>
+        <text>TV expressie toegevoegd</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ADD_BUTTON</id>
+        <text>TV expressie toevoegen</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_DEFAULTS</id>
+        <text>Herstel systeeminstellingen</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_DELETE_OK</id>
+        <text>TV expressie(s) verwijderd</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_DEL_BUTTON</id>
+        <text>Verwijder de geselecteerde expressies</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ERROR_INVALID</id>
+        <text>Voer een geldige expressie in</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ERROR_MISSING</id>
+        <text>Voer een prioriteit en expressie in</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_PROMPT</id>
+        <text>De details voor een TV serie worden bepaald aan de hand van de bestandsnaam en bijbehorend pad door middel van vaste &quot;TV expressies&quot;. Het bestand wordt vergeleken met de volgende expressies totdat een overeenkomst is gevonden. De expressies bevatten verwijzingen ('placeholders') naar programma {p}, serie {s}, episode {e} en titel {t}. Een expressie moet minimaal één 'placeholder' bevatten. Voor nadere informatie of hulp wordt u verwezen naar de SwissCenter fora.</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST</id>
+        <text>Test expressies</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_BUTTON</id>
+        <text>Test expressies</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_FAILED</id>
+        <text>Er kunnen geen overeenkomsten worden gevonden met de gegeven expressies.</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_PROMPT</id>
+        <text>Voer een bestandsnaam inclusief pad in om te testen of uw huidige expressies de juiste details kunnen vinden.
+bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep End.avi</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_SUCCESS</id>
+        <text>Overeenkomsten  %s. Gevonden programma: %s, Serie: %s, Episode: %s, Titel: %s</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_UPDATE_OK</id>
+        <text>TV expressie geactualiseerd</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_OPTIONS</id>
+        <text>TV series</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UNKNOWN_ERROR</id>
+        <text>Er is een onbekende fout opgetreden. Wilt u een foutmelding op het SwissCenter forum plaatsen, waarbij u aangeeft welke activiteiten u uitvoerde op het moment dat de fout opgetrad?</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>UNRATED_CERTIFICATE</id>
+        <text>Standaard leeftijdsgrens</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UNRATED_CERT_PROMPT</id>
+        <text>U moet een standaard leeftijdsgrens opgeven voor alle video's, op deze media locatie, waarvoor geen expliciete kijkwijzer classificatie voor opgegeven is.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>UPDATE</id>
+        <text>Update</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UPDATE_CHECK</id>
+        <text>Update controle</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UPDATE_CHECK_PROMPT</id>
+        <text>Dagelijks wordt er op de %s website gekeken of er een nieuwe versie van de SwissCenter software beschikbaar is. Indien er een recentere versie beschikbaar is, zal onderaan het hoofdmenu een pictogram verschijnen.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>UPDATE_FAILED</id>
+        <text>Update mislukt - probeer het later nog een keer</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UPDATE_NONE</id>
+        <text>Er zijn geen recentere software versies beschikbaar.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>UPDATE_SUCCESS</id>
+        <text>De software voor uw systeem is met succes vernieuwd.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UPDATE_TITLE</id>
+        <text>Online update</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UPDATING</id>
+        <text>Bijwerken...</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UPDATING_PLEASE_WAIT</id>
+        <text>Bijwerken - Een ogenblik a.u.b.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UPLOAD_FAILED</id>
+        <text>Bestand upload is mislukt.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UPLOAD_FILE</id>
+        <text>Bestand uploaden</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UPPERCASE</id>
+        <text>Hoofdletters</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERNAME</id>
+        <text>Gebruikersnaam</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_ADDED_OK</id>
+        <text>Nieuwe gebruiker is toegevoegd.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_ADD_BUTTON</id>
+        <text>Nieuwe gebruiker toevoegen</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_ADD_TITLE</id>
+        <text>Gebruiker toevoegen</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_ADMIN_PROMPT</id>
+        <text>Een administrator heeft toegang tot meer opties op de mediaspeler. Hieronder valt de mogelijkheid om media te verwijderen.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_CONFIG_TITLE</id>
+        <text>Gebruikersbeheer</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_DEL_BUTTON</id>
+        <text>Verwijder de geselecteerde gebruikers</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_DEL_OK</id>
+        <text>De geselecteerde gebruikers zijn verwijderd.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_EDIT_OK</id>
+        <text>De geselecteerde gebruikers zijn aangepast.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_ERROR_CERT</id>
+        <text>Geef de maximum leeftijdsgrens aan waar deze gebruiker naar mag kijken.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>USERS_ERROR_DEFAULT</id>
+        <text>De standaard gebruiker kan niet worden verwijderd.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_ERROR_EXISTS</id>
+        <text>De gebruiker bestaat al, probeer een andere naam.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_ERROR_NAME</id>
+        <text>Geef een gebruikersnaam</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_MAX_CERT</id>
+        <text>Maximum leeftijdsgrens</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_MAX_CERT_PROMPT</id>
+        <text>Geef de [em]maximale[/em] kijkwijzer classificatie waarnaar deze gebruiker mag kijken. Items met een hogere classificatie zijn [em]niet[/em] zichtbaar voor deze gebruiker.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_NAME_PROMPT</id>
+        <text>Geef een gebruikersnaam. Deze naam zal verschijnen op het SwissCenter scherm.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_PIN</id>
+        <text>PIN</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_PIN_PROMPT</id>
+        <text>U kunt deze gebruiker optioneel beschermen met een PIN-code  (max. 10 cijfers lang)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_TABLE_HEADINGS</id>
+        <text>Naam, PIN, max. kijkwijzer leeftijd</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USER_CHANGE</id>
+        <text>Verander de gebruiker</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USER_CHANGED</id>
+        <text>De gebruiker is veranderd.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>VALUE</id>
+        <text>Waarde</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>VIDEO</id>
+        <text>Video</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>VIDEO_INFO</id>
+        <text>Video informatie</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>VIEWED_BY</id>
+        <text>Bekeken door</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>VIEW_ALL</id>
+        <text>Laat alle zien</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>VIEW_PHOTO</id>
+        <text>Bekijk foto's</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>VIEW_UNVIEWED</id>
+        <text>Nog niet bekeken</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>VIEW_WEATHER</id>
+        <text>Weersverwachting</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WATCH_DVD</id>
+        <text>Bekijk een DVD</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>WATCH_MOVIE</id>
+        <text>Bekijk een video</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>WATCH_TV</id>
+        <text>Bekijk een TV show</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_5DAY</id>
+        <text>Vijfdaagse voorspelling</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_BACK_TO_SEARCH</id>
+        <text>Terug naar de zoekpagina</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_CHANNEL</id>
+        <text>The Weather Channel</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_CURRENT</id>
+        <text>Huidige omstandigheden</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_FEELS_LIKE</id>
+        <text>Gevoelstemperatuur</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_FORECAST</id>
+        <text>Weersvoorspelling</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_FORECAST_PROMPT</id>
+        <text>De huidige weersomstandigheden (of 5 daagse voorspelling) worden gedownload van %s.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_HOME</id>
+        <text>Maak deze bladzijde de startpagina</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_HUMIDITY</id>
+        <text>Luchtvochtigheid</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_IMPERIAL</id>
+        <text>Ga naar imperiale aanduiding</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_LOCATION</id>
+        <text>Zoek een andere locatie</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_MATCHING</id>
+        <text>Plaatsen die voldoen aan de zoekopdracht</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_MATCHING_TITLE</id>
+        <text>Plaatsen die aan de zoekopdracht voldoen</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_METRIC</id>
+        <text>Ga naar metrieke aanduiding</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_NO_CITY</id>
+        <text>Er zijn geen plaatsen in de SwissCenter databank gevonden die aan de zoekopdracht %s voldoen.[p] Wilt u op de %s website zoeken? (Voer de complete plaatsnaam in voor de zoekopdracht)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_NO_MATCHING</id>
+        <text>Helaas : de %s heeft geen weersvoorspelling voor de plaats %s op dit moment.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_PRESSURE</id>
+        <text>Luchtdruk</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_SELECT_CITY</id>
+        <text>Selecteer een plaats :</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_UV</id>
+        <text>UV index</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_VISIBILITY</id>
+        <text>Zicht</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_WIND</id>
+        <text>Wind</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEEKDAY</id>
+        <text>Weekdag</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WIKI_LOOKUP</id>
+        <text>Wikipedia zoekmogelijkheden</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WIKI_LOOKUP_PROMPT</id>
+        <text>Wanneer deze optie is geactiveerd zal SwissCenter de mogelijkheid toevoegen om informatie op te zoeken (zoals artiesten en films) op de Wikipedia site.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>XML_SAVE</id>
+        <text>Gebruik 'XML sidecar' bestanden</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>XMP_RATING</id>
+        <text>Kwalificatie</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>YEAR</id>
+        <text>Jaar</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>YES</id>
+        <text>Ja</text>
+        <version>1.19</version>
+      </string>
+    </language>
+  </languages>
+</swisscenter>
