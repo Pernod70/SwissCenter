@@ -192,7 +192,7 @@ function svn_update( $path = '/trunk/swisscenter/')
     }
 
     // Track the highest revision we've applied
-    if ($fsp["revision"]>$max_revision)
+    if (isset($fsp["relative_path"]) && $fsp["revision"]>$max_revision)
       $max_revision = $fsp["revision"];
   }
 
@@ -206,6 +206,14 @@ function svn_update( $path = '/trunk/swisscenter/')
   }
 
   // Update complete
-  set_sys_pref("SVN_REVISION",$max_revision);
-  return 'UPDATED';
+  if ($max_revision == svn_current_revision())
+  {
+    send_to_log(1,"ERROR: Unable to apply changes.",$url);
+    return 'ERROR';
+  }
+  else
+  {
+    set_sys_pref("SVN_REVISION",$max_revision);
+    return 'UPDATED';
+  }
 }
