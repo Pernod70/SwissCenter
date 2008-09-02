@@ -703,16 +703,19 @@ function process_photo( $dir, $id, $file)
       if ( $success )
       {
         // Pre-cache the image thumbnail if the user has selected that option.
-        $browsers = db_toarray("select distinct browser_x_res, browser_y_res from clients");
+        $browsers = db_toarray("select distinct browser_x_res, browser_y_res from clients where ip_address != '127.0.0.1'");
         if ($cache_dir != '' && get_sys_pref('CACHE_PRECACHE_IMAGES','NO') == 'YES' && count($browsers)>0 )
         {
           send_to_log(6,'Pre-caching thumbnail');
           foreach ($browsers as $row)
           {
-            $_SESSION["device"]["browser_x_res"]=$row["BROWSER_X_RES"];
-            $_SESSION["device"]["browser_y_res"]=$row["BROWSER_Y_RES"];
-            send_to_log(6,"- for browser size ".$row["BROWSER_X_RES"]."x".$row["BROWSER_Y_RES"]);
-            precache($dir.$file, convert_x(THUMBNAIL_X_SIZE), convert_y(THUMBNAIL_Y_SIZE) );             
+            if ( !empty($row["BROWSER_X_RES"]) && !empty($row["BROWSER_Y_RES"]) )
+            {
+              $_SESSION["device"]["browser_x_res"]=$row["BROWSER_X_RES"];
+              $_SESSION["device"]["browser_y_res"]=$row["BROWSER_Y_RES"];
+              send_to_log(6,"- for browser size ".$row["BROWSER_X_RES"]."x".$row["BROWSER_Y_RES"]);
+              precache($dir.$file, convert_x(THUMBNAIL_X_SIZE), convert_y(THUMBNAIL_Y_SIZE) );
+            }
           }
         }
       }
