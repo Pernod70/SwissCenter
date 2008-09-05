@@ -80,9 +80,9 @@
     // Render the message
     echo '<table align="center" width="80%">';
     echo '<tr><td>'.font_tags(32, style_value("PAGE_TITLE_COLOUR"))
-          .'Date:'.$data["ADDED"].'</td>'
+          .str('DATE').':'.$data["ADDED"].'</td>'
           .'<td align="right">'.font_tags(32, style_value("PAGE_TITLE_COLOUR"))
-          .'Status:'.$message_status_string[$data["STATUS"]].'</td></tr>';
+          .str('STATUS').':'.$message_status_string[$data["STATUS"]].'</td></tr>';
     echo '<tr><td height="8" colspan="2"><img src="/images/dot.gif"></td></tr>';
     echo '<tr><td colspan="2" align="center">'.font_tags(32, style_value("PAGE_TITLE_COLOUR"))
           .$data["TITLE"].'</td></tr>';
