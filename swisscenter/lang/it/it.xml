@@ -13,6 +13,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>ADDITIONAL_COMPONENTS</id>
+        <text>Comp. Addizionali</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>ADD_PLAYLIST</id>
         <text>Aggiungi alla tua playlist</text>
         <version>1.19</version>
@@ -31,6 +36,21 @@
         <id>ALBUM</id>
         <text>Album</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>ALL_CATEGORIES</id>
+        <text>Tutte le Categorie</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>ALL_MEDIA_TYPES</id>
+        <text>Tutti i tipi di Media</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>ALL_RSS_FEEDS</id>
+        <text>Tutti i RSS Feeds</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>ANYWHERE_IN_NAME</id>
@@ -181,6 +201,11 @@
         <id>BROWSE_DIRECTOR</id>
         <text>Cerca per regista</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_DVD</id>
+        <text>Mostra il contenuto del/i DVD</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>BROWSE_FILESYSTEM</id>
@@ -498,6 +523,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>CONFIG_BROWSE_NONE_SELECTED</id>
+        <text>Impostazioni non salvate, è necessario selezionare almeno una opzione in ciascun gruppo</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
         <id>CONFIG_DB_CREATE</id>
         <text>Crea Database</text>
         <version>1.19</version>
@@ -541,6 +571,11 @@
         <id>CONFIG_MIP_OPTIONS</id>
         <text>MusicIP</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_MUSICIP</id>
+        <text>Setta MusicIP</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>CONFIG_RADIO_OPTIONS</id>
@@ -733,6 +768,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>DETAILS_EXPORT</id>
+        <text>Esporta Dettagli</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
         <id>DIRECTOR</id>
         <text>Regista</text>
         <version>1.19</version>
@@ -766,6 +806,16 @@
         <id>EPISODE_SUFFIX</id>
         <text>(Episodio %s)</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>EP_NEXT</id>
+        <text>Episodio Successivo</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>EP_PREV</id>
+        <text>Episodio Precedente</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>EXIFVALS_EXPOSE_MODE</id>
@@ -894,8 +944,8 @@
       </string>
       <string>
         <id>EXPERT_EDIT_PREFS</id>
-        <text>Modifica la Configurazione</text>
-        <version>1.19</version>
+        <text>Modif Configurazione</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>EXPERT_OPTIONS</id>
@@ -928,9 +978,29 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>EXPRESSION</id>
+        <text>Espressione</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>EXTRAS_TEST_TITLE</id>
         <text>Componenti addizionali</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>EXTRA_EXPORT_DETAILS</id>
+        <text>Ulteriori informazioni quali locandine attori, ecc possono essere esportati in un file formato XML. Questo può quindi essere utilizzato per reimportare i dettagli video ogni volta che un nuovo database viene creato. Questa opzione 'Usa file formato XML' deve prima essere 'Abilitato'.</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>EXTRA_EXPORT_GO</id>
+        <text>Esporta le Informazioni Extra in formato XML</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>EXTRA_EXPORT_TITLE</id>
+        <text>Esporta Informazioni Extra</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>EXTRA_REFRESH_DETAILS</id>
@@ -939,8 +1009,8 @@
       </string>
       <string>
         <id>EXTRA_REFRESH_GO</id>
-        <text>Aggiorna tutte le informazioni aggiuntive</text>
-        <version>1.19</version>
+        <text>Aggiorna tutte le informazioni Extra</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>EXTRA_REFRESH_TITLE</id>
@@ -1028,6 +1098,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>FAIL_SWISS_CACHE</id>
+        <text>Abilita la scrittura della cache nella Directory di Swisscenter.</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>FAIL_SWISS_INI</id>
         <text>Impossibile trovare il file 'swisscenter.ini'. [br]Hai gia' creato un database di SwissCenter?</text>
         <version>1.19</version>
@@ -1041,6 +1116,11 @@
         <id>FAIL_SWISS_LOG</id>
         <text>Impossibile scrivere nel log file dello SwissCenter (%s).</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_SWISS_PLAYLIST</id>
+        <text>Abilita la scrittura della CAche nella Directory di SwissCenter</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>FILENAME</id>
@@ -1128,6 +1208,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IMAGE_LANDSCAPE_CROP</id>
+        <text>Crop a Video</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>IMAGE_LANDSCAPE_CROP_PROMPT</id>
+        <text>Per impostazione predefinita SwissCenter centrerà le foto in modo panoramico (orizzontale)corrispondente al formato della TV. Tuttavia, se si preferisce l'intera immagine da visualizzare (con barre nere in alto e in basso), si deve disabilitare questa opzione.</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>IMAGE_RESAMPLE</id>
         <text>Resample (migliore qualita')</text>
         <version>1.19</version>
@@ -1146,6 +1236,26 @@
         <id>IMAGE_RESIZE_TYPE</id>
         <text>Generazione immagine</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>IMAGE_SCALE_UP</id>
+        <text>Aumenta la dimensione dell'Imagine</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>IMAGE_SCALE_UP_PROMPT</id>
+        <text>Attivando questa opzione, SwissCenter ingrandirà le immagini in modo da riempire l'intero schermo.</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>IMAGE_TRANSITIONS</id>
+        <text>Effetti Transazioni</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>IMAGE_TRANS_PROMPT</id>
+        <text>Effetti di transizione disponibili per le presentazioni. Questi effetti possono essere diversi per i diversi PLAYERS e alcuni PLAYERS non possono sostenere tutti i transizioni.</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>IMPEXP_TITLE</id>
@@ -1241,6 +1351,11 @@
         <id>INTERNET_RADIO_PROMPT</id>
         <text>Le connessioni a ciascuna stazione di Internet Radio sono fatte direttamente dal box ShowCenter su richiesta dell'utente. Se lo ShowCenter non ha accesso diretto ad internet, questa funzionalita' dovrebbe essere disabilitata.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>INTERNET_SERVICES</id>
+        <text>Servizi INTERNET</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>INTERNET_SETTING</id>
@@ -1418,14 +1533,84 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>LANG_ADD_BUTTON</id>
+        <text>Aggiungi Language Test</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>LANG_ADD_NEW</id>
+        <text>Aggiungi un Nuovo Language Text</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>LANG_CANCEL_BUTTON</id>
+        <text>Cancella</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
         <id>LANG_CHANGE</id>
         <text>Cambia lingua</text>
         <version>1.19</version>
       </string>
       <string>
+        <id>LANG_DELETE_BUTTON</id>
+        <text>Elimina i testi nella Lingua selezionata</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>LANG_DELETE_OK</id>
+        <text>I testi selezionati sono stati rimossi</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>LANG_EDIT</id>
+        <text>Edita il testo da Tradurre</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>LANG_EDITOR</id>
+        <text>Language Editor</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>LANG_ERROR_NO_SELECT</id>
+        <text>Non avete selezionato alcun testo da eliminare</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>LANG_PROMPT</id>
+        <text>Definizioni di linguaggio consiste in uno mappatura ID interna (ad esempio: &quot;ADD_PLAYLIST&quot;) per il testo da visualizzare. La &lt;text&gt; può contenere un numero limitato di tag che sono indicate da parentesi quadre e  eseguono funzioni identiche alle  omologhe HTML. I tag seguenti sono supportati:[br]&amp;#91;br&amp;#93;&amp;#91;/br&amp;#93; &amp;#91;em&amp;#93;&amp;#91;/em&amp;#93; &amp;#91;p&amp;#93;&amp;#91;/p&amp;#93; &amp;#91;b&amp;#93;&amp;#91;/b&amp;#93; &amp;#91;i&amp;#93;&amp;#91;/i&amp;#93; &amp;#91;li&amp;#93;&amp;#91;/li&amp;#93; &amp;#91;ul&amp;#93;&amp;#91;/ul&amp;#93; &amp;#91;ol&amp;#93;&amp;#91;/ul&amp;#93;[p]In alcuni circostanze, altro testo può essere sostituito all'interno del testo. I Segnaposto per la posizione all'interno della stringa in cui si verifica la sostituzione sono indicate con '&amp;#37; s'. [Br] ad esempio: l'ID di seguito, il numero di tracce che è stato trovato all'interno del DataBase è sostituito per la &amp;#37;s entro la stringa ... così una ricerca, ritorna il 4 tracce sarà visualizzato all'utente come &quot;4 tracce&quot; [br] MANY_TRACKS=&amp;#37;s Tracce</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>LANG_SAVE_BUTTON</id>
+        <text>Salva le Modifiche</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
         <id>LANG_SELECT</id>
         <text>Scegli la lingua da usare</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>LANG_TEXT</id>
+        <text>Testo</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>LANG_TEXT_ID</id>
+        <text>ID Testo</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>LANG_TRANS</id>
+        <text>Traduzione</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>LANG_UPDATE_OK</id>
+        <text>Informazioni sul Linguaggio Aggiornate</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>LASTFM</id>
@@ -1663,14 +1848,19 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MEDIA_LOC_ERROR_SHARE</id>
+        <text>Si prega di selezionare una condivisione di rete</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>MEDIA_LOC_ERROR_TYPE</id>
         <text>Inserisci il tipo di media</text>
         <version>1.19</version>
       </string>
       <string>
         <id>MEDIA_LOC_HEADINGS</id>
-        <text>Tipo, Categoria, Certificato, Directory</text>
-        <version>1.19</version>
+        <text>Tipo, Categoria, Certificato, Directory, Condivisione di Rete</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>MEDIA_LOC_UPDATE_OK</id>
@@ -1679,8 +1869,8 @@
       </string>
       <string>
         <id>MEDIA_MANAGEMENT</id>
-        <text>Gestione media</text>
-        <version>1.19</version>
+        <text>Gestione Media</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>MEDIA_REFRESH</id>
@@ -1703,9 +1893,24 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MEDIA_SCAN_STATUS_CLEANUP</id>
+        <text>Pulisci DataBase</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>MEDIA_SCAN_STATUS_COMPLETE</id>
         <text>Completata</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_ITUNES</id>
+        <text>Recupera Informazioni della Libreria Itusen</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_MOVIE</id>
+        <text>Recuper Informazioni dei Film</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>MEDIA_SCAN_STATUS_PENDING</id>
@@ -1716,6 +1921,11 @@
         <id>MEDIA_SCAN_STATUS_RUNNING</id>
         <text>In Avanzamento</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_TV</id>
+        <text>Recupera Informazioni per Programnmi TV</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>MEDIA_SEARCH_PROMPT</id>
@@ -1988,6 +2198,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MOVIE_EXTRA_EXPORT_OK</id>
+        <text>Tutte le informazioni extra video sono state correttamente esportate in XML</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>MOVIE_EXTRA_REFRESH_OK</id>
         <text>Tutte le informazioni video aggiuntive sono in corso di aggiornamento</text>
         <version>1.19</version>
@@ -2046,6 +2261,16 @@
         <id>NAME</id>
         <text>Nome</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>NETWORK_SHARE</id>
+        <text>Condivisione di Rete</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>NETWORK_SHARE_PROMPT</id>
+        <text>La condivisione di rete è necessaria solo per il tipo di supporto 'DVD Video', e verrà ignorato per tutti gli altri tipi di media. Per riprodurre DVD Video è necessario prima installare un sistema di SMB o NFS condivisione di rete sul tuo NMT per consentire l'accesso al tuo DVD immagini, quindi associare la condivisione di rete con questa posizionedi media.</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>NEW</id>
@@ -2134,8 +2359,8 @@
       </string>
       <string>
         <id>ORG_TITLE</id>
-        <text>Modifica dettagli video</text>
-        <version>1.19</version>
+        <text>Modifica dettagli Video</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>PAGE</id>
@@ -2218,6 +2443,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>PASS_SWISS_CACHE</id>
+        <text>Abilita la Lettura/Scrittura della cache nella Directory di SwissCenter</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>PASS_SWISS_INI</id>
         <text>File 'swisscenter.ini' trovato.</text>
         <version>1.19</version>
@@ -2231,6 +2461,11 @@
         <id>PASS_SWISS_LOG</id>
         <text>Il logging e' stato abilitato.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_PLAYLIST</id>
+        <text>Abilita la Lettura/Scrittura nella Directory delle Playlist</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>PASS_SWISS_ROOT_INS</id>
@@ -2256,6 +2491,11 @@
         <id>PC_LINK_HOME</id>
         <text>Home</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PC_LINK_INTERNET</id>
+        <text>Internet</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>PC_LINK_MOVIES</id>
@@ -2488,9 +2728,34 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>PLAYLIST_AUTOLOAD</id>
+        <text>Playlist da autocaricare</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>PLAYLIST_AUTOLOAD_PROMPT</id>
+        <text>Selezionare una playlist da caricare automaticamente all'avvio. Questo è utile se ci si trova sempre a dover selezionare la stessa playlist per la musica prima di visualizzare le foto.</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>PLAYLIST_CLEAR</id>
         <text>Vuota la playlist</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_DELETE</id>
+        <text>Cancella una Playlist</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>PLAYLIST_DELETED</id>
+        <text>Cancella Playlist</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>PLAYLIST_DELETE_CONFIRM</id>
+        <text>Cancello la Playlist?</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>PLAYLIST_EDIT</id>
@@ -2501,6 +2766,11 @@
         <id>PLAYLIST_LOAD</id>
         <text>Carica playlist</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_LOAD_FAIL</id>
+        <text>Playlista caricata, tracce% s,% s non sono stati trovati nella banca dati.</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>PLAYLIST_LOAD_NEW</id>
@@ -2556,6 +2826,11 @@
         <id>PREVIOUS</id>
         <text>Precedente</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PRIORITY</id>
+        <text>Priorità</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>PRIVACY_COMMUNICATION</id>
@@ -2743,6 +3018,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>REFRESH_CLEANUP</id>
+        <text>Pulisci DataBase</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>REFRESH_CLEANUP_PROMPT</id>
+        <text>Selezionando Pulisci database si consente di eliminare ogni record orfano dalla banca dati come ad esempio i media non più esistenti o attori / registi senza riferimento. Ciò diminuirà i tempi di ricerca.</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>REFRESH_DATABASE</id>
         <text>Aggiorna database</text>
         <version>1.19</version>
@@ -2766,6 +3051,16 @@
         <id>REFRESH_DIR_TEXT</id>
         <text>SwissCenter sta cercando novita' o aggiornamenti ed aggiungendoli al database. Questo potra' richiedere alcuni minuti.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>REFRESH_ITUNES</id>
+        <text>Scan iTunes Library</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>REFRESH_ITUNES_PROMPT</id>
+        <text>Selezionare questa opzione per includere la scansione libreria di iTunes per liste di brani con questo &quot;Cerca&quot; Media.</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>REFRESH_METADATA</id>
@@ -2828,6 +3123,131 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>RSS_ADD_BUTTON</id>
+        <text>Aggiungi RSS feed</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_ADD_OK</id>
+        <text>RSS feed Aggiunto</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_ADD_TITLE</id>
+        <text>Aggiungi un nuovo RSS feed</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_AUDIO</id>
+        <text>Audio</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_CACHE</id>
+        <text>Cache</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_CACHE_LABEL</id>
+        <text>Specificare il numero di oggetti che questo feed dovrebbe Includere nella cache. Quando questo limite è superato, le vecchie voci verranno eliminate. Specificare'0 'per mantenere tutti gli oggetti.</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_DEL_BUTTON</id>
+        <text>Rimuovi i selezionati RSS feeds</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_DEL_OK</id>
+        <text>I selezionati RSS feed sono stati rimossi</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_CACHE</id>
+        <text>Inserisci il numero di oggetti da includere nella cache per gli RSS feed</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_TITLE</id>
+        <text>Scegli un Titolo per l'RSS feed</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_TYPE</id>
+        <text>Seleziona il Tipo di RSS feed</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_URL</id>
+        <text>Inserisci l'URL per l'RSS feed</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_FEEDS</id>
+        <text>RSS Feeds</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_FEED_PROMPT</id>
+        <text>Questa opzione consente di utilizzare SwissCenter per visualizzare i feed RSS, inclusi audio e video podcast.</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_IMAGE</id>
+        <text>Immagine</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_ITEM_URL</id>
+        <text>Vai all' URL</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_LAST_UPDATED</id>
+        <text>Ultimo Aggiornamento:</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_PLAY_LINK</id>
+        <text>Esegui il linked file</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_REFRESH</id>
+        <text>Aggiorna feed(s)</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_TITLE</id>
+        <text>Titolo</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_TYPE</id>
+        <text>Tipo</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_UPDATE</id>
+        <text>SwissCenter sta ora aggiornando i tuoi feed RSS. Questo potrebbe richiedere alcuni minuti, quindi ti preghiamo di pazientare.</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_UPDATE_OK</id>
+        <text>Le informazioni degli RSS sono state Aggiornate</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_URL</id>
+        <text>URL</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_VIDEO</id>
+        <text>Video</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
         <id>RUNNING_TIME</id>
         <text>Tempo di funzionamento</text>
         <version>1.19</version>
@@ -2864,8 +3284,8 @@
       </string>
       <string>
         <id>SCHEDULE_ERROR_FIELDS</id>
-        <text>Si deve indicare un valore per ogni campo</text>
-        <version>1.19</version>
+        <text>Si deve indicare un valore per ogni Campo</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>SCHEDULE_ERROR_HOUR</id>
@@ -2988,6 +3408,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>SELECT_RSS_FEED</id>
+        <text>Seleziona un RSS feed dalla lista</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
         <id>SELECT_USER</id>
         <text>Selezione un utente dalla lista:</text>
         <version>1.19</version>
@@ -3000,7 +3425,7 @@
       <string>
         <id>SETUP</id>
         <text>Configurazione</text>
-        <version>1.19</version>
+        <version>1.21</version>
       </string>
       <string>
         <id>SETUP_CHANGE_UI</id>
@@ -3046,6 +3471,16 @@
         <id>SETUP_UPDATE_SC</id>
         <text>Aggiorna SwissCenter</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>SETUP_UPDATE_SC_RELEASE</id>
+        <text>Aggiorna con l'Ultima Stabile Release</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>SETUP_UPDATE_SC_SVN</id>
+        <text>Aggiorna con l'Ultima release in corso di Sviluppo</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>SHUFFLE_OFF</id>
@@ -3169,8 +3604,8 @@
       </string>
       <string>
         <id>SUPPORT_TITLE</id>
-        <text>Informazioni supporto</text>
-        <version>1.19</version>
+        <text>Informazioni/Supporto</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>SUPPORT_TXT</id>
@@ -3186,6 +3621,11 @@
         <id>SUPPORT_USRPREF_TITLE</id>
         <text>Preferenze utente</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>SYNOPSIS</id>
+        <text>Synopsis</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>SYSPREF_ADD_NEW</id>
@@ -3268,6 +3708,56 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>TRANS_CLOSE_VERTICAL</id>
+        <text>Chiusura Verticale</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_FADE_BLACK</id>
+        <text>Dissolvenza verso il nero</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_INTERLACE</id>
+        <text>Interlacciata</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_NO_EFFECT</id>
+        <text>No Effetto</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_OPEN_VERTICAL</id>
+        <text>Apertura Verticale</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_RANDOM</id>
+        <text>Casuale</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_SPLIT_VERTICAL_1</id>
+        <text>Dividi in Verticale 1</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_SPLIT_VERTICAL_2</id>
+        <text>Dividi in Verticale 2</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_WIPE_DOWN</id>
+        <text>Wipe sotto</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_WIPE_UP</id>
+        <text>Wipe sopra</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
         <id>TTF_FONT</id>
         <text>Font TrueType</text>
         <version>1.19</version>
@@ -3289,13 +3779,98 @@
       </string>
       <string>
         <id>TV_DETAILS</id>
-        <text>Modifica i dettagli della Serie TV</text>
-        <version>1.19</version>
+        <text>Modif. dettagli SerieTV</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TV_EXPRESSIONS</id>
+        <text>Espressione TV</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ADD</id>
+        <text>Aggiungi una Nuova Espressione TV</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ADDED_OK</id>
+        <text>TV Espressione .. Aggiunta</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ADD_BUTTON</id>
+        <text>Aggiungi una Espressione TV</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_DEFAULTS</id>
+        <text>Rimpiazza con i valori di Default</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_DELETE_OK</id>
+        <text>Espressione/i TV Cancellata/e</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_DEL_BUTTON</id>
+        <text>Rimuovi l'Espressione Selezionata</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ERROR_INVALID</id>
+        <text>Inserisci una Espressione valida</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ERROR_MISSING</id>
+        <text>Inserite una Priorità e un'Espressione</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_PROMPT</id>
+        <text>I dettagli per una serie TV sono determinati da il nome del file e il percorso utilizzando espressioni regolari. Il file viene confrontata con le seguenti espressioni fino a quando viene trovata una corrispondenza. Queste espressioni contengono segnaposto per il programma p (), (serie s), episodio (e) e (titolo) t. È necessario disporre di almeno una di questi segnaposto in ogni espressione per estrarre i dettagli. Se hai bisogno di assistenza chiedi nel forum.</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST</id>
+        <text>Testo Espressioni</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_BUTTON</id>
+        <text>Testo Espressioni</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_FAILED</id>
+        <text>Non c'è corrispondenza con queste Espressioni</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_PROMPT</id>
+        <text>Immettere un nome di file compreso il percorso per verificare se l'espressione del vostro percorso attuale  identifica correttamente i dettagli. ad es. C: / Media / TV / Robot Chicken / Serie 1/Robot Chicken.S01E01.The Deep End.avi</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_SUCCESS</id>
+        <text>Cercati %s. Trovato Programma: %s, Serie: %s, Episodio: %s, Titolo: %s</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_UPDATE_OK</id>
+        <text>Espressione TV Aggiornata</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>TV_OPTIONS</id>
         <text>Serie TV</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>UNKNOWN_ERROR</id>
+        <text>Si è verificato un errore Sconosciuto. Vi preghiamo di inviare una segnalazione del bug nel forum, che descrive le azioni che si stavano svolgendo quando l'errore si è manifestato.</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>UNRATED_CERTIFICATE</id>
@@ -3513,6 +4088,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>WATCH_DVD</id>
+        <text>Guarda un DVD</text>
+        <version>1.21</version>
+      </string>
+      <string>
         <id>WATCH_MOVIE</id>
         <text>Guarda un video</text>
         <version>1.19</version>
@@ -3641,6 +4221,11 @@
         <id>WIKI_LOOKUP_PROMPT</id>
         <text>Se questa opzione e' abilitata, SwissCenter includera' l'opzione di ricerca informazioni (ad esempio attori e film) sul sito di Wikipedia.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>XML_SAVE</id>
+        <text>Usa file formato XML</text>
+        <version>1.21</version>
       </string>
       <string>
         <id>XMP_RATING</id>
