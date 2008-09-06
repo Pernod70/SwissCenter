@@ -643,6 +643,20 @@ function mysql_version()
     return false;
 }
 
+/**
+ * Highlight the specified text in a string
+ *
+ * @param string $text
+ * @param string $search
+ * @param color $color
+ * @return string
+ */
+
+function highlight($text, $search, $color='Silver')
+{
+  return preg_replace('/('.$search.')/i', '<FONT style="BACKGROUND-COLOR: '.$color.'">$1</FONT>', $text);
+}
+  
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/

@@ -115,10 +115,10 @@
       echo '<table class="form_select_tab" width="100%"><tr>
               <td valign="top" width="4%"><input type="checkbox" name="text_id[]" value="'.$text["ID"].'"></input></td>
               <td valign="top" width="30%">
-                <a href="'.url_set_param($this_url,'edit_id',$key).'">'.strtr($text["ID"],'_',' ').'</a>
+                <a href="'.url_set_param($this_url,'edit_id',$key).'">'.strtr(highlight($text["ID"], $_REQUEST["search"]),'_',' ').'</a>
               </td>
-              <td valign="top" width="30%">'.htmlspecialchars($text["ENGLISH"]).'</td>
-              <td valign="top" width="30%" bgcolor="'.$text["TRANSLATION"]['BGCOLOR'].'">'.htmlspecialchars($text["TRANSLATION"]['TEXT']).'&nbsp;</td>
+              <td valign="top" width="30%">'.highlight(htmlspecialchars($text["ENGLISH"]), $_REQUEST["search"]).'</td>
+              <td valign="top" width="30%" bgcolor="'.$text["TRANSLATION"]['BGCOLOR'].'">'.highlight(htmlspecialchars($text["TRANSLATION"]['TEXT']), $_REQUEST["search"]).'&nbsp;</td>
             </tr></table>';
 
     if ($text_count>10)
@@ -151,6 +151,20 @@
       echo '<tr><td colspan="2"><textarea required rows="5" cols="100" name="translation">'.htmlspecialchars($text["TRANSLATION"]["TEXT"]).'</textarea></td></tr>';
 
       form_submit(str('LANG_SAVE_BUTTON'),1);
+      form_end();
+    }
+    else
+    {
+      // Option to add a new language
+      echo '<p><h1>'.str('LANG_NEW').'<p>';
+      form_start('index.php');
+      form_hidden('section','LANGUAGE');
+      form_hidden('action','NEW');
+      form_input('lang_name',str('LANG_NATIVE'),20);
+      form_input('lang_id',str('LANG_ISO639'),10);
+      form_label(str('LANG_NEW_PROMPT', '<a href=http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes>ISO&nbsp639-1</a>',
+                                        '<a href=http://en.wikipedia.org/wiki/ISO_3166-1>ISO&nbsp3166-1</a>'));
+      form_submit(str('LANG_NEW_BUTTON'),2);
       form_end();
     }
   }
@@ -223,7 +237,59 @@
   {
     return($var['TRANSLATION']['BGCOLOR']=='yellow');
   }
+  
+  // ----------------------------------------------------------------------------------
+  // Add a new language
+  // ----------------------------------------------------------------------------------
 
+  function language_new()
+  {
+    $lang_name = trim($_REQUEST["lang_name"]);
+    $lang_id   = trim($_REQUEST["lang_id"]);
+    
+    if ( empty($lang_name) || empty($lang_id) )
+      language_display("!".str('LANG_NEW_FAIL'));
+    else
+    {
+      // Get list of current languages
+      $lang_list = array();
+      foreach (explode("\n",str_replace("\r",null,file_get_contents(SC_LOCATION.'lang/languages.txt'))) as $line)
+      {
+        $lang = explode(',',$line);
+        if (!is_null($lang[0]) && strlen($lang[0])>0)
+          $lang_list[$lang[0]] = $lang[1];
+      }
+      
+      // Check if language exists
+      if (array_search($lang_id, $lang_list) === false)
+      {
+        // Add new language to list
+        $lang_list[$lang_name] = $lang_id;
+        
+        // Sort list alphabetically
+        asort($lang_list);
+        
+        // Save new language list
+        @mkdir(SC_LOCATION."lang/".$lang_id);
+        $lang_file = SC_LOCATION."lang/languages.txt";
+        $lang_string = '';
+        foreach ($lang_list as $lang_key=>$lang_item)
+          $lang_string .= $lang_key.",".$lang_item."\r\n";
+        file_put_contents($lang_file, $lang_string);
+
+        // Create new language xml
+        $_SESSION["language_trans"] = array();
+        $_SESSION["language_trans"]["LANGUAGE"] = array('TEXT' => $lang_name, 'VERSION' => swisscenter_version());
+        save_lang($lang_id, $_SESSION["language_trans"]);
+
+        send_to_log(4,'Created new language: '.$lang_id.', '.$lang_name);
+        language_display(str('LANG_NEW_OK'));
+      }
+      else
+        language_display("!".str('LANG_NEW_EXISTS'));
+    }
+  }
+  
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/
