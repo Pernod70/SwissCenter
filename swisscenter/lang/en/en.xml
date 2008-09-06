@@ -1792,6 +1792,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MAX_PLAYLIST_SIZE</id>
+        <text>Maximum playlist size</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>MAX_PLAYLIST_SIZE_PROMPT</id>
+        <text>Please enter a maximum size for any playlists that are generated. The absolute maximum allowed is 2000 due to player limitations. A sensible maximum is around 200.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>MEDIA_DELETED</id>
         <text>Media Deleted</text>
         <version>1.19</version>
@@ -2725,6 +2735,11 @@
         <id>PLAYLISTS_ERROR_PATH</id>
         <text>Please enter a fully qualified directory path</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLISTS_ERROR_SIZE</id>
+        <text>Please enter a valid maximum playlist size (between 10 and 2000)</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>PLAYLIST_APPEND</id>
