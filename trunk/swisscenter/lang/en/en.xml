@@ -1568,6 +1568,46 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>LANG_ISO639</id>
+        <text>ISO 639-1 Code</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LANG_NATIVE</id>
+        <text>Native Language Name</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LANG_NEW</id>
+        <text>Add new language</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LANG_NEW_BUTTON</id>
+        <text>Create new language</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LANG_NEW_EXISTS</id>
+        <text>Language already exists</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LANG_NEW_FAIL</id>
+        <text>Please enter both Native Name and ISO Code to add language</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LANG_NEW_OK</id>
+        <text>Language added</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LANG_NEW_PROMPT</id>
+        <text>Use this to add support for a new language. Enter the native language name, ie. Español (not Spanish), and it's corresponding %s code (es). You can also add localised languages such as en-us for English (US). This is formed by the ISO 639-1 code (en) and the %s region subtag (us).</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>LANG_PROMPT</id>
         <text>Language definitions consist of mapping an internal ID (eg: &quot;ADD_PLAYLIST&quot;) to the actual text to be displayed. The text may contain a limited number of markup tags which are indicated by square brackets and perform an identical function to their HTML counterparts. 
 
