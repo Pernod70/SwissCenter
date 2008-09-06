@@ -7,7 +7,7 @@ require_once( realpath(dirname(__FILE__).'/search.php'));
 
 function show_picker( $url="", $search, $case = '', $validchars = '' )
   {
-    if ( !empty($validchars) )
+    if ( !is_null($validchars) )
       $keys = strtoupper($validchars);
     elseif ($case == '' || $case == 'U')
       $keys = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_,.'-#";
