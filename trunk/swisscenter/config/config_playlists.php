@@ -35,6 +35,8 @@
     form_label(str('ITUNES_CONFIG_PROMPT'));
     form_list_static('autoload',str('PLAYLIST_AUTOLOAD'),$playlists,get_sys_pref('PLAYLIST_AUTOLOAD',''),false,false);
     form_label(str('PLAYLIST_AUTOLOAD_PROMPT'));
+    form_input('size',str('MAX_PLAYLIST_SIZE'),10,'',max_playlist_size());
+    form_label(str('MAX_PLAYLIST_SIZE_PROMPT'));
     form_submit(str('SAVE_SETTINGS'),2);
     form_end();
   }
@@ -48,6 +50,7 @@
     $dir = rtrim(str_replace('\\','/',un_magic_quote($_REQUEST["location"])),'/');
     $itunes_library = rtrim(str_replace('\\','/',un_magic_quote($_REQUEST["itunes"])),'/');
     $autoload = $_REQUEST["autoload"];
+    $max_playlist_size = $_REQUEST["size"];
     
     if (empty($_REQUEST["location"]))
       playlists_display("!".str('PLAYLISTS_ERROR_DIR'));
@@ -59,7 +62,9 @@
       playlists_display("!".str('ITUNES_ERROR_PATH'));
     elseif (!empty($_REQUEST["itunes"]) && !strpos($itunes_library, 'iTunes Music Library.xml'))
       playlists_display("!".str('ITUNES_ERROR_INVALID'));
-    else 
+    if (empty($_REQUEST["size"]) || !is_numeric($_REQUEST["size"]) || $_REQUEST["size"]<10 || $_REQUEST["size"]>2000)
+      playlists_display("!".str('PLAYLISTS_ERROR_SIZE'));
+    else
     {
       set_sys_pref('PLAYLISTS',$dir);
       set_sys_pref('ITUNES_LIBRARY',$itunes_library);
@@ -67,6 +72,7 @@
         set_sys_pref('PLAYLIST_AUTOLOAD',$autoload);
       else
         delete_sys_pref('PLAYLIST_AUTOLOAD');
+      set_sys_pref('MAX_PLAYLIST_SIZE',$max_playlist_size);
       playlists_display(str('SAVE_SETTINGS_OK'));
     }
   }

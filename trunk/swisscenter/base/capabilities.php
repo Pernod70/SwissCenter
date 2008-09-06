@@ -150,7 +150,7 @@ function get_nmt_network_shares()
 
 function max_playlist_size()
 {
-  return 2000;
+  return get_sys_pref('MAX_PLAYLIST_SIZE',200);
 }
 
 #-------------------------------------------------------------------------------------------------
