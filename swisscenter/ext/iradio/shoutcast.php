@@ -25,7 +25,7 @@ class shoutcast extends iradio {
    */
   function shoutcast() {
     $this->iradio();
-    $this->set_site("www.shoutcast.com");
+    $this->set_site("classic.shoutcast.com");
   }
 
   /** Parse shoutcast result page and store stations using add_station()
@@ -104,7 +104,7 @@ class shoutcast extends iradio {
    */
   function search_genre($name) {
     send_to_log(6,"IRadio: Initialize genre search for \"$name\"");
-    return $this->parse("?sgenre=".str_replace(' ','+',$name),str_replace(' ','_',$name));
+    return $this->parse("/directory/index.phtml?sgenre=".str_replace(' ','+',$name),str_replace(' ','_',$name));
   }
 
   /** Searching for a station
@@ -119,7 +119,7 @@ class shoutcast extends iradio {
    */
   function search_station($name) {
     send_to_log(6,"IRadio: Initialize station search for \"$name\"");
-    return $this->parse("?s=".str_replace(' ','+',$name),str_replace(' ','_',$name));
+    return $this->parse("/directory/index.phtml?s=".str_replace(' ','+',$name),str_replace(' ','_',$name));
   }
 
   /** Searching by country
