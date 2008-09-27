@@ -162,8 +162,8 @@
       form_hidden('action','NEW');
       form_input('lang_name',str('LANG_NATIVE'),20);
       form_input('lang_id',str('LANG_ISO639'),10);
-      form_label(str('LANG_NEW_PROMPT', '<a href=http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes>ISO&nbsp639-1</a>',
-                                        '<a href=http://en.wikipedia.org/wiki/ISO_3166-1>ISO&nbsp3166-1</a>'));
+      form_label(str('LANG_NEW_PROMPT', '<a href=http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes>ISO&nbsp;639-1</a>',
+                                        '<a href=http://en.wikipedia.org/wiki/ISO_3166-1>ISO&nbsp;3166-1</a>'));
       form_submit(str('LANG_NEW_BUTTON'),2);
       form_end();
     }
