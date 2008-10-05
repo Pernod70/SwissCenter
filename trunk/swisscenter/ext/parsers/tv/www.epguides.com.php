@@ -23,6 +23,7 @@
    11-Jan-2008: v1.1:     Stores series and episode if match was found by title.
    28-Jan-2008: v1.2:     Encoded URL containing Programme name and improved search and error handling.
    04_Mar-2008: v1.3:     Minor fixes to url and episode searching.
+   26-Sep-2008: v1.4:     Fixed for new layout at TV.com (synopsis and date).  Fixes by Keith Solomon.
 
  *************************************************************************************************/
 
@@ -181,18 +182,18 @@
           $title    = $matches[2][0];
           send_to_log(6,'Fetching information from: '.$url_load);
           $html = file_get_contents( $url_load );
-                
+
           // Year
-          $year  = substr_between_strings($html,'First Aired:','&nbsp');
+          $year  = substr_between_strings($html,'First Aired:','</li></ul>');
           $year  = substr($year,strlen($year)-4);
 
           // Synopsis
-          $start = strpos($html,'<div id="main-col">');
-          $end = strpos($html,'class="ta-r mt-10 f-bold">',$start+1);
+          $start = strpos($html,'<div id="indepth_block" class="module">');
+          $end = strpos($html,'</a></p>',$start+1);
           $html_synopsis = substr($html,$start,$end-$start);
-          $start = strrpos_str($html_synopsis,'div>');
+          $start = strrpos_str($html_synopsis,'<p class="deck">');
           $html_synopsis = substr($html_synopsis,$start);
-          $synopsis_ep  = substr_between_strings($html_synopsis,'div>','<div');
+          $synopsis_ep  = substr_between_strings($html_synopsis,'deck">','<a href=');
 
           // Director(s)
           $start = strpos($html,"Director:");
@@ -272,17 +273,17 @@
             $html_episode = substr($html,$start,$end-$start);
             
             // Year
-            $year  = substr_between_strings($html,'First Aired:','&nbsp');
+            $year  = substr_between_strings($html,'First Aired:','</li></ul>');
             $year  = substr($year,strlen($year)-4);
   
             // Synopsis
-            $start = strpos($html,'<div id="main-col">');
-            $end = strpos($html,'class="ta-r mt-10 f-bold">',$start+1);
+            $start = strpos($html,'<div id="indepth_block" class="module">');
+            $end = strpos($html,'</a></p>',$start+1);
             $html_synopsis = substr($html,$start,$end-$start);
-            $start = strrpos_str($html_synopsis,'div>');
+            $start = strrpos_str($html_synopsis,'<p class="deck">');
             $html_synopsis = substr($html_synopsis,$start);
-            $synopsis_ep  = substr_between_strings($html_synopsis,'div>','<div');
-  
+            $synopsis_ep  = substr_between_strings($html_synopsis,'deck">','<a href=');
+
             // Director(s)
             $start = strpos($html,"Director:");
             $end = strpos($html,"<tr>",$start+1);
