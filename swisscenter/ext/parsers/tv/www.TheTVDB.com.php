@@ -15,9 +15,6 @@
    redownload the zip and banners for each episode of a series.
 
    Please help thetvdb.com website by contributing information and artwork if possible.
-
-   NOTE: This parser for thetvdb.com is _NOT_ an official part of SWISScenter, and is not supported by the
-   SWISScenter developers.
    
    Version history:
    08-Mar-2008: v1.0:     First public release
@@ -92,22 +89,14 @@ function extra_get_tv_details($id, $filename, $programme, $series='', $episode='
         if ( !extension_loaded('zip') )
         {
           // Zip extension not loaded so download non-zipped data
-          send_to_log(4,'Downloading remote file to the local filesystem',$series_xml_url);
-          if (!@copy($series_xml_url, $series_cache))
-            send_to_log(6,'Failed to copy remote file to',$series_cache);
-          send_to_log(4,'Downloading remote file to the local filesystem',$banner_xml_url);
-          if (!@copy($banner_xml_url, $banner_cache))
-            send_to_log(6,'Failed to copy remote file to',$banner_cache);
-//          send_to_log(4,'Downloading remote file to the local filesystem',$actors_xml_url);
-//          if (!@copy($actors_xml_url, $actors_cache))
-//            send_to_log(6,'Failed to copy remote file to',$actors_cache);
+          file_download_and_save($series_xml_url, $series_cache, true);
+          file_download_and_save($banner_xml_url, $banner_cache, true);
+//          file_download_and_save($actors_xml_url, $actors_cache, true);
         }
         else
         {
-          send_to_log(4,'Downloading remote file to the local filesystem',$series_zip_url);
-          if (!@copy($series_zip_url, $series_zip_cache))
-            send_to_log(6,'Failed to copy remote file to',$series_zip_cache);
-          else
+          file_download_and_save($series_zip_url, $series_zip_cache, true);
+          if (file_exists($series_zip_cache))
           {
             // Extract zip contents
             if ( is_resource($zip = @zip_open($series_zip_cache)) )
@@ -296,12 +285,12 @@ function get_mirrors(&$xmlmirror, &$bannermirror)
   if (count($xmlmirrors)>0)
     $xmlmirror = $xmlmirrors[rand(0, count($xmlmirrors)-1)];
   else
-    $xmlmirror = false;
+    $xmlmirror = 'http://thetvdb.com';
 
   if (count($bannermirrors)>0)
     $bannermirror = $bannermirrors[rand(0, count($bannermirrors)-1)];
   else
-    $bannermirror = false;
+    $bannermirror = 'http://thetvdb.com';
 }
 
 /**
