@@ -28,7 +28,12 @@ class tv_series_picker extends list_picker
     if ( category_count(MEDIA_TYPE_TV) <= 1)
       $this->back_url = 'index.php';
     else
-      $this->back_url = 'tv.php';
+    {
+      if ($_REQUEST["cat"] <= 0)
+        $this->back_url = "tv.php?subcat=".abs($_REQUEST["cat"]);
+      else
+        $this->back_url = "tv.php?subcat=".db_value("select parent_id from categories where cat_id=".$_REQUEST["cat"]);
+    }
   }
   
   function link_url($item)
@@ -36,15 +41,22 @@ class tv_series_picker extends list_picker
     return url_add_params('/tv_selected.php',array("programme"=>urlencode($item),"cat"=>$_REQUEST["cat"]));
   }
 
+  function icon($item)
+  {
+    $viewed_sql = "select concat( sum(if(v.total_viewings>0,1,0)),':',count(*) ) view_status from tv media ".viewed_join(MEDIA_TYPE_TV);
+    $viewed = explode(':',db_value($viewed_sql." where programme='$item'"));
+    return viewed_icon($viewed[0], $viewed[1]);
+  }
+
   function data_list( $search_string, $start, $end)
   {
     $sql = "select distinct programme 
-              from tv media ".get_rating_join()." 
+              from tv media ".get_rating_join().viewed_join(MEDIA_TYPE_TV)." 
              where programme like '$search_string'
                    ".get_rating_filter()."
                    ".category_select_sql($_REQUEST["cat"], MEDIA_TYPE_TV)."
-          order by 1 
-             limit $start,$end";
+            having ".viewed_status_predicate( filter_get_name() )."
+          order by 1 limit $start,$end";
     
     return db_col_to_list($sql);
   }
@@ -52,10 +64,11 @@ class tv_series_picker extends list_picker
   function data_count( $search_string )
   {
     $sql = "select count(distinct programme) 
-              from tv media ".get_rating_join()." 
+              from tv media ".get_rating_join().viewed_join(MEDIA_TYPE_TV)." 
              where programme like '$search_string'
                    ".get_rating_filter()."
-                   ".category_select_sql($_REQUEST["cat"], MEDIA_TYPE_TV);
+                   ".category_select_sql($_REQUEST["cat"], MEDIA_TYPE_TV)."
+            having ".viewed_status_predicate( filter_get_name() );
        
     return db_value($sql);
   }
@@ -63,10 +76,11 @@ class tv_series_picker extends list_picker
   function data_valid_chars( $search_string )
   {
     $sql = " select distinct upper(substring( programme,".(strlen($search_string)).",1)) 
-               from tv media ".get_rating_join()." 
+               from tv media ".get_rating_join().viewed_join(MEDIA_TYPE_TV)." 
               where programme like '$search_string' 
                    ".get_rating_filter()."
                    ".category_select_sql($_REQUEST["cat"], MEDIA_TYPE_TV)."
+            having ".viewed_status_predicate( filter_get_name() )."
            order by 1";
     
     return strtoupper(join(db_col_to_list($sql)));
@@ -110,10 +124,13 @@ if( category_count(MEDIA_TYPE_TV) <= 1 || isset($_REQUEST["cat"]) )
   $page = new tv_series_picker();
   $page->display();
 }
-else 
+else
 {
   page_header( str('WATCH_TV') , '','',1,false,'',MEDIA_TYPE_TV);
-  display_categories('tv.php', MEDIA_TYPE_TV );
+  if ( isset($_REQUEST["subcat"]) )
+    display_categories('tv.php', MEDIA_TYPE_TV, $_REQUEST["subcat"]);
+  else
+    display_categories('tv.php', MEDIA_TYPE_TV);
 }  
 
 /**************************************************************************************************
