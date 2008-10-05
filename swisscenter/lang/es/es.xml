@@ -13,6 +13,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>ADDITIONAL_COMPONENTS</id>
+        <text>Otros componentes</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>ADD_PLAYLIST</id>
         <text>Añadir lista de reproducción</text>
         <version>1.19</version>
@@ -196,6 +201,11 @@
         <id>BROWSE_DIRECTOR</id>
         <text>Explorar por director</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_DVD</id>
+        <text>Explorar DVD's</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>BROWSE_FILESYSTEM</id>
@@ -563,6 +573,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>CONFIG_MUSICIP</id>
+        <text>Opciones de MusicIP</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>CONFIG_RADIO_OPTIONS</id>
         <text>Radio de internet</text>
         <version>1.19</version>
@@ -793,6 +808,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>EP_NEXT</id>
+        <text>Siguiente episodio</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>EP_PREV</id>
+        <text>Episodio anterior</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>EXIFVALS_EXPOSE_MODE</id>
         <text>Auto, Manual, Auto Bracket</text>
         <version>1.19</version>
@@ -953,9 +978,29 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>EXPRESSION</id>
+        <text>Expresión</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>EXTRAS_TEST_TITLE</id>
         <text>Componentes adicionales</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>EXTRA_EXPORT_DETAILS</id>
+        <text>Cualquier información extra como la sinopsis, los actores, etc. se puede exportar a un fichero suplementario XML. Este fichero se puede usar luego para re-importar los detalles de un video cuando se crea una nueva base de datos. Las opción 'Usar ficheros suplementarios XML' debe estar 'Habilitada'</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>EXTRA_EXPORT_GO</id>
+        <text>Exportar toda la información extra a XML</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>EXTRA_EXPORT_TITLE</id>
+        <text>Exportar información extra</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>EXTRA_REFRESH_DETAILS</id>
@@ -1053,6 +1098,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>FAIL_SWISS_CACHE</id>
+        <text>Incapaz de escribir en el directorio de caché de SwissCenter (%s).</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>FAIL_SWISS_INI</id>
         <text>No se puede localizar el archivo 'swisscenter.ini'. [br]¿Has creado ya una base de datos?</text>
         <version>1.19</version>
@@ -1066,6 +1116,11 @@
         <id>FAIL_SWISS_LOG</id>
         <text>No se puede escribir en el log de SwissCenter (%s).</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_SWISS_PLAYLIST</id>
+        <text>Incapaz de escribir en el directorio de listas de reproducción de SwissCenter (%s).</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>FILENAME</id>
@@ -1153,6 +1208,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IMAGE_LANDSCAPE_CROP</id>
+        <text>Recortar a tamaño de pantalla.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IMAGE_LANDSCAPE_CROP_PROMPT</id>
+        <text>Por defecto, SwissCenter centrará las fotos apaisadas y las recortará para ajustarlas a la relación de aspecto de la TV. En cualquier caso, si prefieres que se muestre la imagen completa (con bandas negras arriba y abajo) deberías deshabilitar esta opción.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>IMAGE_RESAMPLE</id>
         <text>Recalcular imagen (alta calidad)</text>
         <version>1.19</version>
@@ -1171,6 +1236,16 @@
         <id>IMAGE_RESIZE_TYPE</id>
         <text>Tipo de procesado</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>IMAGE_SCALE_UP</id>
+        <text>Agrandar imágenes</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IMAGE_SCALE_UP_PROMPT</id>
+        <text>Habilitar esta opción hará que SwissCenter agrande las imágenes pequeñas para que llenen la pantalla completa.</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>IMAGE_TRANSITIONS</id>
@@ -1773,6 +1848,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MEDIA_LOC_ERROR_SHARE</id>
+        <text>Por favor, selecciona una carpeta compartida de red</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>MEDIA_LOC_ERROR_TYPE</id>
         <text>Selecciona el tipo de archivo multimedia</text>
         <version>1.19</version>
@@ -1813,9 +1893,24 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MEDIA_SCAN_STATUS_CLEANUP</id>
+        <text>Limpiando base de datos</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>MEDIA_SCAN_STATUS_COMPLETE</id>
         <text>Completado</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_ITUNES</id>
+        <text>Parseando biblioteca de iTunes</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_MOVIE</id>
+        <text>Parseando detalles de película</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>MEDIA_SCAN_STATUS_PENDING</id>
@@ -1826,6 +1921,11 @@
         <id>MEDIA_SCAN_STATUS_RUNNING</id>
         <text>Ejecutando</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_TV</id>
+        <text>Parseando detalles de TV</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>MEDIA_SEARCH_PROMPT</id>
@@ -2098,6 +2198,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MOVIE_EXTRA_EXPORT_OK</id>
+        <text>Toda la información extra está siendo exportada a XML</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>MOVIE_EXTRA_REFRESH_OK</id>
         <text>Programada la actualización de la información extra de película</text>
         <version>1.19</version>
@@ -2156,6 +2261,21 @@
         <id>NAME</id>
         <text>Nombre</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>NETWORK_SHARE</id>
+        <text>Carpeta compartida de red</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>NETWORK_SHARE_MSG</id>
+        <text>No se han podido detectar carpetas compartidas de red. Si tienes un reproductor NMT, debe estar encendido.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>NETWORK_SHARE_PROMPT</id>
+        <text>La compartición de red solo es necesaria para los ficheros del tipo 'DVD Video' y será ignorada para todos los otros tipos de fichero. Para reproducir Videos DVD primero debes configurar una compartición de red SMB o NFS en tu NMT para permitir el acceso a tus imágenes de DVD y luego asociar la compartición de red con esta localización de ficheros multimedia.</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>NEW</id>
@@ -2328,6 +2448,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>PASS_SWISS_CACHE</id>
+        <text>Capaz de leer y escribir en el directorio de caché de SwissCenter.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>PASS_SWISS_INI</id>
         <text>Localizado con éxito el archivo 'swisscenter.ini'.</text>
         <version>1.19</version>
@@ -2341,6 +2466,11 @@
         <id>PASS_SWISS_LOG</id>
         <text>Log habilitado.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_PLAYLIST</id>
+        <text>Capaz de leer y escribir en el directorio de listas de reproducción de SwissCenter.</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>PASS_SWISS_ROOT_INS</id>
@@ -2603,9 +2733,34 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>PLAYLIST_AUTOLOAD</id>
+        <text>Lista de reproducción para cargado automático</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>PLAYLIST_AUTOLOAD_PROMPT</id>
+        <text>Selecciona una lista de reproducción que será cargada automáticamente al inicio. Esto es útil si siempre tienes que elegir la misma lista de reproducción para música de fondo al ver fotos.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>PLAYLIST_CLEAR</id>
         <text>Borrar la Lista de Reproducción</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_DELETE</id>
+        <text>Borra una lista de reproducción</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>PLAYLIST_DELETED</id>
+        <text>Lista de reproducción borrada</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>PLAYLIST_DELETE_CONFIRM</id>
+        <text>¿Borrar lista de reproducción?</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>PLAYLIST_EDIT</id>
@@ -2616,6 +2771,11 @@
         <id>PLAYLIST_LOAD</id>
         <text>Cargar la Lista de Reproducción</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_LOAD_FAIL</id>
+        <text>Se cargaron %s pistas de la lista de reproducción, %s no se encontraron en la base de datos.</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>PLAYLIST_LOAD_NEW</id>
@@ -2671,6 +2831,11 @@
         <id>PREVIOUS</id>
         <text>Anterior</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PRIORITY</id>
+        <text>Prioridad</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>PRIVACY_COMMUNICATION</id>
@@ -2856,6 +3021,16 @@
         <id>REFINE_YEAR</id>
         <text>Refinar por año</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>REFRESH_CLEANUP</id>
+        <text>Limpiar base de datos</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>REFRESH_CLEANUP_PROMPT</id>
+        <text>Seleccionar limpiado de la base de datos eliminará todos los registros huérfanos de la base de datos, como ficheros que ya no están disponibles o actores y directores que ya no están referenciados. Esto reducirá el tiempo de búsqueda para ficheros multimedia y debe usarse cuando se hayan eliminado ficheros multimedia.</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>REFRESH_DATABASE</id>
@@ -3303,6 +3478,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>SETUP_UPDATE_SC_RELEASE</id>
+        <text>Actualizar a la versión estable más reciente</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>SETUP_UPDATE_SC_SVN</id>
+        <text>Actualizar a la versión de desarrollo más reciente</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>SHUFFLE_OFF</id>
         <text>Desactivar reproducción aleatoria</text>
         <version>1.19</version>
@@ -3603,9 +3788,94 @@
         <version>1.20.1</version>
       </string>
       <string>
+        <id>TV_EXPRESSIONS</id>
+        <text>Expresiones de TV</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ADD</id>
+        <text>Añadir una nueva expresión de TV</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ADDED_OK</id>
+        <text>Expresión de TV añadida</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ADD_BUTTON</id>
+        <text>Añadir expresión de TV</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_DEFAULTS</id>
+        <text>Restaurar valores por defecto</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_DELETE_OK</id>
+        <text>Expresión(es) de TV borrada(s)</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_DEL_BUTTON</id>
+        <text>Eliminar las expresiones seleccionadas</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ERROR_INVALID</id>
+        <text>Por favor, introduce una expresión valida</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ERROR_MISSING</id>
+        <text>Por favor, introduce una prioridad y una expresión</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_PROMPT</id>
+        <text>Los detalles de una serie de TV se determinan a partir del nombre de fichero y la ruta usando expresiones regulares. El fichero se compara con las siguientes expresiones hasta que se encuentra una coincidencia. Estas expresiones contienen marcadores para programa {p}, serie {s}, episodio {e} y título {t}. Debes tener al menos uno de los marcadores en cada expresión para extraer los detalles. Si necesitas ayuda con esto, deberías escribir en el foro del programa.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST</id>
+        <text>Probar expresiones</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_BUTTON</id>
+        <text>Probar expresiones</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_FAILED</id>
+        <text>No se encontraron coincidencias con ninguna expresión</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_PROMPT</id>
+        <text>Introduce un nombre de fichero incluyendo la ruta para comprobar si tu expresión actual identificará los detalles correctamente. Por ejemplo C:/Media/TB/Robot Chicken/Series 1/Robot Chichen.S01E01.The Deep End.avi</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_SUCCESS</id>
+        <text>Encontradas %s coincidencias. Programa: %s, Serie: %s, Episodio: %s, Título: %s</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_UPDATE_OK</id>
+        <text>Expresión de TV actualizada</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>TV_OPTIONS</id>
         <text>Series de TV</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>UNKNOWN_ERROR</id>
+        <text>Se ha producido un error desconocido. Por favor, escribe un informe de error en el foro describiendo las acciones que estabas llevando a cabo cuando sucedió.</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>UNRATED_CERTIFICATE</id>
@@ -3823,6 +4093,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>WATCH_DVD</id>
+        <text>Ver un DVD</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>WATCH_MOVIE</id>
         <text>Ver una película</text>
         <version>1.19</version>
@@ -3951,6 +4226,11 @@
         <id>WIKI_LOOKUP_PROMPT</id>
         <text>Cuando se habilita esta opción, SwissCenter incluirá la opción de buscar la información (como artistas y películas) en la web de la Wikipedia.</text>
         <version>1.20</version>
+      </string>
+      <string>
+        <id>XML_SAVE</id>
+        <text>Usar ficheros XML suplementarios</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>XMP_RATING</id>
