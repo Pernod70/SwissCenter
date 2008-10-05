@@ -959,8 +959,8 @@
       </string>
       <string>
         <id>EXPERT_EDIT_PREFS</id>
-        <text>Systemeinstellungen bearbeiten</text>
-        <version>1.19</version>
+        <text>Systemeinstellungen</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>EXPERT_OPTIONS</id>
@@ -1274,8 +1274,8 @@
       </string>
       <string>
         <id>IMPEXP_TITLE</id>
-        <text>Einstellungen laden/speichern</text>
-        <version>1.20</version>
+        <text>Einstellungssicherung</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>IMPORT_FAILED</id>
@@ -1593,6 +1593,46 @@
         <version>1.20</version>
       </string>
       <string>
+        <id>LANG_ISO639</id>
+        <text>ISO 639-1 Kennung</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LANG_NATIVE</id>
+        <text>Heimatsprachbezeichnung</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LANG_NEW</id>
+        <text>Neue Sprache anlegen</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LANG_NEW_BUTTON</id>
+        <text>Sprache anlegen</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LANG_NEW_EXISTS</id>
+        <text>Sprache existiert bereits</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LANG_NEW_FAIL</id>
+        <text>Bitte Sprache und ISO Kennung angeben um eine Sprache anzulegen</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LANG_NEW_OK</id>
+        <text>Sprache angelegt</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LANG_NEW_PROMPT</id>
+        <text>Hier kann eine neue Sprache angelegt werden. Dazu die Heimatsprachbezeichnung eingeben, z.B. Español (nicht Spanish), und die zugehörige %s Kennung (es). Es können auch regionale Sprachen wie en-us für Englisch (US) angelegt werden. Das Format ist dann die ISO 639-1 Kennung mit der regionalen %s Untergruppenkennung (us)</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>LANG_PROMPT</id>
         <text>Sprachdateien bestehen aus einer Zuordnung zwischen interner ID (z.B. &quot;ADD_PLAYLIST&quot;) und dem tatsächlichen Text, der angezeigt werden soll. Der &lt;Text&gt; kann eine begrenzte Anzahl von Formatierungen (Tags) beinhalten, die durch eckige Klammern gekennzeichnet werden. Die Formatierungen verhalten sich entsprechend ihrer in HTML üblichen Pendants. Die folgenden Tags werden unterstützt: :[br]&amp;#91;br&amp;#93;&amp;#91;/br&amp;#93; &amp;#91;em&amp;#93;&amp;#91;/em&amp;#93; &amp;#91;p&amp;#93;&amp;#91;/p&amp;#93; &amp;#91;b&amp;#93;&amp;#91;/b&amp;#93; &amp;#91;i&amp;#93;&amp;#91;/i&amp;#93; &amp;#91;li&amp;#93;&amp;#91;/li&amp;#93; &amp;#91;ul&amp;#93;&amp;#91;/ul&amp;#93; &amp;#91;ol&amp;#93;&amp;#91;/ul&amp;#93;[p] In einigen Passagen kann es notwendig sein, das Textteile durch neuen Text ersetzt werden müssen. Solche Platzhalter werden durch folgende Zeichen gekennzeichnet: '&amp;#37;s'.[br]Im folgenden Beispiel wird die Anzahl der Musikstücke aus der Datenbank ausgelesen und an die Stelle des &amp;#37;s kopiert, so dass bei einer Suche mit vier Treffern das Ergebnis als &quot;4 Tracks&quot; angezeigt wird.[br]MANY_TRACKS= &amp;#37;s Tracks</text>
         <version>1.21.1</version>
@@ -1803,6 +1843,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MAX_PLAYLIST_SIZE</id>
+        <text>Maximale Playlistgröße</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>MAX_PLAYLIST_SIZE_PROMPT</id>
+        <text>Bitte die maximale Größe für Playlisten, die erstellt werden, angeben. Das absolute Maximum ist abspielgerätebedingt bei 2000. Ein sinnvoller Wert liegt so um die 200</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>MEDIA_DELETED</id>
         <text>Medien gelöscht</text>
         <version>1.19</version>
@@ -1889,8 +1939,8 @@
       </string>
       <string>
         <id>MEDIA_REFRESH</id>
-        <text>Suche nach neuen Medien</text>
-        <version>1.19</version>
+        <text>Neue Medien suchen</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>MEDIA_SCAN_OVERALL</id>
@@ -2389,7 +2439,7 @@
       </string>
       <string>
         <id>ORG_TITLE</id>
-        <text>Film-/DVD-Details bearbeiten</text>
+        <text>Videoinfos bearbeiten</text>
         <version>1.21.1</version>
       </string>
       <string>
@@ -2756,6 +2806,11 @@
         <id>PLAYLISTS_ERROR_PATH</id>
         <text>Bitte geben Sie den kompletten Pfad zum Ordner ein</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLISTS_ERROR_SIZE</id>
+        <text>Bitte eine gültige Playlistgröße (zwischen 10 und 2000) angeben</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>PLAYLIST_APPEND</id>
@@ -3819,37 +3874,37 @@
       </string>
       <string>
         <id>TV_DETAILS</id>
-        <text>Details zu TV Sendungen eingeben</text>
+        <text>Serieninfos bearbeiten</text>
         <version>1.21.1</version>
       </string>
       <string>
         <id>TV_EXPRESSIONS</id>
-        <text>TV Begriffe</text>
+        <text>Serienerkennungsmuster</text>
         <version>1.21.1</version>
       </string>
       <string>
         <id>TV_EXPR_ADD</id>
-        <text>Einen TV Begriff hinzufügen</text>
+        <text>Ein Erkennungsmuster hinzufügen</text>
         <version>1.21.1</version>
       </string>
       <string>
         <id>TV_EXPR_ADDED_OK</id>
-        <text>TV Begriff hinzugefügt</text>
+        <text>Erkennungsmuster hinzugefügt</text>
         <version>1.21.1</version>
       </string>
       <string>
         <id>TV_EXPR_ADD_BUTTON</id>
-        <text>TV Begriff hinzufügen</text>
+        <text>Muster hinzufügen</text>
         <version>1.21.1</version>
       </string>
       <string>
         <id>TV_EXPR_DEFAULTS</id>
-        <text>Wiederherstellung der ursprünglichen TV Begriffe</text>
+        <text>Wiederherstellung der ursprünglichen Erkennungsmuster</text>
         <version>1.21.1</version>
       </string>
       <string>
         <id>TV_EXPR_DELETE_OK</id>
-        <text>TV Begriff(e) gelöscht</text>
+        <text>Erkennungsmuster gelöscht</text>
         <version>1.21.1</version>
       </string>
       <string>
@@ -3884,7 +3939,7 @@
       </string>
       <string>
         <id>TV_EXPR_TEST_FAILED</id>
-        <text>Keine Übereinstimmung mit TV Begriffen gefunden</text>
+        <text>Keine Treffer mit den bestehenden Erkennungsmustern gefunden</text>
         <version>1.21.1</version>
       </string>
       <string>
@@ -3899,7 +3954,7 @@
       </string>
       <string>
         <id>TV_EXPR_UPDATE_OK</id>
-        <text>TV Begriffe modernisiert</text>
+        <text>Erkennungsmuster aktuallisiert</text>
         <version>1.21.1</version>
       </string>
       <string>
