@@ -33,6 +33,11 @@ class list_picker
     return '';
   }
   
+  function icon($item)
+  {
+    return '';
+  }
+  
   function data_list( $search_string, $start, $end)
   {
     return array();    
@@ -103,7 +108,7 @@ class list_picker
       }
     
       foreach ($data as $item)
-        $this->menu->add_item($this->display_format_name($item), $this->link_url($item), true);
+        $this->menu->add_item($this->display_format_name($item), $this->link_url($item), true, $this->icon($item));
     
       $this->menu->display( 1, 480 );
     }
