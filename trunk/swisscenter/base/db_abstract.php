@@ -110,7 +110,12 @@
     send_to_log(8,'Storing:',$columns);
 
     foreach ($movies as $movie_id)
-      db_sqlcommand("update movies set ".db_array_to_set_list($columns)." where file_id=".$movie_id,false);
+    {
+      if (count($columns)>0)
+        db_sqlcommand("update movies set ".db_array_to_set_list($columns)." where file_id=".$movie_id,false);
+      // Determine whether any details other than title are available
+      db_sqlcommand("update movies set details_available='".(scdb_movie_details_available($movie_id) ? 'Y' : 'N')."' where file_id=".$movie_id,false);
+    }
   }   
  
   // ----------------------------------------------------------------------------------------
@@ -218,7 +223,12 @@
     send_to_log(8,'Storing:',$columns);
 
     foreach ($tv as $tv_id)
-      db_sqlcommand("update tv set ".db_array_to_set_list($columns)." where file_id=".$tv_id,false);
+    {
+      if (count($columns)>0)
+        db_sqlcommand("update tv set ".db_array_to_set_list($columns)." where file_id=".$tv_id,false);
+      // Determine whether any details other than title are available
+      db_sqlcommand("update tv set details_available='".(scdb_tv_details_available($tv_id) ? 'Y' : 'N')."' where file_id=".$tv_id,false);
+    }
   }   
   
   // ----------------------------------------------------------------------------------------
@@ -250,6 +260,34 @@
 
     foreach ($genres as $row)
       db_sqlcommand("delete from genres where genre_id = ".$row["GENRE_ID"],false);
+  }
+  
+  // ----------------------------------------------------------------------------------------
+  // Determine whether any details other than title are available
+  // ----------------------------------------------------------------------------------------
+
+  function scdb_movie_details_available( $movie_id )
+  {
+    $attribs   = implode('',db_row("select year, certificate, synopsis from movies where file_id=$movie_id"));
+    $actors    = db_value("select count(actor_id) from actors_in_movie where movie_id=$movie_id");
+    $directors = db_value("select count(director_id) from directors_of_movie where movie_id=$movie_id");
+    $genres    = db_value("select count(genre_id) from genres_of_movie where movie_id=$movie_id");
+    if (empty($attribs) && $actors==0 && $directors==0 && $genres==0)
+      return false;
+    else
+      return true;
+  }
+  
+  function scdb_tv_details_available( $tv_id )
+  {
+    $attribs   = implode(db_row('',"select year, certificate, synopsis from tv where file_id=$tv_id"));
+    $actors    = db_value("select count(actor_id) from actors_in_tv where tv_id=$tv_id");
+    $directors = db_value("select count(director_id) from directors_of_tv where tv_id=$tv_id");
+    $genres    = db_value("select count(genre_id) from genres_of_tv where tv_id=$tv_id");
+    if (empty($attribs) && $actors==0 && $directors==0 && $genres==0)
+      return false;
+    else
+      return true;
   }
   
 /**************************************************************************************************
