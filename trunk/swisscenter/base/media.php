@@ -1152,7 +1152,7 @@ function process_media_directory( $dir, $id, $share, $table, $file_exts, $recurs
         if ( !in_array(strtolower($file),$dirs_to_ignore) && (get_sys_pref('IGNORE_HIDDEN_DIRECTORIES','NO')=="NO" || strpos($file,'.')!==0))
         {
           if ($table == 'photos')
-            add_photo_album($dir.$file, $id);
+            add_photo_album($dir.$file.'/', $id);
 
           if ($recurse)
             process_media_directory( $dir.$file.'/', $id, $share, $table, $file_exts, $recurse, $update);
