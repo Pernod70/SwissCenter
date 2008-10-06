@@ -79,8 +79,9 @@
         // Write an ini file with the database parameters in it
         write_ini ( DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE );
 
-        // Default cache location and limit (default is no limit)
+        // Default cache, playlists location and limit (default is no limit)
         set_sys_pref('CACHE_DIR',SC_LOCATION.'cache');
+        set_sys_pref('PLAYLISTS',SC_LOCATION.'playlists');
         set_sys_pref('CACHE_MAXSIZE_MB','20');
 
         // Display the config page
