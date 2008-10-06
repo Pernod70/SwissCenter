@@ -2328,8 +2328,8 @@
       </string>
       <string>
         <id>NETWORK_SHARE_PROMPT</id>
-        <text>The network share is only required for the media type 'DVD Video', and will be ignored for all other media types. To play DVD Videos you must first setup a SMB or NFS network share on your NMT to allow access to your DVD images, then associate the network share with this media location.</text>
-        <version>1.20.1</version>
+        <text>The network share is only required if you have DVD images (iso, img, etc) in this media location, and can only be used with a NMT media player. To play DVD images you must first setup a SMB or NFS network share on your NMT to allow access to your DVD images, then associate the network share with this media location.</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>NEW</id>
@@ -2418,8 +2418,8 @@
       </string>
       <string>
         <id>ORG_TITLE</id>
-        <text>Edit Video/DVD Details</text>
-        <version>1.20.1</version>
+        <text>Edit Video Details</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>PAGE</id>

@@ -73,42 +73,37 @@
     // Don't use "stream.php" for movies until we can get the (lack of) subtitles bug sorted out!
     if ($media_type == MEDIA_TYPE_VIDEO || $media_type == MEDIA_TYPE_TV ) // Movie
     {
-      // Record the fact the movie was viewed.
-      store_request_details( $media_type, $file_id);
-
-      send_to_log(7,'Attempting to stream the following video',array( "File ID"=>$file_id, "Media Type"=>$media_type, "Location"=>$row["DIRNAME"].$row["FILENAME"] ));
-      $url = $server.make_url_path($row["DIRNAME"].$row["FILENAME"]);
-    }
-    elseif ($media_type == MEDIA_TYPE_DVD ) // DVD Video - THIS IS NOT USED!!
-    {
-      // Record the fact the dvd was viewed.
-      store_request_details( $media_type, $file_id);
-
-      // Get the SMB/NFS network share reference
-      $data = db_toarray("select m.dirname, m.filename, ml.name, ml.network_share from movies m, media_locations ml where file_id=$file_id and m.location_id=ml.location_id");
-      // If DVD Video then pass folder name
-      if ( strtoupper($data[0]["FILENAME"]) == 'VIDEO_TS.IFO' )
-        $file = rtrim($data[0]["DIRNAME"],'/');
+      // Do not add DVD images to the playlist
+      if ( in_array(file_ext($row["FILENAME"]), media_exts_dvd()) )
+      {
+        send_to_log(5,'Cannot stream DVD image from a playlist',array( "File ID"=>$file_id, "Media Type"=>$media_type, "Location"=>$row["DIRNAME"].$row["FILENAME"] ));
+        $url='';
+      }
       else
-        $file = $data[0]["DIRNAME"].$data[0]["FILENAME"];
-      $file = str_replace($data[0]["NAME"], "", $file);
-
-      send_to_log(7,'Attempting to play the following dvd',array( "File ID"=>$file_id, "Media Type"=>$media_type, "Location"=>$row["DIRNAME"].$row["FILENAME"] ));
-      $url = 'file:///opt/sybhttpd/localhost.drives/'.$data[0]["NETWORK_SHARE"].$file;
+      {
+        // Record the fact the movie was viewed.
+        store_request_details( $media_type, $file_id);
+  
+        send_to_log(7,'Attempting to stream the following video',array( "File ID"=>$file_id, "Media Type"=>$media_type, "Location"=>$row["DIRNAME"].$row["FILENAME"] ));
+        $url = $server.make_url_path($row["DIRNAME"].$row["FILENAME"]);
+      }
     }
     else
       $url = $server.'stream.php?'.current_session().'&tracklist='.$tracklist.'&media_type='.$media_type.'&idx='.$item_count.'&ext=.'.file_ext($row["FILENAME"]);
     
-    // Build up the playlist row to send to the player, including the title of the movie (for the on-screen display)
-    $title = rtrim(nvl( $row["TITLE"] , file_noext(basename($row["FILENAME"])) ));
-    send_to_log(7," - ".$url);
+    if (!empty($url))
+    {
+      // Build up the playlist row to send to the player, including the title of the movie (for the on-screen display)
+      $title = rtrim(nvl( $row["TITLE"] , file_noext(basename($row["FILENAME"])) ));
+      send_to_log(7," - ".$url);
+  
+      if (is_hardware_player())
+        echo  $title.'|'.$start_pos.'|0|'.$url."|\n";
+      else
+        echo  $url.newline();
 
-    if (is_hardware_player())
-      echo  $title.'|'.$start_pos.'|0|'.$url."|\n";
-    else
-      echo  $url.newline();
-      
-    $item_count++;
+      $item_count++;
+    }
   }
 
   // If this is a PC browser then we need to output some headers

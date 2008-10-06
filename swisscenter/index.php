@@ -21,42 +21,6 @@
   }
 
   /**
-   * Display the Video submenu
-   */
-  function display_video_menu()
-  {
-    page_header( str('WATCH_MOVIE'),'','',1,false,'','PAGE_VIDEO');
-
-    /**
-     * Menu Items
-     */
-    $menu = new menu();
-    $page = (empty($_REQUEST["page"]) ? 1 : $_REQUEST["page"]);
-
-    // Only display the video options if the user has some videos stored in the database.
-    if ( media_exists(MEDIA_TYPE_VIDEO))
-      $menu->add_item(str('WATCH_MOVIE'),'video.php',true);
-
-    // Only display the TV Series options if the user has some TV episodes stored in the database.
-    if ( media_exists(MEDIA_TYPE_TV))
-      $menu->add_item(str('WATCH_TV'),'tv.php',true);
-
-    // Only display the DVD options if the user has some DVD images stored in the database.
-    if ( media_exists(MEDIA_TYPE_DVD))
-      $menu->add_item(str('WATCH_DVD'),'video_dvd.php',true);
-
-    /**
-    * Display the page content
-    */
-    if ($menu->num_items() == 1)
-      header('Location: '.server_address().$menu->item_url(0));
-    else
-      $menu->display(1, style_value("MENU_VIDEO_WIDTH"), style_value("MENU_VIDEO_ALIGN"));
-
-    page_footer('index.php');
-  }
-
-  /**
    * Display the Internet Services submenu
    */
   function display_internet_menu()
@@ -78,7 +42,7 @@
     if ( ( internet_available() && ( get_sys_pref('web_enabled','YES') == 'YES'
              && db_value("select 'YES' from media_locations where media_type=".MEDIA_TYPE_WEB." limit 1") == 'YES' )
         || get_sys_pref('OVERRIDE_ENABLE_WEBLINKS','NO') == 'YES') )
-    	$menu->add_item(str('BROWSE_WEB'),'web_urls.php',true);
+      $menu->add_item(str('BROWSE_WEB'),'web_urls.php',true);
 
     // Only display the RSS options if an internet connection is active, the user has enabled RSS support and has defined some subscriptions.
 //    if (internet_available() && get_sys_pref('flickr_enabled','YES') == 'YES' )
@@ -147,8 +111,12 @@
     $page = (empty($_REQUEST["page"]) ? 1 : $_REQUEST["page"]);
 
     // Only display the video options if the user has some videos stored in the database.
-    if ( media_exists(MEDIA_TYPE_VIDEO) || media_exists(MEDIA_TYPE_TV) || media_exists(MEDIA_TYPE_DVD) )
-      $menu->add_item(str('WATCH_MOVIE'),"index.php?submenu=video",true);
+    if ( media_exists(MEDIA_TYPE_VIDEO))
+      $menu->add_item(str('WATCH_MOVIE'),'video.php',true);
+
+    // Only display the TV Series options if the user has some TV episodes stored in the database.
+    if ( media_exists(MEDIA_TYPE_TV))
+      $menu->add_item(str('WATCH_TV'),'tv.php',true);
 
     // Only display the music options if the user has some music stored in the database.
     if ( media_exists(MEDIA_TYPE_MUSIC))

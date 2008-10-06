@@ -105,7 +105,6 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
       case MEDIA_TYPE_RADIO : if (style_img_exists("PAGE_RADIO")) $page_background = style_img("PAGE_RADIO"); break;
       case MEDIA_TYPE_TV    : if (style_img_exists("PAGE_TV"))    $page_background = style_img("PAGE_TV"); break;
       case MEDIA_TYPE_WEB   : if (style_img_exists("PAGE_WEB"))   $page_background = style_img("PAGE_WEB"); break;
-      case MEDIA_TYPE_DVD   : if (style_img_exists("PAGE_DVD"))   $page_background = style_img("PAGE_DVD"); break;
     }
   }
   if ($banner)
@@ -282,7 +281,8 @@ function page_footer( $back, $buttons= '', $iconbar = 0, $links=true )
          pc_nav_button(str('PC_LINK_HOME')   , '/index.php').
          pc_nav_button(str('PC_LINK_CONFIG') , '/config/index.php').
          pc_nav_button(str('PC_LINK_MUSIC')  , '/music.php').
-         pc_nav_button(str('PC_LINK_MOVIES') , '/index.php?submenu=video').
+         pc_nav_button(str('PC_LINK_MOVIES') , '/video.php').
+         pc_nav_button(str('PC_LINK_TV')     , '/tv.php').
          pc_nav_button(str('PC_LINK_INTERNET'),'/index.php?submenu=internet').
          pc_nav_button(str('PC_LINK_PHOTOS') , '/photo.php').
          pc_nav_button(str('PC_LINK_BACK')   , $back).

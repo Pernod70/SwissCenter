@@ -106,7 +106,8 @@ function get_player_firmware_date( $agent = NULL )
 function get_nmt_network_shares()
 {
   // IP addresses of all connected NMT's
-  $nmt = db_col_to_list("select ip_address from clients where box_id like '%POP%'");
+  $nmt = db_col_to_list("select ip_address from clients where box_id like '%POP%' or box_id like '%QPG%' ".
+                                                          "or box_id like '%HDD%' or box_id like '%EGR%'");
   $shares = array();
   foreach ( $nmt as $ip )
   {
@@ -250,10 +251,9 @@ function media_exts( $media_type )
   {
     case MEDIA_TYPE_MUSIC : return media_exts_music();  break;
     case MEDIA_TYPE_PHOTO : return media_exts_photos(); break;
-    case MEDIA_TYPE_VIDEO : return media_exts_movies(); break;
+    case MEDIA_TYPE_VIDEO : return array_merge(media_exts_movies(), media_exts_dvd()); break;
     case MEDIA_TYPE_WEB   : return media_exts_web();    break;
     case MEDIA_TYPE_TV    : return media_exts_movies(); break;
-    case MEDIA_TYPE_DVD   : return media_exts_dvd();    break;
   }
 
   // Should never happen
