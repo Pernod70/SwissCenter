@@ -29,7 +29,7 @@
     {
       $text = shorten($info["SYNOPSIS"],$synlen);
       if (strlen($text) != strlen($info["SYNOPSIS"]))
-        $text = $text.' <a href="/video_synopsis.php?media_type='.MEDIA_TYPE_TV.'&file_id='.$tv.'">'.font_colour_tags('PAGE_TEXT_BOLD_COLOUR','[more]').'</a>';
+        $text = $text.' <a href="/video_synopsis.php?media_type='.MEDIA_TYPE_TV.'&file_id='.$tv.'">'.font_colour_tags('PAGE_TEXT_BOLD_COLOUR',str('MORE')).'</a>';
     }
     else 
       $text = str('NO_SYNOPSIS_AVAILABLE');

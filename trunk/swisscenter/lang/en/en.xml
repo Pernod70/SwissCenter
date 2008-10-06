@@ -2222,6 +2222,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MORE</id>
+        <text>[more]</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>MOVIE_ADD_BUTTON</id>
         <text>Add/Update details</text>
         <version>1.19</version>
