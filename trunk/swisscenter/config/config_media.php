@@ -32,7 +32,13 @@ require_once( realpath(dirname(__FILE__).'/../base/media.php'));
                    and mt.media_table<>'' order by 1,2,3";
     
         $headings = str('MEDIA_TYPE').','.str('CATEGORY').','.str('LOCATION').','.str('PERCENT_SCANNED');
-        array_to_table( db_toarray($sql), $headings,'95%');             
+        $data = db_toarray($sql);
+
+        // Use language translation for MEDIA_NAME
+        for ($i = 0; $i<count($data); $i++)
+          $data[$i]["MEDIA_NAME"] = str('MEDIA_TYPE_'.strtoupper($data[$i]["MEDIA_NAME"]));
+
+        array_to_table( $data, $headings,'95%');
 
         echo '<p><table width="50%" class="form_select_tab"><tr><th width="60%">'.str('MEDIA_SCAN_STATUS').'</th><td align="right">'.$status.'</td>';
 
@@ -102,6 +108,15 @@ require_once( realpath(dirname(__FILE__).'/../base/media.php'));
   function media_refresh()
   {  
     $option_vals = array( str('YES')=>'YES',str('NO')=>'NO');
+
+    // Form list of media types
+    $media_type_opts = db_toarray("select media_id,media_name from media_types where media_table<>'' order by 2");
+    // Use language translation for MEDIA_NAME
+    for ($i = 0; $i<count($media_type_opts); $i++)
+    {
+      $media_type_opts[$i]["MEDIA_NAME"] = str('MEDIA_TYPE_'.strtoupper($media_type_opts[$i]["MEDIA_NAME"]));
+      $media_type_list[$media_type_opts[$i]["MEDIA_NAME"]] = $media_type_opts[$i]["MEDIA_ID"];
+    }
     
     echo '<h1>'.str('SETUP_SEARCH_NEW_MEDIA').'</h1>
           <p>'.str('MEDIA_SEARCH_PROMPT').'<br>&nbsp;';
@@ -110,7 +125,7 @@ require_once( realpath(dirname(__FILE__).'/../base/media.php'));
     form_hidden('section', 'MEDIA');
     form_hidden('action', 'SEARCH');
     form_hidden('scan_type', 'MEDIA');
-    form_list_dynamic('type',str('MEDIA_TYPE'),"select media_id,media_name from media_types where media_table<>'' order by 2",$_REQUEST['type'],true,false,str('ALL_MEDIA_TYPES'));
+    form_list_static('type', str('MEDIA_TYPE'),$media_type_list,$_REQUEST['type'],true,false,str('ALL_MEDIA_TYPES'));
     echo '<tr><td></td><td> &nbsp; &nbsp; '.str('OR').'</td></tr>';
     form_list_dynamic('cat', str('CATEGORY'),"select distinct(c.cat_id), c.cat_name from media_locations ml, categories c
                                               where ml.cat_id = c.cat_id order by c.cat_name", $_REQUEST['cat'],true,false,str('ALL_CATEGORIES'));

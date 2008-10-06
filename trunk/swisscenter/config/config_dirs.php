@@ -40,11 +40,25 @@
     }
     $share_opts = array_merge(array(array("path"=>'', "name"=>'')), $share_opts);
 
+    // Form list of media types
+    $media_type_opts = db_toarray('select media_id,media_name from media_types order by 2');
+
+    // Use language translation for MEDIA_NAME
+    for ($i = 0; $i<count($media_type_opts); $i++)
+    {
+      $media_type_opts[$i]["MEDIA_NAME"] = str('MEDIA_TYPE_'.strtoupper($media_type_opts[$i]["MEDIA_NAME"]));
+      $media_type_list[$media_type_opts[$i]["MEDIA_NAME"]] = $media_type_opts[$i]["MEDIA_ID"];
+    }
+
     $data = db_toarray("select location_id,media_name 'Type', cat_name 'Category', cert.name 'Certificate', ml.name 'Directory', ".
                        "(CASE media_id WHEN ".MEDIA_TYPE_VIDEO." THEN ".$share_sql_case."ELSE '' END) 'Share' ".
                        "from media_locations ml, media_types mt, categories cat, certificates cert ".
                        "where ml.unrated=cert.cert_id and mt.media_id = ml.media_type and ml.cat_id = cat.cat_id order by 2,3,4");
 
+    // Use language translation for MEDIA_NAME
+    for ($i = 0; $i<count($data); $i++)
+      $data[$i]["TYPE"] = str('MEDIA_TYPE_'.strtoupper($data[$i]["TYPE"]));
+          
     // Try to determine sensible default values for "Category" and "Certification".
     if (empty($_REQUEST["cat"]))
       $_REQUEST["cat"] = db_value("select cat_id from categories where cat_name='General'");
@@ -58,7 +72,7 @@
     form_hidden('action','MODIFY');
     form_select_table('loc_id',$data, str('MEDIA_LOC_HEADINGS')
                      ,array('class'=>'form_select_tab','width'=>'100%'),'location_id',
-                      array('DIRECTORY'=>'', 'SHARE'=>$share_opts, 'TYPE'=>'select media_id,media_name from media_types order by 2',
+                      array('DIRECTORY'=>'', 'SHARE'=>$share_opts, 'TYPE'=>$media_type_opts,
                             'CATEGORY'=>'select cat_id,cat_name from categories where cat_id not in ('.
                                          implode(',', db_col_to_list('select distinct parent_id from categories')).') order by cat_name',
                             'CERTIFICATE'=>get_cert_list_sql()), $edit, 'dirs');
@@ -78,7 +92,7 @@
       form_label(str('NETWORK_SHARE_MSG'));
     else
       form_label(str('NETWORK_SHARE_PROMPT'));
-    form_list_dynamic('type',str('MEDIA_TYPE'),"select media_id,media_name from media_types order by 2",$_REQUEST['type']);
+    form_list_static('type',str('MEDIA_TYPE'), $media_type_list, $_REQUEST['type']);
     form_label(str('MEDIA_TYPE_PROMPT'));
     form_list_dynamic('cat', str('CATEGORY'),"select cat_id,cat_name from categories where cat_id not in (".
                                               implode(',', db_col_to_list('select distinct parent_id from categories')).") 
