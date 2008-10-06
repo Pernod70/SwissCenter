@@ -174,9 +174,9 @@ function movie_display_list($movie_list)
     $cert      = db_value("select name from certificates where cert_id=".nvl($movie["CERTIFICATE"],-1));
 
     echo '<table class="form_select_tab" width="100%"><tr>
-          <td valign="top" width="4%"><input type="checkbox" name="movie[]" value="'.$movie["FILE_ID"].'"></input></td>
+          <td valign="top" width="4%"'.($movie["DETAILS_AVAILABLE"]=='Y' ? '' : ' bgcolor="red"').'><input type="checkbox" name="movie[]" value="'.$movie["FILE_ID"].'"></input></td>
           <td valign="top" width="33%">
-             <a href="?section=movie&action=display_info&movie_id='.$movie["FILE_ID"].'">'.$movie["TITLE"].'</a><br>
+             <a href="?section=movie&action=display_info&movie_id='.$movie["FILE_ID"].'">'.highlight($movie["TITLE"], $_REQUEST["search"]).'</a><br>
              Certificate : '.nvl($cert).'<br>
              Year : '.nvl($movie["YEAR"]).'<br>
              Viewed by : '.implode(', ',db_col_to_list("select u.name from users u, viewings v where ".
@@ -209,9 +209,9 @@ function movie_display_thumbs($movie_list)
 
     $img_url     = img_gen(file_albumart($filename) ,130,400,false,false,false,array('hspace'=>0,'vspace'=>4) );
     $edit_url    = '?section=movie&action=display_info&movie_id='.$movie["FILE_ID"];
-    $thumb_html .= '<td valign="top"><input type="checkbox" name="movie[]" value="'.$movie["FILE_ID"].'"></input></td>
+    $thumb_html .= '<td valign="top"'.($movie["DETAILS_AVAILABLE"]=='Y' ? '' : ' bgcolor="red"').'><input type="checkbox" name="movie[]" value="'.$movie["FILE_ID"].'"></input></td>
                     <td valign="middle"><a href="'.$edit_url.'">'.$img_url.'</a></td>';
-    $title_html .= '<td width="25%" colspan="2" align="center" valign="middle"><a href="'.$edit_url.'">'.$movie["TITLE"].'</a></td>';
+    $title_html .= '<td width="25%" colspan="2" align="center" valign="middle"><a href="'.$edit_url.'">'.highlight($movie["TITLE"], $_REQUEST["search"]).'</a></td>';
   }
 
   // and last row...
@@ -244,6 +244,9 @@ function movie_display( $message = '')
   if (!empty($_REQUEST["search"]) )
     $where .= "and m.title like '%$_REQUEST[search]%' ";
 
+  if (!empty($_REQUEST["filter"]) )
+    $where .= "and (m.details_available='N' or m.details_available is null)";
+
   // If the user has changed category, then shunt them back to page 1.
   if (un_magic_quote($_REQUEST["last_where"]) != $where)
   {
@@ -260,7 +263,7 @@ function movie_display( $message = '')
   echo '<h1>'.str('ORG_TITLE').'  ('.str('PAGE',$page).')</h1>';
   message($message);
 
-  $this_url = '?last_where='.urlencode($where).'&search='.$_REQUEST["search"].'&cat_id='.$_REQUEST["cat_id"].'&section=MOVIE&action=DISPLAY&page=';
+  $this_url = '?last_where='.urlencode($where).'&filter='.$_REQUEST["filter"].'&search='.$_REQUEST["search"].'&cat_id='.$_REQUEST["cat_id"].'&section=MOVIE&action=DISPLAY&page=';
 
   echo '<form enctype="multipart/form-data" action="" method="post">
         <table width="100%"><tr><td width="70%">';
@@ -273,6 +276,8 @@ function movie_display( $message = '')
         <a href="'.url_set_param($this_url,'list','THUMBS').'"><img align="absbottom" border="0" src="/images/thumbs.gif"></a>
         <img align="absbottom" border="0" src="/images/select_all.gif" onclick=\'handleClick("movie[]", true)\'>
         <img align="absbottom" border="0" src="/images/select_none.gif" onclick=\'handleClick("movie[]", false)\'>
+        <a href="'.url_remove_param($this_url,'filter').'"><img align="absbottom" border="0"  src="/images/filter.gif"></a>
+        <a href="'.url_set_param($this_url,'filter','NODETAILS').'"><img align="absbottom" border="0" src="/images/filter_red.gif"></a>
         </td><td width"50%" align="right">
         '.str('SEARCH').' :
         <input name="search" value="'.$_REQUEST["search"].'" size=10>
@@ -530,13 +535,6 @@ function movie_update_multiple()
   if ($_REQUEST["update_title"] == 'yes')
     $columns["TITLE"] = $_REQUEST["title"];
 
-  // Update the MOVIES table?
-  if (count($columns)>0)
-  {
-    $columns["DETAILS_AVAILABLE"] = 'Y';
-    scdb_set_movie_attribs($movie_list, $columns);
-  }
-
   // Add Actors/Genres/Directors?
   if ($_REQUEST["update_actors"] == 'yes')
   {
@@ -559,9 +557,12 @@ function movie_update_multiple()
     if (count($_REQUEST["genres"]) >0)
       scdb_add_genres($movie_list,un_magic_quote($_REQUEST["genres"]));
     if (!empty($_REQUEST["genre_new"]))
-      scdb_add_genres($movie_list, explode(',',un_magic_quote($_REQUEST["genre_new"])));
+      scdb_add_genres($movie_list, explode(',',un_magic_quote($_REQUEST["genre_new"])));    
   }
 
+  // Update the MOVIES attributes
+  scdb_set_movie_attribs($movie_list, $columns);
+  
   // Process the "Viewed" checkboxes
   if ($_REQUEST["update_viewed"] == 'yes')
   {

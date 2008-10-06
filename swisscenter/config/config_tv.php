@@ -169,9 +169,9 @@ function tv_display_list($tv_list)
     $cert      = db_value("select name from certificates where cert_id=".nvl($tv["CERTIFICATE"],-1));
 
     echo '<table class="form_select_tab" width="100%"><tr>
-          <td valign="top" width="4%"><input type="checkbox" name="tv[]" value="'.$tv["FILE_ID"].'"></input></td>
+          <td valign="top" width="4%"'.($tv["DETAILS_AVAILABLE"]=='Y' ? '' : ' bgcolor="red"').'><input type="checkbox" name="tv[]" value="'.$tv["FILE_ID"].'"></input></td>
           <td valign="top" width="33%">
-             <a href="?section=tv&action=display_info&tv_id='.$tv["FILE_ID"].'">'.$tv["PROGRAMME"].' - '.$tv["TITLE"].'</a><br>
+             <a href="?section=tv&action=display_info&tv_id='.$tv["FILE_ID"].'">'.highlight($tv["PROGRAMME"], $_REQUEST["search"]).' - '.highlight($tv["TITLE"], $_REQUEST["search"]).'</a><br>
              Series : '.nvl($tv["SERIES"]).'<br>
              Episode : '.nvl($tv["EPISODE"]).'<br>
              Year : '.nvl($tv["YEAR"]).'<br>
@@ -201,9 +201,9 @@ function tv_display_thumbs($tv_list)
 
     $img_url     = img_gen(file_albumart($tv["DIRNAME"].$tv["FILENAME"]) ,130,400,false,false,false,array('hspace'=>0,'vspace'=>4) );
     $edit_url    = '?section=tv&action=display_info&tv_id='.$tv["FILE_ID"];
-    $thumb_html .= '<td valign="top"><input type="checkbox" name="tv[]" value="'.$tv["FILE_ID"].'"></input></td>
+    $thumb_html .= '<td valign="top"'.($tv["DETAILS_AVAILABLE"]=='Y' ? '' : ' bgcolor="red"').'><input type="checkbox" name="tv[]" value="'.$tv["FILE_ID"].'"></input></td>
                     <td valign="middle"><a href="'.$edit_url.'">'.$img_url.'</a></td>';
-    $title_html .= '<td width="25%" colspan="2" align="center" valign="middle"><a href="'.$edit_url.'">'.$tv["PROGRAMME"].' - '.$tv["TITLE"].(empty($tv["EPISODE"]) ? '' : str('EPISODE_SUFFIX',$tv["EPISODE"])).'</a></td>';
+    $title_html .= '<td width="25%" colspan="2" align="center" valign="middle"><a href="'.$edit_url.'">'.highlight($tv["PROGRAMME"], $_REQUEST["search"]).' - '.highlight($tv["TITLE"], $_REQUEST["search"]).(empty($tv["EPISODE"]) ? '' : str('EPISODE_SUFFIX',$tv["EPISODE"])).'</a></td>';
   }
 
   // and last row...
@@ -236,6 +236,9 @@ function tv_display( $message = '')
   if (!empty($_REQUEST["search"]) )
     $where .= "and (t.programme like '%$_REQUEST[search]%' or t.title like '%$_REQUEST[search]%') ";
 
+  if (!empty($_REQUEST["filter"]) )
+    $where .= "and (t.details_available='N' or t.details_available is null)";
+
   // If the user has changed category, then shunt them back to page 1.
   if (un_magic_quote($_REQUEST["last_where"]) != $where)
   {
@@ -252,7 +255,7 @@ function tv_display( $message = '')
   echo '<h1>'.str('TV_DETAILS').'  ('.str('PAGE',$page).')</h1>';
   message($message);
 
-  $this_url = '?last_where='.urlencode($where).'&search='.$_REQUEST["search"].'&cat_id='.$_REQUEST["cat_id"].'&section=TV&action=DISPLAY&page=';
+  $this_url = '?last_where='.urlencode($where).'&filter='.$_REQUEST["filter"].'&search='.$_REQUEST["search"].'&cat_id='.$_REQUEST["cat_id"].'&section=TV&action=DISPLAY&page=';
 
   echo '<form enctype="multipart/form-data" action="" method="post">
         <table width="100%"><tr><td width="70%">';
@@ -265,6 +268,8 @@ function tv_display( $message = '')
         <a href="'.url_set_param($this_url,'list','THUMBS').'"><img align="absbottom" border="0" src="/images/thumbs.gif"></a>
         <img align="absbottom" border="0" src="/images/select_all.gif" onclick=\'handleClick("tv[]", true)\'>
         <img align="absbottom" border="0" src="/images/select_none.gif" onclick=\'handleClick("tv[]", false)\'>
+        <a href="'.url_remove_param($this_url,'filter').'"><img align="absbottom" border="0"  src="/images/filter.gif"></a>
+        <a href="'.url_set_param($this_url,'filter','NODETAILS').'"><img align="absbottom" border="0" src="/images/filter_red.gif"></a>
         </td><td width"50%" align="right">
         '.str('SEARCH').' :
         <input name="search" value="'.$_REQUEST["search"].'" size=10>
@@ -419,7 +424,7 @@ function tv_update_form_single()
 
   foreach ( db_toarray("select * from users order by name") as $row)
     echo '<input type="checkbox" name="viewed[]" value="'.$row["USER_ID"].'" '.
-         (viewings_count( 6, $details[0]["FILE_ID"], $row["USER_ID"])>0 ? 'checked' : '').
+         (viewings_count( MEDIA_TYPE_TV, $details[0]["FILE_ID"], $row["USER_ID"])>0 ? 'checked' : '').
          '>'.$row["NAME"].'<br>';
 
   echo '</td>
@@ -549,13 +554,6 @@ function tv_update_multiple()
   if ($_REQUEST["update_episode"] == 'yes' && is_numeric($_REQUEST["episode"]))
     $columns["EPISODE"] = $_REQUEST["episode"];
 
-  // Update the TV table?
-  if (count($columns)>0)
-  {
-    $columns["DETAILS_AVAILABLE"] = 'Y';
-    scdb_set_tv_attribs($tv_list, $columns);
-  }
-
   // Add Actors/Genres/Directors?
   if ($_REQUEST["update_actors"] == 'yes')
   {
@@ -581,6 +579,9 @@ function tv_update_multiple()
       scdb_add_tv_genres($tv_list, explode(',',un_magic_quote($_REQUEST["genre_new"])));
   }
 
+  // Update the TV attributes
+  scdb_set_tv_attribs($tv_list, $columns);
+  
   // Process the "Viewed" checkboxes
   if ($_REQUEST["update_viewed"] == 'yes')
   {
