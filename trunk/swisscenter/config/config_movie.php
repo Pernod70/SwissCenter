@@ -165,7 +165,6 @@ function movie_display_list($movie_list)
 
   foreach ($movie_list as $movie)
   {
-    $media_type = db_value("select media_type from media_locations ml, movies m where ml.location_id=m.location_id and m.file_id=".$movie["FILE_ID"]);
     $actors    = db_col_to_list("select actor_name from actors a,actors_in_movie aim where a.actor_id=aim.actor_id ".
                                 "and movie_id=$movie[FILE_ID] order by 1");
     $directors = db_col_to_list("select director_name from directors d, directors_of_movie dom where d.director_id = dom.director_id ".
@@ -181,7 +180,7 @@ function movie_display_list($movie_list)
              Certificate : '.nvl($cert).'<br>
              Year : '.nvl($movie["YEAR"]).'<br>
              Viewed by : '.implode(', ',db_col_to_list("select u.name from users u, viewings v where ".
-                                                       "v.user_id=u.user_id and v.media_type=$media_type and v.media_id=".$movie["FILE_ID"])).'
+                                                       "v.user_id=u.user_id and v.media_type=".MEDIA_TYPE_VIDEO." and v.media_id=".$movie["FILE_ID"])).'
            </td>
            <td valign="top" width="21%">'.nvl(implode("<br>",$actors)).'</td>
            <td valign="top" width="21%">'.nvl(implode("<br>",$directors)).'</td>
@@ -269,7 +268,7 @@ function movie_display( $message = '')
   form_hidden('action','DISPLAY');
   form_hidden('last_where',$where);
   echo  str('CATEGORY').' :
-        '.form_list_dynamic_html("cat_id","select distinct c.cat_id,c.cat_name from categories c left join media_locations ml on c.cat_id=ml.cat_id where ml.media_type=".MEDIA_TYPE_VIDEO." or ml.media_type=".MEDIA_TYPE_DVD." order by c.cat_name",$_REQUEST["cat_id"],true,true,str('CATEGORY_LIST_ALL')).'&nbsp;
+        '.form_list_dynamic_html("cat_id","select distinct c.cat_id,c.cat_name from categories c left join media_locations ml on c.cat_id=ml.cat_id where ml.media_type=".MEDIA_TYPE_VIDEO." order by c.cat_name",$_REQUEST["cat_id"],true,true,str('CATEGORY_LIST_ALL')).'&nbsp;
         <a href="'.url_set_param($this_url,'list','LIST').'"><img align="absbottom" border="0"  src="/images/details.gif"></a>
         <a href="'.url_set_param($this_url,'list','THUMBS').'"><img align="absbottom" border="0" src="/images/thumbs.gif"></a>
         <img align="absbottom" border="0" src="/images/select_all.gif" onclick=\'handleClick("movie[]", true)\'>
@@ -362,7 +361,6 @@ function movie_update_form_single()
 {
   // Get actor/director/genre lists
   $movie_id    = $_REQUEST["movie"][0];
-  $media_type  = db_value("select media_type from media_locations ml, movies m where ml.location_id=m.location_id and m.file_id=$movie_id");
   $details     = db_toarray("select * from movies where file_id=".$movie_id);
   $actors      = db_toarray("select actor_name name, actor_id id from actors order by 1");
   $directors   = db_toarray("select director_name name, director_id id from directors order by 1");
@@ -421,7 +419,7 @@ function movie_update_form_single()
 
   foreach ( db_toarray("select * from users order by name") as $row)
     echo '<input type="checkbox" name="viewed[]" value="'.$row["USER_ID"].'" '.
-         (viewings_count( $media_type, $details[0]["FILE_ID"], $row["USER_ID"])>0 ? 'checked' : '').
+         (viewings_count( MEDIA_TYPE_VIDEO, $details[0]["FILE_ID"], $row["USER_ID"])>0 ? 'checked' : '').
          '>'.$row["NAME"].'<br>';
 
   echo '</td>
@@ -574,15 +572,14 @@ function movie_update_multiple()
         // Set viewed status for these movies for this user
         foreach ($movie_list as $movie)
         {
-          $media_type = db_value("select media_type from media_locations ml, movies m where ml.location_id=m.location_id and m.file_id=$movie");
-          if (viewings_count($media_type, $movie, $row["USER_ID"]) == 0)
-            db_insert_row('viewings',array("user_id"=>$row["USER_ID"], "media_type"=>$media_type, "media_id"=>$movie, "total_viewings"=>1));
+          if (viewings_count(MEDIA_TYPE_VIDEO, $movie, $row["USER_ID"]) == 0)
+            db_insert_row('viewings',array("user_id"=>$row["USER_ID"], "media_type"=>MEDIA_TYPE_VIDEO, "media_id"=>$movie, "total_viewings"=>1));
         }
       }
       else
       {
         // Remove all viewing information about these movies for this user
-        db_sqlcommand("delete from viewings where media_type in (".MEDIA_TYPE_VIDEO.",".MEDIA_TYPE_DVD.") and user_id=$row[USER_ID] ".
+        db_sqlcommand("delete from viewings where media_type=".MEDIA_TYPE_VIDEO." and user_id=$row[USER_ID] ".
                       "and media_id in (".implode(',',$movie_list).")");
       }
     }

@@ -23,7 +23,6 @@
   {
     case MEDIA_TYPE_TV    : $media_table = 'tv'    ; break;
     case MEDIA_TYPE_VIDEO :
-    case MEDIA_TYPE_DVD   :
     default               : $media_table = 'movies'; break;
   }
   

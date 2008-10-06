@@ -70,7 +70,7 @@ function remove_orphaned_records()
   @db_sqlcommand('delete from viewings '.
                  ' using viewings left outer join movies '.
                  '    on viewings.media_id = movies.file_id '.
-                 ' where viewings.media_type in ('.MEDIA_TYPE_VIDEO.','.MEDIA_TYPE_DVD.') and movies.file_id is null');
+                 ' where viewings.media_type = '.MEDIA_TYPE_VIDEO.' and movies.file_id is null');
                  
   @db_sqlcommand('delete from viewings '.
                  ' using viewings left outer join tv '.
@@ -772,7 +772,7 @@ function determine_dvd_name( $fsp )
  * @param filename $file
  */
 
-function process_movie( $dir, $id, $file)
+function process_movie( $dir, $id, $file )
 {
   send_to_log(4,'Found Video    : '.$file);
   $data     = array();
@@ -1131,7 +1131,7 @@ function file_newer_than_db( $table, $location, $dir, $file )
  * @param boolean $recurse - Process subdirectories?
  */
 
-function process_media_directory( $dir, $id, $table, $file_exts, $recurse = true, $update = false)
+function process_media_directory( $dir, $id, $share, $table, $file_exts, $recurse = true, $update = false)
 {
   // Standard files to ignore (lowercase only - case insensitive match).
   $files_to_ignore = array( 'video_ts.vob' );
@@ -1155,7 +1155,7 @@ function process_media_directory( $dir, $id, $table, $file_exts, $recurse = true
             add_photo_album($dir.$file, $id);
 
           if ($recurse)
-            process_media_directory( $dir.$file.'/', $id, $table, $file_exts, $recurse, $update);
+            process_media_directory( $dir.$file.'/', $id, $share, $table, $file_exts, $recurse, $update);
         }
       }
       elseif ( !in_array(strtolower($file),$files_to_ignore) && in_array(strtolower(file_ext($file)),$file_exts) && preg_match('/vts_[0-9]*_[0-9]*.ifo/i', basename($file)) == 0 )
@@ -1165,7 +1165,11 @@ function process_media_directory( $dir, $id, $table, $file_exts, $recurse = true
           switch ($table)
           {
             case 'mp3s'   : process_mp3   ( $dir, $id, $file);  break;
-            case 'movies' : process_movie ( $dir, $id, $file);  break;
+            case 'movies' :
+              // Do not include VOB's if a Network Share is defined for this location, they will be included with IFO.
+              if ( empty($share) && !(file_ext($file)=='vob') )
+                process_movie ( $dir, $id, $file );
+              break;
             case 'photos' : process_photo ( $dir, $id, $file);  break;
             case 'tv'     : process_tv    ( $dir, $id, $file);  break;
           }

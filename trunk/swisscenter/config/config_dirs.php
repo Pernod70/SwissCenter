@@ -32,16 +32,16 @@
         $share_sql_case .= "WHEN '".db_escape_str($share_opts[$i]["path"])."' THEN '".db_escape_str($share_opts[$i]["name"])."' ";
         $share_list[$share_opts[$i]["name"]] = $share_opts[$i]["path"];
       }
-      $share_sql_case .= "ELSE '".str('PLEASE_SELECT')."' END) ";
+      $share_sql_case .= "ELSE '' END) ";
     }
     else
     {
-      $share_sql_case = "'".str('PLEASE_SELECT')."' ";
+      $share_sql_case = "'' ";
     }
     $share_opts = array_merge(array(array("path"=>'', "name"=>'')), $share_opts);
 
     $data = db_toarray("select location_id,media_name 'Type', cat_name 'Category', cert.name 'Certificate', ml.name 'Directory', ".
-                       "(CASE media_name WHEN 'DVD Video' THEN ".$share_sql_case."ELSE '' END) 'Share' ".
+                       "(CASE media_id WHEN ".MEDIA_TYPE_VIDEO." THEN ".$share_sql_case."ELSE '' END) 'Share' ".
                        "from media_locations ml, media_types mt, categories cat, certificates cert ".
                        "where ml.unrated=cert.cert_id and mt.media_id = ml.media_type and ml.cat_id = cat.cat_id order by 2,3,4");
 
@@ -154,8 +154,6 @@
         dirs_display('',"!".str('MEDIA_LOC_ERROR_CERT'));
       elseif (empty($dir))
         dirs_display('',"!".str('MEDIA_LOC_ERROR_LOC'));
-      elseif (empty($share) && $type_id==MEDIA_TYPE_DVD)
-        dirs_display('',"!".str('MEDIA_LOC_ERROR_SHARE'));
       elseif (!file_exists($dir))
       {
         log_dir_failure($dir);
@@ -249,8 +247,6 @@
       dirs_display('',"!".str('MEDIA_LOC_ERROR_CERT'));
     elseif (empty($_REQUEST["location"]))
       dirs_display('',"!".str('MEDIA_LOC_ERROR_LOC'));
-    elseif (empty($share) && $_REQUEST["type"]==MEDIA_TYPE_DVD)
-      dirs_display('',"!".str('MEDIA_LOC_ERROR_SHARE'));
     elseif (!file_exists($dir))
     {
       log_dir_failure($dir);

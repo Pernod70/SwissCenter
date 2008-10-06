@@ -22,12 +22,11 @@
     $rtn             = urldecode( $_REQUEST["return_url"]);
     $media_type      = $_REQUEST["media_type"];
     $table           = db_value("select media_table from media_types where  media_id=$media_type");
-    $types           = media_exts( $media_type );
-    $filetypes       = media_exts( $media_type);
+    $filetypes       = media_exts( $media_type );
     $media_locations = db_toarray("select * from media_locations where media_type=".$media_type);
   
     foreach ($media_locations as $row)
-      process_media_directory( str_suffix($row["NAME"],'/').$dir , $row["LOCATION_ID"], $table, $types);
+      process_media_directory( str_suffix($row["NAME"],'/').$dir , $row["LOCATION_ID"], $row["NETWORK_SHARE"], $table, $filetypes);
     
     header('Location: '.$rtn);
   }

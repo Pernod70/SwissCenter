@@ -39,7 +39,7 @@
       $table = db_value("select media_table from media_types where  media_id = $location[MEDIA_TYPE]");
       $types = media_exts( $location["MEDIA_TYPE"] );
       send_to_log(4,'Refreshing '.strtoupper($table).' database');
-      process_media_directory( str_suffix($location["NAME"],'/'), $location["LOCATION_ID"], $table, $types, true, $update );
+      process_media_directory( str_suffix($location["NAME"],'/'), $location["LOCATION_ID"], $location["NETWORK_SHARE"], $table, $types, true, $update );
       send_to_log(4,'Completed refreshing '.strtoupper($table).' database');
       
       // Tell MusicIP to rescan this folder
@@ -85,7 +85,7 @@
     process_media_dirs( $media_type, $cat_id, $update=='YES' );
     
     // Update video details from the Internet if enabled
-    if ( is_movie_check_enabled() && (in_array(MEDIA_TYPE_VIDEO, $media_types) || in_array(MEDIA_TYPE_DVD, $media_types)) )
+    if ( is_movie_check_enabled() && in_array(MEDIA_TYPE_VIDEO, $media_types) )
     {
       set_sys_pref('MEDIA_SCAN_STATUS',str('MEDIA_SCAN_STATUS_MOVIE'));
       extra_get_all_movie_details();

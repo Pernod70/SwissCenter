@@ -84,7 +84,7 @@
                    'left outer join actors a on aim.actor_id = a.actor_id '.
                    'left outer join directors d on dom.director_id = d.director_id '.
                    'left outer join genres g on gom.genre_id = g.genre_id'.
-                    get_rating_join().' where 1=1 and ml.media_type='.MEDIA_TYPE_VIDEO;
+                    get_rating_join().' where 1=1 ';
   $select_fields = "file_id, dirname, filename, title, year, length";
   $predicate     = search_process_passed_params();
   $sql_table     = "movies media ";
@@ -98,7 +98,7 @@
   if (strpos($predicate,'genre_name like') > 0)
     $sql_table  .= 'left outer join genres_of_movie gom on media.file_id = gom.movie_id '.
                    'left outer join genres g on gom.genre_id = g.genre_id ';
-  $sql_table    .= get_rating_join().' where 1=1 and ml.media_type='.MEDIA_TYPE_VIDEO;
+  $sql_table    .= get_rating_join().' where 1=1 ';
   $file_ids      = db_col_to_list("select distinct media.file_id from $sql_table $predicate");
   $playtime      = db_value("select sum(length) from movies where file_id in (".implode(',',$file_ids).")");
   $num_unique    = db_value("select count( distinct synopsis) from movies where file_id in (".implode(',',$file_ids).")");
@@ -114,7 +114,7 @@
   if ($num_rows == 1 || $num_unique == 1)
   {    
     // Single match, so get the details from the database and display them
-    if ( ($data = db_toarray("select media.*, ".get_cert_name_sql()." certificate_name from $sql_table $predicate")) === false)
+    if ( ($data = db_toarray("select media.*, ml.name, ml.network_share, ".get_cert_name_sql()." certificate_name from $sql_table $predicate")) === false)
       page_error( str('DATABASE_ERROR'));
 
     if (!empty($data[0]["YEAR"]))
@@ -122,15 +122,30 @@
     else 
       page_header( $data[0]["TITLE"] );
 
+    // Is DVD image?
+    $is_dvd = in_array(file_ext($data[0]["FILENAME"]), media_exts_dvd());
+    
     // Play now
-    $menu->add_item( str('PLAY_NOW')    , play_sql_list(MEDIA_TYPE_VIDEO,"select distinct $select_fields from $sql_table $predicate order by title, filename"));
-
+    if ( $is_dvd )
+    {
+      // If VIDEO_TS folder then pass folder name
+      if ( strtoupper($data[0]["FILENAME"]) == 'VIDEO_TS.IFO' )
+        $file = rtrim($data[0]["DIRNAME"],'/');
+      else
+        $file = $data[0]["DIRNAME"].$data[0]["FILENAME"];
+      $file = str_replace($data[0]["NAME"], "", $file);
+      // Can't use gen_playlist as the NMT does something different with zcd=2.
+      $menu->add_item( str('PLAY_NOW') , 'href="file:///opt/sybhttpd/localhost.drives/'.$data[0]["NETWORK_SHARE"].$file.'" zcd="2" ' );
+    }
+    else
+      $menu->add_item( str('PLAY_NOW') , play_sql_list(MEDIA_TYPE_VIDEO,"select distinct $select_fields from $sql_table $predicate order by title, filename"));
+  
     // Resume playing
-    if ( support_resume() && file_exists( bookmark_file($data[0]["DIRNAME"].$data[0]["FILENAME"]) ))
+    if ( support_resume() && file_exists( bookmark_file($data[0]["DIRNAME"].$data[0]["FILENAME"]) && !$is_dvd ))
       $menu->add_item( str('RESUME_PLAYING') , resume_file(MEDIA_TYPE_VIDEO,$data[0]["FILE_ID"]), true);
         
     // Add to your current playlist
-    if (pl_enabled())
+    if (pl_enabled() && !$is_dvd)
       $menu->add_item( str('ADD_PLAYLIST') ,'add_playlist.php?sql='.rawurlencode("select distinct $select_fields from $sql_table $predicate order by title, filename"),true);
 
     // Add a link to search wikipedia
@@ -140,13 +155,16 @@
     // Link to full cast & directors
     if ($data[0]["DETAILS_AVAILABLE"] == 'Y')
       $menu->add_item( str('VIDEO_INFO'), 'video_info.php?movie='.$data[0]["FILE_ID"],true);
-    
-    // Display thumbnail
-    $folder_img = file_albumart($data[0]["DIRNAME"].$data[0]["FILENAME"]);
+
+    // Display thumbnail (DVD Video image will be in parent folder)
+    if ( strtoupper($data[0]["FILENAME"]) == 'VIDEO_TS.IFO' )
+      $folder_img = file_albumart(rtrim($data[0]["DIRNAME"],'/').".dvd");
+    else
+      $folder_img = file_albumart($data[0]["DIRNAME"].$data[0]["FILENAME"]);
   }
 
   //
-  // There are multiple movies which match the criteria enterede by the user. Therefore, we should
+  // There are multiple movies which match the criteria entered by the user. Therefore, we should
   // display the information that is common to all movies, and provide links to refine the search
   // further.
   //

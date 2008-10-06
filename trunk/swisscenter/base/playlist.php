@@ -232,17 +232,6 @@ function play_file( $media_type, $file_id )
          $link   = slideshow_link_by_browser( $params);
          break;
 
-    case MEDIA_TYPE_DVD:
-         $data = db_toarray("select m.dirname, m.filename, ml.name, ml.network_share from movies m, media_locations ml where file_id=$file_id and m.location_id=ml.location_id");
-         // If DVD Video then pass folder name
-         if ( strtoupper($data[0]["FILENAME"]) == 'VIDEO_TS.IFO' )
-           $file = rtrim($data[0]["DIRNAME"],'/');
-         else
-           $file = $data[0]["DIRNAME"].$data[0]["FILENAME"];
-         $file = str_replace($data[0]["NAME"], "", $file);
-         // Can't use gen_playlist as the PCH does something different with zcd=2.
-         $link   = 'href="file:///opt/sybhttpd/localhost.drives/'.$data[0]["NETWORK_SHARE"].$file.'" zcd="2" ';
-         break;
   }
 
   return $link;
