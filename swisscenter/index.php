@@ -25,7 +25,14 @@
    */
   function display_internet_menu()
   {
-    page_header( str('INTERNET_SERVICES'),'','',1,false,'','PAGE_INTERNET');
+    /**
+     * Dertermine whether images are defined for this style.
+     */
+    
+    $image_menu = style_img_exists('MENU_INTERNET_RADIO') && style_img_exists('MENU_INTERNET_BROWSE') && style_img_exists('MENU_INTERNET_RSS') &&
+                  style_img_exists('MENU_INTERNET_WEATHER');
+    
+    page_header( str('INTERNET_SERVICES'),'','',1,false,style_value("PAGE_FOCUS_IMAGES"),'PAGE_INTERNET');
 
     /**
      * Menu Items
@@ -35,26 +42,41 @@
 
     // Only display the Internet radio options if an internet connection is active and the user has enabled internet radio support
     if (internet_available() && get_sys_pref('radio_enabled','YES') == 'YES')
-      $menu->add_item( str('LISTEN_RADIO'),"music_radio.php",true);
+      if ($image_menu)
+        $menu->add_image_item( str('LISTEN_RADIO'),style_img('MENU_INTERNET_RADIO',true),style_img('MENU_INTERNET_RADIO_ON',true,false),'music_radio.php');
+      else
+        $menu->add_item( str('LISTEN_RADIO'),"music_radio.php",true);
 
     // Only display the web links option if an internet connection is active, the user has enabled weblinks and defined some media locations
     // OR the override flag is set.
     if ( ( internet_available() && ( get_sys_pref('web_enabled','YES') == 'YES'
              && db_value("select 'YES' from media_locations where media_type=".MEDIA_TYPE_WEB." limit 1") == 'YES' )
         || get_sys_pref('OVERRIDE_ENABLE_WEBLINKS','NO') == 'YES') )
-      $menu->add_item(str('BROWSE_WEB'),'web_urls.php',true);
+      if ($image_menu)
+        $menu->add_image_item(str('BROWSE_WEB'),style_img('MENU_INTERNET_BROWSE',true),style_img('MENU_INTERNET_BROWSE_ON',true,false),'web_urls.php');
+      else
+        $menu->add_item(str('BROWSE_WEB'),'web_urls.php',true);
 
     // Only display the RSS options if an internet connection is active, the user has enabled RSS support and has defined some subscriptions.
 //    if (internet_available() && get_sys_pref('flickr_enabled','YES') == 'YES' )
-//      $menu->add_item( str('FLICKR_PHOTOS') ,'photo_flickr.php',true);
+//      if ($image_menu)
+//        $menu->add_image_item(str('FLICKR_PHOTOS'),style_img('MENU_INTERNET_FLICKR',true),style_img('MENU_INTERNET_FLICKR_ON',true,false),'photo_flickr.php');
+//      else
+//        $menu->add_item( str('FLICKR_PHOTOS') ,'photo_flickr.php',true);
 
     // Only display the RSS options if an internet connection is active, the user has enabled RSS support and has defined some subscriptions.
     if (internet_available() && get_sys_pref('rss_enabled','YES') == 'YES' && db_value("select 'YES' from rss_subscriptions limit 1") == 'YES')
-      $menu->add_item( str('RSS_FEEDS') ,'rss_feeds.php',true);
+      if ($image_menu)
+        $menu->add_image_item( str('RSS_FEEDS') ,style_img('MENU_INTERNET_RSS',true),style_img('MENU_INTERNET_RSS_ON',true,false),'rss_feeds.php');
+      else
+        $menu->add_item( str('RSS_FEEDS') ,'rss_feeds.php',true);
 
     // Only display the weather options if an internet connection is active and the user has enabled weather support
     if (internet_available() && get_sys_pref('weather_enabled','YES') == 'YES')
-      $menu->add_item( str('VIEW_WEATHER') ,'weather_cc.php',true);
+      if ($image_menu)
+        $menu->add_image_item( str('VIEW_WEATHER') ,style_img('MENU_INTERNET_WEATHER',true),style_img('MENU_INTERNET_WEATHER_ON',true,false),'weather_cc.php');
+      else
+        $menu->add_item( str('VIEW_WEATHER') ,'weather_cc.php',true);
 
     /**
     * Display the page content
@@ -62,7 +84,10 @@
     if ($menu->num_items() == 1)
       header('Location: '.server_address().$menu->item_url(0));
     else
-      $menu->display(1, style_value("MENU_INTERNET_WIDTH"), style_value("MENU_INTERNET_ALIGN"));
+      if ($image_menu)
+        $menu->display_images(1, style_value("MENU_INTERNET_WIDTH"), style_value("MENU_INTERNET_ALIGN"));
+      else
+        $menu->display(1, style_value("MENU_INTERNET_WIDTH"), style_value("MENU_INTERNET_ALIGN"));
 
     page_footer('index.php');
   }
@@ -72,8 +97,6 @@
    */
   if( isset($_REQUEST["submenu"]) && $_REQUEST["submenu"] == 'internet' )
     display_internet_menu();
-  elseif( isset($_REQUEST["submenu"]) && $_REQUEST["submenu"] == 'video' )
-    display_video_menu();
   else
   {
     /**
@@ -96,12 +119,21 @@
     }
 
     /**
+     * Dertermine whether images are defined for this style.
+     */
+    
+    $image_menu = style_img_exists('MENU_INDEX_VIDEO') && style_img_exists('MENU_INDEX_TV') && style_img_exists('MENU_INDEX_MUSIC') &&
+                  style_img_exists('MENU_INDEX_PHOTO') && style_img_exists('MENU_INDEX_INTERNET') && style_img_exists('MENU_INDEX_PLAYLIST') && 
+                  style_img_exists('MENU_INDEX_CONFIG');
+
+    /**
      * Output the page header immediately, as it performs the authentication check and will redirect
      * the user to the "change_user" screen if there are multiple users to choose from or a password
      * is required.
+     * If an image menu and there are any missing onFocus images then use FocusColor.
      */
 
-    page_header( str('MAIN_MENU'),'','',1,false,'','PAGE_INDEX');
+    page_header( str('MAIN_MENU'),'','',1,false,style_value("PAGE_FOCUS_IMAGES"),'PAGE_INDEX');
 
     /**
      * Menu Items
@@ -112,32 +144,53 @@
 
     // Only display the video options if the user has some videos stored in the database.
     if ( media_exists(MEDIA_TYPE_VIDEO))
-      $menu->add_item(str('WATCH_MOVIE'),'video.php',true);
+      if ($image_menu)
+        $menu->add_image_item(str('WATCH_MOVIE'),style_img('MENU_INDEX_VIDEO',true),style_img('MENU_INDEX_VIDEO_ON',true,false),'video.php');
+      else
+        $menu->add_item(str('WATCH_MOVIE'),'video.php',true);
 
     // Only display the TV Series options if the user has some TV episodes stored in the database.
     if ( media_exists(MEDIA_TYPE_TV))
-      $menu->add_item(str('WATCH_TV'),'tv.php',true);
+      if ($image_menu)
+        $menu->add_image_item(str('WATCH_TV'),style_img('MENU_INDEX_TV',true),style_img('MENU_INDEX_TV_ON',true,false),'tv.php');
+      else
+        $menu->add_item(str('WATCH_TV'),'tv.php',true);
 
     // Only display the music options if the user has some music stored in the database.
     if ( media_exists(MEDIA_TYPE_MUSIC))
-      $menu->add_item(str('LISTEN_MUSIC'),'music.php',true);
+      if ($image_menu)
+        $menu->add_image_item(str('LISTEN_MUSIC'),style_img('MENU_INDEX_MUSIC',true),style_img('MENU_INDEX_MUSIC_ON',true,false),'music.php');
+      else
+        $menu->add_item(str('LISTEN_MUSIC'),'music.php',true);
 
     // Only display the photo options if the user has some photos stored in the database.
     if ( media_exists(MEDIA_TYPE_PHOTO))
-      $menu->add_item( str('VIEW_PHOTO'),'photo.php',true);
+      if ($image_menu)
+        $menu->add_image_item( str('VIEW_PHOTO'),style_img('MENU_INDEX_PHOTO',true),style_img('MENU_INDEX_PHOTO_ON',true,false),'photo.php');
+      else
+        $menu->add_item( str('VIEW_PHOTO'),'photo.php',true);
 
     // Only display the Internet options if an internet connection is active and internet options are enabled.
     if (internet_available() && (get_sys_pref('weather_enabled','YES') == 'YES' || get_sys_pref('radio_enabled','YES') == 'YES'
           || (get_sys_pref('web_enabled','YES') == 'YES' && db_value("select 'YES' from media_locations where media_type=".MEDIA_TYPE_WEB." limit 1") == 'YES')
           ||  get_sys_pref('OVERRIDE_ENABLE_WEBLINKS','NO') == 'YES' || get_sys_pref('flickr_enabled','YES') == 'YES'
           || (get_sys_pref('rss_enabled','YES') == 'YES' && db_value("select 'YES' from rss_subscriptions limit 1") == 'YES')) )
-      $menu->add_item( str('INTERNET_SERVICES'),"index.php?submenu=internet",true);
+      if ($image_menu)
+        $menu->add_image_item( str('INTERNET_SERVICES'),style_img('MENU_INDEX_INTERNET',true),style_img('MENU_INDEX_INTERNET_ON',true,false),'index.php?submenu=internet');
+      else
+        $menu->add_item( str('INTERNET_SERVICES'),"index.php?submenu=internet",true);
 
     // Only display the playlist options if the user has enabled playlist support
     if (pl_enabled())
-      $menu->add_item( str('MANAGE_PLAYLISTS'),'manage_pl.php',true);
+      if ($image_menu)
+        $menu->add_image_item( str('MANAGE_PLAYLISTS'),style_img('MENU_INDEX_PLAYLIST',true),style_img('MENU_INDEX_PLAYLIST_ON',true,false),'manage_pl.php');
+      else
+        $menu->add_item( str('MANAGE_PLAYLISTS'),'manage_pl.php',true);
 
-    $menu->add_item( str('SETUP'),'config.php',true);
+    if ($image_menu)
+      $menu->add_image_item( str('SETUP'),style_img('MENU_INDEX_CONFIG',true),style_img('MENU_INDEX_CONFIG_ON',true,false),'config.php');
+    else
+      $menu->add_item( str('SETUP'),'config.php',true);
 
     /**
      * Icons
@@ -159,7 +212,10 @@
      */
 
     echo '<p>';
-    $menu->display_page($page, 1, style_value("MENU_INDEX_WIDTH"), style_value("MENU_INDEX_ALIGN"));
+    if ($image_menu)
+      $menu->display_images(1, style_value("MENU_INDEX_WIDTH"), style_value("MENU_INDEX_ALIGN"));
+    else
+      $menu->display_page($page, 1, style_value("MENU_INDEX_WIDTH"), style_value("MENU_INDEX_ALIGN"));
     page_footer('', '', $icons);
 
     // Clear any active filters

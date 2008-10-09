@@ -26,6 +26,9 @@ class menu
   var $down;
   var $vertical_margin = 40;
   
+  var $img_size = array("X"=>210, "Y"=>210);
+  var $img_font_size = 20;
+  
   /**
    * Constructor
    *
@@ -71,9 +74,29 @@ class menu
       $this->menu_items[] = array( "text"  => $text
                                  , "url"   => $url
                                  , "right" => ($submenu == true ? $icon_right : '')
-				                         , "left"  => (!empty($icon) ? $icon_left     : '') );
+                                 , "left"  => (!empty($icon) ? $icon_left     : '') );
   }
   
+  /**
+   * Adds an image menu item.
+   *
+   * @param string $image - Image to display to the user
+   * @param string $image_on - Image to display if item is in focus
+   * @param string:url $url - URL to go to if the item is selected
+   */
+  
+  function add_image_item( $text, $image, $image_on, $url="" )
+  { 
+    if (substr($url,0,5) != 'href=')
+      $url = 'href="'.$url.'"';
+
+    if (! is_null($image) && strlen($image)>0)
+      $this->menu_items[] = array( "text"     => $text
+                                 , "image"    => $image
+                                 , "image_on" => $image_on
+                                 , "url"      => $url );
+  }
+
   /**
    * Adds a two-part (info) menu item with an optional icon to the left, and indicator to show if 
    * there is a submenu or not.
@@ -225,7 +248,7 @@ class menu
         if ( isset($item["right"]) ) $right_icons = 1;
         if ( isset($item["info"]) )  $info_column = 1;
       }
-    }    
+    }
     
     $num_cols = 1 + $left_icons + $right_icons + $info_column;
 
@@ -276,7 +299,7 @@ class menu
         // Right icon?
         if ($right_icons == 1)
           echo '<td align="right" valign="middle" height="'.$height_px.'">'.$item["right"].'</td>';
-          
+
         // End row
         echo '</tr>';
         $tvid++;
@@ -284,10 +307,55 @@ class menu
     }
 
     // Link to next page
-    $this->private_nav_cell($left_icons+1, $num_cols, down_link($this->down));    
+    $this->private_nav_cell($left_icons+1, $num_cols, down_link($this->down));
 
     // End the containing table definition
     echo '</table></center>';
+  }
+
+  /**
+   * Displays the menu with images
+   *
+   */
+  
+  function display_images( $tvid = 1, $size=850, $align="center" )
+  {
+    $this->img_size["X"] = $size/4;
+    $num_cols      = min(4, $this->num_items());
+    $num_rows      = ($this->num_items() > 4 ? 2 : 1);
+    $cell_width    = floor($size / $num_cols);
+
+    // Display the table containing the image links
+    for ($row=0; $row < $num_rows; $row++)
+    {
+      $max_col_this_row = min( ($this->num_items() - $row*$num_cols), $num_cols);
+
+      echo '<center><table align="'.$align.'" border="0" cellspacing="2" cellpadding="0"><tr>';
+      
+      // Image and link
+      for ($col=0; $col < $max_col_this_row ; $col++)
+      {
+        $cell_no = $row*$num_cols+$col;
+        $img_src = rawurlencode($this->menu_items[$cell_no]["image"]);
+        $img_foc = rawurlencode($this->menu_items[$cell_no]["image_on"]);
+        $img_x   = $this->img_size["X"];
+        $img_y   = $this->img_size["Y"];
+        echo '<td align="center" valign="middle" width="'.convert_x($cell_width).'" height="'.convert_y($img_y).'">'
+             .'<a TVID="'.$tvid.'" name="'.$tvid.'" '.$this->menu_items[$cell_no]["url"].'>'
+             .img_gen(array($img_src,$img_foc), $img_x, $img_y).'</a></td>';
+        $tvid++;
+      }
+      echo "</tr><tr>";
+      
+      // Text
+      for ($col=0; $col < $max_col_this_row ; $col++)
+      {
+        $cell_no = $row*$num_cols+$col;
+        $text    = $this->menu_items[$cell_no]["text"]; 
+        echo '<td align="center" valign="top" width="'.convert_x($cell_width).'">'.font_tags($this->font_size).'<b>'.$text.'</b></font></td>';
+      }      
+      echo "</tr></table></center>";
+    }
   }
 
 }

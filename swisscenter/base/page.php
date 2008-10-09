@@ -190,8 +190,20 @@ function img_gen( $filename, $x, $y, $type = false, $stretch = false, $rs_mode =
   foreach ($html_params as $n => $v)
     $html .= $n.'="'.$v.'" ';
 
-  // Build the paramters for the thumb.php script
-  $img_params = '/thumb.php?src='.rawurlencode($filename).'&x='.convert_x($x).'&y='.convert_y($y);
+  // Build the paramters for the thumb.php script. Also set the onFocusSrc attribute if an image is provided.
+  if (is_array($filename))
+  {
+    $img_params = '/thumb.php?src='.rawurlencode($filename[0]).'&x='.convert_x($x).'&y='.convert_y($y);
+    if (!empty($filename[1]))
+      $focus_attr = 'onfocussrc="/thumb.php?src='.rawurlencode($filename[1]).'&x='.convert_x($x).'&y='.convert_y($y).'"';
+    else
+      $focus_attr = '';
+  }
+  else
+  {
+    $img_params = '/thumb.php?src='.rawurlencode($filename).'&x='.convert_x($x).'&y='.convert_y($y);
+    $focus_attr = '';
+  }
 
   if ($type !== false)
     $img_params .='&type='.$type;
@@ -210,7 +222,7 @@ function img_gen( $filename, $x, $y, $type = false, $stretch = false, $rs_mode =
     return '<img '.$html.' style="'.$filter.'" width="'.convert_x($x).'" height="'.convert_y($y).'" src="/images/dot.gif" border=0>';
   }
   else
-    return '<img '.$html.' width="'.convert_x($x).'" height="'.convert_y($y).'" src="'.$img_params.'" border=0>';
+    return '<img '.$html.' width="'.convert_x($x).'" height="'.convert_y($y).'" src="'.$img_params.'" '.$focus_attr.' border=0>';
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -253,10 +265,13 @@ function page_footer( $back, $buttons= '', $iconbar = 0, $links=true )
         if (substr($link,0,5) != 'href=')
           $link = 'href="'.$link.'"';
 
-        $link = '<a '.$link.tvid('KEY_'.substr('ABC',$i,1)).'name="'.tvid_code('KEY_'.substr('ABC',$i,1)).'">'.img_gen(SC_LOCATION.style_img(quick_access_img($i)),50,60).font_tags(32).$buttons[$i]["text"].'</a>';
+        $link = '<a '.$link.tvid('KEY_'.substr('ABC',$i,1)).'name="'.tvid_code('KEY_'.substr('ABC',$i,1)).'">'.
+                img_gen(SC_LOCATION.style_img(quick_access_img($i)),45,54,false,false,false,array("align" => "absmiddle")).
+                font_tags(32).$buttons[$i]["text"].'</a>';
       }
       else
-        $link = img_gen(SC_LOCATION.style_img(quick_access_img($i)),50,60).font_tags(32).$buttons[$i]["text"];
+        $link = img_gen(SC_LOCATION.style_img(quick_access_img($i)),45,54,false,false,false,array("align" => "absmiddle")).
+                font_tags(32).$buttons[$i]["text"];
 
       echo '<td align="center">'.$link.'</td>';
     }
