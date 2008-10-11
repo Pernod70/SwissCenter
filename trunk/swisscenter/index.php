@@ -29,10 +29,10 @@
      * Dertermine whether images are defined for this style.
      */
     
-    $image_menu = style_img_exists('MENU_INTERNET_RADIO') && style_img_exists('MENU_INTERNET_BROWSE') && style_img_exists('MENU_INTERNET_RSS') &&
-                  style_img_exists('MENU_INTERNET_WEATHER');
+    $image_menu = style_value('MENU_INTERNET_RADIO',false) && style_value('MENU_INTERNET_BROWSE',false) && style_value('MENU_INTERNET_RSS',false) &&
+                  style_value('MENU_INTERNET_FLICKR',false) && style_value('MENU_INTERNET_WEATHER',false);
     
-    page_header( str('INTERNET_SERVICES'),'','',1,false,style_value("PAGE_FOCUS_IMAGES"),'PAGE_INTERNET');
+    page_header( str('INTERNET_SERVICES'),'','',1,false,'','PAGE_INTERNET');
 
     /**
      * Menu Items
@@ -122,9 +122,9 @@
      * Dertermine whether images are defined for this style.
      */
     
-    $image_menu = style_img_exists('MENU_INDEX_VIDEO') && style_img_exists('MENU_INDEX_TV') && style_img_exists('MENU_INDEX_MUSIC') &&
-                  style_img_exists('MENU_INDEX_PHOTO') && style_img_exists('MENU_INDEX_INTERNET') && style_img_exists('MENU_INDEX_PLAYLIST') && 
-                  style_img_exists('MENU_INDEX_CONFIG');
+    $image_menu = style_value('MENU_INDEX_VIDEO',false) && style_value('MENU_INDEX_TV',false) && style_value('MENU_INDEX_MUSIC',false) &&
+                  style_value('MENU_INDEX_PHOTO',false) && style_value('MENU_INDEX_INTERNET',false) && style_value('MENU_INDEX_PLAYLIST',false) && 
+                  style_value('MENU_INDEX_CONFIG',false);
 
     /**
      * Output the page header immediately, as it performs the authentication check and will redirect
@@ -133,7 +133,7 @@
      * If an image menu and there are any missing onFocus images then use FocusColor.
      */
 
-    page_header( str('MAIN_MENU'),'','',1,false,style_value("PAGE_FOCUS_IMAGES"),'PAGE_INDEX');
+    page_header( str('MAIN_MENU'),'','',1,false,'','PAGE_INDEX');
 
     /**
      * Menu Items
