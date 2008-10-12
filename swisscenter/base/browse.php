@@ -21,7 +21,7 @@
   function items_per_page()
   {
     if ( get_user_pref("DISPLAY_THUMBS") == "COMPACT" )
-      return 18;
+      return 12;
     else 
       return 8;    
   }
@@ -69,12 +69,12 @@
   function display_iradio ($url, $stations, $page=0)
   {
     $menu      = new menu();
-    $no_items  = items_per_page();
+    $no_items  = MAX_PER_PAGE;
     $start     = $page * ($no_items);
     $end       = min(count($stations), $start+$no_items);
-    $last_page = ceil(count($stations)/items_per_page())-1;
+    $last_page = ceil(count($stations)/MAX_PER_PAGE)-1;
 
-    if (count($stations) > items_per_page())
+    if (count($stations) > MAX_PER_PAGE)
     {
       $menu->add_up( url_add_param($url,'page',($page > 0 ? ($page-1) : $last_page)) );
       $menu->add_down( url_add_param($url,'page',($page < $last_page ? ($page+1) : 0)) );
@@ -96,12 +96,12 @@
   function display_rss ($url, $rss_feeds, $page=0)
   {
     $menu      = new menu();
-    $no_items  = items_per_page();
+    $no_items  = MAX_PER_PAGE;
     $start     = $page * ($no_items);
     $end       = min(count($rss_feeds), $start+$no_items);
-    $last_page = ceil(count($rss_feeds)/items_per_page())-1;
+    $last_page = ceil(count($rss_feeds)/MAX_PER_PAGE)-1;
 
-    if (count($rss_feeds) > items_per_page())
+    if (count($rss_feeds) > MAX_PER_PAGE)
     {
       $menu->add_up( url_add_param($url,'page',($page > 0 ? ($page-1) : $last_page)) );
       $menu->add_down( url_add_param($url,'page',($page < $last_page ? ($page+1) : 0)) );
@@ -132,12 +132,12 @@
   function browse_array ($url, $array, $page, $media_type=0)
   {
     $menu      = new menu();
-    $no_items  = items_per_page();
+    $no_items  = MAX_PER_PAGE;
     $start     = $page * ($no_items);
     $end       = min(count($array), $start+$no_items);
-    $last_page = ceil(count($array)/items_per_page())-1;
+    $last_page = ceil(count($array)/MAX_PER_PAGE)-1;
 
-    if (count($array) > items_per_page())
+    if (count($array) > MAX_PER_PAGE)
     {
       $menu->add_up( url_add_param($url,'page',($page > 0 ? ($page-1) : $last_page)) );
       $menu->add_down( url_add_param($url,'page',($page < $last_page ? ($page+1) : 0)) );
@@ -253,7 +253,7 @@
       if ($i < count($dir_list))
       {
         // Output a link to call this page again, but passing in the selected directory.
-        $menu->add_item($dir_list[$i]["filename"], url_add_param($url,'DIR',rawurlencode($dir.$dir_list[$i]["filename"].'/')), true);
+        $menu->add_item($dir_list[$i]["filename"], url_add_param(url_remove_param($url,'page'),'DIR',rawurlencode($dir.$dir_list[$i]["filename"].'/')), true);
       }
       else
       {
@@ -261,7 +261,7 @@
         $details   = $file_list[$i-count($dir_list)];  
         $viewed    = viewed_icon(viewings_count( $media_type, $details["dirname"].$details["filename"]));
         $link_url  = output_link( $details["dirname"].$details["filename"]);
-        $menu->add_item( ucwords(file_noext($details["filename"])) , $link_url, false, $viewed );
+        $menu->add_item( ucwords(file_noext($details["filename"])) , url_set_param($link_url,'add','Y'), false, $viewed );
       }
     }
     
@@ -313,7 +313,7 @@
     if ( get_user_pref("DISPLAY_THUMBS") == "COMPACT" )
     {
       $tlist->set_num_cols(6);
-      $tlist->set_num_rows(3);
+      $tlist->set_num_rows(2);
       $tlist->set_titles_off();
     }
 
@@ -329,7 +329,7 @@
       {
         // Directory Icon or thumbnail for the directory if one exists
         $image = file_thumbnail($dir_list[$i]["dirname"].$dir_list[$i]["filename"]);
-        $tlist->add_item($image, $dir_list[$i]["filename"], url_add_param($url,'DIR',rawurlencode($dir.$dir_list[$i]["filename"].'/')) );
+        $tlist->add_item($image, $dir_list[$i]["filename"], url_add_param(url_remove_param($url,'page'),'DIR',rawurlencode($dir.$dir_list[$i]["filename"].'/')) );
       }
       else
       {
@@ -342,7 +342,7 @@
           $viewed = '';
           
         $link_url = output_link( $details["dirname"].$details["filename"] );        
-        $tlist->add_item( file_thumbnail($details["dirname"].$details["filename"]) , file_noext($details["filename"]) , $link_url , $viewed);
+        $tlist->add_item( file_thumbnail($details["dirname"].$details["filename"]) , str_replace('.',' ',file_noext($details["filename"])) , url_set_param($link_url,'add','Y'), $viewed);
       }
     }
 
@@ -373,7 +373,7 @@
     $_SESSION["shuffle"] = get_user_pref('shuffle','off');
   
     // Page settings
-    $url         = url_remove_param(current_url(),'thumbs');
+    $url         = url_remove_params(current_url(),array('page','thumbs'));
     $page        = ( !isset($_REQUEST["page"]) ? 0 : $_REQUEST["page"]);
     $dir         = ( empty($_REQUEST["DIR"]) ? '' : un_magic_quote(rawurldecode($_REQUEST["DIR"])));
     $buttons     = array();
@@ -383,29 +383,29 @@
     {
       page_header( $heading, substr($dir,0,-1),'',1,false,'','PAGE_KEYBOARD');
       display_thumbs ($url, $dir, $dir_list, $file_list, $page, $media_type);
-      $buttons[] = array('text'=>str('COMPACT_VIEW'), 'url'=>url_add_params($url, array('thumbs'=>'COMPACT','DIR'=>rawurlencode($dir))) );
+      $buttons[] = array('text'=>str('COMPACT_VIEW'), 'url'=>url_add_params($url, array('page'=>floor($page/1.5),'thumbs'=>'COMPACT','DIR'=>rawurlencode($dir))) );
     }
     elseif ( get_user_pref("DISPLAY_THUMBS") == "COMPACT" )
     {
       page_header( $heading, substr($dir,0,-1),'',1,false,style_value("PAGE_FOCUS_IMAGES"));
       display_thumbs ($url, $dir, $dir_list, $file_list, $page, $media_type);
-      $buttons[] = array('text'=>str('LIST_VIEW'), 'url'=>url_add_params($url, array('thumbs'=>'NO','DIR'=>rawurlencode($dir))) );
+      $buttons[] = array('text'=>str('LIST_VIEW'), 'url'=>url_add_params($url, array('page'=>floor($page*1.5),'thumbs'=>'NO','DIR'=>rawurlencode($dir))) );
     }
     else
     {
       page_header( $heading, substr($dir,0,-1),'',1,false,'',$media_type);
       display_names ($url, $dir, $dir_list, $file_list, $page, $media_type);
-      $buttons[] = array('text'=>str('THUMBNAIL_VIEW'), 'url'=>url_add_params($url, array('thumbs'=>'FULL','DIR'=>rawurlencode($dir))) );
+      $buttons[] = array('text'=>str('THUMBNAIL_VIEW'), 'url'=>url_add_params($url, array('page'=>$page,'thumbs'=>'FULL','DIR'=>rawurlencode($dir))) );
     }
     
     // Output some links to allow the user to jump though all pages returned using the keys "1" to "9" on the
     // remote control. Note: "1" jumps to the first page, and "9" to the last.
     for ($ir_key =0; $ir_key<10; $ir_key++ )      
-      echo '<a href="'.$url.'?page='.floor(($ir_key-1)*(($total_pages-1)/8)).'&DIR='.rawurlencode($dir).'" '.tvid($ir_key).'></a>';
+      echo '<a href="'.$url.'?page='.floor(($ir_key-1)*(($total_pages-1)/items_per_page())).'&DIR='.rawurlencode($dir).'" '.tvid($ir_key).'></a>';
       
     // Should we present a link to select all files?
     if ($media_type > 0 && !in_array($media_type, array(MEDIA_TYPE_WEB, MEDIA_TYPE_RADIO)))
-      $buttons[] = array('text'=>str('SELECT_ALL'), 'url'=>  output_link( '%/'.$dir) );
+      $buttons[] = array('text'=>str('SELECT_ALL'), 'url'=>  url_set_param(output_link( '%/'.$dir),'add','Y') );
       
     // Link to scan/refresh the directory
       $buttons[] = array('text'=>str('REFRESH_DIR_BUTTON'), 'url' => '/media_dir_refresh.php?media_type='.$media_type.'&dir='.urlencode($dir).'&return_url='.urlencode(current_url()) );

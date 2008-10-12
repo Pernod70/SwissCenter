@@ -77,7 +77,7 @@
   $n_per_page    = 8;
   $start         = $page * ($n_per_page);
   $end           = min( count($styles), $start+$n_per_page);
-  $tlist         = new thumb_list(550);
+  $tlist         = new thumb_list();
   
   if (count($styles) == 0)
   {
