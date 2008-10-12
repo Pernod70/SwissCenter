@@ -25,8 +25,8 @@ require_once( realpath(dirname(__FILE__).'/language.php'));
   define('MEDIA_TYPE_WEB',5);
   define('MEDIA_TYPE_TV',6);
   
-  define('THUMBNAIL_X_SIZE',130);
-  define('THUMBNAIL_Y_SIZE',160);
+  define('THUMBNAIL_X_SIZE',140);
+  define('THUMBNAIL_Y_SIZE',210);
   
 #-------------------------------------------------------------------------------------------------
 # Determine the location of the SwissCenter installation.
