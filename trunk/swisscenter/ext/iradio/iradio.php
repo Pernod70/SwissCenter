@@ -194,6 +194,42 @@ class iradio {
   }
 
 # ------------------------------------------------------------[ Structures ]---
+  /** Read the list of broadcasters
+   * @class iradio
+   * @method read_broadcasters
+   * @param optional string filename
+   * @return boolean success
+   */
+  function read_broadcasters($filename="") {
+    if (empty($filename)) $filename = dirname(__FILE__)."/broadcasters.txt";
+    if (!file_exists($filename)) return FALSE;
+    send_to_log(6,"IRadio: Reading broadcaster list from \"$filename\"");
+    $list = file($filename);
+    $lc = count($list);
+    $errors = 0;
+    for ($i=0;$i<$lc;++$i) {
+      $line = trim($list[$i]);
+      if (!strlen($line)) continue; // skip empty lines
+      if (substr($line,0,1)=="#") continue; // skip comments
+      $this->broadcasters[] = $line;
+    }
+    send_to_log(6,"IRadio: ".count($this->broadcasters)." broadcasters read");
+  }
+
+  /** Retrieve the broadcaster list
+   * @class iradio
+   * @method get_broadcasters
+   * @return array broadcasters
+   */
+  function get_broadcasters() {
+    if (empty($this->broadcasters)) {
+      $this->read_broadcasters();
+      sort($this->broadcasters);
+    }
+    send_to_log(6,"IRadio: Broadcaster list was requested - sending it.");
+    return $this->broadcasters;
+  }
+  
   /** Read the list of countries
    * @class iradio
    * @method read_countries
@@ -371,7 +407,7 @@ class iradio {
    */
   function openpage($url) {
     send_to_log(6,"IRadio: Retrieving content from radio site ($url)");
-    $this->page = file_get_contents($url);
+    $this->page = @file_get_contents($url);
     return TRUE;
   }
 
