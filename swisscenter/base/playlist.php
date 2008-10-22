@@ -243,7 +243,7 @@ function play_file( $media_type, $file_id )
 
 function play_internet_radio( $playlist_url, $station_name )
 {
-  return 'href="'.$playlist_url.'" pod="1,1,'.server_address().'music_radio_image.php?'.current_session().'&list=&station='.urlencode($station_name).'"';
+  return 'href="'.$playlist_url.'" pod="'.stream_pod_type().',1,'.server_address().'music_radio_image.php?'.current_session().'&list=&station='.urlencode($station_name).'&playlist='.urlencode($playlist_url).'"';
 }
 
 //-------------------------------------------------------------------------------------------------

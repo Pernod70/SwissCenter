@@ -377,6 +377,25 @@ function now_playing_sync_type()
 }
 
 #-------------------------------------------------------------------------------------------------
+# Returns the POD (Picture On Demand) parameter to pass to the hardware player that controls how
+# an audio stream with images will be synchronized together.
+#-------------------------------------------------------------------------------------------------
+
+function stream_pod_type()
+{
+  $result = 1;  // Default values for players unless we discover otherwise.
+
+  switch ( get_player_type() )
+  {
+    case 'POPCORN':
+         $result = 2;
+         break;
+  }
+
+  return $result;
+}
+
+#-------------------------------------------------------------------------------------------------
 # The transition effect to use between "Now Playing" screens.
 #
 # Available effects are:

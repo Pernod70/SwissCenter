@@ -82,7 +82,7 @@
   // Outputs a "Now playing this station" screen for internet radio.
   //------------------------------------------------------------------------------------------------
 
-  function station_playing_image( $station_name )
+  function station_playing_image( $station_name, $now_playing )
   {
     $title_text_size  = font_size( 24, SCREEN_COORDS);
     $title_text_col   = hexdec(style_value('RADIO_TITLE_COLOUR','#000000'));
@@ -93,6 +93,8 @@
     $image->load_from_file( style_img('RADIO_BACKGROUND',true));
     $image->resize( convert_x(1000,SCREEN_COORDS), convert_y(1000,SCREEN_COORDS), 0, false);    
     wrap( $image,$station_name, $title_x, $title_y, convert_x(500,SCREEN_COORDS), $title_text_col, $title_text_size);
+    $title_y+=($title_text_size*2.5);
+    wrap( $image,$now_playing, $title_x, $title_y, convert_x(500,SCREEN_COORDS), $title_text_col, $title_text_size);
     return $image;    
   }
   
