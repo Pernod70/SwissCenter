@@ -183,6 +183,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>BROWSE_BROADCASTER</id>
+        <text>Selecteer een radiostation</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>BROWSE_CERTIFICATE</id>
         <text>Zoek op kijkwijzer leeftijd</text>
         <version>1.19</version>
@@ -1418,6 +1423,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_BROADCASTER_SELECT</id>
+        <text>Selecteer een radiostation</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>IRADIO_CACHE_EXPIRE</id>
         <text>Buffer timeout</text>
         <version>1.19</version>
@@ -1581,6 +1591,46 @@
         <id>LANG_ERROR_NO_SELECT</id>
         <text>U heeft geen vertaling geselecteerd die moet worden verwijderd.</text>
         <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_ISO639</id>
+        <text>ISO 639-1 code</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LANG_NATIVE</id>
+        <text>Moedertaal</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LANG_NEW</id>
+        <text>Voeg een nieuwe taal toe</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LANG_NEW_BUTTON</id>
+        <text>Creëer een nieuwe taal</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LANG_NEW_EXISTS</id>
+        <text>De taal bestaat al</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LANG_NEW_FAIL</id>
+        <text>Om een taal toe te voegen moeten zowel de moedertaal als de bijbehorende ISO code worden ingevoerd.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LANG_NEW_OK</id>
+        <text>De nieuwe taal is toegevoegd</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LANG_NEW_PROMPT</id>
+        <text>Om een nieuwe taal toe te voegen, moeten de moedertaal en bijbehorende landcode worden opgegeven. Hierbij moet de moedertaal worden genoemd, bv. Español i.p.v. Spanish. De bijbehorende %s code is &quot;es&quot;. Ook kan binnen een taal onderscheid gemaakt worden naar land. Een voorbeeld hiervan is &quot;en-us&quot; voor VS Engels; de code bestaat dan uit de ISO 639-1 code (&quot;en&quot;) en het %s regionale sublabel (&quot;us&quot;).</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>LANG_PROMPT</id>
@@ -1793,6 +1843,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MAX_PLAYLIST_SIZE</id>
+        <text>Maximale grootte afspeellijst</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>MAX_PLAYLIST_SIZE_PROMPT</id>
+        <text>Voer de maximale grootte van een afspeellijst in. Het maximum ligt op 2000 wegens beperkingen van de speler. Een redelijk maximum is ongeveer 200.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>MEDIA_DELETED</id>
         <text>Media verwijderd</text>
         <version>1.19</version>
@@ -1943,9 +2003,39 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MEDIA_TYPE_MUSIC</id>
+        <text>Audio</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_PHOTO</id>
+        <text>Foto</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>MEDIA_TYPE_PROMPT</id>
         <text>Selecteer het mediatype waarnaar op deze locatie moet worden gezocht.</text>
         <version>1.21</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_RADIO</id>
+        <text>Radio</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_TV SERIES</id>
+        <text>TV series</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_VIDEO</id>
+        <text>Video</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_WEB</id>
+        <text>Web</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>MESSAGES</id>
@@ -2173,6 +2263,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MORE</id>
+        <text>[meer]</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>MOVIE_ADD_BUTTON</id>
         <text>Details toevoegen/wijzigen</text>
         <version>1.19</version>
@@ -2271,6 +2366,11 @@
         <id>NETWORK_SHARE</id>
         <text>Gedeelde netwerklocatie</text>
         <version>1.21</version>
+      </string>
+      <string>
+        <id>NETWORK_SHARE_MSG</id>
+        <text>Kan geen gedeelde netwerkmappen vinden. Beschikt u over een NMT speler, dan moet deze aangezet worden.</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>NETWORK_SHARE_PROMPT</id>
@@ -2726,6 +2826,11 @@
         <id>PLAYLISTS_ERROR_PATH</id>
         <text>Geef de volledige padnaam op voor map</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLISTS_ERROR_SIZE</id>
+        <text>Voer een geldig maximum in. Het maximum van een afspeellijst moet miminaal 10 en mag maximaal 2000 groot zijn.</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>PLAYLIST_APPEND</id>
