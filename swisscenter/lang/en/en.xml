@@ -183,6 +183,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>BROWSE_BROADCASTER</id>
+        <text>Browse by broadcaster</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>BROWSE_CERTIFICATE</id>
         <text>Browse by max certificate</text>
         <version>1.19</version>
@@ -1401,6 +1406,11 @@
         <id>IPTC_SUPPCATEGORY</id>
         <text>Supplementary Categories</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_BROADCASTER_SELECT</id>
+        <text>Select the Broadcaster to search for:</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>IRADIO_CACHE_EXPIRE</id>
