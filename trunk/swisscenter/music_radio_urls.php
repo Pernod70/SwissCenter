@@ -13,7 +13,7 @@
     $contents= file_get_contents($file);
     preg_match('/\bURL=.*\n?/',$contents,$matches);
     $url = substr($matches[0],4);
-    return play_internet_radio($url, file_noext($url));
+    return play_internet_radio($url, file_noext($file));
   }
 
   browse_fs( str('LISTEN_RADIO')
