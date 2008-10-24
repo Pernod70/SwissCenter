@@ -1135,10 +1135,10 @@ function process_media_directory( $dir, $id, $share, $table, $file_exts, $recurs
 {
   // Standard files to ignore (lowercase only - case insensitive match).
   $files_to_ignore = array( 'video_ts.vob' );
-  $dirs_to_ignore  = array( '.' , '..' );  
-  
+  $dirs_to_ignore  = array( '.' , '..' );
+
   send_to_log(4,'Scanning : '.$dir);
-  
+
   // Mark all the files in this directory as unverified
   db_sqlcommand("update $table set verified ='N' where dirname like'".db_escape_str($dir)."%'");
 
@@ -1146,6 +1146,15 @@ function process_media_directory( $dir, $id, $share, $table, $file_exts, $recurs
   {
     while (($file = readdir($dh)) !== false)
     {
+      // Determine whether file should be ignored
+      if ( in_array(strtolower($file),$files_to_ignore) || !in_array(file_ext($file),$file_exts) || preg_match('/vts_[0-9]*_[0-9]*.ifo/i', basename($file))==1 )
+        $ignore_file = true;
+      // Do not include DVD images if no Network Share is defined. VOB's are ignored if a Network Share is defined, they will be played with IFO.
+      elseif ( $table == 'movies' && ( (empty($share) && in_array(file_ext($file), media_exts_dvd())) || (!empty($share) && file_ext($file)=='vob') ) )
+        $ignore_file = true;
+      else
+        $ignore_file = false;
+
       if (@is_dir($dir.$file))
       {
         // Regular directory
@@ -1158,20 +1167,16 @@ function process_media_directory( $dir, $id, $share, $table, $file_exts, $recurs
             process_media_directory( $dir.$file.'/', $id, $share, $table, $file_exts, $recurse, $update);
         }
       }
-      elseif ( !in_array(strtolower($file),$files_to_ignore) && in_array(strtolower(file_ext($file)),$file_exts) && preg_match('/vts_[0-9]*_[0-9]*.ifo/i', basename($file)) == 0 )
+      elseif ( !$ignore_file )
       {
         if ( file_newer_than_db( $table, $id, $dir, $file ) || $update )
         {
           switch ($table)
           {
-            case 'mp3s'   : process_mp3   ( $dir, $id, $file);  break;
-            case 'movies' :
-              // Do not include VOB's if a Network Share is defined for this location, they will be included with IFO.
-              if ( empty($share) && !(file_ext($file)=='vob') )
-                process_movie ( $dir, $id, $file );
-              break;
-            case 'photos' : process_photo ( $dir, $id, $file);  break;
-            case 'tv'     : process_tv    ( $dir, $id, $file);  break;
+            case 'mp3s'   : process_mp3   ( $dir, $id, $file ); break;
+            case 'movies' : process_movie ( $dir, $id, $file ); break;
+            case 'photos' : process_photo ( $dir, $id, $file ); break;
+            case 'tv'     : process_tv    ( $dir, $id, $file ); break;
           }
         }
       }
