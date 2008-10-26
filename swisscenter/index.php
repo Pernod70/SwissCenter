@@ -24,15 +24,14 @@
    * Display the Internet Services submenu
    */
   function display_internet_menu()
-  {
+  { 
+    page_header( str('INTERNET_SERVICES'),'','',1,false,'','PAGE_INTERNET');
+
     /**
      * Dertermine whether images are defined for this style.
      */
-    
     $image_menu = style_value('MENU_INTERNET_RADIO',false) && style_value('MENU_INTERNET_BROWSE',false) && style_value('MENU_INTERNET_RSS',false) &&
                   style_value('MENU_INTERNET_FLICKR',false) && style_value('MENU_INTERNET_WEATHER',false);
-    
-    page_header( str('INTERNET_SERVICES'),'','',1,false,'','PAGE_INTERNET');
 
     /**
      * Menu Items
@@ -60,9 +59,9 @@
     // Only display the RSS options if an internet connection is active, the user has enabled RSS support and has defined some subscriptions.
 //    if (internet_available() && get_sys_pref('flickr_enabled','YES') == 'YES' )
 //      if ($image_menu)
-//        $menu->add_image_item(str('FLICKR_PHOTOS'),style_img('MENU_INTERNET_FLICKR',true),style_img('MENU_INTERNET_FLICKR_ON',true,false),'photo_flickr.php');
+//        $menu->add_image_item(str('FLICKR_PHOTOS'),style_img('MENU_INTERNET_FLICKR',true),style_img('MENU_INTERNET_FLICKR_ON',true,false),'flickr_menu.php');
 //      else
-//        $menu->add_item( str('FLICKR_PHOTOS') ,'photo_flickr.php',true);
+//        $menu->add_item( str('FLICKR_PHOTOS') ,'flickr_menu.php',true);
 
     // Only display the RSS options if an internet connection is active, the user has enabled RSS support and has defined some subscriptions.
     if (internet_available() && get_sys_pref('rss_enabled','YES') == 'YES' && db_value("select 'YES' from rss_subscriptions limit 1") == 'YES')
@@ -119,14 +118,6 @@
     }
 
     /**
-     * Dertermine whether images are defined for this style.
-     */
-    
-    $image_menu = style_value('MENU_INDEX_VIDEO',false) && style_value('MENU_INDEX_TV',false) && style_value('MENU_INDEX_MUSIC',false) &&
-                  style_value('MENU_INDEX_PHOTO',false) && style_value('MENU_INDEX_INTERNET',false) && style_value('MENU_INDEX_PLAYLIST',false) && 
-                  style_value('MENU_INDEX_CONFIG',false);
-
-    /**
      * Output the page header immediately, as it performs the authentication check and will redirect
      * the user to the "change_user" screen if there are multiple users to choose from or a password
      * is required.
@@ -134,6 +125,13 @@
      */
 
     page_header( str('MAIN_MENU'),'','',1,false,'','PAGE_INDEX');
+
+    /**
+     * Dertermine whether images are defined for this style.
+     */
+    $image_menu = style_value('MENU_INDEX_VIDEO',false) && style_value('MENU_INDEX_TV',false) && style_value('MENU_INDEX_MUSIC',false) &&
+                  style_value('MENU_INDEX_PHOTO',false) && style_value('MENU_INDEX_INTERNET',false) && style_value('MENU_INDEX_PLAYLIST',false) && 
+                  style_value('MENU_INDEX_CONFIG',false);
 
     /**
      * Menu Items
