@@ -16,9 +16,9 @@ function run_background ( $url )
   send_to_log(4,'Executing (via wget) URL in the background: '.$url);
 
   if ( is_windows() )
-    system('"'.bgrun_location().'" "'.wget_location().'" -O :null '.server_address().$url);      
+    system('"'.bgrun_location().'" "'.wget_location().'" -T 0 -O :null '.server_address().$url);      
   elseif ( is_unix() )
-    system('"'.wget_location().'" -O /dev/null '.server_address().$url.' &');      
+    system('"'.wget_location().'" -T 0 -O /dev/null '.server_address().$url.' &');      
   else 
     send_to_log(1,'Unable to determine which type of underlying OS we are running on.');
 }

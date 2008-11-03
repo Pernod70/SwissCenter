@@ -258,7 +258,7 @@
       if (count($days)>0)
       {
         // Create an "at" job to run at the specified time on the specified days
-        exec ("at $hrs:$mins /every:".implode(',',$days).' CMD /C "'.wget_location().'" -O :null '.server_address().'media_search.php');
+        exec ("at $hrs:$mins /every:".implode(',',$days).' CMD /C "'.wget_location().'" -T 0 -O :null '.server_address().'media_search.php');
         sched_display(str('SCHEDULE_UPDATED'));        
       }
       else
@@ -324,7 +324,7 @@
     {
       // Find and replace old crontab entry
       syscall('crontab -l | grep -v "'.SC_LOCATION.'media_search.php" | grep -v "^#" > /tmp/swisscron');
-      syscall("echo '$mins $hrs $dates $months $days ".'"'.wget_location().'" -O /dev/null "'.server_address().'media_search.php"\' >> /tmp/swisscron');
+      syscall("echo '$mins $hrs $dates $months $days ".'"'.wget_location().'" -T 0 -O /dev/null "'.server_address().'media_search.php"\' >> /tmp/swisscron');
       syscall("crontab /tmp/swisscron");
 
       // Was it successfully added?
