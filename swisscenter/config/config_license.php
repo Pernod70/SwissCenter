@@ -9,7 +9,7 @@
 
   function license_display()
   {
-    $text = file_get_contents(SC_LOCATION.'license.txt');
+    $text = file_get_contents(SC_LOCATION.'License.txt');
     echo '<p>'.$text;
   }
   
