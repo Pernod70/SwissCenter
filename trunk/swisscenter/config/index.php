@@ -77,7 +77,6 @@
       $menu->add_menu(str('CONFIGURATION'));
   	  $menu->add_item(str('CATEGORIES')             ,'section=CATEGORY&action=DISPLAY');
   	  $menu->add_item(str('MEDIA_LOCATIONS')        ,'section=DIRS&action=DISPLAY');
-  	  $menu->add_item(str('RSS_FEEDS')              ,'section=RSS&action=DISPLAY');
   	  $menu->add_item(str('USERS_ADD_TITLE')        ,'section=USERS&action=DISPLAY');
   	  $menu->add_item(str('SCHEDULE_TITLE')         ,'section=SCHED&action=DISPLAY');
   	  $menu->add_item(str('IMPEXP_TITLE')           ,'section=IMPEXP&action=DISPLAY');
@@ -86,17 +85,21 @@
   	  $menu->add_item(str('CONFIG_AUDIO_OPTIONS')   ,'section=AUDIO&action=DISPLAY');
   	  $menu->add_item(str('CONFIG_IMAGE_OPTIONS')   ,'section=IMAGE&action=DISPLAY');
   	  $menu->add_item(str('PLAYLISTS')              ,'section=PLAYLISTS&action=DISPLAY');
-  	  $menu->add_item(str('CONFIG_RADIO_OPTIONS')   ,'section=RADIO&action=DISPLAY');
   	  $menu->add_item(str('MOVIE_OPTIONS')          ,'section=MOVIE&action=INFO');
   	  $menu->add_item(str('ORG_TITLE')              ,'section=MOVIE&action=DISPLAY');
   	  $menu->add_item(str('TV_OPTIONS')             ,'section=TV&action=INFO');
   	  $menu->add_item(str('TV_DETAILS')             ,'section=TV&action=DISPLAY');
   	  $menu->add_item(str('MEDIA_REFRESH')          ,'section=MEDIA&action=REFRESH');
 
+  	  $menu->add_menu(str('INTERNET_FEATURES'));
+  	  $menu->add_item(str('CONNECT_TITLE')          ,'section=CONNECT&action=DISPLAY');
+  	  $menu->add_item(str('CONFIG_RADIO_OPTIONS')   ,'section=RADIO&action=DISPLAY');
+  	  $menu->add_item(str('CONFIG_LASTFM_TITLE')    ,'section=LASTFM&action=DISPLAY');
+  	  $menu->add_item(str('RSS_FEEDS')              ,'section=RSS&action=DISPLAY');
+  	  
       $menu->add_menu(str('ADVANCED_OPTIONS'));
   	  $menu->add_item(str('ART_FILES_TITLE')        ,'section=ART&action=DISPLAY');
   	  $menu->add_item(str('BROWSE_OPTIONS')         ,'section=BROWSE&action=DISPLAY');
-	    $menu->add_item(str('CONNECT_TITLE')          ,'section=CONNECT&action=DISPLAY');
 	    $menu->add_item(str('CACHE_CONFIG_TITLE')     ,'section=CACHE&action=DISPLAY');
   	  $menu->add_item(str('MISC_TITLE')             ,'section=MISC&action=DISPLAY');
 
