@@ -49,9 +49,8 @@ class iradio {
     $this->cache_expire = 3600; // 3600=1h
     // limit result list
     $this->numresults = 24; // shoutcast: 25/30/50/100
-    // setup genres from ./genres.txt
+    // setup genres
     $this->read_genres();
-    $this->sort_genres();
     // file naming for cache
     if (substr(php_uname(), 0, 7) == "Windows") {
       $this->os_slash = "\\";
@@ -194,62 +193,18 @@ class iradio {
   }
 
 # ------------------------------------------------------------[ Structures ]---
-  /** Read the list of broadcasters
+  /** Retrieve the station list
    * @class iradio
-   * @method read_broadcasters
-   * @param optional string filename
-   * @return boolean success
+   * @method get_stations
+   * @return array stations
    */
-  function read_broadcasters($filename="") {
-    if (empty($filename)) $filename = dirname(__FILE__)."/broadcasters.txt";
-    if (!file_exists($filename)) return FALSE;
-    send_to_log(6,"IRadio: Reading broadcaster list from \"$filename\"");
-    $list = file($filename);
-    $lc = count($list);
-    $errors = 0;
-    for ($i=0;$i<$lc;++$i) {
-      $line = trim($list[$i]);
-      if (!strlen($line)) continue; // skip empty lines
-      if (substr($line,0,1)=="#") continue; // skip comments
-      $this->broadcasters[] = $line;
+  function get_stations() {
+    if (empty($this->stations)) {
+      $this->stations = db_col_to_list("select station from iradio_stations order by 1");
+      send_to_log(6,"IRadio: ".count($this->stations)." stations read");
     }
-    send_to_log(6,"IRadio: ".count($this->broadcasters)." broadcasters read");
-  }
-
-  /** Retrieve the broadcaster list
-   * @class iradio
-   * @method get_broadcasters
-   * @return array broadcasters
-   */
-  function get_broadcasters() {
-    if (empty($this->broadcasters)) {
-      $this->read_broadcasters();
-      sort($this->broadcasters);
-    }
-    send_to_log(6,"IRadio: Broadcaster list was requested - sending it.");
-    return $this->broadcasters;
-  }
-  
-  /** Read the list of countries
-   * @class iradio
-   * @method read_countries
-   * @param optional string filename
-   * @return boolean success
-   */
-  function read_countries($filename="") {
-    if (empty($filename)) $filename = dirname(__FILE__)."/countries.txt";
-    if (!file_exists($filename)) return FALSE;
-    send_to_log(6,"IRadio: Reading country list from \"$filename\"");
-    $list = file($filename);
-    $lc = count($list);
-    $errors = 0;
-    for ($i=0;$i<$lc;++$i) {
-      $line = trim($list[$i]);
-      if (!strlen($line)) continue; // skip empty lines
-      if (substr($line,0,1)=="#") continue; // skip comments
-      $this->countries[] = $line;
-    }
-    send_to_log(6,"IRadio: ".count($this->countries)." countries read");
+    send_to_log(6,"IRadio: Station list was requested - sending it.");
+    return $this->stations;
   }
 
   /** Retrieve the country list
@@ -259,8 +214,8 @@ class iradio {
    */
   function get_countries() {
     if (empty($this->countries)) {
-      $this->read_countries();
-      sort($this->countries);
+      $this->countries = db_col_to_list("select country from iradio_countries order by 1");
+      send_to_log(6,"IRadio: ".count($this->countries)." countries read");
     }
     send_to_log(6,"IRadio: Country list was requested - sending it.");
     return $this->countries;
@@ -276,45 +231,18 @@ class iradio {
    */
   function add_genre ($main,$sub,$comment="") {
     $this->genre[$main][$sub] = $comment;
-    send_to_log(8,"IRadio: Adding $sub to main genre $main");
     return TRUE;
   }
 
   /** Read genres from file
    * @class iradio
    * @method read_genres
-   * @param optional string filename
    * @return boolean success
    */
-  function read_genres ($filename="") {
-    if (empty($filename)) $filename = dirname(__FILE__)."/genres.txt";
-    if (!file_exists($filename)) return FALSE;
-    send_to_log(6,"IRadio: Reading genres from \"$filename\"");
-    $list = file($filename);
-    $lc = count($list);
-    $errors = 0;
-    for ($i=0;$i<$lc;++$i) {
-      $line = trim($list[$i]);
-      if (!strlen($line)) continue; // skip empty lines
-      if (substr($line,0,1)=="#") continue; // skip comments
-      $item = explode(':',$line);
-      if (!$this->add_genre($item[0],$item[1],$item[2])) ++$errors;
-    }
-    send_to_log(6,"IRadio: Finished genre setup. Errors: $errors");
-  }
-
-  /** Sorting the genre list
-   * @class iradio
-   * @method sort_genres
-   */
-  function sort_genres() {
-    send_to_log(6,"IRadio: Sorting genre list");
-    if (is_array($this->genre) && count($this->genre)>0)
-    {
-      ksort($this->genre);
-      foreach ($this->genre as $main=>$sub) {
-        ksort($this->genre[$main]);
-      }
+  function read_genres () {
+    $genres = db_toarray("select genre, subgenre from iradio_genres order by 1,2");
+    foreach ($genres as $genre) {
+      $this->add_genre($genre['GENRE'],$genre['SUBGENRE']);
     }
   }
 
@@ -412,5 +340,4 @@ class iradio {
   }
 
 }
-
 ?>

@@ -183,11 +183,6 @@
         <version>1.19</version>
       </string>
       <string>
-        <id>BROWSE_BROADCASTER</id>
-        <text>Browse by broadcaster</text>
-        <version>1.21.1</version>
-      </string>
-      <string>
         <id>BROWSE_CERTIFICATE</id>
         <text>Browse by max certificate</text>
         <version>1.19</version>
@@ -296,6 +291,11 @@
         <id>BROWSE_PHOTO_TITLE</id>
         <text>Browse by title</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_STATION</id>
+        <text>Browse by station</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>BROWSE_TEXT</id>
@@ -1413,8 +1413,13 @@
         <version>1.19</version>
       </string>
       <string>
-        <id>IRADIO_BROADCASTER_SELECT</id>
-        <text>Select the Broadcaster to search for:</text>
+        <id>IRADIO_ADD_PARAM</id>
+        <text>Add a new parameter</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_ADD_PARAM_BUTTON</id>
+        <text>Add parameter</text>
         <version>1.21.1</version>
       </string>
       <string>
@@ -1433,9 +1438,34 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_COUNTRIES</id>
+        <text>Countries</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_COUNTRY</id>
+        <text>Country</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_COUNTRY_PROMPT</id>
+        <text>Please specify a country that you would like to search for. Only %s supports searching by country so visit the site to lookup valid countries. When searching ShoutCast we are actually searching for station titles containing the country.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>IRADIO_COUNTRY_SELECT</id>
         <text>Select the Country to search for:</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_DELETE_PARAM_OK</id>
+        <text>The selected search parameters have been removed</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_DEL_PARAM_BUTTON</id>
+        <text>Delete selected parameters</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>IRADIO_ERROR_CACHE_EXPIRE</id>
@@ -1453,9 +1483,44 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_ERROR_PARAM</id>
+        <text>Please enter a search parameter</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_ERROR_PARAM_NAME</id>
+        <text></text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_GENRE</id>
+        <text>Genre</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_GENRES</id>
+        <text>Genres</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_GENRE_PROMPT</id>
+        <text>Please specify a genre and sub-genre (optional) that you would like to search for. Both %s and %s support searching by genre so visit the sites to lookup valid genres</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>IRADIO_LIVERADIO_DESC</id>
         <text>LiveRadio (%s) is an internet radio service similiar to ShoutCast. It provides the functionality to search by media type, genre, station name, country and even city - but many stations listed here are not supported by some hardware players. So the LiveRadio parser used by SwissCenter restricts the results to show only MP3 stations.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_LOGO</id>
+        <text>Image Filename</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_MAINGENRE</id>
+        <text>Main-Genre</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>IRADIO_MAINGENRE SELECT</id>
@@ -1483,6 +1548,21 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_PARAM_ADDED_OK</id>
+        <text>Search parameter added</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_PARAM_PROMPT</id>
+        <text>The ShoutCast and Live-Radio features allow searching for radio stations by station, genre, and country. Here you can define your favourite search criteria.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_PARAM_TYPE</id>
+        <text>Search parameter type</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>IRADIO_SEARCH</id>
         <text>Search for stations</text>
         <version>1.19</version>
@@ -1493,14 +1573,39 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_STATION</id>
+        <text>Station</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_STATION_PROMPT</id>
+        <text>Please specify a station name that you would like to search for. An image (optional) can also be specified which will be used on the Now Playing screen for this station. The image must be in your [em]&quot;../images/iradio/&quot;[/em] folder.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_STATION_SEARCH</id>
+        <text>Select the Station to search for:</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>IRADIO_STATION_SELECT</id>
         <text>Select the Station to tune in:</text>
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_SUBGENRE</id>
+        <text>Sub-Genre</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>IRADIO_SUBGENRE_SELECT</id>
         <text>Select the Sub-Genre to search for:</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_UPDATE_PARAM_OK</id>
+        <text>Search parameter updated</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>ITUNES_CONFIG_PROMPT</id>
