@@ -82,19 +82,107 @@
   // Outputs a "Now playing this station" screen for internet radio.
   //------------------------------------------------------------------------------------------------
 
-  function station_playing_image( $station_name, $now_playing )
+  function station_playing_image( $station_name, $now_playing, $logo='' )
   {
-    $title_text_size  = font_size( 24, SCREEN_COORDS);
-    $title_text_col   = hexdec(style_value('RADIO_TITLE_COLOUR','#000000'));
-    $title_x          = convert_x(75,SCREEN_COORDS);
-    $title_y          = convert_y(120,SCREEN_COORDS);
-   
-    $image = new CImage();
-    $image->load_from_file( style_img('RADIO_BACKGROUND',true));
-    $image->resize( convert_x(1000,SCREEN_COORDS), convert_y(1000,SCREEN_COORDS), 0, false);    
-    wrap( $image,$station_name, $title_x, $title_y, convert_x(500,SCREEN_COORDS), $title_text_col, $title_text_size);
-    $title_y+=($title_text_size*2.5);
-    wrap( $image,$now_playing, $title_x, $title_y, convert_x(500,SCREEN_COORDS), $title_text_col, $title_text_size);
+    if ( is_file(SC_LOCATION.'images/iradio/'.$logo) )
+    {
+      $image     = new CImage();  
+      $artfile   = new CImage();  
+
+      // Load the image and scale it to the appropriate size.  
+      $image->load_from_file(style_img('NOW_BACKGROUND',true) );
+      $image->resize( convert_x(1000,SCREEN_COORDS), convert_y(1000,SCREEN_COORDS), 0, false);
+
+      #-------------
+      # Station Logo
+      #-------------
+
+      $art_x      = convert_x(70,SCREEN_COORDS);
+      $art_y      = convert_y(200,SCREEN_COORDS);
+      $art_w      = convert_x(280,SCREEN_COORDS);
+      $art_h      = convert_y(400,SCREEN_COORDS);
+      $border_col = hexdec(style_value('NOW_ART_BORDER','#FFFFFF'));
+
+      $artfile->load_from_file(SC_LOCATION.'images/iradio/'.$logo);
+
+      // Resize logo and then overlay onto the background image.  
+      $artfile->resize( $art_w, $art_h, $art_bg_colour, true, '', $border_col );
+      $image->copy($artfile, $art_x, $art_y);
+
+      #-----------
+      # Page Title
+      #-----------
+
+      $title_text_size  = font_size( 36, SCREEN_COORDS);
+      $title_text_col   = hexdec(style_value('NOW_TITLE_COLOUR','#000000'));
+      $title_x          = convert_x(75,SCREEN_COORDS);
+      $title_y          = convert_y(120,SCREEN_COORDS);
+      $line_y           = convert_y(150,SCREEN_COORDS);
+
+      $image->text($station_name, $title_x, $title_y, $title_text_col, $title_text_size);
+      $image->rectangle($title_x, $line_y, convert_x(850,SCREEN_COORDS),convert_y(2,SCREEN_COORDS),$title_text_col);
+
+      # -----------------
+      # Track Information
+      # -----------------
+
+      $label_text_size  = font_size( 25, SCREEN_COORDS);
+      $detail_text_size = font_size( 22, SCREEN_COORDS);  
+      $label_text_col   = hexdec(style_value('NOW_LABEL_COLOUR','#000000'));
+      $detail_text_col  = hexdec(style_value('NOW_DETAIL_COLOUR','#000000'));
+
+      $text_x           = convert_x(400,SCREEN_COORDS);
+      $text_y           = convert_y(225,SCREEN_COORDS);
+      $text_width       = convert_x(255,SCREEN_COORDS);
+      $indent           = convert_x(30,SCREEN_COORDS); 
+
+      // Extract year from now playing details
+      preg_match('/\((\d\d\d\d)\)/', $now_playing, $year);
+      $now_playing = preg_replace('/(\(\d\d\d\d\))/', '', $now_playing);
+      
+      if (preg_match('/ - (.*)/', $now_playing, $details))
+      {
+        $image->text(str('TRACK_NAME'),  $text_x, $text_y, $label_text_col, $label_text_size);
+        $text_y+=($detail_text_size*2.5);
+        wrap($image, $details[1], $text_x + $indent, $text_y, $text_width, $detail_text_col, $detail_text_size);
+      }
+      if (preg_match('/(.*) - /', $now_playing, $details))
+      {
+        $image->text(str('ARTIST'), $text_x, $text_y, $label_text_col, $label_text_size);
+        $text_y+=($detail_text_size*2.5);
+        wrap($image, $details[1], $text_x + $indent, $text_y, $text_width, $detail_text_col, $detail_text_size);
+      }
+      if (!empty($year[1]))
+      {
+        $image->text(str('YEAR'),  $text_x, $text_y, $label_text_col, $label_text_size);
+        $text_y+=($detail_text_size*2.5);
+        wrap($image, $year[1], $text_x + $indent, $text_y, $text_width, $detail_text_col, $detail_text_size);
+      }
+
+      # ------------------------
+      # Border Line
+      # ------------------------
+
+      $time_text_width	   = convert_x(860,SCREEN_COORDS);
+      $time_text_x         = convert_x(80,SCREEN_COORDS);
+      $time_text_y         = max($text_y,convert_y(640,SCREEN_COORDS));
+      $image->rectangle($time_text_x, $time_text_y , convert_x(850,SCREEN_COORDS), convert_y(2,SCREEN_COORDS), $title_text_col);
+      $time_text_y         = convert_y(80,SCREEN_COORDS);
+    }
+    else
+    {
+      $title_text_size  = font_size( 24, SCREEN_COORDS);
+      $title_text_col   = hexdec(style_value('RADIO_TITLE_COLOUR','#000000'));
+      $title_x          = convert_x(75,SCREEN_COORDS);
+      $title_y          = convert_y(120,SCREEN_COORDS);
+     
+      $image = new CImage();
+      $image->load_from_file( style_img('RADIO_BACKGROUND',true));
+      $image->resize( convert_x(1000,SCREEN_COORDS), convert_y(1000,SCREEN_COORDS), 0, false);    
+      wrap( $image,$station_name, $title_x, $title_y, convert_x(500,SCREEN_COORDS), $title_text_col, $title_text_size);
+      $title_y+=($title_text_size*2.5);
+      wrap( $image,$now_playing, $title_x, $title_y, convert_x(500,SCREEN_COORDS), $title_text_col, $title_text_size);
+    }
     return $image;    
   }
   

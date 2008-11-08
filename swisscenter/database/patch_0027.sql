@@ -18,8 +18,9 @@ INSERT INTO iradio_stations (station,image) VALUES ('Absolute Radio','virgin_log
 INSERT INTO iradio_stations (station,image) VALUES ('Avro','avro_logo.jpg');
 INSERT INTO iradio_stations (station,image) VALUES ('Disney Tunes Radio Network','disney_logo.jpg');
 INSERT INTO iradio_stations (station,image) VALUES ('Sky.FM','sky_logo.jpg');
-INSERT INTO iradio_stations (station,image) VALUES ('Kink','kink_logo.jpg');
+INSERT INTO iradio_stations (station,image) VALUES ('.Kink','kink_logo.jpg');
 INSERT INTO iradio_stations (station,image) VALUES ('Big R Radio','bigr_logo.jpg');
+INSERT INTO iradio_stations (station,image) VALUES ('D i g i t a l l y - I m p o r t e d','di_logo.gif');
 
 CREATE TABLE iradio_countries (
   id         int unsigned auto_increment primary key not null,

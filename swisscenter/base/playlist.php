@@ -241,9 +241,11 @@ function play_file( $media_type, $file_id )
 // Returns the href part of a link to play a radio station
 //-------------------------------------------------------------------------------------------------
 
-function play_internet_radio( $playlist_url, $station_name )
+function play_internet_radio( $playlist_url, $station_name, $image='' )
 {
-  return 'href="'.$playlist_url.'" pod="'.stream_pod_type().',1,'.server_address().'music_radio_image.php?'.current_session().'&list=&station='.urlencode($station_name).'&playlist='.urlencode($playlist_url).'"';
+  return 'href="'.$playlist_url.'" pod="'.stream_pod_type().',1,'.server_address().
+         'music_radio_image.php?'.current_session().'&list=&station='.urlencode($station_name).
+         '&image='.urlencode($image).'&playlist='.urlencode($playlist_url).'"';
 }
 
 //-------------------------------------------------------------------------------------------------

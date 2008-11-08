@@ -66,7 +66,7 @@
   // Displays the iradio stations to the user in "text menu" format
   // ----------------------------------------------------------------------------------
 
-  function display_iradio ($url, $stations, $page=0)
+  function display_iradio ($url, $stations, $page=0, $image='')
   {
     $menu      = new menu();
     $no_items  = MAX_PER_PAGE;
@@ -83,7 +83,7 @@
     for ($i=$start; $i<$end; $i++)
     {
       // Output a link to cause the specified playlist to be loaded into the session
-      $menu->add_info_item($stations[$i]->name, $stations[$i]->bitrate."k", play_internet_radio($stations[$i]->playlist, $stations[$i]->name));
+      $menu->add_info_item($stations[$i]->name, $stations[$i]->bitrate."k", play_internet_radio($stations[$i]->playlist, $stations[$i]->name, $image));
     }
     
     $menu->display(1,style_value("MENU_RADIO_WIDTH"), style_value("MENU_RADIO_ALIGN"));
