@@ -6,14 +6,6 @@
    relating to the movies that the user has added to their database. It typically collects
    information such as title, genre, year of release, certificate, synopsis, directors and actors.
 
-   NOTE: This parser for IMDb is _NOT_ an official part of SWISScenter, and is not supported by the
-   SWISScenter developers.  If you find videos for which this parser does not work, please look to
-   the forum thread in the General section, called "IMDb parser". -Nick
-      http://www.swisscenter.co.uk/component/option,com_simpleboard/Itemid,42/func,view/id,3516/catid,10/
-
-   (I suggest we keep the version sync'd with the Swisscenter release from now on, so future tweaks while
-   Swisscenter is at, for example, v1.17 will be v1.17.1, v1.17.2, etc.)
-
    Version history:
    06-Aug-2008: v1.21.1:  Retrieves maximum size images (450x700) instead of (94x150).
    12-May-2008: v1.21:    Fixed certificates.
@@ -106,12 +98,15 @@
       {
         $matches = get_images_from_html($html);
         $img_addr = $matches[1][0];
-        // Replace resize attributes with maximum allowed
-        $img_addr = preg_replace('/SX\d+_/','SX450_',$img_addr);
-        $img_addr = preg_replace('/SY\d+_/','SY700_',$img_addr);
-        file_save_albumart( add_site_to_url($img_addr, $site_url),
-                            dirname($filename).'/'.file_noext($filename).'.'.file_ext($img_addr),
-                            $title);
+        if (file_ext($img_addr)=='jpg')
+        {
+          // Replace resize attributes with maximum allowed
+          $img_addr = preg_replace('/SX\d+_/','SX450_',$img_addr);
+          $img_addr = preg_replace('/SY\d+_/','SY700_',$img_addr);
+          file_save_albumart( add_site_to_url($img_addr, $site_url),
+                              dirname($filename).'/'.file_noext($filename).'.'.file_ext($img_addr),
+                              $title);
+        }
       }
 
       // Parse the list of certificates
