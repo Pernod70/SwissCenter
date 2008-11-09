@@ -71,7 +71,7 @@
   // Certificate? Get the appropriate image.
   $scheme    = get_rating_scheme_name();
   if (!empty($data[0]["CERTIFICATE"]))
-    $cert_img  = img_gen(SC_LOCATION.'images/ratings/'.$scheme.'/'.get_cert_name( get_nearest_cert_in_scheme($data[0]["CERTIFICATE"], $scheme)).'.gif', convert_x(250), convert_y(180));
+    $cert_img  = img_gen(SC_LOCATION.'images/ratings/'.$scheme.'/'.get_cert_name( get_nearest_cert_in_scheme($data[0]["CERTIFICATE"], $scheme)).'.gif', 280, 100);
   
   // Is there a picture for us to display?
   if (! empty($folder_img) )

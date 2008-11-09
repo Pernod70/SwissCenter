@@ -166,7 +166,7 @@ function shorten( $text, $width, $lines = 1, $font_size = 24, $dots = true, $wor
   else 
   {  
     // Single line
-    for($index = 0; $index < strlen($text); $index++)
+    for ($index = 0; $index < strlen($text); $index++)
     {
       $current_char = $text[$index];
       
