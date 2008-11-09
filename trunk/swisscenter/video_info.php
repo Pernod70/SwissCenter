@@ -45,7 +45,7 @@
   if (!empty($info[0]["CERTIFICATE"]))
   {
     $scheme   = get_rating_scheme_name();
-    $cert_img = img_gen(SC_LOCATION.'images/ratings/'.$scheme.'/'.get_cert_name( get_nearest_cert_in_scheme($info[0]["CERTIFICATE"], $scheme)).'.gif', convert_x(250), convert_y(180));
+    $cert_img = img_gen(SC_LOCATION.'images/ratings/'.$scheme.'/'.get_cert_name( get_nearest_cert_in_scheme($info[0]["CERTIFICATE"], $scheme)).'.gif', 280, 100);
   }
   
   echo '<p><table width="100%" cellpadding=0 cellspacing=0 border=0';

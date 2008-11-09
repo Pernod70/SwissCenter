@@ -28,7 +28,7 @@
     // Synopsis
     if ( !is_null($info["SYNOPSIS"]) )
     {
-      $text = shorten($info["SYNOPSIS"],$synlen);
+      $text = shorten($info["SYNOPSIS"],$synlen,1,32);
       if (strlen($text) != strlen($info["SYNOPSIS"]))
         $text = $text.' <a href="/video_synopsis.php?media_type='.MEDIA_TYPE_VIDEO.'&file_id='.$movie.'">'.font_colour_tags('PAGE_TEXT_BOLD_COLOUR',str('MORE')).'</a>';
     }
@@ -36,17 +36,6 @@
       $text = str('NO_SYNOPSIS_AVAILABLE');
       
     echo '<p>'.font_tags(32).$text.'</font>';          
-  }
-  
-  // Function that checks to see if the given attribute ($filter) is unique, and if so it
-  // populates the information table.
-
-  function distinct_info ($filter, $sql_table, $predicate)
-  {
-    if (db_value("select count(distinct $filter) from $sql_table $predicate") == 1)
-      return db_value("select $filter from $sql_table limit 1,1");
-    else
-      return '';
   }
 
   // Function that checks to see if the supplied SQL contains a filter for the specified type.
@@ -136,12 +125,13 @@
       $file = str_replace($data[0]["NAME"], "", $file);
       // Can't use gen_playlist as the NMT does something different with zcd=2.
       $menu->add_item( str('PLAY_NOW') , 'href="file:///opt/sybhttpd/localhost.drives/'.$data[0]["NETWORK_SHARE"].$file.'" zcd="2" ' );
+      send_to_log(2,'href for dvd: href="file:///opt/sybhttpd/localhost.drives/'.$data[0]["NETWORK_SHARE"].$file.'" zcd="2" ');
     }
     else
       $menu->add_item( str('PLAY_NOW') , play_sql_list(MEDIA_TYPE_VIDEO,"select distinct $select_fields from $sql_table $predicate order by title, filename"));
   
     // Resume playing
-    if ( support_resume() && file_exists( bookmark_file($data[0]["DIRNAME"].$data[0]["FILENAME"]) && !$is_dvd ))
+    if ( support_resume() && file_exists( bookmark_file($data[0]["DIRNAME"].$data[0]["FILENAME"])) && !$is_dvd )
       $menu->add_item( str('RESUME_PLAYING') , resume_file(MEDIA_TYPE_VIDEO,$data[0]["FILE_ID"]), true);
         
     // Add to your current playlist
@@ -180,9 +170,9 @@
     if ( count($data)==1)
       $folder_img = file_albumart($data[0]["DIRNAME"]);
 
-    $info->add_item( str('TITLE')       , distinct_info('title',$sql_table, $predicate));
-    $info->add_item( str('YEAR')        , distinct_info('year',$sql_table, $predicate));
-    $info->add_item( str('CERTIFICATE') , distinct_info(/*'certificate'*/get_cert_name_sql(),$sql_table, $predicate));
+    search_distinct_info($info, str('TITLE'), 'title', $sql_table, $predicate);
+    search_distinct_info($info, str('YEAR'), 'year',$sql_table, $predicate);
+    search_distinct_info($info, str('CERTIFICATE'), get_cert_name_sql(),$sql_table, $predicate);
     $menu->add_item( str('PLAY_NOW')    , play_sql_list(MEDIA_TYPE_VIDEO,"select distinct $select_fields from $sql_table $predicate order by title, filename"));
 
     if (pl_enabled())
@@ -200,7 +190,7 @@
   // Certificate? Get the appropriate image.
   $scheme    = get_rating_scheme_name();
   if (!empty($data[0]["CERTIFICATE"]))
-    $cert_img  = img_gen(SC_LOCATION.'images/ratings/'.$scheme.'/'.get_cert_name( get_nearest_cert_in_scheme($data[0]["CERTIFICATE"], $scheme)).'.gif', convert_x(250), convert_y(180));
+    $cert_img  = img_gen(SC_LOCATION.'images/ratings/'.$scheme.'/'.get_cert_name( get_nearest_cert_in_scheme($data[0]["CERTIFICATE"], $scheme)).'.gif', 280, 100);
   
   // Is there a picture for us to display?
   if (! empty($folder_img) )

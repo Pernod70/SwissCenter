@@ -27,7 +27,7 @@
     // Synopsis
     if ( !is_null($info["SYNOPSIS"]) )
     {
-      $text = shorten($info["SYNOPSIS"],$synlen);
+      $text = shorten($info["SYNOPSIS"],$synlen,1,32);
       if (strlen($text) != strlen($info["SYNOPSIS"]))
         $text = $text.' <a href="/video_synopsis.php?media_type='.MEDIA_TYPE_TV.'&file_id='.$tv.'">'.font_colour_tags('PAGE_TEXT_BOLD_COLOUR',str('MORE')).'</a>';
     }
@@ -97,7 +97,7 @@
   // Certificate? Get the appropriate image.
   $scheme    = get_rating_scheme_name();
   if (!empty($data[0]["CERTIFICATE"]))
-    $cert_img  = img_gen(SC_LOCATION.'images/ratings/'.$scheme.'/'.get_cert_name( get_nearest_cert_in_scheme($data[0]["CERTIFICATE"], $scheme)).'.gif', convert_x(250), convert_y(180));
+    $cert_img  = img_gen(SC_LOCATION.'images/ratings/'.$scheme.'/'.get_cert_name( get_nearest_cert_in_scheme($data[0]["CERTIFICATE"], $scheme)).'.gif', 280, 100);
   
   // Format the page according to whether banner and image is available.
   if (file_exists($banner_img))
