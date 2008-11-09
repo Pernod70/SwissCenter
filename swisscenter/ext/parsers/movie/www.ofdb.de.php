@@ -133,11 +133,16 @@
       $end = strpos($html,"</tr>",$start+1);
       $html_synopsis = substr($html,$start,$end-$start);
       // Get page with full synopsis
-      $matches = get_urls_from_html($html_synopsis,"plot");
-      send_to_log(6,'Fetching information from: ',$site_url.$matches[1][0]);
-      $html = utf8_decode(file_get_contents( $site_url.$matches[1][0] ));
-      $synopsis  = substr_between_strings($html,'</b><br><br>','</p>');
- 
+      if ($start !== false)
+      {
+        $matches = get_urls_from_html($html_synopsis,"plot");
+        send_to_log(6,'Fetching information from: ',$site_url.$matches[1][0]);
+        $html = utf8_decode(file_get_contents( $site_url.$matches[1][0] ));
+        $synopsis  = substr_between_strings($html,'</b><br><br>','</p>');
+      }
+      else
+        $synopsis = '';
+
       // Store the single-value movie attributes in the database
       $columns = array ( "YEAR"              => $year
                        , "MATCH_PC"          => $accuracy

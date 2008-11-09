@@ -22,6 +22,7 @@
    23-Apr-2008: v1.2:     Fixed downloading of series 0 (Special) banners.
    25-Jun-2008: v1.3:     Improved zip support on Linux installations.
    08-Jul-2008: v1.4:     Added parsing of actors.xml.
+   05-Nov-2008: v1.5:     Actor names 'cleaned' of character names in brackets.
 
  *************************************************************************************************/
 
@@ -153,11 +154,11 @@ function extra_get_tv_details($id, $filename, $programme, $series='', $episode='
                             , dirname($filename).'/'.file_noext($filename).'.'.file_ext($tvdb_episodes['FILENAME'][$ep])
                             , '');
         
-        scdb_add_tv_directors( $id, explode('|', trim($tvdb_episodes['DIRECTOR'][$ep],'|')) );
-        scdb_add_tv_actors   ( $id, explode('|', trim($tvdb_episodes['GUESTSTARS'][$ep],'|')) );
-        scdb_add_tv_actors   ( $id, explode('|', trim($tvdb_series['ACTORS'],'|')) );
-        scdb_add_tv_genres   ( $id, explode('|', trim($tvdb_series['GENRE'],'|')) );
-  
+        scdb_add_tv_directors( $id, explode('|', clean_name_list($tvdb_episodes['DIRECTOR'][$ep])) );
+        scdb_add_tv_actors   ( $id, explode('|', clean_name_list($tvdb_episodes['GUESTSTARS'][$ep])) );
+        scdb_add_tv_actors   ( $id, explode('|', clean_name_list($tvdb_series['ACTORS'])) );
+        scdb_add_tv_genres   ( $id, explode('|', clean_name_list($tvdb_series['GENRE'])) );
+
         // Store the single-value attributes in the database
         $columns = array ( "TITLE"             => $tvdb_episodes['EPISODENAME'][$ep]
                          , "SERIES"            => $tvdb_episodes['SEASONNUMBER'][$ep]
@@ -239,6 +240,17 @@ function extra_get_tv_details($id, $filename, $programme, $series='', $episode='
   $columns = array ( "DETAILS_AVAILABLE" => 'N');
   scdb_set_tv_attribs ($id, $columns);
   return false;
+}
+
+/**
+ *  Clean a string of actors, genres, etc. by replacing , with | and removing character names in brackets.
+ * 
+ */
+function clean_name_list($list)
+{
+  $list = preg_replace('/\(.*?\)/', '', $list);
+  $list = str_replace(',', '|', $list);
+  return trim($list, '| ');
 }
 
 /**

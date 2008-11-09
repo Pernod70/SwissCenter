@@ -184,7 +184,7 @@
           $html = file_get_contents( $url_load );
 
           // Year
-          $year  = substr_between_strings($html,'First Aired:','</li></ul>');
+          $year  = substr_between_strings($html,'<li><span>First Aired:</span> ','</li><li>');
           $year  = substr($year,strlen($year)-4);
 
           // Synopsis
@@ -196,15 +196,15 @@
           $synopsis_ep  = substr_between_strings($html_synopsis,'deck">','<a href=');
 
           // Director(s)
-          $start = strpos($html,"Director:");
-          $end = strpos($html,"<tr>",$start+1);
+          $start = strpos($html,"<dl ><dt>Director:</dt>");
+          $end = strpos($html,"</dl>",$start+1);
           $html_directed = substr($html,$start,$end-$start);
           $matches = get_urls_from_html($html_directed,"summary.html");
           scdb_add_tv_directors ( $id, $matches[2] );
         
           // Actor(s)
-          $start = strpos($html,"Star:");
-          $end = strpos($html,"<tr>",$start+1);
+          $start = strpos($html,"<dl ><dt>Stars:</dt>");
+          $end = strpos($html,"</dl>",$start+1);
           $html_actors = substr($html,$start,$end-$start);
           $matches = get_urls_from_html($html_actors,"summary.html");
           scdb_add_tv_actors ( $id, $matches[2] );
@@ -273,7 +273,7 @@
             $html_episode = substr($html,$start,$end-$start);
             
             // Year
-            $year  = substr_between_strings($html,'First Aired:','</li></ul>');
+            $year  = substr_between_strings($html,'<li><span>First Aired:</span> ','</li><li>');
             $year  = substr($year,strlen($year)-4);
   
             // Synopsis
@@ -285,15 +285,15 @@
             $synopsis_ep  = substr_between_strings($html_synopsis,'deck">','<a href=');
 
             // Director(s)
-            $start = strpos($html,"Director:");
-            $end = strpos($html,"<tr>",$start+1);
+            $start = strpos($html,"<dl ><dt>Director:</dt>");
+            $end = strpos($html,"</dl>",$start+1);
             $html_directed = substr($html,$start,$end-$start);
             $matches = get_urls_from_html($html_directed,"summary.html");
             scdb_add_tv_directors ( $id, $matches[2] );
           
             // Actor(s)
-            $start = strpos($html,"Star:");
-            $end = strpos($html,"<tr>",$start+1);
+            $start = strpos($html,"<dl ><dt>Stars:</dt>");
+            $end = strpos($html,"</dl>",$start+1);
             $html_actors = substr($html,$start,$end-$start);
             $matches = get_urls_from_html($html_actors,"summary.html");
             scdb_add_tv_actors ( $id, $matches[2] );
