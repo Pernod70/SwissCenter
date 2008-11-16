@@ -48,6 +48,11 @@
     return db_value("select cert_id from certificates where name='$name'");
   }
 
+  function get_rank_from_name($name)
+  {
+    return db_value("select rank from certificates where name='$name'");
+  }
+  
   function get_cert_name($cert_id)
   {
     if ( $cert_id == NULL ) 

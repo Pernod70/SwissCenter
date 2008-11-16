@@ -4,6 +4,7 @@
  *************************************************************************************************/
 
   require_once( realpath(dirname(__FILE__).'/base/page.php'));
+  require_once( realpath(dirname(__FILE__).'/base/rating.php'));
   require_once( realpath(dirname(__FILE__).'/base/utils.php'));
   require_once( realpath(dirname(__FILE__).'/base/thumblist.php'));
 
@@ -39,7 +40,11 @@
       while (($file = readdir($dh)) !== false)
       {
         if (is_dir($dir.$file) && file_exists($dir.$file.'/style.ini') )
-          $style_list[] = $file;
+        {
+          $style_rating = style_rating($file);
+          if ( ($style_rating == '') || (get_current_user_rank() >= get_rank_from_name($style_rating)) )
+            $style_list[] = $file;
+        }
       }
       closedir($dh);
     }
@@ -63,6 +68,16 @@
     }
   }
 
+  // ----------------------------------------------------------------------------------
+  // Gets the rating of the specified style
+  // ----------------------------------------------------------------------------------
+
+  function style_rating($style)
+  {
+    $details = parse_ini_file(SC_LOCATION.'styles/'.$style.'/style.ini');
+    return (isset($details["STYLE_RATING"]) ? $details["STYLE_RATING"] : '');
+  }
+  
   // ----------------------------------------------------------------------------------
   // Main Code
   // ----------------------------------------------------------------------------------
