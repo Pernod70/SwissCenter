@@ -119,7 +119,7 @@
       $title_y          = convert_y(120,SCREEN_COORDS);
       $line_y           = convert_y(150,SCREEN_COORDS);
 
-      $image->text($station_name, $title_x, $title_y, $title_text_col, $title_text_size);
+      $image->text(str('NOW_PLAYING'),$title_x, $title_y, $title_text_col, $title_text_size);
       $image->rectangle($title_x, $line_y, convert_x(850,SCREEN_COORDS),convert_y(2,SCREEN_COORDS),$title_text_col);
 
       # -----------------
@@ -163,11 +163,20 @@
       # Border Line
       # ------------------------
 
-      $time_text_width	   = convert_x(860,SCREEN_COORDS);
-      $time_text_x         = convert_x(80,SCREEN_COORDS);
-      $time_text_y         = max($text_y,convert_y(640,SCREEN_COORDS));
-      $image->rectangle($time_text_x, $time_text_y , convert_x(850,SCREEN_COORDS), convert_y(2,SCREEN_COORDS), $title_text_col);
-      $time_text_y         = convert_y(80,SCREEN_COORDS);
+      $label_text_width     = convert_x(840,SCREEN_COORDS);
+      $label_text_x         = convert_x(80,SCREEN_COORDS);
+      $label_text_y         = max($text_y,convert_y(680,SCREEN_COORDS));
+      $image->rectangle($title_x, $label_text_y , convert_x(850,SCREEN_COORDS), convert_y(2,SCREEN_COORDS), $title_text_col);
+      $label_text_y        += convert_y(60,SCREEN_COORDS);
+      
+      # ------------------------
+      # Station Name
+      # ------------------------
+
+      $x = $image->get_text_width(str('IRADIO_STATION').': ',$detail_text_size);
+      $y = $label_text_y;
+      wrap($image, str('IRADIO_STATION').': ', $label_text_x, $label_text_y, $label_text_width, $title_text_col, $detail_text_size);
+      wrap($image, $station_name, $label_text_x+$x, $y, $label_text_width-$x, $detail_text_col, $detail_text_size);
     }
     else
     {
