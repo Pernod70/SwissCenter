@@ -68,22 +68,30 @@
   
   if ( isset($_REQUEST["list"]))
   {
-    // List of images to display to the user (changes every 30 seconds)
+    // List of images to display to the user (changes every 10 seconds)
     $server     = server_address();
     $station    = un_magic_quote($_REQUEST["station"]);
     $image      = un_magic_quote($_REQUEST["image"]);
     $url        = $server."music_radio_image.php?".current_session()."&host=".$host[1]."&port=".$host[2].
                           "&station=".urlencode($station)."&image=".urlencode($image)."&x=.jpg";
     $transition = now_playing_transition();
-    echo "30|$transition| |$url|\n";
-    echo "30|$transition| |$url|\n";
+    echo "10|$transition| |$url|\n";
+    echo "10|$transition| |$url|\n";
   }
   else
   {
-    // Generate and display the "Now Playing" screen.
+    // Get now playing details
     $playing = shoutcast_now_playing($host[1], $host[2]);
-    $image   = station_playing_image(un_magic_quote($_REQUEST["station"]), $playing, un_magic_quote($_REQUEST["image"]));
-    $image->output('jpeg');
+    
+    // Update "Now Playing" screen, only if details have changed
+    if ( $playing !== $_SESSION["now_playing"] )
+    {
+      $_SESSION["now_playing"] = $playing;
+      
+      // Generate and display the "Now Playing" screen.
+      $image = station_playing_image(un_magic_quote($_REQUEST["station"]), $playing, un_magic_quote($_REQUEST["image"]));
+      $image->output('jpeg');
+    }
   }
 
 /**************************************************************************************************
