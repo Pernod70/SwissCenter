@@ -39,7 +39,7 @@
       echo '<p><table width="100%" cellpadding=0 cellspacing=0 border=0>
             <tr><td valign=top width="'.convert_x(280).'" align="center"><br>
                 '.img_gen($img,280,450).'<br>';
-      echo str('RSS_LAST_UPDATED').'<br>'.date('Y-m-d H:i',strtotime($sub_data["LAST_UPDATE"])).'</td>';
+      echo font_tags(32).str('RSS_LAST_UPDATED').'<br>'.date('Y-m-d H:i',strtotime($sub_data["LAST_UPDATE"])).'</td>';
       echo '    <td width="'.convert_x(20).'"></td>
                 <td valign="top">';
                 $menu->display_page( $page,1,520 );
