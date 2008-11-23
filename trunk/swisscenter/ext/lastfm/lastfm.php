@@ -12,6 +12,8 @@
   {
     var $session_id;
     var $stream_url;
+    var $base_url;
+    var $base_path;
 
     /**
      * Constructor
@@ -50,31 +52,41 @@
 
     function login($username, $md5_password)
     {
+      if (isset($_SESSION["lastfm"]["stream"]))
+      {
+        // Get the cached authentication details
+        $this->session_id = $_SESSION["lastfm"]["stream"]["session_id"];
+        $this->stream_url = $_SESSION["lastfm"]["stream"]["stream_url"];
+        $this->base_url   = $_SESSION["lastfm"]["stream"]["base_url"];
+        $this->base_path  = $_SESSION["lastfm"]["stream"]["base_path"];
+        send_to_log(6,'Using cached authentication', $_SESSION["lastfm"]["stream"] );
+        return true;
+      }
+
       $login_url = 'http://ws.audioscrobbler.com/radio/handshake.php'.
-                   '?version=1.1.1'.
-                   '&platform=windows'.
-                   '&username='.$username.
-                   '&passwordmd5='.$md5_password.
-                   '&debug=0&partner=';
+                   '?username='.$username.
+                   '&passwordmd5='.$md5_password;
                    
       send_to_log(5,"Attempting to login with username '$username' and encrypted password '$md5_password'");
       if ( ($response = file_get_contents($login_url)) === false)
       {
-        send_to_log(2,'Failed to access the login URL');
-        send_to_log(8,'Response from LastFM',$response);
+        send_to_log(2,'- Failed to access the login URL');
+        send_to_log(8,'- Response from LastFM',$response);
         return false;
       }
       
-      $this->session_id = $this->get_pattern('/session=(.*)\n/i',$response);
-      $this->stream_url = $this->get_pattern('/stream_url=(.*)\n/i',$response);
+      $this->session_id = $_SESSION["lastfm"]["stream"]["session_id"] = $this->get_pattern('/session=(.*)\n/i',$response);
+      $this->stream_url = $_SESSION["lastfm"]["stream"]["stream_url"] = $this->get_pattern('/stream_url=(.*)\n/i',$response);
+      $this->base_url   = $_SESSION["lastfm"]["stream"]["base_url"]   = $this->get_pattern('/base_url=(.*)\n/i',$response);
+      $this->base_path  = $_SESSION["lastfm"]["stream"]["base_path"]  = $this->get_pattern('/base_path=(.*)\n/i',$response);
       
       if ($this->session_id == 'FAILED')
       {
-        send_to_log(2,'Authentication failed');
+        send_to_log(2,'- Authentication failed');
         return false;
       }
       
-      send_to_log(6,'Successfully authenticated',array("Session"=>$this->session_id, "Stream URL"=>$this->stream_url) );
+      send_to_log(6,'- Successfully authenticated', $_SESSION["lastfm"]["stream"] );
       return true;
     }
     
@@ -88,28 +100,70 @@
     function tune_to_station($station)
     {
       $station_enc = str_replace(' ','%20',strtolower($station));
-      $tune_url = 'http://ws.audioscrobbler.com/radio/adjust.php'.
+      $tune_url = 'http://'.$this->base_url.$this->base_path.'/adjust.php'.
                   '?session='.$this->session_id.
-                  '&url='.$station_enc.
-                  '&debug=0'; 
+                  '&url='.$station_enc; 
   
       send_to_log(5,'Attempting to change station: '.$station);            
       if ( ($response = file_get_contents($tune_url)) === false)
       {
-        send_to_log(2,'Failed to access the station changing URL');
+        send_to_log(2,'- Failed to access the station changing URL',$tune_url);
         return false;
       }
       
       if ( strpos($this->get_pattern('/response=(.*)/i',$response),'OK' === false) )
       {
-        send_to_log(2,'Failed to change station.');
+        send_to_log(2,'- Failed to change station.');
         return false;
       }
       else 
       {
-        send_to_log(6,'Tuned into station: ');
+        send_to_log(6,'- Tuned into station');
         return true;
       }
+    }
+
+    /**
+     * Retrieve the XSPF playlist.
+     *
+     * @return boolean - true if the playlist was successfully loaded
+     */
+    
+    function playlist()
+    {
+      $playlist_url = 'http://'.$this->base_url.$this->base_path.'/xspf.php'.
+                      '?sk='.$this->session_id.
+                      '&discovery=0'.
+                      '&desktop=1'; 
+  
+      send_to_log(5,'Attempting to get playlist');            
+      if ( ($response = file_get_contents($playlist_url)) === false)
+      {
+        send_to_log(2,'- Failed to access the playlist URL',$playlist_url);
+        return false;
+      }
+
+      $playlist = array();
+      preg_match('/<title>(.*?)<\/title>/', $response, $data);
+      $playlist["title"] = urldecode($data[1]);
+      preg_match_all('/<track>(.*?)<\/track>/s', $response, $track);
+      for ($i = 0; $i<count($track[1]); $i++)
+      {
+        preg_match('/<location>(.*?)<\/location>/', $track[1][$i], $data);
+        $playlist["track"][$i]["location"] = urldecode($data[1]);
+        preg_match('/<title>(.*?)<\/title>/',       $track[1][$i], $data);
+        $playlist["track"][$i]["title"]    = urldecode($data[1]);
+        preg_match('/<album>(.*?)<\/album>/',       $track[1][$i], $data);
+        $playlist["track"][$i]["album"]    = urldecode($data[1]);
+        preg_match('/<creator>(.*?)<\/creator>/',   $track[1][$i], $data);
+        $playlist["track"][$i]["creator"]  = urldecode($data[1]);
+        preg_match('/<duration>(.*?)<\/duration>/', $track[1][$i], $data);
+        $playlist["track"][$i]["duration"] = urldecode($data[1]);
+        preg_match('/<image>(.*?)<\/image>/',       $track[1][$i], $data);
+        $playlist["track"][$i]["image"]    = urldecode($data[1]);
+      }
+      send_to_log(6,'- Received playlist: ', $playlist);
+      return $playlist;
     }
 
     /**
@@ -121,43 +175,34 @@
     function now_playing()
     {
       $playing_url='http://ws.audioscrobbler.com/radio/np.php'.
-                   '?session='.$this->session_id.
-                   '&debug=0';
+                   '?session='.$this->session_id;
                    
       send_to_log(5,'Attempting to obtain now playing information');            
 
-      for ($i=1; $i<=5; $i++)
+      if ( ($response = file_get_contents($playing_url)) === false)
       {
-          if ( ($response = file_get_contents($playing_url)) === false)
-          {
-            send_to_log(2,'Failed to access the now playing URL.');
-            return false;
-          }
-          elseif ($this->get_pattern('/streaming=(.*)\n?/i',$response) == "false")
-          {
-            send_to_log(6,'Attempt '.$i.': LastFM is not streaming (or is unavailable).');
-            sleep(3);            
-          }
-          else 
-            break;
-      }      
-      
-      // parse the information      
-      $data = array();
-      $response = substr($response,3);
-      foreach (explode("\n",$response) as $line)
-      {
-        $values = explode('=',$line);
-        if (!empty($values[0]))
-          $data[$values[0]] = $values[1];
-      }
-      
-      send_to_log(8,'Now playing information',$data);
-      
-      if ( $data["streaming"] == "false")
+        send_to_log(2,'- Failed to access the now playing URL.',$playing_url);
         return false;
+      }
+      elseif ($this->get_pattern('/streaming=(.*)\n?/i',$response) == "false")
+      {
+        send_to_log(6,'- LastFM is not streaming (or is unavailable).',$response);
+        return false;
+      }
       else
-        return $data;
+      {
+        // parse the information      
+        $data = array();
+        foreach (explode("\n",$response) as $line)
+        {
+          $values = explode('=',$line);
+          if (!empty($values[0]))
+            $data[$values[0]] = $values[1];
+        }
+      }
+
+      send_to_log(8,'Now playing information',$data);
+      return $data;
     }
     
     /**
@@ -322,16 +367,28 @@
 
     function handshake($username, $md5_password)
     {
-      // Clear information about the current session (if there is any)
-      $this->session_id = '';
-      $this->now_playing_url = '';
-      $this->submission_url = '';
+      if (isset($_SESSION["lastfm"]["scrobble"]))
+      {
+        // Get the cached authentication details
+        $this->session_id      = $_SESSION["lastfm"]["scrobble"]["session_id"];
+        $this->now_playing_url = $_SESSION["lastfm"]["scrobble"]["now_playing_url"];
+        $this->submission_url  = $_SESSION["lastfm"]["scrobble"]["submission_url"];
+        send_to_log(6,'Using cached authentication',array("Session"=>$this->session_id, "Now Playing URL"=>$this->now_playing_url, "Submission URL"=>$this->submission_url) );
+        return true;
+      }
+      else
+      {
+        // Clear information about the current session (if there is any)
+        $this->session_id = '';
+        $this->now_playing_url = '';
+        $this->submission_url = '';
+      }
 
       // Parameters for the handshake
       $timenow = gmt_time();
       $hs_url  = 'http://post.audioscrobbler.com/'.
                  '?hs=true'.
-                 '&p=1.2'.
+                 '&p=1.2.1'.
                  '&c='.$this->client_id.
                  '&v='.$this->client_version.
                  '&u='.$username.
@@ -361,9 +418,9 @@
       }
       
       // Parse the response
-      $this->session_id = $response[1];
-      $this->now_playing_url = $response[2];
-      $this->submission_url = $response[3];      
+      $this->session_id      = $_SESSION["lastfm"]["scrobble"]["session_id"]      = $response[1];
+      $this->now_playing_url = $_SESSION["lastfm"]["scrobble"]["now_playing_url"] = $response[2];
+      $this->submission_url  = $_SESSION["lastfm"]["scrobble"]["submission_url"]  = $response[3];
       send_to_log(6,'Successfully authenticated',array("Session"=>$this->session_id, "Now Playing URL"=>$this->now_playing_url, "Submission URL"=>$this->submission_url) );
       return true;
     }    
