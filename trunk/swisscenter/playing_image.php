@@ -21,9 +21,14 @@
   if ($idx < count($tracks)-1)
     $next_info = $tracks[$idx+1];
     
-  // Generate and display the "Now Playing" screen.    
-  $image = now_playing_image( $tracks[$idx], $prev_info, $next_info, ($idx+1).' / '.count($tracks) );
-  $image->output('jpeg');
+  // Generate and display the "Now Playing" screen.
+  // - If EVA700 then only send a new image if the details have changed. Avoids continuous refreshing.
+  if (get_player_type()!=='NETGEAR' || $_SESSION["now_playing"]!==$tracks[$idx])
+  {
+    $_SESSION["now_playing"] = $tracks[$idx];
+    $image = now_playing_image( $tracks[$idx], $prev_info, $next_info, ($idx+1).' / '.count($tracks) );
+    $image->output('jpeg');
+  }
 
 /**************************************************************************************************
                                                End of file
