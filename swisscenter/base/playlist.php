@@ -288,7 +288,7 @@ function play_lastfm($station_type, $name = '' )
     return '';
   }
   else
-    return 'href="'.$lastfm_url.'&generate_pls&station='.$station_id.'&x=.pls" pod="1,1,'.$lastfm_url.'&image_list"';
+    return 'href="'.$lastfm_url.'&generate_pls&station='.$station_id.'" pod="'.now_playing_sync_type().',1,'.$lastfm_url.'&image_list"';
 }
 
 //-------------------------------------------------------------------------------------------------
