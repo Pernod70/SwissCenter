@@ -25,45 +25,45 @@ function get_player_type()
   {
     if (!key_exists('HTTP_USER_AGENT',$_SERVER))
       $type = 'UNKNOWN';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-NST-')!== false )
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-NST-')!== false ) // Neuston MC-500
       $type = 'NEUSTON';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-PIN-2')!== false )
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-PIN-2')!== false ) // Pinnacle ShowCenter 200/250HD
       $type = 'PINNACLE SC200';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-PIN-')!== false )
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-PIN-')!== false ) // Pinnacle ShowCenter 1000
       $type = 'PINNACLE';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-IOD-')!== false )
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-IOD-')!== false ) // I-O Data Linkplayer2
       $type = 'IO-DATA';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-LTI-')!== false )
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-LTI-')!== false ) // Buffalo LinkTheater
       $type = 'BUFFALO';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-MMS-')!== false )
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-MMS-')!== false ) // Momitsu V880N
       $type = 'MOMITSU';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-ADS-')!== false )
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-ADS-')!== false ) // Adstech MXL-581
       $type = 'ADSTECH';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-FIA-')!== false )
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-FIA-')!== false ) // FIA On3
       $type = 'FIA';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-VNE-')!== false )
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-VNE-')!== false ) // Snazio* 1350
       $type = 'SNAZIO';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-HNB-')!== false )
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-HNB-')!== false ) // H&B DNX-8620
       $type = 'H&B';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-EGT-')!== false )
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-EGT-')!== false ) // Elgato EyeHome
       $type = 'ELGATO';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-NGR-')!== false )
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-NGR-')!== false ) // Netgear EVA700
       $type = 'NETGEAR';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-SYB-')!== false )
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-SYB-')!== false ) // RedBell DVHD100
       $type = 'SYABAS';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-POP-')!== false )
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-POP-')!== false ) // Popcorn Hour (NMT)
       $type = 'POPCORN';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-QPG-')!== false )
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-QPG-')!== false ) // ISTAR Mini (NMT)
       $type = 'POPCORN';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-HDD-')!== false )
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-HDD-')!== false ) // HDX 900 (NMT)
       $type = 'POPCORN';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-EGR-')!== false )
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-EGR-')!== false ) // Egreat EG-M31B (NMT)
       $type = 'POPCORN';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'MSIE')!== false )
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'MSIE')!== false ) // Browser
       $type = 'PC';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'Mozilla')!== false )
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'Mozilla')!== false ) // Browser
       $type = 'PC';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'Opera')!== false )
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'Opera')!== false ) // Browser
       $type = 'PC';
     else
       $type = 'UNKNOWN';
@@ -301,6 +301,7 @@ function support_resume()
   switch ( get_player_type() )
   {
     case 'IO-DATA':
+    case 'NETGEAR':
          $result = false;
          break;
 
@@ -327,6 +328,7 @@ function support_now_playing()
     {
       case 'BUFFALO':
       case 'IO-DATA':
+      case 'NETGEAR':
       case 'SYABAS':
            $result = false;
            break;
@@ -349,9 +351,13 @@ function support_now_playing()
 # the images and music with by synchronized together.
 #
 # On the showcenter, the values are:
-#   1 - FF?RW buttons control the photos. Music playback is unaffected
+#   1 - FF/RW buttons control the photos. Music playback is unaffected
 #   2 - FF/RW buttons control the music. Photo playback is unaffected (or so Pinnacle claim)
 #   3 - FF/RW controls both the photos and the music.
+# On the EVA700, the values are:
+#   1 - FF/RW buttons control the photos. Music playback is unaffected
+#   2 - FF/RW buttons control the music. Image is ID3 tag CoverArt
+#   3 - FF/RW controls both the photos and the music. RW will goto prev track but photo will always advance!
 #-------------------------------------------------------------------------------------------------
 
 function now_playing_sync_type()

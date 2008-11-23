@@ -68,27 +68,30 @@
   
   if ( isset($_REQUEST["list"]))
   {
-    // List of images to display to the user (changes every 10 seconds)
+    // List of images to display to the user (changes every 30 seconds)
     $server     = server_address();
     $station    = un_magic_quote($_REQUEST["station"]);
     $image      = un_magic_quote($_REQUEST["image"]);
     $url        = $server."music_radio_image.php?".current_session()."&host=".$host[1]."&port=".$host[2].
                           "&station=".urlencode($station)."&image=".urlencode($image)."&x=.jpg";
     $transition = now_playing_transition();
-    echo "10|$transition| |$url|\n";
-    echo "10|$transition| |$url|\n";
+
+    // Clear the Now Playing details
+    $_SESSION["now_playing"] = '';
+
+    echo "30|$transition| |$url|\n";
+    echo "30|$transition| |$url|\n";
   }
   else
   {
     // Get now playing details
     $playing = shoutcast_now_playing($host[1], $host[2]);
     
-    // Update "Now Playing" screen, only if details have changed
-    if ( $playing !== $_SESSION["now_playing"] )
+    // Generate and display the "Now Playing" screen.
+    // - If EVA700 then only send a new image if the details have changed. Avoids continuous refreshing.
+    if (get_player_type()!=='NETGEAR' || $_SESSION["now_playing"]!==$playing )
     {
       $_SESSION["now_playing"] = $playing;
-      
-      // Generate and display the "Now Playing" screen.
       $image = station_playing_image(un_magic_quote($_REQUEST["station"]), $playing, un_magic_quote($_REQUEST["image"]));
       $image->output('jpeg');
     }

@@ -13,6 +13,9 @@
   $url        = $server."playing_image.php?".current_session();
   $data       = get_tracklist();                            
   $max_size   = max_playlist_size();
+  
+  // Clear the Now Playing details
+  $_SESSION["now_playing"] = '';
 
   if (support_now_playing())
   {
@@ -32,7 +35,7 @@
       if ($idx >= $max_size)
         break;
         
-      send_to_log(7,' - '.$url."&idx$idx=&type=.jpg");
+      send_to_log(7,' - '.$url."&idx=$idx&type=.jpg");
       echo "$timeout|$transition| |$url&idx=$idx&type=.jpg|\n";    
       $idx++;
     }
