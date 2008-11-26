@@ -49,8 +49,10 @@
   function do_refresh_all()
   {
     set_sys_pref('MEDIA_SCAN_TYPE','MEDIA');
-    set_sys_pref('MEDIA_SCAN_STATUS',str('MEDIA_SCAN_STATUS_PENDING'));
+    set_sys_pref('MEDIA_SCAN_REFRESH_METADATA','NO');
+    set_sys_pref('MEDIA_SCAN_ITUNES','NO');
     set_sys_pref('MEDIA_SCAN_CLEANUP','NO');
+    set_sys_pref('MEDIA_SCAN_STATUS',str('MEDIA_SCAN_STATUS_PENDING'));
     media_refresh_now();
     show_progress();
   }
