@@ -59,6 +59,10 @@ function get_player_type()
       $type = 'POPCORN';
     elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-EGR-')!== false ) // Egreat EG-M31B (NMT)
       $type = 'POPCORN';
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-ELE-')!== false ) // Elektron EHP-600/606 (NMT)
+      $type = 'POPCORN';
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-CMI-')!== false ) // CMI SYVIO 200 (NMT)
+      $type = 'POPCORN';
     elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'MSIE')!== false ) // Browser
       $type = 'PC';
     elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'Mozilla')!== false ) // Browser
@@ -107,7 +111,8 @@ function get_nmt_network_shares()
 {
   // IP addresses of all connected NMT's
   $nmt = db_col_to_list("select ip_address from clients where box_id like '%POP%' or box_id like '%QPG%' ".
-                                                          "or box_id like '%HDD%' or box_id like '%EGR%'");
+                                                          "or box_id like '%HDD%' or box_id like '%EGR%' ".
+                                                          "or box_id like '%ELE%' or box_id like '%CMI%'");
   $shares = array();
   foreach ( $nmt as $ip )
   {
@@ -118,9 +123,11 @@ function get_nmt_network_shares()
       $html = '';
 
     // Identify defined Network Shares
+    $matches = array();
     preg_match_all('/<td height="\d+" class="txt">.*&nbsp;(.*)<\/td>/',$html,$matches);
     for ($i = 0; $i<count($matches[1]); $i++)
     {
+      $unc = array();
       switch ( true )
       {
         case strstr( $matches[1][$i], 'nfs' ):
