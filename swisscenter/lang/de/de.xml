@@ -84,7 +84,7 @@
       </string>
       <string>
         <id>ART_ERROR_QUOTE</id>
-        <text>Dateinamen dürfen keine Anführungszeichen beinhalten</text>
+        <text>Dateinamen dürfen keine Anführungszeichen enthalten</text>
         <version>1.19</version>
       </string>
       <string>
@@ -154,7 +154,7 @@
       </string>
       <string>
         <id>BAND</id>
-        <text>Album-Künstler</text>
+        <text>Album-Interpret</text>
         <version>1.20</version>
       </string>
       <string>
@@ -174,13 +174,18 @@
       </string>
       <string>
         <id>BROWSE_ALBUM_ARTIST</id>
-        <text>Nach Album-Künstlernamen anzeigen</text>
+        <text>Nach Album-Interpreten anzeigen</text>
         <version>1.20</version>
       </string>
       <string>
         <id>BROWSE_ARTIST</id>
         <text>Nach Interpret</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_BROADCASTER</id>
+        <text>Nach Anbieter</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>BROWSE_CERTIFICATE</id>
@@ -204,7 +209,7 @@
       </string>
       <string>
         <id>BROWSE_DVD</id>
-        <text>Nach DVD</text>
+        <text>Nach DVDs</text>
         <version>1.21.1</version>
       </string>
       <string>
@@ -293,8 +298,13 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>BROWSE_STATION</id>
+        <text>Nach Station</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>BROWSE_TEXT</id>
-        <text>SwissCenter kann Ihre Medien auf vielfältige Weise präsentieren. Um die Bedienung so einfach wie möglich zu gestalten, bzw. die Oberfläche an die eigenen Bedürfnisse anzupassen, können Sie verschiedene Anzeige-Optionen deaktivieren. Sollte dabei nur noch eine einzige Option übrigbleiben, wird SwissCenter das entsprechende Menü überspringen und diese Option automatisch auswählen.[b]Es muss jedoch pro Gruppe mindestens [b]eine[/b] Option aktiviert sein.</text>
+        <text>SwissCenter kann Ihre Medien auf vielfältige Weise präsentieren. Um die Bedienung so einfach wie möglich zu gestalten, bzw. die Oberfläche an die eigenen Bedürfnisse anzupassen, können Sie verschiedene Anzeige-Optionen deaktivieren. Sollte dabei nur noch eine einzige Option übrig bleiben, wird SwissCenter das entsprechende Menü überspringen und diese Option automatisch auswählen.[b]Es muss jedoch pro Gruppe mindestens [b]eine[/b] Option aktiviert sein.</text>
         <version>1.19</version>
       </string>
       <string>
@@ -314,7 +324,7 @@
       </string>
       <string>
         <id>BROWSE_WEB_PROMPT</id>
-        <text>Mittels dieser Option können einfache Webseiten auch über SwissCenter angezeigt werden. Dies funktioniert im lokalen Netzwerk und, eine Internetverbindung vorausgesetzt, auch im Internet.</text>
+        <text>Mittels dieser Option können einfache Webseiten auch mit SwissCenter angezeigt werden. Dies funktioniert im lokalen Netzwerk und, eine Internetverbindung vorausgesetzt, auch im Internet.</text>
         <version>1.19</version>
       </string>
       <string>
@@ -399,7 +409,7 @@
       </string>
       <string>
         <id>CACHE_SIZE_PROMPT</id>
-        <text>Der maximale Platz auf der Festplatte (in Megabytes), der zum Zwischenspeichern der Bilddateien verwendet wird (Ein Wert von 0 bedeutet unbegrenzten Speicherplatz) Wenn dieser Maximalwert erreicht wurde, werden die Dateien zuerst gelöscht, die am längsten nicht mehr angesehen wurden.</text>
+        <text>Der maximale Platz auf der Festplatte (in Megabytes), der zum Zwischenspeichern der Bilddateien verwendet wird (Ein Wert von 0 bedeutet unbegrenzten Speicherplatz). Wenn dieser Maximalwert erreicht wurde, werden die Dateien zuerst gelöscht, die am längsten nicht mehr angesehen wurden.</text>
         <version>1.19</version>
       </string>
       <string>
@@ -489,7 +499,7 @@
       </string>
       <string>
         <id>CAT_PARENT</id>
-        <text>Vorherige Kategorie</text>
+        <text>Übergeordnete Kategorie</text>
         <version>1.19</version>
       </string>
       <string>
@@ -544,7 +554,7 @@
       </string>
       <string>
         <id>CONFIG_DB_ERROR</id>
-        <text>Kann nicht auf die Datenbank zugreifen - sind Ihre [em]Datenbank-Konfigurations-[/em]Parameter korrekt?</text>
+        <text>Kann nicht auf die Datenbank zugreifen. Sind Ihre [em]Datenbank-Konfigurations-[/em]Parameter korrekt?</text>
         <version>1.19</version>
       </string>
       <string>
@@ -634,7 +644,7 @@
       </string>
       <string>
         <id>CURRENT_VERSION</id>
-        <text>Aktuelle Version</text>
+        <text>Verwendete Version</text>
         <version>1.19</version>
       </string>
       <string>
@@ -1004,7 +1014,7 @@
       </string>
       <string>
         <id>EXTRA_EXPORT_DETAILS</id>
-        <text>Alle Zusatzinformationen wie Inhaltsangabe, Darsteller etc. können in eine XML-Datei exportiert werden. Diese Datei kann benutzt werden Film-Informationen zu re-importieren, falls eine neue Datenbank angelegt wurde. Dazu muss die Option &quot;XML Zusatzdatei verwenden&quot; zuerst aktiviert werden.</text>
+        <text>Alle Zusatzinformationen, wie Inhaltsangabe, Mitwirkende usw. können in eine XML-Datei exportiert werden. Diese kann dann für den Re-Import verwendet werden, wenn eine neue Datenbank erzeugt wird. Dafür muss zuvor die Option &quot;XML Dateien erstellen&quot; aktiviert werden.</text>
         <version>1.21.1</version>
       </string>
       <string>
@@ -1029,7 +1039,7 @@
       </string>
       <string>
         <id>EXTRA_REFRESH_TITLE</id>
-        <text>Aktualisieren aller Zusatzinformationen</text>
+        <text>Zusatzinformationen aktualisieren</text>
         <version>1.21.1</version>
       </string>
       <string>
@@ -1084,7 +1094,7 @@
       </string>
       <string>
         <id>FAIL_PHP_FONT_SET</id>
-        <text>... Nur der Font scheint invalid (oder nicht verfügbar) zu sein.</text>
+        <text>... Nur der Font scheint ungültig (oder nicht verfügbar) zu sein.</text>
         <version>1.19</version>
       </string>
       <string>
@@ -1139,7 +1149,7 @@
       </string>
       <string>
         <id>FILENAME</id>
-        <text>Dateiname</text>
+        <text>Pfad\Dateiname</text>
         <version>1.19</version>
       </string>
       <string>
@@ -1194,7 +1204,7 @@
       </string>
       <string>
         <id>FONTWIDTH_MULTIPLIER_PROMPT</id>
-        <text>Hiermit lässt sich die maximale Anzahl von in SwissCenter-Menüs darzustellenden Zeichen pro Zeile einstellen. Der Wert hängt vom gewählten Zeichensatz (Font) ab, und sollte zwischen [b]1.0[/b] (default) und [b]2.2[/b] liegen.</text>
+        <text>Hiermit lässt sich die maximale Anzahl der im SwissCenter-Menü darzustellenden Zeichen pro Zeile einstellen. Der Wert hängt vom gewählten Zeichensatz (Font) ab, und sollte zwischen [b]1.0[/b] (default) und [b]2.2[/b] liegen.</text>
         <version>1.19</version>
       </string>
       <string>
@@ -1224,12 +1234,12 @@
       </string>
       <string>
         <id>IMAGE_LANDSCAPE_CROP</id>
-        <text>Auf Bildschirmgröße abschneiden</text>
+        <text>Bildgröße beschneiden</text>
         <version>1.21.1</version>
       </string>
       <string>
         <id>IMAGE_LANDSCAPE_CROP_PROMPT</id>
-        <text>In der Grundeinstellung zentriert SwissCenter horizontale Fotos und beschneidet sie, um dem Seitenverhältnis (z.B. 4:3 oder 16:9) des Bildschirms zu entsprechen. Diese Option sollte deaktiviert werden, falls das gesamte Foto, ggf. mit schwarzen Rändern, gezeigt werden soll.</text>
+        <text>In der Voreinstellung zentriert Swisscenter Photos im Qeuerformat und beschneidet die Bildgröße entsprechend dem Format des TV-Bildschirms. Wenn Sie jedoch das Bild in Originalgröße (mit schwarzen Streifen am Bildschirmrand) sehen wollen, deaktivieren Sie diese Option.</text>
         <version>1.21.1</version>
       </string>
       <string>
@@ -1274,7 +1284,7 @@
       </string>
       <string>
         <id>IMPEXP_TITLE</id>
-        <text>Einstellungssicherung</text>
+        <text>Einstellg. Ex-/Import</text>
         <version>1.21.1</version>
       </string>
       <string>
@@ -1358,6 +1368,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>INTERNET_FEATURES</id>
+        <text>Internet Funktionen</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>INTERNET_RADIO</id>
         <text>Internet-Radio</text>
         <version>1.19</version>
@@ -1424,8 +1439,23 @@
       </string>
       <string>
         <id>IPTC_SUPPCATEGORY</id>
-        <text>Zusätzlichen Kategorien</text>
+        <text>Zusätzliche Kategorien</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_ADD_PARAM</id>
+        <text>Neue Auswahl hinzufügen</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_ADD_PARAM_BUTTON</id>
+        <text>Speichern</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_BROADCASTER_SELECT</id>
+        <text>Einen Anbieter auswählen:</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>IRADIO_CACHE_EXPIRE</id>
@@ -1434,7 +1464,7 @@
       </string>
       <string>
         <id>IRADIO_CACHE_EXPIRE_PROMPT</id>
-        <text>SwissCenter kann die Stations-Informationen für jedes Genre zwischenspeichern. Da sich diese Informationen jedoch beständig ändern, sollten sie von Zeit zu Zeit neu geladen werden. Eine Stunde (3600 Sekunden) ist ein guter Wert.</text>
+        <text>SwissCenter kann die Stations-Informationen für jedes Genre zwischenspeichern. Da sich diese Informationen jedoch ständig ändern, sollten sie von Zeit zu Zeit neu geladen werden. Eine Stunde (3600 Sekunden) ist ein guter Wert.</text>
         <version>1.19</version>
       </string>
       <string>
@@ -1443,13 +1473,38 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_COUNTRIES</id>
+        <text>Länder</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_COUNTRY</id>
+        <text>Land</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_COUNTRY_PROMPT</id>
+        <text>Bitte geben Sie ein Land an, nach dem Sie suchen wollen. Nur %s unterstützt die Suche nach Ländern. Bitte besuchen Sie die Webseite um die gültigen Länder zu finden. Bei ShoutCast wird danach gesucht, ob der Name der Station das Land enthält.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>IRADIO_COUNTRY_SELECT</id>
         <text>Bitte wählen Sie das Land für die Suche:</text>
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_DELETE_PARAM_OK</id>
+        <text>Die markierten Werte wurden gelöscht</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_DEL_PARAM_BUTTON</id>
+        <text>Markierte Werte löschen</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>IRADIO_ERROR_CACHE_EXPIRE</id>
-        <text>Für 'Stationen puffern' muss ein (numerischer) Wert angegeben werden. Zum Abschalten der Pufferung bitte eine 0 (Null) eingeben.</text>
+        <text>Für 'Stationen puffern' muss ein (numerischer) Wert in Sekunden angegeben werden. Zum Abschalten der Pufferung bitte eine 0 (Null) eingeben.</text>
         <version>1.19</version>
       </string>
       <string>
@@ -1463,9 +1518,39 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_ERROR_PARAM</id>
+        <text>Bitte ein Auswahlkriterium eingeben</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_GENRE</id>
+        <text>Genre</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_GENRES</id>
+        <text>Genre</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_GENRE_PROMPT</id>
+        <text>Bitte geben Sie ein Genre und (optional) ein Sub-Genre ein, nach dem Sie suchen wollen. Sowohl %s als auch %s unterstützen die Suche nach Genre. Bitte besuchen Sie die Webseiten, um die gültigen Genres zu ermitteln.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>IRADIO_LIVERADIO_DESC</id>
         <text>LiveRadio (%s) ist ein Internet-Radio Service ähnlich ShoutCast. Hier kann nach Medientyp, Stationsname, Land und sogar Stadt gesucht werden - doch das Format (Medientyp) vieler hier gelisteter Stationen ist zu etlichen Hardware-Playern nicht kompatibel. Daher sucht der von SwissCenter verwendete LiveRadio-Parser hier nur nach MP3 Stationen.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_LOGO</id>
+        <text>Logo-Dateiname</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_MAINGENRE</id>
+        <text>Haupt-Genre</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>IRADIO_MAINGENRE SELECT</id>
@@ -1493,14 +1578,44 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_PARAM_ADDED_OK</id>
+        <text>Auswahlkriterium hinzugefügt</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_PARAM_PROMPT</id>
+        <text>ShoutCast und Live-Radio ermöglichen die Auswahl von Radioprogrammen nach Station, Genre und Land. Hier können Sie die entsprechenden Auswahlkriterien definieren.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_PARAM_TYPE</id>
+        <text>Auswahlkriterium</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>IRADIO_SEARCH</id>
         <text>Suche nach Stationen</text>
         <version>1.19</version>
       </string>
       <string>
         <id>IRADIO_SHOUTCAST_DESC</id>
-        <text>ShoutCast (%s) ist ein Internet-Radio Service. Die Website ermöglicht es, nach Genres oder Stations-Namen zu suchen, und liefert zahlreiche Details für jede gefundene Station - inklusive einer Playlist URL. Der von SwissCenter verwendete ShoutCast-Parser parst den HTML-Code der Ergebnisseite, um die Stationsliste in einer auch auf TV-Bildschirmen einfach lesbaren Art darzustellen. Dies kann jedoch fehlschlagen, wenn die Betreiber von ShoutCast die Seitenstruktur ändern.[p]Ab und an gibt ShoutCast vor, nichts zu finden. Sollte der Test also fehlschlagen, am besten die Seite nochmals laden, um sicher zu gehen, dass das Problem nicht vielleicht dort liegt.</text>
+        <text>ShoutCast (%s) ist ein Internet-Radio Service. Die Website ermöglicht es, nach Genres oder Stations-Namen zu suchen und liefert zahlreiche Details für jede gefundene Station - inklusive einer Playlist URL. Der von SwissCenter verwendete ShoutCast-Parser parst den HTML-Code der Ergebnisseite, um die Stationsliste in einer auch auf TV-Bildschirmen einfach lesbaren Art darzustellen. Dies kann jedoch fehlschlagen, wenn die Betreiber von ShoutCast die Seitenstruktur ändern.[p]Gelegentlich gibt ShoutCast vor, nichts zu finden. Sollte der Test also fehlschlagen, am besten die Seite nochmals laden, um sicher zu gehen, dass das Problem nicht vielleicht dort liegt.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_STATION</id>
+        <text>Station</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_STATION_PROMPT</id>
+        <text>Bitte geben Sie den Namen der Station ein, nach der Sie suchen wollen. Optional kann auch der Dateiname des Logos angegeben werden, das auf der Seite &quot;Aktueller Titel&quot; angezeigt wird. Die Logo-Datei muss im Verzeichnis [em]&quot;../images/iradio/&quot;[/em] gespeichert sein.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_STATION_SEARCH</id>
+        <text>Stations-Auswahl:</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>IRADIO_STATION_SELECT</id>
@@ -1508,9 +1623,19 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_SUBGENRE</id>
+        <text>Sub-Genre</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>IRADIO_SUBGENRE_SELECT</id>
         <text>Bitte wählen Sie das Sub-Genre für die Suche:</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_UPDATE_PARAM_OK</id>
+        <text>Auswahlkriterium wurde geändert</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>ITUNES_CONFIG_PROMPT</id>
@@ -1554,7 +1679,7 @@
       </string>
       <string>
         <id>LANG_ADD_NEW</id>
-        <text>Füge einen neuen Text hinzu</text>
+        <text>Neuen Text hinzufügen</text>
         <version>1.20</version>
       </string>
       <string>
@@ -1599,7 +1724,7 @@
       </string>
       <string>
         <id>LANG_NATIVE</id>
-        <text>Heimatsprachbezeichnung</text>
+        <text>Name in Landessprache</text>
         <version>1.21.1</version>
       </string>
       <string>
@@ -1619,7 +1744,7 @@
       </string>
       <string>
         <id>LANG_NEW_FAIL</id>
-        <text>Bitte Sprache und ISO Kennung angeben um eine Sprache anzulegen</text>
+        <text>Zum Hinzufügen einer neuen Sprache geben Sie bitte sowohl den Namen der Sprache in Landessprache als auch den ISO-Code ein.</text>
         <version>1.21.1</version>
       </string>
       <string>
@@ -1629,12 +1754,12 @@
       </string>
       <string>
         <id>LANG_NEW_PROMPT</id>
-        <text>Hier kann eine neue Sprache angelegt werden. Dazu die Heimatsprachbezeichnung eingeben, z.B. Español (nicht Spanish), und die zugehörige %s Kennung (es). Es können auch regionale Sprachen wie en-us für Englisch (US) angelegt werden. Das Format ist dann die ISO 639-1 Kennung mit der regionalen %s Untergruppenkennung (us)</text>
+        <text>Hier können Sie die Unterstützung neuer Sprachen realisieren. Geben Sie den Namen der Sprache in der Landessprache ein, z.B. Español (nicht Spanisch), und wählen Sie den entsprechenden %s Code (es). Sie können auch regionalisierte Sprachen neu anlegen, z.B. en-us für amerikanisches Englisch. Hierfür verwenden Sie den ISO 639-1 Code (en) ergänzt mit dem %s Regionen-Subcode (us).</text>
         <version>1.21.1</version>
       </string>
       <string>
         <id>LANG_PROMPT</id>
-        <text>Sprachdateien bestehen aus einer Zuordnung zwischen interner ID (z.B. &quot;ADD_PLAYLIST&quot;) und dem tatsächlichen Text, der angezeigt werden soll. Der &lt;Text&gt; kann eine begrenzte Anzahl von Formatierungen (Tags) beinhalten, die durch eckige Klammern gekennzeichnet werden. Die Formatierungen verhalten sich entsprechend ihrer in HTML üblichen Pendants. Die folgenden Tags werden unterstützt: :[br]&amp;#91;br&amp;#93;&amp;#91;/br&amp;#93; &amp;#91;em&amp;#93;&amp;#91;/em&amp;#93; &amp;#91;p&amp;#93;&amp;#91;/p&amp;#93; &amp;#91;b&amp;#93;&amp;#91;/b&amp;#93; &amp;#91;i&amp;#93;&amp;#91;/i&amp;#93; &amp;#91;li&amp;#93;&amp;#91;/li&amp;#93; &amp;#91;ul&amp;#93;&amp;#91;/ul&amp;#93; &amp;#91;ol&amp;#93;&amp;#91;/ul&amp;#93;[p] In einigen Passagen kann es notwendig sein, das Textteile durch neuen Text ersetzt werden müssen. Solche Platzhalter werden durch folgende Zeichen gekennzeichnet: '&amp;#37;s'.[br]Im folgenden Beispiel wird die Anzahl der Musikstücke aus der Datenbank ausgelesen und an die Stelle des &amp;#37;s kopiert, so dass bei einer Suche mit vier Treffern das Ergebnis als &quot;4 Tracks&quot; angezeigt wird.[br]MANY_TRACKS= &amp;#37;s Tracks</text>
+        <text>Sprachdateien bestehen aus einer Zuordnung zwischen interner ID (z.B. &quot;ADD_PLAYLIST&quot;) und dem tatsächlichen Text, der angezeigt werden soll. Der &lt;Text&gt; kann eine begrenzte Anzahl von Formatierungen (Tags) beinhalten, die durch eckige Klammern gekennzeichnet werden. Die Formatierungen verhalten sich entsprechend ihrer in HTML üblichen Pendants. Die folgenden Tags werden unterstützt: :[br]&amp;#91;br&amp;#93;&amp;#91;/br&amp;#93; &amp;#91;em&amp;#93;&amp;#91;/em&amp;#93; &amp;#91;p&amp;#93;&amp;#91;/p&amp;#93; &amp;#91;b&amp;#93;&amp;#91;/b&amp;#93; &amp;#91;i&amp;#93;&amp;#91;/i&amp;#93; &amp;#91;li&amp;#93;&amp;#91;/li&amp;#93; &amp;#91;ul&amp;#93;&amp;#91;/ul&amp;#93; &amp;#91;ol&amp;#93;&amp;#91;/ul&amp;#93;[p] In einigen Passagen kann es notwendig sein, dass Textteile durch neuen Text ersetzt werden müssen. Solche Platzhalter werden durch folgende Zeichen gekennzeichnet: '&amp;#37;s'.[br]Im folgenden Beispiel wird die Anzahl der Musikstücke aus der Datenbank ausgelesen und an die Stelle des &amp;#37;s kopiert, so dass bei einer Suche mit vier Treffern das Ergebnis als &quot;4 Titel&quot; angezeigt wird.[br]MANY_TRACKS= &amp;#37;s Titel</text>
         <version>1.21.1</version>
       </string>
       <string>
@@ -1674,12 +1799,12 @@
       </string>
       <string>
         <id>LASTFM_ABOUT</id>
-        <text>Mit über 20 Millionen aktiven Benutzern aus mehr als 232 Ländern ist Last.FM die größte soziale Musikplattform der Welt. Anhand eines einzigartigen Systems, welches &quot;Audioscrobbler&quot; genannt wird, baut Last.FM ein detailliertes Profil vom Musikgeschmack und Hörverhalten eines jeden Benutzers.  [p] Mitglieder können eigene Radiosender und Playlisten erstellen und Zugriff auf Last.FM's riesige Musikdatenbank erhalten. Diese Dateien können allerdings weder heruntergeladen oder anderweitigweiterverarbeitet werden, es sei denn der Rechteinhaber hat dies ausdrücklich genehmigt. Eine Registrierung ist nötig, um den vollen Umfang des Angebots nutzen zu können.</text>
+        <text>Mit über 20 Millionen aktiven Benutzern aus mehr als 232 Ländern ist Last.FM die größte soziale Musikplattform der Welt. Anhand eines einzigartigen Systems, welches &quot;Audioscrobbler&quot; genannt wird, baut Last.FM ein detailliertes Profil vom Musikgeschmack und Hörverhalten eines jeden Benutzers.  [p] Mitglieder können eigene Radiosender und Playlisten erstellen und Zugriff auf Last.FM's riesige Musikdatenbank erhalten. Diese Dateien können allerdings weder heruntergeladen noch anderweitig weiterverarbeitet werden, es sei denn der Rechteinhaber hat dies ausdrücklich genehmigt. Eine Registrierung ist nötig, um den vollen Umfang des Angebots nutzen zu können.</text>
         <version>1.19</version>
       </string>
       <string>
         <id>LASTFM_ARTIST</id>
-        <text>Verfügbare Künstler</text>
+        <text>Verfügbare Interpreten</text>
         <version>1.19</version>
       </string>
       <string>
@@ -1694,13 +1819,13 @@
       </string>
       <string>
         <id>LASTFM_PROMPT_GENERAL</id>
-        <text>Sender anzeigen</text>
-        <version>1.19</version>
+        <text>Stationen anzeigen</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>LASTFM_PROMPT_PERSONAL</id>
-        <text>Deine persönlichen Sender</text>
-        <version>1.19</version>
+        <text>Ihre persönlichen Stationen</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>LASTFM_TAGS</id>
@@ -1729,7 +1854,7 @@
       </string>
       <string>
         <id>LISTEN_LASTFM_ARTISTS</id>
-        <text>Spiele vergleichbare Musik zu einem Künstler oder Band.</text>
+        <text>Spiele ähnliche Musik</text>
         <version>1.19</version>
       </string>
       <string>
@@ -1739,8 +1864,8 @@
       </string>
       <string>
         <id>LISTEN_LASTFM_MY_STATION</id>
-        <text>Deine Station abspielen</text>
-        <version>1.19</version>
+        <text>Ihre Station abspielen</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>LISTEN_LASTFM_NEIGHBOURHOOD</id>
@@ -1749,8 +1874,8 @@
       </string>
       <string>
         <id>LISTEN_LASTFM_RECOMMEND</id>
-        <text>Deine Empfehlungen abspielen</text>
-        <version>1.19</version>
+        <text>Ihre Empfehlungen abspielen</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>LISTEN_LASTFM_TAGS</id>
@@ -1839,8 +1964,8 @@
       </string>
       <string>
         <id>MANY_TRACKS</id>
-        <text>%s Tracks</text>
-        <version>1.19</version>
+        <text>%s Titel</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>MAX_PLAYLIST_SIZE</id>
@@ -1849,7 +1974,7 @@
       </string>
       <string>
         <id>MAX_PLAYLIST_SIZE_PROMPT</id>
-        <text>Bitte die maximale Größe für Playlisten, die erstellt werden, angeben. Das absolute Maximum ist abspielgerätebedingt bei 2000. Ein sinnvoller Wert liegt so um die 200</text>
+        <text>Bitte geben Sie eine Maximalgröße an, die für alle Playlisten gelten soll. Auf Grund von Einschränkungen bei einigen Playern darf die Größe den Wert von 2000 nicht überschreiten. Ein vernünftiger Wert liegt bei etwa 200.</text>
         <version>1.21.1</version>
       </string>
       <string>
@@ -1969,12 +2094,12 @@
       </string>
       <string>
         <id>MEDIA_SCAN_STATUS_ITUNES</id>
-        <text>Analysieren der iTunes-Bibliothek</text>
+        <text>iTunes Library wird übernommen</text>
         <version>1.21.1</version>
       </string>
       <string>
         <id>MEDIA_SCAN_STATUS_MOVIE</id>
-        <text>Analysieren der Film-Bibliothek</text>
+        <text>Film-Informationen werden übernommen</text>
         <version>1.21.1</version>
       </string>
       <string>
@@ -1989,7 +2114,7 @@
       </string>
       <string>
         <id>MEDIA_SCAN_STATUS_TV</id>
-        <text>Analysieren der TV Sendungen</text>
+        <text>TV-Informationen werden übernommen</text>
         <version>1.21.1</version>
       </string>
       <string>
@@ -2003,9 +2128,39 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MEDIA_TYPE_MUSIC</id>
+        <text>Audio</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_PHOTO</id>
+        <text>Photo</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>MEDIA_TYPE_PROMPT</id>
         <text>Bitte wählen Sie einen Medientyp aus, nach dem in diesem Ordner gesucht wird.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_RADIO</id>
+        <text>Radio</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_TV SERIES</id>
+        <text>TV Serien</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_VIDEO</id>
+        <text>Video</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_WEB</id>
+        <text>Web</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>MESSAGES</id>
@@ -2019,7 +2174,7 @@
       </string>
       <string>
         <id>MESSAGES_KEEP</id>
-        <text>Diese Nachricht aufheben</text>
+        <text>Diese Nachricht behalten</text>
         <version>1.19</version>
       </string>
       <string>
@@ -2034,7 +2189,7 @@
       </string>
       <string>
         <id>MESSAGES_VIEW</id>
-        <text>Nachrichten ansehen</text>
+        <text>Nachrichten</text>
         <version>1.19</version>
       </string>
       <string>
@@ -2049,7 +2204,7 @@
       </string>
       <string>
         <id>MESSAGE_STATUS_READ</id>
-        <text>Gelesen</text>
+        <text>gelesene</text>
         <version>1.19</version>
       </string>
       <string>
@@ -2064,7 +2219,7 @@
       </string>
       <string>
         <id>MIP_DESC</id>
-        <text>MusicIP (frei verfügbar bei %s) ist eine Software, die Ihre Musiksammlung analysiert und dabei für jeden Titel einen &quot;akustischen Fingerabdruck&quot; generiert. Anhand dieser Information werden sodann - basierend auf einem ausgewählten Titel, Künstler oder Album - persönliche Playlists gleichartiger Titel erstellt. [p]Ist MusicIP auf dem gleichen Rechner wie SwissCenter installiert, wird diese Extra-Funktionalität direkt aus dem SwissCenter Interface verfügbar.</text>
+        <text>MusicIP (frei verfügbar bei %s) ist eine Software, die Ihre Musiksammlung analysiert und dabei für jeden Titel einen &quot;akustischen Fingerabdruck&quot; generiert. Anhand dieser Information werden sodann - basierend auf einem ausgewählten Titel, Interpreten oder Album - persönliche Playlists gleichartiger Titel erstellt. [p]Ist MusicIP auf dem gleichen Rechner wie SwissCenter installiert, wird diese Extra-Funktionalität direkt aus dem SwissCenter Interface verfügbar.</text>
         <version>1.19</version>
       </string>
       <string>
@@ -2099,7 +2254,7 @@
       </string>
       <string>
         <id>MIP_REJECT_PROMPT</id>
-        <text>Verhindert, dass der gleiche Künstler im angegebenen Zeitraum (bzw. Titelanzahl) erneut gespielt wird.</text>
+        <text>Verhindert, dass der gleiche Interpret im angegebenen Zeitraum (bzw. Titelanzahl) erneut gespielt wird.</text>
         <version>1.19</version>
       </string>
       <string>
@@ -2119,7 +2274,7 @@
       </string>
       <string>
         <id>MIP_STYLE_PROMPT</id>
-        <text>Hiermit lässt sich festlegen, wie genau der Stil der ausgewählten Künstler übereinstimmen soll. Je größer die Nummer, desto besser die Übereinstimmung - je kleiner die Nummer, desto größ die Vielfalt der ausgewählten Künstler.</text>
+        <text>Hiermit lässt sich festlegen, wie genau der Stil der ausgewählten Interpreten übereinstimmen soll. Je größer die Nummer, desto besser die Üereinstimmung - je kleiner die Nummer, desto größer die Vielfalt der ausgewähltenten Interpreten.</text>
         <version>1.19</version>
       </string>
       <string>
@@ -2243,6 +2398,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MORE</id>
+        <text>[mehr]</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>MOVIE_ADD_BUTTON</id>
         <text>Details hinzufügen/bearbeiten</text>
         <version>1.19</version>
@@ -2274,7 +2434,7 @@
       </string>
       <string>
         <id>MOVIE_EXTRA_EXPORT_OK</id>
-        <text>Alle Film-Zusatzinformationen werden in eine XML-Datei exportiert.</text>
+        <text>Alle Video-Zusatzinformationen werden exportiert</text>
         <version>1.21.1</version>
       </string>
       <string>
@@ -2344,12 +2504,12 @@
       </string>
       <string>
         <id>NETWORK_SHARE_MSG</id>
-        <text>Netzwerkverzeichnis kann nicht ermittelt werden. Falls Sie einen NMT Player verwenden, muss dieser eingeschaltet sein.</text>
+        <text>Es konnten keine Netzwerk-Verzeichnisse gefunden werden. Wenn Sie einen NMT Player verwenden, muss dieser eingeschaltet sein.</text>
         <version>1.21.1</version>
       </string>
       <string>
         <id>NETWORK_SHARE_PROMPT</id>
-        <text>Das Netzwerkverzeichnis wird nur für DVD-Medien benötigt und für alle anderen Medien ignoriert. Um DVDs wiederzugeben, müssen Sie zuerst ein SMB- oder NFS-Netzwerkverzeichnis für diese DVD-Medien in Ihrem NMT eingerichtet haben.</text>
+        <text>Das Netzwerk-Verzeichnis wird nur für Medien vom Typ 'DVD Video' verwendet und für alle anderen Medientypen ignoriert. Um DVD Videos wiederzugeben, müssen Sie auf Ihrem Media-Player zunächst ein SMB oder NFS Netzwerk-Verzeichnis einrichten und und dieses mit dem hier angegebenen Speicherort verknüpfen</text>
         <version>1.21.1</version>
       </string>
       <string>
@@ -2394,7 +2554,7 @@
       </string>
       <string>
         <id>NOW_PLAYING_PROMPT</id>
-        <text>Einige Hardware-Player unterstützen die Anzeige einer Bilddatei während der Wiedergabe eines Musikstückes, wobei sie diese zum jeweiligen Stück explizit anfordern. SwissCenter nutzt diese Tatsache für die Darstellung von Details zum aktuellen Musikstück.[p]In den meisten Fällen kann SwissCenter automatisch feststellen, ob Ihr Player dies unterstützt. Sollte es dabei zu Problemen kommen (z.B. kein Bild bei der Wiedergabe einer MP3-Playliste, oder das Bild wird nicht aktualisiert), können Sie die entsprechende Einstellung hier ändern.[p]Die Einstellungen bedeuten dabei: Aktiviert - der Player fordert die Bilddatei selbständig an. Deaktiviert - Er tut dies nicht automatisch, und SwissCenter teilt ihm daher in der Playliste mit, es in bestimmten Zeitabständen neu zu laden. Automatisch - SwissCenter soll es selbst herausfinden.</text>
+        <text>Einige Hardware-Player unterstützen die Anzeige einer Bilddatei während der Wiedergabe eines Musikstücks, wobei sie diese zum jeweiligen Stück explizit anfordern. SwissCenter nutzt diese Tatsache für die Darstellung von Details zum aktuellen Musikstück[p]In den meisten Fällen kann SwissCenter automatisch feststellen, ob Ihr Player dies unterstützt. Sollte es dabei zu Problemen kommen (z.B. kein Bild bei der Wiedergabe einer MP3-Playliste, oder das Bild wird nicht aktualisiert), können Sie die entsprechende Einstellung hier ändern.[p]Die Einstellungen bedeuten dabei: Aktiviert - der Player fordert die Bilddatei selbstätig an. Deaktiviert - Er tut dies nicht automatisch, und SwissCenter teilt ihm daher in der Playliste mit, es in bestimmten Zeitabständen neu zu laden. Automatisch - SwissCenter soll es selbst herausfinden.</text>
         <version>1.19</version>
       </string>
       <string>
@@ -2439,7 +2599,7 @@
       </string>
       <string>
         <id>ORG_TITLE</id>
-        <text>Videoinfos bearbeiten</text>
+        <text>Filmdetails bearbeiten</text>
         <version>1.21.1</version>
       </string>
       <string>
@@ -2549,7 +2709,7 @@
       </string>
       <string>
         <id>PASS_SWISS_ROOT_INS</id>
-        <text>SwissCenter wurde nicht als 'root' User durchgeführt.</text>
+        <text>Die SwissCenter Installation wurde nicht vom User 'root' ausgeführt.</text>
         <version>1.19</version>
       </string>
       <string>
@@ -2604,7 +2764,7 @@
       </string>
       <string>
         <id>PERCENT_SCANNED</id>
-        <text>% Überprüft</text>
+        <text>% geprüft</text>
         <version>1.19</version>
       </string>
       <string>
@@ -2624,7 +2784,7 @@
       </string>
       <string>
         <id>PHOTOS_MUSIC_CHANGE</id>
-        <text>Hintergrund Musik ändern</text>
+        <text>Hintergrundmusik ändern</text>
         <version>1.19</version>
       </string>
       <string>
@@ -2669,7 +2829,7 @@
       </string>
       <string>
         <id>PHOTO_CHANGE_TIME</id>
-        <text>Geschwindigkeit ändern</text>
+        <text>Standzeit ändern</text>
         <version>1.19</version>
       </string>
       <string>
@@ -2809,7 +2969,7 @@
       </string>
       <string>
         <id>PLAYLISTS_ERROR_SIZE</id>
-        <text>Bitte eine gültige Playlistgröße (zwischen 10 und 2000) angeben</text>
+        <text>Bitte geben Sie einen gültigen Wert für die Größe der Playlisten ein (10 bis 2000).</text>
         <version>1.21.1</version>
       </string>
       <string>
@@ -2819,12 +2979,12 @@
       </string>
       <string>
         <id>PLAYLIST_AUTOLOAD</id>
-        <text>Automatisch zu ladende Playliste.</text>
+        <text>Start-Playliste</text>
         <version>1.21.1</version>
       </string>
       <string>
         <id>PLAYLIST_AUTOLOAD_PROMPT</id>
-        <text>Wählen Sie eine Playliste, die beim Start automatisch geladen wird. Dies ist nützlich, wenn Sie z.B. bei Foto-Shows immer dieselbe Hintergrundmusik verwenden wollen.</text>
+        <text>Wählen Sie eine Playliste, die beim Start automatisch geladen werden soll. Dies ist nützlich, wenn beim Ansehen Ihrer Photos immer die gleiche Playliste für die Hintergrundmusik verwendet werden soll.</text>
         <version>1.21.1</version>
       </string>
       <string>
@@ -2834,17 +2994,17 @@
       </string>
       <string>
         <id>PLAYLIST_DELETE</id>
-        <text>Eine Playliste löschen</text>
+        <text>Playliste löschen</text>
         <version>1.21.1</version>
       </string>
       <string>
         <id>PLAYLIST_DELETED</id>
-        <text>Playliste gelöscht</text>
+        <text>Playliste wurde gelöscht</text>
         <version>1.21.1</version>
       </string>
       <string>
         <id>PLAYLIST_DELETE_CONFIRM</id>
-        <text>Playliste löschen?</text>
+        <text>Playliste wirklich löschen?</text>
         <version>1.21.1</version>
       </string>
       <string>
@@ -2859,7 +3019,7 @@
       </string>
       <string>
         <id>PLAYLIST_LOAD_FAIL</id>
-        <text>Die Playliste hat %s Stücke geladen, %s wurden in der Medienbibliothek nicht gefunden.</text>
+        <text>%s Titel der Playliste wurden geladen. %s Titel nicht gefunden.</text>
         <version>1.21.1</version>
       </string>
       <string>
@@ -2894,7 +3054,7 @@
       </string>
       <string>
         <id>PLAYLIST_SAVE_PROMPT</id>
-        <text>Bitte geben Sie den gewünschten Namen der Playliste ein</text>
+        <text>Bitte geben Sie einen Namen für die Playliste ein</text>
         <version>1.19</version>
       </string>
       <string>
@@ -2929,7 +3089,7 @@
       </string>
       <string>
         <id>PRIVACY_DATA_COLLECTION</id>
-        <text>[b]Datensammlung[/b] [p]Informationen über die Medien-Dateien auf Ihrem Rechner werden gesammelt und in einer MySQL-Datenbank auf dem Rechner gespeichert, auf dem SwissCenter installiert ist. Diese Informationen werden einzig und allein dafür verwendet, eine Bedienoberfläche für Ihre Medien auf solchen Geräten wie das Pinnacle Showcenter zu erzeugen. Zu keinem Zeitpunkt werden diese oder irgendwelche anderen Informationen an die Autoren von SwissCenter oder irgendeine andere Stelle übertragen. [p]Es gibt eine Ausnahme zur obigen Erklärung:- Um zusätzliche Informationen zu Filmen/Videos (wie Schauspieler, Regisseure etc.) zu erhalten, wird der Dateiname als Teil einer Suche an die Website geschickt, die auf der Seite %s ausgewählt wurde. Wenn Sie nicht möchten, daß diese Informationen übertragen werden, deaktivieren Sie bitte die Option &quot;Zusätzliche Filminformationen herunterladen&quot;.</text>
+        <text>[b]Datensammlung[/b] [p]Informationen über die Medien-Dateien auf Ihrem Rechner werden gesammelt und in einer MySQL-Datenbank auf dem Rechner gespeichert, auf dem SwissCenter installiert ist. Diese Informationen werden einzig und allein dafür verwendet, eine Bedienoberfläche für Ihre Medien auf solchen Geräten wie das Pinnacle Showcenter zu erzeugen. Zu keinem Zeitpunkt werden diese oder irgendwelche anderen Informationen an die Autoren von SwissCenter oder irgendeine andere Stelle übertragen. [p]Es gibt eine Ausnahme zur obigen Erklärung:- Um zusätzliche Informationen zu Filmen/Videos (wie Schauspieler, Regisseure etc.) zu erhalten, wird der Dateiname als Teil einer Suche an die Website geschickt, die auf der Seite %s ausgewählt wurde. Wenn Sie nicht möchten, dass diese Informationen übertragen werden, deaktivieren Sie bitte die Option &quot;Zusätzliche Filminformationen herunterladen&quot;.</text>
         <version>1.19</version>
       </string>
       <string>
@@ -3009,7 +3169,7 @@
       </string>
       <string>
         <id>REFINE_ACTOR</id>
-        <text>Nach Autor einschränken</text>
+        <text>Nach Darsteller einschränken</text>
         <version>1.19</version>
       </string>
       <string>
@@ -3109,12 +3269,12 @@
       </string>
       <string>
         <id>REFRESH_CLEANUP</id>
-        <text>Säuberung der Datenbank</text>
+        <text>Datenbank bereinigen</text>
         <version>1.21.1</version>
       </string>
       <string>
         <id>REFRESH_CLEANUP_PROMPT</id>
-        <text>Die Säuberung der Datenbank beseitigt alle veralteten Einträge von nicht mehr vorhandenen Medien an ihrem ursprünglichen Speicherort und z.B. Darsteller/Regisseure die nicht mehr länger in den Medien vorkommen. Dies verlängert die Mediensuche und sollte verwendet werden, wenn Medien entfernt/verschoben wurden.</text>
+        <text>Bei der Datenbankbereinigung werden verwaiste Einträge gelöscht. Ein Eintrag ist verwaist, wenn Medien in ihrem Verzwichnis nicht mehr gefunden werden oder wenn Einträge für Mitwirkende (Schauspieler/Regisseure) nicht mehr mit einem Medium verknüpft sind. Durch die Bereinigung werden die Suchzeiten bei der Mediensuche verkürzt. Die Funktion sollte genutzt werden, wenn Medien gelöscht wurden.</text>
         <version>1.21.1</version>
       </string>
       <string>
@@ -3374,7 +3534,7 @@
       </string>
       <string>
         <id>SCHEDULE_ERROR_FIELDS</id>
-        <text>Sie müssen immer einen Wert für die Minute eingeben.</text>
+        <text>Sie müssen in jedem Feld einen Wert eingeben</text>
         <version>1.21.1</version>
       </string>
       <string>
@@ -3564,12 +3724,12 @@
       </string>
       <string>
         <id>SETUP_UPDATE_SC_RELEASE</id>
-        <text>Update auf die letzte offizielle Version</text>
+        <text>Letzte stabile Version</text>
         <version>1.21.1</version>
       </string>
       <string>
         <id>SETUP_UPDATE_SC_SVN</id>
-        <text>Update auf die aktuelle beta-Version</text>
+        <text>Letzte Entwickler-Version</text>
         <version>1.21.1</version>
       </string>
       <string>
@@ -3699,7 +3859,7 @@
       </string>
       <string>
         <id>SUPPORT_TXT</id>
-        <text>Wenn Sie Probleme mit SwissCenter haben, dann beschreiben Sie bitte im [em]Hilfe-Forum[/em] auf der Webseite %s Ihr Problem inklusiver aller wichtigen Informationen, wie z.B. Ihrem Betriebssystem. Alle oder einige der unten angezeigten Informationen könnten erfragt werden, um Ihnen bei der Verfolgung des Problems zu helfen.</text>
+        <text>Wenn Sie Probleme mit SwissCenter haben, dann beschreiben Sie bitte im [em]Hilfe-Forum[/em] auf der Webseite %s Ihr Problem mit allen wichtigen Informationen, wie z.B. Ihrem Betriebssystem. Alle oder einige der unten angezeigten Informationen können erfragt werden, um Ihnen bei der Beseitigung des Problems zu helfen.</text>
         <version>1.19</version>
       </string>
       <string>
@@ -3784,12 +3944,12 @@
       </string>
       <string>
         <id>TRACKS_ADDED_TEXT</id>
-        <text>Die ausgewählten Tracks wurden zur Playliste hinzugefügt.[p] Um die Tracks in Ihrer Playliste abzuspielen oder um die Playliste zu bearbeiten, drücken Sie den Knopf %s auf Ihrer Fernbedienung und wählen dann die Option %s.</text>
+        <text>Die ausgewählten Tracks wurden zur Playliste hinzugefügt[p] Um die Tracks in Ihrer Playliste abzuspielen oder um die Playliste zu bearbeiten, drücken Sie den Knopf %s auf Ihrer Fernbedienung und wählen dann die Option %s.</text>
         <version>1.19</version>
       </string>
       <string>
         <id>TRACKS_ADDED_TITLE</id>
-        <text>Tracks hinzugefügt</text>
+        <text>Titel hinzugefügt</text>
         <version>1.19</version>
       </string>
       <string>
@@ -3874,87 +4034,87 @@
       </string>
       <string>
         <id>TV_DETAILS</id>
-        <text>Serieninfos bearbeiten</text>
+        <text>TV Seriendetails</text>
         <version>1.21.1</version>
       </string>
       <string>
         <id>TV_EXPRESSIONS</id>
-        <text>Serienerkennungsmuster</text>
+        <text>TV-Serien Suchmuster</text>
         <version>1.21.1</version>
       </string>
       <string>
         <id>TV_EXPR_ADD</id>
-        <text>Ein Erkennungsmuster hinzufügen</text>
+        <text>Neues Suchmuster</text>
         <version>1.21.1</version>
       </string>
       <string>
         <id>TV_EXPR_ADDED_OK</id>
-        <text>Erkennungsmuster hinzugefügt</text>
+        <text>Suchmuster hinzugefügt</text>
         <version>1.21.1</version>
       </string>
       <string>
         <id>TV_EXPR_ADD_BUTTON</id>
-        <text>Muster hinzufügen</text>
+        <text>Suchmuster hinzufügen</text>
         <version>1.21.1</version>
       </string>
       <string>
         <id>TV_EXPR_DEFAULTS</id>
-        <text>Wiederherstellung der ursprünglichen Erkennungsmuster</text>
+        <text>Original Suchmuster wiederherstellen</text>
         <version>1.21.1</version>
       </string>
       <string>
         <id>TV_EXPR_DELETE_OK</id>
-        <text>Erkennungsmuster gelöscht</text>
+        <text>Suchmuster gelöscht</text>
         <version>1.21.1</version>
       </string>
       <string>
         <id>TV_EXPR_DEL_BUTTON</id>
-        <text>Ausgewählte Begriffe löschen</text>
+        <text>Ausgewählte Suchmuster löschen</text>
         <version>1.21.1</version>
       </string>
       <string>
         <id>TV_EXPR_ERROR_INVALID</id>
-        <text>Bitte geben Sie einen gültigen Begriff ein!</text>
+        <text>Bitte ein gültiges Suchmuster eingeben</text>
         <version>1.21.1</version>
       </string>
       <string>
         <id>TV_EXPR_ERROR_MISSING</id>
-        <text>Bitte geben Sie die Priorität und einen Begriff ein!</text>
+        <text>Bitte Priorität und Suchmuster eingeben</text>
         <version>1.21.1</version>
       </string>
       <string>
         <id>TV_EXPR_PROMPT</id>
-        <text>Die Details einer TV Serie werden aus dem Dateinamen und Speicherort mittels einiger Begriffe abgeleitet. Der Dateiname mit Speicherort wird mit den folgenden Begriffen auf Übereinstimmung verglichen: Die Begriffe beinhalten Platzhalter für TV-Programme {p}, Serie {s}, Folge {e} und Titel {t}. Mindestens einer der Platzhalter muss vorhanden sein, um Details extrahieren zu können. Weitergehende Fragen können an das SwissCenter Forum gerichtet werden.</text>
+        <text>Die Suche nach Zusatzinformationen für eine TV-Serie wird gesteuert durch den Dateinamen und Pfad mithilfe von regulären Ausdrücken. Die Datei wird mit den folgenden Suchmustern verglichen, bis eine Übereinstimmung gefunden wurde. Die Muster enthalten Platzhalter für Programm {p}, Staffel {s}, Episode {e} und Titel {t}. Mindestens einer dieser Platzhalter muss in jedem Suchmuster enthalten sein. Wenn Sie Hilfe für diese Funktion benötigen, fragen Sie bitte im Forum nach.</text>
         <version>1.21.1</version>
       </string>
       <string>
         <id>TV_EXPR_TEST</id>
-        <text>Begriffe testen</text>
+        <text>Test Suchmuster</text>
         <version>1.21.1</version>
       </string>
       <string>
         <id>TV_EXPR_TEST_BUTTON</id>
-        <text>Begriff testen</text>
+        <text>Suchmuster testen</text>
         <version>1.21.1</version>
       </string>
       <string>
         <id>TV_EXPR_TEST_FAILED</id>
-        <text>Keine Treffer mit den bestehenden Erkennungsmustern gefunden</text>
+        <text>Kein Suchmuster ergab eine Übereinstimmung</text>
         <version>1.21.1</version>
       </string>
       <string>
         <id>TV_EXPR_TEST_PROMPT</id>
-        <text>Geben Sie einen Dateinamen mit Speicherort ein, um zu testen, ob mit den gegenwärtigen Begriffen die richtigen Details identifiziert werden. Z.B. C:/Media/TV/Lindenstrasse/Serie 1/Lindenstrasse.S01E01.Die Sackgasse.avi</text>
+        <text>Zum Testen, ob Ihre aktuellen Suchmuster die richtigen Zusatzinformationen liefern, geben Sie bitte einen Dateinamen inclusive Pfad ein. z.B.:[br]C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep End.avi</text>
         <version>1.21.1</version>
       </string>
       <string>
         <id>TV_EXPR_TEST_SUCCESS</id>
-        <text>Übereinstimmungen %s. Gefundene TV-Programme: %s, Serien: %s, Folgen: %s, Titel: %s</text>
+        <text>Passendes Muster: #%s. Gefunden: Programm= %s, Staffel= %s, Episode= %s, Titel= %s</text>
         <version>1.21.1</version>
       </string>
       <string>
         <id>TV_EXPR_UPDATE_OK</id>
-        <text>Erkennungsmuster aktuallisiert</text>
+        <text>Suchmuster geändert</text>
         <version>1.21.1</version>
       </string>
       <string>
@@ -3964,7 +4124,7 @@
       </string>
       <string>
         <id>UNKNOWN_ERROR</id>
-        <text>Ein unbekannter Fehler ist aufgetreten. Bitte veröffentlichen Sie einen Fehlerreport im SwissCenter Forum, wo Sie Ihre Bedienung zum Fehlerzeitpunkt beschreiben.</text>
+        <text>Ein unerwarteter Fehler ist aufgetreten. Bitte schreiben Sie im Forum einen Bug Report und schildern Sie möglichst genau die Umstände, unter denen das Problem aufgetreten ist.</text>
         <version>1.21.1</version>
       </string>
       <string>
@@ -4124,13 +4284,13 @@
       </string>
       <string>
         <id>USERS_PIN_PROMPT</id>
-        <text>Sie können den Benutzer optional mit einem PIN-Code schützen (die bis zu 10 Ziffern lang sein darf).</text>
+        <text>Sie können den Benutzer optional mit einem PIN-Code schützen (der bis zu 10 Ziffern lang sein darf).</text>
         <version>1.19</version>
       </string>
       <string>
         <id>USERS_TABLE_HEADINGS</id>
-        <text>Name, PIN, Höchstes Zertifikat</text>
-        <version>1.19</version>
+        <text>Name, PIN, Höchstes Zertifikat, Admin</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>USER_CHANGE</id>
@@ -4184,7 +4344,7 @@
       </string>
       <string>
         <id>WATCH_DVD</id>
-        <text>DVDs</text>
+        <text>DVD</text>
         <version>1.21.1</version>
       </string>
       <string>
@@ -4229,7 +4389,7 @@
       </string>
       <string>
         <id>WEATHER_FORECAST_PROMPT</id>
-        <text>Informationen über die aktuellen Wetterbedingungen (oder 5-Tage-Vorhersage) wird von %s bei Bedarf heruntergeladen.</text>
+        <text>Informationen über die aktuellen Wetterbedingungen (oder 5-Tage-Vorhersage) werden von %s bei Bedarf heruntergeladen.</text>
         <version>1.19</version>
       </string>
       <string>
@@ -4269,7 +4429,7 @@
       </string>
       <string>
         <id>WEATHER_NO_CITY</id>
-        <text>Es gibt keine Städte, die Ihrer Suche nach %s in der SwissCenter-Datenbank gefunden werden konnten.[p] Möchten Sie trotzdem auf %s nach möglichen Übereinstimmunen suchen? (Geben Sie den gesamten Stadtnamen an, bevor Sie die Suche starten)</text>
+        <text>Es gibt keine Städte, die bei Ihrer Suche nach %s in der SwissCenter-Datenbank gefunden werden konnten.[p] Möchten Sie trotzdem auf %s nach möglichen Übereinstimmunen suchen? (Geben Sie den vollständigen Stadtnamen an, bevor Sie die Suche starten)</text>
         <version>1.19</version>
       </string>
       <string>
@@ -4319,7 +4479,7 @@
       </string>
       <string>
         <id>XML_SAVE</id>
-        <text>XML Zusatzdatei verwenden</text>
+        <text>XML Dateien erstellen</text>
         <version>1.21.1</version>
       </string>
       <string>

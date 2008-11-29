@@ -7,3 +7,4 @@ Italiano,it
 Nederlands,nl
 Norsk,no
 Polski,pl
+Português,pt
