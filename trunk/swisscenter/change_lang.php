@@ -19,7 +19,7 @@
     foreach (explode("\n",str_replace("\r",null,file_get_contents(SC_LOCATION.'lang/languages.txt'))) as $line)
     {
       $lang = explode(',',$line);
-      $array[] = array("name"=>$lang[0], "url"=>$lang[1]);
+      $array[] = array("name"=>$lang[0], "url"=>'change_lang.php?lang='.$lang[1]);
     }
 
     page_header( str('LANG_CHANGE'), '');
