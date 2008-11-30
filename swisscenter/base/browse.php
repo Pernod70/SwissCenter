@@ -461,7 +461,46 @@
           
     browse_page($dir_list, $file_list, $heading, $back_url, $media_type);     
   }
-  
+
+  // ----------------------------------------------------------------------------------
+  // Browse a given array (of objects, properties name & url) in "thumb menu" format
+  // (first parameter is the calling URL without the "page" parameter)
+  // ----------------------------------------------------------------------------------
+
+  function browse_array_thumbs ($url, $array, $page)
+  {
+    $no_items  = items_per_page();
+    $start     = $page * ($no_items);
+    $end       = min(count($array), $start+$no_items);
+    $up        = ($page > 0);
+    $down      = ($end < count($array));
+
+    $tlist     = new thumb_list();
+
+    // Compact View
+    if ( get_user_pref("DISPLAY_THUMBS") == "COMPACT" )
+    {
+      $tlist->set_num_cols(6);
+      $tlist->set_num_rows(2);
+      $tlist->set_titles_off();
+    }
+    
+    // Populate an array with the details that will be displayed
+    for ($i=$start; $i<$end; $i++)
+    {
+      if ($i < count($array))
+        $tlist->add_item( $array[$i]["thumb"], $array[$i]["text"], $array[$i]["url"] );
+    }
+
+    if ($up)
+      $tlist->set_up( url_add_param($url, 'page', $page-1) );
+
+    if ($down)
+      $tlist->set_down( url_add_param($url, 'page', $page+1) ) ;
+
+    $tlist->display();
+  }
+
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/

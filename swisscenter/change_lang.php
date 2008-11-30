@@ -19,11 +19,14 @@
     foreach (explode("\n",str_replace("\r",null,file_get_contents(SC_LOCATION.'lang/languages.txt'))) as $line)
     {
       $lang = explode(',',$line);
-      $array[] = array("name"=>$lang[0], "url"=>'change_lang.php?lang='.$lang[1]);
+      if ( !empty($lang[0]) )
+        $array[] = array("text"=>$lang[0],
+                         "thumb"=>file_albumart(SC_LOCATION.'images/flags/'.$lang[1].'.xml'),
+                         "url"=>'change_lang.php?lang='.$lang[1]);
     }
 
     page_header( str('LANG_CHANGE'), '');
-    browse_array(url_remove_param(current_url(),'page'), $array, $page);
+    browse_array_thumbs(url_remove_param(current_url(),'page'), $array, $page);
     page_footer( 'config.php' );
   }
   
