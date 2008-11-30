@@ -58,7 +58,7 @@
    send_to_log(8,"Initialize station cache. CacheDir: '$cachedir', Expiry: '".get_sys_pref('iradio_cache_expire',3600)."'");
    $iradio->set_cache( $cachedir );
    $iradio->set_cache_expiration(get_sys_pref('iradio_cache_expire',3600));
-   $iradio->set_max_results(get_sys_pref('',24));
+   $iradio->set_max_results(get_sys_pref('iradio_max_stations',24));
    
  }
 
