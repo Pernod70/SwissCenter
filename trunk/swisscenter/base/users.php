@@ -83,6 +83,7 @@ function change_current_user_id($user_id, $pin = null)
     $_SESSION["CURRENT_USER"] = $user_id;
     $_SESSION["CURRENT_USER_TIMEOUT"] = (time() + get_sys_pref('USER_TIMEOUT',14400));
     load_style();
+    load_lang();
   }
 
   return $ok;

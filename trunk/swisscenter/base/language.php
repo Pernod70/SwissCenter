@@ -58,14 +58,20 @@ function load_lang ($current_lang = '')
   // First load english so that we at least have a string for every token.
   $_SESSION['language'] = array();
   load_lang_strings('en');
-  
+
+  // If user logged in then use their preferred language
+  if ($current_lang == '' && ($user_id = get_current_user_id()) !== false)
+  {
+    $current_lang = get_user_pref('LANGUAGE','',$user_id);
+  }
+
   // If a language name was not given then try to work out which language to use
   if ($current_lang == '')
   {
     // Determine language to load from the browser identification (or the last used). 
     if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) && !empty($_SERVER['HTTP_ACCEPT_LANGUAGE']))
     {
-  	  $langs_allowed = explode(',',$_SERVER['HTTP_ACCEPT_LANGUAGE']); 
+      $langs_allowed = explode(',',$_SERVER['HTTP_ACCEPT_LANGUAGE']); 
       $current_lang = $langs_allowed[0];
     }
     else
