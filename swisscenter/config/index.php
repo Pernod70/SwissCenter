@@ -73,50 +73,51 @@
     $menu->add_item(str('CONFIG_DB_CREATE')         ,'section=INSTALL&action=DISPLAY');
 
     if ($db_stat == 'OK')
-  	{
+    {
       $menu->add_menu(str('CONFIGURATION'));
-  	  $menu->add_item(str('CATEGORIES')             ,'section=CATEGORY&action=DISPLAY');
-  	  $menu->add_item(str('MEDIA_LOCATIONS')        ,'section=DIRS&action=DISPLAY');
-  	  $menu->add_item(str('USERS_ADD_TITLE')        ,'section=USERS&action=DISPLAY');
-  	  $menu->add_item(str('SCHEDULE_TITLE')         ,'section=SCHED&action=DISPLAY');
-  	  $menu->add_item(str('IMPEXP_TITLE')           ,'section=IMPEXP&action=DISPLAY');
+      $menu->add_item(str('CATEGORIES')             ,'section=CATEGORY&action=DISPLAY');
+      $menu->add_item(str('MEDIA_LOCATIONS')        ,'section=DIRS&action=DISPLAY');
+      $menu->add_item(str('USERS_ADD_TITLE')        ,'section=USERS&action=DISPLAY');
+      $menu->add_item(str('SCHEDULE_TITLE')         ,'section=SCHED&action=DISPLAY');
+      $menu->add_item(str('IMPEXP_TITLE')           ,'section=IMPEXP&action=DISPLAY');
 
       $menu->add_menu(str('MEDIA_MANAGEMENT'));
-  	  $menu->add_item(str('CONFIG_AUDIO_OPTIONS')   ,'section=AUDIO&action=DISPLAY');
-  	  $menu->add_item(str('CONFIG_IMAGE_OPTIONS')   ,'section=IMAGE&action=DISPLAY');
-  	  $menu->add_item(str('PLAYLISTS')              ,'section=PLAYLISTS&action=DISPLAY');
-  	  $menu->add_item(str('MOVIE_OPTIONS')          ,'section=MOVIE&action=INFO');
-  	  $menu->add_item(str('ORG_TITLE')              ,'section=MOVIE&action=DISPLAY');
-  	  $menu->add_item(str('TV_OPTIONS')             ,'section=TV&action=INFO');
-  	  $menu->add_item(str('TV_DETAILS')             ,'section=TV&action=DISPLAY');
-  	  $menu->add_item(str('MEDIA_REFRESH')          ,'section=MEDIA&action=REFRESH');
+      $menu->add_item(str('CONFIG_AUDIO_OPTIONS')   ,'section=AUDIO&action=DISPLAY');
+      $menu->add_item(str('CONFIG_IMAGE_OPTIONS')   ,'section=IMAGE&action=DISPLAY');
+      $menu->add_item(str('PLAYLISTS')              ,'section=PLAYLISTS&action=DISPLAY');
+      $menu->add_item(str('MOVIE_OPTIONS')          ,'section=MOVIE&action=INFO');
+      $menu->add_item(str('ORG_TITLE')              ,'section=MOVIE&action=DISPLAY');
+      $menu->add_item(str('TV_OPTIONS')             ,'section=TV&action=INFO');
+      $menu->add_item(str('TV_DETAILS')             ,'section=TV&action=DISPLAY');
+      $menu->add_item(str('MEDIA_REFRESH')          ,'section=MEDIA&action=REFRESH');
 
-  	  $menu->add_menu(str('INTERNET_FEATURES'));
-  	  $menu->add_item(str('CONNECT_TITLE')          ,'section=CONNECT&action=DISPLAY');
-  	  $menu->add_item(str('CONFIG_RADIO_OPTIONS')   ,'section=RADIO&action=DISPLAY');
-  	  $menu->add_item(str('CONFIG_LASTFM_TITLE')    ,'section=LASTFM&action=DISPLAY');
-  	  $menu->add_item(str('RSS_FEEDS')              ,'section=RSS&action=DISPLAY');
-  	  
+      $menu->add_menu(str('INTERNET_FEATURES'));
+      $menu->add_item(str('CONNECT_TITLE')          ,'section=CONNECT&action=DISPLAY');
+      $menu->add_item(str('CONFIG_RADIO_OPTIONS')   ,'section=RADIO&action=DISPLAY');
+      $menu->add_item(str('CONFIG_LASTFM_TITLE')    ,'section=LASTFM&action=DISPLAY');
+      $menu->add_item(str('CONFIG_FLICKR')          ,'section=FLICKR&action=DISPLAY');
+      $menu->add_item(str('RSS_FEEDS')              ,'section=RSS&action=DISPLAY');
+
       $menu->add_menu(str('ADVANCED_OPTIONS'));
-  	  $menu->add_item(str('ART_FILES_TITLE')        ,'section=ART&action=DISPLAY');
-  	  $menu->add_item(str('BROWSE_OPTIONS')         ,'section=BROWSE&action=DISPLAY');
-	    $menu->add_item(str('CACHE_CONFIG_TITLE')     ,'section=CACHE&action=DISPLAY');
-  	  $menu->add_item(str('MISC_TITLE')             ,'section=MISC&action=DISPLAY');
+      $menu->add_item(str('ART_FILES_TITLE')        ,'section=ART&action=DISPLAY');
+      $menu->add_item(str('BROWSE_OPTIONS')         ,'section=BROWSE&action=DISPLAY');
+      $menu->add_item(str('CACHE_CONFIG_TITLE')     ,'section=CACHE&action=DISPLAY');
+      $menu->add_item(str('MISC_TITLE')             ,'section=MISC&action=DISPLAY');
 
-  	  $menu->add_menu(str('ADDITIONAL_COMPONENTS'));
-  	  $menu->add_item(str('CONFIG_MUSICIP')         ,'section=MUSICIP&action=DISPLAY');
-  	  
+      $menu->add_menu(str('ADDITIONAL_COMPONENTS'));
+      $menu->add_item(str('CONFIG_MUSICIP')         ,'section=MUSICIP&action=DISPLAY');
+
       $menu->add_menu(str('EXPERT_OPTIONS'));
-  	  $menu->add_item(str('LANG_EDITOR')            ,'section=LANGUAGE&action=DISPLAY');
-  	  $menu->add_item(str('TV_EXPRESSIONS')         ,'section=TV_EXPR&action=DISPLAY');
-  	  $menu->add_item(str('EXPERT_EDIT_DB')         ,'section=EXPERT&action=RUNSQL');
-  	  $menu->add_item(str('EXPERT_EDIT_PREFS')      ,'section=EXPERT&action=SYSPREFS');
+      $menu->add_item(str('LANG_EDITOR')            ,'section=LANGUAGE&action=DISPLAY');
+      $menu->add_item(str('TV_EXPRESSIONS')         ,'section=TV_EXPR&action=DISPLAY');
+      $menu->add_item(str('EXPERT_EDIT_DB')         ,'section=EXPERT&action=RUNSQL');
+      $menu->add_item(str('EXPERT_EDIT_PREFS')      ,'section=EXPERT&action=SYSPREFS');
 
       $menu->add_menu(str('INFORMATION'));
-  	  $menu->add_item(str('SUPPORT_TITLE')          ,'section=SUPPORT&action=DISPLAY');
-  	  $menu->add_item(str('PRIVACY_POLICY')         ,'section=PRIVACY&action=DISPLAY');
-  	  $menu->add_item(str('LICENSE')                ,'section=LICENSE&action=DISPLAY');
-	}
+      $menu->add_item(str('SUPPORT_TITLE')          ,'section=SUPPORT&action=DISPLAY');
+      $menu->add_item(str('PRIVACY_POLICY')         ,'section=PRIVACY&action=DISPLAY');
+      $menu->add_item(str('LICENSE')                ,'section=LICENSE&action=DISPLAY');
+  }
 
   	$menu->display();
   }
@@ -127,7 +128,7 @@
 
   function display_content()
   {
-  	// Check to see if the database connection is OK
+    // Check to see if the database connection is OK
     $db_stat = test_db(DB_HOST,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
     if ($db_stat == 'OK')
     {
