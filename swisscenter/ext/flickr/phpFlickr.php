@@ -177,9 +177,9 @@ class phpFlickr {
 		if ($this->cache == 'db') {
 			//$this->cache_db->query("DELETE FROM $this->cache_table WHERE request = '$reqhash'");
 			if (db_value("SELECT COUNT(*) FROM {$this->cache_table} WHERE request = '$reqhash'")) {
-				db_sqlcommand( "UPDATE ".$this->cache_table." SET response = '$response', expiration = '".strftime("%Y-%m-%d %H:%M:%S")."' WHERE request = '$reqhash'");
+				db_sqlcommand( "UPDATE ".$this->cache_table." SET response = '".db_escape_str($response)."', expiration = '".strftime("%Y-%m-%d %H:%M:%S")."' WHERE request = '$reqhash'");
 			} else {
-				db_sqlcommand( "INSERT INTO ".$this->cache_table." (request, response, expiration) VALUES ('$reqhash', '".str_replace("'", "''", $response)."', '".strftime("%Y-%m-%d %H:%M:%S")."')");
+				db_sqlcommand( "INSERT INTO ".$this->cache_table." (request, response, expiration) VALUES ('$reqhash', '".db_escape_str($response)."', '".strftime("%Y-%m-%d %H:%M:%S")."')");
 			}
 		} elseif ($this->cache == "fs") {
 			$file = $this->cache_dir . "/" . $reqhash . ".cache";

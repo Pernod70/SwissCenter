@@ -102,9 +102,11 @@ function preferred_resize( &$dimg, &$simg, $dx, $dy, $sx, $sy, $dw, $dh, $sw, $s
  * @return string - local filename
  */
 
-function download_and_cache_image( $url)
+function download_and_cache_image( $url )
 {
-  $filename = get_sys_pref('cache_dir').'/SwissCenter_download_'.md5($url).'_'.date('YmdH').'.'.file_ext($url);
+  $filename = get_sys_pref('cache_dir').'/SwissCenter_download_'.md5($url).'.'.file_ext($url);
+//  $filename = get_sys_pref('cache_dir').'/SwissCenter_download_'.md5($url).'_'.date('YmdH').'.'.file_ext($url);
+
   return (file_download_and_save($url, $filename) ? $filename : false);
 }
 
@@ -361,6 +363,8 @@ class CImage
         $this->cache_filename = cache_filename($this->src_fsp,$this->width,$this->height);
         $this->exif_data = exif($this->src_fsp);
       }
+      else
+        send_to_log(2,"ERROR: Image failed to load in function load_image_from_file",$filename);
     }
     
     return $this->image;

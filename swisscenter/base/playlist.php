@@ -10,6 +10,7 @@ require_once( realpath(dirname(__FILE__).'/media.php'));
 require_once( realpath(dirname(__FILE__).'/mysql.php'));
 require_once( realpath(dirname(__FILE__).'/page.php'));
 require_once( realpath(dirname(__FILE__).'/rating.php'));
+require_once( realpath(dirname(__FILE__).'/flickr.php'));
 require_once( realpath(dirname(__FILE__).'/../ext/xml/XPath.class.php'));
 
 /**
@@ -69,6 +70,10 @@ function generate_tracklist( $seed, $shuffle, $spec_type, $spec, $media_type = n
             $tracks     = db_toarray("select * from $table media ".get_rating_join()."where $predicate order by filename");
           break;
 
+    case 'flickr':
+          $tracks     = flickr_playlist($_REQUEST["flickr_type"], $_REQUEST["flickr_id"]);
+          break;
+
   }
 
   // Shuffle the tracks if required
@@ -79,7 +84,7 @@ function generate_tracklist( $seed, $shuffle, $spec_type, $spec, $media_type = n
     $tracklist_name = 'current_playlist';
 
   $_SESSION[$tracklist_name] = array("spec" => $details, "tracks" => $tracks);
-  send_to_log(8,'Generated the following playlist', $_SESSION["current_playlist"]);
+  send_to_log(8,'Generated the following playlist', $_SESSION[$tracklist_name]);
 }
 
 //-------------------------------------------------------------------------------------------------
