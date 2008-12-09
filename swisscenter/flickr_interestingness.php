@@ -38,11 +38,11 @@
     // Page headings
     page_header(str('FLICKR_PHOTOS'), str('FLICKR_INTERESTINGNESS'));
   
-    browse_array_thumbs(url_add_params(current_url(), 'del', 1), $photo_list, $page);
+    browse_array_thumbs(url_add_param(current_url(), 'del', 1), $photo_list, $page);
   
     // Output ABC buttons
     $buttons = array();
-    $buttons[] = array('text' => str('START_SLIDESHOW'),'url' => flickr_slideshow('interestingness'));
+    $buttons[] = array('text' => str('START_SLIDESHOW'),'url' => flickr_slideshow('interestingness', 0));
   
     // Make sure the "back" button goes to the correct page:
     page_footer($back_url, $buttons);
