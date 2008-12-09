@@ -25,10 +25,14 @@
  * @param integer $y
  */
 
-  function output_image( $file_id, $filename)
+  function output_image( $file_id, $filename )
   {
     $x = convert_x(1000, SCREEN_COORDS);
     $y = convert_y(1000, SCREEN_COORDS); 
+    
+    // If the file is on the internet, download it into a temporary location first
+    if ( is_remote_file($filename) )
+      $filename = download_and_cache_image($filename);
     
     $cache_file = cache_filename($filename, $x, $y);
     if ( !false &&  $cache_file !== false && file_exists($cache_file) && (time()-filemtime($filename) < 300) )
@@ -43,10 +47,10 @@
       // Load the image from disk
       if (strtolower(file_ext($filename)) == 'sql')
         $image->load_from_database( substr($filename,0,-4) );
-      elseif ( file_exists($filename) || substr($filename,0,4) == 'http' )
-        $image->load_from_file($filename); 
-      else  
-        send_to_log(1,'Unable to process image specified : '.$filename);  
+      elseif ( file_exists($filename) )
+        $image->load_from_file($filename);
+      else
+        send_to_log(1,'Unable to process image specified : '.$filename);
 
       // Will a rotate (due to the exif information) be required?
       $aspect_changes = ( get_sys_pref('IMAGE_ROTATE','YES')!='NO' && $image->rotate_by_exif_changes_aspect() );
@@ -230,7 +234,7 @@
     $location = preg_replace('/(.*)\..*/u','\1'.$req_ext, $location);
     output_subtitles($location);    
   }
-  elseif (!is_readable($location))
+  elseif (!is_remote_file($location) && !is_readable($location))
   {
     // Sanity check - Do we have permissions to read this file?
     send_to_log(1,"Error: SwissCenter does not have permissions to read the file '$location'");
@@ -257,8 +261,8 @@
     // We have to perform on-the-fly resizing for images because we can't redirect them through the thumb.php 
     // script. No idea why, but it seems the showcenter firmware responsible for displaying slideshows doesn't support redirects.
     send_to_log(7,'Attempting to stream the following Photo',$tracks[$idx]);
-    store_request_details( $media, $file_id);  
-    output_image( $file_id, ucfirst($location) );
+    store_request_details( $media, $file_id);
+    output_image( $file_id, $location );
   }
   else 
   { 

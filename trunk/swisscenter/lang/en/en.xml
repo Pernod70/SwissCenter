@@ -203,11 +203,6 @@
         <version>1.19</version>
       </string>
       <string>
-        <id>BROWSE_DVD</id>
-        <text>Browse DVD's</text>
-        <version>1.20.1</version>
-      </string>
-      <string>
         <id>BROWSE_FILESYSTEM</id>
         <text>Browse filesystem</text>
         <version>1.19</version>
@@ -546,6 +541,11 @@
         <id>CONFIG_DB_ROOT_PW_TXT</id>
         <text>Unless you entered a value for the [em]root[/em] password during the installation of MySQL, then it is probably not set and you should leave this field blank.[p][em]Please Note: Creating the database can take several minutes to complete. Please be patient. [/em]</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_FLICKR</id>
+        <text>Flickr Settings</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>CONFIG_IMAGE_OPTIONS</id>
@@ -928,6 +928,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>EXIF_VIEW</id>
+        <text>View EXIF</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
         <id>EXIF_WHITE_BALANCE</id>
         <text>White balance</text>
         <version>1.19</version>
@@ -1166,6 +1171,92 @@
         <id>FINISHED</id>
         <text>Finished</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>FLICKR_CONTACTS</id>
+        <text>Contacts</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>FLICKR_DESC</id>
+        <text>Flickr %s is an online photo management and sharing application. Its primary goals are to help people make photos available to those who matter to them, and to enable new ways of organizing pictures. You can join Flicker for free and begin sharing images immediately.
+[p]SwissCenter will allow you to view your photographs and those of your contacts.</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>FLICKR_FAVORITES</id>
+        <text>Favorites</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>FLICKR_FILTER_BOTH</id>
+        <text>Filter friends &amp; family</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>FLICKR_FILTER_FAMILY</id>
+        <text>Filter family</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>FLICKR_FILTER_FRIENDS</id>
+        <text>Filter friends</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>FLICKR_FILTER_NEITHER</id>
+        <text>Filter neither</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>FLICKR_INTERESTINGNESS</id>
+        <text>Interestingness</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>FLICKR_NO_ACCESS</id>
+        <text></text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>FLICKR_NO_USER</id>
+        <text>No Flickr user assigned!</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>FLICKR_PHOTOS</id>
+        <text>Flickr Photos</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>FLICKR_PHOTOSETS</id>
+        <text>Photo Sets</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>FLICKR_PROMPT</id>
+        <text>View your Flickr photographs and those of your contacts.</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>FLICKR_RETURN</id>
+        <text>Return to default user</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>FLICKR_UNKNOWN_USER</id>
+        <text>No user with the supplied username (%s) was found.</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>FLICKR_USERID_PROMPT</id>
+        <text>Each SwissCenter user can be associated with a Flickr user. If you do not enter your Flickr username then you will not be able to view your contacts and photographs.</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>FLICKR_USERNAMES</id>
+        <text>Flickr Usernames</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>FONTWIDTH_MULTIPLIER</id>
@@ -1485,11 +1576,6 @@
       <string>
         <id>IRADIO_ERROR_PARAM</id>
         <text>Please enter a search parameter</text>
-        <version>1.21.1</version>
-      </string>
-      <string>
-        <id>IRADIO_ERROR_PARAM_NAME</id>
-        <text></text>
         <version>1.21.1</version>
       </string>
       <string>
@@ -4295,11 +4381,6 @@
         <id>VIEW_WEATHER</id>
         <text>View weather forecast</text>
         <version>1.19</version>
-      </string>
-      <string>
-        <id>WATCH_DVD</id>
-        <text>Watch a DVD</text>
-        <version>1.20.1</version>
       </string>
       <string>
         <id>WATCH_MOVIE</id>

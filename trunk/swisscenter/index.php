@@ -56,12 +56,12 @@
       else
         $menu->add_item(str('BROWSE_WEB'),'web_urls.php',true);
 
-    // Only display the RSS options if an internet connection is active, the user has enabled RSS support and has defined some subscriptions.
-//    if (internet_available() && get_sys_pref('flickr_enabled','YES') == 'YES' )
-//      if ($image_menu)
-//        $menu->add_image_item(str('FLICKR_PHOTOS'),style_img('MENU_INTERNET_FLICKR',true),style_img('MENU_INTERNET_FLICKR_ON',true,false),'flickr_menu.php');
-//      else
-//        $menu->add_item( str('FLICKR_PHOTOS') ,'flickr_menu.php',true);
+    // Only display the flickr option if an internet connection is active, the user has enabled flickr support.
+    if (internet_available() && get_sys_pref('flickr_enabled','YES') == 'YES' )
+      if ($image_menu)
+        $menu->add_image_item(str('FLICKR_PHOTOS'),style_img('MENU_INTERNET_FLICKR',true),style_img('MENU_INTERNET_FLICKR_ON',true,false),'flickr_menu.php');
+      else
+        $menu->add_item( str('FLICKR_PHOTOS') ,'flickr_menu.php',true);
 
     // Only display the RSS options if an internet connection is active, the user has enabled RSS support and has defined some subscriptions.
     if (internet_available() && get_sys_pref('rss_enabled','YES') == 'YES' && db_value("select 'YES' from rss_subscriptions limit 1") == 'YES')
