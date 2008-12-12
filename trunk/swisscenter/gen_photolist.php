@@ -18,7 +18,7 @@
   {
     $server     = server_address();
     $slides     = count( get_tracklist() );
-    $delay      = ($num_slides > 1 ? get_user_pref('PHOTO_PLAY_TIME','5') : 3600); 
+    $delay      = ($slides > 1 ? get_user_pref('PHOTO_PLAY_TIME','5') : 3600); 
     
     // do some javascript here to display a slideshow on the PC
     echo '<body bgcolor="#000000" TOPMARGIN="0" LEFTMARGIN="0" MARGINHEIGHT="0" MARGINWIDTH="0">'.newline();
