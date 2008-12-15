@@ -499,8 +499,8 @@
       </string>
       <string>
         <id>COMPACT_VIEW</id>
-        <text>Compact View</text>
-        <version>1.19</version>
+        <text>Compact view</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>CONFIGURATION</id>
@@ -1861,6 +1861,11 @@
         <id>LANG_UPDATE_OK</id>
         <text>Language information updated</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>LARGE_VIEW</id>
+        <text>Large view</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>LASTFM</id>

@@ -27,6 +27,8 @@ require_once( realpath(dirname(__FILE__).'/language.php'));
   
   define('THUMBNAIL_X_SIZE',140);
   define('THUMBNAIL_Y_SIZE',210);
+  define('THUMBNAIL_LARGE_X_SIZE',210);
+  define('THUMBNAIL_LARGE_Y_SIZE',460);
   
 #-------------------------------------------------------------------------------------------------
 # Determine the location of the SwissCenter installation.
