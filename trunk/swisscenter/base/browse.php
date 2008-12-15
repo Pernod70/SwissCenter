@@ -20,10 +20,19 @@
 
   function items_per_page()
   {
-    if ( get_user_pref("DISPLAY_THUMBS") == "COMPACT" )
-      return 12;
-    else 
-      return 8;    
+    switch ( get_user_pref("DISPLAY_THUMBS") )
+    {
+      case "COMPACT":
+        return 12;
+        break;
+
+      case "LARGE":
+        return 4;
+        break;
+
+      default:
+        return 8;
+    }  
   }
   
   // ----------------------------------------------------------------------------------
@@ -309,12 +318,21 @@
     $tlist    = new thumb_list();
     $no_items = items_per_page();
 
-    // Compact View
-    if ( get_user_pref("DISPLAY_THUMBS") == "COMPACT" )
+    switch ( get_user_pref("DISPLAY_THUMBS") )
     {
-      $tlist->set_num_cols(6);
-      $tlist->set_num_rows(2);
-      $tlist->set_titles_off();
+      case "COMPACT":
+        // Compact View
+        $tlist->set_num_cols(6);
+        $tlist->set_num_rows(2);
+        $tlist->set_titles_off();
+        break;
+
+      case "LARGE":
+        // Large View
+        $tlist->set_num_cols(4);
+        $tlist->set_num_rows(1);
+        $tlist->set_thumbnail_size(THUMBNAIL_LARGE_X_SIZE, THUMBNAIL_LARGE_Y_SIZE);
+        break;
     }
 
     $start = $page * ($no_items);
@@ -379,9 +397,15 @@
     $buttons     = array();
     $total_pages = ceil( ( count($dir_list)+count($file_list) ) / items_per_page() );
     
-    if ( get_user_pref("DISPLAY_THUMBS") == "FULL" )
+    if ( get_user_pref("DISPLAY_THUMBS") == "LARGE" )
     {
-      page_header( $heading, substr($dir,0,-1),'',1,false,'','PAGE_KEYBOARD');
+      page_header( $heading, substr($dir,0,-1),'',1,false);
+      display_thumbs ($url, $dir, $dir_list, $file_list, $page, $media_type);
+      $buttons[] = array('text'=>str('THUMBNAIL_VIEW'), 'url'=>url_add_params($url, array('page'=>floor($page/2),'thumbs'=>'FULL','DIR'=>rawurlencode($dir))) );
+    }
+    elseif ( get_user_pref("DISPLAY_THUMBS") == "FULL" )
+    {
+      page_header( $heading, substr($dir,0,-1),'',1,false);
       display_thumbs ($url, $dir, $dir_list, $file_list, $page, $media_type);
       $buttons[] = array('text'=>str('COMPACT_VIEW'), 'url'=>url_add_params($url, array('page'=>floor($page/1.5),'thumbs'=>'COMPACT','DIR'=>rawurlencode($dir))) );
     }
@@ -395,7 +419,7 @@
     {
       page_header( $heading, substr($dir,0,-1),'',1,false,'',$media_type);
       display_names ($url, $dir, $dir_list, $file_list, $page, $media_type);
-      $buttons[] = array('text'=>str('THUMBNAIL_VIEW'), 'url'=>url_add_params($url, array('page'=>$page,'thumbs'=>'FULL','DIR'=>rawurlencode($dir))) );
+      $buttons[] = array('text'=>str('LARGE_VIEW'), 'url'=>url_add_params($url, array('page'=>$page*2,'thumbs'=>'LARGE','DIR'=>rawurlencode($dir))) );
     }
     
     // Output some links to allow the user to jump though all pages returned using the keys "1" to "9" on the
@@ -477,14 +501,23 @@
 
     $tlist     = new thumb_list();
 
-    // Compact View
-    if ( get_user_pref("DISPLAY_THUMBS") == "COMPACT" )
+    switch ( get_user_pref("DISPLAY_THUMBS") )
     {
-      $tlist->set_num_cols(6);
-      $tlist->set_num_rows(2);
-      $tlist->set_titles_off();
+      case "COMPACT":
+        // Compact View
+        $tlist->set_num_cols(6);
+        $tlist->set_num_rows(2);
+        $tlist->set_titles_off();
+        break;
+
+      case "LARGE":
+        // Large View
+        $tlist->set_num_cols(4);
+        $tlist->set_num_rows(1);
+        $tlist->set_thumbnail_size(THUMBNAIL_LARGE_X_SIZE, THUMBNAIL_LARGE_Y_SIZE);
+        break;
     }
-    
+
     // Populate an array with the details that will be displayed
     for ($i=$start; $i<$end; $i++)
     {
