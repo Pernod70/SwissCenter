@@ -421,12 +421,12 @@
       display_names ($url, $dir, $dir_list, $file_list, $page, $media_type);
       $buttons[] = array('text'=>str('LARGE_VIEW'), 'url'=>url_add_params($url, array('page'=>$page*2,'thumbs'=>'LARGE','DIR'=>rawurlencode($dir))) );
     }
-    
+
     // Output some links to allow the user to jump though all pages returned using the keys "1" to "9" on the
     // remote control. Note: "1" jumps to the first page, and "9" to the last.
-    for ($ir_key =0; $ir_key<10; $ir_key++ )      
-      echo '<a href="'.$url.'?page='.floor(($ir_key-1)*(($total_pages-1)/items_per_page())).'&DIR='.rawurlencode($dir).'" '.tvid($ir_key).'></a>';
-      
+    for ( $ir_key=1; $ir_key<10; $ir_key++ )
+      echo '<a href="'.url_set_params($url, array('page'=>floor(($ir_key-1)/8*$total_pages), 'DIR'=>rawurlencode($dir))).'" '.tvid($ir_key).'></a>';
+
     // Should we present a link to select all files?
     if ($media_type > 0 && !in_array($media_type, array(MEDIA_TYPE_WEB, MEDIA_TYPE_RADIO)))
       $buttons[] = array('text'=>str('SELECT_ALL'), 'url'=>  output_link( '%/'.$dir) );
