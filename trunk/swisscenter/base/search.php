@@ -93,7 +93,7 @@ function  search_media_page( $heading, $title, $media_type, $joined_tables, $col
     search_hist_pop();
 
   // Get important paramters from the URL
-  $this_url       = url_set_param(current_url(),'del','N');
+  $this_url       = url_remove_param(current_url(),'del');
   $this_url       = url_set_param($this_url,'p_del','Y');
   $search         = ( isset($_REQUEST["search"]) ? un_magic_quote(rawurldecode($_REQUEST["search"])) : '');
   $prefix         = ( isset($_REQUEST["any"]) ? $_REQUEST["any"] : '');
@@ -112,8 +112,7 @@ function  search_media_page( $heading, $title, $media_type, $joined_tables, $col
                      from $main_table_sql $joined_tables";
 
   // Adding necessary paramters to the target URL (for when an item is selected)
-  $choose_url = url_set_param($choose_url,'add','Y');
-  $choose_url = url_set_param($choose_url,'type',$column);
+  $choose_url = url_set_params($choose_url, array('add'=>'Y', 'type'=>$column));
 
   // Get the matching records from the database.
   $data       = db_toarray("   select $column display 
@@ -121,13 +120,9 @@ function  search_media_page( $heading, $title, $media_type, $joined_tables, $col
                                 where $column != '0' and $restrict_sql and ml.media_type=$media_type
                              group by $column
                                having ".viewed_status_predicate( filter_get_name() )."
-                             order by 1 limit ".(($page*MAX_PER_PAGE)).",".MAX_PER_PAGE);
-  
-  $num_rows   = count(db_toarray("     select $column
-                                         from $main_table_sql $joined_tables
-                                        where $column != '0' and $restrict_sql and ml.media_type=$media_type
-                                     group by $column
-                                       having ".viewed_status_predicate( filter_get_name()) ));
+                             order by 1");
+  $num_rows   = count($data);
+  $data       = array_slice($data, $page*MAX_PER_PAGE, MAX_PER_PAGE);
 
   if ( $data === false || $num_rows === false)
     page_error(str('DATABASE_ERROR'));
@@ -215,13 +210,12 @@ function search_process_passed_params()
     $_SESSION["shuffle"] = $_REQUEST["shuffle"];
     set_user_pref('shuffle',$_REQUEST["shuffle"]);
   }
-  
+
   // Add page to history
   if (isset($_REQUEST["add"]) && strtoupper($_REQUEST["add"]) == 'Y')
   {
-    $hist_url  = url_set_param(current_url(),'add','N');
-    $hist_url  = url_set_param($hist_url,'p_del','N');
-    search_hist_push( $hist_url , $predicate );
+    $hist_url  = url_remove_params(current_url(), array('add','p_del'));
+    search_hist_push( $hist_url, $predicate );
   }
   
   if (isset($_REQUEST["p_del"]) && strtoupper($_REQUEST["p_del"]) == 'Y')

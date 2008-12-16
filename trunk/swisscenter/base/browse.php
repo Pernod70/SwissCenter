@@ -270,7 +270,7 @@
         $details   = $file_list[$i-count($dir_list)];  
         $viewed    = viewed_icon(viewings_count( $media_type, $details["dirname"].$details["filename"]));
         $link_url  = output_link( $details["dirname"].$details["filename"]);
-        $menu->add_item( ucwords(file_noext($details["filename"])) , url_set_param($link_url,'add','Y'), false, $viewed );
+        $menu->add_item( ucwords(file_noext($details["filename"])) ,$link_url, false, $viewed );
       }
     }
     
@@ -360,7 +360,7 @@
           $viewed = '';
           
         $link_url = output_link( $details["dirname"].$details["filename"] );        
-        $tlist->add_item( file_thumbnail($details["dirname"].$details["filename"]) , str_replace('.',' ',file_noext($details["filename"])) , url_set_param($link_url,'add','Y'), $viewed);
+        $tlist->add_item( file_thumbnail($details["dirname"].$details["filename"]) , str_replace('.',' ',file_noext($details["filename"])) , $link_url, $viewed);
       }
     }
 
@@ -391,7 +391,7 @@
     $_SESSION["shuffle"] = get_user_pref('shuffle','off');
   
     // Page settings
-    $url         = url_remove_params(current_url(),array('page','thumbs'));
+    $url         = url_remove_params(current_url(),array('page','thumbs','del','p_del'));
     $page        = ( !isset($_REQUEST["page"]) ? 0 : $_REQUEST["page"]);
     $dir         = ( empty($_REQUEST["DIR"]) ? '' : un_magic_quote(rawurldecode($_REQUEST["DIR"])));
     $buttons     = array();
@@ -429,7 +429,7 @@
       
     // Should we present a link to select all files?
     if ($media_type > 0 && !in_array($media_type, array(MEDIA_TYPE_WEB, MEDIA_TYPE_RADIO)))
-      $buttons[] = array('text'=>str('SELECT_ALL'), 'url'=>  url_set_param(output_link( '%/'.$dir),'add','Y') );
+      $buttons[] = array('text'=>str('SELECT_ALL'), 'url'=>  output_link( '%/'.$dir) );
       
     // Link to scan/refresh the directory
       $buttons[] = array('text'=>str('REFRESH_DIR_BUTTON'), 'url' => '/media_dir_refresh.php?media_type='.$media_type.'&dir='.urlencode($dir).'&return_url='.urlencode(current_url()) );
@@ -470,6 +470,10 @@
 
   function browse_db($heading, $sql_table, $back_url, $media_type = 0 )
   {
+    // Should we delete the last entry on the history stack?
+    if (isset($_REQUEST["del"]) && strtoupper($_REQUEST["del"]) == 'Y')
+      search_hist_pop();
+
     // Push this page onto the "picker" stack
     search_picker_init( current_url() );
     
