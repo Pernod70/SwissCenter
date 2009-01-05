@@ -150,7 +150,7 @@
                 img_gen(SC_LOCATION."images/iradio/$image",280,550).
                 '</td><td width="'.convert_x(20).'"></td>'.
                 '<td valign="top">';
-                display_iradio(url_remove_param( $current_url, 'page'),$stations,$page,$image);
+                display_iradio(url_remove_param( $current_url, 'page'),$stations,$page);
            echo '</td></table>';
          }
          else

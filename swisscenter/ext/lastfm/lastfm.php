@@ -144,8 +144,10 @@
       }
 
       $playlist = array();
+      $data = array();
       preg_match('/<title>(.*?)<\/title>/', $response, $data);
       $playlist["title"] = urldecode($data[1]);
+      $track = array();
       preg_match_all('/<track>(.*?)<\/track>/s', $response, $track);
       for ($i = 0; $i<count($track[1]); $i++)
       {

@@ -75,7 +75,7 @@
   // Displays the iradio stations to the user in "text menu" format
   // ----------------------------------------------------------------------------------
 
-  function display_iradio ($url, $stations, $page=0, $image='')
+  function display_iradio ($url, $stations, $page=0)
   {
     $menu      = new menu();
     $no_items  = MAX_PER_PAGE;
@@ -92,7 +92,7 @@
     for ($i=$start; $i<$end; $i++)
     {
       // Output a link to cause the specified playlist to be loaded into the session
-      $menu->add_info_item($stations[$i]->name, $stations[$i]->bitrate."k", play_internet_radio($stations[$i]->playlist, $stations[$i]->name, $image));
+      $menu->add_info_item($stations[$i]->name, $stations[$i]->bitrate."k", play_internet_radio($stations[$i]->playlist, $stations[$i]->name));
     }
     
     $menu->display(1,style_value("MENU_RADIO_WIDTH"), style_value("MENU_RADIO_ALIGN"));
@@ -181,6 +181,10 @@
       case MEDIA_TYPE_WEB   :
         $width = style_value("MENU_WEB_WIDTH");
         $align = style_value("MENU_WEB_ALIGN");
+        break;
+      case MEDIA_TYPE_INTERNET_TV :
+        $width = style_value("MENU_INTERNET_TV_WIDTH");
+        $align = style_value("MENU_INTERNET_TV_ALIGN");
         break;
       default               :
         $width = 650;
@@ -300,6 +304,10 @@
       case MEDIA_TYPE_WEB   :
         $width = style_value("MENU_WEB_WIDTH");
         $align = style_value("MENU_WEB_ALIGN");
+        break;
+      case MEDIA_TYPE_INTERNET_TV :
+        $width = style_value("MENU_INTERNET_TV_WIDTH");
+        $align = style_value("MENU_INTERNET_TV_ALIGN");
         break;
       default               :
         $width = 650;
@@ -425,7 +433,7 @@
     // Output some links to allow the user to jump though all pages returned using the keys "1" to "9" on the
     // remote control. Note: "1" jumps to the first page, and "9" to the last.
     for ( $ir_key=1; $ir_key<10; $ir_key++ )
-      echo '<a href="'.url_set_params($url, array('page'=>floor(($ir_key-1)/8*$total_pages), 'DIR'=>rawurlencode($dir))).'" '.tvid($ir_key).'></a>';
+      echo '<a href="'.url_set_params($url, array('page'=>floor(($ir_key-1)/8*($total_pages-1)), 'DIR'=>rawurlencode($dir))).'" '.tvid($ir_key).'></a>';
 
     // Should we present a link to select all files?
     if ($media_type > 0 && !in_array($media_type, array(MEDIA_TYPE_WEB, MEDIA_TYPE_RADIO)))
@@ -489,7 +497,7 @@
           
     browse_page($dir_list, $file_list, $heading, $back_url, $media_type);     
   }
-
+  
   // ----------------------------------------------------------------------------------
   // Browse a given array (of objects, properties name & url) in "thumb menu" format
   // (first parameter is the calling URL without the "page" parameter)

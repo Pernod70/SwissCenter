@@ -29,12 +29,25 @@
     $lastfm->login( get_user_pref('LASTFM_USERNAME'), get_user_pref('LASTFM_PASSWORD') );
     $lastfm->tune_to_station( $_REQUEST["station"] );
     
+    // The playlist (pls) that causes the showcenter to connect to our proxy script
+    header('Content-Type: audio/x-scpls');
+    header('Content-Disposition: attachment; filename="Lastfm.pls"');
+    echo "[playlist]\n";
+    echo "numberofentries=2\n";
+    echo "File1=".$lastfm->stream_url."\n";  
+    echo "Title1=LastFM Radio\n";
+    echo "Length1=-1\n";
+    echo "File2=".$lastfm->stream_url."\n";  
+    echo "Title2=LastFM Radio\n";
+    echo "Length2=-1\n";
+    echo "Version=2\n";
+    
     // The playlist that causes the showcenter to connect to our proxy script
-    $url = $lastfm->stream_url;
-    send_to_log(7,'Generating list of media files to send to the networked media player.');
-    send_to_log(7," - ".$url);
-    echo "LastFM Radio Station|0|0|".$url."|\n";
-    echo "LastFM Radio Station|0|0|".$url."|\n";
+//    $url = $lastfm->stream_url;
+//    send_to_log(7,'Generating list of media files to send to the networked media player.');
+//    send_to_log(7," - ".$url);
+//    echo "LastFM Radio Station|0|0|$url|\n";
+//    echo "LastFM Radio Station|0|0|$url|\n";
 
   }
   elseif (isset($_REQUEST["now_playing"]))
@@ -64,7 +77,7 @@
                                        , "ALBUM"=>$info["album"]
                                        )
                                 , '', '', '', $photos );
-  
+
       // Output the image to the browser
       $image->output('jpeg');
     }

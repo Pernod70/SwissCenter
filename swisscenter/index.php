@@ -46,11 +46,17 @@
       else
         $menu->add_item( str('LISTEN_RADIO'),"music_radio.php",true);
 
-    // Only display the web links option if an internet connection is active, the user has enabled weblinks and defined some media locations
-    // OR the override flag is set.
-    if ( ( internet_available() && ( get_sys_pref('web_enabled','YES') == 'YES'
-             && db_value("select 'YES' from media_locations where media_type=".MEDIA_TYPE_WEB." limit 1") == 'YES' )
-        || get_sys_pref('OVERRIDE_ENABLE_WEBLINKS','NO') == 'YES') )
+    // Only display the internet tv options if an internet connection is active and the user has enabled internet tv support
+    if (internet_available() && get_sys_pref('internet_tv_enabled','YES') == 'YES'
+         && db_value("select 'YES' from internet_urls where type=".MEDIA_TYPE_INTERNET_TV." limit 1") == 'YES')
+      if ($image_menu)
+        $menu->add_image_item( str('WATCH_INTERNET_TV'),style_img('MENU_INTERNET_TV',true),style_img('MENU_INTERNET_TV_ON',true,false),'internet_tv_urls.php');
+      else
+        $menu->add_item( str('WATCH_INTERNET_TV'),"internet_tv_urls.php",true);
+
+    // Only display the web links option if an internet connection is active, the user has enabled weblinks and defined some urls
+    if (internet_available() && get_sys_pref('web_enabled','YES') == 'YES'
+         && db_value("select 'YES' from internet_urls where type=".MEDIA_TYPE_WEB." limit 1") == 'YES')
       if ($image_menu)
         $menu->add_image_item(str('BROWSE_WEB'),style_img('MENU_INTERNET_BROWSE',true),style_img('MENU_INTERNET_BROWSE_ON',true,false),'web_urls.php');
       else

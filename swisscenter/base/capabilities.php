@@ -394,7 +394,7 @@ function now_playing_sync_type()
 # an audio stream with images will be synchronized together.
 #-------------------------------------------------------------------------------------------------
 
-function stream_pod_type()
+function stream_sync_type()
 {
   $result = 1;  // Default values for players unless we discover otherwise.
 

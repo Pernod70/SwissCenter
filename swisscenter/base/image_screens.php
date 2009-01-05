@@ -176,7 +176,7 @@
       $x = $image->get_text_width(str('IRADIO_STATION').': ',$detail_text_size);
       $y = $label_text_y;
       wrap($image, str('IRADIO_STATION').': ', $label_text_x, $label_text_y, $label_text_width, $title_text_col, $detail_text_size);
-      wrap($image, $station_name, $label_text_x+$x, $y, $label_text_width-$x, $detail_text_col, $detail_text_size);
+      wrap($image, $station_name, $label_text_x+$x, $y, $label_text_width-$label_text_x-$x-$x, $detail_text_col, $detail_text_size);
     }
     else
     {
