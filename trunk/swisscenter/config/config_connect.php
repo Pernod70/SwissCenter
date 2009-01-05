@@ -34,6 +34,9 @@
     form_hidden('section', 'CONNECT');
     form_hidden('action', 'SET_OPTS');
 
+    form_radio_static('tv',str('INTERNET_TV'),$option_vals,get_sys_pref('internet_tv_enabled','YES'),false,true);
+    form_label(str('INTERNET_TV_PROMPT'));
+
     form_radio_static('radio',str('INTERNET_RADIO'),$option_vals,get_sys_pref('radio_enabled','YES'),false,true);
     form_label(str('INTERNET_RADIO_PROMPT'));
 
@@ -81,6 +84,7 @@
   
   function connect_set_opts()
   {
+    set_sys_pref('internet_tv_enabled',$_REQUEST["tv"]);
     set_sys_pref('radio_enabled',$_REQUEST["radio"]);
     set_sys_pref('web_enabled',$_REQUEST["web"]);
     set_sys_pref('rss_enabled',$_REQUEST["rss"]);

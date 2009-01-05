@@ -24,6 +24,7 @@ require_once( realpath(dirname(__FILE__).'/language.php'));
   define('MEDIA_TYPE_RADIO',4);
   define('MEDIA_TYPE_WEB',5);
   define('MEDIA_TYPE_TV',6);
+  define('MEDIA_TYPE_INTERNET_TV',7);
   
   define('THUMBNAIL_X_SIZE',140);
   define('THUMBNAIL_Y_SIZE',210);

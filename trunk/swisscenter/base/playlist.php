@@ -246,11 +246,20 @@ function play_file( $media_type, $file_id )
 // Returns the href part of a link to play a radio station
 //-------------------------------------------------------------------------------------------------
 
-function play_internet_radio( $playlist_url, $station_name, $image='' )
+function play_internet_radio( $playlist_url, $station_name )
 {
-  return 'href="'.$playlist_url.'" pod="'.stream_pod_type().',1,'.server_address().
+  return 'href="'.$playlist_url.'" pod="'.stream_sync_type().',1,'.server_address().
          'music_radio_image.php?'.current_session().'&list=&station='.urlencode($station_name).
-         '&image='.urlencode($image).'&playlist='.urlencode($playlist_url).'"';
+         '&playlist='.urlencode($playlist_url).'"';
+}
+
+//-------------------------------------------------------------------------------------------------
+// Returns the href part of a link to play an internet tv station
+//-------------------------------------------------------------------------------------------------
+
+function play_internet_tv( $url )
+{
+  return 'href="'.$url.'" vod';
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -293,7 +302,7 @@ function play_lastfm($station_type, $name = '' )
     return '';
   }
   else
-    return 'href="'.$lastfm_url.'&generate_pls&station='.$station_id.'" pod="'.now_playing_sync_type().',1,'.$lastfm_url.'&image_list"';
+    return 'href="'.$lastfm_url.'&generate_pls&station='.$station_id.'&x=.pls" pod="'.stream_sync_type().',1,'.$lastfm_url.'&image_list"';
 }
 
 //-------------------------------------------------------------------------------------------------

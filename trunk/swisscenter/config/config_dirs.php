@@ -41,7 +41,7 @@
     $share_opts = array_merge(array(array("path"=>'', "name"=>'')), $share_opts);
 
     // Form list of media types
-    $media_type_opts = db_toarray('select media_id,media_name from media_types order by 2');
+    $media_type_opts = db_toarray("select media_id,media_name from media_types where media_table is not null order by 2");
 
     // Use language translation for MEDIA_NAME
     for ($i = 0; $i<count($media_type_opts); $i++)
