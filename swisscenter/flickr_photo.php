@@ -12,47 +12,55 @@
     $flickr = new phpFlickr(FLICKR_API_KEY,FLICKR_API_SECRET);
     $flickr->enableCache("db");
 
-    // Get information about a photo. The calling user must have permission to view the photo.
-    $photo = $flickr->photos_getInfo($photo_id);
-
     // Retrieves a list of EXIF/TIFF/GPS tags for a given photo. The calling user must have permission to view the photo.
     $exif = $flickr->photos_getExif($photo_id);
     $exif_tags = array('Make', 'Model', 'Date and Time', 'Exposure', 'Aperture', 'Focal Length', 'ISO Speed', 'Metering Mode', 'Flash');
-    
-    foreach ($exif["exif"] as $tag)
-      if ( in_array($tag["label"], $exif_tags) )
-        $exif_tag[$tag["label"]] = (isset($tag["clean"]) ? $tag["clean"] : $tag["raw"]);
-
-    $info = new infotab();
-  
-    // Stop the make from appearing twice (such as "Canon Canon EOS 10D").
-    if (!empty($exif_tag['Make']) && strpos( strtolower($exif_tag['Model']),strtolower($exif_tag['Make'])) !== false)
-      $info->add_item(str('EXIF_MODEL'), $exif_tag['Model']);
-    else
-      $info->add_item(str('EXIF_MODEL'), $exif_tag['Make'].' '.$exif_tag['Model']);
-  
-    // Exposure details
-    $info->add_item(str('EXIF_EXPOSURE'), sprintf('%s - f%s - %s', $exif_tag['Exposure']
-                                                                 , $exif_tag['Aperture']
-                                                                 , $exif_tag['Focal Length']));
-    $info->add_item(str('EXIF_ISO'), $exif_tag['ISO Speed']);
-//  $info->add_item(str('EXIF_WHITE_BALANCE')  ,exif_val('WhiteBalance',$pic['EXIF_WHITE_BALANCE']));
-//  $info->add_item(str('EXIF_LIGHT_SOURCE')   ,exif_val('LightSource',$pic['EXIF_LIGHT_SOURCE']));
-//  $info->add_item(str('EXIF_EXPOSE_PROG')    ,exif_val('ExpProg',$pic['EXIF_EXPOSURE_PROG']));
-    $info->add_item(str('EXIF_METER_MODE'), $exif_tag['Metering Mode']);
-//    $info->add_item(str('EXIF_SCENCE_CAPTURE') ,exif_val('SceneCaptureType',$pic['EXIF_CAPTURE_TYPE']));
-    $info->add_item(str('EXIF_FLASH'), $exif_tag['Flash']);
-
-    // Page headings
-    page_header(str('FLICKR_PHOTOS'), $photo["owner"]["username"].' : '.$photo["title"]);
-
-    $info->display();
 
     // Update page history
     $back_url = flickr_page_params();
+    
+    if ( count($exif["exif"]) == 0 )
+    {
+      page_inform(2,$back_url,str('FLICKR_PHOTOS'),str('EXIF_NONE'));
+    }
+    else
+    {
+      foreach ($exif["exif"] as $tag)
+        if ( in_array($tag["label"], $exif_tags) )
+          $exif_tag[$tag["label"]] = (isset($tag["clean"]) ? $tag["clean"] : $tag["raw"]);
 
-    // Make sure the "back" button goes to the correct page:
-    page_footer($back_url);
+      $info = new infotab();
+    
+      // Stop the make from appearing twice (such as "Canon Canon EOS 10D").
+      if (!empty($exif_tag['Make']) && strpos( strtolower($exif_tag['Model']),strtolower($exif_tag['Make'])) !== false)
+        $info->add_item(str('EXIF_MODEL'), $exif_tag['Model']);
+      else
+        $info->add_item(str('EXIF_MODEL'), $exif_tag['Make'].' '.$exif_tag['Model']);
+    
+      // Exposure details
+      $info->add_item(str('EXIF_EXPOSURE'), sprintf('%s - f%s - %s', $exif_tag['Exposure']
+                                                                   , $exif_tag['Aperture']
+                                                                   , $exif_tag['Focal Length']));
+      $info->add_item(str('EXIF_ISO'), $exif_tag['ISO Speed']);
+  //  $info->add_item(str('EXIF_WHITE_BALANCE')  ,exif_val('WhiteBalance',$pic['EXIF_WHITE_BALANCE']));
+  //  $info->add_item(str('EXIF_LIGHT_SOURCE')   ,exif_val('LightSource',$pic['EXIF_LIGHT_SOURCE']));
+  //  $info->add_item(str('EXIF_EXPOSE_PROG')    ,exif_val('ExpProg',$pic['EXIF_EXPOSURE_PROG']));
+      $info->add_item(str('EXIF_METER_MODE'), $exif_tag['Metering Mode']);
+  //    $info->add_item(str('EXIF_SCENCE_CAPTURE') ,exif_val('SceneCaptureType',$pic['EXIF_CAPTURE_TYPE']));
+      $info->add_item(str('EXIF_FLASH'), $exif_tag['Flash']);
+
+      // Get information about a photo. The calling user must have permission to view the photo.
+      $photo = $flickr->photos_getInfo($photo_id);
+
+      // Page headings
+      page_header(str('FLICKR_PHOTOS'), $photo["owner"]["username"].' : '.$photo["title"]);
+
+      $info->display();
+
+      // Make sure the "back" button goes to the correct page:
+      page_footer($back_url);
+    }
+
   }
   
 /**************************************************************************************************
