@@ -913,6 +913,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>EXIF_NONE</id>
+        <text>No EXIF data available.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>EXIF_ORIENTATION</id>
         <text>Orientation</text>
         <version>1.19</version>
