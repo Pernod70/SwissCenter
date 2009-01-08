@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <swisscenter>
   <languages>
-    <language name="fr" fullname="Fran�ais">
+    <language name="fr" fullname="Français">
       <string>
         <id>ACCESS_DENIED</id>
         <text>Accès refusé</text>

@@ -13,6 +13,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>ADDITIONAL_COMPONENTS</id>
+        <text>Outos Componentes</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>ADD_PLAYLIST</id>
         <text>Adicionar lista de reprodução</text>
         <version>1.19</version>
@@ -64,8 +69,8 @@
       </string>
       <string>
         <id>ART_DELETE_OK</id>
-        <text>Os arquivos seleccionados forma apagados</text>
-        <version>1.19</version>
+        <text>Os arquivos seleccionados foram apagados</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>ART_ERROR_FILENAME</id>
@@ -198,6 +203,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>BROWSE_DVD</id>
+        <text>Pesquisa de DVD´s</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>BROWSE_FILESYSTEM</id>
         <text>Pesquisar no sistema de arquivos</text>
         <version>1.19</version>
@@ -281,6 +291,11 @@
         <id>BROWSE_PHOTO_TITLE</id>
         <text>Pesquisar por título</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_STATION</id>
+        <text>Pesquisa por emissões</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>BROWSE_TEXT</id>
@@ -563,6 +578,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>CONFIG_MUSICIP</id>
+        <text>Configuração MusicIP</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>CONFIG_RADIO_OPTIONS</id>
         <text>Rádio na internet</text>
         <version>1.19</version>
@@ -793,6 +813,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>EP_NEXT</id>
+        <text>Próximo Episódio</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>EP_PREV</id>
+        <text>Episódio Anterior</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>EXIFVALS_EXPOSE_MODE</id>
         <text>Auto, Manual, Auto Bracket</text>
         <version>1.19</version>
@@ -953,9 +983,29 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>EXPRESSION</id>
+        <text>Espressão</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>EXTRAS_TEST_TITLE</id>
         <text>Componentes adicionais</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>EXTRA_EXPORT_DETAILS</id>
+        <text>Qualquer informação adicional, tal como sinopse, actores, etc pode ser exportada para um arquivo XML sidecar. Deste modo pode então ser utilizada para voltar a importar dados de vídeo quando é criada uma nova base de dados. A opção acima &quot;Usar arquivos XML sidecar&quot; deve ser &quot;Activado&quot;.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>EXTRA_EXPORT_GO</id>
+        <text>Exportar informação extra para um arquivo XLM</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>EXTRA_EXPORT_TITLE</id>
+        <text>Exportar informação extra</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>EXTRA_REFRESH_DETAILS</id>
@@ -1053,6 +1103,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>FAIL_SWISS_CACHE</id>
+        <text>Não foi possível gravar na memória cache do SwissCenter (%s).</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>FAIL_SWISS_INI</id>
         <text>Não se consegue localizar o arquivo 'swisscenter.ini'. [br]Já criou uma  base de dados?</text>
         <version>1.19</version>
@@ -1066,6 +1121,11 @@
         <id>FAIL_SWISS_LOG</id>
         <text>Não se consegue escrever no log do SwissCenter (%s).</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_SWISS_PLAYLIST</id>
+        <text>Não foi possível gravar na directoria dplaylist do SwissCenter</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>FILENAME</id>
@@ -1153,6 +1213,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IMAGE_LANDSCAPE_CROP</id>
+        <text>Ajuste ao Ecrã</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IMAGE_LANDSCAPE_CROP_PROMPT</id>
+        <text>Por defeito o SwissCenter irá centrar as imagens tipo paisagem e cortá-las para coincidir com a relação de aspecto da TV. No entanto, se preferir exibir toda a imagem (com barras pretas em cima e em baixo), deve desactivar esta opção.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>IMAGE_RESAMPLE</id>
         <text>Recalcular imagem (alta qualidade)</text>
         <version>1.19</version>
@@ -1171,6 +1241,16 @@
         <id>IMAGE_RESIZE_TYPE</id>
         <text>Tipo de processamento</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>IMAGE_SCALE_UP</id>
+        <text>Aumentar tamanho de imagens</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IMAGE_SCALE_UP_PROMPT</id>
+        <text>Ao activar esta opção fará com que SwissCenter amplie as imagens pequenas para que elas ocupem o ecrã inteiro.</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>IMAGE_TRANSITIONS</id>
@@ -1268,6 +1348,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>INTERNET_FEATURES</id>
+        <text>Opções da Internet</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>INTERNET_RADIO</id>
         <text>Rádio Internet</text>
         <version>1.19</version>
@@ -1338,6 +1423,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_ADD_PARAM</id>
+        <text>Adicionar novo parâmetro</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_ADD_PARAM_BUTTON</id>
+        <text>Adicionar parâmetro</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>IRADIO_CACHE_EXPIRE</id>
         <text>Timeout da cache</text>
         <version>1.19</version>
@@ -1353,9 +1448,34 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_COUNTRIES</id>
+        <text>Países</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_COUNTRY</id>
+        <text>País</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_COUNTRY_PROMPT</id>
+        <text>Especifique um país onde gostaria de pesquisar. %S apenas suporta pesquisa por país consulte o fórum para identificar os países válidos. Ao pesquisar SHOUTcast nós estamos realmente pesquisando por estações do país seleccionado.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>IRADIO_COUNTRY_SELECT</id>
         <text>Seleccione o país a pesquisar:</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_DELETE_PARAM_OK</id>
+        <text>Os parâmetros de pesquisa selecionados foram removidos</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_DEL_PARAM_BUTTON</id>
+        <text>Apagar parâmetros selecionados</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>IRADIO_ERROR_CACHE_EXPIRE</id>
@@ -1373,9 +1493,44 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_ERROR_PARAM</id>
+        <text>Digite um parâmetro de pesquisa</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_ERROR_PARAM_NAME</id>
+        <text>Erro num parâmetro de pesquisa</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_GENRE</id>
+        <text>Género</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_GENRES</id>
+        <text>Géneros</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_GENRE_PROMPT</id>
+        <text>Especifique um género e subgénero (opcional) que gostaria de pesquisar. Tanto %s como %s suporta a procura por género, visite os sites de pesquisa válidos</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>IRADIO_LIVERADIO_DESC</id>
         <text>LiveRadio (%s)  é um serviço de rádio através da Internet semelhante ao Shoutcast. Fornece uma funcionalidade para pesquisar por tipo de ficheiro multimédia, genre, estação de nome, cidade e até mesmo país -, mas muitas estações listadas aqui não são apoiadas por algumas equipes, por isso o parser utilizado pelos SwissCenter de LiveRadio restringe os resultados para exibir apenas MP3 estações .</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_LOGO</id>
+        <text>Nome da imagem</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_MAINGENRE</id>
+        <text>Género principal</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>IRADIO_MAINGENRE SELECT</id>
@@ -1403,6 +1558,21 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_PARAM_ADDED_OK</id>
+        <text>Parâmetro de pesquisa adicionado</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_PARAM_PROMPT</id>
+        <text>O SHOUTcast e o Live-Rádio permitem a pesquisa de estações de rádio por estação, género, e por país. Aqui pode definir os critérios de pesquisa.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_PARAM_TYPE</id>
+        <text>Tipo de parâmetros de pesquisa</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>IRADIO_SEARCH</id>
         <text>Pesquisa de emissoras</text>
         <version>1.19</version>
@@ -1413,14 +1583,39 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_STATION</id>
+        <text>Estação de rádio</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_STATION_PROMPT</id>
+        <text>Especifique um nome de estação que  gostaria de pesquisar. Uma imagem (opcional) pode também ser especificada e será utilizada no ecrã para esta estação. A imagem deve estar em [em]&quot;../imagens/iradio/&quot;[/em] pasta.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_STATION_SEARCH</id>
+        <text>Seleccione a estação a pesquisar por:</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>IRADIO_STATION_SELECT</id>
         <text>Seleccione a emissora a sintonizar:</text>
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_SUBGENRE</id>
+        <text>Sub-Género</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>IRADIO_SUBGENRE_SELECT</id>
         <text>Seleccione o subgénero principal para pesquisa:</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_UPDATE_PARAM_OK</id>
+        <text>Parâmetros de pesquisa actualizados</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>ITUNES_CONFIG_PROMPT</id>
@@ -1501,6 +1696,46 @@
         <id>LANG_ERROR_NO_SELECT</id>
         <text>Não seleccionou qualquer idioma para apagar</text>
         <version>1.20.1</version>
+      </string>
+      <string>
+        <id>LANG_ISO639</id>
+        <text>Norma ISO 639-1</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LANG_NATIVE</id>
+        <text>Idioma nativo</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LANG_NEW</id>
+        <text>Adicionar novo idioma</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LANG_NEW_BUTTON</id>
+        <text>Criar idioma novo</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LANG_NEW_EXISTS</id>
+        <text>idioma já existe</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LANG_NEW_FAIL</id>
+        <text>Introduza o idioma e a sigla na norma ISO</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LANG_NEW_OK</id>
+        <text>Idioma adicionado</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LANG_NEW_PROMPT</id>
+        <text>Utilize esta função para adicionar um novo idioma. Digite o nome do idioma nativo, ou seja Português (não Portugese), e o correspondente %s código (pt). Também pode adicionar idiomas localizados, como en-us para o Inglês (E.U.). Este é formado pelo código ISO 639-1 (en) e da região subcategoria %s (us).</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>LANG_PROMPT</id>
@@ -1713,6 +1948,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MAX_PLAYLIST_SIZE</id>
+        <text>Tamanho máximo da playlist</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>MAX_PLAYLIST_SIZE_PROMPT</id>
+        <text>Introduza um tamanho máximo para as playlists geradas. O máximo permitido é 2000 devido a limitações do aparelho. Uma alternativa sensata máxima é de 200.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>MEDIA_DELETED</id>
         <text>Arquivos multimédia apagados</text>
         <version>1.19</version>
@@ -1773,6 +2018,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MEDIA_LOC_ERROR_SHARE</id>
+        <text>Seleccione uma rede de partilha</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>MEDIA_LOC_ERROR_TYPE</id>
         <text>Seleccione o tipo de arquivo multimédia</text>
         <version>1.19</version>
@@ -1813,9 +2063,24 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MEDIA_SCAN_STATUS_CLEANUP</id>
+        <text>Limpar base de dados</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>MEDIA_SCAN_STATUS_COMPLETE</id>
         <text>Completo</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_ITUNES</id>
+        <text>A analisar detalhes da biblioteca do iTunes</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_MOVIE</id>
+        <text>A analisar detalhes do Filme</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>MEDIA_SCAN_STATUS_PENDING</id>
@@ -1828,6 +2093,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MEDIA_SCAN_STATUS_TV</id>
+        <text>A analisar detalhes das series de TV</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>MEDIA_SEARCH_PROMPT</id>
         <text>Carregue no botão para iniciar uma pesquisa de todos os locais dos arquivos. Os arquivos antigos que não estão no sitema serão retirados e os novos ou modificados serão adicionados, na base de dados.</text>
         <version>1.19</version>
@@ -1838,9 +2108,39 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MEDIA_TYPE_MUSIC</id>
+        <text>Áudio</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_PHOTO</id>
+        <text>Fotos</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>MEDIA_TYPE_PROMPT</id>
         <text>Seleccione o tipo de arquivo multimédia que se deve procurar nesta directoria.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_RADIO</id>
+        <text>Rádio</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_TV SERIES</id>
+        <text>Séries de TV</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_VIDEO</id>
+        <text>Vídeo</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_WEB</id>
+        <text>Web</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>MESSAGES</id>
@@ -2068,6 +2368,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MORE</id>
+        <text>[mais]</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>MOVIE_ADD_BUTTON</id>
         <text>Adicionar/Actualizar detalhes</text>
         <version>1.19</version>
@@ -2096,6 +2401,11 @@
         <id>MOVIE_EXTRA_DL_TITLE</id>
         <text>A descarregar informação extra do filme</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>MOVIE_EXTRA_EXPORT_OK</id>
+        <text>Todas as informações extra sobre o vídeo estão a ser exportada para XML</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>MOVIE_EXTRA_REFRESH_OK</id>
@@ -2156,6 +2466,21 @@
         <id>NAME</id>
         <text>Nome</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>NETWORK_SHARE</id>
+        <text>Rede de Partilha</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>NETWORK_SHARE_MSG</id>
+        <text>Não foi possível detectar nenhuma rede de partilha. Se tem um aparelho NMT então tem de o ligar.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>NETWORK_SHARE_PROMPT</id>
+        <text>A partilha de rede só é exigida para o tipo de média 'DVD Vídeo', e será ignorado por todos os outros tipos de suporte. Para reproduzir vídeo DVDs tem de configurar uma rede SMB ou NFS partilhada no seu NMT para permitir o acesso imagens de DVDs (ISOs), em seguida, efectuar a partilha de rede com esta média local.</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>NEW</id>
@@ -2328,6 +2653,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>PASS_SWISS_CACHE</id>
+        <text>Capaz de efectuar leitura/gravação na directoria de cache do SwissCenter.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>PASS_SWISS_INI</id>
         <text>Localizado com êxito o arquivo 'swisscenter.ini'.</text>
         <version>1.19</version>
@@ -2341,6 +2671,11 @@
         <id>PASS_SWISS_LOG</id>
         <text>Log activo.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_PLAYLIST</id>
+        <text>Capaz de efectuar leitura/gravação na directoria de playlists do SwissCenter.</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>PASS_SWISS_ROOT_INS</id>
@@ -2598,14 +2933,44 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>PLAYLISTS_ERROR_SIZE</id>
+        <text>Digite um tamanho máximo (entre 10 e 2000)</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>PLAYLIST_APPEND</id>
         <text>Adicionar a outra Lista de Reprodução</text>
         <version>1.19</version>
       </string>
       <string>
+        <id>PLAYLIST_AUTOLOAD</id>
+        <text>Auto-reproduzir Playlist</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>PLAYLIST_AUTOLOAD_PROMPT</id>
+        <text>Seleccione uma playlist a ser carregada automaticamente na iniciação. Este processo é útil para não ter que seleccionar sempre a mesma playlist de música ambiente antes de visualizar fotos.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>PLAYLIST_CLEAR</id>
         <text>Apagar a Lista de Reprodução</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_DELETE</id>
+        <text>Apagar playlist</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>PLAYLIST_DELETED</id>
+        <text>Playlist apagada</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>PLAYLIST_DELETE_CONFIRM</id>
+        <text>Apagar playlist?</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>PLAYLIST_EDIT</id>
@@ -2616,6 +2981,11 @@
         <id>PLAYLIST_LOAD</id>
         <text>Carregar a Lista de Reprodução</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_LOAD_FAIL</id>
+        <text>A Playlist %s carregou as faixas,%s não foram encontradas na base de dados.</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>PLAYLIST_LOAD_NEW</id>
@@ -2671,6 +3041,11 @@
         <id>PREVIOUS</id>
         <text>Anterior</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PRIORITY</id>
+        <text>Prioridade</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>PRIVACY_COMMUNICATION</id>
@@ -2856,6 +3231,16 @@
         <id>REFINE_YEAR</id>
         <text>Redefinir por ano</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>REFRESH_CLEANUP</id>
+        <text>Limpar base de dados</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>REFRESH_CLEANUP_PROMPT</id>
+        <text>Seleccionar a limpeza de dados irá remover qualquer registo obsoleto na base de dados, como arquivos não existentes e actores/directores já não referenciados. Deste modo a pesquisa de novas informações sobre arquivos será mais rápida</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>REFRESH_DATABASE</id>
@@ -3303,6 +3688,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>SETUP_UPDATE_SC_RELEASE</id>
+        <text>Atualizar para a última versão estável</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>SETUP_UPDATE_SC_SVN</id>
+        <text>Atualizar para a última versão em desenvolvimento</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>SHUFFLE_OFF</id>
         <text>Desactivar reprodução aleatória</text>
         <version>1.19</version>
@@ -3603,14 +3998,100 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>TV_EXPRESSIONS</id>
+        <text>Expressões de TV</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ADD</id>
+        <text>Adicionar Expressão de TV</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ADDED_OK</id>
+        <text>Expressão de TV adicionada</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ADD_BUTTON</id>
+        <text>Adicionar expressão de TV</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_DEFAULTS</id>
+        <text>Restaurar definições</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_DELETE_OK</id>
+        <text>Expressões de TV apagadas</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_DEL_BUTTON</id>
+        <text>Remover as expressões seleccionadas</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ERROR_INVALID</id>
+        <text>Introduza uma expressão válida</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ERROR_MISSING</id>
+        <text>Digite uma prioridade e Expressão</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_PROMPT</id>
+        <text>Os detalhes de uma série televisiva são determinados a partir do nome do arquivo e caminho usando expressões regulares. O arquivo é comparado com as seguintes expressões até uma correspondência for encontrada. Estas expressões podem conter espaços reservados para o programa (p), (série s), (e) episódio, e título (t). Você deve ter pelo menos um desses espaços reservados em cada expressão para extrair informações. Se necessitar de ajuda com este assunto então você deve consultar os fóruns.
+.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST</id>
+        <text>Testar expressões</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_BUTTON</id>
+        <text>teste expressões</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_FAILED</id>
+        <text>Falhou a correspondência com qualquer expressão</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_PROMPT</id>
+        <text>Digite um nome de arquivo, incluindo o caminho para testar se o seu administrador de expressões irá identificar as informações correctas. Por exemplo. C:/Mídia/TV/Robot Chicken/Série1/Robot Chicken.S01E01.The Deep End.avi</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_SUCCESS</id>
+        <text>Encontrados %s. Programa encontado %s, Episódio %s, Nome %s.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_UPDATE_OK</id>
+        <text>Expressão de TV actualizada</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>TV_OPTIONS</id>
         <text>Series de TV</text>
         <version>1.19</version>
       </string>
       <string>
+        <id>UNKNOWN_ERROR</id>
+        <text>Ocorreu um erro desconhecido. Por favor poste um relatório de erro nos fóruns descrevendo as acções que esta a realizar no momento.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>UNRATED_CERTIFICATE</id>
-        <text>Sem classificação de idade</text>
-        <version>1.19</version>
+        <text>Classificação de idade</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>UNRATED_CERT_PROMPT</id>
@@ -3823,6 +4304,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>WATCH_DVD</id>
+        <text>Ver um DVD</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>WATCH_MOVIE</id>
         <text>Ver um Filme</text>
         <version>1.19</version>
@@ -3951,6 +4437,11 @@
         <id>WIKI_LOOKUP_PROMPT</id>
         <text>Quando esta opção está activa, o SwissCenter irá incluir a opção de procura de informação (como artistas e Filmes) no site da Wikipedia.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>XML_SAVE</id>
+        <text>Utilizar arquivos XLM</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>XMP_RATING</id>

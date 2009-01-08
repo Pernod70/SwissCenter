@@ -568,6 +568,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>CONFIG_FLICKR</id>
+        <text>Flickr Optionen</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>CONFIG_IMAGE_OPTIONS</id>
         <text>Bilder</text>
         <version>1.19</version>
@@ -958,6 +963,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>EXIF_VIEW</id>
+        <text>EXIF anzeigen</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>EXIF_WHITE_BALANCE</id>
         <text>Weißabgleich</text>
         <version>1.19</version>
@@ -1198,6 +1208,88 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>FLICKR_CONTACTS</id>
+        <text>Kontakte</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FLICKR_DESC</id>
+        <text>Flickr %s ist ein Service, um online Bilder und Fotos zu verwalten und mit anderen zu teilen. Flickr ermöglicht die Präsentation von Fotos und zeigt neue Wege der Bildverwaltung - und organisation auf.
+Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Hochladen/Präsentieren von Fotos beginnen.
+[p]SwissCenter ermöglicht das Betrachten der eigenen Fotos sowie der Deiner Kontakte.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FLICKR_FAVORITES</id>
+        <text>Favoriten</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FLICKR_FILTER_BOTH</id>
+        <text>Filter: Freunde &amp; Familie</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FLICKR_FILTER_FAMILY</id>
+        <text>Filter: Familie</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FLICKR_FILTER_FRIENDS</id>
+        <text>Filter: Freunde</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FLICKR_FILTER_NEITHER</id>
+        <text>kein Filter</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FLICKR_INTERESTINGNESS</id>
+        <text>Interessantes</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FLICKR_NO_USER</id>
+        <text>Kein Flickr-User zugeordnet!</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FLICKR_PHOTOS</id>
+        <text>Flickr Fotos</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FLICKR_PHOTOSETS</id>
+        <text>Fotoalben</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FLICKR_PROMPT</id>
+        <text>Betrachte Deine Flickr Fotos und die Deiner Kontakte</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FLICKR_RETURN</id>
+        <text>Zum Standardnutzer zurückkehren</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FLICKR_UNKNOWN_USER</id>
+        <text>Es wurde kein User mit dem angegebenen Namen (%s) gefunden.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FLICKR_USERID_PROMPT</id>
+        <text>Sie können jedem SwissCenter-User einen Flickr-User zuordnen. Falls Sie Ihren Flickr-Benutzernamen nicht angeben, haben Sie keinen Zugriff auf Ihre Kontakte und Fotos.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FLICKR_USERNAMES</id>
+        <text>Flickr Benutzernamen</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>FONTWIDTH_MULTIPLIER</id>
         <text>Multiplikator für die Font-Breite</text>
         <version>1.19</version>
@@ -1396,6 +1488,21 @@
         <id>INTERNET_SETTING_PROMPT</id>
         <text>Diese Option gibt an, ob Ihr PC über eine Internetverbindung verfügt, die SwissCenter verwenden kann. Wenn Sie den Wert auf 'Automatisch' stellen, wird SwissCenter versuchen, dies selbst zu ermitteln.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>INTERNET_TV</id>
+        <text>Internet TV</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>INTERNET_TV_PROMPT</id>
+        <text>Wenn eingeschaltet, können Verbindungen zu verschiedenen Internet TV-Stationen mittels SwissCenter aufgebaut werden.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>INTERNET_URLS</id>
+        <text>Internet-Lesezeichen</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>IPTC_BYLINE</id>
@@ -1791,6 +1898,11 @@
         <id>LANG_UPDATE_OK</id>
         <text>Sprachdatei aktualisiert</text>
         <version>1.20</version>
+      </string>
+      <string>
+        <id>LARGE_VIEW</id>
+        <text>Große Ansicht</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>LASTFM</id>
@@ -4198,6 +4310,81 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>URL</id>
+        <text>URL</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>URL_ADD_BUTTON</id>
+        <text>URL hinzufügen</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>URL_ADD_OK</id>
+        <text>URL hinzugefügt</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>URL_ADD_TITLE</id>
+        <text>Eine neue URL hinzufügen</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>URL_AUDIO</id>
+        <text>Audio Stream</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>URL_DEL_BUTTON</id>
+        <text>Ausgewählte URLs löschen</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>URL_DEL_OK</id>
+        <text>Die ausgewählten URLs wurden gelöscht.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>URL_ERROR_TITLE</id>
+        <text>Bitte eine Bezeichnung für die URL angeben.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>URL_ERROR_TYPE</id>
+        <text>Bitte den Typ der URL auswählen.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>URL_ERROR_URL</id>
+        <text>Bitte eine URL angeben!</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>URL_TITLE</id>
+        <text>Titel</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>URL_TYPE</id>
+        <text>URL Typ</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>URL_UPDATE_OK</id>
+        <text>URL Information aktualisiert</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>URL_VIDEO</id>
+        <text>Video Stream</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>URL_WEB</id>
+        <text>Webseite</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>USERNAME</id>
         <text>Benutzername</text>
         <version>1.19</version>
@@ -4345,6 +4532,11 @@
       <string>
         <id>WATCH_DVD</id>
         <text>DVD</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>WATCH_INTERNET_TV</id>
+        <text>Internet TV starten</text>
         <version>1.21.1</version>
       </string>
       <string>
