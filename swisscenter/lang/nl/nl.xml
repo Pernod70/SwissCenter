@@ -24,8 +24,8 @@
       </string>
       <string>
         <id>ADMIN</id>
-        <text>Administrator</text>
-        <version>1.19</version>
+        <text>Beheerder</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>ADVANCED_OPTIONS</id>
@@ -154,13 +154,13 @@
       </string>
       <string>
         <id>BAND</id>
-        <text>Album, artiest</text>
-        <version>1.19</version>
+        <text>Albumartiest</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>BOOKMARKS</id>
-        <text>Bladwijzers</text>
-        <version>1.19</version>
+        <text>Favorieten</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>BROWSE_ACTOR</id>
@@ -174,8 +174,8 @@
       </string>
       <string>
         <id>BROWSE_ALBUM_ARTIST</id>
-        <text>Zoek op album, artiest</text>
-        <version>1.19</version>
+        <text>Zoek op albumartiest</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>BROWSE_ARTIST</id>
@@ -324,8 +324,8 @@
       </string>
       <string>
         <id>BROWSE_WEB_PROMPT</id>
-        <text>Met deze optie kan SwissCenter eenvoudige webpagina's weergeven, zowel van uw intern netwerk als van het Internet (indien uw internetconnectie werkzaam is).</text>
-        <version>1.19</version>
+        <text>Met deze optie kan SwissCenter eenvoudige webpagina's weergeven, zowel van uw intern netwerk als van het internet (indien uw internetconnectie werkzaam is).</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>BROWSE_XMP_RATING</id>
@@ -474,8 +474,8 @@
       </string>
       <string>
         <id>CAT_DOWNLOAD_PROMPT</id>
-        <text>Dit veld bepaalt het downloaden van extra op het Internet beschikbare informatie voor bestanden van deze categorie.</text>
-        <version>1.19</version>
+        <text>Met deze optie kunt u aangeven of u extra, op het internet beschikbare informatie voor bestanden van deze categorie wilt downloaden.</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>CAT_ERROR_DELETE</id>
@@ -516,6 +516,11 @@
         <id>CERTIFICATE</id>
         <text>Leeftijdsgrens</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>CHANNEL</id>
+        <text>Kanaal</text>
+        <version>1.20.1</version>
       </string>
       <string>
         <id>CLEAR_NAME</id>
@@ -564,8 +569,13 @@
       </string>
       <string>
         <id>CONFIG_DB_ROOT_PW_TXT</id>
-        <text>Tenzij u een waarde heeft ingevuld voor het [em]root[/em] paswoord tijdens de installatie van MySQL en u dus het toen opgegeven paswoord hier moet invullen, kunt u dit veld het beste blanco laten.[p][em]Opmerking: Het aanmaken van de databank kan mogelijk een aantal minuten duren. Wees a.u.b. geduldig. [/em]</text>
-        <version>1.19</version>
+        <text>Tenzij u een waarde heeft ingevuld voor het [em]root[/em] paswoord tijdens de installatie van MySQL en u het toen opgegeven paswoord hier moet invullen, kunt u dit veld het beste blanco laten.[p][em]Opmerking: Het aanmaken van de databank kan mogelijk een aantal minuten duren.[/em]</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>CONFIG_FLICKR</id>
+        <text>Flickr instellingen</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>CONFIG_IMAGE_OPTIONS</id>
@@ -619,8 +629,8 @@
       </string>
       <string>
         <id>CONNECT_TEXT</id>
-        <text>Een aantal SwissCenter functies maakt gebruik van een Internet connectie om informatie op te halen (bv: Weersvoorspellingen) of om periodiek naar informatie te zoeken (bv: Nieuwe software versies).</text>
-        <version>1.19</version>
+        <text>Een aantal SwissCenter functies maakt gebruik van een internet connectie om informatie op te halen (bv: weersvoorspellingen) of om periodiek naar informatie te zoeken (bv: nieuwe software versies).</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>CONNECT_TITLE</id>
@@ -933,6 +943,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>EXIF_NONE</id>
+        <text>Geen EXIF data beschikbaar</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>EXIF_ORIENTATION</id>
         <text>oriëntatie</text>
         <version>1.19</version>
@@ -946,6 +961,11 @@
         <id>EXIF_SOURCE</id>
         <text>Afbeeldingsbron</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_VIEW</id>
+        <text>Bekijk EXIF</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>EXIF_WHITE_BALANCE</id>
@@ -974,13 +994,13 @@
       </string>
       <string>
         <id>EXPERT_WARNING</id>
-        <text>De elementen op deze pagina bieden u de mogelijkheid de interne werking van SwissCenter te wijzigen. Dit mag enkel uitgevoerd worden door (zeer) ervaren gebruikers. [b]Het gebruik van deze mogelijkheid is op eigen risico![/b]</text>
-        <version>1.20</version>
+        <text>U kunt de SwissCenter databank en systeeminstelingen aanpassen. Het is ten zeerste aanbevolen dat slechts (zeer) ervaren gebruikers van deze mogelijkheid gebruik maken. [b]Handmatige aanpassing van de SwissCenter databank is op eigen risico![/b]</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>EXPORT_PROMPT</id>
-        <text>De toets hieronder bewaart al uw instellingen in een XML-bestand, dat U kunt gebruiken om SwissCenter te herconfigureren indien U ooit zou moeten herinstalleren of uw databank opnieuw aanmaken.[p][b]Let op:[/b] Deze optie bewaart GEEN details over door SwissCenter gevonden audio, video of foto's. Ook wordt geen filminformatie (gedownload van Internet of handmatig ingebracht) bewaard.</text>
-        <version>1.19</version>
+        <text>U kunt uw SwissCenter instellingen opslaan in een XML-bestand. Dit bestand kunt u gebruiken om SwissCenter te herconfigureren, indien SwissCenter opnieuw geïnstalleerd moet worden of wanneer de databank opnieuw moet worden aangemaakt.[p][b]Let op:[/b] De in de databank opgeslagen audio, video of foto's wordt niet in het XML-bestand opgenomen. Ook filminformatie (gedownload van internet of handmatig ingebracht) wordt niet bewaard.</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>EXPORT_SETTINGS</id>
@@ -1004,8 +1024,8 @@
       </string>
       <string>
         <id>EXTRA_EXPORT_DETAILS</id>
-        <text>Alle extra informatie - zoals synopsis, acteurs, etc. - kan worden geëxporteerd naar een zogenoemd 'XML sidecar' bestand. Wanneer een nieuwe database wordt gecreëerd kan dit bestand worden gebruikt om eerder vastgelegde video details te importeren. Echter, voordat van deze mogelijkheid gebruikt kan worden gemaakt, moet de optie &quot;Gebruik 'XML sidecar' bestanden&quot; worden ingeschakeld.</text>
-        <version>1.21</version>
+        <text>Alle extra informatie - zoals synopsis, acteurs, etc. - kan worden geëxporteerd naar een zogenoemd 'XML sidecar' bestand. Wanneer een nieuwe databank wordt gecreëerd kan dit bestand worden gebruikt om eerder vastgelegde video details te importeren. Echter, voordat van deze mogelijkheid gebruikt kan worden gemaakt, moet de optie &quot;Gebruik 'XML sidecar' bestanden&quot; worden ingeschakeld.</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>EXTRA_EXPORT_GO</id>
@@ -1186,6 +1206,87 @@
         <id>FINISHED</id>
         <text>Klaar</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>FLICKR_CONTACTS</id>
+        <text>Contacten</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FLICKR_DESC</id>
+        <text>Flickr %s is een website voor het delen van (digitale) foto's. Het belangrijkste doel is gebruikers te helpen bij het beschikbaar stellen van fotos aan anderen, en de fotos te ordenen. Registratie bij Flickr is gratis en na aanmelding kunnen afbeeldingen direct worden gedeeld.
+[p]Met SwissCenter kunnen eigen en die van de contacten worden bekeken.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FLICKR_FAVORITES</id>
+        <text>Favorieten</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FLICKR_FILTER_BOTH</id>
+        <text>Filter vrienden &amp; familie</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FLICKR_FILTER_FAMILY</id>
+        <text>Filter familie</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FLICKR_FILTER_FRIENDS</id>
+        <text>Filter vrienden</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FLICKR_FILTER_NEITHER</id>
+        <text>Geen filter</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FLICKR_INTERESTINGNESS</id>
+        <text>Interessant</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FLICKR_NO_USER</id>
+        <text>Geen Flickr gebruiker toegevoegd!</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FLICKR_PHOTOS</id>
+        <text>Flickr foto's</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FLICKR_PHOTOSETS</id>
+        <text>Foto sets</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FLICKR_PROMPT</id>
+        <text>Bekijk uw Flickr foto's of die van uw contacten.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FLICKR_RETURN</id>
+        <text>Terug naar standaardgebruiker</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FLICKR_UNKNOWN_USER</id>
+        <text>De opgegeven gebruikersnaam (%s) is onbekend.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FLICKR_USERID_PROMPT</id>
+        <text>Elke SwissCenter gebruiker kan geassocieerd worden met een Flickr gebruiker. Indien geen Flickr gebruikersnaam wordt ingevoerd, kunt u geen Flickr foto's bekijken.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FLICKR_USERNAMES</id>
+        <text>Flickr gebruikersnamen</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>FONTWIDTH_MULTIPLIER</id>
@@ -1369,8 +1470,8 @@
       </string>
       <string>
         <id>INTERNET_RADIO_PROMPT</id>
-        <text>Verbindingen naar Internet radiostations worden direct door Showcenter gemaakt. Indien uw ShowCenter geen directe toegang heeft tot internet kunt u deze functie uitschakelen.</text>
-        <version>1.19</version>
+        <text>Verbindingen naar internet radiostations worden direct door Showcenter gemaakt. Indien uw ShowCenter geen directe toegang heeft tot internet kunt u deze functie uitschakelen.</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>INTERNET_SERVICES</id>
@@ -1384,8 +1485,23 @@
       </string>
       <string>
         <id>INTERNET_SETTING_PROMPT</id>
-        <text>Dit specificeert of uw PC een internetverbinding heeft die SwissCenter kan gebruiken. Indien u de optie op 'Automatisch' instelt zal SwissCenter automatisch proberen te detecteren of u een internetverbinding heeft.</text>
-        <version>1.19</version>
+        <text>Geef aan of SwissCenter verbinding mag maken met het internet. Indien u de optie op 'Automatisch' instelt, controleert  SwissCenter automatisch de aanwezigheid van een internetverbinding. Indien dit het geval is, zal SwissCenter toegang krijgen tot het internet.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>INTERNET_TV</id>
+        <text>Internet TV</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>INTERNET_TV_PROMPT</id>
+        <text>Indien geactiveerd kunnen individuele internet TV stations worden bekeken.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>INTERNET_URLS</id>
+        <text>Internet favorieten</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>IPTC_BYLINE</id>
@@ -1639,8 +1755,8 @@
       </string>
       <string>
         <id>ITUNES_ERROR_INVALID</id>
-        <text>Het spijt me, maar het bestand dat u specificeert moet &quot;iTunes Music Library.xml&quot; zijn.</text>
-        <version>1.19</version>
+        <text>Het spijt me, maar het bestand dat u heeft aangegeven moet &quot;iTunes Music Library.xml&quot; zijn.</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>ITUNES_ERROR_PATH</id>
@@ -1784,8 +1900,13 @@
       </string>
       <string>
         <id>LANG_UPDATE_OK</id>
-        <text>Taalinformatie is geactualiseerd</text>
-        <version>1.20</version>
+        <text>De vertaling is geactualiseerd</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LARGE_VIEW</id>
+        <text>Grote weergave</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>LASTFM</id>
@@ -1794,8 +1915,8 @@
       </string>
       <string>
         <id>LASTFM_ABOUT</id>
-        <text>Last.FM is 's werelds grootste sociale muziekplatform met meer dan 20 miljoen actieve gebruikers in meer dan 232 landen. Door gebruik te maken van een uniek aanbevelingssysteem, bekend als &quot;audioscrobbler&quot;, creëert Last.FM een gedetailleerd profiel van de muzieksmaak van iedere individuele gebruiker door details van alle nummers waarnaar de gebruiker naar luistert vast te leggen. Dit kan gebeuren op basis van beluisterde radio streams of eigen muziek opgeslagen op PC of draagbare speler. [p] Gebruikers kunnen radio stations of afpeellijsten op maat maken vanuit alle audio die in de Last.FM muziekbibliotheek is opgenomen; het is echter niet mogelijk om individuele nummers op te vragen en te beluisteren. Ook is het niet mogelijk om audio te downloaden, tenzij de eigenaar van de audio hiertoe vooraf toestemming heeft verleend. Registratie is vereist om een profiel aan te maken, maar registratie is niet noodzakelijk om de internetpagina van Last.FM te bekijken of om naar de radiostations te luisteren.</text>
-        <version>1.20</version>
+        <text>Last.FM is 's werelds grootste sociale muziekplatform met meer dan 20 miljoen actieve gebruikers in meer dan 232 landen. Door gebruik te maken van een uniek aanbevelingssysteem, bekend als &quot;audioscrobbler&quot;, creëert Last.FM een gedetailleerd profiel van de muzieksmaak van iedere individuele gebruiker door details van alle nummers waarnaar de gebruiker naar luistert vast te leggen. Dit gebeurt op basis van beluisterde radio streams of eigen muziek opgeslagen op PC of draagbare speler. [p] Gebruikers kunnen radio stations of afpeellijsten op maat maken vanuit alle audio die in de Last.FM muziekbibliotheek is opgenomen; het is echter niet mogelijk om individuele nummers op te vragen en te beluisteren. Ook is het niet mogelijk om audio te downloaden, tenzij de eigenaar van de audio hiertoe vooraf toestemming heeft verleend. Registratie is vereist om een profiel aan te maken, maar registratie is niet noodzakelijk om de internetpagina van Last.FM te bekijken of om naar de radiostations te luisteren.</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>LASTFM_ARTIST</id>
@@ -1836,6 +1957,11 @@
         <id>LENGTH_MM</id>
         <text>mm</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>LFM_STATS</id>
+        <text>Last.FM statistieken</text>
+        <version>na</version>
       </string>
       <string>
         <id>LICENSE</id>
@@ -2079,8 +2205,8 @@
       </string>
       <string>
         <id>MEDIA_SCAN_STATUS_CLEANUP</id>
-        <text>Opruimen database</text>
-        <version>1.21</version>
+        <text>Opruimen databank</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>MEDIA_SCAN_STATUS_COMPLETE</id>
@@ -2214,7 +2340,7 @@
       </string>
       <string>
         <id>MIP_DESC</id>
-        <text>MusicIP (gratis beschikbaar op %s) is een interessante applicatie die uw muziekcollectie analyseert, een een &quot;akoestische vingerafdruk&quot; aanmaakt voor elk nummer. Deze informatie wordt dan gebruikt om een persoonlijke afspeellijst van soortgelijke nummers aan te maken, gebaseerd op titel, artiest of album. [p]Indien MusicIP op hetzelfde toestel als SwissCenter geinstalleerd is, worden binnen de SwissCenter interface extra features beschikbaar voor het genereren en beluisteren van MusicIP afspeellijsten.</text>
+        <text>MusicIP (gratis beschikbaar op %s) is een interessante applicatie die uw muziekcollectie analyseert, en een &quot;akoestische vingerafdruk&quot; aanmaakt voor elk nummer. Deze informatie wordt dan gebruikt om een persoonlijke afspeellijst van soortgelijke nummers aan te maken, gebaseerd op titel, artiest of album. [p]Indien MusicIP op hetzelfde toestel als SwissCenter geinstalleerd is, worden binnen de SwissCenter interface extra features beschikbaar voor het genereren en beluisteren van MusicIP afspeellijsten.</text>
         <version>1.21.1</version>
       </string>
       <string>
@@ -2699,8 +2825,8 @@
       </string>
       <string>
         <id>PASS_SWISS_RW_FILES</id>
-        <text>De SwissCenter installatiefolder kan gelezen en beschreven worden.</text>
-        <version>1.19</version>
+        <text>Er is lees- en schrijftoegang tot de SwissCenter installatiedirectory.</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>PC_LINK_BACK</id>
@@ -2999,8 +3125,8 @@
       </string>
       <string>
         <id>PLAYLIST_LOAD_FAIL</id>
-        <text>De afspeellijst heeft %s titels geladen, %s konden niet worden gevonden in de database.</text>
-        <version>1.21</version>
+        <text>De afspeellijst heeft %s titels geladen, %s konden niet worden gevonden in de databank.</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>PLAYLIST_LOAD_NEW</id>
@@ -3069,8 +3195,8 @@
       </string>
       <string>
         <id>PRIVACY_DATA_COLLECTION</id>
-        <text>[b]Data Verzameling[/b] [p]Informatie die betrekking heeft op de mediabestanden op uw systeem worden opgeslagen in een MySQL databank op de PC waarop de SwissCenter software is ge?nstalleerd. Deze informatie wordt alleen gebruikt om gegevens over deze mediabestanden op apparaten zoals Pinnacle Showcenter te tonen. Er wordt nooit informatie, in welke vorm dan ook, verstuurd naar de makers van SwissCenter of naar een andere partij. [p]Er is een uitzondering hierop:- Om extra film informatie (zoals acteurs, regisseurs, filmbeschrijving etc.) te verkrijgen wordt een zoekstring, met daarin de bestandsnaam, verstuurd naar de www.lovefilm.com website. Indien u niet wenst dat deze informatie wordt verstuurd kunt u de &quot;Film Info Download&quot; optie uitschakelen op &quot;Extra Filminformatie&quot; pagina.</text>
-        <version>1.19</version>
+        <text>[b]Data Verzameling[/b] [p]Informatie die betrekking heeft op de mediabestanden op uw systeem worden opgeslagen in een MySQL databank op de PC waarop de SwissCenter software is ge?nstalleerd. Deze informatie wordt alleen gebruikt om gegevens over deze mediabestanden op apparaten zoals Pinnacle Showcenter te tonen. Er wordt nooit informatie, in welke vorm dan ook, verstuurd naar de makers van SwissCenter of naar een andere partij. [p]Er is een uitzondering hierop: om extra film informatie (zoals acteurs, regisseurs, filmbeschrijving etc.) te verkrijgen wordt een zoekstring, met daarin de bestandsnaam, verstuurd naar de www.lovefilm.com website. Indien u niet wenst dat deze informatie wordt verstuurd kunt u de &quot;Film Info Download&quot; optie uitschakelen op &quot;Extra Filminformatie&quot; pagina.</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>PRIVACY_POLICY</id>
@@ -3123,6 +3249,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>RADAR</id>
+        <text>Buienradar</text>
+        <version>na</version>
+      </string>
+      <string>
         <id>RANGE</id>
         <text>Bereik</text>
         <version>1.19</version>
@@ -3141,6 +3272,11 @@
         <id>RECENTLY_ADDED_DAYS</id>
         <text>Gedurende de %s dagen</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>RECENT_TRACKS</id>
+        <text>Recent gespeelde nummers</text>
+        <version>na</version>
       </string>
       <string>
         <id>REFERENCE</id>
@@ -3249,13 +3385,13 @@
       </string>
       <string>
         <id>REFRESH_CLEANUP</id>
-        <text>Opruimen database</text>
-        <version>1.21</version>
+        <text>Opruimen databank</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>REFRESH_CLEANUP_PROMPT</id>
-        <text>Met 'opruimen database' zullen alle niet-gerelateede records, zoals media zonder medialocatie of acteurs en regiseurs zonder verwijzing, uit de database worden verwijderd. Met deze optie zal de tijd voor het doorzoeken van uw medialocaties meer tijd in beslag nemen. Daarom is het raadzaam deze optie alleen gebruikt worden wanneer media is verwijderd.</text>
-        <version>1.21</version>
+        <text>Met 'opruimen databank' zullen alle niet-gerelateede records, zoals media zonder medialocatie of acteurs en regiseurs zonder verwijzing, uit de databank worden verwijderd. Met deze optie zal de tijd voor het doorzoeken van uw medialocaties meer tijd in beslag nemen. Daarom is het raadzaam deze optie alleen gebruikt worden wanneer media is verwijderd.</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>REFRESH_DATABASE</id>
@@ -3913,6 +4049,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>TOP_ARTISTS</id>
+        <text>Meest gespeelde bands/artiesten</text>
+        <version>na</version>
+      </string>
+      <string>
+        <id>TOP_TRACKS</id>
+        <text>Meest gespeelde nummers</text>
+        <version>na</version>
+      </string>
+      <string>
         <id>TRACKS</id>
         <text>Nummers</text>
         <version>1.19</version>
@@ -4174,6 +4320,81 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
         <version>1.19</version>
       </string>
       <string>
+        <id>URL</id>
+        <text>URL</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>URL_ADD_BUTTON</id>
+        <text>URL toevoegen</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>URL_ADD_OK</id>
+        <text>URL toegevoegd</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>URL_ADD_TITLE</id>
+        <text>Voeg een nieuwe URL toe</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>URL_AUDIO</id>
+        <text>Audio stream</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>URL_DEL_BUTTON</id>
+        <text>Verwijder de geselecteerde URL's</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>URL_DEL_OK</id>
+        <text>De geselecteerde URL's zijn verwijderd</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>URL_ERROR_TITLE</id>
+        <text>Voer een titel voor de URL in</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>URL_ERROR_TYPE</id>
+        <text>Selecteer het type URL</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>URL_ERROR_URL</id>
+        <text>Voer een URL in</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>URL_TITLE</id>
+        <text>Titel</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>URL_TYPE</id>
+        <text>URL type</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>URL_UPDATE_OK</id>
+        <text>De URL informatie is toegevoegd</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>URL_VIDEO</id>
+        <text>Video stream</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>URL_WEB</id>
+        <text>Website</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>USERNAME</id>
         <text>Gebruikersnaam</text>
         <version>1.19</version>
@@ -4195,8 +4416,8 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
       </string>
       <string>
         <id>USERS_ADMIN_PROMPT</id>
-        <text>Een administrator heeft toegang tot meer opties op de mediaspeler. Hieronder valt de mogelijkheid om media te verwijderen.</text>
-        <version>1.19</version>
+        <text>Een beheerder heeft toegang tot meer opties op de mediaspeler. Hieronder valt de mogelijkheid om media te verwijderen.</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>USERS_CONFIG_TITLE</id>
@@ -4324,6 +4545,11 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
         <version>1.21</version>
       </string>
       <string>
+        <id>WATCH_INTERNET_TV</id>
+        <text>Bekijk internet TV</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>WATCH_MOVIE</id>
         <text>Bekijk een video</text>
         <version>1.20</version>
@@ -4332,6 +4558,11 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
         <id>WATCH_TV</id>
         <text>Bekijk een TV show</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER</id>
+        <text>Weerbericht</text>
+        <version>na</version>
       </string>
       <string>
         <id>WEATHER_5DAY</id>
