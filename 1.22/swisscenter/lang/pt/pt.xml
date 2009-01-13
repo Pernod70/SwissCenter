@@ -1,0 +1,4463 @@
+<?xml version="1.0" encoding="utf-8"?>
+<swisscenter>
+  <languages>
+    <language name="pt" fullname="Português">
+      <string>
+        <id>ACCESS_DENIED</id>
+        <text>Acesso negado</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ACTOR</id>
+        <text>Actor</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ADDITIONAL_COMPONENTS</id>
+        <text>Outos Componentes</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>ADD_PLAYLIST</id>
+        <text>Adicionar lista de reprodução</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ADMIN</id>
+        <text>Administrador</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ADVANCED_OPTIONS</id>
+        <text>Opções avançadas</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ALBUM</id>
+        <text>Álbum</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ALL_CATEGORIES</id>
+        <text>Todas as categorias</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>ALL_MEDIA_TYPES</id>
+        <text>Todos os tipos de Média</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>ALL_RSS_FEEDS</id>
+        <text>Todos os feeds RSS</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>ANYWHERE_IN_NAME</id>
+        <text>Em qualquer posição do nome</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ARTIST</id>
+        <text>Artista</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_ADDED_OK</id>
+        <text>Arquivo adicionado</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_DELETE_OK</id>
+        <text>Os arquivos seleccionados foram apagados</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>ART_ERROR_FILENAME</id>
+        <text>Por favor, introduza o nome do arquivo</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_ERROR_FILETYPE</id>
+        <text>Apenas são válidos arquivos do tipo JPG, JPEG, GIF y PNG</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_ERROR_QUOTE</id>
+        <text>Um nome de arquivo não pode ter os seguintes caracteres /\:*?&quot;&lt;&gt;|</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_ERROR_SLASH</id>
+        <text>Um nome de arquivo não pode ter referência a directorias</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_FILENAME_PROMPT</id>
+        <text>Por favor, especifique um nome de arquivo de imagem que identifica o Álbum/Filme no directório multimédia.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_FILES_ADD_BUTTON</id>
+        <text>Adicionar nome de arquivo</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_FILES_ADD_TITLE</id>
+        <text>Adicionar nome de arquivo</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_FILES_CURRENT</id>
+        <text>Arquivos de imagens actuais</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_FILES_DEL_BUTTON</id>
+        <text>Eliminar os arquivos seleccionados</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_FILES_PROMPT</id>
+        <text>[em]Álbum/Filme[/em] são os nomes de arquivo de imagens que o SwissCenter vai procurar quando tem uma janela de visualização (procura de Filmes, procura Música por pastas, etc.) ou quando se escolheu um álbum ou filme. [p] todos os arquivos serão mostrados na directoria, quando encontrar o Álbum/Filme vai-se visualizar no SwissCenter.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_FILES_TITLE</id>
+        <text>Arquivos de imagens para Álbum /Filmes</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_ID3_TAG</id>
+        <text>Ficheiro ID3-Tag</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_ID3_TAG_PROMPT</id>
+        <text>Se o ficheiro ID3-Tag está dentro de um Álbum de arquivos de música, vai ser guardado na base de dados, para se visualizar no SwissCenter. Esta opção pode causar que a base de dados ocupe muito espaço , pode desabilitar esta opção aqui.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_UPDATE_OK</id>
+        <text>Informação de imagem actualizada</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>AUTOMATIC</id>
+        <text>Automático</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BACKSPACE</id>
+        <text>Página anterior</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BAND</id>
+        <text>Artista do Álbum</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BOOKMARKS</id>
+        <text>Favoritos</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_ACTOR</id>
+        <text>Pesquisar por actor</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_ALBUM</id>
+        <text>Pesquisar por álbum</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_ALBUM_ARTIST</id>
+        <text>Pesquisar por nome de artista de álbum</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_ARTIST</id>
+        <text>Pesquisar por nome de artista</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_CERTIFICATE</id>
+        <text>Pesquisar por classificação de idade</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_COUNTRY</id>
+        <text>Pesquisa por país</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_DATE</id>
+        <text>Pesquisar por data</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_DIRECTOR</id>
+        <text>Pesquisar por director</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_DVD</id>
+        <text>Pesquisa de DVD´s</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>BROWSE_FILESYSTEM</id>
+        <text>Pesquisar no sistema de arquivos</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_GENRE</id>
+        <text>Pesquisar por género</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_IPTC_BYLINE</id>
+        <text>Pesquisar por autor</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_IPTC_CAPTION</id>
+        <text>Pesquisar por descrição</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_IPTC_CITY</id>
+        <text>Pesquisar por cidade</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_IPTC_COUNTRY</id>
+        <text>Pesquisar por país</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_IPTC_DATE_CREATED</id>
+        <text>Pesquisar por data de criação</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_IPTC_KEYWORDS</id>
+        <text>Pesquisar por palavra chave</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_IPTC_LOCATION</id>
+        <text>Pesquisar por localização</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_IPTC_PROVINCE_STATE</id>
+        <text>Pesquisar por província/região</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_IPTC_SUPPCATEGORY</id>
+        <text>Pesquisar por categorias adicionais</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_MOVIES</id>
+        <text>Pesquisar Filmes</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_MUSIC</id>
+        <text>Pesquisar música</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_OPTIONS</id>
+        <text>Opções de pesquisa</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_PHOTOS</id>
+        <text>Pesquisar fotografias</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_PHOTO_ALBUM</id>
+        <text>Pesquisar por álbum de fotografias</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_PHOTO_TITLE</id>
+        <text>Pesquisar por título</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_STATION</id>
+        <text>Pesquisa por emissões</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>BROWSE_TEXT</id>
+        <text>O SwissCenter permite pesquisar os seus ficheiros multimédia de varias maneiras. Para reduzir a complexidade da interface ou para personalizá-lo ao seu gosto, você pode desactivar qualquer uma das opções &quot;Pesquisar por...&quot; mostradas abaixo. Se somente uma opção está activada, SwissCenter saltará directamente para essa opção em vez de exibir um menu. [p] Por favor, note que você tem de deixar, pelo menos, [b] uma [/b] opção activada em cada grupo.</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>BROWSE_TITLE</id>
+        <text>Pesquisar por título</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_TRACK</id>
+        <text>Pesquisar por nome de canção</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_WEB</id>
+        <text>Pesquisar na internet</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_WEB_PROMPT</id>
+        <text>Esta opção permite a utilização do SwissCenter para pesquisar páginas da Web simples, tanto na sua rede local como na Internet (desde que tenha ligação à internet).</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>BROWSE_XMP_RATING</id>
+        <text>Pesquisar por pontuação</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_YEAR</id>
+        <text>Pesquisar por ano</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_CONFIG_TITLE</id>
+        <text>Opções de cache</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_DIR</id>
+        <text>Directoria de Cache</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_DIR_PROMPT</id>
+        <text>Especificar em que directoria se devem guardar os arquivos de imagem redimensionados (por exemplo, a capa de um álbum, ou a pasta de uma fotografia)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_ERROR_FULL_DIR</id>
+        <text>Especificar direcção completa de uma directoria</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_ERROR_MISSING</id>
+        <text>Especificar uma directoria em cache</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_ERROR_NOT_EXIST</id>
+        <text>Erro, a directoria que especifica não existe</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_ERROR_NOT_NUMBER</id>
+        <text>O valor que indicou do tamanho de cache não é um valor numérico</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_ERROR_SIZE</id>
+        <text>Introduza um valor de cache (o valor de 0 indica uma cache ilimitada)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_ERROR_SMALL</id>
+        <text>O tamanho de cache indicado é demasiado pequeno</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_LANG</id>
+        <text>Colocar em cache os idiomas</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_LANG_PROMPT</id>
+        <text>Quando activa, o SwissCenter colocará em memória todos os idiomas. Desactive esta característica se está desenvolvendo novas traduções e necessita de ver as alterações efectuadas imediatamente.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_PRECACHE</id>
+        <text>Pré-carregar as imagens</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_PRECACHE_PROMPT</id>
+        <text>Activar esta opção fará com que o SwissCenter gere miniaturas de todas as imagens que encontre ao efectuar a pesquisa de arquivos multimédia.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_SIZE</id>
+        <text>Tamanho máximo de cache</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_SIZE_PROMPT</id>
+        <text>Capacidade máxima de espaço em disco (em Megabytes) que se pode usar para arquivo de imagens (um valor de 0 indica uma cache ilimitada). Uma vez que este limite seja alcançado, iram ser apagados os arquivos menos utilizados.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_STYLE</id>
+        <text>Colocar em cache os detalhes dos estilos</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_STYLE_PROMPT</id>
+        <text>Quando activa, o SwissCenter colocará em memória todos os detalhes dos estilos. Desactive esta característica se está desenvolvendo novos estilos e necessita de ver as alterações efectuadas imediatamente.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CATEGORIES</id>
+        <text>Categorias</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CATEGORY</id>
+        <text>Categoria</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CATEGORY_LIST_ALL</id>
+        <text>Todas as categorias</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CATEGORY_PROMPT</id>
+        <text>Especifique uma categoria que o ajude a diferenciar os arquivos multimedia dentro de grupos lógicos como por exemplo &quot;Álbum&quot; &quot;Autores&quot; &quot;Idioma&quot; Etc. Por exemplo, usando esta funcionalidade permite reproduzir uma selecção aleatoria de música de um álbum que se tenha adicionado à lista de reprodução.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_ADDED_OK</id>
+        <text>Categoria adicionada</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_ADD_BUTTON</id>
+        <text>Adicionar categoria</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_ADD_TITLE</id>
+        <text>Adicionar nova categoria</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_DELETE_OK</id>
+        <text>As categorias seleccionadas foram eliminadas</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_DEL_BUTTON</id>
+        <text>Eliminar as categorias seleccionadas</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_DOWNLOAD</id>
+        <text>Descarregar informação extra</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_DOWNLOAD_PROMPT</id>
+        <text>Este campo determina se deve descarregar informação extra da internet para os arquivos relacionados com esta categoria quando disponivél.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_ERROR_DELETE</id>
+        <text>A categoria %s não pode ser eliminada</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_ERROR_EXISTS</id>
+        <text>Já existe o nome de categoria</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_ERROR_NAME</id>
+        <text>Introduza um nome de categoria</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_LIST_ALL</id>
+        <text>Todas as categorias</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_PARENT</id>
+        <text>Categoria principal</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_UPDATE_OK</id>
+        <text>Informação de categoria adicionada</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CERTIFICATE</id>
+        <text>Licença de Uso</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CLEAR_NAME</id>
+        <text>Apagar nome</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>COMPACT_VIEW</id>
+        <text>Visualização Compacta</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIGURATION</id>
+        <text>Configuração</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_AUDIO_OPTIONS</id>
+        <text>Áudio</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_BROWSE_NONE_SELECTED</id>
+        <text>Opções não guardadas, deve seleccionar pelo menos uma opção em cada grupo.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_DB_CREATE</id>
+        <text>Criar base de dados</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_DB_CREATE_TXT</id>
+        <text>Esta janela permite criar e adicionar arquivos à base de dados. Os parâmetros que se utilizaram para construir a base de dados são mostrados abaixo.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_DB_ERROR</id>
+        <text>Erro ao aceder à base de dados - está a indicar os [i] os dados de configuração [/i] correctos?</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_DB_ROOT_PW</id>
+        <text>Palavra-passe de &quot;Root&quot;</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_DB_ROOT_PW_TXT</id>
+        <text>A menos que tenha indicado uma palavra passe [em]root[/em] durante a instalação de  MySQL, pode deixar em branco este campo.[p][em] Nota: Pode demorar alguns minutos a criar q base de dados. Seja paciente. [/em]</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_IMAGE_OPTIONS</id>
+        <text>Imagens</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_LASTFM_CLEAR</id>
+        <text>Limpar os detalhes de identificação seleccionados</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_LASTFM_TITLE</id>
+        <text>Opções do LastFM</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_MIP_OPTIONS</id>
+        <text>MusicIP</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_MUSICIP</id>
+        <text>Configuração MusicIP</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>CONFIG_RADIO_OPTIONS</id>
+        <text>Rádio na internet</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_SHOUTCAST_TITLE</id>
+        <text>Opções do Shoutcast</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_TITLE</id>
+        <text>Ferramenta de configuração do SwissCenter</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIRM_DELETE</id>
+        <text>Deseja apagar os seguintes arquivos multimédia?</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONNECT_OPT_TEXT</id>
+        <text>Pode escolher activar ou desactivar opções específicas que poderão necessitar de uma ligação à internet. É recomendado que deixa todas as opções activas.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONNECT_TEXT</id>
+        <text>Há várias opções dentro do SwissCenter que podem utilizar uma ligação á Internet para receber informação (Exemplo: Previsão do Tempo)e para actualizar periodicamente a informação (Exemplo: Novas Actualizações).</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONNECT_TITLE</id>
+        <text>Ligação à internet</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONTINUE</id>
+        <text>Continuar</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CURRENT_VERSION</id>
+        <text>Versão actual</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CUSTOM</id>
+        <text>Personalizar</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DATABASE_ERROR</id>
+        <text>Erro na base de dados</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DATABASE_NAME</id>
+        <text>Nome da base de dados</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DATABASE_NOCONNECT</id>
+        <text>Incapaz de ligar à MySQL usando o Host, nome de usuário e palavra-passe especificada</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DATABASE_NOSELECT</id>
+        <text>Ligação à MySQL estabelecida, mas incapaz de seleccionar a base de dados pretendida</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DATE</id>
+        <text>Data</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DAY_1</id>
+        <text>Segunda-feira</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DAY_2</id>
+        <text>Terça-feira</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DAY_3</id>
+        <text>Quarta-feira</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DAY_4</id>
+        <text>Quinta-feira</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DAY_5</id>
+        <text>Sexta-feira</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DAY_6</id>
+        <text>Sábado</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DAY_7</id>
+        <text>Domingo</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DB_CREATE_DB_ERR</id>
+        <text>Incapaz de criar base de dados - A palavra-passe MySQL &quot;Root&quot; está correcta?</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DB_CREATE_USER_ERR</id>
+        <text>Incapaz de criar usuário - A palavra-passe MySQL &quot;Root&quot; está correcta?</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DB_RUN_SQL</id>
+        <text>Executar SQL</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DB_SQL_FAIL</id>
+        <text>Comando SQL falhou</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DB_SQL_SUCCESS</id>
+        <text>SQL completo com êxito.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DB_TABLE_LIST</id>
+        <text>Lista de tabelas</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DEBUG_LEVEL</id>
+        <text>Nivel %s %s</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DEBUG_MAXIMUM</id>
+        <text>(Máximo)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DEBUG_MINIMUM</id>
+        <text>(Mínimo)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DEBUG_MODE</id>
+        <text>Modo Log</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DEBUG_MODE_PROMPT</id>
+        <text>O [i]Modo Log[/i] controla a quantidade informação que será escrita no arquivo support.log ao usar o SwissCenter. Se existe um bug e és capaz de o reproduzir, por favor assegure que o modo Log está ajustado ao máximo antes de capturar o log.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DEBUG_RECOMMENDED</id>
+        <text>(Recomendado)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DELETE_MEDIA</id>
+        <text>Apagar arquivos multimédia</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DETAILS_CLEAR</id>
+        <text>Apagar detalhes</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DETAILS_CLEARED_OK</id>
+        <text>Detalhes apagados</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DETAILS_EDIT</id>
+        <text>Editar detalhes</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DETAILS_EXPORT</id>
+        <text>Exportar Detalhes</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>DIRECTOR</id>
+        <text>Director</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DISABLED</id>
+        <text>Desligado</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DOWNLOADING</id>
+        <text>A descarregar...</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DROP_DATABASE</id>
+        <text>Advertência: Já tem uma base de dados do SwissCenter. [br] Se continuar, toda a informação e opções serão perdidas.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ENABLED</id>
+        <text>Ligado</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EPISODE</id>
+        <text>Episodio</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EPISODE_SUFFIX</id>
+        <text>(Episodio %s)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EP_NEXT</id>
+        <text>Próximo Episódio</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>EP_PREV</id>
+        <text>Episódio Anterior</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>EXIFVALS_EXPOSE_MODE</id>
+        <text>Auto, Manual, Auto Bracket</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIFVALS_EXP_PROG</id>
+        <text>Manual, Programado, Prioridade abertura, Prioridade velocidade, Programa Criativo, Programa movimento, Retrato, Paisagem</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIFVALS_FLASH</id>
+        <text>Sem flash, Com flash</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIFVALS_LIGHT_SOURCE</id>
+        <text>Desconhecido, Luz de dia, Fluorescente, Tungsténio (incandescente), Flash, Sol, nublado, Movimento, Luz de dia Fluorescente, Fluorescente luz DIA, Fluorescente branco frio, Fluorescente branco quente, Luz standard A, Luz standard B, Luz standard C, D55, D65, D75, D50, ISO Estúdio Tungsténio</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIFVALS_METER_MODE</id>
+        <text>Desconhecido, Média, Oportuno, Spot, Multi-Spot, Pauta, Parcial</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIFVALS_ORIENTATION</id>
+        <text>Normal, Espelho Horizontal, Rotação 180, Espelho Vertical, Transposição, Rotação direita, Transposição inversa, Rotação Esquerda</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIFVALS_SCENE_TYPE</id>
+        <text>Standard, Paisagem, Retrato, Sena Nocturna</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIFVALS_WHITE_BALANCE</id>
+        <text>Automático, Manual</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_EXPOSE_MODE</id>
+        <text>Modo de exposição</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_EXPOSE_PROG</id>
+        <text>Programa de exposição</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_EXPOSE_TIME</id>
+        <text>Tempo de exposição</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_EXPOSURE</id>
+        <text>Exposição</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_FLASH</id>
+        <text>Flash</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_FNUMBER</id>
+        <text>Numero de focal</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_FOCAL_LENGTH</id>
+        <text>Longitude focal</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_ISO</id>
+        <text>Velocidade ISO</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_LIGHT_SOURCE</id>
+        <text>Tipo de luz</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_MAKE</id>
+        <text>Marca</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_METER_MODE</id>
+        <text>Modo de medição</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_MODEL</id>
+        <text>Modelo</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_ORIENTATION</id>
+        <text>Orientação</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_SCENCE_CAPTURE</id>
+        <text>Modo de Sena</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_SOURCE</id>
+        <text>Tipo de imagem</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_WHITE_BALANCE</id>
+        <text>Balanço dos brancos</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXPERT_EDIT_DB</id>
+        <text>Editar a base de dados</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXPERT_EDIT_PREFS</id>
+        <text>Editar opções do sistema</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXPERT_OPTIONS</id>
+        <text>Opções Expert</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXPERT_PREFS_UPDATED</id>
+        <text>Opções actualizadas</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXPERT_WARNING</id>
+        <text>Os controlos nesta página permitem-lhe modificar o funcionamento interno do SwissCenter e deve ser feito apenas por usuários avançados que sabem o que estão a fazer. Para mais informações, veja %s. [b] Use por sua própria conta e risco [/b].</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>EXPORT_PROMPT</id>
+        <text>Clique no botão abaixo para salvar todas as configurações para um arquivo XML que pode utilizar mais tarde para reconfigurar Swisscenter se necessário reinstalar ou recriar o banco de dados. [P] [b] Lembre-se: [/b] Esta opção não guardar informações sobre os ficheiros de áudio, vídeo ou fotos que foram encontrados ou armazenar a informação Swisscenter de filmes que tenham sido descarregadosda internet ou introduzidos manualmente.</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>EXPORT_SETTINGS</id>
+        <text>Guardar configuração</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXPORT_SETTINGS_SUBMIT</id>
+        <text>Guardar configuração</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXPRESSION</id>
+        <text>Espressão</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>EXTRAS_TEST_TITLE</id>
+        <text>Componentes adicionais</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXTRA_EXPORT_DETAILS</id>
+        <text>Qualquer informação adicional, tal como sinopse, actores, etc pode ser exportada para um arquivo XML sidecar. Deste modo pode então ser utilizada para voltar a importar dados de vídeo quando é criada uma nova base de dados. A opção acima &quot;Usar arquivos XML sidecar&quot; deve ser &quot;Activado&quot;.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>EXTRA_EXPORT_GO</id>
+        <text>Exportar informação extra para um arquivo XLM</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>EXTRA_EXPORT_TITLE</id>
+        <text>Exportar informação extra</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>EXTRA_REFRESH_DETAILS</id>
+        <text>Se necessita actualizar informação de filmes, esta pode-se descarregar da Internet, clique no botão.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXTRA_REFRESH_GO</id>
+        <text>Actualizar toda a informação extra</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXTRA_REFRESH_TITLE</id>
+        <text>Actualizar toda a informação extra de filmes</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXTRA_REFRESH_WARNING</id>
+        <text>ATENÇÃO, se introduzir informação manualmente usando as setas de substituição da página %s esta pode-se perder.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_LIVERADIO_TEST</id>
+        <text>O LiveRadio parece inactivo</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_MIP_MIXABLE</id>
+        <text>Apenas uma pequena percentagem da sua música (&lt;50%) foi analisada por MusicIP. Embora MusicIP será capaz de gerar playlists, pode acontecer que não sejam muito precisas.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_MUSICIP_TEST</id>
+        <text>MusicIP não está instalado (ou não está configurado correctamente).</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_MYSQL_CONNECT</id>
+        <text>Incapaz de ligar ao servidor MySQL.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_MYSQL_DB</id>
+        <text>Incapaz de ligar à base de dados do SwissCenter (Já criou uma?)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_MYSQL_VERSION</id>
+        <text>A sua versão de MySQL não é suportada.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_PHP_CLI</id>
+        <text>Não tem instalado uma versão de linha de comandos de PHP. O SwissCenter não pode pesquisar novos arquivos.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_PHP_EXTRA_MODS</id>
+        <text>Não estão disponíveis todos os módulos PHP recomendados. Algumas características não críticas foram desactivadas (os módulos recomendados são: %s).</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_PHP_FONTS</id>
+        <text>Incapaz de localizar um tipo de letra TrueType. As imagens da &quot;Reprodução em curso&quot; não terão informação detalhada.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_PHP_FONT_SET</id>
+        <text>... o tipo de letra seleccionado parece não ser válida (ou não está disponivél)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_PHP_INI</id>
+        <text>Incapaz de localizar o arquivo 'php.ini'.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_PHP_REQ_MODS</id>
+        <text>Não estão disponíveis todos os módulos PHP requeridos pelo SwissCenter (os módulos requeridos son: %s).</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_PHP_VERSION</id>
+        <text>A sua versão de PHP não é suportada (%s).</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_SERVER_SCHED</id>
+        <text>Não se podem efectuar tarefas em segundo plano - pode ser causado pelo cron (em linux) ou o programador de tarefas (em windows) esteja inactivo.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_SHOUTCAST_TEST</id>
+        <text>O ShoutCast parece estar inactivo</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_SWISS_CACHE</id>
+        <text>Não foi possível gravar na memória cache do SwissCenter (%s).</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FAIL_SWISS_INI</id>
+        <text>Não se consegue localizar o arquivo 'swisscenter.ini'. [br]Já criou uma  base de dados?</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_SWISS_LOCS</id>
+        <text>Ainda não foram definidas as localizações dos arquivos multimédia.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_SWISS_LOG</id>
+        <text>Não se consegue escrever no log do SwissCenter (%s).</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_SWISS_PLAYLIST</id>
+        <text>Não foi possível gravar na directoria dplaylist do SwissCenter</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FILENAME</id>
+        <text>Nome de arquivo</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FILE_EXISTS</id>
+        <text>ATENÇÃO: Já existe um arquivo com o mesmo nome. Se gravar agora, irá substituir o arquivo existente.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FILTER</id>
+        <text>Filtrar</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FILTER_ACTIVE_SUFFIX</id>
+        <text>(activo)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FILTER_VIEWED</id>
+        <text>Estado de vistos</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FILTER_VIEWED_FINISHED</id>
+        <text>Vistos completamente</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FILTER_VIEWED_NONE</id>
+        <text>Nunca vistos</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FILTER_VIEWED_NOTFINISHED</id>
+        <text>Não vistos ou parcialmente vistos</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FILTER_VIEWED_PLAYED</id>
+        <text>Parcial ou completamente vistos</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FINISHED</id>
+        <text>Finalizado</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FONTWIDTH_MULTIPLIER</id>
+        <text>Multiplicador da largura da fonte</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FONTWIDTH_MULTIPLIER_PROMPT</id>
+        <text>Esta opção permite modificar o número máximo de caracteres que são exibidos nos menus de SwissCenter. O valor depende da fonte e deve ser escolhido no intervalo de [b] 1,0 [/b] (default) para [b] 2,2 [/b].</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>GENRE</id>
+        <text>Género</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>HOME</id>
+        <text>Inicio</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>HOUR</id>
+        <text>Hora</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMAGE_EXIF_ROTATE</id>
+        <text>Rodar automaticamente</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMAGE_EXIF_ROTATE_PROMPT</id>
+        <text>A maioria das câmaras digitais modernas armazenam informação sobre a posição como foi tirada a foto se estava em modo &quot;paisagem&quot; ou &quot;retrato&quot;. Activar esta opção fará com que o SwissCenter rode automaticamente a fotografia antes de a mostrar no ecrã.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMAGE_LANDSCAPE_CROP</id>
+        <text>Ajuste ao Ecrã</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IMAGE_LANDSCAPE_CROP_PROMPT</id>
+        <text>Por defeito o SwissCenter irá centrar as imagens tipo paisagem e cortá-las para coincidir com a relação de aspecto da TV. No entanto, se preferir exibir toda a imagem (com barras pretas em cima e em baixo), deve desactivar esta opção.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IMAGE_RESAMPLE</id>
+        <text>Recalcular imagem (alta qualidade)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMAGE_RESIZE</id>
+        <text>Reajuste tamanho (rápido)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMAGE_RESIZE_PROMPT</id>
+        <text>Seleccione o método de processamento da imagem.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMAGE_RESIZE_TYPE</id>
+        <text>Tipo de processamento</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMAGE_SCALE_UP</id>
+        <text>Aumentar tamanho de imagens</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IMAGE_SCALE_UP_PROMPT</id>
+        <text>Ao activar esta opção fará com que SwissCenter amplie as imagens pequenas para que elas ocupem o ecrã inteiro.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IMAGE_TRANSITIONS</id>
+        <text>Efeitos de transição de imagens</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>IMAGE_TRANS_PROMPT</id>
+        <text>Efeitos de Transição disponíveis para apresentações de slides. Estes efeitos podem ser diferentes para diferentes aparelhos, e alguns aparelhos podem não suportar todos os tipos de transições.</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>IMPEXP_TITLE</id>
+        <text>Carregar/Guardar configuração</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMPORT_FAILED</id>
+        <text>Ocorreram erros ao importar o arquivo de configuração fornecido.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMPORT_FILE</id>
+        <text>Arquivo XML de configuração</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMPORT_PROMPT</id>
+        <text>Para restaurar a sua configuração para um ponto anterior, por favor seleccione o arquivo XML com a sua configuração.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMPORT_SETTINGS</id>
+        <text>Carregar configuração</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMPORT_SUCCESS</id>
+        <text>Configuração carregada com êxito.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMP_LOC_CAT_MISSING</id>
+        <text>Falha ao importar a localização de arquivos multimédia '%s' porque a categoria '%s' não existe.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMP_LOC_CERT_MISSING</id>
+        <text>Falha ao importar a localização de arquivos multimédia '%s' porque o certificado '%s' (Esquema:%s) não existe.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMP_LOC_TYPE_MISSING</id>
+        <text>Falha ao importar a localização de arquivos multimédia '%s' porque o tipo de arquivo '%s' não existe.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMP_USER_CERT_MISSING</id>
+        <text>Falha ao importar o usuário '%s' porque o certificado '%s' (Esquema:%s) não existe.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>INFORMATION</id>
+        <text>Informação</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>INSTALLATION_TESTS</id>
+        <text>Teste do sistema</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>INSTALLATION_TITLE</id>
+        <text>Instalação</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>INSTALL_TEST_FAIL_CLI</id>
+        <text>Os seguintes testes falharam quando foram executadas em segundo plano</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>INSTALL_TEST_FAIL_WEB</id>
+        <text>Os seguintes testes falharam:</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>INSTALL_TEST_SUCCESS</id>
+        <text>Os seguintes testes foram efectuados com êxito:</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>INSTALL_TEST_TITLE</id>
+        <text>Teste de instalação</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>INTERNET_FEATURES</id>
+        <text>Opções da Internet</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>INTERNET_RADIO</id>
+        <text>Rádio Internet</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>INTERNET_RADIO_PROMPT</id>
+        <text>As ligações à emissoras de rádio da Internet individuais fazem-se a partir do Receptor multimédia. Pode desligar esta função se o seu Receptor multimédia não tiver ligação à directa à Internet.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>INTERNET_SERVICES</id>
+        <text>Serviços de Internet</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>INTERNET_SETTING</id>
+        <text>Ligação á Internet</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>INTERNET_SETTING_PROMPT</id>
+        <text>Indicação da existência de uma ligação à Internet que o Swisscenter possa utilizar. Se definir o valor como 'Automático' o SwissCenter vas tentar detectar uma ligação à internet automaticamente.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IPTC_BYLINE</id>
+        <text>Autor</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IPTC_CAPTION</id>
+        <text>Descrição</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IPTC_CITY</id>
+        <text>Cidade</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IPTC_COUNTRY</id>
+        <text>País</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IPTC_DATE_CREATED</id>
+        <text>Data de criação</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IPTC_KEYWORDS</id>
+        <text>Palavra chave</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IPTC_LOCATION</id>
+        <text>Localização</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IPTC_PROVINCE_STATE</id>
+        <text>Província/Região</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IPTC_SUPPCATEGORY</id>
+        <text>Categorias adicionais</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_ADD_PARAM</id>
+        <text>Adicionar novo parâmetro</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_ADD_PARAM_BUTTON</id>
+        <text>Adicionar parâmetro</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_CACHE_EXPIRE</id>
+        <text>Timeout da cache</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_CACHE_EXPIRE_PROMPT</id>
+        <text>SwissCenter pode guardar em cache a informação de uma emissora, mas como a lista de emissoras muda constantemente, deve ser actualizada periodicamente. Uma hora (3600s) é o número aconselhado.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_CLASS_SELECT</id>
+        <text>Seleccione o serviço de rádio:</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_COUNTRIES</id>
+        <text>Países</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_COUNTRY</id>
+        <text>País</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_COUNTRY_PROMPT</id>
+        <text>Especifique um país onde gostaria de pesquisar. %S apenas suporta pesquisa por país consulte o fórum para identificar os países válidos. Ao pesquisar SHOUTcast nós estamos realmente pesquisando por estações do país seleccionado.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_COUNTRY_SELECT</id>
+        <text>Seleccione o país a pesquisar:</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_DELETE_PARAM_OK</id>
+        <text>Os parâmetros de pesquisa selecionados foram removidos</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_DEL_PARAM_BUTTON</id>
+        <text>Apagar parâmetros selecionados</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_ERROR_CACHE_EXPIRE</id>
+        <text>Deve especificar um valor (numérico) para 'Segundos a manter as emissoras'! Se pretender desactivar, introduza 0 (zero).</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_ERROR_MAXNUM</id>
+        <text>Deve especificar um valor (numérico) para  'Máximo de emissoras/género'!</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_ERROR_MAXNUM_ZERO</id>
+        <text>Deve especificar um valor [b][i]numérico, distinto de zero[/i][/b] para 'Máximo de emissoras/género'!</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_ERROR_PARAM</id>
+        <text>Digite um parâmetro de pesquisa</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_ERROR_PARAM_NAME</id>
+        <text>Erro num parâmetro de pesquisa</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_GENRE</id>
+        <text>Género</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_GENRES</id>
+        <text>Géneros</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_GENRE_PROMPT</id>
+        <text>Especifique um género e subgénero (opcional) que gostaria de pesquisar. Tanto %s como %s suporta a procura por género, visite os sites de pesquisa válidos</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_LIVERADIO_DESC</id>
+        <text>LiveRadio (%s)  é um serviço de rádio através da Internet semelhante ao Shoutcast. Fornece uma funcionalidade para pesquisar por tipo de ficheiro multimédia, genre, estação de nome, cidade e até mesmo país -, mas muitas estações listadas aqui não são apoiadas por algumas equipes, por isso o parser utilizado pelos SwissCenter de LiveRadio restringe os resultados para exibir apenas MP3 estações .</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_LOGO</id>
+        <text>Nome da imagem</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_MAINGENRE</id>
+        <text>Género principal</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_MAINGENRE SELECT</id>
+        <text>Seleccione o género principal para pesquisa:</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_MAX_STATIONS</id>
+        <text>Máximo de emissoras/género</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_MAX_STATIONS_PROMPT</id>
+        <text>Máximo número de emissoras a recuperar por cada género. Um número alto [b]não[/b] é melhor: Colocar um número elevado aumenta muito o tempo de procura. (e causará um possível timeout do explorador), sendo que também aumentará a possibilidade de um erro de memória de PHP. Um número aconselhado é 24. Reduza este número se continuar a encontrar problemas como os apresentados.</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>IRADIO_NO_STATIONS</id>
+        <text>Não se encontraram emissoras.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_NO_STATIONS_MSG</id>
+        <text>Não se encontraram emissoras que coincidam com a sua pesquisa de '%s'</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_PARAM_ADDED_OK</id>
+        <text>Parâmetro de pesquisa adicionado</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_PARAM_PROMPT</id>
+        <text>O SHOUTcast e o Live-Rádio permitem a pesquisa de estações de rádio por estação, género, e por país. Aqui pode definir os critérios de pesquisa.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_PARAM_TYPE</id>
+        <text>Tipo de parâmetros de pesquisa</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_SEARCH</id>
+        <text>Pesquisa de emissoras</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_SHOUTCAST_DESC</id>
+        <text>ShoutCast (%s) é um serviço de rádio de internet que fornece áudio que pode reproduzir a maioria dos dispositivos (e software) streaming. Fornece uma funcionalidade para pesquisar por género ou estação nome, e exibe muitos detalhes para cada estação, incluindo uma URL em uma playlist. O parser utilizado pelo Shoutcast SwissCenter visitou o código HTML da página de resultados para mostrar os resultados em um formas para facilitar a sua leitura mesmo na televisão. De qualquer maneira, você pode parar de funcionar se a equipe Shoutcast alterou a estrutura da página. [P] Shoutcast Às vezes parece não ter qualquer emissora nossa pesquisa e, portanto, se o teste falhar, recarregue a página para ter certeza de que o problema não residir aqui.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_STATION</id>
+        <text>Estação de rádio</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_STATION_PROMPT</id>
+        <text>Especifique um nome de estação que  gostaria de pesquisar. Uma imagem (opcional) pode também ser especificada e será utilizada no ecrã para esta estação. A imagem deve estar em [em]&quot;../imagens/iradio/&quot;[/em] pasta.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_STATION_SEARCH</id>
+        <text>Seleccione a estação a pesquisar por:</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_STATION_SELECT</id>
+        <text>Seleccione a emissora a sintonizar:</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_SUBGENRE</id>
+        <text>Sub-Género</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_SUBGENRE_SELECT</id>
+        <text>Seleccione o subgénero principal para pesquisa:</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_UPDATE_PARAM_OK</id>
+        <text>Parâmetros de pesquisa actualizados</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>ITUNES_CONFIG_PROMPT</id>
+        <text>Por favor, especifique o endereço completo do seu arquivo &quot;iTunes Music Library.xml&quot;.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ITUNES_ERROR_INVALID</id>
+        <text>Erro, o arquivo que especifica deve ser &quot;iTunes Music Library.xml&quot;</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ITUNES_ERROR_PATH</id>
+        <text>Por favor, introduza endereço completo do seu arquivo &quot;iTunes Music Library.xml&quot;</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ITUNES_LIBRARY</id>
+        <text>Ficheiro da biblioteca do iTunes</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>KEYBOARD_DEL</id>
+        <text>Apagar</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>KEYBOARD_SPC</id>
+        <text>Espaço</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LANGUAGE</id>
+        <text>Português</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LANG_ADD_BUTTON</id>
+        <text>Adicionar Idioma</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>LANG_ADD_NEW</id>
+        <text>Adicionar novo tipo de idioma</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>LANG_CANCEL_BUTTON</id>
+        <text>Cancelar</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>LANG_CHANGE</id>
+        <text>Trocar idioma</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LANG_DELETE_BUTTON</id>
+        <text>Apagar idiomas seleccionados</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>LANG_DELETE_OK</id>
+        <text>Os idiomas seleccionados foram apagados</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>LANG_EDIT</id>
+        <text>Editar tradução de idiomas</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>LANG_EDITOR</id>
+        <text>Editor de idiomas</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>LANG_ERROR_NO_SELECT</id>
+        <text>Não seleccionou qualquer idioma para apagar</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>LANG_ISO639</id>
+        <text>Norma ISO 639-1</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LANG_NATIVE</id>
+        <text>Idioma nativo</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LANG_NEW</id>
+        <text>Adicionar novo idioma</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LANG_NEW_BUTTON</id>
+        <text>Criar idioma novo</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LANG_NEW_EXISTS</id>
+        <text>idioma já existe</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LANG_NEW_FAIL</id>
+        <text>Introduza o idioma e a sigla na norma ISO</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LANG_NEW_OK</id>
+        <text>Idioma adicionado</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LANG_NEW_PROMPT</id>
+        <text>Utilize esta função para adicionar um novo idioma. Digite o nome do idioma nativo, ou seja Português (não Portugese), e o correspondente %s código (pt). Também pode adicionar idiomas localizados, como en-us para o Inglês (E.U.). Este é formado pelo código ISO 639-1 (en) e da região subcategoria %s (us).</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LANG_PROMPT</id>
+        <text>Definições de idioma consistem num mapeamento interno ID (por exemplo: &quot;ADD_PLAYLIST&quot;) para o próprio texto a ser exibido. O &lt;text&gt; pode conter um número limitado de marcas, que são indicadas por parênteses e executam uma função idêntica para os seus homólogos HTML. As seguintes tags são suportadas: [br ], [br ], [/ br ], [ em], [/ em], [ p] ,[ / p] ,[b ] ,[/ b ], [i ] ,[/ i ], [li ], [/ l i ], [Ul ] ,[/  ul ], [ol ] [/ ul ] [p] Em algumas circunstâncias, outro campo pode ter de ser substituído dentro do texto. Espaços reservados para a posição na sequência em que a substituição ocorra são indicados com '% s'. [Br] Por exemplo: No ID abaixo, o número de faixas que foi encontrado dentro do banco de dados é substituída pelo %s dentro da cadeia... assim o regresso a uma pesquisa de 4 faixas seria exibida para o usuário como &quot;4 Tracks&quot;; [br] MANY_TRACKS = %s Tracks</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>LANG_SAVE_BUTTON</id>
+        <text>Guardar Alterações</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>LANG_SELECT</id>
+        <text>Seleccionar idioma</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LANG_TEXT</id>
+        <text>Texto</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>LANG_TEXT_ID</id>
+        <text>ID do Idioma</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>LANG_TRANS</id>
+        <text>Tradução</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>LANG_UPDATE_OK</id>
+        <text>Informação de idioma alterada</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>LASTFM</id>
+        <text>Last.FM</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LASTFM_ABOUT</id>
+        <text>Last.fm é a plataforma de música social maior do mundo com mais de 20 milhões de usuários activos em mais de 232 países. Utilizando uma única recomendação da música conhecida como &quot;Audioscrobbler&quot;, Last.fm constrói um perfil detalhado de cada utilizador do gosto musical de gostos musicais de todos os pormenores por gravar as canções que o usuário escuta o rádio via internet, no computador do usuário ou portátil player de música. [p] Os usuários podem criar playlists e estações de rádio personalizadas a partir de qualquer faixa de áudio na biblioteca de música Last.fm, mas são incapazes de ouvir as faixas individuais na demanda, ou baixar faixas a menos que seja a autor tenha autorizado o previamente. Se exige registo para adquirir um perfil, mas não é necessário para visualizar qualquer parte do site ou a ouvir rádio.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LASTFM_ARTIST</id>
+        <text>Artistas / grupos disponíveis</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LASTFM_ENABLED_PROMPT</id>
+        <text>Ao ser activado, SwissCenter pode se conectar ao site da Web e acesso a Last.FM estações de rádio personalizadas.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LASTFM_LOGIN_HEADINGS</id>
+        <text>Usuário, Nome de usuário da LastFM, Palavra-passe da LastFM,Scrobble?,Imagens?</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LASTFM_PROMPT_GENERAL</id>
+        <text>Pesquisar emissoras</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LASTFM_PROMPT_PERSONAL</id>
+        <text>As suas emissoras pessoais</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LASTFM_TAGS</id>
+        <text>Etiquetas disponíveis</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LASTFM_WHATIS</id>
+        <text>O que é a LastFM?</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LENGTH_MM</id>
+        <text>mm</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LICENSE</id>
+        <text>Licença GPL</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>LISTEN_LASTFM</id>
+        <text>Ouvir emissão da Last.FM</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LISTEN_LASTFM_ARTISTS</id>
+        <text>Reproduzir música similar a um artista ou grupo</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LISTEN_LASTFM_LOVED</id>
+        <text>Reproduzir as suas fachas preferidas</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LISTEN_LASTFM_MY_STATION</id>
+        <text>Reproduzir a sua emissora</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LISTEN_LASTFM_NEIGHBOURHOOD</id>
+        <text>Reproduzir a sua  vizinhança</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LISTEN_LASTFM_RECOMMEND</id>
+        <text>Reproduzir as suas recomendadas</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LISTEN_LASTFM_TAGS</id>
+        <text>Reproduzir música com uma marca específica</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LISTEN_MUSIC</id>
+        <text>Ouvir Música</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LISTEN_RADIO</id>
+        <text>Ouvir Rádio Internet</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LIST_VIEW</id>
+        <text>Ver lista</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LOCATION</id>
+        <text>Localização</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LOCATION_ON_DISK</id>
+        <text>Localização no disco</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LOCATION_PROMPT</id>
+        <text>Especificar a directoria onde estão os arquivos multimédia. Exemplo: No Windows pode ser [em]&quot;C:\Documents and Settings\João\Os meus Documentos\Minhas musicas&quot;[/em] e em Linux pode ser [em]&quot;/home/João/Música&quot;[/em]</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LOGFILE_ERROR</id>
+        <text>Erro ao escrever o arquivo de registo (logfile):</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LOOKUP_FAILURE</id>
+        <text>Incapaz de localizar os detalhes do filme.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LOOKUP_MOVIE</id>
+        <text>Procurar Filme</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LOOKUP_SUCCESS</id>
+        <text>Detalhes do Filme descarregados e guardados.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LOOKUP_TV</id>
+        <text>Pesquisa episódio de TV</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LOWERCASE</id>
+        <text>Minúscula</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MACHINE_NAME</id>
+        <text>Nome do Aparelho</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MAIN_MENU</id>
+        <text>Menu Principal</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MANAGE_PLAYLISTS</id>
+        <text>Configurar listas de reprodução</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MANY_ITEMS</id>
+        <text>%s Items</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MANY_TRACKS</id>
+        <text>%s Canções</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MAX_PLAYLIST_SIZE</id>
+        <text>Tamanho máximo da playlist</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>MAX_PLAYLIST_SIZE_PROMPT</id>
+        <text>Introduza um tamanho máximo para as playlists geradas. O máximo permitido é 2000 devido a limitações do aparelho. Uma alternativa sensata máxima é de 200.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>MEDIA_DELETED</id>
+        <text>Arquivos multimédia apagados</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOCATIONS</id>
+        <text>Directoria de arquivos multimédia</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ADD_BUTTON</id>
+        <text>Adicionar directoria</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ADD_OK</id>
+        <text>Directoria de arquivos multimédia adicionados</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ADD_TITLE</id>
+        <text>Adicionar nova directoria</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_DEL_BUTTON</id>
+        <text>Eliminar as directorias seleccionadas</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_DEL_OK</id>
+        <text>As directorias seleccionadas foram eliminadas</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ERROR_CAT</id>
+        <text>Selecciona uma categoria</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ERROR_CERT</id>
+        <text>Escolha a classificação de idade predefinida para arquivos sem classificação</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ERROR_DIRFAIL</id>
+        <text>A directoria seleccionada não existe</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ERROR_LOC</id>
+        <text>Introduza uma directoria para arquivos multimédia</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ERROR_PATH</id>
+        <text>Introduza uma directoria válida</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ERROR_SHARE</id>
+        <text>Seleccione uma rede de partilha</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ERROR_TYPE</id>
+        <text>Seleccione o tipo de arquivo multimédia</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_HEADINGS</id>
+        <text>Tipo, Categoria, Classificação, Directoria</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_UPDATE_OK</id>
+        <text>Actualização da localização da informação multimédia completa</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_MANAGEMENT</id>
+        <text>Configuração dos arquivos multimédia</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_REFRESH</id>
+        <text>Pesquisa de novos arquivos multimédia</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_OVERALL</id>
+        <text>Pesquisa completada</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_PROGRESS</id>
+        <text>Progresso da pesquisa de arquivos multimédia</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS</id>
+        <text>Estado actual</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_CLEANUP</id>
+        <text>Limpar base de dados</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_COMPLETE</id>
+        <text>Completo</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_ITUNES</id>
+        <text>A analisar detalhes da biblioteca do iTunes</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_MOVIE</id>
+        <text>A analisar detalhes do Filme</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_PENDING</id>
+        <text>Pendente</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_RUNNING</id>
+        <text>Executando</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_TV</id>
+        <text>A analisar detalhes das series de TV</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>MEDIA_SEARCH_PROMPT</id>
+        <text>Carregue no botão para iniciar uma pesquisa de todos os locais dos arquivos. Os arquivos antigos que não estão no sitema serão retirados e os novos ou modificados serão adicionados, na base de dados.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE</id>
+        <text>Tipo de arquivo multimédia</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_MUSIC</id>
+        <text>Áudio</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_PHOTO</id>
+        <text>Fotos</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_PROMPT</id>
+        <text>Seleccione o tipo de arquivo multimédia que se deve procurar nesta directoria.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_RADIO</id>
+        <text>Rádio</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_TV SERIES</id>
+        <text>Séries de TV</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_VIDEO</id>
+        <text>Vídeo</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_WEB</id>
+        <text>Web</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>MESSAGES</id>
+        <text>Mensagens</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MESSAGES_DELETE</id>
+        <text>Apagar esta mensagem</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MESSAGES_KEEP</id>
+        <text>Guardar esta mensagem</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MESSAGES_NONE</id>
+        <text>No há novas mensagens</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MESSAGES_SELECT</id>
+        <text>Seleccione uma mensagem para visualizar</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MESSAGES_VIEW</id>
+        <text>Ver mensagens</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MESSAGE_STATUS_DELETED</id>
+        <text>Apagada</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MESSAGE_STATUS_NEW</id>
+        <text>Nova</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MESSAGE_STATUS_READ</id>
+        <text>Lidas</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MINUTE</id>
+        <text>Minuto</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MINUTES</id>
+        <text>%s Minutos</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_DESC</id>
+        <text>MusicIP (disponíveis em %s) é um elemento de software que analisa a sua colecção de música e Gera uma 'impressão digital' de cada música acústica. Esta informação é então utilizada para gerar uma playlist pessoal de faixas baseadas em cada faixa semelhante, artista ou álbum seleccionado. [p] Se MusicIP for instalado na mesma máquina que SwissCenter, recursos extras serão activados para gerar e ouvir listas de reprodução directamente a partir da interface SwissCenter.</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>MIP_INVALID_PORT</id>
+        <text>Servidor de MusicIP não foi encontrado na porta %s</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_MIX_SONG</id>
+        <text>Reproduzir faixas similares</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_NOT_FOUND</id>
+        <text>Não foi encontrado um servidor MusicIP.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_PORT</id>
+        <text>Porta de MusicIP</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_PORT_PROMPT</id>
+        <text>Introduza a porta para se ligar ao servidor do MusicIP. Caso não tenham sido feitas alterações a porta por defeito é a 10002. [p][b]Nota:[/b] O MusicIP deve estar instalado mesmo servidor que o SwissCenter.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_REJECT</id>
+        <text>Repetição de artistas</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_REJECT_PROMPT</id>
+        <text>Você pode evitar que o mesmo artista aparece duas vezes num período de tempo (ou número de faixas) usando esta opção.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_SIZE</id>
+        <text>Tamanho da lista de reprodução</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_SIZE_PROMPT</id>
+        <text>Numero de faixas que o MusicIP deverá seleccionar como parte da lista de reprodução.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_STYLE</id>
+        <text>Estilo</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_STYLE_PROMPT</id>
+        <text>Esta opção permite especificar a proximidade com o estilo do artista pretendido através de uma musica pré-seleccionada. Um número elevado provavelmente resulta em poucos artistas diferentes, um número mais pequeno permite mais variações de estilo.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_VARIETY</id>
+        <text>Variedade</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_VARIETY_PROMPT</id>
+        <text>Permite-lhe seleccionar a variedade na mistura. Quanto maior, mais variedade, será introduzida na mistura.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_WHATIS</id>
+        <text>O que é o MusicIP?</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISC_CONFIG_TITLE</id>
+        <text>Configuração do genérico</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISC_FONTWIDTH_NOT_NUMBER</id>
+        <text>O Multiplicador da largura da fonte não é um número</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISC_FONTWIDTH_TOO_SMALL</id>
+        <text>O Multiplicador da largura da fonte é demasiado pequeno</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISC_TITLE</id>
+        <text>Genérico</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISSING_DB_TEXT</id>
+        <text>utilizar ferramenta de configuração para criar base de dados.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISSING_DB_TITLE</id>
+        <text>Não tem uma base de dados criada.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISSING_INI_TEXT</id>
+        <text>utilizar ferramenta de configuração para configurar um arquivo.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISSING_INI_TITLE</id>
+        <text>Falta arquivo de configuração do SwissCenter.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISSING_MEDIA_TEXT</id>
+        <text>utilizar ferramenta de configuração para adicionar directorias de arquivos multimédia.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISSING_MEDIA_TITLE</id>
+        <text>Não há directorias especificadas de arquivos multimédia.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISSING_PERMS_TEXT</id>
+        <text>A directoria onde está instalado o SwissCenter não está acessível pelo servidor de web.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISSING_PERMS_TITLE</id>
+        <text>Instalação incorrecta</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISSING_SCHED_TEXT</id>
+        <text>O serviço do Windows &quot;Programador de Tarefas&quot; é necessário para permitir a pesquisa de arquivos multimédia.</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>MISSING_SCHED_TITLE</id>
+        <text>O serviço do Windows &quot;Programador de Tarefas&quot; não funciona.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISSING_SETUP_SQL</id>
+        <text>Falta o arquivo &quot;Setup.sql&quot; na directoria do SwissCenter.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MODULE_MISSING_LINUX</id>
+        <text>O módulo %s não está carregado - necessita recompilar o PHP com a acção seleccionada.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MODULE_MISSING_TITLE</id>
+        <text>Falta o módulo PHP requerido</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MODULE_MISSING_WINDOWS</id>
+        <text>O módulo %s não está carregado - modifique o arquivo php.ini para permitir.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MONTH</id>
+        <text>Mês</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MORE</id>
+        <text>[mais]</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>MOVIE_ADD_BUTTON</id>
+        <text>Adicionar/Actualizar detalhes</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MOVIE_ADD_PROMPT</id>
+        <text>Introduza os detalhes que quer [em]Adicionar[/em] a cada um dos filmes da lista acima [br] (clicando na tecla CTRL permite escolher múltiplas entradas)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MOVIE_CHANGES_MADE</id>
+        <text>Alterações realizadas</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MOVIE_ERROR_NO_SELECT</id>
+        <text>Não escolheu qualquer filme para actualizar</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MOVIE_EXTRA_DL_PROMPT</id>
+        <text>Quando se detectam novos arquivos de video numa &quot;Pesquisa multimedia&quot;, o SwissCenter utilizará o nome do arquivo de vídeo para pesquisar e descarregar informação adicional sobre o filme (Exemplo: Actores, Director, etc.) do site indicado.</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>MOVIE_EXTRA_DL_TITLE</id>
+        <text>A descarregar informação extra do filme</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MOVIE_EXTRA_EXPORT_OK</id>
+        <text>Todas as informações extra sobre o vídeo estão a ser exportada para XML</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>MOVIE_EXTRA_REFRESH_OK</id>
+        <text>Programada a actualização da informação extra do filme</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MOVIE_EXTRA_SITE_PROMPT</id>
+        <text>Descarregar informação de</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MOVIE_EXTRA_TITLE</id>
+        <text>Informação Extra do filme</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MOVIE_NEW_PROMPT</id>
+        <text>Pode introduzir Actores, Director ou Género, Não será mostrado nas células em baixo. [br] Aa adicionar mais de uma entrada, separe cada entrada com uma virgula.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MOVIE_OPTIONS</id>
+        <text>Opções de Filme</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MOVIE_UPD_TEXT</id>
+        <text>Os seguintes filmes efectuaram uma actualização</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MOVIE_UPD_TTILE</id>
+        <text>Actualizar Filmes</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MUSIC</id>
+        <text>Música</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MUSIC_PLAY_NEXT</id>
+        <text>Próxima Musica</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MUSIC_PLAY_PREV</id>
+        <text>Acabou de tocar</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MUSIC_PLAY_TIME</id>
+        <text>Tempo de reprodução</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NAME</id>
+        <text>Nome</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NETWORK_SHARE</id>
+        <text>Rede de Partilha</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>NETWORK_SHARE_MSG</id>
+        <text>Não foi possível detectar nenhuma rede de partilha. Se tem um aparelho NMT então tem de o ligar.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>NETWORK_SHARE_PROMPT</id>
+        <text>A partilha de rede só é exigida para o tipo de média 'DVD Vídeo', e será ignorado por todos os outros tipos de suporte. Para reproduzir vídeo DVDs tem de configurar uma rede SMB ou NFS partilhada no seu NMT para permitir o acesso imagens de DVDs (ISOs), em seguida, efectuar a partilha de rede com esta média local.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>NEW</id>
+        <text>Novo</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NEW_MESSAGES</id>
+        <text>Novas Mensagens</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NEW_MESSAGES_PROMPT</id>
+        <text>Realiza-se uma verificação diária das mensagens. Se existirem mensagens novas, aparecerá um icon de aviso no menu principal.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NEXT</id>
+        <text>Seguinte</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NO</id>
+        <text>Não</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NOTES</id>
+        <text>Notas</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NOT_RATED</id>
+        <text>Sem pontuação</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING</id>
+        <text>Em reprodução</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_PROMPT</id>
+        <text>Alguns aparelhos permitem que se mostre imagens enquanto ouve música. - Esta função é activa automaticamente quando começa a música. O SwissCenter usa esta característica para mostrar os detalhes de o arquivo actual[p]Na maioria dos casos, O SwissCenter é capaz de decidir automaticamente se o seu aparelho suporta esta função, Mas se existirem problemas pode desactivar esta função aqui.[p]As opções significam: Activo - O aparelho solicita a imagem correspondente. Desactivo - O aparelho não solicita a imagem correspondente. Automático - O SwissCenter decide.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_SUPPORT</id>
+        <text>Ecrã de reprodução em curso</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NO_ITEMS_TO_DISPLAY</id>
+        <text>Não há itens para mostrar</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NO_PLAYLIST</id>
+        <text>Não há qualquer Lista de Reprodução definida.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NO_SYNOPSIS_AVAILABLE</id>
+        <text>Não há sinopse disponivél.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ONE_ITEM</id>
+        <text>Um Item</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ONE_TRACK</id>
+        <text>Uma Música</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>OPTIONS</id>
+        <text>Opções</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>OR</id>
+        <text>- ou -</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ORG_TITLE</id>
+        <text>Editar detalhes do Filme</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PAGE</id>
+        <text>Página %s</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>PASSWORD</id>
+        <text>Palavra-passe</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_LIVERADIO_TEST</id>
+        <text>O LiveRadio parece funcionar correctamente</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_MIP_MIXABLE</id>
+        <text>Mais de 50% da sua música foi analisado pelo MusicIP</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_MUSICIP_TEST</id>
+        <text>Serviço MusicIP detectado.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_MYSQL_CONNECT</id>
+        <text>Ligado com êxito ao servidor de MySQL.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_MYSQL_DB</id>
+        <text>Ligado com êxito à base de dados do SwissCenter.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_MYSQL_VERSION</id>
+        <text>A sua versão do MySQL é suportada.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_PHP_CLI</id>
+        <text>Uma versão da linha de comandos do PHP foi detectada.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_PHP_EXTRA_MODS</id>
+        <text>Todos os módulos PHP sugeridos estão disponíveis.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_PHP_FONTS</id>
+        <text>Localizada um tipo de letra TrueType para gerar as imagens da &quot;Reprodução em curso&quot;.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_PHP_INI</id>
+        <text>Arquivo 'php.ini' localizado com êxito.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_PHP_REQ_MODS</id>
+        <text>Todos os módulos PHP requeridos estão disponíveis.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_PHP_VERSION</id>
+        <text>A sua versão de PHP é suportada.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_SERVER_SCHED</id>
+        <text>A pesquisa automática de novos arquivos é suportada.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_SHOUTCAST_TEST</id>
+        <text>O ShoutCast parece funcionar correctamente</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_CACHE</id>
+        <text>Capaz de efectuar leitura/gravação na directoria de cache do SwissCenter.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_INI</id>
+        <text>Localizado com êxito o arquivo 'swisscenter.ini'.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_LOCS</id>
+        <text>A localização dos arquivos foi definida.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_LOG</id>
+        <text>Log activo.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_PLAYLIST</id>
+        <text>Capaz de efectuar leitura/gravação na directoria de playlists do SwissCenter.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_ROOT_INS</id>
+        <text>A instalação foi realizado por um usuário diferente de &quot;root&quot;.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_RW_FILES</id>
+        <text>É possível ler/escrever na directoria de instalação do SwissCenter.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PC_LINK_BACK</id>
+        <text>Voltar</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PC_LINK_CONFIG</id>
+        <text>Configuração</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PC_LINK_HOME</id>
+        <text>Inicio</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PC_LINK_INTERNET</id>
+        <text>Internet</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>PC_LINK_MOVIES</id>
+        <text>Filmes</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PC_LINK_MUSIC</id>
+        <text>Músicas</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PC_LINK_PHOTOS</id>
+        <text>Fotografias</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PC_LINK_RADIO</id>
+        <text>Rádio</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PC_LINK_TV</id>
+        <text>Programas de TV</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PERCENT_SCANNED</id>
+        <text>% Pesquisado</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PGDN</id>
+        <text>Avançar página</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PGUP</id>
+        <text>Retroceder página</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTOS</id>
+        <text>Fotos</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTOS_MUSIC_CHANGE</id>
+        <text>Alterar música de fundo</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTOS_MUSIC_CURRENT</id>
+        <text>Lista de reprodução actual</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTOS_MUSIC_INFO</id>
+        <text>Música de fundo</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTOS_MUSIC_NONE</id>
+        <text>Sem som</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTOS_NO_SELECTED</id>
+        <text>Sem fotos seleccionadas</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTOS_TIME_ALL</id>
+        <text>Tempo total de reprodução</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTOS_TIME_ONE</id>
+        <text>Tempo por foto</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTO_ALBUM</id>
+        <text>Álbum de fotografias</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTO_CHANGE_ORDER</id>
+        <text>Alterar Ordem de reprodução</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTO_CHANGE_TIME</id>
+        <text>Alterar tempo por fotografia</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTO_ORDER_DATE_DISK</id>
+        <text>Data de modificação</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTO_ORDER_DATE_RANDOM</id>
+        <text>Aleatório</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTO_ORDER_DATE_TAKEN</id>
+        <text>Data de criação</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTO_ORDER_NAME</id>
+        <text>Nome</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTO_PLAY_ORDER</id>
+        <text>Ordem de reprodução</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTO_TITLE</id>
+        <text>Titulo</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHP_VERSION_TEXT</id>
+        <text>Deve ter instalada a versão 4.3.9 de PHP ou superior</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHP_VERSION_TITLE</id>
+        <text>a sua versão de PHP é antiga.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PIN_CHANGE</id>
+        <text>Alterar PIN</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PIN_CHANGED</id>
+        <text>O PIN foi alterado</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PIN_CLEAR</id>
+        <text>Apagar PIN</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PIN_CONFIRM_NEW</id>
+        <text>Confirme novo PIN</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PIN_DELETE_LAST</id>
+        <text>Apagar ultimo digito</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PIN_ENTER</id>
+        <text>Introduza PIN</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PIN_ENTER_NEW</id>
+        <text>Introduza PIN novo</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PIN_ENTER_OLD</id>
+        <text>Introduza PIN antigo</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PIN_ENTER_PROMPT</id>
+        <text>Introduza  PIN com o comando</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PIN_INCORRECT</id>
+        <text>O PIN está incorrecto</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PIN_MAXLEN</id>
+        <text>Alcançada máxima longitude do PIN</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PIN_MISMATCH</id>
+        <text>O número do PIN não coincide, não foi alterado</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAY</id>
+        <text>Reproduzir</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLISTS</id>
+        <text>Listas de reprodução</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLISTS_CONFIG_PROMPT</id>
+        <text>Especifique uma directoria onde guardar as Listas de Reprodução. [p]Por exemplo en Windows: [em]&quot;C:\Documents and Settings\João\os meus Documentos\Listas reprodução&quot;[/em] o en LINUX: [em]&quot;/home/João/Listas reprodução&quot;[/em]</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLISTS_ERROR_DIR</id>
+        <text>Seleccione directoria para as listas de reprodução</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLISTS_ERROR_INVALID</id>
+        <text>A directoria especificada não existe</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLISTS_ERROR_PATH</id>
+        <text>Introduzir uma directoria válida</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLISTS_ERROR_SIZE</id>
+        <text>Digite um tamanho máximo (entre 10 e 2000)</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>PLAYLIST_APPEND</id>
+        <text>Adicionar a outra Lista de Reprodução</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_AUTOLOAD</id>
+        <text>Auto-reproduzir Playlist</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>PLAYLIST_AUTOLOAD_PROMPT</id>
+        <text>Seleccione uma playlist a ser carregada automaticamente na iniciação. Este processo é útil para não ter que seleccionar sempre a mesma playlist de música ambiente antes de visualizar fotos.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>PLAYLIST_CLEAR</id>
+        <text>Apagar a Lista de Reprodução</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_DELETE</id>
+        <text>Apagar playlist</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>PLAYLIST_DELETED</id>
+        <text>Playlist apagada</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>PLAYLIST_DELETE_CONFIRM</id>
+        <text>Apagar playlist?</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>PLAYLIST_EDIT</id>
+        <text>Editar a Lista de Reprodução</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_LOAD</id>
+        <text>Carregar a Lista de Reprodução</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_LOAD_FAIL</id>
+        <text>A Playlist %s carregou as faixas,%s não foram encontradas na base de dados.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>PLAYLIST_LOAD_NEW</id>
+        <text>Carregar uma nova Lista de Reprodução</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_LOAD_OK</id>
+        <text>A Lista de Reprodução carregou correctamente.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_NAME_CANCEL</id>
+        <text>Cancelar - Não guardar</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_NAME_USE</id>
+        <text>Guardar com este nome de arquivo</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_SAVE</id>
+        <text>Guardar a Lista de Reprodução</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_SAVE_CURRENT</id>
+        <text>Guardar a Lista actual de Reprodução</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_SAVE_PROMPT</id>
+        <text>Introduza nome para a Lista de Reprodução</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAY_NOW</id>
+        <text>Reproduzir agora</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLEASE_SELECT</id>
+        <text>Seleccione</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PRESS_KEY_NOW</id>
+        <text>Clicar '%s' agora!</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PREVIOUS</id>
+        <text>Anterior</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PRIORITY</id>
+        <text>Prioridade</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>PRIVACY_COMMUNICATION</id>
+        <text>[b]Email/Mensagem não solicitada[/b] [p][ul][li]Não se responde a Email/Mensagem não solicitada[li]As mensagens descarregadas apenas servem de aviso, sem o conteúdo da mensagem. Se quer prevenir a descarga destas mensagens desabilite &quot;Mensagens&quot; na secção de &quot;Conectividade&quot;.[/ul]</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PRIVACY_DATA_COLLECTION</id>
+        <text>[b]Recolha de dados[/b] [p] A informação que relaciona os arquivos multimédia é guardada numa base de dados do MySQL no PC com o software do SwissCenter. Esta informação é utilizada unicamente para comunicar os arquivos multimédia ao Receptor multimédia. Nunca é transmitida informação aos autores do SwissCenter, ou a terceiros. [p] A única excepção é: A obtenção de informação extra sobre os filmes (actores, directores, etc.) O nome do arquivo é submetido a uma pesquisa na página web escolhida no ecrã %s . Se preferir que esta informação não seja transmitida, deve desabilitar a opção &quot;Descarregar informação do Filme&quot;.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PRIVACY_POLICY</id>
+        <text>Política de Privacidade</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PROGRAMME</id>
+        <text>Programa</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>QUICK_HOME</id>
+        <text>Inicio rápido</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>QUICK_KEY_A</id>
+        <text>Tecla rápida A</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>QUICK_KEY_B</id>
+        <text>Tecla rápida B</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>QUICK_KEY_C</id>
+        <text>Tecla rápida C</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>QUICK_MOVIE</id>
+        <text>Vídeo rápido</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>QUICK_MUSIC</id>
+        <text>Música rápido</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>QUICK_PHOTO</id>
+        <text>Fotos rápido</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>QUICK_PLAY</id>
+        <text>Reprodução Rápida</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>RANGE</id>
+        <text>Alcance</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>RATING_SCHEME_PROMPT</id>
+        <text>Esquema de classificação</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>RECENTLY_ADDED</id>
+        <text>Recentemente adicionados</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>RECENTLY_ADDED_DAYS</id>
+        <text>Nos últimos %s dias</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFERENCE</id>
+        <text>Referência</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_ACTOR</id>
+        <text>Redefinir por actor</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_ALBUM</id>
+        <text>Redefinir por álbum</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_ARTIST</id>
+        <text>Redefinir por artista</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_CERTIFICATE</id>
+        <text>Redefinir por qualificação de idade</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_DIRECTOR</id>
+        <text>Redefinir por director</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_GENRE</id>
+        <text>Redefinir por género</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_IPTC_BYLINE</id>
+        <text>Refinar por autor</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_IPTC_CAPTION</id>
+        <text>Refinar por descrição</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_IPTC_CITY</id>
+        <text>Refinar por cidade</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_IPTC_COUNTRY</id>
+        <text>Refinar por país</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_IPTC_DATE_CREATED</id>
+        <text>Refinar por data de criação</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_IPTC_KEYWORDS</id>
+        <text>Refinar por palavra  chave</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_IPTC_LOCATION</id>
+        <text>Refinar por localização</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_IPTC_PROVINCE_STATE</id>
+        <text>Refinar por província/região</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_IPTC_SUPPCATEGORY</id>
+        <text>Refinar por categorias adicionais</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_PHOTO_ALBUM</id>
+        <text>Refinar por álbum de fotografias</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_PHOTO_TITLE</id>
+        <text>Refinar por nome de fotografia</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_TITLE</id>
+        <text>Redefinir por título</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_XMP_RATING</id>
+        <text>Refinar por pontuação</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_YEAR</id>
+        <text>Redefinir por ano</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFRESH_CLEANUP</id>
+        <text>Limpar base de dados</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>REFRESH_CLEANUP_PROMPT</id>
+        <text>Seleccionar a limpeza de dados irá remover qualquer registo obsoleto na base de dados, como arquivos não existentes e actores/directores já não referenciados. Deste modo a pesquisa de novas informações sobre arquivos será mais rápida</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>REFRESH_DATABASE</id>
+        <text>Actualizar base de dados</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFRESH_DATABASE_PROMPT</id>
+        <text>Procurar nova base de dados</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFRESH_DIR</id>
+        <text>A Actualizar</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFRESH_DIR_BUTTON</id>
+        <text>Actualizar</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFRESH_DIR_TEXT</id>
+        <text>O SwissCenter está a pesquisar arquivos multimédia novos ou actualizados e adicionando-os á base de dados. Pode demorar alguns minutos, por favor seja paciente.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFRESH_ITUNES</id>
+        <text>Pesquisar biblioteca iTunes</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>REFRESH_ITUNES_PROMPT</id>
+        <text>Seleccione esta opção para incluir a pesquisa na biblioteca iTunes para playlists com este Media Search.</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>REFRESH_METADATA</id>
+        <text>Actualizar metadata</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFRESH_METADATA_PROMPT</id>
+        <text>Escolha essa opção para forçar a actualização de todos os metadados de ficheiros multimédia a partir do banco de dados. Só deve ser utilizado depois de uma actualização de SwissCenter para adicionar nova funcionalidade de metadados.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFRESH_RUNNING</id>
+        <text>A actualização da base de dados pode trabalhar em segundo plano enquanto utiliza normalmente o equipamento. Os arquivos da base de dados não estarão disponíveis até que a base de dados seja totalmente carregada. [p]A primeira actualização pode demorar aproximadamente 10 minutos por cada 5.000 arquivos, as seguintes serão mais rápidas.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REMOTE_ACCESS_ERROR</id>
+        <text>Acesso remoto a [em] ferramenta de configuração do SwissCenter[/em] está desabilitado por razões de segurança.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REMOTE_PROMPT</id>
+        <text>Seleccione o botão de função a alterar:</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REMOVE_FILTER</id>
+        <text>Eliminar filtro</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>RESUME_PLAYING</id>
+        <text>Continuar a reproduzir</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>RETURN_MAIN_MENU</id>
+        <text>Voltar ao menu principal</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>RETURN_TO_LIST</id>
+        <text>Voltar à Listagem</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>RETURN_TO_SELECTION</id>
+        <text>Voltar á selecção.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ROOT_INSTALL_TEXT</id>
+        <text>Deve instalar o software de SwissCenter como  usuário do webserver - Instalações &quot;root&quot; não são suportadas.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ROOT_INSTALL_TITLE</id>
+        <text>A instalação realizou-se como &quot;root&quot;</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>RSS_ADD_BUTTON</id>
+        <text>Adicionar feed RSS</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_ADD_OK</id>
+        <text>Feed RSS adicionado</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_ADD_TITLE</id>
+        <text>Adicionar novo feed RSS</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_AUDIO</id>
+        <text>Áudio</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_CACHE</id>
+        <text>Cache</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_CACHE_LABEL</id>
+        <text>Especifique o número de itens que este feed deve guardar na cache. Quando esse limite for atingido, os itens mais antigos serão apagados. Especificar'0 'para manter todos os itens.</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_DEL_BUTTON</id>
+        <text>Remover os feeds RSS seleccionados</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_DEL_OK</id>
+        <text>Os feeds seleccionados foram apagados</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_CACHE</id>
+        <text>Por favor introduza o número de intens para guardar em cache os feeds de RSS</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_TITLE</id>
+        <text>Introduza um nome para o feed RSS</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_TYPE</id>
+        <text>Por favor seleccione o tipo de feed RSS</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_URL</id>
+        <text>Introduza o endereço URL para o feed RSS</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_FEEDS</id>
+        <text>Feeds RSS</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_FEED_PROMPT</id>
+        <text>Esta opção permite a utilização SwissCenter para ler feeds RSS, incluindo áudio e vídeo podcasts.</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_IMAGE</id>
+        <text>Imagem</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_ITEM_URL</id>
+        <text>Ir ao endereço URL</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_LAST_UPDATED</id>
+        <text>Última actualização:</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_PLAY_LINK</id>
+        <text>Reproduzir link</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_REFRESH</id>
+        <text>Actualizar feeds RSS</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_TITLE</id>
+        <text>Titulo</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_TYPE</id>
+        <text>Tipo</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_UPDATE</id>
+        <text>O SwissCenter está agora a actualizar o seu feed RSS (s). Pode demorar alguns minutos, seja paciente.</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_UPDATE_OK</id>
+        <text>Informação RSS actualizada</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_URL</id>
+        <text>Endereço URL</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RSS_VIDEO</id>
+        <text>Vídeo</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>RUNNING_TIME</id>
+        <text>Tempo de reprodução</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SAVE_SETTINGS</id>
+        <text>Guardar configuração</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SAVE_SETTINGS_OK</id>
+        <text>Configuração guardada</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_AUTO_TITLE</id>
+        <text>Pesquisa  Automática de arquivos multimédia</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>SCHEDULE_AUTO_TXT</id>
+        <text>A  pesquisa  de novos arquivos multimédia se realizará à hora indicada para cada um dos dias especificados abaixo. É recomendado realizar a  pesquisa , quando não está a utilizar o PC.</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>SCHEDULE_DATE_PROMPT</id>
+        <text>Dia do mês</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_ERROR_CHARS</id>
+        <text>Os caracteres válidos são %s</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_ERROR_FIELDS</id>
+        <text>Especifique um valor para cada campo</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_ERROR_HOUR</id>
+        <text>Indique um hora válida (entre 0 e 23)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_ERROR_MIN</id>
+        <text>Indique minutos válidos (entre 0 e 59)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_HOUR_PROMPT</id>
+        <text>Hora</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_MINUTE_PROMPT</id>
+        <text>Minutos</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_MONTH_PROMPT</id>
+        <text>1 = Janeiro, 2 = Fevereiro, etc.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_NONE</id>
+        <text>Pesquisa Automática de arquivos multimédia - Não está activa.</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>SCHEDULE_NOTES</id>
+        <text>[li]* indica todos os valores possíveis. [li]Pode especificar múltiplos valores utilizando virgulas (1,5). [li]Um intervalo pode ser especificado usando hífenes (1-5). [li]Ambos podem ser especificados juntos (1-4,7).</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_TITLE</id>
+        <text>Tarefas Programadas</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_UPDATED</id>
+        <text>Pesquisa  automática de arquivos multimédia - Tarefas Programadas</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>SCHEDULE_UPDATE_BUTTON</id>
+        <text>Actualizar Tarefas Programadas</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_WEEKDAY_PROMPT</id>
+        <text>1 = Segunda, 2 = Terça, etc</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SEARCH</id>
+        <text>Procurar</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SEARCH_ANYWHERE</id>
+        <text>Em qualquer posição do nome</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SEARCH_CLEAR</id>
+        <text>Limpar procura</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SEARCH_NO</id>
+        <text>Não, procurar de novo</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SEARCH_NO_ITEMS</id>
+        <text>Procura completa. Não foram encontrados resultados.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SEARCH_START</id>
+        <text>No inicio do nome</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SEARCH_WIKIPEDIA</id>
+        <text>Pesquisar na Wikipedia</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SEARCH_YES</id>
+        <text>Sim, procurar de todos os modos.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SECONDS</id>
+        <text>%s Segundos</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SELECT_ALL</id>
+        <text>Seleccionar tudo</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SELECT_CATEGORY</id>
+        <text>Seleccione uma categoria na lista:</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SELECT_ENTIRE_ALBUM</id>
+        <text>Seleccione Álbum inteiro</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SELECT_OPTION</id>
+        <text>Seleccione uma opção da lista:</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SELECT_RSS_FEED</id>
+        <text>Seleccione um feed RSS da seguinte lista:</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>SELECT_USER</id>
+        <text>Seleccione um usuário da lista:</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SERIES</id>
+        <text>Series</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SETUP</id>
+        <text>Configuração</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SETUP_CHANGE_UI</id>
+        <text>Alterar estilo de interface com o usuário</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SETUP_REMOTE</id>
+        <text>Configuração do comando remoto</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SETUP_SEARCH_ALL</id>
+        <text>Pesquisar em todas as localizações</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SETUP_SEARCH_CATEGORY</id>
+        <text>Pesquisar uma categoria específica</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SETUP_SEARCH_NEW_MEDIA</id>
+        <text>Procurar novos arquivos multimédia</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SETUP_SEARCH_TYPE</id>
+        <text>Pesquisar um tipo específico de arquivo multimédia</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SETUP_SEARCH_TYPE_TITLE</id>
+        <text>Por favor, seleccione um tipo de arquivo multimédia</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SETUP_TITLE</id>
+        <text>Preferências e configurações</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SETUP_UPDATE_SC</id>
+        <text>Actualizar SwissCenter</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SETUP_UPDATE_SC_RELEASE</id>
+        <text>Atualizar para a última versão estável</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>SETUP_UPDATE_SC_SVN</id>
+        <text>Atualizar para a última versão em desenvolvimento</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>SHUFFLE_OFF</id>
+        <text>Desactivar reprodução aleatória</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SHUFFLE_ON</id>
+        <text>Activar reprodução aleatória</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SIMESE_SCHED_PROMPT</id>
+        <text>Pode programar uma actualização automática da base de dados do SwissCenter ao carregar na barra de ferramentas do icon do Simese  e escolher [i]Update Media Scheduler[/i].</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SLIDESHOW</id>
+        <text>Apresentação automática de diapositivos</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>STARRING</id>
+        <text>Protagonistas</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>START_OF_NAME</id>
+        <text>Inicio do nome</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>START_SLIDESHOW</id>
+        <text>Iniciar Apresentação automática de diapositivos</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>STATUS</id>
+        <text>Estado</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>STYLE_CHECK_ONLINE</id>
+        <text>Descarregar estilos de %s</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>STYLE_CHOOSE</id>
+        <text>Escolher estilo</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>STYLE_DOWNLOAD</id>
+        <text>Descarregar estilo</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>STYLE_DOWNLOADING</id>
+        <text>A descarregar estilo - Aguarde.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>STYLE_NONE_AVAILABLE</id>
+        <text>Não há estilos disponíveis</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>STYLE_SHOW_INSTALLED</id>
+        <text>Visualizar estilos instalados</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_CLIENTS_TITLE</id>
+        <text>Clientes</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_CLINTS_TABLE</id>
+        <text>Endereço IP, agente ligação à rede</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_DB_CONN_TABLE</id>
+        <text>Detalhes de ligação</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_DB_DB_LIST</id>
+        <text>Bases de dados</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_DB_TABLE_LIST</id>
+        <text>Tabela, Listas</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_DB_TITLE</id>
+        <text>Preferências da base de dados</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_PROG_HEADINGS</id>
+        <text>Programa, Directoria</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_PROG_TITLE</id>
+        <text>Directoria do Programa</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_SYSPREF_TABLE</id>
+        <text>Preferências, configuração</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_SYSPREF_TITLE</id>
+        <text>Preferências do sistema</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_TITLE</id>
+        <text>Informação de suporte</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_TXT</id>
+        <text>Se tem problemas com o SwissCenter pode aceder a [em]Foruns de Ajuda[/em] na web em %s , descreva os problemas e toda a informação importante (como sistema operativo, hardware, etc.). [p] Parte da informação mostrada pode ser solicitada para ajudar a localizar as falhas.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_USRPREF_TABLE</id>
+        <text>Usuário, Preferências, Configuração</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_USRPREF_TITLE</id>
+        <text>Preferências do usuário</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SYNOPSIS</id>
+        <text>Sinopse</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SYSPREF_ADD_NEW</id>
+        <text>Adicionar uma opção de sistema</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SYSPREF_DEL_BUTTON</id>
+        <text>Apagar opções seleccionadas</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SYSPREF_EDIT_EXISTING</id>
+        <text>Modificar uma opção de sistema</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TAG</id>
+        <text>Marca</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>THUMBNAIL_VIEW</id>
+        <text>Vista em miniaturas</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TIME</id>
+        <text>Tempo</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TIME_DAY_SHORT</id>
+        <text>d</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TIME_HOUR_SHORT</id>
+        <text>h</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TIME_MINUTE_SHORT</id>
+        <text>m</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TIME_SECOND_SHORT</id>
+        <text>s</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TITLE</id>
+        <text>Titulo</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TRACKS</id>
+        <text>Músicas</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TRACKS_ADDED_TEXT</id>
+        <text>As músicas seleccionadas serão adicionadas à lista de reprodução[p] Para reproduzir ou modificar a lista, clique o botão %s do comando para seleccionar %s .</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TRACKS_ADDED_TITLE</id>
+        <text>Músicas adicionadas</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TRACK_LENGTH</id>
+        <text>Longitude</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TRACK_NAME</id>
+        <text>Nome da música</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TRANS_CLOSE_VERTICAL</id>
+        <text>Aproximação Vertical</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_FADE_BLACK</id>
+        <text>Desvanecer para negro</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_INTERLACE</id>
+        <text>Interlaçado</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_NO_EFFECT</id>
+        <text>Sem efeito</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_OPEN_VERTICAL</id>
+        <text>Abertura Vertical</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_RANDOM</id>
+        <text>Aleatório</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_SPLIT_VERTICAL_1</id>
+        <text>Separação Vertical 1</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_SPLIT_VERTICAL_2</id>
+        <text>Separação Vertical 2</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_WIPE_DOWN</id>
+        <text>Limpeza para baixo</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_WIPE_UP</id>
+        <text>Limpeza para cima</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TTF_FONT</id>
+        <text>Tipo de letra TrueType</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TTF_FONT_PROMPT</id>
+        <text>Tipo de letra que será utilizada para mostrar informação sobre o arquivo no ecrã de &quot;Reprodução em curso&quot; , se o suportar (e estando activo). Introduza o nome do arquivo com o tipo de letra e a &quot;direcção&quot; completa até ao arquivo, ou deixe em branco para auto detectar um tipo de letra compatível.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TVID_RESET_DEFAULT</id>
+        <text>Reset os  códigos TVID por defeito</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TVSERIES</id>
+        <text>Series de TV</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TV_DETAILS</id>
+        <text>Editar detalhes das series de TV</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TV_EXPRESSIONS</id>
+        <text>Expressões de TV</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ADD</id>
+        <text>Adicionar Expressão de TV</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ADDED_OK</id>
+        <text>Expressão de TV adicionada</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ADD_BUTTON</id>
+        <text>Adicionar expressão de TV</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_DEFAULTS</id>
+        <text>Restaurar definições</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_DELETE_OK</id>
+        <text>Expressões de TV apagadas</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_DEL_BUTTON</id>
+        <text>Remover as expressões seleccionadas</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ERROR_INVALID</id>
+        <text>Introduza uma expressão válida</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ERROR_MISSING</id>
+        <text>Digite uma prioridade e Expressão</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_PROMPT</id>
+        <text>Os detalhes de uma série televisiva são determinados a partir do nome do arquivo e caminho usando expressões regulares. O arquivo é comparado com as seguintes expressões até uma correspondência for encontrada. Estas expressões podem conter espaços reservados para o programa (p), (série s), (e) episódio, e título (t). Você deve ter pelo menos um desses espaços reservados em cada expressão para extrair informações. Se necessitar de ajuda com este assunto então você deve consultar os fóruns.
+.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST</id>
+        <text>Testar expressões</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_BUTTON</id>
+        <text>teste expressões</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_FAILED</id>
+        <text>Falhou a correspondência com qualquer expressão</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_PROMPT</id>
+        <text>Digite um nome de arquivo, incluindo o caminho para testar se o seu administrador de expressões irá identificar as informações correctas. Por exemplo. C:/Mídia/TV/Robot Chicken/Série1/Robot Chicken.S01E01.The Deep End.avi</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_SUCCESS</id>
+        <text>Encontrados %s. Programa encontado %s, Episódio %s, Nome %s.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_EXPR_UPDATE_OK</id>
+        <text>Expressão de TV actualizada</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>TV_OPTIONS</id>
+        <text>Series de TV</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UNKNOWN_ERROR</id>
+        <text>Ocorreu um erro desconhecido. Por favor poste um relatório de erro nos fóruns descrevendo as acções que esta a realizar no momento.</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>UNRATED_CERTIFICATE</id>
+        <text>Classificação de idade</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>UNRATED_CERT_PROMPT</id>
+        <text>Deve especificar uma classificação de idade que será aplicada a cada arquivo dentro desta localização, pois nãpo tem classificação própria.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UPDATE</id>
+        <text>Actualizar</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UPDATE_CHECK</id>
+        <text>Verificação de actualização</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UPDATE_CHECK_PROMPT</id>
+        <text>Realiza-se diariamente uma verificação da web %s para determinar se existe uma versão nova do SwissCenter. Se estiver disponível, aparecerá um icon de aviso no menu principal.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UPDATE_FAILED</id>
+        <text>Falha de actualização - Volte a tentar dentro de alguns minutos.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UPDATE_NONE</id>
+        <text>Não há Actualizações disponíveis</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UPDATE_SUCCESS</id>
+        <text>O sistema foi actualizado</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UPDATE_TITLE</id>
+        <text>Actualização on-line</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UPDATING</id>
+        <text>Actualizando...</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UPDATING_PLEASE_WAIT</id>
+        <text>Actualizando - Aguarde</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UPLOAD_FAILED</id>
+        <text>Envio do arquivo falhou.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UPLOAD_FILE</id>
+        <text>Enviar arquivo</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UPPERCASE</id>
+        <text>Maiúsculas</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERNAME</id>
+        <text>Nome do usuário</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_ADDED_OK</id>
+        <text>Novo usuário adicionado</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_ADD_BUTTON</id>
+        <text>Adicionar novo usuário</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_ADD_TITLE</id>
+        <text>Administrar Usuários</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_ADMIN_PROMPT</id>
+        <text>Um administrador tem acesso a todas as funções do aparelho incluindo apagar ficheiros.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_CONFIG_TITLE</id>
+        <text>Administrador de usuários</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_DEL_BUTTON</id>
+        <text>Eliminar usuários seleccionados</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_DEL_OK</id>
+        <text>Os usuários seleccionados foram eliminados</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_EDIT_OK</id>
+        <text>O usuário seleccionado foi alterado</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_ERROR_CERT</id>
+        <text>Indique a máxima classificação de idade que este usuário pode visualizar</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_ERROR_DEFAULT</id>
+        <text>O usuário predefinido não pode ser apagado</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_ERROR_EXISTS</id>
+        <text>O Nome do usuário já existe, seleccione outro nome</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_ERROR_NAME</id>
+        <text>Introduza um nome de usuário</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_MAX_CERT</id>
+        <text>Classificação de idade máxima</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_MAX_CERT_PROMPT</id>
+        <text>Introduza [em]a máxima[/em] classificação de idade que este usuário está autorizado a usar. Os arquivos que têm uma classificação mais alta que a especificada a um usuário [em]não[/em] serão visíveis por este usuário.</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>USERS_NAME_PROMPT</id>
+        <text>Indique um nome para este usuário como deverá aparecer no SwissCenter.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_PIN</id>
+        <text>PIN</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_PIN_PROMPT</id>
+        <text>Pode proteger este usuário com um número PIN (com um máximo de 10 dígitos)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_TABLE_HEADINGS</id>
+        <text>Nome, PIN, Classificação de idade, Super usuário</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USER_CHANGE</id>
+        <text>Alterar usuário</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USER_CHANGED</id>
+        <text>O usuário foi alterado</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>VALUE</id>
+        <text>Valor</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>VIDEO</id>
+        <text>Vídeo</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>VIDEO_INFO</id>
+        <text>Informação do vídeo</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>VIEWED_BY</id>
+        <text>Visto por</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>VIEW_ALL</id>
+        <text>Mostrar todos</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>VIEW_PHOTO</id>
+        <text>Ver fotografias</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>VIEW_UNVIEWED</id>
+        <text>Mostrar não vistos</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>VIEW_WEATHER</id>
+        <text>Ver estado do tempo</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WATCH_DVD</id>
+        <text>Ver um DVD</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>WATCH_MOVIE</id>
+        <text>Ver um Filme</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WATCH_TV</id>
+        <text>Ver uma serie de TV</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_5DAY</id>
+        <text>Ver próximos 5 dias de estado do tempo</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_BACK_TO_SEARCH</id>
+        <text>Voltar à página de pesquisa</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_CHANNEL</id>
+        <text>Canal do Estado do Tempo</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_CURRENT</id>
+        <text>Condições actuais</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_FEELS_LIKE</id>
+        <text>O tempo está</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_FORECAST</id>
+        <text>O estado do tempo</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_FORECAST_PROMPT</id>
+        <text>Informação do estado do tempo actual (ou próximos 5 dias) está a ser descarregada de %s .</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_HOME</id>
+        <text>Estabelecer local por defeito</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_HUMIDITY</id>
+        <text>Humidade</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_IMPERIAL</id>
+        <text>Alterar para o Sistema Imperial</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_LOCATION</id>
+        <text>Escolha outra localização</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_MATCHING</id>
+        <text>Cidades que coincidem com a sua pesquisa</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_MATCHING_TITLE</id>
+        <text>Cidades coincidentes</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_METRIC</id>
+        <text>Alterar para o Sistema Métrico</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_NO_CITY</id>
+        <text>Não existe a cidade que procura para %s na base de dados do SwissCenter.[p] Pretende pesquisar %s de qualquer das formas? (Introduza o nome da cidade)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_NO_MATCHING</id>
+        <text>%s não está disponível informação sobre o estado do tempo para a cidade %s neste momento.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_PRESSURE</id>
+        <text>Pressão atmosférica</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_SELECT_CITY</id>
+        <text>Seleccione cidade :</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_UV</id>
+        <text>Índice Raios Ultravioleta</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_VISIBILITY</id>
+        <text>Visibilidade</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_WIND</id>
+        <text>Vento</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEEKDAY</id>
+        <text>Dia da Semana</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WIKI_LOOKUP</id>
+        <text>A pesquisar Wikipedia</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WIKI_LOOKUP_PROMPT</id>
+        <text>Quando esta opção está activa, o SwissCenter irá incluir a opção de procura de informação (como artistas e Filmes) no site da Wikipedia.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>XML_SAVE</id>
+        <text>Utilizar arquivos XLM</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>XMP_RATING</id>
+        <text>Pontuação</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>YEAR</id>
+        <text>Ano</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>YES</id>
+        <text>Sim</text>
+        <version>1.19</version>
+      </string>
+    </language>
+  </languages>
+</swisscenter>
