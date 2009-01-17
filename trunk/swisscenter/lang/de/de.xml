@@ -948,6 +948,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>EXIF_NONE</id>
+        <text>Keine EXIF-Daten verfügbar.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>EXIF_ORIENTATION</id>
         <text>Ausrichtung</text>
         <version>1.19</version>
@@ -2571,8 +2576,8 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>MOVIE_OPTIONS</id>
-        <text>Videos</text>
-        <version>1.19</version>
+        <text>Filme</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>MOVIE_UPD_TEXT</id>
