@@ -2,13 +2,13 @@
 /**************************************************************************************************
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
-   
+
   require_once( realpath(dirname(__FILE__).'/mysql.php'));
 
   // ----------------------------------------------------------------------------------
   // Returns the Operating System type
   // ----------------------------------------------------------------------------------
-  
+
   function get_os_type()
   {
     if ( substr(PHP_OS,0,3)=='WIN' )
@@ -16,15 +16,15 @@
     else
       return 'UNIX';
   }
-  
+
   function is_windows()
   { return get_os_type() == "WINDOWS"; }
-  
+
   function is_unix()
-  { return get_os_type() == "UNIX"; } 
-  
+  { return get_os_type() == "UNIX"; }
+
   function is_synology()
-  { 
+  {
     // Have we already done the Sybology test?
     if (! isset($_SESSION["Synology"]) )
     {
@@ -44,11 +44,11 @@
     }
     return $_SESSION["Synology"];
   }
-  
+
   // ----------------------------------------------------------------------------------
   // Returns the webserver type
   // ----------------------------------------------------------------------------------
-  
+
   function get_server_type()
   {
     if (!key_exists('SERVER_SOFTWARE',$_SERVER))
@@ -61,33 +61,33 @@
       $server_type = "SIMESE";
     else
       $server_type = "SIMESE";
-    
+
     return $server_type;
   }
-  
+
   function is_server_iis()
   { return get_server_type() == "IIS"; }
-  
+
   function is_server_apache()
   { return get_server_type() == "APACHE"; }
-  
+
   function is_server_simese()
   { return get_server_type() == "SIMESE"; }
-  
+
   function apache_version()
   {
     preg_match('#Apache/(.*?) #',$_SERVER["SERVER_SOFTWARE"], $matches);
     if (!empty($matches[1]))
       return $matches[1];
-    else 
+    else
       return false;
   }
-  
+
   function simese_version()
   {
     if ( is_server_simese() )
       return substr($_SERVER["SERVER_SOFTWARE"],7);
-    else 
+    else
       return false;
   }
 
@@ -104,13 +104,13 @@
       {
         $_SESSION["GD Version"] = false;
       }
-      elseif (function_exists('gd_info')) 
+      elseif (function_exists('gd_info'))
       {
         // Use the gd_info() function if possible.
         $ver_info = gd_info();
         preg_match('/\d/', $ver_info['GD Version'], $match);
         $_SESSION["GD Version"] =  $match[0];
-      }  
+      }
       elseif ( preg_match('/phpinfo/', ini_get('disable_functions')) == 0)
       {
         // Is phpinfo() available for us to use?
@@ -123,7 +123,7 @@
         $_SESSION["GD Version"] =  $match[0];
       }
       else
-      {       
+      {
         // Otherwise, return a hardcoded failsafe.
         $_SESSION["GD Version"] =  0;
       }
@@ -132,27 +132,27 @@
     // Return the version number.
     return $_SESSION["GD Version"];
   }
-  
+
   // ----------------------------------------------------------------------------------
   // Returns the full URL (SCRIPT_NAME + QUERY_STRING) of the current page
   // ----------------------------------------------------------------------------------
-  
+
   function current_url( $post_vars = false)
   {
     $host   = $_SERVER["HTTP_HOST"];
-    
+
     if(is_server_apache() || is_server_iis())
       $url = "http://".$host.$_SERVER["REQUEST_URI"];
-    else 
+    else
     {
       $params = (empty($_SERVER["QUERY_STRING"]) ? "" : "?".$_SERVER["QUERY_STRING"]);
-      $url = "http://$host/".str_replace('\\','/',stripslashes($_SERVER["SCRIPT_NAME"].$params));
+      $url = "http://$host".str_replace('\\','/',stripslashes($_SERVER["SCRIPT_NAME"].$params));
     }
-      
+
     if ($post_vars)
       foreach ($_POST as $arg => $val)
         $url = url_add_param($url,$arg,$val);
-      
+
     return $url;
   }
 
@@ -163,12 +163,12 @@
   function client_ip()
   {
     return str_replace('\\','/',$_SERVER["REMOTE_ADDR"]);
-  }  
+  }
 
   /**
    * Returns the HTTP full address (including port) of the server on which SwissCenter
-   * is installed. 
-   * 
+   * is installed.
+   *
    * Note: There appears to be a bug in the Syabas/Sigma Designs firmware which means
    * that the HTTP request is not properly formed. Most notably, the PORT is missing
    * so we have to try and deduce it using other means!
@@ -181,14 +181,14 @@
     send_to_log(8,'Device details (in the session)',$_SESSION["device"]);
     $server = $_SERVER['SERVER_NAME'];
     $override = get_sys_pref('SERVER_PORT');
-    
+
     if (strpos($server,':') === false)
     {
       if (!empty($override))
         $server = $server.':'.$override;
       elseif (empty($_SERVER['SERVER_PORT']) || ($_SERVER["SERVER_PORT"] != $_SESSION["device"]["port"]) )
-        $server = $server.':'.$_SESSION["device"]["port"]; 
-      else 
+        $server = $server.':'.$_SESSION["device"]["port"];
+      else
         $server = $server.':'.$_SERVER['SERVER_PORT'];
     }
 
@@ -206,10 +206,10 @@
       $services = syscall('net start');
       return ( strpos($services,'Task Scheduler') !== false || strpos($services,str('TASK_SCHEDULER')) !== false);
     }
-    else 
+    else
       return 'Not running on windows';
   }
-  
+
   #-------------------------------------------------------------------------------------------------
   # Record the details about the client accessing the server in the database.
   #-------------------------------------------------------------------------------------------------
@@ -217,17 +217,17 @@
   function record_client_details()
   {
     if (test_db() == 'OK' && !isset($_SESSION["device"]) && strpos($_SERVER['HTTP_USER_AGENT'],'internal dummy connection') === false)
-    { 
+    {
       preg_match('#.*syabas/([^ ]*) .*#i',$_SERVER['HTTP_USER_AGENT'],$matches);
       $_SESSION["device"]["last_seen"]  = db_datestr();
       $_SESSION["device"]["ip_address"] = str_replace('\\','/',$_SERVER["REMOTE_ADDR"]);
-      $_SESSION["device"]["port"] = $_SERVER['SERVER_PORT'];       
+      $_SESSION["device"]["port"] = $_SERVER['SERVER_PORT'];
       if (!empty($matches))
         $_SESSION["device"]["box_id"] = $matches[1];
-      
+
       get_player_type();
       get_screen_type();
-      
+
       if (strlen($_SESSION["device"]["ip_address"]) > 0 )
       {
         $_SESSION["device"]["mac_addr"] = get_mac_addr($_SESSION["device"]["ip_address"]);
@@ -240,7 +240,7 @@
   #-------------------------------------------------------------------------------------------------
   # Get the MAC address of a client on the LAN.
   #-------------------------------------------------------------------------------------------------
-  
+
   function get_mac_addr($ip)
   {
     exec("arp -a ".$ip, $output);
@@ -253,7 +253,7 @@
     }
     return str_replace('-',':',$mac);
   }
-  
+
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/
