@@ -581,7 +581,7 @@ function tv_update_multiple()
 
   // Update the TV attributes
   scdb_set_tv_attribs($tv_list, $columns);
-  
+
   // Process the "Viewed" checkboxes
   if ($_REQUEST["update_viewed"] == 'yes')
   {
@@ -631,6 +631,7 @@ function tv_info( $message = "")
     set_sys_pref('tv_info_script',$_REQUEST['site']);
     set_sys_pref('tv_check_enabled',$_REQUEST["downloads"]);
     set_sys_pref('tv_xml_save',$_REQUEST["xml_save"]);
+    set_sys_pref('tv_use_banners',$_REQUEST["use_banner"]);
     set_sys_pref('tvseries_convert_dots_to_spaces',$_REQUEST["dots"]);
     $message = str('SAVE_SETTINGS_OK');
   }
@@ -666,6 +667,7 @@ function tv_info( $message = "")
   form_list_dynamic('scheme',str('RATING_SCHEME_PROMPT'),get_rating_scheme_list_sql(),get_rating_scheme_name(),false,false,null);
   form_radio_static('downloads',str('STATUS'),$list,get_sys_pref('tv_check_enabled','YES'),false,true);
   form_radio_static('xml_save',str('XML_SAVE'),$list,get_sys_pref('tv_xml_save','NO'),false,true);
+  form_radio_static('use_banner',str('USE_BANNER'),$list,get_sys_pref('tv_use_banners','YES'),false,true);
   form_submit(str('SAVE_SETTINGS'),2,'left',240);
   form_end();
 
