@@ -4438,6 +4438,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>USE_BANNER</id>
+        <text>Use Banners</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>VALUE</id>
         <text>Value</text>
         <version>1.19</version>
