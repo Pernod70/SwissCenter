@@ -10,7 +10,7 @@
   require_once( realpath(dirname(__FILE__).'/base/categories.php'));
 
   $menu           = new menu();
-  $programme      = urldecode($_REQUEST["programme"]);
+  $programme      = un_magic_quote($_REQUEST["programme"]);
   $view_status    = $_REQUEST["view_status"];
   $page           = nvl($_REQUEST["page"],1);
   $predicate      = get_rating_filter().category_select_sql($_REQUEST["cat"], MEDIA_TYPE_TV);
@@ -31,7 +31,7 @@
                              where programme = '$programme' $predicate ".viewed_n_times_predicate( ($view_status == 'unviewed' ? '=' : '>='),0)."
                              order by 1");
 
-  $current_series = (in_array($_REQUEST["series"], $series) ? $_REQUEST["series"] : $min_viewed_series );
+  $current_series = (in_array($_REQUEST["series"], $series) ? $_REQUEST["series"] : nvl($min_viewed_series,$series[0]) );
   $this_url       = url_set_param(current_url(),'del','N');
 
   $episodes_sql = "select *
