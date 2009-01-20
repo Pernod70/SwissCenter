@@ -14,15 +14,15 @@ function url_add_param($url, $param, $value)
     // No existing paramters for this url
     return $url.'?'.$param.'='.$value;
   }
-  elseif (preg_match('/[?&]'.$param.'=/',$url) == 0) 
+  elseif (preg_match('/[?&]'.$param.'=/',$url) == 0)
   {
     // Paramters present, but this is a new paramter to be appended
-    return $url.'&'.$param.'='.$value;  
+    return $url.'&'.$param.'='.$value;
   }
   else
-  {    
+  {
     // Paramters present, and there is already a value for this paramter
-    return preg_replace('/([?&]'.$param.'=)[^&]*/','${1}'.$value,$url); 
+    return preg_replace('/([?&]'.$param.'=)[^&]*/','${1}'.$value,$url);
   }
 }
 
@@ -30,6 +30,9 @@ function url_add_param($url, $param, $value)
 
 function url_add_params( $url, $array)
 {
+  if (!is_array($array))
+    $array=array($array);
+
   foreach ($array as $param=>$value)
     $url = url_add_param($url, $param, $value);
 
@@ -50,17 +53,17 @@ function url_set_params( $url, $array)
 
 function url_remove_param($url, $param)
 {
-  if (preg_match('/\?'.$param.'=/',$url) != 0) 
+  if (preg_match('/\?'.$param.'=/',$url) != 0)
   {
     // Paramter present as the first parameter
-    return rtrim(preg_replace('/(\?'.$param.'=[^&]*)(&*)/','?',$url),'?'); 
+    return rtrim(preg_replace('/(\?'.$param.'=[^&]*)(&*)/','?',$url),'?');
   }
-  elseif (preg_match('/&'.$param.'=/',$url) != 0) 
+  elseif (preg_match('/&'.$param.'=/',$url) != 0)
   {
     // Paramter present, but not the first one.
-    return preg_replace('/(&'.$param.'=[^&]*)/','',$url); 
+    return preg_replace('/(&'.$param.'=[^&]*)/','',$url);
   }
-  else 
+  else
   {
     // Parameter not present, so just return the URL unaltered.
     return $url;
@@ -97,7 +100,7 @@ function http_post( $url, $data, $timeout = 5 )
   // Generate the request header
   $data_len  = strlen($data);
   $request   = "POST $path HTTP/1.1\r\n".
-               "Host: $host\r\n".   
+               "Host: $host\r\n".
                "Content-Type: application/x-www-form-urlencoded\r\n".
                "Content-Length: $data_len\r\n".
                "Connection: close\r\n".
@@ -109,16 +112,16 @@ function http_post( $url, $data, $timeout = 5 )
   if ( ($socket = fsockopen($host, $port, &$errno, &$errstr, $timeout)) === false)
   {
     send_to_log(2,"Failed to open socket to '$host' on port '$port'.");
-    return false;    
+    return false;
   }
-  
+
   // Send POST request
   fputs($socket, $request);
-  
+
   // Ensure we are reading in blocking mode, and with the specified timeout
   stream_set_blocking( $socket, TRUE );
   stream_set_timeout( $socket, $timeout );
-  $info = stream_get_meta_data( $socket ); 
+  $info = stream_get_meta_data( $socket );
 
   // Get the response
   $response = '';
@@ -127,14 +130,14 @@ function http_post( $url, $data, $timeout = 5 )
     $response .= fgets($socket, 256);
     $info = stream_get_meta_data($socket);
   }
-  
+
   // Record the fact that the socket timed out.
   if ($info['timed_out'])
     send_to_log(2,"Socket timed out while attempting a HTTP POST to '$socket:$port'");
-  
+
   // Close the socket
   fclose($socket);
-    
+
   // Return result;
   send_to_log(8,"HTTP POST Response",explode("\n",$response));
   return $response;

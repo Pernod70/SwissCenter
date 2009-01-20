@@ -14,7 +14,7 @@
 
 // the proxy to use for connections to imdb.
 // leave it empty for no proxy.
-// this is only supported with PEAR. 
+// this is only supported with PEAR.
 define ('PROXY', "");
 define ('PROXY_PORT', "");
 
@@ -241,9 +241,9 @@ class iradio {
    */
   function read_genres () {
     $genres = db_toarray("select genre, subgenre from iradio_genres order by 1,2");
-    foreach ($genres as $genre) {
-      $this->add_genre($genre['GENRE'],$genre['SUBGENRE']);
-    }
+    if (is_array($genres) && count($genres) >0 )
+      foreach ($genres as $genre)
+        $this->add_genre($genre['GENRE'],$genre['SUBGENRE']);
   }
 
   /** Get the genre list

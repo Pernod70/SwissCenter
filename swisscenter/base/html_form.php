@@ -82,9 +82,9 @@ function form_slider( $param, $prompt, $min, $max, $size = 15, $value ='', $clas
   echo '<tr>
           <td>'.form_prompt($prompt,$opt).'</td>
           <td><input type="text"'.($opt ? '' : ' required ').'
-               mask="[0-9]*" 
-               size="'.$size.'" 
-               name="'.$param.'" 
+               mask="[0-9]*"
+               size="'.$size.'"
+               name="'.$param.'"
                class="fd_tween fd_range_'.$min.'_'.$max.' fd_classname_'.$class.'"
                value="'.$value.'"></td>
         </tr>';
@@ -239,7 +239,7 @@ function form_list_static( $param, $prompt, $list, $value = "", $opt = false,  $
           <td>'.form_prompt($prompt,$opt).'</td>
           <td>'.form_list_static_html( $param, $list, $value, $opt, $submit, $initial_txt).'</td>
         </tr>';
-            
+
 }
 
 #-------------------------------------------------------------------------------------------------
@@ -275,7 +275,7 @@ function form_upload( $param, $prompt, $size = 20 )
           <td>'.form_prompt($prompt,false).'</td>
           <td><input type="file" name="'.$param.'" size="'.$size.'"></td>
         </tr>';
- 
+
 }
 
 #-------------------------------------------------------------------------------------------------
@@ -289,7 +289,7 @@ function form_submit( $text = "Submit", $col = 2, $align = 'left', $width = '' )
 {
   if ($col == 1)
     echo '<tr><td align="'.$align.'" colspan="2">'.form_submit_html($text,$width).'</td></tr>';
-  else 
+  else
     echo '<tr><td>&nbsp;</td><td align="'.$align.'">'.form_submit_html($text,$width).'</td></tr>';
 }
 
@@ -297,7 +297,7 @@ function form_submit_html( $text = "Submit", $width = '')
 {
   if ($width != '')
     $width = 'style="width:'.$width.'px;"';
-  
+
   return '<input type="submit" '.$width.' name="submit_action" value=" '.$text.' ">';
 }
 
@@ -320,7 +320,7 @@ function form_submit_html( $text = "Submit", $width = '')
 #
 # If an array of edit options is passed then an edit button will be placed on each row. It can
 # be determined if the edit button was clicked and for which row by calling form_select_table_edit()
-# 
+#
 # To display the table in edit mode, pass the edit options with the $edit variable set to the
 # value of the ID column that is to be edited, usually obtained from form_select_table_edit
 #
@@ -329,7 +329,7 @@ function form_submit_html( $text = "Submit", $width = '')
 
 function form_select_table ( $param, $table_contents, $table_headings, $table_params, $id_col, $edit_options = array(), $edit = 0, $formname = '')
 {
-  // Process the paramters in the table 
+  // Process the paramters in the table
   $editable = (count($edit_options) > 0);
   $param_str ='';
   if (is_array($table_params) && count($table_params) >0)
@@ -337,17 +337,17 @@ function form_select_table ( $param, $table_contents, $table_headings, $table_pa
     foreach ($table_params as $attrib => $value)
       $param_str .= $attrib.'="'.$value.'" ';
   }
-  
+
   // Display the table if there are some rows in the dataset.
-  if (count($table_contents) != 0)
+  if (is_array($table_contents) && count($table_contents) != 0)
   {
     // Table tag and attributes (passed in via the $table_params array)
     echo '<tr><td colspan="2"><table '.$param_str.'>';
-    
+
     // Display headings for the table based on the column names in the dataset
     echo '<tr><th>&nbsp;</th>';
     foreach (explode(',',$table_headings) as $value)
-    { 
+    {
       if (strpos($value,'|') !== false)
       {
         list($title, $size) = explode('|',$value);
@@ -360,7 +360,7 @@ function form_select_table ( $param, $table_contents, $table_headings, $table_pa
     if($editable)
     {
       echo '<th>&nbsp;</th>';
-      
+
       echo "<script language='javascript'><!--\r\n";
       echo "function edit_".$formname."(val){document.forms.".$formname.".".$formname."_".$param."_edit.value=val;document.forms.".$formname.".submit();}\r\n";
       echo "function update_".$formname."(val){document.forms.".$formname.".".$formname."_".$param."_update.value=val;document.forms.".$formname.".submit();}\r\n";
@@ -372,72 +372,76 @@ function form_select_table ( $param, $table_contents, $table_headings, $table_pa
     }
 
     echo '</tr>';
-    
+
     // Display the rows in the dataset
-    foreach ($table_contents as $row)
+    if (count($table_contents)>0)
     {
-      echo '<tr>';
-      echo '<td align="center" width="30">'.'<input type="checkbox" name="'.$param.':'.$row[strtoupper($id_col)].'" value="'.$row[strtoupper($id_col)].'"></td>'; // Select Box
-      foreach ($row as $cell_name => $cell_value)
+      foreach ($table_contents as $row)
       {
-        if ($cell_name != strtoupper($id_col))
+        echo '<tr>';
+        echo '<td align="center" width="30">'.'<input type="checkbox" name="'.$param.':'.$row[strtoupper($id_col)].'" value="'.$row[strtoupper($id_col)].'"></td>'; // Select Box
+        foreach ($row as $cell_name => $cell_value)
         {
-          echo '<td valign="top">';
-
-          if($editable && ($row[strtoupper($id_col)] == $edit))
+          if ($cell_name != strtoupper($id_col))
           {
-            // Check the edit options to see if there are choices for this column or not
-            $element_name = strtoupper($param.'_update:'.escape_form_names($cell_name));
-            $cell_edit_options = $edit_options[$cell_name];
+            echo '<td valign="top">';
 
-            if ($cell_edit_options == "!") 
+            if($editable && ($row[strtoupper($id_col)] == $edit))
             {
-              echo $cell_value;
-            }
-            elseif ($cell_edit_options == "*") 
-            {
-              echo '<input type="password" name="'.$element_name.'" value="'.$cell_value.'">';
-            }
-            elseif (empty($cell_edit_options) || is_numeric($cell_edit_options)) 
-            {
-              echo '<input type="text" name="'.$element_name.'" value="'.$cell_value.'"'.
-                    ( is_numeric($cell_edit_options) ? ' size="'.$cell_edit_options.'"' : '').
-                    '>';
-            }
-            else 
-            {
-              if(is_array($cell_edit_options))
-                $options = $cell_edit_options;                
-              else
-                $options = db_toarray($cell_edit_options);
-                
-              echo '<select name="'.$element_name.'">';
-              
-              foreach($options as $option)
+              // Check the edit options to see if there are choices for this column or not
+              $element_name = strtoupper($param.'_update:'.escape_form_names($cell_name));
+              $cell_edit_options = $edit_options[$cell_name];
+
+              if ($cell_edit_options == "!")
               {
-                $option_data = array_values($option);
-                echo '<option value="'.$option_data[0].'"';
-                if(strtoupper($cell_value) == strtoupper($option_data[1]))
-                  echo " selected='selected'";
-                  
-                echo ">".$option_data[1]."</option>";
+                echo $cell_value;
               }
-              echo "</select>";
+              elseif ($cell_edit_options == "*")
+              {
+                echo '<input type="password" name="'.$element_name.'" value="'.$cell_value.'">';
+              }
+              elseif (empty($cell_edit_options) || is_numeric($cell_edit_options))
+              {
+                echo '<input type="text" name="'.$element_name.'" value="'.$cell_value.'"'.
+                      ( is_numeric($cell_edit_options) ? ' size="'.$cell_edit_options.'"' : '').
+                      '>';
+              }
+              else
+              {
+                if(is_array($cell_edit_options))
+                  $options = $cell_edit_options;
+                else
+                  $options = db_toarray($cell_edit_options);
+
+                echo '<select name="'.$element_name.'">';
+
+                foreach($options as $option)
+                {
+                  $option_data = array_values($option);
+                  echo '<option value="'.$option_data[0].'"';
+                  if(strtoupper($cell_value) == strtoupper($option_data[1]))
+                    echo " selected='selected'";
+
+                  echo ">".$option_data[1]."</option>";
+                }
+                echo "</select>";
+              }
             }
-          }
-          else
-          {
-            $cell_edit_options = $edit_options[$cell_name];
-            if($cell_edit_options == "*" && !empty($cell_value))
-              echo "********";
             else
-              echo $cell_value;
+            {
+              $cell_edit_options = $edit_options[$cell_name];
+              if($cell_edit_options == "*" && !empty($cell_value))
+                echo "********";
+              else
+                echo $cell_value;
+            }
+
+            echo '</td>';
           }
-        
-          echo '</td>';
         }
       }
-      
+
+
       if($editable)
       {
         if(empty($edit))
@@ -449,15 +453,15 @@ function form_select_table ( $param, $table_contents, $table_headings, $table_pa
         }
         else
           echo '<td>&nbsp;</td>';
-      }  
+      }
 
       echo '</tr>';
     }
-    
+
     // End the table
     echo '</table></td></tr>';
   }
-  else 
+  else
   {
     echo '<tr><td colspan="2"><table '.$param_str.'>';
     echo '<tr><th><center>'.str('NO_ITEMS_TO_DISPLAY').'</center></th></tr?';
@@ -485,7 +489,7 @@ function form_select_table_edit( $param_name, $formname )
 {
   if(!empty($_REQUEST[$formname.'_'.$param_name.'_edit']))
     $result = $_REQUEST[$formname.'_'.$param_name.'_edit'];
-    
+
   return $result;
 }
 
@@ -496,7 +500,7 @@ function form_select_table_update( $param_name, $formname )
   if(!empty($_REQUEST[$formname.'_'.$param_name.'_update']))
   {
     $result[strtoupper($param_name)] = $_REQUEST[$formname.'_'.$param_name.'_update'];
-  
+
     foreach($_REQUEST as $key => $val)
     {
       if(strtoupper(substr($key, 0, strlen($param_name)+8)) == strtoupper($param_name).'_UPDATE:')
@@ -505,7 +509,7 @@ function form_select_table_update( $param_name, $formname )
       }
     }
   }
-  
+
 
   return $result;
 }
