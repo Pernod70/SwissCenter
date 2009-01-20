@@ -230,8 +230,8 @@ function tv_display( $message = '')
     set_sys_pref('CONFIG_VIDEO_LIST',$_REQUEST["list"]);
 
   // Extra filters on the media (for categories and search).
-  if (!empty($_REQUEST["cat_id"]) )
-    $where .= "and ml.cat_id = $_REQUEST[cat_id] ";
+  if (!empty($_REQUEST["prog"]) )
+    $where .= "and t.programme = '".db_escape_str($_REQUEST["prog"])."' ";
 
   if (!empty($_REQUEST["search"]) )
     $where .= "and (t.programme like '%$_REQUEST[search]%' or t.title like '%$_REQUEST[search]%') ";
@@ -255,15 +255,15 @@ function tv_display( $message = '')
   echo '<h1>'.str('TV_DETAILS').'  ('.str('PAGE',$page).')</h1>';
   message($message);
 
-  $this_url = '?last_where='.urlencode($where).'&filter='.$_REQUEST["filter"].'&search='.$_REQUEST["search"].'&cat_id='.$_REQUEST["cat_id"].'&section=TV&action=DISPLAY&page=';
+  $this_url = '?last_where='.urlencode($where).'&filter='.$_REQUEST["filter"].'&search='.$_REQUEST["search"].'&prog='.$_REQUEST["prog"].'&section=TV&action=DISPLAY&page=';
 
   echo '<form enctype="multipart/form-data" action="" method="post">
         <table width="100%"><tr><td width="70%">';
   form_hidden('section','TV');
   form_hidden('action','DISPLAY');
   form_hidden('last_where',$where);
-  echo  str('CATEGORY').' :
-        '.form_list_dynamic_html("cat_id","select distinct c.cat_id,c.cat_name from categories c left join media_locations ml on c.cat_id=ml.cat_id where ml.media_type=6 order by c.cat_name",$_REQUEST["cat_id"],true,true,str('CATEGORY_LIST_ALL')).'&nbsp;
+  echo  str('PROGRAMME').' :
+        '.form_list_dynamic_html("prog","select distinct programme id, programme name from tv order by 1",$_REQUEST["prog"],true,true,str('CATEGORY_LIST_ALL')).'&nbsp;
         <a href="'.url_set_param($this_url,'list','LIST').'"><img align="absbottom" border="0"  src="/images/details.gif"></a>
         <a href="'.url_set_param($this_url,'list','THUMBS').'"><img align="absbottom" border="0" src="/images/thumbs.gif"></a>
         <img align="absbottom" border="0" src="/images/select_all.gif" onclick=\'handleClick("tv[]", true)\'>
