@@ -339,7 +339,7 @@ function form_select_table ( $param, $table_contents, $table_headings, $table_pa
   }
 
   // Display the table if there are some rows in the dataset.
-  if (is_array($table_contents) && count($table_contents) != 0)
+  if (count($table_contents) != 0)
   {
     // Table tag and attributes (passed in via the $table_params array)
     echo '<tr><td colspan="2"><table '.$param_str.'>';
@@ -374,73 +374,69 @@ function form_select_table ( $param, $table_contents, $table_headings, $table_pa
     echo '</tr>';
 
     // Display the rows in the dataset
-    if (count($table_contents)>0)
+    foreach ($table_contents as $row)
     {
-      foreach ($table_contents as $row)
+      echo '<tr>';
+      echo '<td align="center" width="30">'.'<input type="checkbox" name="'.$param.':'.$row[strtoupper($id_col)].'" value="'.$row[strtoupper($id_col)].'"></td>'; // Select Box
+      foreach ($row as $cell_name => $cell_value)
       {
-        echo '<tr>';
-        echo '<td align="center" width="30">'.'<input type="checkbox" name="'.$param.':'.$row[strtoupper($id_col)].'" value="'.$row[strtoupper($id_col)].'"></td>'; // Select Box
-        foreach ($row as $cell_name => $cell_value)
+        if ($cell_name != strtoupper($id_col))
         {
-          if ($cell_name != strtoupper($id_col))
+          echo '<td valign="top">';
+
+          if($editable && ($row[strtoupper($id_col)] == $edit))
           {
-            echo '<td valign="top">';
+            // Check the edit options to see if there are choices for this column or not
+            $element_name = strtoupper($param.'_update:'.escape_form_names($cell_name));
+            $cell_edit_options = $edit_options[$cell_name];
 
-            if($editable && ($row[strtoupper($id_col)] == $edit))
+            if ($cell_edit_options == "!")
             {
-              // Check the edit options to see if there are choices for this column or not
-              $element_name = strtoupper($param.'_update:'.escape_form_names($cell_name));
-              $cell_edit_options = $edit_options[$cell_name];
-
-              if ($cell_edit_options == "!")
-              {
-                echo $cell_value;
-              }
-              elseif ($cell_edit_options == "*")
-              {
-                echo '<input type="password" name="'.$element_name.'" value="'.$cell_value.'">';
-              }
-              elseif (empty($cell_edit_options) || is_numeric($cell_edit_options))
-              {
-                echo '<input type="text" name="'.$element_name.'" value="'.$cell_value.'"'.
-                      ( is_numeric($cell_edit_options) ? ' size="'.$cell_edit_options.'"' : '').
-                      '>';
-              }
-              else
-              {
-                if(is_array($cell_edit_options))
-                  $options = $cell_edit_options;
-                else
-                  $options = db_toarray($cell_edit_options);
-
-                echo '<select name="'.$element_name.'">';
-
-                foreach($options as $option)
-                {
-                  $option_data = array_values($option);
-                  echo '<option value="'.$option_data[0].'"';
-                  if(strtoupper($cell_value) == strtoupper($option_data[1]))
-                    echo " selected='selected'";
-
-                  echo ">".$option_data[1]."</option>";
-                }
-                echo "</select>";
-              }
+              echo $cell_value;
+            }
+            elseif ($cell_edit_options == "*")
+            {
+              echo '<input type="password" name="'.$element_name.'" value="'.$cell_value.'">';
+            }
+            elseif (empty($cell_edit_options) || is_numeric($cell_edit_options))
+            {
+              echo '<input type="text" name="'.$element_name.'" value="'.$cell_value.'"'.
+                    ( is_numeric($cell_edit_options) ? ' size="'.$cell_edit_options.'"' : '').
+                    '>';
             }
             else
             {
-              $cell_edit_options = $edit_options[$cell_name];
-              if($cell_edit_options == "*" && !empty($cell_value))
-                echo "********";
+              if(is_array($cell_edit_options))
+                $options = $cell_edit_options;
               else
-                echo $cell_value;
-            }
+                $options = db_toarray($cell_edit_options);
 
-            echo '</td>';
+              echo '<select name="'.$element_name.'">';
+
+              foreach($options as $option)
+              {
+                $option_data = array_values($option);
+                echo '<option value="'.$option_data[0].'"';
+                if(strtoupper($cell_value) == strtoupper($option_data[1]))
+                  echo " selected='selected'";
+
+                echo ">".$option_data[1]."</option>";
+              }
+              echo "</select>";
+            }
           }
+          else
+          {
+            $cell_edit_options = $edit_options[$cell_name];
+            if($cell_edit_options == "*" && !empty($cell_value))
+              echo "********";
+            else
+              echo $cell_value;
+          }
+
+          echo '</td>';
         }
       }
-
 
       if($editable)
       {
