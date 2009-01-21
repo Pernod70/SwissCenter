@@ -48,16 +48,21 @@ CREATE TABLE tv_expressions (
   PRIMARY KEY (pos)
 ) TYPE=MyISAM;
 
-INSERT INTO tv_expressions (pos, expression) VALUES ( 1,'{p}\\W+s{s}e{e}\\W+{t}');
-INSERT INTO tv_expressions (pos, expression) VALUES ( 2,'{p}\\W+{s}x{e}\\W+{t}');
-INSERT INTO tv_expressions (pos, expression) VALUES ( 3,'{p}/series {s}/{e}\\W+{t}');
-INSERT INTO tv_expressions (pos, expression) VALUES ( 4,'{p}/season {s}/{e}\\W+{t}');
-INSERT INTO tv_expressions (pos, expression) VALUES ( 5,'{p}/{s}/{e}\\W*{t}');
-INSERT INTO tv_expressions (pos, expression) VALUES ( 6,'{p}/{e}\\W+{t}');
-INSERT INTO tv_expressions (pos, expression) VALUES ( 7,'{p}/{t}\\W+\\(?s{s}e{e}\\)?');
-INSERT INTO tv_expressions (pos, expression) VALUES ( 8,'{p}/{t}\\W+\\(?{s}x{e}\\)?');
-INSERT INTO tv_expressions (pos, expression) VALUES ( 9,'{p}\\W+s{s}e{e}');
-INSERT INTO tv_expressions (pos, expression) VALUES (10,'{p}\\W+{s}x{e}');
+INSERT INTO tv_expressions (pos, expression) VALUES ( 1,'{p}/[^/]*/.*\W+s{s}e{e}\W+{t}');
+INSERT INTO tv_expressions (pos, expression) VALUES ( 2,'{p}\W+s{s}e{e}\W+{t}');
+INSERT INTO tv_expressions (pos, expression) VALUES ( 3,'{p}\W+{s}x{e}\W+{t}');
+INSERT INTO tv_expressions (pos, expression) VALUES ( 4,'{p}/series {s}/{e}\W+{t}');
+INSERT INTO tv_expressions (pos, expression) VALUES ( 5,'{p}/season {s}/{e}\W+{t}');
+INSERT INTO tv_expressions (pos, expression) VALUES ( 6,'{p}\W+s{s}e{e}');
+INSERT INTO tv_expressions (pos, expression) VALUES ( 7,'{p}\W+{s}x{e}');
+INSERT INTO tv_expressions (pos, expression) VALUES ( 8,'{p}/{s}/{e}\W*{t}');
+INSERT INTO tv_expressions (pos, expression) VALUES ( 9,'{p}/{e}\W+{t}');
+INSERT INTO tv_expressions (pos, expression) VALUES (10,'{p}/{t}\W+\(?s{s}e{e}\)?');
+INSERT INTO tv_expressions (pos, expression) VALUES (11,'{p}/{t}\W+\(?{s}x{e}\)?');
+INSERT INTO tv_expressions (pos, expression) VALUES (12,'{p}\W+s{s}e{e}');
+INSERT INTO tv_expressions (pos, expression) VALUES (13,'{p}\W+{s}x{e}');
+INSERT INTO tv_expressions (pos, expression) VALUES (14,'{p}/{t}');
+INSERT INTO tv_expressions (pos, expression) VALUES (15,'{t}');
 
 -- *************************************************************************************************
 --   SWISScenter Source                                                              Robert Taylor

@@ -88,7 +88,7 @@ function download_new_messages()
   {
     // Check for new messages
     $last_update = db_value("select max(added) from messages");
-    $messages = file_get_contents("http://update.swisscenter.co.uk/messages.php?last_check=".urlencode($last_update));
+    $messages = @file_get_contents("http://update.swisscenter.co.uk/messages.php?last_check=".urlencode($last_update));
   
     // Add the messages to the database
     if (!empty($messages))
