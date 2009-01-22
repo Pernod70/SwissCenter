@@ -59,6 +59,8 @@
       $server_type = "IIS";
     elseif(strpos($_SERVER["SERVER_SOFTWARE"], "Simese") !== false)
       $server_type = "SIMESE";
+    elseif(strpos($_SERVER["SERVER_SOFTWARE"], "lighttpd") !== false)
+      $server_type = "LIGHTTPD";
     else
       $server_type = "SIMESE";
 
@@ -74,6 +76,9 @@
   function is_server_simese()
   { return get_server_type() == "SIMESE"; }
 
+  function is_server_lighttpd()
+  { return get_server_type() == "LIGHTTPD"; }
+
   function apache_version()
   {
     preg_match('#Apache/(.*?) #',$_SERVER["SERVER_SOFTWARE"], $matches);
@@ -87,6 +92,14 @@
   {
     if ( is_server_simese() )
       return substr($_SERVER["SERVER_SOFTWARE"],7);
+    else
+      return false;
+  }
+
+  function lighttpd_version()
+  {
+    if ( is_server_lighttpd() )
+      return substr($_SERVER["SERVER_SOFTWARE"],9);
     else
       return false;
   }
