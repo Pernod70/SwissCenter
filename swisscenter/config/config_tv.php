@@ -169,7 +169,7 @@ function tv_display_list($tv_list)
     $cert      = db_value("select name from certificates where cert_id=".nvl($tv["CERTIFICATE"],-1));
 
     echo '<table class="form_select_tab" width="100%"><tr>
-          <td valign="top" width="4%"'.($tv["DETAILS_AVAILABLE"]=='Y' ? '' : ' bgcolor="red"').'><input type="checkbox" name="tv[]" value="'.$tv["FILE_ID"].'"></input></td>
+          <td valign="top" width="4%"><input type="checkbox" name="tv[]" value="'.$tv["FILE_ID"].'"></input></td>
           <td valign="top" width="33%">
              <a href="?section=tv&action=display_info&tv_id='.$tv["FILE_ID"].'">'.highlight($tv["PROGRAMME"], $_REQUEST["search"]).' - '.highlight($tv["TITLE"], $_REQUEST["search"]).'</a><br>
              Series : '.nvl($tv["SERIES"]).'<br>
@@ -201,7 +201,7 @@ function tv_display_thumbs($tv_list)
 
     $img_url     = img_gen(file_albumart($tv["DIRNAME"].$tv["FILENAME"]) ,130,400,false,false,false,array('hspace'=>0,'vspace'=>4) );
     $edit_url    = '?section=tv&action=display_info&tv_id='.$tv["FILE_ID"];
-    $thumb_html .= '<td valign="top"'.($tv["DETAILS_AVAILABLE"]=='Y' ? '' : ' bgcolor="red"').'><input type="checkbox" name="tv[]" value="'.$tv["FILE_ID"].'"></input></td>
+    $thumb_html .= '<td valign="top"><input type="checkbox" name="tv[]" value="'.$tv["FILE_ID"].'"></input></td>
                     <td valign="middle"><a href="'.$edit_url.'">'.$img_url.'</a></td>';
     $title_html .= '<td width="25%" colspan="2" align="center" valign="middle"><a href="'.$edit_url.'">'.highlight($tv["PROGRAMME"], $_REQUEST["search"]).' - '.highlight($tv["TITLE"], $_REQUEST["search"]).(empty($tv["EPISODE"]) ? '' : str('EPISODE_SUFFIX',$tv["EPISODE"])).'</a></td>';
   }
@@ -237,7 +237,18 @@ function tv_display( $message = '')
     $where .= "and (t.programme like '%$_REQUEST[search]%' or t.title like '%$_REQUEST[search]%') ";
 
   if (!empty($_REQUEST["filter"]) )
-    $where .= "and (t.details_available='N' or t.details_available is null)";
+  {
+    switch ($_REQUEST["filter"])
+    {
+      case "NODETAILS"  : $where .= "and (ifnull(t.details_available,'N')='N')"; break;
+      case "NOPROG"     : $where .= "and (ifnull(t.programme,'')='')"; break;
+      case "NOSERIES"   : $where .= "and (ifnull(t.series,'')='')"; break;
+      case "NOEPISODE"  : $where .= "and (ifnull(t.episode,'')='')"; break;
+      case "NOSYNOPSIS" : $where .= "and (ifnull(t.synopsis,'')='')"; break;
+      case "NOCERT"     : $where .= "and (ifnull(t.certificate,'')='')"; break;
+      case "NOYEAR"     : $where .= "and (ifnull(t.year,'')='')"; break;
+    }
+  }
 
   // If the user has changed category, then shunt them back to page 1.
   if (un_magic_quote($_REQUEST["last_where"]) != $where)
@@ -256,6 +267,9 @@ function tv_display( $message = '')
   message($message);
 
   $this_url = '?last_where='.urlencode($where).'&filter='.$_REQUEST["filter"].'&search='.$_REQUEST["search"].'&prog='.$_REQUEST["prog"].'&section=TV&action=DISPLAY&page=';
+  $filter_list = array( str('FILTER_MISSING_DETAILS')=>"NODETAILS" , str('FILTER_MISSING_PROGRAMME')=>"NOPROG"
+                      , str('FILTER_MISSING_SERIES')=>"NOSERIES"   , str('FILTER_MISSING_EPISODE')=>"NOEPISODE"
+                      , str('FILTER_MISSING_CERT')=>"NOCERT"       , str('FILTER_MISSING_YEAR')=>"NOYEAR");
 
   echo '<form enctype="multipart/form-data" action="" method="post">
         <table width="100%"><tr><td width="70%">';
@@ -264,12 +278,12 @@ function tv_display( $message = '')
   form_hidden('last_where',$where);
   echo  str('PROGRAMME').' :
         '.form_list_dynamic_html("prog","select distinct programme id, programme name from tv order by 1",$_REQUEST["prog"],true,true,str('CATEGORY_LIST_ALL')).'&nbsp;
+        '.str('FILTER').' :
+        '.form_list_static_html("filter",$filter_list,$_REQUEST["filter"],true,true,str('VIEW_ALL')).'&nbsp;
         <a href="'.url_set_param($this_url,'list','LIST').'"><img align="absbottom" border="0"  src="/images/details.gif"></a>
         <a href="'.url_set_param($this_url,'list','THUMBS').'"><img align="absbottom" border="0" src="/images/thumbs.gif"></a>
         <img align="absbottom" border="0" src="/images/select_all.gif" onclick=\'handleClick("tv[]", true)\'>
         <img align="absbottom" border="0" src="/images/select_none.gif" onclick=\'handleClick("tv[]", false)\'>
-        <a href="'.url_remove_param($this_url,'filter').'"><img align="absbottom" border="0"  src="/images/filter.gif"></a>
-        <a href="'.url_set_param($this_url,'filter','NODETAILS').'"><img align="absbottom" border="0" src="/images/filter_red.gif"></a>
         </td><td width"50%" align="right">
         '.str('SEARCH').' :
         <input name="search" value="'.$_REQUEST["search"].'" size=10>

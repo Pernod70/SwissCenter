@@ -1148,6 +1148,41 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>FILTER_MISSING_CERT</id>
+        <text>No certificate</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_DETAILS</id>
+        <text>No details</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_EPISODE</id>
+        <text>No episode</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_PROGRAMME</id>
+        <text>No programme</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_SERIES</id>
+        <text>No series</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_SYNOPSIS</id>
+        <text>No synopsis</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_YEAR</id>
+        <text>No year</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>FILTER_VIEWED</id>
         <text>Played status</text>
         <version>1.19</version>
@@ -2481,6 +2516,11 @@
         <id>MORE</id>
         <text>[more]</text>
         <version>1.21.1</version>
+      </string>
+      <string>
+        <id>MOVIES</id>
+        <text></text>
+        <version>1.22</version>
       </string>
       <string>
         <id>MOVIE_ADD_BUTTON</id>
@@ -3833,9 +3873,49 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>STATISTICS</id>
+        <text>Statistics</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>STATS_HEAD_MOVIE_BY_GENRE</id>
+        <text></text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>STATS_HEAD_TOTAL_MEDIA</id>
+        <text></text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>STATS_MOVIE_BY_GENRE</id>
+        <text></text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>STATS_TOTAL_MEDIA</id>
+        <text></text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>STATS_TOTAL_MOVIES</id>
+        <text></text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>STATS_TV_BY_PROGRAMME</id>
+        <text></text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>STATUS</id>
         <text>Status</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>STAT_COUNT</id>
+        <text></text>
+        <version>1.22</version>
       </string>
       <string>
         <id>STYLE_CHECK_ONLINE</id>
@@ -4081,6 +4161,11 @@
         <id>TTF_FONT_PROMPT</id>
         <text>Font to be used to display Track information on the 'Now Playing&quot; screen, if supported (and enabled). Enter a font file name with full path to the file, or leave blank to try to auto-detect a font.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>TV</id>
+        <text></text>
+        <version>1.22</version>
       </string>
       <string>
         <id>TVID_RESET_DEFAULT</id>
