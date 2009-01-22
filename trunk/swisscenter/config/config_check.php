@@ -175,7 +175,14 @@ function check_display()
   # Webserver Tests
   # ----------------------
 
-  $server = $core_tests->add_section("Webserver : ".(is_server_simese() ? "Simese v".simese_version() : "Apache v".apache_version()),1);
+  if (is_server_simese())
+    $ws_version = "Simese v".simese_version();
+  elseif (is_server_lighttpd())
+    $ws_version = "Lighttpd v".lighttpd_version();
+  else
+    $ws_version = "Apache v".apache_version();
+
+  $server = $core_tests->add_section("Webserver : ".$ws_version,1);
   $core_tests->add_test( $server, check_server_scheduler(), str("PASS_SERVER_SCHED"), str("FAIL_SERVER_SCHED"));
 
   # ----------------------
