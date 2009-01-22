@@ -277,7 +277,7 @@ function tv_display( $message = '')
   form_hidden('action','DISPLAY');
   form_hidden('last_where',$where);
   echo  str('PROGRAMME').' :
-        '.form_list_dynamic_html("prog","select distinct programme id, programme name from tv order by 1",$_REQUEST["prog"],true,true,str('CATEGORY_LIST_ALL')).'&nbsp;
+        '.form_list_dynamic_html("prog","select distinct programme id, programme name from tv order by 1",$_REQUEST["prog"],true,true,str('PROGRAMME_LIST_ALL')).'&nbsp;
         '.str('FILTER').' :
         '.form_list_static_html("filter",$filter_list,$_REQUEST["filter"],true,true,str('VIEW_ALL')).'&nbsp;
         <a href="'.url_set_param($this_url,'list','LIST').'"><img align="absbottom" border="0"  src="/images/details.gif"></a>
