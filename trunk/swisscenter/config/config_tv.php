@@ -267,9 +267,10 @@ function tv_display( $message = '')
   message($message);
 
   $this_url = '?last_where='.urlencode($where).'&filter='.$_REQUEST["filter"].'&search='.$_REQUEST["search"].'&prog='.$_REQUEST["prog"].'&section=TV&action=DISPLAY&page=';
-  $filter_list = array( str('FILTER_MISSING_DETAILS')=>"NODETAILS" , str('FILTER_MISSING_PROGRAMME')=>"NOPROG"
-                      , str('FILTER_MISSING_SERIES')=>"NOSERIES"   , str('FILTER_MISSING_EPISODE')=>"NOEPISODE"
-                      , str('FILTER_MISSING_CERT')=>"NOCERT"       , str('FILTER_MISSING_YEAR')=>"NOYEAR");
+  $filter_list = array( str('FILTER_MISSING_DETAILS')=>"NODETAILS"   , str('FILTER_MISSING_PROGRAMME')=>"NOPROG"
+                      , str('FILTER_MISSING_SERIES')=>"NOSERIES"     , str('FILTER_MISSING_EPISODE')=>"NOEPISODE"
+                      , str('FILTER_MISSING_SYNOPSIS')=>"NOSYNOPSIS" , str('FILTER_MISSING_CERT')=>"NOCERT"       
+                      , str('FILTER_MISSING_YEAR')=>"NOYEAR");
 
   echo '<form enctype="multipart/form-data" action="" method="post">
         <table width="100%"><tr><td width="70%">';
