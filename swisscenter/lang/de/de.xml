@@ -1183,6 +1183,41 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>FILTER_MISSING_CERT</id>
+        <text>ohne Zertifikat</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_DETAILS</id>
+        <text>Keine Details</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_EPISODE</id>
+        <text>ohne Episodennummer</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_PROGRAMME</id>
+        <text>ohne Serienname</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_SERIES</id>
+        <text>ohne Staffel</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_SYNOPSIS</id>
+        <text>ohne Zusammenfassung</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_YEAR</id>
+        <text>ohne Jahr</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>FILTER_VIEWED</id>
         <text>Bereits gesehen</text>
         <version>1.19</version>
@@ -3220,6 +3255,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>PROGRAMME_LIST_ALL</id>
+        <text>Alle anzeigen</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>QUICK_HOME</id>
         <text>Schnelltaste Home</text>
         <version>1.20</version>
@@ -3885,6 +3925,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>STATISTICS</id>
+        <text>Statistik</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>STATUS</id>
         <text>Status</text>
         <version>1.19</version>
@@ -4493,6 +4538,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>USER_CHANGED</id>
         <text>Der Benutzer wurde erfolgreich geändert</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>USE_BANNER</id>
+        <text>Banner verwenden</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>VALUE</id>
