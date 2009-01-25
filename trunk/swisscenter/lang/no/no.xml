@@ -293,6 +293,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>BROWSE_STATION</id>
+        <text>Bla etter stasjon</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>BROWSE_TEXT</id>
         <text>SwissCenter tillater deg å bla i dine mediafiler på mange forskjellige måter. For å redusere kompleksiteten i bruker grensesnittet eller for å tilpasse det mer til dine preferanser kan du deaktivere noen av &quot;Bla etter...&quot; opsjonene vist under. Hvis kun en opsjon er aktivert vil SwissCenter utføre dette valget uten å vise en meny. [p]Merk at du må ha minimum [b]en[/b] opsjon aktiv i hver gruppe.</text>
         <version>1.19</version>
@@ -551,6 +556,11 @@
         <id>CONFIG_DB_ROOT_PW_TXT</id>
         <text>Med mindre du spesifiserte en verdi for [em]root[/em] passord i forbindelse med installasjonen av MySQL, så er det sannsynlig at det ikke er speifisert og du skal dermed la dette feltet være tomt.[p][em]Merk: Det kan ta opptil flere minutter å lage en database. Vær tolmodig. [/em]</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_FLICKR</id>
+        <text>Flickr innstillinger</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>CONFIG_IMAGE_OPTIONS</id>
@@ -918,6 +928,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>EXIF_NONE</id>
+        <text>Ingen EXIF data tilgjengelig</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>EXIF_ORIENTATION</id>
         <text>Orientering</text>
         <version>1.19</version>
@@ -931,6 +946,11 @@
         <id>EXIF_SOURCE</id>
         <text>Bilde kilde</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_VIEW</id>
+        <text>Se på EXIF data</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>EXIF_WHITE_BALANCE</id>
@@ -1173,6 +1193,87 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>FLICKR_CONTACTS</id>
+        <text>Kontakter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_DESC</id>
+        <text>Flickr %s er en online applikasjon for administrasjon og deling av bilder. Hovedmålet er å hjepe brukerne med å gjøre bilder tilgjengelig for sine nærmeste samt å muliggjøre nye måter å organisere bilder på. Medlemskap i Flickr er gratis og du kan begynne å dele bilder umiddelbart. 
+[p]SwissCenter gir deg mulighet til å se egne bilder og bilder fra dine kontakter.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_FAVORITES</id>
+        <text>Favoritter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_FILTER_BOTH</id>
+        <text>Utvalg familie</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_FILTER_FAMILY</id>
+        <text>Utvalg familie</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_FILTER_FRIENDS</id>
+        <text>Utvalg venner</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_FILTER_NEITHER</id>
+        <text>Vis alle</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_INTERESTINGNESS</id>
+        <text>Popularitet</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_NO_USER</id>
+        <text>Ingen Flickr bruker har blitt registrert!</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_PHOTOS</id>
+        <text>Flickr bilder</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_PHOTOSETS</id>
+        <text>Foto album</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_PROMPT</id>
+        <text>Se på Flickr bilder fra deg selv og dine kontakter.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_RETURN</id>
+        <text>Returner til standard bruker</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_UNKNOWN_USER</id>
+        <text>Ingen bruker med det angitte navnet (%s) ble funnet.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_USERID_PROMPT</id>
+        <text>Hver SwissCneter bruker kan knyttes opp mot en Flickr bruker. Hvis du ikke legger inn ditt Flickr brukernavn vil du ikke få tilgang til bilder og kontakter.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_USERNAMES</id>
+        <text>Flickr brukernavn</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>FONTWIDTH_MULTIPLIER</id>
         <text>Font bredde faktor</text>
         <version>1.19</version>
@@ -1343,6 +1444,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>INTERNET_FEATURES</id>
+        <text>Internet valg</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>INTERNET_RADIO</id>
         <text>Internet radio</text>
         <version>1.19</version>
@@ -1366,6 +1472,21 @@
         <id>INTERNET_SETTING_PROMPT</id>
         <text>Dette spesifiserer hvorvidt din PC har en internet tilknytning som SwissCenter kan benytte. Hvis du velger 'Automatisk' vil SwissCenter forsøke å detektere en internet tilknytning automatisk.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>INTERNET_TV</id>
+        <text>Internet TV</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>INTERNET_TV_PROMPT</id>
+        <text>Kobling mot individuelle TV stasjoner kan gjøres fra SwissCenter når dette er aktivert.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>INTERNET_URLS</id>
+        <text>Internet bokmerker</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>IPTC_BYLINE</id>
@@ -1413,6 +1534,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_ADD_PARAM</id>
+        <text>Legg til et nytt kriterie</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_ADD_PARAM_BUTTON</id>
+        <text>Legg til parameter</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IRADIO_CACHE_EXPIRE</id>
         <text>Levetid før oppdatering</text>
         <version>1.19</version>
@@ -1428,9 +1559,34 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_COUNTRIES</id>
+        <text>Land</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_COUNTRY</id>
+        <text>Land</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_COUNTRY_PROMPT</id>
+        <text>Spesifiser et land du ønsker å søke etter. Kun %s støtter søk etter land så sjekk med web siden for en liste over tilgjengelige land. Når du søker i ShoutCast letes det etter en tittel som inkluderer navnet på landet.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IRADIO_COUNTRY_SELECT</id>
         <text>Velg land å søke etter:</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_DELETE_PARAM_OK</id>
+        <text>De valgte søke kriteriene har blitt fjernet</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_DEL_PARAM_BUTTON</id>
+        <text>Slett valgte kriterier</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>IRADIO_ERROR_CACHE_EXPIRE</id>
@@ -1448,9 +1604,39 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_ERROR_PARAM</id>
+        <text>Tast inn et søke kriterie</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_GENRE</id>
+        <text>Kategori</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_GENRES</id>
+        <text>Kategorier</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_GENRE_PROMPT</id>
+        <text>Spesifiser kategori og under-kategori (opsjon) som du ønsker å søke etter. Både %s og % s støtter søk etter kategori så besøk web sidene for en liste over tilgjengelige kategorier.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IRADIO_LIVERADIO_DESC</id>
         <text>LiveRadio (%s) er en internet radio tjeneste tilsvarende ShoutCast. Den tilbyr funksjonalitet for å søke etter media type, sjanger, stasjons navn, land og til og med by - men mange stasjoner listet her er ikke støttet av enkelte media spillere. På grunn av dette begrenser SwissCenter sin LiveRadio parser seg til kun å inkludere MP3 stasjoner.</text>
         <version>1.20</version>
+      </string>
+      <string>
+        <id>IRADIO_LOGO</id>
+        <text>Bilde filnavn</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_MAINGENRE</id>
+        <text>Hoved kategori</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>IRADIO_MAINGENRE SELECT</id>
@@ -1478,6 +1664,21 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_PARAM_ADDED_OK</id>
+        <text>Søke kriterie lagt til</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_PARAM_PROMPT</id>
+        <text>ShoutCast og Live-Radio tillatter søk etter radio stasjoner basert på stasjons navn, kategori og land. Her kan du definere dine favoritt søke kriterier.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_PARAM_TYPE</id>
+        <text>Søke kriterie kategori</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IRADIO_SEARCH</id>
         <text>Søk etter stasjoner</text>
         <version>1.19</version>
@@ -1488,14 +1689,39 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_STATION</id>
+        <text>Stasjon</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_STATION_PROMPT</id>
+        <text>Spesifiser en stasjon du ønsker å søke etter. Et bilde (valgfritt) kan også knyttes opp mot stasjonen og vil da vises på &quot;Spilles nå&quot; bildet for denne stasjonen. Bildet må plasseres i din [em]&quot;../images/iradio/&quot;[/em] katalog.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_STATION_SEARCH</id>
+        <text>Velg stasjon du ønsker å søke etter:</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IRADIO_STATION_SELECT</id>
         <text>Velg stasjon du ønsker å lytte til:</text>
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_SUBGENRE</id>
+        <text>Under kategori</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IRADIO_SUBGENRE_SELECT</id>
         <text>Velg undersjanger å søke etter:</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_UPDATE_PARAM_OK</id>
+        <text>Søke kriterie oppdatert</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>ITUNES_CONFIG_PROMPT</id>
@@ -1578,6 +1804,46 @@
         <version>1.20</version>
       </string>
       <string>
+        <id>LANG_ISO639</id>
+        <text>ISO 639-1 kode</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_NATIVE</id>
+        <text>Lokalt språk navn</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_NEW</id>
+        <text>Legg til nytt språk</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_NEW_BUTTON</id>
+        <text>Opprett nytt språk</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_NEW_EXISTS</id>
+        <text>Språket eksisterer allerede</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_NEW_FAIL</id>
+        <text>Tast inn både lokalt navn og ISO kode for å legge til et språk</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_NEW_OK</id>
+        <text>Språk lagt til</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_NEW_PROMPT</id>
+        <text>Bruk denne funksjonen for å legge til et nytt språk. Skriv inn språkets lokale navn, eks. Español (ikke Spanish) og dets korresponderende %s  kode (es). Du kan også legge inn lokale språk variasjoner som f.eks. en-us for engelsk (US). Denne er sammensatt fra ISO 639-1 koden (en) og %s region koden (us).</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>LANG_PROMPT</id>
         <text>Støtte for flere språk gjøres ved at en intern ID (f.eks. &quot;ADD_PLAYLIST&quot;) refererer til den aktuelle teksten som skal vises. Denne &lt;teksten&gt; kan inneholde enkel formatering som spesifiseres med firkant parenteser tilsvarende det som benyttes til HTML formatering. [p]Følgende formaterings tegn støttes:[ul] [li]&amp;#91;br&amp;#93; - linjeskift[/li] [li]&amp;#91;p&amp;#93;&amp;#91;/p&amp;#93; - nytt avsnitt[/li] [li]&amp;#91;b&amp;#93;&amp;#91;/b&amp;#93; - fet[/li] [li]&amp;#91;i&amp;#93;&amp;#91;/i&amp;#93; - kursiv[/li] [li]&amp;#91;em&amp;#93;&amp;#91;/em&amp;#93; - uthevet[/li] [li]&amp;#91;ol&amp;#93;&amp;#91;/ol&amp;#93; - sortert liste[/li] [li]&amp;#91;ul&amp;#93;&amp;#91;/ul&amp;#93; - usortert liste[/li] [li]&amp;#91;li&amp;#93;&amp;#91;/li&amp;#93; - et element i en sortert eller usortert liste[/li] [/ul] [p]I noen tilfeller vil det kunne være behov for å erstatte eller sette inn ord i tekst strengen. Posisjonen i strengen hvor teksten skal erstattes markeres med '&amp;#37;s'. F.eks. i ID'en &quot;MANY_TRACKS=&amp;#37;s spor&quot; vil antall spor som har blitt funnet i databasen erstatte &amp;#37;s i strengen... slik at et søk som returnerer 4 spor vil vises til brukeren som &quot;4 spor&quot;.</text>
         <version>1.21</version>
@@ -1611,6 +1877,11 @@
         <id>LANG_UPDATE_OK</id>
         <text>Språk informasjon er oppdatert</text>
         <version>1.20</version>
+      </string>
+      <string>
+        <id>LARGE_VIEW</id>
+        <text>Stor visning</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>LASTFM</id>
@@ -1788,6 +2059,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MAX_PLAYLIST_SIZE</id>
+        <text>Maksimum spilleliste størrelse</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MAX_PLAYLIST_SIZE_PROMPT</id>
+        <text>Tast inn maksimum størrelse for gnerrerte spillelister. Absolutt tillatt maksimum er 2000 på grunn av spiller begrensninger. En fornuftig begresning er ca. 200.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>MEDIA_DELETED</id>
         <text>Media slettet</text>
         <version>1.19</version>
@@ -1938,9 +2219,39 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MEDIA_TYPE_MUSIC</id>
+        <text>Lyd</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_PHOTO</id>
+        <text>Bilde</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>MEDIA_TYPE_PROMPT</id>
         <text>Velg media type det skal søkes etter i denne katalogen.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_RADIO</id>
+        <text>Radio</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_TV SERIES</id>
+        <text>TV serier</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_VIDEO</id>
+        <text>Video</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_WEB</id>
+        <text>Web</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>MESSAGES</id>
@@ -2168,6 +2479,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MORE</id>
+        <text>[mer]</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>MOVIE_ADD_BUTTON</id>
         <text>Legg til/oppdater detaljer</text>
         <version>1.19</version>
@@ -2266,6 +2582,11 @@
         <id>NETWORK_SHARE</id>
         <text>Nettverk referanse</text>
         <version>1.21</version>
+      </string>
+      <string>
+        <id>NETWORK_SHARE_MSG</id>
+        <text>Ingen delte nettverks stasjoner ble detektert. Hvis du har en NMT spiller må denne være påslått.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>NETWORK_SHARE_PROMPT</id>
@@ -2721,6 +3042,11 @@
         <id>PLAYLISTS_ERROR_PATH</id>
         <text>Tast inn en fullt spesifisert katalog referanse</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLISTS_ERROR_SIZE</id>
+        <text>Tast en tillatt verdi for maksimum størrelse på spilleliste (mellom 10 og 2000)</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PLAYLIST_APPEND</id>
@@ -3943,6 +4269,81 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>URL</id>
+        <text>URL</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ADD_BUTTON</id>
+        <text>Legg til URL</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ADD_OK</id>
+        <text>URL lagt til</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ADD_TITLE</id>
+        <text>Legg til en ny URL</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_AUDIO</id>
+        <text>Audio kanal</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_DEL_BUTTON</id>
+        <text>Fjern valgte URL'er</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_DEL_OK</id>
+        <text>De valgte URL'ene har blitt fjernet</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ERROR_TITLE</id>
+        <text>Tast inn et navn for denne URL'en</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ERROR_TYPE</id>
+        <text>Velg URL type</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ERROR_URL</id>
+        <text>Tst inn en URL</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_TITLE</id>
+        <text>Tittel</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_TYPE</id>
+        <text>URL type</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_UPDATE_OK</id>
+        <text>URL informasjon oppdatert</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_VIDEO</id>
+        <text>Video kanal</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_WEB</id>
+        <text>Web side</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>USERNAME</id>
         <text>Brukernavn</text>
         <version>1.19</version>
@@ -4091,6 +4492,11 @@
         <id>WATCH_DVD</id>
         <text>Se på DVD</text>
         <version>1.21</version>
+      </string>
+      <string>
+        <id>WATCH_INTERNET_TV</id>
+        <text>Se på Internet TV</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>WATCH_MOVIE</id>
