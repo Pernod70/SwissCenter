@@ -33,7 +33,7 @@
     // If the file is on the internet, download it into a temporary location first
     if ( is_remote_file($filename) )
       $filename = download_and_cache_image($filename);
-    
+
     $cache_file = cache_filename($filename, $x, $y);
     if ( !false &&  $cache_file !== false && file_exists($cache_file) && (time()-filemtime($filename) < 300) )
     {
@@ -140,6 +140,10 @@
 
   function stream_file($media, $file_id, $location, $headers = array() )
   {
+    // Sanity check - file exists
+    if ( !is_file($location) )
+      return;
+
     $startArray  = sscanf( $_SERVER["HTTP_RANGE"], "bytes=%d-%d" );
     $fsize       = large_filesize($location);
     $fstart      = (empty($startArray[0]) ? 0 : $startArray[0]);
@@ -151,6 +155,7 @@
 
     if ($fbytes == $fsize)
     {
+      store_request_details( $media, $file_id);
       send_to_log(8,'Content-Length: '.$fsize);
       send_to_log(8,'Accept-Ranges: bytes');
       header('Content-Length: '.$fsize);
@@ -174,29 +179,29 @@
     // Send any pending output (inc headers) and stop timeouts or user aborts killing the script
     ob_end_flush();
     ignore_user_abort(TRUE);
-    set_time_limit(0);
     session_write_close();
+    @set_time_limit(0);
+    @set_magic_quotes_runtime(0);
+    @mb_http_output("pass");
 
     // Open the file
     $fh=fopen($location, 'rb');
     fseek($fh, $fstart);
     $fbytessofar = 0;
-    $fbytestoget = 20480;
+    $fbytestoget = 1024*128;
 
     // Loop while the connection is open
-    while( $fh && (connection_status()==0) )
+    while ( !feof($fh) && (connection_status()==0) )
     {
-	  	$fbytestoget = min($fbytestoget, $fbytes-$fbytessofar);
+      // $fbytestoget = min($fbytestoget, $fbytes-$fbytessofar);
 
-      if (!$fbytestoget || (($fbuf=fread($fh,$fbytestoget)) === FALSE) )
-        break;
-
-  	  $fbytessofar += strlen($fbuf);
+      $fbuf=fread($fh,$fbytestoget);
+      $fbytessofar += strlen($fbuf);
       echo $fbuf;
-  	  flush();
+      flush();
 
       // Put SQL command to update the amount of file served here (on a per-user basis)
-  	  $bookmark = $fstart + $fbytessofar;
+      $bookmark = $fstart + $fbytessofar;
     }
 
     if (!$fh || feof($fh))
@@ -239,11 +244,18 @@
     // Sanity check - Do we have permissions to read this file?
     send_to_log(1,"Error: SwissCenter does not have permissions to read the file '$location'");
   }
-  elseif ($media == MEDIA_TYPE_MUSIC)
+//  elseif ($media == MEDIA_TYPE_VIDEO || $media_type == MEDIA_TYPE_TV)
+//  {
+//    // Store the request details
+//    send_to_log(7,'Attempting to stream the following Video file',$tracks[$idx]);
+//
+//    $headers[] = "Content-type: video/avi";
+//    $headers[] = "Last-Changed: ".date('r',filemtime($location));
+//    stream_file($media, $file_id, $location, $headers);
+//  }
+  elseif ($media == MEDIA_TYPE_MUSIC )
   {
-    // Store the request details
     send_to_log(7,'Attempting to stream the following Audio file',$tracks[$idx]);
-    store_request_details( $media, $file_id);
 
     if ($tracks[$idx]["LENGTH"] > 0)
       $headers[] = "TimeSeekRange.dlna.org: npt=0-/".$tracks[$idx]["LENGTH"];
