@@ -12,7 +12,7 @@
   require_once( realpath(dirname(__FILE__).'/base/search.php'));
 
   $menu = new menu();
-  
+
   /**
    * Displays the synopsis for a single tv episode (identified by the file_id).
    *
@@ -31,10 +31,10 @@
       if (strlen($text) != strlen($info["SYNOPSIS"]))
         $text = $text.' <a href="/video_synopsis.php?media_type='.MEDIA_TYPE_TV.'&file_id='.$tv.'">'.font_colour_tags('PAGE_TEXT_BOLD_COLOUR',str('MORE')).'</a>';
     }
-    else 
+    else
       $text = str('NO_SYNOPSIS_AVAILABLE');
-      
-    echo '<p>'.font_tags(32).$text.'</font>';      
+
+    echo '<p>'.font_tags(32).$text.'</font>';
   }
 
 //*************************************************************************************************
@@ -42,21 +42,21 @@
 //*************************************************************************************************
 
   // Decode & assign page parameters to variables.
-  $sql_table     = "tv media".get_rating_join().' where 1=1 ';  
+  $sql_table     = "tv media".get_rating_join().' where 1=1 ';
   $select_fields = "file_id, dirname, filename, title, year, length";
   $file_id       = $_REQUEST["file_id"];
   $cert_img      = '';
   $this_url      = url_set_param(current_url(),'add','N');
-  
+
   // Should we delete the last entry on the history stack?
   if (isset($_REQUEST["del"]) && strtoupper($_REQUEST["del"]) == 'Y')
     search_hist_pop();
-    
+
   $back_url      = search_hist_most_recent();
-  
+
   if (isset($_REQUEST["add"]) && strtoupper($_REQUEST["add"]) == 'Y')
     search_hist_push( $this_url, '' );
-  
+
   // Single match, so get the details from the database and display them
   if ( ($data = db_toarray("select media.*, ".get_cert_name_sql()." certificate_name from $sql_table and file_id=$file_id")) === false)
     page_error( str('DATABASE_ERROR'));
@@ -64,7 +64,7 @@
   // Random banner image
   $banner_imgs = dir_to_array($data[0]['DIRNAME'].'banners/','banner_*.*');
   $banner_img = $banner_imgs[rand(0,count($banner_imgs)-1)];
-  
+
   page_header( $data[0]["PROGRAMME"], $data[0]["TITLE"].(empty($data[0]["YEAR"]) ? '' : ' ('.$data[0]["YEAR"].')') ,'',1,false,'',-1,
                file_exists($banner_img) ? $banner_img : false );
 
@@ -74,7 +74,7 @@
   // Resume playing
   if ( support_resume() && file_exists( bookmark_file($data[0]["DIRNAME"].$data[0]["FILENAME"]) ))
     $menu->add_item( str('RESUME_PLAYING') , resume_file(MEDIA_TYPE_TV,$file_id), true);
-        
+
   // Add to your current playlist
   if (pl_enabled())
     $menu->add_item( str('ADD_PLAYLIST') ,'add_playlist.php?sql='.rawurlencode("select distinct $select_fields from $sql_table and file_id=$file_id"),true);
@@ -82,23 +82,23 @@
   // Add a link to search wikipedia
   if (internet_available() && get_sys_pref('wikipedia_lookups','YES') == 'YES' )
     $menu->add_item( str('SEARCH_WIKIPEDIA'), lang_wikipedia_search( ucwords(strip_title($data[0]["PROGRAMME"])) ) ,true);
-      
+
   // Link to full cast & directors
   if ($data[0]["DETAILS_AVAILABLE"] == 'Y')
     $menu->add_item( str('VIDEO_INFO'), 'video_info.php?tv='.$file_id,true);
-    
+
   // Display thumbnail
   $folder_img = file_albumart($data[0]["DIRNAME"].$data[0]["FILENAME"]);
 
   // Delete media (limited to a small number of files)
   if (is_user_admin())
-    $menu->add_item( str('DELETE_MEDIA'), 'video_delete.php?del='.$file_id.'&media_type='.MEDIA_TYPE_TV,true);    
+    $menu->add_item( str('DELETE_MEDIA'), 'video_delete.php?del='.$file_id.'&media_type='.MEDIA_TYPE_TV,true);
 
   // Certificate? Get the appropriate image.
   $scheme    = get_rating_scheme_name();
   if (!empty($data[0]["CERTIFICATE"]))
     $cert_img  = img_gen(SC_LOCATION.'images/ratings/'.$scheme.'/'.get_cert_name( get_nearest_cert_in_scheme($data[0]["CERTIFICATE"], $scheme)).'.gif', 280, 100);
-  
+
   // Format the page according to whether banner and image is available.
   if (file_exists($banner_img))
   {
@@ -134,10 +134,10 @@
   }
 
   // Buttons for Next and Previous episodes
-  $prev = db_value("select file_id from tv media ".get_rating_join()." where programme = '".$data[0]["PROGRAMME"]."'".
+  $prev = db_value("select file_id from tv media ".get_rating_join()." where programme = '".db_escape_str($data[0]["PROGRAMME"])."'".
                   (is_null($data[0]["SERIES"]) ? "" : " and series = ".$data[0]["SERIES"]).get_rating_filter().
                   " and episode < ".$data[0]["EPISODE"]." order by episode desc limit 1");
-  $next = db_value("select file_id from tv media ".get_rating_join()." where programme = '".$data[0]["PROGRAMME"]."'".
+  $next = db_value("select file_id from tv media ".get_rating_join()." where programme = '".db_escape_str($data[0]["PROGRAMME"])."'".
                   (is_null($data[0]["SERIES"]) ? "" : " and series = ".$data[0]["SERIES"]).get_rating_filter().
                   " and episode > ".$data[0]["EPISODE"]." order by episode asc limit 1");
   $buttons = array();
@@ -145,7 +145,7 @@
     $buttons[] = array('text'=>str('EP_PREV'), 'url'=> url_add_params('/tv_episode_selected.php', array("file_id"=>$prev, "add"=>"Y", "del"=>"Y")) );
   if ( is_numeric($next) )
     $buttons[] = array('text'=>str('EP_NEXT'), 'url'=> url_add_params('/tv_episode_selected.php', array("file_id"=>$next, "add"=>"Y", "del"=>"Y")) );
-  
+
   page_footer( url_add_param( $back_url["url"] ,'del','y'), $buttons );
 
 /**************************************************************************************************
