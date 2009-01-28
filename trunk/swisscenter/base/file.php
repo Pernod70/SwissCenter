@@ -209,6 +209,28 @@ function file_noext( $filename )
 }
 
 //-------------------------------------------------------------------------------------------------
+// If the file specified in $filename exists, then a new name is returned that is unique, but
+// with the same file extension.
+//-------------------------------------------------------------------------------------------------
+
+function file_unique_name( $filename )
+{
+  $orig_ext = file_ext($filename);
+  $orig_name = substr($filename,0,strlen($filename)-strlen($orig_ext)-1);
+  $n = 1;
+
+  // If the file already ends with "_nnnnn" then remove it.
+  $suffix = array_pop(explode('_',$orig_name));
+  if ( strlen($suffix) == 5 && is_numeric($suffix))
+    $orig_name = substr($orig_name,0,strlen($orig_name)-strlen($suffix)-1);
+
+  while ( file_exists($filename))
+    $filename = $orig_name."_".sprintf('%05s',$n++).".".$orig_ext;
+
+  return $filename;
+}
+
+//-------------------------------------------------------------------------------------------------
 // Returns TRUE if the given file is actually a internet address.
 //-------------------------------------------------------------------------------------------------
 

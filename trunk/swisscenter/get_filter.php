@@ -8,8 +8,8 @@
 
   $menu = new menu();
   $current = current_url();
-  
-  page_header( filter_text());  
+
+  page_header( filter_text());
   switch ($_REQUEST["option"])
   {
     case 'viewed':
@@ -20,47 +20,45 @@
         $menu->add_item( str('FILTER_VIEWED_PLAYED'),      url_set_param($current,'value','started'), true);
         $menu->add_item( str('FILTER_VIEWED_FINISHED'),    url_set_param($current,'value','complete'), true);
       }
-      else 
+      else
       {
         filter_set("viewed:".$_REQUEST["value"]);
         header('Location: '.urldecode($_REQUEST["return"]));
       }
       break;
-      
+
     case 'popular':
       if (empty($_REQUEST["value"]))
       {
         $menu->add_item( str('FILTER_MOST_POPULAR'), url_set_param($current,"value",'most'), true);
         $menu->add_item( str('FILTER_LEAST_POPULAR'), url_set_param($current,"value",'least'), true);
       }
-      else 
+      else
       {
         filter_set();
         $_SESSION["filter"] = "$_REQUEST[option] : $_REQUEST[value]";
         header('Location: '.urldecode($_REQUEST["return"]));
       }
       break;
-      
+
     case 'date':
       if (empty($_REQUEST["value"]))
       {
-        $menu->add_item( str('RECENTLY_ADDED_DAYS',7), url_set_param($current,"value",7), true);
-        $menu->add_item( str('RECENTLY_ADDED_DAYS',14), url_set_param($current,"value",14), true);
-        $menu->add_item( str('RECENTLY_ADDED_DAYS',30), url_set_param($current,"value",30), true);
-        $menu->add_item( str('RECENTLY_ADDED_DAYS',90), url_set_param($current,"value",90), true);
+        foreach (explode(',',get_sys_pref("RECENTLY_ADDED_DAYS",'7,14,30,90')) as $val)
+          $menu->add_item( str('RECENTLY_ADDED_DAYS',$val), url_set_param($current,"value",$val), true);
       }
-      else 
+      else
       {
         filter_set(str('RECENTLY_ADDED'), " and media.discovered > ('".db_datestr()."' - interval $_REQUEST[value] day)" );
         header('Location: '.urldecode($_REQUEST["return"]));
       }
       break;
-      
+
     case 'none':
       filter_set();
       header('Location: '.urldecode($_REQUEST["return"]));
-      break;      
-      
+      break;
+
     default:
       $menu->add_item( str('FILTER_VIEWED'), url_set_param($current,'option','viewed'), true);
 //      $menu->add_item( str('FILTER_POPULAR'), url_set_param($current,'option','popular'), true);
@@ -69,8 +67,8 @@
   }
 
   $menu->display();
-  page_footer(urldecode($_REQUEST["return"]));  
-  
+  page_footer(urldecode($_REQUEST["return"]));
+
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/

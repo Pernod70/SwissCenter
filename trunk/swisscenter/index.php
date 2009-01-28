@@ -10,6 +10,7 @@
   require_once( realpath(dirname(__FILE__).'/base/patching.php'));
   require_once( realpath(dirname(__FILE__).'/base/filter.php'));
   require_once( realpath(dirname(__FILE__).'/messages_db.php'));
+  require_once( realpath(dirname(__FILE__).'/base/filter.php'));
 
   function media_exists( $media_type )
   {
@@ -24,7 +25,7 @@
    * Display the Internet Services submenu
    */
   function display_internet_menu()
-  { 
+  {
     page_header( str('INTERNET_SERVICES'),'','',1,false,'','PAGE_INTERNET');
 
     /**
@@ -111,7 +112,7 @@
     apply_database_patches();
 
     /**
-     * Automatically load playlist
+     * Automatically load playlist?
      */
 
     if ( !isset($_SESSION["playlist_autoloaded"]) && get_sys_pref('PLAYLIST_AUTOLOAD','')!=='' )
@@ -122,6 +123,12 @@
       set_current_playlist($name, $tracks);
       $_SESSION["playlist_autoloaded"] = 'yes';
     }
+
+    /**
+     * Reset the filter.
+     */
+
+    filter_set();
 
     /**
      * Output the page header immediately, as it performs the authentication check and will redirect
@@ -136,7 +143,7 @@
      * Dertermine whether images are defined for this style.
      */
     $image_menu = style_value('MENU_INDEX_VIDEO',false) && style_value('MENU_INDEX_TV',false) && style_value('MENU_INDEX_MUSIC',false) &&
-                  style_value('MENU_INDEX_PHOTO',false) && style_value('MENU_INDEX_INTERNET',false) && style_value('MENU_INDEX_PLAYLIST',false) && 
+                  style_value('MENU_INDEX_PHOTO',false) && style_value('MENU_INDEX_INTERNET',false) && style_value('MENU_INDEX_PLAYLIST',false) &&
                   style_value('MENU_INDEX_CONFIG',false);
 
     /**
@@ -173,6 +180,12 @@
         $menu->add_image_item( str('VIEW_PHOTO'),style_img('MENU_INDEX_PHOTO',true),style_img('MENU_INDEX_PHOTO_ON',true,false),'photo.php');
       else
         $menu->add_item( str('VIEW_PHOTO'),'photo.php',true);
+
+    // Recent media
+    if ($image_menu)
+      $menu->add_image_item(str('RECENT_MEDIA'),style_img('MENU_INDEX_RECENT',true),style_img('MENU_INDEX_RECENT_ON',true,false),'recent.php');
+    else
+      $menu->add_item(str('RECENT_MEDIA'),'recent.php',true);
 
     // Only display the Internet options if an internet connection is active and internet options are enabled.
     if (internet_available() && (get_sys_pref('weather_enabled','YES') == 'YES' || get_sys_pref('radio_enabled','YES') == 'YES'
