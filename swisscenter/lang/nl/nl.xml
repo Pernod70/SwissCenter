@@ -1178,6 +1178,41 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>FILTER_MISSING_CERT</id>
+        <text>Geen certificaat</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_DETAILS</id>
+        <text>Geen details</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_EPISODE</id>
+        <text>Geen episode</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_PROGRAMME</id>
+        <text>Geen programma</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_SERIES</id>
+        <text>Geen series</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_SYNOPSIS</id>
+        <text>Geen synopsis</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_YEAR</id>
+        <text>Geen jaar</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>FILTER_VIEWED</id>
         <text>Afspeelstatus</text>
         <version>1.19</version>
@@ -3209,6 +3244,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>PROGRAMME_LIST_ALL</id>
+        <text>Alle programma's</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>QUICK_HOME</id>
         <text>Sneltoets startpagina</text>
         <version>1.19</version>
@@ -3274,9 +3314,29 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>RECENT_MEDIA</id>
+        <text>Onlangs toegevoegd</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_MUSIC</id>
+        <text>Muziek</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_PHOTO</id>
+        <text>Foto's</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>RECENT_TRACKS</id>
         <text>Recent gespeelde nummers</text>
         <version>na</version>
+      </string>
+      <string>
+        <id>RECENT_VIDEO</id>
+        <text>Video</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REFERENCE</id>
@@ -3882,6 +3942,11 @@
         <id>START_SLIDESHOW</id>
         <text>Start de diashow</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>STATISTICS</id>
+        <text>Statistieken</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>STATUS</id>
@@ -4498,6 +4563,11 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
         <id>USER_CHANGED</id>
         <text>De gebruiker is veranderd.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>USE_BANNER</id>
+        <text>Gebruik banieren</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>VALUE</id>

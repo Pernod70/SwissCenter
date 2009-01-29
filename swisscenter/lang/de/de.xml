@@ -3320,6 +3320,26 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>RECENT_MEDIA</id>
+        <text>Zuletzt hinzugefügte</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>RECENT_MUSIC</id>
+        <text>Musik</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>RECENT_PHOTO</id>
+        <text>Fotos</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>RECENT_VIDEO</id>
+        <text>Filme</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
         <id>REFERENCE</id>
         <text>Referenz</text>
         <version>1.19</version>
