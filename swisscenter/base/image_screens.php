@@ -121,7 +121,7 @@
 
       $image->text(str('NOW_PLAYING'),$title_x, $title_y, $title_text_col, $title_text_size);
       $image->rectangle($title_x, $line_y, convert_x(850,SCREEN_COORDS),convert_y(2,SCREEN_COORDS),$title_text_col);
-
+      
       # -----------------
       # Track Information
       # -----------------
@@ -140,43 +140,73 @@
       preg_match('/\((\d\d\d\d)\)/', $now_playing, $year);
       $now_playing = preg_replace('/(\(\d\d\d\d\))/', '', $now_playing);
       
-      if (preg_match('/ - (.*)/', $now_playing, $details))
+      // Separate different tracks
+      $track = explode('<>', $now_playing);
+      
+      if (preg_match('/ - (.*)/', $track[0], $details))
       {
         $image->text(str('TRACK_NAME'),  $text_x, $text_y, $label_text_col, $label_text_size);
         $text_y+=($detail_text_size*2.5);
         wrap($image, $details[1], $text_x + $indent, $text_y, $text_width, $detail_text_col, $detail_text_size);
       }
-      if (preg_match('/(.*) - /', $now_playing, $details))
+      if (preg_match('/(.*) - /', $track[0], $details))
       {
         $image->text(str('ARTIST'), $text_x, $text_y, $label_text_col, $label_text_size);
         $text_y+=($detail_text_size*2.5);
         wrap($image, $details[1], $text_x + $indent, $text_y, $text_width, $detail_text_col, $detail_text_size);
       }
+      if (!empty($details[1]))
+      {
       if (!empty($year[1]))
       {
         $image->text(str('YEAR'),  $text_x, $text_y, $label_text_col, $label_text_size);
         $text_y+=($detail_text_size*2.5);
         wrap($image, $year[1], $text_x + $indent, $text_y, $text_width, $detail_text_col, $detail_text_size);
       }
-
+      }
       # ------------------------
-      # Border Line
+      # Previous two tracks
       # ------------------------
 
-      $label_text_width     = convert_x(840,SCREEN_COORDS);
-      $label_text_x         = convert_x(80,SCREEN_COORDS);
-      $label_text_y         = max($text_y,convert_y(680,SCREEN_COORDS));
-      $image->rectangle($title_x, $label_text_y , convert_x(850,SCREEN_COORDS), convert_y(2,SCREEN_COORDS), $title_text_col);
-      $label_text_y        += convert_y(60,SCREEN_COORDS);
+      $label_text_col      = hexdec(style_value('NOW_LABEL_COLOUR','#000000'));
+      $detail_text_col     = hexdec(style_value('NOW_DETAIL_COLOUR','#000000'));
+      $time_text_width	   = convert_x(860,SCREEN_COORDS);
+      $time_text_x         = convert_x(80,SCREEN_COORDS);
+      $time_text_y         = max($text_y,convert_y(640,SCREEN_COORDS));
+      $image->rectangle($time_text_x, $time_text_y , convert_x(850,SCREEN_COORDS), convert_y(2,SCREEN_COORDS), $title_text_col);
+      $time_text_y         = convert_y(80,SCREEN_COORDS);
       
+      // Previous track details
+
+      if($track[1] != $track[0])
+      {
+        $x = $image->get_text_width(str('MUSIC_PLAY_PREV').': ',$detail_text_size);
+        $y = $time_text_y;
+   	    $image->text (str('MUSIC_PLAY_PREV').': ', $time_text_x, convert_y(700 + $adjust_y,SCREEN_COORDS), $title_text_col,  $detail_text_size);
+        $image->text ($track[1], $time_text_x+$x, convert_y(700 + $adjust_y,SCREEN_COORDS), $detail_text_col,  $detail_text_size);
+      }
+
+      // Details track before previous
+
+      if($track[2] != $track[1])
+      {
+        $x = $image->get_text_width(str('MUSIC_BEFORE_PREV').': ',$detail_text_size);
+        $y = $time_text_y;
+   	    $image->text (str('MUSIC_BEFORE_PREV').': ', $time_text_x, convert_y(750 + $adjust_y,SCREEN_COORDS), $title_text_col,  $detail_text_size);
+        $image->text ($track[2], $time_text_x+$x, convert_y(750 + $adjust_y,SCREEN_COORDS), $detail_text_col,  $detail_text_size);
+       }
       # ------------------------
-      # Station Name
+      # Channel Name
       # ------------------------
 
-      $x = $image->get_text_width(str('IRADIO_STATION').': ',$detail_text_size);
-      $y = $label_text_y;
-      wrap($image, str('IRADIO_STATION').': ', $label_text_x, $label_text_y, $label_text_width, $title_text_col, $detail_text_size);
-      wrap($image, $station_name, $label_text_x+$x, $y, $label_text_width-$label_text_x-$x-$x, $detail_text_col, $detail_text_size);
+      $label_text_size  = font_size( 25, SCREEN_COORDS);
+      $detail_text_size = font_size( 22, SCREEN_COORDS);
+      $label_text_col   = hexdec(style_value('NOW_LABEL_COLOUR','#000000'));
+      $detail_text_col  = hexdec(style_value('NOW_DETAIL_COLOUR','#FFFFFF'));
+
+      $image->text(str('CHANNEL'), $time_text_x, convert_y(905 + $adjust_y,SCREEN_COORDS), $title_text_col, $detail_text_size);
+      $image->text( $station_name, $time_text_x, convert_y(945 + $adjust_y,SCREEN_COORDS), $detail_text_col, $detail_text_size);
+
     }
     else
     {
@@ -185,12 +215,14 @@
       $title_x          = convert_x(75,SCREEN_COORDS);
       $title_y          = convert_y(120,SCREEN_COORDS);
      
+      $track = explode('<>', $now_playing);
+
       $image = new CImage();
       $image->load_from_file( style_img('RADIO_BACKGROUND',true));
       $image->resize( convert_x(1000,SCREEN_COORDS), convert_y(1000,SCREEN_COORDS), 0, false);    
       wrap( $image,$station_name, $title_x, $title_y, convert_x(500,SCREEN_COORDS), $title_text_col, $title_text_size);
       $title_y+=($title_text_size*2.5);
-      wrap( $image,$now_playing, $title_x, $title_y, convert_x(500,SCREEN_COORDS), $title_text_col, $title_text_size);
+      wrap( $image,$track[0], $title_x, $title_y, convert_x(500,SCREEN_COORDS), $title_text_col, $title_text_size);
     }
     return $image;    
   }
@@ -300,7 +332,7 @@
     $time_text_y         = max($text_y,convert_y(680,SCREEN_COORDS));
     $image->rectangle($title_x, $time_text_y , convert_x(850,SCREEN_COORDS), convert_y(2,SCREEN_COORDS), $title_text_col);
     $time_text_y        += convert_y(60,SCREEN_COORDS);
-   
+
     // Previous track details
     if ( is_array($previous_track))
     {  
