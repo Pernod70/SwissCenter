@@ -36,7 +36,7 @@
     // Process the results into an array
 
     $info = explode('<td>',$info);
-    if (count($info)<6)
+    if (count($info)<4)
     {
       send_to_log(5,'- The current song is not available');
       return false;
@@ -45,6 +45,8 @@
     {
       for ($i=(count($info)-6)/2; $i>0; $i--)
         array_unshift($songs, strip_tags($info[$i*2+6]));
+
+      array_unshift($songs,$info[4]);
     }
 
     // Return the results
