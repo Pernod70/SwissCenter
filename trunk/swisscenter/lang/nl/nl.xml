@@ -4770,9 +4770,9 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
         <version>1.19</version>
       </string>
       <string>
-        <id>YES</id>
-        <text>Ja</text>
-        <version>1.19</version>
+        <id>MUSIC_BEFORE_PREV</id>
+        <text>Daarvoor</text>
+        <version>SVN1167</version>
       </string>
     </language>
   </languages>
