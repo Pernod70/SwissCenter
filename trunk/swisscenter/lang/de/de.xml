@@ -2636,7 +2636,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>MUSIC_PLAY_PREV</id>
-        <text>Voriger Titel</text>
+        <text>gerade gespielt</text>
         <version>1.19</version>
       </string>
       <string>
@@ -4763,6 +4763,16 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>YES</id>
         <text>Ja</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>MUSIC_BEFORE_PREV</id>
+        <text>vorher gespielt</text>
+        <version>SVN1167</version>
+      </string>
+      <string>
+        <id>CHANNEL</id>
+        <text>Radiostation</text>
+        <version>SVN1167</version>
       </string>
     </language>
   </languages>
