@@ -8,7 +8,7 @@ require_once( realpath(dirname(__FILE__).'/prefs.php'));
 require_once( realpath(dirname(__FILE__).'/file.php'));
 require_once( realpath(dirname(__FILE__).'/../ext/exif/exif_reader.php'));
 
-if (!function_exists('imagerotate')) 
+if (!function_exists('imagerotate'))
 {
   // $bgcolour is a dummy value to ensure this function maps to the built-in one.
   // It is not needed here as we are only rotating by 90 or 270 degrees, and therefore
@@ -25,7 +25,7 @@ if (!function_exists('imagerotate'))
     $srcX = imagesx( $imgSrc );
     $srcY = imagesy( $imgSrc );
 
-    if ($angle == 90) 
+    if ($angle == 90)
     {
       $imgDest = imagecreatetruecolor( $srcY, $srcX );
       for( $x=0; $x<$srcX; $x++ )
@@ -57,7 +57,7 @@ if (!extension_loaded('gd'))
 // -------------------------------------------------------------------------------------------------
 
 function image_get_scaled_xy(&$x,&$y,$box_x,$box_y)
-{ 
+{
   if ($x >0 && $y >0 && $box_x>0 && $box_y>0)
   {
     if ( $box_x/$x*$y >= $box_y )
@@ -146,14 +146,14 @@ function cache_filename( $filename, $x, $y, $rs_mode = '' )
   // If in design mode, we don't want to cache files, or use existing cached fules.
   if ( defined('STYLE_MODE') && STYLE_MODE == 'DESIGN' )
     return false;
-  
+
   $cache_dir = get_sys_pref('cache_dir');
   if ($rs_mode == '')
     $rs_mode = get_sys_pref('IMAGE_RESIZING','RESAMPLE');
-    
+
   if (file_ext($filename) != 'sql')
     $filetime = @filemtime($filename);
-    
+
   if ($cache_dir != '')
     return $cache_dir.'/SwissCenter_'.sha1($filename.$filetime).'_x'.$x.'y'.$y.'_'.strtolower($rs_mode).'.png';
   else
@@ -333,9 +333,9 @@ class CImage
       imagedestroy($this->image);
       $this->image = false;
     }
-    
+
     if ( is_file($filename))
-    {      
+    {
       switch (strtolower(file_ext($filename)))
       {
         case 'jpg':
@@ -354,7 +354,7 @@ class CImage
           $this->image = false;
           break;
       }
-      
+
       // If the image created successfully, then update the other information.
       if ($this->image !== false)
       {
@@ -366,7 +366,7 @@ class CImage
       else
         send_to_log(2,"ERROR: Image failed to load in function load_image_from_file",$filename);
     }
-    
+
     return $this->image;
   }
 
@@ -379,12 +379,12 @@ class CImage
   {
     // Exit value of this function.
     $result = false;
-    
-    // GD version 2 takes the font-size argument in points, whereas this function takes the 
+
+    // GD version 2 takes the font-size argument in points, whereas this function takes the
     // text size in pixels. We therefore need to convert the given value before passing to GD.
     if (gd_version() >=3)
       $size *= 0.8;
-    
+
     // Determine the font to use if not specified.
     if (empty($font))
       $font = get_sys_pref('TTF_FONT');
@@ -395,13 +395,13 @@ class CImage
       $result = @imagettftext ($this->image,$size,$angle,$x,$y,$colour,$font,$text);
       if ( $result === false )
         send_to_log(5,"Unable to use Truetype Font '$font' to display '$text'");
-      
+
       $this->src_fsp  = false;
     }
-    
+
     return $result;
   }
-  
+
   /**
    * Returns the width (in pixels) of the text when rendered
    *
@@ -411,19 +411,19 @@ class CImage
    * @param integer $angle
    * @return integer
    */
-  
+
   function get_text_width( $text, $size = 14, $font = '', $angle = 0)
   {
     if (gd_version() >=3)
       $size *= 0.8;
-    
+
     if (empty($font))
       $font = get_sys_pref('TTF_FONT');
-      
+
     $box = @imagettfbbox($size, $angle, $font, $text);
     return ($box[2] - $box[6]);
   }
-  
+
   /**
    * Returns the height (in pixels) of the text when rendered
    *
@@ -438,14 +438,14 @@ class CImage
   {
     if (gd_version() >=3)
       $size *= 0.8;
-    
+
     if (empty($font))
       $font = get_sys_pref('TTF_FONT');
-      
+
     $box = @imagettfbbox($size, $angle, $font, $text);
     return ($box[3] - $box[7]);
   }
-  
+
   // -------------------------------------------------------------------------------------------------
   // Copies a section of the given image onto the current image
   // -------------------------------------------------------------------------------------------------
@@ -460,7 +460,7 @@ class CImage
       $this->src_fsp  = false;
     }
   }
- 
+
   // -------------------------------------------------------------------------------------------------
   // Resizes an image to fit a particular width or height.
   // -------------------------------------------------------------------------------------------------
@@ -469,14 +469,14 @@ class CImage
   {
     $x = floor($this->get_width() * ($y/$this->get_height()));
     send_to_log(8,"Calculating width of image to fit a height of $y. New image size is ($x,$y)");
-    $this->resize($x,$y,0,true,$rs_mode,$border_colour);    
+    $this->resize($x,$y,0,true,$rs_mode,$border_colour);
   }
-  
+
   function resize_to_width($x, $rs_mode = '', $border_colour = false)
   {
     $y = floor($this->get_height() * ($x/$this->get_width()));
     send_to_log(8,"Calculating width of image to fit a width of $x. New image size is ($x,$y)");
-    $this->resize($x,$y,0,true,$rs_mode,$border_colour);    
+    $this->resize($x,$y,0,true,$rs_mode,$border_colour);
   }
 
   // -------------------------------------------------------------------------------------------------
@@ -515,7 +515,7 @@ class CImage
 
       if ( $border_colour !== false)
         $this->rectangle( ($x-$newx)/2, ($y-$newy)/2, $newx-1, $newy-1,  $border_colour, false);
-      
+
       imagedestroy($old);
       $this->update_sizes();
       $this->cache_filename = cache_filename($this->src_fsp,$x, $y);
@@ -538,7 +538,7 @@ class CImage
       $this->src_fsp  = false;
     }
   }
-  
+
   function flip_horizontal()
   {
     if ($this->image !== false)
@@ -550,7 +550,7 @@ class CImage
 
       for ($x = 0; $x < $w; $x++)
        imagecopy($this->image, $old, $x, 0, $w - $x - 1, 0, 1, $h);
-        
+
       imagedestroy($old);
       $this->src_fsp = false;
     }
@@ -567,7 +567,7 @@ class CImage
 
       for ($y = 0; $y < $h; $y++)
         imagecopy($this->image, $old, 0, $y, 0, $h - $y - 1, $w, 1);
-        
+
       imagedestroy($old);
       $this->src_fsp = false;
     }
@@ -576,43 +576,43 @@ class CImage
   /**
    * Rotates/flips an image to display it in the correct orientation as recorded
    * by the EXIF data held within the original file.
-   * 
+   *
    * NOTE: This function does nothing if the original file was loaded from the
    * database.
    *
    */
-  
+
   function rotate_by_exif()
   {
     if ( $this->exif_data !== false)
     {
       $orientation = $this->exif_data['Orientation'];
-      
+
       if ( $orientation == 5 || $orientation == 6 || $orientation == 7)
-        $this->rotate(90);          
+        $this->rotate(90);
       elseif ( $orientation == 8 )
         $this->rotate(270);
-    
+
       if ( $orientation == 2 || $orientation == 5 || $orientation == 3 )
         $this->flip_horizontal();
-    
+
       if ( $orientation == 4 || $orientation == 7 || $orientation == 3 )
-        $this->flip_vertical();    
+        $this->flip_vertical();
     }
   }
-  
+
   /**
    * Returns true if the image dimensions will be swapped over due to a rotation
    * according to the EXIF orientation data.
    *
    * @return boolean
    */
-  
+
   function rotate_by_exif_changes_aspect()
   {
     if ( $this->exif_data !== false)
       return ( $this->exif_data['Orientation'] >=5 && $this->exif_data['Orientation']<=8);
-    else 
+    else
       return false;
   }
 
@@ -624,9 +624,9 @@ class CImage
   {
     if ($filled)
       imagefilledrectangle($this->image, $x, $y, $x+$width, $y+$height, $colour);
-    else 
-      imagerectangle($this->image, $x, $y, $x+$width, $y+$height, $colour);    
-    
+    else
+      imagerectangle($this->image, $x, $y, $x+$width, $y+$height, $colour);
+
     $this->src_fsp  = false;
   }
 
@@ -636,7 +636,7 @@ class CImage
 
   function line ( $x, $y, $x2, $y2, $colour )
   {
-    imageline($this->image, $x, $y, $x2, $y2, $colour);    
+    imageline($this->image, $x, $y, $x2, $y2, $colour);
     $this->src_fsp  = false;
   }
 
@@ -657,14 +657,14 @@ class CImage
           // Create a copy to ensure transparency is converted to black.
           $copy = ImageCreateTrueColor($this->width,$this->height);
           $bgcolour = imagecolorallocate($copy, 0, 0, 0);
-          imagefilledrectangle($copy, 0, 0, $this->width, $this->height, $bgcolour);          
+          imagefilledrectangle($copy, 0, 0, $this->width, $this->height, $bgcolour);
           imagecopy($copy, $this->image, 0,0 ,0,0, $this->width,$this->height);
-                   
+
           // Output the image
           header("Content-type: image/jpeg");
           send_to_log(8,"Outputting JPEG image");
           ob_clean();
-          imagejpeg($copy);
+          imagejpeg($copy,null,get_sys_pref("GEN_JPEG_QUALITY",100));
           break;
         case 'png':
           header("Content-type: image/png");

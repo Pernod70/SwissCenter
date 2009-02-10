@@ -86,12 +86,13 @@
     $url        = $server."music_radio_image.php?".current_session()."&host=".$host[1]."&port=".$host[2].
                           "&station=".urlencode($station)."&x=.jpg";
     $transition = now_playing_transition();
+    $refresh    = get_sys_pref("NOW_PLAYING_REFRESH_INTERVAL",20);
 
     // Clear the Now Playing details
     $_SESSION["now_playing"] = '';
 
-    echo "30|$transition| |$url|\n";
-    echo "30|$transition| |$url|\n";
+    echo "$refresh|$transition| |$url|\n";
+    echo "$refresh|$transition| |$url|\n";
   }
   else
   {
