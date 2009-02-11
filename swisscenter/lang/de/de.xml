@@ -518,6 +518,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>CHANNEL</id>
+        <text>Radiostation</text>
+        <version>SVN1167</version>
+      </string>
+      <string>
         <id>CLEAR_NAME</id>
         <text>Namen löschen</text>
         <version>1.19</version>
@@ -999,8 +1004,8 @@
       </string>
       <string>
         <id>EXPERT_WARNING</id>
-        <text>Die Einstellungen auf dieser Seite beeinflussen die internen Abläufe von SwissCenter. Daher sollten sie nur dann geändert werden, wenn man genau weiß, was man tut. Also: [b]Änderungen auf eigene Gefahr![/b]</text>
-        <version>1.19</version>
+        <text>Die Einstellungen auf dieser Seite beeinflussen die internen Abläufe von SwissCenter. Daher sollten sie nur dann geändert werden, wenn man genau weiß, was man tut. Details siehe hier: %s. Also: [b]Änderungen auf eigene Gefahr![/b]</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>EXPORT_PROMPT</id>
@@ -2628,6 +2633,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>MUSIC</id>
         <text>Musik</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>MUSIC_BEFORE_PREV</id>
+        <text>vorher gespielt</text>
+        <version>SVN1167</version>
       </string>
       <string>
         <id>MUSIC_PLAY_NEXT</id>
@@ -4763,16 +4773,6 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>YES</id>
         <text>Ja</text>
         <version>1.19</version>
-      </string>
-      <string>
-        <id>MUSIC_BEFORE_PREV</id>
-        <text>vorher gespielt</text>
-        <version>SVN1167</version>
-      </string>
-      <string>
-        <id>CHANNEL</id>
-        <text>Radiostation</text>
-        <version>SVN1167</version>
       </string>
     </language>
   </languages>
