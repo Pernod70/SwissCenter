@@ -7,6 +7,16 @@ require_once( realpath(dirname(__FILE__).'/mysql.php'));
 require_once( realpath(dirname(__FILE__).'/stylelib.php'));
 
 /**
+ * Records the current user and updates the user timeout value (default 4 hours).
+ *
+ */
+
+function set_user_timeout()
+{
+  $_SESSION["CURRENT_USER_TIMEOUT"] = (time() + get_sys_pref('USER_TIMEOUT',14400));
+}
+
+/**
  * Gets the user ID of the currently logged on user.
  *
  * @return integer
@@ -19,9 +29,14 @@ function get_current_user_id()
   {
     // User has a PIN and is therefore subject to a timeout?
     if ( has_pin($_SESSION["CURRENT_USER"]) && time() > $_SESSION["CURRENT_USER_TIMEOUT"])
+    {
       return false;
+    }
     else
+    {
+      set_user_timeout();
       return $_SESSION["CURRENT_USER"];
+    }
   }
   else
     return false;
@@ -81,7 +96,7 @@ function change_current_user_id($user_id, $pin = null)
   {
     set_last_user( $user_id );
     $_SESSION["CURRENT_USER"] = $user_id;
-    $_SESSION["CURRENT_USER_TIMEOUT"] = (time() + get_sys_pref('USER_TIMEOUT',14400));
+    set_user_timeout();
     load_style();
     load_lang();
   }
@@ -149,17 +164,17 @@ function is_user_selected()
   $current_user_id = get_current_user_id();
 
   // If there is no user then try and change to a default user and try again
-  if(empty($current_user_id))
+  if($current_user_id === false)
   {
     $default_user = get_default_user();
-    if( $default_user !== FALSE)
+    if( $default_user !== false)
     {
       change_current_user_id($default_user);
       $current_user_id = get_current_user_id();
     }
   }
 
-  return !empty($current_user_id);
+  return !($current_user_id === false);
 }
 
 /**
