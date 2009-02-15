@@ -4038,6 +4038,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>TASK_SCHEDULER</id>
+        <text>Task Scheduler</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>THUMBNAIL_VIEW</id>
         <text>Thumbnail view</text>
         <version>1.19</version>
