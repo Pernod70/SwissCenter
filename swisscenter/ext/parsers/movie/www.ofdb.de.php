@@ -51,7 +51,7 @@ require_once( SC_LOCATION."/ext/json/json.php");
     }
     else
     {
-      $best_match = google_best_match('OFDb - '.$title,$results,0);
+      $best_match = google_best_match('OFDb - '.$title,$results,$accuracy);
 
       if ($best_match === false)
         $html = false;
