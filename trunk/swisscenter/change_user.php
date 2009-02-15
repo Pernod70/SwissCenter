@@ -10,41 +10,41 @@
   function select_user()
   {
     page_header(str('USER_CHANGE'), "", "", "1", true);
-    
+
     echo '<center>'.font_tags(32).str('SELECT_USER').'</center><p>';
 
     $condition = "";
     if(is_user_selected())
       $condition = " WHERE user_id <> ".get_current_user_id();
-      
+
     $data = db_toarray("SELECT user_id, name FROM users $condition order by name");
 
     if($data !== false)
     {
       $page       = (isset($_REQUEST["page"]) ? $_REQUEST["page"] : 1);
-      $start      = ($page-1) * MAX_PER_PAGE; 
+      $start      = ($page-1) * MAX_PER_PAGE;
       $end        = min($start+MAX_PER_PAGE,count($data));
       $last_page  = ceil(count($data)/MAX_PER_PAGE);
 
       $menu = new menu();
-      
+
       if (count($data) > MAX_PER_PAGE)
       {
         $menu->add_up( url_add_param(current_url(),'page',($page > 1 ? ($page-1) : $last_page)) );
         $menu->add_down( url_add_param(current_url(),'page',($page < $last_page ? ($page+1) : 1)) );
       }
-      
+
       for ($i=$start; $i<$end; $i++)
         $menu->add_item($data[$i]["NAME"], "change_user.php?id=".$data[$i]["USER_ID"]);
-      
+
       $menu->display();
     }
     else
     {
       print "<center>".font_tags(32).str('CONFIG_DB_ERROR')."</center>";
     }
-    
-    page_footer('index.php');    
+
+    page_footer('index.php');
   }
 
   function user_selected($user_id)
@@ -60,13 +60,13 @@
       change_user($user_id);
     }
   }
-  
+
   function change_user($user_id, $pin = null)
   {
     // Change user and let them know
     $last = get_current_user_id();
     $ok   = change_current_user_id($user_id, $pin);
-    
+
     if($ok)
     {
       // Only confirm the user was changed if we are switching user
@@ -89,12 +89,12 @@
 
   $user_id = $_REQUEST["id"];
   $pin = $_REQUEST["pin"];
-  
+
   if(!empty($pin))
     change_user($user_id, $pin);
   elseif(!empty($user_id))
     user_selected($user_id);
   elseif(empty($user_id))
     select_user();
- 
+
 ?>
