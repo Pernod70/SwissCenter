@@ -114,7 +114,7 @@ CREATE TABLE photos (
   verified char(1) default NULL,
   PRIMARY KEY  (file_id),
   KEY dirname (dirname(255)),
-  KEY filename (dirname(255))
+  KEY filename (filename(255))
 ) TYPE=MyISAM;
 
 -- *************************************************************************************************
