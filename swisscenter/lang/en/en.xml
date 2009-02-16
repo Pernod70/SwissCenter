@@ -4373,6 +4373,16 @@
         <version>1.21.1</version>
       </string>
       <string>
+        <id>URL_ERROR_CAT</id>
+        <text>Please select a category</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ERROR_CERT</id>
+        <text>Please select a certificate</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>URL_ERROR_TITLE</id>
         <text>Please enter a title for the URL</text>
         <version>1.21.1</version>
