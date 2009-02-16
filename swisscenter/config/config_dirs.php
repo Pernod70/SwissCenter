@@ -11,18 +11,18 @@
   // ----------------------------------------------------------------------------------
   // Display current config
   // ----------------------------------------------------------------------------------
-  
+
   function dirs_display($delete = '', $new = '', $edit = 0)
   {
     // Ensure that on Linux/Unix systems there is a "media" directory present for symbolic links to go in.
     if (!is_windows() && !file_exists(SC_LOCATION.'media'))
       mkdir(SC_LOCATION.'media');
-      
+
     // Retrieve list of Network Shares from NMT
     $share_opts = get_nmt_network_shares();
     send_to_log(6,'Identified network shares',$share_opts);
-    
-    // Form arrays for dropdowns and SQL case for network shares 
+
+    // Form arrays for dropdowns and SQL case for network shares
     $share_list = array();
     if (count($share_opts)>0)
     {
@@ -58,13 +58,13 @@
     // Use language translation for MEDIA_NAME
     for ($i = 0; $i<count($data); $i++)
       $data[$i]["TYPE"] = str('MEDIA_TYPE_'.strtoupper($data[$i]["TYPE"]));
-          
+
     // Try to determine sensible default values for "Category" and "Certification".
     if (empty($_REQUEST["cat"]))
       $_REQUEST["cat"] = db_value("select cat_id from categories where cat_name='General'");
     if (empty($_REQUEST["cert"]))
-      $_REQUEST["cert"] = db_value("select cert_id from certificates where rank = ".db_value("select min(rank) from certificates")." limit 1");
-     
+      $_REQUEST["cert"] = db_value("select cert_id from certificates where scheme = '".get_rating_scheme_name()."' order by rank limit 1");
+
     echo "<h1>".str('MEDIA_LOCATIONS')."</h1>";
     message($delete);
     form_start('index.php', 150, 'dirs');
@@ -79,7 +79,7 @@
     if (!$edit)
       form_submit(str('MEDIA_LOC_DEL_BUTTON'),1,'center');
     form_end();
-  
+
     echo '<p><h1>'.str('MEDIA_LOC_ADD_TITLE').'<p>';
     message($new);
     form_start('index.php');
@@ -95,15 +95,15 @@
     form_list_static('type',str('MEDIA_TYPE'), $media_type_list, $_REQUEST['type']);
     form_label(str('MEDIA_TYPE_PROMPT'));
     form_list_dynamic('cat', str('CATEGORY'),"select cat_id,cat_name from categories where cat_id not in (".
-                                              implode(',', db_col_to_list('select distinct parent_id from categories')).") 
+                                              implode(',', db_col_to_list('select distinct parent_id from categories')).")
                                               order by cat_name", $_REQUEST['cat']);
-    form_label(str('CATEGORY_PROMPT')); 
+    form_label(str('CATEGORY_PROMPT'));
     form_list_dynamic('cert', str('UNRATED_CERTIFICATE'), get_cert_list_sql(), $_REQUEST['cert']);
     form_label(str('UNRATED_CERT_PROMPT'));
     form_submit(str('MEDIA_LOC_ADD_BUTTON'),2);
     form_end();
   }
-   
+
   // ----------------------------------------------------------------------------------
   // Logs details about why the given path could not be added as media location.
   // ----------------------------------------------------------------------------------
@@ -114,7 +114,7 @@
     while ($dir != '')
     {
       $output = '';
-        
+
       if (is_dir($dir))
         $output .= 'Directory';
       elseif (is_file($dir))
@@ -123,7 +123,7 @@
         $output .= 'Exists, but is not a file or directory.';
       else
         $output .= 'Does not exist';
-        
+
       if (is_unix())
         send_to_log(2,@stat('Stat() of '.$dir,$dir));
 
@@ -135,13 +135,13 @@
   // ----------------------------------------------------------------------------------
   // Delete an existing location
   // ----------------------------------------------------------------------------------
-  
+
   function dirs_modify()
   {
     $selected = form_select_table_vals('loc_id');            // Get the selected items
     $edit     = form_select_table_edit('loc_id', 'dirs');    // Get the id of the edited row
     $update   = form_select_table_update('loc_id', 'dirs');  // Get the updates from an edit
-    
+
     if(!empty($edit))
     {
       // There was an edit, display the dirs with the table in edit mode on the selected row
@@ -157,9 +157,9 @@
       $cat_id  = $update["CATEGORY"];
       $id      = $update["LOC_ID"];
       $cert    = $update["CERTIFICATE"];
-      
+
       send_to_log(4,'Updating media location',$update);
-  
+
       if (empty($type_id))
         dirs_display('',"!".str('MEDIA_LOC_ERROR_TYPE'));
       elseif (empty($cat_id))
@@ -183,7 +183,7 @@
         {
           // Location same media type so update existing media with new dirname
           // (if media is not physically moved to new location then it will be removed during next scan)
-          $table = db_value("select mt.media_table from media_types mt, media_locations ml 
+          $table = db_value("select mt.media_table from media_types mt, media_locations ml
                               where ml.media_type = mt.media_id and ml.location_id=$id");
           $dir_old = db_value("select name from media_locations where location_id=$id");
           foreach ( db_toarray("select file_id, dirname from $table where location_id=$id") as $row)
@@ -203,10 +203,10 @@
           db_sqlcommand("delete from photos where location_id=$id");
           db_sqlcommand("delete from tv where location_id=$id");
         }
-        
-        db_sqlcommand("update media_locations set name='".db_escape_str($dir)."',media_type=$type_id,cat_id=$cat_id,unrated=$cert,network_share='".db_escape_str($share)."' 
+
+        db_sqlcommand("update media_locations set name='".db_escape_str($dir)."',media_type=$type_id,cat_id=$cat_id,unrated=$cert,network_share='".db_escape_str($share)."'
                         where location_id=$id");
-        
+
         if (! is_windows() )
         {
           unlink(SC_LOCATION.'media/'.$id);
@@ -214,7 +214,7 @@
         }
 
         dirs_display(str('MEDIA_LOC_UPDATE_OK'));
-        
+
         // Tell MusicIP to add this location.
         if ($type_id == MEDIA_TYPE_MUSIC)
           musicip_server_add_dir($dir);
@@ -242,17 +242,17 @@
     else
       dirs_display();
   }
-  
+
   // ----------------------------------------------------------------------------------
   // Add a new location
   // ----------------------------------------------------------------------------------
-  
+
   function dirs_new()
   {
     // Process the directory passed in
     $dir = rtrim(str_replace('\\','/',un_magic_quote($_REQUEST["location"])),'/');
     $share = rtrim(str_replace('\\','/',un_magic_quote($_REQUEST["share"])),'/');
-    
+
     if (empty($_REQUEST["type"]))
       dirs_display('',"!".str('MEDIA_LOC_ERROR_TYPE'));
     elseif (empty($_REQUEST["cat"]))
@@ -268,7 +268,7 @@
     }
     elseif ( ($dir[0] != '/' && $dir[1] != ':') || $dir=='..' || $dir=='.')
       dirs_display('',"!".str('MEDIA_LOC_ERROR_PATH'));
-    else 
+    else
     {
       $new_row = array( 'name'       => $dir
                       , 'media_type' => $_REQUEST["type"]
@@ -277,16 +277,16 @@
                       , 'network_share' => $_REQUEST["share"]);
 
       send_to_log(4,'Adding new media location',$new_row);
-                      
+
       if ( db_insert_row('media_locations', $new_row) === false)
         dirs_display(db_error());
       else
       {
         $id = db_value("select location_id from media_locations where name='$dir' and media_type=".$_REQUEST["type"]);
-        
+
         if (! is_windows() )
           symlink($dir,SC_LOCATION.'media/'.$id);
-        
+
         dirs_display('',str('MEDIA_LOC_ADD_OK'));
 
         // Tell MusicIP to add this location.
@@ -295,7 +295,7 @@
       }
     }
   }
-  
+
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/
