@@ -2,25 +2,32 @@
 /**************************************************************************************************
    SWISScenter Source                                                              Nigel Barnes
  *************************************************************************************************/
-  
+
 // ----------------------------------------------------------------------------------
 // Display currently defined URLS
 // ----------------------------------------------------------------------------------
 
 function bookmarks_display($delete = '', $new = '', $edit_id = 0)
-{ 
+{
   $data = db_toarray("select id, (CASE type
                                   WHEN 4 THEN '".str('URL_AUDIO')."'
                                   WHEN 5 THEN '".str('URL_WEB')."'
                                   WHEN 7 THEN '".str('URL_VIDEO')."'
-                                  ELSE 'Unknown' 
+                                  ELSE 'Unknown'
                                   END) type,
-                                  title, url
-                                  from internet_urls order by 2,3");
+                                  cat_name 'Category', cert.name 'Certificate', title, url
+                                  from internet_urls iu left outer join certificates cert on cert.cert_id = iu.certificate, categories cat
+                                  where iu.cat_id = cat.cat_id order by 2,3,5");
 
   $url_types = array( array("VAL"=>MEDIA_TYPE_RADIO,       "NAME"=> str('URL_AUDIO') )
                     , array("VAL"=>MEDIA_TYPE_WEB,         "NAME"=> str('URL_WEB') )
                     , array("VAL"=>MEDIA_TYPE_INTERNET_TV, "NAME"=> str('URL_VIDEO') ));
+
+  // Try to determine sensible default values for "Category" and "Certification".
+  if (empty($_REQUEST["cat"]))
+    $_REQUEST["cat"] = db_value("select cat_id from categories where cat_name='General'");
+  if (empty($_REQUEST["cert"]))
+    $_REQUEST["cert"] = db_value("select cert_id from certificates where scheme = '".get_rating_scheme_name()."' order by rank limit 1");
 
   echo "<h1>".str('INTERNET_URLS')."</h1>";
   message($delete);
@@ -28,9 +35,12 @@ function bookmarks_display($delete = '', $new = '', $edit_id = 0)
   form_hidden('section','BOOKMARKS');
   form_hidden('action','MODIFY');
 
-  form_select_table('url_ids', $data, str('URL_TYPE').','.str('URL_TITLE').','.str('URL')
+  form_select_table('url_ids', $data, str('URL_TYPE').','.str('CATEGORY').','.str('CERTIFICATE').','.str('URL_TITLE').','.str('URL')
                      ,array('class'=>'form_select_tab','width'=>'100%'), 'id'
-                     ,array('TYPE'=>$url_types,'TITLE'=>'','URL'=>''), $edit_id, 'urls');
+                     ,array('TYPE'=>$url_types,'TITLE'=>'20','URL'=>'30',
+                            'CATEGORY'=>'select cat_id,cat_name from categories where cat_id not in ('.
+                                         implode(',', db_col_to_list('select distinct parent_id from categories')).') order by cat_name',
+                            'CERTIFICATE'=>get_cert_list_sql()),$edit_id, 'urls');
 
   if (!$edit_id)
     form_submit(str('URL_DEL_BUTTON'),1,'center');
@@ -44,6 +54,10 @@ function bookmarks_display($delete = '', $new = '', $edit_id = 0)
   form_list_static('type', str('URL_TYPE'),array( str('URL_AUDIO')=>MEDIA_TYPE_RADIO, str('URL_WEB')=>MEDIA_TYPE_WEB, str('URL_VIDEO')=>MEDIA_TYPE_INTERNET_TV), $_REQUEST['type']);
   form_input('title', str('URL_TITLE'),50,'',un_magic_quote($_REQUEST['title']));
   form_input('url', str('URL'),50,'',un_magic_quote($_REQUEST['url']));
+  form_list_dynamic('cat', str('CATEGORY'),"select cat_id,cat_name from categories where cat_id not in (".
+                                            implode(',', db_col_to_list('select distinct parent_id from categories')).")
+                                            order by cat_name", $_REQUEST['cat']);
+  form_list_dynamic('cert', str('CERTIFICATE'), get_cert_list_sql(), $_REQUEST['cert']);
   form_submit(str('URL_ADD_BUTTON'),2);
   form_end();
 }
@@ -70,6 +84,8 @@ function bookmarks_modify()
     $type    = $update["TYPE"];
     $url     = $update["URL"];
     $title   = $update["TITLE"];
+    $cat_id  = $update["CATEGORY"];
+    $cert    = $update["CERTIFICATE"];
 
     send_to_log(4,'Updating internet url',$update);
 
@@ -79,10 +95,14 @@ function bookmarks_modify()
       bookmarks_display('',"!".str('URL_ERROR_URL'));
     elseif (empty($title))
       bookmarks_display('',"!".str('URL_ERROR_TITLE'));
+    elseif (empty($cat_id))
+      bookmarks_display('',"!".str('URL_ERROR_CAT'));
+    elseif (empty($cert))
+      bookmarks_display('',"!".str('URL_ERROR_CERT'));
     else
     {
-      db_sqlcommand("update internet_urls set type=$type,url='".db_escape_str($url)."',title='$title' where id=$id");
-      bookmarks_display(str('URL_UPDATE_OK')); 
+      db_sqlcommand("update internet_urls set type=$type,url='".db_escape_str($url)."',title='$title',cat_id=$cat_id,certificate=$cert where id=$id");
+      bookmarks_display(str('URL_UPDATE_OK'));
     }
   }
   elseif (!empty($selected))
@@ -112,11 +132,17 @@ function bookmarks_new()
     bookmarks_display('',"!".str('URL_ERROR_URL'));
   elseif (empty($_REQUEST["title"]))
     bookmarks_display('',"!".str('URL_ERROR_TITLE'));
+  elseif (empty($_REQUEST["cat"]))
+    bookmarks_display('',"!".str('URL_ERROR_CAT'));
+  elseif (empty($_REQUEST["cert"]))
+    bookmarks_display('',"!".str('URL_ERROR_CERT'));
   else
   {
-    $new_row = array( 'type'  => $_REQUEST["type"]
-                    , 'url'   => $_REQUEST["url"]
-                    , 'title' => $_REQUEST["title"]);
+    $new_row = array( 'type'        => $_REQUEST["type"]
+                    , 'url'         => $_REQUEST["url"]
+                    , 'title'       => $_REQUEST["title"]
+                    , 'cat_id'      => $_REQUEST["cat"]
+                    , 'certificate' => $_REQUEST["cert"] );
 
     if ( db_insert_row('internet_urls', $new_row) === false)
       bookmarks_display(db_error());
