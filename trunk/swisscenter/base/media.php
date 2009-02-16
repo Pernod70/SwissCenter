@@ -423,7 +423,8 @@ function process_mp3( $dir, $id, $file)
   $data["title"]        = file_noext($file);
   $data["size"]         = filesize($dir.$file);
   $data["verified"]     = 'Y';
-  $data["discovered"]   = db_datestr(filemtime($filepath));
+  $data["discovered"]   = db_datestr();
+  $data["timestamp"]    = db_datestr(filemtime($filepath));
 
   if (in_array( $id3["fileformat"], media_exts_with_GetID3_support() ))
   {
@@ -561,7 +562,8 @@ function add_photo_album( $dir, $id )
     $row = array("dirname"       => $dir
                  ,"title"        => basename($dir)
                  ,"verified"     => 'Y'
-                 ,"discovered"   => db_datestr(filemtime($dir))
+                 ,"discovered"   => db_datestr()
+                 ,"timestamp"    => db_datestr(filemtime($dir))
                  ,"location_id"  => $id
                  );
 
@@ -658,7 +660,8 @@ function process_photo( $dir, $id, $file)
                    , "date_modified"       => filemtime($filepath)
                    , "date_created"        => $exif["DTDigitised"]
                    , "verified"            => 'Y'
-                   , "discovered"          => db_datestr(filemtime($filepath))
+                   , "discovered"          => db_datestr()
+                   , "timestamp"           => db_datestr(filemtime($filepath))
                    , "exif_exposure_mode"  => $exif['ExposureMode']
                    , "exif_exposure_time"  => dec2frac($exif['ExposureTime'])
                    , "exif_fnumber"        => rtrim($exif['FNumber'],'0')
@@ -786,8 +789,8 @@ function process_movie( $dir, $id, $file )
   $data["location_id"]  = $id;
   $data["size"]         = filesize($dir.$file);
   $data["verified"]     = 'Y';
-  $data["discovered"]   = db_datestr(filemtime($filepath));
-
+  $data["discovered"]   = db_datestr();
+  $data["timestamp"]    = db_datestr(filemtime($filepath));
   if ( in_array(strtolower($id3["fileformat"]), media_exts_with_GetID3_support()))
   {
     if ( ! isset($id3["error"]) )
@@ -1000,8 +1003,8 @@ function process_tv( $dir, $id, $file)
   $data["location_id"]  = $id;
   $data["size"]         = filesize($dir.$file);
   $data["verified"]     = 'Y';
-  $data["discovered"]   = db_datestr(filemtime($filepath));
-
+  $data["discovered"]   = db_datestr();
+  $data["timestamp"]    = db_datestr(filemtime($filepath));
   // Determine the part of the path to process for metadata about the episode.
   $media_loc_dir = db_value("select name from media_locations where location_id=$id");
   $meta_fsp = substr($dir,strlen($media_loc_dir)+1).file_noext($file);
@@ -1098,7 +1101,7 @@ function file_newer_than_db( $table, $location, $dir, $file )
     $file_date = db_datestr(@filemtime($dir.$file));
 
   // Date of the file in the database
-  $db_date = db_value("select discovered from $table
+  $db_date = db_value("select timestamp from $table
                         where location_id = $location
                           and dirname     = '".db_escape_str($dir)."'
                           and filename    = '".db_escape_str($file)."'" );
