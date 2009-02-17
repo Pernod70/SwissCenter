@@ -21,7 +21,7 @@ require_once( SC_LOCATION."/ext/json/json.php");
 
   function extra_get_movie_details($id, $filename, $title)
   {
-    $site_url = "http://www.ofdb.de/';
+    $site_url = 'http://www.ofdb.de/';
     $accuracy = 0;
 
     // Get search results from google.
