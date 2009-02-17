@@ -6,17 +6,6 @@
    relating to movies that the user has added to their database. It typically collects
    information such as genre, year of release, synopsis, directors and actors.
 
-   NOTE: This parser for OFDb.de is _NOT_ an official part of SWISScenter, and is not supported by the
-   SWISScenter developers. Nigel (Pernod)
-
-   Version history:
-   15-Oct-2007: v1.0:     First public release
-   10-Jan-2008: v1.1:     Added image download, and removed 'more' from synopsis.
-   11-Jan-2008: v1.2:     Fixed bug with search, and now gets full synopsis.
-   01-Feb-2008: v1.3:     Improved accuracy of search results.
-   05-Apr-2008: v1.4:     Fixed image and synopsis due to site changes. Page is now UTF8 encoded.
-   28-Jun-2008: v1.5:     Removed year ie.(2007) when matching titles, also changed word order.
-
  *************************************************************************************************/
 
 require_once( SC_LOCATION."/ext/json/json.php");
@@ -32,6 +21,7 @@ require_once( SC_LOCATION."/ext/json/json.php");
 
   function extra_get_movie_details($id, $filename, $title)
   {
+    $site_url = "http://www.ofdb.de/';
     $accuracy = 0;
 
     // Get search results from google.
