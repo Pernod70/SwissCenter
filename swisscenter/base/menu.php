@@ -25,10 +25,13 @@ class menu
   var $up;
   var $down;
   var $vertical_margin = 40;
-  
+
   var $img_size = array("X"=>210, "Y"=>210);
   var $img_font_size = 20;
-  
+
+  var $icon_left_size = array("X"=>25, "Y"=>40);
+  var $icon_right_size = array("X"=>16, "Y"=>40);
+
   /**
    * Constructor
    *
@@ -40,18 +43,33 @@ class menu
   {
     $this->show_icons = $show_icons;
   }
-  
+
   /**
    * Set the value of the padding above the menu
    *
    * @param integer $val - Logical coordinates (0-1000)
    */
-  
+
   function set_vertical_margins( $val )
   {
     $this->vertical_margin = $val;
   }
 
+  /**
+   * Set the size of menu icons
+   *
+   * @param integer $x, $y - Logical size of icons (0-1000)
+   */
+
+  function set_icon_left_size ($x, $y)
+  {
+    $this->icon_left_size = array("X"=>$x, "Y"=>$y);
+  }
+
+  function set_icon_right_size ($x, $y)
+  {
+    $this->icon_right_size = array("X"=>$x, "Y"=>$y);
+  }
   /**
    * Adds a menu item with an optional icon to the left, and indicator to show if there is a submenu
    * or not.
@@ -61,22 +79,22 @@ class menu
    * @param boolean $submenu - Indicate that the user will be taken to a submenu
    * @param string $icon - (Style identifier) Icon to display on the left.
    */
-  
+
   function add_item( $text, $url="", $submenu = false, $icon = '' )
   {
-    $icon_right = img_gen(SC_LOCATION.style_img("MENU_RIGHT"), 16 , 40, false, false, 'RESIZE');
-    $icon_left  = img_gen(SC_LOCATION.style_img($icon), 16 , 40, false, false, 'RESIZE');
-    
+    $icon_right = img_gen(SC_LOCATION.style_img("MENU_RIGHT"), $this->icon_right_size["X"], $this->icon_right_size["Y"], false, false, 'RESIZE');
+    $icon_left  = img_gen(SC_LOCATION.style_img($icon), $this->icon_left_size["X"], $this->icon_left_size["Y"], false, false, 'RESIZE');
+
     if (substr($url,0,5) != 'href=')
       $url = 'href="'.$url.'"';
-    
+
     if (! is_null($text) && strlen($text)>0)
       $this->menu_items[] = array( "text"  => $text
                                  , "url"   => $url
                                  , "right" => ($submenu == true ? $icon_right : '')
                                  , "left"  => (!empty($icon) ? $icon_left     : '') );
   }
-  
+
   /**
    * Adds an image menu item.
    *
@@ -84,9 +102,9 @@ class menu
    * @param string $image_on - Image to display if item is in focus
    * @param string:url $url - URL to go to if the item is selected
    */
-  
+
   function add_image_item( $text, $image, $image_on, $url="" )
-  { 
+  {
     if (substr($url,0,5) != 'href=')
       $url = 'href="'.$url.'"';
 
@@ -98,7 +116,7 @@ class menu
   }
 
   /**
-   * Adds a two-part (info) menu item with an optional icon to the left, and indicator to show if 
+   * Adds a two-part (info) menu item with an optional icon to the left, and indicator to show if
    * there is a submenu or not.
    *
    * @param string $text - Text to display to the user
@@ -110,9 +128,9 @@ class menu
 
   function add_info_item( $text, $info, $url, $submenu = false, $icon = false )
   {
-    $icon_right = img_gen(SC_LOCATION.style_img("MENU_RIGHT"), 16 , 40, false, false, 'RESIZE');
-    $icon_left  = img_gen(SC_LOCATION.style_img($icon), 16 , 40, false, false, 'RESIZE');
-    
+    $icon_right = img_gen(SC_LOCATION.style_img("MENU_RIGHT"), $this->icon_right_size["X"], $this->icon_right_size["Y"], false, false, 'RESIZE');
+    $icon_left  = img_gen(SC_LOCATION.style_img($icon), $this->icon_left_size["X"], $this->icon_left_size["Y"], false, false, 'RESIZE');
+
     if (substr($url,0,5) != 'href=')
       $url = 'href="'.$url.'"';
 
@@ -133,7 +151,7 @@ class menu
   {
     $this->down = $url;
   }
-  
+
   /**
    * Returns the number of items in the menu.
    *
@@ -144,20 +162,20 @@ class menu
   {
     return count($this->menu_items);
   }
-  
+
   /**
    * Returns the URL of the item at position $position.
    *
    * @param integer $position
    * @return string:url unknown
    */
-  
+
   function item_url( $position = 0 )
   {
     $url = $this->menu_items[$position]["url"];
     return substr($url,6,strlen($url)-7);
   }
-  
+
   /**
    * Private function. Returns the HTML code to set the background, depending upon the value stored in the style.
    *
@@ -166,7 +184,7 @@ class menu
    * @param unknown_type $height
    * @return unknown
    */
-  
+
   function private_background_tags( $position, $width, $height )
   {
     $bg_style = 'MENU_BACKGROUND';
@@ -175,30 +193,30 @@ class menu
       return ' bgcolor="'.style_value($bg_style).'" ';
     elseif ( style_is_image($bg_style))
       return  ' background="/thumb.php?src='.rawurlencode(style_img($bg_style,true)).'&x='.(convert_x($width)+6).'&y='.(convert_y($height)+6).'&stretch=Y" ';
-    else 
+    else
       return '';
   }
-  
+
   /**
    * Private function. Outputs a navigation row (next/previous arrows) for the table.
    *
    * @param unknown_type $link_html
    */
-  
+
   function private_nav_cell( $cell_pos, $total_cells, $link_html )
   {
     if ($this->show_icons)
     {
       echo '<tr>';
       if ($cell_pos >1)
-        echo '<td colspan="'.($cell_pos-1).'"></td>';      
+        echo '<td colspan="'.($cell_pos-1).'"></td>';
       echo '<td align="center" valign="middle" width="'.convert_x($size).'" height="'.convert_y($this->vertical_margin).'">'.$link_html.'</td>';
       if ($total_cells > $cell_pos)
-        echo '<td colspan="'.($total_cells-$cell_pos).'"></td>';      
-      echo '</tr>';      
+        echo '<td colspan="'.($total_cells-$cell_pos).'"></td>';
+      echo '</tr>';
     }
   }
-  
+
   /**
    * Displays the given page of menu items (used for simplicity when building an array of menu items
    * does not slow down the application)
@@ -206,10 +224,10 @@ class menu
    * @param integer $page
    * @param integer $size
    */
-  
+
   function display_page( $page=1, $tvid=1, $size=650, $align="center" )
   {
-    $start      = ($page-1) * MAX_PER_PAGE; 
+    $start      = ($page-1) * MAX_PER_PAGE;
     $max_items  = count($this->menu_items);
     $end        = min($start+MAX_PER_PAGE,$max_items);
 
@@ -220,16 +238,16 @@ class menu
       $this->add_down( url_add_param(current_url(),'page',($page+1)));
 
     $this->menu_items = array_slice($this->menu_items,$start, MAX_PER_PAGE);
-    $this->display($tvid, $size, $align);    
+    $this->display($tvid, $size, $align);
   }
-  
+
   /**
    * Displays the menu
    *
    * @param integer $size - (0-1000) Width of the menu on screen.
    * @param string  $align - center, left, right.
    */
-  
+
   function display( $tvid = 1, $size=650, $align="center" )
   {
     $num_cols    = 1;
@@ -239,7 +257,7 @@ class menu
     $left_icons  = 0;
     $right_icons = 0;
     $info_column = 0;
-    
+
     if($this->menu_items != null)
     {
       foreach ($this->menu_items as $item)
@@ -249,7 +267,7 @@ class menu
         if ( isset($item["info"]) )  $info_column = 1;
       }
     }
-    
+
     $num_cols = 1 + $left_icons + $right_icons + $info_column;
 
     // Sizes of the menu (taking into consideration the left, right and info columns)
@@ -260,42 +278,42 @@ class menu
     $height        = 40;
     $height_px     = convert_y($height);
 
-    
+
     // Start the table definition to contain the menu
     echo '<center><table align="'.$align.'" cellspacing="3" cellpadding="3" border="0">';
 
     // Link to previous page
-    $this->private_nav_cell($left_icons+1, $num_cols, up_link($this->up));    
-    
+    $this->private_nav_cell($left_icons+1, $num_cols, up_link($this->up));
+
     // Now process each item in the menu and output the appropriate html.
     if (! empty($this->menu_items))
     {
       foreach ($this->menu_items as $item)
       {
         $text = shorten($item["text"], $width-80, 1, $this->font_size, true, false);
-        
+
         // Single fixed background at the moment - may allow it to change based on position in the future.
         $background      = $this->private_background_tags( $tvid, $width, $height);
         $info_background = $this->private_background_tags( $tvid, $info_width, $height);
-                
-        // Start row  
+
+        // Start row
         echo '<tr>';
-        
+
         // Left icon?
         if ($left_icons == 1)
           echo '<td align="right" valign="middle" height="'.$height_px.'">'.$item["left"].'</td>';
-        
-        // Main text  
+
+        // Main text
         echo '<td valign="middle" width="'.$width_px.'" height="'.$height_px.'" '.$background.'>'.
                '<a style="width:'.($width_px-2).'" '.
                  $item["url"].' TVID="'.$tvid.'" name="'.$tvid.'">'.$font_open.'&nbsp;&nbsp;&nbsp;'.$tvid.'. '.$text.'</font>'.
                '</a>'.
               '</td>';
-        
+
         // Info columns?
         if ($info_column == 1)
           echo '<td align="right" '.$info_background.' width="'.$info_width_px.'">'.$font_open.$item["info"].'</font></td>';
-              
+
         // Right icon?
         if ($right_icons == 1)
           echo '<td align="right" valign="middle" height="'.$height_px.'">'.$item["right"].'</td>';
@@ -317,7 +335,7 @@ class menu
    * Displays the menu with images
    *
    */
-  
+
   function display_images( $tvid = 1, $size=850, $align="center" )
   {
     $this->img_size["X"] = $size/4;
@@ -331,7 +349,7 @@ class menu
       $max_col_this_row = min( ($this->num_items() - $row*$num_cols), $num_cols);
 
       echo '<center><table align="'.$align.'" border="0" cellspacing="2" cellpadding="0"><tr>';
-      
+
       // Image and link
       for ($col=0; $col < $max_col_this_row ; $col++)
       {
@@ -346,14 +364,14 @@ class menu
         $tvid++;
       }
       echo "</tr><tr>";
-      
+
       // Text
       for ($col=0; $col < $max_col_this_row ; $col++)
       {
         $cell_no = $row*$num_cols+$col;
-        $text    = $this->menu_items[$cell_no]["text"]; 
+        $text    = $this->menu_items[$cell_no]["text"];
         echo '<td align="center" valign="top" width="'.convert_x($cell_width).'">'.font_tags($this->font_size).'<b>'.$text.'</b></font></td>';
-      }      
+      }
       echo "</tr></table></center>";
     }
   }

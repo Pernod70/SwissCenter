@@ -1504,6 +1504,11 @@
         <version>1.21.1</version>
       </string>
       <string>
+        <id>INTERNET_TV_OPTIONS</id>
+        <text>Internet TV</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>INTERNET_TV_PROMPT</id>
         <text>Connections to individual Internet TV stations can be made from SwissCenter when enabled.</text>
         <version>1.21.1</version>
@@ -2019,8 +2024,8 @@
       </string>
       <string>
         <id>LISTEN_RADIO</id>
-        <text>Listen to internet radio</text>
-        <version>1.19</version>
+        <text>Internet radio</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>LIST_VIEW</id>
@@ -3888,6 +3893,31 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>SORT_BITRATE</id>
+        <text>Sort by bitrate</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_CATEGORY</id>
+        <text>Sort by category</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_ID</id>
+        <text>Sort by latest</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_NAME</id>
+        <text>Sort by name</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_RATING</id>
+        <text>Sort by rating</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>STARRING</id>
         <text>Starring</text>
         <version>1.19</version>
@@ -4076,6 +4106,106 @@
         <id>TITLE</id>
         <text>Title</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>TOMA_BROWSE_CATEGORY</id>
+        <text>Filter by category</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_BROWSE_CHANNELS</id>
+        <text>Browse channels</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_BROWSE_COUNTRY</id>
+        <text>Filter by country</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_CHANNELS_AVAILABLE</id>
+        <text>There are %s channels available with the selected filters.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_CHANNELS_UPDATE_MSG</id>
+        <text>Updating channel list - Please wait</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_INTERNET_TV</id>
+        <text>TOMA - Internet TV</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_MEDIA_TYPES</id>
+        <text>Media Types</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_MEDIA_TYPES_PROMPT</id>
+        <text>Select the media types that will be available when browsing channels. You should only select types that are known to be compatible with your media player.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_REMOVE_FILTER</id>
+        <text>Remove filters</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_RP</id>
+        <text>Real Media</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_CHANNELS_FAIL</id>
+        <text>Failed to update channel list</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_CHANNELS_OK</id>
+        <text>Successfully updated %s channels</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_CHANNELS_TIME_FAIL</id>
+        <text>Cannot update channels, last updated %s hours ago</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_MEDIA_FAIL</id>
+        <text>You have not selected any media types</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_TEXT</id>
+        <text>The %s website aims to be the biggest and most up to date archive of internet TV channels (channels freely available on the internet). We have channels from all over the world and the database is updated each day by our users.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_UPDATE_OK</id>
+        <text>TOMA settings successfully saved</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_UPDATE_CHANNELS</id>
+        <text>Update channel list</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_UPDATE_CHANNELS_TEXT</id>
+        <text>The channel list is maintained and hosted by the author of TOMA - Internet TV. To conserve bandwidth it is not permitted to update this list more than once every 24 hours.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_WA</id>
+        <text>Nullsoft Video</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_WM</id>
+        <text>Windows Media</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>TRACKS</id>
@@ -4574,7 +4704,7 @@
       </string>
       <string>
         <id>WATCH_INTERNET_TV</id>
-        <text>Watch internet TV</text>
+        <text>Internet TV</text>
         <version>1.21.1</version>
       </string>
       <string>

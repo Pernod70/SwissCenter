@@ -266,6 +266,29 @@ function form_radio_static( $param, $prompt, $list, $value = "", $opt = false, $
 }
 
 #-------------------------------------------------------------------------------------------------
+# Static checkbox lists (from the specified array).
+#
+# Note that the value passed by the field will be the array VALUE, while the value
+# displayed in the list to the user will be the array KEY.
+#
+# $list - an array of values to display with checkboxes
+#-------------------------------------------------------------------------------------------------
+
+function form_checkbox_static( $param, $prompt, $list, $values = array(), $opt = false, $horiz = false )
+{
+  echo '<tr><td valign="top">'.form_prompt($prompt,$opt).'</td>
+        <td>';
+
+  while( list($akey,$avalue) = each($list) )
+  {
+    echo '<input type="checkbox" name="'.$param.'['.$avalue.']" '.( $values[$avalue] ? 'checked ' : '').'>'.$akey;
+    echo ( $horiz ? '&nbsp; &nbsp;' : '<br>');
+  }
+
+  echo '  </td></tr>';
+}
+
+#-------------------------------------------------------------------------------------------------
 # Prompts the user to upload a file.
 #-------------------------------------------------------------------------------------------------
 

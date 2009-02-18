@@ -221,7 +221,7 @@ function resume_file( $media_type, $file_id )
 function play_file( $media_type, $file_id )
 {
   $params = 'spec_type=file&'.current_session().'&spec='.$file_id.'&media_type='.$media_type;
-  
+
   switch ($media_type)
   {
     case MEDIA_TYPE_MUSIC:
@@ -259,7 +259,7 @@ function play_internet_radio( $playlist_url, $station_name )
 
 function play_internet_tv( $url )
 {
-  return 'href="'.$url.'" vod';
+  return 'href="'.convert_mms_to_rtsp($url).'" vod';
 }
 
 //-------------------------------------------------------------------------------------------------

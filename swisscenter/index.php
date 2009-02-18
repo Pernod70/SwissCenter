@@ -51,9 +51,9 @@
     if (internet_available() && get_sys_pref('internet_tv_enabled','YES') == 'YES'
          && db_value("select 'YES' from internet_urls where type=".MEDIA_TYPE_INTERNET_TV." limit 1") == 'YES')
       if ($image_menu)
-        $menu->add_image_item( str('WATCH_INTERNET_TV'),style_img('MENU_INTERNET_TV',true),style_img('MENU_INTERNET_TV_ON',true,false),'internet_tv_urls.php');
+        $menu->add_image_item( str('WATCH_INTERNET_TV'),style_img('MENU_INTERNET_TV',true),style_img('MENU_INTERNET_TV_ON',true,false),'internet_tv.php');
       else
-        $menu->add_item( str('WATCH_INTERNET_TV'),"internet_tv_urls.php",true);
+        $menu->add_item( str('WATCH_INTERNET_TV'),"internet_tv.php",true);
 
     // Only display the web links option if an internet connection is active, the user has enabled weblinks and defined some urls
     if (internet_available() && get_sys_pref('web_enabled','YES') == 'YES'
