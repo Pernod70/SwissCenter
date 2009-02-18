@@ -178,7 +178,7 @@
     if ( in_array($media_type, array(MEDIA_TYPE_RADIO, MEDIA_TYPE_WEB, MEDIA_TYPE_INTERNET_TV)) )
     {
       return db_value("select count(distinct c.cat_id)
-                         from categories c inner join internet_urls media on c.cat_id=ml.cat_id
+                         from categories c inner join internet_urls media on c.cat_id=media.cat_id
                               left outer join certificates media_cert on media_cert.cert_id=media.certificate
                         where media.type=$media_type AND IFNULL(media_cert.rank,0) <= ".get_current_user_rank()." order by c.cat_name ASC");
     }
