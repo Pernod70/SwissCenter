@@ -84,9 +84,9 @@ function update_channel_list()
 
 function toma_filter_media_sql()
 {
-  return ' and media_type in (""'.(get_sys_pref('TOMA_SHOW_MEDIAPLAYER') == 'YES' ? ',"mp"' : '').
-                                  (get_sys_pref('TOMA_SHOW_REALPLAYER')  == 'YES' ? ',"rp"' : '').
-                                  (get_sys_pref('TOMA_SHOW_WINAMP')      == 'YES' ? ',"wa"' : '').')';
+  return ' and media_type in (""'.(get_sys_pref('TOMA_SHOW_MEDIAPLAYER', 'YES') == 'YES' ? ',"mp"' : '').
+                                  (get_sys_pref('TOMA_SHOW_REALPLAYER', 'NO')   == 'YES' ? ',"rp"' : '').
+                                  (get_sys_pref('TOMA_SHOW_WINAMP', 'NO')       == 'YES' ? ',"wa"' : '').')';
 }
 
 /**
