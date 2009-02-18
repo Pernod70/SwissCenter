@@ -21,7 +21,7 @@ CREATE TABLE clients (
   ,
   PRIMARY KEY  (ip_address),
   FOREIGN KEY (user_id) references users (user_id)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 
 -- -------------------------------------------------------------------------------------------------
@@ -54,7 +54,7 @@ CREATE TABLE actors (
   ,
   PRIMARY KEY  (actor_id),
   UNIQUE (actor_name(100))
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE directors (
   director_id     int(10) unsigned  NOT NULL auto_increment,
@@ -62,7 +62,7 @@ CREATE TABLE directors (
   ,
   PRIMARY KEY  (director_id),
   UNIQUE (director_name(100))
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE genres (
   genre_id     int(10) unsigned  NOT NULL auto_increment,
@@ -70,7 +70,7 @@ CREATE TABLE genres (
   ,
   PRIMARY KEY  (genre_id),
   UNIQUE (genre_name(100))
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE actors_in_movie (
   movie_id     int(10) unsigned,
@@ -115,7 +115,7 @@ CREATE TABLE photos (
   PRIMARY KEY  (file_id),
   KEY dirname (dirname(255)),
   KEY filename (filename(255))
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- *************************************************************************************************
 --   SWISScenter Source                                                              Robert Taylor

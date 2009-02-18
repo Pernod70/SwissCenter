@@ -17,7 +17,7 @@ CREATE TABLE media_art (
   image        MEDIUMBLOB     	NOT NULL
   ,
   PRIMARY KEY (art_sha1)
-  ) TYPE=MyISAM;
+  ) ENGINE=MyISAM;
 
 -- -------------------------------------------------------------------------------------------------
 -- Add art reference to media tables.

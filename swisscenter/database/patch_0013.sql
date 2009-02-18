@@ -12,7 +12,7 @@ CREATE TABLE tvid_prefs (
   tvid_sc       varchar(20) NOT NULL,
   tvid_default  varchar(20),
   tvid_custom   varchar(20)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 INSERT INTO tvid_prefs (player_type,tvid_sc,tvid_default) VALUES ('PINNACLE SC200','KEY_A','A');
 INSERT INTO tvid_prefs (player_type,tvid_sc,tvid_default) VALUES ('PINNACLE SC200','KEY_B','B');

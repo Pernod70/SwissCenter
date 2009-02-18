@@ -15,7 +15,7 @@ UPDATE system_prefs SET value='1.06' WHERE name='DATABASE_VERSION';
 CREATE TABLE categories (
     cat_id INT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
     cat_name varchar(100) NOT NULL UNIQUE
-  ) TYPE=MyISAM;
+  ) ENGINE=MyISAM;
 
 INSERT INTO categories (cat_id, cat_name)
   VALUES (
@@ -97,22 +97,22 @@ UPDATE movies m, media_locations l
 
 -- Create temporary tables that identify duplicate rows that are to be deleted.
 
-CREATE TEMPORARY TABLE mp3s_del AS 
-    SELECT max(file_id) file_id 
-      FROM mp3s 
-  GROUP BY dirname,filename 
+CREATE TEMPORARY TABLE mp3s_del AS
+    SELECT max(file_id) file_id
+      FROM mp3s
+  GROUP BY dirname,filename
     HAVING count(*)>1;
 
-CREATE TEMPORARY TABLE movies_del AS 
-    SELECT max(file_id) file_id 
+CREATE TEMPORARY TABLE movies_del AS
+    SELECT max(file_id) file_id
       FROM movies
-  GROUP BY dirname,filename 
+  GROUP BY dirname,filename
     HAVING count(*)>1;
 
-CREATE TEMPORARY TABLE photos_del AS 
-    SELECT max(file_id) file_id 
+CREATE TEMPORARY TABLE photos_del AS
+    SELECT max(file_id) file_id
       FROM photos
-  GROUP BY dirname,filename 
+  GROUP BY dirname,filename
     HAVING count(*)>1;
 
 -- Delete the rows identified as duplicates
@@ -129,7 +129,7 @@ CREATE UNIQUE INDEX photos_fsp_u1 ON photos (dirname(800),filename(200));
 
 -- -------------------------------------------------------------------------------------------------
 -- Create a table to store AlbumArt which has been extracted from mp3s.
--- 
+--
 -- Note: I'm using a seperate table because there are numerous places within the existing code where
 --       all columns in the "mp3s" table are retrieved into an array. We don't want the overhead of
 --       fetching BLOBs unless they are actually needed.
@@ -140,7 +140,7 @@ CREATE TABLE mp3_albumart (
   image        mediumblob     NOT NULL
   ,
   FOREIGN KEY (file_id) references mp3s (file_id)
-  ) TYPE=MyISAM;
+  ) ENGINE=MyISAM;
 
 -- *************************************************************************************************
 --   SWISScenter Source                                                              Robert Taylor
