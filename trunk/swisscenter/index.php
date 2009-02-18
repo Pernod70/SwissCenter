@@ -48,8 +48,7 @@
         $menu->add_item( str('LISTEN_RADIO'),"music_radio.php",true);
 
     // Only display the internet tv options if an internet connection is active and the user has enabled internet tv support
-    if (internet_available() && get_sys_pref('internet_tv_enabled','YES') == 'YES'
-         && db_value("select 'YES' from internet_urls where type=".MEDIA_TYPE_INTERNET_TV." limit 1") == 'YES')
+    if (internet_available() && get_sys_pref('internet_tv_enabled','YES') == 'YES')
       if ($image_menu)
         $menu->add_image_item( str('WATCH_INTERNET_TV'),style_img('MENU_INTERNET_TV',true),style_img('MENU_INTERNET_TV_ON',true,false),'internet_tv.php');
       else
