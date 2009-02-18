@@ -656,7 +656,17 @@ function highlight($text, $search, $color='Silver')
 {
   return preg_replace('/('.$search.')/i', '<FONT style="BACKGROUND-COLOR: '.$color.'">$1</FONT>', $text);
 }
-  
+
+/**
+ * Convert url using mms: protocol to rtsp:.
+ *
+ * @return string
+ */
+
+function convert_mms_to_rtsp( $url )
+{
+  return (get_sys_pref('CONVERT_MMS_TO_RTSP','YES')=='YES' ? str_replace('mms://','rtsp://',$url) : $url);
+}
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/
