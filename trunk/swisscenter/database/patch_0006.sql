@@ -26,7 +26,7 @@ CREATE TABLE tv (
   FOREIGN KEY  (location_id) REFERENCES media_locations (location_id) ON DELETE CASCADE,
   FOREIGN KEY  (certificate) REFERENCES certificates(cert_id) ON DELETE SET NULL,
   KEY title    (title(50))
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE UNIQUE INDEX tv_fsp_u1 ON movies (dirname(250),filename(250));
 
@@ -46,7 +46,7 @@ CREATE TABLE tv_expressions (
   expression          text
   ,
   PRIMARY KEY (pos)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 INSERT INTO tv_expressions (pos, expression) VALUES ( 1,'{p}/[^/]*/.*\W+s{s}e{e}\W+{t}');
 INSERT INTO tv_expressions (pos, expression) VALUES ( 2,'{p}\W+s{s}e{e}\W+{t}');

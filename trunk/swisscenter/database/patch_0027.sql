@@ -10,7 +10,7 @@ CREATE TABLE iradio_stations (
   id         int unsigned auto_increment primary key not null,
   station    text NOT NULL,
   image      text
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 INSERT INTO iradio_stations (station,image) VALUES ('.977','977_logo.gif');
 INSERT INTO iradio_stations (station,image) VALUES ('Absolute Classic Rock','virgin_logo.gif');
@@ -25,7 +25,7 @@ INSERT INTO iradio_stations (station,image) VALUES ('D i g i t a l l y - I m p o
 CREATE TABLE iradio_countries (
   id         int unsigned auto_increment primary key not null,
   country    text NOT NULL
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 INSERT INTO iradio_countries (country) VALUES ('germany');
 INSERT INTO iradio_countries (country) VALUES ('russia');
@@ -47,7 +47,7 @@ CREATE TABLE iradio_genres (
   id         int unsigned auto_increment primary key not null,
   genre      text NOT NULL,
   subgenre   text NOT NULL
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 INSERT INTO iradio_genres (genre,subgenre) VALUES ('rock','hardrock');
 INSERT INTO iradio_genres (genre,subgenre) VALUES ('rock','punk');

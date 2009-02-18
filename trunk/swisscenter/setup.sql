@@ -12,7 +12,7 @@ CREATE TABLE certificates (
   rank             int not null,
   description      varchar(200) null,
   scheme           text
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 INSERT INTO certificates (name, rank, scheme, description) VALUES ('G',      10, 'MPAA','General Audiences');
 INSERT INTO certificates (name, rank, scheme, description) VALUES ('Uc',     10, 'BBFC','Suitable for pre-school');
@@ -39,7 +39,7 @@ CREATE TABLE categories (
   cat_id          Int unsigned auto_increment not null primary key,
   cat_name        varchar(100) not null unique,
   download_info   varchar(1) default 'N'
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 INSERT INTO categories (cat_name,download_info) VALUES ( 'General'           ,'N');
 INSERT INTO categories (cat_name,download_info) VALUES ( 'Music Videos'      ,'N');
@@ -60,7 +60,7 @@ CREATE TABLE users (
   ,
   PRIMARY KEY  (user_id),
   FOREIGN KEY  (maxcert) REFERENCES certificates (cert_id) ON DELETE SET NULL
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TEMPORARY TABLE tt_cert AS SELECT * FROM certificates ORDER BY rank DESC LIMIT 1;
 INSERT INTO users (user_id,name) VALUES (1,'Default');
@@ -76,7 +76,7 @@ CREATE TABLE media_types (
   media_table  varchar(20) null
   ,
   PRIMARY KEY  (media_id)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 INSERT INTO media_types (media_id,media_name,media_table) VALUES (1,'Music','mp3s');
 INSERT INTO media_types (media_id,media_name,media_table) VALUES (2,'Photo','photos');
@@ -100,7 +100,7 @@ CREATE TABLE media_locations (
   FOREIGN KEY  (media_type) REFERENCES media_types (media_id) ON DELETE CASCADE,
   FOREIGN KEY  (cat_id)     REFERENCES categories  (cat_id)   ON DELETE SET DEFAULT,
   FOREIGN KEY  (unrated)    REFERENCES certificates(cert_id)  ON DELETE SET DEFAULT
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- -------------------------------------------------------------------------------------------------
 -- Table structure for table `messages`
@@ -114,7 +114,7 @@ CREATE TABLE messages (
   status          int unsigned default 0
   ,
   PRIMARY KEY  (message_id)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 insert into messages (title,message_text,added) values ('Welcome to the Swisscenter','This is the messages section, where you will be informed of new features and updates to the SwissCenter interface whenever you perform an automatic update.',now());
 
@@ -126,7 +126,7 @@ CREATE TABLE art_files (
   filename     varchar(100) NOT NULL default ''
   ,
   PRIMARY KEY  (filename)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 INSERT INTO art_files (filename) VALUES ('folder.jpg');
 INSERT INTO art_files (filename) VALUES ('folder.gif');
@@ -140,7 +140,7 @@ CREATE TABLE clients (
   ip_address       varchar(100) NOT NULL default '',
   box_id           varchar(100),
   user_id          int(10) unsigned,
-  agent_string     text, 
+  agent_string     text,
   device_type      text,
   last_seen        datetime     default null,
   screen_type      text         default null,
@@ -153,7 +153,7 @@ CREATE TABLE clients (
   ,
   PRIMARY KEY  (ip_address),
   FOREIGN KEY (user_id) references users (user_id)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- -------------------------------------------------------------------------------------------------
 -- Table structure for table `system_prefs`
@@ -164,10 +164,9 @@ CREATE TABLE system_prefs (
   value    text
   ,
   PRIMARY KEY  (name)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 INSERT INTO system_prefs (name,value) VALUES ('CACHE_MAXSIZE_MB','10');
-INSERT INTO system_prefs (name,value) VALUES ('PLAYLISTS','playlists');
 
 -- -------------------------------------------------------------------------------------------------
 -- Table structure for table `user_prefs`
@@ -180,7 +179,7 @@ CREATE TABLE user_prefs (
   ,
   PRIMARY KEY  (user_id,name),
   FOREIGN KEY  (user_id) REFERENCES users (user_id) ON DELETE CASCADE
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 
 INSERT INTO user_prefs (user_id,name,value) VALUES (1,'WEATHER_HOME','UKXX0022');
@@ -212,7 +211,7 @@ CREATE TABLE movies (
   FOREIGN KEY  (location_id) REFERENCES media_locations (location_id) ON DELETE CASCADE,
   FOREIGN KEY  (certificate) REFERENCES certificates(cert_id) ON DELETE SET NULL,
   KEY title    (title(50))
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE UNIQUE INDEX movies_fsp_u1 ON movies (dirname(250),filename(250));
 
@@ -226,7 +225,7 @@ CREATE TABLE actors (
   ,
   PRIMARY KEY  (actor_id),
   UNIQUE (actor_name(100))
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- -------------------------------------------------------------------------------------------------
 -- Table structure for table `directors`
@@ -238,7 +237,7 @@ CREATE TABLE directors (
   ,
   PRIMARY KEY  (director_id),
   UNIQUE (director_name(100))
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- -------------------------------------------------------------------------------------------------
 -- Table structure for table `genres`
@@ -250,7 +249,7 @@ CREATE TABLE genres (
   ,
   PRIMARY KEY  (genre_id),
   UNIQUE (genre_name(100))
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- -------------------------------------------------------------------------------------------------
 -- Table structure for table `actors_in_movie`
@@ -262,7 +261,7 @@ CREATE TABLE actors_in_movie (
   ,
   PRIMARY KEY (movie_id, actor_id),
   FOREIGN KEY  (actor_id) REFERENCES actors (actor_id) ON DELETE CASCADE
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- -------------------------------------------------------------------------------------------------
 -- Table structure for table `directors_of_movie`
@@ -274,7 +273,7 @@ CREATE TABLE directors_of_movie (
   ,
   PRIMARY KEY (movie_id, director_id),
   FOREIGN KEY  (director_id) REFERENCES directors (director_id) ON DELETE CASCADE
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- -------------------------------------------------------------------------------------------------
 -- Table structure for table `genres_of_movie`
@@ -286,7 +285,7 @@ CREATE TABLE genres_of_movie (
   ,
   PRIMARY KEY (movie_id, genre_id),
   FOREIGN KEY  (genre_id) REFERENCES genres (genre_id) ON DELETE CASCADE
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- -------------------------------------------------------------------------------------------------
 -- Table structure for table `mp3s`
@@ -323,7 +322,7 @@ CREATE TABLE mp3s (
   KEY year     (year(50)),
   KEY dirname  (dirname(255)),
   KEY filename (dirname(255))
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE UNIQUE INDEX mp3s_fsp_u1   ON mp3s   (dirname(250),filename(250));
 
@@ -336,7 +335,7 @@ CREATE TABLE mp3_albumart (
   image            mediumblob not null
   ,
   FOREIGN KEY (file_id) references mp3s (file_id)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE INDEX mp3s_art_n1 ON mp3_albumart (file_id);
 
@@ -378,12 +377,12 @@ CREATE TABLE photos (
   FOREIGN KEY (certificate)  REFERENCES certificates(cert_id)         ON DELETE SET NULL,
   KEY dirname  (dirname(255)),
   KEY filename (dirname(255))
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE UNIQUE INDEX photos_fsp_u1 ON photos (dirname(250),filename(250));
 
 -- -------------------------------------------------------------------------------------------------
--- Create table to hold photo "albums" information. 
+-- Create table to hold photo "albums" information.
 -- -------------------------------------------------------------------------------------------------
 
 CREATE TABLE photo_albums (
@@ -399,19 +398,19 @@ CREATE TABLE photo_albums (
   FOREIGN KEY  (certificate) REFERENCES certificates(cert_id) ON DELETE SET NULL,
   FOREIGN KEY  (location_id) REFERENCES media_locations (location_id) ON DELETE CASCADE,
   KEY title    (title(50))
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- -------------------------------------------------------------------------------------------------
 -- Table structure for table `viewings`
 -- -------------------------------------------------------------------------------------------------
 
 CREATE TABLE viewings
-( user_id          int(10) unsigned NOT NULL 
-, media_type       int(10) unsigned NOT NULL 
-, media_id         int(10) unsigned NOT NULL 
+( user_id          int(10) unsigned NOT NULL
+, media_type       int(10) unsigned NOT NULL
+, media_id         int(10) unsigned NOT NULL
 , last_viewed      datetime NOT NULL
 , total_viewings   int(10) unsigned default 0
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE INDEX viewings_n1 ON viewings (media_id);
 
@@ -428,7 +427,7 @@ CREATE TABLE rss_subscriptions (
   last_update      datetime not null
   ,
   PRIMARY KEY  (id)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- -------------------------------------------------------------------------------------------------
 -- Table structure for table `viewings`
@@ -446,7 +445,7 @@ CREATE TABLE rss_items (
   linked_file      text
   ,
   PRIMARY KEY  (id)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- -------------------------------------------------------------------------------------------------
 -- Table structure for table `weather`
@@ -459,7 +458,7 @@ CREATE TABLE weather (
   type varchar(10) default NULL
   ,
   PRIMARY KEY  (url,type)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- -------------------------------------------------------------------------------------------------
 -- Table structure for table `cities`
@@ -470,7 +469,7 @@ CREATE TABLE cities (
   twc_code varchar(50)
   ,
   PRIMARY KEY  (name)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 INSERT INTO cities (name) VALUES ('Aachen');
 INSERT INTO cities (name) VALUES ('Aalborg');
@@ -2300,7 +2299,7 @@ INSERT INTO cities (name) VALUES ('Kaolack');
 INSERT INTO cities (name) VALUES ('Kapisillit');
 INSERT INTO cities (name) VALUES ('Kara');
 INSERT INTO cities (name) VALUES ('Karabalta');
-INSERT INTO cities (name) VALUES ('KarabÅk');
+INSERT INTO cities (name) VALUES ('Karab?k');
 INSERT INTO cities (name) VALUES ('Karachi');
 INSERT INTO cities (name) VALUES ('Karaganda');
 INSERT INTO cities (name) VALUES ('Karakol');

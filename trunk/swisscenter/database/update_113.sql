@@ -9,7 +9,7 @@
 UPDATE system_prefs SET value='1.13' WHERE name='DATABASE_VERSION';
 
 -- -------------------------------------------------------------------------------------------------
--- Create table to hold photo "albums" information. 
+-- Create table to hold photo "albums" information.
 -- -------------------------------------------------------------------------------------------------
 
 CREATE TABLE photo_albums (
@@ -23,7 +23,7 @@ CREATE TABLE photo_albums (
   ,
   PRIMARY KEY  (file_id),
   KEY title (title(50))
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 ALTER TABLE movies ADD CONSTRAINT FOREIGN KEY (certificate) REFERENCES certificates(cert_id) ON DELETE SET NULL;
 ALTER TABLE movies ADD FOREIGN KEY (location_id) REFERENCES media_locations (location_id) ON DELETE CASCADE;
@@ -32,8 +32,8 @@ ALTER TABLE movies ADD FOREIGN KEY (location_id) REFERENCES media_locations (loc
 -- More columns to hold photo attributes
 -- -------------------------------------------------------------------------------------------------
 
-ALTER TABLE photos ADD 
-( 
+ALTER TABLE photos ADD
+(
   exif_exposure_mode	text default null
 , exif_exposure_time	text default null
 , exif_fnumber		text default null

@@ -10,7 +10,7 @@ CREATE TABLE itunes_map (
   itunes_id int(10) unsigned NOT NULL,
   swisscenter_id int(10) unsigned NOT NULL,
   PRIMARY KEY  (itunes_id)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- -------------------------------------------------------------------------------------------------
 -- Additional TV parsing expressions.
