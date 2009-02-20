@@ -34,7 +34,7 @@ function redirect_to_browse( $media_type )
 
 function show_menu()
 {
-  page_header( str('RECENT_MEDIA'));
+  page_header( str('RECENT_MEDIA'), '','',1,false,'',PAGE_RECENT);
 
   echo '<p>';
   $menu = new menu();
