@@ -84,18 +84,21 @@ function movie_display_info(  $message = '' )
   echo '<br>&nbsp;</td></tr></tr><tr>
           <th>'.str('CERTIFICATE').'</th>
           <th>'.str('YEAR').'</th>
-          <th>'.str('VIEWED_BY').'</th>
+          <th>'.str('RATING').'</th>
         </tr><tr>
           <td valign=top>'.get_cert_name(get_nearest_cert_in_scheme($details[0]["CERTIFICATE"])).'&nbsp;</td>
-          <td valign=top>'.$details[0]["YEAR"].'</td><td>';
+          <td valign=top>'.$details[0]["YEAR"].'</td>
+          <td valign=top>'.nvl($details[0]["EXTERNAL_RATING_PC"]/10,'-').'/10</td>
+        </tr><tr>
+          <th>'.str('VIEWED_BY').'</th>
+          <th colspan=2>'.str('LOCATION_ON_DISK').'</th>
+        </tr><tr><td>';
 
   foreach ( db_toarray("select * from users order by name") as $row)
     if (viewings_count(3, $details[0]["FILE_ID"], $row["USER_ID"])>0)
       echo $row["NAME"].'<br>';
 
-  echo '</td></tr>
-        <tr><th colspan=3>'.str('LOCATION_ON_DISK').'</th></tr>
-        <tr><td colspan=3>'.$details[0]["DIRNAME"].$details[0]["FILENAME"].'&nbsp;</td></tr>
+  echo '</td><td colspan=2>'.$details[0]["DIRNAME"].$details[0]["FILENAME"].'&nbsp;</td></tr>
         </table>
         <p align="center">';
 
@@ -176,10 +179,11 @@ function movie_display_list($movie_list)
     echo '<table class="form_select_tab" width="100%"><tr>
           <td valign="top" width="4%"><input type="checkbox" name="movie[]" value="'.$movie["FILE_ID"].'"></input></td>
           <td valign="top" width="33%">
-             <a href="?section=movie&action=display_info&movie_id='.$movie["FILE_ID"].'">'.highlight($movie["TITLE"], $_REQUEST["search"]).'</a><br>
-             Certificate : '.nvl($cert).'<br>
-             Year : '.nvl($movie["YEAR"]).'<br>
-             Viewed by : '.implode(', ',db_col_to_list("select u.name from users u, viewings v where ".
+             <a href="?section=movie&action=display_info&movie_id='.$movie["FILE_ID"].'">'.highlight($movie["TITLE"], $_REQUEST["search"]).'</a><br>'.
+             str('CERTIFICATE').' : '.nvl($cert).'<br>'.
+             str('YEAR').' : '.nvl($movie["YEAR"]).'<br>'.
+             str('RATING').' : '.nvl($movie["EXTERNAL_RATING_PC"]/10,'-').'/10<br>'.
+             str('VIEWED_BY').' : '.implode(', ',db_col_to_list("select u.name from users u, viewings v where ".
                                                        "v.user_id=u.user_id and v.media_type=".MEDIA_TYPE_VIDEO." and v.media_id=".$movie["FILE_ID"])).'
            </td>
            <td valign="top" width="21%">'.nvl(implode("<br>",$actors)).'</td>
@@ -252,6 +256,7 @@ function movie_display( $message = '')
       case "NOSYNOPSIS" : $where .= "and (ifnull(m.synopsis,'')='')"; break;
       case "NOCERT"     : $where .= "and (ifnull(m.certificate,'')='')"; break;
       case "NOYEAR"     : $where .= "and (ifnull(m.year,'')='')"; break;
+      case "NORATING"   : $where .= "and (ifnull(m.external_rating_pc,'')='')"; break;
     }
   }
 
@@ -273,7 +278,8 @@ function movie_display( $message = '')
 
   $this_url = '?last_where='.urlencode($where).'&filter='.$_REQUEST["filter"].'&search='.$_REQUEST["search"].'&cat_id='.$_REQUEST["cat_id"].'&section=MOVIE&action=DISPLAY&page=';
   $filter_list = array( str('FILTER_MISSING_DETAILS')=>"NODETAILS" , str('FILTER_MISSING_SYNOPSIS')=>"NOSYNOPSIS"
-                      , str('FILTER_MISSING_CERT')=>"NOCERT"       , str('FILTER_MISSING_YEAR')=>"NOYEAR");
+                      , str('FILTER_MISSING_CERT')=>"NOCERT"       , str('FILTER_MISSING_YEAR')=>"NOYEAR"
+                      , str('FILTER_MISSING_RATING')=>"NORATING");
 
   echo '<form enctype="multipart/form-data" action="" method="post">
         <table width="100%"><tr><td width="70%">';
@@ -346,7 +352,7 @@ function movie_clear_details()
       db_sqlcommand('delete from actors_in_movie where movie_id = '.$value);
       db_sqlcommand('delete from directors_of_movie where movie_id = '.$value);
       db_sqlcommand('delete from genres_of_movie where movie_id = '.$value);
-      db_sqlcommand('update movies set year=null,certificate=null where file_id = '.$value);
+      db_sqlcommand('update movies set year=null, certificate=null, external_rating_pc=null where file_id = '.$value);
     }
     scdb_remove_orphans();
     movie_display(str('DETAILS_CLEARED_OK'));
@@ -422,14 +428,16 @@ function movie_update_form_single()
         </tr><tr>
           <td colspan="3">'.form_text_html('synopsis',90,6,$details[0]["SYNOPSIS"],true).'</td>
         </tr><tr>
-          <th><input type="hidden" name="update_rating" value="yes">'.str('CERTIFICATE').'</th>
+          <th><input type="hidden" name="update_cert" value="yes">'.str('CERTIFICATE').'</th>
           <th><input type="hidden" name="update_year" value="yes">'.str('YEAR').'</th>
+          <th><input type="hidden" name="update_rating" value="yes">'.str('RATING').'</th>
+        </tr><tr>
+          <td>'.form_list_dynamic_html("cert",get_cert_list_sql(),$details[0]["CERTIFICATE"],true).'</td>
+          <td><input name="year" size="6" value="'.$details[0]["YEAR"].'"></td>
+          <td><input name="rating" size="6" value="'.($details[0]["EXTERNAL_RATING_PC"]/10).'"</td>
+        </tr><tr>
           <th><input type="hidden" name="update_viewed" value="yes">'.str('VIEWED_BY').'</th>
         </tr><tr>
-          <td>
-          '.form_list_dynamic_html("rating",get_cert_list_sql(),$details[0]["CERTIFICATE"],true).'
-          </td>
-          <td><input name="year" size="6" value="'.$details[0]["YEAR"].'"></td>
           <td>';
 
   foreach ( db_toarray("select * from users order by name") as $row)
@@ -455,6 +463,7 @@ function movie_update_form_multiple( $movie_list )
   $synopsis  = db_toarray("select distinct synopsis from movies where file_id in (".implode(',',$movie_list).")");
   $cert      = db_toarray("select distinct certificate from movies where file_id in (".implode(',',$movie_list).")");
   $year      = db_toarray("select distinct year from movies where file_id in (".implode(',',$movie_list).")");
+  $rating    = db_toarray("select distinct external_rating_pc from movies where file_id in (".implode(',',$movie_list).")");
 
   // Display movies that will be affected.
   echo '<h1>'.str('MOVIE_UPD_TTILE').'</h1>
@@ -493,14 +502,16 @@ function movie_update_form_multiple( $movie_list )
         </tr><tr>
           <td colspan="3">'.form_text_html('synopsis',90,6,(count($synopsis)==1 ? $synopsis[0]["SYNOPSIS"] : ''),true).'</td>
         </tr><tr>
-          <th><input type="checkbox" name="update_rating" value="yes">'.str('CERTIFICATE').'</th>
+          <th><input type="checkbox" name="update_cert" value="yes">'.str('CERTIFICATE').'</th>
           <th><input type="checkbox" name="update_year" value="yes">'.str('YEAR').'</th>
+          <th><input type="checkbox" name="update_rating" value="yes">'.str('RATING').'</th>
+        </tr><tr>
+          <td>'.form_list_dynamic_html("cert",get_cert_list_sql(),(count($cert)==1 ? $cert[0]["CERTIFICATE"] : ''),true).'</td>
+          <td><input name="year" size="6" value="'.(count($year)==1 ? $year[0]["YEAR"] : '').'"></td>
+          <td><input name="rating" size="6" value="'.(count($rating)==1 ? ($rating[0]["EXTERNAL_RATING_PC"]/10) : '').'"</td>
+        </tr><tr>
           <th><input type="checkbox" name="update_viewed" value="yes">'.str('VIEWED_BY').'</th>
         </tr><tr>
-          <td>
-          '.form_list_dynamic_html("rating",get_cert_list_sql(),(count($cert)==1 ? $cert[0]["CERTIFICATE"] : ''),true).'
-          </td>
-          <td><input name="year" size="6" value="'.(count($year)==1 ? $year[0]["YEAR"] : '').'"></td>
           <td>';
 
   foreach ( db_toarray("select * from users order by name") as $row)
@@ -538,12 +549,14 @@ function movie_update_multiple()
 
   if ($_REQUEST["update_year"] == 'yes')
     $columns["YEAR"] = $_REQUEST["year"];
-  if ($_REQUEST["update_rating"] == 'yes' && !empty($_REQUEST["rating"]))
-    $columns["CERTIFICATE"] = $_REQUEST["rating"];
+  if ($_REQUEST["update_cert"] == 'yes' && !empty($_REQUEST["cert"]))
+    $columns["CERTIFICATE"] = $_REQUEST["cert"];
   if ($_REQUEST["update_synopsis"] == 'yes')
     $columns["SYNOPSIS"] = $_REQUEST["synopsis"];
   if ($_REQUEST["update_title"] == 'yes')
     $columns["TITLE"] = $_REQUEST["title"];
+  if ($_REQUEST["update_rating"] == 'yes')
+    $columns["EXTERNAL_RATING_PC"] = $_REQUEST["rating"] * 10;
 
   // Add Actors/Genres/Directors?
   if ($_REQUEST["update_actors"] == 'yes')
@@ -629,7 +642,7 @@ function movie_info( $message = "")
 
   if (!empty($_REQUEST["refresh"]))
   {
-    db_sqlcommand('update movies set year = null, certificate = null, match_pc = null, details_available = null, synopsis = null');
+    db_sqlcommand('update movies set year = null, certificate = null, match_pc = null, details_available = null, synopsis = null, external_rating_pc = null');
     db_sqlcommand('delete from directors_of_movie');
     db_sqlcommand('delete from actors_in_movie');
     db_sqlcommand('delete from genres_of_movie');
