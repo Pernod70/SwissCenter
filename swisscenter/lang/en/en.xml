@@ -1173,6 +1173,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>FILTER_MISSING_RATING</id>
+        <text>No rating</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>FILTER_MISSING_SERIES</id>
         <text>No series</text>
         <version>1.22</version>
@@ -3271,6 +3276,11 @@
         <id>RANGE</id>
         <text>Range</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>RATING</id>
+        <text>Rating</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>RATING_SCHEME_PROMPT</id>

@@ -93,6 +93,9 @@
       // Find Synopsis
       preg_match("/<h5>Plot(| Outline| Summary):<\/h5>([^<]*)</sm",$html,$synopsis);
 
+      // Find User Rating
+      $user_rating = preg_get("/<h5>User Rating:<\/h5>.*<b>(.*)\/10<\/b>/sm",$html);
+
       // Download and store Albumart if there is none present.
       if ( file_albumart($filename, false) == '')
       {
@@ -127,6 +130,7 @@
       // These are the details to be stored in the database
       $columns = array ( "YEAR"              => $year
                        , "CERTIFICATE"       => db_lookup( 'certificates','name','cert_id',$rating )
+                       , "EXTERNAL_RATING_PC"=> $user_rating * 10
                        , "MATCH_PC"          => $accuracy
                        , "DETAILS_AVAILABLE" => 'Y'
                        , "SYNOPSIS"          => trim($synopsis[2]," |"));
