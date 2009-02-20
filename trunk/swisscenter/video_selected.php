@@ -13,10 +13,10 @@
 
   $menu = new menu();
   $info = new infotab();
-  
+
   // Displays the details for a single movie (identified by the movie ID) including the title, year, certificate
   // and synopsis (where available).
-  
+
   function movie_details ($movie, $num_menu_items)
   {
     $info      = array_pop(db_toarray("select * from movies where file_id=$movie"));
@@ -32,10 +32,10 @@
       if (strlen($text) != strlen($info["SYNOPSIS"]))
         $text = $text.' <a href="/video_synopsis.php?media_type='.MEDIA_TYPE_VIDEO.'&file_id='.$movie.'">'.font_colour_tags('PAGE_TEXT_BOLD_COLOUR',str('MORE')).'</a>';
     }
-    else 
+    else
       $text = str('NO_SYNOPSIS_AVAILABLE');
-      
-    echo '<p>'.font_tags(32).$text.'</font>';          
+
+    echo '<p>'.font_tags(32).$text.'</font>';
   }
 
   // Function that checks to see if the supplied SQL contains a filter for the specified type.
@@ -54,7 +54,7 @@
           case 'year'          : $menu->add_item( str('REFINE_YEAR')        ,"video_search.php?sort=year",true);   break;
           case 'certificate'   : $menu->add_item( str('REFINE_CERTIFICATE') ,"video_search.php?sort=certificate",true);  break;
           case 'genre_name'    : $menu->add_item( str('REFINE_GENRE') 	    ,"video_search.php?sort=genre",true);  break;
-          case 'actor_name'    : $menu->add_item( str('REFINE_ACTOR')       ,"video_search.php?sort=actor",true);  break;        
+          case 'actor_name'    : $menu->add_item( str('REFINE_ACTOR')       ,"video_search.php?sort=actor",true);  break;
           case 'director_name' : $menu->add_item( str('REFINE_DIRECTOR')    ,"video_search.php?sort=director",true);  break;
         }
       }
@@ -94,26 +94,42 @@
   $num_rows      = count($file_ids);
   $this_url      = url_set_param(current_url(),'add','N');
   $cert_img      = '';
-  
+
   //
   // A single movie has been matched/selected by the user, so display as much information as possible
   // on the screen, along with commands to "Play Now" or "Add to Playlist".
   //
-    
+
   if ($num_rows == 1 || $num_unique == 1)
-  {    
+  {
     // Single match, so get the details from the database and display them
     if ( ($data = db_toarray("select media.*, ml.name, ml.network_share, ".get_cert_name_sql()." certificate_name from $sql_table $predicate")) === false)
       page_error( str('DATABASE_ERROR'));
 
+    // Form star rating
+    $img_rating = '';
+    if ( !is_null($data[0]["EXTERNAL_RATING_PC"]) )
+    {
+      $user_rating = nvl($data[0]["EXTERNAL_RATING_PC"]/10,0);
+      for ($i = 1; $i<=10; $i++)
+      {
+        if ( $user_rating >= $i )
+          $img_rating .= img_gen(SC_LOCATION.style_img('STAR'),25,40);
+        elseif ( $i-1 >= $user_rating )
+          $img_rating .= img_gen(SC_LOCATION.style_img('STAR_0'),25,40);
+        else
+          $img_rating .= img_gen(SC_LOCATION.style_img('STAR_'.(number_format($user_rating,1)-floor($user_rating))*10),25,40);
+      }
+    }
+
     if (!empty($data[0]["YEAR"]))
-      page_header( $data[0]["TITLE"].' ('.$data[0]["YEAR"].')' ,'');
-    else 
-      page_header( $data[0]["TITLE"] );
+      page_header( $data[0]["TITLE"].' ('.$data[0]["YEAR"].')', $img_rating );
+    else
+      page_header( $data[0]["TITLE"], $img_rating );
 
     // Is DVD image?
     $is_dvd = in_array(file_ext($data[0]["FILENAME"]), media_exts_dvd());
-    
+
     // Play now
     if ( $is_dvd )
     {
@@ -129,11 +145,11 @@
     }
     else
       $menu->add_item( str('PLAY_NOW') , play_sql_list(MEDIA_TYPE_VIDEO,"select distinct $select_fields from $sql_table $predicate order by title, filename"));
-  
+
     // Resume playing
     if ( support_resume() && file_exists( bookmark_file($data[0]["DIRNAME"].$data[0]["FILENAME"])) && !$is_dvd )
       $menu->add_item( str('RESUME_PLAYING') , resume_file(MEDIA_TYPE_VIDEO,$data[0]["FILE_ID"]), true);
-        
+
     // Add to your current playlist
     if (pl_enabled() && !$is_dvd)
       $menu->add_item( str('ADD_PLAYLIST') ,'add_playlist.php?sql='.rawurlencode("select distinct $select_fields from $sql_table $predicate order by title, filename"),true);
@@ -141,7 +157,7 @@
     // Add a link to search wikipedia
     if (internet_available() && get_sys_pref('wikipedia_lookups','YES') == 'YES' )
       $menu->add_item( str('SEARCH_WIKIPEDIA'), lang_wikipedia_search( ucwords(strip_title($data[0]["TITLE"])) ) ,true);
-      
+
     // Link to full cast & directors
     if ($data[0]["DETAILS_AVAILABLE"] == 'Y')
       $menu->add_item( str('VIDEO_INFO'), 'video_info.php?movie='.$data[0]["FILE_ID"],true);
@@ -185,13 +201,13 @@
 
   // Delete media (limited to a small number of files)
   if (is_user_admin() && $num_rows<=8 )
-    $menu->add_item( str('DELETE_MEDIA'), 'video_delete.php?del='.implode(',',$file_ids),true);    
+    $menu->add_item( str('DELETE_MEDIA'), 'video_delete.php?del='.implode(',',$file_ids).'&media_type='.MEDIA_TYPE_VIDEO,true);
 
   // Certificate? Get the appropriate image.
   $scheme    = get_rating_scheme_name();
   if (!empty($data[0]["CERTIFICATE"]))
     $cert_img  = img_gen(SC_LOCATION.'images/ratings/'.$scheme.'/'.get_cert_name( get_nearest_cert_in_scheme($data[0]["CERTIFICATE"], $scheme)).'.gif', 280, 100);
-  
+
   // Is there a picture for us to display?
   if (! empty($folder_img) )
   {
@@ -200,10 +216,10 @@
               '.img_gen($folder_img,280,550).'<br><center>'.$cert_img.'</center>
               </td><td width="'.convert_x(20).'"></td>
               <td valign="top">';
-    
+
               // Movie synopsis
               movie_details($data[0]["FILE_ID"],$menu->num_items());
-              
+
               // Running Time
               if (!is_null($playtime))
                 echo   '<p>'.font_tags(32).str('RUNNING_TIME').': '.hhmmss($playtime).'</font>';
