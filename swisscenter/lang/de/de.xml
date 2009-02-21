@@ -1039,8 +1039,9 @@
       </string>
       <string>
         <id>EXTRA_EXPORT_GO</id>
-        <text>Exportiere alle Zusatzinformationen in eine XML-Datei</text>
-        <version>1.21.1</version>
+        <text>Exportiere alle Zusatzinformationen
+in eine XML-Datei</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>EXTRA_EXPORT_TITLE</id>
@@ -4171,7 +4172,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>TOMA_BROWSE_CATEGORY</id>
-        <text>Nach Kategorie</text>
+        <text>Nach Kategorie filtern</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4181,7 +4182,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>TOMA_BROWSE_COUNTRY</id>
-        <text>Nach Land</text>
+        <text>Nach Land filtern</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4206,7 +4207,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>TOMA_MEDIA_TYPES_PROMPT</id>
-        <text>Wählen die Medientypen die für die Kanalanzeige berücksichtigt werden. Es sollten nur Medientypen gewählt werden von denen bekannt ist das Ihr Player sie unterstützt</text>
+        <text>Wählen Sie die Medientypen, die für die Kanalanzeige berücksichtigt werden sollen. Es sollten nur Medientypen gewählt werden, die Ihr Player unterstützt</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4236,12 +4237,12 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>TOMA_TV_MEDIA_FAIL</id>
-        <text>Sie haben keinen Medientypen ausgewählt</text>
+        <text>Sie haben keinen Medientyp ausgewählt</text>
         <version>1.22</version>
       </string>
       <string>
         <id>TOMA_TV_TEXT</id>
-        <text>Die %s Webseite versucht das größte und aktuellste Verzeichnis von Internet-Fernsehe-Kanälen zu sein (derer die im Internet frei verfügbar sind). Es werden Kanäle aus der ganzen Welt angeboten und die Datenbank wird täglich von den %s Nutzern aktuallisiert.</text>
+        <text>Die %s Webseite versucht das größte und aktuellste Verzeichnis von Internet-Fernseh-Kanälen zu sein, das im Internet frei verfügbar ist. Es werden Kanäle aus der ganzen Welt angeboten und die Datenbank wird täglich von den %s Nutzern aktualisiert.</text>
         <version>1.22</version>
       </string>
       <string>
