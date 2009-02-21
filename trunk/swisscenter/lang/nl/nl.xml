@@ -994,8 +994,8 @@
       </string>
       <string>
         <id>EXPERT_WARNING</id>
-        <text>U kunt de SwissCenter databank en systeeminstelingen aanpassen. Het is ten zeerste aanbevolen dat slechts (zeer) ervaren gebruikers van deze mogelijkheid gebruik maken. [b]Handmatige aanpassing van de SwissCenter databank is op eigen risico![/b]</text>
-        <version>1.21.1</version>
+        <text>U kunt de SwissCenter databank en systeeminstelingen aanpassen. Het is ten zeerste aanbevolen dat slechts (zeer) ervaren gebruikers van deze mogelijkheid gebruik maken. Meer details kunt u hier %s vinden. [b]Handmatige aanpassing van de SwissCenter databank is op eigen risico![/b]</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>EXPORT_PROMPT</id>
@@ -2622,6 +2622,11 @@
         <id>MUSIC</id>
         <text>Muziek</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>MUSIC_BEFORE_PREV</id>
+        <text>Daarvoor</text>
+        <version>SVN1167</version>
       </string>
       <string>
         <id>MUSIC_PLAY_NEXT</id>
@@ -4770,9 +4775,9 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
         <version>1.19</version>
       </string>
       <string>
-        <id>MUSIC_BEFORE_PREV</id>
-        <text>Daarvoor</text>
-        <version>SVN1167</version>
+        <id>YES</id>
+        <text>Ja</text>
+        <version>1.22</version>
       </string>
     </language>
   </languages>

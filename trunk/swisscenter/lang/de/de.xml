@@ -1208,6 +1208,11 @@
         <version>1.21.1</version>
       </string>
       <string>
+        <id>FILTER_MISSING_RATING</id>
+        <text>ohne Bewertung</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>FILTER_MISSING_SERIES</id>
         <text>ohne Staffel</text>
         <version>1.21.1</version>
@@ -1538,6 +1543,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>INTERNET_TV</id>
         <text>Internet TV</text>
         <version>1.21.1</version>
+      </string>
+      <string>
+        <id>INTERNET_TV_OPTIONS</id>
+        <text>Internet-Fernsehen</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>INTERNET_TV_PROMPT</id>
@@ -3315,6 +3325,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>RATING</id>
+        <text>Bewertung</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>RATING_SCHEME_PROMPT</id>
         <text>Zertifizierungsschema</text>
         <version>1.19</version>
@@ -3940,6 +3955,31 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>SORT_BITRATE</id>
+        <text>Nach Bitrate</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_CATEGORY</id>
+        <text>Nach Kategorie</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_ID</id>
+        <text>Neuste</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_NAME</id>
+        <text>Nach Name</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_RATING</id>
+        <text>Nach Bewertung</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>STARRING</id>
         <text>Darsteller</text>
         <version>1.19</version>
@@ -4128,6 +4168,106 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>TITLE</id>
         <text>Titel</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>TOMA_BROWSE_CATEGORY</id>
+        <text>Nach Kategorie</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_BROWSE_CHANNELS</id>
+        <text>Kanäle anzeigen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_BROWSE_COUNTRY</id>
+        <text>Nach Land</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_CHANNELS_AVAILABLE</id>
+        <text>Mit der aktuellen Filterung sind %s Kanäle verfügbar</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_CHANNELS_UPDATE_MSG</id>
+        <text>Aktualisiere Kanalliste - Bitte warten</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_INTERNET_TV</id>
+        <text>TOMA - Internet Fernsehen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_MEDIA_TYPES</id>
+        <text>Medientypen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_MEDIA_TYPES_PROMPT</id>
+        <text>Wählen die Medientypen die für die Kanalanzeige berücksichtigt werden. Es sollten nur Medientypen gewählt werden von denen bekannt ist das Ihr Player sie unterstützt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_REMOVE_FILTER</id>
+        <text>Filter entfernen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_RP</id>
+        <text>Real Media</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_CHANNELS_FAIL</id>
+        <text>Aktualisierung der Kanalliste fehlgeschlagen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_CHANNELS_OK</id>
+        <text>%s Kanäle erfolgreich aktuallisiert</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_CHANNELS_TIME_FAIL</id>
+        <text>Aktuallisierung nicht möglich, letzte Aktuallisierung vor %s Stunden</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_MEDIA_FAIL</id>
+        <text>Sie haben keinen Medientypen ausgewählt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_TEXT</id>
+        <text>Die %s Webseite versucht das größte und aktuellste Verzeichnis von Internet-Fernsehe-Kanälen zu sein (derer die im Internet frei verfügbar sind). Es werden Kanäle aus der ganzen Welt angeboten und die Datenbank wird täglich von den %s Nutzern aktuallisiert.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_UPDATE_OK</id>
+        <text>TOMA Einstellungen erfolgreich gespeichert</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_UPDATE_CHANNELS</id>
+        <text>Kanalliste aktualisieren</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_UPDATE_CHANNELS_TEXT</id>
+        <text>Die Kanalliste wird von TOMA - Internet Fernsehen verwaltet und zur Verfügung gestellt. Aus Gründen der Bandbreite ist eine Aktuallisierung nur einmal innerhalb von 24 Stunden erlaubt.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_WA</id>
+        <text>Nullsoft Video</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_WM</id>
+        <text>Windows Media</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>TRACKS</id>
@@ -4423,6 +4563,16 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>URL_DEL_OK</id>
         <text>Die ausgewählten URLs wurden gelöscht.</text>
         <version>1.21.1</version>
+      </string>
+      <string>
+        <id>URL_ERROR_CAT</id>
+        <text>Bitte eine Kategorie wählen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ERROR_CERT</id>
+        <text>Bitte ein Zertifikat wählen</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>URL_ERROR_TITLE</id>
