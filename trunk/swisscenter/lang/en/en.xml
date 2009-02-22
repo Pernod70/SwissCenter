@@ -588,6 +588,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>CONFIG_SWISSMONITOR</id>
+        <text>SwissMonitor</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>CONFIG_TITLE</id>
         <text>SwissCenter Configuration Utility</text>
         <version>1.19</version>
@@ -1033,6 +1038,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>FAIL_DOTNET2_INSTALLED</id>
+        <text>The .NET Framework version 2 is needs to be installed.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>FAIL_LIVERADIO_TEST</id>
         <text>LiveRadio parser looks broken</text>
         <version>1.19</version>
@@ -1108,6 +1118,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>FAIL_SWISSMONITOR_INSTALLED</id>
+        <text>The SwissMonitor service is not installed.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_SWISSMONITOR_RUNNING</id>
+        <text>The SwissMonitor service is installed, but is not currently running.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>FAIL_SWISS_CACHE</id>
         <text>Unable to write to the SwissCenter cache directory (%s).</text>
         <version>1.20.1</version>
@@ -1170,11 +1190,6 @@
       <string>
         <id>FILTER_MISSING_PROGRAMME</id>
         <text>No programme</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>FILTER_MISSING_RATING</id>
-        <text>No rating</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2748,6 +2763,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>PASS_DOTNET2_INSTALLED</id>
+        <text>The .NET Framework version 2 is installed.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>PASS_LIVERADIO_TEST</id>
         <text>LiveRadio parser seems to work properly</text>
         <version>1.19</version>
@@ -2816,6 +2836,16 @@
         <id>PASS_SHOUTCAST_TEST</id>
         <text>ShoutCast parser seems to work properly</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_SWISSMONITOR_INSTALLED</id>
+        <text>The SwissMonitor service is installed.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_SWISSMONITOR_RUNNING</id>
+        <text>The SwissMonitor service is running.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PASS_SWISS_CACHE</id>
@@ -3276,11 +3306,6 @@
         <id>RANGE</id>
         <text>Range</text>
         <version>1.19</version>
-      </string>
-      <string>
-        <id>RATING</id>
-        <text>Rating</text>
-        <version>1.22</version>
       </string>
       <string>
         <id>RATING_SCHEME_PROMPT</id>
@@ -3823,6 +3848,26 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>SERVICE_INSTALL</id>
+        <text>Install Service</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SERVICE_START</id>
+        <text>Start Service</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SERVICE_STOP</id>
+        <text>Stop Service</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SERVICE_UNINSTALL</id>
+        <text>Uninstall Service</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SETUP</id>
         <text>Configuration</text>
         <version>1.20</version>
@@ -4051,6 +4096,26 @@
         <id>SUPPORT_USRPREF_TITLE</id>
         <text>User preferences</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_ACTION_FAILED</id>
+        <text>SwissCenter was unable to perform the selected action - please check the support.log.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_ACTION_SUCCESS</id>
+        <text>The selected action was successfully applied to the SwissMonitor service.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_DESCRIPTION</id>
+        <text>The SwissMonitor service is a simple windows service that will watch your defined media locations for changes to files (including new files being added, or files being deleted) and inform SwissCenter so that your database can be updated appropriately. However, this does not remove the need to run a scheduled refresh completely as there are some circumstances where changes may not be captured.[p][b]Please Note:[/b] If you use UNC paths in your media locations (eg: &quot;\\nas\movies&quot;) then you must use the Services Control Panel to modify the SwissMonitor service to run in your own user account.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_TITLE</id>
+        <text>SwissMonitor Service</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>SYNOPSIS</id>

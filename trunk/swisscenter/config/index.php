@@ -90,6 +90,7 @@
       $menu->add_item(str('TV_OPTIONS')             ,'section=TV&action=INFO');
       $menu->add_item(str('TV_DETAILS')             ,'section=TV&action=DISPLAY');
       $menu->add_item(str('MEDIA_REFRESH')          ,'section=MEDIA&action=REFRESH');
+      $menu->add_item(str('STATISTICS')             ,'section=STATS&action=DISPLAY');
 
       $menu->add_menu(str('INTERNET_FEATURES'));
       $menu->add_item(str('CONNECT_TITLE')          ,'section=CONNECT&action=DISPLAY');
@@ -108,6 +109,8 @@
 
       $menu->add_menu(str('ADDITIONAL_COMPONENTS'));
       $menu->add_item(str('CONFIG_MUSICIP')         ,'section=MUSICIP&action=DISPLAY');
+      if (is_windows())
+        $menu->add_item(str('CONFIG_SWISSMONITOR')    ,'section=SWISSMONITOR&action=DISPLAY');
 
       $menu->add_menu(str('EXPERT_OPTIONS'));
       $menu->add_item(str('LANG_EDITOR')            ,'section=LANGUAGE&action=DISPLAY');
@@ -122,6 +125,17 @@
   }
 
   	$menu->display();
+  }
+
+  // ----------------------------------------------------------------------------------
+  // Calls the correct function to insert some javascript into the page header
+  // ----------------------------------------------------------------------------------
+
+  function inject_javascript()
+  {
+    $func = (strtoupper($_REQUEST["section"]).'_'.strtoupper($_REQUEST["action"].'_js'));
+    if ( function_exists($func))
+      $func();
   }
 
   // ----------------------------------------------------------------------------------
@@ -146,7 +160,6 @@
     elseif (!empty($_REQUEST["section"]))
     {
       $func = (strtoupper($_REQUEST["section"]).'_'.strtoupper($_REQUEST["action"]));
-      include_once('config_'.strtolower($_REQUEST["section"]).'.php');
       $func();
     }
     else
@@ -156,6 +169,13 @@
       check_display();
     }
   }
+
+  /**
+   * Include the appropriate file (based on the value of the "section" parameter
+   */
+
+  if (!empty($_REQUEST["section"]))
+    include_once('config_'.strtolower($_REQUEST["section"]).'.php');
 
   /**
    * Apply any outstanding database patches and then execute the template.

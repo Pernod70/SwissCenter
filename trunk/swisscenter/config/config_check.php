@@ -153,7 +153,7 @@ function check_display()
   $core_tests->add_test( $php, check_php_version(), str("PASS_PHP_VERSION"), str("FAIL_PHP_VERSION",phpversion()) );
   $core_tests->add_test( $php, check_php_required_modules(), str("PASS_PHP_REQ_MODS"), str("FAIL_PHP_REQ_MODS", implode(', ',get_required_modules_list())) );
   $core_tests->add_test( $php, check_php_suggested_modules(), str("PASS_PHP_EXTRA_MODS"), str("FAIL_PHP_EXTRA_MODS", implode(', ',get_suggested_modules_list())) );
-  $core_tests->add_test( $php, check_php_ttf(), str("PASS_PHP_FONTS"), str("FAIL_PHP_FONTS"), FALSE );
+  $core_tests->add_test( $php, check_php_ttf(), str("PASS_PHP_FONTS"), str("FAIL_PHP_FONTS") );
 
   # ----------------------
   # MySQL Tests
@@ -186,25 +186,41 @@ function check_display()
   $core_tests->add_test( $server, check_server_scheduler(), str("PASS_SERVER_SCHED"), str("FAIL_SERVER_SCHED"));
 
   # ----------------------
-  # Music IP
-  # ----------------------
-
-  $musicip = $component_tests->add_section("MusicIP",1);
-
-  $component_tests->add_test( $musicip, musicip_available(), str('PASS_MUSICIP_TEST'),str('FAIL_MUSICIP_TEST').'<p>'.str('MIP_DESC','<a href="http://www.musicip.com">www.musicip.com</a>'),FALSE);
-
-  if ( musicip_available() )
-    $component_tests->add_test( $musicip, (musicip_mixable_percent() >=50),str('PASS_MIP_MIXABLE'),str('FAIL_MIP_MIXABLE'),FALSE);
-
-  # ----------------------
   # Internet Radio
   # ----------------------
 
   if (internet_available())
   {
-    $iradio = $component_tests->add_section("Internet Radio Parser",2);
+    $iradio = $component_tests->add_section("Internet Radio Parser",1);
     $component_tests->add_test( $iradio, check_shoutcast(), str('PASS_SHOUTCAST_TEST'),str('FAIL_SHOUTCAST_TEST').'<p>'.str('IRADIO_SHOUTCAST_DESC','<a href="http://www.shoutcast.com/">www.shoutcast.com</a>'),FALSE);
     $component_tests->add_test( $iradio, check_liveradio(), str('PASS_LIVERADIO_TEST'),str('FAIL_LIVERADIO_TEST').'<p>'.str('IRADIO_LIVERADIO_DESC','<a href="http://www.live-radio.net/">www.live-radio.net</a>'),FALSE);
+  }
+
+  # ----------------------
+  # Music IP
+  # ----------------------
+
+  $musicip = $component_tests->add_section("MusicIP",2);
+
+  $component_tests->add_test( $musicip, musicip_available(), str('PASS_MUSICIP_TEST'),str('FAIL_MUSICIP_TEST').'<p>'.str('MIP_DESC','<a href="http://www.musicip.com">www.musicip.com</a>'),FALSE);
+
+  if ( musicip_available() )
+    $component_tests->add_test( $musicip, (musicip_mixable_percent() >=50),str('PASS_MIP_MIXABLE'),str('FAIL_MIP_MIXABLE'));
+
+  # ----------------------
+  # SwissMonitor Service
+  # ----------------------
+
+  if (is_windows())
+  {
+    $monitor = $component_tests->add_section("SwissMonitor",3);
+    $installed = win_service_installed("SwissMonitorService");
+    $component_tests->add_test( $monitor, $installed , str('PASS_SWISSMONITOR_INSTALLED'),str('FAIL_SWISSMONITOR_INSTALLED').'<p>'.str('SWISSMONITOR_DESCRIPTION'));
+
+    if ($installed)
+      $component_tests->add_test( $monitor, (win_service_status("SwissMonitorService") == SERVICE_STARTED),str('PASS_SWISSMONITOR_RUNNING'),str('FAIL_SWISSMONITOR_RUNNING'));
+    else
+      $component_tests->add_test( $monitor, win_dotnet2_installed(), str('PASS_DOTNET2_INSTALLED'), str('FAIL_DOTNET2_INSTALLED'));
   }
 
   # ----------------------
