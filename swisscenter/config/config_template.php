@@ -17,15 +17,16 @@
     var Input=document.getElementsByName(name);
     for( var i=0; i<Input.length; i++)
     {
-      Input[i].checked=state;                
+      Input[i].checked=state;
     }
-  }  
-  </script>  
+  }
+  </script>
+  <script type="text/javascript" src="jquery.js"></script>
   <script type="text/javascript" src="slider.js"></script>
   <script type="text/javascript" src="sdmenu.js"></script>
 	<script type="text/javascript">
   	var myMenu;
-  	window.onload = function() 
+  	window.onload = function()
   	{
 	  	myMenu = new SDMenu("my_menu");
       myMenu.speed = 2;                     // Menu sliding speed (1 - 5 recomended)
@@ -34,10 +35,14 @@
       myMenu.markCurrent = true;            // Mark current link / page (link.href == location.href)
   		myMenu.init();
 	  };
+
+    $(document).ready(function() {
+	    <?php inject_javascript(); ?>
+    });
 	</script>
 </head>
 <body style="margin:20px;" background="../images/bgr.png">
- 
+
 <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="eeeeee">
 <tr>
   <td width="6" bgcolor="#FFFFFF">
@@ -77,7 +82,7 @@
       </td>
     </tr>
     </table>
-    
+
     <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
     <tr>
       <td bgcolor="#FFFFFF">

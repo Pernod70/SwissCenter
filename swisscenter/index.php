@@ -234,8 +234,6 @@
       $menu->display_page($page, 1, style_value("MENU_INDEX_WIDTH"), style_value("MENU_INDEX_ALIGN"));
     page_footer('', '', $icons);
 
-    // Clear any active filters
-    filter_set();
   }
 
 /**************************************************************************************************

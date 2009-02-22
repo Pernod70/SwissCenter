@@ -223,9 +223,70 @@
       return 'Not running on windows';
   }
 
-  #-------------------------------------------------------------------------------------------------
-  # Record the details about the client accessing the server in the database.
-  #-------------------------------------------------------------------------------------------------
+  // ----------------------------------------------------------------------------------
+  // Functions to manage windows services
+  // ----------------------------------------------------------------------------------
+
+  define ("SERVICE_NOT_INSTALLED",false);
+  define ("SERVICE_STOPPED",'START');
+  define ("SERVICE_STARTED",'STOP');
+
+  function win_service_sc($command, $service)
+  {
+    $output = '';
+    send_to_log(8,"Attempting to $command the $service service");
+    @exec("sc $command $service",$output);
+
+    if ($output[3] != "")
+    {
+      $status = explode(':',$output[3]);
+      $status = explode(' ',trim($status[1]));
+      send_to_log(8,"Response code : ".$status[0]);
+      if ( is_numeric($status[0]))
+        return $status[0];
+    }
+
+    return false;
+  }
+
+  function win_service_installed( $service )
+  {
+    return (win_service_sc("query",$service) !== false);
+  }
+
+  function win_service_status( $service )
+  {
+    switch (win_service_sc("query",$service))
+    {
+      case 1:
+      case 3:
+        return SERVICE_STOPPED;
+      case 2:
+      case 4:
+        return SERVICE_STARTED;
+      default:
+        return SERVICE_NOT_INSTALLED;
+    }
+  }
+
+  function win_service_start( $service )
+  {
+    return (win_service_sc("start",$service) == 2);
+  }
+
+  function win_service_stop( $service )
+  {
+    return (win_service_sc("stop",$service) == 3);
+  }
+
+  function win_dotnet2_installed()
+  {
+    return file_exists($_ENV["SystemRoot"]."\microsoft.net\framework\v2.0.50727\InstallUtil.exe");
+  }
+
+  // ----------------------------------------------------------------------------------
+  // Record the details about the client accessing the server in the database.
+  // ----------------------------------------------------------------------------------
 
   function record_client_details()
   {
@@ -250,9 +311,9 @@
     }
   }
 
-  #-------------------------------------------------------------------------------------------------
-  # Get the MAC address of a client on the LAN.
-  #-------------------------------------------------------------------------------------------------
+  // ----------------------------------------------------------------------------------
+  // Get the MAC address of a client on the LAN.
+  // ----------------------------------------------------------------------------------
 
   function get_mac_addr($ip)
   {

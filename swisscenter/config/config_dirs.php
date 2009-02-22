@@ -8,6 +8,15 @@
   // PHP caches information on whether files/dirs exist, permissions, etc - we need to clear the cache.
   clearstatcache();
 
+  function restart_swissmonitor()
+  {
+    if (win_service_status("SwissMonitorService") == SERVICE_STARTED)
+    {
+      win_service_stop("SwissMonitorService");
+      win_service_start("SwissMonitorService");
+    }
+  }
+
   // ----------------------------------------------------------------------------------
   // Display current config
   // ----------------------------------------------------------------------------------
@@ -207,7 +216,11 @@
         db_sqlcommand("update media_locations set name='".db_escape_str($dir)."',media_type=$type_id,cat_id=$cat_id,unrated=$cert,network_share='".db_escape_str($share)."'
                         where location_id=$id");
 
-        if (! is_windows() )
+        if ( is_windows() )
+        {
+          restart_swissmonitor();
+        }
+        else
         {
           unlink(SC_LOCATION.'media/'.$id);
           symlink($dir,SC_LOCATION.'media/'.$id);
@@ -225,9 +238,6 @@
       // Delete the selected directories
       foreach ($selected as $id)
       {
-        if (! is_windows() )
-          unlink(SC_LOCATION.'media/'.$id);
-
         db_sqlcommand("delete from ma using mp3s m, media_art ma where m.art_sha1 = ma.art_sha1 and m.location_id=".$id);
         db_sqlcommand("delete from ma using movies m, media_art ma where m.art_sha1 = ma.art_sha1 and m.location_id=".$id);
         db_sqlcommand("delete from media_locations where location_id=".$id);
@@ -235,6 +245,11 @@
         db_sqlcommand("delete from movies where location_id=$id");
         db_sqlcommand("delete from photos where location_id=$id");
         db_sqlcommand("delete from tv where location_id=$id");
+
+        if ( is_windows() )
+          restart_swissmonitor();
+        else
+          unlink(SC_LOCATION.'media/'.$id);
       }
 
       dirs_display(str('MEDIA_LOC_DEL_OK'));
@@ -284,7 +299,9 @@
       {
         $id = db_value("select location_id from media_locations where name='$dir' and media_type=".$_REQUEST["type"]);
 
-        if (! is_windows() )
+        if ( is_windows() )
+          restart_swissmonitor();
+        else
           symlink($dir,SC_LOCATION.'media/'.$id);
 
         dirs_display('',str('MEDIA_LOC_ADD_OK'));

@@ -1125,6 +1125,53 @@ function file_newer_than_db( $table, $location, $dir, $file )
 }
 
 /**
+ * Processes the media file  taking into consideration the file name ,extension
+ *and whether this is a DVD image accessed over a network share.
+ *
+ * @param string $dir - directory
+ * @param string $file - filename
+ * @param integer $id - media location ID
+ * @param string $share - network share
+ * @param string $table - database table for this media type
+ * @param array $file_exts - array of valid file extensions
+ * @param bool $update - update the file even if it is not newer?
+ * @return bool
+ */
+
+function process_media_file( $dir, $file, $id, $share, $table, $file_exts, $update )
+{
+  $files_to_ignore = array( 'video_ts.vob' );
+
+  // This is one of the files we are ignoring.
+  if ( in_array(strtolower($file),$files_to_ignore) )
+    return false;
+
+  // Is not one of the valid file extensions for this media type
+  if ( !in_array(file_ext($file),$file_exts) )
+   return false;
+
+  // Is a VTS.ifo file
+  if ( preg_match('/vts_[0-9]*_[0-9]*.ifo/i', basename($file)) == 1 )
+    return false;
+
+  // Is a DVD imge and no Network Share is defined. VOB's are ignored if a Network Share is defined, they will be played with IFO.
+  if ( $table == 'movies' && ( (empty($share) && in_array(file_ext($file), media_exts_dvd())) || (!empty($share) && file_ext($file)=='vob') ) )
+    return false;
+
+  // otherwise process the media file
+  if ( file_newer_than_db( $table, $id, $dir, $file ) || $update )
+  {
+    switch ($table)
+    {
+      case 'mp3s'   : process_mp3   ( $dir, $id, $file ); break;
+      case 'movies' : process_movie ( $dir, $id, $file ); break;
+      case 'photos' : process_photo ( $dir, $id, $file ); break;
+      case 'tv'     : process_tv    ( $dir, $id, $file ); break;
+    }
+  }
+}
+
+/**
  * Recursive scan through the directory, finding all the MP3 files.
  *
  * @param directory $dir - directory to search
@@ -1137,7 +1184,6 @@ function file_newer_than_db( $table, $location, $dir, $file )
 function process_media_directory( $dir, $id, $share, $table, $file_exts, $recurse = true, $update = false)
 {
   // Standard files to ignore (lowercase only - case insensitive match).
-  $files_to_ignore = array( 'video_ts.vob' );
   $dirs_to_ignore  = array( '.' , '..' );
 
   send_to_log(4,'Scanning : '.$dir);
@@ -1149,15 +1195,6 @@ function process_media_directory( $dir, $id, $share, $table, $file_exts, $recurs
   {
     while (($file = readdir($dh)) !== false)
     {
-      // Determine whether file should be ignored
-      if ( in_array(strtolower($file),$files_to_ignore) || !in_array(file_ext($file),$file_exts) || preg_match('/vts_[0-9]*_[0-9]*.ifo/i', basename($file))==1 )
-        $ignore_file = true;
-      // Do not include DVD images if no Network Share is defined. VOB's are ignored if a Network Share is defined, they will be played with IFO.
-      elseif ( $table == 'movies' && ( (empty($share) && in_array(file_ext($file), media_exts_dvd())) || (!empty($share) && file_ext($file)=='vob') ) )
-        $ignore_file = true;
-      else
-        $ignore_file = false;
-
       if (@is_dir($dir.$file))
       {
         // Regular directory
@@ -1170,18 +1207,9 @@ function process_media_directory( $dir, $id, $share, $table, $file_exts, $recurs
             process_media_directory( $dir.$file.'/', $id, $share, $table, $file_exts, $recurse, $update);
         }
       }
-      elseif ( !$ignore_file )
+      else
       {
-        if ( file_newer_than_db( $table, $id, $dir, $file ) || $update )
-        {
-          switch ($table)
-          {
-            case 'mp3s'   : process_mp3   ( $dir, $id, $file ); break;
-            case 'movies' : process_movie ( $dir, $id, $file ); break;
-            case 'photos' : process_photo ( $dir, $id, $file ); break;
-            case 'tv'     : process_tv    ( $dir, $id, $file ); break;
-          }
-        }
+        process_media_file( $dir, $file, $id, $share, $table, $file_exts, $update );
       }
     }
     closedir($dh);
