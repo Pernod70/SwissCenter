@@ -321,7 +321,7 @@ function form_submit_html( $text = "Submit", $width = '')
   if ($width != '')
     $width = 'style="width:'.$width.'px;"';
 
-  return '<input type="submit" '.$width.' name="submit_action" value=" '.$text.' ">';
+  return '<input type="submit" '.$width.' name="submit_action" value="'.$text.'">';
 }
 
 #-------------------------------------------------------------------------------------------------
