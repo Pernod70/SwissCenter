@@ -29,7 +29,7 @@ use constant GROUP => '239.255.255.250';
 use constant PORT  => '1900';
 
 # and create the multicast endpoint
-my $sock = IO::Socket::Multicast->new(Proto=>'udp',LocalPort=>PORT);
+my $sock = IO::Socket::Multicast->new(Proto=>'udp',LocalPort=>PORT,ReuseAddr=>1);
 $sock->mcast_add(GROUP) || die "Couldn't set multicasp UPnP Group: $!\n";
 
 # should really listen for a command to stop
