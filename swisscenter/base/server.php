@@ -121,7 +121,7 @@
       {
         // Use the gd_info() function if possible.
         $ver_info = gd_info();
-        preg_match('//d/', $ver_info['GD Version'], $match);
+        preg_match('/\d/', $ver_info['GD Version'], $match);
         $_SESSION["GD Version"] =  $match[0];
       }
       elseif ( preg_match('/phpinfo/', ini_get('disable_functions')) == 0)
@@ -132,7 +132,7 @@
         $info = ob_get_contents();
         ob_end_clean();
         $info = stristr($info, 'gd version');
-        preg_match('//d/', $info, $match);
+        preg_match('/\d/', $info, $match);
         $_SESSION["GD Version"] =  $match[0];
       }
       else
@@ -159,7 +159,7 @@
     else
     {
       $params = (empty($_SERVER["QUERY_STRING"]) ? "" : "?".$_SERVER["QUERY_STRING"]);
-      $url = "http://$host".str_replace('//','/',stripslashes($_SERVER["SCRIPT_NAME"].$params));
+      $url = "http://$host".str_replace('\\','/',stripslashes($_SERVER["SCRIPT_NAME"].$params));
     }
 
     if ($post_vars)
@@ -175,7 +175,7 @@
 
   function client_ip()
   {
-    return str_replace('//','/',$_SERVER["REMOTE_ADDR"]);
+    return str_replace('\\','/',$_SERVER["REMOTE_ADDR"]);
   }
 
   /**
@@ -294,7 +294,7 @@
     {
       preg_match('#.*syabas/([^ ]*) .*#i',$_SERVER['HTTP_USER_AGENT'],$matches);
       $_SESSION["device"]["last_seen"]  = db_datestr();
-      $_SESSION["device"]["ip_address"] = str_replace('//','/',$_SERVER["REMOTE_ADDR"]);
+      $_SESSION["device"]["ip_address"] = str_replace('\\','/',$_SERVER["REMOTE_ADDR"]);
       $_SESSION["device"]["port"] = $_SERVER['SERVER_PORT'];
       if (!empty($matches))
         $_SESSION["device"]["box_id"] = $matches[1];
