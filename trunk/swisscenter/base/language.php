@@ -92,7 +92,7 @@ function load_lang ($current_lang = '')
   $cache_chksum = get_sys_pref("LANG_CHKSUM_$base-$lang-$region");
   $checksum     = md5( @filemtime(SC_LOCATION."lang/$base/$base.xml").'/'
                      . @filemtime(SC_LOCATION."lang/$lang/$lang.xml").'/'
-                     . @filemtime(SC_LOCATION."lang/$region/$region.xml"));
+                     . @filemtime(SC_LOCATION."lang/$lang/$lang-$region.xml"));
 
   send_to_log(8,"Cached language settings", array("Cache file"=>$cache_file,"Cache Checksum"=>$cache_chksum,"New Checksum"=>$checksum));
   if ( $checksum == get_sys_pref("LANG_CHKSUM_$base-$lang-$region") )
