@@ -664,13 +664,13 @@ class CImage
           header("Content-type: image/jpeg");
           send_to_log(8,"Outputting JPEG image");
           ob_clean();
-          imagejpeg($copy,null,get_sys_pref("GEN_JPEG_QUALITY",100));
+          imagejpeg($copy,null,get_sys_pref("GEN_JPEG_QUALITY",85));
           break;
         case 'png':
           header("Content-type: image/png");
           send_to_log(8,"Outputting PNG image");
           ob_clean();
-          imagepng($this->image);
+          imagepng($this->image,null,floor(get_sys_pref("GEN_PNG_QUALITY",80)/10));
           break;
         case 'gif':
           header("Content-type: image/gif");
@@ -698,7 +698,7 @@ class CImage
       {
       	if ($overwrite || !file_exists($fsp))
       	{
-          ImagePng($this->image, $fsp);
+          ImagePng($this->image, $fsp, floor(get_sys_pref("GEN_PNG_QUALITY",80)/10));
           reduce_cache();
       	}
       	else
