@@ -508,6 +508,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>CHANNEL</id>
+        <text>Canal</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>CLEAR_NAME</id>
         <text>Apagar nome</text>
         <version>1.19</version>
@@ -556,6 +561,11 @@
         <id>CONFIG_DB_ROOT_PW_TXT</id>
         <text>A menos que tenha indicado uma palavra passe [em]root[/em] durante a instalação de  MySQL, pode deixar em branco este campo.[p][em] Nota: Pode demorar alguns minutos a criar q base de dados. Seja paciente. [/em]</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_FLICKR</id>
+        <text>Configuração Flickr</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>CONFIG_IMAGE_OPTIONS</id>
@@ -923,6 +933,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>EXIF_NONE</id>
+        <text>Sem informação EXIF disponivel</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>EXIF_ORIENTATION</id>
         <text>Orientação</text>
         <version>1.19</version>
@@ -936,6 +951,11 @@
         <id>EXIF_SOURCE</id>
         <text>Tipo de imagem</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_VIEW</id>
+        <text>Vista EXIF</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>EXIF_WHITE_BALANCE</id>
@@ -1148,6 +1168,41 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>FILTER_MISSING_CERT</id>
+        <text>Sem certificado</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_DETAILS</id>
+        <text>Sem detalhes</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_EPISODE</id>
+        <text>Sem Episódio</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_PROGRAMME</id>
+        <text>Sem programação</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_SERIES</id>
+        <text>Sem Séries</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_SYNOPSIS</id>
+        <text>Sem sinopse</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_YEAR</id>
+        <text>Sem ano</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>FILTER_VIEWED</id>
         <text>Estado de vistos</text>
         <version>1.19</version>
@@ -1176,6 +1231,86 @@
         <id>FINISHED</id>
         <text>Finalizado</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>FLICKR_CONTACTS</id>
+        <text>Contactos</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_DESC</id>
+        <text>Flickr %s é uma página Web de gestão e partilha de fotos on-line Os seus principais objectivos são para ajudar as pessoas a colocar fotos disponíveis para outras pessoas e para permitir novas formas de organizar fotos. Pode aderir ao Flicker gratuitamente e comece a partilhar imagens imediatamente. [p] O SwissCenter permitirá ver as suas fotografias e as dos seus contactos.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_FAVORITES</id>
+        <text>Favoritos</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_FILTER_BOTH</id>
+        <text>Filtro Amigo e Família</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_FILTER_FAMILY</id>
+        <text>Filtro Família</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_FILTER_FRIENDS</id>
+        <text>Filtro Amigos</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_FILTER_NEITHER</id>
+        <text>Sem filtro</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_INTERESTINGNESS</id>
+        <text>Interesse</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_NO_USER</id>
+        <text>Sem utilizador Flickr defenido!</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_PHOTOS</id>
+        <text>Fotos Flickr</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_PHOTOSETS</id>
+        <text>Montagens de Fotos</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_PROMPT</id>
+        <text>Visualize as suas fotos do Flickr e também dos seus amigos.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_RETURN</id>
+        <text>Voltar ao utilizador por defeito</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_UNKNOWN_USER</id>
+        <text>Não foi encontrado um utlizador com o nome (%s).</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_USERID_PROMPT</id>
+        <text>Cada utilizador SwissCenter pode ser associado a um utilizador Flickr. Se não inserir o seu username Flickr então pode não ser capaz de ver os seus contactos e fotografias.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_USERNAMES</id>
+        <text>Username Flickr</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>FONTWIDTH_MULTIPLIER</id>
@@ -1376,6 +1511,21 @@
         <id>INTERNET_SETTING_PROMPT</id>
         <text>Indicação da existência de uma ligação à Internet que o Swisscenter possa utilizar. Se definir o valor como 'Automático' o SwissCenter vas tentar detectar uma ligação à internet automaticamente.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>INTERNET_TV</id>
+        <text>TV internet</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>INTERNET_TV_PROMPT</id>
+        <text>As conexões às estações Internet TV individuais podem ser feitas a partir do SwissCenter quando activo.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>INTERNET_URLS</id>
+        <text>Favoritos da Internet</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>IPTC_BYLINE</id>
@@ -1771,6 +1921,11 @@
         <id>LANG_UPDATE_OK</id>
         <text>Informação de idioma alterada</text>
         <version>1.20.1</version>
+      </string>
+      <string>
+        <id>LARGE_VIEW</id>
+        <text>Visualizar em tamanho grande</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>LASTFM</id>
@@ -2448,6 +2603,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MUSIC_BEFORE_PREV</id>
+        <text>Música anterior</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>MUSIC_PLAY_NEXT</id>
         <text>Próxima Musica</text>
         <version>1.19</version>
@@ -3068,6 +3228,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>PROGRAMME_LIST_ALL</id>
+        <text>Todos Programas</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>QUICK_HOME</id>
         <text>Inicio rápido</text>
         <version>1.19</version>
@@ -3126,6 +3291,26 @@
         <id>RECENTLY_ADDED_DAYS</id>
         <text>Nos últimos %s dias</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>RECENT_MEDIA</id>
+        <text>Recentemente adicionado</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_MUSIC</id>
+        <text>Música</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_PHOTO</id>
+        <text>Fotografias</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_VIDEO</id>
+        <text>Video</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REFERENCE</id>
@@ -3733,6 +3918,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>STATISTICS</id>
+        <text>Estatisticas</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>STATUS</id>
         <text>Estado</text>
         <version>1.19</version>
@@ -4159,6 +4349,81 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>URL</id>
+        <text>Endereço URL</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ADD_BUTTON</id>
+        <text>Adicionar endereço URL</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ADD_OK</id>
+        <text>Endereço URL adicionado</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ADD_TITLE</id>
+        <text>Adicionar novo endereço URL</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_AUDIO</id>
+        <text>Stream de Audio</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_DEL_BUTTON</id>
+        <text>Remover endereços URL seleccionados</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_DEL_OK</id>
+        <text>Os endereços seleccionados foram apagados</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ERROR_TITLE</id>
+        <text>Introduza um endereço URL</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ERROR_TYPE</id>
+        <text>Introduza um tipo de endereço URL</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ERROR_URL</id>
+        <text>Introduza um endereço URL</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_TITLE</id>
+        <text>Nome do endereço</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_TYPE</id>
+        <text>Tipo de endereço</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_UPDATE_OK</id>
+        <text>Informação de endereço URL actualizada</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_VIDEO</id>
+        <text>Stream de Video</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_WEB</id>
+        <text>Página WEB</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>USERNAME</id>
         <text>Nome do usuário</text>
         <version>1.19</version>
@@ -4264,6 +4529,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>USE_BANNER</id>
+        <text>Baner do utilizador</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>VALUE</id>
         <text>Valor</text>
         <version>1.19</version>
@@ -4307,6 +4577,11 @@
         <id>WATCH_DVD</id>
         <text>Ver um DVD</text>
         <version>1.21.1</version>
+      </string>
+      <string>
+        <id>WATCH_INTERNET_TV</id>
+        <text>Ver TV internet</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>WATCH_MOVIE</id>
