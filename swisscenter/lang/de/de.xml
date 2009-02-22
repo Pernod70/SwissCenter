@@ -623,6 +623,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>CONFIG_SWISSMONITOR</id>
+        <text>SwissMonitor</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>CONFIG_TITLE</id>
         <text>SwissCenter Konfigurationsprogramm</text>
         <version>1.19</version>
@@ -1069,6 +1074,11 @@ in eine XML-Datei</text>
         <version>1.19</version>
       </string>
       <string>
+        <id>FAIL_DOTNET2_INSTALLED</id>
+        <text>Sie müssen .NET Framework - Version 2 zuerst installieren.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>FAIL_LIVERADIO_TEST</id>
         <text>LiveRadio-Parser scheint defekt</text>
         <version>1.19</version>
@@ -1142,6 +1152,16 @@ in eine XML-Datei</text>
         <id>FAIL_SHOUTCAST_TEST</id>
         <text>ShoutCast-Parser scheint defekt</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_SWISSMONITOR_INSTALLED</id>
+        <text>Der SwissMonitor Sevice ist nicht installiert.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_SWISSMONITOR_RUNNING</id>
+        <text>Der SwissMonitor-Service ist zwar installiert, arbeitet aber nicht korrekt.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>FAIL_SWISS_CACHE</id>
@@ -2786,6 +2806,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>PASS_DOTNET2_INSTALLED</id>
+        <text>.NET Framework - Version 2 ist installiert.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>PASS_LIVERADIO_TEST</id>
         <text>LiveRadio-Parser funktioniert ordnungsgemäß</text>
         <version>1.19</version>
@@ -2854,6 +2879,16 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>PASS_SHOUTCAST_TEST</id>
         <text>ShoutCast-Parser funktioniert ordnungsgemäß</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_SWISSMONITOR_INSTALLED</id>
+        <text>Der SwissMonitor-Service ist installiert.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_SWISSMONITOR_RUNNING</id>
+        <text>Der SwissMonitor-Sevice läuft.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PASS_SWISS_CACHE</id>
@@ -3876,6 +3911,26 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>SERVICE_INSTALL</id>
+        <text>Installiere Service</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SERVICE_START</id>
+        <text>Starte Service</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SERVICE_STOP</id>
+        <text>Stoppe Service</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SERVICE_UNINSTALL</id>
+        <text>Deinstalliere Service</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SETUP</id>
         <text>Einstellungen</text>
         <version>1.21.1</version>
@@ -4106,6 +4161,26 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>SWISSMONITOR_ACTION_FAILED</id>
+        <text>SwissCenter konnte die gewünschte Aktion nicht ausführen - bitte support.log beachten.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_ACTION_SUCCESS</id>
+        <text>Die gewünschte Aktion wurde erfolgreich auf den SwissMonitor-Service angewendet.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_DESCRIPTION</id>
+        <text>Der SwissMonitor ist ein einfacher Windows-Dienst, der Ihre voreingestellten Medien-Verzeichnisse nach Änderungen durchsucht (inklusive neuer oder gelöschter Dateien). Diese werden dann an SwissCenter gemeldet, damit die Datenbank adäquat aktualisiert werden kann. Dennoch ersetzt dies nicht gänzlich die &quot;Automatische Medienaktualisierung&quot;, da es auch Konstellationen gibt, die nicht alle Änderungen ermitteln können. [p][b]Bitte beachten:[/b] Wenn Sie UNC Pfade in Ihren Medien-Verzeichnissen benutzen, (z.B. &quot;\\nas\movies\&quot;) müssen Sie zum Ändern der SwissMonitor-Services die Systemsteuerung(Dienste) Ihres eigenen Benutzerkontos benutzen.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_TITLE</id>
+        <text>SwissMonitor Service</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SYNOPSIS</id>
         <text>Zusammenfassung</text>
         <version>1.19</version>
@@ -4232,7 +4307,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>TOMA_TV_CHANNELS_TIME_FAIL</id>
-        <text>Aktuallisierung nicht möglich, letzte Aktuallisierung vor %s Stunden</text>
+        <text>Aktualisierung nicht möglich, letzte Aktualisierung vor %s Stunden</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4257,7 +4332,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>TOMA_UPDATE_CHANNELS_TEXT</id>
-        <text>Die Kanalliste wird von TOMA - Internet Fernsehen verwaltet und zur Verfügung gestellt. Aus Gründen der Bandbreite ist eine Aktuallisierung nur einmal innerhalb von 24 Stunden erlaubt.</text>
+        <text>Die Kanalliste wird von TOMA - Internet Fernsehen verwaltet und zur Verfügung gestellt. Aus Gründen der Bandbreite ist eine Aktualisierung nur einmal innerhalb von 24 Stunden erlaubt.</text>
         <version>1.22</version>
       </string>
       <string>
