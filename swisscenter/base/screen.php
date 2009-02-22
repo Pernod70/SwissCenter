@@ -11,35 +11,35 @@ function store_browser_size( $res )
 {
   // This is really crappy, but the hardware sends the wrong browser resolution for HDTV screens
   // so we have to explicitly check for it here and then override it.
-  
+
   if ($res == '1280x720')
   {
     $_SESSION["device"]["browser_x_res"] = 1080;
-    $_SESSION["device"]["browser_y_res"] =  640;      
+    $_SESSION["device"]["browser_y_res"] =  640;
   }
-  else 
+  else
   {
-    list ($x, $y) = explode('x',$res);  
+    list ($x, $y) = explode('x',$res);
     $_SESSION["device"]["browser_x_res"] = $x;
-    $_SESSION["device"]["browser_y_res"] = $y;      
+    $_SESSION["device"]["browser_y_res"] = $y;
   }
 }
 
 function store_browser_scr_size( $res )
 {
   // Some HD hardware use different screen resolutions for browser and viewing media.
-  
+
   if (!empty($res))
   {
     list ($x, $y) = explode('x',$res);
     $_SESSION["device"]["browser_scr_x_res"] = $x;
     $_SESSION["device"]["browser_scr_y_res"] = $y;
   }
-  else 
+  else
   {
-    list ($x, $y) = explode('x',$res);  
+    list ($x, $y) = explode('x',$res);
     $_SESSION["device"]["browser_scr_x_res"] = $_SESSION["device"]["screen_x_res"];
-    $_SESSION["device"]["browser_scr_y_res"] = $_SESSION["device"]["screen_y_res"];      
+    $_SESSION["device"]["browser_scr_y_res"] = $_SESSION["device"]["screen_y_res"];
   }
 }
 
@@ -47,18 +47,18 @@ function store_screen_size( $res = '')
 {
   if (!empty($res))
   {
-    list ($x, $y) = explode('x',$res);  
+    list ($x, $y) = explode('x',$res);
     $_SESSION["device"]["screen_x_res"] = $x;
-    $_SESSION["device"]["screen_y_res"] = $y;      
+    $_SESSION["device"]["screen_y_res"] = $y;
   }
-  else 
+  else
   {
     // We have not been provided with the actual screen size, so deduce it from the browser sizes.
     if ($_SESSION["device"]["browser_x_res"] != 624 )
       store_screen_size('1280x720'); // HDTV
     elseif ($_SESSION["device"]["browser_y_res"] == 496 )
       store_screen_size('720x576'); // PAL
-    else 
+    else
       store_screen_size('720x480'); // NTSC
   }
 }
@@ -103,9 +103,9 @@ function get_screen_type()
     // Determine the resolution based on the client type
     if ( is_pc() )
     {
-      store_browser_size('800x450');
-      store_browser_scr_size('800x450');
-      store_screen_size('800x450');
+      store_browser_size(get_sys_pref('PC_SCREEN_SIZE','800x450'));
+      store_browser_scr_size(get_sys_pref('PC_SCREEN_SIZE','800x450'));
+      store_screen_size(get_sys_pref('PC_SCREEN_SIZE','800x450'));
     }
     elseif ( get_player_type()=='POPCORN')
     {
@@ -113,27 +113,27 @@ function get_screen_type()
       store_browser_size( preg_get( "/Browser Res([0-9]+x[0-9]+)/i", $_SESSION["device"]["agent_string"]) );
       store_browser_scr_size( preg_get( "/;\s*Res([0-9]+x[0-9]+)/i", $_SESSION["device"]["agent_string"]) );
     }
-    else 
+    else
     {
-      preg_match_all("/[0-9]*x[0-9]*/",$_SESSION["device"]["agent_string"],$matches);  
+      preg_match_all("/[0-9]*x[0-9]*/",$_SESSION["device"]["agent_string"],$matches);
       store_browser_size($matches[0][0]);
       store_screen_size($matches[0][1]);
       store_browser_scr_size($matches[0][1]);
     }
-    
+
     // What type of screen is it... Widescreen (16:9) or normal (4:3)?
     $_SESSION["device"]["aspect"] = ($_SESSION["device"]["browser_scr_x_res"]/16*9 == $_SESSION["device"]["browser_scr_y_res"] ? '16:9' : '4:3');
-  
+
     // How do we classify this screen... PAL, NTSC or HDTV?
     if ( $_SESSION["device"]["browser_x_res"] == 624)
       $_SESSION["device"]["screen_type"] = ($_SESSION["device"]["browser_y_res"] == 416 ? 'NTSC' : 'PAL');
     else
       $_SESSION["device"]["screen_type"] = 'HDTV';
-      
+
     // Record some debugging information
     send_to_log(6,'Device: ',$_SESSION["device"]);
   }
-      
+
   // Return the screen type
   return $_SESSION["device"]["screen_type"];
 }
@@ -148,8 +148,8 @@ function is_screen_hdtv()
 { return ( get_screen_type() == 'HDTV' ? true : false ); }
 
 #-------------------------------------------------------------------------------------------------
-# Routines to take X and Y (or width and height) values which are specified as a percentage and 
-# return them as actual pixel values in the current screen type (values may be specified with 
+# Routines to take X and Y (or width and height) values which are specified as a percentage and
+# return them as actual pixel values in the current screen type (values may be specified with
 # a decimal component).
 #-------------------------------------------------------------------------------------------------
 
@@ -166,7 +166,7 @@ function convert_x( $x, $coords = BROWSER_COORDS )
 
 function convert_y( $y, $coords = BROWSER_COORDS )
 {
-  get_screen_type(); 
+  get_screen_type();
   if ( $coords == SCREEN_COORDS )
     return ceil($_SESSION["device"]["screen_y_res"] * $y / 1000);
   elseif ( $coords == BROWSER_SCREEN_COORDS )
@@ -177,7 +177,7 @@ function convert_y( $y, $coords = BROWSER_COORDS )
 
 function convert_tolog_x( $x, $coords = BROWSER_COORDS )
 {
-  get_screen_type();  
+  get_screen_type();
   if ( $coords == SCREEN_COORDS )
     return ceil(1000 * $x / $_SESSION["device"]["screen_x_res"]);
   elseif ( $coords == BROWSER_SCREEN_COORDS )
@@ -188,7 +188,7 @@ function convert_tolog_x( $x, $coords = BROWSER_COORDS )
 
 function convert_tolog_y( $y, $coords = BROWSER_COORDS )
 {
-  get_screen_type(); 
+  get_screen_type();
   if ( $coords == SCREEN_COORDS )
     return ceil(1000 * $y / $_SESSION["device"]["screen_y_res"]);
   elseif ( $coords == BROWSER_SCREEN_COORDS )
@@ -203,7 +203,7 @@ function convert_tolog_y( $y, $coords = BROWSER_COORDS )
 
 function font_size( $desired_size, $coords = BROWSER_COORDS )
 {
-  return convert_y( $desired_size, $coords );  
+  return convert_y( $desired_size, $coords );
 }
 
 #-------------------------------------------------------------------------------------------------
@@ -220,35 +220,35 @@ function font_tags( $size = false, $colour = false)
   {
     // Convert logical coordinates font-size (1-1000) to actual pixels
     $size = convert_y($size);
-  
+
     if ( is_pc() )
       $size_param = 'style="font-size : '.$size.'px;"';
     else
     {
       // The hardware players only have a small number of font sizes available... so try to pick the best one
-      if     ($size <= 12) 
+      if     ($size <= 12)
         $size_param = 'size="1"';
-      elseif ($size <= 15) 
+      elseif ($size <= 15)
         $size_param = 'size="2"';
-      elseif ($size <= 17) 
+      elseif ($size <= 17)
         $size_param = 'size="3"';
-      elseif ($size <= 20) 
+      elseif ($size <= 20)
         $size_param = 'size="4"';
-      elseif ($size <= 26) 
+      elseif ($size <= 26)
         $size_param = 'size="5"';
       else
-        $size_param = 'size="6"';    
+        $size_param = 'size="6"';
     }
   }
 
   // Colour
-  if ($colour === false)    
+  if ($colour === false)
     $colour_param = '';
   elseif ($colour[0] == '#')
     $colour_param = 'color="'.$colour.'"';
   else
     $colour_param = 'color="'.style_value($colour,'#FFFFFF').'"';
-  
+
   return "<font $size_param $colour_param>";
 }
 
