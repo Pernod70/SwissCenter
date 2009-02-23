@@ -613,6 +613,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>CONFIG_SWISSMONITOR</id>
+        <text>SwissMonitor</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>CONFIG_TITLE</id>
         <text>SwissCenter configuratie hulpprogramma</text>
         <version>1.19</version>
@@ -1058,6 +1063,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>FAIL_DOTNET2_INSTALLED</id>
+        <text>.NET framework 2 moet geïnstalleerd worden.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>FAIL_LIVERADIO_TEST</id>
         <text>LiveRadio parser lijkt defect</text>
         <version>1.19</version>
@@ -1133,6 +1143,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>FAIL_SWISSMONITOR_INSTALLED</id>
+        <text>De SwissMonitor service is niet geïnstalleerd.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_SWISSMONITOR_RUNNING</id>
+        <text>De SwissMonitor service is geïnstalleerd, maar niet gestart.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>FAIL_SWISS_CACHE</id>
         <text>SwissCenter kan de buffer directory niet benaderen (%s).</text>
         <version>1.21</version>
@@ -1195,6 +1215,11 @@
       <string>
         <id>FILTER_MISSING_PROGRAMME</id>
         <text>Geen programma</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_RATING</id>
+        <text>Geen classificatie</text>
         <version>1.22</version>
       </string>
       <string>
@@ -1527,6 +1552,11 @@
         <id>INTERNET_TV</id>
         <text>Internet TV</text>
         <version>1.21.1</version>
+      </string>
+      <string>
+        <id>INTERNET_TV_OPTIONS</id>
+        <text>Internet TV</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>INTERNET_TV_PROMPT</id>
@@ -2764,6 +2794,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>PASS_DOTNET2_INSTALLED</id>
+        <text>.Net Framework 2 is geïnstalleerd.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>PASS_LIVERADIO_TEST</id>
         <text>LiveRadio parser lijkt correct te werken</text>
         <version>1.19</version>
@@ -2832,6 +2867,16 @@
         <id>PASS_SHOUTCAST_TEST</id>
         <text>ShoutCast-ontleder lijkt correct te werken</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_SWISSMONITOR_INSTALLED</id>
+        <text>De SwissMonitor service is geïnstalleerd.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_SWISSMONITOR_RUNNING</id>
+        <text>De SwissMonitor service is gestart.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PASS_SWISS_CACHE</id>
@@ -3304,6 +3349,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>RATING</id>
+        <text>Classificatie</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>RATING_SCHEME_PROMPT</id>
         <text>Certificaatschema</text>
         <version>1.19</version>
@@ -3480,8 +3530,8 @@
       </string>
       <string>
         <id>REFRESH_DIR_TEXT</id>
-        <text>SwissCenter is aan het zoeken naar nieuwe of gewijzigde media en voegt deze toe aan de databank. Dit kan enkele momenten duren, dus vragen wij om uw geduld.</text>
-        <version>1.19</version>
+        <text>SwissCenter is aan het zoeken naar nieuwe of gewijzigde media en voegt deze toe aan de databank.[p]een moment geduld a.u.b.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REFRESH_ITUNES</id>
@@ -3854,6 +3904,26 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>SERVICE_INSTALL</id>
+        <text>Installeer service</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SERVICE_START</id>
+        <text>Start service</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SERVICE_STOP</id>
+        <text>Stop service</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SERVICE_UNINSTALL</id>
+        <text>Verwijder service</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SETUP</id>
         <text>Instellingen</text>
         <version>1.19</version>
@@ -3932,6 +4002,31 @@
         <id>SLIDESHOW</id>
         <text>Diashow</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>SORT_BITRATE</id>
+        <text>sorteer op bitrate</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_CATEGORY</id>
+        <text>sorteer op categorie</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_ID</id>
+        <text>sorteer op datum</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_NAME</id>
+        <text>sorteer op naam</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_RATING</id>
+        <text>sorteer op classificatie</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>STARRING</id>
@@ -4059,6 +4154,26 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>SWISSMONITOR_ACTION_FAILED</id>
+        <text>SwissCenter kon de actie niet uitvoeren - raadpleeg het logboek</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_ACTION_SUCCESS</id>
+        <text>De actie is toegepast op de SwissMonitor service.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_DESCRIPTION</id>
+        <text>De SwissMonitor service is een eenvoudige Windows service die de medialocaties controleert op veranderde bestanden (inclusief nieuwe of verwijderde bestanden) en dit doorgeeft aan SwissCenter, opdat de databank kan worden geactualiseerd. Dit betekent overigens niet dat regelmatige verversing van de databank overbodig is, omdat er bepaalde omstandigheden zijn waarbij veranderingen niet worden gedetecteerd.[p][b]Opgelet:[/b] indien de medialocaties UNC links bevatten (bv: &quot;\\nas\films&quot;), dient de SwissMonitor in het Services Beheer Scherm worden aangepast, zodat deze gestart wordt in uw gebruikersaccount.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_TITLE</id>
+        <text>SwissMonitor Service</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SYNOPSIS</id>
         <text>Synopsis</text>
         <version>1.19</version>
@@ -4082,6 +4197,11 @@
         <id>TAG</id>
         <text>Label (Tag)</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>TASK_SCHEDULER</id>
+        <text>Taak planner</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>THUMBNAIL_VIEW</id>
@@ -4117,6 +4237,106 @@
         <id>TITLE</id>
         <text>Titel</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>TOMA_BROWSE_CATEGORY</id>
+        <text>Filter op categorie</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_BROWSE_CHANNELS</id>
+        <text>Zoek kanalen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_BROWSE_COUNTRY</id>
+        <text>Filter op land</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_CHANNELS_AVAILABLE</id>
+        <text>De selectie levert %s kanalen op.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_CHANNELS_UPDATE_MSG</id>
+        <text>De lijst met kanalen wordt geactualiseerd - even geduld a.u.b.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_INTERNET_TV</id>
+        <text>TOMA - Internet TV</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_MEDIA_TYPES</id>
+        <text>Media types</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_MEDIA_TYPES_PROMPT</id>
+        <text>Selecteer de media types waarop u wilt zoeken binnen de kanalen. U dient alleen die types te selecteren die uw mediaspeler kan afspelen.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_REMOVE_FILTER</id>
+        <text>Verwijder filters</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_RP</id>
+        <text>Real media</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_CHANNELS_FAIL</id>
+        <text>Het actualiseren van de lijst met kanalen is niet gelukt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_CHANNELS_OK</id>
+        <text>Er zijn %s kanalen geactualiseerd</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_CHANNELS_TIME_FAIL</id>
+        <text>De lijst met kanalen kan niet worden geactualiseerd; de laatste update was %s uur geleden.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_MEDIA_FAIL</id>
+        <text>Er zijn geen media types geselecteerd</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_TEXT</id>
+        <text>De %s website heeft ten doel de grootste en meer actuele archief van internet TV kanalen te zijn (deze kanalen zijn vrij beschikbaar op het internet). Er zijn kanalen over de gehele wereld en de databank wordt iedere dag bijgewerkt door de gebruikers.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_UPDATE_OK</id>
+        <text>De TOMA instellingen zijn opgeslagen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_UPDATE_CHANNELS</id>
+        <text>Update lijst met kanalen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_UPDATE_CHANNELS_TEXT</id>
+        <text>De lijst met kanalen wordt aangeboden en onderhouden door de de eigenaar van TOMA - Internet TV. Om bandbreedte te sparen mag de lijst slechts één keer per 24 uur worden bijgewerkt.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_WA</id>
+        <text>Nullsoft video</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_WM</id>
+        <text>Windows media</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>TOP_ARTISTS</id>
@@ -4423,6 +4643,16 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
         <id>URL_DEL_OK</id>
         <text>De geselecteerde URL's zijn verwijderd</text>
         <version>1.21.1</version>
+      </string>
+      <string>
+        <id>URL_ERROR_CAT</id>
+        <text>Selecteer een categorie</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ERROR_CERT</id>
+        <text>Selecteer een certificaat</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>URL_ERROR_TITLE</id>
