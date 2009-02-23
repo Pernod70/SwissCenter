@@ -1169,6 +1169,8 @@ function process_media_file( $dir, $file, $id, $share, $table, $file_exts, $upda
       case 'tv'     : process_tv    ( $dir, $id, $file ); break;
     }
   }
+
+  return true;
 }
 
 /**
