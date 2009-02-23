@@ -19,7 +19,7 @@
   $path        = str_replace('\\','/',un_magic_quote($_REQUEST["Path"]));
   $dir         = dirname($path);
   $file        = basename($path);
-  $location    = db_row("select * from media_locations where '$dir' like concat(name,'%')");
+  $location    = db_row("select * from media_locations where '".db_escape_str($dir)."' like concat(name,'%')");
   $table       = db_value("select media_table from media_types where  media_id = $location[MEDIA_TYPE]");
   $file_exts   = media_exts( $location["MEDIA_TYPE"] );
   $extra_info  = (db_value("select download_info from categories where cat_id = $location[CAT_ID]") == 'Y');
@@ -29,8 +29,8 @@
   if ($type == "Deleted")
   {
     send_to_log(5,"The following file has been deleted: $path");
-    $files = db_col_to_list("select concat(dirname,filename) FILENAME from $table where dirname='$dir/' and filename='$file'");
-    db_sqlcommand("delete from $table where dirname='$dir/' and filename='$file'");
+    $files = db_col_to_list("select concat(dirname,filename) FILENAME from $table where dirname='".db_escape_str($dir)."/' and filename='".db_escape_str($file)."'");
+    db_sqlcommand("delete from $table where dirname='".db_escape_str($dir)."/' and filename='".db_escape_str($file)."'");
     send_to_log(5,"The following media files have been removed from the database",$path);
   }
   else
@@ -46,13 +46,13 @@
 
       if ( $extra_info && $location["MEDIA_TYPE"] == MEDIA_TYPE_VIDEO && is_movie_check_enabled() )
       {
-        $info = db_row("select * from movies where concat(dirname,filename) = '$path'");
+        $info = db_row("select * from movies where concat(dirname,filename) = '".db_escape_str($path)."'");
         extra_get_movie_details( $info["FILE_ID"], $path, $info["TITLE"]);
       }
 
       if ( $extra_info && $location["MEDIA_TYPE"] == MEDIA_TYPE_TV && is_tv_check_enabled() )
       {
-        $info = db_row("select * from tv where concat(dirname,filename) = '$path'");
+        $info = db_row("select * from tv where concat(dirname,filename) = '".db_escape_str($path)."'");
         extra_get_tv_details($info["FILE_ID"], $path, $info["PROGRAMME"], $info["SERIES"], $info["EPISODE"], $info["TITLE"]);
       }
     }
