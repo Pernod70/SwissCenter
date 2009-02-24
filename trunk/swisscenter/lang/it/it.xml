@@ -159,8 +159,8 @@
       </string>
       <string>
         <id>BOOKMARKS</id>
-        <text>Bookmark</text>
-        <version>1.19</version>
+        <text>Collegamenti Internet</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_ACTOR</id>
@@ -209,8 +209,8 @@
       </string>
       <string>
         <id>BROWSE_FILESYSTEM</id>
-        <text>Cerca file</text>
-        <version>1.19</version>
+        <text>Sfoglia cartelle</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_GENRE</id>
@@ -249,8 +249,8 @@
       </string>
       <string>
         <id>BROWSE_IPTC_LOCATION</id>
-        <text>Browse by location</text>
-        <version>1.19</version>
+        <text>Sfoglia per paese</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_IPTC_PROVINCE_STATE</id>
@@ -293,6 +293,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>BROWSE_STATION</id>
+        <text>Seleziona stazione</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>BROWSE_TEXT</id>
         <text>SwissCenter permette di visualizzare i tuoi file in molti modi diversi. Per ridurre la complessita' dell'interfaccia o per personalizzarla si puo' disabilitare ognuno dele opzioni &quot;Visualizza per...&quot; visualizzati in basso. Se abiliti una sola opzione, SwissCenter saltera' direttamente a quella, senza visualizzare il menu. [p]Nota che deve essere lasciata almeno [b]una[/b] opzione abilitata per ciascun gruppo.</text>
         <version>1.19</version>
@@ -309,8 +314,8 @@
       </string>
       <string>
         <id>BROWSE_WEB</id>
-        <text>Mostra il web</text>
-        <version>1.19</version>
+        <text>Naviga internet</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_WEB_PROMPT</id>
@@ -503,6 +508,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>CHANNEL</id>
+        <text>Canale</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>CLEAR_NAME</id>
         <text>Pulisci Nome</text>
         <version>1.19</version>
@@ -510,7 +520,7 @@
       <string>
         <id>COMPACT_VIEW</id>
         <text>Visualizzazione compatta</text>
-        <version>1.19</version>
+        <version>1.22</version>
       </string>
       <string>
         <id>CONFIGURATION</id>
@@ -553,6 +563,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>CONFIG_FLICKR</id>
+        <text>Configura Flickr</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>CONFIG_IMAGE_OPTIONS</id>
         <text>Immagini</text>
         <version>1.19</version>
@@ -586,6 +601,11 @@
         <id>CONFIG_SHOUTCAST_TITLE</id>
         <text>Opzioni Shoutcast</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_SWISSMONITOR</id>
+        <text>Configura SwissMonitor</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>CONFIG_TITLE</id>
@@ -918,6 +938,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>EXIF_NONE</id>
+        <text>Nessun EXIF disponibile</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>EXIF_ORIENTATION</id>
         <text>Orientamento</text>
         <version>1.19</version>
@@ -931,6 +956,11 @@
         <id>EXIF_SOURCE</id>
         <text>Sorgente immagine</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_VIEW</id>
+        <text>Vista EXIF</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>EXIF_WHITE_BALANCE</id>
@@ -1023,6 +1053,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>FAIL_DOTNET2_INSTALLED</id>
+        <text>.NET Framework versione 2 deve esserre installata.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>FAIL_LIVERADIO_TEST</id>
         <text>Il parser LiveRadio non funziona correttamente</text>
         <version>1.19</version>
@@ -1098,9 +1133,19 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>FAIL_SWISSMONITOR_INSTALLED</id>
+        <text>Il servizio SwissMonitor non è installato</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_SWISSMONITOR_RUNNING</id>
+        <text>Il servizio SwissMonitor  è installato, ma non è attivo</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>FAIL_SWISS_CACHE</id>
-        <text>Abilita la scrittura della cache nella Directory di Swisscenter.</text>
-        <version>1.21</version>
+        <text>Impossibile abilitare la scrittura della cache nella Directory di Swisscenter (%s).</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>FAIL_SWISS_INI</id>
@@ -1119,8 +1164,8 @@
       </string>
       <string>
         <id>FAIL_SWISS_PLAYLIST</id>
-        <text>Abilita la scrittura della CAche nella Directory di SwissCenter</text>
-        <version>1.21</version>
+        <text>Impossibile scrivere nella cache nella Directory di SwissCenter (%s).</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>FILENAME</id>
@@ -1141,6 +1186,46 @@
         <id>FILTER_ACTIVE_SUFFIX</id>
         <text>(attivo)</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_CERT</id>
+        <text>Nessun certificato</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_DETAILS</id>
+        <text>Nessun dettaglio</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_EPISODE</id>
+        <text>Nessun episodio</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_PROGRAMME</id>
+        <text>Nessun programma</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_RATING</id>
+        <text>Nessuna ratio</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_SERIES</id>
+        <text>Nessuna serie</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_SYNOPSIS</id>
+        <text>Nessun sommario</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_YEAR</id>
+        <text>Nessun anno</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>FILTER_VIEWED</id>
@@ -1171,6 +1256,86 @@
         <id>FINISHED</id>
         <text>Finito</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>FLICKR_CONTACTS</id>
+        <text>Contatti</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_DESC</id>
+        <text>Flickr %s è un sito web multilingua che permette agli iscritti di condividere fotografie personali con chiunque abbia accesso a Internet.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_FAVORITES</id>
+        <text>Preferiti</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_FILTER_BOTH</id>
+        <text>Filtro famiglia &amp; amici</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_FILTER_FAMILY</id>
+        <text>Filtro famiglia</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_FILTER_FRIENDS</id>
+        <text>Filtro amici</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_FILTER_NEITHER</id>
+        <text>Nessun filtro</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_INTERESTINGNESS</id>
+        <text>Foto più interessanti</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_NO_USER</id>
+        <text>Nessun utente Flickr assegnato!</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_PHOTOS</id>
+        <text>Flickr Foto</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_PHOTOSETS</id>
+        <text>Gruppi foto</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_PROMPT</id>
+        <text>Vedi le tue foto su Flickr e quelle dei tuoi contatti</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_RETURN</id>
+        <text>Tornare all'utente di base</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_UNKNOWN_USER</id>
+        <text>Nessun utente (%s) Flickr trovato</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_USERID_PROMPT</id>
+        <text>Ciascun utilizizzatore di SwissCenter può essere associato ad un'utente Flickr. Se nessun utente Flickr è selezionato, non sarà possibile vedere foto o contatti.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_USERNAMES</id>
+        <text>Nome utente Flickr</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>FONTWIDTH_MULTIPLIER</id>
@@ -1343,6 +1508,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>INTERNET_FEATURES</id>
+        <text>Caratteristiche internet</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>INTERNET_RADIO</id>
         <text>Internet Radio</text>
         <version>1.19</version>
@@ -1354,8 +1524,8 @@
       </string>
       <string>
         <id>INTERNET_SERVICES</id>
-        <text>Servizi INTERNET</text>
-        <version>1.20.1</version>
+        <text>Servizi Internet</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>INTERNET_SETTING</id>
@@ -1366,6 +1536,26 @@
         <id>INTERNET_SETTING_PROMPT</id>
         <text>Indicare se il proprio PC ha una connessione ad internet che SwissCenter puo' usare. Se il varore viene impostato ad &quot;Automatico&quot; SwissCenter verifichera' automaticamente la presenza della connessione.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>INTERNET_TV</id>
+        <text>Internet TV</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>INTERNET_TV_OPTIONS</id>
+        <text>Opzioni internet TV</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>INTERNET_TV_PROMPT</id>
+        <text>Le connessioni a stazioni internet TV possono essere fatte dallo SwissCenter quando è attivo.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>INTERNET_URLS</id>
+        <text>Preferiti internet</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>IPTC_BYLINE</id>
@@ -1413,6 +1603,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_ADD_PARAM</id>
+        <text>Aggiungere nuovo parametro</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_ADD_PARAM_BUTTON</id>
+        <text>Aggiungi parametro</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IRADIO_CACHE_EXPIRE</id>
         <text>Timeout della cache</text>
         <version>1.19</version>
@@ -1428,9 +1628,34 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_COUNTRIES</id>
+        <text>Paesi</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_COUNTRY</id>
+        <text>Paese</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_COUNTRY_PROMPT</id>
+        <text>Specifica un paese che vuoi ricercare. Sono possibili %s ricerche per paese che risultano validi. Quando si cerca per ShoutCast sarà possibile ricercare le stazioni del paese</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IRADIO_COUNTRY_SELECT</id>
         <text>Seleziona la nazione per cui cercare:</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_DELETE_PARAM_OK</id>
+        <text>I parametri selezionati saranno eliminati</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_DEL_PARAM_BUTTON</id>
+        <text>Cancella parametri selezionati</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>IRADIO_ERROR_CACHE_EXPIRE</id>
@@ -1448,9 +1673,39 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_ERROR_PARAM</id>
+        <text>Inserisci una ricerca del parametro</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_GENRE</id>
+        <text>Genere</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_GENRES</id>
+        <text>Genere</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_GENRE_PROMPT</id>
+        <text>Specifica un genere o sotto-genere (opzionale) che si vuole ricercare. La ricerca supportata per genere ritorna i siti validi</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IRADIO_LIVERADIO_DESC</id>
         <text>LiveRadio (%s) e' un servizio radio su internet simile a ShoutCast. Fornisce la funzionalita' di ricerca per tipo di media, genere, nome della stazione, nazione e citta' - ma molte stazioni trovate non sono supportate da alcuni apparati. Quindi il parser LiveRadio usato da SwissCenter restringe la ricerca alle stazioni MP3.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_LOGO</id>
+        <text>Nome immagine</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_MAINGENRE</id>
+        <text>Gruppo principale</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>IRADIO_MAINGENRE SELECT</id>
@@ -1478,6 +1733,21 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_PARAM_ADDED_OK</id>
+        <text>Parametro ricerca aggiunto</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_PARAM_PROMPT</id>
+        <text>Le funzioni ShoutCast e Live-Radio permettono ricerche per stazioni radio, genere e paese. Qui puoi definire i tuoi criteri di ricerca.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_PARAM_TYPE</id>
+        <text>Digita il parametro di ricerca</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IRADIO_SEARCH</id>
         <text>Ricerca per stazione</text>
         <version>1.19</version>
@@ -1488,14 +1758,39 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_STATION</id>
+        <text>Stazione</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_STATION_PROMPT</id>
+        <text>Specifica un nome di stazione che vuoi ricercare. Un'immagine (opzionale) può anche essere specificata per essere usata quando si sta ascoltando una stazione. L'immagine deve essere nella tua cartella [em]&quot;../images/iradio/&quot;[/em].</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_STATION_SEARCH</id>
+        <text>Seleziona la stazione per ricercare:</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IRADIO_STATION_SELECT</id>
         <text>Seleziona la stazione su cui sintonizzarsi:</text>
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_SUBGENRE</id>
+        <text>Sotto-genere</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IRADIO_SUBGENRE_SELECT</id>
         <text>Seleziona il genere secondario per cui cercare:</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_UPDATE_PARAM_OK</id>
+        <text>Ricerca parametri aggiornati</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>ITUNES_CONFIG_PROMPT</id>
@@ -1569,13 +1864,53 @@
       </string>
       <string>
         <id>LANG_EDITOR</id>
-        <text>Language Editor</text>
-        <version>1.20.1</version>
+        <text>Configura lingua</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>LANG_ERROR_NO_SELECT</id>
         <text>Non avete selezionato alcun testo da eliminare</text>
         <version>1.20.1</version>
+      </string>
+      <string>
+        <id>LANG_ISO639</id>
+        <text>ISO 639-1 Code</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_NATIVE</id>
+        <text>Nome originale lingua</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_NEW</id>
+        <text>Aggiungi nuova lingua</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_NEW_BUTTON</id>
+        <text>Crea nuova lingua</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_NEW_EXISTS</id>
+        <text>Lingua già esistente</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_NEW_FAIL</id>
+        <text>Digita il nome originale e il codice ISO da aggiungere alla lingua</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_NEW_OK</id>
+        <text>Lingua aggiunta</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_NEW_PROMPT</id>
+        <text>Usare questo per aggiungere un supporto ad una nuova lingua. Digita il nome originale della lingua, es. Español (non Spanish), e as esso corrisponderà un codice %s (es). Puoi anche aggiungere una lingua personale come en-us per Inglese (US). Questo è composto dal codice ISO 639-1 (en) e dall'attributo %s regionale (us).</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>LANG_PROMPT</id>
@@ -1611,6 +1946,11 @@
         <id>LANG_UPDATE_OK</id>
         <text>Informazioni sul Linguaggio Aggiornate</text>
         <version>1.20.1</version>
+      </string>
+      <string>
+        <id>LARGE_VIEW</id>
+        <text>Visualizzazione estesa</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>LASTFM</id>
@@ -1709,8 +2049,8 @@
       </string>
       <string>
         <id>LISTEN_RADIO</id>
-        <text>Ascolta una internet radio</text>
-        <version>1.19</version>
+        <text>Ascolta una radio internet</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>LIST_VIEW</id>
@@ -1786,6 +2126,16 @@
         <id>MANY_TRACKS</id>
         <text>%s Traccce</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>MAX_PLAYLIST_SIZE</id>
+        <text>Grandezza massima playlist</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MAX_PLAYLIST_SIZE_PROMPT</id>
+        <text>Digita il massima valore per ogni playlist da generare. Il massimo valore consentito dallo showceenter o altri è 2000. Un corretto valore è attorno a 200.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>MEDIA_DELETED</id>
@@ -1938,9 +2288,39 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MEDIA_TYPE_MUSIC</id>
+        <text>Audio</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_PHOTO</id>
+        <text>Foto</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>MEDIA_TYPE_PROMPT</id>
         <text>Scegli il tipo di media da cercare in questo percorso.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_RADIO</id>
+        <text>Radio</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_TV SERIES</id>
+        <text>Serie TV</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_VIDEO</id>
+        <text>Video</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_WEB</id>
+        <text>Web</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>MESSAGES</id>
@@ -2074,8 +2454,8 @@
       </string>
       <string>
         <id>MISC_CONFIG_TITLE</id>
-        <text>Configurazione Miscellanee</text>
-        <version>1.19</version>
+        <text>Varie configurazione</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>MISC_FONTWIDTH_NOT_NUMBER</id>
@@ -2089,8 +2469,8 @@
       </string>
       <string>
         <id>MISC_TITLE</id>
-        <text>Miscellanee</text>
-        <version>1.19</version>
+        <text>Opzioni varie</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>MISSING_DB_TEXT</id>
@@ -2168,6 +2548,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MORE</id>
+        <text>[più]</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>MOVIE_ADD_BUTTON</id>
         <text>Aggiungi/Modifica dettagli</text>
         <version>1.19</version>
@@ -2243,6 +2628,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MUSIC_BEFORE_PREV</id>
+        <text>Prima di</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>MUSIC_PLAY_NEXT</id>
         <text>Prossimo</text>
         <version>1.19</version>
@@ -2268,9 +2658,14 @@
         <version>1.21</version>
       </string>
       <string>
+        <id>NETWORK_SHARE_MSG</id>
+        <text>Nessuna rete condivisa trovata. Se hai uno showcenter o similare deve essere acceso.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>NETWORK_SHARE_PROMPT</id>
-        <text>La condivisione di rete è necessaria solo per il tipo di supporto 'DVD Video', e verrà ignorato per tutti gli altri tipi di media. Per riprodurre DVD Video è necessario prima installare un sistema di SMB o NFS condivisione di rete sul tuo NMT per consentire l'accesso al tuo DVD immagini, quindi associare la condivisione di rete con questa posizionedi media.</text>
-        <version>1.21</version>
+        <text>La condivisione di rete è necessaria solo per il tipo di supporto 'DVD-Video' e verrà ignorato per tutti gli altri tipi di file multimediali. Per riprodurre DVD Video è necessario prima installare un sistema di SMB o NFS condivisione di rete sul tuo NMT per consentire l'accesso al tuo DVD immagini, quindi associare la condivisione di rete con questa posizionedi media.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>NEW</id>
@@ -2359,8 +2754,8 @@
       </string>
       <string>
         <id>ORG_TITLE</id>
-        <text>Modifica dettagli Video</text>
-        <version>1.20.1</version>
+        <text>Modifica i dettagli del video</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PAGE</id>
@@ -2371,6 +2766,11 @@
         <id>PASSWORD</id>
         <text>Password</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_DOTNET2_INSTALLED</id>
+        <text>.NET Framework versione 2 è installata.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PASS_LIVERADIO_TEST</id>
@@ -2441,6 +2841,16 @@
         <id>PASS_SHOUTCAST_TEST</id>
         <text>Il parser ShoutCast funziona correttamente</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_SWISSMONITOR_INSTALLED</id>
+        <text>Il servizio SwissMonitor è installato</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_SWISSMONITOR_RUNNING</id>
+        <text>Il servizio SwissMonitor è attivo</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PASS_SWISS_CACHE</id>
@@ -2723,6 +3133,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>PLAYLISTS_ERROR_SIZE</id>
+        <text>Digita il massimo valore per la grandezza della playlist (tra 10 e 2000)</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>PLAYLIST_APPEND</id>
         <text>Appendi una nuova playlist</text>
         <version>1.19</version>
@@ -2853,6 +3268,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>PROGRAMME_LIST_ALL</id>
+        <text>Tutti i programmi</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>QUICK_HOME</id>
         <text>Quick Home</text>
         <version>1.19</version>
@@ -2898,6 +3318,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>RATING</id>
+        <text>Valutazione</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>RATING_SCHEME_PROMPT</id>
         <text>Schema dei certificati</text>
         <version>1.19</version>
@@ -2911,6 +3336,26 @@
         <id>RECENTLY_ADDED_DAYS</id>
         <text>Negli ultimi %s giorni</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>RECENT_MEDIA</id>
+        <text>Aggiunte recenti</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_MUSIC</id>
+        <text>Musica recente</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_PHOTO</id>
+        <text>Foto recenti</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_VIDEO</id>
+        <text>Video recenti</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REFERENCE</id>
@@ -3184,8 +3629,8 @@
       </string>
       <string>
         <id>RSS_FEEDS</id>
-        <text>RSS Feeds</text>
-        <version>1.20.1</version>
+        <text>RSS News</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>RSS_FEED_PROMPT</id>
@@ -3423,6 +3868,26 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>SERVICE_INSTALL</id>
+        <text>Installa servizio</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SERVICE_START</id>
+        <text>Avvia servizio</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SERVICE_STOP</id>
+        <text>Arresta servizio</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SERVICE_UNINSTALL</id>
+        <text>Disinstalla servizio</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SETUP</id>
         <text>Configurazione</text>
         <version>1.21</version>
@@ -3503,6 +3968,31 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>SORT_BITRATE</id>
+        <text>Elenca per risoluzione</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_CATEGORY</id>
+        <text>Elenca per categoria</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_ID</id>
+        <text>Elenca per ultimo aggiunto</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_NAME</id>
+        <text>Elenca per nome</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_RATING</id>
+        <text>Elenca per valutazione</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>STARRING</id>
         <text>Starring</text>
         <version>1.19</version>
@@ -3516,6 +4006,11 @@
         <id>START_SLIDESHOW</id>
         <text>Inizia slideshow</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>STATISTICS</id>
+        <text>Statistiche</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>STATUS</id>
@@ -3554,8 +4049,8 @@
       </string>
       <string>
         <id>SUPPORT_CLIENTS_TITLE</id>
-        <text>Client scoperti</text>
-        <version>1.19</version>
+        <text>Client trovati</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>SUPPORT_CLINTS_TABLE</id>
@@ -3623,6 +4118,26 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>SWISSMONITOR_ACTION_FAILED</id>
+        <text>Il servizio SwissMonitor non è configurato correttamente, vedi il file support.log</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_ACTION_SUCCESS</id>
+        <text>L'attività e/o operazione è stata correttamente applicata al servizio SwissMonitor.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_DESCRIPTION</id>
+        <text>Il servizio (monitoraggio) del SwissMonitor è un semplice servizio di windows che verifica le cartelle dove sono i files per cambiamenti (esempio nuovi files aggiunti e/o cancellati) e informa lo SwissCenter che salva immediatamente queste informazioni nel database. Questo comunque non elimina la necessità di configurare le attività programmate di controllo files, in quanto in certi eventi i cambiamenti potrebbero non essere aggiornati da questo servizio.[p][b]Nota:[/b] Se si usa un'indirizzo di rete per i files (es: &quot;\\nas\movies&quot;) bisogna ricordarsi di usare il pannello di controllo dei servizi di windows, affinchè il servizio SwissMonitor parta in automatico per il proprio utente.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_TITLE</id>
+        <text>Servizio SwissMonitor</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SYNOPSIS</id>
         <text>Synopsis</text>
         <version>1.20.1</version>
@@ -3646,6 +4161,11 @@
         <id>TAG</id>
         <text>Tag</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>TASK_SCHEDULER</id>
+        <text>Pianifica un'atttività</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>THUMBNAIL_VIEW</id>
@@ -3681,6 +4201,106 @@
         <id>TITLE</id>
         <text>Titolo</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>TOMA_BROWSE_CATEGORY</id>
+        <text>Filtro per categoria</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_BROWSE_CHANNELS</id>
+        <text>Esplora i canali</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_BROWSE_COUNTRY</id>
+        <text>Filtro per paese</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_CHANNELS_AVAILABLE</id>
+        <text>Ci sono %s canali disponibili con i filtri selezionati</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_CHANNELS_UPDATE_MSG</id>
+        <text>Aggiornamento lista canali - Prego attendere</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_INTERNET_TV</id>
+        <text>TOMA - Internet TV</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_MEDIA_TYPES</id>
+        <text>Tipi multimediali</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_MEDIA_TYPES_PROMPT</id>
+        <text>Seleziona il tipo di file multimediale che sarà disponibile quando scorri i canali. Tu potrai selezionare solo con i file multimediali compatibili con lo showcenter o somilari.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_REMOVE_FILTER</id>
+        <text>Rimuovi filtri</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_RP</id>
+        <text>Real Media</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_CHANNELS_FAIL</id>
+        <text>Aggiornamento canali fallito</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_CHANNELS_OK</id>
+        <text>Canali %s aggiornati con successo</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_CHANNELS_TIME_FAIL</id>
+        <text>Non possibile aggiornare i canali, ultimo aggiornamento %s ore fà</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_MEDIA_FAIL</id>
+        <text>Non hai selezionato alcun file multimediale</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_TEXT</id>
+        <text>Il sito web %s mira ad essere il più grande e più aggiornato archivio dei canali TV internet (canali liberi in internet). Noi abbiamo canali da tutto il mondo e il database è aggiornato ogni giorno dai nostri utenti.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_UPDATE_OK</id>
+        <text>Impostazioni TOMA salvate</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_UPDATE_CHANNELS</id>
+        <text>Aggiorna lista canali</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_UPDATE_CHANNELS_TEXT</id>
+        <text>La lista dei canali è mantenuta e ospitata dall'autore di TOMA - Internet TV. Per preservare la banda, non è permesso aggiornare questa lista più di una volta al giorno.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_WA</id>
+        <text>Nullsoft video</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_WM</id>
+        <text>Windows media</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>TRACKS</id>
@@ -3943,6 +4563,91 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>URL</id>
+        <text>Indirizzo (url)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ADD_BUTTON</id>
+        <text>Aggiungi indirizzo (url)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ADD_OK</id>
+        <text>Indirizzo (url) aggiunto</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ADD_TITLE</id>
+        <text>aggiungi nuovo indirizzo (url)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_AUDIO</id>
+        <text>Flusso audio</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_DEL_BUTTON</id>
+        <text>Rimuovi indirizzo (url) selezionato</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_DEL_OK</id>
+        <text>L'indirizzo (url) selezionato è satto eliminato</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ERROR_CAT</id>
+        <text>Seleziona una categoria</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ERROR_CERT</id>
+        <text>Seleziona un certificato</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ERROR_TITLE</id>
+        <text>Seleziona un nome per l'indirizzo (url)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ERROR_TYPE</id>
+        <text>Selezona il tipo di indirizzo (url)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ERROR_URL</id>
+        <text>Digita l'indirizzo (url)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_TITLE</id>
+        <text>Titolo</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_TYPE</id>
+        <text>Digita indirizzo (url)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_UPDATE_OK</id>
+        <text>Avvia servizio</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_VIDEO</id>
+        <text>Flusso video</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_WEB</id>
+        <text>Pagina internet</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>USERNAME</id>
         <text>Nome utente</text>
         <version>1.19</version>
@@ -4048,6 +4753,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>USE_BANNER</id>
+        <text>Usa Banners</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>VALUE</id>
         <text>Valore</text>
         <version>1.19</version>
@@ -4093,6 +4803,11 @@
         <version>1.21</version>
       </string>
       <string>
+        <id>WATCH_INTERNET_TV</id>
+        <text>Internet TV</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>WATCH_MOVIE</id>
         <text>Guarda un video</text>
         <version>1.19</version>
@@ -4104,8 +4819,8 @@
       </string>
       <string>
         <id>WEATHER_5DAY</id>
-        <text>Visualizza previsioni a cinque giorni</text>
-        <version>1.19</version>
+        <text>Previsioni a cinque giorni</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>WEATHER_BACK_TO_SEARCH</id>
@@ -4149,8 +4864,8 @@
       </string>
       <string>
         <id>WEATHER_IMPERIAL</id>
-        <text>Passa a sistema imperiale</text>
-        <version>1.19</version>
+        <text>Passa a sistema inglese</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>WEATHER_LOCATION</id>
