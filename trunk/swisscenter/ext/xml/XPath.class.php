@@ -1184,7 +1184,7 @@ class XPathEngine extends XPathBase {
       @fflush($hFile);
       $status = TRUE;
     } while(FALSE);
-    
+
     @flock($hFile, LOCK_UN);
     @fclose($hFile);
     // Sanity check the produced file.
@@ -5100,7 +5100,7 @@ class XPathEngine extends XPathBase {
       //otherwise we receive  &amp;nbsp;  instead of  &nbsp;
 //      return $xmlSource;
 //    } else {
-      $xmlSource = ($reverse ? str_replace('&amp;', '&', $xmlSource) : str_replace('&', '&amp;', $xmlSource));
+//      $xmlSource = ($reverse ? str_replace('&amp;', '&', $xmlSource) : str_replace('&', '&amp;', $xmlSource));
       return ($reverse ? str_replace('&amp;', '&', $xmlSource) : str_replace('&', '&amp;', $xmlSource));
 //    }
   }
@@ -5557,7 +5557,7 @@ class XPath extends XPathEngine {
         if (!($node = $this->_xml2Document($node))) return FALSE;
       }
     }
-    
+
     // Special case if it's 'super root'. We then have to take the child node == top node
     if (empty($node['parentNode'])) $node = $node['childNodes'][0];
 
