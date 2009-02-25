@@ -117,9 +117,9 @@
     $xml->importFromFile($filename);
 
     $data = $xml->match("/movie[1]/title");
-    if ( !empty($data) ) $columns["TITLE"] = utf8_decode($xml->getData($data[0]));
+    if ( !empty($data) ) $columns["TITLE"] = utf8_decode(html_entity_decode($xml->getData($data[0])));
     $data = $xml->match("/movie[1]/synopsis");
-    if ( !empty($data) ) $columns["SYNOPSIS"] = utf8_decode($xml->getData($data[0]));
+    if ( !empty($data) ) $columns["SYNOPSIS"] = utf8_decode(html_entity_decode($xml->getData($data[0])));
     $data = $xml->match("/movie[1]/year");
     if ( !empty($data) ) $columns["YEAR"] = $xml->getData($data[0]);
     $data = $xml->match("/movie[1]/rating");
@@ -134,7 +134,7 @@
     {
       $data = array();
       foreach ($actors as $actorpath)
-        $data[] = utf8_decode($xml->getData($actorpath.'/name'));
+        $data[] = utf8_decode(html_entity_decode($xml->getData($actorpath.'/name')));
       scdb_add_actors($file_id,$data);
     }
 
@@ -155,7 +155,7 @@
     {
       $data = array();
       foreach ($genres as $genrepath)
-        $data[] = utf8_decode($xml->getData($genrepath));
+        $data[] = utf8_decode(html_entity_decode($xml->getData($genrepath)));
       scdb_add_genres($file_id,$data);
     }
 
@@ -166,7 +166,7 @@
     {
       $data = array();
       foreach ($directors  as $directorpath)
-        $data[] = utf8_decode($xml->getData($directorpath));
+        $data[] = utf8_decode(html_entity_decode($xml->getData($directorpath)));
       scdb_add_directors($file_id,$data);
     }
 
@@ -175,7 +175,7 @@
     {
       foreach ( $viewed as $viewedpath )
       {
-        $name = utf8_decode($xml->getData($viewedpath));
+        $name = utf8_decode(html_entity_decode($xml->getData($viewedpath)));
         $data = db_value("SELECT user_id FROM users where name='".$name."'");
         @db_sqlcommand("insert into viewings (user_id, media_type, media_id, last_viewed, total_viewings ) values (".$data.", ".MEDIA_TYPE_VIDEO.", ".$file_id.", now(), 1) ");
       }
@@ -290,15 +290,15 @@
     $xml->importFromFile($filename);
 
     $data = $xml->match("/tv[1]/programme");
-    if ( !empty($data) ) $columns["PROGRAMME"] = utf8_decode($xml->getData($data[0]));
+    if ( !empty($data) ) $columns["PROGRAMME"] = utf8_decode(html_entity_decode($xml->getData($data[0])));
     $data = $xml->match("/tv[1]/series");
     if ( !empty($data) ) $columns["SERIES"] = $xml->getData($data[0]);
     $data = $xml->match("/tv[1]/episode");
     if ( !empty($data) ) $columns["EPISODE"] = $xml->getData($data[0]);
     $data = $xml->match("/tv[1]/title");
-    if ( !empty($data) ) $columns["TITLE"] = utf8_decode($xml->getData($data[0]));
+    if ( !empty($data) ) $columns["TITLE"] = utf8_decode(html_entity_decode($xml->getData($data[0])));
     $data = $xml->match("/tv[1]/synopsis");
-    if ( !empty($data) ) $columns["SYNOPSIS"] = utf8_decode($xml->getData($data[0]));
+    if ( !empty($data) ) $columns["SYNOPSIS"] = utf8_decode(html_entity_decode($xml->getData($data[0])));
     $data = $xml->match("/tv[1]/year");
     if ( !empty($data) ) $columns["YEAR"] = $xml->getData($data[0]);
     $columns["DETAILS_AVAILABLE"] = 'Y';
@@ -311,7 +311,7 @@
     {
       $data = array();
       foreach ($actors as $actorpath)
-        $data[] = utf8_decode($xml->getData($actorpath.'/name'));
+        $data[] = utf8_decode(html_entity_decode($xml->getData($actorpath.'/name')));
       scdb_add_tv_actors($file_id,$data);
     }
 
@@ -332,7 +332,7 @@
     {
       $data = array();
       foreach ($genres as $genrepath)
-        $data[] = utf8_decode($xml->getData($genrepath));
+        $data[] = utf8_decode(html_entity_decode($xml->getData($genrepath)));
       scdb_add_tv_genres($file_id,$data);
     }
 
@@ -343,7 +343,7 @@
     {
       $data = array();
       foreach ($directors  as $directorpath)
-        $data[] = utf8_decode($xml->getData($directorpath));
+        $data[] = utf8_decode(html_entity_decode($xml->getData($directorpath)));
       scdb_add_tv_directors($file_id,$data);
     }
 
