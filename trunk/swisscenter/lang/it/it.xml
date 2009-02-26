@@ -44,8 +44,8 @@
       </string>
       <string>
         <id>ALL_MEDIA_TYPES</id>
-        <text>Tutti i tipi di Media</text>
-        <version>1.20.1</version>
+        <text>Tutti i tipi di file multimediali</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>ALL_RSS_FEEDS</id>
@@ -159,7 +159,7 @@
       </string>
       <string>
         <id>BOOKMARKS</id>
-        <text>Collegamenti Internet</text>
+        <text>Preferiti</text>
         <version>1.22</version>
       </string>
       <string>
@@ -639,8 +639,8 @@
       </string>
       <string>
         <id>CURRENT_VERSION</id>
-        <text>Versione corrente</text>
-        <version>1.19</version>
+        <text>Versione in uso -</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>CUSTOM</id>
@@ -1819,8 +1819,8 @@
       </string>
       <string>
         <id>KEYBOARD_SPC</id>
-        <text>Barra Spaziatrice</text>
-        <version>1.19</version>
+        <text>Spazio</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>LANGUAGE</id>
@@ -2049,7 +2049,7 @@
       </string>
       <string>
         <id>LISTEN_RADIO</id>
-        <text>Ascolta una radio internet</text>
+        <text>Radio internet</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2104,8 +2104,8 @@
       </string>
       <string>
         <id>MACHINE_NAME</id>
-        <text>Nome macchina</text>
-        <version>1.19</version>
+        <text>Nome computer</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>MAIN_MENU</id>
@@ -2224,8 +2224,8 @@
       </string>
       <string>
         <id>MEDIA_REFRESH</id>
-        <text>Cerca nuovi media</text>
-        <version>1.19</version>
+        <text>Cerca nuovi file multimediali</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>MEDIA_SCAN_OVERALL</id>
@@ -3139,8 +3139,8 @@
       </string>
       <string>
         <id>PLAYLIST_APPEND</id>
-        <text>Appendi una nuova playlist</text>
-        <version>1.19</version>
+        <text>Aggiungi una nuova playlist</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PLAYLIST_AUTOLOAD</id>
@@ -3899,8 +3899,8 @@
       </string>
       <string>
         <id>SETUP_REMOTE</id>
-        <text>Settaggio Telecomando</text>
-        <version>1.19</version>
+        <text>Impostazioni telecomando</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>SETUP_SEARCH_ALL</id>
@@ -3914,13 +3914,13 @@
       </string>
       <string>
         <id>SETUP_SEARCH_NEW_MEDIA</id>
-        <text>Cerca nuovi media</text>
-        <version>1.19</version>
+        <text>Cerca nuovi file multimediaali</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>SETUP_SEARCH_TYPE</id>
-        <text>Ricerca uno specifico tipo di Media</text>
-        <version>1.19</version>
+        <text>Ricerca uno specifico tipo di file multimediale</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>SETUP_SEARCH_TYPE_TITLE</id>
@@ -3939,13 +3939,13 @@
       </string>
       <string>
         <id>SETUP_UPDATE_SC_RELEASE</id>
-        <text>Aggiorna con l'Ultima Stabile Release</text>
-        <version>1.21</version>
+        <text>Aggiorna all'ultima release ufficiale</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>SETUP_UPDATE_SC_SVN</id>
-        <text>Aggiorna con l'Ultima release in corso di Sviluppo</text>
-        <version>1.21</version>
+        <text>Aggiorna all'ultima beta release</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>SHUFFLE_OFF</id>
@@ -4794,8 +4794,8 @@
       </string>
       <string>
         <id>VIEW_WEATHER</id>
-        <text>Guarda le previsioni del tempo</text>
-        <version>1.19</version>
+        <text>Previsioni del tempo</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>WATCH_DVD</id>
