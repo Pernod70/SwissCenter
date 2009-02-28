@@ -531,6 +531,7 @@ function process_mp3( $dir, $id, $file)
     {
       // Update the existing record
       send_to_log(5,'Updating MP3  : '.$file);
+      unset($data["discovered"]);
       $success = db_update_row( "mp3s", $file_id, $data);
     }
     else
@@ -694,6 +695,7 @@ function process_photo( $dir, $id, $file)
       {
         // Update the existing record
         send_to_log(5,'Updating Photo : '.$file);
+        unset($data["discovered"]);
         $success = db_update_row( "photos", $file_id, $data);
       }
       else
@@ -800,6 +802,11 @@ function process_movie( $dir, $id, $file )
       $data["size"]          = $id3["filesize"];
       $data["length"]        = floor($id3["playtime_seconds"]);
       $data["lengthstring"]  = $id3["playtime_string"];
+      $data["audio_channels"]= $id3["audio"]["channels"];
+      $data["audio_codec"]   = $id3["audio"]["codec"];
+      $data["video_codec"]   = $id3["video"]["codec"];
+      $data["resolution"]    = $id3["video"]["resolution_x"].'x'.$id3["video"]["resolution_y"];
+      $data["frame_rate"]    = $id3["video"]["frame_rate"];
 
       // Get metadata from asf files
       if ( strtolower($id3["fileformat"]) == 'asf' )
@@ -849,6 +856,7 @@ function process_movie( $dir, $id, $file )
   {
     // Update the existing record
     send_to_log(5,'Updating Video : '.$file);
+    unset($data["discovered"]);
     $success = db_update_row( "movies", $file_id, $data);
   }
   else
@@ -1021,6 +1029,11 @@ function process_tv( $dir, $id, $file)
       $data["size"]          = $id3["filesize"];
       $data["length"]        = floor($id3["playtime_seconds"]);
       $data["lengthstring"]  = $id3["playtime_string"];
+      $data["audio_channels"]= $id3["audio"]["channels"];
+      $data["audio_codec"]   = $id3["audio"]["codec"];
+      $data["video_codec"]   = $id3["video"]["codec"];
+      $data["resolution"]    = $id3["video"]["resolution_x"].'x'.$id3["video"]["resolution_y"];
+      $data["frame_rate"]    = $id3["video"]["frame_rate"];
     }
     else
     {
@@ -1039,6 +1052,7 @@ function process_tv( $dir, $id, $file)
   {
     // Update the existing record
     send_to_log(5,'Updating TV episode  : '.$file);
+    unset($data["discovered"]);
     $success = db_update_row( "tv", $file_id, $data);
   }
   else
