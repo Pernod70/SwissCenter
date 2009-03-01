@@ -160,6 +160,7 @@
     db_sqlcommand("delete from actors_in_movie where movie_id = $movie_id ");
     db_sqlcommand("delete from directors_of_movie where movie_id = $movie_id ");
     db_sqlcommand("delete from genres_of_movie where movie_id = $movie_id ");
+    db_sqlcommand("delete from languages_of_movie where movie_id = $movie_id ");
     db_sqlcommand("update movies set year=null, details_available='N', match_pc=null, certificate=null, synopsis=null where file_id = $movie_id");
   }
 
@@ -174,6 +175,7 @@
     db_sqlcommand("delete from actors_in_tv where tv_id = $tv_id ");
     db_sqlcommand("delete from directors_of_tv where tv_id = $tv_id ");
     db_sqlcommand("delete from genres_of_tv where tv_id = $tv_id ");
+    db_sqlcommand("delete from languages_of_tv where tv_id = $tv_id ");
     db_sqlcommand("update tv set title=null, year=null, details_available='N', synopsis=null where file_id = $tv_id");
   }
 

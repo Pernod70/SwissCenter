@@ -3983,6 +3983,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>SPOKEN_LANGUAGE</id>
+        <text>Language</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>STARRING</id>
         <text>Starring</text>
         <version>1.19</version>
