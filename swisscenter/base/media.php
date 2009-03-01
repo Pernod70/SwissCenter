@@ -99,6 +99,11 @@ function remove_orphaned_movie_info()
                  ' using directors_of_movie left outer join movies '.
                  '    on directors_of_movie.movie_id = movies.file_id '.
                  ' where movies.file_id is null');
+
+  @db_sqlcommand('delete from languages_of_movie '.
+                 ' using languages_of_movie left outer join movies '.
+                 '    on languages_of_movie.movie_id = movies.file_id '.
+                 ' where movies.file_id is null');
 }
 
 /**
@@ -121,6 +126,11 @@ function remove_orphaned_tv_info()
   @db_sqlcommand('delete from directors_of_tv '.
                  ' using directors_of_tv left outer join tv '.
                  '    on directors_of_tv.tv_id = tv.file_id '.
+                 ' where tv.file_id is null');
+
+  @db_sqlcommand('delete from languages_of_tv '.
+                 ' using languages_of_tv left outer join movies '.
+                 '    on languages_of_tv.tv_id = tv.file_id '.
                  ' where tv.file_id is null');
 }
 

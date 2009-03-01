@@ -38,9 +38,10 @@
       $xml = new XPath(FALSE, $options);
       $xml->importFromString('<?xml version="1.0" encoding="utf-8"?><movie xmlns="http://www.swisscenter.co.uk" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.swisscenter.co.uk movies.xsd"></movie>');
       $movie_path = '/movie[1]';
-      $xml->appendChild($movie_path,'<title>'.utf8_encode(htmlspecialchars($details[0]["TITLE"])).'</title>');
+
+      $xml->appendChild($movie_path,'<title>'.utf8_encode(xmlspecialchars($details[0]["TITLE"])).'</title>');
       if ( !empty( $details[0]["SYNOPSIS"] ) )
-        $xml->appendChild($movie_path,'<synopsis>'.utf8_encode(htmlspecialchars($details[0]["SYNOPSIS"])).'</synopsis>');
+        $xml->appendChild($movie_path,'<synopsis>'.utf8_encode(xmlspecialchars($details[0]["SYNOPSIS"])).'</synopsis>');
 
       // Actors
       $actor_list = db_toarray("select actor_name name from actors a, actors_in_movie aim where aim.actor_id = a.actor_id and movie_id=".$file_id);
@@ -50,7 +51,7 @@
         foreach ($actor_list as $actor)
         {
           $xpath = $xml->appendChild($actors_path,'<actor />');
-          $xml->appendChild($xpath,'<name>'.utf8_encode(htmlspecialchars($actor["NAME"])).'</name>');
+          $xml->appendChild($xpath,'<name>'.utf8_encode(xmlspecialchars($actor["NAME"])).'</name>');
         }
       }
 
@@ -59,7 +60,7 @@
       {
         $certificate = db_toarray("select name, scheme from certificates where cert_id = ".$details[0]["CERTIFICATE"]);
         $xpath = $xml->appendChild($movie_path,'<certificates />');
-        $xml->appendChild($xpath,'<certificate scheme="'.$certificate[0]["SCHEME"].'">'.utf8_encode(htmlspecialchars($certificate[0]["NAME"])).'</certificate>');
+        $xml->appendChild($xpath,'<certificate scheme="'.$certificate[0]["SCHEME"].'">'.utf8_encode(xmlspecialchars($certificate[0]["NAME"])).'</certificate>');
       }
 
       // Genres
@@ -68,7 +69,7 @@
       {
         $xpath = $xml->appendChild($movie_path,'<genres />');
         foreach ($genre_list as $genre)
-          $xml->appendChild($xpath,'<genre>'.utf8_encode(htmlspecialchars($genre["NAME"])).'</genre>');
+          $xml->appendChild($xpath,'<genre>'.utf8_encode(xmlspecialchars($genre["NAME"])).'</genre>');
       }
 
       // Directors
@@ -77,7 +78,16 @@
       {
         $xpath = $xml->appendChild($movie_path,'<directors />');
         foreach ($director_list as $director)
-          $xml->appendChild($xpath,'<director>'.utf8_encode(htmlspecialchars($director["NAME"])).'</director>');
+          $xml->appendChild($xpath,'<director>'.utf8_encode(xmlspecialchars($director["NAME"])).'</director>');
+      }
+
+      // Languages
+      $language_list = db_toarray("select language name from languages l, languages_of_movie lom where lom.language_id = l.language_id and movie_id=".$file_id);
+      if ( !empty( $language_list ) )
+      {
+        $xpath = $xml->appendChild($movie_path,'<languages />');
+        foreach ($language_list as $language)
+          $xml->appendChild($xpath,'<language>'.utf8_encode(xmlspecialchars($language["NAME"])).'</language>');
       }
 
       // Running Time
@@ -102,7 +112,7 @@
       {
         $xpath = $xml->appendChild($movie_path,'<viewed />');
         foreach ($user_list as $user)
-          $xml->appendChild($xpath,'<name>'.utf8_encode(htmlspecialchars($user["NAME"])).'</name>');
+          $xml->appendChild($xpath,'<name>'.utf8_encode(xmlspecialchars($user["NAME"])).'</name>');
       }
 
       return $xml->exportToFile( $filename );
@@ -170,14 +180,26 @@
       scdb_add_directors($file_id,$data);
     }
 
+    // Languages
+    @db_sqlcommand('delete from languages_of_movie where movie_id = '.$file_id) ;
+    $languages = $xml->match('/movie[1]/languages[1]/language');
+    if ( !empty($languages) )
+    {
+      $data = array();
+      foreach ($languages  as $languagepath)
+        $data[] = utf8_decode(html_entity_decode($xml->getData($languagepath)));
+      scdb_add_languages($file_id,$data);
+    }
+
     $viewed = $xml->match('/movie[1]/viewed[1]/name') ;
     if ( !empty($viewed) )
     {
       foreach ( $viewed as $viewedpath )
       {
         $name = utf8_decode(html_entity_decode($xml->getData($viewedpath)));
-        $data = db_value("SELECT user_id FROM users where name='".$name."'");
-        @db_sqlcommand("insert into viewings (user_id, media_type, media_id, last_viewed, total_viewings ) values (".$data.", ".MEDIA_TYPE_VIDEO.", ".$file_id.", now(), 1) ");
+        $user_id = db_value("SELECT user_id FROM users where name='".$name."'");
+        if (viewings_count(MEDIA_TYPE_VIDEO, $file_id, $user_id) == 0)
+          db_insert_row('viewings',array("user_id"=>$user_id, "media_type"=>MEDIA_TYPE_VIDEO, "media_id"=>$file_id, "total_viewings"=>1));
       }
     }
 
@@ -214,12 +236,12 @@
       $xml->importFromString('<?xml version="1.0" encoding="utf-8"?><tv xmlns="http://www.swisscenter.co.uk" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.swisscenter.co.uk tv.xsd"></tv>');
       $tv_path = '/tv[1]';
 
-      $xml->appendChild($tv_path,'<programme>'.utf8_encode(htmlspecialchars($details[0]["PROGRAMME"])).'</programme>');
+      $xml->appendChild($tv_path,'<programme>'.utf8_encode(xmlspecialchars($details[0]["PROGRAMME"])).'</programme>');
       $xml->appendChild($tv_path,'<series>'.$details[0]["SERIES"].'</series>');
       $xml->appendChild($tv_path,'<episode>'.$details[0]["EPISODE"].'</episode>');
-      $xml->appendChild($tv_path,'<title>'.utf8_encode(htmlspecialchars($details[0]["TITLE"])).'</title>');
+      $xml->appendChild($tv_path,'<title>'.utf8_encode(xmlspecialchars($details[0]["TITLE"])).'</title>');
       if ( !empty( $details[0]["SYNOPSIS"] ) )
-        $xml->appendChild($tv_path,'<synopsis>'.utf8_encode(htmlspecialchars($details[0]["SYNOPSIS"])).'</synopsis>');
+        $xml->appendChild($tv_path,'<synopsis>'.utf8_encode(xmlspecialchars($details[0]["SYNOPSIS"])).'</synopsis>');
 
       // Actors
       $actor_list = db_toarray("select actor_name name from actors a, actors_in_tv ait where ait.actor_id = a.actor_id and tv_id=".$file_id);
@@ -229,7 +251,7 @@
         foreach ($actor_list as $actor)
         {
           $xpath = $xml->appendChild($actors_path,'<actor />');
-          $xml->appendChild($xpath,'<name>'.utf8_encode(htmlspecialchars($actor["NAME"])).'</name>');
+          $xml->appendChild($xpath,'<name>'.utf8_encode(xmlspecialchars($actor["NAME"])).'</name>');
         }
       }
 
@@ -238,7 +260,7 @@
       {
         $certificate = db_toarray("select name, scheme from certificates where cert_id = ".$details[0]["CERTIFICATE"]);
         $xpath = $xml->appendChild($tv_path,'<certificates />');
-        $xml->appendChild($xpath,'<certificate scheme="'.$certificate[0]["SCHEME"].'">'.utf8_encode(htmlspecialchars($certificate[0]["NAME"])).'</certificate>');
+        $xml->appendChild($xpath,'<certificate scheme="'.$certificate[0]["SCHEME"].'">'.utf8_encode(xmlspecialchars($certificate[0]["NAME"])).'</certificate>');
       }
 
       // Genres
@@ -247,7 +269,7 @@
       {
         $xpath = $xml->appendChild($tv_path,'<genres />');
         foreach ($genre_list as $genre)
-          $xml->appendChild($xpath,'<genre>'.utf8_encode(htmlspecialchars($genre["NAME"])).'</genre>');
+          $xml->appendChild($xpath,'<genre>'.utf8_encode(xmlspecialchars($genre["NAME"])).'</genre>');
       }
 
       // Directors
@@ -256,7 +278,16 @@
       {
         $xpath = $xml->appendChild($tv_path,'<directors />');
         foreach ($director_list as $director)
-          $xml->appendChild($xpath,'<director>'.utf8_encode(htmlspecialchars($director["NAME"])).'</director>');
+          $xml->appendChild($xpath,'<director>'.utf8_encode(xmlspecialchars($director["NAME"])).'</director>');
+      }
+
+      // Languages
+      $language_list = db_toarray("select language name from languages l, languages_of_tv lot where lot.language_id = l.language_id and tv_id=".$file_id);
+      if ( !empty( $language_list ) )
+      {
+        $xpath = $xml->appendChild($movie_path,'<languages />');
+        foreach ($language_list as $language)
+          $xml->appendChild($xpath,'<language>'.utf8_encode(xmlspecialchars($language["NAME"])).'</language>');
       }
 
       // Running Time
@@ -275,7 +306,7 @@
       {
         $xpath = $xml->appendChild($tv_path,'<viewed />');
         foreach ($user_list as $user)
-          $xml->appendChild($xpath,'<name>'.utf8_encode(htmlspecialchars($user["NAME"])).'</name>');
+          $xml->appendChild($xpath,'<name>'.utf8_encode(xmlspecialchars($user["NAME"])).'</name>');
       }
 
       return $xml->exportToFile( $filename );
@@ -347,14 +378,26 @@
       scdb_add_tv_directors($file_id,$data);
     }
 
+    // Languages
+    @db_sqlcommand('delete from languages_of_tv where tv_id = '.$file_id) ;
+    $languages = $xml->match('/tv[1]/languages[1]/language');
+    if ( !empty($languages) )
+    {
+      $data = array();
+      foreach ($languages  as $languagepath)
+        $data[] = utf8_decode(html_entity_decode($xml->getData($languagepath)));
+      scdb_add_tv_languages($file_id,$data);
+    }
+
     $viewed = $xml->match('/tv[1]/viewed[1]/name') ;
     if ( !empty($viewed) )
     {
       foreach ( $viewed as $viewedpath )
       {
         $name = utf8_decode($xml->getData($viewedpath));
-        $data = db_value("SELECT user_id FROM users where name='".$name."'");
-        @db_sqlcommand("insert into viewings (user_id, media_type, media_id, last_viewed, total_viewings ) values (".$data.", ".MEDIA_TYPE_TV.", ".$file_id.", now(), 1) ");
+        $user_id = db_value("SELECT user_id FROM users where name='".$name."'");
+        if (viewings_count(MEDIA_TYPE_TV, $file_id, $user_id) == 0)
+          db_insert_row('viewings',array("user_id"=>$user_id, "media_type"=>MEDIA_TYPE_TV, "media_id"=>$file_id, "total_viewings"=>1));
       }
     }
 

@@ -667,6 +667,19 @@ function convert_mms_to_rtsp( $url )
 {
   return (get_sys_pref('CONVERT_MMS_TO_RTSP','YES')=='YES' ? str_replace('mms://','rtsp://',$url) : $url);
 }
+
+/**
+ * Convert special characters to XML entities, decoding HTML entities
+ *
+ * @param string $string
+ * @return string
+ */
+
+function xmlspecialchars( $text )
+{
+  return str_replace('&#039;', '&apos;', htmlspecialchars( html_entity_decode($text), ENT_QUOTES ));
+}
+
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/
