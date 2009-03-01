@@ -6,27 +6,6 @@
    relating to the movies that the user has added to their database. It typically collects
    information such as title, genre, year of release, certificate, synopsis, directors and actors.
 
-   Version history:
-   06-Aug-2008: v1.21.1:  Retrieves maximum size images (450x700) instead of (94x150).
-   12-May-2008: v1.21:    Fixed certificates.
-   27-Apr-2008: v1.20:    Fixed synopsis due to site change. Certificates are broken.
-   09-Mar-2008: v1.19.2:  Title is now URL encoded.
-   08-Jan-2008: v1.19:    Updated for new parser location and now handles multiple Directors.
-   29-May-2007: v1.17:    small change to catch up with 1.7 Swisscenter changes to album art
-                            Suggest a new versioning scheme, starting now.
-   21-May-2007: v1.6.2:   Include rating.php for get_rating_scheme_name
-   11-May-2007: v1.6.1:   Fix credits in this source
-   10-May-2007: v1.6:     Uses selected certificate scheme to get either USA or UK certificate
-   09-May-2007: v1.5.1:   Choose correct filetype for album art, instead of hard-coding '.jpg'
-   09-May-2007: v1.5:     If a filename contains an explicit IMDb title ID (such as '[tt0076759]'),
-                            use that to locate the proper movie info
-   30-Apr-2007: v1.4:     Changed Director tag from 'Directed by' to 'Director:'
-   20-Feb-2007: v1.3:     Support IMDB's new user interface (which is better for parsing)
-   05-Feb-2007: v1.2:     More fixes
-   01-Dec-2006: v1.1:     Tweaked to support more movies. IMDB is rather unstructured in
-                            its output, unfortuantely
-   01-Oct-2006: v1.0:     First public release
-
  *************************************************************************************************/
 
   function extra_get_movie_details($id, $filename, $title)
@@ -54,6 +33,16 @@
       $html = file_get_contents($search_url.str_replace('%20','+',urlencode($title)));
     }
 
+    // Decode HTML entities found on page
+    $html = html_entity_decode($html);
+
+    // If the title contains a year in brackets ie.(1978) then adjust the returned page to include year in search
+    if (preg_match("/\((\d+)\)/",$details[0]["TITLE"],$title_year) != 0)
+    {
+      $html = preg_replace('/<\/a>\s+\((\d\d\d\d).*\)/Ui',' ($1)</a>',$html);
+      $title .= ' '.$title_year[0];
+    }
+
     // Examine returned page
     if (strpos(strtolower($html),"no matches") !== false)
     {
@@ -65,7 +54,7 @@
     {
       // There are multiple matches found... process them
       $html    = substr($html,strpos($html,"Titles"));
-      $matches = get_urls_from_html($html, 'title\/tt\d+');
+      $matches = get_urls_from_html($html, '\/title\/tt\d+\/');
       $index   = best_match($title, $matches[2], $accuracy);
 
       // If we are sure that we found a good result, then get the file details.
@@ -73,7 +62,7 @@
       {
         $url_imdb = add_site_to_url($matches[1][$index],$site_url);
         $url_imdb = substr($url_imdb, 0, strpos($url_imdb,"?fr=")-1);
-        $html = file_get_contents( $url_imdb );
+        $html = html_entity_decode(file_get_contents( $url_imdb ));
       }
     }
     else
@@ -94,7 +83,7 @@
       preg_match("/<h5>Plot(| Outline| Summary):<\/h5>([^<]*)</sm",$html,$synopsis);
 
       // Find User Rating
-      $user_rating = preg_get("/<h5>User Rating:<\/h5>.*<b>(.*)\/10<\/b>/sm",$html);
+      $user_rating = preg_get("/<h5>User Rating:<\/h5>.*?<b>(.*)\/10<\/b>/sm",$html);
 
       // Download and store Albumart if there is none present.
       if ( file_albumart($filename, false) == '')
@@ -130,10 +119,10 @@
       // These are the details to be stored in the database
       $columns = array ( "YEAR"              => $year
                        , "CERTIFICATE"       => db_lookup( 'certificates','name','cert_id',$rating )
-                       , "EXTERNAL_RATING_PC"=> $user_rating * 10
+                       , "EXTERNAL_RATING_PC"=> (empty($user_rating) ? '' : $user_rating * 10 )
                        , "MATCH_PC"          => $accuracy
                        , "DETAILS_AVAILABLE" => 'Y'
-                       , "SYNOPSIS"          => trim($synopsis[2]," |"));
+                       , "SYNOPSIS"          => trim(trim($synopsis[2])," |"));
 
       // Attempt to capture the fact that the website has changed and we are unable to get movie information.
       if (strlen($html) == 0)
@@ -174,9 +163,17 @@
         $matches = get_urls_from_html($html_genres,"\/Sections\/Genres\/");
         $new_genres    = $matches[2];
 
+        // Languages
+        $start = strpos($html,"<h5>Language:</h5>");
+        $end = strpos($html,"</div>",$start+1);
+        $html_langs = str_replace("\n","",substr($html,$start,$end-$start));
+        $matches = get_urls_from_html($html_langs,"\/Sections\/Languages\/");
+        $new_languages = $matches[2];
+
         scdb_add_directors     ($id, $new_directors);
         scdb_add_actors        ($id, $new_actors);
         scdb_add_genres        ($id, $new_genres);
+        scdb_add_languages     ($id, $new_languages);
         scdb_set_movie_attribs ($id, $columns);
         return true;
       }
