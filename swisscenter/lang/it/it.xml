@@ -94,8 +94,8 @@
       </string>
       <string>
         <id>ART_FILENAME_PROMPT</id>
-        <text>Specifica il nome di ogni file immagine da usare come album/film art e che deve trovarsi nella media directory.</text>
-        <version>1.19</version>
+        <text>Specifica il nome di ogni file immagine da usare come album/film art e che deve trovarsi nella stessa directory.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>ART_FILES_ADD_BUTTON</id>
@@ -589,8 +589,8 @@
       </string>
       <string>
         <id>CONFIG_MUSICIP</id>
-        <text>Setta MusicIP</text>
-        <version>1.21</version>
+        <text>Opzioni MusicIP</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>CONFIG_RADIO_OPTIONS</id>
@@ -1524,7 +1524,7 @@
       </string>
       <string>
         <id>INTERNET_SERVICES</id>
-        <text>Servizi Internet</text>
+        <text>Internet</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2044,8 +2044,8 @@
       </string>
       <string>
         <id>LISTEN_MUSIC</id>
-        <text>Ascolta musica</text>
-        <version>1.19</version>
+        <text>Musica</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>LISTEN_RADIO</id>
@@ -2094,8 +2094,8 @@
       </string>
       <string>
         <id>LOOKUP_TV</id>
-        <text>Guarda un Episodio TV</text>
-        <version>1.19</version>
+        <text>Guarda Episodio TV</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>LOWERCASE</id>
@@ -2114,8 +2114,8 @@
       </string>
       <string>
         <id>MANAGE_PLAYLISTS</id>
-        <text>Gestisci playlist</text>
-        <version>1.19</version>
+        <text>Playlist</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>MANY_ITEMS</id>
@@ -2224,7 +2224,7 @@
       </string>
       <string>
         <id>MEDIA_REFRESH</id>
-        <text>Cerca nuovi file multimediali</text>
+        <text>Cerca nuovi file multimedia</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2399,8 +2399,8 @@
       </string>
       <string>
         <id>MIP_PORT</id>
-        <text>Port di MusicIP</text>
-        <version>1.19</version>
+        <text>Porta di MusicIP</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>MIP_PORT_PROMPT</id>
@@ -2449,8 +2449,8 @@
       </string>
       <string>
         <id>MIP_WHATIS</id>
-        <text>Cos'e' MusicIP?</text>
-        <version>1.19</version>
+        <text>Cos'e' MusicIP ?</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>MISC_CONFIG_TITLE</id>
@@ -3339,7 +3339,7 @@
       </string>
       <string>
         <id>RECENT_MEDIA</id>
-        <text>Aggiunte recenti</text>
+        <text>Recenti</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3914,12 +3914,12 @@
       </string>
       <string>
         <id>SETUP_SEARCH_NEW_MEDIA</id>
-        <text>Cerca nuovi file multimediaali</text>
+        <text>Cerca nuovi file multimedia</text>
         <version>1.22</version>
       </string>
       <string>
         <id>SETUP_SEARCH_TYPE</id>
-        <text>Ricerca uno specifico tipo di file multimediale</text>
+        <text>Ricerca uno specifico tipo di file</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3939,12 +3939,12 @@
       </string>
       <string>
         <id>SETUP_UPDATE_SC_RELEASE</id>
-        <text>Aggiorna all'ultima release ufficiale</text>
+        <text>Aggiorna all'ultima release uff.</text>
         <version>1.22</version>
       </string>
       <string>
         <id>SETUP_UPDATE_SC_SVN</id>
-        <text>Aggiorna all'ultima beta release</text>
+        <text>Aggiorna all'ultima beta rel.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3989,7 +3989,12 @@
       </string>
       <string>
         <id>SORT_RATING</id>
-        <text>Elenca per valutazione</text>
+        <text>per valutazione</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SPOKEN_LANGUAGE</id>
+        <text>Lingua</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4784,8 +4789,8 @@
       </string>
       <string>
         <id>VIEW_PHOTO</id>
-        <text>Guarda foto</text>
-        <version>1.19</version>
+        <text>Foto</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>VIEW_UNVIEWED</id>
@@ -4809,13 +4814,13 @@
       </string>
       <string>
         <id>WATCH_MOVIE</id>
-        <text>Guarda un video</text>
-        <version>1.19</version>
+        <text>Video</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>WATCH_TV</id>
-        <text>Guarda uno Show TV</text>
-        <version>1.19</version>
+        <text>Show TV</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>WEATHER_5DAY</id>
