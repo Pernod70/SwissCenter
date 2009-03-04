@@ -34,7 +34,7 @@
                         where media.type=".MEDIA_TYPE_RADIO.$category_select_sql." AND IFNULL(media_cert.rank,0) <= ".get_current_user_rank()." order by title");
 
     for ($i=0; $i<count($data); $i++)
-      $array[] = array("name"=>$data[$i]["TITLE"], "url"=>$data[$i]["URL"]);
+      $array[] = array("name"=>$data[$i]["TITLE"], "url"=>play_internet_radio($data[$i]["URL"],$data[$i]["TITLE"]));
 
     $page = isset($_REQUEST["page"]) ? $_REQUEST["page"] : 0;
     $url  = url_remove_param(current_url(), 'page');
