@@ -168,13 +168,13 @@ function form_label( $text, $hpos = "R", $vpos = "B" )
 #        the value that will appear in the list for the user to select.
 #-------------------------------------------------------------------------------------------------
 
-function form_list_dynamic_html ( $param, $sql, $value = "", $opt = false, $submit = false, $inital_txt = '')
+function form_list_dynamic_html ( $param, $sql, $value = "", $opt = false, $submit = false, $inital_txt = '', $java_event = 'this.form.submit();' )
 {
   $html = '<select '.
           ($opt ? '' : ' required ').
           ' name="'.$param.'"'.
           ' size="1"'.
-          ($submit ? ' onChange="this.form.submit();"' : '').
+          ($submit ? ' onChange="'.$java_event.'"' : '').
           '>'.
           '<option value=""> &lt;'.( empty($inital_txt) ? str('PLEASE_SELECT') : $inital_txt).'&gt; ';
 
@@ -184,7 +184,7 @@ function form_list_dynamic_html ( $param, $sql, $value = "", $opt = false, $subm
     while ($row = $recs->db_fetch_row() )
     {
       $vals = array_values($row);
-      $html .= '<option '.( $vals[0] ==$value ? 'selected ' : '').'value="'.$vals[0].'">'.$vals[1];
+      $html .= '<option '.( $vals[0] ==$value ? 'selected ' : '').'value="'.htmlspecialchars($vals[0], ENT_QUOTES).'">'.htmlspecialchars($vals[1], ENT_QUOTES);
     }
   }
   else
@@ -213,13 +213,13 @@ function form_list_dynamic( $param, $prompt, $sql, $value = "", $opt = false, $s
 # $list - an array of values to display in the drop-down list.
 #-------------------------------------------------------------------------------------------------
 
-function form_list_static_html( $param, $list, $value = "", $opt = false,  $submit = false, $initial_txt = true )
+function form_list_static_html( $param, $list, $value = "", $opt = false,  $submit = false, $initial_txt = true, $java_event = 'this.form.submit();' )
 {
   $html = '<select '.
           ($opt ? '' : ' required ').
           ' name="'.$param.'"'.
           ' size="1"'.
-          ($submit ? ' onChange="this.form.submit();"' : '').
+          ($submit ? ' onChange="'.$java_event.'"' : '').
           '>';
 
   if ( is_string($initial_txt) )
@@ -228,7 +228,7 @@ function form_list_static_html( $param, $list, $value = "", $opt = false,  $subm
     $html.= '<option value=""> &lt;'.str('PLEASE_SELECT').'&gt; ';
 
   while( list($akey,$avalue) = each($list) )
-    $html.= '<option '.( $avalue ==$value ? 'selected ' : '').'value="'.$avalue.'">'.$akey;
+    $html.= '<option '.( $avalue ==$value ? 'selected ' : '').'value="'.htmlspecialchars($avalue, ENT_QUOTES).'">'.htmlspecialchars($akey, ENT_QUOTES);
 
   return $html.'</select>';
 }

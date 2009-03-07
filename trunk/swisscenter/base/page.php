@@ -87,40 +87,42 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
   }
 
   // The default background is specified by PAGE_BACKGROUND
-  $page_background = style_img("PAGE_BACKGROUND");
+  $page_background = '.'.style_img("PAGE_BACKGROUND");
 
   // Test to see if this page has a special background, and if so if this has been set in the style.
   if (is_string($background))
   {
     if (style_img_exists($background))
-      $page_background = style_img($background);
+      $page_background = '.'.style_img($background);
+    if ( file_exists($background) )
+      $page_background = $background;
   }
   elseif (is_numeric($background))
   {
     switch ($background)
     {
-      case MEDIA_TYPE_MUSIC       : if (style_img_exists("PAGE_MUSIC"))       $page_background = style_img("PAGE_MUSIC"); break;
-      case MEDIA_TYPE_PHOTO       : if (style_img_exists("PAGE_PHOTO"))       $page_background = style_img("PAGE_PHOTO"); break;
-      case MEDIA_TYPE_VIDEO       : if (style_img_exists("PAGE_VIDEO"))       $page_background = style_img("PAGE_VIDEO"); break;
-      case MEDIA_TYPE_RADIO       : if (style_img_exists("PAGE_RADIO"))       $page_background = style_img("PAGE_RADIO"); break;
-      case MEDIA_TYPE_TV          : if (style_img_exists("PAGE_TV"))          $page_background = style_img("PAGE_TV"); break;
-      case MEDIA_TYPE_WEB         : if (style_img_exists("PAGE_WEB"))         $page_background = style_img("PAGE_WEB"); break;
-      case MEDIA_TYPE_INTERNET_TV : if (style_img_exists("PAGE_INTERNET_TV")) $page_background = style_img("PAGE_INTERNET_TV"); break;
+      case MEDIA_TYPE_MUSIC       : if (style_img_exists("PAGE_MUSIC"))       $page_background = '.'.style_img("PAGE_MUSIC"); break;
+      case MEDIA_TYPE_PHOTO       : if (style_img_exists("PAGE_PHOTO"))       $page_background = '.'.style_img("PAGE_PHOTO"); break;
+      case MEDIA_TYPE_VIDEO       : if (style_img_exists("PAGE_VIDEO"))       $page_background = '.'.style_img("PAGE_VIDEO"); break;
+      case MEDIA_TYPE_RADIO       : if (style_img_exists("PAGE_RADIO"))       $page_background = '.'.style_img("PAGE_RADIO"); break;
+      case MEDIA_TYPE_TV          : if (style_img_exists("PAGE_TV"))          $page_background = '.'.style_img("PAGE_TV"); break;
+      case MEDIA_TYPE_WEB         : if (style_img_exists("PAGE_WEB"))         $page_background = '.'.style_img("PAGE_WEB"); break;
+      case MEDIA_TYPE_INTERNET_TV : if (style_img_exists("PAGE_INTERNET_TV")) $page_background = '.'.style_img("PAGE_INTERNET_TV"); break;
     }
   }
   if ($banner)
   {
     if (is_screen_ntsc())
-      $background_image = '/thumb.php?type=jpg&stretch=Y&x='.convert_x(1000, BROWSER_SCREEN_COORDS).'&y='.convert_y(1000, BROWSER_SCREEN_COORDS).'&src='.rawurlencode('.'.$page_background).
+      $background_image = '/thumb.php?type=jpg&stretch=Y&x='.convert_x(1000, BROWSER_SCREEN_COORDS).'&y='.convert_y(1000, BROWSER_SCREEN_COORDS).'&src='.rawurlencode($page_background).
                           '&overlay='.rawurlencode($banner).'&ox='.(convert_x(500, BROWSER_SCREEN_COORDS)-convert_y(50, BROWSER_SCREEN_COORDS)*5.4).'&oy='.convert_y(40, BROWSER_SCREEN_COORDS).
                           '&ow='.(convert_y(100, BROWSER_SCREEN_COORDS)*5.4).'&oh='.convert_y(100, BROWSER_SCREEN_COORDS);
     else
-      $background_image = '/thumb.php?type=jpg&stretch=Y&x='.convert_x(1000, SCREEN_COORDS).'&y='.convert_y(1000, SCREEN_COORDS).'&src='.rawurlencode('.'.$page_background).
+      $background_image = '/thumb.php?type=jpg&stretch=Y&x='.convert_x(1000, SCREEN_COORDS).'&y='.convert_y(1000, SCREEN_COORDS).'&src='.rawurlencode($page_background).
                           '&overlay='.rawurlencode($banner).'&ox='.(convert_x(500, SCREEN_COORDS)-convert_y(65, SCREEN_COORDS)*5.4).'&oy='.convert_y(40, SCREEN_COORDS).
                           '&ow='.(convert_y(130, SCREEN_COORDS)*5.4).'&oh='.convert_y(130, SCREEN_COORDS);
   }
   else
-    $background_image = '/thumb.php?type=jpg&stretch=Y&x='.convert_x(1000, BROWSER_SCREEN_COORDS).'&y='.convert_y(1000, BROWSER_SCREEN_COORDS).'&src='.rawurlencode('.'.$page_background);
+    $background_image = '/thumb.php?type=jpg&stretch=Y&x='.convert_x(1000, BROWSER_SCREEN_COORDS).'&y='.convert_y(1000, BROWSER_SCREEN_COORDS).'&src='.rawurlencode($page_background);
 
   // Check length of background image URL, some players don't like it being too long
   if ( strlen($background_image)>256 )

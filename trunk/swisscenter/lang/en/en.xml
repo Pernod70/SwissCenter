@@ -4163,6 +4163,71 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>THEMES</id>
+        <text>Themes</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEMES_PROMPT</id>
+        <text>Themes are automatically downloaded for movies and TV series by the &amp;quot;themoviedb&amp;quot; and &amp;quot;TheTVDB&amp;quot; parsers when details are added for new media. Select a title from the dropdown then select a theme from the available thumbnails. To use a selected theme you must select a 'Use on ...' option. If multiple themes are selected for a title then they will be used at random on the selected pages.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_APPLY</id>
+        <text>Apply theme settings</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_EFFECTS</id>
+        <text>Effects:</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_FLIP_IMAGE</id>
+        <text>Mirror image</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_GREYSCALE</id>
+        <text>Greyscale</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_ON_SERIES</id>
+        <text>Use on episode selection page</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_ON_SYNOPSIS</id>
+        <text>Use on synopsis page</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_PREVIEW_THUMBS</id>
+        <text>Preview of available themes for %s.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_SAVED_SUCCESS</id>
+        <text></text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_SETTINGS</id>
+        <text>Settings:</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_SHOW_BANNER</id>
+        <text>Show banner</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_SHOW_IMAGE</id>
+        <text>Show image</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>THUMBNAIL_VIEW</id>
         <text>Thumbnail view</text>
         <version>1.19</version>

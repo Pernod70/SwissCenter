@@ -114,18 +114,27 @@
       for ($i = 1; $i<=10; $i++)
       {
         if ( $user_rating >= $i )
-          $img_rating .= img_gen(SC_LOCATION.style_img('STAR'),25,40);
+          $img_rating .= img_gen(style_img('STAR',true),25,40);
         elseif ( $i-1 >= $user_rating )
-          $img_rating .= img_gen(SC_LOCATION.style_img('STAR_0'),25,40);
+          $img_rating .= img_gen(style_img('STAR_0',true),25,40);
         else
-          $img_rating .= img_gen(SC_LOCATION.style_img('STAR_'.(number_format($user_rating,1)-floor($user_rating))*10),25,40);
+          $img_rating .= img_gen(style_img('STAR_'.(number_format($user_rating,1)-floor($user_rating))*10,true),25,40);
       }
     }
 
-    if (!empty($data[0]["YEAR"]))
-      page_header( $data[0]["TITLE"].' ('.$data[0]["YEAR"].')', $img_rating );
+    // Random fanart image
+    $themes = db_toarray('select processed_image, show_banner, show_image from themes where title="'.db_escape_str($data[0]["TITLE"]).'" and use_synopsis=1 and processed_image is not NULL');
+    $theme = $themes[rand(0,count($themes)-1)];
+
+    if ( file_exists($theme['PROCESSED_IMAGE']) )
+      $background = $theme['PROCESSED_IMAGE'];
     else
-      page_header( $data[0]["TITLE"], $img_rating );
+      $background = -1;
+
+    if (!empty($data[0]["YEAR"]))
+      page_header( $data[0]["TITLE"].' ('.$data[0]["YEAR"].')', $media_logos.'&nbsp;&nbsp;'.$img_rating,'',1,false,'',$background );
+    else
+      page_header( $data[0]["TITLE"], $media_logos.'&nbsp;&nbsp;'.$img_rating,'',1,false,'',$background );
 
     // Is DVD image?
     $is_dvd = in_array(file_ext($data[0]["FILENAME"]), media_exts_dvd());
