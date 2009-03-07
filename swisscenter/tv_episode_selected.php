@@ -65,8 +65,20 @@
   $banner_imgs = dir_to_array($data[0]['DIRNAME'].'banners/','banner_*.*');
   $banner_img = $banner_imgs[rand(0,count($banner_imgs)-1)];
 
-  page_header( $data[0]["PROGRAMME"], $data[0]["TITLE"].(empty($data[0]["YEAR"]) ? '' : ' ('.$data[0]["YEAR"].')') ,'',1,false,'',-1,
-               file_exists($banner_img) ? $banner_img : false );
+  // Random fanart image
+  $themes = db_toarray('select processed_image, show_banner, show_image from themes where title="'.db_escape_str($data[0]["PROGRAMME"]).'" and use_synopsis=1 and processed_image is not NULL');
+  $theme = $themes[rand(0,count($themes)-1)];
+
+  if ( file_exists($theme['PROCESSED_IMAGE']) )
+  {
+    $background = $theme['PROCESSED_IMAGE'];
+    if ( $theme['SHOW_BANNER'] == 0 ) { $banner_img = ''; }
+  }
+  else
+    $background = -1;
+
+  page_header( $data[0]["PROGRAMME"], $media_logos.'&nbsp;&nbsp;'.$data[0]["TITLE"].(empty($data[0]["YEAR"]) ? '' : ' ('.$data[0]["YEAR"].')') ,'',1,false,'',$background,
+               ( get_sys_pref('tv_use_banners','YES') == 'YES' && file_exists($banner_img) ? $banner_img : false ) );
 
   // Play now
   $menu->add_item( str('PLAY_NOW'), play_file( MEDIA_TYPE_TV, $data[0]["FILE_ID"]));

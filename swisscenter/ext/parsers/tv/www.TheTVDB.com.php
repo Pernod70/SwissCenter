@@ -1,21 +1,21 @@
 <?php
 /**************************************************************************************************
    SWISScenter Source
-   
+
    This is one of a selection of scripts all designed to obtain information from the internet
    relating to tv series that the user has added to their database. It typically collects
    information such as title, genre, year of release, synopsis, directors and actors.
-      
-   This script will download the full series record zip (in the users default language) from 
-   tvdb.com, then parse the contents to retrieve episode title, genre, year, synopsis, 
-   directors, actors and an episode thumbnail. It will then downlaod any related banners that 
+
+   This script will download the full series record zip (in the users default language) from
+   tvdb.com, then parse the contents to retrieve episode title, genre, year, synopsis,
+   directors, actors and an episode thumbnail. It will then downlaod any related banners that
    are available.
-   
-   All downloaded files are first cached in your defined cache folder/tvdb to avoid having to 
+
+   All downloaded files are first cached in your defined cache folder/tvdb to avoid having to
    redownload the zip and banners for each episode of a series.
 
    Please help thetvdb.com website by contributing information and artwork if possible.
-   
+
    Version history:
    08-Mar-2008: v1.0:     First public release
    31-Mar-2008: v1.1:     Fixed episode year and now informs user if episode details are not found.
@@ -25,6 +25,9 @@
    05-Nov-2008: v1.5:     Actor names 'cleaned' of character names in brackets.
 
  *************************************************************************************************/
+
+// API key registered to SwissCenter project
+define('TVDB_API_KEY', 'FA3F6F720A61DE71');
 
 /**
  * Searches the tv.com site for tv episode details
@@ -42,10 +45,10 @@ function extra_get_tv_details($id, $filename, $programme, $series='', $episode='
   // The site URL (may be used later)
   $site_url = 'http://thetvdb.com/';
   $accuracy = 0;
-  
+
   // Supported languages (hardcoded from languages.xml)
   $languages = array('da','fi','nl','de','it','es','fr','pl','hu','el','tr','ru','he','ja','pt','zh','cs','en','sv','no');
-  
+
   send_to_log(4,"Searching for details about ".$programme." Season: ".$series." Episode: ".$episode." online at ".$site_url);
 
   // Users preferred language (use 'en' if not supported)
@@ -55,13 +58,14 @@ function extra_get_tv_details($id, $filename, $programme, $series='', $episode='
     $language = 'en';
     send_to_log(5,"User language '".$language."' not supported, using 'en'");
   }
-    
+
   // Ensure local cache folders exist
   $cache_dir = get_sys_pref('cache_dir').'/tvdb';
   if(!file_exists($cache_dir)) { @mkdir($cache_dir); }
   if(!file_exists($cache_dir.'/banners')) { @mkdir($cache_dir.'/banners'); }
-  if(!file_exists(dirname($filename).'/banners')) { @mkdir(dirname($filename).'/banners'); }  
-  
+  if(!file_exists(dirname($filename).'/banners')) { @mkdir(dirname($filename).'/banners'); }
+  if(!file_exists($cache_dir.'/fanart')) { @mkdir($cache_dir.'/fanart'); }
+
   // Get mirror for xml and banners
   get_mirrors($xmlmirror, $bannermirror);
 
@@ -74,15 +78,15 @@ function extra_get_tv_details($id, $filename, $programme, $series='', $episode='
     {
       global $tvdb_series, $tvdb_episodes, $tvdb_banners;
 
-      $series_zip_url   = $xmlmirror.'/api/FA3F6F720A61DE71/series/'.$series_id.'/all/'.$language.'.zip';
-      $series_xml_url   = $xmlmirror.'/api/FA3F6F720A61DE71/series/'.$series_id.'/all/'.$language.'.xml';
-      $banner_xml_url   = $xmlmirror.'/api/FA3F6F720A61DE71/series/'.$series_id.'/banners.xml';
-      $actors_xml_url   = $xmlmirror.'/api/FA3F6F720A61DE71/series/'.$series_id.'/actors.xml';
+      $series_zip_url   = $xmlmirror.'/api/'.TVDB_API_KEY.'/series/'.$series_id.'/all/'.$language.'.zip';
+      $series_xml_url   = $xmlmirror.'/api/'.TVDB_API_KEY.'/series/'.$series_id.'/all/'.$language.'.xml';
+      $banner_xml_url   = $xmlmirror.'/api/'.TVDB_API_KEY.'/series/'.$series_id.'/banners.xml';
+      $actors_xml_url   = $xmlmirror.'/api/'.TVDB_API_KEY.'/series/'.$series_id.'/actors.xml';
       $series_zip_cache = $cache_dir.'/'.$series_id.'_'.$language.'.zip';
       $series_cache     = $cache_dir.'/'.$series_id.'_'.$language.'.xml';
       $banner_cache     = $cache_dir.'/'.$series_id.'_banners.xml';
       $actors_cache     = $cache_dir.'/'.$series_id.'_banners.xml';
-      
+
       // Ensure local copy of full series zip is uptodate (cache valid for 6 hours)
       $series_cache_time  = (file_exists($series_cache) ? filemtime($series_cache) : 0);
       if ($series_cache_time < (time() - 21600))
@@ -102,7 +106,7 @@ function extra_get_tv_details($id, $filename, $programme, $series='', $episode='
             // Extract zip contents
             if ( is_resource($zip = @zip_open($series_zip_cache)) )
             {
-              while ($zip_entry = zip_read($zip)) 
+              while ($zip_entry = zip_read($zip))
               {
                 // Get file contents from zip
                 $entry = zip_entry_open($zip,$zip_entry);
@@ -118,7 +122,7 @@ function extra_get_tv_details($id, $filename, $programme, $series='', $episode='
             }
             elseif (is_unix())
             {
-              // On LINUX machines, we can use the standard "unzip" command to 
+              // On LINUX machines, we can use the standard "unzip" command to
               // perform the same functions as the zip extension
               exec('unzip '.$series_zip_cache.' -d '.$cache_dir);
             }
@@ -129,14 +133,14 @@ function extra_get_tv_details($id, $filename, $programme, $series='', $episode='
           }
         }
       }
-      
+
       // Parse the Full Series Record
       $tvdb_series = array();
       $tvdb_series['SC_SERIES'] = $series;
       $tvdb_series['SC_EPISODE'] = $episode;
       $tvdb_series['SC_TITLE'] = $title;
-      parse_xml($series_cache, 'start_tag_tvdb_episode', 'end_tag_tvdb_episode', 'tag_contents_tvdb_episode');
-      
+      parse_tvdb_xml($series_cache, 'start_tag_tvdb_episode', 'end_tag_tvdb_episode', 'tag_contents_tvdb_episode');
+
       // Determine best match from available episodes
       if (isset($tvdb_series['EPISODEID']))
       {
@@ -145,7 +149,7 @@ function extra_get_tv_details($id, $filename, $programme, $series='', $episode='
       }
       else
         $ep = best_match(ucwords(strtolower($title)), $tvdb_episodes['EPISODENAME'], $accuracy);
-      
+
       if ($ep !== false)
       {
         // Download episode image
@@ -153,7 +157,7 @@ function extra_get_tv_details($id, $filename, $programme, $series='', $episode='
           file_save_albumart( add_site_to_url($tvdb_episodes['FILENAME'][$ep], $bannermirror.'/banners/')
                             , dirname($filename).'/'.file_noext($filename).'.'.file_ext($tvdb_episodes['FILENAME'][$ep])
                             , '');
-        
+
         scdb_add_tv_directors( $id, explode('|', clean_name_list($tvdb_episodes['DIRECTOR'][$ep])) );
         scdb_add_tv_actors   ( $id, explode('|', clean_name_list($tvdb_episodes['GUESTSTARS'][$ep])) );
         scdb_add_tv_actors   ( $id, explode('|', clean_name_list($tvdb_series['ACTORS'])) );
@@ -167,16 +171,18 @@ function extra_get_tv_details($id, $filename, $programme, $series='', $episode='
                          , "DETAILS_AVAILABLE" => 'Y'
                          , "SYNOPSIS"          => $tvdb_episodes['OVERVIEW'][$ep]);
         scdb_set_tv_attribs  ( $id, $columns );
-        
+
         // Parse and download the banners
         $tvdb_banners = array();
-        parse_xml($banner_cache, 'start_tag_tvdb_banner', 'end_tag_tvdb_banner', 'tag_contents_tvdb_banner');
+        parse_tvdb_xml($banner_cache, 'start_tag_tvdb_banner', 'end_tag_tvdb_banner', 'tag_contents_tvdb_banner');
 
         // Programme banners (save to cache before copying to video folder)
         if (isset($tvdb_banners[trim($series)]))
         {
           foreach ($tvdb_banners[trim($series)] as $banner_path)
           {
+            // Reset the timeout counter for each image downloaded
+            set_time_limit(30);
             if (!file_exists($cache_dir.'/banners/'.basename($banner_path)))
               file_save_albumart( add_site_to_url($banner_path, $bannermirror.'/banners/')
                                 , $cache_dir.'/banners/'.basename($banner_path)
@@ -186,12 +192,14 @@ function extra_get_tv_details($id, $filename, $programme, $series='', $episode='
                    dirname($filename).'/banners/series'.sprintf("%02d", $series).'_'.basename($banner_path));
           }
         }
-          
+
         // Series banner (save to cache before copying to video folder)
         if (isset($tvdb_banners['BANNER']))
         {
           foreach ($tvdb_banners['BANNER'] as $banner_path)
           {
+            // Reset the timeout counter for each image downloaded
+            set_time_limit(30);
             if (!file_exists($cache_dir.'/banners/'.basename($banner_path)))
               file_save_albumart( add_site_to_url($banner_path, $bannermirror.'/banners/')
                                 , $cache_dir.'/banners/'.basename($banner_path)
@@ -199,13 +207,40 @@ function extra_get_tv_details($id, $filename, $programme, $series='', $episode='
             if (!file_exists(dirname($filename).'/banners/banner_'.basename($banner_path)))
               copy($cache_dir.'/banners/'.basename($banner_path),
                    dirname($filename).'/banners/banner_'.basename($banner_path));
-          }   
+          }
         }
-        
+
+        // Series fanart thumbnails
+        if (isset($tvdb_banners['FANART']))
+        {
+          foreach ($tvdb_banners['FANART'] as $fanart)
+          {
+            // Reset the timeout counter for each image downloaded
+            set_time_limit(30);
+            if (!file_exists($cache_dir.'/fanart/'.basename($fanart['THUMBNAIL'])))
+              file_save_albumart( add_site_to_url($fanart['THUMBNAIL'], $bannermirror.'/banners/')
+                                , $cache_dir.'/fanart/'.basename($fanart['THUMBNAIL'])
+                                , '');
+
+            // Insert information into database
+            $data = array( "title"        => $programme
+                         , "media_type"   => MEDIA_TYPE_TV
+                         , "thumb_cache"  => $cache_dir.'/fanart/'.basename($fanart['THUMBNAIL'])
+                         , "original_url" => $bannermirror.'/banners/'.$fanart['ORIGINAL']
+                         , "resolution"   => $fanart['RESOLUTION']
+                         , "colors"       => $fanart['COLORS'] );
+            $file_id = db_value("select file_id from themes where title='".db_escape_str($programme)."' and thumb_cache='".$cache_dir.'/fanart/'.basename($fanart['THUMBNAIL'])."'");
+            if ( $file_id )
+              db_update_row( "themes", $file_id, $data);
+            else
+              db_insert_row( "themes", $data);
+          }
+        }
+
         // Parse and download the actor images
 //        $tvdb_actors = array();
 //        parse_xml($actors_cache, 'start_tag_tvdb_actors', 'end_tag_tvdb_actors', 'tag_contents_tvdb_actors');
-//        
+//
 //        // Actor images (save to cache before copying to video folder)
 //        foreach ($tvdb_actors as $actor)
 //        {
@@ -218,7 +253,7 @@ function extra_get_tv_details($id, $filename, $programme, $series='', $episode='
 //              copy($cache_dir.'/banners/'.basename($banner_path),
 //                   dirname($filename).'/banners/series'.sprintf("%02d", $series).'_'.basename($banner_path));
 //        }
-        
+
         return true;
       }
       else
@@ -235,7 +270,7 @@ function extra_get_tv_details($id, $filename, $programme, $series='', $episode='
   {
     send_to_log(6,'Unable to get mirrors from www.thetvdb.com');
   }
-  
+
   // Mark the file as attempted to get details, but none available
   $columns = array ( "DETAILS_AVAILABLE" => 'N');
   scdb_set_tv_attribs ($id, $columns);
@@ -244,7 +279,7 @@ function extra_get_tv_details($id, $filename, $programme, $series='', $episode='
 
 /**
  *  Clean a string of actors, genres, etc. by replacing , with | and removing character names in brackets.
- * 
+ *
  */
 function clean_name_list($list)
 {
@@ -264,8 +299,8 @@ function get_series_id($programme)
   global $seriesids;
   $seriesids = array();
 
-  parse_xml('http://www.thetvdb.com/api/GetSeries.php?seriesname='.urlencode($programme).'&language=all',
-            'start_tag_tvdb_series', 'end_tag_tvdb_series', 'tag_contents_tvdb_series');
+  parse_tvdb_xml('http://www.thetvdb.com/api/GetSeries.php?seriesname='.urlencode($programme).'&language=all',
+                 'start_tag_tvdb_series', 'end_tag_tvdb_series', 'tag_contents_tvdb_series');
 
   // Find best match for required programme
   if (count($seriesids)>0)
@@ -290,8 +325,8 @@ function get_mirrors(&$xmlmirror, &$bannermirror)
   $xmlmirrors    = array();
   $bannermirrors = array();
 
-  parse_xml('http://www.thetvdb.com/api/FA3F6F720A61DE71/mirrors.xml',
-            'start_tag_tvdb_mirror', 'end_tag_tvdb_mirror', 'tag_contents_tvdb_mirror');
+  parse_tvdb_xml('http://www.thetvdb.com/api/'.TVDB_API_KEY.'/mirrors.xml',
+                 'start_tag_tvdb_mirror', 'end_tag_tvdb_mirror', 'tag_contents_tvdb_mirror');
 
   // Select a mirror at random from those available
   if (count($xmlmirrors)>0)
@@ -310,7 +345,7 @@ function get_mirrors(&$xmlmirror, &$bannermirror)
  *
  * @param string $filename
  */
-function parse_xml($filename, $start_tag, $end_tag, $tag_contents)
+function parse_tvdb_xml($filename, $start_tag, $end_tag, $tag_contents)
 {
   // Create XML parser
   $xmlparser = xml_parser_create();
@@ -319,7 +354,7 @@ function parse_xml($filename, $start_tag, $end_tag, $tag_contents)
   {
     xml_set_element_handler($xmlparser, $start_tag, $end_tag);
     xml_set_character_data_handler($xmlparser, $tag_contents);
-      
+
     // Read and process XML file
     $fp = @fopen($filename, "r");
     if ($fp !== false)
@@ -328,12 +363,12 @@ function parse_xml($filename, $start_tag, $end_tag, $tag_contents)
       while ($data = fread($fp, 8192))
       {
         $data = eregi_replace(">"."[[:space:]]+"."<","><",$data);
-        if (!xml_parse($xmlparser, $data , feof($fp))) 
+        if (!xml_parse($xmlparser, $data , feof($fp)))
         {
-          send_to_log(8,'XML parse error: '.xml_error_string(xml_get_error_code($xmlparser)).xml_get_current_line_number($xmlparser)); 
+          send_to_log(8,'XML parse error: '.xml_error_string(xml_get_error_code($xmlparser)).xml_get_current_line_number($xmlparser));
           $success = false;
           break;
-        } 
+        }
       }
     }
     else
@@ -341,7 +376,7 @@ function parse_xml($filename, $start_tag, $end_tag, $tag_contents)
       send_to_log(5,'Unable to read the specified file: '.$filename);
       $success = false;
     }
-      
+
     xml_parser_free($xmlparser);
   }
   else
@@ -349,7 +384,7 @@ function parse_xml($filename, $start_tag, $end_tag, $tag_contents)
     send_to_log(5,'Unable to create an expat XML parser - is the "xml" extension loaded into PHP?');
     $success = false;
   }
-  
+
   return $success;
 }
 
@@ -359,9 +394,9 @@ function parse_xml($filename, $start_tag, $end_tag, $tag_contents)
 
 function start_tag_tvdb_mirror($parser, $name, $attribs)
 {
-  global $tag; 
-  global $tvdb_mirror, $tvdb_seriesid; 
-  
+  global $tag;
+  global $tvdb_mirror, $tvdb_seriesid;
+
   switch ($name)
   {
     // Mirrors
@@ -375,7 +410,7 @@ function start_tag_tvdb_mirror($parser, $name, $attribs)
 
 function end_tag_tvdb_mirror($parser, $name)
 {
-  global $tvdb_mirror, $xmlmirrors, $bannermirrors; 
+  global $tvdb_mirror, $xmlmirrors, $bannermirrors;
 
   switch ($name)
   {
@@ -405,7 +440,7 @@ function tag_contents_tvdb_mirror($parser, $data)
   global $tvdb_mirror;
 
   $data = utf8_decode($data);
-  
+
   switch ($tag)
   {
     // Mirrors
@@ -416,9 +451,9 @@ function tag_contents_tvdb_mirror($parser, $data)
 
 function start_tag_tvdb_series($parser, $name, $attribs)
 {
-  global $tag; 
-  global $tvdb_seriesid; 
-  
+  global $tag;
+  global $tvdb_seriesid;
+
   switch ($name)
   {
     // Series ID
@@ -451,7 +486,7 @@ function tag_contents_tvdb_series($parser, $data)
   global $tvdb_seriesid;
 
   $data = utf8_decode($data);
-  
+
   switch ($tag)
   {
     // Series ID
@@ -462,9 +497,9 @@ function tag_contents_tvdb_series($parser, $data)
 
 function start_tag_tvdb_episode($parser, $name, $attribs)
 {
-  global $tag; 
+  global $tag;
   global $tvdb_series, $tvdb_episode, $tvdb_episodes;
-  
+
   switch ($name)
   {
     // Series
@@ -496,7 +531,7 @@ function end_tag_tvdb_episode($parser, $name)
       $tvdb_episodes['OVERVIEW'][]      = $tvdb_episode['OVERVIEW'];
       $tvdb_episodes['SEASONNUMBER'][]  = $tvdb_episode['SEASONNUMBER'];
       $tvdb_episodes['FILENAME'][]      = $tvdb_episode['FILENAME'];
-      
+
       if (is_numeric($tvdb_series['SC_SERIES']) && is_numeric($tvdb_series['SC_EPISODE']))
       {
         if ($tvdb_episode['SEASONNUMBER'] == $tvdb_series['SC_SERIES'] && $tvdb_episode['EPISODENUMBER'] == $tvdb_series['SC_EPISODE'])
@@ -516,7 +551,7 @@ function tag_contents_tvdb_episode($parser, $data)
   global $tvdb_series, $tvdb_episode;
 
   $data = utf8_decode($data);
-  
+
   switch ($tag)
   {
     // Series
@@ -536,9 +571,9 @@ function tag_contents_tvdb_episode($parser, $data)
 
 function start_tag_tvdb_banner($parser, $name, $attribs)
 {
-  global $tag; 
+  global $tag;
   global $tvdb_banner;
-  
+
   switch ($name)
   {
     // Banners
@@ -562,8 +597,16 @@ function end_tag_tvdb_banner($parser, $name)
       {
         switch ($tvdb_banner['BANNERTYPE'])
         {
+          case 'fanart':
+            $tvdb_banners['FANART'][] = array( 'ID'         => $tvdb_banner['ID']
+                                             , 'ORIGINAL'   => $tvdb_banner['BANNERPATH']
+                                             , 'VIGNETTE'   => $tvdb_banner['VIGNETTEPATH']
+                                             , 'THUMBNAIL'  => $tvdb_banner['THUMBNAILPATH']
+                                             , 'RESOLUTION' => $tvdb_banner['BANNERTYPE2']
+                                             , 'COLORS'     => $tvdb_banner['COLORS'] );
+            break;
           case 'series':
-            if($tvdb_banner['BANNERTYPE2']== 'graphical')
+            if($tvdb_banner['BANNERTYPE2'] == 'graphical')
               $tvdb_banners['BANNER'][] = $tvdb_banner['BANNERPATH'];
             break;
           case 'season':
@@ -584,23 +627,28 @@ function tag_contents_tvdb_banner($parser, $data)
   global $tvdb_banner;
 
   $data = utf8_decode($data);
-  
+
   switch ($tag)
   {
     // Banners
+    case 'ID' :         { $tvdb_banner['ID'] .= $data; break; }
     case 'BANNERPATH':  { $tvdb_banner['BANNERPATH'] .= $data; break; }
     case 'BANNERTYPE':  { $tvdb_banner['BANNERTYPE'] .= $data; break; }
     case 'BANNERTYPE2': { $tvdb_banner['BANNERTYPE2'] .= $data; break; }
     case 'LANGUAGE':    { $tvdb_banner['LANGUAGE'] .= $data; break; }
     case 'SEASON':      { $tvdb_banner['SEASON'] .= $data; break; }
+    case 'COLORS':      { $tvdb_banner['COLORS'] .= $data; break; }
+    case 'THUMBNAILPATH': { $tvdb_banner['THUMBNAILPATH'] .= $data; break; }
+    case 'VIGNETTEPATH' : { $tvdb_banner['VIGNETTEPATH'] .= $data; break; }
+
   }
 }
 
 function start_tag_tvdb_actors($parser, $name, $attribs)
 {
-  global $tag; 
+  global $tag;
   global $tvdb_actor;
-  
+
   switch ($name)
   {
     // Actors
@@ -632,7 +680,7 @@ function tag_contents_tvdb_actors($parser, $data)
   global $tvdb_actor;
 
   $data = utf8_decode($data);
-  
+
   switch ($tag)
   {
     // Actors

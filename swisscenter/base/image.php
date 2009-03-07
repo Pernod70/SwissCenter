@@ -574,6 +574,46 @@ class CImage
   }
 
   /**
+   * Converts the image to greyscale.
+   *
+   */
+
+  function greyscale()
+  {
+    if ($this->image !== false)
+    {
+      // get image dimensions
+      $img_width  = imageSX($this->image);
+      $img_height = imageSY($this->image);
+
+      // convert to greyscale
+      for ($y = 0; $y <$img_height; $y++) {
+        for ($x = 0; $x <$img_width; $x++) {
+          $rgb = imagecolorat($this->image, $x, $y);
+          $red   = ($rgb >> 16) & 0xFF;
+          $green = ($rgb >> 8)  & 0xFF;
+          $blue  = $rgb & 0xFF;
+
+          $gray = round(.299*$red + .587*$green + .114*$blue);
+
+          // shift grey level to the left
+          $grayR = $gray << 16;   // R: red
+          $grayG = $gray << 8;    // G: green
+          $grayB = $gray;         // B: blue
+
+          // OR operation to compute grey value
+          $grayColor = $grayR | $grayG | $grayB;
+
+          // set the pixel color
+          imagesetpixel ($this->image, $x, $y, $grayColor);
+          imagecolorallocate ($this->image, $gray, $gray, $gray);
+        }
+      }
+      $this->src_fsp = false;
+    }
+  }
+
+  /**
    * Rotates/flips an image to display it in the correct orientation as recorded
    * by the EXIF data held within the original file.
    *
@@ -645,7 +685,7 @@ class CImage
   // at the given location.
   // -------------------------------------------------------------------------------------------------
 
-  function output ($type, $cache = true)
+  function output ($type, $cache = true, $filename = null)
   {
     if ($this->image !== false)
     {
@@ -664,19 +704,19 @@ class CImage
           header("Content-type: image/jpeg");
           send_to_log(8,"Outputting JPEG image");
           ob_clean();
-          imagejpeg($copy,null,get_sys_pref("GEN_JPEG_QUALITY",85));
+          imagejpeg($copy,$filename,get_sys_pref("GEN_JPEG_QUALITY",85));
           break;
         case 'png':
           header("Content-type: image/png");
           send_to_log(8,"Outputting PNG image");
           ob_clean();
-          imagepng($this->image,null,floor(get_sys_pref("GEN_PNG_QUALITY",80)/10));
+          imagepng($this->image,$filename,floor(get_sys_pref("GEN_PNG_QUALITY",80)/10));
           break;
         case 'gif':
           header("Content-type: image/gif");
           send_to_log(8,"Outputting GIF image");
           ob_clean();
-          imagegif($this->image);
+          imagegif($this->image,$filename);
           break;
       }
     }
