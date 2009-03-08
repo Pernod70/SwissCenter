@@ -4036,6 +4036,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.22</version>
       </string>
       <string>
+        <id>SPOKEN_LANGUAGE</id>
+        <text>Sprache</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>STARRING</id>
         <text>Darsteller</text>
         <version>1.19</version>
@@ -4209,6 +4214,71 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>TASK_SCHEDULER</id>
         <text>taskplaner</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>THEMES</id>
+        <text>Themen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEMES_PROMPT</id>
+        <text>Themen werden automatisch für Filme und TV Serien von &amp;quot;themoviedb&amp;quot; und &amp;quot;TheTVDB&amp;quot; heruntergeladen, wenn Details für neue Medien hinzugefügt werden. Wählen Sie einen Titel vom Auswahlmenü, danach wählen Sie ein Thema aus den vorhandenen Miniaturbildern. Um ein ausgesuchtes Thema auszuwählen, müssen Sie festlegen wofür dieses Thema benutzt werden soll. Wenn mehrere Themen für einen Titel ausgewählt wurden, werden diese willkürlich auf diese Seiten angewandt.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_APPLY</id>
+        <text>Einstellungen für Themen speichern</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_EFFECTS</id>
+        <text>Effekte:</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_FLIP_IMAGE</id>
+        <text>Gespiegelte Darstellung</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_GREYSCALE</id>
+        <text>Graustufen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_ON_SERIES</id>
+        <text>Anwenden auf Serien Auswahl-Seite</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_ON_SYNOPSIS</id>
+        <text>Anwenden auf Übersichts-Seite</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_PREVIEW_THUMBS</id>
+        <text>Vorschau der vorhandenen Themen für %s.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_SAVED_SUCCESS</id>
+        <text>Thema erfolgreich gespeichert</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_SETTINGS</id>
+        <text>Einstellungen:</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_SHOW_BANNER</id>
+        <text>Zeige Banner</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_SHOW_IMAGE</id>
+        <text>Zeige Bild</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>THUMBNAIL_VIEW</id>
