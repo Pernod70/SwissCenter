@@ -6,6 +6,7 @@
 require_once( realpath(dirname(__FILE__).'/../base/mysql.php'));
 require_once( realpath(dirname(__FILE__).'/../base/server.php'));
 require_once( realpath(dirname(__FILE__).'/../base/image.php'));
+require_once( realpath(dirname(__FILE__).'/../base/page.php'));
 
 // ----------------------------------------------------------------------------------
 // Display themes
@@ -65,6 +66,7 @@ $server = server_address();
 
 if ( isset($_REQUEST["action"]) )
 {
+  header('Content-type: text/html; '.charset());
   switch ($_REQUEST["action"])
   {
     case 'showthumbs' :
@@ -96,7 +98,7 @@ if ( isset($_REQUEST["action"]) )
       $use_series   = $_REQUEST["use_series"];
 
       if ( $file_id!='pause' )
-        echo '<script type="text/javascript">window.show_banner='.$show_banner.';window.show_image='.$show_image.';window.file_id='.$file_id.";window.flip=".$flip.";window.greyscale=".$greyscale.";window.use_synopsis=".$use_synopsis.";window.use_series=".$use_series.";</script>" ;
+        echo '<script type="text/javascript">window.show_banner='.$show_banner.';window.show_image='.$show_image.';window.file_id='.$file_id.";window.flip=".$flip.";window.greyscale=".$greyscale.";window.use_synopsis=".$use_synopsis.";window.use_series=".$use_series.";</script>";
 
       echo "<table><tr>";
       echo "<td width=460 height=260 ><center><div id=image>" ;
@@ -127,7 +129,7 @@ if ( isset($_REQUEST["action"]) )
       echo "<input type=checkbox onClick='window.use_series=config_inverse(window.use_series)' name=use_series ".( $use_series==1 ? 'checked ' : '' ).( $media_type==MEDIA_TYPE_VIDEO ? 'disabled ' : '' ).">";
       echo str('THEME_ON_SERIES')."<br>\n";
 
-      echo "<input type=checkbox onClick='window.use_synopsis=config_inverse(window.use_synopsis)' name=use_synopsis " .( $use_synopsis==1 ? 'checked' : '' ).">";
+      echo "<input type=checkbox onClick='window.use_synopsis=config_inverse(window.use_synopsis)' name=use_synopsis ".( $use_synopsis==1 ? 'checked' : '' ).">";
       echo str('THEME_ON_SYNOPSIS')."<br>\n";
 
       echo "</form>";
