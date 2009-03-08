@@ -4173,6 +4173,71 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>THEMES</id>
+        <text>Temi</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEMES_PROMPT</id>
+        <text>I temi sono automaticamente scaricati per Film e Serie TV da the &amp;quot;themoviedb&amp;quot; e &amp;quot;TheTVDB&amp;quot; dopo verifica dei dettagli dei nuovi media aggiunti. Seleziona un titolo dalla lista e poi seleziona un tema dalle anteprime. Per usare un tema devi selezionare l'opzione &quot;Usa su ...&quot;. Se più temi sono selezionati per un titolo, essi saranno usati in modo casuale.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_APPLY</id>
+        <text>Applica le opzioni del tema</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_EFFECTS</id>
+        <text>Effetti:</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_FLIP_IMAGE</id>
+        <text>Immagine alternativa</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_GREYSCALE</id>
+        <text>Scala di grigi</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_ON_SERIES</id>
+        <text>Usa un episodio dalla selezione</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_ON_SYNOPSIS</id>
+        <text>Usa nel sommario</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_PREVIEW_THUMBS</id>
+        <text>Anteprima temi disponibili %s.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_SAVED_SUCCESS</id>
+        <text>Tema salvato</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_SETTINGS</id>
+        <text>Opzioni:</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_SHOW_BANNER</id>
+        <text>Mostra banner</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_SHOW_IMAGE</id>
+        <text>Mostra immagine</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>THUMBNAIL_VIEW</id>
         <text>Visualizza anteprima</text>
         <version>1.19</version>
