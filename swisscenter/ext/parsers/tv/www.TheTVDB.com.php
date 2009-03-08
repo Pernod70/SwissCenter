@@ -217,19 +217,18 @@ function extra_get_tv_details($id, $filename, $programme, $series='', $episode='
           {
             // Reset the timeout counter for each image downloaded
             set_time_limit(30);
-            if (!file_exists($cache_dir.'/fanart/'.basename($fanart['THUMBNAIL'])))
-              file_save_albumart( add_site_to_url($fanart['THUMBNAIL'], $bannermirror.'/banners/')
-                                , $cache_dir.'/fanart/'.basename($fanart['THUMBNAIL'])
-                                , '');
+            $thumb_cache = $cache_dir.'/fanart/'.basename($fanart['THUMBNAIL']);
+            if (!file_exists($thumb_cache))
+              file_save_albumart( add_site_to_url($fanart['THUMBNAIL'], $bannermirror.'/banners/'), $thumb_cache, '');
 
             // Insert information into database
             $data = array( "title"        => $programme
                          , "media_type"   => MEDIA_TYPE_TV
-                         , "thumb_cache"  => $cache_dir.'/fanart/'.basename($fanart['THUMBNAIL'])
+                         , "thumb_cache"  => addslashes(os_path($thumb_cache))
                          , "original_url" => $bannermirror.'/banners/'.$fanart['ORIGINAL']
                          , "resolution"   => $fanart['RESOLUTION']
                          , "colors"       => $fanart['COLORS'] );
-            $file_id = db_value("select file_id from themes where title='".db_escape_str($programme)."' and thumb_cache='".$cache_dir.'/fanart/'.basename($fanart['THUMBNAIL'])."'");
+            $file_id = db_value("select file_id from themes where title='".db_escape_str($programme)."' and original_url='".db_escape_str($bannermirror.'/banners/'.$fanart['ORIGINAL'])."'");
             if ( $file_id )
               db_update_row( "themes", $file_id, $data);
             else
