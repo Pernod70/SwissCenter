@@ -89,17 +89,16 @@ function extra_get_movie_details($id, $filename, $title)
         $image_id = preg_get('/backdrops\/(\d+)/', $fanart);
         // Reset the timeout counter for each image downloaded
         set_time_limit(30);
-        if (!file_exists($cache_dir.'/fanart/'.$image_id.'_'.basename($fanart)))
-          file_save_albumart( $fanart
-                            , $cache_dir.'/fanart/'.$image_id.'_'.basename($fanart)
-                            , '');
+        $thumb_cache = $cache_dir.'/fanart/'.$image_id.'_'.basename($fanart);
+        if (!file_exists($thumb_cache))
+          file_save_albumart( $fanart, $thumb_cache, '');
 
         // Insert information into database
         $data = array( "title"        => $title
                      , "media_type"   => MEDIA_TYPE_VIDEO
-                     , "thumb_cache"  => $cache_dir.'/fanart/'.$image_id.'_'.basename($fanart)
+                     , "thumb_cache"  => addslashes(os_path($thumb_cache))
                      , "original_url" => str_replace('_thumb','',$fanart) );
-        $file_id = db_value("select file_id from themes where title='".db_escape_str($title)."' and thumb_cache='".$cache_dir.'/fanart/'.$image_id.'_'.basename($fanart)."'");
+        $file_id = db_value("select file_id from themes where title='".db_escape_str($title)."' and original_url='".db_escape_str(str_replace('_thumb','',$fanart))."'");
         if ( $file_id )
           db_update_row( "themes", $file_id, $data);
         else
