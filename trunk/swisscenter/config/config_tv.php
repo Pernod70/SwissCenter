@@ -180,7 +180,7 @@ function tv_display_list($tv_list)
 
     echo '<table class="form_select_tab" width="100%"><tr>
           <td valign="top" width="4%"><input type="checkbox" name="tv[]" value="'.$tv["FILE_ID"].'"></input></td>
-          <td valign="top" width="33%">
+          <td valign="top" width="24%">
              <a href="?section=tv&action=display_info&tv_id='.$tv["FILE_ID"].'">'.highlight($tv["PROGRAMME"], un_magic_quote($_REQUEST["search"])).' - '.highlight($tv["TITLE"], un_magic_quote($_REQUEST["search"])).'</a><br>
              Series : '.nvl($tv["SERIES"]).'<br>
              Episode : '.nvl($tv["EPISODE"]).'<br>
