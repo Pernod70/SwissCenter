@@ -200,8 +200,8 @@ if ( isset($_REQUEST["action"]) )
       $img->load_from_file($original_cache);
 
       // Apply flip and greyscale if selected
-      if ( $_REQUEST["flip_image"] ) { $img->flip_horizontal(); }
-      if ( $_REQUEST["greyscale"] )  { $img->greyscale(); }
+      if ( $_REQUEST["flip"] )      { $img->flip_horizontal(); }
+      if ( $_REQUEST["greyscale"] ) { $img->greyscale(); }
 
       // Save processed image
       $img->output('jpg', false, $processed);
