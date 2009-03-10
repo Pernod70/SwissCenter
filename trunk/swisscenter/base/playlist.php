@@ -44,7 +44,12 @@ function generate_tracklist( $seed, $shuffle, $spec_type, $spec, $media_type = n
           break;
 
     case 'sql':
-          $spec       = $_SESSION["play_now"]["spec"];
+          // If shuffle is enabled, then select tracks from the database at random.
+          if ($shuffle)
+            $spec = preg_replace('/order by.*$/i','',$_SESSION["play_now"]["spec"]).' order by rand()';
+          else
+            $spec = $_SESSION["play_now"]["spec"];
+
           $tracks     = db_toarray($spec.' LIMIT '.max_playlist_size());
           break;
 
@@ -77,7 +82,7 @@ function generate_tracklist( $seed, $shuffle, $spec_type, $spec, $media_type = n
   }
 
   // Shuffle the tracks if required
-  if ($shuffle && count($tracks)>1 && $spec_type != 'dir')
+  if ($shuffle && count($tracks)>1 && ($spec_type != 'dir' && $spec_type != 'sql'))
     shuffle_fisherYates($tracks,$seed);
 
   if ($tracklist_name == '')
