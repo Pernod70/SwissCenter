@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Web;
 
 namespace Swiss.Monitor
 {
@@ -19,7 +20,7 @@ namespace Swiss.Monitor
                                             {"ChangedDate", DateTime.UtcNow.ToString("u")},
                                         });
 
-            Tracing.Default.Source.TraceData(TraceEventType.Verbose, (int)Tracing.Events.NOTIFY_SWISSCENTER, Encoding.ASCII.GetString(data));
+            Tracing.Default.Source.TraceData(TraceEventType.Verbose, (int)Tracing.Events.NOTIFY_SWISSCENTER, Encoding.UTF8.GetString(data));
 
             try
             {
@@ -65,10 +66,12 @@ namespace Swiss.Monitor
 
             foreach(KeyValuePair<string, object> pair in postData)
             {
-                builder.AppendFormat("{0}={1}&", pair.Key, pair.Value);
+                builder.AppendFormat("{0}={1}&",
+                    HttpUtility.UrlEncode(pair.Key),
+                    HttpUtility.UrlEncode(pair.Value.ToString()));
             }
 
-            return Encoding.ASCII.GetBytes(builder.ToString());
+            return Encoding.UTF8.GetBytes(builder.ToString());
         }
     }
 }
