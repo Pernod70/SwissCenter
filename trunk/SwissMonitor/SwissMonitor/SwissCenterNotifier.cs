@@ -12,13 +12,17 @@ namespace Swiss.Monitor
     {
         public void SendEventNotification(Change change)
         {
+            Dictionary<string, object> postData = new Dictionary<string, object>
+                               {
+                                   {"Path", change.ItemPath},
+                                   {"Type", change.ChangeType},
+                                   {"ChangedDate", DateTime.UtcNow.ToString("u")},
+                               };
 
-            byte[] data = BuildPostData(new Dictionary<string, object>
-                                        {
-                                            {"Path", change.ItemPath},
-                                            {"Type", change.ChangeType},
-                                            {"ChangedDate", DateTime.UtcNow.ToString("u")},
-                                        });
+            if(change is RenameChange)
+                postData.Add("OldPath", ((RenameChange)change).OldPath);
+
+            byte[] data = BuildPostData(postData);
 
             Tracing.Default.Source.TraceData(TraceEventType.Verbose, (int)Tracing.Events.NOTIFY_SWISSCENTER, Encoding.UTF8.GetString(data));
 

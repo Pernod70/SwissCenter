@@ -1,6 +1,3 @@
-using System.Runtime.InteropServices;
-using System.Text;
-
 namespace Swiss.Monitor
 {
     public class IniFile
@@ -20,6 +17,11 @@ namespace Swiss.Monitor
             {
                 return new IniFileValue(_iniFileReader.Lookup(_path, section, key));
             }
+        }
+
+        public override string ToString()
+        {
+            return _path;
         }
     }
 }

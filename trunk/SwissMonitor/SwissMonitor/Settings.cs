@@ -1,15 +1,21 @@
 using System;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
+using Swiss.Monitor.Configuration;
 
 namespace Swiss.Monitor
 {
     class Settings
     {
-        private static Settings _default = new Settings(new ConfigManager());
+        private static readonly Settings _default = new Settings();
+
         public static Settings Default { get { return _default; } }
 
         public IniFile SimeseIni { get; private set; }
+
         public IniFile SwissCenterIni { get; private set; }
 
         public int SimesePort
@@ -19,8 +25,8 @@ namespace Swiss.Monitor
                 IniFileValue iniFileValue = SimeseIni["common", "port"];
                 if(!iniFileValue.IsNull)
                     return (int)iniFileValue;
-                
-                return _configManager.GetConfigItem("SimesePort", 8080);
+
+                return Root.Simese.Port;
             }
         }
 
@@ -32,13 +38,19 @@ namespace Swiss.Monitor
             {
                 if(_swissCenterConnectionString == null)
                 {
-                    _swissCenterConnectionString = _configManager.GetConfigItem("SwissCenterConnectionString",
-                                                                                String.Format(
-                                                                                    "server={0};user id={1}; password={2}; database={3}; pooling=false",
-                                                                                    SwissCenterIni[null, "DB_HOST"],
-                                                                                    SwissCenterIni[null, "DB_USERNAME"],
-                                                                                    SwissCenterIni[null, "DB_PASSWORD"],
-                                                                                    SwissCenterIni[null, "DB_DATABASE"]));
+                    if(string.IsNullOrEmpty(Root.SwissCenter.Database))
+                    {
+                        _swissCenterConnectionString = String.Format(
+                            "server={0};user id={1}; password={2}; database={3}; pooling=false",
+                            SwissCenterIni[null, "DB_HOST"],
+                            SwissCenterIni[null, "DB_USERNAME"],
+                            SwissCenterIni[null, "DB_PASSWORD"],
+                            SwissCenterIni[null, "DB_DATABASE"]);
+                    }
+                    else
+                    {
+                        _swissCenterConnectionString = Root.SwissCenter.Database;
+                    }
                 }
 
                 return _swissCenterConnectionString;
@@ -51,11 +63,10 @@ namespace Swiss.Monitor
         {
             get
             {
-                if(_swissCenterIniPath == null)
+                if (_swissCenterIniPath == null)
                 {
-                    _swissCenterIniPath = _configManager.GetConfigItem("SwissCenterIniPath",
-                                                                       Path.Combine(SimeseAppDataPath,
-                                                                                    @"Data\Config\Swisscenter.ini"));
+                    _swissCenterIniPath = GetWithDefault(Root.SwissCenter.IniPath,
+                                                         Path.Combine(SimeseAppDataPath, @"Data\Config\Swisscenter.ini"));
                 }
 
                 return _swissCenterIniPath;
@@ -70,8 +81,8 @@ namespace Swiss.Monitor
             {
                 if (_simeseIniPath == null)
                 {
-                    _simeseIniPath = _configManager.GetConfigItem("SimeseIniPath",
-                                                                  Path.Combine(SimeseAppDataPath, "simese.ini"));
+                    _simeseIniPath = GetWithDefault(Root.Simese.IniPath,
+                                                    Path.Combine(SimeseAppDataPath, "simese.ini"));
                 }
 
                 return _simeseIniPath;
@@ -86,8 +97,8 @@ namespace Swiss.Monitor
             {
                 if (_notificationUri == null)
                 {
-                    _notificationUri = _configManager.GetConfigItem("NotificationUri",
-                                                                    "http://localhost:" + SimesePort + "/media_monitor.php");
+                    _notificationUri = GetWithDefault(Root.Debug.NotificationUri,
+                                                      "http://localhost:" + SimesePort + "/media_monitor.php");
                 }
 
                 return _notificationUri;
@@ -106,7 +117,7 @@ namespace Swiss.Monitor
         {
             get
             {
-                return _configManager.GetConfigItem("NotificationCheckInterval", 30000);
+                return Root.NotificationCheckInterval;
             }
         }
 
@@ -114,7 +125,7 @@ namespace Swiss.Monitor
         {
             get
             {
-                return _configManager.GetConfigItem("MaxRetries", 2);
+                return Root.MaxRetries;
             }
         }
 
@@ -122,30 +133,68 @@ namespace Swiss.Monitor
         {
             get
             {
-                return _configManager.GetConfigItem("RetryPeriod", TimeSpan.FromMinutes(1));
+                return Root.RetryPeriod;
             }
         }
 
-        public int DatabaseConnectionRetryPeriod
+        public TimeSpan DatabaseConnectionRetryPeriod
         {
-            get { return (int)_configManager.GetConfigItem("DatabaseConnectionRetryPeriod", TimeSpan.FromMinutes(5)).TotalMilliseconds; }
+            get { return Root.Debug.DatabaseConnectionRetryPeriod; }
         }
 
         public string LocationProviderType
         {
             get
             {
-                return _configManager.GetConfigItem("LocationProviderType", typeof(SwissMonitorLocations).AssemblyQualifiedName);
+                return Root.Debug.LocationProviderType;
             }
         }
 
-        private readonly IConfigManager _configManager;
-
-        public Settings(IConfigManager configManager)
+        public IEnumerable<IgnoredExtensionConfigurationElement> IgnoredExtensions
         {
-            _configManager = configManager;
+            get { return Root.IgnoredExtensions; }
+        }
+
+        private ConfigurationRoot Root { get; set; }
+
+        public Settings()
+        {
+            Root = (ConfigurationRoot)ConfigurationManager.GetSection("swissMonitor");
+
+            if(Root == null)
+                Root = new ConfigurationRoot();
+            
             SimeseIni = new IniFile(SimeseIniPath, new WindowsIniFileReader());
             SwissCenterIni = new IniFile(SwissCenterIniPath, new SwissIniFileReader());
+
+            DumpToLog();
+        }
+
+        private static string GetWithDefault(String inputString, string defaultString)
+        {
+            if (string.IsNullOrEmpty(inputString))
+                return defaultString;
+
+            return inputString;
+        }
+
+        public void DumpToLog()
+        {
+            PropertyInfo[] properties = GetType().GetProperties(BindingFlags.GetProperty | BindingFlags.Instance | BindingFlags.Public);
+
+            foreach(PropertyInfo propertyInfo in properties)
+            {
+                try
+                {
+                    Tracing.Default.Source.TraceInformation("Setting: {0} = {1}",
+                        propertyInfo.Name, propertyInfo.GetValue(this, null));
+                }
+                catch(Exception ex)
+                {
+                    Tracing.Default.Source.TraceEvent(TraceEventType.Warning, (int)Tracing.Events.UNABLE_TO_READ_SETTING,
+                        "Unable to read setting: {0}, {1}", propertyInfo.Name, ex.Message);
+                }
+            }
         }
     }
 }
