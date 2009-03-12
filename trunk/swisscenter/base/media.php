@@ -129,7 +129,7 @@ function remove_orphaned_tv_info()
                  ' where tv.file_id is null');
 
   @db_sqlcommand('delete from languages_of_tv '.
-                 ' using languages_of_tv left outer join movies '.
+                 ' using languages_of_tv left outer join tv '.
                  '    on languages_of_tv.tv_id = tv.file_id '.
                  ' where tv.file_id is null');
 }
