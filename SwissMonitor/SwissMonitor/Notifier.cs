@@ -62,14 +62,12 @@ namespace Swiss.Monitor
                     _changes.Add(change);
 
                     Tracing.Default.Source.TraceEvent(TraceEventType.Information, (int)Tracing.Events.CHANGE_DETECTED,
-                                                      "Change detected: ID = {0}, Type = {1}, Path = {2}",
-                                                      change.ChangeId, change.ChangeType, change.ItemPath);
+                                                      "Change detected: {0}", change);
                 }
                 else
                 {
                     Tracing.Default.Source.TraceEvent(TraceEventType.Verbose, (int)Tracing.Events.CHANGE_DETECTED,
-                                                      "Change ignored, exists: Type = {0}, Path = {1}",
-                                                      change.ChangeType, change.ItemPath);
+                                                      "Change ignored, exists: {0}", change);
                 }
             }
         }

@@ -35,13 +35,13 @@ namespace Swiss.Monitor
 
         public void Initialize()
         {
-            Tracing.Default.Source.TraceEvent(TraceEventType.Start, (int)Tracing.Events.SERVICE_STARTING, "Service starting");
+            Tracing.Default.Source.TraceEvent(TraceEventType.Information, (int)Tracing.Events.SERVICE_STARTING, "Service starting");
 
             _backgroundThread = new Thread(WorkerThread);
             _backgroundThread.IsBackground = true;
             _backgroundThread.Start();
 
-            Tracing.Default.Source.TraceEvent(TraceEventType.Start, (int)Tracing.Events.SERVICE_STARTED,
+            Tracing.Default.Source.TraceEvent(TraceEventType.Information, (int)Tracing.Events.SERVICE_STARTED,
                                               "Service started");
         }
 
@@ -62,14 +62,14 @@ namespace Swiss.Monitor
 
         public void Shutdown()
         {
-            Tracing.Default.Source.TraceEvent(TraceEventType.Stop, (int)Tracing.Events.SERVICE_STOPPING, "Service stopping");
+            Tracing.Default.Source.TraceEvent(TraceEventType.Information, (int)Tracing.Events.SERVICE_STOPPING, "Service stopping");
 
             _shutdownEvent.Set();
 
             if(_backgroundThread != null)
                 _backgroundThread.Join(10000);
-            
-            Tracing.Default.Source.TraceEvent(TraceEventType.Stop, (int)Tracing.Events.SERVICE_STOPPED, "Service stopped");
+
+            Tracing.Default.Source.TraceEvent(TraceEventType.Information, (int)Tracing.Events.SERVICE_STOPPED, "Service stopped");
         }
 
 
@@ -114,13 +114,13 @@ namespace Swiss.Monitor
 
                         Shutdown();
                     }
-                } while (!isRunning && !_shutdownEvent.WaitOne(Settings.Default.DatabaseConnectionRetryPeriod, false));
+                } while (!isRunning && !_shutdownEvent.WaitOne((int)Settings.Default.DatabaseConnectionRetryPeriod.TotalMilliseconds, false));
 
                 
                 // Wait for service shutdown
                 _shutdownEvent.WaitOne();
 
-                Tracing.Default.Source.TraceEvent(TraceEventType.Stop, (int)Tracing.Events.STOPPING_MONITORS, "Stopping monitors");
+                Tracing.Default.Source.TraceEvent(TraceEventType.Information, (int)Tracing.Events.STOPPING_MONITORS, "Stopping monitors");
                 monitor.Shutdown();
             }
             catch (Exception ex)

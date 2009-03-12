@@ -16,5 +16,10 @@ namespace Swiss.Monitor
             ChangeId = Guid.NewGuid();
             NextNoficiationAttempt = DateTime.UtcNow;
         }
+
+        public override string ToString()
+        {
+            return string.Format("ID = {0}, ChangeType = {1}, Path = \"{2}\"", ChangeId, ChangeType, ItemPath);
+        }
     }
 }
