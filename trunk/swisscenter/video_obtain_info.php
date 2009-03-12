@@ -261,7 +261,7 @@
   }
 
   /**
-   .* Uses the google API to perform a search for the given query string
+   * Uses the google API to perform a search for the given query string
    *
    * @param string $query - search string
    * @param string $site - [optional] site to search within
@@ -271,6 +271,9 @@
 
   function google_api_search( $query, $site = '', $enc = 'utf8')
   {
+    if ($enc == 'utf8')
+      $query = utf8_encode($query);
+
     $url   = 'http://ajax.googleapis.com/ajax/services/search/web'
             .'?v=1.0'
             .'&oe='.$enc
@@ -288,24 +291,48 @@
    * function will return the index number of the best match and set $accuracy to the value
    * determined (0-100). If no match is found, then this function returns FALSE
    *
-   * @param string $search_str - title to match against
+   * @param string $title - title to match against
    * @param array $result_set - result set from google_api_search
    * @param integer $accuracy - accuracy level (0-100)
    * @return object - matching result from the google result set
    */
 
-  function google_best_match( $search_str, $result_set, &$accuracy )
+  function google_best_match( $title, $result_set, &$accuracy )
   {
     $titles = array();
     foreach ($result_set as $result)
       $titles[] = $result->titleNoFormatting;
 
-    $index = best_match($search_str, $titles, $accuracy);
+    $index = best_match($title, $titles, $accuracy);
 
     if ($index === false)
       return false;
     else
       return $result_set[$index];
+  }
+
+  /**
+   * Given a string to search for ($needle) and an array of possible matches ($haystack) this
+   * function will return the index number of the best match and set $accuracy to the value
+   * determined (0-100). If no match is found, then this function returns FALSE
+   *
+   * @param string $title - title to match against
+   * @param string $query - string to search for with Google
+   * @param string $site - [optional] site to search within
+   * @param string $enc - [oiptional] encoding scheme for search/results
+   * @return array - matching result (array) from the google result set
+   */
+
+  function google_api_search_best( $title, $query, $site = '', $enc = 'utf8')
+  {
+    $accuracy   = 0;
+    $result_set = google_api_search( $query, $site, $enc);
+    $match      = google_best_match($title, $result_set, $accuracy);
+
+    if ($match !== false)
+      array_merge($match,array("accuracy"=>$accuracy));
+
+    return $match;
   }
 
   // ----------------------------------------------------------------------------------------
