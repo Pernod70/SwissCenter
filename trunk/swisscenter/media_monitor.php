@@ -8,11 +8,8 @@
   require_once( realpath(dirname(__FILE__).'/base/mysql.php'));
   require_once( realpath(dirname(__FILE__).'/base/utils.php'));
   require_once( realpath(dirname(__FILE__).'/base/media.php'));
-  require_once( realpath(dirname(__FILE__).'/base/musicip.php'));
-  require_once( realpath(dirname(__FILE__).'/base/rss.php'));
+  require_once( realpath(dirname(__FILE__).'/base/xml_sidecar.php'));
   require_once( realpath(dirname(__FILE__).'/video_obtain_info.php'));
-  require_once( realpath(dirname(__FILE__).'/itunes_import.php'));
-
 
   $changed     = $_REQUEST["ChangedDate"];
   $type        = $_REQUEST["Type"];
@@ -48,12 +45,18 @@
       {
         $info = db_row("select * from movies where concat(dirname,filename) = '".db_escape_str($path)."'");
         extra_get_movie_details( $info["FILE_ID"], $path, $info["TITLE"]);
+        // Export to XML
+        if ( get_sys_pref('movie_xml_save','NO') == 'YES' )
+          export_video_to_xml($info["FILE_ID"]);
       }
 
       if ( $extra_info && $location["MEDIA_TYPE"] == MEDIA_TYPE_TV && is_tv_check_enabled() )
       {
         $info = db_row("select * from tv where concat(dirname,filename) = '".db_escape_str($path)."'");
         extra_get_tv_details($info["FILE_ID"], $path, $info["PROGRAMME"], $info["SERIES"], $info["EPISODE"], $info["TITLE"]);
+        // Export to XML
+        if ( get_sys_pref('tv_xml_save','NO') == 'YES' )
+          export_tv_to_xml($info["FILE_ID"]);
       }
     }
     else
