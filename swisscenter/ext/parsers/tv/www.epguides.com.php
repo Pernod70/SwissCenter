@@ -187,7 +187,7 @@
           $html = file_get_contents( $url_load );
 
           // Year
-          $year = preg_get('#<span>First Aired:<\/span>.+(\d\d\d\d)<\/li>#',$html);
+          $year = preg_get('/<span>First Aired:<\/span>.+(\d\d\d\d)<\/li>/U',$html);
 
           // Synopsis
           $start = strpos($html,'<div id="indepth_block" class="module">');
