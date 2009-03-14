@@ -168,6 +168,7 @@ function extra_get_tv_details($id, $filename, $programme, $series='', $episode='
                          , "SERIES"            => $tvdb_episodes['SEASONNUMBER'][$ep]
                          , "EPISODE"           => $tvdb_episodes['EPISODENUMBER'][$ep]
                          , "YEAR"              => substr($tvdb_episodes['FIRSTAIRED'][$ep],0,4)
+                         , "EXTERNAL_RATING_PC"=> (empty($tvdb_episodes['RATING'][$ep]) ? '' : $tvdb_episodes['RATING'][$ep] * 10 )
                          , "DETAILS_AVAILABLE" => 'Y'
                          , "SYNOPSIS"          => $tvdb_episodes['OVERVIEW'][$ep]);
         scdb_set_tv_attribs  ( $id, $columns );
@@ -528,6 +529,7 @@ function end_tag_tvdb_episode($parser, $name)
       $tvdb_episodes['FIRSTAIRED'][]    = $tvdb_episode['FIRSTAIRED'];
       $tvdb_episodes['GUESTSTARS'][]    = $tvdb_episode['GUESTSTARS'];
       $tvdb_episodes['OVERVIEW'][]      = $tvdb_episode['OVERVIEW'];
+      $tvdb_episodes['RATING'][]        = $tvdb_episode['RATING'];
       $tvdb_episodes['SEASONNUMBER'][]  = $tvdb_episode['SEASONNUMBER'];
       $tvdb_episodes['FILENAME'][]      = $tvdb_episode['FILENAME'];
 
@@ -563,6 +565,7 @@ function tag_contents_tvdb_episode($parser, $data)
     case 'FIRSTAIRED':   { $tvdb_episode['FIRSTAIRED'] .= $data; break; }
     case 'GUESTSTARS':   { $tvdb_episode['GUESTSTARS'] .= $data; break; }
     case 'OVERVIEW':     { $tvdb_episode['OVERVIEW'] .= $data; break; }
+    case 'RATING':       { $tvdb_episode['RATING'] .= $data; break; }
     case 'SEASONNUMBER': { $tvdb_episode['SEASONNUMBER'] .= $data; break; }
     case 'FILENAME':     { $tvdb_episode['FILENAME'] .= $data; break; }
   }
