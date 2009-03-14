@@ -159,7 +159,7 @@ function substr_between_strings( &$string, $startstr, $endstr)
 // regular expression ($search) within the href portion of the link.
 // ----------------------------------------------------------------------------------
 
-function get_urls_from_html ($string, $search )
+function get_urls_from_html ($string, $search)
 {
   preg_match_all ('/<a.*href="(.*'.$search.'[^"]*)"[^>]*>(.*)<\/a>/Ui', $string, &$matches);
 
@@ -678,6 +678,62 @@ function convert_mms_to_rtsp( $url )
 function xmlspecialchars( $text )
 {
   return str_replace('&#039;', '&apos;', htmlspecialchars( html_entity_decode($text), ENT_QUOTES ));
+}
+
+if(!function_exists('mime_content_type')) {
+
+  function mime_content_type($filename)
+  {
+    $mime_types = array(
+
+      // images
+      'png' => 'image/png',
+      'jpe' => 'image/jpeg',
+      'jpeg' => 'image/jpeg',
+      'jpg' => 'image/jpeg',
+      'gif' => 'image/gif',
+      'bmp' => 'image/bmp',
+      'tiff' => 'image/tiff',
+      'tif' => 'image/tiff',
+
+      // audio
+      'ac3' => 'audio/ac3',
+      'm4a' => 'audio/mpeg',
+      'mp2' => 'audio/mpeg',
+      'mp3' => 'audio/mpeg',
+      'ogg' => 'audio/ogg',
+      'wav' => 'audio/x-wav',
+      'wma' => 'audio/x-ms-wma',
+      'flac' => 'audio/flac',
+
+      // video
+      'asf' => 'video/x-ms-asf',
+      'avi' => 'video/x-msvideo',
+      'mpe' => 'video/mpeg',
+      'mpeg' => 'video/mpeg',
+      'mpg' => 'video/mpeg',
+      'vob' => 'video/mpeg',
+      'wmv' => 'video/x-ms-wmv',
+      'qt' => 'video/quicktime',
+      'mov' => 'video/quicktime',
+      'flv' => 'video/x-flv',
+
+    );
+
+    $ext = strtolower(array_pop(explode('.',$filename)));
+    if (array_key_exists($ext, $mime_types)) {
+      return $mime_types[$ext];
+    }
+    elseif (function_exists('finfo_open')) {
+      $finfo = finfo_open(FILEINFO_MIME);
+      $mimetype = finfo_file($finfo, $filename);
+      finfo_close($finfo);
+      return $mimetype;
+    }
+    else {
+      return 'application/octet-stream';
+    }
+  }
 }
 
 /**************************************************************************************************
