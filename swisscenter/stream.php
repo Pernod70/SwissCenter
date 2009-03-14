@@ -126,7 +126,7 @@
       send_to_log(7,"Subtitles File  : ".$fsp);
       send_to_log(7,"File not found - sending 'HTTP/1.0 404' to the player");
       header ("HTTP/1.0 404 - Not Found");
-    }
+  }
   }
 
 /**
@@ -198,10 +198,10 @@
       $fbuf=fread($fh,$fbytestoget);
       $fbytessofar += strlen($fbuf);
       echo $fbuf;
-      flush();
+  	  flush();
 
       // Put SQL command to update the amount of file served here (on a per-user basis)
-      $bookmark = $fstart + $fbytessofar;
+  	  $bookmark = $fstart + $fbytessofar;
     }
 
     if (!$fh || feof($fh))
@@ -260,7 +260,7 @@
     if ($tracks[$idx]["LENGTH"] > 0)
       $headers[] = "TimeSeekRange.dlna.org: npt=0-/".$tracks[$idx]["LENGTH"];
 
-    $headers[] = "Content-type: audio/x-mpeg";
+    $headers[] = "Content-type: ".mime_content_type($tracks[$idx]["FILENAME"]);
     $headers[] = "Last-Changed: ".date('r',filemtime($location));
     stream_file($media, $file_id, $location, $headers);
 
