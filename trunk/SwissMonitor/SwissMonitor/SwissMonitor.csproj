@@ -61,6 +61,8 @@
     <Compile Include="IniFileValue.cs" />
     <Compile Include="INotifier.cs" />
     <Compile Include="LocationFactory.cs" />
+    <Compile Include="NotificationResult.cs" />
+    <Compile Include="NotificationResultException.cs" />
     <Compile Include="Notifier.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectInstaller.cs">
@@ -73,6 +75,7 @@
     <Compile Include="RenameChange.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="StubLocations.cs" />
+    <Compile Include="SwissCenterNotificationException.cs" />
     <Compile Include="SwissCenterNotifier.cs" />
     <Compile Include="SwissIniFileReader.cs" />
     <Compile Include="Configuration\ConfigurationRoot.cs" />

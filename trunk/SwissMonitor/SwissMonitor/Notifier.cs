@@ -112,18 +112,35 @@ namespace Swiss.Monitor
                     {
                         AttemptNotification(change);
                     }
-                    catch(Exception)
+                    catch(NotificationResultException ex)
                     {
-                        if (change.Retries >= Settings.Default.MaxRetries)
-                        {
-                            FailChange(change);
-                        }
-                        else
-                        {
-                            RetryChange(change);
-                        }
+                        Tracing.Default.Source.TraceEvent(TraceEventType.Warning, (int)Tracing.Events.NOTIFICATION_ERROR,
+                            "Error with notifying change: {0}, {1}", change.ChangeId, ex.Message);
+
+                        HandleException(change, ex.Result.Retry);
+                    }
+                    catch(Exception ex)
+                    {
+                        Tracing.Default.Source.TraceEvent(TraceEventType.Warning, (int)Tracing.Events.NOTIFICATION_ERROR,
+                            "Error with notifying change: {0}, {1}", change.ChangeId, ex.Message);
+
+                        Tracing.Default.Source.TraceData(TraceEventType.Verbose, (int)Tracing.Events.NOTIFICATION_ERROR, ex);
+
+                        HandleException(change, true);
                     }
                 }
+            }
+        }
+
+        private void HandleException(Change change, bool allowRetry)
+        {
+            if (!allowRetry || (change.Retries >= Settings.Default.MaxRetries))
+            {
+                FailChange(change, !allowRetry);
+            }
+            else
+            {
+                RetryChange(change);
             }
         }
 
@@ -181,10 +198,18 @@ namespace Swiss.Monitor
             }
         }
 
-        private void FailChange(Change change)
+        private void FailChange(Change change, bool forced)
         {
-            Tracing.Default.Source.TraceEvent(TraceEventType.Warning, (int)Tracing.Events.MAX_RETRIES_REACHED,
-                                              "Max retries reached: {0}", change.ChangeId);
+            if (!forced)
+            {
+                Tracing.Default.Source.TraceEvent(TraceEventType.Warning, (int)Tracing.Events.MAX_RETRIES_REACHED,
+                                                  "Max retries reached: {0}", change.ChangeId);
+            }
+            else
+            {
+                Tracing.Default.Source.TraceEvent(TraceEventType.Warning, (int)Tracing.Events.MAX_RETRIES_REACHED,
+                                                  "No retry allowed: {0}", change.ChangeId);
+            }
 
             RemoveChange(change);
         }
