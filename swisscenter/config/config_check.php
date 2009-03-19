@@ -202,7 +202,7 @@ function check_display()
 
   $musicip = $component_tests->add_section("MusicIP",2);
 
-  $component_tests->add_test( $musicip, musicip_available(), str('PASS_MUSICIP_TEST'),str('FAIL_MUSICIP_TEST').'<p>'.str('MIP_DESC','<a href="http://www.musicip.com">www.musicip.com</a>'),FALSE);
+  $component_tests->add_test( $musicip, musicip_available(TRUE), str('PASS_MUSICIP_TEST'),str('FAIL_MUSICIP_TEST').'<p>'.str('MIP_DESC','<a href="http://www.musicip.com">www.musicip.com</a>'),FALSE);
 
   if ( musicip_available() )
     $component_tests->add_test( $musicip, (musicip_mixable_percent() >=50),str('PASS_MIP_MIXABLE'),str('FAIL_MIP_MIXABLE'));
