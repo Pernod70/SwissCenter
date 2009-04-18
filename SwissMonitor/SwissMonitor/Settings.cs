@@ -128,6 +128,14 @@ namespace Swiss.Monitor
                 return Root.MaxRetries;
             }
         }
+        
+        public int KeepLastLogs
+        {
+            get
+            {
+                return Root.KeepLastLogs;
+            }
+        }
 
         public TimeSpan RetryPeriod
         {
