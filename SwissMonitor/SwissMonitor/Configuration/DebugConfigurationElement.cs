@@ -25,8 +25,8 @@ namespace Swiss.Monitor.Configuration
             get
             {
                 return (TimeSpan)this["databaseConnectionRetryPeriod"] == default(TimeSpan)
-                           ? (TimeSpan)this["databaseConnectionRetryPeriod"]
-                           : TimeSpan.FromMinutes(5);
+                           ? TimeSpan.FromMinutes(5)
+                           : (TimeSpan)this["databaseConnectionRetryPeriod"];
             }
 
             set { this["databaseConnectionRetryPeriod"] = value; }

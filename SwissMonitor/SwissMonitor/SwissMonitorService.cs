@@ -80,6 +80,7 @@ namespace Swiss.Monitor
                 FileMonitor monitor = new FileMonitor(new SwissCenterNotifier());
 
                 bool isRunning = false;
+                int lastDbErrorCode = 0;
                 do
                 {
                     IMonitorLocations locations = LocationFactory.CreateLocations();
@@ -99,10 +100,17 @@ namespace Swiss.Monitor
                     }
                     catch (MySqlException ex)
                     {
-                        Tracing.Default.Source.TraceEvent(TraceEventType.Warning, (int)Tracing.Events.CANNOT_CONNECT_TO_DB,
-                                                          "Unable to connect to database: {0}", ex.Message);
+                        // Ensure that immediately repeating errors only get logged out once
+                        if (ex.ErrorCode != lastDbErrorCode)
+                        {
+                            Tracing.Default.Source.TraceEvent(TraceEventType.Warning,
+                                                              (int)Tracing.Events.CANNOT_CONNECT_TO_DB,
+                                                              "Unable to connect to database: {0}", ex.Message);
 
-                        Tracing.Default.Source.TraceData(TraceEventType.Verbose, (int)Tracing.Events.CANNOT_CONNECT_TO_DB, ex);
+                            Tracing.Default.Source.TraceData(TraceEventType.Verbose,
+                                                             (int)Tracing.Events.CANNOT_CONNECT_TO_DB, ex);
+                            lastDbErrorCode = ex.ErrorCode;
+                        }
                     }
                     catch (Exception ex)
                     {
