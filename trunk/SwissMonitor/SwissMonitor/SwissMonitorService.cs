@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Diagnostics;
-using System.IO;
 using System.ServiceProcess;
 using System.Threading;
 using MySql.Data.MySqlClient;
@@ -12,6 +10,9 @@ namespace Swiss.Monitor
     {
         private Thread _backgroundThread = null;
         private ManualResetEvent _shutdownEvent = new ManualResetEvent(false);
+
+        private Timer _housekeepingTimer;
+        private bool _isDoingHousekeeping = false;
 
         public SwissMonitorService()
         {
@@ -37,6 +38,9 @@ namespace Swiss.Monitor
         {
             Tracing.Default.Source.TraceEvent(TraceEventType.Information, (int)Tracing.Events.SERVICE_STARTING, "Service starting");
 
+            // Housekeeping is disabled for now as nothing uses it, uncomment this line if needed later
+            //_housekeepingTimer = new Timer(DoHousekeeping, null, TimeSpan.FromSeconds(30), TimeSpan.FromHours(1));
+
             _backgroundThread = new Thread(WorkerThread);
             _backgroundThread.IsBackground = true;
             _backgroundThread.Start();
@@ -49,6 +53,8 @@ namespace Swiss.Monitor
         {
             try
             {
+                Tracing.Default.Source.TraceEvent(TraceEventType.Information, (int)Tracing.Events.SERVICE_STOP_REQUEST,
+                                                  "Service stop request received");
                 Shutdown();
             }
             catch(Exception ex)
@@ -64,6 +70,12 @@ namespace Swiss.Monitor
         {
             Tracing.Default.Source.TraceEvent(TraceEventType.Information, (int)Tracing.Events.SERVICE_STOPPING, "Service stopping");
 
+            if (_housekeepingTimer != null)
+            {
+                _housekeepingTimer.Dispose();
+                _housekeepingTimer = null;
+            }
+
             _shutdownEvent.Set();
 
             if(_backgroundThread != null)
@@ -72,6 +84,27 @@ namespace Swiss.Monitor
             Tracing.Default.Source.TraceEvent(TraceEventType.Information, (int)Tracing.Events.SERVICE_STOPPED, "Service stopped");
         }
 
+        private void DoHousekeeping(object state)
+        {
+            // Note the lack of locking around this check, this could potentially cause a race condition
+            // but I've ignored it since it's only if the timer interval is so short that another call
+            // could come in between the if and the next line, the timer interval is 1 hour so that's unlikely.
+            // I'd also like to hope that the housekeeping will not take an hour so this should never be a
+            // problem anyway but if so I'd like to trap it and log it.
+            if (!_isDoingHousekeeping)
+            {
+                _isDoingHousekeeping = true;
+
+                // Put any housekeeping tasks here
+
+                _isDoingHousekeeping = false;
+            }
+            else
+            {
+                Tracing.Default.Source.TraceEvent(TraceEventType.Warning, (int)Tracing.Events.HOUSEKEEPING_INPROGRESS,
+                    "Housekeeping is still running from last time, there could be a problem. Consider restarting the service.");
+            }
+        }
 
         private void WorkerThread()
         {

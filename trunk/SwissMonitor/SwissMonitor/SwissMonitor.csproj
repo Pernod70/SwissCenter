@@ -73,6 +73,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RenameChange.cs" />
+    <Compile Include="RolloverTextWriterTraceListener.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="StubLocations.cs" />
     <Compile Include="SwissCenterNotificationException.cs" />

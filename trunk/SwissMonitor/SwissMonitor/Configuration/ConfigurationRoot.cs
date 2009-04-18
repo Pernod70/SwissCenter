@@ -33,8 +33,13 @@ namespace Swiss.Monitor.Configuration
             set { this["ignoredExtensions"] = value; }
         }
 
-       
-      
+
+        [ConfigurationProperty("keepLastLogs", IsRequired = false, DefaultValue = 3)]
+        public int KeepLastLogs
+        {
+            get { return (int)this["keepLastLogs"]; }
+            set { this["keepLastLogs"] = value; }
+        }
        
 
         [ConfigurationProperty("notificationCheckInterval", IsRequired = false, DefaultValue = 30000)]
@@ -54,7 +59,7 @@ namespace Swiss.Monitor.Configuration
         [ConfigurationProperty("retryPeriod", IsRequired = false)]
         public TimeSpan RetryPeriod
         {
-            get { return (TimeSpan)this["retryPeriod"] == default(TimeSpan) ? (TimeSpan)this["retryPeriod"] : TimeSpan.FromMinutes(1); }
+            get { return (TimeSpan)this["retryPeriod"] == default(TimeSpan) ? TimeSpan.FromMinutes(1) : (TimeSpan)this["retryPeriod"]; }
             set { this["retryPeriod"] = value; }
         }
 

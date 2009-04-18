@@ -32,7 +32,9 @@ namespace Swiss.Monitor
             MONITOR_ERROR,
             INVALID_LOCATION_PROVIDER,
             UNABLE_TO_READ_SETTING,
-            IGNORING_EXTENSION
+            IGNORING_EXTENSION,
+            SERVICE_STOP_REQUEST,
+            HOUSEKEEPING_INPROGRESS
         }
 
         public static Tracing Default
