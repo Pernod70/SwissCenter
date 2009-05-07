@@ -928,7 +928,7 @@ function tv_expand_pattern( $pattern )
   foreach ($eparts as $key => $val)
     $pattern = str_replace($key,$val,$pattern);
 
-  return '¬'.$pattern.'¬i';
+  return 'ï¿½'.$pattern.'ï¿½i';
 }
 
 /**
@@ -942,7 +942,7 @@ function tv_expand_pattern( $pattern )
 
 function tv_pattern_field( $pattern, $position )
 {
-  preg_match_all('¬\{.\}¬',$pattern, $matches);
+  preg_match_all('ï¿½\{.\}ï¿½',$pattern, $matches);
   switch ( strtolower($matches[0][$position-1]) )
   {
     case '{p}': return 'programme';
@@ -1209,8 +1209,8 @@ function process_media_file( $dir, $file, $id, $share, $table, $file_exts, $upda
 
 function process_media_directory( $dir, $id, $share, $table, $file_exts, $recurse = true, $update = false)
 {
-  // Standard files to ignore (lowercase only - case insensitive match).
-  $dirs_to_ignore  = array( '.' , '..' );
+  // Directories to ignore (lowercase only - case insensitive match).
+  $dirs_to_ignore  = explode(',',strtolower(get_sys_pref('IGNORE_DIR_LIST','.,..')));
 
   send_to_log(4,'Scanning : '.$dir);
 
