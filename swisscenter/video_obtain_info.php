@@ -16,8 +16,8 @@
 
   function get_html_tag_attrib( $html, $tag, $find, $attribute )
   {
-    preg_match ('¬<.*'.$tag.'.*'.$find.'.*>¬Ui', $html, &$tag_html);
-    preg_match ('¬'.$attribute.'="(.*)"¬Ui',$tag_html[0],$val);
+    preg_match ('`<.*'.$tag.'.*'.$find.'.*>`Ui', $html, &$tag_html);
+    preg_match ('`'.$attribute.'="(.*)"`Ui',$tag_html[0],$val);
     if (isset($val[1]) && !empty($val[1]))
       return $val[1];
     else
@@ -26,7 +26,7 @@
 
   function get_html_tag_value( $html, $tag, $find)
   {
-    preg_match ('¬<.*'.$tag.'.*'.$find.'.*>(.*)</'.$tag.'>¬Ui', $html, &$val);
+    preg_match ('`<.*'.$tag.'.*'.$find.'.*>(.*)</'.$tag.'>`Ui', $html, &$val);
     if (isset($val[1]) && !empty($val[1]))
       return $val[1];
     else
@@ -78,7 +78,7 @@
   // function returns either FALSE (no match >75%) or the HTML from the page pointed to by
   // the best match.
   //
-  // £title -- The movie title to search for.
+  // ï¿½title -- The movie title to search for.
   // $site_url -- The address of the site (eg: http://amazon.co.uk/)
   // $search_url -- The URL used to perform a search, with ##### where the movie name should go
   // $success_text -- A seach is deemed to be successful if a page is returned which contains this text
