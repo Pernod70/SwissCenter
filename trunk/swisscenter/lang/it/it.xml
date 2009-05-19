@@ -505,7 +505,7 @@
       <string>
         <id>CERTIFICATE</id>
         <text>Certificato</text>
-        <version>1.19</version>
+        <version>1.22</version>
       </string>
       <string>
         <id>CHANNEL</id>
@@ -989,8 +989,8 @@
       </string>
       <string>
         <id>EXPERT_WARNING</id>
-        <text>I controlli su questa pagina consentono di modificare il funzionamento interno di SwissCenter e dovrebbero essere fatti solo da utenti esperti. Per ulteriori dettagli, vedere %s. [b]L'uso è a proprio riskio[/b].</text>
-        <version>1.19</version>
+        <text>I controlli su questa pagina consentono di modificare il funzionamento interno di SwissCenter e dovrebbero essere fatti solo da utenti esperti. Per ulteriori dettagli, vedere %s. [b]L'uso è a proprio rischio[/b].</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>EXPORT_PROMPT</id>
@@ -1034,8 +1034,8 @@
       </string>
       <string>
         <id>EXTRA_REFRESH_DETAILS</id>
-        <text>Se risulta necessario aggiornare tutte le informazioni presenti a video da internet, clickare sul bottone sottostante.</text>
-        <version>1.19</version>
+        <text>Se risulta necessario aggiornare tutte le informazioni presenti a video da internet, cliccare sul bottone sottostante.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>EXTRA_REFRESH_GO</id>
@@ -2929,8 +2929,8 @@
       </string>
       <string>
         <id>PC_LINK_TV</id>
-        <text>TV Shows</text>
-        <version>1.19</version>
+        <text>Serie TV</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PERCENT_SCANNED</id>
@@ -3364,33 +3364,33 @@
       </string>
       <string>
         <id>REFINE_ACTOR</id>
-        <text>Rifinisci per attore</text>
-        <version>1.19</version>
+        <text>Scegli per attore</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REFINE_ALBUM</id>
-        <text>Rifinisci per album</text>
-        <version>1.19</version>
+        <text>Scegli per album</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REFINE_ARTIST</id>
-        <text>Rifinisci per artista</text>
-        <version>1.19</version>
+        <text>Scegli per artista</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REFINE_CERTIFICATE</id>
-        <text>Rifinisci per certificato</text>
-        <version>1.19</version>
+        <text>Scegli per certificato</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REFINE_DIRECTOR</id>
-        <text>Rifinisci per regista</text>
-        <version>1.19</version>
+        <text>Scegli per regista</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REFINE_GENRE</id>
-        <text>Rifinisci per genere</text>
-        <version>1.19</version>
+        <text>Scegli per genere</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REFINE_IPTC_BYLINE</id>
@@ -3439,18 +3439,18 @@
       </string>
       <string>
         <id>REFINE_PHOTO_ALBUM</id>
-        <text>Rifinisci per album</text>
-        <version>1.19</version>
+        <text>Scegli per foto album</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REFINE_PHOTO_TITLE</id>
-        <text>Rifinisci per titolo</text>
-        <version>1.19</version>
+        <text>Scegli per titolo foto</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REFINE_TITLE</id>
-        <text>Rifinisci per titolo</text>
-        <version>1.19</version>
+        <text>Scegli per titolo</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REFINE_XMP_RATING</id>
@@ -3459,8 +3459,8 @@
       </string>
       <string>
         <id>REFINE_YEAR</id>
-        <text>Rifinisci per anno</text>
-        <version>1.19</version>
+        <text>Scegli per anno</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REFRESH_CLEANUP</id>
@@ -3959,8 +3959,8 @@
       </string>
       <string>
         <id>SIMESE_SCHED_PROMPT</id>
-        <text>Puoi programmare aggiornamenti automatici del database di SwissCenter clickando con il pulsante destro del mouse sull'icona di Simese nella taskbar e selezionando [i]Update Media Scheduler[/i].</text>
-        <version>1.19</version>
+        <text>Puoi programmare aggiornamenti automatici del database di SwissCenter cliccando con il pulsante destro del mouse sull'icona di Simese nella taskbar e selezionando [i]Update Media Scheduler[/i].</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>SLIDESHOW</id>
@@ -4144,8 +4144,8 @@
       </string>
       <string>
         <id>SYNOPSIS</id>
-        <text>Synopsis</text>
-        <version>1.20.1</version>
+        <text>Sommario</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>SYSPREF_ADD_NEW</id>
@@ -4169,7 +4169,7 @@
       </string>
       <string>
         <id>TASK_SCHEDULER</id>
-        <text>Pianifica un'atttività</text>
+        <text>Utilità di pianificazione</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4519,8 +4519,8 @@
       </string>
       <string>
         <id>TV_EXPR_PROMPT</id>
-        <text>I dettagli per una serie TV sono determinati da il nome del file e il percorso utilizzando espressioni regolari. Il file viene confrontata con le seguenti espressioni fino a quando viene trovata una corrispondenza. Queste espressioni contengono segnaposto per il programma p (), (serie s), episodio (e) e (titolo) t. È necessario disporre di almeno una di questi segnaposto in ogni espressione per estrarre i dettagli. Se hai bisogno di assistenza chiedi nel forum.</text>
-        <version>1.21</version>
+        <text>I dettagli per una serie TV sono determinati da il nome del file e il percorso utilizzando espressioni regolari. Il file viene confrontata con le seguenti espressioni fino a quando viene trovata una corrispondenza. Queste espressioni contengono dei segnaposto per il programma {p}, serie {s}, episodio {e} e titolo {t}. È necessario disporre di almeno una di questi segnaposto in ogni espressione per estrarre i dettagli. Se hai bisogno di assistenza chiedi nel forum.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>TV_EXPR_TEST</id>
@@ -4539,8 +4539,8 @@
       </string>
       <string>
         <id>TV_EXPR_TEST_PROMPT</id>
-        <text>Immettere un nome di file compreso il percorso per verificare se l'espressione del vostro percorso attuale  identifica correttamente i dettagli. ad es. C: / Media / TV / Robot Chicken / Serie 1/Robot Chicken.S01E01.The Deep End.avi</text>
-        <version>1.21</version>
+        <text>Immettere un nome di file con il suo percorso, per verificare se l'espressione del vostro percorso attuale  identifica correttamente i dettagli. ad es. C:/Media/TV/Robot Chicken/Serie 1/Robot Chicken.S01E01.The Deep End.avi</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>TV_EXPR_TEST_SUCCESS</id>
@@ -4884,7 +4884,7 @@
       </string>
       <string>
         <id>WATCH_TV</id>
-        <text>Show TV</text>
+        <text>Serie TV</text>
         <version>1.22</version>
       </string>
       <string>
