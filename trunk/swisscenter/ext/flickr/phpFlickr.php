@@ -94,7 +94,7 @@ class phpFlickr {
 		$this->req->setMethod(HTTP_REQUEST_METHOD_POST);
 	}
 
-	function enableCache($type, $connection = '', $cache_expire = 600, $table = 'flickr_cache')
+	function enableCache($type, $connection = '', $cache_expire = 600, $table = 'cache_api_request')
 	{
 		// Turns on caching.  $type must be either "db" (for database caching) or "fs" (for filesystem).
 		// When using db, $connection must be a PEAR::DB connection string. Example:
@@ -118,18 +118,18 @@ class phpFlickr {
 			db_sqlcommand("
 				CREATE TABLE IF NOT EXISTS `$table` (
 					`request` CHAR( 35 ) NOT NULL ,
+					`service` TEXT NOT NULL ,
 					`response` MEDIUMTEXT NOT NULL ,
 					`expiration` DATETIME NOT NULL ,
-					INDEX ( `request` )
+					PRIMARY KEY ( `request` )
 				) TYPE = MYISAM");
 
-			if (db_value("SELECT COUNT(*) FROM $table") > $this->max_cache_rows) {
-				db_sqlcommand("DELETE FROM $table WHERE expiration < DATE_SUB(NOW(), INTERVAL $cache_expire second)");
+			if (db_value("SELECT COUNT(*) FROM $table WHERE service = 'flickr'") > $this->max_cache_rows) {
+				db_sqlcommand("DELETE FROM $table WHERE service = 'flickr' AND expiration < DATE_SUB(NOW(), INTERVAL $cache_expire second)");
 				db_sqlcommand('OPTIMIZE TABLE '.$this->cache_table);
 			}
 
 			$this->cache = 'db';
-//			$this->cache_db = $db;
 			$this->cache_table = $table;
 		} elseif ($type == 'fs') {
 			$this->cache = 'fs';
@@ -179,7 +179,7 @@ class phpFlickr {
 			if (db_value("SELECT COUNT(*) FROM {$this->cache_table} WHERE request = '$reqhash'")) {
 				db_sqlcommand( "UPDATE ".$this->cache_table." SET response = '".db_escape_str($response)."', expiration = '".strftime("%Y-%m-%d %H:%M:%S")."' WHERE request = '$reqhash'");
 			} else {
-				db_sqlcommand( "INSERT INTO ".$this->cache_table." (request, response, expiration) VALUES ('$reqhash', '".db_escape_str($response)."', '".strftime("%Y-%m-%d %H:%M:%S")."')");
+				db_sqlcommand( "INSERT INTO ".$this->cache_table." (request, service, response, expiration) VALUES ('$reqhash', 'flickr', '".db_escape_str($response)."', '".strftime("%Y-%m-%d %H:%M:%S")."')");
 			}
 		} elseif ($this->cache == "fs") {
 			$file = $this->cache_dir . "/" . $reqhash . ".cache";
@@ -220,7 +220,7 @@ class phpFlickr {
 			}
 
 			$this->req->addHeader("Connection", "Keep-Alive");
-			
+
 			//Send Requests
 			if ($this->req->sendRequest()) {
 				$this->response = $this->req->getResponseBody();
@@ -306,12 +306,12 @@ class phpFlickr {
 			"large" => "_b",
 			"original" => "_o"
 		);
-		
+
 		$size = strtolower($size);
 		if (!array_key_exists($size, $sizes)) {
 			$size = "medium";
 		}
-		
+
 		if ($size == "original") {
 			$url = "http://farm" . $photo['farm'] . ".static.flickr.com/" . $photo['server'] . "/" . $photo['id'] . "_" . $photo['originalsecret'] . "_o" . "." . $photo['originalformat'];
 		} else {
@@ -876,7 +876,7 @@ class phpFlickr {
 		$this->request("flickr.photos.getExif", array("photo_id"=>$photo_id, "secret"=>$secret));
 		return $this->parsed_response ? $this->parsed_response['photo'] : false;
 	}
-	
+
 	function photos_getFavorites($photo_id, $page = NULL, $per_page = NULL)
 	{
 		/* http://www.flickr.com/services/api/flickr.photos.getFavorites.html */
@@ -1003,7 +1003,7 @@ class phpFlickr {
 		/* http://www.flickr.com/services/api/flickr.photos.setContentType.html */
 		return $this->call('flickr.photos.setContentType', array('photo_id' => $photo_id, 'content_type' => $content_type));
 	}
-	
+
 	function photos_setDates($photo_id, $date_posted = NULL, $date_taken = NULL, $date_taken_granularity = NULL)
 	{
 		/* http://www.flickr.com/services/api/flickr.photos.setDates.html */
@@ -1029,7 +1029,7 @@ class phpFlickr {
 		/* http://www.flickr.com/services/api/flickr.photos.setSafetyLevel.html */
 		return $this->call('flickr.photos.setSafetyLevel', array('photo_id' => $photo_id, 'safety_level' => $safety_level, 'hidden' => $hidden));
 	}
-	
+
 
 	function photos_setTags($photo_id, $tags)
 	{
@@ -1263,14 +1263,14 @@ class phpFlickr {
 		$this->request("flickr.photosets.comments.getList", array("photoset_id"=>$photoset_id));
 		return $this->parsed_response ? $this->parsed_response['comments'] : false;
 	}
-	
+
 	/* Places Methods */
 	function places_resolvePlaceId ($place_id) {
 		/* http://www.flickr.com/services/api/flickr.places.resolvePlaceId.html */
 		$rsp = $this->call('flickr.places.resolvePlaceId', array('place_id' => $place_id));
 		return $rsp ? $rsp['location'] : $rsp;
 	}
-	
+
 	function places_resolvePlaceURL ($url) {
 		/* http://www.flickr.com/services/api/flickr.places.resolvePlaceURL.html */
 		$rsp = $this->call('flickr.places.resolvePlaceURL', array('url' => $url));
@@ -1283,19 +1283,19 @@ class phpFlickr {
 		$rsp = $this->call('flickr.prefs.getContentType', array());
 		return $rsp ? $rsp['person'] : $rsp;
 	}
-	
+
 	function prefs_getHidden () {
 		/* http://www.flickr.com/services/api/flickr.prefs.getHidden.html */
 		$rsp = $this->call('flickr.prefs.getHidden', array());
 		return $rsp ? $rsp['person'] : $rsp;
 	}
-	
+
 	function prefs_getPrivacy () {
 		/* http://www.flickr.com/services/api/flickr.prefs.getPrivacy.html */
 		$rsp = $this->call('flickr.prefs.getPrivacy', array());
 		return $rsp ? $rsp['person'] : $rsp;
 	}
-	
+
 	function prefs_getSafetyLevel () {
 		/* http://www.flickr.com/services/api/flickr.prefs.getSafetyLevel.html */
 		$rsp = $this->call('flickr.prefs.getSafetyLevel', array());
