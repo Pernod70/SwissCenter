@@ -109,10 +109,14 @@
 
     $sql = "SELECT id, title, url, description, published_date, timestamp, guid, linked_file FROM rss_items WHERE";
 
-    if(empty($item["guid"]))
-      $sql .= " url = '".db_escape_str($item["link"])."'";
-    else
+    if (isset($item["guid"]) && !empty($item["guid"]))
       $sql .= " guid = '".db_escape_str($item["guid"])."'";
+    elseif (isset($item["link"]) && !empty($item["link"]))
+      $sql .= " url = '".db_escape_str($item["link"])."'";
+    elseif (isset($item["pubdate"]) && !empty($item["pubdate"]))
+      $sql .= " published_date = '".db_datestr(strtotime($item["pubdate"]))."'";
+    else
+      $sql .= " title = '".db_escape_str(utf8_decode($item["title"]))."'";
 
     $sql .= " AND subscription_id=$sub_id";
 
@@ -210,24 +214,25 @@
  {
    $sub = rss_get_subscription_details($sub_id);
 
-   if((($sub["TYPE"] == RSS_TYPE_PODCAST) ||
+   if ((($sub["TYPE"] == RSS_TYPE_PODCAST) ||
        ($sub["TYPE"] == RSS_TYPE_VODCAST)) &&
       (!empty($new_item["guid"]) ||
        !empty($new_item["enclosure"])))
    {
      // We have a file to download, check if we need to
-     if(empty($existing_item) ||
+     if (empty($existing_item) ||
         ($existing_item["TIMESTAMP"] != $new_item["date_timestamp"]) ||
-        empty($existing_item["LINKED_FILE"]))
+        (!empty($existing_item["LINKED_FILE"]) && !file_exists($existing_item["LINKED_FILE"])))
      {
-       if(!empty($new_item["enclosure"]["url"]))
+       if (!empty($new_item["enclosure"]["url"]))
          return $new_item["enclosure"]["url"];
        elseif(!empty($new_item["guid"]))
          return $new_item["guid"];
      }
      else
      {
-       send_to_log(4, "Skipping download of file, not changed");
+       send_to_log(6, "Skipping download of file, not changed");
+       return false;
      }
    }
  }
@@ -245,7 +250,7 @@
  {
    $url_details = parse_url($url);
 
-   $filename = $item_id."_".basename($url_details["path"]);
+   $filename = $item_id."_".basename(rawurldecode($url_details["path"]));
    $rss_file = str_suffix(RSS_CONTENT_DIR, '/').$filename;
 
    send_to_log(4, "Downloading linked file from '".$url."' to '".$rss_file."'");
