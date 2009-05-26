@@ -803,6 +803,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>ENHANCED</id>
+        <text>Enhanced</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>EPISODE</id>
         <text>Episode</text>
         <version>1.19</version>
@@ -2797,6 +2802,11 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <id>ORG_TITLE</id>
         <text>Edit Video Details</text>
         <version>1.21.1</version>
+      </string>
+      <string>
+        <id>ORIGINAL</id>
+        <text>Original</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PAGE</id>
