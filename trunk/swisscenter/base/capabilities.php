@@ -116,41 +116,41 @@ function get_nmt_network_shares()
                                                           "or box_id like '%ELE%' or box_id like '%CMI%'");
   if (is_array($nmt) && count($nmt)>0)
   {
-    foreach ( $nmt as $ip )
+  foreach ( $nmt as $ip )
+  {
+    // Get Network Shares page from NMT
+    if (socket_check($ip,8883,1))
+      $html = @file_get_contents('http://'.$ip.':8883/network_share.html');
+    else
+      $html = '';
+
+    // Identify defined Network Shares
+    $matches = array();
+    preg_match_all('/<td height="\d+" class="txt">.*&nbsp;(.*)<\/td>/',$html,$matches);
+    for ($i = 0; $i<count($matches[1]); $i++)
     {
-      // Get Network Shares page from NMT
-      if (socket_check($ip,8883,1))
-        $html = @file_get_contents('http://'.$ip.':8883/network_share.html');
-      else
-        $html = '';
-
-      // Identify defined Network Shares
-      $matches = array();
-      preg_match_all('/<td height="\d+" class="txt">.*&nbsp;(.*)<\/td>/',$html,$matches);
-      for ($i = 0; $i<count($matches[1]); $i++)
+      $unc = array();
+      switch ( true )
       {
-        $unc = array();
-        switch ( true )
-        {
-          case strstr( $matches[1][$i], 'nfs' ):
-            preg_match('/.*nfs:\/\/(.*)/', $matches[1][$i], $unc);
-            $shares[] = array( 'path' => '[NFS] '.str_replace('/', ':', $unc[1]),
-                               'name' => $matches[1][$i] );
-            break;
+        case strstr( $matches[1][$i], 'nfs' ):
+          preg_match('/.*nfs:\/\/(.*)/', $matches[1][$i], $unc);
+          $shares[] = array( 'path' => '[NFS] '.str_replace('/', ':', $unc[1]),
+                             'name' => $matches[1][$i] );
+          break;
 
-          case strstr( $matches[1][$i], 'smb' ):
-            preg_match('/.*smb:\/\/(.*)/', $matches[1][$i], $unc);
-            $shares[] = array( 'path' => '[SMB] '.str_replace('/', ':', $unc[1]),
-                               'name' => $matches[1][$i] );
-            break;
+        case strstr( $matches[1][$i], 'smb' ):
+          preg_match('/.*smb:\/\/(.*)/', $matches[1][$i], $unc);
+          $shares[] = array( 'path' => '[SMB] '.str_replace('/', ':', $unc[1]),
+                             'name' => $matches[1][$i] );
+          break;
 
-          default:
-            $shares[] = array( 'path' => 'NETWORK_SHARE/'.$matches[1][$i],
-                               'name' => $matches[1][$i] );
-            break;
-        }
+        default:
+          $shares[] = array( 'path' => 'NETWORK_SHARE/'.$matches[1][$i],
+                             'name' => $matches[1][$i] );
+          break;
       }
     }
+  }
   }
   return $shares;
 }
@@ -374,19 +374,38 @@ function now_playing_sync_type()
 {
   $result = 3;  // Default values for players unless we discover otherwise.
 
-  switch ( get_player_type() )
+  switch ( get_sys_pref('NOW_PLAYING_STYLE', 'ORIGINAL') )
   {
-    case 'BUFFALO':
-    case 'IO-DATA':
-    case 'SYABAS':
-         $result = 2;
-         break;
-    case 'POPCORN':
-         if ( get_player_firmware_datestr() >= '080725' )
-           $result = 5;
-         else
-           $result = 2;
-         break;
+    case 'ORIGINAL':
+      // Images sync'ed with tracks
+      switch ( get_player_type() )
+      {
+        case 'BUFFALO':
+        case 'IO-DATA':
+        case 'SYABAS':
+             $result = 2;
+             break;
+        case 'POPCORN':
+             if ( get_player_firmware_datestr() >= '080725' )
+               $result = 5;
+             else
+               $result = 2;
+             break;
+      }
+      break;
+
+    case 'ENHANCED':
+      // Images constantly refreshed to update progress bar
+      switch ( get_player_type() )
+      {
+        case 'BUFFALO':
+        case 'IO-DATA':
+        case 'SYABAS':
+        case 'POPCORN':
+             $result = 2;
+             break;
+      }
+      break;
   }
 
   return $result;
@@ -448,6 +467,7 @@ function player_fontsize_multiplier()
   switch ( get_player_type().'/'.get_browser_size() )
   {
     case 'PC/800x450':                  return 2.2; break;
+    case 'NETGEAR/624x496':
     case 'PINNACLE/624x496':            return 1.4; break;
     case 'POPCORN/1100x656':            return 2.2; break;
   }
