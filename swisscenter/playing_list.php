@@ -17,7 +17,7 @@
   // Clear the Now Playing details
   $_SESSION["now_playing"] = '';
 
-  if (support_now_playing())
+  if (support_now_playing() && get_sys_pref('NOW_PLAYING_STYLE', 'ORIGINAL') == 'ORIGINAL' )
   {
     /**
      * The following code ouputs the list of photos that are sync'd with the music tracks
@@ -48,7 +48,11 @@
      * page frequently so that the information is kept up-to-date.
      */
 
-    $timeout    = get_sys_pref("NOW_PLAYING_REFRESH_INTERVAL",20);
+    if (get_sys_pref('NOW_PLAYING_STYLE', 'ORIGINAL') == 'ORIGINAL')
+      $timeout = get_sys_pref("NOW_PLAYING_REFRESH_INTERVAL",20);
+    else
+      $timeout = get_sys_pref("NOW_PLAYING_ENHANCED_REFRESH_INTERVAL",5);
+
     send_to_log(7,"No Support for sync'd music and photos.");
 
     echo "$timeout|$transition| |$url&type=.jpg|\n";
