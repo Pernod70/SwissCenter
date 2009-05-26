@@ -49,6 +49,8 @@ function get_google_artist_image( $artist )
   if ( $response->responseStatus == 200 )
   {
     // Create folder for artist images
+    $local_folder = SC_LOCATION.'fanart/artists';
+    if (!file_exists($local_folder)) { @mkdir($local_folder); }
     $local_folder = SC_LOCATION.'fanart/artists/'.strtolower($artist);
     if (!file_exists($local_folder)) { @mkdir($local_folder); }
 

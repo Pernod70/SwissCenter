@@ -403,7 +403,7 @@
     send_to_log(8,'Next track:',$next_track);
 
     // Background image
-    switch ( get_sys_pref('NOW_PLAYING_FANART') )
+    switch ( get_sys_pref('NOW_PLAYING_FANART','GOOGLE') )
     {
       case 'GOOGLE':
         $fanart_img = get_google_artist_image( $current_track["ARTIST"] );
