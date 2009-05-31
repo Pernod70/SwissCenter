@@ -34,7 +34,7 @@
     }
 
     // Decode HTML entities found on page
-    $html = html_entity_decode($html);
+    $html = html_entity_decode($html, ENT_QUOTES);
 
     // If the title contains a year in brackets ie.(1978) then adjust the returned page to include year in search
     if (preg_match("/\((\d+)\)/",$details[0]["TITLE"],$title_year) != 0)
@@ -62,7 +62,7 @@
       {
         $url_imdb = add_site_to_url($matches[1][$index],$site_url);
         $url_imdb = substr($url_imdb, 0, strpos($url_imdb,"?fr=")-1);
-        $html = html_entity_decode(file_get_contents( $url_imdb ));
+        $html = html_entity_decode(file_get_contents( $url_imdb ), ENT_QUOTES);
       }
     }
     else
@@ -119,7 +119,7 @@
       // These are the details to be stored in the database
       $columns = array ( "YEAR"              => $year
                        , "CERTIFICATE"       => db_lookup( 'certificates','name','cert_id',$rating )
-                       , "EXTERNAL_RATING_PC"=> (empty($user_rating) ? '' : $user_rating * 10 )
+                       , "EXTERNAL_RATING_PC"=> (empty($user_rating) ? '' : intval($user_rating * 10) )
                        , "MATCH_PC"          => $accuracy
                        , "DETAILS_AVAILABLE" => 'Y'
                        , "SYNOPSIS"          => trim(trim($synopsis[2])," |"));
