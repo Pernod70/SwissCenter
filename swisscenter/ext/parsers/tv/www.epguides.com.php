@@ -24,6 +24,8 @@
    28-Jan-2008: v1.2:     Encoded URL containing Programme name and improved search and error handling.
    04_Mar-2008: v1.3:     Minor fixes to url and episode searching.
    26-Sep-2008: v1.4:     Fixed for new layout at TV.com (synopsis and date).  Fixes by Keith Solomon.
+   04-Nov-2008: v1.5:     Fixed new layout for director, actors, and year fields.  Fixes by Keith Solomon.
+   30-Apr-2009: v1.6:     Updated for newest version of TV.com layout.  Fixes by Keith Solomon
 
  *************************************************************************************************/
 
@@ -74,7 +76,7 @@
     if (empty($epguides_url))
     {
       $url_load = str_replace('#####',$search_title,$search_url);
-      send_to_log(6,'Fetching information from: '.$url_load);
+      send_to_log(4,'Fetching information from: '.$url_load);
       $html     = file_get_contents( $url_load );
 
       if ($html === false)
@@ -100,7 +102,7 @@
       }
     }
 
-    send_to_log(6,'Fetching information from: '.$epguides_url);
+    send_to_log(4,'Fetching information from: '.$epguides_url);
     $html = file_get_contents( $epguides_url );
 
     if ($html != false)
@@ -122,7 +124,7 @@
       }
 
       // Decode HTML entities found on page
-      $html = html_entity_decode($html);
+      $html = html_entity_decode($html, ENT_QUOTES);
 
       // Check that page contains links to tv.com
       if (strpos($html,'www.tv.com') !== false)
@@ -135,18 +137,19 @@
         {
           // Get page containing Series Summary
           $url_load = substr($matches[1][0],strrpos_str($matches[1][0],'http'));
-          send_to_log(6,'Fetching information from: '.$url_load);
+          send_to_log(4,'Fetching information from: '.$url_load);
           $html_summary = file_get_contents( $url_load );
 
-          // Genre (allowing for Category and Categories)
-          $start = strpos($html_summary,"Show Categor");
+          // Genre
+          $start = strpos($html_summary,"Genre</h4>");
           $end = strpos($html_summary,"</div>",$start+1);
           $html_genres = substr($html_summary,$start,$end-$start);
-          $matches = get_urls_from_html($html_genres,"genre");
-          scdb_add_tv_genres ( $id, $matches[2] );
+          $matches = get_urls_from_html($html_genres,"shows");
+          $genres  = explode(',', $matches[2][0]);
+          scdb_add_tv_genres ( $id, $genres );
         }
         else
-          send_to_log(6,'Cannot find link to tv.com summary page for specified series.');
+          send_to_log(4,'Cannot find link to tv.com summary page for specified series.');
 
         // Search for link for required Episode by series-episode
         $start = strpos($html,'Episode #');
@@ -183,36 +186,54 @@
           // Get page containing Episode Summary
           $url_load = substr($matches[1][0],strrpos_str($matches[1][0],'http'));
           $title    = $matches[2][0];
-          send_to_log(6,'Fetching information from: '.$url_load);
+          send_to_log(4,'Fetching information from: '.$url_load);
           $html = file_get_contents( $url_load );
 
+          // Get page containing Cast List
+          $start = strpos($html,'Episode Cast and Crew</h3>');
+          $end = strpos($html,"</div>",$start+1);
+          $html_cast = substr($html,$start,$end-$start);
+          $matches = get_urls_from_html($html_cast, '\/episode\/\d+\/cast.html');
+          send_to_log(4,'Fetching cast information from: '.$matches[1][0]);
+          $html_cast = file_get_contents( $matches[1][0] );
+
+          // Get page containing Crew List
+          $start = strpos($html_cast,'<ul class="TAB_LINKS">');
+          $end = strpos($html_cast,"</ul>",$start+1);
+          $html_crew = substr($html_cast,$start,$end-$start);
+          $matches = get_urls_from_html($html_crew, 'flag=6');
+          send_to_log(4,'Fetching crew information from: '.$matches[1][0]);
+          $html_crew = file_get_contents( $matches[1][0] );
+
           // Year
-          $year = preg_get('/<span>First Aired:<\/span>.+(\d\d\d\d)<\/li>/U',$html);
+          $year = preg_get('/<h4>Air Date<\/h4>.+(\d\d\d\d)<\/p>/Usm',$html);
 
           // Synopsis
-          $start = strpos($html,'<div id="indepth_block" class="module">');
-          $end = strpos($html,'</a></p>',$start+1);
+          $start = strpos($html,'<h3>Episode Summary</h3>');
+          $end = strpos($html,'</p>',$start+1);
           $html_synopsis = substr($html,$start,$end-$start);
-          $start = strrpos_str($html_synopsis,'<p class="deck">');
-          $html_synopsis = substr($html_synopsis,$start);
-          $synopsis_ep  = substr_between_strings($html_synopsis,'deck">','<a href=');
+          $start = strrpos_str($html_synopsis,'<p>');
+          $synopsis_ep = strip_tags(substr($html_synopsis,$start));
 
           // Director(s)
-          $start = strpos($html,"<dl ><dt>Director:</dt>");
-          $end = strpos($html,"</dl>",$start+1);
-          $html_directed = substr($html,$start,$end-$start);
-          $matches = get_urls_from_html($html_directed,"\/person\/\d+\/summary.html");
+          $start = strpos($html_crew,"<h3 class=\"title\">DIRECTORS</h3>");
+          $end = strpos($html_crew,"</ul>",$start+1);
+          $html_directed = substr($html_crew,$start,$end-$start);
+          $matches = get_urls_from_html($html_directed,"director;name");
           scdb_add_tv_directors ( $id, $matches[2] );
 
           // Actor(s)
-          $start = strpos($html,"<dl ><dt>Stars:</dt>");
-          $end = strpos($html,"</dl>",$start+1);
-          $html_actors = substr($html,$start,$end-$start);
-          $matches = get_urls_from_html($html_actors,"\/person\/\d+\/summary.html");
+          $start = strpos($html_cast,"<h3 class=\"title\">STARS</h3>");
+          $end = strpos($html_cast,"</ul>",$start+1);
+          $html_actors = substr($html_cast,$start,$end-$start);
+          $matches = get_urls_from_html($html_actors,"star;name");
           scdb_add_tv_actors ( $id, $matches[2] );
 
           // Find User Rating
-          $user_rating = preg_get("/Episode score.*?<span>(.*)<\/span>/sm",$html);
+          $start = strpos($html,"<h3>Episode Score</h3>");
+          $end = strpos($html,"description",$start+1);
+          $html_rating = substr($html_cast,$start,$end-$start);
+          $user_rating = substr_between_strings($html_rating,"<span class=\"number\">","</span>");
 
           // Store the single-value movie attributes in the database
           $columns = array ( "TITLE"             => $title
@@ -252,7 +273,7 @@
           // Get page containing Episode Summary
           $url_load = add_site_to_url($matches[1][0],$epguides_url);
           $title    = $matches[2][0];
-          send_to_log(6,'Fetching information from: '.$url_load);
+          send_to_log(4,'Fetching information from: '.$url_load);
           $html = file_get_contents( $url_load );
 
           // Determine the URL of the albumart and attempt to download it.
@@ -272,7 +293,7 @@
           }
 
           // Decode HTML entities found on page
-          $html = html_entity_decode($html);
+          $html = html_entity_decode($html, ENT_QUOTES);
 
           // Crop returned page to required episode
           $start = strpos($html,$series.'-'.sprintf("%2s", $episode));

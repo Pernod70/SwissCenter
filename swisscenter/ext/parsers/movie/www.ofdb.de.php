@@ -105,6 +105,9 @@ require_once( SC_LOCATION."/ext/json/json.php");
       $matches = get_urls_from_html($html_genres,"genre");
       scdb_add_genres ( $id, $matches[2] );
 
+      // Rating
+      $rating = preg_get("/Note:(.*)&nbsp;/sm",$html);
+
       // Synopsis
       $start = strpos($html,"Inhalt:");
       $end = strpos($html,"</tr>",$start+1);
@@ -123,6 +126,7 @@ require_once( SC_LOCATION."/ext/json/json.php");
       // Store the single-value movie attributes in the database
       $columns = array ( "YEAR"              => $year
                        , "MATCH_PC"          => $accuracy
+                       , "EXTERNAL_RATING_PC"=> (empty($rating) ? '' : intval($rating * 10) )
                        , "DETAILS_AVAILABLE" => 'Y'
                        , "SYNOPSIS"          => $synopsis);
       scdb_set_movie_attribs ($id, $columns);
