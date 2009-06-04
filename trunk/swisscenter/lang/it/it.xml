@@ -818,6 +818,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>ENHANCED</id>
+        <text>Avanzato</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>EPISODE</id>
         <text>Episodio</text>
         <version>1.19</version>
@@ -2708,9 +2713,49 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>NOW_PLAYING_FANART</id>
+        <text>Scarica Fanart</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_FANART_GOOGLE</id>
+        <text>Immagini da Google</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_FANART_LASTFM</id>
+        <text>Ultima.FM</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_FANART_NONE</id>
+        <text>Nulla</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_FANART_PROMPT</id>
+        <text>Seleziona la sorgente delle immagini fanart da usare nello schermo avanzato &quot;In esecuzione&quot;. Le immagini Fanart possono essere archiviate per ogni artista in [em]swisscenter\fanart\artists\depeche mode[/em].[br]Nessuna - Nessuna fanart sarà scaricata. Saranno usate solo le immagini esistenti nella tua directory fanart.[br]Google - La fanart sarà cercata nelle immagini su Google e scaricate localmente nella tua fanart directory.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_OPTIONS</id>
+        <text>Opzioni di esecuzione</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>NOW_PLAYING_PROMPT</id>
-        <text>Alcuni apparati permettono di visualizzare una immagine mentre viene eseguito un brano e SwissCenter usa questa funzionalita' per visualizzare dettagli sulla brano corrente. [p]Nella maggior parte dei casi, SwissCenter sara' in grado di verificare automaticamente se l'apparato supporta questa funzionalita', ma in caso di problemi e' possibile impostare l'opzione manualmente.</text>
-        <version>1.19</version>
+        <text>Alcuni apparati permettono di visualizzare una immagine mentre viene eseguito un brano e SwissCenter userà questa funzionalita' per visualizzare dettagli per il brano corrente. [p]Nella maggior parte dei casi, SwissCenter sara' in grado di verificare automaticamente se l'apparato supporta questa funzionalita', ma in caso di problemi e' possibile impostare l'opzione manualmente.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_STYLE</id>
+        <text>Avanzato</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_STYLE_PROMPT</id>
+        <text>Selezionando l'opzione &quot;originale&quot; lo schermo &quot;In esecuzione&quot; mostrerà i dettagli della canzone con un'immagine dell'album che si aggiornerà con il cambio della canzone. Selezionando l'opzione &quot;avanzato&quot;, saranno mostrati i dettagli della canzone con un barra di avanzamento e come sfondo l'immagine fanart. Questa opzione è raccomandata per chi usa l'NMT o player multimediale (Network Media Tank). Nelle opzioni del player multimediale si dovrà settare &quot;Tansizione foto&quot; in &quot;nessuna&quot;.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>NOW_PLAYING_SUPPORT</id>
@@ -2755,6 +2800,11 @@
       <string>
         <id>ORG_TITLE</id>
         <text>Modifica i dettagli del video</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ORIGINAL</id>
+        <text>Originale</text>
         <version>1.22</version>
       </string>
       <string>
