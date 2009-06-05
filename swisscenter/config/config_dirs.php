@@ -124,7 +124,7 @@
     {
       $output = '';
 
-      if (is_dir($dir))
+      if (isdir($dir))
         $output .= 'Directory';
       elseif (is_file($dir))
         $output .= 'File';
@@ -276,7 +276,7 @@
       dirs_display('',"!".str('MEDIA_LOC_ERROR_CERT'));
     elseif (empty($_REQUEST["location"]))
       dirs_display('',"!".str('MEDIA_LOC_ERROR_LOC'));
-    elseif (!file_exists($dir))
+    elseif (!isdir($dir))
     {
       log_dir_failure($dir);
       dirs_display('',"!".str('MEDIA_LOC_ERROR_DIRFAIL'));

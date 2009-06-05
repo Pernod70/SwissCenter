@@ -39,7 +39,7 @@
     {
       while (($file = readdir($dh)) !== false)
       {
-        if (is_dir($dir.$file) && file_exists($dir.$file.'/style.ini') )
+        if (isdir($dir.$file) && file_exists($dir.$file.'/style.ini') )
         {
           $style_rating = style_rating($file);
           if ( ($style_rating == '') || (get_current_user_rank() >= get_rank_from_name($style_rating)) )

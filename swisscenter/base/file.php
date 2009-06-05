@@ -5,6 +5,25 @@
 
 require_once( realpath(dirname(__FILE__).'/utils.php'));
 
+/**
+ * Replacement function for is_dir() which returns true if the path specified is 
+ * a directory OR a valid drive/share/mount.
+ *
+ * @param string $fsp
+ * @return boolean
+ */
+
+function isdir( $fsp )
+{
+  if ($dh = @opendir($fsp))
+  {
+    closedir($dh);
+    return true;
+  }
+  else 
+    return false;
+}
+
 //-------------------------------------------------------------------------------------------------
 // A function to get around the limitation that some versions of PHP on linux machines only have
 // support for 32-bit integers and therefore cannot return the size of a file > 2Gb
@@ -55,7 +74,7 @@ function dir_to_array ($dir, $pattern = '.*', $opts = 7 )
     while (($file = readdir($dh)) !== false)
     {
       if ( preg_match('/'.$pattern.'/',$file) &&
-           (  (is_dir($dir.$file)  && ($opts & DIR_TO_ARRAY_SHOW_DIRS))
+           (  (isdir($dir.$file)  && ($opts & DIR_TO_ARRAY_SHOW_DIRS))
            || (is_file($dir.$file) && ($opts & DIR_TO_ARRAY_SHOW_FILES)) ) )
       {
         if ($opts & DIR_TO_ARRAY_FULL_PATH)
@@ -267,7 +286,7 @@ function dir_size($dir, $subdirs = false)
          if (is_file($dir."/".$filename))
              $totalsize += filesize($dir."/".$filename);
 
-         if (is_dir($dir."/".$filename) && $subdirs)
+         if (isdir($dir."/".$filename) && $subdirs)
              $totalsize += dir_size($dir."/".$filename, $subdirs);
        }
      }
@@ -498,7 +517,7 @@ function file_thumbnail( $fsp )
 
     if (empty($tn_image))
     {
-      if (@is_dir($fsp) )
+      if (isdir($fsp) )
         $tn_image = dir_icon();
       else
         $tn_image = file_icon($fsp);
@@ -524,7 +543,7 @@ function file_albumart( $fsp, $default_image = true )
     // No directory specified.
     return '';
   }
-  elseif ( @is_dir($fsp) )
+  elseif ( isdir($fsp) )
   {
     // Is there an image file with the same name as those listed in the configuration page?
     $return = find_in_dir($fsp, db_col_to_list("select filename from art_files"));
