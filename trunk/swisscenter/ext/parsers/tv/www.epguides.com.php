@@ -103,7 +103,7 @@
     }
 
     send_to_log(4,'Fetching information from: '.$epguides_url);
-    $html = file_get_contents( $epguides_url );
+    $html = @file_get_contents( $epguides_url );
 
     if ($html != false)
     {

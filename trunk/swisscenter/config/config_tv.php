@@ -60,7 +60,7 @@ function tv_display_info( $message = '' )
 
   $folder_img = file_albumart($details[0]["DIRNAME"].$details[0]["FILENAME"]);
   if (!empty($folder_img))
-    echo img_gen($folder_img,100,200,false,false,false,array('hspace'=>0,'vspace'=>4,'align'=>'left') );
+    echo img_gen($folder_img,100,200,false,false,false,array('hspace'=>4,'vspace'=>4,'align'=>'left') );
 
   echo  $details[0]["SYNOPSIS"].'<br>&nbsp;</td>
         </tr><tr>
@@ -131,23 +131,39 @@ function tv_lookup()
 {
   require_once( realpath(dirname(__FILE__).'/../video_obtain_info.php'));
 
-  $tv_id    = $_REQUEST["tv_id"];
-  $details  = db_toarray("select * from tv where file_id=$tv_id");
-  $filename = $details[0]["DIRNAME"].$details[0]["FILENAME"];
-
+  $tv_id       = $_REQUEST["tv_id"];
+  $details     = array_shift( db_toarray("select * from tv where file_id=$tv_id") );
+  $filename    = $details["DIRNAME"].$details["FILENAME"];
+  $parsed      = get_tvseries_info( $details["DIRNAME"].file_noext($details["FILENAME"]) );
+  $details_str = $details["PROGRAMME"].$details["SERIES"].$details["EPISODE"].$details["TITLE"];
+  $parsed_str  = $parsed["programme"].$parsed["series"].$parsed["episode"].$parsed["title"];
+  
   // Clear old details first
   purge_tv_details($tv_id);
 
-  // Lookup tv show
-  if ( extra_get_tv_details($tv_id, $filename, $details[0]["PROGRAMME"], $details[0]["SERIES"], $details[0]["EPISODE"], $details[0]["TITLE"]) )
+  // Lookup tv show using current database values
+  $existing_lookup = extra_get_tv_details($tv_id, $filename, $details["PROGRAMME"], $details["SERIES"], $details["EPISODE"], $details["TITLE"]);
+    
+  // Lookup tv show using values parsed from the filename (in case the parsing expressions have changed)
+  if ( $parsed_str != '' && $parsed_str != $details_str )
+  {
+  	send_to_log(5, "Re-parsed the filename to attempt the TV details search", array("Existing information"=>details, "Parsed from filename"=>$parsed));
+    $parsed_lookup = extra_get_tv_details($tv_id, $filename, $parsed["programme"], $parsed["series"], $parsed["episode"], $parsed["title"]);
+  }
+
+  // Was either lookup successful?
+  if ( $existing_lookup || $parsed_lookup )
   {
     // Export to XML
     if ( get_sys_pref('tv_xml_save','NO') == 'YES' )
       export_tv_to_xml($tv_id);
+      
     tv_display_info( str('LOOKUP_SUCCESS') );
   }
   else
+  {
     tv_display_info( '!'.str('LOOKUP_FAILURE') );
+  }
 }
 
 /**
