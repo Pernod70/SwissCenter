@@ -219,7 +219,7 @@ function movie_display_thumbs($movie_list)
 
     // Form dummy filename for DVD folders
     $filename = $movie["DIRNAME"].$movie["FILENAME"];
-    if (is_dir($filename))
+    if (isdir($filename))
       $filename = str_suffix($filename,'/').basename($filename).'.dvd';
 
     $img_url     = img_gen(file_albumart($filename) ,130,400,false,false,false,array('hspace'=>0,'vspace'=>4) );

@@ -218,7 +218,7 @@
     {
       while (($name = readdir($dh)) !== false)
       {
-        if (is_dir($dir.$name) && $name != '.' && $name != '..')
+        if (isdir($dir.$name) && $name != '.' && $name != '..')
         {
           $dir_list[]  = array("dirname" => $dir, "filename" => $name);
           if ($recursive)

@@ -19,7 +19,7 @@ function chksum_files($pre, $dir, &$files)
     {
       while (($file = readdir($dh)) !== false)
       {
-        if (is_dir($pre.$dir.$file) && ($file) !='.' && ($file) !='..')
+        if (isdir($pre.$dir.$file) && ($file) !='.' && ($file) !='..')
           chksum_files(  $pre, $dir.$file.'/', $files);
         if (is_file($pre.$dir.$file) && ($file) !='.' && ($file) !='..')
           $files[] = array('filename'=>$dir.$file

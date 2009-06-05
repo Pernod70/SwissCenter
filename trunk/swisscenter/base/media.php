@@ -402,7 +402,7 @@ function media_refresh_now()
     if ( !file_exists($dir) )
       mkdir($dir);
 
-    if (is_dir($dir))
+    if (isdir($dir))
       write_binary_file($dir.'/Simese.ini',"MediaRefresh=Now");
   }
   else
@@ -1220,7 +1220,7 @@ function process_media_directory( $dir, $id, $share, $table, $file_exts, $recurs
   {
     while (($file = readdir($dh)) !== false)
     {
-      if (@is_dir($dir.$file))
+      if (isdir($dir.$file))
       {
         // Regular directory
         if ( !in_array(strtolower($file),$dirs_to_ignore) && (get_sys_pref('IGNORE_HIDDEN_DIRECTORIES','NO')=="NO" || strpos($file,'.')!==0))
