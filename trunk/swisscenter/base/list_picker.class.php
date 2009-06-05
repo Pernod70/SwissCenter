@@ -116,9 +116,16 @@ class list_picker
     echo '</td></tr></table>';
 
     // Footer
-    $buttons   = array();
-    $buttons[] = array('id'=>'A', 'text'=>str('SEARCH_ANYWHERE'), 'url'=>url_add_params($this->url, array('search'=>rawurlencode($this->search), 'any'=>(empty($this->prefix) ? '%' : ''))));
-    $buttons[] = array('id'=>'B', 'text'=>str('SEARCH_CLEAR'),    'url'=>url_add_param($this->url, 'any', $this->prefix));
+    $buttons   = array(
+                        array( 'id'   => 'A'
+                             , 'text' => str((empty($this->prefix) ? 'SEARCH_ANYWHERE' : 'SEARCH_START'))
+                             , 'url'  => url_add_params($this->url, array('search'=>rawurlencode($this->search), 'any'=>(empty($this->prefix) ? '%' : '')))
+                             )
+                      , array( 'id'   => 'B'
+                             , 'text' => str('SEARCH_CLEAR')
+                             , 'url'  => url_add_param($this->url, 'any', $this->prefix)
+                             )
+                      );
     page_footer( $this->back_url , $buttons);
   }
 
