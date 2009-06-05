@@ -67,7 +67,8 @@ function make_url_path( $fsp )
   // rather than trying to access it directly
   if ( is_unix() )
   {
-    foreach ( db_toarray("select name,concat('media/',location_id) dir from media_locations") as $dir)
+  	// We order the list by the longest path first to ensure we always match the most specific first.
+    foreach ( db_toarray("select name,concat('media/',location_id) dir from media_locations order by length(name) desc") as $dir)
     {
       $pos = strpos($fsp, $dir["NAME"]);
       if ( $pos == 0 and $pos !== false)
