@@ -117,9 +117,9 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
                           '&overlay='.rawurlencode($banner).'&ox='.(convert_x(500, BROWSER_SCREEN_COORDS)-convert_y(50, BROWSER_SCREEN_COORDS)*5.4).'&oy='.convert_y(40, BROWSER_SCREEN_COORDS).
                           '&ow='.(convert_y(100, BROWSER_SCREEN_COORDS)*5.4).'&oh='.convert_y(100, BROWSER_SCREEN_COORDS);
     else
-      $background_image = '/thumb.php?type=jpg&stretch=Y&x='.convert_x(1000, SCREEN_COORDS).'&y='.convert_y(1000, SCREEN_COORDS).'&src='.rawurlencode($page_background).
-                          '&overlay='.rawurlencode($banner).'&ox='.(convert_x(500, SCREEN_COORDS)-convert_y(65, SCREEN_COORDS)*5.4).'&oy='.convert_y(40, SCREEN_COORDS).
-                          '&ow='.(convert_y(130, SCREEN_COORDS)*5.4).'&oh='.convert_y(130, SCREEN_COORDS);
+      $background_image = '/thumb.php?type=jpg&stretch=Y&x='.convert_x(1000, BROWSER_SCREEN_COORDS).'&y='.convert_y(1000, BROWSER_SCREEN_COORDS).'&src='.rawurlencode($page_background).
+                          '&overlay='.rawurlencode($banner).'&ox='.(convert_x(500, BROWSER_SCREEN_COORDS)-convert_y(65, BROWSER_SCREEN_COORDS)*5.4).'&oy='.convert_y(40, BROWSER_SCREEN_COORDS).
+                          '&ow='.(convert_y(130, BROWSER_SCREEN_COORDS)*5.4).'&oh='.convert_y(130, BROWSER_SCREEN_COORDS);
   }
   else
     $background_image = '/thumb.php?type=jpg&stretch=Y&x='.convert_x(1000, BROWSER_SCREEN_COORDS).'&y='.convert_y(1000, BROWSER_SCREEN_COORDS).'&src='.rawurlencode($page_background);
