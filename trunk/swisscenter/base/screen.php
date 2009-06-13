@@ -45,7 +45,15 @@ function store_browser_scr_size( $res )
 
 function store_screen_size( $res = '')
 {
-  if (!empty($res))
+  // The NMT players return incorrect resolution for 1080p, replace 1920x1280 with 1920x1080
+  // Syabas/01-17-081024-15-POP-403-091/15-POP Firefox/0.8.0+ (gaya1 TV Res1920x1280; Browser Res1100x656-32bits; Res1280x720;)
+
+  if ($res == '1920x1280')
+  {
+    $_SESSION["device"]["screen_x_res"] = 1920;
+    $_SESSION["device"]["screen_y_res"] = 1080;
+  }
+  elseif (!empty($res))
   {
     list ($x, $y) = explode('x',$res);
     $_SESSION["device"]["screen_x_res"] = $x;
