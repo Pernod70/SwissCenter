@@ -153,15 +153,21 @@
       send_to_log(2,'href for dvd: href="file:///opt/sybhttpd/localhost.drives/'.$data[0]["NETWORK_SHARE"].$file.'" zcd="2" ');
     }
     else
+    {
       $menu->add_item( str('PLAY_NOW') , play_sql_list(MEDIA_TYPE_VIDEO,"select distinct $select_fields from $sql_table $predicate order by title, filename"));
 
-    // Resume playing
-    if ( support_resume() && file_exists( bookmark_file($data[0]["DIRNAME"].$data[0]["FILENAME"])) && !$is_dvd )
-      $menu->add_item( str('RESUME_PLAYING') , resume_file(MEDIA_TYPE_VIDEO,$data[0]["FILE_ID"]), true);
+      // Resume playing
+      if ( support_resume() && file_exists( bookmark_file($data[0]["DIRNAME"].$data[0]["FILENAME"])) )
+        $menu->add_item( str('RESUME_PLAYING') , resume_file(MEDIA_TYPE_VIDEO,$data[0]["FILE_ID"]), true);
 
-    // Add to your current playlist
-    if (pl_enabled() && !$is_dvd)
-      $menu->add_item( str('ADD_PLAYLIST') ,'add_playlist.php?sql='.rawurlencode("select distinct $select_fields from $sql_table $predicate order by title, filename"),true);
+      // Add to your current playlist
+      if (pl_enabled())
+        $menu->add_item( str('ADD_PLAYLIST') ,'add_playlist.php?sql='.rawurlencode("select distinct $select_fields from $sql_table $predicate order by title, filename"),true);
+    }
+
+    // Movie trailer
+    if (!empty($data[0]["TRAILER"]))
+      $menu->add_item( str('PLAY_TRAILER'), "href='".$data[0]["TRAILER"]."' vod" );
 
     // Add a link to search wikipedia
     if (internet_available() && get_sys_pref('wikipedia_lookups','YES') == 'YES' )
@@ -212,13 +218,13 @@
   if (is_user_admin() && $num_rows<=8 )
     $menu->add_item( str('DELETE_MEDIA'), 'video_delete.php?del='.implode(',',$file_ids).'&media_type='.MEDIA_TYPE_VIDEO,true);
 
-  // Certificate? Get the appropriate image.
+    // Certificate? Get the appropriate image.
   $scheme    = get_rating_scheme_name();
-  if (!empty($data[0]["CERTIFICATE"]))
+    if (!empty($data[0]["CERTIFICATE"]))
     $cert_img  = img_gen(SC_LOCATION.'images/ratings/'.$scheme.'/'.get_cert_name( get_nearest_cert_in_scheme($data[0]["CERTIFICATE"], $scheme)).'.gif', 280, 100);
 
   // Is there a picture for us to display?
-  if (! empty($folder_img) )
+  if ( !empty($folder_img) )
   {
     echo '<p><table width="100%" cellpadding=0 cellspacing=0 border=0>
           <tr><td valign=top width="'.convert_x(280).'" align="left">
@@ -226,13 +232,13 @@
               </td><td width="'.convert_x(20).'"></td>
               <td valign="top">';
 
-              // Movie synopsis
-              movie_details($data[0]["FILE_ID"],$menu->num_items());
+                    // Movie synopsis
+                    movie_details($data[0]["FILE_ID"],$menu->num_items());
 
-              // Running Time
+                    // Running Time
               if (!is_null($playtime))
                 echo   '<p>'.font_tags(32).str('RUNNING_TIME').': '.hhmmss($playtime).'</font>';
-              $menu->display(1, 480);
+                $menu->display(1, 480);
     echo '    </td></table>';
   }
   else

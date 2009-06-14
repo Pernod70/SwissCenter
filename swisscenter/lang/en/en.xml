@@ -3274,6 +3274,11 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <version>1.19</version>
       </string>
       <string>
+        <id>PLAY_TRAILER</id>
+        <text>Play trailer</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>PLEASE_SELECT</id>
         <text>Please select</text>
         <version>1.19</version>
@@ -4437,6 +4442,11 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <id>TRACK_NAME</id>
         <text>Track name</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>TRAILER_LOCATION</id>
+        <text>Trailer Location</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>TRANS_CLOSE_VERTICAL</id>
