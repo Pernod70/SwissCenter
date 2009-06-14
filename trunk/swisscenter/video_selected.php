@@ -170,8 +170,10 @@
     {
       if (strpos($data[0]["TRAILER"],'youtube.com') > 0)
         $menu->add_item( str('PLAY_TRAILER'), play_youtube($data[0]["TRAILER"]) );
-      else
+      elseif (strpos($data[0]["TRAILER"],'http:') > 0)
         $menu->add_item( str('PLAY_TRAILER'), "href='".$data[0]["TRAILER"]."' vod" );
+      else
+        $menu->add_item( str('PLAY_TRAILER'), "href='".server_address().make_url_path($data[0]["TRAILER"])."' vod" );
     }
 
     // Add a link to search wikipedia
