@@ -268,6 +268,19 @@ function play_internet_tv( $url )
 }
 
 //-------------------------------------------------------------------------------------------------
+// Returns the href part of a link to play a YouTube video
+//-------------------------------------------------------------------------------------------------
+
+function play_youtube( $url )
+{
+  $html = file_get_contents($url);
+  $video_id   = preg_get("/[^a-z]video_id=([^(\&|$)]*)/",$html);
+  $video_hash = preg_get("/[^a-z]t=([^(\&|$)]*)/",$html);
+  $fmt = 18;
+  return 'href="http://www.youtube.com/get_video?fmt='.$fmt.'&video_id='.$video_id.'&t='.$video_hash.'" vod';
+}
+
+//-------------------------------------------------------------------------------------------------
 // Returns the href part of a link which will play a LastFM radio station.
 //-------------------------------------------------------------------------------------------------
 
@@ -328,7 +341,7 @@ function play_sql_list( $media_type, $spec)
 
     case MEDIA_TYPE_TV:
     case MEDIA_TYPE_VIDEO:
-         $link   = 'href="gen_playlist.php?'.$params.'" vod="playlist" ';
+         $link = 'href="gen_playlist.php?'.$params.'" vod="playlist" ';
          break;
 
     case MEDIA_TYPE_PHOTO:

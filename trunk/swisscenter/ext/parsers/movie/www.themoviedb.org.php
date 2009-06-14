@@ -78,6 +78,7 @@ function extra_get_movie_details($id, $filename, $title)
     $columns = array ( "YEAR"              => substr($moviematches[0]['RELEASED'],0,4)
                      , "EXTERNAL_RATING_PC"=> floor($moviematches[0]['RATING'] * 10)
                      , "DETAILS_AVAILABLE" => 'Y'
+                     , "TRAILER"           => $moviematches[0]['TRAILER']
                      , "SYNOPSIS"          => $moviematches[0]['OVERVIEW'] );
     scdb_set_movie_attribs( $id, $columns );
 
