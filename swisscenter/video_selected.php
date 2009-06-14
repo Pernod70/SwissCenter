@@ -167,7 +167,12 @@
 
     // Movie trailer
     if (!empty($data[0]["TRAILER"]))
-      $menu->add_item( str('PLAY_TRAILER'), "href='".$data[0]["TRAILER"]."' vod" );
+    {
+      if (strpos($data[0]["TRAILER"],'youtube.com') > 0)
+        $menu->add_item( str('PLAY_TRAILER'), play_youtube($data[0]["TRAILER"]) );
+      else
+        $menu->add_item( str('PLAY_TRAILER'), "href='".$data[0]["TRAILER"]."' vod" );
+    }
 
     // Add a link to search wikipedia
     if (internet_available() && get_sys_pref('wikipedia_lookups','YES') == 'YES' )
