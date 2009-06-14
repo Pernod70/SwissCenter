@@ -103,6 +103,10 @@ function movie_display_info(  $message = '' )
       echo $row["NAME"].'<br>';
 
   echo '</td></tr><tr>
+          <th colspan="4">'.str('TRAILER_LOCATION').'</th>
+        </tr><tr>
+          <td colspan="4">'.$details[0]["TRAILER"].'&nbsp;</td>
+        </tr><tr>
           <th colspan="4">'.str('LOCATION_ON_DISK').'</th>
         </tr><tr>
           <td colspan="4">'.$details[0]["DIRNAME"].$details[0]["FILENAME"].'&nbsp;</td>
@@ -461,8 +465,14 @@ function movie_update_form_single()
          (viewings_count( MEDIA_TYPE_VIDEO, $details[0]["FILE_ID"], $row["USER_ID"])>0 ? 'checked' : '').
          '>'.$row["NAME"].'<br>';
 
-  echo '</td>
-        </tr></table>
+  echo '  </td>
+        </tr><tr>
+          <th colspan="4" align="center"><input type="hidden" name="update_trailer" value="yes">'.str('TRAILER_LOCATION').'</th>
+        </tr><tr>
+          <td colspan="4"><input name="trailer" size="90" value="'.$details[0]["TRAILER"].'"></td>
+        </tr>';
+
+  echo '</table>
         <p align="center"><input type="submit" value="'.str('MOVIE_ADD_BUTTON').'">
         </form>';
 }
@@ -481,6 +491,7 @@ function movie_update_form_multiple( $movie_list )
   $cert      = db_toarray("select distinct certificate from movies where file_id in (".implode(',',$movie_list).")");
   $year      = db_toarray("select distinct year from movies where file_id in (".implode(',',$movie_list).")");
   $rating    = db_toarray("select distinct external_rating_pc from movies where file_id in (".implode(',',$movie_list).")");
+  $trailer   = db_toarray("select distinct trailer from movies where file_id in (".implode(',',$movie_list).")");
 
   // Display movies that will be affected.
   echo '<h1>'.str('MOVIE_UPD_TTILE').'</h1>
@@ -536,8 +547,14 @@ function movie_update_form_multiple( $movie_list )
   foreach ( db_toarray("select * from users order by name") as $row)
     echo '<input type="checkbox" name="viewed[]" value="'.$row["USER_ID"].'">'.$row["NAME"].'<br>';
 
-  echo '</td>
-        </tr></table>
+  echo '  </td>
+        </tr><tr>
+          <th colspan="4"><input type="checkbox" name="update_trailer" value="yes">'.str('TRAILER_LOCATION').'</th>
+        </tr><tr>
+          <td colspan="4"><input name="trailer" size="90" value="'.(count($trailer)==1 ? $trailer[0]["TRAILER"] : '').'"></td>
+        </tr>';
+
+  echo '</table>
         <p align="center"><input type="submit" value="'.str('MOVIE_ADD_BUTTON').'">
         </form>';
 }
@@ -577,6 +594,8 @@ function movie_update_multiple()
     $columns["TITLE"] = $_REQUEST["title"];
   if ($_REQUEST["update_rating"] == 'yes')
     $columns["EXTERNAL_RATING_PC"] = $_REQUEST["rating"] * 10;
+  if ($_REQUEST["update_trailer"] == 'yes')
+    $columns["TRAILER"] = $_REQUEST["trailer"];
 
   // Add Actors/Genres/Directors?
   if ($_REQUEST["update_actors"] == 'yes')
