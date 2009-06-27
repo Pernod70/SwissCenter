@@ -828,6 +828,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>ENHANCED</id>
+        <text>Verbeterd</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>EPISODE</id>
         <text>Episode</text>
         <version>1.19</version>
@@ -2734,9 +2739,50 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>NOW_PLAYING_FANART</id>
+        <text>Download fanart</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_FANART_GOOGLE</id>
+        <text>Google afbeeldingen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_FANART_LASTFM</id>
+        <text>Last.FM</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_FANART_NONE</id>
+        <text>Geen fanart</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_FANART_PROMPT</id>
+        <text>Selecteer de bron van de fanart afbeeldingen die gebruikt moet worden voor het verbeterde [i]SPEELT NU[/i] scherm. Voor elke artiest wordt de fanart opgeslagen in bijvoorbeeld [em]swisscenter\fanart\artists\depeche mode[/em].[br]Geen fanart - er zal geen fanart worden gedownload en alleen bestaande afbeeldingen zullen worden gebruikt.[br]Google - fanart zal worden gezocht op [i]Google Afbeeldingen[/i] en de resultaten worden opgeslagen in de fanart directory.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_OPTIONS</id>
+        <text>SPEELT NU opties</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>NOW_PLAYING_PROMPT</id>
         <text>Sommige hardware spelers bieden de mogelijkheid een afbeelding te tonen tijdens het spelen van muziek en SwissCenter gebruikt deze mogelijkheid om details over het huidige nummer te tonen. [p]In de meeste gevallen, is SwissCenter in staat om automatisch te bepalen of uw speler dit ondersteunt. Indien u echter problemen ondervindt, is het mogelijk om de instelling hier handmatig te bepalen.</text>
         <version>1.20</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_STYLE</id>
+        <text>SPEELT NU stijl</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_STYLE_PROMPT</id>
+        <text>Het originele [i]SPEELT NU[/i] scherm geeft details van het nummer inclusief een albumart afbeelding. Het scherm wordt per afgespeelde titel ververst.
+Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en fanart afbeeldingen als achtergrond. Deze optie is aanbevolen voor NMT gebruikers. In de NMT configuratie moet de zogenoemde 'Photo Transition' ingesteld worden op 'Geen' ('None').</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>NOW_PLAYING_SUPPORT</id>
@@ -2782,6 +2828,11 @@
         <id>ORG_TITLE</id>
         <text>Filmdetails bijwerken</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>ORIGINAL</id>
+        <text>Origineel</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PAGE</id>
@@ -3252,6 +3303,11 @@
         <id>PLAY_NOW</id>
         <text>Speel nu</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAY_TRAILER</id>
+        <text>Bekijk trailer</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PLEASE_SELECT</id>
@@ -4005,27 +4061,32 @@
       </string>
       <string>
         <id>SORT_BITRATE</id>
-        <text>sorteer op bitrate</text>
+        <text>Sorteer op bitrate</text>
         <version>1.22</version>
       </string>
       <string>
         <id>SORT_CATEGORY</id>
-        <text>sorteer op categorie</text>
+        <text>Sorteer op categorie</text>
         <version>1.22</version>
       </string>
       <string>
         <id>SORT_ID</id>
-        <text>sorteer op datum</text>
+        <text>Sorteer op datum</text>
         <version>1.22</version>
       </string>
       <string>
         <id>SORT_NAME</id>
-        <text>sorteer op naam</text>
+        <text>Sorteer op naam</text>
         <version>1.22</version>
       </string>
       <string>
         <id>SORT_RATING</id>
-        <text>sorteer op classificatie</text>
+        <text>Sorteer op classificatie</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SPOKEN_LANGUAGE</id>
+        <text>Taal</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4204,6 +4265,71 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>THEMES</id>
+        <text>Thema's</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEMES_PROMPT</id>
+        <text>Thema's voor films en TV series worden automatisch gedownload via de &amp;quot;themoviedb&amp;quot; en &amp;quot;TheTVDB&amp;quot; parsers wanneer details worden toegevoegd aan nieuwe media. Selecteer een titel uit de keuzelijst en kies vervolgens een thema uit de beschikbare miniatuurweergaven. Om een gekozen thema te kunnen gebruiken moet een &quot;Pas toe op ...&quot;-optie geselecteerd worden. Wanneer verschillende thema's zijn gekozen voor één titel, zullen deze willekeurig worden gebruikt.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_APPLY</id>
+        <text>Thema instellingen toepassen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_EFFECTS</id>
+        <text>Effecten:</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_FLIP_IMAGE</id>
+        <text>Afbeelding spiegelen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_GREYSCALE</id>
+        <text>Zwartwit</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_ON_SERIES</id>
+        <text>Pas toe op een episode selectie pagina</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_ON_SYNOPSIS</id>
+        <text>Pas toe op een synopsis pagina</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_PREVIEW_THUMBS</id>
+        <text>Voorbeelden van beschikbare thema's voor %s.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_SAVED_SUCCESS</id>
+        <text>Thema is opgeslagen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_SETTINGS</id>
+        <text>Instellingen:</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_SHOW_BANNER</id>
+        <text>Bannier weergeven</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_SHOW_IMAGE</id>
+        <text>Afbeelding weergeven</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>THUMBNAIL_VIEW</id>
         <text>Miniatuurweergave</text>
         <version>1.19</version>
@@ -4372,6 +4498,11 @@
         <id>TRACK_NAME</id>
         <text>Nummer</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>TRAILER_LOCATION</id>
+        <text>Trailer locatie</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>TRANS_CLOSE_VERTICAL</id>
