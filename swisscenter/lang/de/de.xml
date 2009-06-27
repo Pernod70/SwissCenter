@@ -838,6 +838,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>ENHANCED</id>
+        <text>Erweitert</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>EPISODE</id>
         <text>Folge</text>
         <version>1.19</version>
@@ -1457,8 +1462,8 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>IMPORT_FILE</id>
-        <text>XML Konfigurations-Datei</text>
-        <version>1.19</version>
+        <text>XML Konfig.-Datei</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>IMPORT_PROMPT</id>
@@ -2746,9 +2751,49 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>NOW_PLAYING_FANART</id>
+        <text>Albumbilder herunterladen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_FANART_GOOGLE</id>
+        <text>Google Bilder</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_FANART_LASTFM</id>
+        <text>Last.FM</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_FANART_NONE</id>
+        <text>Keine</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_FANART_PROMPT</id>
+        <text>Bitte die Quelle für die Albumbilder auswählen, die für den erweiterten &quot;Aktueller Titel&quot;-Bildschirm verwendet werden sollen. Die Bilder werden für jeden Künstler in [em]swisscenter\fanart\artists\künstlername[/em] gespeichert.[br]&quot;Keine&quot; - es werden keine Albumbilder heruntergeladen. Nur schon existiernde Bilder werden angezeigt.[/b] Google-Bilder werden durchsucht und in Ihren lokalen Bilderordner heruntergeladen.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_OPTIONS</id>
+        <text>&quot;Now Plaing&quot;-Optionen</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>NOW_PLAYING_PROMPT</id>
         <text>Einige Hardware-Player unterstützen die Anzeige einer Bilddatei während der Wiedergabe eines Musikstücks, wobei sie diese zum jeweiligen Stück explizit anfordern. SwissCenter nutzt diese Tatsache für die Darstellung von Details zum aktuellen Musikstück[p]In den meisten Fällen kann SwissCenter automatisch feststellen, ob Ihr Player dies unterstützt. Sollte es dabei zu Problemen kommen (z.B. kein Bild bei der Wiedergabe einer MP3-Playliste, oder das Bild wird nicht aktualisiert), können Sie die entsprechende Einstellung hier ändern.[p]Die Einstellungen bedeuten dabei: Aktiviert - der Player fordert die Bilddatei selbstätig an. Deaktiviert - Er tut dies nicht automatisch, und SwissCenter teilt ihm daher in der Playliste mit, es in bestimmten Zeitabständen neu zu laden. Automatisch - SwissCenter soll es selbst herausfinden.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_STYLE</id>
+        <text>&quot;Aktueller Titel&quot;-Stil</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_STYLE_PROMPT</id>
+        <text>Der Original &quot;Aktueller Titel&quot;-Bildschirm zeigt Musikstücks-Informationen mit Albumbildern an, welche sich beim Stückwechsel ändern. Die erweiterte Option hingegen zeigt Musikstücks-Informationen mit einem Fortschrittsbalken und einem Albumbild als Hintergrund. Diese Option ist für NMT Benutzer gedacht. Im NMT-Setup sollte Bildübergang auf &quot;Kein&quot; stehen.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>NOW_PLAYING_SUPPORT</id>
@@ -2794,6 +2839,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>ORG_TITLE</id>
         <text>Filmdetails bearbeiten</text>
         <version>1.21.1</version>
+      </string>
+      <string>
+        <id>ORIGINAL</id>
+        <text>Original</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PAGE</id>
@@ -3269,6 +3319,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>PLAY_NOW</id>
         <text>Jetzt abspielen</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAY_TRAILER</id>
+        <text>&quot;Trailer&quot; abspielen</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PLEASE_SELECT</id>
@@ -4212,7 +4267,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>TASK_SCHEDULER</id>
-        <text>taskplaner</text>
+        <text>Aufgabenplanung</text>
         <version>1.19</version>
       </string>
       <string>
@@ -4439,6 +4494,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>TRACK_NAME</id>
         <text>Track-Name</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>TRAILER_LOCATION</id>
+        <text>&quot;Tralier&quot; Adresse</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>TRANS_CLOSE_VERTICAL</id>
