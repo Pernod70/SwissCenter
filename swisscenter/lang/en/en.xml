@@ -53,6 +53,11 @@
         <version>1.19.2</version>
       </string>
       <string>
+        <id>ALL_TIME</id>
+        <text>All time</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>ANYWHERE_IN_NAME</id>
         <text>Anywhere in name</text>
         <version>1.19</version>
@@ -498,6 +503,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>CHANNELS</id>
+        <text>Channels</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>CLEAR_NAME</id>
         <text>Clear name</text>
         <version>1.19</version>
@@ -616,6 +626,11 @@
         <id>CONNECT_TITLE</id>
         <text>Internet Connectivity</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>CONTACTS</id>
+        <text>Contacts</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>CONTINUE</id>
@@ -2558,6 +2573,21 @@
         <version>1.21.1</version>
       </string>
       <string>
+        <id>MOST_POPULAR</id>
+        <text>Most popular</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MOST_RECENT</id>
+        <text>Most recent</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MOST_VIEWED</id>
+        <text>Most viewed</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>MOVIE_ADD_BUTTON</id>
         <text>Add/Update details</text>
         <version>1.19</version>
@@ -2676,6 +2706,11 @@
         <id>NEW</id>
         <text>New</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>NEWSUBSCRIPTIONVIDEOS</id>
+        <text>New videos</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>NEW_MESSAGES</id>
@@ -3389,6 +3424,11 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <version>1.19</version>
       </string>
       <string>
+        <id>RECENTLY_FEATURED</id>
+        <text>Recently featured</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>RECENT_MEDIA</id>
         <text>Recently added</text>
         <version>1.22</version>
@@ -4024,6 +4064,16 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <version>1.22</version>
       </string>
       <string>
+        <id>SORT_DATE</id>
+        <text>Sort by date</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_FAVORITE</id>
+        <text>Sort by favourite</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SORT_ID</id>
         <text>Sort by latest</text>
         <version>1.22</version>
@@ -4036,6 +4086,16 @@ The enhanced option shows track details with a progress bar and a fanart image a
       <string>
         <id>SORT_RATING</id>
         <text>Sort by rating</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_TIME</id>
+        <text>Sort by time</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_VIEWS</id>
+        <text>Sort by views</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4097,6 +4157,11 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <id>STYLE_SHOW_INSTALLED</id>
         <text>Show installed styles</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>SUBSCRIPTIONS</id>
+        <text>Subscriptions</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>SUPPORT_CLIENTS_TITLE</id>
@@ -4284,6 +4349,16 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <version>1.22</version>
       </string>
       <string>
+        <id>THIS_MONTH</id>
+        <text>This month</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THIS_WEEK</id>
+        <text>This week</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>THUMBNAIL_VIEW</id>
         <text>Thumbnail view</text>
         <version>1.19</version>
@@ -4317,6 +4392,11 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <id>TITLE</id>
         <text>Title</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>TODAY</id>
+        <text>Today</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>TOMA_BROWSE_CATEGORY</id>
@@ -4416,6 +4496,16 @@ The enhanced option shows track details with a progress bar and a fanart image a
       <string>
         <id>TOMA_WM</id>
         <text>Windows Media</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOP_FAVORITES</id>
+        <text>Top favourites</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOP_RATED</id>
+        <text>Top rated</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4669,6 +4759,11 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <version>1.19</version>
       </string>
       <string>
+        <id>UPLOADS</id>
+        <text>Uploads</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>UPLOAD_FAILED</id>
         <text>File upload failed.</text>
         <version>1.19</version>
@@ -4889,9 +4984,19 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <version>1.19</version>
       </string>
       <string>
+        <id>VIDEOS</id>
+        <text>Videos</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>VIDEO_INFO</id>
         <text>Video Info</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>VIEWED</id>
+        <text>Viewed</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>VIEWED_BY</id>
@@ -5072,6 +5177,51 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <id>YES</id>
         <text>Yes</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>YOUTUBE</id>
+        <text>YouTube</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_DESC</id>
+        <text>YouTube %s is a video sharing website on which users can upload and share videos.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_HD</id>
+        <text>Use HD</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_HD_PROMPT</id>
+        <text>All YouTube videos can be streamed at a standard resolution of (480x360). Selecting this option will stream a HD (1280x720) version if available. This should be disabled if you have bandwidth issues streaming HD content.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_PROMPT_GENERAL</id>
+        <text>General feeds</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_PROMPT_PERSONAL</id>
+        <text>Personal feeds</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_UNKNOWN_USER</id>
+        <text>No user with the supplied username (%s) was found.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_USERID_PROMPT</id>
+        <text>Each SwissCenter user can be associated with a YouTube username. If you do not enter a username then you will not have access to subscriptions, favourites, etc.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_USERNAMES</id>
+        <text>YouTube Usernames</text>
+        <version>1.22</version>
       </string>
     </language>
   </languages>
