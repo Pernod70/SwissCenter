@@ -8,7 +8,7 @@ require_once( realpath(dirname(__FILE__).'/search.php'));
 function show_picker( $url="", $search, $case = '', $validchars = '' )
   {
     if ( strlen($validchars)>0 )
-      $keys = strtoupper($validchars);
+      $keys = trim(strtoupper($validchars));
     elseif ($case == '' || $case == 'U')
       $keys = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_,.'-#";
     else
@@ -33,7 +33,7 @@ function show_picker( $url="", $search, $case = '', $validchars = '' )
       $url = url_set_param($url,'last','KEY_'.$this_key);
       $url = url_set_param($url,'search',rawurlencode($search.$this_key));
       $link = '<a href="'.$url.'" name="KEY_'.$this_key.'">'.font_tags(32).$this_key.'</a>';
-           
+
       echo '<td width="'.convert_x(35).'" height="'.convert_y(50).'"'.style_background('KEYBOARD_KEY_BACKGROUND').'
                 align="center">'.$link.'</td>';
 
@@ -48,7 +48,7 @@ function show_picker( $url="", $search, $case = '', $validchars = '' )
     // Save the history of the A-Z picker.
     search_picker_push( current_url() );
   }
-  
+
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/

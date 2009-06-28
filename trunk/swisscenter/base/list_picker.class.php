@@ -88,7 +88,7 @@ class list_picker
     show_picker( url_add_params($this->url,array("any"=>$this->prefix,"search"=>''))
                , $this->search
                , ''
-               , ( empty($this->prefix) ? $this->data_valid_chars($sql_search) : '' )
+               , ( empty($this->prefix) ? trim($this->data_valid_chars($sql_search)) : '' )
                );
     echo '</td><td valign=top>';
 
