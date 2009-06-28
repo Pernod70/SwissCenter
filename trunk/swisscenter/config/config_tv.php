@@ -137,13 +137,13 @@ function tv_lookup()
   $parsed      = get_tvseries_info( $details["DIRNAME"].file_noext($details["FILENAME"]) );
   $details_str = $details["PROGRAMME"].$details["SERIES"].$details["EPISODE"].$details["TITLE"];
   $parsed_str  = $parsed["programme"].$parsed["series"].$parsed["episode"].$parsed["title"];
-  
+
   // Clear old details first
   purge_tv_details($tv_id);
 
   // Lookup tv show using current database values
   $existing_lookup = extra_get_tv_details($tv_id, $filename, $details["PROGRAMME"], $details["SERIES"], $details["EPISODE"], $details["TITLE"]);
-    
+
   // Lookup tv show using values parsed from the filename (in case the parsing expressions have changed)
   if ( $parsed_str != '' && $parsed_str != $details_str )
   {
@@ -157,7 +157,7 @@ function tv_lookup()
     // Export to XML
     if ( get_sys_pref('tv_xml_save','NO') == 'YES' )
       export_tv_to_xml($tv_id);
-      
+
     tv_display_info( str('LOOKUP_SUCCESS') );
   }
   else
@@ -233,7 +233,7 @@ function tv_display_thumbs($tv_list)
     $edit_url    = '?section=tv&action=display_info&tv_id='.$tv["FILE_ID"];
     $thumb_html .= '<td valign="top"><input type="checkbox" name="tv[]" value="'.$tv["FILE_ID"].'"></input></td>
                     <td valign="middle"><a href="'.$edit_url.'">'.$img_url.'</a></td>';
-    $title_html .= '<td width="25%" colspan="2" align="center" valign="middle"><a href="'.$edit_url.'">'.highlight($tv["PROGRAMME"], $_REQUEST["search"]).' - '.highlight($tv["TITLE"], $_REQUEST["search"]).(empty($tv["EPISODE"]) ? '' : str('EPISODE_SUFFIX',$tv["EPISODE"])).'</a></td>';
+    $title_html .= '<td width="25%" colspan="2" align="center" valign="middle"><a href="'.$edit_url.'">'.highlight($tv["PROGRAMME"], $_REQUEST["search"]).' - '.highlight($tv["TITLE"], $_REQUEST["search"]).(empty($tv["EPISODE"]) ? '' : ' '.str('EPISODE_SUFFIX',$tv["EPISODE"])).'</a></td>';
   }
 
   // and last row...
@@ -590,10 +590,6 @@ function tv_update_single()
   // Clear the existing details for this tv show, as they will be reinserted by
   // calling the update_multiple function.
   $tv_id = $_REQUEST["tv"][0];
-  db_sqlcommand("delete from actors_in_tv where tv_id=".$tv_id);
-  db_sqlcommand("delete from directors_of_tv where tv_id=".$tv_id);
-  db_sqlcommand("delete from genres_of_tv where tv_id=".$tv_id);
-  db_sqlcommand("delete from languages_of_tv where tv_id=".$tv_id);
   tv_update_multiple();
 }
 
@@ -626,6 +622,7 @@ function tv_update_multiple()
   // Add Actors/Genres/Directors?
   if ($_REQUEST["update_actors"] == 'yes')
   {
+    db_sqlcommand("delete from actors_in_tv where tv_id=".$tv_id);
     if (count($_REQUEST["actors"]) >0)
       scdb_add_tv_actors($tv_list,un_magic_quote($_REQUEST["actors"]));
     if (!empty($_REQUEST["actor_new"]))
@@ -634,6 +631,7 @@ function tv_update_multiple()
 
   if ($_REQUEST["update_directors"] == 'yes')
   {
+    db_sqlcommand("delete from directors_of_tv where tv_id=".$tv_id);
     if (count($_REQUEST["directors"]) >0)
       scdb_add_tv_directors($tv_list,un_magic_quote($_REQUEST["directors"]));
     if (!empty($_REQUEST["director_new"]))
@@ -642,6 +640,7 @@ function tv_update_multiple()
 
   if ($_REQUEST["update_genres"] == 'yes')
   {
+    db_sqlcommand("delete from genres_of_tv where tv_id=".$tv_id);
     if (count($_REQUEST["genres"]) >0)
       scdb_add_tv_genres($tv_list,un_magic_quote($_REQUEST["genres"]));
     if (!empty($_REQUEST["genre_new"]))
@@ -650,6 +649,7 @@ function tv_update_multiple()
 
   if ($_REQUEST["update_languages"] == 'yes')
   {
+    db_sqlcommand("delete from languages_of_tv where tv_id=".$tv_id);
     if (count($_REQUEST["languages"]) >0)
       scdb_add_tv_languages($tv_list,un_magic_quote($_REQUEST["languages"]));
     if (!empty($_REQUEST["language_new"]))
@@ -679,8 +679,6 @@ function tv_update_multiple()
       }
     }
   }
-
-  scdb_remove_orphans();
 
   // Export to XML
   if ( get_sys_pref('tv_xml_save','NO') == 'YES' )

@@ -105,7 +105,7 @@ function movie_display_info(  $message = '' )
   echo '</td></tr><tr>
           <th colspan="4">'.str('TRAILER_LOCATION').'</th>
         </tr><tr>
-          <td colspan="4">'.$details[0]["TRAILER"].'&nbsp;</td>
+          <td colspan="4">'.(empty($details[0]["TRAILER"]) ? '' : '<a href="'.$details[0]["TRAILER"].'" target="_blank">').$details[0]["TRAILER"].'&nbsp;</td>
         </tr><tr>
           <th colspan="4">'.str('LOCATION_ON_DISK').'</th>
         </tr><tr>
@@ -368,7 +368,7 @@ function movie_clear_details()
       db_sqlcommand('delete from directors_of_movie where movie_id = '.$value);
       db_sqlcommand('delete from genres_of_movie where movie_id = '.$value);
       db_sqlcommand('delete from languages_of_movie where movie_id = '.$value);
-      db_sqlcommand('update movies set year=null, certificate=null, external_rating_pc=null where file_id = '.$value);
+      db_sqlcommand('update movies set year=null, certificate=null, external_rating_pc=null, trailer=null where file_id = '.$value);
     }
     scdb_remove_orphans();
     movie_display(str('DETAILS_CLEARED_OK'));
@@ -568,10 +568,6 @@ function movie_update_single()
   // Clear the existing details for this movie, as they will be reinserted by
   // calling the update_multiple function.
   $movie_id = $_REQUEST["movie"][0];
-  db_sqlcommand("delete from actors_in_movie where movie_id=".$movie_id);
-  db_sqlcommand("delete from directors_of_movie where movie_id=".$movie_id);
-  db_sqlcommand("delete from genres_of_movie where movie_id=".$movie_id);
-  db_sqlcommand("delete from languages_of_movie where movie_id=".$movie_id);
   movie_update_multiple();
 }
 
@@ -600,6 +596,7 @@ function movie_update_multiple()
   // Add Actors/Genres/Directors?
   if ($_REQUEST["update_actors"] == 'yes')
   {
+    db_sqlcommand("delete from actors_in_movie where movie_id=".$movie_id);
     if (count($_REQUEST["actors"]) >0)
       scdb_add_actors($movie_list,un_magic_quote($_REQUEST["actors"]));
     if (!empty($_REQUEST["actor_new"]))
@@ -608,6 +605,7 @@ function movie_update_multiple()
 
   if ($_REQUEST["update_directors"] == 'yes')
   {
+    db_sqlcommand("delete from directors_of_movie where movie_id=".$movie_id);
     if (count($_REQUEST["directors"]) >0)
       scdb_add_directors($movie_list,un_magic_quote($_REQUEST["directors"]));
     if (!empty($_REQUEST["director_new"]))
@@ -616,6 +614,7 @@ function movie_update_multiple()
 
   if ($_REQUEST["update_genres"] == 'yes')
   {
+    db_sqlcommand("delete from genres_of_movie where movie_id=".$movie_id);
     if (count($_REQUEST["genres"]) >0)
       scdb_add_genres($movie_list,un_magic_quote($_REQUEST["genres"]));
     if (!empty($_REQUEST["genre_new"]))
@@ -624,6 +623,7 @@ function movie_update_multiple()
 
   if ($_REQUEST["update_languages"] == 'yes')
   {
+    db_sqlcommand("delete from languages_of_movie where movie_id=".$movie_id);
     if (count($_REQUEST["languages"]) >0)
       scdb_add_languages($movie_list,un_magic_quote($_REQUEST["languages"]));
     if (!empty($_REQUEST["language_new"]))
@@ -655,8 +655,6 @@ function movie_update_multiple()
       }
     }
   }
-
-  scdb_remove_orphans();
 
   // Export to XML
   if ( get_sys_pref('movie_xml_save','NO') == 'YES' )
