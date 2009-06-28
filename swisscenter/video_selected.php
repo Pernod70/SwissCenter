@@ -10,6 +10,7 @@
   require_once( realpath(dirname(__FILE__).'/base/playlist.php'));
   require_once( realpath(dirname(__FILE__).'/base/rating.php'));
   require_once( realpath(dirname(__FILE__).'/base/search.php'));
+  require_once( realpath(dirname(__FILE__).'/base/youtube.php'));
 
   $menu = new menu();
   $info = new infotab();
@@ -154,22 +155,22 @@
     }
     else
     {
-      $menu->add_item( str('PLAY_NOW') , play_sql_list(MEDIA_TYPE_VIDEO,"select distinct $select_fields from $sql_table $predicate order by title, filename"));
+      $menu->add_item( str('PLAY_NOW'), play_sql_list(MEDIA_TYPE_VIDEO,"select distinct $select_fields from $sql_table $predicate order by title, filename"));
 
       // Resume playing
       if ( support_resume() && file_exists( bookmark_file($data[0]["DIRNAME"].$data[0]["FILENAME"])) )
-        $menu->add_item( str('RESUME_PLAYING') , resume_file(MEDIA_TYPE_VIDEO,$data[0]["FILE_ID"]), true);
+        $menu->add_item( str('RESUME_PLAYING'), resume_file(MEDIA_TYPE_VIDEO,$data[0]["FILE_ID"]), true);
 
       // Add to your current playlist
       if (pl_enabled())
-        $menu->add_item( str('ADD_PLAYLIST') ,'add_playlist.php?sql='.rawurlencode("select distinct $select_fields from $sql_table $predicate order by title, filename"),true);
+        $menu->add_item( str('ADD_PLAYLIST'), 'add_playlist.php?sql='.rawurlencode("select distinct $select_fields from $sql_table $predicate order by title, filename"),true);
     }
 
     // Movie trailer
     if (!empty($data[0]["TRAILER"]))
     {
       if (strpos($data[0]["TRAILER"],'youtube.com') > 0)
-        $menu->add_item( str('PLAY_TRAILER'), play_youtube($data[0]["TRAILER"]) );
+        $menu->add_item( str('PLAY_TRAILER'), 'href="stream_youtube.php?video_id='.get_youtube_video_id($data[0]["TRAILER"]).'" vod');
       elseif (strpos($data[0]["TRAILER"],'http:') > 0)
         $menu->add_item( str('PLAY_TRAILER'), "href='".$data[0]["TRAILER"]."' vod" );
       else
@@ -211,10 +212,10 @@
     search_distinct_info($info, str('TITLE'), 'title', $sql_table, $predicate);
     search_distinct_info($info, str('YEAR'), 'year',$sql_table, $predicate);
     search_distinct_info($info, str('CERTIFICATE'), get_cert_name_sql(),$sql_table, $predicate);
-    $menu->add_item( str('PLAY_NOW')    , play_sql_list(MEDIA_TYPE_VIDEO,"select distinct $select_fields from $sql_table $predicate order by title, filename"));
+    $menu->add_item( str('PLAY_NOW'), play_sql_list(MEDIA_TYPE_VIDEO,"select distinct $select_fields from $sql_table $predicate order by title, filename"));
 
     if (pl_enabled())
-      $menu->add_item( str('ADD_PLAYLIST') ,'add_playlist.php?sql='.rawurlencode("select distinct $select_fields from $sql_table $predicate order by title, filename"),true);
+      $menu->add_item( str('ADD_PLAYLIST'), 'add_playlist.php?sql='.rawurlencode("select distinct $select_fields from $sql_table $predicate order by title, filename"),true);
 
     check_filters( array('title','year','certificate','genre_name','actor_name','director_name'), $sql_table_all, $predicate, $menu);
 
