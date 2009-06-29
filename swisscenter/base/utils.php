@@ -737,6 +737,64 @@ if(!function_exists('mime_content_type')) {
   }
 }
 
+/**
+ * array_slice with preserve_keys for every php version
+ *
+ * @param array $array Input array
+ * @param int $offset Start offset
+ * @param int $length Length
+ * @return array
+ */
+function array_slice_preserve_keys($array, $offset, $length = null)
+{
+  // PHP >= 5.0.2 is able to do this itself
+  if((int)str_replace('.', '', phpversion()) >= 502)
+    return(array_slice($array, $offset, $length, true));
+
+  // prepare input variables
+  $result = array();
+  $i = 0;
+  if($offset < 0)
+    $offset = count($array) + $offset;
+  if($length > 0)
+    $endOffset = $offset + $length;
+  else if($length < 0)
+    $endOffset = count($array) + $length;
+  else
+    $endOffset = count($array);
+
+  // collect elements
+  foreach($array as $key=>$value)
+  {
+    if($i >= $offset && $i < $endOffset)
+      $result[$key] = $value;
+    $i++;
+  }
+
+  // return
+  return($result);
+}
+
+/**
+ * Converts a php object to an associative array
+ *
+ * @param object $data
+ * @return array
+ */
+function object_to_array($data)
+{
+  if(is_array($data) || is_object($data))
+  {
+    $result = array();
+    foreach($data as $key => $value)
+    {
+      $result[$key] = object_to_array($value);
+    }
+    return $result;
+  }
+  return $data;
+}
+
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/
