@@ -84,7 +84,7 @@
   echo '<table width="100%" cellpadding=0 cellspacing=0 border=0>
           <tr>
             <td valign=top width="'.convert_x(280).'" align="left"><br>
-              '.img_gen(style_img('MISSING_YOUTUBE_ART',true,false),280,450).'
+              '.img_gen(style_img('YOUTUBE_LOGO',true,false),280,450).'
             </td>
             <td width="'.convert_x(20).'"></td>
             <td valign="top">';
