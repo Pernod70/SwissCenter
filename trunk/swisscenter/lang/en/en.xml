@@ -208,6 +208,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>BROWSE_DISCOVERED</id>
+        <text>Browse by added date</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>BROWSE_FILESYSTEM</id>
         <text>Browse filesystem</text>
         <version>1.19</version>
@@ -264,8 +269,8 @@
       </string>
       <string>
         <id>BROWSE_MOVIES</id>
-        <text>Browse Videos</text>
-        <version>1.19</version>
+        <text>Browse videos</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_MUSIC</id>
@@ -293,6 +298,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>BROWSE_RATING</id>
+        <text>Browse by rating</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>BROWSE_STATION</id>
         <text>Browse by station</text>
         <version>1.21.1</version>
@@ -301,6 +311,11 @@
         <id>BROWSE_TEXT</id>
         <text>SwissCenter allows you to browse your media files in a number of different ways. To reduce the complexity of the interface or to customise it more to your liking you can disable any of the &quot;Browse by...&quot; options shown below. If only one option is enabled then SwissCenter will jump straight to that option instead of showing a menu. [p]Please note that you must leave at least [b]one[/b] option enabled in each group.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_TIMESTAMP</id>
+        <text>Browse by media date</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_TITLE</id>
@@ -329,8 +344,8 @@
       </string>
       <string>
         <id>BROWSE_YEAR</id>
-        <text>Browse by year</text>
-        <version>1.19</version>
+        <text>Browse by release date</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>CACHE_CONFIG_TITLE</id>
@@ -1171,6 +1186,11 @@
         <id>FAIL_SWISS_PLAYLIST</id>
         <text>Unable to write to the SwissCenter playlists directory (%s).</text>
         <version>1.20.1</version>
+      </string>
+      <string>
+        <id>FAVORITES</id>
+        <text>Favourites</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>FILENAME</id>
@@ -3550,8 +3570,8 @@ The enhanced option shows track details with a progress bar and a fanart image a
       </string>
       <string>
         <id>REFINE_YEAR</id>
-        <text>Refine by year</text>
-        <version>1.19</version>
+        <text>Refine by release date</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REFRESH_CLEANUP</id>

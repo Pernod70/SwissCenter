@@ -21,45 +21,65 @@
       $prev_page = "photo.php?subcat=".abs($cat_id);
     else
       $prev_page = "photo.php?subcat=".db_value("select parent_id from categories where cat_id=$cat_id");
-      
+
     echo '<p>';
 
-    $menu = new menu();
+    $browse = array();
     if (get_sys_pref('browse_photo_album_enabled','YES') == 'YES')
-      $menu->add_item( str('BROWSE_PHOTO_ALBUM') ,"photo_search.php?sort=title",true);
+      $browse[] = array('text'=>str('BROWSE_PHOTO_ALBUM'), 'url'=>"photo_search.php?sort=title");
     if (get_sys_pref('browse_photo_title_enabled','YES') == 'YES')
-      $menu->add_item( str('BROWSE_PHOTO_TITLE') ,"photo_search.php?sort=filename",true);
-    if (get_sys_pref('browse_iptc_byline_enabled','YES') == 'YES') 
-      $menu->add_item( str('BROWSE_IPTC_BYLINE')  ,"photo_search.php?sort=iptc_byline",true);
+      $browse[] = array('text'=>str('BROWSE_PHOTO_TITLE'), 'url'=>"photo_search.php?sort=filename");
+    if (get_sys_pref('browse_iptc_byline_enabled','YES') == 'YES')
+      $browse[] = array('text'=>str('BROWSE_IPTC_BYLINE'), 'url'=>"photo_search.php?sort=iptc_byline");
 //    if (get_sys_pref('browse_iptc_caption_enabled','YES') == 'YES')
-//      $menu->add_item( str('BROWSE_IPTC_CAPTION') ,"photo_search.php?sort=iptc_caption",true);
+//      $browse[] = array('text'=>str('BROWSE_IPTC_CAPTION'), 'url'=>"photo_search.php?sort=iptc_caption");
     if (get_sys_pref('browse_iptc_location_enabled','YES') == 'YES')
-      $menu->add_item( str('BROWSE_IPTC_LOCATION') ,"photo_search.php?sort=iptc_location",true);
+      $browse[] = array('text'=>str('BROWSE_IPTC_LOCATION'), 'url'=>"photo_search.php?sort=iptc_location");
     if (get_sys_pref('browse_iptc_city_enabled','YES') == 'YES')
-      $menu->add_item( str('BROWSE_IPTC_CITY') ,"photo_search.php?sort=iptc_city",true);
-    if (get_sys_pref('browse_iptc_province_state_enabled','YES') == 'YES') 
-      $menu->add_item( str('BROWSE_IPTC_PROVINCE_STATE')  ,"photo_search.php?sort=iptc_province_state",true);
-    if (get_sys_pref('browse_iptc_country_enabled','YES') == 'YES') 
-      $menu->add_item( str('BROWSE_IPTC_COUNTRY')  ,"photo_search.php?sort=iptc_country",true);
+      $browse[] = array('text'=>str('BROWSE_IPTC_CITY'), 'url'=>"photo_search.php?sort=iptc_city");
+    if (get_sys_pref('browse_iptc_province_state_enabled','YES') == 'YES')
+      $browse[] = array('text'=>str('BROWSE_IPTC_PROVINCE_STATE'), 'url'=>"photo_search.php?sort=iptc_province_state");
+    if (get_sys_pref('browse_iptc_country_enabled','YES') == 'YES')
+      $browse[] = array('text'=>str('BROWSE_IPTC_COUNTRY'), 'url'=>"photo_search.php?sort=iptc_country");
 //    if (get_sys_pref('browse_iptc_keywords_enabled','YES') == 'YES')
-//      $menu->add_item( str('BROWSE_IPTC_KEYWORDS') ,"photo_search.php?sort=iptc_keywords",true);
+//      $browse[] = array('text'=>str('BROWSE_IPTC_KEYWORDS'), 'url'=>"photo_search.php?sort=iptc_keywords");
 //    if (get_sys_pref('browse_iptc_suppcategory_enabled','YES') == 'YES')
-//      $menu->add_item( str('BROWSE_IPTC_SUPPCATEGORY') ,"photo_search.php?sort=iptc_suppcategory",true);
+//      $browse[] = array('text'=>str('BROWSE_IPTC_SUPPCATEGORY'), 'url'=>"photo_search.php?sort=iptc_suppcategory");
     if (get_sys_pref('browse_xmp_rating_enabled','YES') == 'YES')
-      $menu->add_item( str('BROWSE_XMP_RATING') ,"photo_search.php?sort=xmp_rating",true);
-    if (get_sys_pref('browse_photo_filesystem_enabled','YES') == 'YES') 
-      $menu->add_item( str('BROWSE_FILESYSTEM')  ,"photo_browse.php",true);
-    
-    if ($menu->num_items() == 1)
+      $browse[] = array('text'=>str('BROWSE_XMP_RATING'), 'url'=>"photo_search.php?sort=xmp_rating");
+    if (get_sys_pref('browse_photo_discovered_enabled','YES') == 'YES')
+      $browse[] = array('text'=>str('BROWSE_DISCOVERED'), 'url'=>"photo_search.php?sort=discovered");
+    if (get_sys_pref('browse_photo_timestamp_enabled','YES') == 'YES')
+      $browse[] = array('text'=>str('BROWSE_TIMESTAMP'), 'url'=>"photo_search.php?sort=timestamp");
+    if (get_sys_pref('browse_photo_filesystem_enabled','YES') == 'YES')
+      $browse[] = array('text'=>str('BROWSE_FILESYSTEM'), 'url'=>"photo_browse.php");
+
+    if (count($browse) == 1)
     {
       search_hist_init( $prev_page, category_select_sql($cat_id, 2).get_rating_filter().filter_get_predicate() );
-      header('Location: '.server_address().$menu->item_url(0));
-    } 
+      header('Location: '.server_address().$browse[0]["url"]);
+    }
     else
     {
+      $page       = (isset($_REQUEST["page"]) ? $_REQUEST["page"] : 1);
+      $start      = ($page-1) * MAX_PER_PAGE;
+      $end        = min($start+MAX_PER_PAGE,count($browse));
+      $last_page  = ceil(count($browse)/MAX_PER_PAGE);
+
+      $menu = new menu();
+
+      if (count($browse) > MAX_PER_PAGE)
+      {
+        $menu->add_up( url_add_param(current_url(),'page',($page > 1 ? ($page-1) : $last_page)) );
+        $menu->add_down( url_add_param(current_url(),'page',($page < $last_page ? ($page+1) : 1)) );
+      }
+
+      for ($i=$start; $i<$end; $i++)
+        $menu->add_item($browse[$i]["text"], $browse[$i]["url"], true);
+
       $menu->display(1, style_value("MENU_PHOTO_WIDTH"), style_value("MENU_PHOTO_ALIGN"));
     }
-    
+
     $buttons = array();
     $buttons[] = array('text' => str('QUICK_PLAY'),'url'  => quick_play_link(MEDIA_TYPE_PHOTO,$_SESSION["history"][0]["sql"]));
     $buttons[] = array('text' => filter_text(),'url'  => 'get_filter.php?return='.urlencode('photo.php?cat='.$cat_id));
@@ -73,9 +93,10 @@
 
 /**************************************************************************************************
    Main page output
- *************************************************************************************************/
+ **************************************************************************************************/
 
-  page_header(str('VIEW_PHOTO'), '','',1,false,'',MEDIA_TYPE_PHOTO);
+  $subtitle = isset($_REQUEST["cat"]) ? db_value('select cat_name from categories where cat_id='.$_REQUEST["cat"]) : '';
+  page_header(str('VIEW_PHOTO'), $subtitle,'',1,false,'',MEDIA_TYPE_PHOTO);
 
   if( category_count(MEDIA_TYPE_PHOTO)==1 || isset($_REQUEST["cat"]) )
     display_photo_menu($_REQUEST["cat"]);

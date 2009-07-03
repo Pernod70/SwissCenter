@@ -20,36 +20,56 @@
     if ($cat_id <= 0)
       $prev_page = "music.php?subcat=".abs($cat_id);
     else
-      $prev_page = "music.php?subcat=".db_value("select parent_id from categories where cat_id=$cat_id");  
-    
+      $prev_page = "music.php?subcat=".db_value("select parent_id from categories where cat_id=$cat_id");
+
     echo '<p>';
 
-    $menu = new menu();
+    $browse = array();
     if (get_sys_pref('browse_music_artist_enabled','YES') == 'YES')
-      $menu->add_item( str('BROWSE_ARTIST') ,"music_search.php?sort=artist",true);
+      $browse[] = array('text'=>str('BROWSE_ARTIST'), 'url'=>"music_search.php?sort=artist");
     if (get_sys_pref('browse_music_album_artist_enabled','YES') == 'YES')
-      $menu->add_item( str('BROWSE_ALBUM_ARTIST') ,"music_search.php?sort=band",true);
-    if (get_sys_pref('browse_music_album_enabled','YES') == 'YES') 
-      $menu->add_item( str('BROWSE_ALBUM') ,"music_search.php?sort=album",true);
-    if (get_sys_pref('browse_music_track_enabled','YES') == 'YES') 
-      $menu->add_item( str('BROWSE_TRACK') ,"music_search.php?sort=title",true);
-    if (get_sys_pref('browse_music_genre_enabled','YES') == 'YES') 
-      $menu->add_item( str('BROWSE_GENRE') ,"music_search.php?sort=genre",true);
-    if (get_sys_pref('browse_music_year_enabled','YES') == 'YES') 
-      $menu->add_item( str('BROWSE_YEAR') ,"music_search.php?sort=year",true);
-    if (get_sys_pref('browse_music_filesystem_enabled','YES') == 'YES') 
-      $menu->add_item( str('BROWSE_FILESYSTEM') ,"music_browse.php",true);
-    
-    if ($menu->num_items() == 1)
+      $browse[] = array('text'=>str('BROWSE_ALBUM_ARTIST'), 'url'=>"music_search.php?sort=band");
+    if (get_sys_pref('browse_music_album_enabled','YES') == 'YES')
+      $browse[] = array('text'=>str('BROWSE_ALBUM'), 'url'=>"music_search.php?sort=album");
+    if (get_sys_pref('browse_music_track_enabled','YES') == 'YES')
+      $browse[] = array('text'=>str('BROWSE_TRACK'), 'url'=>"music_search.php?sort=title");
+    if (get_sys_pref('browse_music_genre_enabled','YES') == 'YES')
+      $browse[] = array('text'=>str('BROWSE_GENRE'), 'url'=>"music_search.php?sort=genre");
+    if (get_sys_pref('browse_music_year_enabled','YES') == 'YES')
+      $browse[] = array('text'=>str('BROWSE_YEAR'), 'url'=>"music_search.php?sort=year");
+    if (get_sys_pref('browse_music_discovered_enabled','YES') == 'YES')
+      $browse[] = array('text'=>str('BROWSE_DISCOVERED'), 'url'=>"music_search.php?sort=discovered");
+    if (get_sys_pref('browse_music_timestamp_enabled','YES') == 'YES')
+      $browse[] = array('text'=>str('BROWSE_TIMESTAMP'), 'url'=>"music_search.php?sort=timestamp");
+    if (get_sys_pref('browse_music_filesystem_enabled','YES') == 'YES')
+      $browse[] = array('text'=>str('BROWSE_FILESYSTEM'), 'url'=>"music_browse.php");
+
+    if (count($browse) == 1)
     {
       search_hist_init( $prev_page, category_select_sql($cat_id, 1).get_rating_filter().filter_get_predicate() );
-      header('Location: '.server_address().$menu->item_url(0));
-    } 
+      header('Location: '.server_address().$browse[0]["url"]);
+    }
     else
     {
+      $page       = (isset($_REQUEST["page"]) ? $_REQUEST["page"] : 1);
+      $start      = ($page-1) * MAX_PER_PAGE;
+      $end        = min($start+MAX_PER_PAGE,count($browse));
+      $last_page  = ceil(count($browse)/MAX_PER_PAGE);
+
+      $menu = new menu();
+
+      if (count($browse) > MAX_PER_PAGE)
+      {
+        $menu->add_up( url_add_param(current_url(),'page',($page > 1 ? ($page-1) : $last_page)) );
+        $menu->add_down( url_add_param(current_url(),'page',($page < $last_page ? ($page+1) : 1)) );
+      }
+
+      for ($i=$start; $i<$end; $i++)
+        $menu->add_item($browse[$i]["text"], $browse[$i]["url"], true);
+
       $menu->display(1, style_value("MENU_MUSIC_WIDTH"), style_value("MENU_MUSIC_ALIGN"));
     }
-    
+
     $buttons = array();
     $buttons[] = array('text' => str('QUICK_PLAY'),'url'  => quick_play_link(MEDIA_TYPE_MUSIC,$_SESSION["history"][0]["sql"]));
     $buttons[] = array('text' => filter_text(),'url'  => 'get_filter.php?return='.urlencode('music.php?cat='.$cat_id));
@@ -63,10 +83,11 @@
 
  /**************************************************************************************************
    Main page output
-   *************************************************************************************************/
+  **************************************************************************************************/
 
-  page_header( str('LISTEN_MUSIC'), '','',1,false,'',MEDIA_TYPE_MUSIC);
-  
+  $subtitle = isset($_REQUEST["cat"]) ? db_value('select cat_name from categories where cat_id='.$_REQUEST["cat"]) : '';
+  page_header( str('LISTEN_MUSIC'), $subtitle,'',1,false,'',MEDIA_TYPE_MUSIC);
+
   if( category_count(MEDIA_TYPE_MUSIC)==1 || isset($_REQUEST["cat"]) )
     display_music_menu($_REQUEST["cat"]);
   elseif ( isset($_REQUEST["subcat"]) )
