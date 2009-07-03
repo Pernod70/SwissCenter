@@ -271,7 +271,7 @@ class menu
     $num_cols = 1 + $left_icons + $right_icons + $info_column;
 
     // Sizes of the menu (taking into consideration the left, right and info columns)
-    $info_width    = 75;
+    $info_width    = 100;
     $info_width_px = convert_x($info_width);
     $width         = $size - ($info_column == 1 ? $info_width : 0);
     $width_px      = convert_x($width);
@@ -304,7 +304,7 @@ class menu
           echo '<td align="right" valign="middle" height="'.$height_px.'">'.$item["left"].'</td>';
 
         // Main text
-        echo '<td valign="middle" width="'.$width_px.'" height="'.$height_px.'" '.$background.'>'.
+          echo '<td valign="middle" width="'.$width_px.'" height="'.$height_px.'" '.$background.'>'.
                '<a style="width:'.($width_px-2).'" '.
                  $item["url"].' TVID="'.$tvid.'" name="'.$tvid.'">'.$font_open.'&nbsp;&nbsp;&nbsp;'.$tvid.'. '.$text.'</font>'.
                '</a>'.
@@ -312,7 +312,7 @@ class menu
 
         // Info columns?
         if ($info_column == 1)
-          echo '<td align="right" '.$info_background.' width="'.$info_width_px.'">'.$font_open.$item["info"].'</font></td>';
+          echo '<td align="center" '.$info_background.' width="'.$info_width_px.'">'.$font_open.$item["info"].'</font></td>';
 
         // Right icon?
         if ($right_icons == 1)

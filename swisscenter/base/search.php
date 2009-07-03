@@ -83,7 +83,7 @@ function search_hist_first()
 # Function to output a "search" page for any media type.
 #-------------------------------------------------------------------------------------------------
 
-function  search_media_page( $heading, $title, $media_type, $joined_tables, $column,  $choose_url )
+function search_media_page( $heading, $title, $media_type, $joined_tables, $column, $choose_url )
 {
   // Make sure that the session variable for "shuffle" matches the user's preference (because it will have been set "on" for quick play).
   $_SESSION["shuffle"] = get_user_pref('shuffle','off');
@@ -103,24 +103,29 @@ function  search_media_page( $heading, $title, $media_type, $joined_tables, $col
   $data           = array();
   $history        = search_hist_most_recent();
 
-  // variables that form the SQL statement
+  // Contents and ordering of search menu
+  $display = $column["display"];
+  $info    = $column["info"];
+  $order   = $column["order"];
+
+  // Variables that form the SQL statement
   $main_table     = get_media_table($media_type);
   $main_table_sql = "$main_table media ";
-  $restrict_sql   = "$column like '$prefix".db_escape_str(str_replace('_','\_',$search))."%' $history[sql]";
+  $restrict_sql   = "$display like '$prefix".db_escape_str(str_replace('_','\_',$search))."%' $history[sql]";
 
   $viewed_sql     = "select concat( sum(if(v.total_viewings>0,1,0)),':',count(*) ) view_status
                      from $main_table_sql $joined_tables";
 
   // Adding necessary paramters to the target URL (for when an item is selected)
-  $choose_url = url_set_params($choose_url, array('add'=>'Y', 'type'=>$column));
+  $choose_url = url_set_params($choose_url, array('add'=>'Y', 'type'=>$display));
 
   // Get the matching records from the database.
-  $data       = db_toarray("   select $column display
+  $data       = db_toarray("   select $display display, $info info
                                  from $main_table_sql $joined_tables
-                                where $column != '0' and $restrict_sql and ml.media_type=$media_type
-                             group by $column
+                                where $display != '0' and $restrict_sql and ml.media_type=$media_type
+                             group by $display
                                having ".viewed_status_predicate( filter_get_name() )."
-                             order by 1");
+                             order by $order");
   $num_rows   = count($data);
   $data       = array_slice($data, $page*MAX_PER_PAGE, MAX_PER_PAGE);
 
@@ -128,10 +133,10 @@ function  search_media_page( $heading, $title, $media_type, $joined_tables, $col
     page_error(str('DATABASE_ERROR'));
 
   if ($prefix == '')
-    $valid = strtoupper(join(db_col_to_list(" select distinct upper(substring($column,".(strlen($search)+1).",1)) display
+    $valid = strtoupper(join(db_col_to_list(" select distinct upper(substring($display,".(strlen($search)+1).",1)) display
                                                 from $main_table_sql $joined_tables
-                                               where $column !='0' and $restrict_sql and ml.media_type=$media_type
-                                            group by $column
+                                               where $display !='0' and $restrict_sql and ml.media_type=$media_type
+                                            group by $display
                                               having ".viewed_status_predicate( filter_get_name() )."
                                             order by 1")));
   else
@@ -163,8 +168,8 @@ function  search_media_page( $heading, $title, $media_type, $joined_tables, $col
 
     foreach ($data as $row)
     {
-      $viewed = explode(':',db_value($viewed_sql." where $column = '".db_escape_str($row["DISPLAY"])."' and $restrict_sql group by $column"));
-      $menu->add_item($row["DISPLAY"],url_set_param($choose_url,'name',rawurlencode($row["DISPLAY"])), false, viewed_icon($viewed[0], $viewed[1]) );
+      $viewed = explode(':',db_value($viewed_sql." where $display = '".db_escape_str($row["DISPLAY"])."' and $restrict_sql group by $display"));
+      $menu->add_info_item($row["DISPLAY"],$row["INFO"],url_set_param($choose_url,'name',rawurlencode($row["DISPLAY"])), false, viewed_icon($viewed[0], $viewed[1]) );
     }
 
     $menu->display(1, 540);
@@ -233,7 +238,7 @@ function search_process_passed_params()
 
 function search_check_filter ( &$menu, $menu_text, $column, $table, $predicate, $refine_url )
 {
-  if ( db_value("select count(distinct $column) from $table $predicate") > 1)
+  if ( db_value("select count(distinct media.$column) from $table $predicate") > 1)
     $menu->add_item($menu_text, $refine_url."?sort=".$column,true);
 }
 
