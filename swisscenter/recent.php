@@ -13,7 +13,22 @@ require_once( realpath(dirname(__FILE__).'/base/filter.php'));
 function redirect_to_browse( $media_type )
 {
   $num_days = get_sys_pref("RECENT_DATE_LIMIT",14);
-  filter_set(str('RECENTLY_ADDED'), " and media.discovered > ('".db_datestr()."' - interval $num_days day)" );
+  switch ( get_sys_pref("RECENT_DATE_TYPE", "ADDED") )
+  {
+    case 'ADDED':
+      filter_set(str('RECENTLY_ADDED'), " and media.discovered > ('".db_datestr()."' - interval $num_days day)" );
+      break;
+
+    case 'CREATED':
+      filter_set(str('RECENTLY_CREATED'), " and media.timestamp > ('".db_datestr()."' - interval $num_days day)" );
+      break;
+
+    case 'ADDED_OR_CREATED':
+      filter_set(str('RECENTLY_ADDED_OR_CREATED'), " and (media.discovered > ('".db_datestr()."' - interval $num_days day) or ".
+                                                        " media.timestamp > ('".db_datestr()."' - interval $num_days day))" );
+      break;
+  }
+
   search_hist_init( 'recent.php', get_rating_filter().filter_get_predicate() );
   switch ($media_type)
   {
