@@ -688,6 +688,26 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>DATE_FORMAT</id>
+        <text>Date format</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DATE_FORMAT_PROMPT</id>
+        <text>This is the format used to display dates and can be changed to your preferred format. The format is defined by MySQL and some format specifiers are:[br][ul]
+[li]%b Abbreviated month name (Jan..Dec) [/li]
+[li]%d Day of the month, numeric (00..31)[/li]
+[li]%m Month, numeric (00..12) [/li]
+[li]%Y Year, numeric, four digits[/li]
+[li]%y Year, numeric (two digits)[/li][/ul]</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DATE_FORMAT_TEST</id>
+        <text>Current format: %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>DAY_1</id>
         <text>Mon</text>
         <version>1.19</version>
