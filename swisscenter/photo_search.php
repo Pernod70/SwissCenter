@@ -41,13 +41,13 @@
     case "discovered":
       $title  = str('PHOTO_TITLE');
       $search = array("display" => "filename",
-                      "info"    => "date_format(media.discovered,'%d%b%y')",
+                      "info"    => "date_format(media.discovered,'".get_sys_pref('DATE_FORMAT','%d%b%y')."')",
                       "order"   => "media.discovered desc");
       break;
     case "timestamp":
       $title  = str('PHOTO_TITLE');
       $search = array("display" => "filename",
-                      "info"    => "date_format(media.timestamp,'%d%b%y')",
+                      "info"    => "date_format(media.timestamp,'".get_sys_pref('DATE_FORMAT','%d%b%y')."')",
                       "order"   => "media.timestamp desc");
       break;
     default :

@@ -35,13 +35,13 @@
     case "discovered":
       $title  = str('TRACK_NAME');
       $search = array("display" => "title",
-                      "info"    => "date_format(discovered,'%d%b%y')",
+                      "info"    => "date_format(discovered,'".get_sys_pref('DATE_FORMAT','%d%b%y')."')",
                       "order"   => "discovered desc");
       break;
     case "timestamp":
       $title  = str('TRACK_NAME');
       $search = array("display" => "title",
-                      "info"    => "date_format(timestamp,'%d%b%y')",
+                      "info"    => "date_format(timestamp,'".get_sys_pref('DATE_FORMAT','%d%b%y')."')",
                       "order"   => "timestamp desc");
       break;
   }
