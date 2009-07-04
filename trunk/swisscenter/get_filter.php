@@ -49,7 +49,21 @@
       }
       else
       {
-        filter_set(str('RECENTLY_ADDED'), " and media.discovered > ('".db_datestr()."' - interval $_REQUEST[value] day)" );
+        switch ( get_sys_pref("RECENT_DATE_TYPE", "ADDED") )
+        {
+          case 'ADDED':
+            filter_set(str('RECENTLY_ADDED'), " and media.discovered > ('".db_datestr()."' - interval $_REQUEST[value] day)" );
+            break;
+
+          case 'CREATED':
+            filter_set(str('RECENTLY_CREATED'), " and media.timestamp > ('".db_datestr()."' - interval $_REQUEST[value] day)" );
+            break;
+
+          case 'ADDED_OR_CREATED':
+            filter_set(str('RECENTLY_ADDED_OR_CREATED'), " and (media.discovered > ('".db_datestr()."' - interval $_REQUEST[value] day) or ".
+                                                              " media.timestamp > ('".db_datestr()."' - interval $_REQUEST[value] day))" );
+            break;
+        }
         header('Location: '.urldecode($_REQUEST["return"]));
       }
       break;
@@ -62,7 +76,7 @@
     default:
       $menu->add_item( str('FILTER_VIEWED'), url_set_param($current,'option','viewed'), true);
 //      $menu->add_item( str('FILTER_POPULAR'), url_set_param($current,'option','popular'), true);
-      $menu->add_item( str('RECENTLY_ADDED'), url_set_param($current,'option','date'), true);
+      $menu->add_item( str('RECENTLY_'.get_sys_pref("RECENT_DATE_TYPE", "ADDED")), url_set_param($current,'option','date'), true);
       $menu->add_item( str('REMOVE_FILTER'), url_set_param($current,'option','none'), true);
   }
 
