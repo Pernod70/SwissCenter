@@ -2,11 +2,11 @@
 /**************************************************************************************************
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
- 
+
  require_once( realpath(dirname(__FILE__).'/mysql.php'));
  require_once( realpath(dirname(__FILE__).'/users.php'));
  require_once( realpath(dirname(__FILE__).'/server.php'));
- 
+
  // ----------------------------------------------------------------------------------
  // USER preferences
  // ----------------------------------------------------------------------------------
@@ -20,10 +20,10 @@
 
    if (!$result || is_null($result))
      return false;
-   else 
+   else
      return $result;
  }
- 
+
  function get_user_pref( $pref, $default = '', $user_id = '')
  {
    if ($user_id == '')
@@ -31,18 +31,18 @@
 
    if ($user_id != '')
      $result = db_value("select value from user_prefs where user_id = ".$user_id." and name='".strtoupper($pref)."'");
-   
+
    if ($result == '')
      return $default;
-   else 
+   else
      return $result;
  }
- 
+
  function set_user_pref( $name, $value, $user = '')
  {
    if ($user == '')
      $user = get_current_user_id();
-   
+
    if(!empty($user))
    {
      db_sqlcommand("delete from user_prefs where name='".strtoupper($name)."' and user_id=".$user);
@@ -52,8 +52,8 @@
        send_to_log(1,"Unable to store preferemce '$name' = '$value' for user '$user'");
      else
        send_to_log(6,"Set user preference '$name' to '$value' for user '$user'");
-   }   
-   
+   }
+
    return $result;
  }
 
@@ -67,7 +67,7 @@
 
    if (!$result || is_null($result))
      return false;
-   else 
+   else
      return $result;
  }
 
@@ -77,29 +77,29 @@
 
    if ($result == '')
      return $default;
-   else 
+   else
      return $result;
  }
- 
+
  function set_sys_pref( $name, $value)
  {
    // Only update if the value changes
-   if (db_value("select count(*) from system_prefs where name='".strtoupper($name)."' and value='$value'") == 0)
+   if (db_value("select count(*) from system_prefs where name='".strtoupper($name)."' and BINARY value='$value'") == 0)
    {
      db_sqlcommand("delete from system_prefs where name='".strtoupper($name)."'");
      $result = db_insert_row('system_prefs', array("NAME"=>strtoupper($name), "VALUE"=>$value, "MODIFIED"=>db_datestr()) );
-  
+
      if (!$result)
        send_to_log(1,"Unable to store system preference '$name' = '$value'");
      else
        send_to_log(6,"Set system preference '$name' to '$value'");
-  
+
      return $result;
    }
-   else 
+   else
      return true;
  }
- 
+
  function delete_sys_pref( $name )
  {
    db_sqlcommand("delete from system_prefs where name='".strtoupper($name)."'");
@@ -113,7 +113,7 @@
  {
    return (internet_available() && get_sys_pref('movie_check_enabled','YES') == 'YES');
  }
- 
+
  // ----------------------------------------------------------------------------------
  // Online tv show checking
  // ----------------------------------------------------------------------------------
@@ -122,7 +122,7 @@
  {
    return (internet_available() && get_sys_pref('tv_check_enabled','YES') == 'YES');
  }
- 
+
  // ----------------------------------------------------------------------------------
  // TVID preferences
  // ----------------------------------------------------------------------------------
@@ -138,16 +138,16 @@
    elseif (!is_null($data[0]["TVID_DEFAULT"]))
      return $data[0]["TVID_DEFAULT"];
  }
- 
+
  function set_tvid_pref( $player_type, $tvid, $tvid_pref )
  {
    if (db_value("select count(*) from tvid_prefs where player_type='".$player_type."' and tvid_sc='".$tvid."'") == 0)
-     $result = db_insert_row('tvid_prefs', array("PLAYER_TYPE"  => $player_type, 
-                                                 "TVID_SC"      => $tvid, 
+     $result = db_insert_row('tvid_prefs', array("PLAYER_TYPE"  => $player_type,
+                                                 "TVID_SC"      => $tvid,
                                                  "TVID_CUSTOM"  => $tvid_pref) );
    else
      $result = db_sqlcommand("update tvid_prefs set tvid_custom ='".$tvid_pref."' where player_type='".$player_type."' and tvid_sc='".$tvid."'",false);
- 
+
    if (!$result)
      send_to_log(1,"Unable to store tvid preference '$player_type','$tvid' = '$tvid_pref'");
    else
@@ -155,7 +155,7 @@
 
    return $result;
  }
- 
+
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/
