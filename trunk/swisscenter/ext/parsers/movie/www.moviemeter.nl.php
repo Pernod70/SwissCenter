@@ -14,7 +14,7 @@
 require_once( SC_LOCATION."/ext/xmlrpc/xmlrpc.inc" );
 
 // API key registered to SwissCenter project
-define('MOVIEMETER_API_KEY', '92jttw2tj7335za3zfm08ygyzgh1cn59');
+define('MOVIEMETER_API_KEY', 'wfdk9v1w8dxycgw0g9w9xdq3qt3nu2td');
 
 /**
  * Searches the moviemeter.nl site for movie details
