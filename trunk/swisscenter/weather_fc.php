@@ -19,7 +19,6 @@
   // Get XML data (from DB or from weather.com)
   purge_weather();
   $xml_fc    = get_weather_xml( $loc_id, 'dayf', '5');
-  $xml_links = get_weather_xml( $loc_id, 'link', 'xoap');
 
   $time      = split(' ',$xml_fc["dayf"]["lsup"]);
 
@@ -31,7 +30,7 @@
 
   echo '<table border=0 cellspacing=0 cellpadding=0 width="100%">
           <tr>';
-            
+
   for ($i=0; $i<5; $i++)
   {
     if ( $xml_fc["dayf"][$i]["d"]["icon"] == '-')
@@ -60,7 +59,7 @@
     echo  img_gen(SC_LOCATION.'/weather/large/'.$xml_fc["dayf"][$i]["n"]["icon"].'.gif',100,130,false,false,'RESIZE').'<br>
           </center><p></td>';
   }
-              
+
   echo '  </tr>
         </table><p>
         <table cellspacing=0 cellpadding=0 width="100%">
@@ -81,7 +80,7 @@
     $buttons[] = array('id'=>'A', 'text'=>str('WEATHER_METRIC'), 'url'=>'weather_fc.php?units=m&loc='.$loc_id );
 
   page_footer('weather_cc.php?loc='.$loc_id, $buttons);
-  
+
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/

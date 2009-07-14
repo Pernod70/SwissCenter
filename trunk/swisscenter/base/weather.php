@@ -57,7 +57,7 @@ function xml2tree( $xml )
 }
 
 //
-// Returns the web address of the Weather Channel, omplete with partner ID.
+// Returns the web address of the Weather Channel, complete with partner ID.
 //
 
 function weather_link()
@@ -73,7 +73,6 @@ function purge_weather()
 {
   db_sqlcommand("delete from weather where type='cc' and requested < ".(time()-1800));     // 30 mins
   db_sqlcommand("delete from weather where type='dayf' and requested < ".(time()-7200));   // 2 hrs
-  db_sqlcommand("delete from weather where type='links' and requested < ".(time()-43200)); // 12 hrs
 }
 
 //
@@ -84,23 +83,27 @@ function purge_weather()
 function get_weather_xml( $loc, $type, $val )
 {
   $units  = get_user_pref("weather_units");
-//  $url    = 'http://xoap.weather.com/weather/local/'.$loc.'?unit='.$units.'&prod=xoap&par='.PARTNER_ID.'&key='.LICENSE_KEY;
-  $url    = 'http://xoap.weather.com/weather/local/'.$loc.'?unit='.$units.'&par=&key=';
+  $url    = 'http://xoap.weather.com/weather/local/'.$loc.'?unit='.$units.'&prod=xoap&link=xoap&par='.PARTNER_ID.'&key='.LICENSE_KEY;
   $xml    = db_value("select xml from weather where url='$url' and type='$type'");
 
   if (empty($xml))
   {
     $fetch_url = $url.'&'.$type.'='.$val;
-    send_to_log(4,"Fetching weather information from", parse_url($fetch_url));
+    send_to_log(4,"Fetching weather information from", $fetch_url);
     $xml       = file_get_contents($fetch_url);
     $data      = array("url"       => $url
                       ,"xml"       => $xml
                       ,"requested" => time()
                       ,"type"      => $type );
+
     if (!db_insert_row( "weather", $data))
       page_error(str('DATABASE_ERROR'));
   }
-  return xml2tree($xml);
+  $xml_array = xml2tree($xml);
+  if (isset($xml_array["err"]))
+    send_to_log(2,'Error from Weather.com: '.$fetch_url, $xml_array["err"]);
+
+  return $xml_array;
 }
 
 //
@@ -153,7 +156,7 @@ function get_matching_cities( $name )
     if (empty($index["loc"]))
     {
       // Oh dear, the weather channel does not have any data for this city...
-      db_sqlcommand("delete from cities where name='$name'");      
+      db_sqlcommand("delete from cities where name='$name'");
       return array();
     }
     else
