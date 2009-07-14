@@ -20,7 +20,7 @@
   elseif (!empty($_REQUEST["loc"]))
   {
     // User is viewing a city that is NOT their home location.
-    $loc_id  = $_REQUEST["loc"]; 
+    $loc_id  = $_REQUEST["loc"];
 
     // Display the button to make this their home location.
     if ($loc_id != weather_home() )
@@ -31,7 +31,7 @@
     // User is viewing the default location (their home city).
     $loc_id  = weather_home();
   }
-  
+
   // Change between standard/metric measurements.
   if (!empty($_REQUEST["units"]))
     set_user_pref('WEATHER_UNITS',$_REQUEST["units"]);
@@ -39,7 +39,6 @@
   // Get XML data (from DB or from weather.com)
   purge_weather();
   $xml_cc    = get_weather_xml( $loc_id, 'cc', '*');
-  $xml_links = get_weather_xml( $loc_id, 'link', 'xoap');
   $time      = split(' ',$xml_cc["cc"]["lsup"]);
 
   // Build Current Conditions information table
@@ -50,7 +49,7 @@
   $cc->add_item(str('WEATHER_WIND'),       $xml_cc["cc"]["wind"][s].' '.$xml_cc["head"]["us"].' '.$xml_cc["cc"]["wind"]["t"]);
   $cc->add_item(str('WEATHER_VISIBILITY'), $xml_cc["cc"]["vis"].' '.$xml_cc["head"]["ud"]);
   $cc->add_item(str('WEATHER_UV'),         $xml_cc["cc"]["uv"][i].' ('.$xml_cc["cc"]["uv"]["t"].')');
-  
+
   if ( $xml_cc["cc"]["icon"] == '-')
   {
     $xml_cc["cc"]["icon"] = 'na';
