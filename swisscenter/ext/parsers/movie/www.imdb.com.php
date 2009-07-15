@@ -1,4 +1,4 @@
-<?
+<?php
 /**************************************************************************************************
    SWISScenter Source
 
@@ -90,7 +90,7 @@
       {
         $matches = get_images_from_html($html);
         $img_addr = $matches[1][0];
-        if (file_ext($img_addr)=='jpg')
+        if (file_ext($img_addr)=='jpg' && !stristr($img_addr,'addposter'))
         {
           // Replace resize attributes with maximum allowed
           $img_addr = preg_replace('/SX\d+_/','SX450_',$img_addr);
