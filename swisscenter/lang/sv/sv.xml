@@ -1,0 +1,5268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<swisscenter>
+  <languages>
+    <language name="sv" fullname="Svenska">
+      <string>
+        <id>ACCESS_DENIED</id>
+        <text>Behörighet nekad</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ACTOR</id>
+        <text>Skådespelare</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ADDITIONAL_COMPONENTS</id>
+        <text>Andra komponenter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ADD_PLAYLIST</id>
+        <text>Lägg till din spellista</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ADMIN</id>
+        <text>Superanvändare</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ADVANCED_OPTIONS</id>
+        <text>Avancerade val</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ALBUM</id>
+        <text>Album</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ALL_CATEGORIES</id>
+        <text>Alla kategorier</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ALL_MEDIA_TYPES</id>
+        <text>Alla mediatyper</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ALL_RSS_FEEDS</id>
+        <text>Alla RSS-flöden</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ALL_TIME</id>
+        <text>All tid</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ANYWHERE_IN_NAME</id>
+        <text>Var som helst i namnet</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ARTIST</id>
+        <text>Artist</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ART_ADDED_OK</id>
+        <text>Bildfil tillagd</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ART_DELETE_OK</id>
+        <text>De valda filerna har raderats</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ART_ERROR_FILENAME</id>
+        <text>Ange ett filnamn</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ART_ERROR_FILETYPE</id>
+        <text>Giltiga filnamn har JPG, JPEG, GIF eller PNG som filändelse</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ART_ERROR_QUOTE</id>
+        <text>Filnamn får ej innehålla citationstecken</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ART_ERROR_SLASH</id>
+        <text>Filnamn får ej innehålla referenser till mappar</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ART_FILENAME_PROMPT</id>
+        <text>Ange namnet på valfri bild-fil som skall användas som album-/filmbild om den finns i en medie-mapp.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ART_FILES_ADD_BUTTON</id>
+        <text>Lägg till filnamn</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ART_FILES_ADD_TITLE</id>
+        <text>Lägg till ett filnamn</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ART_FILES_CURRENT</id>
+        <text>Nuvarande artist-/filmbilder</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ART_FILES_DEL_BUTTON</id>
+        <text>Radera valda filer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ART_FILES_PROMPT</id>
+        <text>[em]Album-/Filmbilder[/em] är namnen på de bildfiler som SwissCenter skall leta efter i bläddra-funktionen (Bläddra Filmer, Bläddra Musik enligt mappar, osv.) eller när du har valt ett album eller en film. [p] Om någon av filerna du anger här hittas inom en mapp kommer den första av dessa visas av SwissCenter.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ART_FILES_TITLE</id>
+        <text>Album-/Filmbilder</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ART_ID3_TAG</id>
+        <text>ID3-Tag-omslagsbild</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ART_ID3_TAG_PROMPT</id>
+        <text>Om en musikfils ID3-Tag innehåller en albumbild kommer denna bild att extraheras och lagras i databasen som föredragen bild att användas av SwissCenter.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ART_UPDATE_OK</id>
+        <text>Bildinformation uppdaterad</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>AUTOMATIC</id>
+        <text>Automatisk</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BACKSPACE</id>
+        <text>Föregående sida</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BAND</id>
+        <text>Albumartist</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BOOKMARKS</id>
+        <text>Bokmärken</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_ACTOR</id>
+        <text>Bläddra enligt skådespelare</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_ALBUM</id>
+        <text>Bläddra enligt albumnamn</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_ALBUM_ARTIST</id>
+        <text>Bläddra enligt albumartist</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_ARTIST</id>
+        <text>Bläddra enligt artist</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_CERTIFICATE</id>
+        <text>Bläddra enligt certifikat</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_COUNTRY</id>
+        <text>Bläddra enligt land</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_DATE</id>
+        <text>Bläddra enligt datum</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_DIRECTOR</id>
+        <text>Bläddra enligt regissör</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_DISCOVERED</id>
+        <text>Bläddra enligt tilläggningsdatum</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_FILESYSTEM</id>
+        <text>Bläddra filsystem</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_GENRE</id>
+        <text>Bläddra enligt genre</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_IPTC_BYLINE</id>
+        <text>Bläddra enligt författare</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_IPTC_CAPTION</id>
+        <text>Bläddra enligt beskrivning</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_IPTC_CITY</id>
+        <text>Bläddra enligt stad</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_IPTC_COUNTRY</id>
+        <text>Bläddra enligt land</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_IPTC_DATE_CREATED</id>
+        <text>Bläddra enligt skapardatum</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_IPTC_KEYWORDS</id>
+        <text>Bläddra enligt nyckelord</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_IPTC_LOCATION</id>
+        <text>Bläddra enligt plats</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_IPTC_PROVINCE_STATE</id>
+        <text>Bläddra enligt provins/delstat</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_IPTC_SUPPCATEGORY</id>
+        <text>Bläddra enligt tilläggskategorier</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_MOVIES</id>
+        <text>Bläddra filmer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_MUSIC</id>
+        <text>Bläddra musik</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_OPTIONS</id>
+        <text>Bläddringsval</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_PHOTOS</id>
+        <text>Bläddra bilder</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_PHOTO_ALBUM</id>
+        <text>Bläddra enligt fotoalbum</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_PHOTO_TITLE</id>
+        <text>Bläddra enligt filnamn</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_RATING</id>
+        <text>Bläddra enligt betyg</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_STATION</id>
+        <text>Bläddra enligt kanal</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_TEXT</id>
+        <text>SwissCenter låter dig bläddra bland dina mediefiler på många olika sätt. För att minska användargränssnittets komplexitet eller skräddarsy det mer efter din egen smak kan du inaktivera valfria &quot;Bläddra enligt...&quot;-val enligt nedanstående. Om endast ett val är aktiverat kommer SwissCenter hoppa direkt till det valet istället för att visa en meny. [p]Observera att att [b]minst ett[/b] måste vara aktiverat i varje grupp.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_TIMESTAMP</id>
+        <text>Bläddra enligt datumstämpel</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_TITLE</id>
+        <text>Bläddra enligt titel</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_TRACK</id>
+        <text>Bläddra enligt spårnamn</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_WEB</id>
+        <text>Bläddra på internet</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_WEB_PROMPT</id>
+        <text>Detta val låter dig använda SwissCenter för att bläddra på enkla hemsidor både på ditt lokala nätverk och på internet (förutsatt att du har en internetanslutning)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_XMP_RATING</id>
+        <text>Bläddra enligt betyg</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_YEAR</id>
+        <text>Bläddra enligt release-datum</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CACHE_CONFIG_TITLE</id>
+        <text>Mellanlagring</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CACHE_DIR</id>
+        <text>Mellanlagrings-mapp</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CACHE_DIR_PROMPT</id>
+        <text>Ange i vilken mapp SwissCenter-servern skall mellanlagra bildfiler som har storleksmodifierats (för tex. mapp-bilder till ett album eller miniatyrbild till ett fotografi)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CACHE_ERROR_FULL_DIR</id>
+        <text>Ange en komplett sökväg</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CACHE_ERROR_MISSING</id>
+        <text>Ange en mapp för mellanlagring</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CACHE_ERROR_NOT_EXIST</id>
+        <text>Jag är ledsen, men mappen du angav finns inte</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CACHE_ERROR_NOT_NUMBER</id>
+        <text>Värdet du angav för mellanlagringens storlek är inte numerärt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CACHE_ERROR_SIZE</id>
+        <text>Ange en mellanlagringsstorlek (eller 0 för obegränsad mellanlagring)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CACHE_ERROR_SMALL</id>
+        <text>Den mellanlagringsstorlek du angav är för liten</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CACHE_PRECACHE</id>
+        <text>Förhandslagra bilder</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CACHE_PRECACHE_PROMPT</id>
+        <text>Om detta val är aktiverat kommer SwissCenter att generera miniatyrbilder till alla bilder som hittas vid en mediasökning.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CACHE_SIZE</id>
+        <text>Maximal storlek</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CACHE_SIZE_PROMPT</id>
+        <text>Detta är det maximala diskutrymmet (i Megabyte) som kommer användas för att mellanlagra bildfiler (0 innebär obegränsad mellanlagring). När denna begränsning är uppnådd kommer de minst använda av de tidigare mellanlagrade filerna att raderas.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CACHE_STYLE</id>
+        <text>Mellanlagra stil-detaljer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CACHE_STYLE_PROMPT</id>
+        <text>När detta val är aktiverat kommer SwissCenter att mellanlagra alla stil-detaljer i minnet. Inaktivera denna funktion om du utvecklar nya stilar och behöver se ändringar omedelbart.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CATEGORIES</id>
+        <text>Kategorier</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CATEGORY</id>
+        <text>Kategori</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CATEGORY_LIST_ALL</id>
+        <text>Alla kategorier</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CATEGORY_PROMPT</id>
+        <text>Att ange en kategori hjälper dig att sortera dina mediefiler i logiska grupper som tex. &quot;Ljudböcker&quot; och &quot;Språkkurser&quot; såväl som &quot;Övrigt&quot;. Denna funktion kommer tex. att möjliggöra för dig spela slumpvis vald musik utan att råka få med ett kapitel från en ljudbok i spellistan.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CAT_ADDED_OK</id>
+        <text>Kategori tillagd</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CAT_ADD_BUTTON</id>
+        <text>Lägg till kategori</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CAT_ADD_TITLE</id>
+        <text>Lägg till en ny kategori</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CAT_DELETE_OK</id>
+        <text>De valda kategorierna har raderats</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CAT_DEL_BUTTON</id>
+        <text>Radera valda kategorier</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CAT_DOWNLOAD</id>
+        <text>Ladda ner extra information</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CAT_DOWNLOAD_PROMPT</id>
+        <text>Detta fält avgör om extra information, om sådan finns, skall laddas ner från internet för mediefilerna i denna kategorin.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CAT_ERROR_DELETE</id>
+        <text>Kategorin %s kan inte raderas</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CAT_ERROR_EXISTS</id>
+        <text>Det finns redan en kategori med det namnet</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CAT_ERROR_NAME</id>
+        <text>Ange ett kategorinamn</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CAT_LIST_ALL</id>
+        <text>Alla kategorier</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CAT_PARENT</id>
+        <text>Föregående mapp</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CAT_UPDATE_OK</id>
+        <text>Kategori-information uppdaterad</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CERTIFICATE</id>
+        <text>Certifikat</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CHANNEL</id>
+        <text>Kanal</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CHANNELS</id>
+        <text>Kanaler</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CLEAR_NAME</id>
+        <text>Rensa namn</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>COMPACT_VIEW</id>
+        <text>Kompakt vy</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CONFIGURATION</id>
+        <text>Konfiguration</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CONFIG_AUDIO_OPTIONS</id>
+        <text>Ljud</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CONFIG_BROWSE_NONE_SELECTED</id>
+        <text>Inställningarna sparades inte, du måste aktivera minst ett val i varje grupp.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CONFIG_DB_CREATE</id>
+        <text>Skapa databas</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CONFIG_DB_CREATE_TXT</id>
+        <text>Denna skärm låter dig skapa SwissCenter-databasen. Parametrarna som används för att skapa databasen visas nedan.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CONFIG_DB_ERROR</id>
+        <text>Kan inte komma åt databasen - är dina inställningar i [i]Konfigurera databas[/i] korrekt?</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CONFIG_DB_ROOT_PW</id>
+        <text>&quot;Root&quot;-lösenord</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CONFIG_DB_ROOT_PW_TXT</id>
+        <text>Såvida du inte angav ett [em]root[/em]-lösenord under installationen av MySQL skall du lämna detta fält tomt.[p][em]Notera: Det kan ta flera minuter att skapa databasen. Var tålmodig.[/em]</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CONFIG_FLICKR</id>
+        <text>Flickr-inställningar</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CONFIG_IMAGE_OPTIONS</id>
+        <text>Bilder</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CONFIG_LASTFM_CLEAR</id>
+        <text>Rensa valda inloggningsdetaljer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CONFIG_LASTFM_TITLE</id>
+        <text>LastFM-alternativ</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CONFIG_MIP_OPTIONS</id>
+        <text>MusicIP</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CONFIG_MUSICIP</id>
+        <text>MusicIP-inställningar</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CONFIG_RADIO_OPTIONS</id>
+        <text>Internetradio</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CONFIG_SHOUTCAST_TITLE</id>
+        <text>Shoutcast-alternativ</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CONFIG_SWISSMONITOR</id>
+        <text>SwissMonitor</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CONFIG_TITLE</id>
+        <text>SwissCenter konfigurationsverktyg</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CONFIRM_DELETE</id>
+        <text>Radera följande mediefil(er)?</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CONNECT_OPT_TEXT</id>
+        <text>Nedan kan välja att aktivera eller inaktivera specifika funktioner som använder sig av internet. Du rekommenderas att låta alla funktioner vara aktiverade.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CONNECT_TEXT</id>
+        <text>Det finns ett antal funktioner i SwissCenter som använder sig av en internetanslutning för att hämta information, tex. väderprognoser eller nya uppdateringar för SwissCenter.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CONNECT_TITLE</id>
+        <text>Internetanslutning</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CONTACTS</id>
+        <text>Kontakter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CONTINUE</id>
+        <text>Fortsätt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CURRENT_VERSION</id>
+        <text>Nuvarande version</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CUSTOM</id>
+        <text>Anpassad</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DATABASE_ERROR</id>
+        <text>Ett databasfel uppstod</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DATABASE_NAME</id>
+        <text>Databasnamn</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DATABASE_NOCONNECT</id>
+        <text>Kan inte ansluta till MySQL med de data som angivits (Värd, Användarnamn och Lösenord)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DATABASE_NOSELECT</id>
+        <text>En anslutning till MySQL är upprättad men angiven databas kan inte väljas</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DATE</id>
+        <text>Datum</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DATE_FORMAT</id>
+        <text>Datumformat</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DATE_FORMAT_PROMPT</id>
+        <text>Detta är formatet som används för att visa datum och det kan ändras till ett format du föredrar. Formatet är definierat av MySQL några format-specificerare är:[br][ul]
+[li]%b Förkortat månadsnamn (Jan..Dec)[/li]
+[li]%d Dag i månaden, numerisk (00..31)[/li]
+[li]%m Månad, numerisk (01..12)[/li]
+[li]%Y År, numerisk, fyra siffror[/li]
+[li]%y År, numerisk, två siffror[/li][/ul]</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DATE_FORMAT_TEST</id>
+        <text>Nuvarande format: %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DAY_1</id>
+        <text>Mån</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DAY_2</id>
+        <text>Tis</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DAY_3</id>
+        <text>Ons</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DAY_4</id>
+        <text>Tor</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DAY_5</id>
+        <text>Fre</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DAY_6</id>
+        <text>Lör</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DAY_7</id>
+        <text>Sön</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DB_CREATE_DB_ERR</id>
+        <text>Kan inte skapa databas - Är ditt &quot;Root&quot;-lösenord för MySQL korrekt?</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DB_CREATE_USER_ERR</id>
+        <text>Kan inte skapa användare - Är ditt &quot;Root&quot;-lösenord för MySQL korrekt?</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DB_RUN_SQL</id>
+        <text>Kör SQL</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DB_SQL_FAIL</id>
+        <text>SQL-kommandot misslyckades</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DB_SQL_SUCCESS</id>
+        <text>SQL-kommandot slutfördes med spektakulär framgång.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DB_TABLE_LIST</id>
+        <text>Tabell-lista</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DEBUG_LEVEL</id>
+        <text>Nivå %s %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DEBUG_MAXIMUM</id>
+        <text>(Maximal)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DEBUG_MINIMUM</id>
+        <text>(Minimal)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DEBUG_MODE</id>
+        <text>Loggnivå</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DEBUG_MODE_PROMPT</id>
+        <text>[i]Loggnivå[/i] kontrollerar hur mycket information som skall skrivas till filen &quot;support.log&quot; när SwissCenter används. Om du rapporterar en bugg som du kan återskapa, se till att Loggnivå är satt till maximal innan du sparar loggen.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DEBUG_RECOMMENDED</id>
+        <text>(Rekommenderad)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DELETE_MEDIA</id>
+        <text>Radera media</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DETAILS_CLEAR</id>
+        <text>Rensa detaljer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DETAILS_CLEARED_OK</id>
+        <text>Detaljer rensade</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DETAILS_EDIT</id>
+        <text>Redigera detaljer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DETAILS_EXPORT</id>
+        <text>Exportera detaljer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DIRECTOR</id>
+        <text>Regissör</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DISABLED</id>
+        <text>Inaktiverad</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DOWNLOADING</id>
+        <text>Laddar ner...</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DROP_DATABASE</id>
+        <text>Varning: Du har redan en SwissCenter-databas. [br]Om du fortsätter kommer all nuvarande information och alla inställningar förloras.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ENABLED</id>
+        <text>Aktiverad</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ENHANCED</id>
+        <text>Förbättrad</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EPISODE</id>
+        <text>Avsnitt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EPISODE_SUFFIX</id>
+        <text>(Avsnitt %s)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EP_NEXT</id>
+        <text>Nästa avsnitt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EP_PREV</id>
+        <text>Föregående avsnitt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXIFVALS_EXPOSE_MODE</id>
+        <text>Auto, Manuell, Auto Bracket</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXIFVALS_EXP_PROG</id>
+        <text>Manuell, Program, Bländarprioritet, Slutarprioritet, Program Kreativ, Program Rörelse, Porträtt, Landskap</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXIFVALS_FLASH</id>
+        <text>Avfyrades inte, Avfyrades</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXIFVALS_LIGHT_SOURCE</id>
+        <text>Okänd, Dagsljus, Fluorescerande, Tungsten (incandescent), Blixt, Fint väder, Molnigt väder, Dela, Fluorescerande dagsljus, Fluorescerande dag (vitt), Fluorescerande dag (kall), Fluorescerande (vitt), Standardljus A, Standardljus B, Standardljus C, D55, D75, D50, ISO Studio Tungsten</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXIFVALS_METER_MODE</id>
+        <text>Okänd, Genomsnittlig, Centrumvägd, Punkt, Flerpunkt, Mönster, Delvis</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXIFVALS_ORIENTATION</id>
+        <text>Normal, Vänd horisontellt, Rotera 180, Vänd vertikalt, Transpose, Rotera höger, Transverse, Rotera vänster</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXIFVALS_SCENE_TYPE</id>
+        <text>Standard, Landskap, Porträtt, Nattscen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXIFVALS_WHITE_BALANCE</id>
+        <text>Auto, Manuell</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXIF_EXPOSE_MODE</id>
+        <text>Exponeringsläge</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXIF_EXPOSE_PROG</id>
+        <text>Exponeringsprogram</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXIF_EXPOSE_TIME</id>
+        <text>Exponeringstid</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXIF_EXPOSURE</id>
+        <text>Exponering</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXIF_FLASH</id>
+        <text>Blixt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXIF_FNUMBER</id>
+        <text>F-nummer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXIF_FOCAL_LENGTH</id>
+        <text>Fokuseringslängd</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXIF_ISO</id>
+        <text>ISO</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXIF_LIGHT_SOURCE</id>
+        <text>Ljuskälla</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXIF_MAKE</id>
+        <text>Fabrikat</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXIF_METER_MODE</id>
+        <text>Avståndsmätning</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXIF_MODEL</id>
+        <text>Modell</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXIF_NONE</id>
+        <text>Ingen EXIF-data tillgänglig</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXIF_ORIENTATION</id>
+        <text>Orientering</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXIF_SCENCE_CAPTURE</id>
+        <text>Sensorläge</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXIF_SOURCE</id>
+        <text>Bildkälla</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXIF_VIEW</id>
+        <text>Visa EXIF-data</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXIF_WHITE_BALANCE</id>
+        <text>Vitbalans</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXPERT_EDIT_DB</id>
+        <text>Redigera databasen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXPERT_EDIT_PREFS</id>
+        <text>Systeminställningar</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXPERT_OPTIONS</id>
+        <text>Expert-inställningar</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXPERT_PREFS_UPDATED</id>
+        <text>Inställningar sparades</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXPERT_WARNING</id>
+        <text>Kontrollerna på denna sida låter dig modifiera SwissCenters interna parametrar, detta skall endast göras av avancerade användare som vet exakt vad de gör. För mer information, se %s. [b]Använd på egen risk[/b].</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXPORT_PROMPT</id>
+        <text>Genom att klicka på nedanstående knapp sparas all konfigurations-data till en XML-fil som du då kan använda till att konfigurera om SwissCenter om det skulle bli nödvändigt att installera om SwissCenter eller skapa om databasen.[p][b]Notera:[/b] Denna funktion sparar inte detaljer om ljud, video eller fotografier som har katalogiserats av SwissCenter. Funktionen sparar heller inte information som har laddats ner från internet eller matats in manuellt.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXPORT_SETTINGS</id>
+        <text>Spara inställningar</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXPORT_SETTINGS_SUBMIT</id>
+        <text>Spara inställningar</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXPRESSION</id>
+        <text>Uttryck</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXTRAS_TEST_TITLE</id>
+        <text>Extra komponenter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXTRA_EXPORT_DETAILS</id>
+        <text>All extra information som tex. sammanfattning, skådespelare osv. kan exporteras till en XML sidecar-fil. Denna kan då användas för att återimportera detaljer när en databas skapas. Ovanstående alternativ 'Använd XML sidecar-filer' måste först vara 'Aktiverat'.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXTRA_EXPORT_GO</id>
+        <text>Exportera all extra information till XML</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXTRA_EXPORT_TITLE</id>
+        <text>Exportera extra information</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXTRA_REFRESH_DETAILS</id>
+        <text>Om du av någon anledning hamnar i en situation där du behöver uppdatera all film-information som var nedladdar från internet så kan du göra det genom att klicka på knappen här nedanför.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXTRA_REFRESH_GO</id>
+        <text>Uppdatera all extra information</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXTRA_REFRESH_TITLE</id>
+        <text>Uppdatera all extra film-information</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXTRA_REFRESH_WARNING</id>
+        <text>Observera dock att om du har fört in information manuellt med hjälp av %s-sidan så kommer denna information förloras.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_DOTNET2_INSTALLED</id>
+        <text>.NET Framevork version 2 måste vara installerat.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_LIVERADIO_TEST</id>
+        <text>LiveRadio-parsern verkar vara trasig</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_MIP_MIXABLE</id>
+        <text>MusicIP har endast analyserat en liten andel (&lt;50%) av din musik. MusicIP kommer trots detta att kunna skapa spellistor, men det kan hända att du upplever dem som väldigt inprecisa.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_MUSICIP_TEST</id>
+        <text>MusicIP är inte installerat (eller konfigurerat korrekt)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_MYSQL_CONNECT</id>
+        <text>Kan inte ansluta till MySQL-servern.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_MYSQL_DB</id>
+        <text>Kan inte ansluta till SwissCenter-databasen (har du skapat den?)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_MYSQL_VERSION</id>
+        <text>Din MySQL-version stöds inte.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_PHP_CLI</id>
+        <text>Du har ingen kommandolinje-version av PHP installerad. SwissCenter kommer inte kunna söka efter nya mediefiler.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_PHP_EXTRA_MODS</id>
+        <text>Alla rekommenderade PHP-moduler är inte tillgängliga. På grund av detta har några icke-kritiska funktioner inaktiverats (rekommenderade moduler är: [b]%s[/b]).</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_PHP_FONTS</id>
+        <text>Kan inte hitta TrueType-typsnitt. &quot;Nu spelas&quot;-skärmen kommer sakna spårinformation.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_PHP_FONT_SET</id>
+        <text>... men typsnittet verkar vara ogiltigt (eller otillgängligt)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_PHP_INI</id>
+        <text>Kan inte hitta 'php.ini'.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_PHP_REQ_MODS</id>
+        <text>Några av de PHP-moduler som krävs av SwissCenter saknas (rekommenderade moduler är: [b]%s[/b]).</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_PHP_VERSION</id>
+        <text>Din PHP-version stöds inte (%s)..</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_SERVER_SCHED</id>
+        <text>Bakgrundsuppgifter kan inte köra - detta kan bero på att cron (Linux) eller schemaläggnings-tjänsten (Windows) är inaktiverad.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_SHOUTCAST_TEST</id>
+        <text>ShoutCast-parsern verkar trasig</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_SWISSMONITOR_INSTALLED</id>
+        <text>SwissMonitor-tjänsten är inte installerad.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_SWISSMONITOR_RUNNING</id>
+        <text>SwissMonitor-tjänsten är installerad, men kör för närvarande inte.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_SWISS_CACHE</id>
+        <text>Kan inte skriva till SwissCenters mellanlagrings-mapp (%s).</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_SWISS_INI</id>
+        <text>Kan inte hitta 'swisscenter.ini'. [br]Har du skapat en SwissCenter-databas?</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_SWISS_LOCS</id>
+        <text>Inga medieplatser har definierats.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_SWISS_LOG</id>
+        <text>Kan inte skriva till SwissCenter-loggfilen (%s).</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_SWISS_PLAYLIST</id>
+        <text>Kan inte skriva till SwissCenters spellist-mapp (%s).</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAVORITES</id>
+        <text>Favoriter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILENAME</id>
+        <text>Filnamn</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILE_EXISTS</id>
+        <text>VARNING: En fil med detta namn existerar redan. Om du sparar nu kommer det att skriva över den redan existerande filen.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER</id>
+        <text>Filter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_ACTIVE_SUFFIX</id>
+        <text>(aktivt)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_CERT</id>
+        <text>Inget certifikat</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_DETAILS</id>
+        <text>Inga detaljer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_EPISODE</id>
+        <text>Inget avsnitt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_PROGRAMME</id>
+        <text>Inget program</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_RATING</id>
+        <text>Inget betyg</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_SERIES</id>
+        <text>Ingen serie</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_SYNOPSIS</id>
+        <text>Ingen sammanfattning</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_YEAR</id>
+        <text>Inget år</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_VIEWED</id>
+        <text>Avspelningsstatus</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_VIEWED_FINISHED</id>
+        <text>Helt avspelade</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_VIEWED_NONE</id>
+        <text>Ej avspelade</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_VIEWED_NOTFINISHED</id>
+        <text>Ej avspelade eller delvis avspelade</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_VIEWED_PLAYED</id>
+        <text>Delvis eller helt avspelade</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FINISHED</id>
+        <text>Klar</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_CONTACTS</id>
+        <text>Kontakter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_DESC</id>
+        <text>Flickr %s är en foto-hanterings- och foto-delningstjänst på internet. Det huvudsakliga målet med Flickr är att hjälpa människor att tillgängliggöra bilder för deras vänner och bekanta samt ge nya möjligheter att organisera bilder. Du kan bli medlem på Flickr helt gratis och börja dela bilder direkt.
+[p]SwissCenter kommer att låta dig titta på dina och dina kontakters fotografier.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_FAVORITES</id>
+        <text>Favoriter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_FILTER_BOTH</id>
+        <text>Filtrera vänner &amp; familj</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_FILTER_FAMILY</id>
+        <text>Filtrera familj</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_FILTER_FRIENDS</id>
+        <text>Filtrera vänner</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_FILTER_NEITHER</id>
+        <text>Inget filter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_INTERESTINGNESS</id>
+        <text>Popularitet</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_NO_USER</id>
+        <text>Ingen Flickr-användare angiven!</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_PHOTOS</id>
+        <text>Flickr-bilder</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_PHOTOSETS</id>
+        <text>Fotoalbum</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_PROMPT</id>
+        <text>Titta på dina och dina vänners Flickr-bilder.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_RETURN</id>
+        <text>Återgå till standardanvändaren</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_UNKNOWN_USER</id>
+        <text>Hittade ingen användare med det angivna användarnamnet (%s).</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_USERID_PROMPT</id>
+        <text>Alla SwissCenter-användare kan associeras med en Flickr-användare. Om du inte skriver in ditt Flickr-användarnamn kommer du inte kunna se dina kontakter och fotografier.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_USERNAMES</id>
+        <text>Flickr-användarnamn</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FONTWIDTH_MULTIPLIER</id>
+        <text>Breddfaktor för typsnitt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FONTWIDTH_MULTIPLIER_PROMPT</id>
+        <text>Detta val låter dig modifiera det maximala antalet tecken som skall visas i SwissCenter-menyerna. Värdet är beroende av det valda typsnittet och skall vara mellan [b]1.0[/b] (standard) och [b]2.2[/b].</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>GENRE</id>
+        <text>Genre</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>HOME</id>
+        <text>Hem</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>HOUR</id>
+        <text>Timma</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IMAGE_EXIF_ROTATE</id>
+        <text>Auto-rotera</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IMAGE_EXIF_ROTATE_PROMPT</id>
+        <text>De flesta moderna digitalkameror lagrar information om ifall kameran var i &quot;Landskap&quot;- eller &quot;Porträtt&quot;-läge när bilden togs. Om du aktiverar denna funktion kommer SwissCenter rotera fotografiet automatiskt innan det visas på skärmen.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IMAGE_LANDSCAPE_CROP</id>
+        <text>Beskär för att passa skärm</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IMAGE_LANDSCAPE_CROP_PROMPT</id>
+        <text>Som standard kommer SwissCenter centrera &quot;Landskap&quot;-fotografier och beskära dem för att passa TV:ns bildformat. Om du föredrar att hela bilden visas (med svarta fält ovanför och under) så skall du inaktivera denna funktion.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IMAGE_RESAMPLE</id>
+        <text>Resample (högre kvalitet)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IMAGE_RESIZE</id>
+        <text>Skala om (snabbare)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IMAGE_RESIZE_PROMPT</id>
+        <text>Välj vilken metod SwissCenter skall använda för att generera bilder i realtid.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IMAGE_RESIZE_TYPE</id>
+        <text>Bildgenerering</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IMAGE_SCALE_UP</id>
+        <text>Förstora bilder</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IMAGE_SCALE_UP_PROMPT</id>
+        <text>Om detta val är aktiverat kommer SwissCenter att förstora små bilder så att de fyller hela skärmen.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IMAGE_TRANSITIONS</id>
+        <text>Övergångseffekter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IMAGE_TRANS_PROMPT</id>
+        <text>Övergångseffekter tillgängliga för bildspel. Dessa effekter kan variera mellan olika spelare och vissa spelare kanske inte har några effekter alls.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IMPEXP_TITLE</id>
+        <text>Ladda/spara inställning</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IMPORT_FAILED</id>
+        <text>Ett fel uppstod under importen av den angivna inställningsfilen.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IMPORT_FILE</id>
+        <text>XML-inställningsfil</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IMPORT_PROMPT</id>
+        <text>För att återställa din konfiguration från en tidigare tidpunkt. välj din XML-inställningsfil nedan</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IMPORT_SETTINGS</id>
+        <text>ladda inställningar</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IMPORT_SUCCESS</id>
+        <text>Laddning av inställningarna lyckades.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IMP_LOC_CAT_MISSING</id>
+        <text>Misslyckades med att importera medieplats '%s' eftersom kategori 's' saknas.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IMP_LOC_CERT_MISSING</id>
+        <text>Misslyckades med att importera medieplats '%s' eftersom certifikat '%s' (Schema: %s) saknas.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IMP_LOC_TYPE_MISSING</id>
+        <text>Misslyckades med att importera medieplats '%s' eftersom medietyp '%s' saknas.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IMP_USER_CERT_MISSING</id>
+        <text>Misslyckades med att importera användare '%s' eftersom certifikat '%s' (Schema: %s) saknas.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>INFORMATION</id>
+        <text>Information</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>INSTALLATION_TESTS</id>
+        <text>Systemtest</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>INSTALLATION_TITLE</id>
+        <text>Installation</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>INSTALL_TEST_FAIL_CLI</id>
+        <text>Följande test misslyckades när det kördes i bakgrunden:</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>INSTALL_TEST_FAIL_WEB</id>
+        <text>Följande test misslyckades:</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>INSTALL_TEST_SUCCESS</id>
+        <text>Följande test lyckades:</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>INSTALL_TEST_TITLE</id>
+        <text>Installationskontroll</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>INTERNET_FEATURES</id>
+        <text>Internetfunktioner</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>INTERNET_RADIO</id>
+        <text>Internetradio</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>INTERNET_RADIO_PROMPT</id>
+        <text>Anslutningar till individuella radiokanaler sker direkt från ShowCenter-boxen när användaren begär detta, om din ShowCenter inte har direkt internetanslutning bör du deaktivera denna funktion.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>INTERNET_SERVICES</id>
+        <text>Internettjänster</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>INTERNET_SETTING</id>
+        <text>Internetanslutning</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>INTERNET_SETTING_PROMPT</id>
+        <text>Detta specificerar huruvida din PC har en internetanslutning som SwissCenter kan använda. Om du väljer 'Automatisk' så kommer SwissCenter att försöka hitta en internetanslutning automatiskt.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>INTERNET_TV</id>
+        <text>Internet-TV</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>INTERNET_TV_OPTIONS</id>
+        <text>Internet-TV</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>INTERNET_TV_PROMPT</id>
+        <text>Anslutning till individuella Internet-TV-kanaler kan göras när detta är aktiverat.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>INTERNET_URLS</id>
+        <text>Internetbokmärken</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IPTC_BYLINE</id>
+        <text>Författare</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IPTC_CAPTION</id>
+        <text>Beskrivning</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IPTC_CITY</id>
+        <text>Stad</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IPTC_COUNTRY</id>
+        <text>Land</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IPTC_DATE_CREATED</id>
+        <text>Publiceringsdatum</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IPTC_KEYWORDS</id>
+        <text>Nyckelord</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IPTC_LOCATION</id>
+        <text>Plats</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IPTC_PROVINCE_STATE</id>
+        <text>Provins/delstat</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IPTC_SUPPCATEGORY</id>
+        <text>Extra kategorier</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_ADD_PARAM</id>
+        <text>Lägg till en ny parameter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_ADD_PARAM_BUTTON</id>
+        <text>Lägg till parameter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_CACHE_EXPIRE</id>
+        <text>Tidsgräns för mellanlagring</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_CACHE_EXPIRE_PROMPT</id>
+        <text>SwissCenter kan mellanlagra kanalinformation, men eftersom kanallistan hela tiden kommer att ändras bör vi uppdatera den emellanåt. En timma (3600s) är en bra kompromiss.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_CLASS_SELECT</id>
+        <text>Välj radiotjänsten:</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_COUNTRIES</id>
+        <text>Länder</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_COUNTRY</id>
+        <text>Land</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_COUNTRY_PROMPT</id>
+        <text>Ange ett land du vill söka efter. Endast %s stödjer sökning efter land så besök hemsidan och leta upp giltiga länder. När du söker i ShoutCast söks det efter en titel som inkluderar namnet på landet.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_COUNTRY_SELECT</id>
+        <text>Välj landet att söka efter:</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_DELETE_PARAM_OK</id>
+        <text>De valda parametrarna har raderats</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_DEL_PARAM_BUTTON</id>
+        <text>Radera valda parametrar</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_ERROR_CACHE_EXPIRE</id>
+        <text>Du måste ange ett (numeriskt) värde för 'Tidsgräns för mellanlagring'! Om du vill stänga av denna funktion, välj 0 (noll).</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_ERROR_MAXNUM</id>
+        <text>Du måste ange ett (numeriskt) värde för 'Max kanaler/genre'!</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_ERROR_MAXNUM_ZERO</id>
+        <text>Du måste ange ett [b][i]numeriskt, icke-noll[/i][/b]-värde för 'Max kanaler/genrer'!</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_ERROR_PARAM</id>
+        <text>Skriv sökparametrar</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_GENRE</id>
+        <text>Genre</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_GENRES</id>
+        <text>Genrer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_GENRE_PROMPT</id>
+        <text>Ange en genre och en under-genre (valfritt) som du vill söka efter. Både %s och %s stödjer sökning enligt genre så besök hemsidan och leta upp giltiga genrer.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_LIVERADIO_DESC</id>
+        <text>LiveRadio (%s) är en internetradiotjänst som liknar ShoutCast. Den möjliggör sökning enligt medietyp, genre, kanalnamn, land och tom. stad - men många listade kanaler stöds inte av vissa hårdvaruspelare. Så LiveRadio-parsern som används av SwissCenter begränsar resultaten till att endast visa MP3-kanaler.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_LOGO</id>
+        <text>Bildfilnamn</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_MAINGENRE</id>
+        <text>Huvudgenre</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_MAINGENRE SELECT</id>
+        <text>Välj huvudgenre att söka efter:</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_MAX_STATIONS</id>
+        <text>Max kanaler/genre</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_MAX_STATIONS_PROMPT</id>
+        <text>Maximalt antal radiokanaler att hämta per genre. Fler är i detta fall [b]inte[/b] bättre: Är denna siffra för hög kommer det inte bara öka tiden det tar att hämta dem (och därför sannolikt orsaka time-out) utan även riskera orsaka att PHP får slut på minnet. Ett bra nummer är 24, reducera detta om du stöter på något av ovanstående problem.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_NO_STATIONS</id>
+        <text>Hittade inga kanaler.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_NO_STATIONS_MSG</id>
+        <text>Hittade inga kanaler som matchade din sökning efter '%s'</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_PARAM_ADDED_OK</id>
+        <text>Sökparametrar tillagda</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_PARAM_PROMPT</id>
+        <text>ShoutCast- och LiveRadio-funktionerna möjliggör sökning efter radiokanaler enligt kanal, genre och land. Här kan du definiera dina favoritsökkriterier.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_PARAM_TYPE</id>
+        <text>Sökparameter-typ</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_SEARCH</id>
+        <text>Sök efter kanaler</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_SHOUTCAST_DESC</id>
+        <text>ShoutCast (%s) är en internetradio-tjänst som tillhandahåller ljudströmmar som är uppspelningsbara för de flesta apparater (och program). Den möjliggör att söka enligt genre eller kanalnamn och returnerar många detaljer för varje hittad kanal, inklusive en spellist-länk. ShoutCast-parsern som SwissCenter använder tolkar HTML:en i sökresultatet för att visa den på ett sätt som är lätt att läsa även på en TV-skärm. Skulle dock ShoutCast-teamet ändra på sin sida kan det hända att den inte längre kommer att fungera. [p]Ibland låtsas ShoutCast att de inte har några kanaler enligt vår sökning, så om detta inträffar, försök att ladda om sidan igen för att försäkra dig om att felet inte är på den här sidan.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_STATION</id>
+        <text>Kanal</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_STATION_PROMPT</id>
+        <text>Ange ett kanalnamn du vill söka efter. En bild (valfritt) kan också anges, denna kommer då användas på &quot;Nu spelas&quot;-sidan för denna kanal. Bilden måste finnas i din [em]&quot;.../images/iradio/&quot;[/em]-mapp.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_STATION_SEARCH</id>
+        <text>Välj kanal att söka efter:</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_STATION_SELECT</id>
+        <text>Välj kanal att ratta in:</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_SUBGENRE</id>
+        <text>Under-genre</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_SUBGENRE_SELECT</id>
+        <text>Välj under-genren att söka efter:</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_UPDATE_PARAM_OK</id>
+        <text>Sökparametrar uppdaterade</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ITUNES_CONFIG_PROMPT</id>
+        <text>Ange den fullständiga sökvägen till din &quot;iTunes Music Library.xml&quot;-fil. Denna kommer användas att lägga till/ersätta din iTunes-spellista i SwissCenter.[p]I Windows kan detta tex. vara [em]&quot;C:\Documents and Settings\Robert\Min Musik\iTunes\iTunes Music Library.xml&quot;[/em]</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ITUNES_ERROR_INVALID</id>
+        <text>Jag är ledsen, men angiven fil måste vara &quot;iTunes Music Library.xml&quot;</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ITUNES_ERROR_PATH</id>
+        <text>Ange fullständig sökväg till din &quot;iTunes Music Library.xml&quot;</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ITUNES_LIBRARY</id>
+        <text>iTunes Library-fil</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>KEYBOARD_DEL</id>
+        <text>RADERA</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>KEYBOARD_SPC</id>
+        <text>MELLANSLAG</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANGUAGE</id>
+        <text>Svenska</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_ADD_BUTTON</id>
+        <text>Lägg till text</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_ADD_NEW</id>
+        <text>Lägg till ny text</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_CANCEL_BUTTON</id>
+        <text>Avbryt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_CHANGE</id>
+        <text>Ändra språk</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_DELETE_BUTTON</id>
+        <text>Radera vald text</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_DELETE_OK</id>
+        <text>Valda texter har raderats</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_EDIT</id>
+        <text>Redigera översättning</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_EDITOR</id>
+        <text>Språkeditor</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_ERROR_NO_SELECT</id>
+        <text>Du valde ingen text att radera</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_ISO639</id>
+        <text>ISO 639-1-kod</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_NATIVE</id>
+        <text>Språknamn</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_NEW</id>
+        <text>Lägg till nytt språk</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_NEW_BUTTON</id>
+        <text>Skapa nytt språk</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_NEW_EXISTS</id>
+        <text>Det språket finns redan</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_NEW_FAIL</id>
+        <text>Ange både språknamn och ISO-kod för att lägga till språk.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_NEW_OK</id>
+        <text>Språk tillagt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_NEW_PROMPT</id>
+        <text>Använd detta för att lägga till stöd för nya språk. Ange språkets namn, tex. Español (inte Spanska eller Spanish), och språkets motsvarande %s-kod (es).  Du kan också lägga till lokala språk som tex. en-us för English (US). Detta utgörs av ISO 639-1-koden (en) och region-koden (us).</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_PROMPT</id>
+        <text>Språkdefinitioner utgörs av att ett internt ID (tex: &quot;ADD_PLAYLIST&quot;) kopplas till den faktiska texten som skall visas. Texten kan innehålla ett begränsat antal formaterings-koder som indikeras med hakparenteser och fungerar på samma sätt som de HTML-funktioner de motsvarar.
+
+[p]  Följande koder stöds:
+[ul]
+[li]&amp;#91;br&amp;#93; - En radbrytning[/li]
+[li]&amp;#91;p&amp;#93;&amp;#91;/p&amp;#93; - En ny paragraf[/li]
+[li]&amp;#91;b&amp;#93;&amp;#91;/b&amp;#93; - Fet stil[/li]
+[li]&amp;#91;i&amp;#93;&amp;#91;/i&amp;#93; - Kursiv stil[/li] 
+[li]&amp;#91;em&amp;#93; and &amp;#91;/em&amp;#93; - Betoning[/li]
+[li]&amp;#91;ol&amp;#93;&amp;#91;/ol&amp;#93; - En sorterad lista[/li]
+[li]&amp;#91;ul&amp;#93;&amp;#91;/ul&amp;#93; - En osorterad lista[/li]
+[li]&amp;#91;li&amp;#93;&amp;#91;/li&amp;#93; - Alla objekt inom en sorterad eller osorterad lista[/li]
+[/ul]
+
+[p]Under vissa förutsättningar kan annan text behöva placeras ut dynamiskt. Platshållare för positionen i strängen där placeringen sker indikeras med '&amp;#37;s'. ID:t &quot;MANY_TRACKS&quot; innehåller tex. strängen &quot;'&amp;#37;s' spår&quot; och där ersätts '&amp;#37;s' med antalet spår som har hittas i databasen... så en sökning som returnerar 4 spår visas för användaren som &quot;4 spår&quot;;</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_SAVE_BUTTON</id>
+        <text>Spara ändringar</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_SELECT</id>
+        <text>Språk</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_TEXT</id>
+        <text>Text</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_TEXT_ID</id>
+        <text>Text Id</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_TRANS</id>
+        <text>Översättning</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_UPDATE_OK</id>
+        <text>Språkinformation uppdaterad</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LARGE_VIEW</id>
+        <text>Stor visning</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LASTFM</id>
+        <text>Last.FM</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LASTFM_ABOUT</id>
+        <text>Last.fm är världens största sociala musikplattform med över 20 miljoner användare från mer än 232 länder. Men hjälp av ett unikt musikrekommendations-system känt som &quot;Audioscrobbler&quot; bygger Last.fm upp en detaljerad profil av varje användares musiksmak genom att lagra detaljer om de spår användarna lyssnar på, antingen strömmat från radiokanaler eller användarens dator eller bärbara musikspelare. [p] Användare kan skapa egna radiokanaler och spellistor från vilket spår som helst i Last.fm:s musikbibliotek, men kan inte lyssna på individuella spår efter behag, eller ladda ner spår såvida inte upphovsrättsinnehavaren tidigare har tillåtit det. För att skapa en profil krävs det att man registrerar sig, men det är inte nödvändigt för att bläddra på hemsidan eller lyssna på radiokanaler.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LASTFM_ARTIST</id>
+        <text>Tillgängliga artister / grupper</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LASTFM_ENABLED_PROMPT</id>
+        <text>När den är aktiverad kan SwissCenter ansluta till Last.FM-hemsidan och komma åt personliga radiokanaler.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LASTFM_LOGIN_HEADINGS</id>
+        <text>Användare,LastFM[br]Användarnamn,LastFM[br]Lösenord,Scrobble?,Bilder?</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LASTFM_PROMPT_GENERAL</id>
+        <text>Bläddra bland kanaler</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LASTFM_PROMPT_PERSONAL</id>
+        <text>Dina personliga kanaler</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LASTFM_TAGS</id>
+        <text>Tillgängliga taggar</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LASTFM_WHATIS</id>
+        <text>Vad är LastFM?</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LENGTH_MM</id>
+        <text>mm</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LICENSE</id>
+        <text>GPL-licens</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LISTEN_LASTFM</id>
+        <text>Lyssna på Last.FM-kanal</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LISTEN_LASTFM_ARTISTS</id>
+        <text>Spela musik som liknar en artists eller grupps musik</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LISTEN_LASTFM_LOVED</id>
+        <text>Spela dina favoriter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LISTEN_LASTFM_MY_STATION</id>
+        <text>Spela din kanal</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LISTEN_LASTFM_NEIGHBOURHOOD</id>
+        <text>Spela närliggande kanaler</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LISTEN_LASTFM_RECOMMEND</id>
+        <text>Spela dina rekommendationer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LISTEN_LASTFM_TAGS</id>
+        <text>Spela musik med en specifik tag</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LISTEN_MUSIC</id>
+        <text>Lyssna på musik</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LISTEN_RADIO</id>
+        <text>Internetradio</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LIST_VIEW</id>
+        <text>Listvisning</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LOCATION</id>
+        <text>Plats</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LOCATION_ON_DISK</id>
+        <text>Plats på disk</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LOCATION_PROMPT</id>
+        <text>Ange fullständig  sökväg till platsen där din media finns. I Windows kan detta tex. vara [em]&quot;C:\Documents and Settings\Robert\Mina dokument\Min musik&quot;[/em] eller i ett Linux-system kan det vara [em]&quot;/home/Robert/Musik&quot;[/em]</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LOGFILE_ERROR</id>
+        <text>Kan inte skriva till loggfil:</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LOOKUP_FAILURE</id>
+        <text>Kan inte hitta filmdetaljer.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LOOKUP_MOVIE</id>
+        <text>Leta upp film</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LOOKUP_SUCCESS</id>
+        <text>Filmdetaljer är nedladdade och lagrade.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LOOKUP_TV</id>
+        <text>Slå upp TV-avsnitt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LOWERCASE</id>
+        <text>Gemener</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MACHINE_NAME</id>
+        <text>Maskinnamn</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MAIN_MENU</id>
+        <text>Huvudmeny</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MANAGE_PLAYLISTS</id>
+        <text>Hantera spellistor</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MANY_ITEMS</id>
+        <text>%s objekt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MANY_TRACKS</id>
+        <text>%s spår</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MAX_PLAYLIST_SIZE</id>
+        <text>Maximal storlek på spellistan</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MAX_PLAYLIST_SIZE_PROMPT</id>
+        <text>Ange maximal storlek för spellistor. Största tillåtna är 2000 p.g.a. begränsningar i spelare. Ett realistiskt val är runt 200.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_DELETED</id>
+        <text>Media raderad</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_LOCATIONS</id>
+        <text>Medieplatser</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ADD_BUTTON</id>
+        <text>Lägg till plats</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ADD_OK</id>
+        <text>Medieplats tillagd</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ADD_TITLE</id>
+        <text>Lägg till ny plats</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_DEL_BUTTON</id>
+        <text>Radera valda platser</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_DEL_OK</id>
+        <text>De valda mapparna har raderats</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ERROR_CAT</id>
+        <text>Välj en kategori</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ERROR_CERT</id>
+        <text>Väl standardcertifikat för media utan certifiering</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ERROR_DIRFAIL</id>
+        <text>Jag är ledsen, men mappen du angav finns inte</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ERROR_LOC</id>
+        <text>Ange en medieplats</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ERROR_PATH</id>
+        <text>Ange en komplett sökväg</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ERROR_SHARE</id>
+        <text>Välj en nätverksdelning</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ERROR_TYPE</id>
+        <text>Välj medietyp</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_HEADINGS</id>
+        <text>Typ, Kategori, Certifikat, Mapp, Nätverksdelning</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_UPDATE_OK</id>
+        <text>Uppdaterade medieplatsinformation</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_MANAGEMENT</id>
+        <text>Mediehantering</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_REFRESH</id>
+        <text>Sök efter ny media</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_OVERALL</id>
+        <text>Sökning slutförd</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_PROGRESS</id>
+        <text>Mediesöknings-förlopp</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS</id>
+        <text>Nuvarande status</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_CLEANUP</id>
+        <text>Rensar databas</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_COMPLETE</id>
+        <text>Färdig</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_ITUNES</id>
+        <text>Tolkar iTunes-biblioteket</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_MOVIE</id>
+        <text>Tolkar filmdetaljer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_PENDING</id>
+        <text>Väntande</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_RUNNING</id>
+        <text>Kör</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_TV</id>
+        <text>Tolkar TV-detaljer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_SEARCH_PROMPT</id>
+        <text>Genom att klicka på knappen nedanför startar du en bakgrundssökning av dina mediefiler. Media som inte längre finns på ditt system kommer att tas bort från databasen och ny eller ändrad media kommer att läggas till.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE</id>
+        <text>Medietyp</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_MUSIC</id>
+        <text>Ljud</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_PHOTO</id>
+        <text>Foto</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_PROMPT</id>
+        <text>Välj för viken typ av media denna plats skall genomsökas.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_RADIO</id>
+        <text>Radio</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_TV SERIES</id>
+        <text>TV-serier</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_VIDEO</id>
+        <text>Video</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_WEB</id>
+        <text>Webb</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MESSAGES</id>
+        <text>Meddelanden</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MESSAGES_DELETE</id>
+        <text>Radera detta meddelande</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MESSAGES_KEEP</id>
+        <text>Behåll detta meddelande</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MESSAGES_NONE</id>
+        <text>Det finns inga meddelanden att visa</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MESSAGES_SELECT</id>
+        <text>Välj meddelande att visa</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MESSAGES_VIEW</id>
+        <text>Visa meddelanden</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MESSAGE_STATUS_DELETED</id>
+        <text>Raderat</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MESSAGE_STATUS_NEW</id>
+        <text>Nytt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MESSAGE_STATUS_READ</id>
+        <text>Läst</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MINUTE</id>
+        <text>Minut</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MINUTES</id>
+        <text>%s minuter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MIP_DESC</id>
+        <text>MusicIP (tillgängligt gratis från %s) är en fantastisk programvara som analyserar din musiksamling och genererar ett &quot;akustiskt fingeravtryck&quot; av varje låt. Denna informationen används sedan till att generera en personlig spellista med liknande spår baserat på valda spår, artister eller album. [p]Om MusicIP är installerat på samma maskin som SwissCenter så kommer extra funktioner bli tillgängliga för att generera och lyssna på MusicIP-spellistor direkt från SwissCenter.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MIP_INVALID_PORT</id>
+        <text>MusicIP-server hittades inte på port %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MIP_MIX_SONG</id>
+        <text>Spela liknande spår</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MIP_NOT_FOUND</id>
+        <text>Hittar ingen MusicIP-server.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MIP_PORT</id>
+        <text>MusicIP-port</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MIP_PORT_PROMPT</id>
+        <text>Ange portnumret som MusicIP-servern lyssnar på. Om du inte har ändrat någonting så är standardporten 10002. [p][b]Notera:[/b] MusicIP måste vara installerat på samma maskin som SwissCenter.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MIP_REJECT</id>
+        <text>Upprepa artist</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MIP_REJECT_PROMPT</id>
+        <text>Du kan förhindra att samma artist spelas två gånger inom ramen för en tidsperiod (eller antal spår) genom att använda denna funktion.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MIP_SIZE</id>
+        <text>Storlek på spellistan</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MIP_SIZE_PROMPT</id>
+        <text>Antalet spår som MusicIP skall returnera som del av en spellista.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MIP_STYLE</id>
+        <text>Stil</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MIP_STYLE_PROMPT</id>
+        <text>Denna inställning låter dig ange hur nära artisternas stil inom blandningen skall matcha frö-sången. Ett högre nummer kommer troligtvis att resultera i endast ett fåtal olika artister medan ett lågt nummer kommer tillåta mer variation.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MIP_VARIETY</id>
+        <text>Variation</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MIP_VARIETY_PROMPT</id>
+        <text>Låter dig ange hur mycket variation du vill ha i din blandning. Ju högre nummer desto mer variation.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MIP_WHATIS</id>
+        <text>Vad är MusicIP?</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MISC_CONFIG_TITLE</id>
+        <text>Diverse inställningar</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MISC_FONTWIDTH_NOT_NUMBER</id>
+        <text>Breddfaktorn för typsnittet är inte ett nummer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MISC_FONTWIDTH_TOO_SMALL</id>
+        <text>Breddfaktorn för typsnittet är för liten</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MISC_TITLE</id>
+        <text>Diverse</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MISSING_DB_TEXT</id>
+        <text>Använd Konfigurationsverktyget för att skapa en databas.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MISSING_DB_TITLE</id>
+        <text>Du har inte skapat någon databas.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MISSING_INI_TEXT</id>
+        <text>Använd Konfigurationsverktyget för att skapa en konfigurationsfil.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MISSING_INI_TITLE</id>
+        <text>Din SwissCenter-konfigurationsfil saknas.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MISSING_MEDIA_TEXT</id>
+        <text>Använd Konfigurationsverktyget för att lägga till några medieplatser.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MISSING_MEDIA_TITLE</id>
+        <text>Du har inte definierat några medieplatser.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MISSING_PERMS_TEXT</id>
+        <text>Webbserver-användaren saknar läs/skriv-rättigheter till mappen där du har installerat SwissCenter.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MISSING_PERMS_TITLE</id>
+        <text>Installationen är felaktig</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MISSING_SCHED_TEXT</id>
+        <text>Windows-tjänsten &quot;Schemalagda aktiviteter&quot; krävs för att SwissCenter skall kunna söka efter mediefiler.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MISSING_SCHED_TITLE</id>
+        <text>&quot;Schemalagda aktiviteter&quot; är inte igång.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MISSING_SETUP_SQL</id>
+        <text>Filen &quot;Setup.sql&quot; saknas i SwissCenter-mappen.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MODULE_MISSING_LINUX</id>
+        <text>Modulen %s är inte laddad - du kan behöva kompilera om PHP med relevanta val aktiverade.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MODULE_MISSING_TITLE</id>
+        <text>En kritisk PHP-modul saknas</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MODULE_MISSING_WINDOWS</id>
+        <text>Modulen %s är inte laddad - vänligen aktivera den i php.ini.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MONTH</id>
+        <text>Månad</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MORE</id>
+        <text>[mer]</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MOST_POPULAR</id>
+        <text>Populärast</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MOST_RECENT</id>
+        <text>Senaste</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MOST_VIEWED</id>
+        <text>Mest visad</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MOVIE_ADD_BUTTON</id>
+        <text>Lägg till/uppdatera detaljer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MOVIE_ADD_PROMPT</id>
+        <text>Lägg till de detaljer du vill [em]lägga till[/em] samtliga filmer listade ovanför [br] (håll ned CTRL-tangenten för att markera flera val i listorna)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MOVIE_CHANGES_MADE</id>
+        <text>Ändringar utförda</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MOVIE_ERROR_NO_SELECT</id>
+        <text>Du valde ingen film att uppdatera</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MOVIE_EXTRA_DL_PROMPT</id>
+        <text>När nya filmer hittas under en &quot;Sökning efter ny media&quot; kommer SwissCenter använda filmens filnamn för att söka efter och ladda ner ytterligare filminformation (tex. Skådespelare, Regissörer osv.) från hemsidan du anger nedan.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MOVIE_EXTRA_DL_TITLE</id>
+        <text>Ladda ner extra filminformation</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MOVIE_EXTRA_EXPORT_OK</id>
+        <text>All extra filminformation exporteras till XML</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MOVIE_EXTRA_REFRESH_OK</id>
+        <text>All extra filminformation är schemalagd att uppdateras</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MOVIE_EXTRA_SITE_PROMPT</id>
+        <text>Ladda ner info från</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MOVIE_EXTRA_TITLE</id>
+        <text>Extra filminformation</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MOVIE_NEW_PROMPT</id>
+        <text>I fälten nedanför kan du lägga till Skådespelare, Regissör eller Genre om de inte redan finns med i listorna här ovanför. [br] För att lägga till mer än en kan du separera dem med kommatecken.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MOVIE_OPTIONS</id>
+        <text>Filmer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MOVIE_UPD_TEXT</id>
+        <text>Följande filmer kommer att uppdateras</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MOVIE_UPD_TTILE</id>
+        <text>Uppdatera filmer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MUSIC</id>
+        <text>Musik</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MUSIC_BEFORE_PREV</id>
+        <text>Innan dess</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MUSIC_PLAY_NEXT</id>
+        <text>Kommande</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MUSIC_PLAY_PREV</id>
+        <text>Spelades nyss</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MUSIC_PLAY_TIME</id>
+        <text>Speltid</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NAME</id>
+        <text>Namn</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NETWORK_SHARE</id>
+        <text>Nätverksdelning</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NETWORK_SHARE_MSG</id>
+        <text>Kunde inte hitta någon nätverksdelning. Om du har en NMT-spelare måste du sätta på den.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NETWORK_SHARE_PROMPT</id>
+        <text>Nätverksdelningen krävs endast om du har DVD-avbilder (iso, img osv.) på denna medieplats, och kan endast användas med en NMT-mediespelare. För att spela av DVD-avbilder måste du först sätta upp en SMB- eller NFS-nätverksdelning på din NMT-spelare för att möjliggöra åtkomst till dina DVD-avbilder, sedan måste du koppla nätverksdelningen med denna medieplats.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NEW</id>
+        <text>Nytt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NEWSUBSCRIPTIONVIDEOS</id>
+        <text>Nya filmer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NEW_MESSAGES</id>
+        <text>Nya meddelanden</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NEW_MESSAGES_PROMPT</id>
+        <text>En kontroll efter viktiga meddelanden gällande SwissCenter genomförs dagligen. Om nya meddelanden är tillgängliga för dig att läsa kommer en ikon att indikera detta på huvudmenyn.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NEXT</id>
+        <text>Nästa</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NO</id>
+        <text>Nej</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOTES</id>
+        <text>Noter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOT_RATED</id>
+        <text>Ej betygsatt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING</id>
+        <text>Nu spelas</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_FANART</id>
+        <text>Ladda ner Fanart</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_FANART_GOOGLE</id>
+        <text>Google bilder</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_FANART_LASTFM</id>
+        <text>Last.FM</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_FANART_NONE</id>
+        <text>Ingen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_FANART_PROMPT</id>
+        <text>Välj källan för fanart-bilderna att använda till den förbättrade &quot;Nu spelas&quot;-skärmen. Fanart-bilder lagras för varje enskild artist i tex. [em]swisscenter\fanart\artists\depeche mode[/em].[br]Ingen - SwissCenter kommer inte ladda ner någon fanart. Endast bilder som redan finns i din fanart-mapp kommer att användas.[br]Google - SwissCenter kommer att söka efter fanart med hjälp av Google bilder och ladda bilderna till din fanart-mapp.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_OPTIONS</id>
+        <text>Nu spelas-val</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_PROMPT</id>
+        <text>Vissa hårdvaruspelare kan visa en bild samtidigt som en spår spelas - detta sker automatiskt när titeln ändras. SwissCenter använder denna funktion för att visa detaljer om spåret som spelas.[p]I de allra flesta fall kan SwissCenter själv avgöra om din spelare stödjer detta, men om du får problem med det så kan du ställa in det manuellt.[p]Inställningarna betyder: Aktiverad - Spelaren begär motsvarande bild automatiskt. Inaktiverad - Spelaren begär inte bilder automatiskt utan SwissCenter instruerar den, med hjälp av spellistan, att begära en ny bild med ett givet intervall. Automatiskt - SwissCenter avgör.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_STYLE</id>
+        <text>Nu spelas-stil</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_STYLE_PROMPT</id>
+        <text>Den ursprungliga 'Nu spelas'-skärmen visar spårinformation med en albumbild som uppdateras med spårbyten. 
+Den förbättrade versionen visar spårinformation med en förloppsindikator och en fanart-bild som bakgrund. Denna funktion rekommenderas för NMT-användare. I NMT-inställningarna bör du ändra 'Bildövergång' (Photo Transition) till 'Ingen' (None).</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_SUPPORT</id>
+        <text>Nu spelas-synk</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NO_ITEMS_TO_DISPLAY</id>
+        <text>Det finns inga objekt att visa</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NO_PLAYLIST</id>
+        <text>Du har inte definierat någon spellista.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NO_SYNOPSIS_AVAILABLE</id>
+        <text>Sammanfattning saknas.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ONE_ITEM</id>
+        <text>1 objekt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ONE_TRACK</id>
+        <text>1 spår</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OPTIONS</id>
+        <text>Valmöjligheter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OR</id>
+        <text>- eller -</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ORG_TITLE</id>
+        <text>Redigera filmdetaljer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ORIGINAL</id>
+        <text>Original</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PAGE</id>
+        <text>Sida %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASSWORD</id>
+        <text>Lösenord</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_DOTNET2_INSTALLED</id>
+        <text>.NET Framework version 2 är installerat.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_LIVERADIO_TEST</id>
+        <text>LiveRadio-parsern verkar fungera tillfredsställande</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_MIP_MIXABLE</id>
+        <text>Mer än 50% av din musik har analyserats av MusicIP</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_MUSICIP_TEST</id>
+        <text>MusicIP-tjänst upptäckt.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_MYSQL_CONNECT</id>
+        <text>Anslutningen till MySQL-serven lyckades.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_MYSQL_DB</id>
+        <text>Anslutningen till SwissCenter-databasen lyckades.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_MYSQL_VERSION</id>
+        <text>Din version av MySQL stöds.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_PHP_CLI</id>
+        <text>En kommandolinje-version av PHP har hittats.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_PHP_EXTRA_MODS</id>
+        <text>Alla rekommenderade PHP-moduler är tillgängliga.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_PHP_FONTS</id>
+        <text>Hittade ett TrueType-typsnitt att använda till att generera &quot;Nu spelas&quot;-bilder.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_PHP_INI</id>
+        <text>Hittade 'php.ini'.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_PHP_REQ_MODS</id>
+        <text>Alla kritiska PHP-moduler är tillgängliga.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_PHP_VERSION</id>
+        <text>Din version av PHP stöds.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_SERVER_SCHED</id>
+        <text>Automatisk sökning efter ny media stöds.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_SHOUTCAST_TEST</id>
+        <text>ShoutCast-parsern verkar fungera tillfredsställande</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_SWISSMONITOR_INSTALLED</id>
+        <text>SwissMonitor-tjänsten är installerad.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_SWISSMONITOR_RUNNING</id>
+        <text>SwissMonitor-tjänsten kör.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_CACHE</id>
+        <text>SwissCenter kan läsa/skriva till sin mellanlagrings-mapp.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_INI</id>
+        <text>Hittade 'swisscenter.ini'.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_LOCS</id>
+        <text>Medieplatser har definierats.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_LOG</id>
+        <text>Loggning aktiverad.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_PLAYLIST</id>
+        <text>SwissCenter kan läsa/skriva till sin spellist-mapp.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_ROOT_INS</id>
+        <text>Installationen gjordes inte av root.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_RW_FILES</id>
+        <text>SwissCenter kan läsa/skriva till sin installations-mapp.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PC_LINK_BACK</id>
+        <text>Bakåt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PC_LINK_CONFIG</id>
+        <text>Konfig...</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PC_LINK_HOME</id>
+        <text>Hem</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PC_LINK_INTERNET</id>
+        <text>Internet</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PC_LINK_MOVIES</id>
+        <text>Filmer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PC_LINK_MUSIC</id>
+        <text>Musik</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PC_LINK_PHOTOS</id>
+        <text>Foton</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PC_LINK_TV</id>
+        <text>TV-serier</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PERCENT_SCANNED</id>
+        <text>%s genomsökt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PGDN</id>
+        <text>En sida ner</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PGUP</id>
+        <text>En sida upp</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PHOTOS</id>
+        <text>Foton</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PHOTOS_MUSIC_CHANGE</id>
+        <text>Ändra bakgrundsmusik</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PHOTOS_MUSIC_CURRENT</id>
+        <text>Nuvarande spellista</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PHOTOS_MUSIC_INFO</id>
+        <text>Bakgrundsmusik</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PHOTOS_MUSIC_NONE</id>
+        <text>Ingen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PHOTOS_NO_SELECTED</id>
+        <text>Antal foton</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PHOTOS_TIME_ALL</id>
+        <text>Total speltid</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PHOTOS_TIME_ONE</id>
+        <text>Tid per foto</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PHOTO_ALBUM</id>
+        <text>Fotoalbum</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PHOTO_CHANGE_ORDER</id>
+        <text>Ändra spelordning</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PHOTO_CHANGE_TIME</id>
+        <text>Ändra tid per foto</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PHOTO_ORDER_DATE_DISK</id>
+        <text>Modifieringsdatum</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PHOTO_ORDER_DATE_RANDOM</id>
+        <text>Slumpvis</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PHOTO_ORDER_DATE_TAKEN</id>
+        <text>Fotograferingsdatum</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PHOTO_ORDER_NAME</id>
+        <text>Namn</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PHOTO_PLAY_ORDER</id>
+        <text>Spelordning</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PHOTO_TITLE</id>
+        <text>Titel</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PHP_VERSION_TEXT</id>
+        <text>Du måste ha minst PHP version 4.3.9 installerat</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PHP_VERSION_TITLE</id>
+        <text>Din PHP-version är för gammal.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PIN_CHANGE</id>
+        <text>Ändra PIN</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PIN_CHANGED</id>
+        <text>Ditt PIN-nummer har ändrats.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PIN_CLEAR</id>
+        <text>Rensa PIN</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PIN_CONFIRM_NEW</id>
+        <text>Bekräfta din nya PIN</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PIN_DELETE_LAST</id>
+        <text>Radera sista siffran</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PIN_ENTER</id>
+        <text>Mata in PIN</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PIN_ENTER_NEW</id>
+        <text>Mata in din nya PIN</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PIN_ENTER_OLD</id>
+        <text>Mata in din gamla PIN</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PIN_ENTER_PROMPT</id>
+        <text>Mata in din PIN med hjälp av sifferknapparna på din fjärrkontroll</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PIN_INCORRECT</id>
+        <text>Felaktig PIN</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PIN_MAXLEN</id>
+        <text>Maximal PIN-längd uppnådd</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PIN_MISMATCH</id>
+        <text>PIN-numren matchade inte varandra, ändrade inte</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAY</id>
+        <text>Spela av</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLISTS</id>
+        <text>Spellistor</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLISTS_CONFIG_PROMPT</id>
+        <text>Ange fullständig sökväg till platsen där SwissCenter skall spellistorna.  I Windows kan detta tex. vara [em]&quot;C:\Documents and Settings\Robert\Mina dokument\Mina spellistor&quot;[/em] eller i ett Linux-system kan det vara [em]&quot;/home/Robert/Spellistor&quot;[/em]</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLISTS_ERROR_DIR</id>
+        <text>Välj en plats för spellistor</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLISTS_ERROR_INVALID</id>
+        <text>Jag är ledsen, men mappen du angav finns inte</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLISTS_ERROR_PATH</id>
+        <text>Ange fullständig sökväg</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLISTS_ERROR_SIZE</id>
+        <text>Ange en giltig maximal storlek på spellistan (mellan 10 och 2000)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLIST_APPEND</id>
+        <text>Lägg till en annan spellista</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLIST_AUTOLOAD</id>
+        <text>Spellista att ladda automatiskt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLIST_AUTOLOAD_PROMPT</id>
+        <text>Välj en spellista som skall laddas automatiskt under uppstart. Detta är användbart om du märker att du alltid väljer samma spellista som bakgrundsmusik innan du tittar på fotografier.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLIST_CLEAR</id>
+        <text>Rensa spellistan</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLIST_DELETE</id>
+        <text>Radera spellista</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLIST_DELETED</id>
+        <text>Spellistan raderades</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLIST_DELETE_CONFIRM</id>
+        <text>Radera spellistan?</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLIST_EDIT</id>
+        <text>Redigera spellistan</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLIST_LOAD</id>
+        <text>Ladda spellista</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLIST_LOAD_FAIL</id>
+        <text>Spellistan laddade %s spår, %s hittades inte i databasen.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLIST_LOAD_NEW</id>
+        <text>Ladda en ny spellista</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLIST_LOAD_OK</id>
+        <text>Spellistan laddades felfritt.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLIST_NAME_CANCEL</id>
+        <text>Avbryt - Spara inte</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLIST_NAME_USE</id>
+        <text>Spara med detta filnamn</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLIST_SAVE</id>
+        <text>Spara spellista</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLIST_SAVE_CURRENT</id>
+        <text>Spara nuvarande spellista</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLIST_SAVE_PROMPT</id>
+        <text>Ange namnet du vill använda på din spellista</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAY_NOW</id>
+        <text>Spela nu</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAY_TRAILER</id>
+        <text>Visa trailer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLEASE_SELECT</id>
+        <text>Välj</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PRESS_KEY_NOW</id>
+        <text>Tryck '%s' nu!</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PREVIOUS</id>
+        <text>Föregående</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PRIORITY</id>
+        <text>Prioritet</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PRIVACY_COMMUNICATION</id>
+        <text>[b]Oönskade e-post-/meddelanden[/b]  [p][ul][li]Vi skickar aldrig oönskade e-postmeddelanden.[li]Meddelanden nedladdade till SwissCenter kommer alltid relatera till möjligheter och handhavande av programmet. Om du vill så kan du undvika att dessa meddelanden laddas ner genom att inaktivera &quot;Nya meddelanden&quot; under sektionen 'Internetanslutning'.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PRIVACY_DATA_COLLECTION</id>
+        <text>[b]Datainsamling[/b] [p]Information relaterad till mediefilerna på din maskin samlas in och lagras i en MySQL-databas som finns på samma dator SwissCenter är installerat på. Denna information används för att ge dig ett gränssnitt till dina mediefiler på apparater som tex. Pinnacle ShowCenter. Denna information skickas aldrig till upphovsmännen bakom SwissCenter eller någon annan. [p]Det finns ett undantag från ovanstående:- För att komma över filminformation (tex. skådespelare, regissör osv.) används filnamnen som en del av en söksträng till hemsidan som är angiven på %s-sidan. Om du föredrar att inte skicka denna information bör du inaktivera &quot;Ladda ner extra filminformation&quot;.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PRIVACY_POLICY</id>
+        <text>Personlig integritet</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PROGRAMME</id>
+        <text>Program</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PROGRAMME_LIST_ALL</id>
+        <text>Alla program</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>QUICK_HOME</id>
+        <text>Snabbknapp Hem</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>QUICK_KEY_A</id>
+        <text>Snabbknapp A</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>QUICK_KEY_B</id>
+        <text>Snabbknapp B</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>QUICK_KEY_C</id>
+        <text>Snabbknapp C</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>QUICK_MOVIE</id>
+        <text>Snabbknapp Film</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>QUICK_MUSIC</id>
+        <text>Snabbknapp Musik</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>QUICK_PHOTO</id>
+        <text>Snabbknapp Foto</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>QUICK_PLAY</id>
+        <text>Spela snabbt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RANGE</id>
+        <text>Omfång</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RATING</id>
+        <text>Betyg</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RATING_SCHEME_PROMPT</id>
+        <text>Certifikatschema</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENTLY_ADDED</id>
+        <text>Nyligen tillagt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENTLY_ADDED_DAYS</id>
+        <text>Inom de senaste %s dagarna</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENTLY_FEATURED</id>
+        <text>Nyligen i fokus</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_MEDIA</id>
+        <text>Nyligen tillagt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_MUSIC</id>
+        <text>Musik</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_PHOTO</id>
+        <text>Fotografier</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_VIDEO</id>
+        <text>Film</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFERENCE</id>
+        <text>Referens</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFINE_ACTOR</id>
+        <text>Förfina enligt skådespelare</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFINE_ALBUM</id>
+        <text>Förfina enligt album</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFINE_ARTIST</id>
+        <text>Förfina enligt artist</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFINE_CERTIFICATE</id>
+        <text>Förfina enligt certifikat</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFINE_DIRECTOR</id>
+        <text>Förfina enligt regissör</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFINE_GENRE</id>
+        <text>Förfina genre</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFINE_IPTC_BYLINE</id>
+        <text>Förfina enligt författare</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFINE_IPTC_CAPTION</id>
+        <text>Förfina enligt beskrivning</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFINE_IPTC_CITY</id>
+        <text>Förfina enligt stad</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFINE_IPTC_COUNTRY</id>
+        <text>Förfina enligt land</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFINE_IPTC_DATE_CREATED</id>
+        <text>Förfina enligt datumstämpel</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFINE_IPTC_KEYWORDS</id>
+        <text>Förfina enligt nyckelord</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFINE_IPTC_LOCATION</id>
+        <text>Förfina enligt plats</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFINE_IPTC_PROVINCE_STATE</id>
+        <text>Förfina enligt provins/delstat</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFINE_IPTC_SUPPCATEGORY</id>
+        <text>Förfina enligt extra kategorier</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFINE_PHOTO_ALBUM</id>
+        <text>Förfina enligt fotoalbum</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFINE_PHOTO_TITLE</id>
+        <text>Förfina enligt fototitel</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFINE_TITLE</id>
+        <text>Förfina enligt titel</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFINE_XMP_RATING</id>
+        <text>Förfina enligt betyg</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFINE_YEAR</id>
+        <text>Förfina enligt release-datum</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFRESH_CLEANUP</id>
+        <text>Städa databasen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFRESH_CLEANUP_PROMPT</id>
+        <text>Städning av databasen tar bort alla saknade referenser, som tex. media som inte länge finns på en medieplats eller skådespelare/regissörer som det inte längre refereras till. Detta kommer göra att mediesökningen tar längre tid och bör endast göras om media har tagits bort.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFRESH_DATABASE</id>
+        <text>Uppdatera databasen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFRESH_DATABASE_PROMPT</id>
+        <text>Söker efter ny media</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFRESH_DIR</id>
+        <text>Uppdaterar</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFRESH_DIR_BUTTON</id>
+        <text>Uppdatera</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFRESH_DIR_TEXT</id>
+        <text>SwissCenter söker efter ny eller uppdaterad media och lägger in det i databasen. Detta kan ta en stund, så var tålmodig.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFRESH_ITUNES</id>
+        <text>Sök i iTunes-bibliotek</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFRESH_ITUNES_PROMPT</id>
+        <text>Markera detta val för att inkludera genomsökning av ditt iTunes-bibliotek med Sökning efter ny media.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFRESH_METADATA</id>
+        <text>Uppdatera metadata</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFRESH_METADATA_PROMPT</id>
+        <text>Markera detta val för att tvinga all metadata att uppdateras. Detta bör endast göras efter en uppdatering av SwissCenter som introducerar nya metadata-funktioner.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFRESH_RUNNING</id>
+        <text>Databasuppdateringen har startats i bakgrunden och du kan fortsätta använda systemet som vanligt. Du bör dock vara medveten om att alla mediefiler inte kommer att vara tillgängliga för avspelning förrän uppdateringen är helt slutförd. [p]Den första uppdateringen kan ta uppskattningsvis 10 minuter per 5,000 mediefiler på ditt system. Efterföljande uppdateringar är dock betydligt snabbare.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REMOTE_ACCESS_ERROR</id>
+        <text>Fjärråtkomst till [em]SwissCenters Konfigurationsverktyg[/em] är inaktiverat av säkerhetskäl.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REMOTE_PROMPT</id>
+        <text>Välj funktionsknapp att ändra:</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REMOVE_FILTER</id>
+        <text>Ta bort filter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RESUME_PLAYING</id>
+        <text>Fortsätt spela</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RETURN_MAIN_MENU</id>
+        <text>Återvänd till huvudmenyn</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RETURN_TO_LIST</id>
+        <text>Återvänd till listan</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RETURN_TO_SELECTION</id>
+        <text>Återvänd till val</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ROOT_INSTALL_TEXT</id>
+        <text>Du skall installera SwissCenter som webbserveranvändare - &quot;root&quot;-installationer stöds inte.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ROOT_INSTALL_TITLE</id>
+        <text>Installationen genomfördes som &quot;root&quot;</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RSS_ADD_BUTTON</id>
+        <text>Lägg till RSS-flöde</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RSS_ADD_OK</id>
+        <text>RSS-flöde tillagt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RSS_ADD_TITLE</id>
+        <text>Lägg till ett nytt RSS-flöde</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RSS_AUDIO</id>
+        <text>Ljud</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RSS_CACHE</id>
+        <text>Mellanlagring</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RSS_CACHE_LABEL</id>
+        <text>Ange hur många objekt detta flöde skall mellanlagra. När denna begränsning har nåtts kommer de äldre objekten att raderas. Ange '0' för att behålla alla objekt.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RSS_DEL_BUTTON</id>
+        <text>Radera valda RSS-flöden</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RSS_DEL_OK</id>
+        <text>De valda RSS-flödena har raderats</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_CACHE</id>
+        <text>Ange hur många objekt som skall mellanlagras för RSS-flödet</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_TITLE</id>
+        <text>Ange en titel för RSS-flödet</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_TYPE</id>
+        <text>Välj typ för RSS-flödet</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_URL</id>
+        <text>Ange adressen till RSS-flödet</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RSS_FEEDS</id>
+        <text>RSS-flöden</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RSS_FEED_PROMPT</id>
+        <text>Denna funktion låter dig använda SwissCenter för att titta på RSS-flöden, inklusive ljud- och video-podcasts.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RSS_IMAGE</id>
+        <text>Bild</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RSS_ITEM_URL</id>
+        <text>Gå till adress</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RSS_LAST_UPDATED</id>
+        <text>Senast uppdaterad:</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RSS_PLAY_LINK</id>
+        <text>Spela upp länkad fil</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RSS_REFRESH</id>
+        <text>Uppdatera RSS-flöde(n)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RSS_TITLE</id>
+        <text>Titel</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RSS_TYPE</id>
+        <text>Typ</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RSS_UPDATE</id>
+        <text>SwissCenter uppdaterar nu dina RSS-flöden. Detta kan ta en stund, var tålmodig.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RSS_UPDATE_OK</id>
+        <text>RSS-information uppdaterad</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RSS_URL</id>
+        <text>Adress</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RSS_VIDEO</id>
+        <text>Video</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RUNNING_TIME</id>
+        <text>Speltid</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SAVE_SETTINGS</id>
+        <text>Spara inställningar</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SAVE_SETTINGS_OK</id>
+        <text>Inställningar sparade</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_AUTO_TITLE</id>
+        <text>Automatisk medieuppdatering</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_AUTO_TXT</id>
+        <text>En sökning efter ny media kommer genomföras vid angiven tidpunkt för de dagar som specificeras nedan. Du rekommenderas att välja en tidpunkt då sannolikheten att du använder din dator är så låg som möjligt.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_DATE_PROMPT</id>
+        <text>Dag i månaden</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_ERROR_CHARS</id>
+        <text>Giltiga tecken är %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_ERROR_FIELDS</id>
+        <text>Du måste alltid ange ett värde för minut</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_ERROR_HOUR</id>
+        <text>Ange ett giltigt värde för timma (mellan 0 och 23)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_ERROR_MIN</id>
+        <text>Ange ett giltigt värde för minut (mellan 0 och 59)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_HOUR_PROMPT</id>
+        <text>Timman på dagen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_MINUTE_PROMPT</id>
+        <text>Minuter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_MONTH_PROMPT</id>
+        <text>1 = Januari, 2 = Februari osv.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_NONE</id>
+        <text>Automatisk medieuppdatering - Inte längre aktiv</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_NOTES</id>
+        <text>[li]* anger alla möjliga värden.[li]Flera värden kan anges med ett kommatecken (1,5). [li]Ett omfång kan anges med ett bindesträck (1-5). [li]Båda kan anges tillsammans (1-4,7).</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_TITLE</id>
+        <text>Schemaläggning</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_UPDATED</id>
+        <text>Automatisk medieuppdatering - Schema uppdaterat</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_UPDATE_BUTTON</id>
+        <text>Uppdatera schema</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_WEEKDAY_PROMPT</id>
+        <text>1 = Måndag, 2 = Tisdag osv.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SEARCH</id>
+        <text>Sök</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SEARCH_ANYWHERE</id>
+        <text>Var som helst i namnet</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SEARCH_CLEAR</id>
+        <text>Rensa sökning</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SEARCH_NO</id>
+        <text>Nej, gör en ny sökning</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SEARCH_NO_ITEMS</id>
+        <text>Inga objekt matchar din sökning</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SEARCH_START</id>
+        <text>Början av namnet</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SEARCH_WIKIPEDIA</id>
+        <text>Slå upp på Wikipedia</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SEARCH_YES</id>
+        <text>Ja, sök ändå</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SECONDS</id>
+        <text>%s sekunder</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SELECT_ALL</id>
+        <text>Välj alla</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SELECT_CATEGORY</id>
+        <text>Välj en kategori från listan:</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SELECT_ENTIRE_ALBUM</id>
+        <text>Välj hela albumet</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SELECT_RSS_FEED</id>
+        <text>Välj ett RSS-flöde från listan:</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SELECT_USER</id>
+        <text>Välj en användare från listan:</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SERIES</id>
+        <text>Säsong</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SERVICE_INSTALL</id>
+        <text>Installera tjänst</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SERVICE_START</id>
+        <text>Starta tjänst</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SERVICE_STOP</id>
+        <text>Stoppa tjänst</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SERVICE_UNINSTALL</id>
+        <text>Avinstallera tjänst</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SETUP</id>
+        <text>Konfiguration</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SETUP_CHANGE_UI</id>
+        <text>Byt användargränssnitt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SETUP_REMOTE</id>
+        <text>Fjärrkontrollsinställning</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SETUP_SEARCH_ALL</id>
+        <text>Sök på alla platser</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SETUP_SEARCH_CATEGORY</id>
+        <text>Sök efter en specifik kategori</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SETUP_SEARCH_NEW_MEDIA</id>
+        <text>Sök efter ny media</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SETUP_SEARCH_TYPE</id>
+        <text>Sök efter en specifik medietyp</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SETUP_SEARCH_TYPE_TITLE</id>
+        <text>Välj medietyp</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SETUP_TITLE</id>
+        <text>Konfiguration och inställningar</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SETUP_UPDATE_SC</id>
+        <text>Uppdatera SwissCenter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SETUP_UPDATE_SC_RELEASE</id>
+        <text>Uppdatera till den senaste stabila releasen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SETUP_UPDATE_SC_SVN</id>
+        <text>Uppdatera till den senaste utvecklings-releasen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SHUFFLE_OFF</id>
+        <text>Inaktivera blanda</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SHUFFLE_ON</id>
+        <text>Aktivera blanda</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SIMESE_SCHED_PROMPT</id>
+        <text>Du kan schemalägga automatisk uppdatering av SwissCenter-databasen genom att högerklicka på Simese-ikonen i aktivitetsfältet och välja [i]Update Media Scheduler[/i].</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SLIDESHOW</id>
+        <text>Bildspel</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_BITRATE</id>
+        <text>Sortera enligt bithastighet</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_CATEGORY</id>
+        <text>Sortera enligt kategori</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_DATE</id>
+        <text>Sortera enligt datum</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_FAVORITE</id>
+        <text>Sortera enligt favoriter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_ID</id>
+        <text>Sortera enligt senaste</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_NAME</id>
+        <text>Sortera enligt namn</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_RATING</id>
+        <text>Sortera enligt betyg</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_TIME</id>
+        <text>Sortera enligt tid</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_VIEWS</id>
+        <text>Sortera enligt visningar</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SPOKEN_LANGUAGE</id>
+        <text>Språk</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>STARRING</id>
+        <text>Medverkande</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>START_OF_NAME</id>
+        <text>Början av namnet</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>START_SLIDESHOW</id>
+        <text>Starta bildspel</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>STATISTICS</id>
+        <text>Statistik</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>STATUS</id>
+        <text>Status</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>STYLE_CHECK_ONLINE</id>
+        <text>Ladda ner stilar från %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>STYLE_CHOOSE</id>
+        <text>Välj stil</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>STYLE_DOWNLOAD</id>
+        <text>Ladda ner stil</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>STYLE_DOWNLOADING</id>
+        <text>Laddar ner stil - Vänta.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>STYLE_NONE_AVAILABLE</id>
+        <text>Det finns inga stilar</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>STYLE_SHOW_INSTALLED</id>
+        <text>Visa installerade stilar</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SUBSCRIPTIONS</id>
+        <text>Prenumerationer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SUPPORT_CLIENTS_TITLE</id>
+        <text>Upptäckta klienter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SUPPORT_CLINTS_TABLE</id>
+        <text>IP-adress, Agent-sträng</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SUPPORT_DB_CONN_TABLE</id>
+        <text>Anslutningsdetaljer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SUPPORT_DB_DB_LIST</id>
+        <text>Databaser</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SUPPORT_DB_TABLE_LIST</id>
+        <text>Tabell, Rader</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SUPPORT_DB_TITLE</id>
+        <text>Databasinställningar</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SUPPORT_PROG_HEADINGS</id>
+        <text>Program, Plats</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SUPPORT_PROG_TITLE</id>
+        <text>Programplatser</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SUPPORT_SYSPREF_TABLE</id>
+        <text>Val, Inställningar</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SUPPORT_SYSPREF_TITLE</id>
+        <text>Systeminställningar</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SUPPORT_TITLE</id>
+        <text>Support-information</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SUPPORT_TXT</id>
+        <text>Om du har problem med SwissCenter posta gärna en beskrivning av problemet och annan relevant information (som tex. operativsystem) i [em]Hjälpforumet (Help Forum)[/em] på %s-webbplatsen.  [p] Samtlig eller delar av informationen nedan kan komma att efterfrågas för att kunna felsöka ditt problem.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SUPPORT_USRPREF_TABLE</id>
+        <text>Användare, Val, Inställningar</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SUPPORT_USRPREF_TITLE</id>
+        <text>Användarinställningar</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_ACTION_FAILED</id>
+        <text>SwissCenter kunde inte utföra handlingen - titta i support.log.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_ACTION_SUCCESS</id>
+        <text>Uppdraget vidarebefordrades framgångsrikt till SwissMonitor-tjänsten.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_DESCRIPTION</id>
+        <text>SwissMonitor-tjänsten är en enkel Windows-tjänst som bevakar dina definierade medieplatser efter ändringar av filer (inklusive när filer läggs till eller raderas) och informerar SwissCenter om detta så att din databas kan hållas uppdaterad. Detta eliminerar dock inte behovet av att köra schemalagd uppdatering eftersom det kan finnas vissa omständigheter där ändringar inte upptäcks.[p][n]Notera[/b] Om du använder UNC-sökvägar i dina medieplatser (tex. &quot;\\nas\movies&quot;) så måste du använda 'Tjänster' på Kontrollpanelen i Windows och ändra så att SwissMonitor körs av ditt användarkonto.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_TITLE</id>
+        <text>SwissMonitor-tjänst</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SYNOPSIS</id>
+        <text>Sammanfattning</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SYSPREF_ADD_NEW</id>
+        <text>Lägg till en systemparameter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SYSPREF_DEL_BUTTON</id>
+        <text>Radera valda parametrar</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SYSPREF_EDIT_EXISTING</id>
+        <text>Redigera en systemparameter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TAG</id>
+        <text>Tag</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TASK_SCHEDULER</id>
+        <text>Tjänst-schemaläggare</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEMES</id>
+        <text>Teman</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEMES_PROMPT</id>
+        <text>Teman laddas automatiskt ner för filmer och TV-serier av parsern till &quot;themoviedb&quot; och &quot;TheTVDB&quot; när detaljer läggs till för ny media. Välj titel från rullgardinen och välj sedan tema från de tillgängliga miniatyrbilderna. För att använda valt tema måste du markera ett 'Använd på ...&quot;-val. Om flera teman är valda för en titel så kommer de användas slumpmässigt på vald sida.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_APPLY</id>
+        <text>Verkställ temainställning</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_EFFECTS</id>
+        <text>Effekter:</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_FLIP_IMAGE</id>
+        <text>Spegelvänd bild</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_GREYSCALE</id>
+        <text>Gråskala</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_ON_SERIES</id>
+        <text>Använd på sidan för avsnitt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_ON_SYNOPSIS</id>
+        <text>Använd på sammanfattningssidan</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_PREVIEW_THUMBS</id>
+        <text>Förhandsgranska tillgängliga teman för %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_SAVED_SUCCESS</id>
+        <text></text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_SETTINGS</id>
+        <text>Inställningar:</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_SHOW_BANNER</id>
+        <text>Visa banderoll</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_SHOW_IMAGE</id>
+        <text>Visa bild</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THIS_MONTH</id>
+        <text>Denna månad</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THIS_WEEK</id>
+        <text>Denna vecka</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THUMBNAIL_VIEW</id>
+        <text>Miniatyrvisning</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TIME</id>
+        <text>Klockslag</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TIME_DAY_SHORT</id>
+        <text>d</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TIME_HOUR_SHORT</id>
+        <text>t</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TIME_MINUTE_SHORT</id>
+        <text>m</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TIME_SECOND_SHORT</id>
+        <text>s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TITLE</id>
+        <text>Titel</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TODAY</id>
+        <text>Idag</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_BROWSE_CATEGORY</id>
+        <text>Filtrera enligt kategori</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_BROWSE_CHANNELS</id>
+        <text>Bläddra bland kanaler</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_BROWSE_COUNTRY</id>
+        <text>Filtrera enligt land</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_CHANNELS_AVAILABLE</id>
+        <text>Det finns %s kanaler tillgängliga med valt filter.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_CHANNELS_UPDATE_MSG</id>
+        <text>Uppdaterar kanallistan - Vänta</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_INTERNET_TV</id>
+        <text>TOMA - Internet-TV</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_MEDIA_TYPES</id>
+        <text>Medietyper</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_MEDIA_TYPES_PROMPT</id>
+        <text>Välj medietyper som skall vara tillgängliga när du bläddrar bland kanaler. Du bör endast välja sådana som du vet är kompatibla med din mediespelare.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_REMOVE_FILTER</id>
+        <text>Ta bort filter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_RP</id>
+        <text>Real Media</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_CHANNELS_FAIL</id>
+        <text>Misslyckades med att uppdatera kanallistan</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_CHANNELS_OK</id>
+        <text>Uppdaterade %s kanaler</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_CHANNELS_TIME_FAIL</id>
+        <text>Kan inte uppdatera kanaler, senaste uppdateringen skedde för %s timmar sedan</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_MEDIA_FAIL</id>
+        <text>Du har inte valt någon medietyp</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_TEXT</id>
+        <text>%s-hemsidan siktar på att bli det största och bäst uppdaterade arkivet för Internet-TV-kanaler (kanaler som är tillgängliga gratis på internet). Det finns kanaler från hela världen och databasen uppdateras dagligen av användarna.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_UPDATE_OK</id>
+        <text>TOMA-inställningar sparade</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_UPDATE_CHANNELS</id>
+        <text>Uppdatera kanallistan</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_UPDATE_CHANNELS_TEXT</id>
+        <text>Kanallistan finns hos och underhålls av upphovsmännen till TOMA - Internet-TV. För att begränsa bandbredd är det inte tillåtet att uppdatera listan mer än en gång per varje 24 timmar.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_WA</id>
+        <text>Nullsoft Video</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_WM</id>
+        <text>Windows Media</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOP_FAVORITES</id>
+        <text>Största favoriterna</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOP_RATED</id>
+        <text>Högsta betygen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TRACKS</id>
+        <text>Spår</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TRACKS_ADDED_TEXT</id>
+        <text>Spåren du valde har lagts till spellistan.[p] För att starta uppspelning av spåren i din spellista eller för att redigera spellistan när som helst, tryck på %s-knappen på din fjärrkontroll och välj %s.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TRACKS_ADDED_TITLE</id>
+        <text>Spår tillagda</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TRACK_LENGTH</id>
+        <text>Längd</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TRACK_NAME</id>
+        <text>Spårnamn</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TRAILER_LOCATION</id>
+        <text>Trailer-plats</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TRANS_CLOSE_VERTICAL</id>
+        <text>Stäng vertikalt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TRANS_FADE_BLACK</id>
+        <text>Tona till svart</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TRANS_INTERLACE</id>
+        <text>Radsprång</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TRANS_NO_EFFECT</id>
+        <text>Ingen effekt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TRANS_OPEN_VERTICAL</id>
+        <text>Öppna vertikalt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TRANS_RANDOM</id>
+        <text>Slumpvis</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TRANS_SPLIT_VERTICAL_1</id>
+        <text>Dela vertikalt 1</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TRANS_SPLIT_VERTICAL_2</id>
+        <text>Dela vertikalt 2</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TRANS_WIPE_DOWN</id>
+        <text>Torka nedåt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TRANS_WIPE_UP</id>
+        <text>Torka uppåt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TTF_FONT</id>
+        <text>TrueType-typsnitt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TTF_FONT_PROMPT</id>
+        <text>Typsnitt att använda till att visa spårinformation på 'Nu spelas'-skärmen, om aktiverat (och stöd finns). Ange fullständig sökväg inklusive filnamn till typsnittet, eller lämna den tom för att försöka hitta ett typsnitt automatiskt.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TVID_RESET_DEFAULT</id>
+        <text>Återställ TVID-koder till standard</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TVSERIES</id>
+        <text>TV-serier</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TV_DETAILS</id>
+        <text>Redigera TV-detaljer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TV_EXPRESSIONS</id>
+        <text>TV-uttryck (RegExp)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ADD</id>
+        <text>Lägg till ett nytt TV-uttryck</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ADDED_OK</id>
+        <text>TV-uttryck tillagt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ADD_BUTTON</id>
+        <text>Lägg till TV-uttryck</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TV_EXPR_DEFAULTS</id>
+        <text>Återställ till standard</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TV_EXPR_DELETE_OK</id>
+        <text>TV-uttryck raderad(e)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TV_EXPR_DEL_BUTTON</id>
+        <text>Radera valda uttryck</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ERROR_INVALID</id>
+        <text>Ange ett giltigt uttryck</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ERROR_MISSING</id>
+        <text>Ange en prioritet och ett uttryck</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TV_EXPR_PROMPT</id>
+        <text>Detaljerna för en för en TV-serie avgörs från filnamnet och sökvägen med hjälp av reguljära uttryck. Filen jämförs med följande uttryck tills en matchning hittas. Dessa uttryck innehåller platshållare för program {p}, säsong {s}, avsnitt {e} och titel {t}. Du måste åtminstone ha en av dessa platshållare i varje uttryck för att utvinna detaljer. Om du behöver hjälp med detta kan du skapa en tråd i forumet.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST</id>
+        <text>Testa uttryck</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_BUTTON</id>
+        <text>Testa uttryck</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_FAILED</id>
+        <text>Lyckades inte matcha något uttryck</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_PROMPT</id>
+        <text>Ange ett filnamn inklusive sökväg för att testa om dina nuvarande uttryck kommer identifiera rätt detaljer.[br]Exempelvis: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep End.avi</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_SUCCESS</id>
+        <text>Matchade %s. Hittade Program: %s, Serie: %s, Avsnitt: %s, Titel: %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TV_EXPR_UPDATE_OK</id>
+        <text>TV-uttryck uppdaterat</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TV_OPTIONS</id>
+        <text>TV-serier</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>UNKNOWN_ERROR</id>
+        <text>Ett okänt fel uppstod. Skapa en bugg-rapport i forumet genom att beskriva vad du gjorde när felet inträffade.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>UNRATED_CERTIFICATE</id>
+        <text>Standardcertifikat</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>UNRATED_CERT_PROMPT</id>
+        <text>Du bör ange ett standardcertifikat som kommer att användas till all media som på denna plats som inte har ett certifikat angivet explicit.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>UPDATE</id>
+        <text>Uppdatera</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>UPDATE_CHECK</id>
+        <text>Uppdateringskontroll</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>UPDATE_CHECK_PROMPT</id>
+        <text>En daglig kontroll av %s-hemsidan genomförs för att se om det finns en ny version av SwissCenter. Om en ny version finns kommer det att visas en ikon huvudmenyn för att visa detta.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>UPDATE_FAILED</id>
+        <text>Uppdatering misslyckades - försök igen om en stund</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>UPDATE_NONE</id>
+        <text>Det finns inga uppdateringar tillgängliga just nu</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>UPDATE_SUCCESS</id>
+        <text>Ditt system har blivit uppdaterat</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>UPDATE_TITLE</id>
+        <text>Online-uppdatering</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>UPDATING</id>
+        <text>Uppdaterar...</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>UPDATING_PLEASE_WAIT</id>
+        <text>Uppdaterar - Vänta</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>UPLOADS</id>
+        <text>Uppladdningar</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>UPLOAD_FAILED</id>
+        <text>Filuppladdning misslyckades.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>UPLOAD_FILE</id>
+        <text>Ladda upp fil</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>UPPERCASE</id>
+        <text>Versaler</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL</id>
+        <text>Adress</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ADD_BUTTON</id>
+        <text>Lägg till adress</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ADD_OK</id>
+        <text>Adress tillagd</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ADD_TITLE</id>
+        <text>Lägg till ny adress</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_AUDIO</id>
+        <text>Ljud-ström</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_DEL_BUTTON</id>
+        <text>Radera valda adresser</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_DEL_OK</id>
+        <text>De valda adresserna togs bort</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ERROR_CAT</id>
+        <text>Välj en kategori</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ERROR_CERT</id>
+        <text>Välj ett certifikat</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ERROR_TITLE</id>
+        <text>Välj en titel för adressen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ERROR_TYPE</id>
+        <text>Välj typ för adressen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ERROR_URL</id>
+        <text>Ange en adress</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_TITLE</id>
+        <text>Titel</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_TYPE</id>
+        <text>Adress-typ</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_UPDATE_OK</id>
+        <text>Adress-information uppdaterad</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_VIDEO</id>
+        <text>Video-ström</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_WEB</id>
+        <text>Hemsida</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>USERNAME</id>
+        <text>Användarnamn</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>USERS_ADDED_OK</id>
+        <text>Ny användare tillagd</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>USERS_ADD_BUTTON</id>
+        <text>Lägg till ny användare</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>USERS_ADD_TITLE</id>
+        <text>Användarhantering</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>USERS_ADMIN_PROMPT</id>
+        <text>En Superanvändare har behörighet till fler val i mediespelaren, tex. att kunna radera mediefiler.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>USERS_CONFIG_TITLE</id>
+        <text>Användarhantering</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>USERS_DEL_BUTTON</id>
+        <text>Radera valda användare</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>USERS_DEL_OK</id>
+        <text>De valda användarna raderades</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>USERS_EDIT_OK</id>
+        <text>De valda användarna har modifierats</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>USERS_ERROR_CERT</id>
+        <text>Ange ett maximalt certifikat som denna användare kan se</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>USERS_ERROR_DEFAULT</id>
+        <text>Standardanvändaren kan inte raderas</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>USERS_ERROR_EXISTS</id>
+        <text>Den användaren finns redan, försök med ett annat namn</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>USERS_ERROR_NAME</id>
+        <text>Ange ett användarnamn</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>USERS_MAX_CERT</id>
+        <text>Maximalt certifikat</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>USERS_MAX_CERT_PROMPT</id>
+        <text>Ange det [em]maximala[/em] certifikatet som denna användare skall tillåtas titta på. Objekt som har högre certifikat än det du anger här kommer [em]inte[/em] att synas för denna användare.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>USERS_NAME_PROMPT</id>
+        <text>Ange ett namn för användaren som det skall visas i SwissCenter.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>USERS_PIN</id>
+        <text>PIN</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>USERS_PIN_PROMPT</id>
+        <text>Du kan välja att skydda denna användare med ett PIN-nummer (som kan vara upp till 10 siffror långt)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>USERS_TABLE_HEADINGS</id>
+        <text>Namn, PIN, Maximalt certifikat, Superanvändare</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>USER_CHANGE</id>
+        <text>Byt användare</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>USER_CHANGED</id>
+        <text>Användarbytet lyckades</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>USE_BANNER</id>
+        <text>Använd banderoller</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>VALUE</id>
+        <text>Värde</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>VIDEO</id>
+        <text>Film</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>VIDEOS</id>
+        <text>Filmer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>VIDEO_INFO</id>
+        <text>Film-information</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>VIEWED</id>
+        <text>Visad</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>VIEWED_BY</id>
+        <text>Sedd av</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>VIEW_ALL</id>
+        <text>Visa alla</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>VIEW_PHOTO</id>
+        <text>Visa fotografier</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>VIEW_UNVIEWED</id>
+        <text>Visa ovisade</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>VIEW_WEATHER</id>
+        <text>Visa väderleksprognos</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>WATCH_INTERNET_TV</id>
+        <text>Internet-TV</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>WATCH_MOVIE</id>
+        <text>Titta på en film</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>WATCH_TV</id>
+        <text>Titta på en TV-show</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>WEATHER_5DAY</id>
+        <text>Visa femdygnsprognos</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>WEATHER_BACK_TO_SEARCH</id>
+        <text>Tillbaka till söksidan</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>WEATHER_CHANNEL</id>
+        <text>The Weather Channel</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>WEATHER_CURRENT</id>
+        <text>Nuvarande förhållande</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>WEATHER_FEELS_LIKE</id>
+        <text>Känns som</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>WEATHER_FORECAST</id>
+        <text>Väderleksprognos</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>WEATHER_FORECAST_PROMPT</id>
+        <text>Information om nuvarande väderleksförhållanden (eller femdygnsprognos) laddas ner från %s efter behov.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>WEATHER_HOME</id>
+        <text>Sätt som hemma</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>WEATHER_HUMIDITY</id>
+        <text>Luftfuktighet</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>WEATHER_IMPERIAL</id>
+        <text>Ändra till brittisk standard</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>WEATHER_LOCATION</id>
+        <text>Välj en annan plats</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>WEATHER_MATCHING</id>
+        <text>Städer som matchar din sökning</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>WEATHER_MATCHING_TITLE</id>
+        <text>Matchande städer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>WEATHER_METRIC</id>
+        <text>Ändra till metriskt format</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>WEATHER_NO_CITY</id>
+        <text>Det finns inga städer som matchar din sökning efter %s i SwissCenter-databasen. Vill du söka efter möjliga matchningar av %s ändå? (skriv in hela namnet innan du söker)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>WEATHER_NO_MATCHING</id>
+        <text>Jag är ledsen, men %s verkar för närvarande inte tillhandahålla någon väderleksrapport för staden %s.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>WEATHER_PRESSURE</id>
+        <text>Lufttryck</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>WEATHER_SELECT_CITY</id>
+        <text>Välj stad :</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>WEATHER_UV</id>
+        <text>UV-index</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>WEATHER_VISIBILITY</id>
+        <text>Sikt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>WEATHER_WIND</id>
+        <text>Vindstyrka</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>WEEKDAY</id>
+        <text>Veckodag</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>WIKI_LOOKUP</id>
+        <text>Wikipedia-uppslag</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>WIKI_LOOKUP_PROMPT</id>
+        <text>När denna funktion är aktiverad kommer SwissCenter möjliggöra uppslag av information (som tex. artister och filmer) på Wikipedia.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>XML_SAVE</id>
+        <text>Använd XML-sidecar-filer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>XMP_RATING</id>
+        <text>Betyg</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YEAR</id>
+        <text>År</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YES</id>
+        <text>Ja</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE</id>
+        <text>YouTube</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_DESC</id>
+        <text>YouTube %s är en delningssida för filmklipp där användare kan ladda upp och dela filmklipp.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_HD</id>
+        <text>Använd HD</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_HD_PROMPT</id>
+        <text>Alla YouTube-klipp kan strömmas i standardupplösning (480x360). Om detta val är aktiverat så strömmas en HD-version (1280x720) om en sådan finns. Detta bör vara inaktiverat om du har problem med bandbredd när du strömmar HD-innehåll.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_PROMPT_GENERAL</id>
+        <text>Generella flöden</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_PROMPT_PERSONAL</id>
+        <text>Personliga flöden</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_UNKNOWN_USER</id>
+        <text>Hittade ingen användare med det angivna användarnamnet (%s).</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_USERID_PROMPT</id>
+        <text>Alla SwissCenter-användare kan associeras med ett YouTube-användarnamn. Om du inte anger något användarnamn så kommer du inte ha någon tillgång till prenumerationer, favoriter osv.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_USERNAMES</id>
+        <text>YouTube-användarnamn</text>
+        <version>1.22</version>
+      </string>
+    </language>
+  </languages>
+</swisscenter>
