@@ -8,3 +8,4 @@ Nederlands,nl
 Norsk,no
 Polski,pl
 Português,pt
+Svenska,sv
