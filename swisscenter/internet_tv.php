@@ -10,6 +10,7 @@
 
   $menu = new menu();
   $menu->add_item( str('YOUTUBE'), 'youtube_menu.php' );
+  $menu->add_item( str('APPLE_TRAILERS'), 'apple_trailer.php' );
   $menu->add_item( str('TOMA_INTERNET_TV'), 'internet_tv_toma.php' );
   $menu->add_item( str('BOOKMARKS'), 'internet_tv_urls.php' );
 

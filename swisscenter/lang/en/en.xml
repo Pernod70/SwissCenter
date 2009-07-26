@@ -63,6 +63,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>APPLE_TRAILERS</id>
+        <text>Apple - Movie Trailers</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>ARTIST</id>
         <text>Artist</text>
         <version>1.19</version>
@@ -306,6 +311,11 @@
         <id>BROWSE_STATION</id>
         <text>Browse by station</text>
         <version>1.21.1</version>
+      </string>
+      <string>
+        <id>BROWSE_STUDIO</id>
+        <text>Browse by studio</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_TEXT</id>
@@ -875,7 +885,12 @@
       <string>
         <id>EP_PREV</id>
         <text>Previous Episode</text>
-        <version>1.20.1</version>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXCLUSIVE</id>
+        <text>Exclusive</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>EXIFVALS_EXPOSE_MODE</id>
@@ -1857,6 +1872,16 @@
         <id>ITUNES_LIBRARY</id>
         <text>iTunes Library File</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>JUST_ADDED</id>
+        <text>Just Added</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>JUST_HD</id>
+        <text>Just HD</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>KEYBOARD_DEL</id>
@@ -3652,6 +3677,11 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <id>REFRESH_RUNNING</id>
         <text>The database refresh has been started in the background and you may continue to use the system as normal. However please be aware that not all media files will be available for playback until the refresh is complete. [p]The initial refresh can take approximately 10 minutes for every 5,000 media files present on your system. However subsequent refreshes are much faster.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>RELEASE_DATE</id>
+        <text>Release date</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REMOTE_ACCESS_ERROR</id>
