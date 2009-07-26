@@ -53,6 +53,11 @@
         <version>1.20.1</version>
       </string>
       <string>
+        <id>ALL_TIME</id>
+        <text>Tutto il periodo</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>ANYWHERE_IN_NAME</id>
         <text>Ovunque nel nome</text>
         <version>1.19</version>
@@ -184,8 +189,8 @@
       </string>
       <string>
         <id>BROWSE_CERTIFICATE</id>
-        <text>Cerca per max certificate</text>
-        <version>1.19</version>
+        <text>Cerca per certificato</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_COUNTRY</id>
@@ -201,6 +206,11 @@
         <id>BROWSE_DIRECTOR</id>
         <text>Cerca per regista</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_DISCOVERED</id>
+        <text>Cerca per data di aggiunta</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_DVD</id>
@@ -265,7 +275,7 @@
       <string>
         <id>BROWSE_MOVIES</id>
         <text>Cerca Video</text>
-        <version>1.19</version>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_MUSIC</id>
@@ -293,6 +303,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>BROWSE_RATING</id>
+        <text>Cerca per valutazione</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>BROWSE_STATION</id>
         <text>Seleziona stazione</text>
         <version>1.22</version>
@@ -301,6 +316,11 @@
         <id>BROWSE_TEXT</id>
         <text>SwissCenter permette di visualizzare i tuoi file in molti modi diversi. Per ridurre la complessita' dell'interfaccia o per personalizzarla si puo' disabilitare ognuno dele opzioni &quot;Visualizza per...&quot; visualizzati in basso. Se abiliti una sola opzione, SwissCenter saltera' direttamente a quella, senza visualizzare il menu. [p]Nota che deve essere lasciata almeno [b]una[/b] opzione abilitata per ciascun gruppo.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_TIMESTAMP</id>
+        <text>Cerca per data file</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_TITLE</id>
@@ -330,7 +350,7 @@
       <string>
         <id>BROWSE_YEAR</id>
         <text>Cerca per anno</text>
-        <version>1.19</version>
+        <version>1.22</version>
       </string>
       <string>
         <id>CACHE_CONFIG_TITLE</id>
@@ -513,6 +533,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>CHANNELS</id>
+        <text>Canali</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>CLEAR_NAME</id>
         <text>Pulisci Nome</text>
         <version>1.19</version>
@@ -633,6 +658,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>CONTACTS</id>
+        <text>Contatti</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>CONTINUE</id>
         <text>Continua</text>
         <version>1.19</version>
@@ -671,6 +701,26 @@
         <id>DATE</id>
         <text>Data</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>DATE_FORMAT</id>
+        <text>Formato data</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DATE_FORMAT_PROMPT</id>
+        <text>Questo è il formato usato per visualizzre le date e può essere cambiato nel formato che preferisci. Il formato è definito da MySQL e alcuni formati specifici sono:[br][ul] 
+[li]%b Abbreviazione nome mese (Gen..Dic) [/li] 
+[li]%d Giorni mese, numerici (00..31)[/li] 
+[li]%m Mesi, numerici (00..12) [/li] 
+[li]%Y Anno, numerico, quattro numeri[/li] 
+[li]%y Anno, numerico (due numeri)[/li][/ul]</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DATE_FORMAT_TEST</id>
+        <text>Formato attuale: %s</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>DAY_1</id>
@@ -1170,6 +1220,11 @@
       <string>
         <id>FAIL_SWISS_PLAYLIST</id>
         <text>Impossibile scrivere nella cache nella Directory di SwissCenter (%s).</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAVORITES</id>
+        <text>Preferiti</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2558,6 +2613,21 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>MOST_POPULAR</id>
+        <text>Più popolari</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MOST_RECENT</id>
+        <text>Più recenti</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MOST_VIEWED</id>
+        <text>Più visti</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>MOVIE_ADD_BUTTON</id>
         <text>Aggiungi/Modifica dettagli</text>
         <version>1.19</version>
@@ -2678,6 +2748,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>NEWSUBSCRIPTIONVIDEOS</id>
+        <text>Nuovi video</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>NEW_MESSAGES</id>
         <text>Nuovi messaggi</text>
         <version>1.19</version>
@@ -2710,7 +2785,7 @@
       <string>
         <id>NOW_PLAYING</id>
         <text>Stai ascoltando</text>
-        <version>1.19</version>
+        <version>1.22</version>
       </string>
       <string>
         <id>NOW_PLAYING_FANART</id>
@@ -2734,7 +2809,7 @@
       </string>
       <string>
         <id>NOW_PLAYING_FANART_PROMPT</id>
-        <text>Seleziona la sorgente delle immagini fanart da usare nello schermo avanzato &quot;In esecuzione&quot;. Le immagini Fanart possono essere archiviate per ogni artista in [em]swisscenter\fanart\artists\depeche mode[/em].[br]Nessuna - Nessuna fanart sarà scaricata. Saranno usate solo le immagini esistenti nella tua directory fanart.[br]Google - La fanart sarà cercata nelle immagini su Google e scaricate localmente nella tua fanart directory.</text>
+        <text>Seleziona la sorgente delle immagini fanart da usare nello schermo avanzato &quot;in esecuzione&quot;. Le immagini Fanart possono essere archiviate per ogni artista in [em]swisscenter\fanart\artists\depeche mode[/em].[br]Nessuna - Nessuna fanart sarà scaricata. Saranno usate solo le immagini esistenti nella tua directory fanart.[br]Google - La fanart sarà cercata nelle immagini su Google e scaricate localmente nella tua fanart directory.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2754,13 +2829,13 @@
       </string>
       <string>
         <id>NOW_PLAYING_STYLE_PROMPT</id>
-        <text>Selezionando l'opzione &quot;originale&quot; lo schermo &quot;In esecuzione&quot; mostrerà i dettagli della canzone con un'immagine dell'album che si aggiornerà con il cambio della canzone. Selezionando l'opzione &quot;avanzato&quot;, saranno mostrati i dettagli della canzone con un barra di avanzamento e come sfondo l'immagine fanart. Questa opzione è raccomandata per chi usa l'NMT o player multimediale (Network Media Tank). Nelle opzioni del player multimediale si dovrà settare &quot;Tansizione foto&quot; in &quot;nessuna&quot;.</text>
+        <text>Selezionando l'opzione &quot;originale&quot; lo schermo &quot;in esecuzione&quot; mostrerà i dettagli della canzone con un'immagine dell'album, che si aggiornerà con il cambio della canzone. Selezionando l'opzione &quot;avanzato&quot;, saranno mostrati i dettagli della canzone con un barra di avanzamento e come sfondo l'immagine fanart. Questa opzione è raccomandata per chi usa l'NMT o player multimediale (Network Media Tank). Nelle opzioni del player multimediale si dovrà settare &quot;Transizione foto&quot; in &quot;nessuna&quot;.</text>
         <version>1.22</version>
       </string>
       <string>
         <id>NOW_PLAYING_SUPPORT</id>
         <text>Schermata &quot;In corso di esecuzione&quot;</text>
-        <version>1.19</version>
+        <version>1.22</version>
       </string>
       <string>
         <id>NO_ITEMS_TO_DISPLAY</id>
@@ -3278,6 +3353,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>PLAY_TRAILER</id>
+        <text>Vedi il trailer</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>PLEASE_SELECT</id>
         <text>Seleziona</text>
         <version>1.19</version>
@@ -3386,6 +3466,11 @@
         <id>RECENTLY_ADDED_DAYS</id>
         <text>Negli ultimi %s giorni</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>RECENTLY_FEATURED</id>
+        <text>Aggiunto di recente</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>RECENT_MEDIA</id>
@@ -4028,6 +4113,16 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>SORT_DATE</id>
+        <text>In ordine per data</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_FAVORITE</id>
+        <text>In ordine per preferiti</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SORT_ID</id>
         <text>Elenca per ultimo aggiunto</text>
         <version>1.22</version>
@@ -4040,6 +4135,16 @@
       <string>
         <id>SORT_RATING</id>
         <text>per valutazione</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_TIME</id>
+        <text>In ordine per periodo</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_VIEWS</id>
+        <text>In ordine per visione</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4101,6 +4206,11 @@
         <id>STYLE_SHOW_INSTALLED</id>
         <text>Visualizza stili installati</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>SUBSCRIPTIONS</id>
+        <text>Sottoscrizioni</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>SUPPORT_CLIENTS_TITLE</id>
@@ -4288,6 +4398,16 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>THIS_MONTH</id>
+        <text>Questo mese</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THIS_WEEK</id>
+        <text>Questa settimana</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>THUMBNAIL_VIEW</id>
         <text>Visualizza anteprima</text>
         <version>1.19</version>
@@ -4321,6 +4441,11 @@
         <id>TITLE</id>
         <text>Titolo</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>TODAY</id>
+        <text>Oggi</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>TOMA_BROWSE_CATEGORY</id>
@@ -4423,6 +4548,16 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>TOP_FAVORITES</id>
+        <text>Più preferiti</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOP_RATED</id>
+        <text>Più selezionati</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>TRACKS</id>
         <text>brani</text>
         <version>1.19</version>
@@ -4446,6 +4581,11 @@
         <id>TRACK_NAME</id>
         <text>Nome brano</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>TRAILER_LOCATION</id>
+        <text>Posizione Trailer</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>TRANS_CLOSE_VERTICAL</id>
@@ -4668,6 +4808,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>UPLOADS</id>
+        <text>Caricati</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>UPLOAD_FAILED</id>
         <text>Upload File fallito.</text>
         <version>1.19</version>
@@ -4859,8 +5004,8 @@
       </string>
       <string>
         <id>USERS_TABLE_HEADINGS</id>
-        <text>Nome, PIN, Max Certificato Visualizzabile</text>
-        <version>1.19</version>
+        <text>Nome, PIN, Max certificato visualizzabile, Super utente</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>USER_CHANGE</id>
@@ -4888,9 +5033,19 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>VIDEOS</id>
+        <text>Video</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>VIDEO_INFO</id>
         <text>Info Video</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>VIEWED</id>
+        <text>Visto</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>VIEWED_BY</id>
@@ -5076,6 +5231,51 @@
         <id>YES</id>
         <text>Si</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>YOUTUBE</id>
+        <text>YouTube</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_DESC</id>
+        <text>YouTube %s è un video condiviso nel web, che può essere caricato e visto dagli utenti.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_HD</id>
+        <text>YouTube in HD</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_HD_PROMPT</id>
+        <text>Tutti i video di YouTube possono essere trasmessi nella risoluzione standard (480x360). Selezionando questa opzione sarà trasmesso in versione HD (1280x720) se disponibile. Questa opzione sarà disabilitata se la banda di trasmissione ha problemi per trasmissioni in HD.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_PROMPT_GENERAL</id>
+        <text>Feed generali</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_PROMPT_PERSONAL</id>
+        <text>Feed personali</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_UNKNOWN_USER</id>
+        <text>Nessun utente con questo nome (%s) è stato trovato.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_USERID_PROMPT</id>
+        <text>Ogni utente Swisscenter può essere associato ad un utente YouTube. Se non inserisci un utente non si avrà la possbilità di accedere ai preferiti, sottoscrizioni etc..</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_USERNAMES</id>
+        <text>Utente YouTube</text>
+        <version>1.22</version>
       </string>
     </language>
   </languages>

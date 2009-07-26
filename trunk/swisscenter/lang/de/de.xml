@@ -53,6 +53,11 @@
         <version>1.20</version>
       </string>
       <string>
+        <id>ALL_TIME</id>
+        <text>Dauerbrenner</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>ANYWHERE_IN_NAME</id>
         <text>Im gesamten Namen</text>
         <version>1.19</version>
@@ -174,8 +179,8 @@
       </string>
       <string>
         <id>BROWSE_ALBUM_ARTIST</id>
-        <text>Nach Album-Interpreten anzeigen</text>
-        <version>1.20</version>
+        <text>Nach Album-Interpreten</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_ARTIST</id>
@@ -206,6 +211,11 @@
         <id>BROWSE_DIRECTOR</id>
         <text>Nach Regisseur</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_DISCOVERED</id>
+        <text>Nach Hinzufügungsdatum</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_DVD</id>
@@ -298,6 +308,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>BROWSE_RATING</id>
+        <text>Nach Bewertung</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>BROWSE_STATION</id>
         <text>Nach Station</text>
         <version>1.21.1</version>
@@ -306,6 +321,11 @@
         <id>BROWSE_TEXT</id>
         <text>SwissCenter kann Ihre Medien auf vielfältige Weise präsentieren. Um die Bedienung so einfach wie möglich zu gestalten, bzw. die Oberfläche an die eigenen Bedürfnisse anzupassen, können Sie verschiedene Anzeige-Optionen deaktivieren. Sollte dabei nur noch eine einzige Option übrig bleiben, wird SwissCenter das entsprechende Menü überspringen und diese Option automatisch auswählen.[b]Es muss jedoch pro Gruppe mindestens [b]eine[/b] Option aktiviert sein.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_TIMESTAMP</id>
+        <text>Nach Erstellungsdatum</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_TITLE</id>
@@ -523,6 +543,11 @@
         <version>SVN1167</version>
       </string>
       <string>
+        <id>CHANNELS</id>
+        <text>Kanäle</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>CLEAR_NAME</id>
         <text>Namen löschen</text>
         <version>1.19</version>
@@ -653,6 +678,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>CONTACTS</id>
+        <text>Kontakte</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>CONTINUE</id>
         <text>Fortsetzen</text>
         <version>1.19</version>
@@ -691,6 +721,27 @@
         <id>DATE</id>
         <text>Datum</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>DATE_FORMAT</id>
+        <text>Datums Format</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DATE_FORMAT_PROMPT</id>
+        <text>Hier kann das Format der Datumsanzeige nach Ihren Wünschen eingestellt werden.
+Dieses Format wird von MySQL und Spezifikationssymbolen definiert. Diese sind:
+[br][ul] [li]%b   abgekürzter Monatsname (Jan..Dez)
+[/li] [li]%d   Tag des Monats, numerisch (00..31)
+[/li] [li]%m  Monat, numerisch (00..12) [/li]
+[li]%Y   Jahr, numerisch, 4stellig[/li]
+[li]%y   Jahr, numerisch, 2stellig[/li][/ul]</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DATE_FORMAT_TEST</id>
+        <text>Aktuelles Format: %s</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>DAY_1</id>
@@ -1192,6 +1243,11 @@ in eine XML-Datei</text>
         <id>FAIL_SWISS_PLAYLIST</id>
         <text>Schreiben in den SwissCenter Playlist-Ordner (%s) fehlgeschlagen.</text>
         <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FAVORITES</id>
+        <text>Favoriten</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>FILENAME</id>
@@ -2596,6 +2652,21 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.21.1</version>
       </string>
       <string>
+        <id>MOST_POPULAR</id>
+        <text>Beliebteste</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MOST_RECENT</id>
+        <text>Aktuellste</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MOST_VIEWED</id>
+        <text>Meist Angesehene</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>MOVIE_ADD_BUTTON</id>
         <text>Details hinzufügen/bearbeiten</text>
         <version>1.19</version>
@@ -2714,6 +2785,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>NEW</id>
         <text>Neu</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>NEWSUBSCRIPTIONVIDEOS</id>
+        <text>Neue Filme</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>NEW_MESSAGES</id>
@@ -3436,6 +3512,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>RECENTLY_FEATURED</id>
+        <text>Neu Eingestellte</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>RECENT_MEDIA</id>
         <text>Zuletzt hinzugefügte</text>
         <version>1.21.1</version>
@@ -4076,6 +4157,16 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.22</version>
       </string>
       <string>
+        <id>SORT_DATE</id>
+        <text>Nach Datum sortieren</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_FAVORITE</id>
+        <text>Nach Favoriten sortieren</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SORT_ID</id>
         <text>Neuste</text>
         <version>1.22</version>
@@ -4088,6 +4179,16 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       <string>
         <id>SORT_RATING</id>
         <text>Nach Bewertung</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_TIME</id>
+        <text>Nach Zeit sortieren</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_VIEWS</id>
+        <text>Nach Häufigkeit der Ansichten</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4149,6 +4250,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>STYLE_SHOW_INSTALLED</id>
         <text>Installierte Stile zeigen</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>SUBSCRIPTIONS</id>
+        <text>Abonnement</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>SUPPORT_CLIENTS_TITLE</id>
@@ -4336,6 +4442,16 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.22</version>
       </string>
       <string>
+        <id>THIS_MONTH</id>
+        <text>Aktueller Monat</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THIS_WEEK</id>
+        <text>Aktuelle Woche</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>THUMBNAIL_VIEW</id>
         <text>Miniaturansicht</text>
         <version>1.19</version>
@@ -4369,6 +4485,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>TITLE</id>
         <text>Titel</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>TODAY</id>
+        <text>Heute</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>TOMA_BROWSE_CATEGORY</id>
@@ -4468,6 +4589,16 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       <string>
         <id>TOMA_WM</id>
         <text>Windows Media</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOP_FAVORITES</id>
+        <text>Spitzenreiter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOP_RATED</id>
+        <text>Höchst Bewertete</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4721,6 +4852,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>UPLOADS</id>
+        <text>Uploads</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>UPLOAD_FAILED</id>
         <text>Dateiupload fehlgeschlagen.</text>
         <version>1.19</version>
@@ -4941,9 +5077,19 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>VIDEOS</id>
+        <text>Filme</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>VIDEO_INFO</id>
         <text>Film Infos</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>VIEWED</id>
+        <text>Gesehen</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>VIEWED_BY</id>
@@ -5129,6 +5275,51 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>YES</id>
         <text>Ja</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>YOUTUBE</id>
+        <text>YouTube</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_DESC</id>
+        <text>YouTube %s ist ein Internet Videoportal, auf dem Benutzer kostenlos Video-Clips ansehen und hochladen können.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_HD</id>
+        <text>High Definition einschalten</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_HD_PROMPT</id>
+        <text>YouTube Videos können mit einer Standardauflösung von 480x360 angesehen werden. Wenn diese Option auf &quot;Ja&quot;gesetzt ist, werden Streams sofern möglich, mit einer HD-Auflösung von 1280x720 angezeigt. Bei Problemen mit Ihrer Internetgeschwindigkeit, sollte diese Option deaktiviert werden.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_PROMPT_GENERAL</id>
+        <text>Allgemeine Feeds</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_PROMPT_PERSONAL</id>
+        <text>Persönliche Feeds</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_UNKNOWN_USER</id>
+        <text>Der Benutzer mit dem eingegebenen Namen (%) wurde nicht gefunden.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_USERID_PROMPT</id>
+        <text>Jeder SwissCenter Nutzer kann mit einem YouTube-Namen verknüpft werden. Wenn kein User-Name eingegeben wird, sind keine Zugriffe auf Abonnements, Favoriten etc. möglich.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_USERNAMES</id>
+        <text>YouTube User-Namen</text>
+        <version>1.22</version>
       </string>
     </language>
   </languages>
