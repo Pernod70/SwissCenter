@@ -5249,6 +5249,21 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <version>1.22</version>
       </string>
       <string>
+        <id>YOUTUBE_SEARCH_CHANNELS</id>
+        <text>Search channels</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_SEARCH_PLAYLISTS</id>
+        <text>Search playlists</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_SEARCH_VIDEOS</id>
+        <text>Search videos</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>YOUTUBE_UNKNOWN_USER</id>
         <text>No user with the supplied username (%s) was found.</text>
         <version>1.22</version>

@@ -71,7 +71,7 @@ class phpYouTube {
   {
     if (db_value("SELECT COUNT(*) FROM $table WHERE service = '".$this->service."'") > $this->max_cache_rows)
     {
-      db_sqlcommand("DELETE FROM $table WHERE service = 'youtube' AND expiration < DATE_SUB(NOW(), INTERVAL $cache_expire second)");
+      db_sqlcommand("DELETE FROM $table WHERE service = '".$this->service."' AND expiration < DATE_SUB(NOW(), INTERVAL $cache_expire second)");
       db_sqlcommand('OPTIMIZE TABLE '.$this->cache_table);
     }
     $this->cache_table = $table;
@@ -139,30 +139,30 @@ class phpYouTube {
    */
   function getRegions()
   {
-    $countries = array( 'Australia'      => 'AU',
-                        'Brazil'         => 'BR',
-                        'Canada'         => 'CA',
-                        'Czech Republic' => 'CZ',
-                        'France'         => 'FR',
-                        'Germany'        => 'DE',
-                        'Great Britain'  => 'GB',
-                        'Holland'        => 'NL',
-                        'Hong Kong'      => 'HK',
-                        'India'          => 'IN',
-                        'Ireland'        => 'IE',
-                        'Israel'         => 'IL',
-                        'Italy'          => 'IT',
-                        'Japan'          => 'JP',
-                        'Mexico'         => 'MX',
-                        'New Zealand'    => 'NZ',
-                        'Poland'         => 'PL',
-                        'Russia'         => 'RU',
-                        'South Korea'    => 'KR',
-                        'Spain'          => 'ES',
-                        'Sweden'         => 'SE',
-                        'Taiwan'         => 'TW',
-                        'United States'  => 'US' );
-    return $countries;
+    $regions = array( array('COUNTRY' => 'Australia',      'REGION_ID' => 'AU'),
+                      array('COUNTRY' => 'Brazil',         'REGION_ID' => 'BR'),
+                      array('COUNTRY' => 'Canada',         'REGION_ID' => 'CA'),
+                      array('COUNTRY' => 'Czech Republic', 'REGION_ID' => 'CZ'),
+                      array('COUNTRY' => 'France',         'REGION_ID' => 'FR'),
+                      array('COUNTRY' => 'Germany',        'REGION_ID' => 'DE'),
+                      array('COUNTRY' => 'Great Britain',  'REGION_ID' => 'GB'),
+                      array('COUNTRY' => 'Holland',        'REGION_ID' => 'NL'),
+                      array('COUNTRY' => 'Hong Kong',      'REGION_ID' => 'HK'),
+                      array('COUNTRY' => 'India',          'REGION_ID' => 'IN'),
+                      array('COUNTRY' => 'Ireland',        'REGION_ID' => 'IE'),
+                      array('COUNTRY' => 'Israel',         'REGION_ID' => 'IL'),
+                      array('COUNTRY' => 'Italy',          'REGION_ID' => 'IT'),
+                      array('COUNTRY' => 'Japan',          'REGION_ID' => 'JP'),
+                      array('COUNTRY' => 'Mexico' ,        'REGION_ID' => 'MX'),
+                      array('COUNTRY' => 'New Zealand',    'REGION_ID' => 'NZ'),
+                      array('COUNTRY' => 'Poland',         'REGION_ID' => 'PL'),
+                      array('COUNTRY' => 'Russia',         'REGION_ID' => 'RU'),
+                      array('COUNTRY' => 'South Korea',    'REGION_ID' => 'KR'),
+                      array('COUNTRY' => 'Spain',          'REGION_ID' => 'ES'),
+                      array('COUNTRY' => 'Sweden',         'REGION_ID' => 'SE'),
+                      array('COUNTRY' => 'Taiwan',         'REGION_ID' => 'TW'),
+                      array('COUNTRY' => 'United States',  'REGION_ID' => 'US') );
+    return $regions;
   }
 
   /*
@@ -205,11 +205,12 @@ class phpYouTube {
    * http://code.google.com/apis/youtube/2.0/developers_guide_protocol_api_query_parameters.html
    *
    * @param string $query
+   * @param string $order
    * @return array
    */
-  function videoSearch ($query = NULL)
+  function videoSearch ($query = NULL, $order = 'relevance')
   {
-    $this->request('feeds/api/videos', array("q"=>$query, "start-index"=>$this->start_index, "max-results"=>$this->max_results));
+    $this->request('feeds/api/videos', array("q"=>$query, "orderby"=>$order, "start-index"=>$this->start_index, "max-results"=>$this->max_results));
     return $this->response;
   }
 
