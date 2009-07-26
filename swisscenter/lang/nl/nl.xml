@@ -53,6 +53,11 @@
         <version>1.20</version>
       </string>
       <string>
+        <id>ALL_TIME</id>
+        <text>Aller tijden</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>ANYWHERE_IN_NAME</id>
         <text>Ergens in de naam</text>
         <version>1.19</version>
@@ -208,6 +213,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>BROWSE_DISCOVERED</id>
+        <text>Zoek op datum van toevoeging</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>BROWSE_DVD</id>
         <text>Zoek in DVD's</text>
         <version>1.21</version>
@@ -298,6 +308,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>BROWSE_RATING</id>
+        <text>Zoek op beoordeling</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>BROWSE_STATION</id>
         <text>Zoek op radiostation</text>
         <version>1.21.1</version>
@@ -306,6 +321,11 @@
         <id>BROWSE_TEXT</id>
         <text>Met SwissCenter kunt U op verschillende manieren in uw mediabestanden zoeken. Om de complexiteit van de interface te verminderen of om de weergave naar uw eigen inzichten aan te passen, kunt U hieronder de &quot;Zoek in ...&quot; opties uitschakelen. Indien slechts een optie ingeschakeld is, zal SwissCenter het menu negeren en rechtstreeks naar die optie doorschakelen.[p]Noot : U dient minstens [b]één[/b] optie in elke groep in te schakelen.</text>
         <version>1.21</version>
+      </string>
+      <string>
+        <id>BROWSE_TIMESTAMP</id>
+        <text>Zoek op media datum</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_TITLE</id>
@@ -329,8 +349,8 @@
       </string>
       <string>
         <id>BROWSE_XMP_RATING</id>
-        <text>Zoek op kwalificatie</text>
-        <version>1.19</version>
+        <text>Zoek op beoordeling</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_YEAR</id>
@@ -523,6 +543,11 @@
         <version>1.20.1</version>
       </string>
       <string>
+        <id>CHANNELS</id>
+        <text>Kanalen</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>CLEAR_NAME</id>
         <text>Wis naam</text>
         <version>1.19</version>
@@ -643,6 +668,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>CONTACTS</id>
+        <text>Contacten</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>CONTINUE</id>
         <text>Ga verder</text>
         <version>1.19</version>
@@ -681,6 +711,26 @@
         <id>DATE</id>
         <text>Datum</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>DATE_FORMAT</id>
+        <text>Formaat datum</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DATE_FORMAT_PROMPT</id>
+        <text>Dit is het formaat dat wordt gebruikt voor de datum; het formaat kan naar wens worden aangepast. Het formaat is gedefinieerd door MySQL, waarbij de volgende mogelijkheden bestaan:[br][ul]
+[li]%b Engelse afkorting van naam van maand (Jan..Dec)[/li]
+[li]%d Dag van de maand, numeriek (00..31)[/li]
+[li]%m Maand, numeriek (00..12)[/li]
+[li]%Y Jaar, numeriek (vier cijfers)[/li]
+[li]%y Jaar, numeriek (twee cijfers)[/li][/ul]</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DATE_FORMAT_TEST</id>
+        <text>Huidig formaat: %s</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>DAY_1</id>
@@ -1183,6 +1233,11 @@
         <version>1.21</version>
       </string>
       <string>
+        <id>FAVORITES</id>
+        <text>Favorieten</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>FILENAME</id>
         <text>Bestandsnaam</text>
         <version>1.19</version>
@@ -1224,7 +1279,7 @@
       </string>
       <string>
         <id>FILTER_MISSING_RATING</id>
-        <text>Geen classificatie</text>
+        <text>Geen beoordeling</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2584,6 +2639,21 @@
         <version>1.21.1</version>
       </string>
       <string>
+        <id>MOST_POPULAR</id>
+        <text>Populairste</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MOST_RECENT</id>
+        <text>Recentste</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MOST_VIEWED</id>
+        <text>Meest bekeken</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>MOVIE_ADD_BUTTON</id>
         <text>Details toevoegen/wijzigen</text>
         <version>1.19</version>
@@ -2702,6 +2772,11 @@
         <id>NEW</id>
         <text>Nieuw</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>NEWSUBSCRIPTIONVIDEOS</id>
+        <text>Nieuwe videos</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>NEW_MESSAGES</id>
@@ -3406,7 +3481,7 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
       </string>
       <string>
         <id>RATING</id>
-        <text>Classificatie</text>
+        <text>Beoordeling</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3423,6 +3498,11 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
         <id>RECENTLY_ADDED_DAYS</id>
         <text>Gedurende de %s dagen</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>RECENTLY_FEATURED</id>
+        <text>Recentelijk aanbevolen</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>RECENT_MEDIA</id>
@@ -3546,8 +3626,8 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
       </string>
       <string>
         <id>REFINE_XMP_RATING</id>
-        <text>Verfijn via kwalificatie</text>
-        <version>1.19</version>
+        <text>Verfijn via beoordeling</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REFINE_YEAR</id>
@@ -4070,6 +4150,16 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
         <version>1.22</version>
       </string>
       <string>
+        <id>SORT_DATE</id>
+        <text>Sorteer op datum</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_FAVORITE</id>
+        <text>Sorteer op favoriet</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SORT_ID</id>
         <text>Sorteer op datum</text>
         <version>1.22</version>
@@ -4081,7 +4171,17 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
       </string>
       <string>
         <id>SORT_RATING</id>
-        <text>Sorteer op classificatie</text>
+        <text>Sorteer op beoordeling</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_TIME</id>
+        <text>Sorteer op tijd</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_VIEWS</id>
+        <text>Sorteer op aantal keer bekeken</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4143,6 +4243,11 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
         <id>STYLE_SHOW_INSTALLED</id>
         <text>Toon geinstalleerde stijlen</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>SUBSCRIPTIONS</id>
+        <text>Abonnementen</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>SUPPORT_CLIENTS_TITLE</id>
@@ -4330,6 +4435,16 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
         <version>1.22</version>
       </string>
       <string>
+        <id>THIS_MONTH</id>
+        <text>Deze maand</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THIS_WEEK</id>
+        <text>Deze week</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>THUMBNAIL_VIEW</id>
         <text>Miniatuurweergave</text>
         <version>1.19</version>
@@ -4363,6 +4478,11 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
         <id>TITLE</id>
         <text>Titel</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>TODAY</id>
+        <text>Vandaag</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>TOMA_BROWSE_CATEGORY</id>
@@ -4468,6 +4588,16 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
         <id>TOP_ARTISTS</id>
         <text>Meest gespeelde bands/artiesten</text>
         <version>na</version>
+      </string>
+      <string>
+        <id>TOP_FAVORITES</id>
+        <text>Topfavorieten</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOP_RATED</id>
+        <text>Als beste beoordeeld</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>TOP_TRACKS</id>
@@ -4726,6 +4856,11 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
         <version>1.19</version>
       </string>
       <string>
+        <id>UPLOADS</id>
+        <text>Uploads</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>UPLOAD_FAILED</id>
         <text>Bestand upload is mislukt.</text>
         <version>1.19</version>
@@ -4946,9 +5081,19 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
         <version>1.19</version>
       </string>
       <string>
+        <id>VIDEOS</id>
+        <text>Videos</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>VIDEO_INFO</id>
         <text>Video informatie</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>VIEWED</id>
+        <text>Bekeken</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>VIEWED_BY</id>
@@ -5127,8 +5272,8 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
       </string>
       <string>
         <id>XMP_RATING</id>
-        <text>Kwalificatie</text>
-        <version>1.19</version>
+        <text>Beoordeling</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>YEAR</id>
@@ -5138,6 +5283,51 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
       <string>
         <id>YES</id>
         <text>Ja</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE</id>
+        <text>YouTube</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_DESC</id>
+        <text>YouTube %s is een website waar gebruikers videos kunnen uploaden, delen en bekijken.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_HD</id>
+        <text>Gebruik HD</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_HD_PROMPT</id>
+        <text>Alle YouTube videos kunnen worden afgespeeld met een standaard resolutie van (480x360). Met deze optie kunnen - indien van toepassing - de videos met een HD resolutie (1280x720) worden gespeeld. Wanneer er problemen voordoen met de bandbreedte moet deze optie uitgeschakeld worden.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_PROMPT_GENERAL</id>
+        <text>Algemene feeds</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_PROMPT_PERSONAL</id>
+        <text>Persoonlijke feeds</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_UNKNOWN_USER</id>
+        <text>Geen gebruiker met deze gebruikersnaam (%s) gevonden</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_USERID_PROMPT</id>
+        <text>Iedere SwissCenter gebruiker kan worden geassocieerd met een YouTube gebruikersnaam. Indien geen gebruikersnaam wordt ingevoerd is toegang tot abonnementen, favorieten, etc. niet mogelijk.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_USERNAMES</id>
+        <text>YouTube gebruikersnamen</text>
         <version>1.22</version>
       </string>
     </language>

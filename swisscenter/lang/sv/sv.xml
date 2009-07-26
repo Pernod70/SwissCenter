@@ -99,7 +99,7 @@
       </string>
       <string>
         <id>ART_FILENAME_PROMPT</id>
-        <text>Ange namnet på valfri bild-fil som skall användas som album-/filmbild om den finns i en medie-mapp.</text>
+        <text>Ange namnet på valfri bild-fil som skall användas som album-/filmbild om den finns i en media-mapp.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -309,7 +309,7 @@
       </string>
       <string>
         <id>BROWSE_TEXT</id>
-        <text>SwissCenter låter dig bläddra bland dina mediefiler på många olika sätt. För att minska användargränssnittets komplexitet eller skräddarsy det mer efter din egen smak kan du inaktivera valfria &quot;Bläddra enligt...&quot;-val enligt nedanstående. Om endast ett val är aktiverat kommer SwissCenter hoppa direkt till det valet istället för att visa en meny. [p]Observera att att [b]minst ett[/b] måste vara aktiverat i varje grupp.</text>
+        <text>SwissCenter låter dig bläddra bland dina mediafiler på många olika sätt. För att minska användargränssnittets komplexitet eller skräddarsy det mer efter din egen smak kan du inaktivera valfria &quot;Bläddra enligt...&quot;-val enligt nedanstående. Om endast ett val är aktiverat kommer SwissCenter hoppa direkt till det valet istället för att visa en meny. [p]Observera att att [b]minst ett[/b] måste vara aktiverat i varje grupp.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -439,7 +439,7 @@
       </string>
       <string>
         <id>CATEGORY_PROMPT</id>
-        <text>Att ange en kategori hjälper dig att sortera dina mediefiler i logiska grupper som tex. &quot;Ljudböcker&quot; och &quot;Språkkurser&quot; såväl som &quot;Övrigt&quot;. Denna funktion kommer tex. att möjliggöra för dig spela slumpvis vald musik utan att råka få med ett kapitel från en ljudbok i spellistan.</text>
+        <text>Att ange en kategori hjälper dig att sortera dina mediafiler i logiska grupper som tex. &quot;Ljudböcker&quot; och &quot;Språkkurser&quot; såväl som &quot;Övrigt&quot;. Denna funktion kommer tex. att möjliggöra för dig spela slumpvis vald musik utan att råka få med ett kapitel från en ljudbok i spellistan.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -474,7 +474,7 @@
       </string>
       <string>
         <id>CAT_DOWNLOAD_PROMPT</id>
-        <text>Detta fält avgör om extra information, om sådan finns, skall laddas ner från internet för mediefilerna i denna kategorin.</text>
+        <text>Detta fält avgör om extra information, om sådan finns, skall laddas ner från internet för mediafilerna i denna kategorin.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -624,7 +624,7 @@
       </string>
       <string>
         <id>CONFIRM_DELETE</id>
-        <text>Radera följande mediefil(er)?</text>
+        <text>Radera följande mediafil(er)?</text>
         <version>1.22</version>
       </string>
       <string>
@@ -949,7 +949,7 @@
       </string>
       <string>
         <id>EXIF_FOCAL_LENGTH</id>
-        <text>Fokuseringslängd</text>
+        <text>Brännvidd</text>
         <version>1.22</version>
       </string>
       <string>
@@ -1129,7 +1129,7 @@
       </string>
       <string>
         <id>FAIL_PHP_CLI</id>
-        <text>Du har ingen kommandolinje-version av PHP installerad. SwissCenter kommer inte kunna söka efter nya mediefiler.</text>
+        <text>Du har ingen kommandolinje-version av PHP installerad. SwissCenter kommer inte kunna söka efter nya mediafiler.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -1194,7 +1194,7 @@
       </string>
       <string>
         <id>FAIL_SWISS_LOCS</id>
-        <text>Inga medieplatser har definierats.</text>
+        <text>Inga mediaplatser har definierats.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -1500,17 +1500,17 @@
       </string>
       <string>
         <id>IMP_LOC_CAT_MISSING</id>
-        <text>Misslyckades med att importera medieplats '%s' eftersom kategori 's' saknas.</text>
+        <text>Misslyckades med att importera mediaplats '%s' eftersom kategori 's' saknas.</text>
         <version>1.22</version>
       </string>
       <string>
         <id>IMP_LOC_CERT_MISSING</id>
-        <text>Misslyckades med att importera medieplats '%s' eftersom certifikat '%s' (Schema: %s) saknas.</text>
+        <text>Misslyckades med att importera mediaplats '%s' eftersom certifikat '%s' (Schema: %s) saknas.</text>
         <version>1.22</version>
       </string>
       <string>
         <id>IMP_LOC_TYPE_MISSING</id>
-        <text>Misslyckades med att importera medieplats '%s' eftersom medietyp '%s' saknas.</text>
+        <text>Misslyckades med att importera mediaplats '%s' eftersom mediatyp '%s' saknas.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -1740,7 +1740,7 @@
       </string>
       <string>
         <id>IRADIO_LIVERADIO_DESC</id>
-        <text>LiveRadio (%s) är en internetradiotjänst som liknar ShoutCast. Den möjliggör sökning enligt medietyp, genre, kanalnamn, land och tom. stad - men många listade kanaler stöds inte av vissa hårdvaruspelare. Så LiveRadio-parsern som används av SwissCenter begränsar resultaten till att endast visa MP3-kanaler.</text>
+        <text>LiveRadio (%s) är en internetradiotjänst som liknar ShoutCast. Den möjliggör sökning enligt mediatyp, genre, kanalnamn, land och tom. stad - men många listade kanaler stöds inte av vissa hårdvaruspelare. Så LiveRadio-parsern som används av SwissCenter begränsar resultaten till att endast visa MP3-kanaler.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -1865,7 +1865,7 @@
       </string>
       <string>
         <id>KEYBOARD_SPC</id>
-        <text>MELLANSLAG</text>
+        <text>BLANK</text>
         <version>1.22</version>
       </string>
       <string>
@@ -1890,7 +1890,7 @@
       </string>
       <string>
         <id>LANG_CHANGE</id>
-        <text>Ändra språk</text>
+        <text>Byt språk</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2189,7 +2189,7 @@
       </string>
       <string>
         <id>MAX_PLAYLIST_SIZE</id>
-        <text>Maximal storlek på spellistan</text>
+        <text>Maximal storlek på spellista</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2204,7 +2204,7 @@
       </string>
       <string>
         <id>MEDIA_LOCATIONS</id>
-        <text>Medieplatser</text>
+        <text>Mediaplatser</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2214,7 +2214,7 @@
       </string>
       <string>
         <id>MEDIA_LOC_ADD_OK</id>
-        <text>Medieplats tillagd</text>
+        <text>Mediaplats tillagd</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2249,7 +2249,7 @@
       </string>
       <string>
         <id>MEDIA_LOC_ERROR_LOC</id>
-        <text>Ange en medieplats</text>
+        <text>Ange en mediaplats</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2264,7 +2264,7 @@
       </string>
       <string>
         <id>MEDIA_LOC_ERROR_TYPE</id>
-        <text>Välj medietyp</text>
+        <text>Välj mediatyp</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2274,12 +2274,12 @@
       </string>
       <string>
         <id>MEDIA_LOC_UPDATE_OK</id>
-        <text>Uppdaterade medieplatsinformation</text>
+        <text>Uppdaterade mediaplatsinformation</text>
         <version>1.22</version>
       </string>
       <string>
         <id>MEDIA_MANAGEMENT</id>
-        <text>Mediehantering</text>
+        <text>Mediahantering</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2294,7 +2294,7 @@
       </string>
       <string>
         <id>MEDIA_SCAN_PROGRESS</id>
-        <text>Mediesöknings-förlopp</text>
+        <text>Mediasöknings-förlopp</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2339,12 +2339,12 @@
       </string>
       <string>
         <id>MEDIA_SEARCH_PROMPT</id>
-        <text>Genom att klicka på knappen nedanför startar du en bakgrundssökning av dina mediefiler. Media som inte längre finns på ditt system kommer att tas bort från databasen och ny eller ändrad media kommer att läggas till.</text>
+        <text>Genom att klicka på knappen nedanför startar du en bakgrundssökning av dina mediafiler. Media som inte längre finns på ditt system kommer att tas bort från databasen och ny eller ändrad media kommer att läggas till.</text>
         <version>1.22</version>
       </string>
       <string>
         <id>MEDIA_TYPE</id>
-        <text>Medietyp</text>
+        <text>Mediatyp</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2479,7 +2479,7 @@
       </string>
       <string>
         <id>MIP_SIZE</id>
-        <text>Storlek på spellistan</text>
+        <text>Storlek på spellista</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2554,12 +2554,12 @@
       </string>
       <string>
         <id>MISSING_MEDIA_TEXT</id>
-        <text>Använd Konfigurationsverktyget för att lägga till några medieplatser.</text>
+        <text>Använd Konfigurationsverktyget för att lägga till några mediaplatser.</text>
         <version>1.22</version>
       </string>
       <string>
         <id>MISSING_MEDIA_TITLE</id>
-        <text>Du har inte definierat några medieplatser.</text>
+        <text>Du har inte definierat några mediaplatser.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2574,7 +2574,7 @@
       </string>
       <string>
         <id>MISSING_SCHED_TEXT</id>
-        <text>Windows-tjänsten &quot;Schemalagda aktiviteter&quot; krävs för att SwissCenter skall kunna söka efter mediefiler.</text>
+        <text>Windows-tjänsten &quot;Schemalagda aktiviteter&quot; krävs för att SwissCenter skall kunna söka efter mediafiler.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2624,7 +2624,7 @@
       </string>
       <string>
         <id>MOST_VIEWED</id>
-        <text>Mest visad</text>
+        <text>Mest sedd</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2739,7 +2739,7 @@
       </string>
       <string>
         <id>NETWORK_SHARE_PROMPT</id>
-        <text>Nätverksdelningen krävs endast om du har DVD-avbilder (iso, img osv.) på denna medieplats, och kan endast användas med en NMT-mediespelare. För att spela av DVD-avbilder måste du först sätta upp en SMB- eller NFS-nätverksdelning på din NMT-spelare för att möjliggöra åtkomst till dina DVD-avbilder, sedan måste du koppla nätverksdelningen med denna medieplats.</text>
+        <text>Nätverksdelningen krävs endast om du har DVD-avbilder (iso, img osv.) på denna mediaplats, och kan endast användas med en NMT-mediaspelare. För att spela av DVD-avbilder måste du först sätta upp en SMB- eller NFS-nätverksdelning på din NMT-spelare för att möjliggöra åtkomst till dina DVD-avbilder, sedan måste du koppla nätverksdelningen med denna mediaplats.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2990,7 +2990,7 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       </string>
       <string>
         <id>PASS_SWISS_LOCS</id>
-        <text>Medieplatser har definierats.</text>
+        <text>Mediaplatser har definierats.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3075,7 +3075,7 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       </string>
       <string>
         <id>PHOTOS_MUSIC_CHANGE</id>
-        <text>Ändra bakgrundsmusik</text>
+        <text>Byt bakgrundsmusik</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3115,7 +3115,7 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       </string>
       <string>
         <id>PHOTO_CHANGE_ORDER</id>
-        <text>Ändra spelordning</text>
+        <text>Byt spelordning</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3165,7 +3165,7 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       </string>
       <string>
         <id>PIN_CHANGE</id>
-        <text>Ändra PIN</text>
+        <text>Byt PIN-kod</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3340,7 +3340,7 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       </string>
       <string>
         <id>PLAYLIST_SAVE_PROMPT</id>
-        <text>Ange namnet du vill använda på din spellista</text>
+        <text>Ange vad din spellista skall heta</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3350,7 +3350,7 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       </string>
       <string>
         <id>PLAY_TRAILER</id>
-        <text>Visa trailer</text>
+        <text>Se trailer</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3380,7 +3380,7 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       </string>
       <string>
         <id>PRIVACY_DATA_COLLECTION</id>
-        <text>[b]Datainsamling[/b] [p]Information relaterad till mediefilerna på din maskin samlas in och lagras i en MySQL-databas som finns på samma dator SwissCenter är installerat på. Denna information används för att ge dig ett gränssnitt till dina mediefiler på apparater som tex. Pinnacle ShowCenter. Denna information skickas aldrig till upphovsmännen bakom SwissCenter eller någon annan. [p]Det finns ett undantag från ovanstående:- För att komma över filminformation (tex. skådespelare, regissör osv.) används filnamnen som en del av en söksträng till hemsidan som är angiven på %s-sidan. Om du föredrar att inte skicka denna information bör du inaktivera &quot;Ladda ner extra filminformation&quot;.</text>
+        <text>[b]Datainsamling[/b] [p]Information relaterad till mediafilerna på din maskin samlas in och lagras i en MySQL-databas som finns på samma dator SwissCenter är installerat på. Denna information används för att ge dig ett gränssnitt till dina mediafiler på apparater som tex. Pinnacle ShowCenter. Denna information skickas aldrig till upphovsmännen bakom SwissCenter eller någon annan. [p]Det finns ett undantag från ovanstående:- För att komma över filminformation (tex. skådespelare, regissör osv.) används filnamnen som en del av en söksträng till hemsidan som är angiven på %s-sidan. Om du föredrar att inte skicka denna information bör du inaktivera &quot;Ladda ner extra filminformation&quot;.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3600,7 +3600,7 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       </string>
       <string>
         <id>REFRESH_CLEANUP_PROMPT</id>
-        <text>Städning av databasen tar bort alla saknade referenser, som tex. media som inte länge finns på en medieplats eller skådespelare/regissörer som det inte längre refereras till. Detta kommer göra att mediesökningen tar längre tid och bör endast göras om media har tagits bort.</text>
+        <text>Städning av databasen tar bort alla saknade referenser, som tex. media som inte länge finns på en mediaplats eller skådespelare/regissörer som det inte längre refereras till. Detta kommer göra att mediasökningen tar längre tid och bör endast göras om media har tagits bort.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3650,7 +3650,7 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       </string>
       <string>
         <id>REFRESH_RUNNING</id>
-        <text>Databasuppdateringen har startats i bakgrunden och du kan fortsätta använda systemet som vanligt. Du bör dock vara medveten om att alla mediefiler inte kommer att vara tillgängliga för avspelning förrän uppdateringen är helt slutförd. [p]Den första uppdateringen kan ta uppskattningsvis 10 minuter per 5,000 mediefiler på ditt system. Efterföljande uppdateringar är dock betydligt snabbare.</text>
+        <text>Databasuppdateringen har startats i bakgrunden och du kan fortsätta använda systemet som vanligt. Du bör dock vara medveten om att alla mediafiler inte kommer att vara tillgängliga för avspelning förrän uppdateringen är helt slutförd. [p]Den första uppdateringen kan ta uppskattningsvis 10 minuter per 5,000 mediafiler på ditt system. Efterföljande uppdateringar är dock betydligt snabbare.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3840,7 +3840,7 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       </string>
       <string>
         <id>SCHEDULE_AUTO_TITLE</id>
-        <text>Automatisk medieuppdatering</text>
+        <text>Automatisk mediauppdatering</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3890,7 +3890,7 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       </string>
       <string>
         <id>SCHEDULE_NONE</id>
-        <text>Automatisk medieuppdatering - Inte längre aktiv</text>
+        <text>Automatisk mediauppdatering - Inte längre aktiv</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3905,7 +3905,7 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       </string>
       <string>
         <id>SCHEDULE_UPDATED</id>
-        <text>Automatisk medieuppdatering - Schema uppdaterat</text>
+        <text>Automatisk mediauppdatering - Schema uppdaterat</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4045,12 +4045,12 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       </string>
       <string>
         <id>SETUP_SEARCH_TYPE</id>
-        <text>Sök efter en specifik medietyp</text>
+        <text>Sök efter en specifik mediatyp</text>
         <version>1.22</version>
       </string>
       <string>
         <id>SETUP_SEARCH_TYPE_TITLE</id>
-        <text>Välj medietyp</text>
+        <text>Välj mediatyp</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4285,7 +4285,7 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       </string>
       <string>
         <id>SWISSMONITOR_DESCRIPTION</id>
-        <text>SwissMonitor-tjänsten är en enkel Windows-tjänst som bevakar dina definierade medieplatser efter ändringar av filer (inklusive när filer läggs till eller raderas) och informerar SwissCenter om detta så att din databas kan hållas uppdaterad. Detta eliminerar dock inte behovet av att köra schemalagd uppdatering eftersom det kan finnas vissa omständigheter där ändringar inte upptäcks.[p][n]Notera[/b] Om du använder UNC-sökvägar i dina medieplatser (tex. &quot;\\nas\movies&quot;) så måste du använda 'Tjänster' på Kontrollpanelen i Windows och ändra så att SwissMonitor körs av ditt användarkonto.</text>
+        <text>SwissMonitor-tjänsten är en enkel Windows-tjänst som bevakar dina definierade mediaplatser efter ändringar av filer (inklusive när filer läggs till eller raderas) och informerar SwissCenter om detta så att din databas kan hållas uppdaterad. Detta eliminerar dock inte behovet av att köra schemalagd uppdatering eftersom det kan finnas vissa omständigheter där ändringar inte upptäcks.[p][n]Notera[/b] Om du använder UNC-sökvägar i dina mediaplatser (tex. &quot;\\nas\movies&quot;) så måste du använda 'Tjänster' på Kontrollpanelen i Windows och ändra så att SwissMonitor körs av ditt användarkonto.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4366,11 +4366,6 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       <string>
         <id>THEME_PREVIEW_THUMBS</id>
         <text>Förhandsgranska tillgängliga teman för %s</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>THEME_SAVED_SUCCESS</id>
-        <text></text>
         <version>1.22</version>
       </string>
       <string>
@@ -4470,12 +4465,12 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       </string>
       <string>
         <id>TOMA_MEDIA_TYPES</id>
-        <text>Medietyper</text>
+        <text>Mediatyper</text>
         <version>1.22</version>
       </string>
       <string>
         <id>TOMA_MEDIA_TYPES_PROMPT</id>
-        <text>Välj medietyper som skall vara tillgängliga när du bläddrar bland kanaler. Du bör endast välja sådana som du vet är kompatibla med din mediespelare.</text>
+        <text>Välj mediatyper som skall vara tillgängliga när du bläddrar bland kanaler. Du bör endast välja sådana som du vet är kompatibla med din mediaspelare.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4505,7 +4500,7 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       </string>
       <string>
         <id>TOMA_TV_MEDIA_FAIL</id>
-        <text>Du har inte valt någon medietyp</text>
+        <text>Du har inte valt någon mediatyp</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4925,7 +4920,7 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       </string>
       <string>
         <id>USERS_ADMIN_PROMPT</id>
-        <text>En Superanvändare har behörighet till fler val i mediespelaren, tex. att kunna radera mediefiler.</text>
+        <text>En Superanvändare har behörighet till fler val i mediaspelaren, tex. att kunna radera mediafiler.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -5035,7 +5030,7 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       </string>
       <string>
         <id>VIEWED</id>
-        <text>Visad</text>
+        <text>Sedd</text>
         <version>1.22</version>
       </string>
       <string>
@@ -5050,12 +5045,12 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       </string>
       <string>
         <id>VIEW_PHOTO</id>
-        <text>Visa fotografier</text>
+        <text>Titta på fotografier</text>
         <version>1.22</version>
       </string>
       <string>
         <id>VIEW_UNVIEWED</id>
-        <text>Visa ovisade</text>
+        <text>Visa osedda</text>
         <version>1.22</version>
       </string>
       <string>
@@ -5075,7 +5070,7 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       </string>
       <string>
         <id>WATCH_TV</id>
-        <text>Titta på en TV-show</text>
+        <text>Titta på ett TV-program</text>
         <version>1.22</version>
       </string>
       <string>
@@ -5125,7 +5120,7 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       </string>
       <string>
         <id>WEATHER_IMPERIAL</id>
-        <text>Ändra till brittisk standard</text>
+        <text>Byt till brittisk standard</text>
         <version>1.22</version>
       </string>
       <string>
@@ -5145,7 +5140,7 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       </string>
       <string>
         <id>WEATHER_METRIC</id>
-        <text>Ändra till metriskt format</text>
+        <text>Byt till metriskt format</text>
         <version>1.22</version>
       </string>
       <string>
@@ -5246,6 +5241,21 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       <string>
         <id>YOUTUBE_PROMPT_PERSONAL</id>
         <text>Personliga flöden</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_SEARCH_CHANNELS</id>
+        <text>Sök kanaler</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_SEARCH_PLAYLISTS</id>
+        <text>Sök spellistor</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_SEARCH_VIDEOS</id>
+        <text>Sök filmklipp</text>
         <version>1.22</version>
       </string>
       <string>
