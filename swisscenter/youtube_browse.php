@@ -55,7 +55,9 @@
     case 'recently_featured':
     case 'watch_on_mobile':
       $time = isset($_REQUEST["time"]) ? $_REQUEST["time"] : 'all_time';
-      $feed = $youtube->standardFeed($feed_type, $time);
+      $category = isset($_REQUEST["cat"]) ? $_REQUEST["cat"] : '';
+      $region = isset($_REQUEST["region"]) ? $_REQUEST["region"] : '';
+      $feed = $youtube->standardFeed($feed_type, $time, $category, $region);
       $title = utf8_decode($feed['feed']['title']['$t']);
       $subtitle = str($feed_type).' -> '.str($time).' -> '.str('SORT_'.strtoupper($sort));
       break;
@@ -127,7 +129,7 @@
                 break;
 
               case 'favorites':
-                $text = utf8_decode($entry['yt$username']['$t']).'\'s '.str('YOUTUBE_FAVORITES');
+                $text = utf8_decode($entry['yt$username']['$t']).'\'s '.str('FAVORITES');
                 $url  = url_add_params('youtube_browse.php', array('username'=>utf8_decode($entry['yt$username']['$t']), 'type'=>'favorites'));
                 break;
 
@@ -171,6 +173,10 @@
 
     // Page headings
     page_header($title, $subtitle);
+
+    // Switch between Thumbnail/Details view?
+    if ( !empty($_REQUEST["thumbs"]) )
+      set_user_pref('DISPLAY_THUMBS',strtoupper($_REQUEST["thumbs"]));
 
     browse_array_thumbs(url_add_param(current_url(), 'del', 1), $entry_list, $page);
 
@@ -223,6 +229,15 @@
       $buttons[] = array('text' => str('PLAYLISTS'), 'url'=>url_add_params('youtube_browse.php', array('username'=>$username, 'type'=>'playlists', 'del'=>1)));
     elseif ( $feed_type == 'playlists' )
       $buttons[] = array('text' => str('VIDEOS'),'url'=>url_add_params('youtube_browse.php', array('username'=>$username, 'type'=>'uploads', 'del'=>1)));
+
+    // Only add the change view type button if less than 3 have been defined
+    if ( count($buttons) < 3 )
+    {
+      if ( get_user_pref("DISPLAY_THUMBS") == "LARGE" )
+        $buttons[] = array('text'=>str('THUMBNAIL_VIEW'), 'url'=>url_add_params($this_url, array('page'=>floor($page/2), 'thumbs'=>'FULL', 'del'=>1)));
+      elseif ( get_user_pref("DISPLAY_THUMBS") == "FULL" )
+        $buttons[] = array('text'=>str('LARGE_VIEW'), 'url'=>url_add_params($this_url, array('page'=>floor($page*2), 'thumbs'=>'LARGE', 'del'=>1)));
+    }
 
     // Make sure the "back" button goes to the correct page:
     page_footer($back_url, $buttons);
