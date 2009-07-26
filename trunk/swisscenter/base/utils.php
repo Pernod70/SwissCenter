@@ -705,11 +705,14 @@ if(!function_exists('mime_content_type')) {
       'ogg' => 'audio/ogg',
       'wav' => 'audio/x-wav',
       'wma' => 'audio/x-ms-wma',
-      'flac' => 'audio/flac',
+      'flac' => 'audio/x-flac',
 
       // video
       'asf' => 'video/x-ms-asf',
       'avi' => 'video/x-msvideo',
+      'm4v' => 'video/x-m4v',
+      'mkv' => 'video/x-matroska',
+      'mp4' => 'video/mp4',
       'mpe' => 'video/mpeg',
       'mpeg' => 'video/mpeg',
       'mpg' => 'video/mpeg',
@@ -793,6 +796,25 @@ function object_to_array($data)
     return $result;
   }
   return $data;
+}
+
+function unicode_decode($str)
+{
+  return preg_replace('/\%u([0-9a-f]{4})/e', "unicode_value(\\1)", $str);
+}
+
+function unicode_value($code)
+{
+  $value=hexdec($code);
+  if($value<0x0080)
+    return chr($value);
+  elseif($value<0x0800)
+    return chr((($value&0x07c0)>>6)|0xc0)
+          .chr(($value&0x3f)|0x80);
+  else
+    return chr((($value&0xf000)>>12)|0xe0)
+          .chr((($value&0x0fc0)>>6)|0x80)
+          .chr(($value&0x3f)|0x80);
 }
 
 /**************************************************************************************************
