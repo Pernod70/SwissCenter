@@ -1139,8 +1139,8 @@
       </string>
       <string>
         <id>FAIL_MYSQL_VERSION</id>
-        <text>Your version of MySQL is not supported.</text>
-        <version>1.19</version>
+        <text>Your version of MySQL is not supported. You must have at least version 5.0 of MySQL installed</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>FAIL_PHP_CLI</id>
@@ -1174,8 +1174,8 @@
       </string>
       <string>
         <id>FAIL_PHP_VERSION</id>
-        <text>Your version of PHP is not supported (%s)..</text>
-        <version>1.19</version>
+        <text>Your version of PHP is not supported (%s). You must have at least version 5.2.6 of PHP installed.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>FAIL_SERVER_SCHED</id>
