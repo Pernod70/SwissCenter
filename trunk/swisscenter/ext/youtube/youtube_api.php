@@ -210,7 +210,7 @@ class phpYouTube {
    */
   function videoSearch ($query = NULL, $order = 'relevance')
   {
-    $this->request('feeds/api/videos', array("q"=>$query, "orderby"=>$order, "start-index"=>$this->start_index, "max-results"=>$this->max_results));
+    $this->request('feeds/api/videos', array("q"=>urlencode($query), "orderby"=>$order, "start-index"=>$this->start_index, "max-results"=>$this->max_results));
     return $this->response;
   }
 
@@ -224,7 +224,7 @@ class phpYouTube {
    */
   function playlistSearch ($query = NULL)
   {
-    $this->request('feeds/api/playlists/snippets', array("q"=>$query, "start-index"=>$this->start_index, "max-results"=>$this->max_results));
+    $this->request('feeds/api/playlists/snippets', array("q"=>urlencode($query), "start-index"=>$this->start_index, "max-results"=>$this->max_results));
     return $this->response;
   }
 
@@ -238,7 +238,7 @@ class phpYouTube {
    */
   function channelSearch ($query = NULL)
   {
-    $this->request('feeds/api/channels', array("q"=>$query, "start-index"=>$this->start_index, "max-results"=>$this->max_results));
+    $this->request('feeds/api/channels', array("q"=>urlencode($query), "start-index"=>$this->start_index, "max-results"=>$this->max_results));
     return $this->response;
   }
 
