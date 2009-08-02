@@ -165,8 +165,8 @@ function get_apple_trailers_genres()
   foreach ($trailers as $trailer)
   {
     $genre = $trailer['genre'][0];
-    if ( count($genres) == 0 || array_last($genres) !== $genre )
-      $genres[] = $genre;
+    if ( count($genres) == 0 || $genres[count($genres)-1]["title"] !== $genre )
+      $genres[] = array("title"=>$genre, "url"=>'apple_trailer_browse.php?genre='.rawurlencode($genre));
   }
   return $genres;
 }
@@ -204,8 +204,8 @@ function get_apple_trailers_studios()
   foreach ($trailers as $trailer)
   {
     $studio = $trailer['studio'];
-    if ( count($studios) == 0 || array_last($studios) !== $studio )
-      $studios[] = $studio;
+    if ( count($studios) == 0 || $studios[count($studios)-1]["title"] !== $studio )
+      $studios[] = array("title"=>$studio, "url"=>'apple_trailer_browse.php?studio='.rawurlencode($studio));
   }
   return $studios;
 }
@@ -230,6 +230,38 @@ function get_apple_trailers_by_studio($studio)
 }
 
 /**
+ * Retrieve and parse a section of the Apple trailers page for list of movies.
+ *
+ * @param string $section
+ * @return array
+ */
+function get_apple_trailers_page_section($section)
+{
+  // Get Apple trailers main page
+  $html = file_get_contents('http://www.apple.com/trailers/');
+
+  // Parse page for Weekend Box Office or Opening trailers
+  $html = preg_get('/class="sidebox" id="'.$section.'">(.*)'.$section.'/sU', $html);
+
+  $trailer_urls = array();
+  foreach (explode('<li>', $html) as $item)
+  {
+    if (strpos($item, 'title='))
+      preg_match('/<a class="title" href="(.*)".*title="(.*)".*<\/a>/sU', $item, $trailer);
+    elseif (strpos($item, 'title'))
+      preg_match('/<a class="title" href="(.*)">(.*)<\/a>/sU', $item, $trailer);
+
+    if (!empty($trailer[2]))
+    {
+      // Remove any preceding number
+      $trailer[2] = preg_replace('/(\d+\. )/','',$trailer[2]);
+      $trailers[] = array("title"=>$trailer[2], "url"=>'apple_trailer_selected.php?query='.rawurlencode($trailer[2]));
+    }
+  }
+  return $trailers;
+}
+
+/**
  * Return description of movie from either itunes xml or trailer page meta tags.
  *
  * @param array $trailer
@@ -237,17 +269,22 @@ function get_apple_trailers_by_studio($studio)
  */
 function get_trailer_description($trailer)
 {
+  // Remove incorrect encoding of ` from 'location'
+  $trailer["location"] = str_replace('u2019','',$trailer["location"]);
+
   $urltype = isset($trailer["urltype"]) ? $trailer["urltype"] : 'html';
   switch ( $urltype )
   {
     case 'html':
       // Get meta tags from trailer page
+      send_to_log(6,'Retrieving trailer description from meta tags',$trailer["location"]);
       $meta = get_meta_tags('http://www.apple.com/'.$trailer["location"]);
       $description = $meta['description'];
       break;
 
     case 'itunes':
-      // Get the itunes xml containing page details
+      // Get the iTunes index.xml containing trailer details
+      send_to_log(6,'Retrieving trailer description from index.xml',$trailer["location"]);
       $itunes_url = 'http'.substr_between_strings($trailer["location"], 'url=itms', '.xml').'.xml';
       $xml = file_get_contents($itunes_url);
       $description = substr_between_strings($xml, 'DESCRIPTION', '</TextView>');
@@ -257,36 +294,94 @@ function get_trailer_description($trailer)
 }
 
 /**
- * Return array of trailer titles and URL's.
+ * Return array of trailer titles from an iTunes index.xml.
  *
  * @param array $trailer
  * @return array
  */
-function get_trailer_urls($trailer)
+function get_trailer_index($trailer)
 {
+  // Remove incorrect encoding of ` from 'location'
+  $trailer["location"] = str_replace('u2019','',$trailer["location"]);
+
   // Form URL of iTunes XML
   $urltype = isset($trailer["urltype"]) ? $trailer["urltype"] : 'html';
   switch ( $urltype )
   {
     case 'html':
-      $itunes_url = 'http://www.apple.com/moviesxml/s'.str_replace('/trailers','',$trailer["location"]).'index.xml';
+      // The location of http://www.apple.com/moviesxml/s/../../index.xml is not known so
+      // need to check various possible locations.
+
+      // Check most likely location
+      $index_url = 'http://www.apple.com/moviesxml/s'.str_replace('/trailers','',$trailer["location"]).'index.xml';
+      if (url_exists($index_url)) { break; }
+
+      // Some trailers (eg. Halloween 2) have incorrect path in 'location' so recreate it from 'poster'
+      $trailer_id = substr(basename($trailer["poster"]),0,strpos(basename($trailer["poster"]),'_'));
+      $trailer["location"] = preg_replace('/'.basename($trailer["location"]).'/', $trailer_id, $trailer["location"]);
+      $index_url = 'http://www.apple.com/moviesxml/s'.str_replace('/trailers','',$trailer["location"]).'index.xml';
+      if (url_exists($index_url)) { break; }
+
+      // Scan html at 'location' for possible xml links
+      $html = file_get_contents('http://www.apple.com/'.$trailer["location"]);
+      $trailer_id = preg_get('/moviesxml\/s\/(.*?\/.*?)\/.*?\.xml/',$html);
+      $index_url = 'http://www.apple.com/moviesxml/s/'.$trailer_id.'/index.xml';
       break;
 
     case 'itunes':
-      $itunes_url = 'http'.substr_between_strings($trailer["location"], 'url=itms', '.xml').'.xml';
+      $index_url = 'http'.substr_between_strings($trailer["location"], 'url=itms', '.xml').'.xml';
       break;
   }
 
-  // Get the iTunes XML containing trailer details
-  $xml = file_get_contents($itunes_url);
+  // Get the iTunes index.xml containing trailer details
+  if ($index_xml = @file_get_contents($index_url))
+  {
+    // Parse the iTunes XML
+    send_to_log(6,'Parsing iTunes index.xml',$index_url);
+    preg_match_all('/<GotoURL target="main" url="(.*?.xml)".*?draggingName="(.*?)">/', $index_xml, $trailer_xmls);
 
-  // Parse the iTunes XML
-  preg_match_all('/<key>songName<\/key><string>(.*?)<\/string>.*?<key>previewURL<\/key><string>(.*?)<\/string>/', $xml, $trailer_urls);
+    // Remove duplicates and sort
+    $trailer_xmls[1] = array_unique($trailer_xmls[1]);
+    $trailer_xmls[2] = array_unique($trailer_xmls[2]);
+    array_multisort($trailer_xmls[2], $trailer_xmls[1]);
+    send_to_log(8,'Found the following trailers',$trailer_xmls);
+  }
+  else
+  {
+    send_to_log(2,'Failed to read iTunes index.xml',$index_url);
+    $trailer_xmls = array();
+  }
+
+  return $trailer_xmls;
+}
+
+/**
+ * Return array of trailer locations from an iTunes trailer.xml.
+ *
+ * @param array $trailer_xml
+ * @return array
+ */
+function get_trailer_urls($trailer_xml)
+{
+  // Get the iTunes XML containing trailer details
+  if ($xml = @file_get_contents('http://www.apple.com'.$trailer_xml))
+  {
+    // Parse the iTunes XML
+    send_to_log(6,'Parsing iTunes trailer.xml',$trailer_xml);
+    preg_match_all('/<key>songName<\/key><string>(.*?)<\/string>.*?<key>previewURL<\/key><string>(.*?)<\/string>/', $xml, $trailer_urls);
+    send_to_log(8,'Found the following trailers',$trailer_urls);
+  }
+  else
+  {
+    send_to_log(2,'Failed to read iTunes trailer.xml',$trailer_xml);
+    $trailer_urls = array();
+  }
+
   return $trailer_urls;
 }
 
 /**
- * Functions for managing the flickr navigation history.
+ * Functions for managing the trailer navigation history.
  */
 function apple_trailer_hist_init( $url )
 {

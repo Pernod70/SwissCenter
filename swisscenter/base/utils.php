@@ -817,6 +817,18 @@ function unicode_value($code)
           .chr(($value&0x3f)|0x80);
 }
 
+/**
+ * Check whether a URL exists.
+ *
+ * @param string $url
+ * @return boolean
+ */
+function url_exists($url)
+{
+  $hdrs = @get_headers($url);
+  return is_array($hdrs) ? preg_match('/^HTTP\\/\\d+\\.\\d+\\s+2\\d\\d\\s+.*$/',$hdrs[0]) : false;
+}
+
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/

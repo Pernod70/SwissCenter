@@ -58,7 +58,7 @@ class trailer_picker extends list_picker
 
   function display_format_name( $item )
   {
-    return utf8_decode($item);
+    return utf8_decode($item["title"]).(count($item["trailers"]) > 1 ? ' ('.count($item["trailers"]).')' : '');
   }
 
   function display()
@@ -93,7 +93,7 @@ class trailer_picker extends list_picker
       }
 
       foreach ($data as $id=>$item)
-        $this->menu->add_item($this->display_format_name($item["title"]), $this->link_url($id), true, $this->icon($item));
+        $this->menu->add_item($this->display_format_name($item), $this->link_url($id), true, $this->icon($item));
 
       $this->menu->display( 1, 480 );
     }
