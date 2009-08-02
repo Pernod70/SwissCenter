@@ -50,7 +50,7 @@
     $trailer_list = array();
     foreach ($trailers as $id=>$trailer)
     {
-      $text = utf8_decode($trailer["title"]);
+      $text = utf8_decode($trailer["title"]).(count($trailer["trailers"]) > 1 ? ' ('.count($trailer["trailers"]).')' : '');
       $url  = url_add_params('apple_trailer_selected.php', array('feed'=>$feed, 'id'=>$id));
       $trailer_list[] = array('thumb'=>$trailer["poster"], 'text'=>$text, 'url'=>$url);
     }

@@ -13,7 +13,7 @@
   /**
    * Return truncated synopsis.
    *
-   * @param string $location
+   * @param array $trailer
    * @param integer $num_menu_items
    */
   function trailer_synopsis ($trailer, $num_menu_items=0)
@@ -108,16 +108,17 @@
   $this_url = url_remove_param(current_url(), 'del');
 
   // Retrieve the selected trailer details
-  $id = $_REQUEST["id"];
   $apple = new AppleTrailers();
 
   if ( isset($_REQUEST["feed"]) )
   {
+    $id = $_REQUEST["id"];
     $feed = $_REQUEST["feed"];
     $trailers = $apple->getFeed($feed);
   }
   else
   {
+    $id = isset($_REQUEST["id"]) ? $_REQUEST["id"] : 0;
     $query = $_REQUEST["query"];
     $trailers = $apple->quickFind($query);
   }
@@ -134,13 +135,34 @@
   {
     $menu = new menu();
 
-    // List available trailers
-    $trailer_urls = get_trailer_urls($trailers[$id]);
-    foreach ($trailer_urls[1] as $key=>$title)
+    if ( isset($_REQUEST["xml"]) )
     {
-      // Omit iPod, Small, and Medium sized trailers
-      if (preg_match('[\(iPod\)|\(Small\)|\(Medium\)]', $title) == 0)
-        $menu->add_item( $title, 'href="'.$trailer_urls[2][$key].'" vod ');
+      // List selected trailer by size
+      $items = get_trailer_urls($_REQUEST["xml"]);
+      foreach ($items[1] as $key=>$title)
+      {
+        // Omit iPod trailers
+        if (strpos($title, 'iPod') === false)
+          $menu->add_item( $title, 'href="'.$items[2][$key].'" vod ');
+      }
+    }
+    else
+    {
+      // List available trailers by title
+      $items      = get_trailer_index($trailers[$id]);
+      $page       = (isset($_REQUEST["page"]) ? $_REQUEST["page"] : 1);
+      $start      = ($page-1) * MAX_PER_PAGE;
+      $end        = min($start+MAX_PER_PAGE,count($items[1]));
+      $last_page  = ceil(count($items[1])/MAX_PER_PAGE);
+
+      if (count($items[1]) > MAX_PER_PAGE)
+      {
+        $menu->add_up( url_add_params($this_url, array('page'=>($page > 1 ? ($page-1) : $last_page), 'del'=>1)) );
+        $menu->add_down( url_add_params($this_url, array('page'=>($page < $last_page ? ($page+1) : 1), 'del'=>1)) );
+      }
+
+      for ($i=$start; $i<$end; $i++)
+        $menu->add_item($items[2][$i], url_add_param($this_url, 'xml', rawurlencode($items[1][$i])), true);
     }
 
     // Certificate? Get the appropriate image.
@@ -163,7 +185,8 @@
                   trailer_synopsis($trailers[$id], $menu->num_items());
       echo '      <p>';
                   // Release date
-                  echo font_tags(30).str('RELEASE_DATE').': '.date('d M Y', strtotime($trailers[$id]["releasedate"])).'</font>';
+                  if (isset($trailers[$id]["releasedate"]))
+                    echo font_tags(30).str('RELEASE_DATE').': '.date('d M Y', strtotime($trailers[$id]["releasedate"])).'</font>';
                   $menu->display(1, 480);
       echo '    </td>
               </tr>

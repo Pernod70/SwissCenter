@@ -2639,7 +2639,7 @@
       </string>
       <string>
         <id>MOST_POPULAR</id>
-        <text>Most popular</text>
+        <text>Most Popular</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2887,6 +2887,11 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <id>ONE_TRACK</id>
         <text>1 Track</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>OPENING_THISWEEK</id>
+        <text>Opening this Week</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>OPTIONS</id>
@@ -5217,6 +5222,11 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <id>WEEKDAY</id>
         <text>Weekday</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>WEEKEND_BOXOFFICE</id>
+        <text>Weekend Box Office</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>WIKI_LOOKUP</id>
