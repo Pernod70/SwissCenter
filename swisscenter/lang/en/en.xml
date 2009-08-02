@@ -4349,6 +4349,11 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <version>1.19</version>
       </string>
       <string>
+        <id>TABLE_DEFINITION</id>
+        <text>Definition of table: %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>TAG</id>
         <text>Tag</text>
         <version>1.19</version>
