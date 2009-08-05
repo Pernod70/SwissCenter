@@ -1,14 +1,133 @@
 <?php
+/**************************************************************************************************
+   SWISScenter Source                                                              Nigel Barnes
+ *************************************************************************************************/
 
-require_once( realpath(dirname(__FILE__).'/../xml/XPath.class.php'));
-    
+require_once( realpath(dirname(__FILE__).'/../json/json.php'));
+require_once( realpath(dirname(__FILE__).'/../../base/mysql.php'));
+
+class lastfmapi {
+  var $GET = 'http://ws.audioscrobbler.com/2.0/?format=json&';
+  var $service = 'lastfm';
+  var $api_key = 'df621f9291ce837cf27b27e4172e0698';
+
+  var $req;
+  var $response;
+  var $response_code;
+  var $cache_table = null;
+  var $cache_expire = null;
+
+  /*
+   * When your database cache table hits this many rows, a cleanup
+   * will occur to get rid of all of the old rows and cleanup the
+   * garbage in the table.  For most personal apps, 1000 rows should
+   * be more than enough.  If your site gets hit by a lot of traffic
+   * or you have a lot of disk space to spare, bump this number up.
+   * You should try to set it high enough that the cleanup only
+   * happens every once in a while, so this will depend on the growth
+   * of your table.
+   */
+  var $max_cache_rows = 500;
+
+  function lastfmapi ()
+  {
+    $this->enableCache(3600);
+  }
+
+  /**
+   * Enable caching to the database
+   *
+   * @param unknown_type $cache_expire
+   * @param unknown_type $table
+   */
+  function enableCache($cache_expire = 600, $table = 'cache_api_request')
+  {
+    if (db_value("SELECT COUNT(*) FROM $table WHERE service = '".$this->service."'") > $this->max_cache_rows)
+    {
+      db_sqlcommand("DELETE FROM $table WHERE service = '".$this->service."' AND expiration < DATE_SUB(NOW(), INTERVAL $cache_expire second)");
+      db_sqlcommand('OPTIMIZE TABLE '.$this->cache_table);
+    }
+    $this->cache_table = $table;
+    $this->cache_expire = $cache_expire;
+  }
+
+  function getCached ($request)
+  {
+    //Checks the database for a cached result to the request.
+    //If there is no cache result, it returns a value of false. If it finds one,
+    //it returns the unparsed XML.
+    $reqhash = md5(serialize($request));
+
+    $result = db_value("SELECT response FROM ".$this->cache_table." WHERE request = '$reqhash' AND DATE_SUB(NOW(), INTERVAL " . (int) $this->cache_expire . " SECOND) < expiration");
+    if (!empty($result)) {
+      return object_to_array(json_decode($result));
+    }
+    return false;
+  }
+
+  function cache ($request, $response)
+  {
+    //Caches the unparsed XML of a request.
+    $reqhash = md5(serialize($request));
+
+    if (db_value("SELECT COUNT(*) FROM {$this->cache_table} WHERE request = '$reqhash'")) {
+      db_sqlcommand( "UPDATE ".$this->cache_table." SET response = '".db_escape_str($response)."', expiration = '".strftime("%Y-%m-%d %H:%M:%S")."' WHERE request = '$reqhash'");
+    } else {
+      db_sqlcommand( "INSERT INTO ".$this->cache_table." (request, service, response, expiration) VALUES ('$reqhash', '$this->service', '".db_escape_str($response)."', '".strftime("%Y-%m-%d %H:%M:%S")."')");
+    }
+
+    return false;
+  }
+
+  function request ($command, $args = array())
+  {
+    //Sends a request to LastFM
+    $url = url_add_params($this->GET.$command, $args);
+    $url = url_add_param($url, 'api_key', $this->api_key);
+    send_to_log(6,'LastFM API request',$url);
+
+    if (!($this->response = $this->getCached($url)) ) {
+      //Send Requests
+      if ($response = file_get_contents($url)) {
+        $this->response = object_to_array(json_decode($response));
+        if (isset($this->response["error"])) {
+          $this->response_code = $this->response["error"];
+          send_to_log(2,'Error returned by LastFM API', $this->response["message"]);
+          return false;
+        }
+        else {
+          $this->cache($url, $response);
+        }
+      } else {
+        send_to_log(2,'There has been a problem sending your command to the server.');
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /**
+   * Return requested feed.
+   *
+   * @param string $feed
+   * @return array
+   */
+  function getFeed ($feed)
+  {
+    if ($this->request($feed))
+      return $this->response;
+    else
+      return false;
+  }
+}
+
 function tagcloud( $tags, $linkto_url, $colours, $sizes )
 {
   if (!is_array($colours))
     $colours = explode(',',$colours);
   if (!is_array($sizes))
     $sizes = explode(',',$sizes);
-  
+
   // get the largest and smallest array values
   $max_qty = max(array_values($tags));
   $min_qty = min(array_values($tags));
@@ -23,7 +142,7 @@ function tagcloud( $tags, $linkto_url, $colours, $sizes )
   $size_step = (count($sizes)-1)/($spread);
 
   // loop through our tag array
-  foreach ($tags as $tag => $value) 
+  foreach ($tags as $tag => $value)
   {
     $col_idx = (int)(($value - $min_qty) * $col_step);
     $size_idx = (int)(($value - $min_qty) * $size_step);
@@ -37,66 +156,118 @@ function tagcloud( $tags, $linkto_url, $colours, $sizes )
 
 function tagcloud_test()
 {
-// $time = time();
-// echo -$time + ($time =time()).'s<br>';
+  $lastfm = new lastfmapi();
+  $lastfm->cache_expire = 86400;
+  $tags = $lastfm->getFeed('method=tag.getTopTags');
 
-$cloud       = array();
-$xmlOptions  = array(XML_OPTION_CASE_FOLDING => TRUE, XML_OPTION_SKIP_WHITE => TRUE);
-$xml         = &new XPath('test.xml', $xmlOptions);
+  // Overall TopTags
+  $cloud = array();
+  foreach ($tags["toptags"]["tag"] as $tag)
+    $cloud[$tag["name"]] = $tag["count"];
 
-/*
-// Track TopTags
-foreach ($xml->match('/toptags/tag') as $abspath)
-  $cloud[$xml->getData($abspath.'/name')] = $xml->getData($abspath.'/count');
-*/
+  // Generate a tag cloud from the values in the XML document for the top 50 tags.
+  $toptags = array_slice($cloud,0,50);
 
+  $colour_list = '#bbbbbb,#999999,#666666,#333333,#000000';
+  $size_list   = '3,4,5,6';
 
-// Overall TopTags
-foreach ($xml->match('/toptags/tag') as $abspath)
-{
-  $node = $xml->getNode($abspath);
-  $cloud[$node["attributes"]["NAME"]] = $node["attributes"]["COUNT"];
+  ksort($toptags);
+  tagcloud( $toptags, 'http://www.last.fm/tag/###', $colour_list, $size_list);
 }
 
-// Generate a tag cloud from the values in the XML document for the top 50 tags.
-
-asort($cloud);
-$toptags = array_slice($cloud,0,50);
-
-$colour_list = '#bbbbbb,#999999,#666666,#333333,#000000';
-$size_list   = '3,4,5,6';  
-
-ksort($toptags);
-tagcloud( $toptags, 'http://www.last.fm/tag/###', $colour_list, $size_list);
-}
-
+/**
+ * Fetches the top global tags on Last.fm, sorted by popularity (number of times used)
+ *
+ * @return array
+ */
 function lastfm_toptags ()
-{    
-  $cache_time = get_sys_pref('LASTFM_CACHE_TIMEOUT_TOPTAGS',0);
-  $ws_url     = 'http://ws.audioscrobbler.com/1.0/tag/toptags.xml';
+{
+  $lastfm = new lastfmapi();
+  $lastfm->cache_expire = 86400;
 
   // Download the latest "Top Tags" from audioscrobbler.com every 24 hours
-  if ( $cache_time < time() && ($datafeed = file_get_contents($ws_url)) !== false)
+  if ( $tags = $lastfm->getFeed('method=tag.getTopTags') )
   {
-    set_sys_pref('LASTFM_CACHE_TIMEOUT_TOPTAGS',(time()+86400));
     db_sqlcommand("delete from lastfm_tags");
-    
-    $xmlOptions  = array(XML_OPTION_CASE_FOLDING => TRUE, XML_OPTION_SKIP_WHITE => TRUE);
-    $xml         = &new XPath(FALSE, $xmlOptions);
-
-    $xml->importFromString($datafeed);      
-    foreach ($xml->match('/toptags/tag') as $abspath)
-    {
-      $node = $xml->getNode($abspath);
-      db_insert_row('lastfm_tags', array( 'tag'   => $node["attributes"]["NAME"]
-                                        , 'count' => $node["attributes"]["COUNT"]
-                                        , 'url'   => $node["attributes"]["URL"]
+    foreach ($tags["toptags"]["tag"] as $tag)
+      db_insert_row('lastfm_tags', array( 'tag'   => $tag["name"]
+                                        , 'count' => $tag["count"]
+                                        , 'url'   => $tag["url"]
                                         ) );
-    }
   }
-  
-  return db_col_to_list("select tag from lastfm_tags");
-}    
- 
+  return $tags;
+}
 
+/**
+ * Get the metadata for an album on Last.fm using the album name or a musicbrainz id. See playlist.fetch on how to get the album playlist.
+ *
+ * @param string $artist
+ * @param string $album
+ * @return array
+ */
+function lastfm_album_getInfo($artist, $album)
+{
+  $lastfm = new lastfmapi();
+  return $lastfm->getFeed('method=album.getInfo&artist='.urlencode(utf8_encode($artist)).'&album='.urlencode(utf8_encode($album)));
+}
+
+/**
+ * Get Images for this artist in a variety of sizes.
+ *
+ * @param string $artist
+ * @return array
+ */
+function lastfm_artist_getImages($artist)
+{
+  $lastfm = new lastfmapi();
+  return $lastfm->getFeed('method=artist.getImages&artist='.urlencode(utf8_encode($artist)));
+}
+
+/**
+ * Get the metadata for an artist on Last.fm. Includes biography.
+ *
+ * @param string $artist
+ * @return array
+ */
+function lastfm_artist_getInfo($artist)
+{
+  $lastfm = new lastfmapi();
+  return $lastfm->getFeed('method=artist.getInfo&artist='.urlencode(utf8_encode($artist)));
+}
+
+/**
+ * Get the metadata for a track on Last.fm using the artist/track name or a musicbrainz id.
+ *
+ * @param string $artist
+ * @param string $track
+ * @return array
+ */
+function lastfm_track_getInfo($artist, $track)
+{
+  $lastfm = new lastfmapi();
+  return $lastfm->getFeed('method=track.getInfo&artist='.urlencode(utf8_encode($artist)).'&track='.urlencode(utf8_encode($track)));
+}
+
+/**
+ * Fetch new radio content periodically in an XSPF format.
+ *
+ * @return array
+ */
+function lastfm_radio_getPlaylist()
+{
+  $lastfm = new lastfmapi();
+  return $lastfm->getFeed('method=radio.getPlaylist');
+}
+
+/**
+ * Tune in to a Last.fm radio station.
+ *
+ * @param string $station
+ * @return array
+ */
+function lastfm_radio_tune($station)
+{
+  $lastfm = new lastfmapi();
+  return $lastfm->getFeed('method=radio.tune&station='.rawurlencode(utf8_encode($station)));
+}
 ?>

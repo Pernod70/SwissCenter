@@ -47,7 +47,7 @@
       $artist_photo = new CImage();
       $count++;
 
-      $pic_num = rand(0,count($images)-1);
+      $pic_num = mt_rand(0,count($images)-1);
       $pic_fsp = download_and_cache_image($images[$pic_num]);
       if ($pic_fsp !== false)
       {
@@ -403,7 +403,7 @@
     send_to_log(8,'Next track:',$next_track);
 
     // Background image
-    switch ( get_sys_pref('NOW_PLAYING_FANART','GOOGLE') )
+    switch ( get_sys_pref('NOW_PLAYING_FANART','LASTFM') )
     {
       case 'GOOGLE':
         $fanart_img = get_google_artist_image( $current_track["ARTIST"] );
@@ -419,7 +419,7 @@
     if ( !$fanart_img )
     {
       $fanart_imgs = dir_to_array(SC_LOCATION.'fanart/artists/'.strtolower($current_track["ARTIST"]).'/', '.*', 5);
-      $fanart_img  = count($fanart_imgs)==0 ? style_img('RADIO_BACKGROUND',true) : $fanart_imgs[rand(0,count($fanart_imgs)-1)];
+      $fanart_img  = count($fanart_imgs)==0 ? style_img('RADIO_BACKGROUND',true) : $fanart_imgs[mt_rand(0,count($fanart_imgs)-1)];
     }
 
     // Load the image and scale it to the appropriate size.
