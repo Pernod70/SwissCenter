@@ -96,6 +96,14 @@ function get_lastfm_artist_image( $artist )
     $local_folder = SC_LOCATION.'fanart/artists/'.strtolower($artist);
     if (!file_exists($local_folder)) { @mkdir($local_folder); }
 
+    // Number of pages available
+    $pages = $images["images"]["@attr"]["totalpages"];
+
+    // Choose random page
+    $page = mt_rand(1, $pages);
+    if ($page > 1)
+      $images = lastfm_artist_getImages($artist, $page);
+
     // Select random image from those returned
     $image = $images["images"]["image"][mt_rand(0,count($images["images"]["image"])-1)];
 
