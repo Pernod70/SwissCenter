@@ -217,10 +217,10 @@ function lastfm_album_getInfo($artist, $album)
  * @param string $artist
  * @return array
  */
-function lastfm_artist_getImages($artist)
+function lastfm_artist_getImages($artist, $page=1, $limit=50)
 {
   $lastfm = new lastfmapi();
-  return $lastfm->getFeed('method=artist.getImages&artist='.urlencode(utf8_encode($artist)));
+  return $lastfm->getFeed('method=artist.getImages&artist='.urlencode(utf8_encode($artist)).'&page='.$page.'&limit='.$limit);
 }
 
 /**
