@@ -73,6 +73,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>ARTIST_INFO</id>
+        <text>Artist info</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>ART_ADDED_OK</id>
         <text>Art file added</text>
         <version>1.19</version>
@@ -599,8 +604,8 @@
       </string>
       <string>
         <id>CONFIG_LASTFM_TITLE</id>
-        <text>LastFM Options</text>
-        <version>1.19</version>
+        <text>Last.fm Options</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>CONFIG_MIP_OPTIONS</id>
@@ -2039,8 +2044,8 @@
       </string>
       <string>
         <id>LASTFM</id>
-        <text>Last.FM</text>
-        <version>1.19</version>
+        <text>Last.fm</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>LASTFM_ABOUT</id>
@@ -2054,13 +2059,13 @@
       </string>
       <string>
         <id>LASTFM_ENABLED_PROMPT</id>
-        <text>When enabled, SwissCenter can connect to the Last.FM website and access personalised radio streams.</text>
-        <version>1.19</version>
+        <text>When enabled, SwissCenter can connect to the Last.fm website and access personalised radio streams.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>LASTFM_LOGIN_HEADINGS</id>
-        <text>User,LastFM[br]Username,LastFM[br]Password,Scrobble?,Images?</text>
-        <version>1.19</version>
+        <text>User,Last.fm[br]Username,Last.fm[br]Password,Scrobble?,Images?</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>LASTFM_PROMPT_GENERAL</id>
@@ -2079,8 +2084,8 @@
       </string>
       <string>
         <id>LASTFM_WHATIS</id>
-        <text>What is LastFM?</text>
-        <version>1.19</version>
+        <text>What is Last.fm?</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>LENGTH_MM</id>
@@ -2094,8 +2099,8 @@
       </string>
       <string>
         <id>LISTEN_LASTFM</id>
-        <text>Listen to Last.FM Station</text>
-        <version>1.19</version>
+        <text>Listen to Last.fm Station</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>LISTEN_LASTFM_ARTISTS</id>
@@ -2824,7 +2829,7 @@
       </string>
       <string>
         <id>NOW_PLAYING_FANART_LASTFM</id>
-        <text>Last.FM</text>
+        <text>Last.fm</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2834,7 +2839,7 @@
       </string>
       <string>
         <id>NOW_PLAYING_FANART_PROMPT</id>
-        <text>Select the source of the fanart images to be used on the enhanced 'Now Playing' screen. Fanart images are stored for each artist in [em]swisscenter\fanart\artists\depeche mode[/em].[br]None - no fanart will be downloaded. Only existing images in your fanart folder will be used.[br]Google - fanart will be searched for at Google Images and downloaded locally to your fanart folder.</text>
+        <text>Select the source of the fanart images to be used on the enhanced 'Now Playing' screen. Fanart images are stored for each artist in [em]swisscenter\fanart\artists\depeche mode[/em].[br][b]None[/b] - no fanart will be downloaded. Only existing images in your fanart folder will be used.[br][b]Google Images[/b] - fanart will be searched for at Google Images and downloaded locally to your fanart folder..[br][b]Last.fm[/b] (recommended) - artist images will be downloaded to your fanart folder from Last.fm.</text>
         <version>1.22</version>
       </string>
       <string>

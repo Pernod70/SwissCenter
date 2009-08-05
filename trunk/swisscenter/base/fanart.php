@@ -4,6 +4,7 @@
  *************************************************************************************************/
 
 require_once( realpath(dirname(__FILE__).'/cache_api_request.php'));
+require_once( realpath(dirname(__FILE__).'/../ext/lastfm/datafeeds.php'));
 require_once( realpath(dirname(__FILE__).'/../ext/json/json.php'));
 
 /**
@@ -23,7 +24,7 @@ function get_google_artist_image( $artist )
             .'?v=1.0'
             .'&q='.str_replace('%20','+',urlencode($query))
             .'&rsz=large'
-            .'&start='.rand(0,3)*8
+            .'&start='.mt_rand(0,3)*8
             .'&safe=moderate'
             .'&imgsz=xxlarge'
             .'&as_filetype=jpg';
@@ -60,7 +61,7 @@ function get_google_artist_image( $artist )
       $image_urls[] = $result->unescapedUrl;
 
     // Select random image from those returned
-    $image_url = $image_urls[rand(0,count($image_urls)-1)];
+    $image_url = $image_urls[mt_rand(0,count($image_urls)-1)];
 
     // Download image
     if ( file_download_and_save( $image_url, $local_folder.'/'.basename($image_url) ) )
@@ -75,6 +76,47 @@ function get_google_artist_image( $artist )
   }
 }
 
+/**
+ * Searches for and downloads an artist image from Last.FM.
+ *
+ * @param string $artist
+ * @return string - path to downloaded image, or false if failed.
+ */
+function get_lastfm_artist_image( $artist )
+{
+  // Return if no artist provided
+  if (empty($artist))
+    return false;
+
+  if ( $images = lastfm_artist_getImages($artist) )
+  {
+    // Create folder for artist images
+    $local_folder = SC_LOCATION.'fanart/artists';
+    if (!file_exists($local_folder)) { @mkdir($local_folder); }
+    $local_folder = SC_LOCATION.'fanart/artists/'.strtolower($artist);
+    if (!file_exists($local_folder)) { @mkdir($local_folder); }
+
+    // Select random image from those returned
+    $image = $images["images"]["image"][mt_rand(0,count($images["images"]["image"])-1)];
+
+    // Find the URL of the original image
+    foreach ($image["sizes"]["size"] as $size)
+    {
+      if ($size["name"] == 'original')
+      {
+        $image_url = $size["#text"];
+        $local_filename = basename($image["url"]).'.'.file_ext($image_url);
+        break;
+      }
+    }
+
+    // Download image
+    if ( file_download_and_save( $image_url, $local_folder.'/'.$local_filename ) )
+      return $local_folder.'/'.$local_filename;
+    else
+      return false;
+  }
+}
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/
