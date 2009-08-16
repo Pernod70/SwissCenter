@@ -2368,6 +2368,11 @@
         <version>1.20.1</version>
       </string>
       <string>
+        <id>MEDIA_SCAN_TYPE</id>
+        <text>Scan type</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>MEDIA_SEARCH_PROMPT</id>
         <text>Clicking the button below will begin a background scan of all your media locations. Media that is no longer present on your system will be removed from the database and any new or changed media will be added.</text>
         <version>1.19</version>
@@ -3879,6 +3884,11 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <version>1.19</version>
       </string>
       <string>
+        <id>SCHEDULE_ALL</id>
+        <text>All</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SCHEDULE_AUTO_TITLE</id>
         <text>Automatic Media Refresh</text>
         <version>1.19</version>
@@ -3919,6 +3929,11 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <version>1.19</version>
       </string>
       <string>
+        <id>SCHEDULE_MEDIA_ONLY</id>
+        <text>Media Only</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SCHEDULE_MINUTE_PROMPT</id>
         <text>The number of minutes past the hour</text>
         <version>1.19</version>
@@ -3937,6 +3952,11 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <id>SCHEDULE_NOTES</id>
         <text>[li]* denotes all possible values. [li]Multiple values can be specified using commas (1,5). [li]A range can be specified using a hyphen (1-5). [li]Both may be specified together (1-4,7).</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_RSS_ONLY</id>
+        <text>RSS Only</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>SCHEDULE_TITLE</id>

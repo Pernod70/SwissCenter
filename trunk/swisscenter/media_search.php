@@ -26,7 +26,7 @@
   function process_media_dirs( $media_type = '', $cat_id = '', $update = false)
   {
     // Get a list of matching locations
-    $media_locations = db_toarray("select * 
+    $media_locations = db_toarray("select *
                                    from media_locations
                                    where (media_type not in (".MEDIA_TYPE_RADIO.",".MEDIA_TYPE_WEB."))".
                                    (empty($cat_id) ? '' : " and cat_id = $cat_id").
@@ -41,10 +41,10 @@
       send_to_log(4,'Refreshing '.strtoupper($table).' database');
       process_media_directory( str_suffix($location["NAME"],'/'), $location["LOCATION_ID"], $location["NETWORK_SHARE"], $table, $types, true, $update );
       send_to_log(4,'Completed refreshing '.strtoupper($table).' database');
-      
+
       // Tell MusicIP to rescan this folder
       if ($media_type == MEDIA_TYPE_MUSIC)
-        musicip_server_add_dir($location["NAME"]);    
+        musicip_server_add_dir($location["NAME"]);
     }
 
   }
@@ -54,9 +54,9 @@
   //===========================================================================================
 
   media_indicator('BLINK');
-  
+
   // If there are parameters for the media search then read them and then remove them.
-  $scan_type  = get_sys_pref('MEDIA_SCAN_TYPE');
+  $scan_type  = isset($_REQUEST["scan_type"]) ? $_REQUEST["scan_type"] : get_sys_pref('MEDIA_SCAN_TYPE');
   $rss_sub_id = get_sys_pref('MEDIA_SCAN_RSS');
   $media_type = get_sys_pref('MEDIA_SCAN_MEDIA_TYPE');
   $cat_id     = get_sys_pref('MEDIA_SCAN_CATEGORY');
@@ -69,9 +69,9 @@
                                   (empty($cat_id) ? '' : " and cat_id = $cat_id").
                               (empty($media_type) ? '' : " and media_type = $media_type"));
 
-  db_sqlcommand("delete from system_prefs where name like 'media_scan_%'"); 
+  db_sqlcommand("delete from system_prefs where name like 'media_scan_%'");
   set_sys_pref('MEDIA_SCAN_STATUS',str('MEDIA_SCAN_STATUS_RUNNING'));
-  
+
   // Do a media search if a RSS update has not been requested
   if ($scan_type == '' || $scan_type == 'MEDIA')
   {
@@ -80,23 +80,23 @@
                     (empty($cat_id) ? '' : " and cat_id = $cat_id").
                     (empty($media_type) ? '' : " and media_type = $media_type")
                  );
-  
+
     // Scan the appropriate media directories
     process_media_dirs( $media_type, $cat_id, $update=='YES' );
-    
+
     // Update video details from the Internet if enabled
     if ( is_movie_check_enabled() && in_array(MEDIA_TYPE_VIDEO, $media_types) )
     {
       set_sys_pref('MEDIA_SCAN_STATUS',str('MEDIA_SCAN_STATUS_MOVIE'));
       extra_get_all_movie_details();
     }
-    
+
     if ( is_tv_check_enabled() && in_array(MEDIA_TYPE_TV, $media_types) )
     {
       set_sys_pref('MEDIA_SCAN_STATUS',str('MEDIA_SCAN_STATUS_TV'));
       extra_get_all_tv_details();
     }
- 
+
     // Scan the iTunes library for playlists
     if ($itunes=='YES' && is_file($itunes_library))
     {
@@ -111,7 +111,7 @@
       else
         send_to_log(4,'Skipping the iTunes Music Library, not changed since last update');
     }
-    
+
     // Remove media from library no longer in media locations
     set_sys_pref('MEDIA_SCAN_STATUS',str('MEDIA_SCAN_STATUS_CLEANUP'));
     if ($cleanup=='YES')
@@ -123,7 +123,7 @@
     }
     eliminate_duplicates();
   }
-    
+
   // Update RSS feeds
   if ($scan_type == '' || $scan_type == 'RSS')
   {
@@ -133,12 +133,12 @@
       db_sqlcommand("update rss_subscriptions set percent_scanned=0 where 1=1".
                     (empty($rss_sub_id) ? '' : " and id = $rss_sub_id")
                    );
-    
+
       // Update the appropriate rss subscriptions
       rss_update_subscriptions($rss_sub_id);
     }
   }
-  
+
   media_indicator('OFF');
 
   // Update media search status
