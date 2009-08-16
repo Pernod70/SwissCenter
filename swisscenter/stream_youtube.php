@@ -10,7 +10,7 @@
   $html      = file_get_contents($video_url);
 
   // Retrieve signature from returned YouTube page
-  $video_hash = preg_get("/[^a-z]t=([^(\&|$)]*)/",$html);
+  $video_hash = preg_get('/swfArgs.*{.*"t".*"(.*)".*}/U',$html);
 
   // Determine whether to use the HD stream
   $fmt = 18;
@@ -18,11 +18,11 @@
     $fmt = 22;
 
   // Form URL of YouTube video to stream
-  $stream_url = 'http://www.youtube.com/get_video?fmt='.$fmt.'&video_id='.$video_id.'&t='.$video_hash;
+  $stream_url = 'http://www.youtube.com/get_video?fmt='.$fmt.'&video_id='.$video_id.'&t='.$video_hash.'&ext=.mp4';
   send_to_log(7,'Attempting to stream the following YouTube video', $stream_url);
 
   // Send a redirect header to the player with the real location of the media file.
-  header ("Content-type: ".mime_content_type('video.mp4'));
+  header ("Content-type: ".mime_content_type($stream_url));
   send_to_log(8,'Redirecting to '.$stream_url);
   header ("HTTP/1.0 307 Temporary redirect");
   header ("location: ".$stream_url);
