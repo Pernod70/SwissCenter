@@ -24,7 +24,7 @@
     $directors = db_toarray("select d.director_name from directors_of_movie dom, directors d where dom.director_id = d.director_id and dom.movie_id=$movie");
     $actors    = db_toarray("select a.actor_name from actors_in_movie aim, actors a where aim.actor_id = a.actor_id and aim.movie_id=$movie");
     $genres    = db_toarray("select g.genre_name from genres_of_movie gom, genres g where gom.genre_id = g.genre_id and gom.movie_id=$movie");
-    $synlen    = $_SESSION["device"]["browser_x_res"] * 0.625 * (9-$num_menu_items);
+    $synlen   = $_SESSION["device"]["browser_x_res"] * 0.625 * (9-$num_menu_items);
 
     // Synopsis
     if ( !is_null($info["SYNOPSIS"]) )
@@ -171,7 +171,7 @@
     {
       if (strpos($data[0]["TRAILER"],'youtube.com') > 0)
         $menu->add_item( str('PLAY_TRAILER'), 'href="stream_youtube.php?video_id='.get_youtube_video_id($data[0]["TRAILER"]).'" vod');
-      elseif (strpos($data[0]["TRAILER"],'http:') > 0)
+      elseif (is_remote_file($data[0]["TRAILER"]))
         $menu->add_item( str('PLAY_TRAILER'), "href='".$data[0]["TRAILER"]."' vod" );
       else
         $menu->add_item( str('PLAY_TRAILER'), "href='".server_address().make_url_path($data[0]["TRAILER"])."' vod" );
@@ -201,7 +201,7 @@
   {
 
     // More than one track matches, so output filter details and menu options to add new filters
-    page_header( str('MANY_ITEMS',$num_unique),'');
+    page_header( str('MANY_ITEMS',$num_unique),'' );
 
     if ( ($data = db_toarray("select file_id, dirname from $sql_table $predicate group by dirname")) === false )
       page_error( str('DATABASE_ERROR') );
