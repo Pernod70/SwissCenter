@@ -22,7 +22,7 @@ function musicip_address()
 
 function musicip_server_add_dir( $dir )
 {
-  if (musicip_available())    
+  if (musicip_available())
     $temp = @file_get_contents(musicip_address().'server/add?root='.urlencode(os_path($dir)));
 }
 
@@ -32,8 +32,8 @@ function musicip_server_add_dir( $dir )
 
 function musicip_server_refresh_cache()
 {
-  if (musicip_available())    
-    $temp = @file_get_contents(musicip_address().'server/refresh');  
+  if (musicip_available())
+    $temp = @file_get_contents(musicip_address().'server/refresh');
 }
 
 // ----------------------------------------------------------------------------------
@@ -43,7 +43,7 @@ function musicip_server_refresh_cache()
 
 function musicip_server_validate()
 {
-  if (musicip_available())    
+  if (musicip_available())
     $temp = @file_get_contents(musicip_address().'server/validate?action=Start');
 }
 
@@ -57,7 +57,8 @@ function musicip_check( $port )
   $temp = '';
   $result = false;
 
-  if ( $sock = @fsockopen('localhost', $port , $temp, $temp, 1.5))
+  // fsockopen doesn't like localhost with PHP5 and Vista.
+  if ( $sock = @fsockopen('127.0.0.1', $port , $temp, $temp, 1.5))
   {
     fclose($sock);
     $status = @file_get_contents("http://localhost:$port/api/getstatus");
@@ -83,7 +84,7 @@ function musicip_mix_link( $tables, $predicate )
   $num_rows    = db_value("select count(*) from $tables $predicate");
   $num_artists = db_value("select count(distinct artist) from $tables $predicate");
   $num_albums  = db_value("select count(distinct album) from $tables $predicate");
-  
+
   if (  $num_rows == 1 )
     return musicip_mix_song( db_value("select concat(dirname,filename) from $tables $predicate"));
   elseif ( $num_albums == 1 && $num_artists == 1 )
@@ -92,7 +93,7 @@ function musicip_mix_link( $tables, $predicate )
     return musicip_mix_album( db_value("select distinct album from $tables $predicate"));
   elseif ( $num_artists == 1)
     return musicip_mix_artist( db_value("select distinct artist from $tables $predicate"));
-  else 
+  else
   {
     $tracks = array();
     $fsp = musicip_tempplaylist_name();
@@ -126,12 +127,12 @@ function musicip_api_call( $type, $value )
                  , $type        => urlencode($value)
                  , 'ext'        => '.m3u'
                  );
-                       
+
   // Save the playlist generating URL into the session for when the playlist is needed.
   $_SESSION["musicip_playlist"] = url_add_params( musicip_address().'api/mix', $params);
-  
+
   // Output a link to play a MusicIP playlist.
-  $params = 'spec_type=musicip&'.current_session().'&seed='.mt_rand(); 
+  $params = 'spec_type=musicip&'.current_session().'&seed='.mt_rand();
   $extra = 'pod="'.now_playing_sync_type().',1,'.server_address().'playing_list.php?'.$params.'" ';
   return 'href="gen_playlist.php?'.$params.'" '.$extra;
 }
@@ -176,26 +177,26 @@ function musicip_mixable_percent()
   {
     $matches = array();
     $html = @file_get_contents( musicip_address().'server' );
-    
+
     // Page was successfully retrieved
     if ($html !== false)
     {
       $html = strip_tags($html);
-      
+
       // Total number of songs
       preg_match_all('/Total Songs *([0-9,]*)/i',$html,$matches);
       $songs = str_replace(',','',$matches[1][0]);
-  
+
       // Total number of songs
       preg_match_all('/Mixable Songs *([0-9,]*)/i',$html,$matches);
       $mixable = str_replace(',','',$matches[1][0]);
-  
+
       return (int)($mixable/max($songs,1)*100);
     }
-    else 
+    else
       return false;
   }
-  else 
+  else
     return false;
 }
 
