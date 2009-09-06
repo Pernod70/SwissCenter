@@ -8,50 +8,45 @@ require_once( realpath(dirname(__FILE__).'/file.php'));
 require_once( realpath(dirname(__FILE__).'/utils.php'));
 require_once( realpath(dirname(__FILE__).'/../ext/xml/xmlbuilder.php'));
 
-//-------------------------------------------------------------------------------------------------
-// This procedure loads the language definitions into the session (and also updates the system
-// preference for the default language);
-//-------------------------------------------------------------------------------------------------
-
+/**
+ * This procedure loads the language definitions into the session (and also updates the system
+ * preference for the default language).
+ *
+ * @param string $lang
+ * @param string $session
+ */
 function load_lang_strings ( $lang = 'en-gb', $session = 'language' )
 {
-  global $tag, $id, $text, $version, $keys;
   $lang_file = SC_LOCATION."lang/$lang/$lang.xml";
   $keys      = array();
 
   if (file_exists($lang_file))
   {
-    // Create XML parser
-    $xmlparser = xml_parser_create();
-    if ($xmlparser !== false)
+    // Read and process XML file
+    $data = file_get_contents($lang_file);
+
+    if ($data !== false)
     {
-      xml_set_element_handler($xmlparser, "start_tag_lang", "end_tag_lang");
-      xml_set_character_data_handler($xmlparser, "tag_contents_lang");
+      // Parse the language XML file
+      preg_match_all('/<string>.*<id>(.*)<\/id>.*<text>(.*)<\/text>.*<version>(.*)<\/version>.*<\/string>/Uis', $data, $matches);
 
-      // Read and process XML file
-      $data = file_get_contents($lang_file);
-      if ($data !== false)
-      {
-        $data = preg_replace("/>\s+/", ">", $data);
-        $data = preg_replace("/\s+</", "<", $data);
-        if (!xml_parse($xmlparser, $data))
-          send_to_log(2,'XML parse error: '.xml_error_string(xml_get_error_code($xmlparser)).xml_get_current_line_number($xmlparser));
-        else
-        {
-          send_to_log(6,"Loaded $lang language file into $session");
-          if ( isset($_SESSION[$session]) && is_array($_SESSION[$session]))
-            $_SESSION[$session] = array_merge( (array)$_SESSION[$session] , (array)$keys );
-          else
-            $_SESSION[$session] = $keys;
-        }
-      }
+      if (count($matches[0]) == 0)
+        send_to_log(2,'Parsing '.$lang_file.' failed to find any language strings!');
       else
-        send_to_log(6,'Unable to read the language file: ',$lang_file);
+      {
+        foreach ($matches[1] as $index=>$id)
+          $keys[strtoupper(trim($id))] = array('TEXT'    => utf8_decode($matches[2][$index]),
+                                               'VERSION' => $matches[3][$index]);
 
-      xml_parser_free($xmlparser);
+        send_to_log(6,"Loaded $lang language file into $session");
+        if ( isset($_SESSION[$session]) && is_array($_SESSION[$session]))
+          $_SESSION[$session] = array_merge( (array)$_SESSION[$session] , (array)$keys );
+        else
+          $_SESSION[$session] = $keys;
+      }
     }
     else
-      send_to_log(2,'Unable to create an expat XML parser - is the "xml" extension loaded into PHP?');
+      send_to_log(6,'Unable to read the language file: ',$lang_file);
   }
 }
 
@@ -124,10 +119,13 @@ function load_lang ($current_lang = '')
   set_sys_pref('DEFAULT_LANGUAGE',$current_lang);
 }
 
-//-------------------------------------------------------------------------------------------------
-// This procedure stores the STYLE information in the current session.
-//-------------------------------------------------------------------------------------------------
-
+/**
+ * Returns the requested language string identified by $key. If $key does not exist then it is added
+ * to the base language file.
+ *
+ * @param string $key
+ * @return string
+ */
 function str( $key )
 {
   $num_args = @func_num_args();
@@ -183,18 +181,20 @@ function str( $key )
     	{
     	  $txt.='%';
         $string = substr($string,$pos+1);
-    }
+      }
     }
 
     return $txt.$string;
   }
 }
 
-//-------------------------------------------------------------------------------------------------
-// Returns the URL needed to perform a search on the wikipedia internet site in the user's current
-// language. The $search_terms string contains the text to search for.
-//-------------------------------------------------------------------------------------------------
-
+/**
+ * Returns the URL needed to perform a search on the wikipedia internet site in the user's current
+ * language. The $search_terms string contains the text to search for.
+ *
+ * @param string $search_terms
+ * @return string
+ */
 function lang_wikipedia_search( $search_terms )
 {
   // Determine the appropriate wikipedia address for the current language
@@ -205,36 +205,12 @@ function lang_wikipedia_search( $search_terms )
   return '/wikipedia_proxy.php?wiki='.urlencode($lang.'.wikipedia.org').'&url='.urlencode('/w/index.php').'&search='.urlencode($search_terms);
 }
 
-//-------------------------------------------------------------------------------------------------
-// Callback functions to perform parsing of the language files.
-//-------------------------------------------------------------------------------------------------
-
-function start_tag_lang($parser, $name, $attribs)
-{
-  global $tag, $id, $text, $version;
-  if ($name == 'STRING') { $text = ''; }
-  $tag = $name;
-}
-
-function end_tag_lang($parser, $name)
-{
-  global $tag, $id, $text, $version, $keys;
-  if ($name == 'STRING') { $keys[strtoupper(trim($id))] = array('TEXT'    => ltrim($text),
-                                                                'VERSION' => $version); }
-}
-
-function tag_contents_lang($parser, $data)
-{
-  global $tag, $id, $text, $version;
-  if ($tag == "ID")      { $id = $data; }
-  if ($tag == "TEXT")    { $text .= utf8_decode($data); }
-  if ($tag == "VERSION") { $version = $data; }
-}
-
-//-------------------------------------------------------------------------------------------------
-// Save the language definitions to XML file.
-//-------------------------------------------------------------------------------------------------
-
+/**
+ * Save the language definitions to XML file.
+ *
+ * @param string $lang
+ * @param array  $language
+ */
 function save_lang( $lang, $language )
 {
   $lang_file = SC_LOCATION."lang/$lang/$lang.xml";
@@ -272,10 +248,11 @@ function save_lang( $lang, $language )
     send_to_log(6,"Failed to save language file: $lang_file");
 }
 
-//-------------------------------------------------------------------------------------------------
-// Converts language ini file to new xml format.
-//-------------------------------------------------------------------------------------------------
-
+/**
+ * Converts language ini file to new xml format.
+ *
+ * @param string $lang
+ */
 function language_ini2xml( $lang )
 {
   // Where is the SwissCenter installed?
