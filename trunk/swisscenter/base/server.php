@@ -281,7 +281,7 @@
 
   function win_dotnet2_installed()
   {
-    return file_exists($_ENV["SystemRoot"]."/microsoft.net/framework/v2.0.50727/InstallUtil.exe");
+    return file_exists(getenv("SystemRoot")."/microsoft.net/framework/v2.0.50727/InstallUtil.exe");
   }
 
   // ----------------------------------------------------------------------------------

@@ -742,7 +742,7 @@ function wget_location()
 
 function system_root()
 {
-  return str_replace('\\\\','\\',$_ENV['SystemRoot']);
+  return str_replace('\\\\','\\',getenv('SystemRoot'));
 }
 
 /**************************************************************************************************
