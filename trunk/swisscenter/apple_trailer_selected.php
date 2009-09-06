@@ -143,7 +143,8 @@
       {
         // Omit iPod trailers
         if (strpos($title, 'iPod') === false)
-          $menu->add_item( $title, 'href="'.$items[2][$key].'" vod ');
+          $menu->add_item( $title, 'href="'.url_add_params('stream_url.php', array('user_agent' => rawurlencode('QuickTime/7.6'),
+                                                                                   'url' => rawurlencode($items[2][$key]))).'" vod ');
       }
     }
     else
