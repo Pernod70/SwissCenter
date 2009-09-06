@@ -43,7 +43,7 @@
 
     // Make sure the "back" button goes to the correct page:
     if (category_count(MEDIA_TYPE_RADIO)==1)
-      page_footer('index.php?submenu=internet');
+      page_footer('music_radio.php');
     else
       page_footer($prev_page);
   }
@@ -57,9 +57,9 @@
   if( category_count(MEDIA_TYPE_RADIO)==1 || isset($_REQUEST["cat"]) )
     display_radio_menu($_REQUEST["cat"]);
   elseif ( isset($_REQUEST["subcat"]) )
-    display_categories('music_radio_urls.php', MEDIA_TYPE_RADIO, $_REQUEST["subcat"], 'index.php?submenu=internet');
+    display_categories('music_radio_urls.php', MEDIA_TYPE_RADIO, $_REQUEST["subcat"], 'music_radio.php');
   else
-    display_categories('music_radio_urls.php', MEDIA_TYPE_RADIO, 0, 'index.php?submenu=internet');
+    display_categories('music_radio_urls.php', MEDIA_TYPE_RADIO, 0, 'music_radio.php');
 
 /**************************************************************************************************
                                                End of file
