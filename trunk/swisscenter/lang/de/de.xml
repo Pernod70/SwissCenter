@@ -63,6 +63,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>APPLE_TRAILERS</id>
+        <text>Apple - Film Trailers</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>ARTIST</id>
         <text>Interpret</text>
         <version>1.19</version>
@@ -229,8 +234,8 @@
       </string>
       <string>
         <id>BROWSE_GENRE</id>
-        <text>Nach Genre</text>
-        <version>1.19</version>
+        <text>Genre Suche</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_IPTC_BYLINE</id>
@@ -316,6 +321,11 @@
         <id>BROWSE_STATION</id>
         <text>Nach Station</text>
         <version>1.21.1</version>
+      </string>
+      <string>
+        <id>BROWSE_STUDIO</id>
+        <text>Studio Suche</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_TEXT</id>
@@ -912,6 +922,11 @@ Dieses Format wird von MySQL und Spezifikationssymbolen definiert. Diese sind:
         <id>EP_PREV</id>
         <text>Vorherige Folge</text>
         <version>1.21.1</version>
+      </string>
+      <string>
+        <id>EXCLUSIVE</id>
+        <text>Exklusiv</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>EXIFVALS_EXPOSE_MODE</id>
@@ -1902,6 +1917,16 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.20</version>
       </string>
       <string>
+        <id>JUST_ADDED</id>
+        <text>Neu hinzugefügt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>JUST_HD</id>
+        <text>High Definition</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>KEYBOARD_DEL</id>
         <text>ENTF</text>
         <version>1.19</version>
@@ -2653,7 +2678,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>MOST_POPULAR</id>
-        <text>Beliebteste</text>
+        <text>Populärste</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3702,6 +3727,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>RELEASE_DATE</id>
+        <text>Erscheinungs Datum</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>REMOTE_ACCESS_ERROR</id>
         <text>Der entfernte Zugriff auf das [em]SwissCenter-Konfigurations-Utility[/em] ist aus Sicherheitsgründen deaktiviert.</text>
         <version>1.19</version>
@@ -3968,8 +3998,8 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>SEARCH</id>
-        <text>Suchen</text>
-        <version>1.19</version>
+        <text>Allgemeine Suche</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>SEARCH_ANYWHERE</id>
@@ -5304,6 +5334,21 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       <string>
         <id>YOUTUBE_PROMPT_PERSONAL</id>
         <text>Persönliche Feeds</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_SEARCH_CHANNELS</id>
+        <text>Kanäle durchsuchen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_SEARCH_PLAYLISTS</id>
+        <text>Wiedergabelisten durchsuchen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_SEARCH_VIDEOS</id>
+        <text>Videos durchsuchen</text>
         <version>1.22</version>
       </string>
       <string>

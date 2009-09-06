@@ -63,9 +63,19 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>APPLE_TRAILERS</id>
+        <text>Apple - Film trailers</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>ARTIST</id>
         <text>Artiest</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>ARTIST_INFO</id>
+        <text>Artiest informatie</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>ART_ADDED_OK</id>
@@ -316,6 +326,11 @@
         <id>BROWSE_STATION</id>
         <text>Zoek op radiostation</text>
         <version>1.21.1</version>
+      </string>
+      <string>
+        <id>BROWSE_STUDIO</id>
+        <text>Zoek op studio</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_TEXT</id>
@@ -903,6 +918,11 @@
         <version>1.21</version>
       </string>
       <string>
+        <id>EXCLUSIVE</id>
+        <text>Exclusief</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>EXIFVALS_EXPOSE_MODE</id>
         <text>Automatisch, handmatig, auto bracket</text>
         <version>1.19</version>
@@ -1104,8 +1124,8 @@
       </string>
       <string>
         <id>EXTRA_REFRESH_GO</id>
-        <text>Ververs alle extra Informatie</text>
-        <version>1.19</version>
+        <text>Ververs alle extra informatie</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>EXTRA_REFRESH_TITLE</id>
@@ -1149,8 +1169,8 @@
       </string>
       <string>
         <id>FAIL_MYSQL_VERSION</id>
-        <text>Uw MySQL-versie wordt niet ondersteund.</text>
-        <version>1.19</version>
+        <text>Voor SwissCenter is MySQL 5.0 of hoger vereist; uw MySQL-versie wordt niet ondersteund.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>FAIL_PHP_CLI</id>
@@ -1184,8 +1204,8 @@
       </string>
       <string>
         <id>FAIL_PHP_VERSION</id>
-        <text>Uw PHP-versie (%s) wordt niet ondersteund.</text>
-        <version>1.19</version>
+        <text>Voor SwissCenter is PHP 5.2.6 of hoger vereist; uw PHP-versie (%s) wordt niet ondersteund.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>FAIL_SERVER_SCHED</id>
@@ -1894,6 +1914,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>JUST_ADDED</id>
+        <text>Zojuist toegevoegd</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>JUST_HD</id>
+        <text>Slechts HD</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>KEYBOARD_DEL</id>
         <text>VERWIJDER</text>
         <version>1.19</version>
@@ -2295,8 +2325,8 @@
       </string>
       <string>
         <id>MEDIA_LOC_HEADINGS</id>
-        <text>Type, Categorie, Leeftijdsgrens, Map</text>
-        <version>1.19</version>
+        <text>Type, Categorie, Leeftijdsgrens, Map, Gedeelde Netwerkmappen</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>MEDIA_LOC_UPDATE_OK</id>
@@ -2888,6 +2918,11 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
         <id>ONE_TRACK</id>
         <text>1 nummer</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>OPENING_THISWEEK</id>
+        <text>Verschijnt deze week</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>OPTIONS</id>
@@ -3695,6 +3730,11 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
         <version>1.19</version>
       </string>
       <string>
+        <id>RELEASE_DATE</id>
+        <text>Datum van verschijnen</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>REMOTE_ACCESS_ERROR</id>
         <text>Toegang op afstand naar [em]SwissCenter Configuratie Hulpprogramma's[/em] is om veiligheidsredenen uitgeschakeld.</text>
         <version>1.19</version>
@@ -4358,6 +4398,11 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
         <id>SYSPREF_EDIT_EXISTING</id>
         <text>Wijzig een systeeminstelling</text>
         <version>1.20</version>
+      </string>
+      <string>
+        <id>TABLE_DEFINITION</id>
+        <text>Tabel definitie: %s</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>TAG</id>
@@ -5192,8 +5237,8 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
       </string>
       <string>
         <id>WEATHER_IMPERIAL</id>
-        <text>Ga naar imperiale aanduiding</text>
-        <version>1.19</version>
+        <text>Fahrenheit</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>WEATHER_LOCATION</id>
@@ -5212,8 +5257,8 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
       </string>
       <string>
         <id>WEATHER_METRIC</id>
-        <text>Ga naar metrieke aanduiding</text>
-        <version>1.19</version>
+        <text>Celcius</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>WEATHER_NO_CITY</id>
@@ -5254,6 +5299,11 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
         <id>WEEKDAY</id>
         <text>Weekdag</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>WEEKEND_BOXOFFICE</id>
+        <text>Weekend box office</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>WIKI_LOOKUP</id>
@@ -5313,6 +5363,21 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
       <string>
         <id>YOUTUBE_PROMPT_PERSONAL</id>
         <text>Persoonlijke feeds</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_SEARCH_CHANNELS</id>
+        <text>Zoek kanalen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_SEARCH_PLAYLISTS</id>
+        <text>Zoek afspeellijsten</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_SEARCH_VIDEOS</id>
+        <text>Zoek videos</text>
         <version>1.22</version>
       </string>
       <string>
