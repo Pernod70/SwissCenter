@@ -63,9 +63,19 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>APPLE_TRAILERS</id>
+        <text>Apple - Trailers Film</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>ARTIST</id>
         <text>Artista</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>ARTIST_INFO</id>
+        <text>Info artista</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>ART_ADDED_OK</id>
@@ -310,6 +320,11 @@
       <string>
         <id>BROWSE_STATION</id>
         <text>Seleziona stazione</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_STUDIO</id>
+        <text>Sfogliare studio</text>
         <version>1.22</version>
       </string>
       <string>
@@ -605,7 +620,7 @@
       <string>
         <id>CONFIG_LASTFM_TITLE</id>
         <text>Opzioni LastFM</text>
-        <version>1.19</version>
+        <version>1.22</version>
       </string>
       <string>
         <id>CONFIG_MIP_OPTIONS</id>
@@ -890,7 +905,12 @@
       <string>
         <id>EP_PREV</id>
         <text>Episodio Precedente</text>
-        <version>1.21</version>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXCLUSIVE</id>
+        <text>Esclusivo</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>EXIFVALS_EXPOSE_MODE</id>
@@ -1140,7 +1160,7 @@
       <string>
         <id>FAIL_MYSQL_VERSION</id>
         <text>La tua versione di MySQL non e' supportata.</text>
-        <version>1.19</version>
+        <version>1.22</version>
       </string>
       <string>
         <id>FAIL_PHP_CLI</id>
@@ -1175,7 +1195,7 @@
       <string>
         <id>FAIL_PHP_VERSION</id>
         <text>La tua versione di PHP non e' supportata (%s)..</text>
-        <version>1.19</version>
+        <version>1.22</version>
       </string>
       <string>
         <id>FAIL_SERVER_SCHED</id>
@@ -1873,6 +1893,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>JUST_ADDED</id>
+        <text>Solo aggiunto</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>JUST_HD</id>
+        <text>Solo HD</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>KEYBOARD_DEL</id>
         <text>Canc</text>
         <version>1.19</version>
@@ -2014,8 +2044,8 @@
       </string>
       <string>
         <id>LASTFM</id>
-        <text>Last.FM</text>
-        <version>1.19</version>
+        <text>Last.fm</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>LASTFM_ABOUT</id>
@@ -2029,13 +2059,13 @@
       </string>
       <string>
         <id>LASTFM_ENABLED_PROMPT</id>
-        <text>Quando abilitata, SwissCenter in grado di connettersi al sito Last.FM co accesso personalizzato ai flussi radio.</text>
-        <version>1.19</version>
+        <text>Quando abilitata, SwissCenter è in grado di connettersi al sito Last.fm con accesso personalizzato ai flussi radio.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>LASTFM_LOGIN_HEADINGS</id>
         <text>User,LastFM[br]Username,LastFM[br]Password,Scrobble?,Images?</text>
-        <version>1.19</version>
+        <version>1.22</version>
       </string>
       <string>
         <id>LASTFM_PROMPT_GENERAL</id>
@@ -2055,7 +2085,7 @@
       <string>
         <id>LASTFM_WHATIS</id>
         <text>Cos'è LastFM?</text>
-        <version>1.19</version>
+        <version>1.22</version>
       </string>
       <string>
         <id>LENGTH_MM</id>
@@ -2069,8 +2099,8 @@
       </string>
       <string>
         <id>LISTEN_LASTFM</id>
-        <text>Ascolta una Stazione Last.FM</text>
-        <version>1.19</version>
+        <text>Ascolta una Stazione Last.fm</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>LISTEN_LASTFM_ARTISTS</id>
@@ -2336,6 +2366,11 @@
         <id>MEDIA_SCAN_STATUS_TV</id>
         <text>Recupera Informazioni per Programnmi TV</text>
         <version>1.21</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_TYPE</id>
+        <text>Tipo di scan</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>MEDIA_SEARCH_PROMPT</id>
@@ -2799,7 +2834,7 @@
       </string>
       <string>
         <id>NOW_PLAYING_FANART_LASTFM</id>
-        <text>Ultima.FM</text>
+        <text>Ultima.fm</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2861,6 +2896,11 @@
         <id>ONE_TRACK</id>
         <text>1 brano</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>OPENING_THISWEEK</id>
+        <text>Opening this Week Apple</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>OPTIONS</id>
@@ -3529,48 +3569,48 @@
       </string>
       <string>
         <id>REFINE_IPTC_BYLINE</id>
-        <text>Perfeziona per Autore</text>
-        <version>1.19</version>
+        <text>Scegli per Autore</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REFINE_IPTC_CAPTION</id>
-        <text>Perfeziona per Descrizione</text>
-        <version>1.19</version>
+        <text>Scegli per Descrizione</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REFINE_IPTC_CITY</id>
-        <text>Perfeziona per Città</text>
-        <version>1.19</version>
+        <text>Scegli per Città</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REFINE_IPTC_COUNTRY</id>
-        <text>Perfeziona per Nazione</text>
-        <version>1.19</version>
+        <text>Scegli per Nazione</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REFINE_IPTC_DATE_CREATED</id>
-        <text>Perfeziona per Data di creazione</text>
-        <version>1.19</version>
+        <text>Scegli per data di creazione</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REFINE_IPTC_KEYWORDS</id>
-        <text>Refine by keywords</text>
-        <version>1.19</version>
+        <text>Scegli per parole</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REFINE_IPTC_LOCATION</id>
-        <text>Refine by location</text>
-        <version>1.19</version>
+        <text>Scegli per località</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REFINE_IPTC_PROVINCE_STATE</id>
-        <text>Perfeziona per Provincia/Regione</text>
-        <version>1.19</version>
+        <text>Scegli per Provincia/Regione</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REFINE_IPTC_SUPPCATEGORY</id>
-        <text>Perfeziona per Categoria supplementare</text>
-        <version>1.19</version>
+        <text>Scegli per categoria suppl.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REFINE_PHOTO_ALBUM</id>
@@ -3589,8 +3629,8 @@
       </string>
       <string>
         <id>REFINE_XMP_RATING</id>
-        <text>Perfeziona per Classificati</text>
-        <version>1.19</version>
+        <text>Scegli per Classificati</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REFINE_YEAR</id>
@@ -3656,6 +3696,11 @@
         <id>REFRESH_RUNNING</id>
         <text>L'aggiornamento del database e' stato lanciato in background ed e' possibile continuare ad usare il sistema normalmente. L'esecuzione di tutti i media files non sara' pero' disponibile finche' l'aggiornamento non sara' terminato. [p]L'aggiornamento iniziale potra' durare approssimativamente 10 minuti ogni 5.000 file presenti nel sistema. Gli aggiormanti successivi saranno comunque piu' rapidi.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>RELEASE_DATE</id>
+        <text>Data di rilascio</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REMOTE_ACCESS_ERROR</id>
@@ -3843,6 +3888,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>SCHEDULE_ALL</id>
+        <text>Pianifica tutti i tipi</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SCHEDULE_AUTO_TITLE</id>
         <text>Aggiornamento media automatico</text>
         <version>1.19</version>
@@ -3883,6 +3933,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>SCHEDULE_MEDIA_ONLY</id>
+        <text>Solo multimediali</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SCHEDULE_MINUTE_PROMPT</id>
         <text>Numero di minuti oltre l'ora</text>
         <version>1.19</version>
@@ -3901,6 +3956,11 @@
         <id>SCHEDULE_NOTES</id>
         <text>[li]* denota tutti i possibili valori. [li]Valori multipli possono essere specificati usando le virgole (1,5). [li]Un range puo' essere specificato usando un trattino (1-5). [li]Possono poi essere specificati insieme (1-4,7).</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_RSS_ONLY</id>
+        <text>Solo RSS</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>SCHEDULE_TITLE</id>
@@ -4321,6 +4381,11 @@
         <id>SYSPREF_EDIT_EXISTING</id>
         <text>Modifica i Setting di Sistema</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>TABLE_DEFINITION</id>
+        <text>Tavola di definizione: %s</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>TAG</id>
@@ -5203,6 +5268,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>WEEKEND_BOXOFFICE</id>
+        <text>Weekend Box Office Apple</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>WIKI_LOOKUP</id>
         <text>Consultazione Wikipedia</text>
         <version>1.19</version>
@@ -5260,6 +5330,21 @@
       <string>
         <id>YOUTUBE_PROMPT_PERSONAL</id>
         <text>Feed personali</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_SEARCH_CHANNELS</id>
+        <text>Cerca canali</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_SEARCH_PLAYLISTS</id>
+        <text>Cerca playlist</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_SEARCH_VIDEOS</id>
+        <text>Cerca video</text>
         <version>1.22</version>
       </string>
       <string>
