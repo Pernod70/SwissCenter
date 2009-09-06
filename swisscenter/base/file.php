@@ -6,7 +6,7 @@
 require_once( realpath(dirname(__FILE__).'/utils.php'));
 
 /**
- * Replacement function for is_dir() which returns true if the path specified is 
+ * Replacement function for is_dir() which returns true if the path specified is
  * a directory OR a valid drive/share/mount.
  *
  * @param string $fsp
@@ -20,7 +20,7 @@ function isdir( $fsp )
     closedir($dh);
     return true;
   }
-  else 
+  else
     return false;
 }
 
@@ -608,6 +608,9 @@ function file_download_and_save( $url, $filename, $overwrite = false )
   {
     if ($overwrite || !file_exists($filename))
     {
+      // Reset the timeout counter for each file downloaded
+      set_time_limit(30);
+
       $img = @file_get_contents(str_replace(' ','%20',$url));
       if ($img !== false)
       {
