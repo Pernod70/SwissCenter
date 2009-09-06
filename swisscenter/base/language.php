@@ -32,7 +32,8 @@ function load_lang_strings ( $lang = 'en-gb', $session = 'language' )
       $data = file_get_contents($lang_file);
       if ($data !== false)
       {
-        $data = eregi_replace(">"."[[:space:]]+"."<","><",$data);
+        $data = preg_replace("/>\s+/", ">", $data);
+        $data = preg_replace("/\s+</", "<", $data);
         if (!xml_parse($xmlparser, $data))
           send_to_log(2,'XML parse error: '.xml_error_string(xml_get_error_code($xmlparser)).xml_get_current_line_number($xmlparser));
         else
@@ -75,7 +76,7 @@ function load_lang ($current_lang = '')
       $current_lang = array_shift(explode(',',$_SERVER['HTTP_ACCEPT_LANGUAGE']));
     else
       $current_lang = get_sys_pref('DEFAULT_LANGUAGE','en-gb');
-  }
+    }
 
   /**
    * Load the language strings
@@ -182,7 +183,7 @@ function str( $key )
     	{
     	  $txt.='%';
         $string = substr($string,$pos+1);
-    	}
+    }
     }
 
     return $txt.$string;
