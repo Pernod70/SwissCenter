@@ -170,9 +170,10 @@
     if (!empty($data[0]["TRAILER"]))
     {
       if (strpos($data[0]["TRAILER"],'youtube.com') > 0)
-        $menu->add_item( str('PLAY_TRAILER'), 'href="stream_youtube.php?video_id='.get_youtube_video_id($data[0]["TRAILER"]).'" vod');
+        $menu->add_item( str('PLAY_TRAILER'), 'href="'.url_add_param('stream_url.php', 'youtube_id', get_youtube_video_id($data[0]["TRAILER"])).'" vod');
       elseif (is_remote_file($data[0]["TRAILER"]))
-        $menu->add_item( str('PLAY_TRAILER'), "href='".$data[0]["TRAILER"]."' vod" );
+        $menu->add_item( $title, 'href="'.url_add_params('stream_url.php', array('user_agent' => rawurlencode('QuickTime/7.6'),
+                                                                                 'url' => rawurlencode($data[0]["TRAILER"]))).'" vod ');
       else
         $menu->add_item( str('PLAY_TRAILER'), "href='".server_address().make_url_path($data[0]["TRAILER"])."' vod" );
     }
