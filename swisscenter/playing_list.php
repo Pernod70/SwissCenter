@@ -57,6 +57,9 @@
 
     echo "$timeout|$transition| |$url&type=.jpg|\n";
     echo "$timeout|$transition| |$url&type=.jpg|\n";
+
+    // Reset IDX since the first image is requested before stream.php is able to set this.
+    $_SESSION["LAST_RESPONSE_IDX"] = 0;
   }
 
 /**************************************************************************************************
