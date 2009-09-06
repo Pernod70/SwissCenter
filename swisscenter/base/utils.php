@@ -535,7 +535,7 @@ function query_time_server ($timeserver = 'time-a.timefreq.bldrdoc.gov', $socket
     dump($components);
     list( $h, $min, $s) = explode(':',$components[2]);
     list( $y, $m, $d) = explode('-',$components[1]);
-    return mktime( $h, $min, $s, $m, $d, $y);
+    return gmmktime( $h, $min, $s, $m, $d, $y);
   }
   else
     return false;
@@ -561,7 +561,7 @@ function gmt_time()
     {
       $time = $gmt;
       $offset = time()-$gmt;
-      send_to_log(5,'Your system time ('.date('Y.m.d H:i:s').') is '.abs($offset).' seconds '.($offset > 0 ? 'ahead of' : 'behind').' GMT');
+      send_to_log(5,'Your local PHP time ('.gmdate('Y.m.d H:i:s').') is '.abs($offset).' seconds '.($offset > 0 ? 'ahead of' : 'behind').' GMT');
 
       // Store the offset in the database
       set_sys_pref('GMT_OFFSET', $offset);
@@ -570,15 +570,13 @@ function gmt_time()
     {
       // Return PHP time() - UTC Offset + DST
       $time = time();
-      $time -= date('Z', $time);
-      $time += date('I', $time) * 3600;
-      send_to_log(2,'Unable to get GMT time from web service, using PHP time',date('r',$time));
+      send_to_log(2,'Unable to get GMT time from web service, using PHP time',gmdate('Y.m.d H:i:s',$time));
     }
   }
   else
   {
     $time = time() - $offset;
-    send_to_log(6,'Using previously stored GMT time',date('r',$time));
+    send_to_log(6,'Using previously stored GMT time',gmdate('Y.m.d H:i:s',$time));
   }
 
   return $time;
@@ -593,13 +591,13 @@ function gmt_time()
 
 function set_var( &$var, $value )
 {
-	if (is_null($value))
-		return false;
-	else
-	{
-		$var = $value;
-		return true;
-	}
+  if (is_null($value))
+    return false;
+  else
+  {
+    $var = $value;
+    return true;
+  }
 }
 
 /**
