@@ -2,7 +2,7 @@
 -- Remove the flickr_cache table and create a generic replacement
 -- -------------------------------------------------------------------------------------------------
 
-DROP TABLE flickr_cache;
+DROP TABLE IF EXISTS flickr_cache;
 
 CREATE TABLE cache_api_request (
   request    CHAR(35)   NOT NULL,
