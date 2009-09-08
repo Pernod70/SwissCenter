@@ -366,8 +366,8 @@ function parse_tvdb_xml($filename, $start_tag, $end_tag, $tag_contents)
       send_to_log(6,'Parsing XML: '.$filename);
       while ($data = fread($fp, 8192))
       {
-        $data = preg_replace("/>\s+/", ">", $data);
-        $data = preg_replace("/\s+</", "<", $data);
+        $data = preg_replace("/>\s+/u", ">", $data);
+        $data = preg_replace("/\s+</u", "<", $data);
         if (!xml_parse($xmlparser, $data , feof($fp)))
         {
           send_to_log(8,'XML parse error: '.xml_error_string(xml_get_error_code($xmlparser)).xml_get_current_line_number($xmlparser));
