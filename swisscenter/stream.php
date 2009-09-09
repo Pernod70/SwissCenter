@@ -126,7 +126,7 @@
       send_to_log(7,"Subtitles File  : ".$fsp);
       send_to_log(7,"File not found - sending 'HTTP/1.0 404' to the player");
       header ("HTTP/1.0 404 - Not Found");
-  }
+    }
   }
 
 /**
@@ -191,17 +191,16 @@
     $fbytestoget = 1024*128;
 
     // Loop while the connection is open
-    while ( !feof($fh) && (connection_status()==0) )
+    while ( !feof($fh) && (connection_status() == CONNECTION_NORMAL) )
     {
       // $fbytestoget = min($fbytestoget, $fbytes-$fbytessofar);
-
       $fbuf=fread($fh,$fbytestoget);
       $fbytessofar += strlen($fbuf);
       echo $fbuf;
-  	  flush();
+      flush();
 
       // Put SQL command to update the amount of file served here (on a per-user basis)
-  	  $bookmark = $fstart + $fbytessofar;
+      $bookmark = $fstart + $fbytessofar;
     }
 
     if (!$fh || feof($fh))
@@ -249,24 +248,28 @@
 //    // Store the request details
 //    send_to_log(7,'Attempting to stream the following Video file',$tracks[$idx]);
 //
-//    $headers[] = "Content-type: video/avi";
+//    $headers[] = "Content-type: ".mime_content_type($tracks[$idx]["FILENAME"]);
 //    $headers[] = "Last-Changed: ".date('r',filemtime($location));
 //    stream_file($media, $file_id, $location, $headers);
 //  }
   elseif ($media == MEDIA_TYPE_MUSIC )
   {
     send_to_log(7,'Attempting to stream the following Audio file',$tracks[$idx]);
-
     if ($tracks[$idx]["LENGTH"] > 0)
       $headers[] = "TimeSeekRange.dlna.org: npt=0-/".$tracks[$idx]["LENGTH"];
 
     $headers[] = "Content-type: ".mime_content_type($tracks[$idx]["FILENAME"]);
     $headers[] = "Last-Changed: ".date('r',filemtime($location));
-    stream_file($media, $file_id, $location, $headers);
 
-    // Submit the track to last.FM
-    if (lastfm_scrobble_enabled())
+    // Submit the track to Last.fm
+    if (lastfm_scrobble_enabled() && (!isset($_SESSION["last_scrobbled"]) || $_SESSION["last_scrobbled"] !== $idx))
+    {
+      lastfm_now_playing( $tracks[$idx]["ARTIST"], $tracks[$idx]["TITLE"], $tracks[$idx]["ALBUM"], $tracks[$idx]["LENGTH"], $tracks[$idx]["TRACK"] );
       lastfm_scrobble( $tracks[$idx]["ARTIST"], $tracks[$idx]["TITLE"], $tracks[$idx]["ALBUM"], $tracks[$idx]["LENGTH"], $tracks[$idx]["TRACK"] );
+      $_SESSION["last_scrobbled"] = $idx;
+    }
+
+    stream_file($media, $file_id, $location, $headers);
   }
   elseif ($media == MEDIA_TYPE_PHOTO)
   {
