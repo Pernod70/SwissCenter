@@ -27,7 +27,7 @@ function apply_database_patches()
       else
       {
         send_to_log(1, "Failed to apply database patch [$patch]");
-        exit;
+        break;
       }
     }
   }
