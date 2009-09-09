@@ -1,13 +1,13 @@
 <?php
   require_once( realpath(dirname(__FILE__).'/../../base/file.php'));
   require_once( realpath(dirname(__FILE__).'/../../base/urls.php'));
-  require_once( realpath(dirname(__FILE__).'/../../base/prefs.php')); 
- 
+  require_once( realpath(dirname(__FILE__).'/../../base/prefs.php'));
+
   /**
-   * Class to tune to a Last.FM radio station.
+   * Class to tune to a Last.fm radio station.
    *
    */
-  
+
   class lastfm
   {
     var $session_id;
@@ -22,30 +22,30 @@
      * @param string $md5_password
      * @return lastfm
      */
-    
+
     function lastfm( )
     {
     }
-    
+
     /**
-     * Utility function to search for a value in a LastFM response
+     * Utility function to search for a value in a Last.fm response
      *
      * @param string $pattern - pattern to search for
      * @param string $text - text to search
      * @return string - text founc
      */
-    
+
     function get_pattern($pattern, $text)
     {
       $matches = array();
       if ( preg_match($pattern,$text,$matches) == 1)
         return $matches[1];
-      else 
-        return '';    
+      else
+        return '';
     }
-    
+
     /**
-     * Sends a login request to LastFM and processes the result
+     * Sends a login request to Last.fm and processes the result
      *
      * @return boolean - TRUE if the login succeeded, false otherwise.
      */
@@ -66,7 +66,7 @@
       $login_url = 'http://ws.audioscrobbler.com/radio/handshake.php'.
                    '?username='.$username.
                    '&passwordmd5='.$md5_password;
-                   
+
       send_to_log(5,"Attempting to login with username '$username' and encrypted password '$md5_password'");
       if ( ($response = file_get_contents($login_url)) === false)
       {
@@ -74,49 +74,49 @@
         send_to_log(8,'- Response from LastFM',$response);
         return false;
       }
-      
+
       $this->session_id = $_SESSION["lastfm"]["stream"]["session_id"] = $this->get_pattern('/session=(.*)\n/i',$response);
       $this->stream_url = $_SESSION["lastfm"]["stream"]["stream_url"] = $this->get_pattern('/stream_url=(.*)\n/i',$response);
       $this->base_url   = $_SESSION["lastfm"]["stream"]["base_url"]   = $this->get_pattern('/base_url=(.*)\n/i',$response);
       $this->base_path  = $_SESSION["lastfm"]["stream"]["base_path"]  = $this->get_pattern('/base_path=(.*)\n/i',$response);
-      
+
       if ($this->session_id == 'FAILED')
       {
         send_to_log(2,'- Authentication failed');
         return false;
       }
-      
+
       send_to_log(6,'- Successfully authenticated', $_SESSION["lastfm"]["stream"] );
       return true;
     }
-    
+
     /**
      * Tunes to the specified station.
      *
      * @param string $station
      * @return boolean - true if the station was successfully changed
      */
-    
+
     function tune_to_station($station)
     {
       $station_enc = str_replace(' ','%20',strtolower($station));
       $tune_url = 'http://'.$this->base_url.$this->base_path.'/adjust.php'.
                   '?session='.$this->session_id.
-                  '&url='.$station_enc; 
-  
-      send_to_log(5,'Attempting to change station: '.$station);            
+                  '&url='.$station_enc;
+
+      send_to_log(5,'Attempting to change station: '.$station);
       if ( ($response = file_get_contents($tune_url)) === false)
       {
         send_to_log(2,'- Failed to access the station changing URL',$tune_url);
         return false;
       }
-      
+
       if ( strpos($this->get_pattern('/response=(.*)/i',$response),'OK' === false) )
       {
         send_to_log(2,'- Failed to change station.');
         return false;
       }
-      else 
+      else
       {
         send_to_log(6,'- Tuned into station');
         return true;
@@ -128,15 +128,15 @@
      *
      * @return boolean - true if the playlist was successfully loaded
      */
-    
+
     function playlist()
     {
       $playlist_url = 'http://'.$this->base_url.$this->base_path.'/xspf.php'.
                       '?sk='.$this->session_id.
                       '&discovery=0'.
-                      '&desktop=1'; 
-  
-      send_to_log(5,'Attempting to get playlist');            
+                      '&desktop=1';
+
+      send_to_log(5,'Attempting to get playlist');
       if ( ($response = file_get_contents($playlist_url)) === false)
       {
         send_to_log(2,'- Failed to access the playlist URL',$playlist_url);
@@ -178,8 +178,8 @@
     {
       $playing_url='http://ws.audioscrobbler.com/radio/np.php'.
                    '?session='.$this->session_id;
-                   
-      send_to_log(5,'Attempting to obtain now playing information');            
+
+      send_to_log(5,'Attempting to obtain now playing information');
 
       if ( ($response = file_get_contents($playing_url)) === false)
       {
@@ -193,7 +193,7 @@
       }
       else
       {
-        // parse the information      
+        // parse the information
         $data = array();
         foreach (explode("\n",$response) as $line)
         {
@@ -206,31 +206,31 @@
       send_to_log(8,'Now playing information',$data);
       return $data;
     }
-    
+
     /**
      * Function to access the LastFM stream and send it on to the end user.
      *
      * @param integer $duration - the amount of time to stream in seconds (max 24 hours)
      */
-    
+
     function stream( $duration =  86400, $capture_dir = '', $capture_file = '' )
     {
       // headers
       header("Content-type: audio/x-mpeg");
       header('Connection: close');
-           
+
       // Close open sessions, output buffering, etc
-      ob_end_flush();      
+      ob_end_flush();
       ignore_user_abort(FALSE);
       session_write_close();
       set_time_limit($duration+5);
-      
+
       send_to_log(5,'Attempting to stream',$this->stream_url);
       $time_end = time()+$duration;
-      
+
       // Open the stream
       $stream = fopen($this->stream_url,'rb');
-      
+
       // Wait until we're streaming (and exit if we can't get a stream)
       if ( $this->now_playing() === false)
         return false;      
@@ -240,10 +240,10 @@
       $capture_fsp = os_path($capture_dir,true).( empty($capture_file) ? date('Y-m-d_H-i-s').'.mp3' : $capture_file);
       if ($capture && $stream) 
         $file = fopen($capture_fsp,'wb');
-      
-      $fbytessofar = 0; 
+
+      $fbytessofar = 0;
       if ($stream)
-      {          
+      {
         while ( !feof($stream) && time() <= $time_end && (connection_status() == CONNECTION_NORMAL) )
         {
             $fbuf = fread($stream,8*1024);
@@ -258,35 +258,35 @@
             echo $fbuf;
             flush();
         }
-          
+
         fclose($stream);
       }
-     
+
       // Close the file on disk if we were capturing the stream.
       if ($capture) 
         @fclose($file);    
         
       return true;
-    }       
+    }
 
     /**
-     * Returns an array of URLs pointing to pictures of the given artist. 
+     * Returns an array of URLs pointing to pictures of the given artist.
      *
      * @param string $artist
      * @param boolean $original - Returns either the original images (true) or thumbnails (false)
      * @return array (of URLs)
      */
-    
+
     function artist_images( $artist, $original = false )
     {
       send_to_log(5,'Looking up artist : '.$artist);
       $pics = array();
       $matches = array();
-      
+
       if (!empty($artist))
-      {    
+      {
         // Set a timeout on the downloading of artist photos.
-        ini_set('default_socket_timeout',3);    
+        ini_set('default_socket_timeout',3);
         $html = @file_get_contents('http://www.last.fm/music/'.urlencode($artist).'/+images');
         if ($html === false)
           send_to_log(2,'Failed to access artist details on LastFM (details may not be available).');
@@ -299,7 +299,7 @@
             for ($i=0; $i<count($matches[1]); $i++)
             {
               // Original or thumbnail image?
-              if ($original)          
+              if ($original)
                 $pics[] = $matches[1][$i];
               else
               {
@@ -309,7 +309,7 @@
               }
             }
           }
-          else 
+          else
             send_to_log(5,'No photos found for "'.$artist.'"');
         }
       }
@@ -318,74 +318,70 @@
       return $pics;
     }
 
-    
-  } // End of class   
+
+  } // End of class
 
   /**
-   * Class to enable scrobbling of tracks played to the Last.FM website.
+   * Class to enable scrobbling of tracks played using the Last.fm Submissions Protocol.
    *
    */
-  
+
   class scrobble
   {
     var $session_id;
     var $submission_url;
     var $now_playing_url;
-    var $client_id = 'sce'; 
-    var $client_version = '0.1';
-    
+    var $client_id = 'sce';
+    var $client_version = '0.2';
+
     /**
      * Constructor
      *
      * @return lastfm
      */
-    
+
     function scrobble( )
     {
+      if (isset($_SESSION["lastfm"]["scrobble"]))
+      {
+        // Get the cached authentication and connection details.
+        $this->session_id      = $_SESSION["lastfm"]["scrobble"]["session_id"];
+        $this->now_playing_url = $_SESSION["lastfm"]["scrobble"]["now_playing_url"];
+        $this->submission_url  = $_SESSION["lastfm"]["scrobble"]["submission_url"];
+        send_to_log(6,'Using cached authentication',array("Session"=>$this->session_id, "Now Playing URL"=>$this->now_playing_url, "Submission URL"=>$this->submission_url) );
+      }
+      else
+      {
+        // Establish authentication and connection details for the session.
+        $this->handshake( get_user_pref('LASTFM_USERNAME'), get_user_pref('LASTFM_PASSWORD') );
+      }
     }
-    
+
     /**
-     * Utility function to search for a value in a LastFM response
+     * Utility function to search for a value in a Last.fm response
      *
      * @param string $pattern - pattern to search for
      * @param string $text - text to search
      * @return string - text founc
      */
-    
+
     function get_pattern($pattern, $text)
     {
       $matches = array();
       if ( preg_match($pattern,$text,$matches) == 1)
         return $matches[1];
-      else 
-        return '';    
+      else
+        return '';
     }
-    
+
     /**
-     * Sends a login request to LastFM and processes the result
+     * Sends a login request to Last.fm and processes the result
      *
      * @return boolean - TRUE if the login succeeded, false otherwise.
      */
 
     function handshake($username, $md5_password)
     {
-      if (isset($_SESSION["lastfm"]["scrobble"]))
-      {
-        // Get the cached authentication details
-        $this->session_id      = $_SESSION["lastfm"]["scrobble"]["session_id"];
-        $this->now_playing_url = $_SESSION["lastfm"]["scrobble"]["now_playing_url"];
-        $this->submission_url  = $_SESSION["lastfm"]["scrobble"]["submission_url"];
-        send_to_log(6,'Using cached authentication',array("Session"=>$this->session_id, "Now Playing URL"=>$this->now_playing_url, "Submission URL"=>$this->submission_url) );
-        return true;
-      }
-      else
-      {
-        // Clear information about the current session (if there is any)
-        $this->session_id = '';
-        $this->now_playing_url = '';
-        $this->submission_url = '';
-      }
-
       // Parameters for the handshake
       $timenow = gmt_time();
       $hs_url  = 'http://post.audioscrobbler.com/'.
@@ -398,10 +394,10 @@
                  '&a='.md5( $md5_password.$timenow);
 
       // Set a timeout on the handshake
-      ini_set('default_socket_timeout',2);    
-      
+      ini_set('default_socket_timeout',2);
+
       // Attempt to handshake
-      send_to_log(5,"Attempting to login with username '$username' and encrypted password '$md5_password'");      
+      send_to_log(5,"Attempting to login with username '$username' and encrypted password '$md5_password'");
       if ( ($response = @file_get_contents($hs_url)) === false)
       {
         send_to_log(2,'Failed to access the login URL',$hs_url);
@@ -410,72 +406,75 @@
 
       // Split the response by line
       $response = explode("\n",$response);
-      
+
       // Authenticated successfully?
-      if ($response[0] != 'OK')
+      if ($response[0] == 'OK')
       {
-        $this->session_id = '';
+        // Parse the response
+        $this->session_id      = $_SESSION["lastfm"]["scrobble"]["session_id"]      = $response[1];
+        $this->now_playing_url = $_SESSION["lastfm"]["scrobble"]["now_playing_url"] = $response[2];
+        $this->submission_url  = $_SESSION["lastfm"]["scrobble"]["submission_url"]  = $response[3];
+        send_to_log(6,'Successfully authenticated',array("Session"=>$this->session_id, "Now Playing URL"=>$this->now_playing_url, "Submission URL"=>$this->submission_url) );
+        return true;
+      }
+      else
+      {
+        $this->session_id      = '';
+        $this->now_playing_url = '';
+        $this->submission_url  = '';
+        unset($_SESSION["lastfm"]["scrobble"]);
         send_to_log(2,'Authentication failed', $response);
         return false;
       }
-      
-      // Parse the response
-      $this->session_id      = $_SESSION["lastfm"]["scrobble"]["session_id"]      = $response[1];
-      $this->now_playing_url = $_SESSION["lastfm"]["scrobble"]["now_playing_url"] = $response[2];
-      $this->submission_url  = $_SESSION["lastfm"]["scrobble"]["submission_url"]  = $response[3];
-      send_to_log(6,'Successfully authenticated',array("Session"=>$this->session_id, "Now Playing URL"=>$this->now_playing_url, "Submission URL"=>$this->submission_url) );
-      return true;
-    }    
-     
+    }
+
     /**
-     * Function to submit at entry to the LastFM servers.
+     * Function to submit at entry to the Last.fm servers.
      *
      * @param integer:timestamp $started_playing
      * @param string $artist
      * @param string $title
      * @param string $album (optional)
      * @param integer $track_no (optional)
-     * @param integer $length_s (optional)
+     * @param integer $length   (optional)
      */
-    
+
     function submit( $started_playing, $artist, $track, $album, $length, $track_no )
     {
-      // One of the Last.FM rules is that only tracks longer than 30s can be scrobbled.
-      if ( $length > 30)
+      $data = 's='.$this->session_id.
+              '&a[0]='.rawurlencode(utf8_encode($artist)).
+              '&t[0]='.rawurlencode(utf8_encode($track)).
+              '&i[0]='.rawurlencode($started_playing).
+              '&o[0]=P'.
+              '&r[0]='.
+              '&l[0]='.rawurlencode($length).
+              '&b[0]='.rawurlencode(utf8_encode($album)).
+              '&n[0]='.rawurlencode($track_no).
+              '&m[0]=';
+
+      if ( !empty($this->submission_url) )
       {
-        $data = 's='.$this->session_id.
-                '&a[0]='.rawurlencode(utf8_encode($artist)).
-                '&t[0]='.rawurlencode(utf8_encode($track)).
-                '&i[0]='.rawurlencode($started_playing).
-                '&o[0]=P'.
-                '&r[0]='.
-                '&l[0]='.rawurlencode($length).
-                '&b[0]='.rawurlencode(utf8_encode($album)).
-                '&n[0]='.rawurlencode($track_no).
-                '&m[0]=';
-  
-        if ( !empty($this->submission_url) )
-        {
-          send_to_log(6,'Attempting to scrobble song',array("Artist"=>$artist, "Track"=>$track, "Album"=>$album,"Date/Time"=>date('Y.m.d H:i:s',$started_playing)));
-          $response = http_post( $this->submission_url, $data, 1);
-          
-          if (strpos($response,'OK') !== false)
-            return true;
-          elseif (strpos($response,'BADSESSION') !== false)
-            return false;
-          elseif (strpos($response,'FAILED') !== false)
-            return false;
-          else 
-            return false;
-        }
+        send_to_log(6,'Attempting to scrobble song',array("Artist"=>$artist, "Track"=>$track, "Album"=>$album,"Date/Time"=>date('Y.m.d H:i:s',$started_playing)));
+        $response = http_post( $this->submission_url, $data, 1);
+
+        if (in_array('OK', explode("\n",$response)))
+          return true;
+        elseif (strpos($response,'BADSESSION') !== false)
+          return false;
+        elseif (strpos($response,'FAILED') !== false)
+          return false;
+        else
+          return false;
       }
-      
-      // Unable to scrobble.
-      return false;      
+      else
+      {
+        // Unable to submit scrobble.
+        return false;
+      }
     }
-    
+
     /**
-     * Submits the details of a song that has just started playing to the MusicIP server.
+     * Submits the details of a song that has just started playing to the Last.fm server.
      *
      * @param string $artist
      * @param string $track
@@ -484,7 +483,7 @@
      * @param string $track_no
      * @return boolean - true for successful submission, false otherwise.
      */
-    
+
     function playing ( $artist, $track, $album, $length, $track_no )
     {
       $data = 's='.$this->session_id.
@@ -497,29 +496,32 @@
 
       if ( !empty($this->now_playing_url) )
       {
-        send_to_log(6,'Attempting to inform Last.FM we are playing a track',array("Artist"=>$artist, "Track"=>$track, "Album"=>$album));
+        send_to_log(6,'Attempting to inform Last.fm we are playing a track',array("Artist"=>$artist, "Track"=>$track, "Album"=>$album));
         $response = http_post( $this->now_playing_url, $data, 1);
-        
-        if (strpos($response,'OK') !== false)
+
+        if (in_array('OK', explode("\n",$response)))
           return true;
         elseif (strpos($response,'BADSESSION') !== false)
           return false;
-        else 
+        else
           return false;
       }
-      else 
-        return false;      
+      else
+      {
+        // Unable to submit now playing details
+        return false;
+      }
     }
-    
-  }  
+
+  }
 
   /**
    * Returns whether or not a valid username/password has been specified, and the user
-   * wishes to allow connections to Last.FM
+   * wishes to allow connections to Last.fm
    *
    * @return bool
    */
-  
+
   function lastfm_enabled()
   {
     if (!internet_available())
@@ -530,23 +532,23 @@
       return false;
     elseif (get_sys_pref('LASTFM_ENABLED','YES') != 'YES')
       return false;
-    else 
+    else
       return true;
   }
 
   /**
-   * Returns whether or not the user wishes to scrobble music tracks on the Last.FM website.
+   * Returns whether or not the user wishes to scrobble music tracks on the Last.fm website.
    *
    * @return bool
    */
-  
+
   function lastfm_scrobble_enabled()
   {
     return ( lastfm_enabled() && get_user_pref('LASTFM_SCROBBLE','NO') == 'YES');
   }
 
   /**
-   * Notifies the last.FM website that you have started playing a track
+   * Notifies the last.fm website that you have started playing a track
    *
    * @param string $artist
    * @param string $track
@@ -554,21 +556,24 @@
    * @param string $length
    * @param string $track_no
    */
-  
+
   function lastfm_now_playing ( $artist, $track, $album, $length, $track_no )
-  { 
+  {
     if (lastfm_enabled())
     {
       $obj = new scrobble();
-      $obj->handshake( get_user_pref('LASTFM_USERNAME'), get_user_pref('LASTFM_PASSWORD') ); 
-      $obj->playing( $artist, $track, $album, $length, $track_no );
+      if ($obj->playing( $artist, $track, $album, $length, $track_no ) === false)
+      {
+        // Re-authenticate for next time
+        $obj->handshake( get_user_pref('LASTFM_USERNAME'), get_user_pref('LASTFM_PASSWORD') );
+      }
     }
   }
 
   /**
-   * Scrobbles the track (notifies the Last.FM website that the track has finished, and should therefore
+   * Scrobbles the track (notifies the Last.fm website that the track has finished, and should therefore
    * be added to the user's profile.
-   * 
+   *
    * Note: We have to fudge the "started playing time" because the hardware players caches the file (and so the track won't have
    *      actually finished playing even though it's completed streaming) and there's no notification from the player when the
    *      track is complete.
@@ -579,16 +584,47 @@
    * @param string $length
    * @param string $track_no
    */
-  
+
   function lastfm_scrobble( $artist, $track, $album, $length, $track_no )
   {
-    // Only tracks longer than 30s should be scrobbled.
-    if (lastfm_scrobble_enabled() && $length > 30)
+    // Update any unscrobbled tracks with play ended at current time
+    db_sqlcommand("UPDATE lastfm_scrobble_tracks SET play_end = ".gmt_time()." WHERE user_id = ".get_current_user_id()." AND player_id = '".$_SESSION["device"]["mac_addr"]."' AND play_end IS NULL");
+
+    // Remove tracks that do not meet criteria for scrobbling:
+    // The track must have been played for a duration of at least 240 seconds or half the track's total length, whichever comes first.
+    db_sqlcommand("DELETE FROM lastfm_scrobble_tracks WHERE user_id = ".get_current_user_id()." AND player_id = '".$_SESSION["device"]["mac_addr"]."' AND play_end IS NOT NULL AND (play_end-play_start) < LEAST(length/2, 240)");
+
+    // One of the Last.fm rules is that only tracks longer than 30s can be scrobbled.
+    if ( $length > 30)
     {
-      $obj = new scrobble();
-      $obj->handshake( get_user_pref('LASTFM_USERNAME'), get_user_pref('LASTFM_PASSWORD') ); 
-      $obj->submit( gmt_time()-$length, $artist, $track, $album, $length, $track_no );
+      // Add the current track to the scrobble list
+      db_insert_row("lastfm_scrobble_tracks", array("user_id"    => get_current_user_id(),
+                                                    "player_id"  => $_SESSION["device"]["mac_addr"],
+                                                    "artist"     => $artist,
+                                                    "title"      => $track,
+                                                    "album"      => $album,
+                                                    "length"     => $length,
+                                                    "track"      => $track_no,
+                                                    "play_start" => gmt_time()));
     }
-    
+
+    $obj = new scrobble();
+
+    // Scrobble all tracks that have finished playing (have a play end time)
+    $scrobble_items = db_toarray("SELECT * FROM lastfm_scrobble_tracks WHERE user_id = ".get_current_user_id()." AND player_id = '".$_SESSION["device"]["mac_addr"]."' AND play_end IS NOT NULL ORDER BY play_start");
+    foreach ($scrobble_items as $item)
+    {
+      if ($obj->submit( $item["PLAY_START"], $item["ARTIST"], $item["TITLE"], $item["ALBUM"], $item["LENGTH"], $item["TRACK"] ) === false)
+      {
+        // Re-authenticate for next time
+        $obj->handshake( get_user_pref('LASTFM_USERNAME'), get_user_pref('LASTFM_PASSWORD') );
+      }
+      else
+      {
+        // Successfully scrobbled so remove from list
+        db_sqlcommand("DELETE FROM lastfm_scrobble_tracks WHERE scrobble_id = ".$item["SCROBBLE_ID"]);
+      }
+    }
+
   }
 ?>
