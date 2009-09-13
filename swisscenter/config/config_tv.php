@@ -145,9 +145,9 @@ function tv_lookup()
   $existing_lookup = extra_get_tv_details($tv_id, $filename, $details["PROGRAMME"], $details["SERIES"], $details["EPISODE"], $details["TITLE"]);
 
   // Lookup tv show using values parsed from the filename (in case the parsing expressions have changed)
-  if ( $parsed_str != '' && $parsed_str != $details_str )
+  if ( !$existing_lookup && $parsed_str != '' && $parsed_str != $details_str )
   {
-  	send_to_log(5, "Re-parsed the filename to attempt the TV details search", array("Existing information"=>details, "Parsed from filename"=>$parsed));
+    send_to_log(5, "Re-parsed the filename to attempt the TV details search", array("Existing information"=>details, "Parsed from filename"=>$parsed));
     $parsed_lookup = extra_get_tv_details($tv_id, $filename, $parsed["programme"], $parsed["series"], $parsed["episode"], $parsed["title"]);
   }
 
@@ -187,13 +187,13 @@ function tv_display_list($tv_list)
   foreach ($tv_list as $tv)
   {
     $actors    = db_col_to_list("select actor_name from actors a,actors_in_tv ait where a.actor_id=ait.actor_id ".
-                                "and tv_id=$tv[FILE_ID] order by 1");
+                                "and tv_id=".$tv["FILE_ID"]." order by 1");
     $directors = db_col_to_list("select director_name from directors d, directors_of_tv dot where d.director_id = dot.director_id ".
-                                "and tv_id=$tv[FILE_ID] order by 1");
+                                "and tv_id=".$tv["FILE_ID"]." order by 1");
     $genres    = db_col_to_list("select genre_name from genres g, genres_of_tv got where g.genre_id = got.genre_id ".
-                                "and tv_id=$tv[FILE_ID] order by 1");
+                                "and tv_id=".$tv["FILE_ID"]." order by 1");
     $languages = db_col_to_list("select language from languages l, languages_of_tv lot where l.language_id = lot.language_id ".
-                                "and tv_id=$tv[FILE_ID] order by 1");
+                                "and tv_id=".$tv["FILE_ID"]." order by 1");
     $cert      = db_value("select name from certificates where cert_id=".nvl($tv["CERTIFICATE"],-1));
 
     echo '<table class="form_select_tab" width="100%"><tr>
@@ -587,9 +587,6 @@ function tv_update_form_multiple( $tv_list )
 
 function tv_update_single()
 {
-  // Clear the existing details for this tv show, as they will be reinserted by
-  // calling the update_multiple function.
-  $tv_id = $_REQUEST["tv"][0];
   tv_update_multiple();
 }
 
@@ -622,7 +619,7 @@ function tv_update_multiple()
   // Add Actors/Genres/Directors?
   if ($_REQUEST["update_actors"] == 'yes')
   {
-    db_sqlcommand("delete from actors_in_tv where tv_id=".$tv_id);
+    db_sqlcommand("delete from actors_in_tv where tv_id in (".implode(',',$tv_list).")");
     if (count($_REQUEST["actors"]) >0)
       scdb_add_tv_actors($tv_list,un_magic_quote($_REQUEST["actors"]));
     if (!empty($_REQUEST["actor_new"]))
@@ -631,7 +628,7 @@ function tv_update_multiple()
 
   if ($_REQUEST["update_directors"] == 'yes')
   {
-    db_sqlcommand("delete from directors_of_tv where tv_id=".$tv_id);
+    db_sqlcommand("delete from directors_of_tv where tv_id in (".implode(',',$tv_list).")");
     if (count($_REQUEST["directors"]) >0)
       scdb_add_tv_directors($tv_list,un_magic_quote($_REQUEST["directors"]));
     if (!empty($_REQUEST["director_new"]))
@@ -640,7 +637,7 @@ function tv_update_multiple()
 
   if ($_REQUEST["update_genres"] == 'yes')
   {
-    db_sqlcommand("delete from genres_of_tv where tv_id=".$tv_id);
+    db_sqlcommand("delete from genres_of_tv where tv_id in (".implode(',',$tv_list).")");
     if (count($_REQUEST["genres"]) >0)
       scdb_add_tv_genres($tv_list,un_magic_quote($_REQUEST["genres"]));
     if (!empty($_REQUEST["genre_new"]))
@@ -649,7 +646,7 @@ function tv_update_multiple()
 
   if ($_REQUEST["update_languages"] == 'yes')
   {
-    db_sqlcommand("delete from languages_of_tv where tv_id=".$tv_id);
+    db_sqlcommand("delete from languages_of_tv where tv_id in (".implode(',',$tv_list).")");
     if (count($_REQUEST["languages"]) >0)
       scdb_add_tv_languages($tv_list,un_magic_quote($_REQUEST["languages"]));
     if (!empty($_REQUEST["language_new"]))
@@ -674,8 +671,8 @@ function tv_update_multiple()
       else
       {
         // Remove all viewing information about these tv shows for this user
-        db_sqlcommand("delete from viewings where media_type=".MEDIA_TYPE_TV." and user_id=$row[USER_ID] ".
-                      "and media_id in (".implode(',',$tv_list).")");
+        db_sqlcommand("delete from viewings where media_type=".MEDIA_TYPE_TV." and user_id=".$row["USER_ID"].
+                      " and media_id in (".implode(',',$tv_list).")");
       }
     }
   }

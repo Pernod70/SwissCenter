@@ -181,13 +181,13 @@ function movie_display_list($movie_list)
   foreach ($movie_list as $movie)
   {
     $actors    = db_col_to_list("select actor_name from actors a,actors_in_movie aim where a.actor_id=aim.actor_id ".
-                                "and movie_id=$movie[FILE_ID] order by 1");
+                                "and movie_id=".$movie["FILE_ID"]." order by 1");
     $directors = db_col_to_list("select director_name from directors d, directors_of_movie dom where d.director_id = dom.director_id ".
-                                "and movie_id=$movie[FILE_ID] order by 1");
+                                "and movie_id=".$movie["FILE_ID"]." order by 1");
     $genres    = db_col_to_list("select genre_name from genres g, genres_of_movie gom where g.genre_id = gom.genre_id ".
-                                "and movie_id=$movie[FILE_ID] order by 1");
+                                "and movie_id=".$movie["FILE_ID"]." order by 1");
     $languages = db_col_to_list("select language from languages l, languages_of_movie lom where l.language_id = lom.language_id ".
-                                "and movie_id=$movie[FILE_ID] order by 1");
+                                "and movie_id=".$movie["FILE_ID"]." order by 1");
     $cert      = db_value("select name from certificates where cert_id=".nvl($movie["CERTIFICATE"],-1));
 
     echo '<table class="form_select_tab" width="100%"><tr>
@@ -237,7 +237,7 @@ function movie_display_thumbs($movie_list)
   echo '<table class="form_select_tab" width="100%"><tr>'.$thumb_html.'</tr><tr>'.$title_html.'</table>';
 }
 
-  // ----------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------
 // Displays the movie details for editing
 // ----------------------------------------------------------------------------------
 
@@ -565,9 +565,6 @@ function movie_update_form_multiple( $movie_list )
 
 function movie_update_single()
 {
-  // Clear the existing details for this movie, as they will be reinserted by
-  // calling the update_multiple function.
-  $movie_id = $_REQUEST["movie"][0];
   movie_update_multiple();
 }
 
@@ -596,7 +593,7 @@ function movie_update_multiple()
   // Add Actors/Genres/Directors?
   if ($_REQUEST["update_actors"] == 'yes')
   {
-    db_sqlcommand("delete from actors_in_movie where movie_id=".$movie_id);
+    db_sqlcommand("delete from actors_in_movie where movie_id in (".implode(',',$movie_list).")");
     if (count($_REQUEST["actors"]) >0)
       scdb_add_actors($movie_list,un_magic_quote($_REQUEST["actors"]));
     if (!empty($_REQUEST["actor_new"]))
@@ -605,7 +602,7 @@ function movie_update_multiple()
 
   if ($_REQUEST["update_directors"] == 'yes')
   {
-    db_sqlcommand("delete from directors_of_movie where movie_id=".$movie_id);
+    db_sqlcommand("delete from directors_of_movie where movie_id in (".implode(',',$movie_list).")");
     if (count($_REQUEST["directors"]) >0)
       scdb_add_directors($movie_list,un_magic_quote($_REQUEST["directors"]));
     if (!empty($_REQUEST["director_new"]))
@@ -614,7 +611,7 @@ function movie_update_multiple()
 
   if ($_REQUEST["update_genres"] == 'yes')
   {
-    db_sqlcommand("delete from genres_of_movie where movie_id=".$movie_id);
+    db_sqlcommand("delete from genres_of_movie where movie_id in (".implode(',',$movie_list).")");
     if (count($_REQUEST["genres"]) >0)
       scdb_add_genres($movie_list,un_magic_quote($_REQUEST["genres"]));
     if (!empty($_REQUEST["genre_new"]))
@@ -623,7 +620,7 @@ function movie_update_multiple()
 
   if ($_REQUEST["update_languages"] == 'yes')
   {
-    db_sqlcommand("delete from languages_of_movie where movie_id=".$movie_id);
+    db_sqlcommand("delete from languages_of_movie where movie_id in (".implode(',',$movie_list).")");
     if (count($_REQUEST["languages"]) >0)
       scdb_add_languages($movie_list,un_magic_quote($_REQUEST["languages"]));
     if (!empty($_REQUEST["language_new"]))
@@ -650,8 +647,8 @@ function movie_update_multiple()
       else
       {
         // Remove all viewing information about these movies for this user
-        db_sqlcommand("delete from viewings where media_type=".MEDIA_TYPE_VIDEO." and user_id=$row[USER_ID] ".
-                      "and media_id in (".implode(',',$movie_list).")");
+        db_sqlcommand("delete from viewings where media_type=".MEDIA_TYPE_VIDEO." and user_id=".$row["USER_ID"].
+                      " and media_id in (".implode(',',$movie_list).")");
       }
     }
   }
