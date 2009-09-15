@@ -185,14 +185,14 @@ function make_abs_file( $fsp, $dir )
     if (substr($fsp,0,2) == '\\\\' || substr($fsp,1,2) == ':\\')
       return $fsp;
     else
-      return str_suffix($dir,'\\').$fsp;
+      return realpath(str_suffix($dir,'\\').$fsp);
   }
   else
   {
     if ($fsp[0] == '/')
       return $fsp;
     else
-      return str_suffix($dir,'/').$fsp;
+      return realpath(str_suffix($dir,'/').$fsp);
   }
 }
 
