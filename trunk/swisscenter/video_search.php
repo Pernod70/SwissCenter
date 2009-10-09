@@ -7,6 +7,7 @@
 
   $column        = $_REQUEST["sort"];
   $joined_tables = get_rating_join().viewed_join(MEDIA_TYPE_VIDEO);
+  $articles      = get_sys_pref('IGNORE_ARTICLES');
 
   $search = array();
   switch ($column)
@@ -15,13 +16,13 @@
       $title  = str('TITLE');
       $search = array("display" => "title",
                       "info"    => "year",
-                      "order"   => "display");
+                      "order"   => "trim_article(display,'$articles')");
       break;
     case "year":
       $title  = str('TITLE');
       $search = array("display" => "title",
                       "info"    => "year",
-                      "order"   => "info desc, display");
+                      "order"   => "info desc, trim_article(display,'$articles')");
       break;
     case "genre":
     case "actor":
@@ -41,7 +42,7 @@
       $title  = str('TITLE');
       $search = array("display" => "title",
                       "info"    => "truncate(external_rating_pc/10,1)",
-                      "order"   => "info desc, display");
+                      "order"   => "info desc, trim_article(display,'$articles')");
       break;
     case "discovered":
       $title  = str('TITLE');

@@ -16,14 +16,14 @@ require_once( realpath(dirname(__FILE__).'/base/rating.php'));
  *
  */
 
-class tv_series_picker extends list_picker 
+class tv_series_picker extends list_picker
 {
-  
+
   function tv_series_picker()
   {
     parent::list_picker();
     $this->url = url_add_param('tv.php','cat',$_REQUEST["cat"]);
-    
+
     // Where do we send the user back to if they quit this page?
     if ( category_count(MEDIA_TYPE_TV) <= 1)
       $this->back_url = 'index.php';
@@ -35,7 +35,7 @@ class tv_series_picker extends list_picker
         $this->back_url = "tv.php?subcat=".db_value("select parent_id from categories where cat_id=".$_REQUEST["cat"]);
     }
   }
-  
+
   function link_url($item)
   {
     return url_add_params('/tv_selected.php',array("programme"=>urlencode($item),"cat"=>$_REQUEST["cat"]));
@@ -50,57 +50,60 @@ class tv_series_picker extends list_picker
 
   function data_list( $search_string, $start, $end)
   {
-    $sql = "select distinct programme 
-              from tv media ".get_rating_join().viewed_join(MEDIA_TYPE_TV)." 
-             where programme like '".db_escape_str($search_string)."'
+    $articles = get_sys_pref('IGNORE_ARTICLES');
+    $sql = "select distinct programme
+              from tv media ".get_rating_join().viewed_join(MEDIA_TYPE_TV)."
+             where trim_article(programme,'$articles') like '".db_escape_str($search_string)."'
                    ".get_rating_filter()."
                    ".category_select_sql($_REQUEST["cat"], MEDIA_TYPE_TV)."
             having ".viewed_status_predicate( filter_get_name() )."
-          order by 1 limit $start,$end";
-    
+          order by trim_article(programme,'$articles') limit $start,$end";
+
     return db_col_to_list($sql);
   }
-  
+
   function data_count( $search_string )
   {
-    $sql = "select count(distinct programme) 
-              from tv media ".get_rating_join().viewed_join(MEDIA_TYPE_TV)." 
-             where programme like '".db_escape_str($search_string)."'
+    $articles = get_sys_pref('IGNORE_ARTICLES');
+    $sql = "select count(distinct programme)
+              from tv media ".get_rating_join().viewed_join(MEDIA_TYPE_TV)."
+             where trim_article(programme,'$articles') like '".db_escape_str($search_string)."'
                    ".get_rating_filter()."
                    ".category_select_sql($_REQUEST["cat"], MEDIA_TYPE_TV)."
             having ".viewed_status_predicate( filter_get_name() );
-       
+
     return db_value($sql);
   }
-  
+
   function data_valid_chars( $search_string )
   {
-    $sql = " select distinct upper(substring( programme,".(strlen($search_string)).",1)) 
-               from tv media ".get_rating_join().viewed_join(MEDIA_TYPE_TV)." 
-              where programme like '".db_escape_str($search_string)."' 
+    $articles = get_sys_pref('IGNORE_ARTICLES');
+    $sql = " select distinct upper(substring(trim_article(programme,'$articles'),".(strlen($search_string)).",1))
+               from tv media ".get_rating_join().viewed_join(MEDIA_TYPE_TV)."
+              where trim_article(programme,'$articles') like '".db_escape_str($search_string)."'
                    ".get_rating_filter()."
                    ".category_select_sql($_REQUEST["cat"], MEDIA_TYPE_TV)."
             having ".viewed_status_predicate( filter_get_name() )."
            order by 1";
-    
+
     return strtoupper(join(db_col_to_list($sql)));
   }
-   
+
   function display_title()
   {
     return str('WATCH_TV');
   }
-  
+
   function display_subtitle()
   {
     return str('PROGRAMME').' : '.$this->search;
-  }  
+  }
 
   function display_format_name( $item )
   {
     return $item;
   }
-  
+
 }
 
 /**
@@ -115,7 +118,7 @@ else
 /**
  *  If the user has not selected a category, then display a page to select the appropriate category, otherwise
  * get on with the business of displaying the TV series stored in the database.
- * 
+ *
  */
 
 if( category_count(MEDIA_TYPE_TV) <= 1 || isset($_REQUEST["cat"]) )
@@ -131,7 +134,7 @@ else
     display_categories('tv.php', MEDIA_TYPE_TV, $_REQUEST["subcat"]);
   else
     display_categories('tv.php', MEDIA_TYPE_TV);
-}  
+}
 
 /**************************************************************************************************
                                                End of file

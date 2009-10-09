@@ -45,7 +45,7 @@ function db_escape_wildcards( $text )
 }
 
 #-------------------------------------------------------------------------------------------------
-# Tests the connection to the database using the details provided 
+# Tests the connection to the database using the details provided
 #-------------------------------------------------------------------------------------------------
 
 function test_db($host = DB_HOST , $username = DB_USERNAME , $password = DB_PASSWORD , $database = DB_DATABASE)
@@ -56,14 +56,14 @@ function test_db($host = DB_HOST , $username = DB_USERNAME , $password = DB_PASS
     return '!'.str('DATABASE_NOCONNECT');
   elseif (! mysql_select_db($database, $db_handle) )
     return '!'.str('DATABASE_NOSELECT');
-  else 
+  else
     return 'OK';
 }
 
 #-------------------------------------------------------------------------------------------------
 # Selects the results of the query ($sql) into the specified array (&$data).
 #
-# Returns an array if the query completed successfully, otherwise the funtions returns FALSE 
+# Returns an array if the query completed successfully, otherwise the funtions returns FALSE
 #-------------------------------------------------------------------------------------------------
 
 function db_toarray( $sql)
@@ -98,7 +98,7 @@ function db_lookup( $table, $col, $return_col, $text )
 # Selects the results of the query ($sql) into the specified array (&$data).
 #
 # Returns an array of columns for the first row returned by the sql,
-# otherwise the function returns FALSE 
+# otherwise the function returns FALSE
 #-------------------------------------------------------------------------------------------------
 
 function db_row($sql)
@@ -117,7 +117,7 @@ function db_row($sql)
 #-------------------------------------------------------------------------------------------------
 # Uses the results of the query ($sql) to build an array (&$data) where each entry in the array
 # is the value of the first column selected by the query.
-# 
+#
 # EG: "Select username from users;" might return array('Rod','Jane','Freddy')
 #-------------------------------------------------------------------------------------------------
 
@@ -141,7 +141,7 @@ function db_col_to_list( $sql)
 # Executes the command passed in the $sql variable. This function does not return any results,
 # so cannot be used for a SELECT statement.
 #
-# Returns TRUE if the query completed successfully, otherwise the funtions returns FALSE 
+# Returns TRUE if the query completed successfully, otherwise the funtions returns FALSE
 #-------------------------------------------------------------------------------------------------
 
 function db_sqlcommand ($sql, $log_errors = true)
@@ -153,7 +153,7 @@ function db_sqlcommand ($sql, $log_errors = true)
 }
 
 #-------------------------------------------------------------------------------------------------
-# Executes all the SQL commands contained within the file specified, returning the number of 
+# Executes all the SQL commands contained within the file specified, returning the number of
 # errors that were encountered.
 #-------------------------------------------------------------------------------------------------
 
@@ -162,9 +162,15 @@ function db_sqlfile ($fsp)
   $errors = 0;
   if ($contents = @file($fsp))
   {
-    $commands = split(";",implode(" ",$contents));
+    // If the SQL script contains function or procedure definitions then we do not split
+    // into separate commands.
+    if (preg_match('/.*(function|procedure).*/i', implode(" ",$contents)) > 0)
+      $commands = array(implode(" ",$contents));
+    else
+      $commands = split(";",implode(" ",$contents));
+
     foreach ($commands as $sql)
-      if ( strlen(trim($sql)) > 0 ) 
+      if ( strlen(trim($sql)) > 0 )
         if (!db_sqlcommand($sql))
           $errors++;
   }
@@ -310,7 +316,7 @@ function db_update_row( $table, $id, $fields )
     }
     else
       $vlist = $value;
-      
+
     $sql = $sql.$flist."=".$vlist.",";
   }
 
@@ -364,10 +370,10 @@ class db_query
     }
     else
     {
-    
+
       if ($dbname == '')
         $dbname = DB_DATABASE;
-        
+
       if ($this->db_handle = @mysql_pconnect( DB_HOST, DB_USERNAME, DB_PASSWORD ) )
       {
         if (mysql_select_db($dbname, $this->db_handle) )
@@ -381,7 +387,7 @@ class db_query
           }
         }
       }
-      else 
+      else
       {
         send_to_log(1,"Connected Failed :: " . mysql_error());
       }
@@ -394,7 +400,7 @@ class db_query
 
   function destroy()
   {
-    @mysql_free_result($this->stmt_handle);  
+    @mysql_free_result($this->stmt_handle);
     return true;
   }
 
@@ -435,10 +441,10 @@ class db_query
   }
 
   function db_get_error()
-  { 
+  {
     if ($this->db_handle)
       return mysql_error($this->db_handle);
-    else 
+    else
       return '';
   }
 
@@ -449,7 +455,7 @@ class db_query
       if ($log_error)
         send_to_log(1,$this->db_get_error(), $this->sql_to_execute);
     }
-      
+
     return $this->stmt_handle;
   }
 }
