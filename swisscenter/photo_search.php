@@ -8,6 +8,7 @@
   // Check page parameters
   $column        = $_REQUEST["sort"];
   $joined_tables = " left outer join photo_albums pa on media.dirname like concat(pa.dirname,'%') ".get_rating_join().viewed_join(MEDIA_TYPE_PHOTO);
+  $articles      = get_sys_pref('IGNORE_ARTICLES');
 
   $search = array();
   switch ($column)
@@ -16,13 +17,13 @@
       $title  = str('PHOTO_TITLE');
       $search = array("display" => "filename",
                       "info"    => "date_format(media.timestamp,'%d%b%y')",
-                      "order"   => "display");
+                      "order"   => "trim_article(display,'$articles')");
       break;
     case "title":
       $title  = str('PHOTO_ALBUM');
       $search = array("display" => "title",
                       "info"    => "count(distinct filename)",
-                      "order"   => "display");
+                      "order"   => "trim_article(display,'$articles')");
       break;
     case "iptc_byline":
     case "iptc_caption":

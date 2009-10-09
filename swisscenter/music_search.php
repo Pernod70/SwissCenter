@@ -7,6 +7,7 @@
 
   $column        = $_REQUEST["sort"];
   $joined_tables = get_rating_join().viewed_join(MEDIA_TYPE_MUSIC);
+  $articles      = get_sys_pref('IGNORE_ARTICLES');
 
   $search = array();
   switch ($column)
@@ -18,7 +19,7 @@
       $title  = str(strtoupper(($column)));
       $search = array("display" => $column,
                       "info"    => "count(filename)",
-                      "order"   => "display");
+                      "order"   => "trim_article(display,'$articles')");
       break;
     case "year":
       $title  = str(strtoupper(($column)));
@@ -30,7 +31,7 @@
       $title  = str('TRACK_NAME');
       $search = array("display" => "title",
                       "info"    => "year",
-                      "order"   => "display");
+                      "order"   => "trim_article(display,'$articles')");
       break;
     case "discovered":
       $title  = str('TRACK_NAME');
