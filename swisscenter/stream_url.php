@@ -132,7 +132,7 @@
     $html      = file_get_contents($video_url);
 
     // Retrieve signature from returned YouTube page
-    $video_hash = preg_get('/swfArgs.*{.*"t".*"(.*)".*}/U',$html);
+    $video_hash = preg_get('/"t".*"(.*)".*}/U',$html);
 
     // Determine whether to request the HD stream
     $fmt = 18;
