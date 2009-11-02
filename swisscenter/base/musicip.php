@@ -184,11 +184,11 @@ function musicip_mixable_percent()
       $html = strip_tags($html);
 
       // Total number of songs
-      preg_match_all('/Total Songs *([0-9,]*)/i',$html,$matches);
+      preg_match_all('/Total Songs.*?([0-9,]+)/i',$html,$matches);
       $songs = str_replace(',','',$matches[1][0]);
 
       // Total number of songs
-      preg_match_all('/Mixable Songs *([0-9,]*)/i',$html,$matches);
+      preg_match_all('/Mixable Songs.*?([0-9,]+)/i',$html,$matches);
       $mixable = str_replace(',','',$matches[1][0]);
 
       return (int)($mixable/max($songs,1)*100);
