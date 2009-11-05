@@ -403,7 +403,7 @@
     send_to_log(8,'Next track:',$next_track);
 
     // Background image
-    switch ( get_sys_pref('NOW_PLAYING_FANART','LASTFM') )
+    switch ( internet_available() ? get_sys_pref('NOW_PLAYING_FANART','LASTFM') : false )
     {
       case 'GOOGLE':
         $fanart_img = get_google_artist_image( $current_track["ARTIST"] );
@@ -469,7 +469,6 @@
     # Track Information
     # -----------------
 
-    $label_text_size  = font_size( 25, SCREEN_COORDS);
     $detail_text_size = font_size( 18, SCREEN_COORDS);
     $title_text_col   = hexdec(style_value('NOW_TITLE_COLOUR','#000000'));
     $label_text_col   = hexdec(style_value('NOW_LABEL_COLOUR','#000000'));
@@ -493,9 +492,10 @@
     # Progress bar
     # ------------------------
 
-    $image->rectangle(convert_x(250,SCREEN_COORDS), convert_y(815,SCREEN_COORDS), convert_x(550,SCREEN_COORDS), convert_y(20,SCREEN_COORDS), $label_text_col, false);
-    $image->rectangle(convert_x(250,SCREEN_COORDS), convert_y(817,SCREEN_COORDS), $progress * convert_x(550,SCREEN_COORDS), convert_y(16,SCREEN_COORDS), $title_text_col, true);
-    $text_y+=35;
+    $text_y+=($detail_text_size*0.3);
+    $image->rectangle(convert_x(250,SCREEN_COORDS), $text_y, $progress * convert_x(550,SCREEN_COORDS), $detail_text_size*1.2, $title_text_col, true);
+    $image->rectangle(convert_x(250,SCREEN_COORDS), $text_y, convert_x(550,SCREEN_COORDS), $detail_text_size*1.2, $label_text_col, false);
+    $text_y+=($detail_text_size*1.2);
 
     # ------------------------
     # Playing time Information
@@ -504,7 +504,7 @@
     // Time for this track
     if ($current_track["LENGTH"]>0)
     {
-      $image->text(hhmmss($current_track["LENGTH"]), convert_x(810,SCREEN_COORDS), convert_y(840,SCREEN_COORDS), $detail_text_col, $detail_text_size);
+      $image->text(hhmmss($current_track["LENGTH"]), convert_x(810,SCREEN_COORDS), $text_y, $detail_text_col, $detail_text_size);
     }
 
     # ------------------------
@@ -512,16 +512,17 @@
     # ------------------------
 
     // Previous track details
+    $text_y+=($detail_text_size*1.5);
     if ( is_array($previous_track))
     {
       $x = $image->get_text_width('|<< : ',$detail_text_size);
       $prevsong = nvl($previous_track["TITLE"],file_noext($previous_track["FILENAME"])).(!empty($previous_track["ARTIST"]) ? ' - '.$previous_track["ARTIST"] : '');
       $image->text('|<< : ', $text_x, $text_y, $detail_text_col, $detail_text_size);
       $image->text($prevsong, $text_x+$x, $text_y, $detail_text_col, $detail_text_size);
-      $text_y+=($detail_text_size*1.5);
     }
 
     // Next track details
+    $text_y+=($detail_text_size*1.5);
     if ( is_array($next_track))
     {
       $x = $image->get_text_width('>>| : ',$detail_text_size);
