@@ -2,13 +2,13 @@
 /**************************************************************************************************
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
-  
+
   require_once( realpath(dirname(__FILE__).'/../base/browse.php'));
 
   // ----------------------------------------------------------------------------------
   // Display current config
   // ----------------------------------------------------------------------------------
-  
+
   function playlists_display( $message = '' )
   {
     // Get list of available playlists
@@ -23,7 +23,7 @@
       unset($parts[count($parts)-1]);
       $playlists[implode('.',$parts)] = $file["dirname"].$file["filename"];
     }
-    
+
     echo '<p><h1>'.str('PLAYLISTS').'<p>';
     message($message);
     form_start('index.php');
@@ -40,18 +40,18 @@
     form_submit(str('SAVE_SETTINGS'),2);
     form_end();
   }
-  
+
   // ----------------------------------------------------------------------------------
   // Saves the new parameter
   // ----------------------------------------------------------------------------------
-  
+
   function playlists_update()
   {
     $dir = rtrim(str_replace('\\','/',un_magic_quote($_REQUEST["location"])),'/');
     $itunes_library = rtrim(str_replace('\\','/',un_magic_quote($_REQUEST["itunes"])),'/');
     $autoload = $_REQUEST["autoload"];
     $max_playlist_size = $_REQUEST["size"];
-    
+
     if (empty($_REQUEST["location"]))
       playlists_display("!".str('PLAYLISTS_ERROR_DIR'));
     elseif (!file_exists($dir))
@@ -62,7 +62,7 @@
       playlists_display("!".str('ITUNES_ERROR_PATH'));
     elseif (!empty($_REQUEST["itunes"]) && !strpos($itunes_library, 'iTunes Music Library.xml'))
       playlists_display("!".str('ITUNES_ERROR_INVALID'));
-    if (empty($_REQUEST["size"]) || !is_numeric($_REQUEST["size"]) || $_REQUEST["size"]<10 || $_REQUEST["size"]>2000)
+    elseif (empty($_REQUEST["size"]) || !is_numeric($_REQUEST["size"]) || $_REQUEST["size"]<10 || $_REQUEST["size"]>2000)
       playlists_display("!".str('PLAYLISTS_ERROR_SIZE'));
     else
     {
@@ -76,7 +76,7 @@
       playlists_display(str('SAVE_SETTINGS_OK'));
     }
   }
-  
+
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/
