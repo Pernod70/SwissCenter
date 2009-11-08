@@ -237,7 +237,7 @@ function db_array_to_set_list( $array)
     if     (!is_numeric($value) and empty($value))
       $columns[] = $key."=null";
     elseif (is_string($value))
-      $columns[] = $key ."='".db_escape_str( un_magic_quote($value))."'";
+      $columns[] = $key ."='".db_escape_str($value)."'";
     else
       $columns[] = $key."=".$value;
   }
@@ -272,7 +272,7 @@ function db_insert_row( $table, $fields )
       $vlist = $vlist.",null";
     elseif (is_string($value))
     {
-      $vlist = $vlist.",'".db_escape_str( un_magic_quote($value))."'";
+      $vlist = $vlist.",'".db_escape_str($value)."'";
     }
     else
       $vlist = $vlist.",$value";
@@ -312,7 +312,7 @@ function db_update_row( $table, $id, $fields )
       $vlist = "null";
     elseif (is_string($value))
     {
-      $vlist = "'".db_escape_str( un_magic_quote($value))."'";
+      $vlist = "'".db_escape_str($value)."'";
     }
     else
       $vlist = $value;
@@ -381,6 +381,7 @@ class db_query
           $this->rows_fetched = 0;
           if (! empty($sql) )
           {
+            @set_magic_quotes_runtime(0);
             $this->sql_to_execute = $sql;
             $this->stmt_handle = mysql_query( $sql, $this->db_handle);
             @send_to_log(9,"SQL> ".$sql);

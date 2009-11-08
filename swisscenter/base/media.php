@@ -230,7 +230,7 @@ function find_media_in_db( $fsp)
 
 function find_media_get_full_details( $fsp )
 {
-  // Zearch for the item in the database
+  // Search for the item in the database
   list($media_type, $file_id) = find_media_in_db($fsp);
 
   // Return the full details (or FALSE if the item could not be found)
@@ -395,7 +395,7 @@ function store_request_details( $media, $file_id )
 
 function media_refresh_now()
 {
-  if (is_server_simese() && simese_version() >= 1.31)
+  if (is_server_simese() && version_compare(simese_version(), '1.31', '>='))
   {
     $dir = SC_LOCATION.'config/simese';
 
@@ -404,9 +404,11 @@ function media_refresh_now()
 
     if (isdir($dir))
       write_binary_file($dir.'/Simese.ini',"MediaRefresh=Now");
+    else
+      send_to_log(2,'Unable to create Simese.ini to initiate media search', $dir);
   }
   else
-  	run_background('media_search.php');
+    run_background('media_search.php');
 }
 
 /**
@@ -499,7 +501,7 @@ function process_mp3( $dir, $id, $file)
         $data["art_sha1"]   = sha1($image);
         // Store media art if it doesn't already exist
         if ( !db_value("select art_sha1 from media_art where art_sha1='".$data["art_sha1"]."'") )
-          db_insert_row('media_art',array("art_sha1"=>$data["art_sha1"], "image"=>addslashes($image) ));
+          db_insert_row('media_art',array("art_sha1"=>$data["art_sha1"], "image"=>$image ));
       }
       else
         $data["art_sha1"]   = null;
@@ -509,6 +511,7 @@ function process_mp3( $dir, $id, $file)
       {
         // Update the existing record
         send_to_log(5,'Updating MP3 : '.$file);
+        unset($data["discovered"]);
         $success = db_update_row( "mp3s", $file_id, $data);
       }
       else
@@ -838,7 +841,7 @@ function process_movie( $dir, $id, $file )
             $data["art_sha1"]  = sha1($id3["asf"]["comments"]["picture"]);
            // Store media art if it doesn't already exist
             if ( !db_value("select art_sha1 from media_art where art_sha1='".$data["art_sha1"]."'") )
-              db_insert_row('media_art',array("art_sha1"=>$data["art_sha1"], "image"=>addslashes($id3["asf"]["comments"]["picture"]) ));
+              db_insert_row('media_art',array("art_sha1"=>$data["art_sha1"], "image"=>$id3["asf"]["comments"]["picture"] ));
           }
           else
             $data["art_sha1"]  = null;
@@ -1210,7 +1213,7 @@ function process_media_file( $dir, $file, $id, $share, $table, $file_exts, $upda
 function process_media_directory( $dir, $id, $share, $table, $file_exts, $recurse = true, $update = false)
 {
   // Directories to ignore (lowercase only - case insensitive match).
-  $dirs_to_ignore  = explode(',',strtolower(get_sys_pref('IGNORE_DIR_LIST')).',.,..');  
+  $dirs_to_ignore  = explode(',',strtolower(get_sys_pref('IGNORE_DIR_LIST')).',.,..');
 
   // Mark all the files in this directory as unverified
   db_sqlcommand("update $table set verified ='N' where dirname like'".db_escape_str($dir)."%'");

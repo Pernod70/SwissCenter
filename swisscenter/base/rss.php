@@ -264,7 +264,7 @@
    if(($result = $snoopy->fetch($url)) != false)
    {
      // Update the item in the database with the new filename for the link
-     $sql = "UPDATE rss_items SET ".db_array_to_set_list(array("linked_file" => addslashes(os_path($rss_file)))).
+     $sql = "UPDATE rss_items SET ".db_array_to_set_list(array("linked_file" => os_path($rss_file))).
             " WHERE id=$item_id";
 
      db_sqlcommand($sql);
@@ -312,7 +312,7 @@
    // Update the subscription in the database with description and image
    $sql = "UPDATE rss_subscriptions SET ".db_array_to_set_list(array("description" => utf8_decode($channel["description"]),
                                                                      "image_url"   => $image,
-                                                                     "image"       => addslashes($img)))." WHERE id=$sub_id";
+                                                                     "image"       => $img))." WHERE id=$sub_id";
 
    db_sqlcommand($sql);
  }

@@ -100,7 +100,7 @@ function extra_get_movie_details($id, $filename, $title)
         // Insert information into database
         $data = array( "title"        => $title
                      , "media_type"   => MEDIA_TYPE_VIDEO
-                     , "thumb_cache"  => addslashes(os_path($thumb_cache))
+                     , "thumb_cache"  => os_path($thumb_cache)
                      , "original_url" => str_replace('_thumb','',$fanart) );
         $file_id = db_value("select file_id from themes where title='".db_escape_str($title)."' and instr(original_url,'/".$image_id."/')>0");
         if ( $file_id )

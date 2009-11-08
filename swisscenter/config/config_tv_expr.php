@@ -65,21 +65,21 @@
     if ($_REQUEST["subaction"] == str('TV_EXPR_DEFAULTS'))
     {
       db_sqlcommand("DELETE FROM tv_expressions");
-      db_sqlcommand("INSERT INTO tv_expressions (pos, expression) VALUES ( 1,'".addslashes('{p}/[^/]*/.*\W+s{s}e{e}\W+{t}')."' )");
-      db_sqlcommand("INSERT INTO tv_expressions (pos, expression) VALUES ( 2,'".addslashes('{p}\W+s{s}e{e}\W+{t}')."' )");
-      db_sqlcommand("INSERT INTO tv_expressions (pos, expression) VALUES ( 3,'".addslashes('{p}\W+{s}x{e}\W+{t}')."' )");
-      db_sqlcommand("INSERT INTO tv_expressions (pos, expression) VALUES ( 4,'".addslashes('{p}/series {s}/{e}\W+{t}')."' )");
-      db_sqlcommand("INSERT INTO tv_expressions (pos, expression) VALUES ( 5,'".addslashes('{p}/season {s}/{e}\W+{t}')."' )");
-      db_sqlcommand("INSERT INTO tv_expressions (pos, expression) VALUES ( 6,'".addslashes('{p}\W+s{s}e{e}')."' )");
-      db_sqlcommand("INSERT INTO tv_expressions (pos, expression) VALUES ( 7,'".addslashes('{p}\W+{s}x{e}')."' )");
-      db_sqlcommand("INSERT INTO tv_expressions (pos, expression) VALUES ( 8,'".addslashes('{p}/{s}/{e}\W*{t}')."' )");
-      db_sqlcommand("INSERT INTO tv_expressions (pos, expression) VALUES ( 9,'".addslashes('{p}/{e}\W+{t}')."' )");
-      db_sqlcommand("INSERT INTO tv_expressions (pos, expression) VALUES (10,'".addslashes('{p}/{t}\W+\(?s{s}e{e}\)?')."' )");
-      db_sqlcommand("INSERT INTO tv_expressions (pos, expression) VALUES (11,'".addslashes('{p}/{t}\W+\(?{s}x{e}\)?')."' )");
-      db_sqlcommand("INSERT INTO tv_expressions (pos, expression) VALUES (12,'".addslashes('{p}\W+s{s}e{e}')."' )");
-      db_sqlcommand("INSERT INTO tv_expressions (pos, expression) VALUES (13,'".addslashes('{p}\W+{s}x{e}')."' )");
-      db_sqlcommand("INSERT INTO tv_expressions (pos, expression) VALUES (14,'".addslashes('{p}/{t}')."' )");
-      db_sqlcommand("INSERT INTO tv_expressions (pos, expression) VALUES (15,'".addslashes('{t}')."' )");
+      db_sqlcommand("INSERT INTO tv_expressions (pos, expression) VALUES ( 1,'".db_escape_str('{p}/[^/]*/.*\W+s{s}e{e}\W+{t}')."' )");
+      db_sqlcommand("INSERT INTO tv_expressions (pos, expression) VALUES ( 2,'".db_escape_str('{p}\W+s{s}e{e}\W+{t}')."' )");
+      db_sqlcommand("INSERT INTO tv_expressions (pos, expression) VALUES ( 3,'".db_escape_str('{p}\W+{s}x{e}\W+{t}')."' )");
+      db_sqlcommand("INSERT INTO tv_expressions (pos, expression) VALUES ( 4,'".db_escape_str('{p}/series {s}/{e}\W+{t}')."' )");
+      db_sqlcommand("INSERT INTO tv_expressions (pos, expression) VALUES ( 5,'".db_escape_str('{p}/season {s}/{e}\W+{t}')."' )");
+      db_sqlcommand("INSERT INTO tv_expressions (pos, expression) VALUES ( 6,'".db_escape_str('{p}\W+s{s}e{e}')."' )");
+      db_sqlcommand("INSERT INTO tv_expressions (pos, expression) VALUES ( 7,'".db_escape_str('{p}\W+{s}x{e}')."' )");
+      db_sqlcommand("INSERT INTO tv_expressions (pos, expression) VALUES ( 8,'".db_escape_str('{p}/{s}/{e}\W*{t}')."' )");
+      db_sqlcommand("INSERT INTO tv_expressions (pos, expression) VALUES ( 9,'".db_escape_str('{p}/{e}\W+{t}')."' )");
+      db_sqlcommand("INSERT INTO tv_expressions (pos, expression) VALUES (10,'".db_escape_str('{p}/{t}\W+\(?s{s}e{e}\)?')."' )");
+      db_sqlcommand("INSERT INTO tv_expressions (pos, expression) VALUES (11,'".db_escape_str('{p}/{t}\W+\(?{s}x{e}\)?')."' )");
+      db_sqlcommand("INSERT INTO tv_expressions (pos, expression) VALUES (12,'".db_escape_str('{p}\W+s{s}e{e}')."' )");
+      db_sqlcommand("INSERT INTO tv_expressions (pos, expression) VALUES (13,'".db_escape_str('{p}\W+{s}x{e}')."' )");
+      db_sqlcommand("INSERT INTO tv_expressions (pos, expression) VALUES (14,'".db_escape_str('{p}/{t}')."' )");
+      db_sqlcommand("INSERT INTO tv_expressions (pos, expression) VALUES (15,'".db_escape_str('{t}')."' )");
       tv_expr_display();
     }
     elseif (!empty($edit_id))

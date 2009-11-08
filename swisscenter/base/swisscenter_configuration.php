@@ -20,6 +20,7 @@
 
     function Swisscenter_configuration( $fsp = '')
     {
+      @set_magic_quotes_runtime(0);
       $options = array(XML_OPTION_CASE_FOLDING => TRUE, XML_OPTION_SKIP_WHITE => TRUE);
       $this->xml =& new XPath(FALSE, $options);
       if ($fsp == '')
@@ -60,7 +61,7 @@
     {
       $exceptions = array('	DATABASE_PATCH','	DATABASE_UPDATE','DATABASE_VERSION');
       $xpath = $this->xml->appendChild($this->settings_path,'<system />');
-      $data = db_toarray("select * from system_prefs");
+      $data = db_toarray("select * from system_prefs order by name");
       if ($data !== false && count($data)>0)
       {
         foreach ($data as $row)
@@ -377,17 +378,17 @@
       $cat_parent = array();
       foreach ($this->xml->match('/swisscenter[1]/config[1]/categories[1]/category') as $abspath)
       {
-        $name = html_entity_decode(utf8_decode($this->xml->getData($abspath.'/name[1]')));
-        $parent = html_entity_decode(utf8_decode($this->xml->getData($abspath.'/parent[1]')));
+        $name = html_entity_decode(utf8_decode($this->xml->getData($abspath.'/name[1]'), ENT_QUOTES));
+        $parent = html_entity_decode(utf8_decode($this->xml->getData($abspath.'/parent[1]'), ENT_QUOTES));
         if ( !empty($parent) ) $cat_parent[$name] = $parent;
         $download = $this->xml->getData($abspath.'/download_info[1]');
-        if (db_value("select count(*) from categories where cat_name = '".db_escape_str(un_magic_quote($name))."'") == 0)
+        if (db_value("select count(*) from categories where cat_name = '".db_escape_str($name)."'") == 0)
           db_insert_row('categories',array("cat_name"=>$name, "parent_id"=>0, "download_info"=>$download));
       }
       foreach ($cat_parent as $name=>$parent)
       {
-        $cat_id = db_value("select cat_id from categories where cat_name = '".db_escape_str(un_magic_quote($name))."'");
-        $parent_id = db_value("select cat_id from categories where cat_name = '".db_escape_str(un_magic_quote($parent))."'");
+        $cat_id = db_value("select cat_id from categories where cat_name = '".db_escape_str($name)."'");
+        $parent_id = db_value("select cat_id from categories where cat_name = '".db_escape_str($parent)."'");
         db_sqlcommand("update categories set parent_id=$parent_id where cat_id=$cat_id");
       }
     }
@@ -405,9 +406,9 @@
         $attrib = $this->xml->getAttributes($abspath);
         $value = $this->xml->getData($abspath);
         if (db_value("select count(*) from system_prefs where name = '".$attrib["NAME"]."'") == 0)
-          db_insert_row('system_prefs',array("name"=>$attrib["NAME"], "value"=>addslashes($value)));
+          db_insert_row('system_prefs',array("name"=>$attrib["NAME"], "value"=>$value));
         else
-          db_sqlcommand("update system_prefs set value ='".addslashes($value)."' where name ='".$attrib["NAME"]."'");
+          db_sqlcommand("update system_prefs set value ='".db_escape_str($value)."' where name ='".$attrib["NAME"]."'");
       }
     }
 
@@ -424,8 +425,8 @@
       {
         // Import user
         $attrib = $this->xml->getAttributes($userpath);
-        $name = html_entity_decode(utf8_decode($attrib["NAME"]));
-        if (db_value("select count(*) from users where name = '".db_escape_str(un_magic_quote($name))."'") == 0)
+        $name = html_entity_decode(utf8_decode($attrib["NAME"]), ENT_QUOTES);
+        if (db_value("select count(*) from users where name = '".db_escape_str($name)."'") == 0)
         {
           $attrib      = $this->xml->getAttributes($userpath.'/max_cert[1]');
           $cert_scheme = $attrib["SCHEME"];
@@ -445,7 +446,7 @@
         }
 
         // Determine the user_id for importing settings.
-        $user_id = db_value("select user_id from users where name = '".db_escape_str(un_magic_quote($name))."'");
+        $user_id = db_value("select user_id from users where name = '".db_escape_str($name)."'");
 
         // Import user preferences
         foreach ($this->xml->match($userpath.'/preferences[1]/setting') as $prefpath)
@@ -453,9 +454,9 @@
           $attrib  = $this->xml->getAttributes($prefpath);
           $value   = $this->xml->getData($prefpath);
           if (db_value("select count(*) from user_prefs where user_id=$user_id and name = '".$attrib["NAME"]."'") == 0)
-            db_insert_row('user_prefs',array("user_id"=>$user_id, "name"=>$attrib["NAME"], "value"=>addslashes($value)));
+            db_insert_row('user_prefs',array("user_id"=>$user_id, "name"=>$attrib["NAME"], "value"=>$value));
           else
-            db_sqlcommand("update user_prefs set value ='".addslashes($value)."' where user_id=$user_id and name ='".$attrib["NAME"]."'");
+            db_sqlcommand("update user_prefs set value ='".db_escape_str($value)."' where user_id=$user_id and name ='".$attrib["NAME"]."'");
         }
       }
       return $errors;
@@ -477,7 +478,7 @@
           $attrib    = $this->xml->getAttributes($certpath);
           $cert_name = $attrib["NAME"];
           $rank      = $this->xml->getData($certpath.'/rank[1]');
-          $desc      = html_entity_decode(utf8_decode($this->xml->getData($certpath.'/description[1]')));
+          $desc      = html_entity_decode(utf8_decode($this->xml->getData($certpath.'/description[1]'), ENT_QUOTES));
 
           if (db_value("select count(*) from certificates where name='$cert_name' and scheme='$scheme_name'") == 0)
             db_insert_row("certificates", array("name"=>$cert_name, "rank"=>$rank, "description"=>$desc, "scheme"=>$scheme_name));
@@ -497,9 +498,9 @@
       foreach ($this->xml->match('/swisscenter[1]/config[1]/media_locations[1]/location') as $locpath)
       {
         $type        = $this->xml->getData($locpath.'/type[1]');
-        $path        = html_entity_decode(utf8_decode($this->xml->getData($locpath.'/path[1]')));
-        $cat_name    = html_entity_decode(utf8_decode($this->xml->getData($locpath.'/category[1]')));
-        $share       = html_entity_decode(utf8_decode($this->xml->getData($locpath.'/share[1]')));
+        $path        = html_entity_decode(utf8_decode($this->xml->getData($locpath.'/path[1]'), ENT_QUOTES));
+        $cat_name    = html_entity_decode(utf8_decode($this->xml->getData($locpath.'/category[1]'), ENT_QUOTES));
+        $share       = html_entity_decode(utf8_decode($this->xml->getData($locpath.'/share[1]'), ENT_QUOTES));
         $cert_name   = $this->xml->getData($locpath.'/default_certificate[1]');
         $attrib      = $this->xml->getAttributes($locpath.'/default_certificate[1]');
         $scheme_name = $attrib["SCHEME"];
@@ -510,11 +511,11 @@
           $errors[] = str('IMP_LOC_TYPE_MISSING',$path,$type);
         elseif (($cat_id = db_value("select cat_id from categories where cat_name='$cat_name'")) === false)
           $errors[] = str('IMP_LOC_CAT_MISSING',$path,$cat_name);
-        elseif (db_value("select count(*) from media_locations where name = '".db_escape_str(un_magic_quote($path))."' and media_type=$type_id") == 0)
+        elseif (db_value("select count(*) from media_locations where name = '".db_escape_str($path)."' and media_type=$type_id") == 0)
         {
           if ( db_insert_row("media_locations", array("name"=>$path, "media_type"=>$type_id, "cat_id"=>$cat_id, "unrated"=>$cert_id, "network_share"=>$share)) !== false)
           {
-            $id = db_value("select location_id from media_locations where name='".db_escape_str(un_magic_quote($path))."' and media_type=".$type_id);
+            $id = db_value("select location_id from media_locations where name='".db_escape_str($path)."' and media_type=".$type_id);
 
             if (! is_windows() )
               symlink($path,SC_LOCATION.'media/'.$id);
@@ -557,9 +558,9 @@
         $expression = $this->xml->getData($expressionpath.'/expression[1]');
 
         if (db_value("select count(*) from tv_expressions where pos = $pos") == 0)
-          db_insert_row("tv_expressions", array("pos"=>$pos, "expression"=>addslashes($expression)));
+          db_insert_row("tv_expressions", array("pos"=>$pos, "expression"=>$expression));
         else
-          db_sqlcommand("update tv_expressions set expression='".addslashes($expression)."' where pos=$pos");
+          db_sqlcommand("update tv_expressions set expression='".db_escape_str($expression)."' where pos=$pos");
       }
     }
 
@@ -573,13 +574,13 @@
       foreach ($this->xml->match('/swisscenter[1]/config[1]/rss_subscriptions[1]/subscription') as $rsspath)
       {
         $type    = $this->xml->getData($rsspath.'/type[1]');
-        $url     = html_entity_decode(utf8_decode($this->xml->getData($rsspath.'/url[1]')));
-        $title   = html_entity_decode(utf8_decode($this->xml->getData($rsspath.'/title[1]')));
+        $url     = html_entity_decode(utf8_decode($this->xml->getData($rsspath.'/url[1]'), ENT_QUOTES));
+        $title   = html_entity_decode(utf8_decode($this->xml->getData($rsspath.'/title[1]'), ENT_QUOTES));
         $update  = $this->xml->getData($rsspath.'/update[1]');
         $cache   = $this->xml->getData($rsspath.'/cache[1]');
         $type_id = db_value("select media_id from media_types where media_name='$type'");
 
-        if (db_value("select count(*) from rss_subscriptions where type=$type_id and url='".db_escape_str(un_magic_quote($url))."'") == 0)
+        if (db_value("select count(*) from rss_subscriptions where type=$type_id and url='".db_escape_str($url)."'") == 0)
           db_insert_row("rss_subscriptions", array("type"=>$type_id, "url"=>$url, "title"=>$title, "update_frequency"=>$update, "cache"=>$cache));
       }
     }
@@ -616,9 +617,9 @@
       {
         $attrib  = $this->xml->getAttributes($iradiopath);
         $station = $attrib["NAME"];
-        $image   = html_entity_decode(utf8_decode($this->xml->getData($iradiopath.'/image[1]')));
+        $image   = html_entity_decode(utf8_decode($this->xml->getData($iradiopath.'/image[1]'), ENT_QUOTES));
 
-        if (db_value("select count(*) from iradio_stations where station='".db_escape_str(un_magic_quote($station))."'") == 0)
+        if (db_value("select count(*) from iradio_stations where station='".db_escape_str($station)."'") == 0)
           db_insert_row("iradio_stations", array("station"=>$station, "image"=>$image));
       }
     }
@@ -634,9 +635,9 @@
       {
         $attrib   = $this->xml->getAttributes($iradiopath);
         $genre    = $attrib["NAME"];
-        $subgenre = html_entity_decode(utf8_decode($this->xml->getData($iradiopath.'/subgenre[1]')));
+        $subgenre = html_entity_decode(utf8_decode($this->xml->getData($iradiopath.'/subgenre[1]'), ENT_QUOTES));
 
-        if (db_value("select count(*) from iradio_genres where genre='".db_escape_str(un_magic_quote($genre))."' and subgenre='".db_escape_str(un_magic_quote($subgenre))."'") == 0)
+        if (db_value("select count(*) from iradio_genres where genre='".db_escape_str($genre)."' and subgenre='".db_escape_str($subgenre)."'") == 0)
           db_insert_row("iradio_genres", array("genre"=>$genre, "subgenre"=>$subgenre));
       }
     }
@@ -653,7 +654,7 @@
         $attrib  = $this->xml->getAttributes($iradiopath);
         $country = $attrib["NAME"];
 
-        if (db_value("select count(*) from iradio_countries where country='".db_escape_str(un_magic_quote($country))."'") == 0)
+        if (db_value("select count(*) from iradio_countries where country='".db_escape_str($country)."'") == 0)
           db_insert_row("iradio_countries", array("country"=>$country));
       }
     }
@@ -669,18 +670,18 @@
       foreach ($this->xml->match('/swisscenter[1]/config[1]/ibookmarks[1]/bookmark') as $ibookmarkpath)
       {
         $type        = $this->xml->getData($ibookmarkpath.'/type[1]');
-        $url         = html_entity_decode(utf8_decode($this->xml->getData($ibookmarkpath.'/url[1]')));
-        $title       = html_entity_decode(utf8_decode($this->xml->getData($ibookmarkpath.'/title[1]')));
-        $cat_name    = html_entity_decode(utf8_decode($this->xml->getData($ibookmarkpath.'/category[1]')));
+        $url         = html_entity_decode(utf8_decode($this->xml->getData($ibookmarkpath.'/url[1]'), ENT_QUOTES));
+        $title       = html_entity_decode(utf8_decode($this->xml->getData($ibookmarkpath.'/title[1]'), ENT_QUOTES));
+        $cat_name    = html_entity_decode(utf8_decode($this->xml->getData($ibookmarkpath.'/category[1]'), ENT_QUOTES));
         $cert_name   = $this->xml->getData($ibookmarkpath.'/certificate[1]');
         $attrib      = $this->xml->getAttributes($ibookmarkpath.'/certificate[1]');
         $scheme_name = $attrib["SCHEME"];
 
-        if (($type_id = db_value("select media_id from media_types where media_name='".db_escape_str(un_magic_quote($type))."'")) === false)
+        if (($type_id = db_value("select media_id from media_types where media_name='".db_escape_str($type)."'")) === false)
           $errors[] = str('IMP_IBOOKMARK_TYPE_MISSING',$url,$type);
-        elseif (($cat_id = db_value("select cat_id from categories where cat_name='".db_escape_str(un_magic_quote($cat_name))."'")) === false)
+        elseif (($cat_id = db_value("select cat_id from categories where cat_name='".db_escape_str($cat_name)."'")) === false)
           $errors[] = str('IMP_IBOOKMARK_CAT_MISSING',$url,$cat_name);
-        elseif (db_value("select count(*) from internet_urls where type=$type_id and url='".db_escape_str(un_magic_quote($url))."'") == 0)
+        elseif (db_value("select count(*) from internet_urls where type=$type_id and url='".db_escape_str($url)."'") == 0)
         {
           $cert_id = (is_null($cert_name) ? null : db_value("select cert_id from certificates where name='$cert_name' and scheme='$scheme_name'"));
           db_insert_row("internet_urls", array("type"=>$type_id, "url"=>$url, "title"=>$title, "cat_id"=>$cat_id, "certificate"=>$cert_id));
