@@ -150,7 +150,7 @@ if ( isset($_REQUEST["action"]) )
 
       if ( $file_id == "notselected" )
       {
-        // This path should not be hard coded //
+        // Use the 'Please select...' image
         $img->load_from_file(style_img('THEME_SELECT',true));
       }
       else
@@ -215,8 +215,8 @@ if ( isset($_REQUEST["action"]) )
       $data["use_synopsis"]    = $_REQUEST["use_synopsis"];
       $data["show_banner"]     = $_REQUEST["show_banner"];
       $data["show_image"]      = $_REQUEST["show_image"];
-      $data["original_cache"]  = addslashes(os_path($original_cache));
-      $data["processed_image"] = addslashes(os_path($processed));
+      $data["original_cache"]  = os_path($original_cache);
+      $data["processed_image"] = os_path($processed);
       db_update_row( "themes", $file_id, $data );
 
       break;

@@ -229,7 +229,7 @@ function extra_get_tv_details($id, $filename, $programme, $series='', $episode='
             // Insert information into database
             $data = array( "title"        => $programme
                          , "media_type"   => MEDIA_TYPE_TV
-                         , "thumb_cache"  => addslashes(os_path($thumb_cache))
+                         , "thumb_cache"  => os_path($thumb_cache)
                          , "original_url" => $bannermirror.'/banners/'.$fanart['ORIGINAL']
                          , "resolution"   => $fanart['RESOLUTION']
                          , "colors"       => $fanart['COLORS'] );

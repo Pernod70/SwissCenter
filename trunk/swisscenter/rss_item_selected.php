@@ -15,8 +15,8 @@
   $sub_id   = $_REQUEST["sub_id"];
   $item_id  = $_REQUEST["item_id"];
   $sub_data = rss_get_subscription_details($sub_id);
-  $items    = rss_get_subscription_items($sub_id, 'desc'); 
-  
+  $items    = rss_get_subscription_items($sub_id, 'desc');
+
   // Find index of current, next and previous items
   $idx_next = -1;
   $idx_prev = -1;
@@ -38,9 +38,9 @@
   {
     if (!empty($sub_data["IMAGE"]) )
       $img = "select image from rss_subscriptions where id=$sub_id.sql";
-    else 
+    else
       $img = style_img('MISSING_RSS_ART',true,false);
-      
+
     echo '<p><table width="100%" cellpadding=0 cellspacing=0 border=0>
           <tr><td valign=top width="'.convert_x(280).'" align="left">
               '.img_gen($img,280,450).'
@@ -48,10 +48,10 @@
               <td valign="top">';
               echo font_tags(32).$items[$idx_current]["DESCRIPTION"];
     echo '    </td></table>';
-  } 
+  }
   else
     echo font_tags(32).$items[$idx_current]["DESCRIPTION"];
-    
+
   // Show links to next and previous items.
   echo '<p><table width="100%" cellpadding=0 cellspacing=0 border=0>';
   if ($idx_next > -1)
@@ -67,13 +67,13 @@
                                                                                            'sub_id'=>$sub_id)), false).'</td></tr>';
   }
   echo '</table>';
-  
+
   // Define buttons for linked file and url.
   $buttons = array();
   if (!empty($items[$idx_current]["LINKED_FILE"]))
   {
-    $dirname = addslashes(dirname($items[$idx_current]["LINKED_FILE"]).'/');
-    $filename = addslashes(basename($items[$idx_current]["LINKED_FILE"]));
+    $dirname = db_escape_str(dirname($items[$idx_current]["LINKED_FILE"]).'/');
+    $filename = db_escape_str(basename($items[$idx_current]["LINKED_FILE"]));
     $image = db_value("select image_url from rss_subscriptions where id=$sub_id");
     if (empty($image)) $image=style_img('MISSING_RSS_ART',true,false);
     // Construct query used for Now Playing screen details.
