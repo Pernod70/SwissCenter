@@ -46,7 +46,10 @@
    if(!empty($user))
    {
      db_sqlcommand("delete from user_prefs where name='".strtoupper($name)."' and user_id=".$user);
-     $result = db_insert_row('user_prefs', array("USER_ID"=>$user, "NAME"=>strtoupper($name), "VALUE"=>$value, "MODIFIED"=>db_datestr()) );
+     if ( in_array('modified', db_table_columns('user_prefs')) )
+       $result = db_insert_row('user_prefs', array("USER_ID"=>$user, "NAME"=>strtoupper($name), "VALUE"=>$value, "MODIFIED"=>db_datestr()) );
+     else
+       $result = db_insert_row('user_prefs', array("USER_ID"=>$user, "NAME"=>strtoupper($name), "VALUE"=>$value) );
 
      if (!$result)
        send_to_log(1,"Unable to store preferemce '$name' = '$value' for user '$user'");
@@ -84,10 +87,13 @@
  function set_sys_pref( $name, $value)
  {
    // Only update if the value changes
-   if (db_value("select count(*) from system_prefs where name='".strtoupper($name)."' and BINARY value='$value'") == 0)
+   if (db_value("select count(*) from system_prefs where name='".strtoupper($name)."' and BINARY value='".db_escape_str($value)."'") == 0)
    {
      db_sqlcommand("delete from system_prefs where name='".strtoupper($name)."'");
-     $result = db_insert_row('system_prefs', array("NAME"=>strtoupper($name), "VALUE"=>$value, "MODIFIED"=>db_datestr()) );
+     if ( in_array('modified', db_table_columns('system_prefs')) )
+       $result = db_insert_row('system_prefs', array("NAME"=>strtoupper($name), "VALUE"=>$value, "MODIFIED"=>db_datestr()) );
+     else
+       $result = db_insert_row('system_prefs', array("NAME"=>strtoupper($name), "VALUE"=>$value) );
 
      if (!$result)
        send_to_log(1,"Unable to store system preference '$name' = '$value'");

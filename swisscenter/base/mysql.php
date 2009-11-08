@@ -326,6 +326,26 @@ function db_update_row( $table, $id, $fields )
 }
 
 #-------------------------------------------------------------------------------------------------
+# Returns an array of columns in the specified table,
+# otherwise the function returns FALSE
+#-------------------------------------------------------------------------------------------------
+
+function db_table_columns( $table )
+{
+  $data = array();
+
+  $recs     = new db_query( "SHOW COLUMNS FROM $table" );
+  $success  = $recs->db_success();
+
+  if ($success)
+    while ($row = $recs->db_fetch_row())
+      $data[] = $row["FIELD"];
+
+  $recs->destroy();
+  return ($success ? $data : false );
+}
+
+#-------------------------------------------------------------------------------------------------
 # Gets the id of the last inserted row with an auto_increment field
 #-------------------------------------------------------------------------------------------------
 function db_insert_id()
