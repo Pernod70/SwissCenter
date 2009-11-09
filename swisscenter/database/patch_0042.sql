@@ -9,13 +9,17 @@ BEGIN
     DECLARE expr TEXT;
     DECLARE pos INTEGER;
 
-    SET expr = TRIM(REPLACE(articles, ',', '|'));
-    SET expr = CONCAT('^(', expr, ')[[:space:]]');
-
-    IF title REGEXP expr THEN
-     SET pos = LOCATE(' ', title);
-    ELSE
+    IF articles = '' THEN
      SET pos = 0;
+    ELSE
+     SET expr = TRIM(REPLACE(articles, ',', '|'));
+     SET expr = CONCAT('^(', expr, ')[[:space:]]');
+
+     IF title REGEXP expr THEN
+      SET pos = LOCATE(' ', title);
+     ELSE
+      SET pos = 0;
+     END IF;
     END IF;
 
     RETURN SUBSTRING(title, pos+1);
