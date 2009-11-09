@@ -136,7 +136,7 @@
 
     // Determine whether to request the HD stream
     $fmt = 18;
-    if (get_sys_pref('YOUTUBE_HD','YES') == 'YES' && preg_get("/isHDAvailable.*=.*([a-z]*)/",$html) == 'true')
+    if (get_sys_pref('YOUTUBE_HD','YES') == 'YES' && preg_get('/IS_HD_AVAILABLE.*(true|false)/U',$html) == 'true')
       $fmt = 22;
 
     // Form URL of YouTube video to stream
