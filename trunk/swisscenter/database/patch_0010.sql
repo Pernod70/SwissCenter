@@ -6,18 +6,12 @@
 -- Create table to contain mapping of SwissCenter and iTunes media ids
 -- -------------------------------------------------------------------------------------------------
 
+DROP TABLE IF EXISTS itunes_map;
 CREATE TABLE itunes_map (
   itunes_id int(10) unsigned NOT NULL,
   swisscenter_id int(10) unsigned NOT NULL,
   PRIMARY KEY  (itunes_id)
 ) ENGINE=MyISAM;
-
--- -------------------------------------------------------------------------------------------------
--- Additional TV parsing expressions.
--- -------------------------------------------------------------------------------------------------
-
-INSERT INTO tv_expressions (pos, expression) VALUES (11,'{p}/{t}');
-INSERT INTO tv_expressions (pos, expression) VALUES (12,'{t}');
 
 -- *************************************************************************************************
 --   SWISScenter Source                                                              Nigel Barnes
