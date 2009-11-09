@@ -260,6 +260,19 @@ function check_not_root_install()
   return $result;
 }
 
+function check_database_patch()
+{
+  $files = dir_to_array( SC_LOCATION.'database', 'patch_[0-9]*.sql');
+  $current_version = get_sys_pref('DATABASE_PATCH',0);
+  sort($files);
+
+  $patch = str_replace('patch_','',file_noext(array_pop($files)));
+  if ( $current_version < $patch )
+    send_to_log(5,"- Database is not fully patched. Installed patch $current_version out of $patch.");
+
+  return ( $patch == $current_version );
+}
+
 #-------------------------------------------------------------------------------------------------
 # Scheduler
 #-------------------------------------------------------------------------------------------------
