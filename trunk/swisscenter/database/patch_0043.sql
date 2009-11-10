@@ -13,8 +13,8 @@ ALTER TABLE categories ADD KEY (parent_id);
 ALTER TABLE media_locations ADD KEY (media_type);
 
 ALTER TABLE mp3s ADD KEY (location_id);
-ALTER TABLE mp3s ADD KEY composer (composer(50))
-ALTER TABLE mp3s ADD KEY band (band(50))
+ALTER TABLE mp3s ADD KEY composer (composer(50));
+ALTER TABLE mp3s ADD KEY band (band(50));
 
 ALTER TABLE movies ADD KEY (location_id);
 
