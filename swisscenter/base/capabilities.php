@@ -116,41 +116,41 @@ function get_nmt_network_shares()
                                                           "or box_id like '%ELE%' or box_id like '%CMI%'");
   if (is_array($nmt) && count($nmt)>0)
   {
-  foreach ( $nmt as $ip )
-  {
-    // Get Network Shares page from NMT
-    if (socket_check($ip,8883,1))
-      $html = @file_get_contents('http://'.$ip.':8883/network_share.html');
-    else
-      $html = '';
-
-    // Identify defined Network Shares
-    $matches = array();
-    preg_match_all('/<td height="\d+" class="txt">.*&nbsp;(.*)<\/td>/',$html,$matches);
-    for ($i = 0; $i<count($matches[1]); $i++)
+    foreach ( $nmt as $ip )
     {
-      $unc = array();
-      switch ( true )
+      // Get Network Shares page from NMT
+      if (socket_check($ip,8883,1))
+        $html = @file_get_contents('http://'.$ip.':8883/network_share.html');
+      else
+        $html = '';
+
+      // Identify defined Network Shares
+      $matches = array();
+      preg_match_all('/<td height="\d+" class="txt">.*&nbsp;(.*)<\/td>/',$html,$matches);
+      for ($i = 0; $i<count($matches[1]); $i++)
       {
-        case strstr( $matches[1][$i], 'nfs' ):
-          preg_match('/.*nfs:\/\/(.*)/', $matches[1][$i], $unc);
-          $shares[] = array( 'path' => '[NFS] '.str_replace('/', ':', $unc[1]),
-                             'name' => $matches[1][$i] );
-          break;
+        $unc = array();
+        switch ( true )
+        {
+          case strstr( $matches[1][$i], 'nfs' ):
+            preg_match('/.*nfs:\/\/(.*)/', $matches[1][$i], $unc);
+            $shares[] = array( 'path' => '[NFS] '.str_replace('/', ':', $unc[1]),
+                               'name' => $matches[1][$i] );
+            break;
 
-        case strstr( $matches[1][$i], 'smb' ):
-          preg_match('/.*smb:\/\/(.*)/', $matches[1][$i], $unc);
-          $shares[] = array( 'path' => '[SMB] '.str_replace('/', ':', $unc[1]),
-                             'name' => $matches[1][$i] );
-          break;
+          case strstr( $matches[1][$i], 'smb' ):
+            preg_match('/.*smb:\/\/(.*)/', $matches[1][$i], $unc);
+            $shares[] = array( 'path' => '[SMB] '.str_replace('/', ':', $unc[1]),
+                               'name' => $matches[1][$i] );
+            break;
 
-        default:
-          $shares[] = array( 'path' => 'NETWORK_SHARE/'.$matches[1][$i],
-                             'name' => $matches[1][$i] );
-          break;
+          default:
+            $shares[] = array( 'path' => 'NETWORK_SHARE/'.$matches[1][$i],
+                               'name' => $matches[1][$i] );
+            break;
+        }
       }
     }
-  }
   }
   return $shares;
 }
@@ -272,7 +272,7 @@ function media_exts( $media_type )
 
 function media_exts_with_GetID3_support()
 {
-  return explode(',' ,'mp3,mp4,asf,riff,flac,jpg,jpeg,gif,ogg,png,quicktime,mpeg,mpg');
+  return explode(',' ,'mp3,mp4,asf,riff,flac,jpg,jpeg,gif,ogg,png,quicktime,matroska,mpeg,mpg');
 }
 
 #-------------------------------------------------------------------------------------------------

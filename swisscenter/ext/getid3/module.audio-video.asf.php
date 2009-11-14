@@ -78,9 +78,7 @@ class getid3_asf
 		$thisfile_asf_headerobject['reserved1']     = getid3_lib::LittleEndian2Int(substr($HeaderObjectData, 28, 1));
 		$thisfile_asf_headerobject['reserved2']     = getid3_lib::LittleEndian2Int(substr($HeaderObjectData, 29, 1));
 
-		//$ASFHeaderData  = $HeaderObjectData;
 		$ASFHeaderData = fread($fd, $thisfile_asf_headerobject['objectsize'] - 30);
-		//$offset = 30;
 		$offset = 0;
 
 		for ($HeaderObjectsCounter = 0; $HeaderObjectsCounter < $thisfile_asf_headerobject['headerobjects']; $HeaderObjectsCounter++) {
@@ -134,7 +132,6 @@ class getid3_asf
 					$offset += 8;
 					$thisfile_asf_filepropertiesobject['preroll']            = getid3_lib::LittleEndian2Int(substr($ASFHeaderData, $offset, 8));
 					$offset += 8;
-					$ThisFileInfo['playtime_seconds'] = ($thisfile_asf_filepropertiesobject['play_duration'] / 10000000) - ($thisfile_asf_filepropertiesobject['preroll'] / 1000);
 					$thisfile_asf_filepropertiesobject['flags_raw']          = getid3_lib::LittleEndian2Int(substr($ASFHeaderData, $offset, 4));
 					$offset += 4;
 					$thisfile_asf_filepropertiesobject['flags']['broadcast'] = (bool) ($thisfile_asf_filepropertiesobject['flags_raw'] & 0x0001);
@@ -146,8 +143,25 @@ class getid3_asf
 					$offset += 4;
 					$thisfile_asf_filepropertiesobject['max_bitrate']        = getid3_lib::LittleEndian2Int(substr($ASFHeaderData, $offset, 4));
 					$offset += 4;
-					//$ThisFileInfo['bitrate']                                 = $thisfile_asf_filepropertiesobject['max_bitrate'];
-					$ThisFileInfo['bitrate']                                 = ($thisfile_asf_filepropertiesobject['filesize'] * 8) / $ThisFileInfo['playtime_seconds'];
+
+					if ($thisfile_asf_filepropertiesobject['flags']['broadcast']) {
+
+						// broadcast flag is set, some values invalid
+						unset($thisfile_asf_filepropertiesobject['filesize']);
+						unset($thisfile_asf_filepropertiesobject['data_packets']);
+						unset($thisfile_asf_filepropertiesobject['play_duration']);
+						unset($thisfile_asf_filepropertiesobject['send_duration']);
+						unset($thisfile_asf_filepropertiesobject['min_packet_size']);
+						unset($thisfile_asf_filepropertiesobject['max_packet_size']);
+
+					} else {
+
+						// broadcast flag NOT set, perform calculations
+						$ThisFileInfo['playtime_seconds'] = ($thisfile_asf_filepropertiesobject['play_duration'] / 10000000) - ($thisfile_asf_filepropertiesobject['preroll'] / 1000);
+
+						//$ThisFileInfo['bitrate'] = $thisfile_asf_filepropertiesobject['max_bitrate'];
+						$ThisFileInfo['bitrate'] = ((isset($thisfile_asf_filepropertiesobject['filesize']) ? $thisfile_asf_filepropertiesobject['filesize'] : $ThisFileInfo['filesize']) * 8) / $ThisFileInfo['playtime_seconds'];
+					}
 					break;
 
 				case GETID3_ASF_Stream_Properties_Object:
@@ -387,7 +401,6 @@ class getid3_asf
 
 								default:
 									$ThisFileInfo['warning'][] = 'unknown frequency: "'.$AudioCodecFrequency.'" ('.$this->TrimConvert($thisfile_asf_codeclistobject_codecentries_current['description']).')';
-	//                                return false;
 									break;
 							}
 
@@ -749,21 +762,26 @@ class getid3_asf
 								$thisfile_asf_comments['genre'] = array($this->TrimTerm($thisfile_asf_extendedcontentdescriptionobject_contentdescriptor_current['value']));
 								break;
 
-						  case 'wm/partofset':
+							case 'wm/partofset':
 								$thisfile_asf_comments['partofset'] = array($this->TrimTerm($thisfile_asf_extendedcontentdescriptionobject_contentdescriptor_current['value']));
 								break;
-								
+
 							case 'wm/tracknumber':
 							case 'tracknumber':
-								$thisfile_asf_comments['track'] = array($this->TrimTerm($thisfile_asf_extendedcontentdescriptionobject_contentdescriptor_current['value']));
-								break;
+								// be careful casting to int: casting unicode strings to int gives unexpected results (stops parsing at first non-numeric character)
+                $thisfile_asf_comments['track'] = array($this->TrimTerm($thisfile_asf_extendedcontentdescriptionobject_contentdescriptor_current['value']));
+                foreach ($thisfile_asf_comments['track'] as $key => $value) {
+                  if (preg_match('/^[0-9\x00]+$/', $value)) {
+                    $thisfile_asf_comments['track'][$key] = intval(str_replace("\x00", '', $value));
+                  }
+                }
+                break;
 
 							case 'wm/track':
-							  $thisfile_asf_comments['tracknum'] = array(1 + $this->TrimConvert($thisfile_asf_extendedcontentdescriptionobject_contentdescriptor_current['value']));
-								if (strstr($thisfile_asf_comments['tracknum'], '/')) {
-					        list($thisfile_asf_comments['tracknum'], $thisfile_asf_comments['totaltracks']) = explode('/', $thisfile_asf_comments['tracknum']);
-				        }
-							  break;
+								if (empty($thisfile_asf_comments['track'])) {
+									$thisfile_asf_comments['track'] = array(1 + $this->TrimConvert($thisfile_asf_extendedcontentdescriptionobject_contentdescriptor_current['value']));
+								}
+								break;
 
 							case 'wm/year':
 							case 'year':
@@ -794,10 +812,12 @@ class getid3_asf
 
 									$tempfilehandle = fopen($tempfile, "rb");
 									$id3 = new getid3_id3v2($tempfilehandle, $tempThisfileInfo);
+									unset($id3);
 									fclose($tempfilehandle);
 									unlink($tempfile);
 
 									$ThisFileInfo['id3v2'] = $tempThisfileInfo['id3v2'];
+									unset($tempThisfileInfo);
 								}
 								break;
 
@@ -906,6 +926,7 @@ class getid3_asf
 					$thisfile_asf_paddingobject['objectsize']                = $NextObjectSize;
 					$thisfile_asf_paddingobject['padding_length']            = $thisfile_asf_paddingobject['objectsize'] - 16 - 8;
 					$thisfile_asf_paddingobject['padding']                   = substr($ASFHeaderData, $offset, $thisfile_asf_paddingobject['padding_length']);
+					$offset += ($NextObjectSize - 16 - 8);
 					break;
 
 				case GETID3_ASF_Extended_Content_Encryption_Object:
@@ -1007,6 +1028,7 @@ class getid3_asf
 						$thisfile_audio['streams'][$streamnumber]['wformattag']  = $thisfile_asf_audiomedia_currentstream['raw']['wFormatTag'];
 						$thisfile_audio['streams'][$streamnumber]['lossless']    = $thisfile_audio['lossless'];
 						$thisfile_audio['streams'][$streamnumber]['bitrate']     = $thisfile_audio['bitrate'];
+						$thisfile_audio['streams'][$streamnumber]['dataformat']  = 'wma';
 						unset($thisfile_audio['streams'][$streamnumber]['raw']);
 
 						$thisfile_asf_audiomedia_currentstream['codec_data_size'] = getid3_lib::LittleEndian2Int(substr($streamdata['type_specific_data'], $audiomediaoffset, 2));
@@ -1077,7 +1099,7 @@ class getid3_asf
 							foreach ($thisfile_asf['stream_bitrate_properties_object']['bitrate_records'] as $dummy => $dataarray) {
 								if (@$dataarray['flags']['stream_number'] == $streamnumber) {
 									$thisfile_asf_videomedia_currentstream['bitrate'] = $dataarray['bitrate'];
-									$thisfile_video['streams'][$streamnumber]['bitrate'] = $dataarray['bitrate']; 
+									$thisfile_video['streams'][$streamnumber]['bitrate'] = $dataarray['bitrate'];
 									$thisfile_video['bitrate'] += $dataarray['bitrate'];
 									break;
 								}
@@ -1288,6 +1310,12 @@ class getid3_asf
 					case 'WMV1':
 					case 'WMV2':
 					case 'WMV3':
+                    case 'MSS1':
+                    case 'MSS2':
+                    case 'WMVA':
+                    case 'WVC1':
+                    case 'WMVP':
+                    case 'WVP2':
 						$thisfile_video['dataformat'] = 'wmv';
 						$ThisFileInfo['mime_type']    = 'video/x-ms-wmv';
 						break;
@@ -1369,7 +1397,22 @@ class getid3_asf
 			$thisfile_video['pixel_aspect_ratio'] = (isset($thisfile_audio['pixel_aspect_ratio']) ? $thisfile_audio['pixel_aspect_ratio'] : (float) 1);
 			$thisfile_video['dataformat']         = (!empty($thisfile_video['dataformat'])        ? $thisfile_video['dataformat']         : 'asf');
 		}
+		if (!empty($thisfile_video['streams'])) {
+			$thisfile_video['streams']['resolution_x'] = 0;
+			$thisfile_video['streams']['resolution_y'] = 0;
+			foreach ($thisfile_video['streams'] as $key => $valuearray) {
+				if (($valuearray['resolution_x'] > $thisfile_video['streams']['resolution_x']) || ($valuearray['resolution_y'] > $thisfile_video['streams']['resolution_y'])) {
+					$thisfile_video['resolution_x'] = $valuearray['resolution_x'];
+					$thisfile_video['resolution_y'] = $valuearray['resolution_y'];
+				}
+			}
+		}
 		$ThisFileInfo['bitrate'] = @$thisfile_audio['bitrate'] + @$thisfile_video['bitrate'];
+
+		if ((!isset($ThisFileInfo['playtime_seconds']) || ($ThisFileInfo['playtime_seconds'] <= 0)) && ($ThisFileInfo['bitrate'] > 0)) {
+			$ThisFileInfo['playtime_seconds'] = ($ThisFileInfo['filesize'] - $ThisFileInfo['avdataoffset']) / ($ThisFileInfo['bitrate'] / 8);
+		}
+
 		return true;
 	}
 
