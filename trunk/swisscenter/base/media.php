@@ -15,8 +15,6 @@ require_once( realpath(dirname(__FILE__).'/musicip.php'));
 // Libraries for reading file metadata
 require_once( realpath(dirname(__FILE__).'/../ext/getid3/getid3.php'));
 require_once( realpath(dirname(__FILE__).'/../ext/exif/exif_reader.php'));
-require_once( realpath(dirname(__FILE__).'/../ext/iptc/iptc.php'));
-require_once( realpath(dirname(__FILE__).'/../ext/xmp/xmp.php'));
 
 /**
  * Removes orphaned media files and albumart from the database (rows that exist in
@@ -442,58 +440,111 @@ function process_mp3( $dir, $id, $file)
   {
     if ( ! isset($id3["error"]) )
     {
-      getid3_lib::CopyTagsToComments($id3);
-
       // ID3 data successfully obtained, so enter it into the database
       $data["length"]       = floor($id3["playtime_seconds"]);
       $data["lengthstring"] = $id3["playtime_string"];
       $data["bitrate"]      = floor($id3["bitrate"]);
       $data["bitrate_mode"] = strtoupper($id3["audio"]["bitrate_mode"]);
       $data["version"]      = 0;
-      $data["title"]        = array_last($id3["comments"]["title"]);
-      $data["artist"]       = array_last($id3["comments"]["artist"]);
-      $data["album"]        = array_last($id3["comments"]["album"]);
-      $data["genre"]        = array_last($id3["comments"]["genre"]);
+      $data["title"]        = null;
+      $data["artist"]       = null;
+      $data["album"]        = null;
+      $data["genre"]        = null;
+      $data["year"]         = null;
+      $data["track"]        = null;
+      $data["disc"]         = null;
+      $data["band"]         = null;
+      $data["composer"]     = null;
+      $image                = null;
 
-      // Get specific comments for each file format
-      switch ($id3["fileformat"])
+      // Set specific tags for each file format
+      if ( isset($id3["tags"]["id3v1"]) )
       {
-        case 'asf':
-          $data["year"]     = array_last($id3["comments"]["year"]);
-          $data["track"]    = isset($id3["comments"]["tracknum"]) ? array_last($id3["comments"]["tracknum"]) : array_last($id3["comments"]["track"]);
-          $data["disc"]     = array_last($id3["comments"]["partofset"]);
-          $data["band"]     = array_last($id3["comments"]["albumartist"]);
-          $image            = array_last($id3["comments"]["picture"]);
-          break;
-        case 'mp3':
-        case 'riff':
-          $data["year"]     = array_last($id3["comments"]["year"]);
-          $data["track"]    = isset($id3["comments"]["tracknum"]) ? array_last($id3["comments"]["tracknum"]) : array_last($id3["comments"]["track"]);
-          $data["disc"]     = array_last($id3["comments"]["partofset"]);
-          $data["band"]     = array_last($id3["comments"]["band"]);
-          $image            = array_last($id3["comments"]["picture"]);
-          break;
-        case 'mp4':
-        case 'quicktime':
-          $data["year"]     = array_last($id3["comments"]["year"]);
-          $data["track"]    = isset($id3["comments"]["tracknumber"]) ? base_convert(bin2hex(substr(array_last($id3["comments"]["tracknumber"]),0,1)),16,10) : null;
-          $data["disc"]     = isset($id3["comments"]["discnumber"])  ? base_convert(bin2hex(substr(array_last($id3["comments"]["discnumber"]),0,1)),16,10) : null;
-          $data["band"]     = array_last($id3["comments"]["albumartist"]);
-          $image            = array_last($id3["comments"]["picture"]);
-          break;
-        case 'flac':
-        case 'ogg':
-          $data["year"]     = array_last($id3["comments"]["date"]);
-          $data["track"]    = array_last($id3["comments"]["tracknumber"]);
-          if (strstr($data["track"], '/'))
-            list($data["track"], $dummy) = explode('/', $data["track"]);
-          $data["disc"]     = array_last($id3["comments"]["discnumber"]);
-          if (strstr($data["disc"], '/'))
-            list($data["disc"], $dummy) = explode('/', $data["disc"]);
-          $data["band"]     = array_last($id3["comments"]["ensemble"]);
-          $image            = base64_decode(array_last($id3["comments"]["coverart"]));
-          break;
+        set_var( $data["title"],  array_last($id3["tags"]["id3v1"]["title"]) );
+        set_var( $data["artist"], array_last($id3["tags"]["id3v1"]["artist"]) );
+        set_var( $data["album"],  array_last($id3["tags"]["id3v1"]["album"]) );
+        set_var( $data["genre"],  array_last($id3["tags"]["id3v1"]["genre"]) );
+        set_var( $data["year"],   array_last($id3["tags"]["id3v1"]["year"]) );
+        set_var( $data["track"],  ltrim(array_last($id3["tags"]["id3v1"]["track"]),'0') );
       }
+
+      if ( isset($id3["tags"]["vorbiscomment"]) )
+      {
+        set_var( $data["title"],  array_last($id3["tags"]["vorbiscomment"]["title"]) );
+        set_var( $data["artist"], array_last($id3["tags"]["vorbiscomment"]["artist"]) );
+        set_var( $data["album"],  array_last($id3["tags"]["vorbiscomment"]["album"]) );
+        set_var( $data["genre"],  array_last($id3["tags"]["vorbiscomment"]["genre"]) );
+        set_var( $data["year"],   array_last($id3["tags"]["vorbiscomment"]["date"]) );
+        set_var( $data["band"],   array_last($id3["tags"]["vorbiscomment"]["band"]) );
+        set_var( $data["composer"], array_last($id3["tags"]["vorbiscomment"]["composer"]) );
+        set_var( $data["track"],  ltrim(array_last($id3["tags"]["vorbiscomment"]["tracknumber"]),'0') );
+        set_var( $data["disc"],   ltrim(array_last($id3["tags"]["vorbiscomment"]["discnumber"]),'0') );
+        if ( isset($id3["tags"]["vorbiscomment"]["coverart"]) )
+          $image = base64_decode(array_last($id3["tags"]["vorbiscomment"]["coverart"]));
+      }
+
+      if ( isset($id3["flac"]["PICTURE"]) )
+      {
+        $image = array_last($id3["flac"]["PICTURE"]);
+        $image = $image["image_data"];
+      }
+
+      if ( isset($id3["tags"]["ape"]) )
+      {
+        set_var( $data["title"],  array_last($id3["tags"]["ape"]["title"]) );
+        set_var( $data["artist"], array_last($id3["tags"]["ape"]["artist"]) );
+        set_var( $data["album"],  array_last($id3["tags"]["ape"]["album"]) );
+        set_var( $data["genre"],  array_last($id3["tags"]["ape"]["genre"]) );
+        set_var( $data["year"],   array_last($id3["tags"]["ape"]["date"]) );
+        set_var( $data["composer"], array_last($id3["tags"]["ape"]["composer"]) );
+        set_var( $data["track"],  ltrim(array_last($id3["tags"]["ape"]["track"]),'0') );
+        set_var( $data["disc"],   ltrim(array_last($id3["tags"]["ape"]["disc"]),'0') );
+      }
+
+      if ( isset($id3["tags"]["quicktime"]) )
+      {
+        set_var( $data["title"],  array_last($id3["tags"]["quicktime"]["title"]) );
+        set_var( $data["artist"], array_last($id3["tags"]["quicktime"]["artist"]) );
+        set_var( $data["album"],  array_last($id3["tags"]["quicktime"]["album"]) );
+        set_var( $data["genre"],  array_last($id3["tags"]["quicktime"]["genre"]) );
+        set_var( $data["year"],   substr(array_last($id3["tags"]["quicktime"]["creation_date"]),0,4) );
+        set_var( $data["band"],   array_last($id3["tags"]["quicktime"]["album_artist"]) );
+        set_var( $data["composer"], array_last($id3["tags"]["quicktime"]["composer"]) );
+        set_var( $data["track"],  ltrim(array_last($id3["tags"]["quicktime"]["track_number"]),'0') );
+        set_var( $data["disc"],   ltrim(array_last($id3["tags"]["quicktime"]["disc_number"]),'0') );
+        set_var( $image,          array_last($id3["tags"]["quicktime"]["artwork"]) );
+      }
+
+      if ( isset($id3["tags"]["asf"]) )
+      {
+        set_var( $data["title"],  array_last($id3["tags"]["asf"]["title"]) );
+        set_var( $data["artist"], array_last($id3["tags"]["asf"]["artist"]) );
+        set_var( $data["album"],  array_last($id3["tags"]["asf"]["album"]) );
+        set_var( $data["genre"],  array_last($id3["tags"]["asf"]["genre"]) );
+        set_var( $data["year"],   array_last($id3["tags"]["asf"]["year"]) );
+        set_var( $data["band"],   array_last($id3["tags"]["asf"]["albumartist"]) );
+        set_var( $data["track"],  ltrim(array_last($id3["tags"]["asf"]["track"]),'0') );
+        set_var( $data["disc"],   ltrim(array_last($id3["tags"]["asf"]["partofset"]),'0') );
+        set_var( $image,          array_last($id3["tags"]["asf"]["picture"]) );
+      }
+
+      if ( isset($id3["tags"]["id3v2"]) )
+      {
+        set_var( $data["title"],  array_last($id3["tags"]["id3v2"]["title"]) );
+        set_var( $data["artist"], array_last($id3["tags"]["id3v2"]["artist"]) );
+        set_var( $data["album"],  array_last($id3["tags"]["id3v2"]["album"]) );
+        set_var( $data["genre"],  array_last($id3["tags"]["id3v2"]["genre"]) );
+        set_var( $data["year"],   array_last($id3["tags"]["id3v2"]["year"]) );
+        set_var( $data["band"],   array_last($id3["tags"]["id3v2"]["band"]) );
+        set_var( $data["composer"], array_last($id3["tags"]["id3v2"]["composer"]) );
+        set_var( $data["track"],  ltrim(array_last($id3["tags"]["id3v2"]["track_number"]),'0') );
+        set_var( $data["disc"],   ltrim(array_last($id3["tags"]["id3v2"]["part_of_a_set"]),'0') );
+        set_var( $image,          array_last($id3["tags"]["id3v2"]["attached_picture"]) );
+      }
+
+      // Remove track and disc totals, ie. 3/10 becomes 3
+      if (strstr($data["track"], '/')) list($data["track"], $dummy) = explode('/', $data["track"]);
+      if (strstr($data["disc"], '/'))  list($data["disc"], $dummy) = explode('/', $data["disc"]);
 
       if (get_sys_pref('USE_ID3_ART','YES') == 'YES' && !empty($image))
       {
@@ -616,41 +667,37 @@ function process_photo( $dir, $id, $file)
     send_to_log(5,'Found EXIF data : No');
 
   // Get IPTC (IIM legacy) data
-  $getIPTC  = new Image_IPTC($filepath);
-  if ($getIPTC->isValid())
+  if (isset($id3["iptc"]))
   {
     send_to_log(5,'Found IPTC data : Yes');
-    $iptc = $getIPTC->getAllTags();
-    set_var($iptcxmp['byline'],         implode(',',$iptc['2#080']));
-    set_var($iptcxmp['caption'],        implode(',',$iptc["2#120"]));
-    set_var($iptcxmp['keywords'],       implode(',',$iptc["2#025"]));
-    set_var($iptcxmp['city'],           implode(',',$iptc["2#090"]));
-    set_var($iptcxmp['country'],        implode(',',$iptc["2#101"]));
-    set_var($iptcxmp['province_state'], implode(',',$iptc["2#095"]));
-    set_var($iptcxmp['suppcategories'], implode(',',$iptc["2#020"]));
-    set_var($iptcxmp['date_created'],   implode(',',$iptc["2#055"]));
-    set_var($iptcxmp['location'],       implode(',',$iptc["2#092"]));
+    set_var($iptcxmp['byline'],         implode(',',$id3["iptc"]["IPTCApplication"]["By-line"]));
+    set_var($iptcxmp['caption'],        implode(',',$id3["iptc"]["IPTCApplication"]["Caption-Abstract"]));
+    set_var($iptcxmp['keywords'],       implode(',',$id3["iptc"]["IPTCApplication"]["Keywords"]));
+    set_var($iptcxmp['city'],           implode(',',$id3["iptc"]["IPTCApplication"]["City"]));
+    set_var($iptcxmp['country'],        implode(',',$id3["iptc"]["IPTCApplication"]["Country-PrimaryLocationName"]));
+    set_var($iptcxmp['province_state'], implode(',',$id3["iptc"]["IPTCApplication"]["Province-State"]));
+    set_var($iptcxmp['suppcategories'], implode(',',$id3["iptc"]["IPTCApplication"]["SupplementalCategories"]));
+    set_var($iptcxmp['date_created'],   implode(',',$id3["iptc"]["IPTCApplication"]["DateCreated"]));
+    set_var($iptcxmp['location'],       implode(',',$id3["iptc"]["IPTCApplication"]["Sub-location"]));
   }
   else
     send_to_log(5,'Found IPTC data : No');
 
   // Get XMP data
-  $getXMP  = new Image_XMP($filepath);
-  if ($getXMP->isValid())
+  if (isset($id3["xmp"]))
   {
     send_to_log(5,'Found XMP data : Yes');
-    $xmp = $getXMP->getAllTags();
-    set_var($iptcxmp['byline'],         implode(',',$xmp['dc:creator']));
-    set_var($iptcxmp['caption'],        implode(',',$xmp['dc:description']));
-    set_var($iptcxmp['keywords'],       implode(',',$xmp['dc:subject']));
-    set_var($iptcxmp['city'],           implode(',',$xmp['photoshop:City']));
-    set_var($iptcxmp['country'],        implode(',',$xmp['photoshop:Country']));
-    set_var($iptcxmp['province_state'], implode(',',$xmp['photoshop:State']));
-    set_var($iptcxmp['suppcategories'], implode(',',$xmp['photoshop:SupplementalCategories']));
-    set_var($iptcxmp['date_created'],   implode(',',$xmp['photoshop:DateCreated']));
-    set_var($iptcxmp['location'],       implode(',',$xmp['Iptc4xmpCore:Location']));
-    if (is_numeric($xmp['xap:Rating']))
-      $iptcxmp['rating'] = str_repeat('*',$xmp['xap:Rating']);
+    set_var($iptcxmp['byline'],         implode(',',$id3["xmp"]["dc"]["creator"]));
+    set_var($iptcxmp['caption'],        implode(',',$id3["xmp"]["dc"]["description"]));
+    set_var($iptcxmp['keywords'],       implode(',',$id3["xmp"]["dc"]["subject"]));
+    set_var($iptcxmp['city'],           implode(',',$id3["xmp"]["photoshop"]["City"]));
+    set_var($iptcxmp['country'],        implode(',',$id3["xmp"]["photoshop"]["Country"]));
+    set_var($iptcxmp['province_state'], implode(',',$id3["xmp"]["photoshop"]["State"]));
+    set_var($iptcxmp['suppcategories'], implode(',',$id3["xmp"]["photoshop"]["SupplementalCategories"]));
+    set_var($iptcxmp['date_created'],   implode(',',$id3["xmp"]["photoshop"]["DateCreated"]));
+    set_var($iptcxmp['location'],       implode(',',$id3["xmp"]["Iptc4xmpCore"]["Location"]));
+    if (is_numeric($id3["xmp"]["xap"]["Rating"]))
+      $iptcxmp['rating'] = str_repeat('*',$id3["xmp"]["xap"]["Rating"]);
     else
       $iptcxmp['rating'] = str('NOT_RATED');
   }
@@ -813,11 +860,11 @@ function process_movie( $dir, $id, $file )
       // Tag data successfully obtained, so record the following information
       getid3_lib::CopyTagsToComments($id3);
       $data["size"]          = $id3["filesize"];
-      $data["length"]        = floor($id3["playtime_seconds"]);
+      $data["length"]        = $id3["playtime_seconds"];
       $data["lengthstring"]  = $id3["playtime_string"];
       $data["audio_channels"]= $id3["audio"]["channels"];
-      $data["audio_codec"]   = $id3["audio"]["codec"];
-      $data["video_codec"]   = $id3["video"]["codec"];
+      $data["audio_codec"]   = isset($id3["audio"]["codec"]) ? $id3["audio"]["codec"] : $id3["audio"]["dataformat"];
+      $data["video_codec"]   = isset($id3["video"]["codec"]) ? $id3["video"]["codec"] : $id3["video"]["dataformat"];
       $data["resolution"]    = $id3["video"]["resolution_x"].'x'.$id3["video"]["resolution_y"];
       $data["frame_rate"]    = $id3["video"]["frame_rate"];
 
@@ -1040,7 +1087,7 @@ function process_tv( $dir, $id, $file)
       // Tag data successfully obtained, so record the following information
       getid3_lib::CopyTagsToComments($id3);
       $data["size"]          = $id3["filesize"];
-      $data["length"]        = floor($id3["playtime_seconds"]);
+      $data["length"]        = $id3["playtime_seconds"];
       $data["lengthstring"]  = $id3["playtime_string"];
       $data["audio_channels"]= $id3["audio"]["channels"];
       $data["audio_codec"]   = $id3["audio"]["codec"];
