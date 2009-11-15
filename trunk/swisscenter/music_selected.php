@@ -35,6 +35,7 @@
   $track_name  = search_distinct_info($info, str('TRACK_NAME') ,'title' ,$sql_table, $predicate);
   $album_name  = search_distinct_info($info, str('ALBUM')      ,'album' ,$sql_table, $predicate);
   $artist_name = search_distinct_info($info, str('ARTIST')     ,'artist',$sql_table, $predicate);
+  search_distinct_info($info, str('COMPOSER')   ,'composer',$sql_table, $predicate);
   search_distinct_info($info, str('GENRE')      ,'genre' ,$sql_table, $predicate);
   search_distinct_info($info, str('YEAR')       ,'year'  ,$sql_table, $predicate);
   $info->add_item( str('MUSIC_PLAY_TIME'),  hhmmss($playtime));
@@ -55,6 +56,7 @@
 
   // Or refine the tracks further
   search_check_filter( $menu, str('REFINE_ARTIST'), 'artist', $sql_table, $predicate, $refine_url );
+  search_check_filter( $menu, str('REFINE_COMPOSER'), 'composer', $sql_table, $predicate, $refine_url );
   search_check_filter( $menu, str('REFINE_ALBUM'),  'album',  $sql_table, $predicate, $refine_url );
   search_check_filter( $menu, str('REFINE_TITLE'),  'title',  $sql_table, $predicate, $refine_url );
   search_check_filter( $menu, str('REFINE_GENRE'),  'genre',  $sql_table, $predicate, $refine_url );
