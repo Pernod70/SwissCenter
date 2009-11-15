@@ -29,6 +29,8 @@
       $browse[] = array('text'=>str('BROWSE_ARTIST'), 'url'=>"music_search.php?sort=artist");
     if (get_sys_pref('browse_music_album_artist_enabled','YES') == 'YES')
       $browse[] = array('text'=>str('BROWSE_ALBUM_ARTIST'), 'url'=>"music_search.php?sort=band");
+    if (get_sys_pref('browse_music_composer_enabled','YES') == 'YES')
+      $browse[] = array('text'=>str('BROWSE_COMPOSER'), 'url'=>"music_search.php?sort=composer");
     if (get_sys_pref('browse_music_album_enabled','YES') == 'YES')
       $browse[] = array('text'=>str('BROWSE_ALBUM'), 'url'=>"music_search.php?sort=album");
     if (get_sys_pref('browse_music_track_enabled','YES') == 'YES')

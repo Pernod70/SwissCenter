@@ -203,6 +203,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>BROWSE_COMPOSER</id>
+        <text>Browse by composer</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>BROWSE_COUNTRY</id>
         <text>Browse by country</text>
         <version>1.19</version>
@@ -546,6 +551,11 @@
         <id>COMPACT_VIEW</id>
         <text>Compact view</text>
         <version>1.21.1</version>
+      </string>
+      <string>
+        <id>COMPOSER</id>
+        <text>Composer</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>CONFIGURATION</id>
@@ -3562,6 +3572,11 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <id>REFINE_CERTIFICATE</id>
         <text>Refine by certificate</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_COMPOSER</id>
+        <text>Refine by composer</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REFINE_DIRECTOR</id>
