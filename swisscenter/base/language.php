@@ -22,13 +22,15 @@ function load_lang_strings ( $lang = 'en-gb', $session = 'language' )
 
   if (file_exists($lang_file))
   {
+    @set_magic_quotes_runtime(0);
+
     // Read and process XML file
     $data = file_get_contents($lang_file);
 
     if ($data !== false)
     {
       // Parse the language XML file
-      preg_match_all('/<string>.*<id>(.*)<\/id>.*<text>(.*)<\/text>.*<version>(.*)<\/version>.*<\/string>/Uis', $data, $matches);
+      preg_match_all('/<string>.*<id>(.*)<\/id>.*<text>(.*)<\/text>.*<version>(.*)<\/version>.*<\/string>/Uis', htmlspecialchars_decode($data), $matches);
 
       if (count($matches[0]) == 0)
         send_to_log(2,'Parsing '.$lang_file.' failed to find any language strings!');
@@ -91,7 +93,7 @@ function load_lang ($current_lang = '')
                      . @filemtime(SC_LOCATION."lang/$lang/$lang-$region.xml"));
 
   send_to_log(8,"Cached language settings", array("Cache file"=>$cache_file,"Cache Checksum"=>$cache_chksum,"New Checksum"=>$checksum));
-  if ( $checksum == get_sys_pref("LANG_CHKSUM_$base-$lang-$region") )
+  if ( file_exists($cache_file) && $checksum == get_sys_pref("LANG_CHKSUM_$base-$lang-$region") )
   {
     send_to_log(6,"Loading cached language strings",$cache_file);
     $_SESSION['language'] = unserialize( file_get_contents($cache_file));
