@@ -73,6 +73,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>ARTIST_INFO</id>
+        <text>Interpreten Info</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>ART_ADDED_OK</id>
         <text>Cover-Datei hinzugefügt</text>
         <version>1.19</version>
@@ -2392,6 +2397,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.21.1</version>
       </string>
       <string>
+        <id>MEDIA_SCAN_TYPE</id>
+        <text>Scan Typ</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>MEDIA_SEARCH_PROMPT</id>
         <text>Durch Betätigung des Buttons werden Ihre Medienordner im Hintergrund nach neuen Medien durchsucht. Medien, die nicht mehr vorhanden sind, werden aus der Datenbank entfernt, und neue oder geänderte Medien werden zur Datenbank hinzugefügt.</text>
         <version>1.19</version>
@@ -2925,6 +2935,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>ONE_TRACK</id>
         <text>1 Track</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>OPENING_THISWEEK</id>
+        <text>Neu diese Woche</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>OPTIONS</id>
@@ -3917,6 +3932,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>SCHEDULE_ALL</id>
+        <text>Alles</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SCHEDULE_AUTO_TITLE</id>
         <text>Automatische Medienaktualisierung</text>
         <version>1.19</version>
@@ -3957,6 +3977,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>SCHEDULE_MEDIA_ONLY</id>
+        <text>Nur Medien</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SCHEDULE_MINUTE_PROMPT</id>
         <text>Die Anzahl der Minuten nach der Stunde</text>
         <version>1.19</version>
@@ -3975,6 +4000,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>SCHEDULE_NOTES</id>
         <text>[li]* kennzeichnet mögliche Werte. [li]Mehrere Werte können durch Komma getrennt werden (1,5). [li]Ein Bereich kann durch einen Bindestrich gekennzeichnet werden (1-5). [li]Sie können beides zusammen verwenden (1-4,7).</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_RSS_ONLY</id>
+        <text>Nur RSS</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>SCHEDULE_TITLE</id>
@@ -4397,6 +4427,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>TABLE_DEFINITION</id>
+        <text>Definition der Tabelle: %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>TAG</id>
         <text>Tag</text>
         <version>1.19</version>
@@ -4413,7 +4448,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>THEMES_PROMPT</id>
-        <text>Themen werden automatisch für Filme und TV Serien von &amp;quot;themoviedb&amp;quot; und &amp;quot;TheTVDB&amp;quot; heruntergeladen, wenn Details für neue Medien hinzugefügt werden. Wählen Sie einen Titel vom Auswahlmenü, danach wählen Sie ein Thema aus den vorhandenen Miniaturbildern. Um ein ausgesuchtes Thema auszuwählen, müssen Sie festlegen wofür dieses Thema benutzt werden soll. Wenn mehrere Themen für einen Titel ausgewählt wurden, werden diese willkürlich auf diese Seiten angewandt.</text>
+        <text>Themen werden automatisch für Filme und TV Serien von &quot;themoviedb&quot; und &quot;TheTVDB&quot; heruntergeladen, wenn Details für neue Medien hinzugefügt werden. Wählen Sie einen Titel vom Auswahlmenü, danach wählen Sie ein Thema aus den vorhandenen Miniaturbildern. Um ein ausgesuchtes Thema auszuwählen, müssen Sie festlegen wofür dieses Thema benutzt werden soll. Wenn mehrere Themen für einen Titel ausgewählt wurden, werden diese willkürlich auf diese Seiten angewandt.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -5275,6 +5310,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>WEEKDAY</id>
         <text>Wochentag</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>WEEKEND_BOXOFFICE</id>
+        <text>&quot;Weekend Box Office&quot;</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>WIKI_LOOKUP</id>

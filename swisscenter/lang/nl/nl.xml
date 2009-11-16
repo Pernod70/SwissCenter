@@ -208,6 +208,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>BROWSE_COMPOSER</id>
+        <text>Zoek op componist</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>BROWSE_COUNTRY</id>
         <text>Zoek op land</text>
         <version>1.19</version>
@@ -571,6 +576,11 @@
         <id>COMPACT_VIEW</id>
         <text>Compacte weergave</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>COMPOSER</id>
+        <text>Componist</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>CONFIGURATION</id>
@@ -1136,6 +1146,11 @@
         <id>EXTRA_REFRESH_WARNING</id>
         <text>Wees ervan bewust dat handmatig ingevoerde informatie van %s pagina verloren gaat.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_DATABASE_PATCH</id>
+        <text>Database is niet volledig geactualiseerd. Laatste succesvolle update was %s.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>FAIL_DOTNET2_INSTALLED</id>
@@ -2025,8 +2040,8 @@
       </string>
       <string>
         <id>LANG_PROMPT</id>
-        <text>Taaldefinities bestaan uit de verbindingen tussen interne IDs (bv: &quot;ADD_PLAYLIST&quot;) en werkelijk weergegeven tekst. De &lt;tekst&gt; kan worden opgemaakt met behulp van een beperkt aantal markeercodes die identiek zijn aan de HTML-markeercodes en moeten tussen rechte haken worden geplaatst. De volgende codes kunnen worden gebruikt:[br]&amp;#91;br&amp;#93;&amp;#91;/br&amp;#93;  &amp;#91;em&amp;#93;&amp;#91;/em&amp;#93;  &amp;#91;p&amp;#93;&amp;#91;/p&amp;#93;  &amp;#91;b&amp;#93;&amp;#91;/b&amp;#93;  &amp;#91;i&amp;#93;&amp;#91;/i&amp;#93;  &amp;#91;li&amp;#93;&amp;#91;/li&amp;#93;  &amp;#91;ul&amp;#93;&amp;#91;/ul&amp;#93;  &amp;#91;ol&amp;#93;&amp;#91;/ul&amp;#93;[p]In sommige gevallen kan het nodig zijn om een variabel onderdeel in de tekst te plaatsen. Deze wordt in de tekst aangegeven met '&amp;#37;s'.[br]bv: In de onderstaande ID, wordt het aantal nummers dat in de databank is gevonden vervangen door &amp;#37;s. Een zoekresultaat van vier nummers wordt weergegeven als &quot;4 nummers&quot;;[br]MANY_TRACKS=&amp;#37;s nummers.</text>
-        <version>1.20</version>
+        <text>Taaldefinities bestaan uit de verbindingen tussen interne IDs (bv: &quot;ADD_PLAYLIST&quot;) en werkelijk weergegeven tekst. De &lt;tekst&gt; kan worden opgemaakt met behulp van een beperkt aantal markeercodes die identiek zijn aan de HTML-markeercodes en moeten tussen rechte haken worden geplaatst. De volgende codes kunnen worden gebruikt: [li]&amp;#91;br&amp;#93; - Nieuwe regel[/li] [li]&amp#91;p&amp#93;&amp#91;/p&amp;#93; - Nieuwe paragraaf[/li] [li]&amp;#91;b&amp;#93;&amp;#91;/b&amp;#93; - Vet[/li] [li]&amp;#91;i&amp;#93;&amp;#91;/i&amp;#93; - Cursief[/li] [li]&amp;#91;em&amp;#93; and &amp;#91;/em&amp;#93; - Nadruk[/li] [li]&amp;#91;ol&amp;#93;&amp;#91;/ol&amp;#93; - Een geordende lijst[/li] [li]&amp;#91;ul&amp;#93;&amp;#91;/ul&amp;#93; - Een ongeordende lijst[/li] [li]&amp#91;li&amp#93;&amp;#91;/li&amp;#93; - Een item binnen ee geordende of ongeordende lijst[/li] [/ul] [p]In sommige gevallen kan het nodig zijn om een variabel onderdeel in de tekst te plaatsen. Deze wordt in de tekst aangegeven met '&amp;#37;s'.[br]bv: In de onderstaande ID, wordt het aantal nummers dat in de databank is gevonden vervangen door &amp;#37;s. Een zoekresultaat van vier nummers wordt weergegeven als &quot;4 nummers&quot;;[br]MANY_TRACKS=&amp;#37;s nummers.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>LANG_SAVE_BUTTON</id>
@@ -2165,8 +2180,8 @@
       </string>
       <string>
         <id>LISTEN_RADIO</id>
-        <text>Luister naar internetradio</text>
-        <version>1.19</version>
+        <text>Internetradio</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>LIST_VIEW</id>
@@ -2392,6 +2407,11 @@
         <id>MEDIA_SCAN_STATUS_TV</id>
         <text>Analyseren TV details</text>
         <version>1.21</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_TYPE</id>
+        <text>Scan type</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>MEDIA_SEARCH_PROMPT</id>
@@ -2795,8 +2815,8 @@
       </string>
       <string>
         <id>NETWORK_SHARE_PROMPT</id>
-        <text>De gedeelde netwerklocatie is alleen van toepassing voor het media type 'DVD video' en wordt genegeerd in geval van alle andere media typen. Om DVD videos te kunnen afspelen moet u eerst een SMB of NFS gedeelde netwerklocatie op uw NMT installeren om toegang tot uw DVD afbeeldingen te verkrijgen. Daarna dient de gedeelde netwerk locatie te worden verbonden met deze medialocatie.</text>
-        <version>1.21</version>
+        <text>De gedeelde netwerklocatie is alleen van toepassing voor het media type 'DVD video' (iso, img, etc ...) en kan slechts gebruikt worden met een NMT speler. Om DVD videos te kunnen afspelen moet u eerst een SMB of NFS gedeelde netwerklocatie op uw NMT installeren om toegang tot uw DVD afbeeldingen te verkrijgen. Daarna dient de gedeelde netwerk locatie te worden verbonden met deze medialocatie.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>NEW</id>
@@ -2936,8 +2956,8 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
       </string>
       <string>
         <id>ORG_TITLE</id>
-        <text>Filmdetails bijwerken</text>
-        <version>1.19</version>
+        <text>Filmdetails bewerken</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>ORIGINAL</id>
@@ -2953,6 +2973,11 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
         <id>PASSWORD</id>
         <text>Wachtwoord</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_DATABASE_PATCH</id>
+        <text>Database is geactualiseerd tot %s.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PASS_DOTNET2_INSTALLED</id>
@@ -3590,6 +3615,11 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
         <version>1.19</version>
       </string>
       <string>
+        <id>REFINE_COMPOSER</id>
+        <text>Verfijn via componist</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>REFINE_DIRECTOR</id>
         <text>Verfijn via regisseur</text>
         <version>1.19</version>
@@ -3920,6 +3950,11 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
         <version>1.19</version>
       </string>
       <string>
+        <id>SCHEDULE_ALL</id>
+        <text>Alle</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SCHEDULE_AUTO_TITLE</id>
         <text>Automatisch zoeken naar media</text>
         <version>1.19</version>
@@ -3960,6 +3995,11 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
         <version>1.19</version>
       </string>
       <string>
+        <id>SCHEDULE_MEDIA_ONLY</id>
+        <text>Alleen media</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SCHEDULE_MINUTE_PROMPT</id>
         <text>Het aantal minuten achter het uur</text>
         <version>1.19</version>
@@ -3978,6 +4018,11 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
         <id>SCHEDULE_NOTES</id>
         <text>[li]* betekent alle mogelijke waarden. [li]Verschillende waarden kunnen gescheiden worden door kommas (1,5). [li]Een bereik kan gespecificeerd worden met een streepje (1-5). [li]Beide kunnen tegelijk toegepast worden (1-4,7).</text>
         <version>1.20</version>
+      </string>
+      <string>
+        <id>SCHEDULE_RSS_ONLY</id>
+        <text>Alleen RSS feeds</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>SCHEDULE_TITLE</id>
@@ -4421,7 +4466,7 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
       </string>
       <string>
         <id>THEMES_PROMPT</id>
-        <text>Thema's voor films en TV series worden automatisch gedownload via de &amp;quot;themoviedb&amp;quot; en &amp;quot;TheTVDB&amp;quot; parsers wanneer details worden toegevoegd aan nieuwe media. Selecteer een titel uit de keuzelijst en kies vervolgens een thema uit de beschikbare miniatuurweergaven. Om een gekozen thema te kunnen gebruiken moet een &quot;Pas toe op ...&quot;-optie geselecteerd worden. Wanneer verschillende thema's zijn gekozen voor één titel, zullen deze willekeurig worden gebruikt.</text>
+        <text>Thema's voor films en TV series worden automatisch gedownload via de &quot;themoviedb&quot; en &quot;TheTVDB&quot; parsers wanneer details worden toegevoegd aan nieuwe media. Selecteer een titel uit de keuzelijst en kies vervolgens een thema uit de beschikbare miniatuurweergaven. Om een gekozen thema te kunnen gebruiken moet een &quot;Pas toe op ...&quot;-optie geselecteerd worden. Wanneer verschillende thema's zijn gekozen voor één titel, zullen deze willekeurig worden gebruikt.</text>
         <version>1.22</version>
       </string>
       <string>
