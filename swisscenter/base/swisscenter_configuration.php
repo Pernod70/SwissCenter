@@ -59,16 +59,12 @@
 
     function export_sys_prefs()
     {
-      $exceptions = array('	DATABASE_PATCH','	DATABASE_UPDATE','DATABASE_VERSION');
       $xpath = $this->xml->appendChild($this->settings_path,'<system />');
-      $data = db_toarray("select * from system_prefs order by name");
+      $data = db_toarray("select * from system_prefs where name not like 'LANG_CHKSUM%' order by name");
       if ($data !== false && count($data)>0)
       {
         foreach ($data as $row)
-        {
-          if ( !in_array($row["NAME"],$exceptions) )
-            $this->xml->appendChild($xpath,'<setting name="'.$row["NAME"].'">'.utf8_encode(htmlspecialchars($row["VALUE"])).'</setting>');
-        }
+          $this->xml->appendChild($xpath,'<setting name="'.$row["NAME"].'">'.utf8_encode(htmlspecialchars($row["VALUE"])).'</setting>');
       }
     }
 
@@ -335,7 +331,6 @@
       {
         foreach ($data as $row)
         {
-          send_to_log(2,'url '.utf8_encode(htmlspecialchars($row["URL"])));
           $loc_xpath = $this->xml->appendChild( $xpath,'<bookmark />');
           $this->xml->appendChild( $loc_xpath, '<type>'.$row["MEDIA_NAME"].'</type>');
           $this->xml->appendChild( $loc_xpath, '<url>'.utf8_encode(htmlspecialchars($row["URL"])).'</url>');
@@ -378,8 +373,8 @@
       $cat_parent = array();
       foreach ($this->xml->match('/swisscenter[1]/config[1]/categories[1]/category') as $abspath)
       {
-        $name = html_entity_decode(utf8_decode($this->xml->getData($abspath.'/name[1]'), ENT_QUOTES));
-        $parent = html_entity_decode(utf8_decode($this->xml->getData($abspath.'/parent[1]'), ENT_QUOTES));
+        $name = html_entity_decode(utf8_decode($this->xml->getData($abspath.'/name[1]')), ENT_QUOTES);
+        $parent = html_entity_decode(utf8_decode($this->xml->getData($abspath.'/parent[1]')), ENT_QUOTES);
         if ( !empty($parent) ) $cat_parent[$name] = $parent;
         $download = $this->xml->getData($abspath.'/download_info[1]');
         if (db_value("select count(*) from categories where cat_name = '".db_escape_str($name)."'") == 0)
@@ -401,14 +396,21 @@
 
     function import_sys_prefs()
     {
+      // List of settings that should not be imported
+      $exceptions = array('DATABASE_PATCH', 'LAST_UPDATE', 'DATABASE_VERSION', 'UPDATE_AVAILABLE', 'SVN_REVISION');
+
       foreach ($this->xml->match('/swisscenter[1]/config[1]/system[1]/setting') as $abspath)
       {
         $attrib = $this->xml->getAttributes($abspath);
         $value = $this->xml->getData($abspath);
-        if (db_value("select count(*) from system_prefs where name = '".$attrib["NAME"]."'") == 0)
-          db_insert_row('system_prefs',array("name"=>$attrib["NAME"], "value"=>$value));
-        else
-          db_sqlcommand("update system_prefs set value ='".db_escape_str($value)."' where name ='".$attrib["NAME"]."'");
+
+        if ( !in_array($attrib["NAME"], $exceptions) )
+        {
+          if (db_value("select count(*) from system_prefs where name = '".$attrib["NAME"]."'") == 0)
+            db_insert_row('system_prefs',array("name"=>$attrib["NAME"], "value"=>$value));
+          else
+            db_sqlcommand("update system_prefs set value ='".db_escape_str($value)."' where name ='".$attrib["NAME"]."'");
+        }
       }
     }
 
@@ -478,7 +480,7 @@
           $attrib    = $this->xml->getAttributes($certpath);
           $cert_name = $attrib["NAME"];
           $rank      = $this->xml->getData($certpath.'/rank[1]');
-          $desc      = html_entity_decode(utf8_decode($this->xml->getData($certpath.'/description[1]'), ENT_QUOTES));
+          $desc      = html_entity_decode(utf8_decode($this->xml->getData($certpath.'/description[1]')), ENT_QUOTES);
 
           if (db_value("select count(*) from certificates where name='$cert_name' and scheme='$scheme_name'") == 0)
             db_insert_row("certificates", array("name"=>$cert_name, "rank"=>$rank, "description"=>$desc, "scheme"=>$scheme_name));
@@ -498,9 +500,9 @@
       foreach ($this->xml->match('/swisscenter[1]/config[1]/media_locations[1]/location') as $locpath)
       {
         $type        = $this->xml->getData($locpath.'/type[1]');
-        $path        = html_entity_decode(utf8_decode($this->xml->getData($locpath.'/path[1]'), ENT_QUOTES));
-        $cat_name    = html_entity_decode(utf8_decode($this->xml->getData($locpath.'/category[1]'), ENT_QUOTES));
-        $share       = html_entity_decode(utf8_decode($this->xml->getData($locpath.'/share[1]'), ENT_QUOTES));
+        $path        = html_entity_decode(utf8_decode($this->xml->getData($locpath.'/path[1]')), ENT_QUOTES);
+        $cat_name    = html_entity_decode(utf8_decode($this->xml->getData($locpath.'/category[1]')), ENT_QUOTES);
+        $share       = html_entity_decode(utf8_decode($this->xml->getData($locpath.'/share[1]')), ENT_QUOTES);
         $cert_name   = $this->xml->getData($locpath.'/default_certificate[1]');
         $attrib      = $this->xml->getAttributes($locpath.'/default_certificate[1]');
         $scheme_name = $attrib["SCHEME"];
@@ -574,8 +576,8 @@
       foreach ($this->xml->match('/swisscenter[1]/config[1]/rss_subscriptions[1]/subscription') as $rsspath)
       {
         $type    = $this->xml->getData($rsspath.'/type[1]');
-        $url     = html_entity_decode(utf8_decode($this->xml->getData($rsspath.'/url[1]'), ENT_QUOTES));
-        $title   = html_entity_decode(utf8_decode($this->xml->getData($rsspath.'/title[1]'), ENT_QUOTES));
+        $url     = html_entity_decode(utf8_decode($this->xml->getData($rsspath.'/url[1]')), ENT_QUOTES);
+        $title   = html_entity_decode(utf8_decode($this->xml->getData($rsspath.'/title[1]')), ENT_QUOTES);
         $update  = $this->xml->getData($rsspath.'/update[1]');
         $cache   = $this->xml->getData($rsspath.'/cache[1]');
         $type_id = db_value("select media_id from media_types where media_name='$type'");
@@ -617,7 +619,7 @@
       {
         $attrib  = $this->xml->getAttributes($iradiopath);
         $station = $attrib["NAME"];
-        $image   = html_entity_decode(utf8_decode($this->xml->getData($iradiopath.'/image[1]'), ENT_QUOTES));
+        $image   = html_entity_decode(utf8_decode($this->xml->getData($iradiopath.'/image[1]')), ENT_QUOTES);
 
         if (db_value("select count(*) from iradio_stations where station='".db_escape_str($station)."'") == 0)
           db_insert_row("iradio_stations", array("station"=>$station, "image"=>$image));
@@ -635,7 +637,7 @@
       {
         $attrib   = $this->xml->getAttributes($iradiopath);
         $genre    = $attrib["NAME"];
-        $subgenre = html_entity_decode(utf8_decode($this->xml->getData($iradiopath.'/subgenre[1]'), ENT_QUOTES));
+        $subgenre = html_entity_decode(utf8_decode($this->xml->getData($iradiopath.'/subgenre[1]')), ENT_QUOTES);
 
         if (db_value("select count(*) from iradio_genres where genre='".db_escape_str($genre)."' and subgenre='".db_escape_str($subgenre)."'") == 0)
           db_insert_row("iradio_genres", array("genre"=>$genre, "subgenre"=>$subgenre));
@@ -670,9 +672,9 @@
       foreach ($this->xml->match('/swisscenter[1]/config[1]/ibookmarks[1]/bookmark') as $ibookmarkpath)
       {
         $type        = $this->xml->getData($ibookmarkpath.'/type[1]');
-        $url         = html_entity_decode(utf8_decode($this->xml->getData($ibookmarkpath.'/url[1]'), ENT_QUOTES));
-        $title       = html_entity_decode(utf8_decode($this->xml->getData($ibookmarkpath.'/title[1]'), ENT_QUOTES));
-        $cat_name    = html_entity_decode(utf8_decode($this->xml->getData($ibookmarkpath.'/category[1]'), ENT_QUOTES));
+        $url         = html_entity_decode(utf8_decode($this->xml->getData($ibookmarkpath.'/url[1]')), ENT_QUOTES);
+        $title       = html_entity_decode(utf8_decode($this->xml->getData($ibookmarkpath.'/title[1]')), ENT_QUOTES);
+        $cat_name    = html_entity_decode(utf8_decode($this->xml->getData($ibookmarkpath.'/category[1]')), ENT_QUOTES);
         $cert_name   = $this->xml->getData($ibookmarkpath.'/certificate[1]');
         $attrib      = $this->xml->getAttributes($ibookmarkpath.'/certificate[1]');
         $scheme_name = $attrib["SCHEME"];
