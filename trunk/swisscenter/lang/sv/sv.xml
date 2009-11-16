@@ -63,8 +63,18 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>APPLE_TRAILERS</id>
+        <text>Apple - Filmtrailers</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>ARTIST</id>
         <text>Artist</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ARTIST_INFO</id>
+        <text>Artistinformation</text>
         <version>1.22</version>
       </string>
       <string>
@@ -305,6 +315,11 @@
       <string>
         <id>BROWSE_STATION</id>
         <text>Bläddra enligt kanal</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_STUDIO</id>
+        <text>Bläddra enligt studio</text>
         <version>1.22</version>
       </string>
       <string>
@@ -875,6 +890,11 @@
       <string>
         <id>EP_PREV</id>
         <text>Föregående avsnitt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXCLUSIVE</id>
+        <text>Exklusivt</text>
         <version>1.22</version>
       </string>
       <string>
@@ -1859,6 +1879,16 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>JUST_ADDED</id>
+        <text>Nyligen tillagt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>JUST_HD</id>
+        <text>Endast HD</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>KEYBOARD_DEL</id>
         <text>RADERA</text>
         <version>1.22</version>
@@ -2335,6 +2365,11 @@
       <string>
         <id>MEDIA_SCAN_STATUS_TV</id>
         <text>Tolkar TV-detaljer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_TYPE</id>
+        <text>Typ av genomsökning</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2861,6 +2896,11 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       <string>
         <id>ONE_TRACK</id>
         <text>1 spår</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OPENING_THISWEEK</id>
+        <text>Premiär denna vecka</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3654,6 +3694,11 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
         <version>1.22</version>
       </string>
       <string>
+        <id>RELEASE_DATE</id>
+        <text>Release-datum</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>REMOTE_ACCESS_ERROR</id>
         <text>Fjärråtkomst till [em]SwissCenters Konfigurationsverktyg[/em] är inaktiverat av säkerhetskäl.</text>
         <version>1.22</version>
@@ -3839,6 +3884,11 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
         <version>1.22</version>
       </string>
       <string>
+        <id>SCHEDULE_ALL</id>
+        <text>Alla</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SCHEDULE_AUTO_TITLE</id>
         <text>Automatisk mediauppdatering</text>
         <version>1.22</version>
@@ -3879,6 +3929,11 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
         <version>1.22</version>
       </string>
       <string>
+        <id>SCHEDULE_MEDIA_ONLY</id>
+        <text>Endast media</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SCHEDULE_MINUTE_PROMPT</id>
         <text>Minuter</text>
         <version>1.22</version>
@@ -3896,6 +3951,11 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       <string>
         <id>SCHEDULE_NOTES</id>
         <text>[li]* anger alla möjliga värden.[li]Flera värden kan anges med ett kommatecken (1,5). [li]Ett omfång kan anges med ett bindesträck (1-5). [li]Båda kan anges tillsammans (1-4,7).</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_RSS_ONLY</id>
+        <text>Endast RSS</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4314,6 +4374,11 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
         <version>1.22</version>
       </string>
       <string>
+        <id>TABLE_DEFINITION</id>
+        <text>Definition av tabell %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>TAG</id>
         <text>Tag</text>
         <version>1.22</version>
@@ -4366,6 +4431,11 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       <string>
         <id>THEME_PREVIEW_THUMBS</id>
         <text>Förhandsgranska tillgängliga teman för %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_SAVED_SUCCESS</id>
+        <text>Temat sparades</text>
         <version>1.22</version>
       </string>
       <string>
@@ -5025,7 +5095,7 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       </string>
       <string>
         <id>VIDEO_INFO</id>
-        <text>Film-information</text>
+        <text>Filminformation</text>
         <version>1.22</version>
       </string>
       <string>
@@ -5181,6 +5251,11 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       <string>
         <id>WEEKDAY</id>
         <text>Veckodag</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>WEEKEND_BOXOFFICE</id>
+        <text>Biljettsläpp i helgen</text>
         <version>1.22</version>
       </string>
       <string>
