@@ -154,8 +154,8 @@
       </string>
       <string>
         <id>ART_UPDATE_OK</id>
-        <text>Art information aggiornata</text>
-        <version>1.19</version>
+        <text>Informazioni Art aggiornati</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>AUTOMATIC</id>
@@ -189,8 +189,8 @@
       </string>
       <string>
         <id>BROWSE_ALBUM_ARTIST</id>
-        <text>Mostra per Album e Nome Artista</text>
-        <version>1.19</version>
+        <text>Mostra per album e nome artista</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_ARTIST</id>
@@ -200,6 +200,11 @@
       <string>
         <id>BROWSE_CERTIFICATE</id>
         <text>Cerca per certificato</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_COMPOSER</id>
+        <text>Cerca per compositore</text>
         <version>1.22</version>
       </string>
       <string>
@@ -249,8 +254,8 @@
       </string>
       <string>
         <id>BROWSE_IPTC_CITY</id>
-        <text>Sfoglia per Città</text>
-        <version>1.19</version>
+        <text>Sfoglia per Citta'</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_IPTC_COUNTRY</id>
@@ -354,8 +359,8 @@
       </string>
       <string>
         <id>BROWSE_WEB_PROMPT</id>
-        <text>Questa opzione consente di utilizzare SwissCenter semplicemente per sfogliare le pagine Web, sia su rete locale e su Internet (dovete fornire connettività Internet).</text>
-        <version>1.19</version>
+        <text>Questa opzione consente di utilizzare SwissCenter semplicemente per sfogliare le pagine Web, sia su rete locale e su Internet (dovete fornire connettivita' Internet).</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_XMP_RATING</id>
@@ -560,6 +565,11 @@
       <string>
         <id>COMPACT_VIEW</id>
         <text>Visualizzazione compatta</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>COMPOSER</id>
+        <text>Compositore</text>
         <version>1.22</version>
       </string>
       <string>
@@ -1128,6 +1138,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>FAIL_DATABASE_PATCH</id>
+        <text>Il database non è interamente riparato . L'ultima riparazione valida è %s.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>FAIL_DOTNET2_INSTALLED</id>
         <text>.NET Framework versione 2 deve esserre installata.</text>
         <version>1.22</version>
@@ -1409,7 +1424,7 @@
       </string>
       <string>
         <id>FLICKR_USERID_PROMPT</id>
-        <text>Ciascun utilizizzatore di SwissCenter può essere associato ad un'utente Flickr. Se nessun utente Flickr è selezionato, non sarà possibile vedere foto o contatti.</text>
+        <text>Ciascun utilizizzatore di SwissCenter può essere associato ad un'utente Flickr. Se nessun utente Flickr è selezionato, non sara' possibile vedere foto o contatti.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2184,7 +2199,7 @@
       </string>
       <string>
         <id>LOOKUP_TV</id>
-        <text>Guarda Episodio TV</text>
+        <text>Consultazione episodio TV</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2933,6 +2948,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>PASS_DATABASE_PATCH</id>
+        <text>Il database è interamente riparato al %s.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>PASS_DOTNET2_INSTALLED</id>
         <text>.NET Framework versione 2 è installata.</text>
         <version>1.22</version>
@@ -3555,6 +3575,11 @@
       <string>
         <id>REFINE_CERTIFICATE</id>
         <text>Scegli per certificato</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFINE_COMPOSER</id>
+        <text>Ricerca per compositore</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4709,8 +4734,8 @@
       </string>
       <string>
         <id>TTF_FONT_PROMPT</id>
-        <text>Font da usare per visualizzare le informazioni sulla brano nella schermata 'In corso di esecuzione', se supportato (e abilitato). Inserisci un nome font comprensivo del percorso completo del file, o lascia in bianco per una ricerca automatica del font.</text>
-        <version>1.19</version>
+        <text>Font da usare per visualizzare le informazioni sul brano nella schermata 'In corso di esecuzione', se supportato (e abilitato). Inserisci un nome font comprensivo del percorso completo del file, o lascia in bianco per una ricerca automatica del font.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>TVID_RESET_DEFAULT</id>
@@ -5244,8 +5269,8 @@
       </string>
       <string>
         <id>WEATHER_SELECT_CITY</id>
-        <text>Scegli citta' :</text>
-        <version>1.19</version>
+        <text>Scegli città:</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>WEATHER_UV</id>
