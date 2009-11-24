@@ -1877,8 +1877,8 @@ class getid3_mp3
 			} else {
 				$LastBitrate = 320000;
 				foreach ($StandardBitrates as $StandardBitrate) {
-					$BitrateTable[$roundbitrate] = $StandardBitrate;
-					if ($roundbitrate >= $StandardBitrate - (($LastBitrate - $StandardBitrate) / 2)) {
+					$BitrateTable[$roundbitrate] = $LastBitrate;
+					if ($roundbitrate >= $StandardBitrate + (($LastBitrate - $StandardBitrate) / 2)) {
 						break;
 					}
 					$LastBitrate = $StandardBitrate;
