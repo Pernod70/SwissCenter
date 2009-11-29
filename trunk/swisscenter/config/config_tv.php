@@ -253,6 +253,7 @@ function tv_display( $message = '')
   $page        = (empty($_REQUEST["page"]) ? 1 : $_REQUEST["page"]);
   $start       = ($page-1)*$per_page;
   $where       = '';
+  $articles    = get_sys_pref('IGNORE_ARTICLES');
 
   if (empty($message) && isset($_REQUEST["message"]))
     $message = urldecode($_REQUEST["message"]);
@@ -279,7 +280,7 @@ function tv_display( $message = '')
       case "NOSYNOPSIS" : $where .= "and (ifnull(t.synopsis,'')='')"; break;
       case "NOCERT"     : $where .= "and (ifnull(t.certificate,'')='')"; break;
       case "NOYEAR"     : $where .= "and (ifnull(t.year,'')='')"; break;
-      case "NORATING"   : $where .= "and (ifnull(t.external_rating_pc,'')='')"; break;
+      case "NORATING"   : $where .= "and (ifnull(t.external_rating_pc,0)=0)"; break;
     }
   }
 
@@ -293,7 +294,7 @@ function tv_display( $message = '')
   // SQL to fetch matching rows
   $tv_count = db_value("select count(*) from tv t, media_locations ml where ml.location_id = t.location_id ".$where);
   $tv_list  = db_toarray("select t.* from tv t, media_locations ml where ml.location_id = t.location_id ".$where.
-                            " order by programme, series, episode limit $start,$per_page");
+                            " order by trim_article(programme,'$articles'), series, episode limit $start,$per_page");
 
   $list_type = get_sys_pref('CONFIG_VIDEO_LIST','THUMBS');
   echo '<h1>'.str('TV_DETAILS').'  ('.str('PAGE',$page).')</h1>';
@@ -312,7 +313,7 @@ function tv_display( $message = '')
   form_hidden('action','DISPLAY');
   form_hidden('last_where',$where);
   echo  str('PROGRAMME').' :
-        '.form_list_dynamic_html("prog","select distinct programme id, programme name from tv order by 1",un_magic_quote($_REQUEST["prog"]),true,true,str('PROGRAMME_LIST_ALL')).'&nbsp;
+        '.form_list_dynamic_html("prog","select distinct programme id, programme name from tv order by trim_article(programme,'$articles')",un_magic_quote($_REQUEST["prog"]),true,true,str('PROGRAMME_LIST_ALL')).'&nbsp;
         '.str('FILTER').' :
         '.form_list_static_html("filter",$filter_list,$_REQUEST["filter"],true,true,str('VIEW_ALL')).'&nbsp;
         <a href="'.url_set_param($this_url,'list','LIST').'"><img align="absbottom" border="0"  src="/images/details.gif"></a>
