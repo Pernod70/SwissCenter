@@ -248,6 +248,7 @@ function movie_display( $message = '')
   $page        = (empty($_REQUEST["page"]) ? 1 : $_REQUEST["page"]);
   $start       = ($page-1)*$per_page;
   $where       = '';
+  $articles    = get_sys_pref('IGNORE_ARTICLES');
 
   if (empty($message) && isset($_REQUEST["message"]))
     $message = urldecode($_REQUEST["message"]);
@@ -271,7 +272,7 @@ function movie_display( $message = '')
       case "NOSYNOPSIS" : $where .= "and (ifnull(m.synopsis,'')='')"; break;
       case "NOCERT"     : $where .= "and (ifnull(m.certificate,'')='')"; break;
       case "NOYEAR"     : $where .= "and (ifnull(m.year,'')='')"; break;
-      case "NORATING"   : $where .= "and (ifnull(m.external_rating_pc,'')='')"; break;
+      case "NORATING"   : $where .= "and (ifnull(m.external_rating_pc,0)=0)"; break;
     }
   }
 
@@ -285,7 +286,7 @@ function movie_display( $message = '')
   // SQL to fetch matching rows
   $movie_count = db_value("select count(*) from movies m, media_locations ml where ml.location_id = m.location_id ".$where);
   $movie_list  = db_toarray("select m.* from movies m, media_locations ml where ml.location_id = m.location_id ".$where.
-                            " order by title limit $start,$per_page");
+                            " order by trim_article(title,'$articles') limit $start,$per_page");
 
   $list_type = get_sys_pref('CONFIG_VIDEO_LIST','THUMBS');
   echo '<h1>'.str('ORG_TITLE').'  ('.str('PAGE',$page).')</h1>';
