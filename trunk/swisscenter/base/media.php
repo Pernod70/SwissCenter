@@ -77,6 +77,46 @@ function remove_orphaned_records()
 }
 
 /**
+ * Removes orphaned themes and associated images from the database (themes that exist in
+ * the database for media that no longer exists).
+ */
+
+function remove_orphaned_themes()
+{
+  // Remove any redundant themes and associated images
+  $themes = db_col_to_list('select t.file_id from themes t left outer join movies '.
+                           '    on t.title = movies.title'.
+                           ' where t.media_type = '.MEDIA_TYPE_VIDEO.' and movies.file_id is null');
+  foreach ($themes as $id)
+  {
+    $images = db_row("select * from themes where file_id = $id");
+    send_to_log(8,'images',$images);
+    send_to_log(8, "Deleting theme image: ".$images["THUMB_CACHE"]);
+    if ( file_exists($images["THUMB_CACHE"]) ) { unlink($images["THUMB_CACHE"]); }
+    send_to_log(8, "Deleting theme image: ".$images["PROCESSED_IMAGE"]);
+    if ( file_exists($images["PROCESSED_IMAGE"]) ) { unlink($images["PROCESSED_IMAGE"]); }
+    send_to_log(8, "Deleting theme image: ".$images["ORIGINAL_CACHE"]);
+    if ( file_exists($images["ORIGINAL_CACHE"]) ) { unlink($images["ORIGINAL_CACHE"]); }
+    @db_sqlcommand("delete from themes where file_id = $id");
+  }
+
+  $themes = db_col_to_list('select t.file_id from themes t left outer join tv '.
+                           '    on t.title = tv.title'.
+                           ' where t.media_type = '.MEDIA_TYPE_TV.' and tv.file_id is null');
+  foreach ($themes as $id)
+  {
+    $images = db_row("select * from themes where file_id = $id");
+    send_to_log(8, "Deleting theme image: ".$images["THUMB_CACHE"]);
+    if ( file_exists($images["THUMB_CACHE"]) ) { unlink($images["THUMB_CACHE"]); }
+    send_to_log(8, "Deleting theme image: ".$images["PROCESSED_IMAGE"]);
+    if ( file_exists($images["PROCESSED_IMAGE"]) ) { unlink($images["PROCESSED_IMAGE"]); }
+    send_to_log(8, "Deleting theme image: ".$images["ORIGINAL_CACHE"]);
+    if ( file_exists($images["ORIGINAL_CACHE"]) ) { unlink($images["ORIGINAL_CACHE"]); }
+    @db_sqlcommand("delete from themes where file_id = $id");
+  }
+}
+
+/**
  * Removes orphaned actors, directors and genres from the movie tables.
  *
  */
