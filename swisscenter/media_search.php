@@ -120,6 +120,7 @@
       remove_orphaned_movie_info();
       remove_orphaned_tv_info();
       scdb_remove_orphans();
+      remove_orphaned_themes();
     }
     eliminate_duplicates();
   }
