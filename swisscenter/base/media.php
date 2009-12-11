@@ -101,7 +101,7 @@ function remove_orphaned_themes()
   }
 
   $themes = db_col_to_list('select t.file_id from themes t left outer join tv '.
-                           '    on t.title = tv.title'.
+                           '    on t.title = tv.programme'.
                            ' where t.media_type = '.MEDIA_TYPE_TV.' and tv.file_id is null');
   foreach ($themes as $id)
   {
