@@ -476,9 +476,9 @@ function process_mp3( $dir, $id, $file)
   $data["discovered"]   = db_datestr();
   $data["timestamp"]    = db_datestr(filemtime($filepath));
 
-  if (in_array( $id3["fileformat"], media_exts_with_GetID3_support() ))
+  if ( ! isset($id3["error"]) )
   {
-    if ( ! isset($id3["error"]) )
+    if (in_array( $id3["fileformat"], media_exts_with_GetID3_support() ))
     {
       // ID3 data successfully obtained, so enter it into the database
       $data["length"]       = floor($id3["playtime_seconds"]);
@@ -593,61 +593,44 @@ function process_mp3( $dir, $id, $file)
         // Store media art if it doesn't already exist
         if ( !db_value("select art_sha1 from media_art where art_sha1='".$data["art_sha1"]."'") )
           db_insert_row('media_art',array("art_sha1"=>$data["art_sha1"], "image"=>$image ));
+        elseif ( db_value("select sha1(image) from media_art where art_sha1='".$data["art_sha1"]."'") !== $data["art_sha1"] )
+          db_sqlcommand("update media_art set image='".db_escape_str($image)."' where art_sha1='".$data["art_sha1"]."'");
       }
       else
         $data["art_sha1"]   = null;
-
-      $file_id = db_value("select file_id from mp3s where dirname='".db_escape_str($dir)."' and filename='".db_escape_str($file)."'");
-      if ( $file_id )
-      {
-        // Update the existing record
-        send_to_log(5,'Updating MP3 : '.$file);
-        unset($data["discovered"]);
-        $success = db_update_row( "mp3s", $file_id, $data);
-      }
-      else
-      {
-        // Insert the row into the database
-        send_to_log(5,'Adding MP3   : '.$file);
-        $success = db_insert_row( "mp3s", $data);
-      }
-
-      if ( !$success )
-        send_to_log(2,'Unable to add/update MP3 to the database');
-
     }
     else
     {
-      // File is an MP3, but there were (critical) problems reading the ID3 tag info
-      // or the file itself is not an MP3
-      send_to_log(2,'Errors occurred whilst reading ID3 tag information');
-      foreach ($id3["error"] as $err)
-        send_to_log(2,' - '.$err);
+      // File extension is MP3, but the file itself isn't!
+      send_to_log(3,'This filetype ('.$id3["fileformat"].') is not supported by the GetID3 library, so although it will be added there will not be any supplemental information available.');
     }
-
   }
   else
   {
-    // File extension is MP3, but the file itself isn't!
-    send_to_log(3,'This filetype ('.$id3["fileformat"].') is not supported by the GetID3 library, so although it will be added there will not be any supplemental information available.');
-    $file_id = db_value("select file_id from mp3s where dirname='".db_escape_str($dir)."' and filename='".db_escape_str($file)."'");
-    if ( $file_id )
-    {
-      // Update the existing record
-      send_to_log(5,'Updating MP3  : '.$file);
-      unset($data["discovered"]);
-      $success = db_update_row( "mp3s", $file_id, $data);
-    }
-    else
-    {
-      // Insert the row into the database
-      send_to_log(5,'Adding MP3    : '.$file);
-      $success = db_insert_row( "mp3s", $data);
-    }
-
-    if ( !$success )
-      send_to_log(2,'Unable to add/update MP3 to the database');
+    // File is an MP3, but there were (critical) problems reading the ID3 tag info
+    // or the file itself is not an MP3
+    send_to_log(2,'Errors occurred whilst reading ID3 tag information');
+    foreach ($id3["error"] as $err)
+      send_to_log(2,' - '.$err);
   }
+
+  $file_id = db_value("select file_id from mp3s where dirname='".db_escape_str($dir)."' and filename='".db_escape_str($file)."'");
+  if ( $file_id )
+  {
+    // Update the existing record
+    send_to_log(5,'Updating MP3  : '.$file);
+    unset($data["discovered"]);
+    $success = db_update_row( "mp3s", $file_id, $data);
+  }
+  else
+  {
+    // Insert the row into the database
+    send_to_log(5,'Adding MP3    : '.$file);
+    $success = db_insert_row( "mp3s", $data);
+  }
+
+  if ( !$success )
+    send_to_log(2,'Unable to add/update MP3 to the database');
 }
 
 /**
@@ -706,51 +689,51 @@ function process_photo( $dir, $id, $file)
   else
     send_to_log(5,'Found EXIF data : No');
 
-  // Get IPTC (IIM legacy) data
-  if (isset($id3["iptc"]))
+  if ( ! isset($id3["error"]) )
   {
-    send_to_log(5,'Found IPTC data : Yes');
-    set_var($iptcxmp['byline'],         implode(',',$id3["iptc"]["IPTCApplication"]["By-line"]));
-    set_var($iptcxmp['caption'],        implode(',',$id3["iptc"]["IPTCApplication"]["Caption-Abstract"]));
-    set_var($iptcxmp['keywords'],       implode(',',$id3["iptc"]["IPTCApplication"]["Keywords"]));
-    set_var($iptcxmp['city'],           implode(',',$id3["iptc"]["IPTCApplication"]["City"]));
-    set_var($iptcxmp['country'],        implode(',',$id3["iptc"]["IPTCApplication"]["Country-PrimaryLocationName"]));
-    set_var($iptcxmp['province_state'], implode(',',$id3["iptc"]["IPTCApplication"]["Province-State"]));
-    set_var($iptcxmp['suppcategories'], implode(',',$id3["iptc"]["IPTCApplication"]["SupplementalCategories"]));
-    set_var($iptcxmp['date_created'],   implode(',',$id3["iptc"]["IPTCApplication"]["DateCreated"]));
-    set_var($iptcxmp['location'],       implode(',',$id3["iptc"]["IPTCApplication"]["Sub-location"]));
-  }
-  else
-    send_to_log(5,'Found IPTC data : No');
-
-  // Get XMP data
-  if (isset($id3["xmp"]))
-  {
-    send_to_log(5,'Found XMP data : Yes');
-    set_var($iptcxmp['byline'],         implode(',',$id3["xmp"]["dc"]["creator"]));
-    set_var($iptcxmp['caption'],        implode(',',$id3["xmp"]["dc"]["description"]));
-    set_var($iptcxmp['keywords'],       implode(',',$id3["xmp"]["dc"]["subject"]));
-    set_var($iptcxmp['city'],           implode(',',$id3["xmp"]["photoshop"]["City"]));
-    set_var($iptcxmp['country'],        implode(',',$id3["xmp"]["photoshop"]["Country"]));
-    set_var($iptcxmp['province_state'], implode(',',$id3["xmp"]["photoshop"]["State"]));
-    set_var($iptcxmp['suppcategories'], implode(',',$id3["xmp"]["photoshop"]["SupplementalCategories"]));
-    set_var($iptcxmp['date_created'],   implode(',',$id3["xmp"]["photoshop"]["DateCreated"]));
-    set_var($iptcxmp['location'],       implode(',',$id3["xmp"]["Iptc4xmpCore"]["Location"]));
-    if (is_numeric($id3["xmp"]["xap"]["Rating"]))
-      $iptcxmp['rating'] = str_repeat('*',$id3["xmp"]["xap"]["Rating"]);
-    else
-      $iptcxmp['rating'] = str('NOT_RATED');
-  }
-  else
-  {
-    $iptcxmp['rating'] = str('NOT_RATED');
-    send_to_log(5,'Found XMP data : No');
-  }
-
-  if (in_array( $id3["fileformat"], media_exts_with_GetID3_support() ))
-  {
-    if ( ! isset($id3["error"]) )
+    if (in_array( $id3["fileformat"], media_exts_with_GetID3_support() ))
     {
+      // Get IPTC (IIM legacy) data
+      if (isset($id3["iptc"]))
+      {
+        send_to_log(5,'Found IPTC data : Yes');
+        set_var($iptcxmp['byline'],         implode(',',$id3["iptc"]["IPTCApplication"]["By-line"]));
+        set_var($iptcxmp['caption'],        implode(',',$id3["iptc"]["IPTCApplication"]["Caption-Abstract"]));
+        set_var($iptcxmp['keywords'],       implode(',',$id3["iptc"]["IPTCApplication"]["Keywords"]));
+        set_var($iptcxmp['city'],           implode(',',$id3["iptc"]["IPTCApplication"]["City"]));
+        set_var($iptcxmp['country'],        implode(',',$id3["iptc"]["IPTCApplication"]["Country-PrimaryLocationName"]));
+        set_var($iptcxmp['province_state'], implode(',',$id3["iptc"]["IPTCApplication"]["Province-State"]));
+        set_var($iptcxmp['suppcategories'], implode(',',$id3["iptc"]["IPTCApplication"]["SupplementalCategories"]));
+        set_var($iptcxmp['date_created'],   implode(',',$id3["iptc"]["IPTCApplication"]["DateCreated"]));
+        set_var($iptcxmp['location'],       implode(',',$id3["iptc"]["IPTCApplication"]["Sub-location"]));
+      }
+      else
+        send_to_log(5,'Found IPTC data : No');
+
+      // Get XMP data
+      if (isset($id3["xmp"]))
+      {
+        send_to_log(5,'Found XMP data : Yes');
+        set_var($iptcxmp['byline'],         implode(',',$id3["xmp"]["dc"]["creator"]));
+        set_var($iptcxmp['caption'],        implode(',',$id3["xmp"]["dc"]["description"]));
+        set_var($iptcxmp['keywords'],       implode(',',$id3["xmp"]["dc"]["subject"]));
+        set_var($iptcxmp['city'],           implode(',',$id3["xmp"]["photoshop"]["City"]));
+        set_var($iptcxmp['country'],        implode(',',$id3["xmp"]["photoshop"]["Country"]));
+        set_var($iptcxmp['province_state'], implode(',',$id3["xmp"]["photoshop"]["State"]));
+        set_var($iptcxmp['suppcategories'], implode(',',$id3["xmp"]["photoshop"]["SupplementalCategories"]));
+        set_var($iptcxmp['date_created'],   implode(',',$id3["xmp"]["photoshop"]["DateCreated"]));
+        set_var($iptcxmp['location'],       implode(',',$id3["xmp"]["Iptc4xmpCore"]["Location"]));
+        if (is_numeric($id3["xmp"]["xap"]["Rating"]))
+          $iptcxmp['rating'] = str_repeat('*',$id3["xmp"]["xap"]["Rating"]);
+        else
+          $iptcxmp['rating'] = str('NOT_RATED');
+      }
+      else
+      {
+        $iptcxmp['rating'] = str('NOT_RATED');
+        send_to_log(5,'Found XMP data : No');
+      }
+
       // File Info successfully obtained, so enter it into the database
       $data = array( "dirname"             => $dir
                    , "filename"            => $file
@@ -825,22 +808,24 @@ function process_photo( $dir, $id, $file)
         }
       }
       else
+      {
         send_to_log(2,'Unable to add/update photo to the database');
+      }
     }
     else
     {
-      // File is a photo, but there were problems reading the info
-      send_to_log(2,'Errors occurred whilst reading photo information');
-      foreach ($id3["error"] as $err)
-        send_to_log(2,' - '.$err);
+      // File extension is OK, but the file itself isn't!
+      send_to_log(3,'GETID3 claims this is not a valid photo file');
     }
-
   }
   else
   {
-    // File extension is OK, but the file itself isn't!
-    send_to_log(3,'GETID3 claims this is not a valid photo file');
+    // File is a photo, but there were problems reading the info
+    send_to_log(2,'Errors occurred whilst reading photo information');
+    foreach ($id3["error"] as $err)
+      send_to_log(2,' - '.$err);
   }
+
 }
 
 /**
@@ -893,9 +878,10 @@ function process_movie( $dir, $id, $file )
   $data["verified"]     = 'Y';
   $data["discovered"]   = db_datestr();
   $data["timestamp"]    = db_datestr(filemtime($filepath));
-  if ( in_array(strtolower($id3["fileformat"]), media_exts_with_GetID3_support()))
+
+  if ( ! isset($id3["error"]) )
   {
-    if ( ! isset($id3["error"]) )
+    if ( in_array(strtolower($id3["fileformat"]), media_exts_with_GetID3_support()))
     {
       // Tag data successfully obtained, so record the following information
       getid3_lib::CopyTagsToComments($id3);
@@ -926,9 +912,11 @@ function process_movie( $dir, $id, $file )
           {
             send_to_log(4,"Image found within ID3 tag - will use as video art");
             $data["art_sha1"]  = sha1($id3["asf"]["comments"]["picture"]);
-           // Store media art if it doesn't already exist
+            // Store media art if it doesn't already exist
             if ( !db_value("select art_sha1 from media_art where art_sha1='".$data["art_sha1"]."'") )
               db_insert_row('media_art',array("art_sha1"=>$data["art_sha1"], "image"=>$id3["asf"]["comments"]["picture"] ));
+            elseif ( db_value("select sha1(image) from media_art where art_sha1='".$data["art_sha1"]."'") !== $data["art_sha1"] )
+              db_sqlcommand("update media_art set image='".db_escape_str($id3["asf"]["comments"]["picture"])."' where art_sha1='".$data["art_sha1"]."'");
           }
           else
             $data["art_sha1"]  = null;
@@ -942,14 +930,16 @@ function process_movie( $dir, $id, $file )
     }
     else
     {
-      // File is a valid movie format, but there were (critical) problems reading the tag info.
-      send_to_log(2,"GETID3 claims there are errors in the video file");
-      foreach ($id3["error"] as $err)
-        send_to_log(2,' - '.$err);
+      send_to_log(3,"GETID3 claims this is not a valid video: ".$id3["fileformat"]);
     }
   }
   else
-    send_to_log(3,"GETID3 claims this is not a valid video: ".$id3["fileformat"]);
+  {
+    // File is a valid movie format, but there were (critical) problems reading the tag info.
+    send_to_log(2,"GETID3 claims there are errors in the video file");
+    foreach ($id3["error"] as $err)
+      send_to_log(2,' - '.$err);
+  }
 
   $file_id = db_value("select file_id from movies where dirname='".db_escape_str($dir)."' and filename='".db_escape_str($file)."'");
   if ( $file_id )
@@ -1120,9 +1110,9 @@ function process_tv( $dir, $id, $file)
   $data = array_merge($data, get_tvseries_info($meta_fsp) );
   unset($data["rule"]);
 
-  if ( in_array(strtolower($id3["fileformat"]), media_exts_with_GetID3_support() ))
+  if ( ! isset($id3["error"]) )
   {
-    if ( ! isset($id3["error"]) )
+    if ( in_array(strtolower($id3["fileformat"]), media_exts_with_GetID3_support() ))
     {
       // Tag data successfully obtained, so record the following information
       getid3_lib::CopyTagsToComments($id3);
@@ -1137,15 +1127,16 @@ function process_tv( $dir, $id, $file)
     }
     else
     {
-      // File is a valid movie format, but there were (critical) problems reading the tag info.
-      send_to_log(2,"GETID3 claims there are errors in the video file");
-      foreach ($id3["error"] as $err)
-        send_to_log(2,' - '.$err);
+      send_to_log(3,"GETID3 claims this is not a valid movie (format is '$id3[fileformat]')");
     }
-
   }
   else
-    send_to_log(3,"GETID3 claims this is not a valid movie (format is '$id3[fileformat]')");
+  {
+    // File is a valid movie format, but there were (critical) problems reading the tag info.
+    send_to_log(2,"GETID3 claims there are errors in the video file");
+    foreach ($id3["error"] as $err)
+      send_to_log(2,' - '.$err);
+  }
 
   $file_id = db_value("select file_id from tv where dirname='".db_escape_str($dir)."' and filename='".db_escape_str($file)."'");
   if ( $file_id )
