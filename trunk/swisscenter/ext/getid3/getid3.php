@@ -191,7 +191,7 @@ class getID3
 		}
 
 		$filename = str_replace('/', DIRECTORY_SEPARATOR, $filename);
-		$filename = preg_replace('#'.preg_quote(DIRECTORY_SEPARATOR).'{2,}#', DIRECTORY_SEPARATOR, $filename);
+//		$filename = preg_replace('#'.preg_quote(DIRECTORY_SEPARATOR).'{2,}#', DIRECTORY_SEPARATOR, $filename);
 
 		// open local file
 		if (file_exists($filename) && ($fp = @fopen($filename, 'rb'))) {
