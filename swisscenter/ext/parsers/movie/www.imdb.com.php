@@ -80,7 +80,7 @@
       $html = substr($html,$start,$end-$start+1);
 
       // Find Synopsis
-      preg_match("/<h5>Plot(| Outline| Summary):<\/h5>.*?<p>(.*?)<a/sm",$html,$synopsis);
+      preg_match("/<h5>Plot(| Outline| Summary):<\/h5>\n<div class=\"info-content\">([^<]*)</sm",$html,$synopsis);
 
       // Find User Rating
       $user_rating = preg_get("/<h5>User Rating:<\/h5>.*?<b>(.*)\/10<\/b>/sm",$html);
@@ -119,10 +119,10 @@
       // These are the details to be stored in the database
       $columns = array ( "YEAR"              => $year
                        , "CERTIFICATE"       => db_lookup( 'certificates','name','cert_id',$rating )
-                       , "EXTERNAL_RATING_PC"=> (empty($user_rating) ? '' : intval($user_rating * 10) )
+                       , "EXTERNAL_RATING_PC"=> (empty($user_rating) ? null : intval($user_rating * 10) )
                        , "MATCH_PC"          => $accuracy
                        , "DETAILS_AVAILABLE" => 'Y'
-                       , "SYNOPSIS"          => trim($synopsis[2]));
+                       , "SYNOPSIS"          => trim(trim($synopsis[2])," |"));
 
       // Attempt to capture the fact that the website has changed and we are unable to get movie information.
       if (strlen($html) == 0)
