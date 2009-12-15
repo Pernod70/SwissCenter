@@ -21,13 +21,12 @@ function themes_display()
   echo '<script type="text/javascript">
           select_type=function(value) {
             var result;
-            result=\''.form_list_dynamic_html('title',"select distinct title id, title name from themes order by trim_article(title,'$articles')",'',true,true,'','select_title(this.value);').'\';
             switch(value) {
-            case "'.MEDIA_TYPE_TV.'":
-              result=\''.form_list_dynamic_html(MEDIA_TYPE_TV, "select distinct title id, title name from themes where media_type=".MEDIA_TYPE_TV." order by trim_article(title,'$articles')",'',true,true,'','select_title(this.value);').'\';
-              break;
             case "'.MEDIA_TYPE_VIDEO.'":
-              result=\''.form_list_dynamic_html(MEDIA_TYPE_VIDEO, "select distinct title id, title name from themes where media_type=".MEDIA_TYPE_VIDEO." order by trim_article(title,'$articles')",'',true,true,'','select_title(this.value);').'\';
+              result=\''.form_list_dynamic_html(MEDIA_TYPE_VIDEO, "select distinct title id, title name from themes where media_type=".MEDIA_TYPE_VIDEO." order by trim_article(title,'$articles')",'',true,true,'','select_title(this.value,'.MEDIA_TYPE_VIDEO.');').'\';
+              break;
+            default:
+              result=\''.form_list_dynamic_html(MEDIA_TYPE_TV, "select distinct title id, title name from themes where media_type=".MEDIA_TYPE_TV." order by trim_article(title,'$articles')",'',true,true,'','select_title(this.value,'.MEDIA_TYPE_TV.');').'\';
               break;
             }
             document.getElementById("titlelookup").innerHTML=result;
@@ -45,100 +44,135 @@ function themes_display()
   }
 
   echo '<h1>'.str('THEMES').'</h1><p>';
-
+  echo '<div id="message"></div>';
   echo '<p>'.str('THEMES_PROMPT');
   echo '<table cellspacing="4"><tr>';
-  echo '  <td>'.str('MEDIA_TYPE').' : </td><td>'.form_list_static_html('media_type',$media_type_list,'',true,true,true,'select_type(this.value);').'</td>';
-  echo '  <td>'.str('TITLE').' : </td><td><div id="titlelookup">'.form_list_dynamic_html('title_list',"select distinct title id, title name from themes order by trim_article(title,'$articles')",'',true,true,'','select_title(this.value);').'</div></td>';
+  echo '  <td>'.str('MEDIA_TYPE').' : </td><td>'.form_list_static_html('media_type',$media_type_list,'',true,true,false,'select_type(this.value);').'</td>';
+  echo '  <td>'.str('TITLE').' : </td><td><div id="titlelookup">'.form_list_dynamic_html('title_list',"select distinct title id, title name from themes where media_type=".MEDIA_TYPE_TV." order by trim_article(title,'$articles')",'',true,true,'','select_title(this.value,'.MEDIA_TYPE_TV.');').'</div></td>';
   echo '</tr></table>';
   echo '<table>';
   echo '<tr><td width=900 ><div id="picturegui"></div></td></tr>';
 
-  echo '<script type="text/javascript" > { set_image("notselected") } </script>';
+  echo '<script type="text/javascript"> { set_image("not_selected") } </script>';
 
-  echo '<tr><td><div id="picturechooser"></div></td></tr>';
+  echo '<tr><td><div id="thumbnails"></div></td></tr>';
   echo '</table>';
+}
+
+function refresh_picturegui( $file_id, $opts, $media_type )
+{
+  header('Content-type: text/html; '.charset());
+
+  if ( $file_id != 'wait' )
+  {
+    echo '<script type="text/javascript">'.
+            'window.file_id='.$file_id.
+           ';window.media_type='.$media_type.
+           ';window.flip='.$opts["flip"].
+           ';window.greyscale='.$opts["greyscale"].
+           ';window.use_synopsis='.$opts["use_synopsis"].
+           ';window.use_series='.$opts["use_series"].
+           ';window.show_banner='.$opts["show_banner"].
+           ';window.show_image='.$opts["show_image"].
+        ';</script>';
+  }
+
+  echo "<table><tr>";
+  echo "<td width=460 height=260 ><center><div id=image>" ;
+
+  if ( $file_id != 'wait' )
+    echo "<img src='".server_address()."config/config_themes.php?action=image&file_id=".$file_id."&flip=".$opts["flip"]."&greyscale=".$opts["greyscale"]."&x=450&y=252'>";
+  else
+    echo "<img src='".style_img('ANIM_AJAX',true)."'>";
+
+  echo '</div></center></td>';
+  echo '<td width="316"><form name=picturegui>';
+  echo '<input type=hidden name="media_type">';
+
+  echo str('THEME_EFFECTS')."<br>\n";
+  echo "<input type=checkbox onClick='config_gui_flip()' name=flip ".(!is_numeric($file_id) ? 'disabled' : ( $opts["flip"]==1 ? 'checked' : '' )).">";
+  echo str('THEME_FLIP_IMAGE')."<br>\n";
+
+  echo "<input type=checkbox onClick='config_gui_greyscale()' name=greyscale ".(!is_numeric($file_id) ? 'disabled' : ( $opts["greyscale"]==1 ? 'checked' : '' )).">";
+  echo str('THEME_GREYSCALE')."<br><br>\n";
+
+  echo str('THEME_SETTINGS')."<br>\n";
+  echo "<input type=checkbox onClick='window.show_banner=config_inverse(window.show_banner)' name=show_banner ".(!is_numeric($file_id) || $media_type==MEDIA_TYPE_VIDEO ? 'disabled' : ( $opts["show_banner"]==1 ? 'checked' : '' )).">";
+  echo str('THEME_SHOW_BANNER')."<br>\n";
+
+  echo "<input type=checkbox onClick='window.use_series=config_inverse(window.use_series)' name=use_series ".(!is_numeric($file_id) || $media_type==MEDIA_TYPE_VIDEO ? 'disabled' : ( $opts["use_series"]==1 ? 'checked ' : '' )).">";
+  echo str('THEME_ON_SERIES')."<br>\n";
+
+  echo "<input type=checkbox onClick='window.show_image=config_inverse(window.show_image)' name=show_image ".(!is_numeric($file_id) ? 'disabled' : ( $opts["show_image"]==1 ? 'checked' : '' )).">";
+  echo str('THEME_SHOW_IMAGE')."<br>\n";
+
+  echo "<input type=checkbox onClick='window.use_synopsis=config_inverse(window.use_synopsis)' name=use_synopsis ".(!is_numeric($file_id) ? 'disabled' : ( $opts["use_synopsis"]==1 ? 'checked' : '' )).">";
+  echo str('THEME_ON_SYNOPSIS')."<br>\n";
+
+  echo "</form>";
+  echo '<button type=button onClick="save_theme_settings()" name=apply '.( !is_numeric($file_id) ? 'disabled' : '' ).'>'.str('THEME_APPLY').'</button>';
+
+  echo "</td></tr>";
+  echo "</table>" ;
+}
+
+function refresh_thumbnails( $title )
+{
+  header('Content-type: text/html; '.charset());
+
+  echo '<p>'.str('THEME_PREVIEW_THUMBS','<b>'.htmlentities($title).'</b>').'</p>';
+  echo '<table><tr>';
+
+  $server = server_address();
+  $data = db_toarray("select * from themes where title='".db_escape_str($title)."'");
+  foreach ($data as $i=>$theme)
+  {
+    // Start new row
+    if ( $i % 3 == 0 && $i > 0 ) { echo "</tr><tr>"; }
+    echo "<td><img ".(($theme['USE_SYNOPSIS'] || $theme['USE_SERIES']) ? 'style="border:5px solid green"' : '')." src='".$server."config/config_themes.php?action=image&file_id=".$theme['FILE_ID']."&x=300&y=168'
+            onclick=\"window.media_type=".$theme['MEDIA_TYPE']."; window.flip=".$theme['FLIP_IMAGE']."; window.greyscale=".$theme['GREYSCALE'].";window.use_series=".$theme['USE_SERIES']."; window.use_synopsis=".$theme['USE_SYNOPSIS']."; window.show_banner=".$theme['SHOW_BANNER']."; window.show_image=".$theme['SHOW_IMAGE']."; set_message(''); set_image('".$theme['FILE_ID']."')\">
+          </td>\n";
+  }
+  echo '</tr></table>';
 }
 
 //*************************************************************************************************
 // Main Code
 //*************************************************************************************************
 
-$server = server_address();
-
 if ( isset($_REQUEST["action"]) )
 {
-  header('Content-type: text/html; '.charset());
   switch ($_REQUEST["action"])
   {
+    case 'message' :
+      // Display message
+      $text = un_magic_quote($_REQUEST["text"]);
+      if (!empty($text))
+      {
+        if ($text[0] == '!')
+          echo '<p class="warning">'.substr(str($text),1).'</p>';
+        else
+          echo '<p class="message">'.str($text).'</p>';
+      }
+      break;
+
     case 'showthumbs' :
       // Display thumbnails of all fanart for selected title
       $title = un_magic_quote($_REQUEST["title"]);
-      $data = db_toarray("select * from themes where title='".db_escape_str($title)."'");
-
-      echo '<p>'.str('THEME_PREVIEW_THUMBS','<b>'.htmlentities($title).'</b>').'</p>';
-      echo '<table><tr>';
-
-      foreach ($data as $i=>$theme)
-      {
-        // Start new row
-        if ( $i % 3 == 0 && $i > 0 ) { echo "</tr><tr>"; }
-        echo "<td><img ".(($theme['USE_SYNOPSIS'] || $theme['USE_SERIES']) ? 'style="border:5px solid green"' : '')." src='".$server."config/config_themes.php?action=image&file_id=".$theme['FILE_ID']."&x=300&y=168' onclick=\"window.media_type=".$theme['MEDIA_TYPE']."; window.flip=".$theme['FLIP_IMAGE']."; window.greyscale=".$theme['GREYSCALE'].";window.use_series=".$theme['USE_SERIES']."; window.use_synopsis=".$theme['USE_SYNOPSIS']."; window.show_banner=".$theme['SHOW_BANNER']."; window.show_image=".$theme['SHOW_IMAGE']."; set_image('".$theme['FILE_ID']."')\"></td>\n";
-      }
-      echo '</tr></table>';
+      refresh_thumbnails( $title );
       break;
 
     case 'thumbgui' :
       // Thumbnail selected
       $file_id      = $_REQUEST["file_id"];
       $media_type   = $_REQUEST["media_type"];
-      $flip         = $_REQUEST["flip"];
-      $greyscale    = $_REQUEST["greyscale"];
-      $show_banner  = $_REQUEST["show_banner"];
-      $show_image   = $_REQUEST["show_image"];
-      $use_synopsis = $_REQUEST["use_synopsis"];
-      $use_series   = $_REQUEST["use_series"];
-
-      if ( $file_id!='pause' )
-        echo '<script type="text/javascript">window.show_banner='.$show_banner.';window.show_image='.$show_image.';window.file_id='.$file_id.";window.flip=".$flip.";window.greyscale=".$greyscale.";window.use_synopsis=".$use_synopsis.";window.use_series=".$use_series.";</script>";
-
-      echo "<table><tr>";
-      echo "<td width=460 height=260 ><center><div id=image>" ;
-
-      if ( $file_id !='pause')
-        echo "<img src='".$server."config/config_themes.php?action=image&file_id=".$file_id."&flip=".$flip."&greyscale=".$greyscale."&x=450&y=252'>";
-      else
-        echo "<img src='".style_img('ANIM_AJAX',true)."'>";
-
-      echo '</div></center></td>';
-      echo '<td width="316"><form name=pictureguiform>';
-      echo '<input type=hidden name="media_type">';
-
-      echo str('THEME_EFFECTS')."<br>\n";
-      echo "<input type=checkbox onClick='config_gui_flip()' name=flip ".( $flip==1 ? 'checked' : '' ).">";
-      echo str('THEME_FLIP_IMAGE')."<br>\n";
-
-      echo "<input type=checkbox onClick='config_gui_greyscale()' name=greyscale ".( $greyscale==1 ? 'checked' : '' ).">";
-      echo str('THEME_GREYSCALE')."<br><br>\n";
-
-      echo str('THEME_SETTINGS')."<br>\n";
-      echo "<input type=checkbox onClick='window.show_banner=config_inverse(window.show_banner)' name=show_banner ".( $show_banner==1 ? 'checked' : '' ).">";
-      echo str('THEME_SHOW_BANNER')."<br>\n";
-
-      echo "<input type=checkbox onClick='window.show_image=config_inverse(window.show_image)' name=show_image ".( $show_image==1 ? 'checked' : '' ).">";
-      echo str('THEME_SHOW_IMAGE')."<br>\n";
-
-      echo "<input type=checkbox onClick='window.use_series=config_inverse(window.use_series)' name=use_series ".( $use_series==1 ? 'checked ' : '' ).( $media_type==MEDIA_TYPE_VIDEO ? 'disabled ' : '' ).">";
-      echo str('THEME_ON_SERIES')."<br>\n";
-
-      echo "<input type=checkbox onClick='window.use_synopsis=config_inverse(window.use_synopsis)' name=use_synopsis ".( $use_synopsis==1 ? 'checked' : '' ).">";
-      echo str('THEME_ON_SYNOPSIS')."<br>\n";
-
-      echo "</form>";
-      echo '<button onClick="config_write_to_db()" type="button">'.str('THEME_APPLY').'</button>';
-
-      echo "</td></tr>";
-      echo "</table>" ;
+      $opts         = array("flip"         => $_REQUEST["flip"],
+                            "greyscale"    => $_REQUEST["greyscale"],
+                            "show_banner"  => $_REQUEST["show_banner"],
+                            "show_image"   => $_REQUEST["show_image"],
+                            "use_synopsis" => $_REQUEST["use_synopsis"],
+                            "use_series"   => $_REQUEST["use_series"]);
+      refresh_picturegui( $file_id, $opts, $media_type );
       break;
 
     case 'image' :
@@ -150,7 +184,7 @@ if ( isset($_REQUEST["action"]) )
       // Create a new image
       $img = new CImage();
 
-      if ( $file_id == "notselected" )
+      if ( $file_id == "not_selected" )
       {
         // Use the 'Please select...' image
         $img->load_from_file(style_img('THEME_SELECT',true));
@@ -184,7 +218,7 @@ if ( isset($_REQUEST["action"]) )
       $original_cache = $data['ORIGINAL_CACHE'];
 
       // Download original image to cache
-      if ( ($_REQUEST["use_series"] || $_REQUEST["use_synopsis"]) ) //&& empty($original_cache) )
+      if ( ($_REQUEST["use_series"] || $_REQUEST["use_synopsis"]) )
       {
         $original_cache = dirname($thumb_cache).'/original/'.basename($thumb_cache);
         if (!file_exists($original_cache))

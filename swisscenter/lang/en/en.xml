@@ -4429,6 +4429,11 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <version>1.22</version>
       </string>
       <string>
+        <id>THEME_APPLY_OK</id>
+        <text>Theme successfully saved</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>THEME_EFFECTS</id>
         <text>Effects:</text>
         <version>1.22</version>
