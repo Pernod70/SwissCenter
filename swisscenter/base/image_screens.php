@@ -366,7 +366,7 @@
     # ------------------------
 
     // Adjust position of details according to player
-    if ($_SESSION["device"]["device_type"] == 'NETGEAR')
+    if (get_player_make() == 'NGR')
       $adjust_y = -65;
     else
       $adjust_y = 0;

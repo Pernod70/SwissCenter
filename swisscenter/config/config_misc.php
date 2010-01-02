@@ -11,6 +11,13 @@
   function misc_display( $message = '')
   {
   	$fontwidth_multiplier = (!empty($_REQUEST["fontwidth_multiplier"]) ? $_REQUEST["fontwidth_multiplier"] : get_sys_pref("FONTWIDTH_MULTIPLIER",1.0));
+    $pc_screen_size_opts  = array( "800x450"           => "800x450",
+                                   "1024x768"          => "1024x768",
+                                   "1280x1024"         => "1280x1024",
+                                   "720x480 (NTSC)"    => "624x416",
+                                   "720x576 (PAL)"     => "624x496",
+                                   "1280x720 (720p)"   => "1280x720",
+                                   "1920x1080 (1080p)" => "1920x1080");
 
     echo "<h1>".str('MISC_CONFIG_TITLE')."</h1>";
     message($message);
@@ -21,14 +28,13 @@
     form_label(str('TTF_FONT_PROMPT'));
     form_input('fontwidth_multiplier',str('FONTWIDTH_MULTIPLIER'),3,'', $fontwidth_multiplier);
     form_label(str('FONTWIDTH_MULTIPLIER_PROMPT'));
+    form_list_static('pc_screen_size',str('PC_SCREEN_SIZE'), $pc_screen_size_opts, get_sys_pref('PC_SCREEN_SIZE','800x450'), false, false, false);
+    form_label(str('PC_SCREEN_SIZE_PROMPT'));
     form_input('date_format',str('DATE_FORMAT'),15,'',get_sys_pref('DATE_FORMAT','%d%b%y'));
     form_label(str('DATE_FORMAT_TEST', db_value("select date_format(now(),'".get_sys_pref('DATE_FORMAT','%d%b%y')."')")));
     form_label(str('DATE_FORMAT_PROMPT'));
     form_submit(str('SAVE_SETTINGS'));
     form_end();
-
-    echo "<h1>".str('SUPPORT_CLIENTS_TITLE')."</h1><p>";
-    array_to_table( db_toarray("select device_type,concat(browser_x_res,'x',browser_y_res) from clients order by 1,2"), 'Device,Resolution');
   }
 
   // ----------------------------------------------------------------------------------
@@ -41,6 +47,7 @@
     $msg = '';
 
     $fontwidth_multiplier = $_REQUEST["fontwidth_multiplier"];
+    $pc_screen_size       = $_REQUEST["pc_screen_size"];
     $fontname             = $_REQUEST["fontname"];
     $date_format          = $_REQUEST["date_format"];
 
@@ -57,7 +64,9 @@
         set_sys_pref('TTF_FONT',$fontname);
 
       set_sys_pref('FONTWIDTH_MULTIPLIER',$fontwidth_multiplier);
+      set_sys_pref('PC_SCREEN_SIZE',$pc_screen_size);
       set_sys_pref('DATE_FORMAT',$date_format);
+      unset($_SESSION["device"]);
       misc_display(str('SAVE_SETTINGS_OK').$msg);
     }
   }

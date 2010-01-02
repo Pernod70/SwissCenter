@@ -3184,6 +3184,16 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <version>1.19</version>
       </string>
       <string>
+        <id>PC_SCREEN_SIZE</id>
+        <text>PC screen size</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PC_SCREEN_SIZE_PROMPT</id>
+        <text>This is the resolution that SwissCenter will use when being used through a web browser on a PC.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>PERCENT_SCANNED</id>
         <text>% Scanned</text>
         <version>1.19</version>
@@ -3357,6 +3367,143 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <id>PLAY</id>
         <text>Play</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYER_ADD_BUTTON</id>
+        <text>Add player</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_ADD_OK</id>
+        <text>Player added</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_ADD_TITLE</id>
+        <text>Add a new player</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_CHIPSET</id>
+        <text>Chipset</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_CONFIG</id>
+        <text>Supported Players</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_DEL_BUTTON</id>
+        <text>Remove selected players</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_DEL_OK</id>
+        <text>The selected players have been removed</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_ERROR_EXISTS</id>
+        <text>Make and model already exists</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_ERROR_MISSING</id>
+        <text>Please enter a name, make, and model</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_ERROR_MODEL</id>
+        <text>Please enter a numeric model number</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_MAKE</id>
+        <text>Make</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_MESSAGE</id>
+        <text>All media players can be uniquely identified by their make and model determined from the firmware id. If your media player is not listed with the supported players below then you should add it with the make and model detected in the 'Clients discovered' section at the bottom of this page.[p]
+It is important that you select the correct chipset for your player as this will tell SwissCenter what the player is capable of. The POD values are used to tell the player how the 'Now Playing' screens are synchronised. You will have to experiment with these to determine which work best with your player.[p]
+If any details are added/changed on this page then you are requested to submit the details to the forum so that your compatibility settings can be used by other users.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_MODEL</id>
+        <text>Model</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_NAME</id>
+        <text>Name</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_PAGE_CHARSET</id>
+        <text>Player charset</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_POD_AUDIO_NO_SYNC</id>
+        <text></text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_POD_AUDIO_SYNC</id>
+        <text></text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_POD_NO_SYNC</id>
+        <text>POD (Enhanced)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_POD_PROMPT</id>
+        <text>These are the POD (Picture On Demand) parameters sent to the hardware player that controls how music and images will be sync'd together on the &quot;Now Playing&quot; screens. If the player is not capable of sync'd music and images then select 0 for 'POD (Original)'.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_POD_STREAM</id>
+        <text>POD (Radio)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_POD_SYNC</id>
+        <text>POD (Original)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_PROMPT</id>
+        <text>If your media player is not listed above then it should be added using the make and model id listed below. The correct chipset should be selected for the player as this will allow SwissCenter to determine it's capabilities.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_RESUME</id>
+        <text>Resume</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_RESUME_PROMPT</id>
+        <text>Does this hardware device support resume of media (when using Simese)?</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_TRANSITION</id>
+        <text>Transition</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_TRANSITION_PROMPT</id>
+        <text>The transition effect to use between &quot;Now Playing&quot; screens. Setting to 0 usually means no effect.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_UPDATE_OK</id>
+        <text>Player information updated</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PLAYLISTS</id>
