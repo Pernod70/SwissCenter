@@ -118,6 +118,7 @@
       $menu->add_menu(str('EXPERT_OPTIONS'));
       $menu->add_item(str('LANG_EDITOR')            ,'section=LANGUAGE&action=DISPLAY');
       $menu->add_item(str('TV_EXPRESSIONS')         ,'section=TV_EXPR&action=DISPLAY');
+      $menu->add_item(str('PLAYER_CONFIG')          ,'section=PLAYERS&action=DISPLAY');
       $menu->add_item(str('EXPERT_EDIT_DB')         ,'section=EXPERT&action=RUNSQL');
       $menu->add_item(str('EXPERT_EDIT_PREFS')      ,'section=EXPERT&action=SYSPREFS');
 

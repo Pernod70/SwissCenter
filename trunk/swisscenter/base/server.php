@@ -290,8 +290,17 @@
 
   function record_client_details()
   {
-    if (test_db() == 'OK' && !isset($_SESSION["device"]) && strpos($_SERVER['HTTP_USER_AGENT'],'internal dummy connection') === false)
+    // Do not record client details if:
+    // - HTTP_USER_AGENT contains 'internal dummy connection' (Apache connection)
+    // - HTTP_USER_AGENT'] contains '000000' (invalid id from media player when requesting playlists)
+    // - PHP_SELF contains 'media_search' (server requested a media search)
+    // - PHP_SELF contains 'media_monitor' (SwissMonitor updating database)
+    if (test_db() == 'OK' && !isset($_SESSION["device"]) && strpos($_SERVER['HTTP_USER_AGENT'],'internal dummy connection') === false
+                                                         && strpos($_SERVER['HTTP_USER_AGENT'],'000000') === false
+                                                         && strpos($_SERVER['PHP_SELF'],'media_search') === false
+                                                         && strpos($_SERVER['PHP_SELF'],'media_monitor') === false)
     {
+      $matches = array();
       preg_match('#.*syabas/([^ ]*) .*#i',$_SERVER['HTTP_USER_AGENT'],$matches);
       $_SESSION["device"]["last_seen"]  = db_datestr();
       $_SESSION["device"]["ip_address"] = str_replace('\\','/',$_SERVER["REMOTE_ADDR"]);

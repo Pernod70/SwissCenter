@@ -25,44 +25,6 @@ function get_player_type()
   {
     if (!key_exists('HTTP_USER_AGENT',$_SERVER))
       $type = 'UNKNOWN';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-NST-')!== false ) // Neuston MC-500
-      $type = 'NEUSTON';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-PIN-2')!== false ) // Pinnacle ShowCenter 200/250HD
-      $type = 'PINNACLE SC200';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-PIN-')!== false ) // Pinnacle ShowCenter 1000
-      $type = 'PINNACLE';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-IOD-')!== false ) // I-O Data Linkplayer2
-      $type = 'IO-DATA';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-LTI-')!== false ) // Buffalo LinkTheater
-      $type = 'BUFFALO';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-MMS-')!== false ) // Momitsu V880N
-      $type = 'MOMITSU';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-ADS-')!== false ) // Adstech MXL-581
-      $type = 'ADSTECH';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-FIA-')!== false ) // FIA On3
-      $type = 'FIA';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-VNE-')!== false ) // Snazio* 1350
-      $type = 'SNAZIO';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-HNB-')!== false ) // H&B DNX-8620
-      $type = 'H&B';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-EGT-')!== false ) // Elgato EyeHome
-      $type = 'ELGATO';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-NGR-')!== false ) // Netgear EVA700
-      $type = 'NETGEAR';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-SYB-')!== false ) // RedBell DVHD100
-      $type = 'SYABAS';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-POP-')!== false ) // Popcorn Hour (NMT)
-      $type = 'POPCORN';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-QPG-')!== false ) // ISTAR Mini (NMT)
-      $type = 'POPCORN';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-HDD-')!== false ) // HDX 900 (NMT)
-      $type = 'POPCORN';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-EGR-')!== false ) // Egreat EG-M31B (NMT)
-      $type = 'POPCORN';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-ELE-')!== false ) // Elektron EHP-600/606 (NMT)
-      $type = 'POPCORN';
-    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'-CMI-')!== false ) // CMI SYVIO 200 (NMT)
-      $type = 'POPCORN';
     elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'MSIE')!== false ) // Browser
       $type = 'PC';
     elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'Mozilla')!== false ) // Browser
@@ -70,12 +32,29 @@ function get_player_type()
     elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'Opera')!== false ) // Browser
       $type = 'PC';
     else
-      $type = 'UNKNOWN';
+      $type = get_player_make().'-'.get_player_model(); // Media player
 
     $_SESSION["device"]["device_type"]  = $type;
     $_SESSION["device"]["agent_string"] = $_SERVER['HTTP_USER_AGENT'];
     return $type;
   }
+}
+
+function get_player_make()
+{
+  $player_make = preg_get('/\d+-\d+-\d+-\d+-(.*)-\d+-/U', $_SESSION["device"]["box_id"]);
+  return empty($player_make) ? 'ZZZ' : $player_make;
+}
+
+function get_player_model()
+{
+  $player_model = preg_get('/\d+-\d+-\d+-\d+-.*-(\d+)-/U', $_SESSION["device"]["box_id"]);
+  return empty($player_model) ? '000' : $player_model;
+}
+
+function get_player_chipset()
+{
+  return db_value("select chipset from client_profiles where make='".get_player_make()."' and model=".get_player_model());
 }
 
 function is_hardware_player()
@@ -96,7 +75,7 @@ function get_player_firmware_date( $agent = NULL )
 {
   if (is_hardware_player())
   {
-    $datestr = get_player_firmware_date();
+    $datestr = get_player_firmware_datestr();
     return mktime(0,0,0,substr($datestr,2,2),substr($datestr,4,2),2000+substr($datestr,0,2));
   }
   else
@@ -111,9 +90,8 @@ function get_nmt_network_shares()
 {
   // IP addresses of all connected NMT's
   $shares = array();
-  $nmt = db_col_to_list("select ip_address from clients where box_id like '%POP%' or box_id like '%QPG%' ".
-                                                          "or box_id like '%HDD%' or box_id like '%EGR%' ".
-                                                          "or box_id like '%ELE%' or box_id like '%CMI%'");
+  $nmt = db_col_to_list("select ip_address from clients left join client_profiles on make=substring(device_type,1,3) and model=substring(device_type,5,3) where model >= 400");
+
   if (is_array($nmt) && count($nmt)>0)
   {
     foreach ( $nmt as $ip )
@@ -187,22 +165,22 @@ function tvid_code( $code )
 
 function quick_access_img( $position )
 {
-  switch ( get_player_type() )
+  switch ( get_player_make() )
   {
-    case 'ELGATO':
-    case 'NEUSTON':
+    case 'EGT':
+    case 'NST':
          $map = array('QUICK_RED','QUICK_GREEN','QUICK_BLUE');
          break;
-    case 'H&B':
+    case 'HNB':
          $map = array('QUICK_RED','QUICK_GREEN','QUICK_BLUE');
          break;
-    case 'IO-DATA':
+    case 'IOD':
          $map = array('QUICK_PAUSE','QUICK_STOP','QUICK_REPEAT');
          break;
-    case 'SYABAS':
+    case 'SYB':
          $map = array('QUICK_FAST_REWIND','QUICK_FAST_FORWARD','QUICK_NEXT');
          break;
-    case 'NETGEAR':
+    case 'NGR':
          $map = array('QUICK_NGR_A','QUICK_NGR_B','QUICK_NGR_C');
          break;
 
@@ -311,21 +289,9 @@ function set_progress_bar_location( $x, $y )
 
 function support_resume()
 {
-  $result = false;
+  $resume = db_value("select resume from client_profiles where make='".get_player_make()."' and model=".get_player_model());
 
-  switch ( get_player_type() )
-  {
-    case 'IO-DATA':
-    case 'NETGEAR':
-         $result = false;
-         break;
-
-    default:
-         $result = ( is_hardware_player() && version_compare(simese_version(),'1.36','>=') );
-         break;
-  }
-
-  return $result;
+  return ( $resume && version_compare(simese_version(),'1.36','>=') );
 }
 
 #-------------------------------------------------------------------------------------------------
@@ -339,23 +305,7 @@ function support_now_playing()
 
   if ($user_opt == 'AUTO')
   {
-    switch ( get_player_type() )
-    {
-      case 'BUFFALO':
-      case 'IO-DATA':
-      case 'NETGEAR':
-      case 'SYABAS':
-           $result = false;
-           break;
-      case 'POPCORN':
-           if ( get_player_firmware_datestr() >= '080725' )
-             $result = true;
-           else
-             $result = false;
-           break;
-      default:
-           $result = true;
-    }
+    $result = (db_value("select pod_sync from client_profiles where make='".get_player_make()."' and model=".get_player_model()) > 0 ? true : false);
   }
 
   return $result;
@@ -377,39 +327,18 @@ function support_now_playing()
 
 function now_playing_sync_type()
 {
-  $result = 3;  // Default values for players unless we discover otherwise.
-
   switch ( get_sys_pref('NOW_PLAYING_STYLE', 'ORIGINAL') )
   {
     case 'ORIGINAL':
       // Images sync'ed with tracks
-      switch ( get_player_type() )
-      {
-        case 'BUFFALO':
-        case 'IO-DATA':
-        case 'SYABAS':
-             $result = 2;
-             break;
-        case 'POPCORN':
-             if ( get_player_firmware_datestr() >= '080725' )
-               $result = 5;
-             else
-               $result = 2;
-             break;
-      }
+      if ( !($result = db_value("select pod_sync from client_profiles where make='".get_player_make()."' and model=".get_player_model())) )
+        $result = 3;  // Default values for players unless we discover otherwise.
       break;
 
     case 'ENHANCED':
       // Images constantly refreshed to update progress bar
-      switch ( get_player_type() )
-      {
-        case 'BUFFALO':
-        case 'IO-DATA':
-        case 'SYABAS':
-        case 'POPCORN':
-             $result = 2;
-             break;
-      }
+      if ( !($result = db_value("select pod_no_sync from client_profiles where make='".get_player_make()."' and model=".get_player_model())) )
+        $result = 2;  // Default values for players unless we discover otherwise.
       break;
   }
 
@@ -423,16 +352,10 @@ function now_playing_sync_type()
 
 function stream_sync_type()
 {
-  $result = 1;  // Default values for players unless we discover otherwise.
-
-  switch ( get_player_type() )
-  {
-    case 'POPCORN':
-         $result = 2;
-         break;
-  }
-
-  return $result;
+  if ( $result = db_value("select pod_stream from client_profiles where make='".get_player_make()."' and model=".get_player_model()) )
+    return $result;
+  else
+    return 1;  // Default values for players unless we discover otherwise.
 }
 
 #-------------------------------------------------------------------------------------------------
@@ -448,17 +371,10 @@ function stream_sync_type()
 
 function now_playing_transition()
 {
-  switch ( get_player_type() )
-  {
-    case 'IO-DATA':
-    case 'PINNACLE': // Showcenter 1000
-         return 8;
-         break;
-
-    default:
-         return 0;
-         break;
-  }
+  if ( $result = db_value("select transition from client_profiles where make='".get_player_make()."' and model=".get_player_model()) )
+    return $result;
+  else
+    return 0;  // Default values for players unless we discover otherwise.
 }
 
 #-------------------------------------------------------------------------------------------------
@@ -469,16 +385,106 @@ function now_playing_transition()
 
 function player_fontsize_multiplier()
 {
-  switch ( get_player_type().'/'.get_browser_size() )
+  $player_model = get_player_model();
+
+  switch ( true )
   {
-    case 'PC/800x450':                  return 2.2; break;
-    case 'NETGEAR/624x496':
-    case 'PINNACLE/624x496':            return 1.4; break;
-    case 'POPCORN/1100x656':            return 2.2; break;
+    case ( $player_model > 400 ):             return 1.35; break;
+    case ( $player_model > 100 ):             return 1.2; break;
+    default:                                  return 2.0; break;
   }
 
   // No-match, so return the default (1) or the currently set override.
   return get_sys_pref('FONTWIDTH_MULTIPLIER',1);
+}
+
+//-------------------------------------------------------------------------------------------------
+// Import the players config XML
+//-------------------------------------------------------------------------------------------------
+
+function load_players_config()
+{
+  $players_file = SC_LOCATION."config/config_players.xml";
+
+  if (file_exists($players_file))
+  {
+    @set_magic_quotes_runtime(0);
+
+    // Read and process XML file
+    $data = file_get_contents($players_file);
+    if ($data !== false)
+    {
+      // Parse the players config XML file
+      preg_match_all('/<player name="(.*)" make="(.*)" model="(.*)" chipset="(.*)" resume="(.*)" pod_sync="(.*)" pod_no_sync="(.*)" pod_stream="(.*)" transition="(.*)"/U', $data, $matches);
+
+      if (count($matches[0]) == 0)
+        send_to_log(2,'Parsing '.$players_file.' failed to find any players!');
+      else
+      {
+        db_sqlcommand("delete from client_profiles");
+        foreach ($matches[1] as $index=>$name)
+        {
+          $player = array();
+          $player["name"]        = $name;
+          $player["make"]        = $matches[2][$index];
+          $player["model"]       = $matches[3][$index];
+          $player["chipset"]     = $matches[4][$index];
+          $player["resume"]      = $matches[5][$index];
+          $player["pod_sync"]    = $matches[6][$index];
+          $player["pod_no_sync"] = $matches[7][$index];
+          $player["pod_stream"]  = $matches[8][$index];
+          $player["transition"]  = $matches[9][$index];
+
+          // Insert the row into the database
+          send_to_log(5,'Adding player   : '.$name);
+          db_insert_row( "client_profiles", $player);
+        }
+      }
+    }
+    else
+      send_to_log(6,"Unable to load players config file: $players_file");
+  }
+}
+
+//-------------------------------------------------------------------------------------------------
+// Export the players config to XML.
+//-------------------------------------------------------------------------------------------------
+
+function save_players_config()
+{
+  $players_file = SC_LOCATION."config/config_players.xml";
+
+  $data = db_toarray('select * from client_profiles order by model, name');
+
+  $xml = new XmlBuilder();
+  $xml->Push('swisscenter');
+  $xml->Push('players');
+
+  foreach ($data as $player)
+  {
+    $xml->Push('player', array('name'        => utf8_encode(trim($player["NAME"])),
+                               'make'        => $player["MAKE"],
+                               'model'       => $player["MODEL"],
+                               'chipset'     => $player["CHIPSET"],
+                               'resume'      => $player["RESUME"],
+                               'pod_sync'    => $player["POD_SYNC"],
+                               'pod_no_sync' => $player["POD_NO_SYNC"],
+                               'pod_stream'  => $player["POD_STREAM"],
+                               'transition'  => $player["TRANSITION"]));
+    $xml->Pop('player');
+  }
+
+  $xml->Pop('players');
+  $xml->Pop('swisscenter');
+
+  if ($fsp = fopen($players_file, 'wb'))
+  {
+    fwrite($fsp, $xml->getXml());
+    fclose($fsp);
+    send_to_log(6,"Saved players config: $players_file");
+  }
+  else
+    send_to_log(6,"Failed to save players config file: $players_file");
 }
 
 /**************************************************************************************************

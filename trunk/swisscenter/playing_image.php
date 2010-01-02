@@ -21,7 +21,7 @@
 
   // Generate and display the "Now Playing" screen.
   // - If EVA700 then only send a new image if the details have changed. Avoids continuous refreshing.
-  if (get_player_type()!=='NETGEAR' || $_SESSION["now_playing"]!==$tracks[$idx] || get_sys_pref('NOW_PLAYING_STYLE', 'ORIGINAL') == 'ENHANCED')
+  if (get_player_make()!=='NGR' || $_SESSION["now_playing"]!==$tracks[$idx] || get_sys_pref('NOW_PLAYING_STYLE', 'ORIGINAL') == 'ENHANCED')
   {
     // Track changed so reset now playing timer
     if ($_SESSION["now_playing"]!==$tracks[$idx])

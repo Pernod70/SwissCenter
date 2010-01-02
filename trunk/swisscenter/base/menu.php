@@ -19,7 +19,7 @@ class menu
   #-------------------------------------------------------------------------------------------------
 
   var $menu_items;
-  var $font_size = 30;
+  var $font_size = 24;
   var $show_icons = true;
 
   var $up;
@@ -30,7 +30,7 @@ class menu
   var $img_font_size = 20;
 
   var $icon_left_size = array("X"=>25, "Y"=>40);
-  var $icon_right_size = array("X"=>16, "Y"=>40);
+  var $icon_right_size = array("X"=>25, "Y"=>40);
 
   /**
    * Constructor
@@ -290,7 +290,7 @@ class menu
     {
       foreach ($this->menu_items as $item)
       {
-        $text = shorten($item["text"], $width-80, 1, $this->font_size, true, false);
+        $text = shorten($item["text"], $width_px-80, 1, $this->font_size, true, false);
 
         // Single fixed background at the moment - may allow it to change based on position in the future.
         $background      = $this->private_background_tags( $tvid, $width, $height);
@@ -303,12 +303,20 @@ class menu
         if ($left_icons == 1)
           echo '<td align="right" valign="middle" height="'.$height_px.'">'.$item["left"].'</td>';
 
-        // Main text
+        // Main text - NMT players support the marquee tag to scroll text
+        if ( get_player_model() > 400 )
+          echo '<td valign="middle" width="'.$width_px.'" height="'.$height_px.'" '.$background.'>'.$font_open.
+                  '&nbsp;&nbsp;&nbsp;'.$tvid.'.&nbsp;'.
+                 '<a style="width:'.($width_px-30).'" '.$item["url"].' TVID="'.$tvid.'" name="'.$tvid.'">'.
+                   '<marquee behavior="focus" width="'.($width_px-50).'">'.$item["text"].'</marquee>'.
+                 '</a></font>'.
+                '</td>';
+        else
           echo '<td valign="middle" width="'.$width_px.'" height="'.$height_px.'" '.$background.'>'.
-               '<a style="width:'.($width_px-2).'" '.
-                 $item["url"].' TVID="'.$tvid.'" name="'.$tvid.'">'.$font_open.'&nbsp;&nbsp;&nbsp;'.$tvid.'. '.$text.'</font>'.
-               '</a>'.
-              '</td>';
+                 '<a style="width:'.($width_px-2).'" '.
+                   $item["url"].' TVID="'.$tvid.'" name="'.$tvid.'">'.$font_open.'&nbsp;&nbsp;&nbsp;'.$tvid.'. '.$text.'</font>'.
+                 '</a>'.
+                '</td>';
 
         // Info columns?
         if ($info_column == 1)
@@ -316,7 +324,7 @@ class menu
 
         // Right icon?
         if ($right_icons == 1)
-          echo '<td align="right" valign="middle" height="'.$height_px.'">'.$item["right"].'</td>';
+          echo '<td align="left" valign="middle" height="'.$height_px.'">'.$item["right"].'</td>';
 
         // End row
         echo '</tr>';

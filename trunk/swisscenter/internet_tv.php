@@ -9,8 +9,12 @@
   page_header(str('WATCH_INTERNET_TV'), '','',1,false,'',MEDIA_TYPE_INTERNET_TV);
 
   $menu = new menu();
-  $menu->add_item( str('YOUTUBE'), 'youtube_menu.php' );
-  $menu->add_item( str('APPLE_TRAILERS'), 'apple_trailer.php' );
+  $menu->add_item( str('SHOUTCAST_TV'), 'shoutcast_tv.php' );
+  if ( get_player_model() > 400 )
+  {
+    $menu->add_item( str('YOUTUBE'), 'youtube_menu.php' );
+    $menu->add_item( str('APPLE_TRAILERS'), 'apple_trailer.php' );
+  }
   $menu->add_item( str('TOMA_INTERNET_TV'), 'internet_tv_toma.php' );
   $menu->add_item( str('BOOKMARKS'), 'internet_tv_urls.php' );
 

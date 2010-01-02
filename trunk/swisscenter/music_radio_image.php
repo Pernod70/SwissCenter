@@ -101,7 +101,7 @@
 
     // Generate and display the "Now Playing" screen.
     // - If EVA700 then only send a new image if the details have changed. Avoids continuous refreshing.
-    if (get_player_type()!=='NETGEAR' || $_SESSION["now_playing"]!==$playing )
+    if (get_player_make()!=='NGR' || $_SESSION["now_playing"]!==$playing )
     {
       $_SESSION["now_playing"] = $playing;
       $station = un_magic_quote($_REQUEST["station"]);

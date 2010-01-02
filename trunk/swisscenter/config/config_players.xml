@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<swisscenter>
+  <players>
+    <player name="ADS Tech Media-Link MXL-580" make="SYB" model="0" chipset="EM8620L" resume="YES" pod_sync="3" pod_no_sync="2" pod_stream="1" transition="0">
+    </player>
+    <player name="FIA On3" make="FIA" model="101" chipset="EM8550" resume="YES" pod_sync="3" pod_no_sync="2" pod_stream="1" transition="0">
+    </player>
+    <player name="Pinnacle ShowCenter 1000" make="PIN" model="101" chipset="EM8550" resume="YES" pod_sync="3" pod_no_sync="2" pod_stream="1" transition="8">
+    </player>
+    <player name="ADS Tech Media-Link MXL-581" make="ADS" model="102" chipset="EM8550" resume="YES" pod_sync="3" pod_no_sync="2" pod_stream="1" transition="0">
+    </player>
+    <player name="Elgato EyeHome" make="EGT" model="103" chipset="EM8550" resume="YES" pod_sync="3" pod_no_sync="2" pod_stream="1" transition="0">
+    </player>
+    <player name="Neuston Virtuoso MC-500" make="NST" model="105" chipset="EM8550" resume="YES" pod_sync="3" pod_no_sync="2" pod_stream="1" transition="0">
+    </player>
+    <player name="Transgear DVX-500E" make="LTI" model="107" chipset="EM8550" resume="YES" pod_sync="0" pod_no_sync="2" pod_stream="1" transition="0">
+    </player>
+    <player name="Momitsu V880N" make="MMS" model="108" chipset="EM8550" resume="YES" pod_sync="3" pod_no_sync="2" pod_stream="1" transition="0">
+    </player>
+    <player name="LiteOn LVD-2010" make="LTI" model="121" chipset="EM8550" resume="YES" pod_sync="0" pod_no_sync="2" pod_stream="1" transition="0">
+    </player>
+    <player name="ViewSonic HDMR-2000" make="???" model="200" chipset="EM8620L" resume="YES" pod_sync="3" pod_no_sync="2" pod_stream="1" transition="0">
+    </player>
+    <player name="DigitalRise Xstream Player" make="DGR" model="230" chipset="EM8620L" resume="YES" pod_sync="3" pod_no_sync="2" pod_stream="1" transition="0">
+    </player>
+    <player name="Helios Labs X5000" make="HLO" model="230" chipset="EM8620L" resume="YES" pod_sync="3" pod_no_sync="2" pod_stream="1" transition="0">
+    </player>
+    <player name="Pinnacle ShowCenter 200/250HD" make="PIN" model="230" chipset="EM8620L" resume="YES" pod_sync="3" pod_no_sync="2" pod_stream="1" transition="0">
+    </player>
+    <player name="Quartek WHD-500-V9" make="QUA" model="230" chipset="EM8620L" resume="YES" pod_sync="3" pod_no_sync="2" pod_stream="1" transition="0">
+    </player>
+    <player name="RedBell DV HD100" make="SYB" model="230" chipset="EM8620L" resume="YES" pod_sync="0" pod_no_sync="2" pod_stream="1" transition="0">
+    </player>
+    <player name="Quartek WHD-500-V9" make="CTL" model="231" chipset="EM8620L" resume="YES" pod_sync="3" pod_no_sync="2" pod_stream="1" transition="0">
+    </player>
+    <player name="Buffalo LinkTheater (JA)" make="LTI" model="232" chipset="EM8620L" resume="YES" pod_sync="0" pod_no_sync="2" pod_stream="1" transition="0">
+    </player>
+    <player name="I-O Data AveL Linkplayer2" make="IOD" model="234" chipset="EM8620L" resume="NO" pod_sync="0" pod_no_sync="2" pod_stream="1" transition="8">
+    </player>
+    <player name="Transgear DVX-600" make="LTI" model="236" chipset="EM8620L" resume="YES" pod_sync="0" pod_no_sync="2" pod_stream="1" transition="0">
+    </player>
+    <player name="Buffalo LinkTheater (US)" make="LTI" model="240" chipset="EM8620L" resume="YES" pod_sync="0" pod_no_sync="2" pod_stream="1" transition="0">
+    </player>
+    <player name="Snazio SZ1310" make="VNE" model="242" chipset="EM8620L" resume="YES" pod_sync="3" pod_no_sync="2" pod_stream="1" transition="0">
+    </player>
+    <player name="Transgear DVX-700" make="DLT" model="252" chipset="EM8620L" resume="YES" pod_sync="3" pod_no_sync="2" pod_stream="1" transition="0">
+    </player>
+    <player name="Transgear DVX-700 TypeII" make="TTI" model="252" chipset="EM8620L" resume="YES" pod_sync="3" pod_no_sync="2" pod_stream="1" transition="0">
+    </player>
+    <player name="Buffalo LinkTheater (EU)" make="LTI" model="254" chipset="EM8620L" resume="YES" pod_sync="0" pod_no_sync="2" pod_stream="1" transition="0">
+    </player>
+    <player name="I-O Data SRDVD-100U" make="IOD" model="255" chipset="EM8620L" resume="NO" pod_sync="0" pod_no_sync="2" pod_stream="1" transition="8">
+    </player>
+    <player name="Snazio SZ1350" make="VNE" model="258" chipset="EM8620L" resume="YES" pod_sync="3" pod_no_sync="2" pod_stream="1" transition="0">
+    </player>
+    <player name="H&amp;B DNX-8620" make="HNB" model="260" chipset="EM8620L" resume="YES" pod_sync="3" pod_no_sync="2" pod_stream="1" transition="0">
+    </player>
+    <player name="Helios Labs X3000" make="HLO" model="288" chipset="EM8620L" resume="YES" pod_sync="3" pod_no_sync="2" pod_stream="1" transition="0">
+    </player>
+    <player name="Omisys DVD PN-210V" make="OMI" model="290" chipset="EM8620L" resume="YES" pod_sync="3" pod_no_sync="2" pod_stream="1" transition="0">
+    </player>
+    <player name="Netgear EVA700" make="NGR" model="293" chipset="EM8620L" resume="NO" pod_sync="0" pod_no_sync="3" pod_stream="1" transition="0">
+    </player>
+    <player name="CMI SYVIO-200A" make="CMI" model="402" chipset="SMP8635" resume="NO" pod_sync="5" pod_no_sync="2" pod_stream="2" transition="0">
+    </player>
+    <player name="Dragontech ioBox-100HD" make="RTD" model="402" chipset="SMP8635" resume="NO" pod_sync="5" pod_no_sync="2" pod_stream="2" transition="0">
+    </player>
+    <player name="Egreat EG-M31A" make="EGR" model="402" chipset="SMP8635" resume="NO" pod_sync="5" pod_no_sync="2" pod_stream="2" transition="0">
+    </player>
+    <player name="Elektron EHP-600" make="ELE" model="402" chipset="SMP8635" resume="NO" pod_sync="5" pod_no_sync="2" pod_stream="2" transition="0">
+    </player>
+    <player name="HDX 900" make="HDD" model="402" chipset="SMP8635" resume="NO" pod_sync="5" pod_no_sync="2" pod_stream="2" transition="0">
+    </player>
+    <player name="ISTAR Mini HD 1.1" make="QPG" model="402" chipset="SMP8635" resume="NO" pod_sync="5" pod_no_sync="2" pod_stream="2" transition="0">
+    </player>
+    <player name="Kaifa EP3000" make="KFA" model="402" chipset="SMP8635" resume="NO" pod_sync="5" pod_no_sync="2" pod_stream="2" transition="0">
+    </player>
+    <player name="Popcorn Hour A-100" make="POP" model="402" chipset="SMP8635" resume="NO" pod_sync="5" pod_no_sync="2" pod_stream="2" transition="0">
+    </player>
+    <player name="Suno SN-HD101" make="AMS" model="402" chipset="SMP8635" resume="NO" pod_sync="5" pod_no_sync="2" pod_stream="2" transition="0">
+    </player>
+    <player name="Egreat EG-M31B/M34A" make="EGR" model="403" chipset="SMP8635" resume="NO" pod_sync="5" pod_no_sync="2" pod_stream="2" transition="0">
+    </player>
+    <player name="HDX 1000" make="HDD" model="403" chipset="SMP8635" resume="NO" pod_sync="5" pod_no_sync="2" pod_stream="2" transition="0">
+    </player>
+    <player name="Icy Box IB-MP309" make="DST" model="403" chipset="SMP8635" resume="NO" pod_sync="5" pod_no_sync="2" pod_stream="2" transition="0">
+    </player>
+    <player name="ISTAR Mini HD 1.3" make="QPG" model="403" chipset="SMP8635" resume="NO" pod_sync="5" pod_no_sync="2" pod_stream="2" transition="0">
+    </player>
+    <player name="Kaifa EP6000B" make="KFA" model="403" chipset="SMP8635" resume="NO" pod_sync="5" pod_no_sync="2" pod_stream="2" transition="0">
+    </player>
+    <player name="Popcorn Hour A-110" make="POP" model="403" chipset="SMP8635" resume="NO" pod_sync="5" pod_no_sync="2" pod_stream="2" transition="0">
+    </player>
+    <player name="Elektron EHP-606" make="ELE" model="404" chipset="SMP8635" resume="NO" pod_sync="5" pod_no_sync="2" pod_stream="2" transition="0">
+    </player>
+    <player name="Egreat EG-M32B" make="EGR" model="405" chipset="SMP8635" resume="NO" pod_sync="5" pod_no_sync="2" pod_stream="2" transition="0">
+    </player>
+    <player name="Popcorn Hour B-110" make="POP" model="405" chipset="SMP8635" resume="NO" pod_sync="5" pod_no_sync="2" pod_stream="2" transition="0">
+    </player>
+    <player name="Kaiboer K100/K200" make="KBR" model="406" chipset="SMP8635" resume="NO" pod_sync="5" pod_no_sync="2" pod_stream="2" transition="0">
+    </player>
+    <player name="Popcorn Hour C-200" make="POP" model="408" chipset="SMP8643" resume="NO" pod_sync="5" pod_no_sync="2" pod_stream="2" transition="0">
+    </player>
+  </players>
+</swisscenter>

@@ -12,7 +12,7 @@ function store_browser_size( $res )
   // This is really crappy, but the hardware sends the wrong browser resolution for HDTV screens
   // so we have to explicitly check for it here and then override it.
 
-  if ($res == '1280x720')
+  if (!is_pc() && $res == '1280x720')
   {
     $_SESSION["device"]["browser_x_res"] = 1080;
     $_SESSION["device"]["browser_y_res"] =  640;
@@ -48,7 +48,7 @@ function store_screen_size( $res = '')
   // The NMT players return incorrect resolution for 1080p, replace 1920x1280 with 1920x1080
   // Syabas/01-17-081024-15-POP-403-091/15-POP Firefox/0.8.0+ (gaya1 TV Res1920x1280; Browser Res1100x656-32bits; Res1280x720;)
 
-  if ($res == '1920x1280')
+  if (!is_pc() && $res == '1920x1280')
   {
     $_SESSION["device"]["screen_x_res"] = 1920;
     $_SESSION["device"]["screen_y_res"] = 1080;
@@ -115,7 +115,7 @@ function get_screen_type()
       store_browser_scr_size(get_sys_pref('PC_SCREEN_SIZE','800x450'));
       store_screen_size(get_sys_pref('PC_SCREEN_SIZE','800x450'));
     }
-    elseif ( get_player_type()=='POPCORN')
+    elseif ( get_player_model() >= 400 ) // NMT player
     {
       store_screen_size( preg_get( "/TV Res([0-9]+x[0-9]+)/i", $_SESSION["device"]["agent_string"]) );
       store_browser_size( preg_get( "/Browser Res([0-9]+x[0-9]+)/i", $_SESSION["device"]["agent_string"]) );
@@ -215,7 +215,7 @@ function font_size( $desired_size, $coords = BROWSER_COORDS )
 }
 
 #-------------------------------------------------------------------------------------------------
-# Given a desired font size (in logical coordinates), return the nearestsize  HTML font that the
+# Given a desired font size (in logical coordinates), return the nearest size HTML font that the
 # hardware player can display.
 #-------------------------------------------------------------------------------------------------
 
@@ -234,18 +234,36 @@ function font_tags( $size = false, $colour = false)
     else
     {
       // The hardware players only have a small number of font sizes available... so try to pick the best one
-      if     ($size <= 12)
-        $size_param = 'size="1"';
-      elseif ($size <= 15)
-        $size_param = 'size="2"';
-      elseif ($size <= 17)
-        $size_param = 'size="3"';
-      elseif ($size <= 20)
-        $size_param = 'size="4"';
-      elseif ($size <= 26)
-        $size_param = 'size="5"';
+      if ( get_player_model() > 400 )
+      {
+        if     ($size <= 12)
+          $size_param = 'size="2"';
+        elseif ($size <= 15)
+          $size_param = 'size="3"';
+        elseif ($size <= 17)
+          $size_param = 'size="4"';
+        elseif ($size <= 20)
+          $size_param = 'size="5"';
+        elseif ($size <= 26)
+          $size_param = 'size="6"';
+        else
+          $size_param = 'size="7"';
+      }
       else
-        $size_param = 'size="6"';
+      {
+        if     ($size <= 12)
+          $size_param = 'size="1"';
+        elseif ($size <= 15)
+          $size_param = 'size="2"';
+        elseif ($size <= 17)
+          $size_param = 'size="3"';
+        elseif ($size <= 20)
+          $size_param = 'size="4"';
+        elseif ($size <= 26)
+          $size_param = 'size="5"';
+        else
+          $size_param = 'size="6"';
+      }
     }
   }
 
