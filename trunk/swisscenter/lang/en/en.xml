@@ -548,6 +548,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>COMMENT</id>
+        <text>Comment</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>COMPACT_VIEW</id>
         <text>Compact view</text>
         <version>1.21.1</version>
@@ -861,6 +866,11 @@
         <id>DISABLED</id>
         <text>Disabled</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>DOWNLOADED</id>
+        <text>Already downloaded</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>DOWNLOADING</id>
@@ -1890,8 +1900,8 @@
       </string>
       <string>
         <id>ITUNES_LIBRARY</id>
-        <text>iTunes Library File</text>
-        <version>1.19</version>
+        <text>iTunes library file</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>JUST_ADDED</id>
@@ -1912,6 +1922,11 @@
         <id>KEYBOARD_SPC</id>
         <text>SPACE</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>LANAGUAGE_ALL</id>
+        <text>All languages</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>LANGUAGE</id>
@@ -2919,6 +2934,11 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <version>1.22</version>
       </string>
       <string>
+        <id>OPENSUBTITLES_ABOUT</id>
+        <text>OpenSubtitles.org provides a free database of subtitles available for download. Subtitles are available in many languages and are uniquely matched to your video files. Please click their banners and visit their website to support this feature.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>OPTIONS</id>
         <text>Options</text>
         <version>1.19</version>
@@ -2936,6 +2956,56 @@ The enhanced option shows track details with a progress bar and a fanart image a
       <string>
         <id>ORIGINAL</id>
         <text>Original</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_ABOUT</id>
+        <text>OpenSubtitles.org provides a free database of subtitles available for download. Subtitles are available in many languages and are uniquely matched to your video files. Please visit their website by clicking their banner to support this feature.[br]If you have subtitles that are not available for download then you are encouraged to upload them so that other users can benefit from them. You can upload subtitles at %s.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_DOWNLOAD</id>
+        <text>Download selected subtitles</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_DOWNLOADED</id>
+        <text>Already downloaded</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_DOWNLOADED_OK</id>
+        <text>Subtitles successfully downloaded</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_NOT_AVAILABLE</id>
+        <text>OpenSubtitles.org is currently not available. Please try again later.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_NO_SUBTITLES</id>
+        <text>No subtitles</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_SEARCH_HASH</id>
+        <text>Match by video hash (recommended)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_SEARCH_TITLE</id>
+        <text>Match by movie title</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_UPLOAD</id>
+        <text>Upload subtitles to OpenSubtitles.org</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_UPLOADER</id>
+        <text>Uploader</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3502,6 +3572,11 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <id>RANGE</id>
         <text>Range</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>RATE</id>
+        <text>Rate</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>RATING</id>
@@ -4289,6 +4364,11 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <version>1.22</version>
       </string>
       <string>
+        <id>SUBTITLES</id>
+        <text>Subtitles</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SUPPORT_CLIENTS_TITLE</id>
         <text>Clients discovered</text>
         <version>1.19</version>
@@ -4887,6 +4967,11 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <id>UPDATING_PLEASE_WAIT</id>
         <text>Updating - Please wait</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>UPLOADER</id>
+        <text>Uploader</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>UPLOADS</id>

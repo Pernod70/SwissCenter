@@ -89,6 +89,7 @@
       $menu->add_item(str('ORG_TITLE')              ,'section=MOVIE&action=DISPLAY');
       $menu->add_item(str('TV_OPTIONS')             ,'section=TV&action=INFO');
       $menu->add_item(str('TV_DETAILS')             ,'section=TV&action=DISPLAY');
+      $menu->add_item(str('SUBTITLES')              ,'section=SUBTITLES&action=DISPLAY');
       $menu->add_item(str('THEMES')                 ,'section=THEMES&action=DISPLAY');
       $menu->add_item(str('MEDIA_REFRESH')          ,'section=MEDIA&action=REFRESH');
 //      $menu->add_item(str('STATISTICS')             ,'section=STATS&action=DISPLAY');

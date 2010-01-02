@@ -255,6 +255,11 @@ function media_exts_dvd()
   return explode(',' ,'ifo,img,iso');
 }
 
+function media_ext_subtitles()
+{
+  return explode(',' ,'srt,sub,ssa,smi');
+}
+
 function media_exts( $media_type )
 {
   switch ($media_type)
