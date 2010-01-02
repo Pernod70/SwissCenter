@@ -9,16 +9,16 @@
   require_once( realpath(dirname(__FILE__).'/base/playlist.php'));
 
   $page          = ( !isset($_REQUEST["page"]) ? 0 : $_REQUEST["page"]);
-  $highlight     = ( !isset($_REQUEST["hl"]) ? '1' : $_REQUEST["hl"]);
+  $highlight     = ( !isset($_REQUEST["hl"]) ? ($page * MAX_PER_PAGE) : $_REQUEST["hl"]);
   $width         = 560;
 
   $navup_img     = SC_LOCATION.style_img("PAGE_UP");
   $navdown_img   = SC_LOCATION.style_img("PAGE_DOWN");
-  
+
   $up_img        = SC_LOCATION.style_img("IMG_PLAYLIST_UP");
   $down_img      = SC_LOCATION.style_img("IMG_PLAYLIST_DOWN");
   $del_img       = SC_LOCATION.style_img("IMG_PLAYLIST_DELETE");
-  
+
   //---------------------------------------------------------------------------------------
   // Process any actions passed on the query string
   //---------------------------------------------------------------------------------------
@@ -34,7 +34,7 @@
   }
 
   // Move an Item down
-  if ( isset($_REQUEST["down"]) && $_REQUEST["down"] != count($_SESSION["playlist"]))
+  elseif ( isset($_REQUEST["down"]) && $_REQUEST["down"] != count($_SESSION["playlist"]))
   {
     $temp = $_SESSION["playlist"][($_REQUEST["down"]+1)];
     $_SESSION["playlist"][($_REQUEST["down"]+1)] = $_SESSION["playlist"][$_REQUEST["down"]];
@@ -42,9 +42,9 @@
     $page=floor(($_REQUEST["down"]+1)/MAX_PER_PAGE);
     $highlight=($_REQUEST["down"]+1).'d';
   }
-  
+
   // Delete an item
-  if ( isset($_REQUEST["del"]))
+  elseif ( isset($_REQUEST["del"]))
   {
     array_splice($_SESSION["playlist"],$_REQUEST["del"],1);
     $page=floor(min($_REQUEST["del"],count($_SESSION["playlist"])-1)/MAX_PER_PAGE);
@@ -59,14 +59,14 @@
   $num_tracks    = count($_SESSION["playlist"]);
 
   page_header( str('PLAYLIST_EDIT'), $_SESSION["playlist_name"],'', $highlight );
-  
+
   echo '<center><table cellspacing="3" cellpadding="3" border="0">';
 
   if ($page > 0)
     echo '<tr><td align="center" valign="middle" width="'.convert_x($width).'" height="'.convert_y(20).'">'
          .up_link('edit_pl.php?page='.($page-1)).'</td></tr>';
   else
-    echo '<tr><td align="center" valign="middle" width="'.convert_x($width).'" height="'.convert_y(20).'"></a></td></tr>';
+    echo '<tr><td align="center" valign="middle" width="'.convert_x($width).'" height="'.convert_y(20).'"></td></tr>';
 
   $start = $page * MAX_PER_PAGE;
   $end   = min( count($items) , $start+MAX_PER_PAGE);
@@ -80,7 +80,7 @@
     $up_link       = 'edit_pl.php?up='.$i;
     $down_link     = 'edit_pl.php?down='.$i;
     $del_link      = 'edit_pl.php?del='.$i;
-    
+
     $text = $items[$i]["TITLE"];
 
     echo '<tr>'.
