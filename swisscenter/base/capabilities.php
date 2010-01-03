@@ -487,6 +487,13 @@ function save_players_config()
     send_to_log(6,"Failed to save players config file: $players_file");
 }
 
+/**
+ * Ensure that client profiles have been loaded to the database
+ */
+
+if ( db_value("select count(*) from client_profiles") == 0 )
+  load_players_config();
+
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/
