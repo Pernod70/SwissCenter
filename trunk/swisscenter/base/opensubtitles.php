@@ -612,8 +612,8 @@ class OpenSubtitles
    * Allows logged users vote for subtitles. Score must be from interval 1 to 10.
    * If user will vote more than 1 time for same subtitles, next votes will be not counted.
    *
-   * @param unknown_type $subtitle
-   * @return unknown
+   * @param array $subtitle
+   * @return array
    */
   function SubtitlesVote( $subtitle )
   {
@@ -766,6 +766,8 @@ class OpenSubtitles
  */
 function OpenSubtitlesHash($file)
 {
+  set_magic_quotes_runtime(0);
+
   $handle = fopen($file, "rb");
   $fsize = filesize($file);
 
