@@ -563,6 +563,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>COMMENT</id>
+        <text>Commento</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>COMPACT_VIEW</id>
         <text>Visualizzazione compatta</text>
         <version>1.22</version>
@@ -876,6 +881,11 @@
         <id>DISABLED</id>
         <text>Disabilitato</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>DOWNLOADED</id>
+        <text>Gia' scaricato</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>DOWNLOADING</id>
@@ -1904,8 +1914,8 @@
       </string>
       <string>
         <id>ITUNES_LIBRARY</id>
-        <text>iTunes - Library File</text>
-        <version>1.19</version>
+        <text>iTunes - Libreria</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>JUST_ADDED</id>
@@ -1925,6 +1935,11 @@
       <string>
         <id>KEYBOARD_SPC</id>
         <text>Spazio</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANAGUAGE_ALL</id>
+        <text>Tutte le lingue</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2918,6 +2933,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>OPENSUBTITLES_ABOUT</id>
+        <text>OpenSubtitles.org è un libero database che permette lo scarico dei sottotitoli. Subtitles sono disponibili in diverse lingue e sono corrispondenti al file video. Clicca sul loro banner e visita il loro sito web per supportare il loro lavoro.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>OPTIONS</id>
         <text>Opzioni</text>
         <version>1.19</version>
@@ -2935,6 +2955,56 @@
       <string>
         <id>ORIGINAL</id>
         <text>Originale</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_ABOUT</id>
+        <text>OpenSubtitles.org è un libero database che permette lo scarico dei sottotitoli. Subtitles sono disponibili in diverse lingue e sono corrispondenti al file video. Clicca sul loro banner e visita il loro sito web per supportare il loro lavoro. [br]Se hai un sottotitolo che non è disponibile, puoi caricarlo sul loro sito così che altri utenti possano utilizzarli. Puoi caricare i sottotitoli su %s.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_DOWNLOAD</id>
+        <text>Scarica i sottotitoli selezionati</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_DOWNLOADED</id>
+        <text>Gia' scaricato</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_DOWNLOADED_OK</id>
+        <text>Sottotitoli scaricati con successo</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_NOT_AVAILABLE</id>
+        <text>OpenSubtitles.org è al momento non disponibile. Provare più tardi.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_NO_SUBTITLES</id>
+        <text>No sottotitoli</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_SEARCH_HASH</id>
+        <text>Verifica per corrispondenza video (raccomandato)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_SEARCH_TITLE</id>
+        <text>Verifica per titolo film</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_UPLOAD</id>
+        <text>Carica sottotitoli su OpenSubtitles.org</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_UPLOADER</id>
+        <text>Caricare</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3118,6 +3188,16 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>PC_SCREEN_SIZE</id>
+        <text>Dimensioni schermo PC</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PC_SCREEN_SIZE_PROMPT</id>
+        <text>Questa è la risoluzione che lo SwissCenter userà qaundo sarà usato attraverso un web browser sul PC.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>PERCENT_SCANNED</id>
         <text>% In corso</text>
         <version>1.19</version>
@@ -3291,6 +3371,141 @@
         <id>PLAY</id>
         <text>Esegui</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYER_ADD_BUTTON</id>
+        <text>Aggiungi un lettore</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_ADD_OK</id>
+        <text>Lettore aggiunto</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_ADD_TITLE</id>
+        <text>Aggiungi un nuovo lettore</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_CHIPSET</id>
+        <text>Processore</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_CONFIG</id>
+        <text>Lettori supportati</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_DEL_BUTTON</id>
+        <text>Rimuovi il lettore selezionato</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_DEL_OK</id>
+        <text>Il lettore selezionato è stato rimosso</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_ERROR_EXISTS</id>
+        <text>Produttore e modello già esistente</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_ERROR_MISSING</id>
+        <text>Inserisci nome, produttore e modello</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_ERROR_MODEL</id>
+        <text>Inserisci una sigla del modello</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_MAKE</id>
+        <text>Produttore</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_MESSAGE</id>
+        <text>Tutti i lettori multimediali sono identificati unicamente delo loro produttore e modello determinati dall'ID del firmware. Se il tuo lettore non è nella lista di quelli supportati, potrai aggiungerlo con il produttore e modello nei &quot;Clients discovered&quot; (Clients trovati) in fondo a questa pagina.[p] E' importante selezionare il corretto processore per il lettore in modo che lo SwissCenter lo riconosca correttamente. I valori POD sono usati per dire al lettore come sincronizzare sullo schermo &quot;In esecuzione&quot;. Si potrà comunque provare quali di questi lavorano meglio con il lettore in uso.[p] Se qualche dettaglio è aggiuntio o modificato in questa paginan, allora si può sottoporre questi sul forum, così che i settaggi possano essere usati da altri utenti.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_MODEL</id>
+        <text>Modello</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_NAME</id>
+        <text>Nome</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_PAGE_CHARSET</id>
+        <text>Caratteri lettore</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_POD_AUDIO_NO_SYNC</id>
+        <text>Audio non sincronizzato</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_POD_AUDIO_SYNC</id>
+        <text>Sincronizzazione audio</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_POD_NO_SYNC</id>
+        <text>POD (incremento)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_POD_PROMPT</id>
+        <text>Questi sono i parametri POD (Immagini su richiesta) inviati all'hardware del lettore che controlla quale musica e immagini saranno sincronizzate insieme quando appare &quot;In esecuzione&quot; sullo schermo. Se il lettore non ha la capacità di sincronizzare musica e immagini, selezionare 0 per POD (Originale).</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_POD_STREAM</id>
+        <text>POD (Radio)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_POD_SYNC</id>
+        <text>POD (Originale)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_PROMPT</id>
+        <text>Se il tuo lettore non è nella lista, allora esso può essere aggiunto usando il produttore e l'ID del modello elencato. Il corretto processore sarà selezionato per il lettore e come questo influenzerà le potenzialità utilizzando lo SwissCenter.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_RESUME</id>
+        <text>Riavvia</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_RESUME_PROMPT</id>
+        <text>Questo hardware supporta il riavvio (resume) del video (quando usato con Simese)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_TRANSITION</id>
+        <text>Transizione</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_TRANSITION_PROMPT</id>
+        <text>L'effetto di transizione da usare quando &quot;In esecuzione&quot;. Impostare 0 per nessun effetto</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_UPDATE_OK</id>
+        <text>Informazioni player aggiornate</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PLAYLISTS</id>
@@ -3506,6 +3721,11 @@
         <id>RANGE</id>
         <text>Intervallo</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>RATE</id>
+        <text>Punteggio</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>RATING</id>
@@ -4298,6 +4518,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>SUBTITLES</id>
+        <text>Sottotitoli</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SUPPORT_CLIENTS_TITLE</id>
         <text>Client trovati</text>
         <version>1.22</version>
@@ -4435,6 +4660,11 @@
       <string>
         <id>THEME_APPLY</id>
         <text>Applica le opzioni del tema</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_APPLY_OK</id>
+        <text>Tema salvato</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4896,6 +5126,11 @@
         <id>UPDATING_PLEASE_WAIT</id>
         <text>Aggiornamento in corso - Attendere</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>UPLOADER</id>
+        <text>Caricare su...</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>UPLOADS</id>

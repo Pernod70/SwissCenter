@@ -573,6 +573,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>COMMENT</id>
+        <text>Opmerking</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>COMPACT_VIEW</id>
         <text>Compacte weergave</text>
         <version>1.19</version>
@@ -886,6 +891,11 @@
         <id>DISABLED</id>
         <text>Uitgeschakeld</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>DOWNLOADED</id>
+        <text>Reeds gedownload</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>DOWNLOADING</id>
@@ -1949,6 +1959,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>LANAGUAGE_ALL</id>
+        <text>Alle talen</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>LANGUAGE</id>
         <text>Nederlands</text>
         <version>1.19</version>
@@ -2040,7 +2055,7 @@
       </string>
       <string>
         <id>LANG_PROMPT</id>
-        <text>Taaldefinities bestaan uit de verbindingen tussen interne IDs (bv: &quot;ADD_PLAYLIST&quot;) en werkelijk weergegeven tekst. De &lt;tekst&gt; kan worden opgemaakt met behulp van een beperkt aantal markeercodes die identiek zijn aan de HTML-markeercodes en moeten tussen rechte haken worden geplaatst. De volgende codes kunnen worden gebruikt: [li]&amp;#91;br&amp;#93; - Nieuwe regel[/li] [li]&amp#91;p&amp#93;&amp#91;/p&amp;#93; - Nieuwe paragraaf[/li] [li]&amp;#91;b&amp;#93;&amp;#91;/b&amp;#93; - Vet[/li] [li]&amp;#91;i&amp;#93;&amp;#91;/i&amp;#93; - Cursief[/li] [li]&amp;#91;em&amp;#93; and &amp;#91;/em&amp;#93; - Nadruk[/li] [li]&amp;#91;ol&amp;#93;&amp;#91;/ol&amp;#93; - Een geordende lijst[/li] [li]&amp;#91;ul&amp;#93;&amp;#91;/ul&amp;#93; - Een ongeordende lijst[/li] [li]&amp#91;li&amp#93;&amp;#91;/li&amp;#93; - Een item binnen ee geordende of ongeordende lijst[/li] [/ul] [p]In sommige gevallen kan het nodig zijn om een variabel onderdeel in de tekst te plaatsen. Deze wordt in de tekst aangegeven met '&amp;#37;s'.[br]bv: In de onderstaande ID, wordt het aantal nummers dat in de databank is gevonden vervangen door &amp;#37;s. Een zoekresultaat van vier nummers wordt weergegeven als &quot;4 nummers&quot;;[br]MANY_TRACKS=&amp;#37;s nummers.</text>
+        <text>Taaldefinities bestaan uit de verbindingen tussen interne IDs (bv: &quot;ADD_PLAYLIST&quot;) en werkelijk weergegeven tekst. De &lt;tekst&gt; kan worden opgemaakt met behulp van een beperkt aantal markeercodes die identiek zijn aan de HTML-markeercodes en moeten tussen rechte haken worden geplaatst. De volgende codes kunnen worden gebruikt: [li]&amp;#91;br&amp;#93; - Nieuwe regel[/li] [li]&amp;amp#91;p&amp;amp#93;&amp;amp#91;/p&amp;#93; - Nieuwe paragraaf[/li] [li]&amp;#91;b&amp;#93;&amp;#91;/b&amp;#93; - Vet[/li] [li]&amp;#91;i&amp;#93;&amp;#91;/i&amp;#93; - Cursief[/li] [li]&amp;#91;em&amp;#93; and &amp;#91;/em&amp;#93; - Nadruk[/li] [li]&amp;#91;ol&amp;#93;&amp;#91;/ol&amp;#93; - Een geordende lijst[/li] [li]&amp;#91;ul&amp;#93;&amp;#91;/ul&amp;#93; - Een ongeordende lijst[/li] [li]&amp;amp#91;li&amp;amp#93;&amp;#91;/li&amp;#93; - Een item binnen ee geordende of ongeordende lijst[/li] [/ul] [p]In sommige gevallen kan het nodig zijn om een variabel onderdeel in de tekst te plaatsen. Deze wordt in de tekst aangegeven met '&amp;#37;s'.[br]bv: In de onderstaande ID, wordt het aantal nummers dat in de databank is gevonden vervangen door &amp;#37;s. Een zoekresultaat van vier nummers wordt weergegeven als &quot;4 nummers&quot;;[br]MANY_TRACKS=&amp;#37;s nummers.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2140,8 +2155,8 @@
       </string>
       <string>
         <id>LISTEN_LASTFM</id>
-        <text>Luister naar Last.FM station</text>
-        <version>1.19</version>
+        <text>Last.FM</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>LISTEN_LASTFM_ARTISTS</id>
@@ -2175,8 +2190,8 @@
       </string>
       <string>
         <id>LISTEN_MUSIC</id>
-        <text>Luister naar muziek</text>
-        <version>1.19</version>
+        <text>Muziek</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>LISTEN_RADIO</id>
@@ -2245,8 +2260,8 @@
       </string>
       <string>
         <id>MANAGE_PLAYLISTS</id>
-        <text>Afspeellijsten beheren</text>
-        <version>1.19</version>
+        <text>Afspeellijsten</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>MANY_ITEMS</id>
@@ -2945,6 +2960,11 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
         <version>1.22</version>
       </string>
       <string>
+        <id>OPENSUBTITLES_ABOUT</id>
+        <text>OpenSubtitles.org biedt een database van ondertitels die gratis gedownload kunnen worden. De ondertitels zijn in veel talen beschikbaar en zijn uniek gekoppeld aan uw videobestanden via een zogenoemde 'video hash code'. U kunt OpenSubtitles.org ondersteuen door de website bezoeken en de banners aan te klikken.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>OPTIONS</id>
         <text>Opties</text>
         <version>1.19</version>
@@ -2962,6 +2982,56 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
       <string>
         <id>ORIGINAL</id>
         <text>Origineel</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_ABOUT</id>
+        <text>OpenSubtitles.org biedt een database van ondertitels die gratis gedownload kunnen worden. De ondertitels zijn in veel talen beschikbaar en zijn uniek gekoppeld aan uw videobestanden via een zogenoemde 'video hash code'. U kunt OpenSubtitles.org ondersteuen door de website bezoeken en de banners aan te klikken. [br]Indien u over ondertitels beschikt die niet beschikbaar zijn op OpenSubtitles.org, kunt u deze uploaden, zodat ook anderen hier gebruik van kunnen maken. U kunt de ondertitels hier %s uploaden.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_DOWNLOAD</id>
+        <text>Download de geselecteerde ondertitels</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_DOWNLOADED</id>
+        <text>Reeds gedownload</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_DOWNLOADED_OK</id>
+        <text>Ondertitel is gedownload</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_NOT_AVAILABLE</id>
+        <text>OpenSubtitles.org is momenteel niet beschikbaar. Probeert u het laten nog eens.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_NO_SUBTITLES</id>
+        <text>Geen ondertitels</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_SEARCH_HASH</id>
+        <text>In overeenstemming met film hash code (aanbevolen)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_SEARCH_TITLE</id>
+        <text>In overeenstemming met filmtitel</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_UPLOAD</id>
+        <text>Upload ondertitels naar OpenSubtitles.org</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_UPLOADER</id>
+        <text>Uploader</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3145,6 +3215,16 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
         <version>1.19</version>
       </string>
       <string>
+        <id>PC_SCREEN_SIZE</id>
+        <text>Resolutie PC scherm</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PC_SCREEN_SIZE_PROMPT</id>
+        <text>Dit is de resolutie die SwissCenter gebruikt wanneer SwissCenter met een web browser op een PC wordt gebruikt.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>PERCENT_SCANNED</id>
         <text>% gescand</text>
         <version>1.19</version>
@@ -3320,6 +3400,132 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
         <version>1.19</version>
       </string>
       <string>
+        <id>PLAYER_ADD_BUTTON</id>
+        <text>Voeg een mediaspeler toe</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_ADD_OK</id>
+        <text>Mediaspeler toegevoegd</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_ADD_TITLE</id>
+        <text>Voeg een nieuwe mediaspeler toe</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_CHIPSET</id>
+        <text>Chipset</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_CONFIG</id>
+        <text>Ondersteunde mediaspelers</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_DEL_BUTTON</id>
+        <text>Verwijder de geselecteerde mediaspeler</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_DEL_OK</id>
+        <text>De geselecteerde mediaspelers zijn verwijderd</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_ERROR_EXISTS</id>
+        <text>Type en model bestaan al</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_ERROR_MISSING</id>
+        <text>Voer een naam, type en model in</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_ERROR_MODEL</id>
+        <text>Voer een numeriek model nummer in</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_MAKE</id>
+        <text>Type</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_MESSAGE</id>
+        <text>Alle mediaspelers kunnen worden geïdentificeerd op basis van type en model via de firmware identiteit. Wanneer uw mediaspeler niet in de lijst van ondersteunde spelers voorkomt, dient u de speler toe te voegen met het type en modelnummer zoals weergegeven in de 'gevonden clients' sectie onder aan deze pagina.[p]
+Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze SwissCenter aangeeft wat de mogelijkheden zijn. De POD (Picture on Demand = Afbeelding op Verzoek) waarden worden gebruikt om de mediaspeler aan te geven hoe het  'SPEELT NU' scherm wordt gesynchroniseerd. U zult moeten uitproberen wat de beste instellingen voor uw mediaspeler zijn.[p]Wanneer u iets toegevoegt of aanpast op deze pagina, wordt u vriendelijk verzocht de details van uw instellingen op het SwissCenter forum te plaatsen zodat deze ook gebruikt kunnen worden door anderen.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_MODEL</id>
+        <text>Model</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_NAME</id>
+        <text>Naam</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_PAGE_CHARSET</id>
+        <text>Tekenset van mediaspeler</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_POD_NO_SYNC</id>
+        <text>POD (verbeterd)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_POD_PROMPT</id>
+        <text>Dit zijn de POD (Picture on Demand = Afbeelding op Verzoek) parameters, gestuurd naar de mediaspeler, die ervoor zorgen dat muziek en afbeeldingen gesynchroniseerd worden in de 'SPEELT NU' schermen. Wanneer de mediaspeler muziek en afbeelding niet kan synchroniseren, selecteer dan 0 voor 'POD (orgineel)'.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_POD_STREAM</id>
+        <text>POD (radio)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_POD_SYNC</id>
+        <text>POD (origineel)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_PROMPT</id>
+        <text>Indien uw mediaspeler niet in de lijst voorkomt, moet deze handmatig worden toegevoegd gebruikmakend van het type en model ID zoals hieronder vermeld. Selecteer de juiste chipset voor de mediaspeler, omdat hiermee SwissCenter de mogelijkheden van de speler vaststelt.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_RESUME</id>
+        <text>Hervatten</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_RESUME_PROMPT</id>
+        <text>Ondersteunt de hardware van de mediaspeler de hervatting van media bij gebruik van Simese?</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_TRANSITION</id>
+        <text>Overgang</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_TRANSITION_PROMPT</id>
+        <text>Mogelijke overgangseffecten tussen de &quot;SPEELT NU&quot; schermen. Instelling 0 betekent geen overgangseffect.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_UPDATE_OK</id>
+        <text>Informatie mediaspeler geactualiseerd</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>PLAYLISTS</id>
         <text>Afspeellijsten</text>
         <version>1.19</version>
@@ -3441,7 +3647,7 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
       </string>
       <string>
         <id>PLAY_TRAILER</id>
-        <text>Bekijk trailer</text>
+        <text>Trailer</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4335,6 +4541,11 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
         <version>1.22</version>
       </string>
       <string>
+        <id>SUBTITLES</id>
+        <text>Ondertitels</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SUPPORT_CLIENTS_TITLE</id>
         <text>Clienten ontdekt</text>
         <version>1.19</version>
@@ -4472,6 +4683,11 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
       <string>
         <id>THEME_APPLY</id>
         <text>Thema instellingen toepassen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_APPLY_OK</id>
+        <text>Thema is opgeslagen</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4946,6 +5162,11 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
         <version>1.19</version>
       </string>
       <string>
+        <id>UPLOADER</id>
+        <text>Uploader</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>UPLOADS</id>
         <text>Uploads</text>
         <version>1.22</version>
@@ -5197,8 +5418,8 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
       </string>
       <string>
         <id>VIEW_PHOTO</id>
-        <text>Bekijk foto's</text>
-        <version>1.19</version>
+        <text>Foto's</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>VIEW_UNVIEWED</id>
@@ -5217,18 +5438,18 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
       </string>
       <string>
         <id>WATCH_INTERNET_TV</id>
-        <text>Bekijk internet TV</text>
-        <version>1.21.1</version>
+        <text>Internet TV</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>WATCH_MOVIE</id>
-        <text>Bekijk een video</text>
-        <version>1.20</version>
+        <text>Video</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>WATCH_TV</id>
-        <text>Bekijk een TV show</text>
-        <version>1.19</version>
+        <text>TV show</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>WEATHER</id>

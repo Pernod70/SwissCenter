@@ -40,7 +40,7 @@
       <string>
         <id>ALL_CATEGORIES</id>
         <text>Alle Kategorien</text>
-        <version>1.20</version>
+        <version>1.22</version>
       </string>
       <string>
         <id>ALL_MEDIA_TYPES</id>
@@ -208,6 +208,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>BROWSE_COMPOSER</id>
+        <text>Nach Komponist</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>BROWSE_COUNTRY</id>
         <text>Nach Land</text>
         <version>1.19</version>
@@ -369,8 +374,8 @@
       </string>
       <string>
         <id>BROWSE_YEAR</id>
-        <text>Nach Jahr</text>
-        <version>1.19</version>
+        <text>Nach Erscheinungsdatum</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>CACHE_CONFIG_TITLE</id>
@@ -470,7 +475,7 @@
       <string>
         <id>CATEGORY_LIST_ALL</id>
         <text>Alle Kategorien</text>
-        <version>1.19</version>
+        <version>1.22</version>
       </string>
       <string>
         <id>CATEGORY_PROMPT</id>
@@ -530,7 +535,7 @@
       <string>
         <id>CAT_LIST_ALL</id>
         <text>Alle Kategorien</text>
-        <version>1.19</version>
+        <version>1.22</version>
       </string>
       <string>
         <id>CAT_PARENT</id>
@@ -568,9 +573,19 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>COMMENT</id>
+        <text>Kommentar</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>COMPACT_VIEW</id>
         <text>Kompaktansicht</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>COMPOSER</id>
+        <text>Komponist</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>CONFIGURATION</id>
@@ -889,6 +904,11 @@ Dieses Format wird von MySQL und Spezifikationssymbolen definiert. Diese sind:
         <version>1.19</version>
       </string>
       <string>
+        <id>DOWNLOADED</id>
+        <text>Bereits heruntergeladen</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>DOWNLOADING</id>
         <text>Wird heruntergeladen...</text>
         <version>1.19</version>
@@ -1150,6 +1170,11 @@ in eine XML-Datei</text>
         <version>1.19</version>
       </string>
       <string>
+        <id>FAIL_DATABASE_PATCH</id>
+        <text>Patch der Datenbank war nicht erfolgreich. Letzter erfolgreicher Patch war %s.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>FAIL_DOTNET2_INSTALLED</id>
         <text>Sie müssen .NET Framework - Version 2 zuerst installieren.</text>
         <version>1.22</version>
@@ -1181,8 +1206,8 @@ in eine XML-Datei</text>
       </string>
       <string>
         <id>FAIL_MYSQL_VERSION</id>
-        <text>Ihre MySQL-Version wird nicht unterstützt.</text>
-        <version>1.19</version>
+        <text>Ihre MySQL-Version wird nicht unterstützt. Sie müssen mindestend Version 5.0 installiert haben.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>FAIL_PHP_CLI</id>
@@ -1216,8 +1241,8 @@ in eine XML-Datei</text>
       </string>
       <string>
         <id>FAIL_PHP_VERSION</id>
-        <text>Ihre PHP-Version wird nicht unterstützt (%s)..</text>
-        <version>1.19</version>
+        <text>Ihre PHP-Version wird nicht unterstützt (%s). Sie müssen mindestens Version 5.2.6 installiert haben.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>FAIL_SERVER_SCHED</id>
@@ -1940,6 +1965,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>KEYBOARD_SPC</id>
         <text>LEER</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>LANAGUAGE_ALL</id>
+        <text>Alle Sprachen</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>LANGUAGE</id>
@@ -2909,7 +2939,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       <string>
         <id>NOW_PLAYING_SUPPORT</id>
         <text>Seite &quot;Aktueller Titel&quot;</text>
-        <version>1.19</version>
+        <version>1.22</version>
       </string>
       <string>
         <id>NO_ITEMS_TO_DISPLAY</id>
@@ -2942,6 +2972,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.22</version>
       </string>
       <string>
+        <id>OPENSUBTITLES_ABOUT</id>
+        <text>OpenSubtitles.org stellt eine freie Datenbank von Untertiteln zum Download zur Verfügung. Es gibt Untertitel in vielen Sprachen, diese sind einmalig passend für Ihre Videodateien. Bitte auf das Banner klicken, oder die Webseite besuchen, um dieses Merkmal zu unterstützen.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>OPTIONS</id>
         <text>Optionen</text>
         <version>1.19</version>
@@ -2962,6 +2997,56 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.22</version>
       </string>
       <string>
+        <id>OS_ABOUT</id>
+        <text>OpenSubtitles.org stellt eine freie Datenbank von Untertiteln zum Download zur Verfügung. Es gibt Untertitel in vielen Sprachen, diese sind einmalig passend für Ihre Videodateien. Bitte auf das Banner klicken, oder die Webseite besuchen, um dieses Merkmal zu unterstützen.[p]Wenn Sie Untertitel haben, die noch nicht angeboten werden, wäre es schön, wenn Sie diese &quot;uploaden&quot; würden, so dass diese anderen Nutzern auch zur Verfügung stehen.[p]Sie können Untertitel hier %s &quot;uploaden&quot;.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_DOWNLOAD</id>
+        <text>Ausgewählte Untertitel herunterladen.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_DOWNLOADED</id>
+        <text>Bereits heruntergeladen.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_DOWNLOADED_OK</id>
+        <text>Untertitel erfolgreich heruntergeladen.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_NOT_AVAILABLE</id>
+        <text>OpenSubtitles.org ist momentan nicht verfügbar. Bitte später nochmals probieren.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_NO_SUBTITLES</id>
+        <text>Keine Untertitel</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_SEARCH_HASH</id>
+        <text>Entsprechung über Prüfsumme suchen (empfohlen)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_SEARCH_TITLE</id>
+        <text>Entsprechung über Filmtitel suchen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_UPLOAD</id>
+        <text>Untertitel zu OpenSubtitles.org &quot;uploaden&quot;</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_UPLOADER</id>
+        <text>Uploader</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>PAGE</id>
         <text>Seite %s</text>
         <version>1.19</version>
@@ -2970,6 +3055,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>PASSWORD</id>
         <text>Passwort</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_DATABASE_PATCH</id>
+        <text>Datenbank wurde auf %s erfolgreich gepatched.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PASS_DOTNET2_INSTALLED</id>
@@ -3135,6 +3225,16 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>PC_LINK_TV</id>
         <text>TV Sendungen</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PC_SCREEN_SIZE</id>
+        <text>PC Bildschirmgröße</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PC_SCREEN_SIZE_PROMPT</id>
+        <text>Dies ist die Auflösung, die SwissCenter benutzt, wenn mit einem Web-Browser auf dem PC gearbeitet wird.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PERCENT_SCANNED</id>
@@ -3312,9 +3412,131 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>PLAYER_ADD_BUTTON</id>
+        <text>Spieler hinzufügen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_ADD_OK</id>
+        <text>Spieler hinzugefügt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_ADD_TITLE</id>
+        <text>Neuen Spieler hinzufügen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_CHIPSET</id>
+        <text>Chipset</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_CONFIG</id>
+        <text>Unterstützte Spieler</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_DEL_BUTTON</id>
+        <text>Markierte Spieler entfernen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_DEL_OK</id>
+        <text>Die markierten Spieler wurden entfernt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_ERROR_EXISTS</id>
+        <text>Hersteller und Modell existieren bereits</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_ERROR_MISSING</id>
+        <text>Bitte Name, Hersteller und Modell eintragen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_ERROR_MODEL</id>
+        <text>Bitte einen numerischen Modell Eintrag machen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_MAKE</id>
+        <text>Hersteller</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_MESSAGE</id>
+        <text>Alle Spieler sollten über ihren Hersteller und Modell über eine Firmware-ID ermittelt werden können. Wenn Ihr Spieler nicht in der Liste aufgeführt ist, sollten Sie diesen unter Angabe von Hersteller und Modell, wie unten auf der Seite 'Gefundene Clients' angezeigt, selbst eintragen.[p]
+Es ist sehr wichtig, das korrekte Chipset für Ihren Spieler auszuwählen, da anhand dieser Angaben SwissCenter herausfindet, welche Eigenschaften Ihr Spieler hat. Die POD-Werte werden benutzt, um dem Spieler Angaben über die Anzeige des &quot;aktueller Titel&quot; Bildschirms zu machen. Sie müssen evtl. experimentell herausfinden, mit welchen Angaben Ihr Spieler am besten zurecht kommt.[p]
+Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten wir Sie bitten, diese im Forum bekannt zu geben, so dass auch andere Benutzer diese Einstellungen u. U. übernehmen können.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_MODEL</id>
+        <text>Modell</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_NAME</id>
+        <text>Name</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>PLAYER_PAGE_CHARSET</id>
         <text>Windows-1252</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYER_POD_NO_SYNC</id>
+        <text>POD (Erweitert)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_POD_PROMPT</id>
+        <text>Dieses sind die POD-Parameter, (Picture On Demand) die zum Spieler gesendet werden, um zu beeinflussen, wie Bilder und Musik auf dem &quot;aktueller Titel&quot; Bildschirm angezeigt werden.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_POD_STREAM</id>
+        <text>POD (Radio)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_POD_SYNC</id>
+        <text>POD (Original)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_PROMPT</id>
+        <text>Wenn Ihr Spieler nicht aufgeführt ist, sollten Sie diesen manuell, unter Zuhilfenahme der unten eingeblendeten Hersteller- und Modellangaben eintragen. Das korreket Chipset muss ausgewählt werden, da SwissCenter anhand dieser Angaben die Eigenschaften des Spielers herausfindet.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_RESUME</id>
+        <text>Fortsetzen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_RESUME_PROMPT</id>
+        <text>Unterstützt Ihre Hardware die Wiederaufnahme des Abspielens von Medien, wenn Sie SwissCenter benutzen?</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_TRANSITION</id>
+        <text>Übergangseffekt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_TRANSITION_PROMPT</id>
+        <text>Der Übergangseffekt zwischen der &quot;aktueller Titel&quot; Anzeige. Einstellung 0 bedeutet keinen Effekt.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_UPDATE_OK</id>
+        <text>Spieler-Informationen wurden aktualisiert</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PLAYLISTS</id>
@@ -3532,6 +3754,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>RATE</id>
+        <text>Rate</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>RATING</id>
         <text>Bewertung</text>
         <version>1.22</version>
@@ -3600,6 +3827,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>REFINE_CERTIFICATE</id>
         <text>Nach Zertifikat einschränken</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_COMPOSER</id>
+        <text>Filtere nach Komponist</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REFINE_DIRECTOR</id>
@@ -3678,8 +3910,8 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>REFINE_YEAR</id>
-        <text>Nach Jahr einschränken</text>
-        <version>1.19</version>
+        <text>Nach Erscheinungsdatum einschränken</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REFRESH_CLEANUP</id>
@@ -4028,7 +4260,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>SEARCH</id>
-        <text>Allgemeine Suche</text>
+        <text>Suche</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4317,6 +4549,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.22</version>
       </string>
       <string>
+        <id>SUBTITLES</id>
+        <text>Untertitel</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SUPPORT_CLIENTS_TITLE</id>
         <text>Gefundene Clients</text>
         <version>1.19</version>
@@ -4454,6 +4691,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       <string>
         <id>THEME_APPLY</id>
         <text>Einstellungen für Themen speichern</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_APPLY_OK</id>
+        <text>Thema erfolgreich gespeichert.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4753,8 +4995,8 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>TTF_FONT_PROMPT</id>
-        <text>Dieser Font wird für die Anzeige von Track-Informationen während der Musik-Wiedergabe benutzt, sofern der Player das unterstützt (und es in der Konfiguration aktiviert wurde). Mögliche Werte sind: Ein Font-Name (z.B. 'Arial'), der Name einer Font-Datei inkl. des kompletten Pfades. Ein leeres Feld aktiviert die automatische Erkennung.</text>
-        <version>1.19</version>
+        <text>Dieser Font wird für die Anzeige von Track-Informationen während der &quot;Musik-Wiedergabe&quot; benutzt, sofern der Player das unterstützt (und es in der Konfiguration aktiviert wurde). Mögliche Werte sind: Ein Font-Name (z.B. 'Arial'), der Name einer Font-Datei inkl. des kompletten Pfades. Ein leeres Feld aktiviert die automatische Erkennung.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>TVID_RESET_DEFAULT</id>
@@ -4915,6 +5157,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>UPDATING_PLEASE_WAIT</id>
         <text>Aktualisierung gestartet - bitte warten</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>UPLOADER</id>
+        <text>Uploader</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>UPLOADS</id>
