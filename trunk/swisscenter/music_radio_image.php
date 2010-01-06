@@ -55,7 +55,7 @@
     return $songs[0].'<>'.$songs[1].'<>'.$songs[2];
   }
 
-
+  $IP_Port = array();
   if ( strpos($_REQUEST["playlist"],'http')===0 && (empty($_REQUEST["host"]) || empty($_REQUEST["port"])) )
   {
     // Retrieve server details from playlist (pls) (3 attempts)
@@ -65,17 +65,17 @@
     {
       if ( ($info = file_get_contents(un_magic_quote($_REQUEST["playlist"]))) == false )
         send_to_log(6,'- Attempt '.$i.': Failed to download playlist');
-      elseif ( preg_match('/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}):(\d{1,5})/', $info, $host) == 0 )
+      elseif ( preg_match('/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}):(\d{1,5})/', $info, $IP_Port) == 0 )
         send_to_log(6,'- Failed to find internet radio server in playlist:', $info);
       else
-        send_to_log(6,'- Radio server found at '.$host[1].':'.$host[2]);
+        send_to_log(6,'- Radio server found at '.$IP_Port[1].':'.$IP_Port[2]);
       $i++;
     }
   }
   else
   {
-    $host[1] = $_REQUEST["host"];
-    $host[2] = $_REQUEST["port"];
+    $IP_Port[1] = $_REQUEST["host"];
+    $IP_Port[2] = $_REQUEST["port"];
   }
 
   if ( isset($_REQUEST["list"]))
@@ -83,7 +83,7 @@
     // List of images to display to the user (changes every 30 seconds)
     $server     = server_address();
     $station    = un_magic_quote($_REQUEST["station"]);
-    $url        = $server."music_radio_image.php?".current_session()."&host=".$host[1]."&port=".$host[2].
+    $url        = $server."music_radio_image.php?".current_session()."&host=".$IP_Port[1]."&port=".$IP_Port[2].
                           "&station=".urlencode($station)."&x=.jpg";
     $transition = now_playing_transition();
     $refresh    = get_sys_pref("NOW_PLAYING_REFRESH_INTERVAL",20);
@@ -97,7 +97,7 @@
   else
   {
     // Get now playing details
-    $playing = shoutcast_now_playing($host[1], $host[2]);
+    $playing = shoutcast_now_playing($IP_Port[1], $IP_Port[2]);
 
     // Generate and display the "Now Playing" screen.
     // - If EVA700 then only send a new image if the details have changed. Avoids continuous refreshing.
