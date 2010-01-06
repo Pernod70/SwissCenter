@@ -53,14 +53,29 @@
         <version>1.20</version>
       </string>
       <string>
+        <id>ALL_TIME</id>
+        <text>All tid</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>ANYWHERE_IN_NAME</id>
         <text>Hele navnet</text>
         <version>1.19</version>
       </string>
       <string>
+        <id>APPLE_TRAILERS</id>
+        <text>Apple - film trailere</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>ARTIST</id>
         <text>Artist</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>ARTIST_INFO</id>
+        <text>Artist info</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>ART_ADDED_OK</id>
@@ -188,6 +203,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>BROWSE_COMPOSER</id>
+        <text>Bla etter komponist</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>BROWSE_COUNTRY</id>
         <text>Bla etter land</text>
         <version>1.19</version>
@@ -201,6 +221,11 @@
         <id>BROWSE_DIRECTOR</id>
         <text>Bla etter regissør</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_DISCOVERED</id>
+        <text>Bla etter opprettet dato</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_DVD</id>
@@ -265,7 +290,7 @@
       <string>
         <id>BROWSE_MOVIES</id>
         <text>Bla etter videoer</text>
-        <version>1.19</version>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_MUSIC</id>
@@ -293,14 +318,29 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>BROWSE_RATING</id>
+        <text>Bla etter rangering</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>BROWSE_STATION</id>
         <text>Bla etter stasjon</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_STUDIO</id>
+        <text>Bla etter studio</text>
         <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_TEXT</id>
         <text>SwissCenter tillater deg å bla i dine mediafiler på mange forskjellige måter. For å redusere kompleksiteten i bruker grensesnittet eller for å tilpasse det mer til dine preferanser kan du deaktivere noen av &quot;Bla etter...&quot; opsjonene vist under. Hvis kun en opsjon er aktivert vil SwissCenter utføre dette valget uten å vise en meny. [p]Merk at du må ha minimum [b]en[/b] opsjon aktiv i hver gruppe.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_TIMESTAMP</id>
+        <text>Bla etter media dato</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_TITLE</id>
@@ -329,8 +369,8 @@
       </string>
       <string>
         <id>BROWSE_YEAR</id>
-        <text>Bla etter år</text>
-        <version>1.19</version>
+        <text>Bla etter utgivelses år</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>CACHE_CONFIG_TITLE</id>
@@ -404,8 +444,8 @@
       </string>
       <string>
         <id>CACHE_SIZE_PROMPT</id>
-        <text>Dette representerer maks disk kapasitet (i megabyte) som vil bli benyttet til mellomlagring av bildefiler (en verdi på 0 indikerer et ubegrenset mellomlager). Når denne begrensningen nåes vil tidligere mellomlagrede filer bli slettet på basis av hva som sist ble benyttet.</text>
-        <version>1.19</version>
+        <text>Dette representerer maks disk kapasitet (i megabyte) som vil bli benyttet til mellomlagring av bildefiler (en verdi på 0 indikerer et ubegrenset mellomlager). Når denne begrensningen nås vil tidligere mellomlagrede filer bli slettet på basis av hva som sist ble benyttet.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>CACHE_STYLE</id>
@@ -508,6 +548,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>CHANNEL</id>
+        <text>Kanal</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CHANNELS</id>
+        <text>Kanaler</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>CLEAR_NAME</id>
         <text>Nullstill navn</text>
         <version>1.19</version>
@@ -515,7 +565,12 @@
       <string>
         <id>COMPACT_VIEW</id>
         <text>Kompakt visning</text>
-        <version>1.19</version>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>COMPOSER</id>
+        <text>Komponist</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>CONFIGURATION</id>
@@ -574,8 +629,8 @@
       </string>
       <string>
         <id>CONFIG_LASTFM_TITLE</id>
-        <text>LastFM alternativer</text>
-        <version>1.19</version>
+        <text>Last.fm alternativer</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>CONFIG_MIP_OPTIONS</id>
@@ -596,6 +651,11 @@
         <id>CONFIG_SHOUTCAST_TITLE</id>
         <text>Shoutcast alternativer</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_SWISSMONITOR</id>
+        <text>SwissMonitor</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>CONFIG_TITLE</id>
@@ -621,6 +681,11 @@
         <id>CONNECT_TITLE</id>
         <text>Internet tilknytning</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>CONTACTS</id>
+        <text>Kontakter</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>CONTINUE</id>
@@ -661,6 +726,26 @@
         <id>DATE</id>
         <text>Dato</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>DATE_FORMAT</id>
+        <text>Dato format</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DATE_FORMAT_PROMPT</id>
+        <text>Dette er formatet som benyttes for å vise datoer og kan endres til ditt foretrukne format. Formatet er definert av MySQL og noen format tegn er:[br][ul]
+[li]%b Måned, alfabetisk kortform (jan..des) [/li]
+[li]%d Dato, numerisk (00..31)[/li]
+[li]%m Måned, numerisk (00..12) [/li]
+[li]%Y År, numerisk, fire sifre[/li]
+[li]%y År, numerisk, to sifre[/li][/ul]</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DATE_FORMAT_TEST</id>
+        <text>Gjeldende format: %s</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>DAY_1</id>
@@ -808,6 +893,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>ENHANCED</id>
+        <text>Forbedret</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>EPISODE</id>
         <text>Episode</text>
         <version>1.19</version>
@@ -825,7 +915,12 @@
       <string>
         <id>EP_PREV</id>
         <text>Foregående episode</text>
-        <version>1.21</version>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXCLUSIVE</id>
+        <text>Eksklusiv</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>EXIFVALS_EXPOSE_MODE</id>
@@ -1043,6 +1138,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>FAIL_DATABASE_PATCH</id>
+        <text>Databasen er ikke fullt oppdatert. Siste vellykkede oppdatering var %s.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_DOTNET2_INSTALLED</id>
+        <text>.NET rammeverk versjon 2 må være installert</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>FAIL_LIVERADIO_TEST</id>
         <text>LiveRadio parser synes å være defekt</text>
         <version>1.19</version>
@@ -1069,8 +1174,8 @@
       </string>
       <string>
         <id>FAIL_MYSQL_VERSION</id>
-        <text>Din versjon av MySQL er ikke støttet.</text>
-        <version>1.19</version>
+        <text>Din versjon av MySQL er ikke støttet. Minimum versjon 5.0 av MySQL må være installert.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>FAIL_PHP_CLI</id>
@@ -1104,8 +1209,8 @@
       </string>
       <string>
         <id>FAIL_PHP_VERSION</id>
-        <text>Din versjon av PHP er ikke støttet (%s)..</text>
-        <version>1.19</version>
+        <text>Din versjon av PHP er ikke støttet (%s). Du må ha minimum versjon 5.2.6 av PHP installert.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>FAIL_SERVER_SCHED</id>
@@ -1116,6 +1221,16 @@
         <id>FAIL_SHOUTCAST_TEST</id>
         <text>ShoutCast parser synes å være defekt</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_SWISSMONITOR_INSTALLED</id>
+        <text>SwissMonitor tjenesten er ikke installert.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_SWISSMONITOR_RUNNING</id>
+        <text>SwissMonitor tjenesten er installert, men kjører ikke.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>FAIL_SWISS_CACHE</id>
@@ -1143,6 +1258,11 @@
         <version>1.21</version>
       </string>
       <string>
+        <id>FAVORITES</id>
+        <text>Favoritter</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>FILENAME</id>
         <text>Filnavn</text>
         <version>1.19</version>
@@ -1161,6 +1281,46 @@
         <id>FILTER_ACTIVE_SUFFIX</id>
         <text>(aktiv)</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_CERT</id>
+        <text>Ingen sertifikat</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_DETAILS</id>
+        <text>Ingen detaljer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_EPISODE</id>
+        <text>Ingen episoder</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_PROGRAMME</id>
+        <text>Ingen programmer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_RATING</id>
+        <text>Ingen rangering</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_SERIES</id>
+        <text>Ingen serier</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_SYNOPSIS</id>
+        <text>Ingen sammendrag</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_YEAR</id>
+        <text>Ingen år</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>FILTER_VIEWED</id>
@@ -1265,7 +1425,7 @@
       </string>
       <string>
         <id>FLICKR_USERID_PROMPT</id>
-        <text>Hver SwissCneter bruker kan knyttes opp mot en Flickr bruker. Hvis du ikke legger inn ditt Flickr brukernavn vil du ikke få tilgang til bilder og kontakter.</text>
+        <text>Hver SwissCenter bruker kan knyttes opp mot en Flickr bruker. Hvis du ikke legger inn ditt Flickr brukernavn vil du ikke få tilgang til bilder og kontakter.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -1475,6 +1635,11 @@
       </string>
       <string>
         <id>INTERNET_TV</id>
+        <text>Internet TV</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>INTERNET_TV_OPTIONS</id>
         <text>Internet TV</text>
         <version>1.22</version>
       </string>
@@ -1744,6 +1909,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>JUST_ADDED</id>
+        <text>Nylig opprettet</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>JUST_HD</id>
+        <text>Kun HD</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>KEYBOARD_DEL</id>
         <text>SLETT</text>
         <version>1.19</version>
@@ -1885,13 +2060,13 @@
       </string>
       <string>
         <id>LASTFM</id>
-        <text>LastFM</text>
-        <version>1.19</version>
+        <text>Last.fm</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>LASTFM_ABOUT</id>
-        <text>LastFM er verdens største sosiale musikk plattform med mer enn 20 millioner aktive brukere fra over 232 land. Ved å benytte et unikt anbefalings system, kjent som &quot;Audioscrobbler&quot;, lager LastFM en detaljert profil av hver brukers musikk smak gjennom registrering av detaljer fra alle sangene brukeren lytter til, via radio stasjoner eller via stasjonære eller portable media spillere. [p] Brukere kan lage tilpassede radio stasjoner og spillelister fra lydspor i LastFM sitt musikk bibliotek, men kan ikke lytte til individuelle spor på forespørsel eller laste ned spor med mindre rettighetshaverne tillater dette. Registrering kreves for å kunne opprette en egen profil, men er ikke nødvendig for å kunne bla i web sidene eller lytte til radio stasjoner.</text>
-        <version>1.19</version>
+        <text>Last.fm er verdens største sosiale musikk plattform med mer enn 20 millioner aktive brukere fra over 232 land. Ved å benytte et unikt anbefalings system, kjent som &amp;quot;Audioscrobbler&amp;quot;, lager Last.fm en detaljert profil av hver brukers musikk smak gjennom registrering av detaljer fra alle sangene brukeren lytter til, via radio stasjoner eller via stasjonære eller portable media spillere. [p] Brukere kan lage tilpassede radio stasjoner og spillelister fra lydspor i Last.fm sitt musikk bibliotek, men kan ikke lytte til individuelle spor på forespørsel eller laste ned spor med mindre rettighetshaverne tillater dette. Registrering kreves for å kunne opprette en egen profil, men er ikke nødvendig for å kunne bla i web sidene eller lytte til radio stasjoner.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>LASTFM_ARTIST</id>
@@ -1900,13 +2075,13 @@
       </string>
       <string>
         <id>LASTFM_ENABLED_PROMPT</id>
-        <text>Når den er aktivert vil SwissCenter kunne koble seg til LastFM web siden og aksessere personlige radio kanaler.</text>
-        <version>1.19</version>
+        <text>Når den er aktivert vil SwissCenter kunne koble seg til Last.fm web siden og aksessere personlige radio kanaler.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>LASTFM_LOGIN_HEADINGS</id>
-        <text>Bruker,LastFM[br]Brukernavn,LastFM[br]Passord,Scrobble?,Bilder?</text>
-        <version>1.19</version>
+        <text>Bruker,Last.fm[br]Brukernavn,Last.fm[br]Passord,Scrobble?,Bilder?</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>LASTFM_PROMPT_GENERAL</id>
@@ -1925,8 +2100,8 @@
       </string>
       <string>
         <id>LASTFM_WHATIS</id>
-        <text>Hva er LastFM?</text>
-        <version>1.19</version>
+        <text>Hva er Last.fm?</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>LENGTH_MM</id>
@@ -1940,8 +2115,8 @@
       </string>
       <string>
         <id>LISTEN_LASTFM</id>
-        <text>Lytt til LastFM Stasjon</text>
-        <version>1.19</version>
+        <text>Lytt til Last.fm stasjon</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>LISTEN_LASTFM_ARTISTS</id>
@@ -1980,8 +2155,8 @@
       </string>
       <string>
         <id>LISTEN_RADIO</id>
-        <text>Lytt til internet radio</text>
-        <version>1.19</version>
+        <text>Internet radio</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>LIST_VIEW</id>
@@ -2207,6 +2382,11 @@
         <id>MEDIA_SCAN_STATUS_TV</id>
         <text>Leser TV detaljer</text>
         <version>1.21</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_TYPE</id>
+        <text>Søke type</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>MEDIA_SEARCH_PROMPT</id>
@@ -2484,6 +2664,21 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>MOST_POPULAR</id>
+        <text>Mest populær</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MOST_RECENT</id>
+        <text>Nyest</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MOST_VIEWED</id>
+        <text>Mest sett</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>MOVIE_ADD_BUTTON</id>
         <text>Legg til/oppdater detaljer</text>
         <version>1.19</version>
@@ -2559,6 +2754,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MUSIC_BEFORE_PREV</id>
+        <text>Før det</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>MUSIC_PLAY_NEXT</id>
         <text>Neste</text>
         <version>1.19</version>
@@ -2590,13 +2790,18 @@
       </string>
       <string>
         <id>NETWORK_SHARE_PROMPT</id>
-        <text>Denne nettverks referansen vil kun bli benyttet for media type 'DVD video', og vil utelates for alle andre media typer. For å spille DVD videoer må du først definere en SMB eller NFS nettverks referanse på din NMT for å tillatte adgang til dine DVD kopier, deretter må du koble nettverks referansen mot denne media typen.</text>
-        <version>1.21</version>
+        <text>Nettverks referansen ver kun påkrevd hvis du har DVD image kopier (iso, img, etc) i denne media katalogen og kan kun benyttes med en NMT media spiller. For å spille DVD kopier må du først definere en SMB eller NFS nettverks referanse på din NMT for å gi adgang til dine DVD kopier, deretter må du koble nettverks referansen mot denne media katalogen.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>NEW</id>
         <text>Ny</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>NEWSUBSCRIPTIONVIDEOS</id>
+        <text>Nye videoer</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>NEW_MESSAGES</id>
@@ -2631,7 +2836,37 @@
       <string>
         <id>NOW_PLAYING</id>
         <text>Nå spilles</text>
-        <version>1.19</version>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_FANART</id>
+        <text>Last ned fan grafikk</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_FANART_GOOGLE</id>
+        <text>Google bilder</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_FANART_LASTFM</id>
+        <text>Last.fm</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_FANART_NONE</id>
+        <text>Ingen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_FANART_PROMPT</id>
+        <text>Velg kilde for fan grafikk som skal benyttes på det utvidede &quot;Nå spilles&quot; bildet. Fan grafikk lagres for hver artist i [em]swisscenter\fanart\artists\depeche mode[/em].[br][b]Ingen[/b] - ingen fan grafikk vill bli lastet ned. Kun eksisterende bilder i din fan grafikk folder vil benyttes.[br][b]Google bilder[/b] - fan grafikk vil hentes fra Google bilder og lastet ned lokalt til din fan grafikk katalog..[br][b]Last.fm[/b] (anbefalt) - artist bilder vil bli lastet ned til til din fant grafikk katalog fra Last.fm.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_OPTIONS</id>
+        <text>Nå spilles alternativer</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>NOW_PLAYING_PROMPT</id>
@@ -2639,9 +2874,20 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>NOW_PLAYING_STYLE</id>
+        <text>Nå spilles stil</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_STYLE_PROMPT</id>
+        <text>Det originale 'Nå spilles' bildet viser spor detaljer med album grafikk som oppdateres ved bytte av spor.
+Den utvidede versjonen viser spor detaljer med en progresjons søyle og fan grafikk som bakgrunn. Dette valget anbefales for NMT brukere. I NMT oppsettet må du sette 'Bilde overgang' til 'ingen'.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>NOW_PLAYING_SUPPORT</id>
-        <text>Spilles av nå bildet</text>
-        <version>1.19</version>
+        <text>Nå spilles synkronisering</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>NO_ITEMS_TO_DISPLAY</id>
@@ -2669,6 +2915,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>OPENING_THISWEEK</id>
+        <text>Starter denne uken</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>OPTIONS</id>
         <text>Opsjoner</text>
         <version>1.19</version>
@@ -2680,8 +2931,13 @@
       </string>
       <string>
         <id>ORG_TITLE</id>
-        <text>Video/DVD detaljer</text>
-        <version>1.21</version>
+        <text>Endre video/DVD detaljer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ORIGINAL</id>
+        <text>Original</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PAGE</id>
@@ -2692,6 +2948,16 @@
         <id>PASSWORD</id>
         <text>Passord</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_DATABASE_PATCH</id>
+        <text>Databasen er fullt oppdatert til %s.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_DOTNET2_INSTALLED</id>
+        <text>.NET rammeverk versjon 2 er installert.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PASS_LIVERADIO_TEST</id>
@@ -2762,6 +3028,16 @@
         <id>PASS_SHOUTCAST_TEST</id>
         <text>ShoutCast parser synes å virke ok</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_SWISSMONITOR_INSTALLED</id>
+        <text>SwissMonitor tjenesten er installert.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_SWISSMONITOR_RUNNING</id>
+        <text>SwissMonitor tjenesten kjører.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PASS_SWISS_CACHE</id>
@@ -3139,6 +3415,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>PLAY_TRAILER</id>
+        <text>Spill av trailer</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>PLEASE_SELECT</id>
         <text>Velg</text>
         <version>1.19</version>
@@ -3177,6 +3458,11 @@
         <id>PROGRAMME</id>
         <text>Program</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PROGRAMME_LIST_ALL</id>
+        <text>Alle programmer</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>QUICK_HOME</id>
@@ -3224,6 +3510,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>RATING</id>
+        <text>Rangering</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>RATING_SCHEME_PROMPT</id>
         <text>Klassifisering</text>
         <version>1.20</version>
@@ -3237,6 +3528,31 @@
         <id>RECENTLY_ADDED_DAYS</id>
         <text>I løpet av de siste %s dagene</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>RECENTLY_FEATURED</id>
+        <text>Nylig vist</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_MEDIA</id>
+        <text>Nylig lagt til</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_MUSIC</id>
+        <text>Musikk</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_PHOTO</id>
+        <text>Bilder</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_VIDEO</id>
+        <text>Video</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REFERENCE</id>
@@ -3262,6 +3578,11 @@
         <id>REFINE_CERTIFICATE</id>
         <text>Selekter på serifikat</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_COMPOSER</id>
+        <text>Selekter på komponist.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REFINE_DIRECTOR</id>
@@ -3325,8 +3646,8 @@
       </string>
       <string>
         <id>REFINE_PHOTO_TITLE</id>
-        <text>Selekter på tittel</text>
-        <version>1.19</version>
+        <text>Selekter på bilde tittel</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REFINE_TITLE</id>
@@ -3340,8 +3661,8 @@
       </string>
       <string>
         <id>REFINE_YEAR</id>
-        <text>Selekter på år</text>
-        <version>1.19</version>
+        <text>Selekter på utgivelses år</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REFRESH_CLEANUP</id>
@@ -3402,6 +3723,11 @@
         <id>REFRESH_RUNNING</id>
         <text>Database oppdatering har blitt startet i bakgrunnen og du kan fortsette å benytte systemet som normalt. Vær dog oppmerksom på at ikke alle mediafiler vil være tilgjengelige for avspilling inntil oppdateringen er fullført. [p]Første gangs oppdatering kan ta ca. 10 minutter for 5,000 mediafiler. Senere oppdateringer vil være langt hurtigere.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>RELEASE_DATE</id>
+        <text>Utgivelses dato</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REMOTE_ACCESS_ERROR</id>
@@ -3475,8 +3801,8 @@
       </string>
       <string>
         <id>RSS_CACHE_LABEL</id>
-        <text>Spesifiser antall meldinger som skal mellomlagres for denne kanalen. Når denne grensen nåes vil eldre meldinger bli slettet. Spesifiser '0' for å beholde alle meldinger.</text>
-        <version>1.20</version>
+        <text>Spesifiser antall meldinger som skal mellomlagres for denne kanalen. Når denne grensen nås vil eldre meldinger bli slettet. Spesifiser '0' for å beholde alle meldinger.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>RSS_DEL_BUTTON</id>
@@ -3589,6 +3915,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>SCHEDULE_ALL</id>
+        <text>Alle</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SCHEDULE_AUTO_TITLE</id>
         <text>Automatisk media oppdatering</text>
         <version>1.19</version>
@@ -3629,6 +3960,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>SCHEDULE_MEDIA_ONLY</id>
+        <text>Kun media</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SCHEDULE_MINUTE_PROMPT</id>
         <text>Minutt</text>
         <version>1.19</version>
@@ -3647,6 +3983,11 @@
         <id>SCHEDULE_NOTES</id>
         <text>[li]* betyr alle mulige verdier. [li]Flere verdier kan spesifiseres ved å skille de med komma (1,5). [li]Fra/til verdier kan spesifiseres ved bruk av bindestrek (1-5). [li]Disse kan kombineres (1-4,7).</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_RSS_ONLY</id>
+        <text>Kun RSS</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>SCHEDULE_TITLE</id>
@@ -3749,6 +4090,26 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>SERVICE_INSTALL</id>
+        <text>Installer tjeneste</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SERVICE_START</id>
+        <text>Start tjeneste</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SERVICE_STOP</id>
+        <text>Stopp tjeneste</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SERVICE_UNINSTALL</id>
+        <text>Avinstaller tjeneste</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SETUP</id>
         <text>Konfigurasjon</text>
         <version>1.21</version>
@@ -3829,6 +4190,56 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>SORT_BITRATE</id>
+        <text>Sorter etter bit rate</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_CATEGORY</id>
+        <text>Sorter etter kategori</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_DATE</id>
+        <text>Sorter etter dato</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_FAVORITE</id>
+        <text>Sorter etter favoritter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_ID</id>
+        <text>Sorter etter sist</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_NAME</id>
+        <text>Sorter etter navn</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_RATING</id>
+        <text>Sorter etter rangering</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_TIME</id>
+        <text>Sorter etter tid</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_VIEWS</id>
+        <text>Sorter etter visninger</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SPOKEN_LANGUAGE</id>
+        <text>Språk</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>STARRING</id>
         <text>Skuespillere</text>
         <version>1.19</version>
@@ -3842,6 +4253,11 @@
         <id>START_SLIDESHOW</id>
         <text>Begynn lysbilde visning</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>STATISTICS</id>
+        <text>Statistikk</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>STATUS</id>
@@ -3877,6 +4293,11 @@
         <id>STYLE_SHOW_INSTALLED</id>
         <text>Vis installerte styles</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>SUBSCRIPTIONS</id>
+        <text>Abonnement</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>SUPPORT_CLIENTS_TITLE</id>
@@ -3949,6 +4370,26 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>SWISSMONITOR_ACTION_FAILED</id>
+        <text>SwissCenter kunne ikke utføre den valgte operasjonen - sjekk support loggen.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_ACTION_SUCCESS</id>
+        <text>Den valgte operasjonen ble utført i forhold til SwissMonitor tjenesten.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_DESCRIPTION</id>
+        <text>SwissMonitor tjenesten er en enkel Windows tjeneste som vil overvåke dine definerte media kataloger for endring av filer (inklusive nylig opprettede og slettede filer) og informere SwissCenter slik at din database kan oppdateres tilsvarende. Allikevel kan det være behov for å kjøre en fullstendig gjennomsøking fordi endringer i noen tilfeller ikke vil kunne fanges opp.[p][b]Merk:[/b] Hvis du benytter UNC referanser i dine media kataloger  (eks. &amp;quot;\\nas\filmer&amp;quot;) må du benytte kontroll panel - tjenester og endre SwissMonitor tjenesten slik at den kjøres med din brukers rettigheter.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_TITLE</id>
+        <text>SwissMonitor tjeneste</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SYNOPSIS</id>
         <text>Sammendrag</text>
         <version>1.19</version>
@@ -3969,9 +4410,99 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>TABLE_DEFINITION</id>
+        <text>Definisjon av tabell: %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>TAG</id>
         <text>Tagg</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>TASK_SCHEDULER</id>
+        <text>Oppgave planlegger</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEMES</id>
+        <text>Temaer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEMES_PROMPT</id>
+        <text>Temaer blir automatisk lastet ned for filmer og TV serier av &amp;amp;quot;themoviedb&amp;amp;quot; and &amp;amp;quot;TheTVDB&amp;amp;quot; parserne når detajer legges til for nye media. Velg en tittel fra nedtrekks menyen og velg så et tema fra tilgjengelige ikonene. For å bruke et valgt tema må du velge et 'Bruk på ...' alternativ. Hvis flere tema velges for en tittel vil de vekselvis benyttes på de valgte sidene.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_APPLY</id>
+        <text>Bruk tema valgene</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_APPLY_OK</id>
+        <text>Tema ble lagret.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_EFFECTS</id>
+        <text>Effekter:</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_FLIP_IMAGE</id>
+        <text>Speilvendt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_GREYSCALE</id>
+        <text>Gråskala</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_ON_SERIES</id>
+        <text>Bruk på episode utvalgs siden</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_ON_SYNOPSIS</id>
+        <text>Bruk på sammendrag siden</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_PREVIEW_THUMBS</id>
+        <text>Forhåndsvisning av tilgjengelige temaer for %s.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_SAVED_SUCCESS</id>
+        <text>Tema ble lagret.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_SETTINGS</id>
+        <text>Innstillinger:</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_SHOW_BANNER</id>
+        <text>Vis overskrift</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_SHOW_IMAGE</id>
+        <text>Vis bilde</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THIS_MONTH</id>
+        <text>Denne måneden</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THIS_WEEK</id>
+        <text>Denne uken</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>THUMBNAIL_VIEW</id>
@@ -4009,6 +4540,121 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>TODAY</id>
+        <text>I dag</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_BROWSE_CATEGORY</id>
+        <text>Filtrer etter kategori</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_BROWSE_CHANNELS</id>
+        <text>Bla etter kanaler</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_BROWSE_COUNTRY</id>
+        <text>Filtere etter land</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_CHANNELS_AVAILABLE</id>
+        <text>Det er %s kanaler tilgjengelige med valgte filtere.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_CHANNELS_UPDATE_MSG</id>
+        <text>Kanal listen oppdateres - vennligst vent</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_INTERNET_TV</id>
+        <text>TOMA - Internet TV</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_MEDIA_TYPES</id>
+        <text>Media typer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_MEDIA_TYPES_PROMPT</id>
+        <text>Velg media typene som skal vises ved blaing etter kanaler. Du bør kun velge typer som er kompatible med din media spiller.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_REMOVE_FILTER</id>
+        <text>Fjern filtere</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_RP</id>
+        <text>Real Media</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_CHANNELS_FAIL</id>
+        <text>Kanal listen kunne ikke oppdateres</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_CHANNELS_OK</id>
+        <text>%s kanaler ble oppdatert</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_CHANNELS_TIME_FAIL</id>
+        <text>Kan ikke oppdatere kanaler, sist oppdatert for %s timer siden</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_MEDIA_FAIL</id>
+        <text>Du har ikke valgt noen media typer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_TEXT</id>
+        <text>%s web siden har som mål å bli det største og mest oppdaterte arkivet av Internet TV kanaler (kanaler som er fritt tilgjengelige via Internet). Vi har kanaler fra hele verden og databasen oppdateres hver dag av våre brukere.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_UPDATE_OK</id>
+        <text>TOMA innstillinger ble lagret</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_UPDATE_CHANNELS</id>
+        <text>Oppdater kanal listen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_UPDATE_CHANNELS_TEXT</id>
+        <text>Kanal listen vedlikeholdes og lagres av TOMA utvikleren - Internet TV. For å begrense båndbredde er det ikke tillatt å oppdatere listen mer enn en gang hver 24. time.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_WA</id>
+        <text>Nullsoft video</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_WM</id>
+        <text>Windows media</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOP_FAVORITES</id>
+        <text>Topp favoritter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOP_RATED</id>
+        <text>Topp rangering</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>TRACKS</id>
         <text>Spor</text>
         <version>1.19</version>
@@ -4032,6 +4678,11 @@
         <id>TRACK_NAME</id>
         <text>Navn på spor</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>TRAILER_LOCATION</id>
+        <text>Tariler plassering</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>TRANS_CLOSE_VERTICAL</id>
@@ -4254,6 +4905,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>UPLOADS</id>
+        <text>Opplastinger</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>UPLOAD_FAILED</id>
         <text>Opplasting av fil feilet.</text>
         <version>1.19</version>
@@ -4301,6 +4957,16 @@
       <string>
         <id>URL_DEL_OK</id>
         <text>De valgte URL'ene har blitt fjernet</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ERROR_CAT</id>
+        <text>Velg en kategori</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ERROR_CERT</id>
+        <text>Velg et sertifikat</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4449,6 +5115,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>USE_BANNER</id>
+        <text>Bruk overskrifter</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>VALUE</id>
         <text>Verdi</text>
         <version>1.19</version>
@@ -4459,9 +5130,19 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>VIDEOS</id>
+        <text>Videoer</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>VIDEO_INFO</id>
         <text>Video info</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>VIEWED</id>
+        <text>Vist</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>VIEWED_BY</id>
@@ -4619,6 +5300,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>WEEKEND_BOXOFFICE</id>
+        <text>Weekend Box Office</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>WIKI_LOOKUP</id>
         <text>Wikipedia oppslag</text>
         <version>1.19</version>
@@ -4647,6 +5333,66 @@
         <id>YES</id>
         <text>Ja</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>YOUTUBE</id>
+        <text>YouTube</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_DESC</id>
+        <text>YouTube %s er en web side for video deling der brukere kan laste opp og dele videoer.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_HD</id>
+        <text>Bruk HD</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_HD_PROMPT</id>
+        <text>Alle YouTube videoer kan vises i standard oppløsning (480x360). Ved å velge denne opsjonen vil de vises i en HD (1280x720) versjon hvis tilgjengelig. Dette valget bør ikke benyttes hvis du har problemer med båndbredde når det vises HD innhold.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_PROMPT_GENERAL</id>
+        <text>Generelle videoer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_PROMPT_PERSONAL</id>
+        <text>Egne videoer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_SEARCH_CHANNELS</id>
+        <text>Søk etter kanaler</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_SEARCH_PLAYLISTS</id>
+        <text>Søk i spillelister</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_SEARCH_VIDEOS</id>
+        <text>Søk etter videoer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_UNKNOWN_USER</id>
+        <text>Ingen bruker med det angitte brukernavnet (%s) ble funnet.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_USERID_PROMPT</id>
+        <text>Hver SwissCenter bruker kan assosieres med et YouTube brukernavn. Hvis du ikke legger inn et brukernavn vil du ikke ha tilgang til abonnement, favoritter, etc.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_USERNAMES</id>
+        <text>YouTube brukernavn</text>
+        <version>1.22</version>
       </string>
     </language>
   </languages>
