@@ -7,7 +7,7 @@
 
   // Check page parameters
   $column        = $_REQUEST["sort"];
-  $joined_tables = " left outer join photo_albums pa on media.dirname like concat(pa.dirname,'%') ".get_rating_join().viewed_join(MEDIA_TYPE_PHOTO);
+  $joined_tables = get_rating_join().viewed_join(MEDIA_TYPE_PHOTO);
   $articles      = get_sys_pref('IGNORE_ARTICLES');
 
   $search = array();
@@ -22,8 +22,8 @@
     case "title":
       $title  = str('PHOTO_ALBUM');
       $search = array("display" => "title",
-                      "info"    => "count(distinct filename)",
-                      "order"   => "trim_article(display,'$articles')");
+                      "info"    => "count(filename)",
+                      "order"   => "display");
       break;
     case "iptc_byline":
     case "iptc_caption":
@@ -36,7 +36,7 @@
     case "xmp_rating":
       $title  = str(strtoupper(($column)));
       $search = array("display" => $column,
-                      "info"    => "count(distinct filename)",
+                      "info"    => "count(filename)",
                       "order"   => "display");
       break;
     case "discovered":
@@ -56,6 +56,11 @@
       page_error('Unexpected error - please see log for details');
       break;
   }
+
+  // Only join tables that are actually required
+  $history = search_hist_most_recent();
+  if ($search["display"] == 'title' || strpos($history["sql"],'title like') > 0)
+    $joined_tables .= 'left outer join photo_albums pa on media.dirname = pa.dirname ';
 
   search_media_page( str('VIEW_PHOTO'), $title, MEDIA_TYPE_PHOTO, $joined_tables, $search, 'photo_selected.php' );
 

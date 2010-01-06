@@ -642,19 +642,25 @@ function process_mp3( $dir, $id, $file)
 
 function add_photo_album( $dir, $id )
 {
-  $count = db_value("select count(*) from photo_albums where dirname='".db_escape_str($dir)."'");
-  if ($count == 0)
+  $media_loc = db_value("select name from media_locations where location_id=$id");
+  $title     = str_replace('/', ':', trim(substr($dir, strlen($media_loc)+1), '/'));
+  $row       = array("dirname"      => $dir
+                    ,"title"        => $title
+                    ,"verified"     => 'Y'
+                    ,"discovered"   => db_datestr()
+                    ,"timestamp"    => db_datestr(filemtime($dir))
+                    ,"location_id"  => $id
+                    );
+
+  send_to_log(6,'Adding photo album "'.$title.'"');
+
+  if ($file_id = db_value("select file_id from photo_albums where dirname='".db_escape_str($dir)."'"))
   {
-    send_to_log(6,'Adding photo album "'.basename($dir).'"');
-
-    $row = array("dirname"       => $dir
-                 ,"title"        => basename($dir)
-                 ,"verified"     => 'Y'
-                 ,"discovered"   => db_datestr()
-                 ,"timestamp"    => db_datestr(filemtime($dir))
-                 ,"location_id"  => $id
-                 );
-
+    if ( db_update_row( "photo_albums", $file_id, $row) === false )
+      send_to_log(1,'Unable to update photo album to the database');
+  }
+  else
+  {
     if ( db_insert_row( "photo_albums", $row) === false )
       send_to_log(1,'Unable to add photo album to the database');
   }

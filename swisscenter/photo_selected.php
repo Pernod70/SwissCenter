@@ -17,22 +17,29 @@
 
   $menu       = new menu();
   $info       = new infotab();
-  $sql_table  = "photos media ".get_rating_join()." left outer join photo_albums pa on media.dirname like concat(pa.dirname,'%') where 1=1 ";
+  $sql_table_all = 'photos media '.
+                   'left outer join photo_albums pa on media.dirname = pa.dirname '.
+                   get_rating_join().' where 1=1 ';
   $predicate  = search_process_passed_params();
+  $sql_table  = 'photos media ';
+  // Only join tables that are actually required
+  if (strpos($predicate,'title like') > 0)
+    $sql_table .= 'left outer join photo_albums pa on media.dirname = pa.dirname ';
+  $sql_table .= get_rating_join().' where 1=1 ';
   $count      = db_value("select count(distinct media.file_id) from $sql_table $predicate");
   $refine_url = 'photo_search.php';
   $this_url   = url_set_param(current_url(),'add','N');
   $play_order = get_user_pref('PHOTO_PLAY_ORDER','filename');
   $delay      = get_user_pref('PHOTO_PLAY_TIME',5);
   $music      = isset($_SESSION["background_music"]) ? $_SESSION["background_music"] : '*'; // default to the current playlist
-  
+
   // What do we output to the user when it comes to describing the currently selected background music?
   if ($music == '')
     $music_txt = str('PHOTOS_MUSIC_NONE');
   elseif ($music='*')
     $music_txt = str('PHOTOS_MUSIC_CURRENT');
   else
-    $music_txt = $music; 
+    $music_txt = $music;
 
   // Work out what to display
   if ($count == 1)
@@ -81,7 +88,7 @@
     }
 
     $menu->add_item(str('START_SLIDESHOW'), play_sql_list(MEDIA_TYPE_PHOTO,"select media.* from $sql_table $predicate order by $play_order") );
-    search_check_filter( $menu, str('REFINE_PHOTO_ALBUM'),  'title',  $sql_table, $predicate, $refine_url );
+    search_check_filter( $menu, str('REFINE_PHOTO_ALBUM'),  'title',  $sql_table_all, $predicate, $refine_url );
     search_check_filter( $menu, str('REFINE_PHOTO_TITLE'),  'filename',  $sql_table, $predicate, $refine_url );
     search_check_filter( $menu, str('REFINE_IPTC_BYLINE'),  'iptc_byline',  $sql_table, $predicate, $refine_url );
     search_check_filter( $menu, str('REFINE_IPTC_CAPTION'), 'iptc_caption',  $sql_table, $predicate, $refine_url );
@@ -91,14 +98,14 @@
     search_check_filter( $menu, str('REFINE_IPTC_COUNTRY'), 'iptc_country',  $sql_table, $predicate, $refine_url );
 //    search_check_filter( $menu, str('REFINE_IPTC_KEYWORDS'),'iptc_keywords',  $sql_table, $predicate, $refine_url );
 //    search_check_filter( $menu, str('REFINE_IPTC_SUPPCATEGORY'),    'iptc_suppcategory',  $sql_table, $predicate, $refine_url );
-    search_check_filter( $menu, str('REFINE_XMP_RATING'),    'xmp_rating',  $sql_table, $predicate, $refine_url ); 
+    search_check_filter( $menu, str('REFINE_XMP_RATING'),   'xmp_rating',  $sql_table, $predicate, $refine_url );
 
     // TO-DO
     // Expand to parent album
   }
 
     $menu->add_item(str('PHOTOS_MUSIC_CHANGE'), 'photo_change_music.php', true);
-  
+
   if ($count >1)
   {
     $menu->add_item( str('PHOTO_CHANGE_TIME'), 'photo_change_time.php', true);
@@ -106,9 +113,9 @@
   }
 
   $folder_img = file_albumart( db_value("select concat(media.dirname,media.filename) from $sql_table $predicate order by media.$play_order limit 0,1") );
-  
+
   // Display Page
-  page_header(str('SLIDESHOW'),'');
+  page_header( str('SLIDESHOW'), '', '<meta SYABAS-PLAYERMODE="photo">' );
   if (! empty($folder_img) )
   {
     $info->display();
@@ -128,6 +135,7 @@
   }
 
   // Display ABC buttons
+  $buttons = array();
   page_footer( url_add_params( search_picker_most_recent(), array("p_del"=>"y","del"=>"y") ), $buttons );
 
 /**************************************************************************************************
