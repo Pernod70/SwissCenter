@@ -28,6 +28,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>ADMIN_PORT</id>
+        <text>Admin port</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>ADVANCED_OPTIONS</id>
         <text>Advanced Options</text>
         <version>1.19</version>
@@ -158,6 +163,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>AUDIO_CODEC</id>
+        <text>Audio codec</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>AUTOMATIC</id>
         <text>Automatic</text>
         <version>1.19</version>
@@ -171,6 +181,11 @@
         <id>BAND</id>
         <text>Album Artist</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>BITRATE</id>
+        <text>Bitrate</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BOOKMARKS</id>
@@ -543,6 +558,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>CHARSET_PROMPT</id>
+        <text></text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>CLEAR_NAME</id>
         <text>Clear name</text>
         <version>1.19</version>
@@ -631,6 +651,11 @@
         <id>CONFIG_MUSICIP</id>
         <text>MusicIP Settings</text>
         <version>1.20.1</version>
+      </string>
+      <string>
+        <id>CONFIG_PAGE_CHARSET</id>
+        <text>Browser charset</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>CONFIG_RADIO_OPTIONS</id>
@@ -904,12 +929,12 @@
       </string>
       <string>
         <id>EP_NEXT</id>
-        <text>Next Episode</text>
-        <version>1.20.1</version>
+        <text>Next: Episode %s</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>EP_PREV</id>
-        <text>Previous Episode</text>
+        <text>Previous: Episode %s</text>
         <version>1.22</version>
       </string>
       <string>
@@ -1143,6 +1168,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>FAIL_IMAGEMAGICK_TEST</id>
+        <text>ImageMagick is not installed.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>FAIL_LIVERADIO_TEST</id>
         <text>LiveRadio parser looks broken</text>
         <version>1.19</version>
@@ -1251,6 +1281,16 @@
         <id>FAIL_SWISS_PLAYLIST</id>
         <text>Unable to write to the SwissCenter playlists directory (%s).</text>
         <version>1.20.1</version>
+      </string>
+      <string>
+        <id>FAIL_VLC_TEST</id>
+        <text>VideoLAN is not installed (or configured correctly).</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_VLC_VERSION</id>
+        <text></text>
+        <version>1.22</version>
       </string>
       <string>
         <id>FAVORITES</id>
@@ -1452,6 +1492,26 @@
         <id>HOUR</id>
         <text>Hour</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>IMAGEMAGICK_CONFIG</id>
+        <text>ImageMagick</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IMAGEMAGICK_DESC</id>
+        <text>ImageMagick (available from %s) is used to improve performance when manipulating images. It is much faster at rotating and scaling images than PHP so will cause pages containing many images to load quicker.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IMAGEMAGICK_PATH</id>
+        <text>ImageMagick path</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IMAGEMAGICK_PATH_PROMPT</id>
+        <text>Please specify the full path of the ImageMagick executable. For Windows users this is probably C:\Program Files\ImageMagick-6.5.7-Q16.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>IMAGE_EXIF_ROTATE</id>
@@ -2788,6 +2848,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MUXER</id>
+        <text>Muxer</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>NAME</id>
         <text>Name</text>
         <version>1.19</version>
@@ -2969,11 +3034,6 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <version>1.22</version>
       </string>
       <string>
-        <id>OS_DOWNLOADED</id>
-        <text>Already downloaded</text>
-        <version>1.22</version>
-      </string>
-      <string>
         <id>OS_DOWNLOADED_OK</id>
         <text>Subtitles successfully downloaded</text>
         <version>1.22</version>
@@ -3004,11 +3064,6 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <version>1.22</version>
       </string>
       <string>
-        <id>OS_UPLOADER</id>
-        <text>Uploader</text>
-        <version>1.22</version>
-      </string>
-      <string>
         <id>PAGE</id>
         <text>Page %s</text>
         <version>1.19</version>
@@ -3026,6 +3081,11 @@ The enhanced option shows track details with a progress bar and a fanart image a
       <string>
         <id>PASS_DOTNET2_INSTALLED</id>
         <text>The .NET Framework version 2 is installed.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_IMAGEMAGICK_TEST</id>
+        <text>ImageMagick is installed.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3142,6 +3202,16 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <id>PASS_SWISS_RW_FILES</id>
         <text>Able to Read/Write to the SwissCenter installation directory.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_VLC_TEST</id>
+        <text>VideoLAN is installed.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_VLC_VERSION</id>
+        <text></text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PC_LINK_BACK</id>
@@ -3746,6 +3816,16 @@ If any details are added/changed on this page then you are requested to submit t
         <version>1.19</version>
       </string>
       <string>
+        <id>RECENTLY_ADDED_OR_CREATED</id>
+        <text>Recently added or created</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENTLY_CREATED</id>
+        <text>Recently created</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>RECENTLY_FEATURED</id>
         <text>Recently featured</text>
         <version>1.22</version>
@@ -3864,6 +3944,11 @@ If any details are added/changed on this page then you are requested to submit t
         <id>REFINE_PHOTO_TITLE</id>
         <text>Refine by photo title</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_RATING</id>
+        <text>Refine by rating</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REFINE_TITLE</id>
@@ -4121,6 +4206,11 @@ If any details are added/changed on this page then you are requested to submit t
         <version>1.19</version>
       </string>
       <string>
+        <id>SAMPLE_RATE</id>
+        <text>Sample rate</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SAVE_SETTINGS</id>
         <text>Save settings</text>
         <version>1.19</version>
@@ -4286,6 +4376,11 @@ If any details are added/changed on this page then you are requested to submit t
         <version>1.19</version>
       </string>
       <string>
+        <id>SELECT_REGION</id>
+        <text>Select region</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SELECT_RSS_FEED</id>
         <text>Please select a RSS feed from the list:</text>
         <version>1.19.2</version>
@@ -4381,6 +4476,11 @@ If any details are added/changed on this page then you are requested to submit t
         <version>1.20.1</version>
       </string>
       <string>
+        <id>SHOUTCAST_TV</id>
+        <text>SHOUTcast TV</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SHUFFLE_OFF</id>
         <text>Turn shuffle off</text>
         <version>1.19</version>
@@ -4474,6 +4574,11 @@ If any details are added/changed on this page then you are requested to submit t
         <id>STATUS</id>
         <text>Status</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>STREAM_PORT</id>
+        <text>Port</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>STYLE_CHECK_ONLINE</id>
@@ -5351,6 +5456,11 @@ If any details are added/changed on this page then you are requested to submit t
         <version>1.22</version>
       </string>
       <string>
+        <id>VIDEO_CODEC</id>
+        <text>Video codec</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>VIDEO_INFO</id>
         <text>Video Info</text>
         <version>1.19</version>
@@ -5382,8 +5492,58 @@ If any details are added/changed on this page then you are requested to submit t
       </string>
       <string>
         <id>VIEW_WEATHER</id>
-        <text>View weather forecast</text>
-        <version>1.19</version>
+        <text>Weather forecast</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>VLC_ADMIN_PORT_PROMPT</id>
+        <text></text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>VLC_AUDIO_CODEC_PROMPT</id>
+        <text></text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>VLC_CONFIG</id>
+        <text>VideoLAN</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>VLC_DESC</id>
+        <text>VLC (available from %s) is a free media player, encoder and streamer that can read from files, CDs, DVDs, network streams, capture cards and even more![br]VLC uses its internal codecs and works on essentially every popular platform.[p]If VideoLAN is installed on the same machine as SwissCenter, then it will be used to interpret protocols used for streaming media from the internet such as MMS, RTSP, etc.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>VLC_MUXER_PROMPT</id>
+        <text></text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>VLC_PATH</id>
+        <text>VideoLAN executable</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>VLC_PATH_NOT_FOUND</id>
+        <text></text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>VLC_PATH_PROMPT</id>
+        <text>Please specify the full path of the VideoLAN executable. For Windows users this is probably C:\Program Files\VideoLAN\VLC\vlc.exe.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>VLC_STREAM_PORT_PROMPT</id>
+        <text></text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>VLC_VIDEO_CODEC_PROMPT</id>
+        <text></text>
+        <version>1.22</version>
       </string>
       <string>
         <id>WATCH_INTERNET_TV</id>
