@@ -135,6 +135,10 @@
 
  function get_tvid_pref( $player_type, $tvid )
  {
+   // All NMT players use the same TVID codes so use PCH A-100 settings
+   if ( get_player_model() > 400 )
+     $player_type = 'POP-402';
+
    $data = db_toarray("select tvid_custom, tvid_default from tvid_prefs where player_type='".$player_type."' and tvid_sc='".$tvid."'");
 
    if ($data == false)
@@ -147,6 +151,10 @@
 
  function set_tvid_pref( $player_type, $tvid, $tvid_pref )
  {
+   // All NMT players use the same TVID codes so use PCH A-100 settings
+   if ( get_player_model() > 400 )
+     $player_type = 'POP-402';
+
    if (db_value("select count(*) from tvid_prefs where player_type='".$player_type."' and tvid_sc='".$tvid."'") == 0)
      $result = db_insert_row('tvid_prefs', array("PLAYER_TYPE"  => $player_type,
                                                  "TVID_SC"      => $tvid,
