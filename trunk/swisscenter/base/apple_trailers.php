@@ -237,11 +237,13 @@ function get_apple_trailers_by_studio($studio)
  */
 function get_apple_trailers_page_section($section)
 {
+  $match_section = array("weekendboxoffice" => '/Weekend Box Office.*<ul>(.*)<\/ul>/siU',
+                         "openingthisweek"  => '/Opening this week.*<ul>(.*)<\/ul>/siU');
   // Get Apple trailers main page
   $html = file_get_contents('http://www.apple.com/trailers/');
 
   // Parse page for Weekend Box Office or Opening trailers
-  $html = preg_get('/class="sidebox" id="'.$section.'">(.*)'.$section.'/sU', $html);
+  $html = preg_get($match_section[$section], $html);
 
   $trailer_urls = array();
   foreach (explode('<li>', $html) as $item)
