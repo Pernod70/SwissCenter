@@ -139,6 +139,11 @@ function check_display()
     $core_tests->add_test( $swiss, check_not_root_install(), str("PASS_SWISS_ROOT_INS"), str("ROOT_INSTALL_TEXT"));
 
   $core_tests->add_test( $swiss, check_database_patch(), str("PASS_DATABASE_PATCH", get_sys_pref('database_patch')), str("FAIL_DATABASE_PATCH", get_sys_pref('database_patch')) );
+
+  // Only verify installation files if not a developer
+  if (get_sys_pref('IS_DEVELOPMENT','NO') == 'NO')
+    $core_tests->add_test( $swiss, check_swiss_files(), str("PASS_SWISS_FILES"), str("FAIL_SWISS_FILES", format_filelist_html(SC_LOCATION."filelist_missing.txt")) );
+
   $core_tests->add_test( $swiss, check_swiss_write_rootdir(), str("PASS_SWISS_RW_FILES"), str("MISSING_PERMS_TEXT"));
   $core_tests->add_test( $swiss, check_swiss_ini_file(), str("PASS_SWISS_INI"), str("FAIL_SWISS_INI"));
   $core_tests->add_test( $swiss, check_swiss_write_cache_dir(), str("PASS_SWISS_CACHE"), str("FAIL_SWISS_CACHE", get_sys_pref('cache_dir')) );
@@ -230,6 +235,16 @@ function check_display()
 
   $core_tests->display();
   $component_tests->display();
+}
+
+function format_filelist_html( $filelist )
+{
+  $filelist = unserialize(file_get_contents($filelist));
+  $filelist_html = '';
+  foreach ($filelist as $file)
+    $filelist_html .= '<br>'.$file["filename"].' ('.str($file["error"]).')';
+
+  return $filelist_html;
 }
 
 /**************************************************************************************************

@@ -248,6 +248,32 @@ function check_swiss_write_rootdir()
   return $result;
 }
 
+function check_swiss_files()
+{
+  // Unserialize the filelist.txt
+  if (file_exists(SC_LOCATION."filelist.txt"))
+    $file_list = unserialize(file_get_contents(SC_LOCATION.'filelist.txt'));
+  else
+    $file_list = array();
+
+  // Compare the checksums of the local files.
+  $data = array();
+  foreach ($file_list as $file)
+  {
+    if ( !file_exists(SC_LOCATION.urldecode($file["filename"])) )
+      $data[] = array("filename" => urldecode($file["filename"]),
+                      "error"    => "missing");
+    elseif ( $file["checksum"] !== md5(file_get_contents(SC_LOCATION.urldecode($file["filename"]))) )
+      $data[] = array("filename" => urldecode($file["filename"]),
+                      "error"    => "checksum");
+  }
+
+  // Write incorrect files to filelist_missing.txt
+  file_put_contents(SC_LOCATION.'filelist_missing.txt',serialize($data));
+
+  return count($data) > 0 ? false : true;
+}
+
 function check_not_root_install()
 {
   $info = stat(SC_LOCATION.'/index.php');
