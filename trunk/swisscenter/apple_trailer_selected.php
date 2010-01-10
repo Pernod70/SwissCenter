@@ -175,8 +175,8 @@
       // Column 1: Image
       echo '<table width="100%" height="'.convert_y(650).'" cellpadding="0" cellspacing="0" border="0">
               <tr>
-                <td valign="top">
-                  <td>'.img_gen($trailers[$id]["poster"],280,550,false,false,false,array(),false).'<br><center>'.$cert_img.'</center></td>
+                <td valign="middle">
+                  <td>'.img_gen($trailers[$id]["poster"],280,550,false,false,false,array(),true).'<br><center>'.$cert_img.'</center></td>
                 </td>';
       // Column 2: Gap
       echo '    <td width="'.convert_x(10).'"></td>';
