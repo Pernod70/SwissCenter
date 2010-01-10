@@ -543,6 +543,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>CHECKSUM</id>
+        <text>Checksum error</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>CLEAR_NAME</id>
         <text>Clear name</text>
         <version>1.19</version>
@@ -1231,6 +1236,11 @@
         <id>FAIL_SWISS_CACHE</id>
         <text>Unable to write to the SwissCenter cache directory (%s).</text>
         <version>1.20.1</version>
+      </string>
+      <string>
+        <id>FAIL_SWISS_FILES</id>
+        <text>The following installation files are either missing or incorrect. Use the update process to re-download files. %s</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>FAIL_SWISS_INI</id>
@@ -2598,6 +2608,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MISSING</id>
+        <text>Not found</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>MISSING_DB_TEXT</id>
         <text>Please use the Configuration Utility to create a database.</text>
         <version>1.19</version>
@@ -3104,6 +3119,11 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <version>1.20.1</version>
       </string>
       <string>
+        <id>PASS_SWISS_FILES</id>
+        <text>Installation files have been verified.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>PASS_SWISS_INI</id>
         <text>Successfully located the 'swisscenter.ini' file.</text>
         <version>1.19</version>
@@ -3433,16 +3453,6 @@ If any details are added/changed on this page then you are requested to submit t
       <string>
         <id>PLAYER_PAGE_CHARSET</id>
         <text>Player charset</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>PLAYER_POD_AUDIO_NO_SYNC</id>
-        <text></text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>PLAYER_POD_AUDIO_SYNC</id>
-        <text></text>
         <version>1.22</version>
       </string>
       <string>
