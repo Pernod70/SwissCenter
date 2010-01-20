@@ -6,6 +6,7 @@
   require_once( realpath(dirname(__FILE__).'/base/page.php'));
   require_once( realpath(dirname(__FILE__).'/base/settings.php'));
   require_once( realpath(dirname(__FILE__).'/base/utils.php'));
+  require_once( realpath(dirname(__FILE__).'/ext/json/json.php'));
 
   /**
    * Streams a remote file down to the hardware player.
@@ -37,7 +38,7 @@
     $port      = isset($url_parts["port"]) ? $url_parts["port"] : 80;
 
     // Open a connection to the remote file
-    $fh = fsockopen($hostname, $port, $errno, $errstr);
+    $fh = fsockopen($hostname, $port, &$errno, &$errstr);
     if (!$fh)
     {
        send_to_log(2,'Failed to connect to remote file : '.$url, $errstr);
@@ -129,19 +130,27 @@
   {
     $video_id  = $_REQUEST["youtube_id"];
     $video_url = 'http://www.youtube.com/watch?v='.$video_id;
-    $html      = file_get_contents($video_url);
+    $html      = @file_get_contents($video_url);
 
-    // Retrieve signature from returned YouTube page
-    $video_hash = preg_get('/"t".*"(.*)".*}/U',$html);
+    // Get the SWF_ARGS from the page
+    $swf_args = json_decode('['.preg_get('/SWF_ARGS.*({.*})/Ui',$html).']');
 
     // Determine whether to request the HD stream
     $fmt = 18;
     if (get_sys_pref('YOUTUBE_HD','YES') == 'YES' && preg_get('/IS_HD_AVAILABLE.*(true|false)/U',$html) == 'true')
       $fmt = 22;
 
-    // Form URL of YouTube video to stream
-    $url = 'http://www.youtube.com/get_video?fmt='.$fmt.'&video_id='.$video_id.'&t='.$video_hash;
-    $filename = 'video.mp4';
+    if ( isset($swf_args[0]->t) )
+    {
+      // Form URL of YouTube video to stream
+      $url = 'http://www.youtube.com/get_video?fmt='.$fmt.'&video_id='.$video_id.'&t='.$swf_args[0]->t;
+      $filename = 'video.mp4';
+    }
+    else
+    {
+      send_to_log(2,'Failed to determine hash code for YouTube video : '.$video_url);
+      return false;
+    }
   }
   else
   {
