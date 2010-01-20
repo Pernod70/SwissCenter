@@ -423,20 +423,21 @@ class phpSVNclient
 
     /**
      * Returns an array of files from the repository which were committed AFTER the specified
-     * revision number. If zero is specified (teh default) then all files will be returned.
+     * revision number. If zero is specified (the default) then all files will be returned.
      *
      * When combined with getFile() this function can be used to implement an effect similar
      * to a "svn update" command.
      *
      * @param string $path
-     * @param number $since_revision
+     * @param integer $since_revision
+     * @param integer $version Repository version, -1 means actual
      * @return array
      * @access public
      */
-    function getDirectoryFilesRecursive( $path, $since_revision = 0)
+    function getDirectoryFilesRecursive( $path, $since_revision = 0, $version = -1 )
     {
         $results = array();
-        $files = $this->getDirectoryFiles($path);
+        $files = $this->getDirectoryFiles($path, $version);
 
         // Only files with a revision later than that specified should be returned
         foreach ($files as $fsp)
@@ -446,7 +447,7 @@ class phpSVNclient
         // Process subdirectories
         foreach ($results as $fsp)
             if (!isset($fsp["md5_checksum"]))
-                $results = array_merge($results, $this->getDirectoryFilesRecursive( $fsp["path"], $since_revision));
+                $results = array_merge($results, $this->getDirectoryFilesRecursive( $fsp["path"], $since_revision, $version));
 
         // Add a "relative" attribute which gives the item relative to the subversion path.
         for ($i = 0; $i<count($results); $i++)

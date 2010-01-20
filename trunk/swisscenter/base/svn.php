@@ -2,6 +2,8 @@
 
 require_once( realpath(dirname(__FILE__).'/../ext/svnclient/phpsvnclient.php') );
 
+define ('SVN_PATH', '/trunk/swisscenter/');
+
 /**
  * Returns an instance of the phpSvnClient class attached to the Swisscenter
  * subversion repository.
@@ -74,7 +76,7 @@ function svn_release_tags( $revision = 1)
  * @return unknown
  */
 
-function svn_update_filelist( $path )
+function svn_update_filelist( $path = SVN_PATH )
 {
   $repository = svn_swisscenter_repository();
   send_to_log(5,"SVN Repository : ".$repository);
@@ -83,8 +85,35 @@ function svn_update_filelist( $path )
   $current_revision = svn_current_revision();
   send_to_log(5,"Current SwissCenter subversion revision : ".$current_revision);
 
-  $files = $svn->getDirectoryFilesRecursive( $path , $current_revision );
+  $files = $svn->getDirectoryFilesRecursive( $path, $current_revision );
   array_sort($files, "path");
+
+  return $files;
+}
+
+/**
+ * Returns an associative array containing a list of all files in
+ * the version specified in the path.
+ * The array is also serialized to filelist_svn.txt.
+ *
+ * @param unknown_type $path
+ * @return unknown
+ */
+
+function svn_revision_filelist( $path = SVN_PATH )
+{
+  $repository = svn_swisscenter_repository();
+  send_to_log(5,"SVN Repository : ".$repository);
+  $svn = new phpsvnclient;
+  $svn->setRepository( $repository );
+  $current_revision = svn_current_revision();
+  send_to_log(5,"Current SwissCenter subversion revision : ".$current_revision);
+
+  $files = $svn->getDirectoryFilesRecursive( $path, 0, $current_revision );
+  array_sort($files, "path");
+
+  // Save the file list for later verification
+  file_put_contents(SC_LOCATION.'filelist_svn.txt',serialize($files));
 
   return $files;
 }
@@ -103,7 +132,7 @@ function svn_update_filelist( $path )
  * @return string
  */
 
-function svn_update( $path = '/trunk/swisscenter/')
+function svn_update( $path = SVN_PATH )
 {
   set_time_limit(0);
   send_to_log(1,"SwissCenter update from SVN started");

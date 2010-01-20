@@ -237,13 +237,20 @@ function check_display()
   $component_tests->display();
 }
 
+/**
+ * Returns formatted HTML of files with links to SVN to download from.
+ *
+ * @param array $filelist
+ * @return string
+ */
 function format_filelist_html( $filelist )
 {
   $filelist = unserialize(file_get_contents($filelist));
+  $revision = svn_current_revision();
   $filelist_html = '';
   foreach ($filelist as $file)
-    $filelist_html .= '<br>'.$file["filename"].' ('.str($file["error"]).')';
-
+    $filelist_html .= '<br><a href="http://tools.assembla.com/swiss/export/'.$revision.'/trunk/swisscenter/'.$file["filename"].'" target="_blank">'.$file["filename"].'</a>
+                           <a href="http://tools.assembla.com/swiss/changeset/'.$file["revision"].'" target="_blank">['.$file["revision"].']</a> ('.str($file["error"]).')';
   return $filelist_html;
 }
 

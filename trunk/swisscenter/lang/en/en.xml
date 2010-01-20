@@ -1239,7 +1239,7 @@
       </string>
       <string>
         <id>FAIL_SWISS_FILES</id>
-        <text>The following installation files are either missing or incorrect. Use the update process to re-download files. %s</text>
+        <text>The following installation files are either missing or incorrect. Click each file to download, then manually copy to the correct location. %s</text>
         <version>1.22</version>
       </string>
       <string>

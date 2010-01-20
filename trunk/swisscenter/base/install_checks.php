@@ -21,6 +21,7 @@ require_once( realpath(dirname(__FILE__).'/settings.php'));
 require_once( realpath(dirname(__FILE__).'/file.php'));
 require_once( realpath(dirname(__FILE__).'/image.php'));
 require_once( realpath(dirname(__FILE__).'/musicip.php'));
+require_once( realpath(dirname(__FILE__).'/svn.php'));
 require_once( realpath(dirname(__FILE__).'/../ext/iradio/shoutcast.php'));
 require_once( realpath(dirname(__FILE__).'/../ext/iradio/live-radio.php'));
 
@@ -250,22 +251,37 @@ function check_swiss_write_rootdir()
 
 function check_swiss_files()
 {
-  // Unserialize the filelist.txt
-  if (file_exists(SC_LOCATION."filelist.txt"))
-    $file_list = unserialize(file_get_contents(SC_LOCATION.'filelist.txt'));
+  // Unserialize the filelist_svn.txt
+  if (!file_exists(SC_LOCATION."filelist_svn.txt"))
+    $file_list = svn_revision_filelist();
   else
-    $file_list = array();
+    $file_list = unserialize(file_get_contents(SC_LOCATION.'filelist_svn.txt'));
+
+  send_to_log(5,"- Verifying installation files:");
 
   // Compare the checksums of the local files.
   $data = array();
   foreach ($file_list as $file)
   {
-    if ( !file_exists(SC_LOCATION.urldecode($file["filename"])) )
-      $data[] = array("filename" => urldecode($file["filename"]),
+    // SVN filelist contains (relative_path,md5_checksum) whilst stable contains (filename,checksum)
+    $path = $file["relative_path"];
+    $rev  = $file["revision"];
+    $md5  = isset($file["md5_checksum"]) ? $file["md5_checksum"] : '';
+
+    if ( !empty($md5) && !file_exists(SC_LOCATION.urldecode($path)) )
+    {
+      $data[] = array("filename" => urldecode($path),
+                      "revision" => $rev,
                       "error"    => "missing");
-    elseif ( $file["checksum"] !== md5(file_get_contents(SC_LOCATION.urldecode($file["filename"]))) )
-      $data[] = array("filename" => urldecode($file["filename"]),
+      send_to_log(5,'  Not Found: '.SC_LOCATION.urldecode($path));
+    }
+    elseif ( !empty($md5) && $md5 !== md5_file(SC_LOCATION.urldecode($path)) )
+    {
+      $data[] = array("filename" => urldecode($path),
+                      "revision" => $rev,
                       "error"    => "checksum");
+      send_to_log(5,'  Checksum:  '.SC_LOCATION.urldecode($path));
+    }
   }
 
   // Write incorrect files to filelist_missing.txt
