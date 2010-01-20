@@ -380,7 +380,7 @@ class http_class
 			$this->OutputDebug('Connecting to '.$server_type.' server IP '.$ip.' port '.$port.'...');
 		if($ssl)
 			$ip="ssl://".$ip;
-		if(($this->connection=($this->timeout ? @fsockopen($ip, $port, $errno, $error, $this->timeout) : @fsockopen($ip, $port, $errno)))==0)
+		if(($this->connection=($this->timeout ? @fsockopen($ip, $port, &$errno, &$error, $this->timeout) : @fsockopen($ip, $port, &$errno)))==0)
 		{
 			switch($errno)
 			{
@@ -1817,7 +1817,7 @@ class http_class
 		}
 		return("");
 	}
-	
+
 	Function ReadReplyHeaders(&$headers)
 	{
 		if(strlen($error=$this->ReadReplyHeadersResponse($headers)))
