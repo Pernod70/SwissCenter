@@ -3,15 +3,23 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
+  require_once( realpath(dirname(__FILE__).'/base/page.php'));
   require_once( realpath(dirname(__FILE__).'/base/server.php'));
+  require_once( realpath(dirname(__FILE__).'/base/utils.php'));
   require_once( realpath(dirname(__FILE__).'/base/capabilities.php'));
   require_once( realpath(dirname(__FILE__).'/base/file.php'));
 
   // Generate the playlist based on the values passed as part of the request
-  $video_ids  = explode(',', $_REQUEST["video_ids"]);
+  $seed       = $_REQUEST["seed"];
+  $shuffle    = ($_SESSION["shuffle"] == "on");
+  $video_ids  = explode(',', $_SESSION["play_now"]["spec"]);
   $server     = server_address();
   $max_size   = max_playlist_size();
   $item_count = 0;
+
+  // Shuffle the videos if required
+  if ($shuffle && count($video_ids)>1)
+    shuffle_fisherYates($video_ids,$seed);
 
   send_to_log(7,'Generating list of YouTube videos to send to the networked media player.');
 
@@ -20,7 +28,7 @@
     if ($item_count >= $max_size)
       break;
 
-    $url = $server.'stream_youtube.php?video_id='.$id.'&ext=.mp4';
+    $url = $server.'stream_url.php?'.current_session().'&youtube_id='.$id.'&ext=.mp4';
 
     // Build up the playlist row to send to the player, including the title of the video (for the on-screen display)
     send_to_log(7," - ".$url);

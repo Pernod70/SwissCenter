@@ -141,6 +141,11 @@
               case 'query':
                 $text = utf8_decode($entry['yt$queryString']['$t']);
                 break;
+
+              case 'user':
+                $text = utf8_decode($entry['yt$username']['$t']);
+                $url  = url_add_params('youtube_browse.php', array('username'=>utf8_decode($entry['yt$username']['$t']), 'type'=>'uploads'));
+                break;
             }
             $thumb = youtube_thumbnail_url($entry['media$thumbnail']);
             break;
@@ -185,7 +190,8 @@
 
     if ( count($video_list) !== 0 )
     {
-      $buttons[] = array('text' => str('QUICK_PLAY'),'url' => 'href="gen_playlist_youtube.php?video_ids='.implode(',', $video_list).'" vod="playlist" ');
+      $_SESSION["play_now"]["spec"] = implode(',', $video_list);
+      $buttons[] = array('text' => str('QUICK_PLAY'),'url' => 'href="gen_playlist_youtube.php?'.current_session().'&seed='.mt_rand().'" vod="playlist" ');
 
       if ( $feed_type == 'top_rated' )
         $buttons[] = array('text'=>str('TOP_FAVORITES'), 'url'=>url_add_params($this_url, array('type'=>'top_favorites', 'sort'=>'favorite', 'page'=>0, 'del'=>1)));
