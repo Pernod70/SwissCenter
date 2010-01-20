@@ -49,23 +49,29 @@ function musicip_server_validate()
 
 // ----------------------------------------------------------------------------------
 // Returns true if a MusicIP webservice is available on the local machine using the
-// port defined in the config screen. The
+// port defined in the config screen.
 // ----------------------------------------------------------------------------------
 
-function musicip_check( $port )
+function musicip_check( $port, $timeouts = 3 )
 {
-  $temp = '';
-  $result = false;
-
-  // fsockopen doesn't like localhost with PHP5 and Vista.
-  if ( $sock = @fsockopen('127.0.0.1', $port , $temp, $temp, 1.5))
+  for ($i=0; $i < $timeouts; $i++)
   {
-    fclose($sock);
-    $status = @file_get_contents("http://localhost:$port/api/getstatus");
-    $result = ( $status !== FALSE );
+    // fsockopen doesn't like localhost with PHP5 and Vista.
+    if ( $sock = @fsockopen('127.0.0.1', $port , &$errno, &$errst, 2) )
+    {
+      fclose($sock);
+      $status = @file_get_contents("http://localhost:$port/api/getstatus");
+      send_to_log(6,'MusicIP status: '.$status);
+      $success = true;
+      break;
+    }
+    else
+    {
+      send_to_log(2,'MusicIP check failed: '.$errno, $errst);
+      $success = false;
+    }
   }
-
-  return $result;
+  return $success;
 }
 
 function musicip_available( $recheck = false)
@@ -171,30 +177,36 @@ function musicip_tempplaylist_name()
 // of available songs.
 // ----------------------------------------------------------------------------------
 
-function musicip_mixable_percent()
+function musicip_mixable_percent( $timeouts = 3 )
 {
   if ( musicip_available() )
   {
-    $matches = array();
-    $html = @file_get_contents( musicip_address().'server' );
-
-    // Page was successfully retrieved
-    if ($html !== false)
+    for ($i=0; $i < $timeouts; $i++)
     {
-      $html = strip_tags($html);
+      if ( $html = @file_get_contents( musicip_address().'server' ) )
+      {
+        // Page was successfully retrieved
+        $html = strip_tags($html);
 
-      // Total number of songs
-      preg_match_all('/Total Songs.*?([0-9,]+)/i',$html,$matches);
-      $songs = str_replace(',','',$matches[1][0]);
+        // Total number of songs
+        $matches = array();
+        preg_match_all('/Total Songs.*?([0-9,]+)/i',$html,$matches);
+        $songs = str_replace(',','',$matches[1][0]);
 
-      // Total number of songs
-      preg_match_all('/Mixable Songs.*?([0-9,]+)/i',$html,$matches);
-      $mixable = str_replace(',','',$matches[1][0]);
-
-      return (int)($mixable/max($songs,1)*100);
+        // Mixable number of songs
+        preg_match_all('/Mixable Songs.*?([0-9,]+)/i',$html,$matches);
+        $mixable = str_replace(',','',$matches[1][0]);
+        $percent = (int)($mixable/max($songs,1)*100);
+        send_to_log(6,'MusicIP mixable percentage: '.$percent);
+        break;
+      }
+      else
+      {
+        send_to_log(2,'MusicIP server failed to respond');
+        $percent = false;
+      }
     }
-    else
-      return false;
+    return $percent;
   }
   else
     return false;
