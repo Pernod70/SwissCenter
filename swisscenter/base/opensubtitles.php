@@ -3,6 +3,7 @@
    SWISScenter Source                                                              Nigel Barnes
  *************************************************************************************************/
 
+require_once( realpath(dirname(__FILE__).'/file.php'));
 require_once( SC_LOCATION.'/ext/xmlrpc/xmlrpc.inc' );
 
 /**
@@ -766,10 +767,12 @@ class OpenSubtitles
  */
 function OpenSubtitlesHash($file)
 {
+  if ( !file_exists($file) ) { return '0'; }
+
   set_magic_quotes_runtime(0);
 
   $handle = fopen($file, "rb");
-  $fsize = filesize($file);
+  $fsize = large_filesize($file);
 
   $hash = array(3 => 0,
                 2 => 0,
