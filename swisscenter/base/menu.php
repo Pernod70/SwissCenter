@@ -304,7 +304,7 @@ class menu
           echo '<td align="right" valign="middle" height="'.$height_px.'">'.$item["left"].'</td>';
 
         // Main text - NMT players support the marquee tag to scroll text
-        if ( get_player_model() > 400 )
+        if ( get_player_model() > 400 && get_sys_pref('DISABLE_MENU_SCROLL','NO') == 'NO')
           echo '<td valign="middle" width="'.$width_px.'" height="'.$height_px.'" '.$background.'>'.$font_open.
                   '&nbsp;&nbsp;&nbsp;'.$tvid.'.&nbsp;'.
                  '<a style="width:'.($width_px-30).'" '.$item["url"].' TVID="'.$tvid.'" name="'.$tvid.'">'.
