@@ -64,47 +64,47 @@
                <input type=hidden name="action" value="UPDATE_WIN">
                <table width="450" class="form_select_tab" border=0 >
                <tr>
-                 <th style="text-align=center;">'.str('TIME').'</th>
-                 <th style="text-align=center;">'.str('DAY_1').'</th>
-                 <th style="text-align=center;">'.str('DAY_2').'</th>
-                 <th style="text-align=center;">'.str('DAY_3').'</th>
-                 <th style="text-align=center;">'.str('DAY_4').'</th>
-                 <th style="text-align=center;">'.str('DAY_5').'</th>
-                 <th style="text-align=center;">'.str('DAY_6').'</th>
-                 <th style="text-align=center;">'.str('DAY_7').'</th>
-                 <th style="text-align=center;">'.str('MEDIA_SCAN_TYPE').'</th>
+                 <th style="text-align:center;">'.str('TIME').'</th>
+                 <th style="text-align:center;">'.str('DAY_1').'</th>
+                 <th style="text-align:center;">'.str('DAY_2').'</th>
+                 <th style="text-align:center;">'.str('DAY_3').'</th>
+                 <th style="text-align:center;">'.str('DAY_4').'</th>
+                 <th style="text-align:center;">'.str('DAY_5').'</th>
+                 <th style="text-align:center;">'.str('DAY_6').'</th>
+                 <th style="text-align:center;">'.str('DAY_7').'</th>
+                 <th style="text-align:center;">'.str('MEDIA_SCAN_TYPE').'</th>
                </tr>';
     $line = 0;
     foreach ($schedule as $entry)
     {
       $line++;
       echo '   <tr>
-                 <td style="text-align=center;">
+                 <td style="text-align:center;">
                    <input size="1" name="hr'.$line.'" value="'.$entry["at_hrs"].'">
                    <input size="1" name="mi'.$line.'" value="'.$entry["at_mins"].'">
                  </td>
-                 <td style="text-align=center;">
+                 <td style="text-align:center;">
                    <input type="checkbox" name="day'.$line.'[]" value="M" '. (in_array('M',$entry["at_days"]) ? 'checked' : '').'>
                  </td>
-                 <td style="text-align=center;">
+                 <td style="text-align:center;">
                    <input type="checkbox" name="day'.$line.'[]" value="T" '. (in_array('T',$entry["at_days"]) ? 'checked' : '').'>
                  </td>
-                 <td style="text-align=center;">
+                 <td style="text-align:center;">
                    <input type="checkbox" name="day'.$line.'[]" value="W" '. (in_array('W',$entry["at_days"]) ? 'checked' : '').'>
                  </td>
-                 <td style="text-align=center;">
+                 <td style="text-align:center;">
                    <input type="checkbox" name="day'.$line.'[]" value="Th" '.(in_array('Th',$entry["at_days"]) ? 'checked' : '').'>
                  </td>
-                 <td style="text-align=center;">
+                 <td style="text-align:center;">
                    <input type="checkbox" name="day'.$line.'[]" value="F" '. (in_array('F',$entry["at_days"]) ? 'checked' : '').'>
                  </td>
-                 <td style="text-align=center;">
+                 <td style="text-align:center;">
                    <input type="checkbox" name="day'.$line.'[]" value="S" '. (in_array('S',$entry["at_days"]) ? 'checked' : '').'>
                  </td>
-                 <td style="text-align=center;">
+                 <td style="text-align:center;">
                    <input type="checkbox" name="day'.$line.'[]" value="Su" '.(in_array('Su',$entry["at_days"]) ? 'checked' : '').'>
                  </td>
-                 <td style="text-align=center;">
+                 <td style="text-align:center;">
                    '.form_list_static_html('url'.$line, sched_scan_options(), $entry["url"], false, false, false).'
                  </td>
                </tr>';
@@ -159,16 +159,16 @@
                <input type=hidden name="action" value="UPDATE_SIMESE">
                <table width="450" class="form_select_tab" border=0 >
                <tr>
-                 <th style="text-align=center;">'.str('TIME').'</th>
-                 <th style="text-align=center;">'.str('DAY_1').'</th>
-                 <th style="text-align=center;">'.str('DAY_2').'</th>
-                 <th style="text-align=center;">'.str('DAY_3').'</th>
-                 <th style="text-align=center;">'.str('DAY_4').'</th>
-                 <th style="text-align=center;">'.str('DAY_5').'</th>
-                 <th style="text-align=center;">'.str('DAY_6').'</th>
-                 <th style="text-align=center;">'.str('DAY_7').'</th>';
+                 <th style="text-align:center;">'.str('TIME').'</th>
+                 <th style="text-align:center;">'.str('DAY_1').'</th>
+                 <th style="text-align:center;">'.str('DAY_2').'</th>
+                 <th style="text-align:center;">'.str('DAY_3').'</th>
+                 <th style="text-align:center;">'.str('DAY_4').'</th>
+                 <th style="text-align:center;">'.str('DAY_5').'</th>
+                 <th style="text-align:center;">'.str('DAY_6').'</th>
+                 <th style="text-align:center;">'.str('DAY_7').'</th>';
     if ( $use_scan_type )
-      echo      '<th style="text-align=center;">'.str('MEDIA_SCAN_TYPE').'</th>';
+      echo      '<th style="text-align:center;">'.str('MEDIA_SCAN_TYPE').'</th>';
     echo '     </tr>';
 
     $line = 0;
@@ -176,33 +176,33 @@
     {
       $line++;
       echo '   <tr>
-                 <td style="text-align=center;">
+                 <td style="text-align:center;">
                    <input size="1" name="hr'.$line.'" value="'.$entry["hr"].'">
                    <input size="1" name="mi'.$line.'" value="'.$entry["mi"].'">
                  </td>
-                 <td style="text-align=center;">
+                 <td style="text-align:center;">
                    <input type="checkbox" name="day'.$line.'[]" value="M" '. (in_array('M',$entry["days"]) ? 'checked' : '').'>
                  </td>
-                 <td style="text-align=center;">
+                 <td style="text-align:center;">
                    <input type="checkbox" name="day'.$line.'[]" value="T" '. (in_array('T',$entry["days"]) ? 'checked' : '').'>
                  </td>
-                 <td style="text-align=center;">
+                 <td style="text-align:center;">
                    <input type="checkbox" name="day'.$line.'[]" value="W" '. (in_array('W',$entry["days"]) ? 'checked' : '').'>
                  </td>
-                 <td style="text-align=center;">
+                 <td style="text-align:center;">
                    <input type="checkbox" name="day'.$line.'[]" value="Th" '.(in_array('Th',$entry["days"]) ? 'checked' : '').'>
                  </td>
-                 <td style="text-align=center;">
+                 <td style="text-align:center;">
                    <input type="checkbox" name="day'.$line.'[]" value="F" '. (in_array('F',$entry["days"]) ? 'checked' : '').'>
                  </td>
-                 <td style="text-align=center;">
+                 <td style="text-align:center;">
                    <input type="checkbox" name="day'.$line.'[]" value="S" '. (in_array('S',$entry["days"]) ? 'checked' : '').'>
                  </td>
-                 <td style="text-align=center;">
+                 <td style="text-align:center;">
                    <input type="checkbox" name="day'.$line.'[]" value="Su" '.(in_array('Su',$entry["days"]) ? 'checked' : '').'>
                  </td>';
       if ( $use_scan_type )
-        echo    '<td style="text-align=center;">
+        echo    '<td style="text-align:center;">
                    '.form_list_static_html('url'.$line, sched_scan_options(), $entry["url"], false, false, false).'
                  </td>';
       echo '   </tr>';
