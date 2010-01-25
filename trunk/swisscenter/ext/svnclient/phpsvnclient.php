@@ -436,6 +436,7 @@ class phpSVNclient
      */
     function getDirectoryFilesRecursive( $path, $since_revision = 0, $version = -1 )
     {
+        set_time_limit(30);
         $results = array();
         $files = $this->getDirectoryFiles($path, $version);
 
