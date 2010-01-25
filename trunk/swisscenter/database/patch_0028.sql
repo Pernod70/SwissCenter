@@ -12,7 +12,7 @@ CREATE TABLE internet_urls
     type INT NOT NULL,
     url TEXT NOT NULL,
     title VARCHAR(50) NOT NULL
-);
+) ENGINE=MyISAM;
 
 -- -------------------------------------------------------------------------------------------------
 -- Remove any "Web" and "Radio" media locations
