@@ -688,6 +688,15 @@ function process_photo( $dir, $id, $file)
   $getID3   = new getID3;
   $id3      = $getID3->analyze($filepath);
 
+  // Standard information about the file
+  $data["dirname"]      = $dir;
+  $data["filename"]     = $file;
+  $data["location_id"]  = $id;
+  $data["size"]         = filesize($dir.$file);
+  $data["verified"]     = 'Y';
+  $data["discovered"]   = db_datestr();
+  $data["timestamp"]    = db_datestr(filemtime($filepath));
+
   // Get EXIF data
   $exif     = exif($dir.$file);
   if ($exif['Make'] != "")
@@ -741,17 +750,11 @@ function process_photo( $dir, $id, $file)
       }
 
       // File Info successfully obtained, so enter it into the database
-      $data = array( "dirname"             => $dir
-                   , "filename"            => $file
-                   , "location_id"         => $id
-                   , "size"                => $id3["filesize"]
+      $data = array( "size"                => $id3["filesize"]
                    , "width"               => $id3["video"]["resolution_x"]
                    , "height"              => $id3["video"]["resolution_y"]
                    , "date_modified"       => filemtime($filepath)
                    , "date_created"        => $exif["DTDigitised"]
-                   , "verified"            => 'Y'
-                   , "discovered"          => db_datestr()
-                   , "timestamp"           => db_datestr(filemtime($filepath))
                    , "exif_exposure_mode"  => $exif['ExposureMode']
                    , "exif_exposure_time"  => dec2frac($exif['ExposureTime'])
                    , "exif_fnumber"        => rtrim($exif['FNumber'],'0')
@@ -778,50 +781,11 @@ function process_photo( $dir, $id, $file)
                    , "iptc_location"       => $iptcxmp['location']
                    , "xmp_rating"          => $iptcxmp['rating']
                    );
-
-      $file_id = db_value("select file_id from photos where dirname='".db_escape_str($dir)."' and filename='".db_escape_str($file)."'");
-      if ( $file_id )
-      {
-        // Update the existing record
-        send_to_log(5,'Updating Photo : '.$file);
-        unset($data["discovered"]);
-        $success = db_update_row( "photos", $file_id, $data);
-      }
-      else
-      {
-        // Insert the row into the database
-        send_to_log(5,'Adding Photo   : '.$file);
-        $success = db_insert_row( "photos", $data);
-      }
-
-      if ( $success )
-      {
-        // Pre-cache the image thumbnail if the user has selected that option.
-        $browsers = db_toarray("select distinct browser_x_res, browser_y_res from clients where ip_address != '127.0.0.1'");
-        if ($cache_dir != '' && get_sys_pref('CACHE_PRECACHE_IMAGES','NO') == 'YES' && count($browsers)>0 )
-        {
-          send_to_log(6,'Pre-caching thumbnail');
-          foreach ($browsers as $row)
-          {
-            if ( !empty($row["BROWSER_X_RES"]) && !empty($row["BROWSER_Y_RES"]) )
-            {
-              $_SESSION["device"]["browser_x_res"]=$row["BROWSER_X_RES"];
-              $_SESSION["device"]["browser_y_res"]=$row["BROWSER_Y_RES"];
-              send_to_log(6,"- for browser size ".$row["BROWSER_X_RES"]."x".$row["BROWSER_Y_RES"]);
-              precache($dir.$file, convert_x(THUMBNAIL_X_SIZE), convert_y(THUMBNAIL_Y_SIZE) );
-            }
-          }
-        }
-      }
-      else
-      {
-        send_to_log(2,'Unable to add/update photo to the database');
-      }
     }
     else
     {
       // File extension is OK, but the file itself isn't!
-      send_to_log(3,'GETID3 claims this is not a valid photo file');
+      send_to_log(3,'GETID3 claims this is not a valid photo file: '.$id3["fileformat"]);
     }
   }
   else
@@ -832,6 +796,44 @@ function process_photo( $dir, $id, $file)
       send_to_log(2,' - '.$err);
   }
 
+  $file_id = db_value("select file_id from photos where dirname='".db_escape_str($dir)."' and filename='".db_escape_str($file)."'");
+  if ( $file_id )
+  {
+    // Update the existing record
+    send_to_log(5,'Updating Photo : '.$file);
+    unset($data["discovered"]);
+    $success = db_update_row( "photos", $file_id, $data);
+  }
+  else
+  {
+    // Insert the row into the database
+    send_to_log(5,'Adding Photo   : '.$file);
+    $success = db_insert_row( "photos", $data);
+  }
+
+  if ( $success )
+  {
+    // Pre-cache the image thumbnail if the user has selected that option.
+    $browsers = db_toarray("select distinct browser_x_res, browser_y_res from clients where ip_address != '127.0.0.1'");
+    if ($cache_dir != '' && get_sys_pref('CACHE_PRECACHE_IMAGES','NO') == 'YES' && count($browsers)>0 )
+    {
+      send_to_log(6,'Pre-caching thumbnail');
+      foreach ($browsers as $row)
+      {
+        if ( !empty($row["BROWSER_X_RES"]) && !empty($row["BROWSER_Y_RES"]) )
+        {
+          $_SESSION["device"]["browser_x_res"]=$row["BROWSER_X_RES"];
+          $_SESSION["device"]["browser_y_res"]=$row["BROWSER_Y_RES"];
+          send_to_log(6,"- for browser size ".$row["BROWSER_X_RES"]."x".$row["BROWSER_Y_RES"]);
+          precache($dir.$file, convert_x(THUMBNAIL_X_SIZE), convert_y(THUMBNAIL_Y_SIZE) );
+        }
+      }
+    }
+  }
+  else
+  {
+    send_to_log(2,'Unable to add/update photo to the database');
+  }
 }
 
 /**
@@ -1109,6 +1111,7 @@ function process_tv( $dir, $id, $file)
   $data["verified"]     = 'Y';
   $data["discovered"]   = db_datestr();
   $data["timestamp"]    = db_datestr(filemtime($filepath));
+
   // Determine the part of the path to process for metadata about the episode.
   $media_loc_dir = db_value("select name from media_locations where location_id=$id");
   $meta_fsp = substr($dir,strlen($media_loc_dir)+1).file_noext($file);
