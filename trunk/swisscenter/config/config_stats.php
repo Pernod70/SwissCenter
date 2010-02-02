@@ -9,7 +9,7 @@
 
 function stats_display()
 {
-  $tab = isset($_REQUEST["tab"]) ? $_REQUEST["tab"] : 'TOP10';
+  $tab = isset($_REQUEST["tab"]) ? $_REQUEST["tab"] : 'VIDEO';
   $url = '/config/index.php?section=STATS&action=DISPLAY&tab=';
 
   echo "<h1>".str('STATISTICS')."</h1>";
