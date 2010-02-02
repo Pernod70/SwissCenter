@@ -18,10 +18,14 @@
 
 require_once( realpath(dirname(__FILE__).'/mysql.php'));
 
-#-------------------------------------------------------------------------------------------------
-# Displays the prompt for the field to the user, highlighting mandatory fields. Internal to this
-# library and should not be used by user functions/pages.
-#-------------------------------------------------------------------------------------------------
+/**
+ * Displays the prompt for the field to the user, highlighting mandatory fields. Internal to this
+ * library and should not be used by user functions/pages.
+ *
+ * @param string $prompt
+ * @param string $opt
+ * @return html
+ */
 
 function form_prompt( $prompt, $opt )
 {
@@ -33,12 +37,13 @@ function form_prompt( $prompt, $opt )
     return '<span class=stdformreq>'.$prompt.' : &nbsp;</span>';
 }
 
-#-------------------------------------------------------------------------------------------------
-# Starts the form, and creates a table to neatly format the fields.
-#
-# $url    - the page that the completed form should be sent to.
-# $width  - [opt] the width of the column displaying prompts to the user
-#-------------------------------------------------------------------------------------------------
+/**
+ * Starts the form, and creates a table to neatly format the fields.
+ *
+ * @param string $url - the page that the completed form should be sent to.
+ * @param integer $width - [opt] the width of the column displaying prompts to the user
+ * @param string $name
+ */
 
 function form_start( $url, $width = 150, $name = '' )
 {
@@ -47,12 +52,17 @@ function form_start( $url, $width = 150, $name = '' )
         <tr><td width="'.$width.'"></td><td></td></tr>';
 }
 
-#-------------------------------------------------------------------------------------------------
-# Creates a normal single line text input field .
-#
-# $size - the size of the input field.
-# $mask - Regular expression that is used to validate the field on the client
-#-------------------------------------------------------------------------------------------------
+/**
+ * Creates a normal single line text input field .
+ *
+ * @param string $param
+ * @param string $prompt
+ * @param integer $size - the size of the input field.
+ * @param integer $maxlength
+ * @param string $value
+ * @param boolean $opt
+ * @param string $mask - Regular expression that is used to validate the field on the client
+ */
 
 function form_input( $param, $prompt, $size = 15, $maxlength = '',$value ='', $opt = false, $mask = '')
 {
@@ -68,14 +78,18 @@ function form_input( $param, $prompt, $size = 15, $maxlength = '',$value ='', $o
         </tr>';
 }
 
-#-------------------------------------------------------------------------------------------------
-# Creates a input box that also has a slider for entering numbers between a min and max value.
-#
-# $min  - the minimum value
-# $max  - the maximum allowed value
-# $size - the size of the input field
-# $mask - Regular expression that is used to validate the field on the client
-#-------------------------------------------------------------------------------------------------
+/**
+ * Creates a input box that also has a slider for entering numbers between a min and max value.
+ *
+ * @param string $param
+ * @param string $prompt
+ * @param integer $min - the minimum value
+ * @param integer $max - the maximum allowed value
+ * @param integer $size - the size of the input field
+ * @param string $value
+ * @param string $class
+ * @param boolean $opt
+ */
 
 function form_slider( $param, $prompt, $min, $max, $size = 15, $value ='', $class = 'slider_200px', $opt = false)
 {
@@ -90,12 +104,16 @@ function form_slider( $param, $prompt, $min, $max, $size = 15, $value ='', $clas
         </tr>';
 }
 
-#-------------------------------------------------------------------------------------------------
-# Creates a multi-line text field .
-#
-# $sizex - [opt] the number of columns in the text field (default 120)
-# $sizey - [opt] the number of rows in the text field (default 5)
-#-------------------------------------------------------------------------------------------------
+/**
+ * Creates a multi-line text field.
+ *
+ * @param string $param
+ * @param integer $sizex - [opt] the number of columns in the text field (default 120)
+ * @param integer $sizey - [opt] the number of rows in the text field (default 5)
+ * @param string $value
+ * @param boolean $opt
+ * @return html
+ */
 
 function form_text_html( $param, $sizex = 100, $sizey = 5, $value ='', $opt = false)
 {
@@ -114,11 +132,16 @@ function form_text( $param, $prompt, $sizex = 100, $sizey = 5, $value ='', $opt 
          </tr>';
 }
 
-#-------------------------------------------------------------------------------------------------
-# Creates a password input field .
-#
-# $size - the size of the input field where the password will be entered.
-#-------------------------------------------------------------------------------------------------
+/**
+ * Creates a password input field.
+ *
+ * @param string $param
+ * @param string $prompt
+ * @param integer $size - the size of the input field where the password will be entered.
+ * @param string $value
+ * @param boolean $opt
+ * @param string $mask
+ */
 
 function form_password( $param, $prompt, $size = 15, $value ='', $opt = false, $mask ='')
 {
@@ -131,23 +154,30 @@ function form_password( $param, $prompt, $size = 15, $value ='', $opt = false, $
         </tr>';
 }
 
-#-------------------------------------------------------------------------------------------------
-# Creates a hidden field for passing variables to the form without the user seeing the details.
-#-------------------------------------------------------------------------------------------------
+/**
+ * Creates a hidden field for passing variables to the form without the user seeing the details.
+ *
+ * @param string $param
+ * @param string $value
+ */
 
 function form_hidden( $param, $value )
 {
   echo '<input type=hidden name="'.$param.'" value="'.$value.'">';
 }
 
-#-------------------------------------------------------------------------------------------------
-# Outputs a large amount of text to the user as a guide on how to fill in a form on a seperate
-# row within the table.
-#-------------------------------------------------------------------------------------------------
+/**
+ * Outputs a large amount of text to the user as a guide on how to fill in a form on a seperate
+ * row within the table.
+ *
+ * @param string $text
+ * @param string $hpos
+ * @param string $vpos
+ */
 
 function form_label( $text, $hpos = "R", $vpos = "B" )
 {
-  # Determine nd set horizontal postion; (L)eft or (R)ight.
+  # Determine and set horizontal postion; (L)eft or (R)ight.
   if ( $hpos == "R" )
     echo '<tr class="stdformlabel"><td>&nbsp;</td><td>';
   else
@@ -160,13 +190,20 @@ function form_label( $text, $hpos = "R", $vpos = "B" )
     echo $text.'<br>&nbsp;</td></tr>';
 }
 
-#-------------------------------------------------------------------------------------------------
-# Dynamic drop-down lists (list generated from database).
-#
-# $sql - An SQL statement that retrieves exactly 2 columns from the database. The first column
-#        contains the value that will be passed to the form handler, the second column contains
-#        the value that will appear in the list for the user to select.
-#-------------------------------------------------------------------------------------------------
+/**
+ * Dynamic drop-down lists (list generated from database).
+ *
+ * @param string $param
+ * @param string $sql - An SQL statement that retrieves exactly 2 columns from the database. The first column
+ *                      contains the value that will be passed to the form handler, the second column contains
+ *                      the value that will appear in the list for the user to select.
+ * @param string $value
+ * @param boolean $opt
+ * @param boolean $submit
+ * @param string $inital_txt
+ * @param string $java_event
+ * @return html
+ */
 
 function form_list_dynamic_html ( $param, $sql, $value = "", $opt = false, $submit = false, $inital_txt = '', $java_event = 'this.form.submit();' )
 {
@@ -204,14 +241,21 @@ function form_list_dynamic( $param, $prompt, $sql, $value = "", $opt = false, $s
        </tr>';
 }
 
-#-------------------------------------------------------------------------------------------------
-# Static drop-down lists (from the specified array).
-#
-# Note that the value passed by the field will be the array VALUE, while the value
-# displayed in the list to the user will be the array KEY.
-#
-# $list - an array of values to display in the drop-down list.
-#-------------------------------------------------------------------------------------------------
+/**
+ * Static drop-down lists (from the specified array).
+ *
+ * Note that the value passed by the field will be the array VALUE, while the value
+ * displayed in the list to the user will be the array KEY.
+ *
+ * @param string $param
+ * @param array $list - an array of values to display in the drop-down list.
+ * @param string $value
+ * @param boolean $opt
+ * @param boolean $submit
+ * @param boolean $initial_txt
+ * @param string $java_event
+ * @return html
+ */
 
 function form_list_static_html( $param, $list, $value = "", $opt = false,  $submit = false, $initial_txt = true, $java_event = 'this.form.submit();' )
 {
@@ -242,14 +286,19 @@ function form_list_static( $param, $prompt, $list, $value = "", $opt = false,  $
 
 }
 
-#-------------------------------------------------------------------------------------------------
-# Static radio lists (from the specified array).
-#
-# Note that the value passed by the field will be the array VALUE, while the value
-# displayed in the list to the user will be the array KEY.
-#
-# $list - an array of values to display with radio buttons
-#-------------------------------------------------------------------------------------------------
+/**
+ * Static radio lists (from the specified array).
+ *
+ * Note that the value passed by the field will be the array VALUE, while the value
+ * displayed in the list to the user will be the array KEY.
+ *
+ * @param string $param
+ * @param string $prompt
+ * @param array $list - an array of values to display with radio buttons
+ * @param string $value
+ * @param boolean $opt
+ * @param boolean $horiz
+ */
 
 function form_radio_static( $param, $prompt, $list, $value = "", $opt = false, $horiz = false )
 {
@@ -265,14 +314,19 @@ function form_radio_static( $param, $prompt, $list, $value = "", $opt = false, $
   echo '  </td></tr>';
 }
 
-#-------------------------------------------------------------------------------------------------
-# Static checkbox lists (from the specified array).
-#
-# Note that the value passed by the field will be the array VALUE, while the value
-# displayed in the list to the user will be the array KEY.
-#
-# $list - an array of values to display with checkboxes
-#-------------------------------------------------------------------------------------------------
+/**
+ * Static checkbox lists (from the specified array).
+ *
+ * Note that the value passed by the field will be the array VALUE, while the value
+ * displayed in the list to the user will be the array KEY.
+ *
+ * @param string $param
+ * @param string $prompt
+ * @param array $list - an array of values to display with checkboxes
+ * @param array $values
+ * @param boolean $opt
+ * @param boolean $horiz
+ */
 
 function form_checkbox_static( $param, $prompt, $list, $values = array(), $opt = false, $horiz = false )
 {
@@ -288,9 +342,13 @@ function form_checkbox_static( $param, $prompt, $list, $values = array(), $opt =
   echo '  </td></tr>';
 }
 
-#-------------------------------------------------------------------------------------------------
-# Prompts the user to upload a file.
-#-------------------------------------------------------------------------------------------------
+/**
+ * Prompts the user to upload a file.
+ *
+ * @param string $param
+ * @param string $prompt
+ * @param integer $size
+ */
 
 function form_upload( $param, $prompt, $size = 20 )
 {
@@ -301,12 +359,14 @@ function form_upload( $param, $prompt, $size = 20 )
 
 }
 
-#-------------------------------------------------------------------------------------------------
-# Creates a submit button.
-#
-# text - [opt] The text that should appear on the submit button if different to 'submit'
-# col  - [opt] The column that the button should be displayed in (defaults to column 2)
-#-------------------------------------------------------------------------------------------------
+/**
+ * Creates a submit button.
+ *
+ * @param string $text - [opt] The text that should appear on the submit button if different to 'submit'
+ * @param integer $col - [opt] The column that the button should be displayed in (defaults to column 2)
+ * @param string $align
+ * @param integer $width
+ */
 
 function form_submit( $text = "Submit", $col = 2, $align = 'left', $width = '' )
 {
@@ -324,31 +384,40 @@ function form_submit_html( $text = "Submit", $width = '')
   return '<input type="submit" '.$width.' name="submit_action" value="'.$text.'">';
 }
 
-#-------------------------------------------------------------------------------------------------
-# Outputs a table containing the data in the $table_contents array (except for the column that
-# is indicated by the $id_col variable - this column will instead be used to pass an identifier
-# to the form as to which rows in the table were selected by the user.
-#
-# Additionally you may pass an associative array of edit options. The keys in the array and the
-# names of the table headings and must be all uppercase. The values can be one of:
-#
-#   * An empty string, which indicates a text editable field
-#   * An exclamation mark ("!") which indicates the field should not be made editable.
-#   * An asterisk ("*") which indicates the field should be considered a password and blanked out.
-#   * An array - This array is an array of arrays, each element of the outer array is a single row
-#     in a table, the child arrays are column name/value pairs
-#   * A string - This is a sql statement that returns exactly 2 columns, the first an ID that will
-#     be used as the value of the selected item, and the second a string to display. This will be
-#     displayed as a drop down list
-#
-# If an array of edit options is passed then an edit button will be placed on each row. It can
-# be determined if the edit button was clicked and for which row by calling form_select_table_edit()
-#
-# To display the table in edit mode, pass the edit options with the $edit variable set to the
-# value of the ID column that is to be edited, usually obtained from form_select_table_edit
-#
-# To retrieve the results of an edit call form_select_table_update()
-#-------------------------------------------------------------------------------------------------
+/**
+ * Outputs a table containing the data in the $table_contents array (except for the column that
+ * is indicated by the $id_col variable - this column will instead be used to pass an identifier
+ * to the form as to which rows in the table were selected by the user.
+ *
+ * Additionally you may pass an associative array of edit options. The keys in the array and the
+ * names of the table headings and must be all uppercase. The values can be one of:
+ *
+ *   * An empty string, which indicates a text editable field
+ *   * An exclamation mark ("!") which indicates the field should not be made editable.
+ *   * An asterisk ("*") which indicates the field should be considered a password and blanked out.
+ *   * An array - This array is an array of arrays, each element of the outer array is a single row
+ *     in a table, the child arrays are column name/value pairs
+ *   * A string - This is a sql statement that returns exactly 2 columns, the first an ID that will
+ *     be used as the value of the selected item, and the second a string to display. This will be
+ *     displayed as a drop down list
+ *
+ * If an array of edit options is passed then an edit button will be placed on each row. It can
+ * be determined if the edit button was clicked and for which row by calling form_select_table_edit()
+ *
+ * To display the table in edit mode, pass the edit options with the $edit variable set to the
+ * value of the ID column that is to be edited, usually obtained from form_select_table_edit
+ *
+ * To retrieve the results of an edit call form_select_table_update()
+ *
+ * @param string $param
+ * @param array $table_contents
+ * @param array $table_headings
+ * @param array $table_params
+ * @param string $id_col
+ * @param array $edit_options
+ * @param integer $edit
+ * @param string $formname
+ */
 
 function form_select_table ( $param, $table_contents, $table_headings, $table_params, $id_col, $edit_options = array(), $edit = 0, $formname = '')
 {
@@ -488,6 +557,13 @@ function form_select_table ( $param, $table_contents, $table_headings, $table_pa
   }
 }
 
+/**
+ * Replaces spaces with underscores.
+ *
+ * @param string $name
+ * @return string
+ */
+
 function escape_form_names($name)
 {
   return strtr($name, " ", "_");
@@ -533,24 +609,46 @@ function form_select_table_update( $param_name, $formname )
   return $result;
 }
 
-#-------------------------------------------------------------------------------------------------
-# Ends the table used to format the form, and ends the form itself.
-#-------------------------------------------------------------------------------------------------
+/**
+ * Ends the table used to format the form, and ends the form itself.
+ *
+ */
 
 function form_end()
 {
   echo '</table></form>';
 }
 
-#-------------------------------------------------------------------------------------------------
-# Checks that the passed value matches the given mask, and returns true or false.
-# This function is similar the javascript mask feature except it can validate data if
-# the user has javascript turned off.
-#-------------------------------------------------------------------------------------------------
+/**
+ * Checks that the passed value matches the given mask, and returns true or false.
+ * This function is similar the javascript mask feature except it can validate data if
+ * the user has javascript turned off.
+ *
+ * @param unknown_type $value
+ * @param unknown_type $mask
+ * @return unknown
+ */
 
 function form_mask( $value, $mask )
 {
   return ( preg_match('/'.$mask.'/',$value) ? true : false );
+}
+
+/**
+ * Outputs a pseudo set of tabs.
+ *
+ * @param array $tabs
+ * @param string $url
+ * @param string $current
+ */
+
+function form_tabs( $tabs, $url, $current = '' )
+{
+  echo '<p align="center">';
+  foreach ($tabs as $key=>$tab)
+    echo ($key > 0 ? ' | ' : '').'<a href="'.$url.$tab.'">'.
+         ($tab == $current ? '<b>'.str($tab).'</b>' : str($tab)).'</a>';
+  echo '</p>';
 }
 
 /**************************************************************************************************

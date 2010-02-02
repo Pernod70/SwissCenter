@@ -92,7 +92,7 @@
       $menu->add_item(str('SUBTITLES')              ,'section=SUBTITLES&action=DISPLAY');
       $menu->add_item(str('THEMES')                 ,'section=THEMES&action=DISPLAY');
       $menu->add_item(str('MEDIA_REFRESH')          ,'section=MEDIA&action=REFRESH');
-//      $menu->add_item(str('STATISTICS')             ,'section=STATS&action=DISPLAY');
+      $menu->add_item(str('STATISTICS')             ,'section=STATS&action=DISPLAY');
 
       $menu->add_menu(str('INTERNET_FEATURES'));
       $menu->add_item(str('CONNECT_TITLE')          ,'section=CONNECT&action=DISPLAY');

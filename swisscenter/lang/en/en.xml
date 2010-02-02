@@ -2934,6 +2934,51 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <version>1.19</version>
       </string>
       <string>
+        <id>NUMBER_OF_ALBUMS</id>
+        <text>Number of Albums %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_ARTISTS</id>
+        <text>Number of Artists %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_PHOTOS</id>
+        <text>Number of Photos %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_PHOTO_ALBUMS</id>
+        <text>Number of Photo Albums %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_TITLES</id>
+        <text>Number of Titles %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_TRACKS</id>
+        <text>Number of Tracks %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_TV_EPISODES</id>
+        <text>Number of Episodes %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_TV_SHOWS</id>
+        <text>Number of Programmes %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_VIDEOS</id>
+        <text>Number of Videos %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>ONE_ITEM</id>
         <text>1 Item</text>
         <version>1.19</version>
@@ -4863,6 +4908,11 @@ If any details are added/changed on this page then you are requested to submit t
       <string>
         <id>TOMA_WM</id>
         <text>Windows Media</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOP20</id>
+        <text>Top 20</text>
         <version>1.22</version>
       </string>
       <string>
