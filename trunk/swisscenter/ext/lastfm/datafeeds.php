@@ -215,6 +215,8 @@ function lastfm_album_getInfo($artist, $album)
  * Get Images for this artist in a variety of sizes.
  *
  * @param string $artist
+ * @param integer $page
+ * @param integer $limit
  * @return array
  */
 function lastfm_artist_getImages($artist, $page=1, $limit=50)
@@ -269,5 +271,58 @@ function lastfm_radio_tune($station)
 {
   $lastfm = new lastfmapi();
   return $lastfm->getFeed('method=radio.tune&station='.rawurlencode(utf8_encode($station)));
+}
+
+/**
+ * Get a list of the recent tracks listened to by this user.
+ *
+ * @param string $user
+ * @param integer $page
+ * @param integer $limit
+ * @return array
+ */
+function lastfm_user_getRecentTracks($user, $page=1, $limit=50)
+{
+  $lastfm = new lastfmapi();
+  return $lastfm->getFeed('method=user.getRecentTracks&user='.urlencode(utf8_encode($user)).'&page='.$page.'&limit='.$limit);
+}
+
+/**
+ * Get the top albums listened to by a user.
+ *
+ * @param string $user
+ * @param string $period - overall | 7day | 3month | 6month | 12month - The time period over which to retrieve top tracks for.
+ * @return array
+ */
+function lastfm_user_getTopAlbums($user, $period='overall')
+{
+  $lastfm = new lastfmapi();
+  return $lastfm->getFeed('method=user.getTopAlbums&user='.urlencode(utf8_encode($user)).'&period='.$period);
+}
+
+/**
+ * Get the top artists listened to by a user.
+ *
+ * @param string $user
+ * @param string $period - overall | 7day | 3month | 6month | 12month - The time period over which to retrieve top tracks for.
+ * @return array
+ */
+function lastfm_user_getTopArtists($user, $period='overall')
+{
+  $lastfm = new lastfmapi();
+  return $lastfm->getFeed('method=user.getTopArtists&user='.urlencode(utf8_encode($user)).'&period='.$period);
+}
+
+/**
+ * Get the top tracks listened to by a user.
+ *
+ * @param string $user
+ * @param string $period - overall | 7day | 3month | 6month | 12month - The time period over which to retrieve top tracks for.
+ * @return array
+ */
+function lastfm_user_getTopTracks($user, $period='overall')
+{
+  $lastfm = new lastfmapi();
+  return $lastfm->getFeed('method=user.getTopTracks&user='.urlencode(utf8_encode($user)).'&period='.$period);
 }
 ?>
