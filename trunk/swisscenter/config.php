@@ -19,13 +19,14 @@
   // Are there any new messages to display to the user?
   $num_read = count_messages_with_status(MESSAGE_STATUS_READ);
   $num_new = count_messages_with_status(MESSAGE_STATUS_NEW);
-  if(($num_read + $num_new) > 0)
+  if (($num_read + $num_new) > 0)
   {
     $menu->add_item(str('MESSAGES_VIEW')
                    ." (".$num_new." ".str('MESSAGE_STATUS_NEW').", ".$num_read." ".str('MESSAGE_STATUS_READ').")"
                    ,'messages.php?return='.current_url(),true);
   }
 
+  $menu->add_item(str('STATISTICS'),'statistics.php',true);
   $menu->add_item(str('LANG_CHANGE'),'change_lang.php',true);
   $menu->add_item(str('SETUP_CHANGE_UI'),'style.php',true);
   $menu->add_item(str('SETUP_REMOTE'),'remote_tvid.php',true);
@@ -35,7 +36,6 @@
   // Does the User have internet connectivity?
   if (internet_available())
     $menu->add_item(str('SETUP_UPDATE_SC'),'update_options.php',true);
-
 
   $menu->display(1, style_value("MENU_CONFIG_WIDTH"), style_value("MENU_CONFIG_ALIGN"));
   page_footer( 'index.php' );
