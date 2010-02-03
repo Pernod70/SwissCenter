@@ -750,37 +750,36 @@ function process_photo( $dir, $id, $file)
       }
 
       // File Info successfully obtained, so enter it into the database
-      $data = array( "size"                => $id3["filesize"]
-                   , "width"               => $id3["video"]["resolution_x"]
-                   , "height"              => $id3["video"]["resolution_y"]
-                   , "date_modified"       => filemtime($filepath)
-                   , "date_created"        => $exif["DTDigitised"]
-                   , "exif_exposure_mode"  => $exif['ExposureMode']
-                   , "exif_exposure_time"  => dec2frac($exif['ExposureTime'])
-                   , "exif_fnumber"        => rtrim($exif['FNumber'],'0')
-                   , "exif_focal_length"   => (empty($exif['FocalLength']) ? null : $exif['FocalLength'].str('LENGTH_MM') )
-                   , "exif_image_source"   => $exif['ImageSource']
-                   , "exif_make"           => $exif['Make']
-                   , "exif_model"          => $exif['Model']
-                   , "exif_orientation"    => $exif['Orientation']
-                   , "exif_white_balance"  => $exif['WhiteBalance']
-                   , "exif_flash"          => $exif['Flash'][1]
-                   , "exif_iso"            => $exif['ISOSpeedRating']
-                   , "exif_light_source"   => $exif['LightSource']
-                   , "exif_exposure_prog"  => $exif['ExpProg']
-                   , "exif_meter_mode"     => $exif['MeterMode']
-                   , "exif_capture_type"   => $exif['SceneCaptureType']
-                   , "iptc_caption"        => $iptcxmp['caption']
-                   , "iptc_suppcategory"   => $iptcxmp['suppcategories']
-                   , "iptc_keywords"       => $iptcxmp['keywords']
-                   , "iptc_city"           => $iptcxmp['city']
-                   , "iptc_province_state" => $iptcxmp['province_state']
-                   , "iptc_country"        => $iptcxmp['country']
-                   , "iptc_byline"         => $iptcxmp['byline']
-                   , "iptc_date_created"   => $iptcxmp['date_created']
-                   , "iptc_location"       => $iptcxmp['location']
-                   , "xmp_rating"          => $iptcxmp['rating']
-                   );
+      $data["size"]                = $id3["filesize"];
+      $data["width"]               = $id3["video"]["resolution_x"];
+      $data["height"]              = $id3["video"]["resolution_y"];
+      $data["date_modified"]       = filemtime($filepath);
+      $data["date_created"]        = $exif["DTDigitised"];
+      $data["exif_exposure_mode"]  = $exif['ExposureMode'];
+      $data["exif_exposure_time"]  = dec2frac($exif['ExposureTime']);
+      $data["exif_fnumber"]        = rtrim($exif['FNumber'],'0');
+      $data["exif_focal_length"]   = (empty($exif['FocalLength']) ? null : $exif['FocalLength'].str('LENGTH_MM') );
+      $data["exif_image_source"]   = $exif['ImageSource'];
+      $data["exif_make"]           = $exif['Make'];
+      $data["exif_model"]          = $exif['Model'];
+      $data["exif_orientation"]    = $exif['Orientation'];
+      $data["exif_white_balance"]  = $exif['WhiteBalance'];
+      $data["exif_flash"]          = $exif['Flash'][1];
+      $data["exif_iso"]            = $exif['ISOSpeedRating'];
+      $data["exif_light_source"]   = $exif['LightSource'];
+      $data["exif_exposure_prog"]  = $exif['ExpProg'];
+      $data["exif_meter_mode"]     = $exif['MeterMode'];
+      $data["exif_capture_type"]   = $exif['SceneCaptureType'];
+      $data["iptc_caption"]        = $iptcxmp['caption'];
+      $data["iptc_suppcategory"]   = $iptcxmp['suppcategories'];
+      $data["iptc_keywords"]       = $iptcxmp['keywords'];
+      $data["iptc_city"]           = $iptcxmp['city'];
+      $data["iptc_province_state"] = $iptcxmp['province_state'];
+      $data["iptc_country"]        = $iptcxmp['country'];
+      $data["iptc_byline"]         = $iptcxmp['byline'];
+      $data["iptc_date_created"]   = $iptcxmp['date_created'];
+      $data["iptc_location"]       = $iptcxmp['location'];
+      $data["xmp_rating"]          = $iptcxmp['rating'];
     }
     else
     {
