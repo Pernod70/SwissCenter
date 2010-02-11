@@ -79,15 +79,18 @@ function subtitles_display( $message = '')
 
   echo '<table width="100%">'.
        '<tr><td>'.
-         str('CATEGORY').' :'.
-         form_list_dynamic_html("cat_id","select distinct c.cat_id,c.cat_name from categories c left join media_locations ml on c.cat_id=ml.cat_id where ml.media_type=".MEDIA_TYPE_VIDEO." order by c.cat_name",$_REQUEST["cat_id"],true,true,str('CATEGORY_LIST_ALL')).'&nbsp;'.
-         str('SEARCH').' :'.
-         '<input name="search" value="'.un_magic_quote($_REQUEST["search"]).'" size=10>&nbsp;'.
+         str('CATEGORY').' : '.
+         form_list_dynamic_html("cat_id","select distinct c.cat_id,c.cat_name from categories c left join media_locations ml on c.cat_id=ml.cat_id where ml.media_type=".MEDIA_TYPE_VIDEO." order by c.cat_name",$_REQUEST["cat_id"],true,true,str('CATEGORY_LIST_ALL')).
        '</td><td>'.
-         '<input type="radio" name="method" value="hash" '.($method=='hash' ? 'checked' : '').'>'.str('OS_SEARCH_HASH').'</input><br><input type="radio" name="method" value="title" '.($method=='title' ? 'checked' : '').'>'.str('OS_SEARCH_TITLE').'</input></td>'.
-       '</td><td align="right">'.
-         str('LANG_SELECT').' :'.
+         str('SEARCH').' : '.
+         '<input name="search" value="'.un_magic_quote($_REQUEST["search"]).'" size=10>'.
+       '</td><td>'.
+         str('LANG_SELECT').' : '.
          form_list_static_html("lang",$lang_list,$search_lang,false,true,false).
+       '</td></tr>'.
+       '<tr><td colspan="3">'.
+         '<input type="radio" name="method" value="hash" '.($method=='hash' ? 'checked' : '').'>'.str('OS_SEARCH_HASH').'</input>'.
+         '<input type="radio" name="method" value="title" '.($method=='title' ? 'checked' : '').'>'.str('OS_SEARCH_TITLE').'</input></td>'.
        '</td></tr>'.
        '</table></form>';
 
@@ -110,6 +113,9 @@ function subtitles_display( $message = '')
 
   foreach ($movie_list as $movie)
   {
+    // Rest timeout for each video
+    set_time_limit(30);
+
     // Search for subtitles for current movie
     $moviehash = OpenSubtitlesHash($movie["DIRNAME"].$movie["FILENAME"]);
     if ($method == 'hash')
@@ -207,13 +213,18 @@ function subtitles_download()
         $subtitle = $os->DownloadSubtitles(array($subtitle_id[0]));
 
         // Decode and inflate the subtitles
-        $sub_data = base64_decode($subtitle["data"][0]["data"]);
-        $sub_data = gzinflate(substr($sub_data,10)); // Ignore gz header
+        if (!function_exists('gzinflate'))
+          subtitles_display("!".str('OS_GZIP_REQUIRED'));
+        else
+        {
+          $sub_data = base64_decode($subtitle["data"][0]["data"]);
+          $sub_data = @gzinflate(substr($sub_data,10)); // Ignore gz header
 
-        // Save subtitles to file
-        $data = db_row("select dirname, filename from movies where file_id=$movie_id");
-        $sub_file = $data["DIRNAME"].file_noext($data["FILENAME"]).'.'.$subtitle_id[1];
-        file_put_contents($sub_file, $sub_data);
+          // Save subtitles to file
+          $data = db_row("select dirname, filename from movies where file_id=$movie_id");
+          $sub_file = $data["DIRNAME"].file_noext($data["FILENAME"]).'.'.$subtitle_id[1];
+          file_put_contents($sub_file, $sub_data);
+        }
       }
     }
     subtitles_display(str('OS_DOWNLOADED_OK'));
