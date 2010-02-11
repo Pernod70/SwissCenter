@@ -7,20 +7,20 @@
  require_once( realpath(dirname(__FILE__).'/base/browse.php'));
 
  //
- // Takes 
+ // Takes
  //
- 
- function make_genre_menu($genre,$type) 
+
+ function make_genre_menu($genre,$type)
  {
    $url = url_remove_param(current_url(), 'page');
    $ac  = count($genre);
-   
-   for ($i=0;$i<$ac;++$i) 
+
+   for ($i=0;$i<$ac;++$i)
      $array[] = array("name"=>ucwords($genre[$i]), "url"=>url_set_param( $url, $type, $genre[$i]));
 
    $page = $_REQUEST["page"];
 
-   if (empty($page)) 
+   if (empty($page))
      $page = 0;
 
    browse_array($url,$array,$page,MEDIA_TYPE_RADIO);
@@ -33,7 +33,7 @@
  $menu = new menu();
  $current_url  = current_url();
 
- switch ($_REQUEST["class"]) 
+ switch ($_REQUEST["class"])
  {
    case shoutcast :
        send_to_log(8,"Initializing ShoutCast parser");
@@ -42,24 +42,30 @@
        $cachedir = get_sys_pref('CACHE_DIR').'/shoutcast';
        break;
    case liveradio :
-       send_to_log(8,"Initializing LiveRadio parser");
+       send_to_log(8,"Initializing Live-Radio parser");
        require_once( realpath(dirname(__FILE__).'/ext/iradio/live-radio.php'));
        $iradio  = new liveradio;
        $cachedir = get_sys_pref('CACHE_DIR').'/liveradio';
        $iradio->restrict_mediatype("mp3");
        break;
+   case live365 :
+       send_to_log(8,"Initializing Live365 parser");
+       require_once( realpath(dirname(__FILE__).'/ext/iradio/live365.php'));
+       $iradio  = new live365;
+       $cachedir = get_sys_pref('CACHE_DIR').'/live365';
+       break;
  }
- 
- if (!empty($_REQUEST["class"])) 
+
+ if (!empty($_REQUEST["class"]))
  {
-   if (!file_exists($cachedir)) 
+   if (!file_exists($cachedir))
      @mkdir($cachedir);
 
    send_to_log(8,"Initialize station cache. CacheDir: '$cachedir', Expiry: '".get_sys_pref('iradio_cache_expire',3600)."'");
    $iradio->set_cache( $cachedir );
    $iradio->set_cache_expiration(get_sys_pref('iradio_cache_expire',3600));
    $iradio->set_max_results(get_sys_pref('iradio_max_stations',24));
-   
+
  }
 
  // Output the appropriate menu based, based on earlier choices and ensure that the
@@ -98,7 +104,7 @@
        make_genre_menu($genres,"subgenre");
        page_footer( url_remove_params( $current_url,array('maingenre','page')) );
      }
-     else 
+     else
      {
        // Main and subgenre chosen, so list the available radio stations.
        $back_url = url_remove_params( $current_url,array('subgenre','page'));
@@ -130,7 +136,7 @@
        make_genre_menu($stations,"station");
        page_footer( url_remove_params( $current_url,array('by_station','page')) );
      }
-     else 
+     else
      {
        // Now the station has been chosen, list the available stations.
        send_to_log(8,"Station search for '".$_REQUEST["station"]."'");
@@ -177,7 +183,7 @@
        make_genre_menu($countries,"country");
        page_footer( url_remove_params( $current_url,array('by_country','page')) );
      }
-     else 
+     else
      {
        // Now the country/langauge has been chosen, list the available stations.
        send_to_log(8,"Country search for '".$_REQUEST["country"]."'");
@@ -197,9 +203,9 @@
          page_inform(5,$back_url,str('IRADIO_NO_STATIONS'),str('IRADIO_NO_STATIONS_MSG',$_REQUEST["country"]));
        }
      }
-   }   
+   }
  }
- 
+
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/
