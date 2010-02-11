@@ -21,7 +21,7 @@
     // Retrieve the HTML page detailing the recently played songs from the server
 
     send_to_log(5,'Connecting to ShoutCast server '.$host.':'.$port);
-    if (($fp = @fsockopen($host,$port,$errno,$errstr,10)) === FALSE)
+    if (($fp = @fsockopen($host, $port, &$errno ,&$errstr, 10)) === FALSE)
     {
       send_to_log(2,'- Connection refused to ShoutCast server',array("Host"=>$host,"Port"=>$port));
       return false;
