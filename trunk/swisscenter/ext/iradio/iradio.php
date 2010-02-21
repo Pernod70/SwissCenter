@@ -27,6 +27,7 @@ if (!function_exists("send_to_log")) require_once ("logging.php");
  */
 class iradio {
   var $iradiosite;
+  var $iradiotype;
   var $cachedir;
   var $usecache;
   var $storecache;
@@ -40,6 +41,7 @@ class iradio {
   function iradio(){
     // the iradio server to use.
     $this->set_site("www.shoutcast.com");
+    $this->set_type(IRADIO_SHOUTCAST);
     // cachedir should be writable by the webserver. This doesn't need to be
     // under documentroot.
     $this->cache_dir = '';
@@ -192,6 +194,16 @@ class iradio {
     send_to_log(6,"IRadio: Radio site set to $url");
   }
 
+  /** Set the Internet Radio type id
+   * @class iradio
+   * @method set_type
+   * @param integer type
+   */
+  function set_type($type) {
+    $this->iradiotype = $type;
+    send_to_log(6,"IRadio: Radio type set to $type");
+  }
+
 # ------------------------------------------------------------[ Structures ]---
   /** Retrieve the station list
    * @class iradio
@@ -200,7 +212,7 @@ class iradio {
    */
   function get_stations() {
     if (empty($this->stations)) {
-      $this->stations = db_col_to_list("select station from iradio_stations order by 1");
+      $this->stations = db_col_to_list("select station from iradio_stations where iradio_type=".$this->iradiotype." order by 1");
       send_to_log(6,"IRadio: ".count($this->stations)." stations read");
     }
     send_to_log(6,"IRadio: Station list was requested - sending it.");

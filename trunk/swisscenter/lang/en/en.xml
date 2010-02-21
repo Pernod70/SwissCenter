@@ -644,8 +644,8 @@
       </string>
       <string>
         <id>CONFIG_SHOUTCAST_TITLE</id>
-        <text>Shoutcast Options</text>
-        <version>1.19</version>
+        <text>SHOUTcast Options</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>CONFIG_SWISSMONITOR</id>
@@ -1148,6 +1148,12 @@
         <version>1.22</version>
       </string>
       <string>
+      <string>
+        <id>FAIL_LIVE365_TEST</id>
+        <text>Live365 parser looks broken</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>FAIL_LIVERADIO_TEST</id>
         <text>LiveRadio parser looks broken</text>
         <version>1.19</version>
@@ -1219,8 +1225,8 @@
       </string>
       <string>
         <id>FAIL_SHOUTCAST_TEST</id>
-        <text>ShoutCast parser looks broken</text>
-        <version>1.19</version>
+        <text>SHOUTcast parser looks broken</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>FAIL_SWISSMONITOR_INSTALLED</id>
@@ -1740,8 +1746,8 @@
       </string>
       <string>
         <id>IRADIO_COUNTRY_PROMPT</id>
-        <text>Please specify a country that you would like to search for. Only %s supports searching by country so visit the site to lookup valid countries. When searching ShoutCast we are actually searching for station titles containing the country.</text>
-        <version>1.21.1</version>
+        <text>Please specify a country that you would like to search for. Only %s supports searching by country so visit the site to lookup valid countries. When searching SHOUTcast we are actually searching for station titles containing the country.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>IRADIO_COUNTRY_SELECT</id>
@@ -1794,9 +1800,25 @@
         <version>1.21.1</version>
       </string>
       <string>
+      <string>
+        <id>IRADIO_LIVE365</id>
+        <text>Live365</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_LIVE365_DESC</id>
+        <text>Live365 (%s) is a radio network that reaches millions of listeners worldwide, offering greater breadth and depth of high-quality streaming music, talk, and audio than any other network. Featuring 260+ genres of music produced by 5,000+ broadcasters and music tastemakers from over 150 countries, the network boasts a roster of artists and radio producers ranging from the Atlanta Symphony, Pat Metheny, David Navarro, and Carlos Santana, to commercial and public radio stations, to individual DJs who program stations in every musical style.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_LIVERADIO</id>
+        <text>Live-Radio</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IRADIO_LIVERADIO_DESC</id>
-        <text>LiveRadio (%s) is an internet radio service similiar to ShoutCast. It provides the functionality to search by media type, genre, station name, country and even city - but many stations listed here are not supported by some hardware players. So the LiveRadio parser used by SwissCenter restricts the results to show only MP3 stations.</text>
-        <version>1.19</version>
+        <text>LiveRadio (%s) is an internet radio service similiar to SHOUTcast. It provides the functionality to search by media type, genre, station name, country and even city - but many stations listed here are not supported by some hardware players. So the LiveRadio parser used by SwissCenter restricts the results to show only MP3 stations.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>IRADIO_LOGO</id>
@@ -1840,8 +1862,8 @@
       </string>
       <string>
         <id>IRADIO_PARAM_PROMPT</id>
-        <text>The ShoutCast and Live-Radio features allow searching for radio stations by station, genre, and country. Here you can define your favourite search criteria.</text>
-        <version>1.21.1</version>
+        <text>The internet radio servers (SHOUTcast, Live-Radio, etc.) allow searching for radio stations by station, genre, and country. Here you can define your favourite search criteria.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>IRADIO_PARAM_TYPE</id>
@@ -1854,9 +1876,14 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_SHOUTCAST</id>
+        <text>SHOUTcast</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IRADIO_SHOUTCAST_DESC</id>
-        <text>ShoutCast (%s) is a radio service on the internet, providing audio streams playable by most streaming devices (and programs). It provides the functionality to search by genre or station name, and returns many details for each station found, including a playlist URL. The ShoutCast parser used by SwissCenter parses the HTML of the result page, to display the result set in a way easy to read also on TV screens. However, it may break when the page structure will be changed by the ShoutCast staff.[p]Sometimes ShoutCast pretends to have no stations listed for our search. So if the test seems to fail, better load the page again - to ensure the problem is not located here.</text>
-        <version>1.19</version>
+        <text>SHOUTcast (%s) is a radio service on the internet, providing audio streams playable by most streaming devices (and programs). It provides the functionality to search by genre or station name, and returns many details for each station found, including a playlist URL. The SHOUTcast parser used by SwissCenter parses the HTML of the result page, to display the result set in a way easy to read also on TV screens. However, it may break when the page structure will be changed by the SHOUTcast staff.[p]Sometimes SHOUTcast pretends to have no stations listed for our search. So if the test seems to fail, better load the page again - to ensure the problem is not located here.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>IRADIO_STATION</id>
@@ -1887,6 +1914,11 @@
         <id>IRADIO_SUBGENRE_SELECT</id>
         <text>Select the Sub-Genre to search for:</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_TYPE</id>
+        <text>Radio Type</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>IRADIO_UPDATE_PARAM_OK</id>
@@ -3079,6 +3111,12 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <version>1.22</version>
       </string>
       <string>
+      <string>
+        <id>PASS_LIVE365_TEST</id>
+        <text>Live365 parser seems to work properly</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>PASS_LIVERADIO_TEST</id>
         <text>LiveRadio parser seems to work properly</text>
         <version>1.19</version>
@@ -3145,8 +3183,8 @@ The enhanced option shows track details with a progress bar and a fanart image a
       </string>
       <string>
         <id>PASS_SHOUTCAST_TEST</id>
-        <text>ShoutCast parser seems to work properly</text>
-        <version>1.19</version>
+        <text>SHOUTcast parser seems to work properly</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PASS_SWISSMONITOR_INSTALLED</id>

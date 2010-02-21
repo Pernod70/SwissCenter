@@ -26,6 +26,7 @@ class shoutcast extends iradio {
   function shoutcast() {
     $this->iradio();
     $this->set_site("classic.shoutcast.com");
+    $this->set_type(IRADIO_SHOUTCAST);
   }
 
   /** Parse shoutcast result page and store stations using add_station()

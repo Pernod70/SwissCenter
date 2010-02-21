@@ -2,7 +2,7 @@
 /**************************************************************************************************
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
-  
+
   /**
    * Displays the Internet Radio configuration options to the user
    *
@@ -16,8 +16,17 @@
     $types  = array( str('IRADIO_STATION') => 'iradio_stations',
                      str('IRADIO_COUNTRY') => 'iradio_countries',
                      str('IRADIO_GENRE')   => 'iradio_genres' );
+    $type   = ( isset($_REQUEST["type"]) ? un_magic_quote($_REQUEST["type"]) : '');
     $param1 = ( isset($_REQUEST["param1"]) ? un_magic_quote($_REQUEST["param1"]) : '');
     $param2 = ( isset($_REQUEST["param2"]) ? un_magic_quote($_REQUEST["param2"]) : '');
+
+    // Form list of radio types
+    $iradio_opts = array(array("IRADIO_TYPE"=>IRADIO_SHOUTCAST, "IRADIO_NAME"=>str('IRADIO_SHOUTCAST')),
+                         array("IRADIO_TYPE"=>IRADIO_LIVERADIO, "IRADIO_NAME"=>str('IRADIO_LIVERADIO')),
+                         array("IRADIO_TYPE"=>IRADIO_LIVE365,   "IRADIO_NAME"=>str('IRADIO_LIVE365')));
+
+    for ($i = 0; $i<count($iradio_opts); $i++)
+      $iradio_list[$iradio_opts[$i]["IRADIO_NAME"]] = $iradio_opts[$i]["IRADIO_TYPE"];
 
     echo '<h1>'.str('CONFIG_RADIO_OPTIONS').'</h1>';
     message($message);
@@ -27,16 +36,22 @@
     form_start('index.php',50);
     form_hidden('section','RADIO');
     form_hidden('action','DISPLAY');
-    echo str('IRADIO_PARAM_TYPE').' : '.form_list_static_html('table',$types,$table,false,true,true);
+    echo str('IRADIO_PARAM_TYPE').' : '.form_list_static_html('table',$types,$table,false,true,false);
     form_end();
 
     // Get a list of all items from the database and display them
     switch ( $table )
     {
       case 'iradio_stations':
-        $data = db_toarray("SELECT id, station, image FROM $table ORDER BY 2");
-        $headings = str('IRADIO_STATION').','.str('IRADIO_LOGO');
-        $edit_options = array('STATION'=>'', 'IMAGE'=>'');
+        $data = db_toarray("SELECT id, (CASE iradio_type
+                                        WHEN ".IRADIO_SHOUTCAST." THEN '".str('IRADIO_SHOUTCAST')."'
+                                        WHEN ".IRADIO_LIVERADIO." THEN '".str('IRADIO_LIVERADIO')."'
+                                        WHEN ".IRADIO_LIVE365." THEN '".str('IRADIO_LIVE365')."'
+                                        ELSE 'Unknown'
+                                        END
+                                       ) iradio_type, station, image FROM $table ORDER BY 2,3");
+        $headings = str('IRADIO_TYPE').','.str('IRADIO_STATION').','.str('IRADIO_LOGO');
+        $edit_options = array('IRADIO_TYPE'=>$iradio_opts, 'STATION'=>'', 'IMAGE'=>'');
         break;
 
       case 'iradio_countries':
@@ -68,10 +83,11 @@
     form_hidden('section', 'RADIO');
     form_hidden('action', 'ADD_PARAM');
     form_hidden('table', $table);
-    
+
     switch ( $table )
     {
       case 'iradio_stations':
+        form_list_static('type',str('IRADIO_TYPE'), $iradio_list, $type, false, false, false);
         form_input('param1', str('IRADIO_STATION'), 20, '', $param1);
         form_input('param2', str('IRADIO_LOGO'), 20, '', $param2);
         form_label(str('IRADIO_STATION_PROMPT'));
@@ -115,7 +131,8 @@
     switch ( $table )
     {
       case 'iradio_stations':
-        $fields = array('station'=>un_magic_quote($_REQUEST["param1"]),
+        $fields = array('iradio_type'=>$_REQUEST["type"],
+                        'station'=>un_magic_quote($_REQUEST["param1"]),
                         'image'=>un_magic_quote($_REQUEST["param2"]));
         break;
 
@@ -141,7 +158,7 @@
   }
 
   /**
-   * Modifies/deletes an existing search paramter
+   * Modifies/deletes an existing search parameter
    *
    */
 
@@ -161,7 +178,7 @@
       switch ( $table )
       {
         case 'iradio_stations':
-          $fields = "station='".db_escape_str($update_data["STATION"])."', image='".db_escape_str($update_data["IMAGE"])."'";
+          $fields = "iradio_type=".$update_data["IRADIO_TYPE"].", station='".db_escape_str($update_data["STATION"])."', image='".db_escape_str($update_data["IMAGE"])."'";
           break;
 
         case 'iradio_countries':
@@ -198,27 +215,27 @@
    * Saves the Shoutcast and LiveRadio options.
    *
    */
-  
+
   function radio_update_shoutcast()
   {
     $maxnum = (int) $_REQUEST["maxnum"];
     $cache_expire = (int) $_REQUEST["cache_expire"];
     if (empty($cache_expire)) $cache_expire = 0;
-    
+
     if (empty($_REQUEST["maxnum"]))
       radio_display('', "!".str('IRADIO_ERROR_MAXNUM'));
     elseif (empty($maxnum))
       radio_display('', "!".str('IRADIO_ERROR_MAXNUM_ZERO'));
     elseif (empty($_REQUEST["cache_expire"]))
       radio_display('', "!".str('IRADIO_ERROR_CACHE_EXPIRE'));
-    else 
+    else
     {
       set_sys_pref('iradio_max_stations',$maxnum);
       set_sys_pref('iradio_cache_expire',$cache_expire);
       radio_display('', str('SAVE_SETTINGS_OK'));
     }
   }
-  
+
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/
