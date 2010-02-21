@@ -243,6 +243,9 @@ function svn_update( $path = SVN_PATH )
   }
   else
   {
+    // Update the filelist_svn.txt before completing
+    $file_list = svn_revision_filelist($path);
+
     set_sys_pref("SVN_REVISION",$max_revision);
     return 'UPDATED';
   }
