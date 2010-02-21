@@ -359,8 +359,8 @@
       </string>
       <string>
         <id>BROWSE_WEB</id>
-        <text>Surf op het web</text>
-        <version>1.19</version>
+        <text>Web sites</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_WEB_PROMPT</id>
@@ -2961,7 +2961,7 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
       </string>
       <string>
         <id>OPENSUBTITLES_ABOUT</id>
-        <text>OpenSubtitles.org biedt een database van ondertitels die gratis gedownload kunnen worden. De ondertitels zijn in veel talen beschikbaar en zijn uniek gekoppeld aan uw videobestanden via een zogenoemde 'video hash code'. U kunt OpenSubtitles.org ondersteuen door de website bezoeken en de banners aan te klikken.</text>
+        <text>OpenSubtitles.org biedt een database van ondertitels die gratis gedownload kunnen worden. De ondertitels zijn in veel talen beschikbaar en zijn uniek gekoppeld aan uw videobestanden via een zogenoemde 'video hash code'. U kunt OpenSubtitles.org ondersteunen door de website bezoeken en de banners aan te klikken.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2986,7 +2986,7 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
       </string>
       <string>
         <id>OS_ABOUT</id>
-        <text>OpenSubtitles.org biedt een database van ondertitels die gratis gedownload kunnen worden. De ondertitels zijn in veel talen beschikbaar en zijn uniek gekoppeld aan uw videobestanden via een zogenoemde 'video hash code'. U kunt OpenSubtitles.org ondersteuen door de website bezoeken en de banners aan te klikken. [br]Indien u over ondertitels beschikt die niet beschikbaar zijn op OpenSubtitles.org, kunt u deze uploaden, zodat ook anderen hier gebruik van kunnen maken. U kunt de ondertitels hier %s uploaden.</text>
+        <text>OpenSubtitles.org biedt een database van ondertitels die gratis gedownload kunnen worden. De ondertitels zijn in veel talen beschikbaar en zijn uniek gekoppeld aan uw videobestanden via een zogenoemde 'video hash code'. U kunt OpenSubtitles.org ondersteunen door de website bezoeken en de banners aan te klikken. [br]Indien u over ondertitels beschikt die niet beschikbaar zijn op OpenSubtitles.org, kunt u deze uploaden, zodat ook anderen hier gebruik van kunnen maken. U kunt de ondertitels hier %s uploaden.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3006,7 +3006,7 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
       </string>
       <string>
         <id>OS_NOT_AVAILABLE</id>
-        <text>OpenSubtitles.org is momenteel niet beschikbaar. Probeert u het laten nog eens.</text>
+        <text>OpenSubtitles.org is momenteel niet beschikbaar. Probeert u het later nog eens.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3746,6 +3746,11 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
         <version>1.19</version>
       </string>
       <string>
+        <id>RATE</id>
+        <text>Rate</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>RATING</id>
         <text>Beoordeling</text>
         <version>1.22</version>
@@ -3764,6 +3769,16 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
         <id>RECENTLY_ADDED_DAYS</id>
         <text>Gedurende de %s dagen</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>RECENTLY_ADDED_OR_CREATED</id>
+        <text>Recentelijk toegevoegd of gecreëerd</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENTLY_CREATED</id>
+        <text>Recentelijk gecreëerd</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>RECENTLY_FEATURED</id>

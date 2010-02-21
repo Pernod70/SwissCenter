@@ -558,6 +558,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>CHECKSUM</id>
+        <text>Errore di controllo</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>CLEAR_NAME</id>
         <text>Pulisci Nome</text>
         <version>1.19</version>
@@ -1245,6 +1250,11 @@
       <string>
         <id>FAIL_SWISS_CACHE</id>
         <text>Impossibile abilitare la scrittura della cache nella Directory di Swisscenter (%s).</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_SWISS_FILES</id>
+        <text>I seguenti file di installazione risultano mancanti o non corretti. Clicca su ognuno di essi per scaricarlo da internet, poi manualmente copialo nella cartella corretta. %s</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2598,6 +2608,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>MISSING</id>
+        <text>Mancante</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>MISSING_DB_TEXT</id>
         <text>Usa l'utility di configurazione per creare un database.</text>
         <version>1.19</version>
@@ -2918,6 +2933,51 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>NUMBER_OF_ALBUMS</id>
+        <text>Album numero %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_ARTISTS</id>
+        <text>Artista numero %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_PHOTOS</id>
+        <text>Foto numero %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_PHOTO_ALBUMS</id>
+        <text>Album foto %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_TITLES</id>
+        <text>Titolo numero %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_TRACKS</id>
+        <text>Canzone numero %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_TV_EPISODES</id>
+        <text>Episodio numero %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_TV_SHOWS</id>
+        <text>TV Serie numero</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_VIDEOS</id>
+        <text>Video numero %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>ONE_ITEM</id>
         <text>1 Elemento</text>
         <version>1.19</version>
@@ -3111,6 +3171,11 @@
         <id>PASS_SWISS_CACHE</id>
         <text>Abilita la Lettura/Scrittura della cache nella Directory di SwissCenter</text>
         <version>1.21</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_FILES</id>
+        <text>I file installazione sono stati verificati</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PASS_SWISS_INI</id>
@@ -3746,6 +3811,16 @@
         <id>RECENTLY_ADDED_DAYS</id>
         <text>Negli ultimi %s giorni</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>RECENTLY_ADDED_OR_CREATED</id>
+        <text>Aggiunto o creato recentemente</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENTLY_CREATED</id>
+        <text>Creato recentemente</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>RECENTLY_FEATURED</id>
@@ -4865,6 +4940,11 @@
       <string>
         <id>TOMA_WM</id>
         <text>Windows media</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOP20</id>
+        <text>Top 20</text>
         <version>1.22</version>
       </string>
       <string>
