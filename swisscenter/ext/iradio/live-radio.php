@@ -26,6 +26,7 @@ class liveradio extends iradio {
   function liveradio() {
     $this->iradio();
     $this->set_site("www.live-radio.net");
+    $this->set_type(IRADIO_LIVERADIO);
     $this->search_baseparams = "?OSt=Li&OCnt=Li&OSta=Li&Sta=&OCit=Li&Cit=&OGen=Li&$url";
   }
 

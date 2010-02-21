@@ -25,19 +25,23 @@ require_once( realpath(dirname(__FILE__).'/language.php'));
   define('MEDIA_TYPE_WEB',5);
   define('MEDIA_TYPE_TV',6);
   define('MEDIA_TYPE_INTERNET_TV',7);
-  
+
+  define('IRADIO_SHOUTCAST',1);
+  define('IRADIO_LIVERADIO',2);
+  define('IRADIO_LIVE365',3);
+
   define('THUMBNAIL_X_SIZE',140);
   define('THUMBNAIL_Y_SIZE',210);
   define('THUMBNAIL_LARGE_X_SIZE',210);
   define('THUMBNAIL_LARGE_Y_SIZE',460);
-  
+
 #-------------------------------------------------------------------------------------------------
 # Determine the location of the SwissCenter installation.
 #-------------------------------------------------------------------------------------------------
 
   // Where is the SwissCenter installed?
   define('SC_LOCATION', str_replace('\\','/',realpath(dirname(dirname(__FILE__)))).'/' );
-  
+
 #-------------------------------------------------------------------------------------------------
 # Process the SwissCenter configuration file which contains the MySQL database connection details
 # and location of the support log file.

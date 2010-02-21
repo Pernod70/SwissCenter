@@ -17,6 +17,12 @@ require_once(dirname(__FILE__)."/iradio.php");
  * @class live365
  */
 class live365 extends iradio {
+  var $username;
+  var $application_id;
+  var $session_id;
+  var $device_id;
+  var $status;
+  var $access;
 
   /** Initializing the class
    * @constructor shoutcast
@@ -24,6 +30,32 @@ class live365 extends iradio {
   function live365() {
     $this->iradio();
     $this->set_site("www.live365.com");
+    $this->set_type(IRADIO_LIVE365);
+  }
+
+  /** Login to Live365 with user credentials
+   * @class live365
+   * @method login
+   */
+  function login() {
+    $this->username = get_user_pref('LIVE365_USERNAME');
+    $password = get_user_pref('LIVE365_PASSWORD');
+    $login    = file_get_contents("http://".$this->iradiosite."/cgi-bin/api_login.cgi?action=login&remember=Y&org=live365&member_name=$this->username&password=$password");
+    $code     = preg_get('/<Code>(.*)<\/Code>/U', $login);
+    $reason   = preg_get('/<Reason>(.*)<\/Reason>/U', $login);
+
+    if ( $reason == 'Success' )
+    {
+      $this->application_id = preg_get('/<Application_ID>(.*)<\/Application_ID>/Ui', $login);
+      $this->session_id     = preg_get('/<Session_ID>(.*)<\/Session_ID>/Ui', $login);
+      $this->device_id      = preg_get('/<Device_ID>(.*)<\/Device_ID>/Ui', $login);
+      $this->status         = preg_get('/<Member_Status>(.*)<\/Member_Status>/Ui', $login);
+      $this->access         = ($this->status == 'REGULAR' ? 'PUBLIC' : 'ALL');
+    }
+    else
+    {
+      send_to_log(8,"IRadio: Live365 failed to login", $reason);
+    }
   }
 
   /** Parse Live365 result page and store stations using add_station()
@@ -51,7 +83,6 @@ class live365 extends iradio {
       if ($iteration < 3) return $this->parse($url,$cachename,++$iteration);
       else return FALSE;
     }
-//    $login = file_get_contents("http://".$this->iradiosite."/cgi-bin/api_login.cgi?action=login&remember=Y&org=live365&member_name=%USERNAME%&password=%PASSWORD%");
     $epos = $spos +1; // prevent endless loop on broken pages
     while ($spos) {
       $epos  = strpos($this->page,'</LIVE365_STATION>',$spos);
@@ -60,15 +91,19 @@ class live365 extends iradio {
       $title        = utf8_decode(preg_get('/<STATION_TITLE><!\[CDATA\[(.*)\]\]><\/STATION_TITLE>/U', $block));
       $broadcaster  = preg_get('/<STATION_BROADCASTER>(.*)<\/STATION_BROADCASTER>/U', $block);
       $bitrate      = preg_get('/<STATION_CONNECTION>(.*)<\/STATION_CONNECTION>/U', $block);
-      $website      = preg_get('/<STATION_BROADCASTER_URL><!\[CDATA\[(.*)\]\]><\/STATION_BROADCASTER_URL>/U', $block);
+      $codec        = preg_get('/<STATION_CODEC>(.*)<\/STATION_CODEC>/U', $block);
       $genre        = preg_get('/<STATION_GENRE><![CDATA[(.*)]]><\/STATION_GENRE>/U', $block);
       $listeners    = preg_get('/<STATION_LISTENERS_ACTIVE>(.*)<\/STATION_LISTENERS_ACTIVE>/U', $block);
       $maxlisteners = preg_get('/<STATION_LISTENERS_MAX>(.*)<\/STATION_LISTENERS_MAX>/U', $block);
-      $format       = preg_get('/<STATION_CODEC>(.*)<\/STATION_CODEC>/U', $block);
-      $playlist     = "/cgi-bin/play.pls?stationid=".$station_id."&membername=demo_afl&filename.pls";
+      $status       = preg_get('/<STATION_STATUS>(.*)<\/STATION_STATUS>/U', $block);
 
-      $this->add_station($title,$playlist,$bitrate,$genre,$format,$listeners,$maxlisteners,$nowplaying,$website);
-      ++$stationcount;
+      $playlist     = "/cgi-bin/play.pls?stationid=".$station_id."&broadcaster=".$broadcaster."&membername=demo_afl&filename.pls";
+
+      if ( $status == 'OK' && $codec !== 'mp3PRO' )
+      {
+        $this->add_station($title,$playlist,$bitrate,$genre,$codec,$listeners,$maxlisteners);
+        ++$stationcount;
+      }
       if ($stationcount == $this->numresults) break;
       $spos = strpos($this->page,"<LIVE365_STATION>",$epos);
     }

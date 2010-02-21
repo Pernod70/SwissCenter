@@ -75,7 +75,8 @@
  {
    // Select Browse Type
    page_header(str('IRADIO_SEARCH') , '','',1,false,'',MEDIA_TYPE_RADIO);
-   $menu->add_item(str('BROWSE_STATION'), url_add_param($current_url,'by_station','1') );
+   if (count($iradio->get_stations()) > 0)
+     $menu->add_item(str('BROWSE_STATION'), url_add_param($current_url,'by_station','1') );
    $menu->add_item(str('BROWSE_GENRE'), url_add_param($current_url,'by_genre','1') );
    $menu->add_item(str('BROWSE_COUNTRY'), url_add_param($current_url,'by_country','1') );
    $menu->display(1, style_value("MENU_RADIO_WIDTH"), style_value("MENU_RADIO_ALIGN"));
@@ -185,7 +186,7 @@
      }
      else
      {
-       // Now the country/langauge has been chosen, list the available stations.
+       // Now the country/language has been chosen, list the available stations.
        send_to_log(8,"Country search for '".$_REQUEST["country"]."'");
        $back_url = url_remove_params( $current_url,array('country','page'));
        $iradio->search_country($_REQUEST["country"]);
