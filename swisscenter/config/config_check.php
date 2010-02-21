@@ -200,6 +200,7 @@ function check_display()
     $iradio = $component_tests->add_section("Internet Radio Parser",1);
     $component_tests->add_test( $iradio, check_shoutcast(), str('PASS_SHOUTCAST_TEST'),str('FAIL_SHOUTCAST_TEST').'<p>'.str('IRADIO_SHOUTCAST_DESC','<a href="http://www.shoutcast.com/">www.shoutcast.com</a>'),FALSE);
     $component_tests->add_test( $iradio, check_liveradio(), str('PASS_LIVERADIO_TEST'),str('FAIL_LIVERADIO_TEST').'<p>'.str('IRADIO_LIVERADIO_DESC','<a href="http://www.live-radio.net/">www.live-radio.net</a>'),FALSE);
+    $component_tests->add_test( $iradio, check_live365(),   str('PASS_LIVE365_TEST'),str('FAIL_LIVE365_TEST').'<p>'.str('IRADIO_LIVE365_DESC','<a href="http://www.live365.com/">www.live365.com</a>'),FALSE);
   }
 
   # ----------------------

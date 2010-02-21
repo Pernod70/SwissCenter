@@ -24,6 +24,7 @@ require_once( realpath(dirname(__FILE__).'/musicip.php'));
 require_once( realpath(dirname(__FILE__).'/svn.php'));
 require_once( realpath(dirname(__FILE__).'/../ext/iradio/shoutcast.php'));
 require_once( realpath(dirname(__FILE__).'/../ext/iradio/live-radio.php'));
+require_once( realpath(dirname(__FILE__).'/../ext/iradio/live365.php'));
 
 #-------------------------------------------------------------------------------------------------
 # PHP checks
@@ -362,6 +363,14 @@ function check_liveradio()
   $liveradio = new liveradio();
   $result = $liveradio->test();
   unset ($liveradio);
+  return $result;
+}
+
+function check_live365()
+{
+  $live365 = new live365();
+  $result = $live365->test();
+  unset ($live365);
   return $result;
 }
 
