@@ -3859,6 +3859,11 @@ If any details are added/changed on this page then you are requested to submit t
         <version>1.22</version>
       </string>
       <string>
+        <id>RECENT_TRACKS</id>
+        <text>Recent Tracks</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>RECENT_VIDEO</id>
         <text>Video</text>
         <version>1.22</version>
@@ -4954,6 +4959,16 @@ If any details are added/changed on this page then you are requested to submit t
         <version>1.22</version>
       </string>
       <string>
+        <id>TOP_ALBUMS</id>
+        <text>Top Albums</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOP_ARTISTS</id>
+        <text>Top Artists</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>TOP_FAVORITES</id>
         <text>Top favourites</text>
         <version>1.22</version>
@@ -4961,6 +4976,11 @@ If any details are added/changed on this page then you are requested to submit t
       <string>
         <id>TOP_RATED</id>
         <text>Top rated</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOP_TRACKS</id>
+        <text>Top Tracks</text>
         <version>1.22</version>
       </string>
       <string>

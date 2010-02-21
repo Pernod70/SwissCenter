@@ -11,6 +11,10 @@ require_once( realpath(dirname(__FILE__).'/utils.php'));
  *
  */
 
+define('MENU_TYPE_SELECT',1);
+define('MENU_TYPE_LIST',2);
+define('MENU_TYPE_IMAGE',3);
+
 class menu
 {
 
@@ -31,6 +35,8 @@ class menu
 
   var $icon_left_size = array("X"=>25, "Y"=>40);
   var $icon_right_size = array("X"=>25, "Y"=>40);
+
+  var $menu_type = MENU_TYPE_SELECT;
 
   /**
    * Constructor
@@ -70,6 +76,12 @@ class menu
   {
     $this->icon_right_size = array("X"=>$x, "Y"=>$y);
   }
+
+  function set_menu_type ($type)
+  {
+    $this->menu_type = $type;
+  }
+
   /**
    * Adds a menu item with an optional icon to the left, and indicator to show if there is a submenu
    * or not.
@@ -113,6 +125,17 @@ class menu
                                  , "image"    => $image
                                  , "image_on" => $image_on
                                  , "url"      => $url );
+  }
+
+  /**
+   * Adds an table menu item.
+   *
+   * @param array $data - an array of table data items
+   */
+
+  function add_table_item( $data )
+  {
+    $this->menu_items[] = array( "data" => $data );
   }
 
   /**
@@ -208,11 +231,16 @@ class menu
     if ($this->show_icons)
     {
       echo '<tr>';
-      if ($cell_pos >1)
-        echo '<td colspan="'.($cell_pos-1).'"></td>';
-      echo '<td align="center" valign="middle" width="'.convert_x($size).'" height="'.convert_y($this->vertical_margin).'">'.$link_html.'</td>';
-      if ($total_cells > $cell_pos)
-        echo '<td colspan="'.($total_cells-$cell_pos).'"></td>';
+      if ($cell_pos == 0)
+        echo '<td colspan="'.($total_cells).'" align="center" valign="middle" width="'.convert_x($size).'" height="'.convert_y($this->vertical_margin).'">'.$link_html.'</td>';
+      else
+      {
+        if ($cell_pos >1)
+          echo '<td colspan="'.($cell_pos-1).'"></td>';
+        echo '<td align="center" valign="middle" width="'.convert_x($size).'" height="'.convert_y($this->vertical_margin).'">'.$link_html.'</td>';
+        if ($total_cells > $cell_pos)
+          echo '<td colspan="'.($total_cells-$cell_pos).'"></td>';
+      }
       echo '</tr>';
     }
   }
@@ -238,7 +266,17 @@ class menu
       $this->add_down( url_add_param(current_url(),'page',($page+1)));
 
     $this->menu_items = array_slice($this->menu_items,$start, MAX_PER_PAGE);
-    $this->display($tvid, $size, $align);
+
+    switch ( $this->menu_type )
+    {
+      case MENU_TYPE_SELECT:
+        $this->display($tvid, $size, $align);
+        break;
+
+      case MENU_TYPE_LIST:
+        $this->display_table($tvid, $size, $align);
+        break;
+    }
   }
 
   /**
@@ -277,7 +315,6 @@ class menu
     $width_px      = convert_x($width);
     $height        = 40;
     $height_px     = convert_y($height);
-
 
     // Start the table definition to contain the menu
     echo '<center><table align="'.$align.'" cellspacing="3" cellpadding="3" border="0">';
@@ -382,6 +419,51 @@ class menu
       }
       echo "</tr></table></center>";
     }
+  }
+
+  /**
+   * Displays the menu
+   *
+   * @param integer $size - (0-1000) Width of the menu on screen.
+   * @param string  $align - center, left, right.
+   */
+
+  function display_table( $tvid = 1, $size=650, $align="center" )
+  {
+    $num_cols    = count($this->menu_items[0]["data"]);
+    $font_open   = font_tags($this->font_size);
+
+    // Sizes of the menu
+    $height        = 40;
+    $height_px     = convert_y($height);
+
+    // Start the table definition to contain the menu
+    echo '<center><table align="'.$align.'" cellspacing="3" cellpadding="3" border="0">';
+
+    // Link to previous page
+    $this->private_nav_cell(0, $num_cols, up_link($this->up));
+
+    // Now process each item in the menu and output the appropriate html.
+    if (! empty($this->menu_items))
+    {
+      foreach ($this->menu_items as $item)
+      {
+        // Start row
+        echo '<tr>';
+
+        foreach ($item["data"] as $data)
+          echo '<td valign="middle" height="'.$height_px.'" >'.$font_open.$data.'</font></td>';
+
+        // End row
+        echo '</tr>';
+      }
+    }
+
+    // Link to next page
+    $this->private_nav_cell(0, $num_cols, down_link($this->down));
+
+    // End the containing table definition
+    echo '</table></center>';
   }
 
 }
