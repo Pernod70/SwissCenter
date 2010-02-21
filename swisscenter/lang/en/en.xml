@@ -4479,6 +4479,11 @@ If any details are added/changed on this page then you are requested to submit t
         <version>1.20.1</version>
       </string>
       <string>
+        <id>SHOUTCAST_TV</id>
+        <text>SHOUTcast TV</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SHUFFLE_OFF</id>
         <text>Turn shuffle off</text>
         <version>1.19</version>
