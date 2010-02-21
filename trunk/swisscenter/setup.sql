@@ -36,7 +36,7 @@ INSERT INTO certificates (name, rank, scheme, description) VALUES ('NR',     90,
 -- -------------------------------------------------------------------------------------------------
 
 CREATE TABLE categories (
-  cat_id          Int unsigned auto_increment not null primary key,
+  cat_id          int auto_increment not null primary key,
   cat_name        varchar(100) not null unique,
   download_info   varchar(1) default 'N'
 ) ENGINE=MyISAM;
@@ -424,7 +424,7 @@ CREATE TABLE rss_subscriptions (
   url              text not null,
   title            varchar(50) not null,
   update_frequency int not null default 60,
-  last_update      datetime not null
+  last_update      datetime default null
   ,
   PRIMARY KEY  (id)
 ) ENGINE=MyISAM;
