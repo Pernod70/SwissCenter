@@ -23,9 +23,10 @@ if (strpos(__FILE__, ':') !== false) {
 
 ini_set('include_path', ini_get('include_path') . $path_delimiter . dirname(__FILE__) . '/../ext/PEAR');
 
+define('APPLE_TRAILERS_URL','http://trailers.apple.com');
+
 class AppleTrailers {
-  var $GET = 'http://www.apple.com/trailers/home/';
-  var $service = 'apple_trailers';
+  var $service  = 'apple_trailers';
 
   var $req;
   var $response;
@@ -102,7 +103,7 @@ class AppleTrailers {
   function request ($command, $args = array())
   {
     //Sends a request to Apple
-    $url = url_add_params($this->GET.$command, $args);
+    $url = url_add_params(APPLE_TRAILERS_URL.'/trailers/home/'.$command, $args);
     $this->req->setURL($url);
     send_to_log(6,'Apple feed request',$url);
 
@@ -146,7 +147,16 @@ class AppleTrailers {
    */
   function quickFind ($query)
   {
+    // Remove anything within brackets from query
+    $query = preg_replace('/\(.*?\)/', '', $query);
+
     $this->request('scripts/quickfind.php?callback=searchCallback&q='.rawurlencode($query));
+
+    // Fix poster url's
+    for ($i=0; $i<count($this->response); $i++)
+      if (strpos($this->response[$i]["poster"], 'http') !== 0)
+        $this->response[$i]["poster"] = APPLE_TRAILERS_URL.$this->response[$i]["poster"];
+
     return $this->response;
   }
 }
@@ -240,7 +250,7 @@ function get_apple_trailers_page_section($section)
   $match_section = array("weekendboxoffice" => '/Weekend Box Office.*<ul>(.*)<\/ul>/siU',
                          "openingthisweek"  => '/Opening this week.*<ul>(.*)<\/ul>/siU');
   // Get Apple trailers main page
-  $html = file_get_contents('http://www.apple.com/trailers/');
+  $html = file_get_contents(APPLE_TRAILERS_URL);
 
   // Parse page for Weekend Box Office or Opening trailers
   $html = preg_get($match_section[$section], $html);
@@ -280,7 +290,7 @@ function get_trailer_description($trailer)
     case 'html':
       // Get meta tags from trailer page
       send_to_log(6,'Retrieving trailer description from meta tags',$trailer["location"]);
-      $meta = get_meta_tags('http://www.apple.com/'.$trailer["location"]);
+      $meta = get_meta_tags(APPLE_TRAILERS_URL.$trailer["location"]);
       $description = $meta['description'];
       break;
 
@@ -315,19 +325,19 @@ function get_trailer_index($trailer)
       // need to check various possible locations.
 
       // Check most likely location
-      $index_url = 'http://www.apple.com/moviesxml/s'.str_replace('/trailers','',$trailer["location"]).'index.xml';
+      $index_url = APPLE_TRAILERS_URL.'/moviesxml/s'.str_replace('/trailers','',$trailer["location"]).'index.xml';
       if (url_exists($index_url)) { break; }
 
       // Some trailers (eg. Halloween 2) have incorrect path in 'location' so recreate it from 'poster'
       $trailer_id = substr(basename($trailer["poster"]),0,strpos(basename($trailer["poster"]),'_'));
       $trailer["location"] = preg_replace('/'.basename($trailer["location"]).'/', $trailer_id, $trailer["location"]);
-      $index_url = 'http://www.apple.com/moviesxml/s'.str_replace('/trailers','',$trailer["location"]).'index.xml';
+      $index_url = APPLE_TRAILERS_URL.'/moviesxml/s'.str_replace('/trailers','',$trailer["location"]).'index.xml';
       if (url_exists($index_url)) { break; }
 
       // Scan html at 'location' for possible xml links
-      $html = file_get_contents('http://www.apple.com/'.$trailer["location"]);
+      $html = file_get_contents(APPLE_TRAILERS_URL.$trailer["location"]);
       $trailer_id = preg_get('/moviesxml\/s\/(.*?\/.*?)\/.*?\.xml/',$html);
-      $index_url = 'http://www.apple.com/moviesxml/s/'.$trailer_id.'/index.xml';
+      $index_url = APPLE_TRAILERS_URL.'/moviesxml/s/'.$trailer_id.'/index.xml';
       break;
 
     case 'itunes':
@@ -366,7 +376,7 @@ function get_trailer_index($trailer)
 function get_trailer_urls($trailer_xml)
 {
   // Get the iTunes XML containing trailer details
-  if ($xml = @file_get_contents('http://www.apple.com'.$trailer_xml))
+  if ($xml = @file_get_contents(APPLE_TRAILERS_URL.$trailer_xml))
   {
     // Parse the iTunes XML
     send_to_log(6,'Parsing iTunes trailer.xml',$trailer_xml);
