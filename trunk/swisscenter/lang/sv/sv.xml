@@ -203,6 +203,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>BROWSE_COMPOSER</id>
+        <text>Bläddra enligt kompositör</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>BROWSE_COUNTRY</id>
         <text>Bläddra enligt land</text>
         <version>1.22</version>
@@ -538,13 +543,28 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>CHECKSUM</id>
+        <text>Kontrollsummeavvikelse</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>CLEAR_NAME</id>
         <text>Rensa namn</text>
         <version>1.22</version>
       </string>
       <string>
+        <id>COMMENT</id>
+        <text>Kommentar</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>COMPACT_VIEW</id>
         <text>Kompakt vy</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>COMPOSER</id>
+        <text>Kompositör</text>
         <version>1.22</version>
       </string>
       <string>
@@ -853,6 +873,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>DOWNLOADED</id>
+        <text>Redan nedladdad</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>DOWNLOADING</id>
         <text>Laddar ner...</text>
         <version>1.22</version>
@@ -1113,13 +1138,23 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>FAIL_DATABASE_PATCH</id>
+        <text>Databasen är inte fullständigt patchad. Den sista lyckade patchen var %s.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>FAIL_DOTNET2_INSTALLED</id>
         <text>.NET Framevork version 2 måste vara installerat.</text>
         <version>1.22</version>
       </string>
       <string>
+        <id>FAIL_LIVE365_TEST</id>
+        <text>Live365-tolken verkar trasig</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>FAIL_LIVERADIO_TEST</id>
-        <text>LiveRadio-parsern verkar vara trasig</text>
+        <text>LiveRadio-tolken verkar vara trasig</text>
         <version>1.22</version>
       </string>
       <string>
@@ -1189,7 +1224,7 @@
       </string>
       <string>
         <id>FAIL_SHOUTCAST_TEST</id>
-        <text>ShoutCast-parsern verkar trasig</text>
+        <text>ShoutCast-tolken verkar trasig</text>
         <version>1.22</version>
       </string>
       <string>
@@ -1205,6 +1240,11 @@
       <string>
         <id>FAIL_SWISS_CACHE</id>
         <text>Kan inte skriva till SwissCenters mellanlagrings-mapp (%s).</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_SWISS_FILES</id>
+        <text>Följande installationsfiler är felaktiga eller saknas. Klicka på filerna för att ladda ner dem och kopiera dem sedan till korrekt plats. %s</text>
         <version>1.22</version>
       </string>
       <string>
@@ -1759,8 +1799,23 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>IRADIO_LIVE365</id>
+        <text>Live365</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_LIVE365_DESC</id>
+        <text>Live365 (%s) är ett radionätverk som når millioner av lyssnare över hela världen, det erbjuder större bredd och djup av högkvalitativ strömmande musik, prat och ljud än något annat nätverk. Med 260+ musikgenres från över 5,000 sändare i över 150 länder har nätverket en förteckning av artister från Atlanta Symphony, Pat Metheny, David Navarro, och Carlos Santana, till kommersiella och publika radiostationer, till individuella discjockeys för varje tänkbar musikstil.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_LIVERADIO</id>
+        <text>LiveRadio</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IRADIO_LIVERADIO_DESC</id>
-        <text>LiveRadio (%s) är en internetradiotjänst som liknar ShoutCast. Den möjliggör sökning enligt mediatyp, genre, kanalnamn, land och tom. stad - men många listade kanaler stöds inte av vissa hårdvaruspelare. Så LiveRadio-parsern som används av SwissCenter begränsar resultaten till att endast visa MP3-kanaler.</text>
+        <text>LiveRadio (%s) är en internetradiotjänst som liknar ShoutCast. Den möjliggör sökning enligt mediatyp, genre, kanalnamn, land och tom. stad - men många listade kanaler stöds inte av vissa hårdvaruspelare. Så LiveRadio-tolken som används av SwissCenter begränsar resultaten till att endast visa MP3-kanaler.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -1819,8 +1874,13 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>IRADIO_SHOUTCAST</id>
+        <text>SHOUTcast</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IRADIO_SHOUTCAST_DESC</id>
-        <text>ShoutCast (%s) är en internetradio-tjänst som tillhandahåller ljudströmmar som är uppspelningsbara för de flesta apparater (och program). Den möjliggör att söka enligt genre eller kanalnamn och returnerar många detaljer för varje hittad kanal, inklusive en spellist-länk. ShoutCast-parsern som SwissCenter använder tolkar HTML:en i sökresultatet för att visa den på ett sätt som är lätt att läsa även på en TV-skärm. Skulle dock ShoutCast-teamet ändra på sin sida kan det hända att den inte längre kommer att fungera. [p]Ibland låtsas ShoutCast att de inte har några kanaler enligt vår sökning, så om detta inträffar, försök att ladda om sidan igen för att försäkra dig om att felet inte är på den här sidan.</text>
+        <text>ShoutCast (%s) är en internetradio-tjänst som tillhandahåller ljudströmmar som är uppspelningsbara för de flesta apparater (och program). Den möjliggör att söka enligt genre eller kanalnamn och returnerar många detaljer för varje hittad kanal, inklusive en spellist-länk. ShoutCast-tolken som SwissCenter använder tolkar HTML:en i sökresultatet för att visa den på ett sätt som är lätt att läsa även på en TV-skärm. Skulle dock ShoutCast-teamet ändra på sin sida kan det hända att den inte längre kommer att fungera. [p]Ibland låtsas ShoutCast att de inte har några kanaler enligt vår sökning, så om detta inträffar, försök att ladda om sidan igen för att försäkra dig om att felet inte är på den här sidan.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -1851,6 +1911,11 @@
       <string>
         <id>IRADIO_SUBGENRE_SELECT</id>
         <text>Välj under-genren att söka efter:</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_TYPE</id>
+        <text>Typ av radio</text>
         <version>1.22</version>
       </string>
       <string>
@@ -1896,6 +1961,11 @@
       <string>
         <id>KEYBOARD_SPC</id>
         <text>BLANK</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANAGUAGE_ALL</id>
+        <text>Alla språk</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2568,6 +2638,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>MISSING</id>
+        <text>Saknas</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>MISSING_DB_TEXT</id>
         <text>Använd Konfigurationsverktyget för att skapa en databas.</text>
         <version>1.22</version>
@@ -2889,6 +2964,51 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
         <version>1.22</version>
       </string>
       <string>
+        <id>NUMBER_OF_ALBUMS</id>
+        <text>Antal album %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_ARTISTS</id>
+        <text>Antal artister %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_PHOTOS</id>
+        <text>Antal foton %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_PHOTO_ALBUMS</id>
+        <text>Antal fotoalbum %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_TITLES</id>
+        <text>Antal titlar %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_TRACKS</id>
+        <text>Antal spår %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_TV_EPISODES</id>
+        <text>Antal avsnitt %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_TV_SHOWS</id>
+        <text>Antal TV-program %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_VIDEOS</id>
+        <text>Antal filmer %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>ONE_ITEM</id>
         <text>1 objekt</text>
         <version>1.22</version>
@@ -2901,6 +3021,11 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       <string>
         <id>OPENING_THISWEEK</id>
         <text>Premiär denna vecka</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OPENSUBTITLES_ABOUT</id>
+        <text>OpenSubtitles.org tillhandahåller en gratis databas med undertexter tillgängliga för nedladdning. Undertexterna är tillgängliga i många språk och matchas unikt till dina videofiler. Vänligen klicka deras banner och besök deras hemsida för att stödja denna funktion.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2924,6 +3049,46 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
         <version>1.22</version>
       </string>
       <string>
+        <id>OS_ABOUT</id>
+        <text>OpenSubtitles.org tillhandahåller en gratis databas med undertexter tillgängliga för nedladdning. Undertexterna är tillgängliga i många språk och matchas unikt till dina videofiler. Vänligen klicka deras banner och besök deras hemsida för att stödja denna funktion.[br]Om du har undertexter som inte är tillgängliga för nedladdning så uppmuntras du att ladda upp dem så att andra användare kan dra nytta av dem. Du kan ladda upp undertexter på %s.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_DOWNLOAD</id>
+        <text>Ladda ner valda undertexter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_DOWNLOADED_OK</id>
+        <text>Undertexterna laddades ner</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_NOT_AVAILABLE</id>
+        <text>OpenSubtitles.org är för närvarande inte tillgänglig. Försök igen senare.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_NO_SUBTITLES</id>
+        <text>Inga undertexter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_SEARCH_HASH</id>
+        <text>Matcha med filmens hashvärde (rekommenderas)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_SEARCH_TITLE</id>
+        <text>Matcha med filmtitel</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_UPLOAD</id>
+        <text>Ladda upp undertexter till OpenSubtitles.org</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>PAGE</id>
         <text>Sida %s</text>
         <version>1.22</version>
@@ -2934,13 +3099,23 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
         <version>1.22</version>
       </string>
       <string>
+        <id>PASS_DATABASE_PATCH</id>
+        <text>Databasen är fullständigt patchad till %s.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>PASS_DOTNET2_INSTALLED</id>
         <text>.NET Framework version 2 är installerat.</text>
         <version>1.22</version>
       </string>
       <string>
+        <id>PASS_LIVE365_TEST</id>
+        <text>Live365-tolken verkar fungera tillfredsställande</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>PASS_LIVERADIO_TEST</id>
-        <text>LiveRadio-parsern verkar fungera tillfredsställande</text>
+        <text>LiveRadio-tolken verkar fungera tillfredsställande</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3005,7 +3180,7 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       </string>
       <string>
         <id>PASS_SHOUTCAST_TEST</id>
-        <text>ShoutCast-parsern verkar fungera tillfredsställande</text>
+        <text>ShoutCast-tolken verkar fungera tillfredsställande</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3021,6 +3196,11 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       <string>
         <id>PASS_SWISS_CACHE</id>
         <text>SwissCenter kan läsa/skriva till sin mellanlagrings-mapp.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_FILES</id>
+        <text>Installationen av SwissCenter har verifierats.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3091,6 +3271,16 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       <string>
         <id>PC_LINK_TV</id>
         <text>TV-serier</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PC_SCREEN_SIZE</id>
+        <text>PC-skärmstorlek</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PC_SCREEN_SIZE_PROMPT</id>
+        <text>Den upplösning SwissCenters kommer använda när det används genom en webbläsare på en PC.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3266,6 +3456,133 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       <string>
         <id>PLAY</id>
         <text>Spela av</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_ADD_BUTTON</id>
+        <text>Lägg till spelare</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_ADD_OK</id>
+        <text>Spelare tillagd</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_ADD_TITLE</id>
+        <text>Lägg till ny spelare</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_CHIPSET</id>
+        <text>Chipset</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_CONFIG</id>
+        <text>Spelare som stöds</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_DEL_BUTTON</id>
+        <text>Radera valda spelare</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_DEL_OK</id>
+        <text>De valda spelarna har raderats</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_ERROR_EXISTS</id>
+        <text>Tillverkare och modell finns redan</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_ERROR_MISSING</id>
+        <text>Ange ett namn, tillverkare och modell</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_ERROR_MODEL</id>
+        <text>Ange ett numeriskt modellnummer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_MAKE</id>
+        <text>Tillverkare</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_MESSAGE</id>
+        <text>Alla mediaspelare kan bli unikt identifierade genom deras märke och modell från deras firmware-id. Om din mediaspelare inte är listad bland de spelare som stöds nedan så bör du lägga till den med tillverkare och modell från 'Upptäckta klienter' sektionen längst ner på denna sida.[p]
+Det är viktigt att du väljer rätt chipset för din spelare eftersom SwissCenter använder detta för att avgöra vad din spelare klarar av. POD-värdena används för att spelaren skall veta hur 'Nu spelas'-skärmen synkroniseras. Du får experimentera med dessa värden för att avgöra vad som fungerar bäst med din spelare.[p] 
+Om du lägger till några detaljer på denna sida ombeds du uppge dem på SwissCenter-forumet så att andra användare också kan dra nytta av dem.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_MODEL</id>
+        <text>Modell</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_NAME</id>
+        <text>Namn</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_PAGE_CHARSET</id>
+        <text>Spelarens teckentabell</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_POD_NO_SYNC</id>
+        <text>POD (Förbättrad)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_POD_PROMPT</id>
+        <text>Detta är POD (Picture On Demand)-parametrarna som skickas till hårdvaruspelaren och kontrollerar hur musik och bilder kommer att synkroniseras tillsammans på 'Nu spelas'-skärmen. Välj 0 för 'POD (Original)' om spelaren inte klarar av synkroniserad musik och bilder.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_POD_STREAM</id>
+        <text>POD (Radio)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_POD_SYNC</id>
+        <text>POD (Original)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_PROMPT</id>
+        <text>Om din spelare inte finns med i listan ovan bör du lägga till den med hjälp av tillverkare och modell från listan nedanför. Det är viktigt att du väljer rätt chipset för din spelare eftersom detta ger SwissCenter möjlighet att avgöra vad din spelare klarar av.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_RESUME</id>
+        <text>Återuppta</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_RESUME_PROMPT</id>
+        <text>Stödjer denna spelare återupptagen uppspelning av media (när Simese används)?</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_TRANSITION</id>
+        <text>Övergång</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_TRANSITION_PROMPT</id>
+        <text>Övergångseffekt att använda mellan 'Nu spelas'-skärmar. 0 betyder vanligtvis ingen effekt.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_UPDATE_OK</id>
+        <text>Spelar-information uppdaterad</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3484,6 +3801,11 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
         <version>1.22</version>
       </string>
       <string>
+        <id>RATE</id>
+        <text>Betygsätt</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>RATING</id>
         <text>Betyg</text>
         <version>1.22</version>
@@ -3504,6 +3826,16 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
         <version>1.22</version>
       </string>
       <string>
+        <id>RECENTLY_ADDED_OR_CREATED</id>
+        <text>Nyligen tillagt eller skapat</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENTLY_CREATED</id>
+        <text>Nyligen skapat</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>RECENTLY_FEATURED</id>
         <text>Nyligen i fokus</text>
         <version>1.22</version>
@@ -3521,6 +3853,11 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       <string>
         <id>RECENT_PHOTO</id>
         <text>Fotografier</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_TRACKS</id>
+        <text>Nyligen spelade spår</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3551,6 +3888,11 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       <string>
         <id>REFINE_CERTIFICATE</id>
         <text>Förfina enligt certifikat</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFINE_COMPOSER</id>
+        <text>Förfina enligt kompositör</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4134,6 +4476,11 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
         <version>1.22</version>
       </string>
       <string>
+        <id>SHOUTCAST_TV</id>
+        <text>SHOUTcast-TV</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SHUFFLE_OFF</id>
         <text>Inaktivera blanda</text>
         <version>1.22</version>
@@ -4261,6 +4608,11 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       <string>
         <id>SUBSCRIPTIONS</id>
         <text>Prenumerationer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SUBTITLES</id>
+        <text>Undertexter</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4395,12 +4747,17 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       </string>
       <string>
         <id>THEMES_PROMPT</id>
-        <text>Teman laddas automatiskt ner för filmer och TV-serier av parsern till &quot;themoviedb&quot; och &quot;TheTVDB&quot; när detaljer läggs till för ny media. Välj titel från rullgardinen och välj sedan tema från de tillgängliga miniatyrbilderna. För att använda valt tema måste du markera ett 'Använd på ...&quot;-val. Om flera teman är valda för en titel så kommer de användas slumpmässigt på vald sida.</text>
+        <text>Teman laddas automatiskt ner för filmer och TV-serier av tolken till &quot;themoviedb&quot; och &quot;TheTVDB&quot; när detaljer läggs till för ny media. Välj titel från rullgardinen och välj sedan tema från de tillgängliga miniatyrbilderna. För att använda valt tema måste du markera ett 'Använd på ...&quot;-val. Om flera teman är valda för en titel så kommer de användas slumpmässigt på vald sida.</text>
         <version>1.22</version>
       </string>
       <string>
         <id>THEME_APPLY</id>
         <text>Verkställ temainställning</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_APPLY_OK</id>
+        <text>Temat sparades</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4604,6 +4961,21 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
         <version>1.22</version>
       </string>
       <string>
+        <id>TOP20</id>
+        <text>Top 20</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOP_ALBUMS</id>
+        <text>Top Album</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOP_ARTISTS</id>
+        <text>Top Artister</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>TOP_FAVORITES</id>
         <text>Största favoriterna</text>
         <version>1.22</version>
@@ -4611,6 +4983,11 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       <string>
         <id>TOP_RATED</id>
         <text>Högsta betygen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOP_TRACKS</id>
+        <text>Top Spår</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4861,6 +5238,11 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       <string>
         <id>UPDATING_PLEASE_WAIT</id>
         <text>Uppdaterar - Vänta</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>UPLOADER</id>
+        <text>Uppladdare</text>
         <version>1.22</version>
       </string>
       <string>

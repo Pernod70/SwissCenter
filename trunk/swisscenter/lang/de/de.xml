@@ -568,6 +568,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>CHECKSUM</id>
+        <text>Prüfsummenfehler</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>CLEAR_NAME</id>
         <text>Namen löschen</text>
         <version>1.19</version>
@@ -1180,6 +1185,11 @@ in eine XML-Datei</text>
         <version>1.22</version>
       </string>
       <string>
+        <id>FAIL_LIVE365_TEST</id>
+        <text>Live365 Parser arbeitet nicht korrekt!</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>FAIL_LIVERADIO_TEST</id>
         <text>LiveRadio-Parser scheint defekt</text>
         <version>1.19</version>
@@ -1268,6 +1278,11 @@ in eine XML-Datei</text>
         <id>FAIL_SWISS_CACHE</id>
         <text>Schreiben in den SwissCenter Cache-Ordner (%s) fehlgeschlagen.</text>
         <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FAIL_SWISS_FILES</id>
+        <text>Die folgenden Installationsdateien fehlen, oder sind inkorrekt. Durch einen &quot;Klick&quot; können die Dateien heruntergeladen werden, danach an die korrekte Stelle kopieren. %s</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>FAIL_SWISS_INI</id>
@@ -1827,6 +1842,21 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.21.1</version>
       </string>
       <string>
+        <id>IRADIO_LIVE365</id>
+        <text>Live365</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_LIVE365_DESC</id>
+        <text>Live365 (%s) ist ein Radio Netzwerk, das Millionen von Hörern weltweit erreicht, und dabei eine noch größere und breiter gefächerte Vielfalt von qualitativ hochwertiger Musik und Sendungen bietet, als andere Netzwerke. Es bietet über 260 verschiedene Genres, bei über 5000 Sendern und Musik-Trendsettern,  aus über 150 Ländern. Das Netzwerk ist stolz auf eine Armada von Künstlern und Produzenten, die sich vom Atlanta Symphonie Orchester, Pat Metheny, David Navarro, Carlos Santana über kommerzielle und öffentliche Radio Sender, bis hin zu individuellen DJ's mit jeglichem musikalischen Stil, erstreckt.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_LIVERADIO</id>
+        <text>Live-Radio</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IRADIO_LIVERADIO_DESC</id>
         <text>LiveRadio (%s) ist ein Internet-Radio Service ähnlich ShoutCast. Hier kann nach Medientyp, Stationsname, Land und sogar Stadt gesucht werden - doch das Format (Medientyp) vieler hier gelisteter Stationen ist zu etlichen Hardware-Playern nicht kompatibel. Daher sucht der von SwissCenter verwendete LiveRadio-Parser hier nur nach MP3 Stationen.</text>
         <version>1.19</version>
@@ -1887,6 +1917,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_SHOUTCAST</id>
+        <text>SHOUTcast</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IRADIO_SHOUTCAST_DESC</id>
         <text>ShoutCast (%s) ist ein Internet-Radio Service. Die Website ermöglicht es, nach Genres oder Stations-Namen zu suchen und liefert zahlreiche Details für jede gefundene Station - inklusive einer Playlist URL. Der von SwissCenter verwendete ShoutCast-Parser parst den HTML-Code der Ergebnisseite, um die Stationsliste in einer auch auf TV-Bildschirmen einfach lesbaren Art darzustellen. Dies kann jedoch fehlschlagen, wenn die Betreiber von ShoutCast die Seitenstruktur ändern.[p]Gelegentlich gibt ShoutCast vor, nichts zu finden. Sollte der Test also fehlschlagen, am besten die Seite nochmals laden, um sicher zu gehen, dass das Problem nicht vielleicht dort liegt.</text>
         <version>1.19</version>
@@ -1920,6 +1955,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>IRADIO_SUBGENRE_SELECT</id>
         <text>Bitte wählen Sie das Sub-Genre für die Suche:</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_TYPE</id>
+        <text>Radio Typ</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>IRADIO_UPDATE_PARAM_OK</id>
@@ -2637,6 +2677,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>MISSING</id>
+        <text>Nicht gefunden</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>MISSING_DB_TEXT</id>
         <text>Bitte benutzen Sie das Konfigurations-Utility, um eine Datenbank zu erstellen.</text>
         <version>1.19</version>
@@ -2957,6 +3002,51 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>NUMBER_OF_ALBUMS</id>
+        <text>Anzahl der Alben %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_ARTISTS</id>
+        <text>Anzahl der Künstler %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_PHOTOS</id>
+        <text>Anzahl der Fotos %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_PHOTO_ALBUMS</id>
+        <text>Anzahl der Foto Alben %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_TITLES</id>
+        <text>Anzahl der Titel %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_TRACKS</id>
+        <text>Anzahl der Musikstücke %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_TV_EPISODES</id>
+        <text>Anzahl der Episoden %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_TV_SHOWS</id>
+        <text>Anzahl der Programme %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_VIDEOS</id>
+        <text>Anzahl der Videos %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>ONE_ITEM</id>
         <text>1 Eintrag</text>
         <version>1.19</version>
@@ -3067,6 +3157,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.22</version>
       </string>
       <string>
+        <id>PASS_LIVE365_TEST</id>
+        <text>Live365 Parser arbeitet korrekt.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>PASS_LIVERADIO_TEST</id>
         <text>LiveRadio-Parser funktioniert ordnungsgemäß</text>
         <version>1.19</version>
@@ -3150,6 +3245,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>PASS_SWISS_CACHE</id>
         <text>SwissCenter Cache-Ordner Schreib-/Lesetest erfolgreich.</text>
         <version>1.21.1</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_FILES</id>
+        <text>Installationsdateien sind korrekt.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PASS_SWISS_INI</id>
@@ -3779,6 +3879,16 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
         <version>1.19</version>
       </string>
       <string>
+        <id>RECENTLY_ADDED_OR_CREATED</id>
+        <text>Vor Kurzem hinzugefügt oder erstellt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENTLY_CREATED</id>
+        <text>Vor Kurzem erstellt</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>RECENTLY_FEATURED</id>
         <text>Neu Eingestellte</text>
         <version>1.22</version>
@@ -3797,6 +3907,11 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
         <id>RECENT_PHOTO</id>
         <text>Fotos</text>
         <version>1.21.1</version>
+      </string>
+      <string>
+        <id>RECENT_TRACKS</id>
+        <text>Neueste Musikstücke</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>RECENT_VIDEO</id>
@@ -4419,6 +4534,11 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
         <version>1.21.1</version>
       </string>
       <string>
+        <id>SHOUTCAST_TV</id>
+        <text>SHOUTcast TV</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SHUFFLE_OFF</id>
         <text>Zufällige Wiedergabe abschalten</text>
         <version>1.19</version>
@@ -4899,6 +5019,21 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
         <version>1.22</version>
       </string>
       <string>
+        <id>TOP20</id>
+        <text>Top 20</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOP_ALBUMS</id>
+        <text>Album mit TOP Wertung</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOP_ARTISTS</id>
+        <text>Künstler mit TOP Wertung</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>TOP_FAVORITES</id>
         <text>Spitzenreiter</text>
         <version>1.22</version>
@@ -4906,6 +5041,11 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
       <string>
         <id>TOP_RATED</id>
         <text>Höchst Bewertete</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOP_TRACKS</id>
+        <text>Musikstücke mit TOP Wertung</text>
         <version>1.22</version>
       </string>
       <string>
