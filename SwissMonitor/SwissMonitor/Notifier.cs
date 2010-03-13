@@ -106,7 +106,7 @@ namespace Swiss.Monitor
 
             foreach(Change change in changesCopy)
             {
-                if(change.NextNoficiationAttempt <= now)
+                if(change.NextNotificationAttempt <= now)
                 {
                     try
                     {
@@ -161,12 +161,12 @@ namespace Swiss.Monitor
 
         private void RetryChange(Change change)
         {
-            change.NextNoficiationAttempt = DateTime.UtcNow + Settings.Default.RetryPeriod;
+            change.NextNotificationAttempt = DateTime.UtcNow + Settings.Default.RetryPeriod;
             change.Retries++;
             
             Tracing.Default.Source.TraceEvent(TraceEventType.Verbose, (int)Tracing.Events.WILL_RETRY,
                                               "Will retry change notification: {0} not before {1} will be attempt {2}/{3}",
-                                              change.ChangeId, change.NextNoficiationAttempt, change.Retries, Settings.Default.MaxRetries);
+                                              change.ChangeId, change.NextNotificationAttempt, change.Retries, Settings.Default.MaxRetries);
         }
 
         private void AttemptNotification(Change change)
@@ -189,10 +189,10 @@ namespace Swiss.Monitor
 
         private static void CheckCanNotify(Change change)
         {
-            if (change.ChangeType != WatcherChangeTypes.Deleted)
+            if (change.ChangeType != WatcherChangeTypes.Deleted && !Directory.Exists(change.ItemPath))
             {
                 // Attempt to open the file for read access, only allow notification once we can do that.
-                using(File.Open(change.ItemPath, FileMode.Open, FileAccess.Read, FileShare.Read))
+                using (File.Open(change.ItemPath, FileMode.Open, FileAccess.Read, FileShare.Read))
                 {
                 }
             }

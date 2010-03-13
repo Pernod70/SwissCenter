@@ -8,13 +8,13 @@ namespace Swiss.Monitor
         public Guid ChangeId { get; private set; }
         public string ItemPath { get; set; }
         public WatcherChangeTypes ChangeType { get; set; }
-        public DateTime NextNoficiationAttempt { get; set; }
+        public DateTime NextNotificationAttempt { get; set; }
         public int Retries { get; set; }
 
         public Change()
         {
             ChangeId = Guid.NewGuid();
-            NextNoficiationAttempt = DateTime.UtcNow;
+            NextNotificationAttempt = DateTime.UtcNow;
         }
 
         public override string ToString()
