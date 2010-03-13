@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Configuration;
 using System.IO;
 using System.Security.Permissions;
 using System.Text;
@@ -32,12 +33,12 @@ namespace Swiss.Monitor
 
         public RolloverTextWriterTraceListener(string filename)
         {
-            _filename = filename;
+            _filename = FullPathFileName(filename);
         }
 
         public RolloverTextWriterTraceListener(string filename, string name) : base(name)
         {
-            _filename = filename;
+            _filename = FullPathFileName(filename);
         }
 
         public override void Write(string message)
@@ -165,6 +166,42 @@ namespace Swiss.Monitor
             }
 
             GC.SuppressFinalize(this);
+        }
+
+        private static string FullPathFileName(string fileName)
+        {
+            string configPath;
+            string fullpathFileName;
+
+            fullpathFileName = fileName;
+
+            if (fileName[0] != Path.DirectorySeparatorChar &&
+                fileName[0] != Path.AltDirectorySeparatorChar &&
+                !Path.IsPathRooted(fileName))
+            {
+                ConfigurationSection configSection;
+
+                configSection = (ConfigurationSection)ConfigurationManager.GetSection("system.diagnostics");
+                if (configSection != null)
+                {
+                    // Path of config file
+                    configPath = configSection.ElementInformation.Source;
+
+                    if (!string.IsNullOrEmpty(configPath))
+                    {
+                        string directoryName;
+
+                        directoryName = Path.GetDirectoryName(configPath);
+
+                        if (directoryName != null)
+                        {
+                            fullpathFileName = Path.Combine(directoryName,fileName);
+                        }
+                    }
+                }
+            }
+
+            return fullpathFileName;
         }
     }
 
