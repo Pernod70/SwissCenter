@@ -394,8 +394,8 @@
       </string>
       <string>
         <id>CACHE_ERROR_NOT_EXIST</id>
-        <text>I'm sorry, the directory that you specified does not exist</text>
-        <version>1.19</version>
+        <text>The directory that you specified does not exist</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>CACHE_ERROR_NOT_NUMBER</id>
@@ -1098,6 +1098,11 @@
         <version>1.20.1</version>
       </string>
       <string>
+        <id>EXTENSION</id>
+        <text>Extension</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>EXTRAS_TEST_TITLE</id>
         <text>Additional Components</text>
         <version>1.19</version>
@@ -1470,6 +1475,45 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IGNORED_EXTENSIONS</id>
+        <text>Ignored Extensions</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_ADDED_OK</id>
+        <text>Extension added. The service must be restarted for changes to take effect.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_ADD_BUTTON</id>
+        <text>Add extension</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_ADD_TITLE</id>
+        <text>Add an extension</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_DELETE_OK</id>
+        <text>The selected extensions have been removed. The service must be restarted for changes to take effect.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_DEL_BUTTON</id>
+        <text>Delete selected extensions</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_ERROR</id>
+        <text>Please enter an extension</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_PROMPT</id>
+        <text>Specify file extensions that will be ignored by SwissMonitor.</text>
+        <version>1.22</version>
+      </string>
         <id>IMAGE_EXIF_ROTATE</id>
         <text>Auto-Rotate</text>
         <version>1.19</version>
@@ -1800,7 +1844,6 @@
         <version>1.21.1</version>
       </string>
       <string>
-      <string>
         <id>IRADIO_LIVE365</id>
         <text>Live365</text>
         <version>1.22</version>
@@ -1932,8 +1975,8 @@
       </string>
       <string>
         <id>ITUNES_ERROR_INVALID</id>
-        <text>I'm sorry, the file you specified must be &quot;iTunes Music Library.xml&quot;</text>
-        <version>1.19</version>
+        <text>The file you specified must be &quot;iTunes Music Library.xml&quot;</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>ITUNES_ERROR_PATH</id>
@@ -2346,8 +2389,8 @@
       </string>
       <string>
         <id>MEDIA_LOC_ERROR_DIRFAIL</id>
-        <text>I'm sorry, the directory you specified does not exist</text>
-        <version>1.19</version>
+        <text>The directory you specified does not exist</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>MEDIA_LOC_ERROR_LOC</id>
@@ -3605,8 +3648,8 @@ If any details are added/changed on this page then you are requested to submit t
       </string>
       <string>
         <id>PLAYLISTS_ERROR_INVALID</id>
-        <text>I'm sorry, the directory you specified does not exist</text>
-        <version>1.19</version>
+        <text>The directory you specified does not exist</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PLAYLISTS_ERROR_PATH</id>
@@ -4404,6 +4447,11 @@ If any details are added/changed on this page then you are requested to submit t
         <version>1.22</version>
       </string>
       <string>
+        <id>SERVICE_RESTART</id>
+        <text>Restart Service</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SERVICE_START</id>
         <text>Start Service</text>
         <version>1.22</version>
@@ -4699,8 +4747,48 @@ If any details are added/changed on this page then you are requested to submit t
         <version>1.22</version>
       </string>
       <string>
+        <id>SWISSMONITOR_CONFIG</id>
+        <text>SwissMonitor Configuration</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_CONFIG_OK</id>
+        <text>SwissMonitor configuration updated. The service must be restarted for changes to take effect.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SWISSMONITOR_DESCRIPTION</id>
         <text>The SwissMonitor service is a simple windows service that will watch your defined media locations for changes to files (including new files being added, or files being deleted) and inform SwissCenter so that your database can be updated appropriately. However, this does not remove the need to run a scheduled refresh completely as there are some circumstances where changes may not be captured.[p][b]Please Note:[/b] If you use UNC paths in your media locations (eg: &quot;\\nas\movies&quot;) then you must use the Services Control Panel to modify the SwissMonitor service to run in your own user account.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_INI</id>
+        <text>Location of swisscenter.ini</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_INI_NOT_EXIST</id>
+        <text>The specified swisscenter.ini location does not exist</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_INI_PROMPT</id>
+        <text>SwissMonitor requires database connection details to be able to determine your media locations. These details are obtained from your swisscenter.ini which should exist in [b]%AppData%\Simese\Data\Config\Swisscenter.ini[/b]. This location should only be specified if your swisscenter.ini is located elsewhere (ie. if you use Apache).</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_PORT</id>
+        <text>SwissCenter port</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_PORT_INVALID</id>
+        <text>The SwissCenter port is invalid</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_PORT_PROMPT</id>
+        <text>SwissMonitor requires the port used to notify SwissCenter. This is obtained from your Simese.ini which should exist in [b]%AppData%\Simese\Simese.ini[/b]. If it doesn't exist then a default port of [b]8080[/b] will be assumed, unless specified here.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -5600,8 +5688,8 @@ If any details are added/changed on this page then you are requested to submit t
       </string>
       <string>
         <id>WEATHER_NO_MATCHING</id>
-        <text>I'm sorry, but %s does not provide forecast information for the city of %s at this time.</text>
-        <version>1.19</version>
+        <text>%s does not provide forecast information for the city of %s at this time.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>WEATHER_PRESSURE</id>
