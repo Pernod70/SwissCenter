@@ -11,60 +11,127 @@
   require_once( realpath(dirname(__FILE__).'/base/xml_sidecar.php'));
   require_once( realpath(dirname(__FILE__).'/video_obtain_info.php'));
 
-  $changed     = $_REQUEST["ChangedDate"];
   $type        = $_REQUEST["Type"];
   $path        = str_replace('\\','/',un_magic_quote($_REQUEST["Path"]));
+  $oldpath     = isset($_REQUEST["OldPath"]) ? str_replace('\\','/',un_magic_quote($_REQUEST["OldPath"])) : '';
+  $changed     = $_REQUEST["ChangedDate"];
+
   $dir         = dirname($path);
   $file        = basename($path);
+
   $location    = db_row("select * from media_locations where '".db_escape_str($dir)."' like concat(name,'%')");
   $table       = db_value("select media_table from media_types where  media_id = $location[MEDIA_TYPE]");
   $file_exts   = media_exts( $location["MEDIA_TYPE"] );
   $extra_info  = (db_value("select download_info from categories where cat_id = $location[CAT_ID]") == 'Y');
 
-  send_to_log(5,"Media update detected.",array("Type"=>$type,"Path"=>$path,"Changed"=>$changed));
+  send_to_log(5,"SwissMonitor update detected:", array("Type"=>$type,"Path"=>$path,"OldPath"=>$oldpath,"Changed"=>$changed));
 
-  if ($type == "Deleted")
+  switch ( $type )
   {
-    send_to_log(5,"The following file has been deleted: $path");
-    $files = db_col_to_list("select concat(dirname,filename) FILENAME from $table where dirname='".db_escape_str($dir)."/' and filename='".db_escape_str($file)."'");
-    db_sqlcommand("delete from $table where dirname='".db_escape_str($dir)."/' and filename='".db_escape_str($file)."'");
-    send_to_log(5,"The following media files have been removed from the database",$path);
-  }
-  else
-  {
-    send_to_log(5,"The following file has been created/changed: $path");
-    $file_added = process_media_file( $dir.'/', $file, $location["LOCATION_ID"], $location["NETWORK_SHARE"], $table, $file_exts, true );
-
-    // If a file was added then we might need to download extra information from the internet via a parser.
-    if ( $file_added )
-    {
-      // Update video details from the Internet if enabled
-      require_once( realpath(dirname(__FILE__).'/video_obtain_info.php'));
-
-      if ( $extra_info && $location["MEDIA_TYPE"] == MEDIA_TYPE_VIDEO && is_movie_check_enabled() )
+    case "Deleted":
+      if ( is_file($path) )
       {
-        $info = db_row("select * from movies where concat(dirname,filename) = '".db_escape_str($path)."'");
-        extra_get_movie_details( $info["FILE_ID"], $path, $info["TITLE"]);
-        // Export to XML
-        if ( get_sys_pref('movie_xml_save','NO') == 'YES' )
-          export_video_to_xml($info["FILE_ID"]);
+        // Remove file from database
+        db_sqlcommand("delete from $table where dirname='".db_escape_str($dir)."/' and filename='".db_escape_str($file)."'");
+
+        $response = array("status"  => "OK",
+                        "message" => "File deleted from the database.",
+                        "retry"   => "false");
+      }
+      else
+      {
+        // Remove files in folder from database
+        db_sqlcommand("delete from $table where dirname like '".db_escape_str($path)."/%'");
+
+        $response = array("status"  => "OK",
+                          "message" => "Folder deleted from the database.",
+                          "retry"   => "false");
+      }
+      break;
+
+    case "Renamed":
+      if ( is_file($path) )
+      {
+        // Remove old file from database
+        db_sqlcommand("delete from $table where dirname='".db_escape_str(dirname($oldpath))."/' and filename='".db_escape_str(basename($oldpath))."'");
+      }
+      else
+      {
+        // Remove files in old folder from database
+        db_sqlcommand("delete from $table where dirname like '".db_escape_str($dir)."/%'");
       }
 
-      if ( $extra_info && $location["MEDIA_TYPE"] == MEDIA_TYPE_TV && is_tv_check_enabled() )
+    case "Created":
+    case "Changed":
+      if ( is_file($path) )
       {
-        $info = db_row("select * from tv where concat(dirname,filename) = '".db_escape_str($path)."'");
-        extra_get_tv_details($info["FILE_ID"], $path, $info["PROGRAMME"], $info["SERIES"], $info["EPISODE"], $info["TITLE"]);
-        // Export to XML
-        if ( get_sys_pref('tv_xml_save','NO') == 'YES' )
-          export_tv_to_xml($info["FILE_ID"]);
+        // Add new file to database
+        $file_added = process_media_file( $dir.'/', $file, $location["LOCATION_ID"], $location["NETWORK_SHARE"], $table, $file_exts, true );
+
+        if ( $file_added )
+          $response = array("status"  => "OK",
+                            "message" => "File added to the database.",
+                            "retry"   => "false");
+        else
+          $response = array("status"  => "OK",
+                            "message" => "Not a valid media file for this location.",
+                            "retry"   => "false");
       }
-    }
-    else
+      else
+      {
+        // Add new folder to database
+        process_media_directory( $path.'/', $location["LOCATION_ID"], $location["NETWORK_SHARE"], $table, $file_exts, true, true );
+
+        $response = array("status"  => "OK",
+                          "message" => "Folder added to the database.",
+                          "retry"   => "false");
+      }
+      break;
+
+    default:
+
+      $response = array("status"  => "Failed",
+                        "message" => "Unknown Type from SwissMonitor.",
+                        "retry"   => "false");
+      break;
+  }
+
+  // If a file was added then we might need to download extra information from the internet via a parser.
+  if ( $file_added && $extra_info )
+  {
+    // Update video details from the Internet if enabled
+    if ( $location["MEDIA_TYPE"] == MEDIA_TYPE_VIDEO && is_movie_check_enabled() )
     {
-      send_to_log(5,"This file is not a valid media file");
+      $info = db_row("select * from movies where concat(dirname,filename) = '".db_escape_str($path)."'");
+      extra_get_movie_details( $info["FILE_ID"], $path, $info["TITLE"]);
+      // Export to XML
+      if ( get_sys_pref('movie_xml_save','NO') == 'YES' )
+        export_video_to_xml($info["FILE_ID"]);
+    }
+
+    if ( $location["MEDIA_TYPE"] == MEDIA_TYPE_TV && is_tv_check_enabled() )
+    {
+      $info = db_row("select * from tv where concat(dirname,filename) = '".db_escape_str($path)."'");
+      extra_get_tv_details($info["FILE_ID"], $path, $info["PROGRAMME"], $info["SERIES"], $info["EPISODE"], $info["TITLE"]);
+      // Export to XML
+      if ( get_sys_pref('tv_xml_save','NO') == 'YES' )
+        export_tv_to_xml($info["FILE_ID"]);
     }
   }
 
+  // SwissMonitor expects a response in the form:
+  //
+  //  <?xml version="1.0" encoding="utf-8"? >
+  //  <result xmlns="http://www.swisscenter.co.uk/schemas/2009/03/SwissMonitor">
+  //    <status>OK|Failed</status>
+  //    <message>Some funky fatal error.</message>
+  //    <retry>true|false</retry>
+  //  </result>
 
-  send_to_log(5,"Update complete");
-  echo "Update Complete";
+  send_to_log(5,"SwissMonitor response:", $response);
+  echo '<?xml version="1.0" encoding="utf-8"?>
+        <result xmlns="http://www.swisscenter.co.uk/schemas/2009/03/SwissMonitor">
+          <status>'.$response["status"].'</status>
+          <message>'.$response["message"].'</message>
+          <retry>'.$response["retry"].'</retry>
+        </result>';
