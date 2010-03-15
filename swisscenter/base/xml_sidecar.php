@@ -308,8 +308,14 @@
         $xml->appendChild($tv_path,'<year>'.$details[0]["YEAR"].'</year>');
       }
 
+      // Rating
+      if ( !empty( $details[0]["EXTERNAL_RATING_PC"] ) )
+      {
+        $xml->appendChild($tv_path,'<rating>'.($details[0]["EXTERNAL_RATING_PC"]/10).'</rating>');
+      }
+
       // Viewed Status
-      $user_list = db_col_to_list("select name from users u, viewings v where u.user_id=v.user_id and v.media_type=".MEDIA_TYPE_TV." and v.media_id = ".$file_id);
+      $user_list = db_toarray("select name from users u, viewings v where u.user_id=v.user_id and v.media_type=".MEDIA_TYPE_TV." and v.media_id = ".$file_id);
       if ( !empty ( $user_list ) )
       {
         $xpath = $xml->appendChild($tv_path,'<viewed />');
@@ -340,6 +346,8 @@
     if ( !empty($data) ) $columns["SYNOPSIS"] = utf8_decode(html_entity_decode($xml->getData($data[0]), ENT_QUOTES));
     $data = $xml->match("/tv[1]/year");
     if ( !empty($data) ) $columns["YEAR"] = $xml->getData($data[0]);
+    $data = $xml->match("/tv[1]/rating");
+    if ( !empty($data) ) $columns["EXTERNAL_RATING_PC"] = $xml->getData($data[0]) * 10;
     $columns["DETAILS_AVAILABLE"] = 'Y';
     scdb_set_tv_attribs($file_id, $columns);
 
