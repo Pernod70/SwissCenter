@@ -6,21 +6,7 @@
 require_once( realpath(dirname(__FILE__).'/../base/media.php'));
 require_once( realpath(dirname(__FILE__).'/../base/sched.php'));
 require_once( realpath(dirname(__FILE__).'/../base/xml_sidecar.php'));
-
-// ----------------------------------------------------------------------------------
-// Get an array of online tv parsers for displaying in a form drop-down list.
-// ----------------------------------------------------------------------------------
-
-function get_parsers_list()
-{
-  $parsers = dir_to_array( realpath(dirname(__FILE__).'/../ext/parsers/tv') , '.*\.php' );
-  $sites_list = array();
-
-  foreach ($parsers as $file)
-    $sites_list[file_noext($file)] = basename($file);
-
-  return $sites_list;
-}
+require_once( realpath(dirname(__FILE__).'/../video_obtain_info.php'));
 
 // ----------------------------------------------------------------------------------
 // Displays the details for TV episodes
@@ -30,16 +16,15 @@ function tv_display_info( $message = '' )
 {
   // Get actor/director/genre lists
   $tv_id       = $_REQUEST["tv_id"];
-  $details     = db_toarray("select * from tv where file_id=".$tv_id);
+  $details     = db_row("select * from tv where file_id=".$tv_id);
   $actors      = db_toarray("select actor_name name from actors a, actors_in_tv ait where ait.actor_id = a.actor_id and tv_id=".$tv_id);
   $directors   = db_toarray("select director_name name from directors d, directors_of_tv dot where dot.director_id = d.director_id and tv_id=".$tv_id);
   $genres      = db_toarray("select genre_name name from genres g, genres_of_tv got where got.genre_id = g.genre_id and tv_id=".$tv_id);
   $languages   = db_toarray("select language name from languages l, languages_of_tv lot where lot.language_id = l.language_id and tv_id=".$tv_id);
-  $filename    = $details[0]["DIRNAME"].$details[0]["FILENAME"];
-  $sites_list  = get_parsers_list();
+  $filename    = $details["DIRNAME"].$details["FILENAME"];
 
   // Display tv shows that will be affected.
-  echo '<h1>'.$details[0]["PROGRAMME"].(empty($details[0]["TITLE"]) ? '' : ' - '.$details[0]["TITLE"]).'</h1><center>
+  echo '<h1>'.$details["PROGRAMME"].(empty($details["TITLE"]) ? '' : ' - '.$details["TITLE"]).'</h1><center>
          ( <a href="'.$_SESSION["last_search_page"].'">'.str('RETURN_TO_LIST').'</a>
          | <a href="?section=TV&action=UPDATE_FORM_SINGLE&tv[]='.$tv_id.'">'.str('DETAILS_EDIT').'</a>
          ) </center>';
@@ -50,19 +35,19 @@ function tv_display_info( $message = '' )
           <th>'.str('SERIES').'</th>
           <th>'.str('EPISODE').'</th>
         </tr><tr>
-          <td colspan="2" valign="top">'.$details[0]["PROGRAMME"].'</td>
-          <td valign="top">'.$details[0]["SERIES"].'</td>
-          <td valign="top">'.$details[0]["EPISODE"].'</td>
+          <td colspan="2" valign="top">'.$details["PROGRAMME"].'</td>
+          <td valign="top">'.$details["SERIES"].'</td>
+          <td valign="top">'.$details["EPISODE"].'</td>
         </tr><tr>
           <th colspan="4">'.str('SYNOPSIS').'</th>
         </tr><tr>
           <td colspan="4">';
 
-  $folder_img = file_albumart($details[0]["DIRNAME"].$details[0]["FILENAME"]);
+  $folder_img = file_albumart($filename);
   if (!empty($folder_img))
     echo img_gen($folder_img,100,200,false,false,false,array('hspace'=>4,'vspace'=>4,'align'=>'left') );
 
-  echo  $details[0]["SYNOPSIS"].'<br>&nbsp;</td>
+  echo  $details["SYNOPSIS"].'<br>&nbsp;</td>
         </tr><tr>
         <th width="25%">'.str('ACTOR').'</th>
         <th width="25%">'.str('DIRECTOR').'</th>
@@ -95,17 +80,17 @@ function tv_display_info( $message = '' )
           <th>'.str('RATING').'</th>
           <th colspan="2">'.str('VIEWED_BY').'</th>
         </tr><tr>
-          <td valign="top">'.get_cert_name(get_nearest_cert_in_scheme($details[0]["CERTIFICATE"])).'&nbsp;</td>
-          <td valign="top">'.$details[0]["YEAR"].'</td>
-          <td valign="top">'.nvl($details[0]["EXTERNAL_RATING_PC"]/10,'-').'/10</td><td>';
+          <td valign="top">'.get_cert_name(get_nearest_cert_in_scheme($details["CERTIFICATE"])).'&nbsp;</td>
+          <td valign="top">'.$details["YEAR"].'</td>
+          <td valign="top">'.nvl($details["EXTERNAL_RATING_PC"]/10,'-').'/10</td><td>';
 
   foreach ( db_toarray("select * from users order by name") as $row)
-    if (viewings_count(6, $details[0]["FILE_ID"], $row["USER_ID"])>0)
+    if (viewings_count(6, $details["FILE_ID"], $row["USER_ID"])>0)
       echo $row["NAME"].'<br>';
 
   echo '</td></tr>
         <tr><th colspan="4">'.str('LOCATION_ON_DISK').'</th></tr>
-        <tr><td colspan="4">'.$details[0]["DIRNAME"].$details[0]["FILENAME"].'&nbsp;</td></tr>
+        <tr><td colspan="4">'.$details["DIRNAME"].$details["FILENAME"].'&nbsp;</td></tr>
         </table>
         <p align="center">';
 
@@ -116,8 +101,7 @@ function tv_display_info( $message = '' )
           <input type=hidden name="section" value="TV">
           <input type=hidden name="action" value="LOOKUP">
           <input type=hidden name="tv_id" value="'.$tv_id.'">
-          '.form_list_static_html('parser',$sites_list, get_sys_pref('tv_info_script','www.TheTVDB.com.php'),false,false,false).'
-          &nbsp; <input type="Submit" name="subaction" value="'.str('LOOKUP_TV').'"> &nbsp;
+          <input type="Submit" name="subaction" value="'.str('LOOKUP_TV').'">
           </form>
         </td>
         </tr></table>';
@@ -129,12 +113,14 @@ function tv_display_info( $message = '' )
 
 function tv_lookup()
 {
-  require_once( realpath(dirname(__FILE__).'/../video_obtain_info.php'));
-
   $tv_id       = $_REQUEST["tv_id"];
-  $details     = array_shift( db_toarray("select * from tv where file_id=$tv_id") );
+  $details     = db_row("select * from tv where file_id=$tv_id");
   $filename    = $details["DIRNAME"].$details["FILENAME"];
-  $parsed      = get_tvseries_info( $details["DIRNAME"].file_noext($details["FILENAME"]) );
+
+  // Determine the part of the path to process for metadata about the episode.
+  $media_loc   = db_value("select name from media_locations where location_id=".$details["LOCATION_ID"]);
+  $meta_fsp    = substr($details["DIRNAME"],strlen($media_loc)+1).file_noext($details["FILENAME"]);
+  $parsed      = get_tvseries_info( $meta_fsp );
   $details_str = $details["PROGRAMME"].$details["SERIES"].$details["EPISODE"].$details["TITLE"];
   $parsed_str  = $parsed["programme"].$parsed["series"].$parsed["episode"].$parsed["title"];
 
@@ -142,23 +128,32 @@ function tv_lookup()
   purge_tv_details($tv_id);
 
   // Lookup tv show using current database values
-  $existing_lookup = extra_get_tv_details($tv_id, $filename, $details["PROGRAMME"], $details["SERIES"], $details["EPISODE"], $details["TITLE"]);
+  $lookup = ParserTVLookup($tv_id, $filename, array('PROGRAMME' => $details["PROGRAMME"],
+                                                    'SERIES'    => $details["SERIES"],
+                                                    'EPISODE'   => $details["EPISODE"],
+                                                    'TITLE'     => $details["TITLE"]));
 
   // Lookup tv show using values parsed from the filename (in case the parsing expressions have changed)
-  if ( !$existing_lookup && $parsed_str != '' && $parsed_str != $details_str )
+  if ( !$lookup && $parsed_str != '' && $parsed_str != $details_str )
   {
     send_to_log(5, "Re-parsed the filename to attempt the TV details search", array("Existing information"=>details, "Parsed from filename"=>$parsed));
-    $parsed_lookup = extra_get_tv_details($tv_id, $filename, $parsed["programme"], $parsed["series"], $parsed["episode"], $parsed["title"]);
+    $lookup = ParserTVLookup($tv_id, $filename, array('PROGRAMME' => $parsed["programme"],
+                                                      'SERIES'    => $parsed["series"],
+                                                      'EPISODE'   => $parsed["episode"],
+                                                      'TITLE'     => $parsed["title"]));
   }
 
-  // Was either lookup successful?
-  if ( $existing_lookup || $parsed_lookup )
+  // Was lookup successful?
+  if ( $lookup  )
   {
     // Export to XML
     if ( get_sys_pref('tv_xml_save','NO') == 'YES' )
       export_tv_to_xml($tv_id);
 
-    tv_display_info( str('LOOKUP_SUCCESS') );
+    if ( is_array($lookup) )
+      tv_display_info( str('LOOKUP_SUCCESS_MISSING', implode(', ', $lookup)) );
+    else
+      tv_display_info( str('LOOKUP_SUCCESS') );
   }
   else
   {
@@ -409,7 +404,7 @@ function tv_update_form_single()
 {
   // Get actor/director/genre lists
   $tv_id       = $_REQUEST["tv"][0];
-  $details     = db_toarray("select * from tv where file_id=".$tv_id);
+  $details     = db_row("select * from tv where file_id=".$tv_id);
   $actors      = db_toarray("select actor_name name, actor_id id from actors order by 1");
   $directors   = db_toarray("select director_name name, director_id id from directors order by 1");
   $genres      = db_toarray("select genre_name name, genre_id id from genres order by 1");
@@ -434,13 +429,13 @@ function tv_update_form_single()
         <th width="25%"><input type="hidden" name="update_series" value="yes">'.str('SERIES').'</th>
         <th width="25%"><input type="hidden" name="update_episode" value="yes">'.str('EPISODE').'</th>
         </tr>
-        <td colspan="2"><input name="programme" size="50" value="'.$details[0]["PROGRAMME"].'"></td>
-        <td><input name="series" size="6" value="'.$details[0]["SERIES"].'"></td>
-        <td><input name="episode" size="6" value="'.$details[0]["EPISODE"].'"></td>
+        <td colspan="2"><input name="programme" size="50" value="'.$details["PROGRAMME"].'"></td>
+        <td><input name="series" size="6" value="'.$details["SERIES"].'"></td>
+        <td><input name="episode" size="6" value="'.$details["EPISODE"].'"></td>
         <tr><th colspan="4" align="center"><input type="hidden" name="update_title" value="yes">'
         .str('TITLE').'
         </th></tr>
-        <tr><td colspan="4"><input name="title" size="90" value="'.$details[0]["TITLE"].'"></td></tr>
+        <tr><td colspan="4"><input name="title" size="90" value="'.$details["TITLE"].'"></td></tr>
         <tr><td colspan="4" align="center">&nbsp<br>
         '.str('MOVIE_ADD_PROMPT').'
         <br>&nbsp;</td></tr><tr>
@@ -467,7 +462,7 @@ function tv_update_form_single()
         </tr><tr>
           <th colspan="4"><input type="hidden" name="update_synopsis" value="yes">'.str('Synopsis').'</th>
         </tr><tr>
-          <td colspan="4">'.form_text_html('synopsis',90,6,$details[0]["SYNOPSIS"],true).'</td>
+          <td colspan="4">'.form_text_html('synopsis',90,6,$details["SYNOPSIS"],true).'</td>
         </tr><tr>
           <th><input type="hidden" name="update_cert" value="yes">'.str('CERTIFICATE').'</th>
           <th><input type="hidden" name="update_year" value="yes">'.str('YEAR').'</th>
@@ -475,15 +470,15 @@ function tv_update_form_single()
           <th><input type="hidden" name="update_viewed" value="yes">'.str('VIEWED_BY').'</th>
         </tr><tr>
           <td>
-          '.form_list_dynamic_html("cert",get_cert_list_sql(),$details[0]["CERTIFICATE"],true).'
+          '.form_list_dynamic_html("cert",get_cert_list_sql(),$details["CERTIFICATE"],true).'
           </td>
-          <td><input name="year" size="6" value="'.$details[0]["YEAR"].'"></td>
-          <td><input name="rating" size="6" value="'.($details[0]["EXTERNAL_RATING_PC"]/10).'"</td>
+          <td><input name="year" size="6" value="'.$details["YEAR"].'"></td>
+          <td><input name="rating" size="6" value="'.($details["EXTERNAL_RATING_PC"]/10).'"</td>
           <td>';
 
   foreach ( db_toarray("select * from users order by name") as $row)
     echo '<input type="checkbox" name="viewed[]" value="'.$row["USER_ID"].'" '.
-         (viewings_count( MEDIA_TYPE_TV, $details[0]["FILE_ID"], $row["USER_ID"])>0 ? 'checked' : '').
+         (viewings_count( MEDIA_TYPE_TV, $details["FILE_ID"], $row["USER_ID"])>0 ? 'checked' : '').
          '>'.$row["NAME"].'<br>';
 
   echo '</td>
@@ -695,13 +690,26 @@ function tv_update_multiple()
 
 function tv_info( $message = "")
 {
-  $list       = array( str('ENABLED')=>'YES',str('DISABLED')=>'NO');
-  $sites_list = get_parsers_list();
+  $list    = array( str('ENABLED')=>'YES',str('DISABLED')=>'NO');
+  $parsers = get_parsers_list('tv');
 
   if (!empty($_REQUEST["downloads"]))
   {
     set_rating_scheme_name($_REQUEST['scheme']);
-    set_sys_pref('tv_info_script',$_REQUEST['site']);
+    set_sys_pref('tv_parser_retry_count', $_REQUEST['parser_retry_count']);
+
+    $retrycount = $_REQUEST['parser_retry_count'];
+    for ($i = 0; $i < count(ParserConstants :: $allTvConstants); $i++)
+    {
+      $parser_pref = array();
+      for ($x = 0; $x < $retrycount; $x++)
+      {
+        if ( isset($_REQUEST['parser_' . $x . '_' . ParserConstants :: $allTvConstants[$i]['ID']]) )
+        $parser_pref[] = $_REQUEST['parser_' . $x . '_' . ParserConstants :: $allTvConstants[$i]['ID']];
+      }
+      set_sys_pref('tv_parser_' . ParserConstants :: $allTvConstants[$i]['ID'], implode(',', $parser_pref));
+    }
+
     set_sys_pref('tv_check_enabled',$_REQUEST["downloads"]);
     set_sys_pref('tv_xml_save',$_REQUEST["xml_save"]);
     set_sys_pref('tv_use_banners',$_REQUEST["use_banner"]);
@@ -736,19 +744,54 @@ function tv_info( $message = "")
   form_hidden('section', 'TV');
   form_hidden('action', 'INFO');
   echo '<p><b>'.str('MOVIE_EXTRA_DL_TITLE').'</b>
-        <p>'.str('MOVIE_EXTRA_DL_PROMPT');
-  form_list_static('site',str('MOVIE_EXTRA_SITE_PROMPT'),$sites_list,get_sys_pref('tv_info_script','www.TheTVDB.com.php'),false,false,false);
-  form_list_dynamic('scheme',str('RATING_SCHEME_PROMPT'),get_rating_scheme_list_sql(),get_rating_scheme_name(),false,false,null);
-  form_radio_static('downloads',str('STATUS'),$list,get_sys_pref('tv_check_enabled','YES'),false,true);
-  form_radio_static('xml_save',str('XML_SAVE'),$list,get_sys_pref('tv_xml_save','NO'),false,true);
-  form_radio_static('use_banner',str('USE_BANNER'),$list,get_sys_pref('tv_use_banners','YES'),false,true);
-  form_submit(str('SAVE_SETTINGS'),2,'left',240);
+           <p>'.str('MOVIE_EXTRA_DL_PROMPT');
+
+  $retrycount = get_sys_pref('tv_parser_retry_count', 1);
+  echo '<tr>';
+  for ($i = 0; $i < count(ParserConstants :: $allTvConstants); $i++)
+  {
+    echo '</tr><tr>';
+    $parser_pref = explode(',', get_sys_pref('tv_parser_' . ParserConstants :: $allTvConstants[$i]['ID'],
+                                                            ParserConstants :: $allTvConstants[$i]['DEFAULT']));
+    $supported_parsers = array();
+    for ($y = 0; $y < $retrycount; $y++)
+    {
+      // Add no parser option
+      $supported_parsers[NoParser :: getName()] = NoParser;
+
+      // Determine all parsers that support this property
+      foreach ($parsers as $parser)
+      {
+        $tvparser = new $parser();
+        if ($tvparser->isSupportedProperty(ParserConstants :: $allTvConstants[$i]['ID']))
+          $supported_parsers[$tvparser->getName()] = $parser;
+      }
+
+      // Display parsers for this property
+      if ( count($supported_parsers) > 1 )
+      {
+        echo (($y == 0) ? ('<td>' . form_prompt(str(ParserConstants :: $allTvConstants[$i]['TEXT']), true) . '</td>' ) : '');
+        echo '<td>' . form_list_static_html('parser_' . $y . '_' . ParserConstants :: $allTvConstants[$i]['ID'],
+                                            $supported_parsers,
+                                            (isset($parser_pref[$y]) ? $parser_pref[$y] : 'NoParser'),
+                                            false, false, false) .
+             '</td>';
+      }
+    }
+  }
+
+  form_list_static('parser_retry_count', str('PARSER_RETRIES'), array( 1=>1, 2, 3, 4, 5), get_sys_pref('tv_parser_retry_count', 1), false, true, false);
+  form_list_dynamic('scheme', str('RATING_SCHEME_PROMPT'), get_rating_scheme_list_sql(), get_rating_scheme_name(), false, false, null);
+  form_radio_static('downloads', str('STATUS'), $list, get_sys_pref('tv_check_enabled','YES'), false, true);
+  form_radio_static('xml_save', str('XML_SAVE'), $list, get_sys_pref('tv_xml_save','NO'), false, true);
+  form_radio_static('use_banner', str('USE_BANNER'), $list, get_sys_pref('tv_use_banners','YES'), false, true);
+  form_submit(str('SAVE_SETTINGS'),2,'left',150);
   form_end();
 
   form_start('index.php', 150, 'conn');
   form_hidden('section', 'TV');
   form_hidden('action', 'INFO');
-  form_hidden('refresh','YES');
+  form_hidden('refresh', 'YES');
   echo '<p>&nbsp;<br><b>'.str('EXTRA_REFRESH_TITLE').'</b>
         <p>'.str('EXTRA_REFRESH_DETAILS').'
         <p><span class="stdformlabel">'.str('EXTRA_REFRESH_WARNING','"'.str('TV_DETAILS').'"').'</span>'.'<br>&nbsp;';
@@ -758,7 +801,7 @@ function tv_info( $message = "")
   form_start('index.php', 150, 'conn');
   form_hidden('section', 'TV');
   form_hidden('action', 'INFO');
-  form_hidden('export','YES');
+  form_hidden('export', 'YES');
   echo '<p>&nbsp;<br><b>'.str('EXTRA_EXPORT_TITLE').'</b>
         <p>'.str('EXTRA_EXPORT_DETAILS');
   form_submit(str('EXTRA_EXPORT_GO'),2,'Left',240);
