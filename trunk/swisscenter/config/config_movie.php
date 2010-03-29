@@ -6,44 +6,25 @@
 require_once( realpath(dirname(__FILE__).'/../base/media.php'));
 require_once( realpath(dirname(__FILE__).'/../base/sched.php'));
 require_once( realpath(dirname(__FILE__).'/../base/xml_sidecar.php'));
-
-// ----------------------------------------------------------------------------------
-// Get an array of online movie parsers for displaying in a form drop-down list.
-// ----------------------------------------------------------------------------------
-
-function get_parsers_list()
-{
-  $parsers_old = dir_to_array( realpath(dirname(__FILE__).'/../ext/parsers') , '.*\.php' );
-  $parsers = dir_to_array( realpath(dirname(__FILE__).'/../ext/parsers/movie') , '.*\.php' );
-  $sites_list = array();
-
-  foreach ($parsers_old as $file)
-    $sites_list[file_noext($file)] = basename($file);
-
-  foreach ($parsers as $file)
-    $sites_list[file_noext($file)] = basename($file);
-
-  return $sites_list;
-}
+require_once( realpath(dirname(__FILE__).'/../video_obtain_info.php'));
 
 // ----------------------------------------------------------------------------------
 // Displays the details for movies
 // ----------------------------------------------------------------------------------
 
-function movie_display_info(  $message = '' )
+function movie_display_info( $message = '' )
 {
   // Get actor/director/genre lists
   $movie_id    = $_REQUEST["movie_id"];
-  $details     = db_toarray("select * from movies where file_id=".$movie_id);
+  $details     = db_row("select * from movies where file_id=".$movie_id);
   $actors      = db_toarray("select actor_name name from actors a, actors_in_movie aim where aim.actor_id = a.actor_id and movie_id=".$movie_id);
   $directors   = db_toarray("select director_name name from directors d, directors_of_movie dom where dom.director_id = d.director_id and movie_id=".$movie_id);
   $genres      = db_toarray("select genre_name name from genres g, genres_of_movie gom where gom.genre_id = g.genre_id and movie_id=".$movie_id);
   $languages   = db_toarray("select language name from languages l, languages_of_movie lom where lom.language_id = l.language_id and movie_id=".$movie_id);
-  $filename    = $details[0]["DIRNAME"].$details[0]["FILENAME"];
-  $sites_list  = get_parsers_list();
+  $filename    = $details["DIRNAME"].$details["FILENAME"];
 
   // Display movies that will be affected.
-  echo '<h1>'.$details[0]["TITLE"].'</h1><center>
+  echo '<h1>'.$details["TITLE"].'</h1><center>
          ( <a href="'.$_SESSION["last_search_page"].'">'.str('RETURN_TO_LIST').'</a>
          | <a href="?section=MOVIE&action=UPDATE_FORM_SINGLE&movie[]='.$movie_id.'">'.str('DETAILS_EDIT').'</a>
          ) </center>';
@@ -54,14 +35,14 @@ function movie_display_info(  $message = '' )
           <td colspan="4">';
 
   // DVD Video details are stored in the parent folder
-  if ( strtoupper($details[0]["FILENAME"]) == 'VIDEO_TS.IFO' )
-    $filename = rtrim($details[0]["DIRNAME"],'/').".dvd";
+  if ( strtoupper($details["FILENAME"]) == 'VIDEO_TS.IFO' )
+    $filename = rtrim($details["DIRNAME"],'/').".dvd";
 
   $folder_img = file_albumart($filename);
   if (!empty($folder_img))
     echo img_gen($folder_img,100,200,false,false,false,array('hspace'=>0,'vspace'=>4,'align'=>'left') );
 
-  echo  $details[0]["SYNOPSIS"].'<br>&nbsp;</td>
+  echo  $details["SYNOPSIS"].'<br>&nbsp;</td>
         </tr><tr>
         <th width="25%">'.str('ACTOR').'</th>
         <th width="25%">'.str('DIRECTOR').'</th>
@@ -94,22 +75,22 @@ function movie_display_info(  $message = '' )
           <th>'.str('RATING').'</th>
           <th>'.str('VIEWED_BY').'</th>
         </tr><tr>
-          <td valign="top">'.get_cert_name(get_nearest_cert_in_scheme($details[0]["CERTIFICATE"])).'&nbsp;</td>
-          <td valign="top">'.$details[0]["YEAR"].'</td>
-          <td valign="top">'.nvl($details[0]["EXTERNAL_RATING_PC"]/10,'-').'/10</td><td>';
+          <td valign="top">'.get_cert_name(get_nearest_cert_in_scheme($details["CERTIFICATE"])).'&nbsp;</td>
+          <td valign="top">'.$details["YEAR"].'</td>
+          <td valign="top">'.nvl($details["EXTERNAL_RATING_PC"]/10,'-').'/10</td><td>';
 
   foreach ( db_toarray("select * from users order by name") as $row)
-    if (viewings_count(3, $details[0]["FILE_ID"], $row["USER_ID"])>0)
+    if (viewings_count(3, $details["FILE_ID"], $row["USER_ID"])>0)
       echo $row["NAME"].'<br>';
 
   echo '</td></tr><tr>
           <th colspan="4">'.str('TRAILER_LOCATION').'</th>
         </tr><tr>
-          <td colspan="4">'.(empty($details[0]["TRAILER"]) ? '' : '<a href="'.$details[0]["TRAILER"].'" target="_blank">').$details[0]["TRAILER"].'&nbsp;</td>
+          <td colspan="4">'.(empty($details["TRAILER"]) ? '' : '<a href="'.$details["TRAILER"].'" target="_blank">').$details["TRAILER"].'&nbsp;</td>
         </tr><tr>
           <th colspan="4">'.str('LOCATION_ON_DISK').'</th>
         </tr><tr>
-          <td colspan="4">'.$details[0]["DIRNAME"].$details[0]["FILENAME"].'&nbsp;</td>
+          <td colspan="4">'.$details["DIRNAME"].$details["FILENAME"].'&nbsp;</td>
         </tr></table>
         <p align="center">';
 
@@ -120,8 +101,7 @@ function movie_display_info(  $message = '' )
           <input type="hidden" name="section" value="MOVIE">
           <input type="hidden" name="action" value="LOOKUP">
           <input type="hidden" name="movie_id" value="'.$movie_id.'">
-          '.form_list_static_html('parser',$sites_list, get_sys_pref('movie_info_script','www.imdb.com.php'),false,false,false).'
-          &nbsp; <input type="Submit" name="subaction" value="'.str('LOOKUP_MOVIE').'"> &nbsp;
+          <input type="Submit" name="subaction" value="'.str('LOOKUP_MOVIE').'">
           </form>
         </td>
         </tr></table>';
@@ -133,28 +113,33 @@ function movie_display_info(  $message = '' )
 
 function movie_lookup()
 {
-  require_once( realpath(dirname(__FILE__).'/../video_obtain_info.php'));
-
   $movie_id = $_REQUEST["movie_id"];
-  $details  = db_toarray("select * from movies where file_id=$movie_id");
+  $details  = db_row("select * from movies where file_id=$movie_id");
 
   // DVD Video details are stored in the parent folder
-  if ( strtoupper($details[0]["FILENAME"]) == 'VIDEO_TS.IFO' )
-    $filename = rtrim($details[0]["DIRNAME"],'/').".xml";
+  if ( strtoupper($details["FILENAME"]) == 'VIDEO_TS.IFO' )
+    $filename = rtrim($details["DIRNAME"],'/').".xml";
   else
-    $filename = $details[0]["DIRNAME"].$details[0]["FILENAME"];
-  $title    = strip_title($details[0]["TITLE"]);
+    $filename = $details["DIRNAME"].$details["FILENAME"];
+  $title = strip_title($details["TITLE"]);
 
   // Clear old details first
   purge_movie_details($movie_id);
 
   // Lookup movie
-  if ( extra_get_movie_details($movie_id, $filename, $title) )
+  $lookup = ParserMovieLookup($movie_id, $filename, array('TITLE' => $title));
+
+  // Was lookup successful?
+  if ( $lookup )
   {
     // Export to XML
     if ( get_sys_pref('movie_xml_save','NO') == 'YES' )
       export_video_to_xml($movie_id);
-    movie_display_info( str('LOOKUP_SUCCESS') );
+
+    if ( is_array($lookup) )
+      movie_display_info( str('LOOKUP_SUCCESS_MISSING', implode(', ', $lookup)) );
+    else
+      movie_display_info( str('LOOKUP_SUCCESS') );
   }
   else
     movie_display_info( '!'.str('LOOKUP_FAILURE') );
@@ -399,7 +384,7 @@ function movie_update_form_single()
 {
   // Get actor/director/genre lists
   $movie_id    = $_REQUEST["movie"][0];
-  $details     = db_toarray("select * from movies where file_id=".$movie_id);
+  $details     = db_row("select * from movies where file_id=".$movie_id);
   $actors      = db_toarray("select actor_name name, actor_id id from actors order by 1");
   $directors   = db_toarray("select director_name name, director_id id from directors order by 1");
   $genres      = db_toarray("select genre_name name, genre_id id from genres order by 1");
@@ -422,7 +407,7 @@ function movie_update_form_single()
         <tr><th colspan="4" align="center"><input type="hidden" name="update_title" value="yes">'
         .str('TITLE').'
         </th></tr>
-        <tr><td colspan="4"><input name="title" size="90" value="'.$details[0]["TITLE"].'"></td></tr>
+        <tr><td colspan="4"><input name="title" size="90" value="'.$details["TITLE"].'"></td></tr>
         <tr><td colspan="4" align="center">&nbsp<br>
         '.str('MOVIE_ADD_PROMPT').'
         <br>&nbsp;</td></tr><tr>
@@ -449,28 +434,28 @@ function movie_update_form_single()
         </tr><tr>
           <th colspan="4"><input type="hidden" name="update_synopsis" value="yes">'.str('Synopsis').'</th>
         </tr><tr>
-          <td colspan="4">'.form_text_html('synopsis',90,6,$details[0]["SYNOPSIS"],true).'</td>
+          <td colspan="4">'.form_text_html('synopsis',90,6,$details["SYNOPSIS"],true).'</td>
         </tr><tr>
           <th><input type="hidden" name="update_cert" value="yes">'.str('CERTIFICATE').'</th>
           <th><input type="hidden" name="update_year" value="yes">'.str('YEAR').'</th>
           <th><input type="hidden" name="update_rating" value="yes">'.str('RATING').'</th>
           <th><input type="hidden" name="update_viewed" value="yes">'.str('VIEWED_BY').'</th>
         </tr><tr>
-          <td>'.form_list_dynamic_html("cert",get_cert_list_sql(),$details[0]["CERTIFICATE"],true).'</td>
-          <td><input name="year" size="6" value="'.$details[0]["YEAR"].'"></td>
-          <td><input name="rating" size="6" value="'.($details[0]["EXTERNAL_RATING_PC"]/10).'"</td>
+          <td>'.form_list_dynamic_html("cert",get_cert_list_sql(),$details["CERTIFICATE"],true).'</td>
+          <td><input name="year" size="6" value="'.$details["YEAR"].'"></td>
+          <td><input name="rating" size="6" value="'.($details["EXTERNAL_RATING_PC"]/10).'"</td>
           <td>';
 
   foreach ( db_toarray("select * from users order by name") as $row)
     echo '<input type="checkbox" name="viewed[]" value="'.$row["USER_ID"].'" '.
-         (viewings_count( MEDIA_TYPE_VIDEO, $details[0]["FILE_ID"], $row["USER_ID"])>0 ? 'checked' : '').
+         (viewings_count( MEDIA_TYPE_VIDEO, $details["FILE_ID"], $row["USER_ID"])>0 ? 'checked' : '').
          '>'.$row["NAME"].'<br>';
 
   echo '  </td>
         </tr><tr>
           <th colspan="4" align="center"><input type="hidden" name="update_trailer" value="yes">'.str('TRAILER_LOCATION').'</th>
         </tr><tr>
-          <td colspan="4"><input name="trailer" size="90" value="'.$details[0]["TRAILER"].'"></td>
+          <td colspan="4"><input name="trailer" size="90" value="'.$details["TRAILER"].'"></td>
         </tr>';
 
   echo '</table>
@@ -671,15 +656,29 @@ function movie_update_multiple()
 
 function movie_info( $message = "")
 {
-  $list       = array( str('ENABLED')=>'YES',str('DISABLED')=>'NO');
-  $sites_list = get_parsers_list();
+  $list    = array( str('ENABLED')=>'YES',str('DISABLED')=>'NO');
+  $parsers = get_parsers_list('movie');
 
   if (!empty($_REQUEST["downloads"]))
   {
     set_rating_scheme_name($_REQUEST['scheme']);
-    set_sys_pref('movie_info_script',$_REQUEST['site']);
-    set_sys_pref('movie_check_enabled',$_REQUEST["downloads"]);
-    set_sys_pref('movie_xml_save',$_REQUEST["xml_save"]);
+    set_sys_pref('movie_parser_retry_count', $_REQUEST['parser_retry_count']);
+    set_sys_pref('use_smartsearch', $_REQUEST['use_smartsearch']);
+
+    $retrycount = $_REQUEST['parser_retry_count'];
+    for ($i = 0; $i < count(ParserConstants :: $allMovieConstants); $i++)
+    {
+      $parser_pref = array();
+      for ($x = 0; $x < $retrycount; $x++)
+      {
+        if ( isset($_REQUEST['parser_' . $x . '_' . ParserConstants :: $allMovieConstants[$i]['ID']]) )
+        $parser_pref[] = $_REQUEST['parser_' . $x . '_' . ParserConstants :: $allMovieConstants[$i]['ID']];
+      }
+      set_sys_pref('movie_parser_' . ParserConstants :: $allMovieConstants[$i]['ID'], implode(',', $parser_pref));
+    }
+
+    set_sys_pref('movie_check_enabled', $_REQUEST["downloads"]);
+    set_sys_pref('movie_xml_save', $_REQUEST["xml_save"]);
     $message = str('SAVE_SETTINGS_OK');
   }
 
@@ -710,18 +709,54 @@ function movie_info( $message = "")
   form_hidden('section', 'MOVIE');
   form_hidden('action', 'INFO');
   echo '<p><b>'.str('MOVIE_EXTRA_DL_TITLE').'</b>
-        <p>'.str('MOVIE_EXTRA_DL_PROMPT');
-  form_list_static('site',str('MOVIE_EXTRA_SITE_PROMPT'),$sites_list,get_sys_pref('movie_info_script','www.imdb.com.php'),false,false,false);
-  form_list_dynamic('scheme',str('RATING_SCHEME_PROMPT'),get_rating_scheme_list_sql(),get_rating_scheme_name(),false,false,null);
-  form_radio_static('downloads',str('STATUS'),$list,get_sys_pref('movie_check_enabled','YES'),false,true);
-  form_radio_static('xml_save',str('XML_SAVE'),$list,get_sys_pref('movie_xml_save','NO'),false,true);
-  form_submit(str('SAVE_SETTINGS'),2,'left',240);
+           <p>'.str('MOVIE_EXTRA_DL_PROMPT');
+
+  $retrycount = get_sys_pref('movie_parser_retry_count', 1);
+  echo '<tr>';
+  for ($i = 0; $i < count(ParserConstants :: $allMovieConstants); $i++)
+  {
+    echo '</tr><tr>';
+    $parser_pref = explode(',', get_sys_pref('movie_parser_' . ParserConstants :: $allMovieConstants[$i]['ID'],
+                                                               ParserConstants :: $allMovieConstants[$i]['DEFAULT']));
+    $supported_parsers = array();
+    for ($y = 0; $y < $retrycount; $y++)
+    {
+      // Add no parser option
+      $supported_parsers[NoParser :: getName()] = NoParser;
+
+      // Determine all parsers that support this property
+      foreach ($parsers as $parser)
+      {
+        $movieparser = new $parser();
+        if ($movieparser->isSupportedProperty(ParserConstants :: $allMovieConstants[$i]['ID']))
+          $supported_parsers[$movieparser->getName()] = $parser;
+      }
+
+      // Display parsers for this property
+      if ( count($supported_parsers) > 1 )
+      {
+        echo (($y == 0) ? ('<td>' . form_prompt(str(ParserConstants :: $allMovieConstants[$i]['TEXT']), true) . '</td>' ) : '');
+        echo '<td>' . form_list_static_html('parser_' . $y . '_' . ParserConstants :: $allMovieConstants[$i]['ID'],
+                                            $supported_parsers,
+                                            (isset($parser_pref[$y]) ? $parser_pref[$y] : 'NoParser'),
+                                            false, false, false) .
+             '</td>';
+      }
+    }
+  }
+
+  form_list_static('parser_retry_count', str('PARSER_RETRIES'), array( 1=>1, 2, 3, 4, 5), get_sys_pref('movie_parser_retry_count', 1), false, true, false);
+  form_radio_static('use_smartsearch', str('MOVIE_PARSER_SMARTSEARCH'), $list, get_sys_pref('use_smartsearch', 'YES'), false, true);
+  form_list_dynamic('scheme', str('RATING_SCHEME_PROMPT'), get_rating_scheme_list_sql(), get_rating_scheme_name(), false, false, null);
+  form_radio_static('downloads', str('STATUS'), $list, get_sys_pref('movie_check_enabled', 'YES'), false, true);
+  form_radio_static('xml_save', str('XML_SAVE'), $list, get_sys_pref('movie_xml_save', 'NO'), false, true);
+  form_submit(str('SAVE_SETTINGS'), 2, 'left', 150);
   form_end();
 
   form_start('index.php', 150, 'conn');
   form_hidden('section', 'MOVIE');
   form_hidden('action', 'INFO');
-  form_hidden('refresh','YES');
+  form_hidden('refresh', 'YES');
   echo '<p>&nbsp;<br><b>'.str('EXTRA_REFRESH_TITLE').'</b>
         <p>'.str('EXTRA_REFRESH_DETAILS').'
         <p><span class="stdformlabel">'.str('EXTRA_REFRESH_WARNING','"'.str('ORG_TITLE').'"').'</span>'.'<br>&nbsp;';
@@ -731,7 +766,7 @@ function movie_info( $message = "")
   form_start('index.php', 150, 'conn');
   form_hidden('section', 'MOVIE');
   form_hidden('action', 'INFO');
-  form_hidden('export','YES');
+  form_hidden('export', 'YES');
   echo '<p>&nbsp;<br><b>'.str('EXTRA_EXPORT_TITLE').'</b>
         <p>'.str('EXTRA_EXPORT_DETAILS');
   form_submit(str('EXTRA_EXPORT_GO'),2,'Left',240);

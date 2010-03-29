@@ -35,17 +35,17 @@
         db_sqlcommand("delete from $table where dirname='".db_escape_str($dir)."/' and filename='".db_escape_str($file)."'");
 
         $response = array("status"  => "OK",
-                        "message" => "File deleted from the database.",
-                        "retry"   => "false");
+                          "message" => "File deleted from the database.",
+                          "retry"   => "false");
       }
       else
       {
         // Remove files in folder from database
-        db_sqlcommand("delete from $table where dirname like '".db_escape_str($path)."/%'");
-
-        $response = array("status"  => "OK",
-                          "message" => "Folder deleted from the database.",
-                          "retry"   => "false");
+//        db_sqlcommand("delete from $table where dirname like '".db_escape_str($path)."/%'");
+//
+//        $response = array("status"  => "OK",
+//                          "message" => "Folder deleted from the database.",
+//                          "retry"   => "false");
       }
       break;
 
@@ -58,7 +58,7 @@
       else
       {
         // Remove files in old folder from database
-        db_sqlcommand("delete from $table where dirname like '".db_escape_str($dir)."/%'");
+//        db_sqlcommand("delete from $table where dirname like '".db_escape_str($dir)."/%'");
       }
 
     case "Created":
@@ -79,12 +79,25 @@
       }
       else
       {
-        // Add new folder to database
-        process_media_directory( $path.'/', $location["LOCATION_ID"], $location["NETWORK_SHARE"], $table, $file_exts, true, true );
+        $status = get_sys_pref('MEDIA_SCAN_STATUS');
+        if ( empty($status) || $status == str('MEDIA_SCAN_STATUS_COMPLETE') )
+        {
+          // Add new folder to database
+          set_sys_pref('MEDIA_SCAN_STATUS',str('MEDIA_SCAN_STATUS_RUNNING'));
+          process_media_directory( $path.'/', $location["LOCATION_ID"], $location["NETWORK_SHARE"], $table, $file_exts );
+          set_sys_pref('MEDIA_SCAN_STATUS',str('MEDIA_SCAN_STATUS_COMPLETE'));
 
-        $response = array("status"  => "OK",
-                          "message" => "Folder added to the database.",
-                          "retry"   => "false");
+          $response = array("status"  => "OK",
+                            "message" => "Folder added to the database.",
+                            "retry"   => "false");
+        }
+        else
+        {
+          // Cannot scan directory whilst media search is running
+          $response = array("status"  => "Fail",
+                            "message" => "Media search in progress.",
+                            "retry"   => "true");
+        }
       }
       break;
 
@@ -103,7 +116,7 @@
     if ( $location["MEDIA_TYPE"] == MEDIA_TYPE_VIDEO && is_movie_check_enabled() )
     {
       $info = db_row("select * from movies where concat(dirname,filename) = '".db_escape_str($path)."'");
-      extra_get_movie_details( $info["FILE_ID"], $path, $info["TITLE"]);
+      ParserMovieLookup($info["FILE_ID"], $path, array('TITLE' => $info["TITLE"]));
       // Export to XML
       if ( get_sys_pref('movie_xml_save','NO') == 'YES' )
         export_video_to_xml($info["FILE_ID"]);
@@ -112,7 +125,10 @@
     if ( $location["MEDIA_TYPE"] == MEDIA_TYPE_TV && is_tv_check_enabled() )
     {
       $info = db_row("select * from tv where concat(dirname,filename) = '".db_escape_str($path)."'");
-      extra_get_tv_details($info["FILE_ID"], $path, $info["PROGRAMME"], $info["SERIES"], $info["EPISODE"], $info["TITLE"]);
+      ParserTvLookup($info["FILE_ID"], $path, array('PROGRAMME' => $info["PROGRAMME"],
+                                                    'SERIES'    => $info["SERIES"],
+                                                    'EPISODE'   => $info["EPISODE"],
+                                                    'TITLE'     => $info["TITLE"]));
       // Export to XML
       if ( get_sys_pref('tv_xml_save','NO') == 'YES' )
         export_tv_to_xml($info["FILE_ID"]);

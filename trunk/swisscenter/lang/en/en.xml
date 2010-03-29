@@ -173,6 +173,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>BANNERS</id>
+        <text>Banners</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>BOOKMARKS</id>
         <text>Bookmarks</text>
         <version>1.19</version>
@@ -1274,6 +1279,11 @@
         <version>1.20.1</version>
       </string>
       <string>
+        <id>FANART</id>
+        <text>Fanart</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>FAVORITES</id>
         <text>Favourites</text>
         <version>1.22</version>
@@ -1572,6 +1582,11 @@
         <id>IMAGE_TRANS_PROMPT</id>
         <text>Transition effects available for slideshows. These effects may differ for different players, and some players may not support transitions at all.</text>
         <version>1.20</version>
+      </string>
+      <string>
+        <id>IMDBTT</id>
+        <text>IMDb ID</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>IMPEXP_TITLE</id>
@@ -2284,8 +2299,8 @@
       </string>
       <string>
         <id>LOOKUP_FAILURE</id>
-        <text>Unable to locate movie details.</text>
-        <version>1.19</version>
+        <text>Parsers failed to lookup any details.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>LOOKUP_MOVIE</id>
@@ -2294,8 +2309,13 @@
       </string>
       <string>
         <id>LOOKUP_SUCCESS</id>
-        <text>Movie details downloaded and stored.</text>
-        <version>1.19</version>
+        <text>Parsers successfully downloaded and stored details.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LOOKUP_SUCCESS_MISSING</id>
+        <text>Parsers lookup succeeded but missing: %s</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>LOOKUP_TV</id>
@@ -2843,6 +2863,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MOVIE_PARSER_SMARTSEARCH</id>
+        <text>Use SmartSearch</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>MOVIE_UPD_TEXT</id>
         <text>The following videos will be updated</text>
         <version>1.19</version>
@@ -3137,6 +3162,11 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <id>PAGE</id>
         <text>Page %s</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PARSER_RETRIES</id>
+        <text>Parser retries</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PASSWORD</id>
@@ -3760,6 +3790,11 @@ If any details are added/changed on this page then you are requested to submit t
         <id>PLEASE_SELECT</id>
         <text>Please select</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>POSTER</id>
+        <text>Poster</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PRESS_KEY_NOW</id>
@@ -4832,6 +4867,11 @@ If any details are added/changed on this page then you are requested to submit t
         <version>1.22</version>
       </string>
       <string>
+        <id>TEST_PARSERS</id>
+        <text>Parser Tests</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>THEMES</id>
         <text>Themes</text>
         <version>1.22</version>
@@ -5550,6 +5590,11 @@ If any details are added/changed on this page then you are requested to submit t
         <id>VALUE</id>
         <text>Value</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>VERIFY_FILES</id>
+        <text>Verify Files</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>VIDEO</id>

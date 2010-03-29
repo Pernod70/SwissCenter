@@ -9,6 +9,8 @@
   require_once( realpath(dirname(__FILE__).'/base/rating.php'));
   require_once( realpath(dirname(__FILE__).'/base/xml_sidecar.php'));
   require_once( realpath(dirname(__FILE__).'/ext/json/json.php'));
+  require_once( realpath(dirname(__FILE__).'/ext/parsers/ParserMovieLookup.php'));
+  require_once( realpath(dirname(__FILE__).'/ext/parsers/ParserTvLookup.php'));
 
   // ----------------------------------------------------------------------------------------
   // Gets the value of an attrbute for a particluar tag (often the "alt" of an "img" tag)
@@ -78,7 +80,7 @@
   // function returns either FALSE (no match >75%) or the HTML from the page pointed to by
   // the best match.
   //
-  // �title -- The movie title to search for.
+  // $title -- The movie title to search for.
   // $site_url -- The address of the site (eg: http://amazon.co.uk/)
   // $search_url -- The URL used to perform a search, with ##### where the movie name should go
   // $success_text -- A seach is deemed to be successful if a page is returned which contains this text
@@ -112,10 +114,10 @@
       // Is the text that signifies a successful search present within the HTML?
       if (strpos(strtolower($html),strtolower($success_text)) !== false)
       {
-        $matches     = get_urls_from_html($html, $link_string);
+        $matches = get_urls_from_html($html, $link_string);
         if ($strip_title)
           $matches[2] = preg_replace(array('/\(.*\)/','/\[.*]/'), '', $matches[2]);
-        $index       = best_match($film_title, $matches[2], $accuracy);
+        $index = best_match($film_title, $matches[2], $accuracy);
 
         if ($index === false)
           $html = false;
@@ -136,19 +138,6 @@
     return $html;
   }
 
-  // ----------------------------------------------------------------------------------------
-  // Gets the text that corresponds to the given detail
-  // ----------------------------------------------------------------------------------------
-
-  function get_attrib(&$text, $name)
-  {
-    preg_match('/'.$name.'\s{3,}(.*)\s{3,}/i',$text, $matches);
-    $search  = array('/&bull;/','/&gt;[^,]*/');
-    $replace = array(',','');
-
-    return explode(',',preg_replace($search, $replace, $matches[1]));
-  }
-
   /**
    * Function to remove all details from the database regarding the specified movie
    *
@@ -161,7 +150,7 @@
     db_sqlcommand("delete from directors_of_movie where movie_id = $movie_id ");
     db_sqlcommand("delete from genres_of_movie where movie_id = $movie_id ");
     db_sqlcommand("delete from languages_of_movie where movie_id = $movie_id ");
-    db_sqlcommand("update movies set year=null, details_available='N', match_pc=null, certificate=null, synopsis=null where file_id = $movie_id");
+    db_sqlcommand("update movies set year=null, details_available='N', match_pc=null, certificate=null, synopsis=null, external_rating_pc=null where file_id = $movie_id");
   }
 
   /**
@@ -176,19 +165,20 @@
     db_sqlcommand("delete from directors_of_tv where tv_id = $tv_id ");
     db_sqlcommand("delete from genres_of_tv where tv_id = $tv_id ");
     db_sqlcommand("delete from languages_of_tv where tv_id = $tv_id ");
-    db_sqlcommand("update tv set title=null, year=null, details_available='N', synopsis=null where file_id = $tv_id");
+    db_sqlcommand("update tv set title=null, year=null, details_available='N', certificate=null, synopsis=null, external_rating_pc=null where file_id = $tv_id");
   }
 
-  // ----------------------------------------------------------------------------------------
-  // This function gets the movie details for all movies in the database where the
-  // details_available flag is not set. (ie: no lookup has taken place).
-  // ----------------------------------------------------------------------------------------
+  /**
+   * This function gets the movie details for all movies in the database where the
+   * details_available flag is not set. (ie: no lookup has taken place).
+   *
+   */
 
   function extra_get_all_movie_details ()
   {
     if ( is_movie_check_enabled() )
     {
-      send_to_log(4,'Checking online for extra movie information from '.file_noext(get_sys_pref('movie_info_script','www.imdb.com.php')));
+      send_to_log(4,'Checking online for extra movie information');
 
       // Only try to update movie information for categories that have it enabled, and where the details_available column is null.
       $data = db_toarray("select file_id
@@ -209,10 +199,10 @@
         else
           $filename = $row["DIRNAME"].$row["FILENAME"];
 
-        extra_get_movie_details( $row["FILE_ID"], $filename, $row["TITLE"] );
+        ParserMovieLookup( $row["FILE_ID"], $filename, array('TITLE' => $row["TITLE"]) );
         // Export to XML
         if ( get_sys_pref('movie_xml_save','NO') == 'YES' )
-          export_video_to_xml( $row["FILE_ID"], $filename );
+          export_video_to_xml( $row["FILE_ID"] );
       }
 
       send_to_log(4,'Online movie check complete');
@@ -221,16 +211,17 @@
       send_to_log(4,'Online movie check is DISABLED');
   }
 
-  // ----------------------------------------------------------------------------------------
-  // This function gets the tv show details for all tv shows in the database where the
-  // details_available flag is not set. (ie: no lookup has taken place).
-  // ----------------------------------------------------------------------------------------
+  /**
+   * This function gets the tv show details for all tv shows in the database where the
+   * details_available flag is not set. (ie: no lookup has taken place).
+   *
+   */
 
   function extra_get_all_tv_details ()
   {
     if ( is_tv_check_enabled() )
     {
-      send_to_log(4,'Checking online for extra tv information from '.file_noext(get_sys_pref('tv_info_script','www.TheTVDB.com.php')));
+      send_to_log(4,'Checking online for extra tv information');
 
       // Only try to update tv information where the details_available column is null.
       $data = db_toarray("select file_id
@@ -248,7 +239,10 @@
       // Process each tv show
       foreach ($data as $row)
       {
-        extra_get_tv_details( $row["FILE_ID"], $row["FSP"], $row["PROGRAMME"], $row["SERIES"], $row["EPISODE"], $row["TITLE"] );
+        ParserTvLookup( $row["FILE_ID"], $row["FSP"], array('PROGRAMME' => $row["PROGRAMME"],
+                                                            'SERIES'    => $row["SERIES"],
+                                                            'EPISODE'   => $row["EPISODE"],
+                                                            'TITLE'     => $row["TITLE"]) );
         // Export to XML
         if ( get_sys_pref('tv_xml_save','NO') == 'YES' )
           export_tv_to_xml( $row["FILE_ID"] );
@@ -335,59 +329,7 @@
     return $match;
   }
 
-  // ----------------------------------------------------------------------------------------
-  // Determine which movie and tv database the user has requested that we use.
-  // ----------------------------------------------------------------------------------------
-
-  $parser_dir = realpath( dirname(__FILE__).'/ext/parsers' );
-
-  if ( isset($_REQUEST["parser"]) && !empty($_REQUEST["parser"]) )
-  {
-    $inc_parser_file=$_REQUEST["parser"];
-
-    // Include the requested parser file
-    if ( file_exists($parser_dir.'/'.$inc_parser_file) )
-    {
-      send_to_log(4,'Including parser file '.$parser_dir.'/'.$inc_parser_file);
-      require_once( $parser_dir.'/'.$inc_parser_file );
-    }
-    elseif ( file_exists($parser_dir.'/movie/'.$inc_parser_file) )
-    {
-      send_to_log(4,'Including parser file '.$parser_dir.'/movie/'.$inc_parser_file);
-      require_once( $parser_dir.'/movie/'.$inc_parser_file );
-    }
-    elseif ( file_exists($parser_dir.'/tv/'.$inc_parser_file) )
-    {
-      send_to_log(4,'Including parser file '.$parser_dir.'/tv/'.$inc_parser_file);
-      require_once( $parser_dir.'/tv/'.$inc_parser_file );
-    }
-  }
-  else
-  {
-    $inc_movie_file   = get_sys_pref('movie_info_script','www.imdb.com.php');
-    if ( !file_exists($parser_dir.'/'.$inc_movie_file) && !file_exists($parser_dir.'/movie/'.$inc_movie_file))
-      $inc_movie_file = 'www.imdb.com.php';
-
-    $inc_tv_file   = get_sys_pref('tv_info_script','www.TheTVDB.com.php');
-    if ( !file_exists($parser_dir.'/tv/'.$inc_tv_file) )
-      $inc_tv_file = 'www.TheTVDB.com.php';
-
-    // Include the appropriate files
-    if ( file_exists($parser_dir.'/movie/'.$inc_movie_file) )
-    {
-      send_to_log(4,'Including movie parser file '.$parser_dir.'/movie/'.$inc_movie_file);
-      require_once( $parser_dir.'/movie/'.$inc_movie_file );
-    }
-    elseif ( file_exists($parser_dir.'/'.$inc_movie_file) )
-    {
-      send_to_log(4,'Including movie parser file '.$parser_dir.'/'.$inc_movie_file);
-      require_once( $parser_dir.'/'.$inc_movie_file );
-    }
-    send_to_log(4,'Including tv parser file '.$parser_dir.'/tv/'.$inc_tv_file);
-    require_once( $parser_dir.'/tv/'.$inc_tv_file );
-  }
-
-  /**************************************************************************************************
+/**************************************************************************************************
                                                End of file
  **************************************************************************************************/
 ?>
