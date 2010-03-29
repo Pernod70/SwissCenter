@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<swisscenter>
+  <languages>
+    <language name="en-us" fullname="English (US)">
+      <string>
+        <id>INTERNET_TV</id>
+        <text>Internet Video</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>INTERNET_TV_OPTIONS</id>
+        <text>Internet TV</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>INTERNET_TV_PROMPT</id>
+        <text>Connections to Internet video sites can be made from SwissCenter when enabled.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LISTEN_MUSIC</id>
+        <text>Listen to music</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>LISTEN_RADIO</id>
+        <text>Internet Radio</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>PROGRAMME</id>
+        <text>Program</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>PROGRAMME_LIST_ALL</id>
+        <text>All Programs</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SERIES</id>
+        <text>Season</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>VIEW_WEATHER</id>
+        <text>Weather forecast</text>
+        <version>1.21.1</version>
+      </string>
+      <string>
+        <id>WATCH_INTERNET_TV</id>
+        <text>Internet Videos</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_TV</id>
+        <text>TV Series</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SR_NEXT</id>
+        <text>Next Season</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SR_PREV</id>
+        <text>Previous Season</text>
+        <version>1.22</version>
+      </string>
+    </language>
+  </languages>
+</swisscenter>
