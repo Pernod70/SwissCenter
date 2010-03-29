@@ -69,7 +69,9 @@
     $menu = new config_menu();
 
     $menu->add_menu(str('INSTALLATION_TITLE'));
-    $menu->add_item(str('INSTALLATION_TESTS')          ,'');
+    $menu->add_item(str('INSTALLATION_TESTS')       ,'');
+    $menu->add_item(str('TEST_PARSERS')             ,'section=CHECK_PARSERS&action=DISPLAY');
+    $menu->add_item(str('VERIFY_FILES')             ,'section=CHECK_FILES&action=DISPLAY');
     $menu->add_item(str('CONFIG_DB_CREATE')         ,'section=INSTALL&action=DISPLAY');
 
     if ($db_stat == 'OK')
