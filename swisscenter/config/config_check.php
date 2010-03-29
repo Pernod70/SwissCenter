@@ -140,16 +140,6 @@ function check_display()
 
   $core_tests->add_test( $swiss, check_database_patch(), str("PASS_DATABASE_PATCH", get_sys_pref('database_patch')), str("FAIL_DATABASE_PATCH", get_sys_pref('database_patch')) );
 
-  // Only verify installation files if not a developer
-  if (get_sys_pref('IS_DEVELOPMENT','NO') == 'NO')
-    $core_tests->add_test( $swiss, check_swiss_files(), str("PASS_SWISS_FILES"), str("FAIL_SWISS_FILES", format_filelist_html(SC_LOCATION."filelist_missing.txt")) );
-
-  $core_tests->add_test( $swiss, check_swiss_write_rootdir(), str("PASS_SWISS_RW_FILES"), str("MISSING_PERMS_TEXT"));
-  $core_tests->add_test( $swiss, check_swiss_ini_file(), str("PASS_SWISS_INI"), str("FAIL_SWISS_INI"));
-  $core_tests->add_test( $swiss, check_swiss_write_cache_dir(), str("PASS_SWISS_CACHE"), str("FAIL_SWISS_CACHE", get_sys_pref('cache_dir')) );
-  $core_tests->add_test( $swiss, check_swiss_write_playlist_dir(), str("PASS_SWISS_PLAYLIST"), str("FAIL_SWISS_PLAYLIST", get_sys_pref('playlists')) );
-  $core_tests->add_test( $swiss, check_swiss_write_log_dir(), str("PASS_SWISS_LOG"), str("FAIL_SWISS_LOG", logfile_location()) );
-
   # ----------------------
   # PHP Tests
   # ----------------------
@@ -192,22 +182,10 @@ function check_display()
   $core_tests->add_test( $server, check_server_scheduler(), str("PASS_SERVER_SCHED"), str("FAIL_SERVER_SCHED"));
 
   # ----------------------
-  # Internet Radio
-  # ----------------------
-
-  if (internet_available())
-  {
-    $iradio = $component_tests->add_section("Internet Radio Parser",1);
-    $component_tests->add_test( $iradio, check_shoutcast(), str('PASS_SHOUTCAST_TEST'),str('FAIL_SHOUTCAST_TEST').'<p>'.str('IRADIO_SHOUTCAST_DESC','<a href="http://www.shoutcast.com/">www.shoutcast.com</a>'),FALSE);
-    $component_tests->add_test( $iradio, check_liveradio(), str('PASS_LIVERADIO_TEST'),str('FAIL_LIVERADIO_TEST').'<p>'.str('IRADIO_LIVERADIO_DESC','<a href="http://www.live-radio.net/">www.live-radio.net</a>'),FALSE);
-    $component_tests->add_test( $iradio, check_live365(),   str('PASS_LIVE365_TEST'),str('FAIL_LIVE365_TEST').'<p>'.str('IRADIO_LIVE365_DESC','<a href="http://www.live365.com/">www.live365.com</a>'),FALSE);
-  }
-
-  # ----------------------
   # Music IP
   # ----------------------
 
-  $musicip = $component_tests->add_section("MusicIP",2);
+  $musicip = $component_tests->add_section("MusicIP",1);
 
   $component_tests->add_test( $musicip, musicip_available(TRUE), str('PASS_MUSICIP_TEST'),str('FAIL_MUSICIP_TEST').'<p>'.str('MIP_DESC','<a href="http://www.musicip.com">www.musicip.com</a>'),FALSE);
 
@@ -220,7 +198,7 @@ function check_display()
 
   if (is_windows())
   {
-    $monitor = $component_tests->add_section("SwissMonitor",3);
+    $monitor = $component_tests->add_section("SwissMonitor",4);
     $installed = win_service_installed("SwissMonitorService");
     $component_tests->add_test( $monitor, $installed , str('PASS_SWISSMONITOR_INSTALLED'),str('FAIL_SWISSMONITOR_INSTALLED').'<p>'.str('SWISSMONITOR_DESCRIPTION'));
 
@@ -236,23 +214,6 @@ function check_display()
 
   $core_tests->display();
   $component_tests->display();
-}
-
-/**
- * Returns formatted HTML of files with links to SVN to download from.
- *
- * @param array $filelist
- * @return string
- */
-function format_filelist_html( $filelist )
-{
-  $filelist = unserialize(file_get_contents($filelist));
-  $revision = svn_current_revision();
-  $filelist_html = '';
-  foreach ($filelist as $file)
-    $filelist_html .= '<br><a href="http://tools.assembla.com/swiss/export/'.$revision.'/trunk/swisscenter/'.$file["filename"].'" target="_blank">'.$file["filename"].'</a>
-                           <a href="http://tools.assembla.com/swiss/changeset/'.$file["revision"].'" target="_blank">['.$file["revision"].']</a> ('.str($file["error"]).')';
-  return $filelist_html;
 }
 
 /**************************************************************************************************

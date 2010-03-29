@@ -260,6 +260,9 @@ function check_swiss_files()
 
   send_to_log(5,"- Verifying installation files:");
 
+  // Checks may take a while so disable timeout
+  set_time_limit(0);
+
   // Compare the checksums of the local files.
   $data = array();
   foreach ($file_list as $file)
