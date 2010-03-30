@@ -42,9 +42,12 @@ function format_filelist_html( $filelist )
   $filelist = unserialize(file_get_contents($filelist));
   $revision = svn_current_revision();
   $filelist_html = '';
-  foreach ($filelist as $file)
-    $filelist_html .= '<br><a href="http://tools.assembla.com/swiss/export/'.$revision.'/trunk/swisscenter/'.$file["filename"].'" target="_blank">'.$file["filename"].'</a>
-                           <a href="http://tools.assembla.com/swiss/changeset/'.$file["revision"].'" target="_blank">['.$file["revision"].']</a> ('.str($file["error"]).')';
+  foreach ($filelist as $path=>$file)
+    if ($file["error"] == 'delete')
+      $filelist_html .= '<br>'.$path.' ('.str($file["error"]).')';
+    else
+      $filelist_html .= '<br><a href="http://tools.assembla.com/swiss/export/'.$revision.'/trunk/swisscenter/'.$path.'" target="_blank">'.$path.'</a>
+                             <a href="http://tools.assembla.com/swiss/changeset/'.$file["revision"].'" target="_blank">['.$file["revision"].']</a> ('.str($file["error"]).')';
   return $filelist_html;
 }
 
