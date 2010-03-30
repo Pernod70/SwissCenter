@@ -57,10 +57,10 @@ class wwwOFDBde extends Parser implements ParserInterface {
 
     // Change the word order
     $title = $this->title;
-    if ( substr($this->title,0,4) == 'The ' ) $title = substr($this->title,5).', The';
-    if ( substr($this->title,0,4) == 'Der ' ) $title = substr($this->title,5).', Der';
-    if ( substr($this->title,0,4) == 'Die ' ) $title = substr($this->title,5).', Die';
-    if ( substr($this->title,0,4) == 'Das ' ) $title = substr($this->title,5).', Das';
+    if ( substr($this->title,0,4) == 'The ' ) $title = substr($this->title,4).', The';
+    if ( substr($this->title,0,4) == 'Der ' ) $title = substr($this->title,4).', Der';
+    if ( substr($this->title,0,4) == 'Die ' ) $title = substr($this->title,4).', Die';
+    if ( substr($this->title,0,4) == 'Das ' ) $title = substr($this->title,4).', Das';
 
     $this->accuracy = 0;
 
