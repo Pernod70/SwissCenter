@@ -263,8 +263,23 @@ function check_swiss_files()
   // Checks may take a while so disable timeout
   set_time_limit(0);
 
-  // Compare the checksums of the local files.
+  // Create array of all local files (excluding Bookmarks, styles, and fanart folders)
+  $local = dir_to_array(SC_LOCATION, '^(?!Bookmarks|fanart|styles)', 5, true);
+
   $data = array();
+  foreach ($local as $path)
+  {
+    $relative_path = str_replace('\\','/',substr(realpath($path), strlen(SC_LOCATION)));
+    if ( !isdir($path) &&
+         !in_array(file_ext($relative_path), array('ini', 'installlog', 'log', 'old', 'txt')) )
+    {
+      // Mark all files for deletion until matched with SVN
+      $data[$relative_path] = array("revision" => null,
+                                    "error"    => "delete");
+    }
+  }
+
+  // Compare the checksums of the local files.
   foreach ($file_list as $file)
   {
     // SVN filelist contains (relative_path,md5_checksum) whilst stable contains (filename,checksum)
@@ -274,20 +289,23 @@ function check_swiss_files()
 
     if ( !empty($md5) && !file_exists(SC_LOCATION.urldecode($path)) )
     {
-      $data[] = array("filename" => urldecode($path),
-                      "revision" => $rev,
-                      "error"    => "missing");
+      $data[urldecode($path)] = array("revision" => $rev,
+                                      "error"    => "missing");
       send_to_log(5,'  Not Found: '.SC_LOCATION.urldecode($path));
     }
     elseif ( !empty($md5) && $md5 !== md5_file(SC_LOCATION.urldecode($path)) )
     {
-      $data[] = array("filename" => urldecode($path),
-                      "revision" => $rev,
-                      "error"    => "checksum");
+      $data[urldecode($path)] = array("revision" => $rev,
+                                      "error"    => "checksum");
       send_to_log(5,'  Checksum:  '.SC_LOCATION.urldecode($path));
+    }
+    else
+    {
+      unset( $data[urldecode($path)] );
     }
   }
 
+  ksort($data);
   // Write incorrect files to filelist_missing.txt
   file_put_contents(SC_LOCATION.'filelist_missing.txt',serialize($data));
 

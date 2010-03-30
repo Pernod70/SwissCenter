@@ -24,10 +24,13 @@ function isdir( $fsp )
     return false;
 }
 
-//-------------------------------------------------------------------------------------------------
-// A function to get around the limitation that some versions of PHP on linux machines only have
-// support for 32-bit integers and therefore cannot return the size of a file > 2Gb
-//-------------------------------------------------------------------------------------------------
+/**
+ * A function to get around the limitation that some versions of PHP on linux machines only have
+ * support for 32-bit integers and therefore cannot return the size of a file > 2Gb.
+ *
+ * @param string $fsp
+ * @return integer
+ */
 
 function large_filesize( $fsp )
 {
@@ -43,9 +46,11 @@ function large_filesize( $fsp )
   }
 }
 
-//-------------------------------------------------------------------------------------------------
-// Returns the correct line ending for files depending on the host OS.
-//-------------------------------------------------------------------------------------------------
+/**
+ * Returns the correct line ending for files depending on the host OS.
+ *
+ * @return string
+ */
 
 function newline()
 {
@@ -55,16 +60,21 @@ function newline()
     return "\n";
 }
 
-//-------------------------------------------------------------------------------------------------
-// Returns an array containing the names of all files and subdirectories within the specified
-// directory (returns an empty array if the specified directory does not exist or is not readable)
-//-------------------------------------------------------------------------------------------------
-
 define ('DIR_TO_ARRAY_SHOW_FILES',1);
 define ('DIR_TO_ARRAY_SHOW_DIRS', 2);
-define ('DIR_TO_ARRAY_FULL_PATH',4);
+define ('DIR_TO_ARRAY_FULL_PATH', 4);
+/**
+ * Returns an array containing the names of all files and subdirectories within the specified
+ * directory (returns an empty array if the specified directory does not exist or is not readable).
+ *
+ * @param string $dir
+ * @param string $pattern
+ * @param integer $opts
+ * @param boolean $recursive
+ * @return array
+ */
 
-function dir_to_array ($dir, $pattern = '.*', $opts = 7 )
+function dir_to_array ($dir, $pattern = '.*', $opts = 7, $recursive = false )
 {
   $dir = os_path($dir,true);
 
@@ -73,14 +83,19 @@ function dir_to_array ($dir, $pattern = '.*', $opts = 7 )
   {
     while (($file = readdir($dh)) !== false)
     {
-      if ( preg_match('/'.$pattern.'/',$file) &&
-           (  (isdir($dir.$file)  && ($opts & DIR_TO_ARRAY_SHOW_DIRS))
-           || (is_file($dir.$file) && ($opts & DIR_TO_ARRAY_SHOW_FILES)) ) )
+      // Does file/folder match pattern?
+      if ( preg_match('/'.$pattern.'/', $file) )
       {
-        if ($opts & DIR_TO_ARRAY_FULL_PATH)
-          $contents[] = os_path($dir.$file);
-        else
-          $contents[] = $file;
+        if ( (isdir($dir.$file) && ($opts & DIR_TO_ARRAY_SHOW_DIRS)) ||
+           (is_file($dir.$file) && ($opts & DIR_TO_ARRAY_SHOW_FILES)) )
+          if ($opts & DIR_TO_ARRAY_FULL_PATH)
+            $contents[] = os_path($dir.$file);
+          else
+            $contents[] = $file;
+
+        // If folder and recursive then add folder contents, excluding special folders
+        if ( $recursive && isdir($dir.$file) && !in_array($file, array('.','..','.svn')) )
+          $contents = array_merge($contents, dir_to_array($dir.$file, $pattern, $opts, $recursive));
       }
     }
     closedir($dh);
@@ -90,47 +105,56 @@ function dir_to_array ($dir, $pattern = '.*', $opts = 7 )
   return $contents;
 }
 
-//-------------------------------------------------------------------------------------------------
-// Returns the path/filename of the logfile.
-//-------------------------------------------------------------------------------------------------
+/**
+ * Returns the path/filename of the logfile.
+ *
+ * @return string
+ */
 
 function logfile_location()
 {
   return str_replace('\\','/',realpath(dirname(__FILE__).'/../log')).'/support.log';
 }
 
-//-------------------------------------------------------------------------------------------------
-// Returns the bookmark filename (for resume playing) for the given filename (DIRNAME.FILENAME)
-//-------------------------------------------------------------------------------------------------
+/**
+ * Returns the bookmark filename (for resume playing) for the given filename (DIRNAME.FILENAME).
+ *
+ * @param string $fsp
+ * @return string
+ */
 
 function bookmark_file( $fsp )
 {
-  return SC_LOCATION."config/bookmarks/".md5("/".ucfirst($fsp)).".dat";
+  return SC_LOCATION."config/Bookmarks/".strtoupper(md5("/".ucfirst($fsp))).".dat";
 }
 
-//-------------------------------------------------------------------------------------------------
-// Routine to add a message and (optionally) the contents of a variable to the swisscenter log.
-//
-// NOTE: If the logv has become more than 1Mb in size then it is archived and a new log is
-//       started. Only one generation of logs is archived (so current log and old log only)
-//
-// ERRORS
-// 1 - Information on critical errors only.
-// 2 - Information on all errors
-// 3 - Detailed information on all erorrs
-//
-// EVENTS
-// 4 - Information on important events (new mp3s, etc)
-// 5 - ALl events
-//
-// DEBUGGING INFORMATION
-// 6 - System modifications -  Files being created, system prefs, updating swisscenter, etc
-// 7 - Information sent to the hardware player
-// 8 - Maximum detail but without database related information
-//
-// EVERYTHING
-// 9 - Maximum detail, includes all SQL statements executed
-//-------------------------------------------------------------------------------------------------
+/**
+ * Routine to add a message and (optionally) the contents of a variable to the swisscenter log.
+ *
+ * NOTE: If the logv has become more than 1Mb in size then it is archived and a new log is
+ *       started. Only one generation of logs is archived (so current log and old log only)
+ *
+ * ERRORS
+ * 1 - Information on critical errors only.
+ * 2 - Information on all errors
+ * 3 - Detailed information on all erorrs
+ *
+ * EVENTS
+ * 4 - Information on important events (new mp3s, etc)
+ * 5 - ALl events
+ *
+ * DEBUGGING INFORMATION
+ * 6 - System modifications -  Files being created, system prefs, updating swisscenter, etc
+ * 7 - Information sent to the hardware player
+ * 8 - Maximum detail but without database related information
+ *
+ * EVERYTHING
+ * 9 - Maximum detail, includes all SQL statements executed
+ *
+ * @param integer $level
+ * @param string $item
+ * @param mixed $var
+ */
 
 function send_to_log($level, $item, $var = '')
 {
@@ -172,11 +196,15 @@ function send_to_log($level, $item, $var = '')
   }
 }
 
-//-------------------------------------------------------------------------------------------------
-// Returns an absolute path pointing to the file specified in $fsp.
-// - If $fsp is already an absolute path, then nothing is done.
-// - if $fsp is not an absolute path, then directory $dir is added to make one.
-//-------------------------------------------------------------------------------------------------
+/**
+ * Returns an absolute path pointing to the file specified in $fsp.
+ * - If $fsp is already an absolute path, then nothing is done.
+ * - if $fsp is not an absolute path, then directory $dir is added to make one.
+ *
+ * @param string $fsp
+ * @param string $dir
+ * @return string
+ */
 
 function make_abs_file( $fsp, $dir )
 {
@@ -196,9 +224,13 @@ function make_abs_file( $fsp, $dir )
   }
 }
 
-//-------------------------------------------------------------------------------------------------
-// Returns the file extentsion from a given filename
-//-------------------------------------------------------------------------------------------------
+/**
+ * Returns an array of paths from a delimited string.
+ *
+ * @param string $path_str
+ * @return array
+ */
+
 function paths_to_array( $path_str )
 {
   if ( substr(PHP_OS,0,3)=='WIN' )
@@ -207,18 +239,24 @@ function paths_to_array( $path_str )
     return split(':',$path_str);
 }
 
-//-------------------------------------------------------------------------------------------------
-// Returns the file extentsion from a given filename
-//-------------------------------------------------------------------------------------------------
+/**
+ * Returns the file extentsion from a given filename.
+ *
+ * @param string $filename
+ * @return string
+ */
 
 function file_ext( $filename )
 {
   return strtolower(array_pop(explode( '.' , $filename)));
 }
 
-//-------------------------------------------------------------------------------------------------
-// Returns the filename with the extentsion removed
-//-------------------------------------------------------------------------------------------------
+/**
+ * Returns the filename with the extentsion removed.
+ *
+ * @param string $filename
+ * @return string
+ */
 
 function file_noext( $filename )
 {
@@ -227,10 +265,13 @@ function file_noext( $filename )
   return basename(implode('.',$parts));
 }
 
-//-------------------------------------------------------------------------------------------------
-// If the file specified in $filename exists, then a new name is returned that is unique, but
-// with the same file extension.
-//-------------------------------------------------------------------------------------------------
+/**
+ * If the file specified in $filename exists, then a new name is returned that is unique, but
+ * with the same file extension.
+ *
+ * @param string $filename
+ * @return string
+ */
 
 function file_unique_name( $filename )
 {
@@ -249,18 +290,24 @@ function file_unique_name( $filename )
   return $filename;
 }
 
-//-------------------------------------------------------------------------------------------------
-// Returns TRUE if the given file is actually a internet address.
-//-------------------------------------------------------------------------------------------------
+/**
+ * Returns TRUE if the given file is actually a internet address.
+ *
+ * @param string $filename
+ * @return boolean
+ */
 
 function is_remote_file( $filename )
 {
   return ( strtolower(substr($filename,0,7)) == 'http://' );
 }
 
-//-------------------------------------------------------------------------------------------------
-// Returns the parent of the given directory (slash terminated, unlike the built-in "dirname").
-//-------------------------------------------------------------------------------------------------
+/**
+ * Returns the parent of the given directory (slash terminated, unlike the built-in "dirname").
+ *
+ * @param string $dirpath
+ * @return string
+ */
 
 function parent_dir( $dirpath)
 {
@@ -269,10 +316,14 @@ function parent_dir( $dirpath)
   return ( count($dirs) == 0 ? '' : implode('/',$dirs ).'/');
 }
 
-//-------------------------------------------------------------------------------------------------
-// Returns the size of a directory in bytes.
-// if $subdirs is true, then includes all subdirs in total.
-//-------------------------------------------------------------------------------------------------
+/**
+ * Returns the size of a directory in bytes.
+ * if $subdirs is true, then includes all subdirs in total.
+ *
+ * @param string $dir
+ * @param boolean $subdirs
+ * @return integer
+ */
 
 function dir_size($dir, $subdirs = false)
 {
@@ -295,13 +346,16 @@ function dir_size($dir, $subdirs = false)
    return $totalsize;
 }
 
-//-------------------------------------------------------------------------------------------------
-// Searches the given directory for the given filename (case insensitive) and if the
-// file exists then the actual case of the filename is returned. If $filename is an
-// array, then the function will search for any of the files in the array, returning
-// the first one it finds.
-//-------------------------------------------------------------------------------------------------
-
+/**
+ * Searches the given directory for the given filename (case insensitive) and if the
+ * file exists then the actual case of the filename is returned. If $filename is an
+ * array, then the function will search for any of the files in the array, returning
+ * the first one it finds.
+ *
+ * @param string $dir
+ * @param string $filename
+ * @return string
+ */
 function find_in_dir($dir, $filename)
 {
   $actual = '';
@@ -348,9 +402,13 @@ function find_in_dir_all_exts( $dir, $filename_noext )
   return $matches;
 }
 
-//-------------------------------------------------------------------------------------------------
-// Writes the contents of a string into a file
-//-------------------------------------------------------------------------------------------------
+/**
+ * Writes the contents of a string into a file.
+ *
+ * @param string $filename
+ * @param string $str
+ * @return boolean
+ */
 
 function write_binary_file($filename, $str)
 {
@@ -364,10 +422,14 @@ function write_binary_file($filename, $str)
   return $success;
 }
 
-//-------------------------------------------------------------------------------------------------
-// Writes the contents of an array which was read from a file using the file()
-// function back to a given filename.
-//-------------------------------------------------------------------------------------------------
+/**
+ * Writes the contents of an array which was read from a file using the file()
+ * function back to a given filename.
+ *
+ * @param array $array
+ * @param string $filename
+ * @return boolean
+ */
 
 function array2file( $array, $filename)
 {
@@ -382,9 +444,13 @@ function array2file( $array, $filename)
   return $success;
 }
 
-//-------------------------------------------------------------------------------------------------
-// Updates the value of the given variable/parameter in the specified ini file.
-//-------------------------------------------------------------------------------------------------
+/**
+ * Updates the value of the given variable/parameter in the specified ini file.
+ *
+ * @param string $file
+ * @param string $var
+ * @param string $value
+ */
 
 function update_ini( $file, $var, $value )
 {
@@ -415,11 +481,14 @@ function update_ini( $file, $var, $value )
     send_to_log(1,'Error writing to INI file');
 }
 
-//-------------------------------------------------------------------------------------------------
-// Returns the correct filetype image for the given file based on the file
-// extension. If there is no image within the current style, then one from the
-// default directory is used instead.
-//-------------------------------------------------------------------------------------------------
+/**
+ * Returns the correct filetype image for the given file based on the file
+ * extension. If there is no image within the current style, then one from the
+ * default directory is used instead.
+ *
+ * @param string $fsp
+ * @return string - path to image
+ */
 
 function file_icon( $fsp )
 {
@@ -442,19 +511,24 @@ function file_icon( $fsp )
     return style_img('ICON_UNKNOWN',true);
 }
 
-//-------------------------------------------------------------------------------------------------
-// Returns the correct directory image - If there is no image within the current
-// style, then one from the default directory is used instead.
-//-------------------------------------------------------------------------------------------------
+/**
+ * Returns the correct directory image - If there is no image within the current
+ * style, then one from the default directory is used instead.
+ *
+ * @return string - path to image
+ */
 
 function dir_icon()
 {
   return style_img('ICON_FOLDER',true);
 }
 
-//-------------------------------------------------------------------------------------------------
-// Deletes a directory, including all contents.
-//-------------------------------------------------------------------------------------------------
+/**
+ * Deletes a directory, including all contents.
+ *
+ * @param string $dir
+ * @return boolean
+ */
 
 function force_rmdir($dir)
 {
@@ -484,23 +558,26 @@ function force_rmdir($dir)
   return file_exists($dir);
 }
 
-//-------------------------------------------------------------------------------------------------
-// Given the path to either a folder or a file, this routine will return the full path to a
-// thumbnail file based on the following (the first matching rule is used):
-//
-// FILES
-//
-// - If the file is an image file, then it will be used
-// - If an image file with the same name (but different extension) exists, then it will be used.
-// - If an icon for the filetype exists in the current style, it will be used.
-// - If an icon for the filetype exists in the default style, it will be used.
-//
-// FOLDERS
-//
-// - If a file named as specified in the "Art Files" configuration is foumd then it will be used.
-// - If an folder icon exists in the current stlye, it will be used.
-// - If an folder icon exists in the default stlye, it will be used.
-//-------------------------------------------------------------------------------------------------
+/**
+ * Given the path to either a folder or a file, this routine will return the full path to a
+ * thumbnail file based on the following (the first matching rule is used):
+ *
+ * FILES
+ *
+ * - If the file is an image file, then it will be used
+ * - If an image file with the same name (but different extension) exists, then it will be used.
+ * - If an icon for the filetype exists in the current style, it will be used.
+ * - If an icon for the filetype exists in the default style, it will be used.
+ *
+ * FOLDERS
+ *
+ * - If a file named as specified in the "Art Files" configuration is foumd then it will be used.
+ * - If an folder icon exists in the current stlye, it will be used.
+ * - If an folder icon exists in the default stlye, it will be used.
+ *
+ * @param string $fsp
+ * @return string
+ */
 
 function file_thumbnail( $fsp )
 {
@@ -699,6 +776,9 @@ function os_path( $dir, $addslash=false )
 
 /**
  * Alias for os_path()
+ *
+ * @param string $dir
+ * @return string
  */
 
 function normalize_path( $dir )
@@ -730,6 +810,8 @@ function wget_location()
 {
   if (is_windows())
     return os_path(SC_LOCATION.'ext/wget/wget.exe');
+  elseif (is_synology())
+    return trim(exec("which wget | grep '^/' | head -1"));
   else
     return trim(shell_exec("which wget | grep '^/' | head -1"));
 }
