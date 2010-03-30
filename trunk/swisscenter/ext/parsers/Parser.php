@@ -205,14 +205,14 @@ abstract class Parser
     $searchList[$index]["title"] = $title;
     $searchList[$index]["year"] = ($movie_year != false) ? $movie_year : null;
 
-    if ($consider_foldername) {
+    if ($use_foldersearch) {
       $searchList[++ $index]["title"] = $moviefolder_name;
       $searchList[$index]["year"] = ($movie_year != false) ? $movie_year : null;
     }
     if ($movie_year = !false) {
       $searchList[++ $index]["title"] = $title;
       $searchList[$index]["year"] = null;
-      if ($consider_foldername) {
+      if ($use_foldersearch) {
         $searchList[++ $index]["title"] = $moviefolder_name;
         $searchList[$index]["year"] = null;
       }

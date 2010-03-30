@@ -21,6 +21,7 @@ class wwwMOVIEMETERnl extends Parser implements ParserInterface {
 
   public $supportedProperties = array (
     IMDBTT,
+    TITLE,
     ACTORS,
     DIRECTORS,
     GENRES,
@@ -64,10 +65,10 @@ class wwwMOVIEMETERnl extends Parser implements ParserInterface {
     }
 
     // Change the word order
-    if ( substr($this->title,0,4)=='The ' ) $this->title = substr($this->title,5).', The';
-    if ( substr($this->title,0,4)=='Der ' ) $this->title = substr($this->title,5).', Der';
-    if ( substr($this->title,0,4)=='Die ' ) $this->title = substr($this->title,5).', Die';
-    if ( substr($this->title,0,4)=='Das ' ) $this->title = substr($this->title,5).', Das';
+    if ( substr($this->title,0,4)=='The ' ) $this->title = substr($this->title,4).', The';
+    if ( substr($this->title,0,4)=='Der ' ) $this->title = substr($this->title,4).', Der';
+    if ( substr($this->title,0,4)=='Die ' ) $this->title = substr($this->title,4).', Die';
+    if ( substr($this->title,0,4)=='Das ' ) $this->title = substr($this->title,4).', Das';
 
     // Get search results
     send_to_log(4,"Searching for details about ".$this->title." online at '$this->site_url'");
@@ -131,6 +132,14 @@ class wwwMOVIEMETERnl extends Parser implements ParserInterface {
     if (isset($imdbtt) && !empty($imdbtt)) {
       $this->setProperty(IMDBTT, 'tt'.$imdbtt);
       return 'tt'.$imdbtt;
+    }
+  }
+  protected function parseTitle() {
+    $results = $this->page;
+    $title = $results["title"];
+    if (isset($title)&& !empty($title)) {
+      $this->setProperty(TITLE, $title);
+      return $title;
     }
   }
   protected function parseSynopsis() {
