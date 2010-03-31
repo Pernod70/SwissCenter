@@ -263,8 +263,8 @@ function check_swiss_files()
   // Checks may take a while so disable timeout
   set_time_limit(0);
 
-  // Create array of all local files (excluding Bookmarks, styles, and fanart folders)
-  $local = dir_to_array(SC_LOCATION, '^(?!Bookmarks|fanart|styles)', 5, true);
+  // Create array of all local files (excluding Bookmarks, cache, styles, and fanart folders)
+  $local = dir_to_array(SC_LOCATION, '^(?!Bookmarks|cache|fanart|styles|Thumbs.db)', 5, true);
 
   $data = array();
   foreach ($local as $path)
