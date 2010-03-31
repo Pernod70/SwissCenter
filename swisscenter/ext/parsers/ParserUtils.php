@@ -80,7 +80,7 @@ class parserUtil
       if ($title_numbers != "") {
 
         $year_numbers = ereg_replace("[^0-9]", "", $year);
-        $number_alias = self :: get_number_alias($number_in_title);
+        $number_alias = self :: get_number_roman($number_in_title);
         send_to_log(8, "This title contains numbers..");
         send_to_log(8, "number alias: " . $number_alias);
         $found = false;
