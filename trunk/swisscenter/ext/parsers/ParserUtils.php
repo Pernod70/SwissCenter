@@ -85,7 +85,7 @@ class parserUtil
         send_to_log(8, "number alias: " . $number_alias);
         $found = false;
         foreach ($match_array AS $key => $secondary_array) {
-          $title_number_from_alias = self :: get_number_from_number_alias_in_title($secondary_array["name"]);
+          $title_number_from_alias = self :: get_number_from_roman_in_title($secondary_array["name"]);
           send_to_log(8, "comparing numbers... ");
           if (($secondary_array["numbers"] != "" && false !== strpos($title_numbers, $secondary_array["numbers"])) || ($number_alias != false && $title_number_from_alias != false && false !== strpos($secondary_array["name"], $number_alias) && $title_number_from_alias == $number_in_title)) {
             send_to_log(6, "found a match that contains the number(s), will use this: " . $secondary_array["name"]);
