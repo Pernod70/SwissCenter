@@ -27,6 +27,7 @@ define("MATCH_PC", "MATCH_PC");
 abstract class ParserConstants {
 
   public static $allMovieConstants = array (
+    array('ID'=>'IMDBTT',             'TEXT'=>'IMDBTT',           'DEFAULT'=>'wwwIMDBcom'),
     array('ID'=>'TITLE',              'TEXT'=>'TITLE',            'DEFAULT'=>'wwwIMDBcom'),
     array('ID'=>'SYNOPSIS',           'TEXT'=>'SYNOPSIS',         'DEFAULT'=>'wwwIMDBcom'),
     array('ID'=>'YEAR',               'TEXT'=>'YEAR',             'DEFAULT'=>'wwwIMDBcom'),
@@ -38,11 +39,11 @@ abstract class ParserConstants {
     array('ID'=>'EXTERNAL_RATING_PC', 'TEXT'=>'RATING',           'DEFAULT'=>'wwwIMDBcom'),
     array('ID'=>'TRAILER',            'TEXT'=>'TRAILER_LOCATION', 'DEFAULT'=>'wwwTHEMOVIEDBorg'),
     array('ID'=>'POSTER',             'TEXT'=>'POSTER',           'DEFAULT'=>'wwwTHEMOVIEDBorg'),
-    array('ID'=>'FANART',             'TEXT'=>'FANART',           'DEFAULT'=>'wwwTHEMOVIEDBorg'),
-    array('ID'=>'IMDBTT',             'TEXT'=>'IMDBTT',           'DEFAULT'=>'wwwIMDBcom')
+    array('ID'=>'FANART',             'TEXT'=>'FANART',           'DEFAULT'=>'wwwTHEMOVIEDBorg')
   );
 
   public static $allTvConstants = array (
+    array('ID'=>'IMDBTT',             'TEXT'=>'IMDBTT',           'DEFAULT'=>'wwwTHETVDBcom'),
     array('ID'=>'PROGRAMME',          'TEXT'=>'PROGRAMME',        'DEFAULT'=>'wwwTHETVDBcom'),
     array('ID'=>'SERIES',             'TEXT'=>'SERIES',           'DEFAULT'=>'wwwTHETVDBcom'),
     array('ID'=>'EPISODE',            'TEXT'=>'EPISODE',          'DEFAULT'=>'wwwTHETVDBcom'),
@@ -57,8 +58,7 @@ abstract class ParserConstants {
     array('ID'=>'EXTERNAL_RATING_PC', 'TEXT'=>'RATING',           'DEFAULT'=>'wwwTHETVDBcom'),
     array('ID'=>'POSTER',             'TEXT'=>'POSTER',           'DEFAULT'=>'wwwTHETVDBcom'),
     array('ID'=>'FANART',             'TEXT'=>'FANART',           'DEFAULT'=>'wwwTHETVDBcom'),
-    array('ID'=>'BANNERS',            'TEXT'=>'BANNERS',          'DEFAULT'=>'wwwTHETVDBcom'),
-    array('ID'=>'IMDBTT',             'TEXT'=>'IMDBTT',           'DEFAULT'=>'wwwTHETVDBcom')
+    array('ID'=>'BANNERS',            'TEXT'=>'BANNERS',          'DEFAULT'=>'wwwTHETVDBcom')
   );
 }
 ?>
