@@ -17,15 +17,18 @@ function redirect_to_browse( $media_type )
   {
     case 'ADDED':
       filter_set(str('RECENTLY_ADDED'), " and media.discovered > ('".db_datestr()."' - interval $num_days day)" );
+      $sort = 'discovered';
       break;
 
     case 'CREATED':
       filter_set(str('RECENTLY_CREATED'), " and media.timestamp > ('".db_datestr()."' - interval $num_days day)" );
+      $sort = 'timestamp';
       break;
 
     case 'ADDED_OR_CREATED':
       filter_set(str('RECENTLY_ADDED_OR_CREATED'), " and (media.discovered > ('".db_datestr()."' - interval $num_days day) or ".
                                                         " media.timestamp > ('".db_datestr()."' - interval $num_days day))" );
+      $sort = ($media_type == MEDIA_TYPE_MUSIC ? 'album' : 'title');
       break;
   }
 
@@ -33,16 +36,16 @@ function redirect_to_browse( $media_type )
   switch ($media_type)
   {
     case MEDIA_TYPE_VIDEO:
-      header("Location: /video_search.php?sort=title");
+      header("Location: /video_search.php?sort=$sort");
       break;
     case MEDIA_TYPE_TV:
-      header("Location: /music_search.php?sort=album");
+      header("Location: /tv.php");
       break;
     case MEDIA_TYPE_MUSIC:
-      header("Location: /music_search.php?sort=album");
+      header("Location: /music_search.php?sort=$sort");
       break;
     case MEDIA_TYPE_PHOTO:
-      header("Location: /photo_search.php?sort=title");
+      header("Location: /photo_search.php?sort=$sort");
       break;
   }
 }
@@ -53,10 +56,10 @@ function show_menu()
 
   echo '<p>';
   $menu = new menu();
-  $menu->add_item( str('RECENT_VIDEO') ,"recent.php?type=".MEDIA_TYPE_VIDEO,true);
-//  $menu->add_item( str('RECENT_TV')    ,"recent.php?type=".MEDIA_TYPE_TV,true);
-  $menu->add_item( str('RECENT_MUSIC') ,"recent.php?type=".MEDIA_TYPE_MUSIC,true);
-  $menu->add_item( str('RECENT_PHOTO') ,"recent.php?type=".MEDIA_TYPE_PHOTO,true);
+  $menu->add_item( str('VIDEOS')   ,"recent.php?type=".MEDIA_TYPE_VIDEO,true);
+  $menu->add_item( str('TVSERIES') ,"recent.php?type=".MEDIA_TYPE_TV,true);
+  $menu->add_item( str('MUSIC')    ,"recent.php?type=".MEDIA_TYPE_MUSIC,true);
+  $menu->add_item( str('PHOTOS')   ,"recent.php?type=".MEDIA_TYPE_PHOTO,true);
   $menu->display(1, style_value("MENU_RECENT_WIDTH"), style_value("MENU_RECENT_ALIGN"));
   page_footer('index.php', $buttons);
 }

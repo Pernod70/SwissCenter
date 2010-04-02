@@ -843,6 +843,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>DELETE</id>
+        <text>Not required</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>DELETE_MEDIA</id>
         <text>Delete Media</text>
         <version>1.19</version>
@@ -914,12 +919,12 @@
       </string>
       <string>
         <id>EP_NEXT</id>
-        <text>Next Episode</text>
-        <version>1.20.1</version>
+        <text>Next: Episode %s</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>EP_PREV</id>
-        <text>Previous Episode</text>
+        <text>Previous: Episode %s</text>
         <version>1.22</version>
       </string>
       <string>
