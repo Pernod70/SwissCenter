@@ -56,6 +56,7 @@ class tv_series_picker extends list_picker
              where trim_article(programme,'$articles') like '".db_escape_str($search_string)."'
                    ".get_rating_filter()."
                    ".category_select_sql($_REQUEST["cat"], MEDIA_TYPE_TV)."
+                   ".filter_get_predicate()."
             having ".viewed_status_predicate( filter_get_name() )."
           order by trim_article(programme,'$articles') limit $start,$end";
 
@@ -70,6 +71,7 @@ class tv_series_picker extends list_picker
              where trim_article(programme,'$articles') like '".db_escape_str($search_string)."'
                    ".get_rating_filter()."
                    ".category_select_sql($_REQUEST["cat"], MEDIA_TYPE_TV)."
+                   ".filter_get_predicate()."
             having ".viewed_status_predicate( filter_get_name() );
 
     return db_value($sql);
@@ -83,6 +85,7 @@ class tv_series_picker extends list_picker
               where trim_article(programme,'$articles') like '".db_escape_str($search_string)."'
                    ".get_rating_filter()."
                    ".category_select_sql($_REQUEST["cat"], MEDIA_TYPE_TV)."
+                   ".filter_get_predicate()."
             having ".viewed_status_predicate( filter_get_name() )."
            order by 1";
 

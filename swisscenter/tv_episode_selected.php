@@ -10,6 +10,7 @@
   require_once( realpath(dirname(__FILE__).'/base/playlist.php'));
   require_once( realpath(dirname(__FILE__).'/base/rating.php'));
   require_once( realpath(dirname(__FILE__).'/base/search.php'));
+  require_once( realpath(dirname(__FILE__).'/base/filter.php'));
 
   $menu = new menu();
 
@@ -146,17 +147,17 @@
   }
 
   // Buttons for Next and Previous episodes
-  $prev = db_value("select file_id from tv media ".get_rating_join()." where programme = '".db_escape_str($data[0]["PROGRAMME"])."'".
-                  (is_null($data[0]["SERIES"]) ? "" : " and series = ".$data[0]["SERIES"]).get_rating_filter().
-                  " and episode < ".$data[0]["EPISODE"]." order by episode desc limit 1");
-  $next = db_value("select file_id from tv media ".get_rating_join()." where programme = '".db_escape_str($data[0]["PROGRAMME"])."'".
-                  (is_null($data[0]["SERIES"]) ? "" : " and series = ".$data[0]["SERIES"]).get_rating_filter().
-                  " and episode > ".$data[0]["EPISODE"]." order by episode asc limit 1");
+  $prev = db_row("select file_id, series, episode from tv media ".get_rating_join()." where programme = '".db_escape_str($data[0]["PROGRAMME"])."'".
+                 " and concat(lpad(series,2,0),lpad(episode,3,0)) < concat(lpad(".$data[0]["SERIES"].',2,0),lpad('.$data[0]["EPISODE"].',3,0)) '.get_rating_filter().filter_get_predicate().
+                 " order by series desc,episode desc limit 1");
+  $next = db_row("select file_id, series, episode from tv media ".get_rating_join()." where programme = '".db_escape_str($data[0]["PROGRAMME"])."'".
+                 " and concat(lpad(series,2,0),lpad(episode,3,0)) > concat(lpad(".$data[0]["SERIES"].',2,0),lpad('.$data[0]["EPISODE"].',3,0)) '.get_rating_filter().filter_get_predicate().
+                 " order by series asc, episode asc limit 1");
   $buttons = array();
-  if ( is_numeric($prev) )
-    $buttons[] = array('text'=>str('EP_PREV'), 'url'=> url_add_params('/tv_episode_selected.php', array("file_id"=>$prev, "add"=>"Y", "del"=>"Y")) );
-  if ( is_numeric($next) )
-    $buttons[] = array('text'=>str('EP_NEXT'), 'url'=> url_add_params('/tv_episode_selected.php', array("file_id"=>$next, "add"=>"Y", "del"=>"Y")) );
+  if ( is_array($prev) )
+    $buttons[] = array('text'=>str('EP_PREV', $prev["SERIES"].'x'.$prev["EPISODE"]), 'url'=> url_add_params('/tv_episode_selected.php', array("file_id"=>$prev["FILE_ID"], "add"=>"Y", "del"=>"Y")) );
+  if ( is_array($next) )
+    $buttons[] = array('text'=>str('EP_NEXT', $next["SERIES"].'x'.$next["EPISODE"]), 'url'=> url_add_params('/tv_episode_selected.php', array("file_id"=>$next["FILE_ID"], "add"=>"Y", "del"=>"Y")) );
 
   page_footer( url_add_param( $back_url["url"] ,'del','y'), $buttons );
 

@@ -8,12 +8,13 @@
   require_once( realpath(dirname(__FILE__).'/base/rating.php'));
   require_once( realpath(dirname(__FILE__).'/base/search.php'));
   require_once( realpath(dirname(__FILE__).'/base/categories.php'));
+  require_once( realpath(dirname(__FILE__).'/base/filter.php'));
 
   $menu           = new menu();
   $programme      = un_magic_quote($_REQUEST["programme"]);
   $view_status    = $_REQUEST["view_status"];
   $page           = nvl($_REQUEST["page"],1);
-  $predicate      = get_rating_filter().category_select_sql($_REQUEST["cat"], MEDIA_TYPE_TV);
+  $predicate      = get_rating_filter().category_select_sql($_REQUEST["cat"], MEDIA_TYPE_TV).filter_get_predicate();
 
   if (isset($_REQUEST["shuffle"]))
   {
@@ -93,7 +94,8 @@
   foreach ($episodes as $ep)
   {
     $viewed = viewed_icon(viewings_count( MEDIA_TYPE_TV, $ep["FILE_ID"]));
-    $menu->add_item( "$ep[TITLE] ".(empty($ep["EPISODE"]) ? '' : str('EPISODE_SUFFIX',$ep["EPISODE"])), url_add_params('/tv_episode_selected.php', array("file_id"=>$ep["FILE_ID"],"add"=>"Y")), false, $viewed);
+    $episode_info = (empty($ep["EPISODE"]) && empty($ep["SERIES"])) ? '' : $ep["SERIES"].'x'.$ep["EPISODE"];
+    $menu->add_info_item( $ep[TITLE], $episode_info, url_add_params('/tv_episode_selected.php', array("file_id"=>$ep["FILE_ID"],"add"=>"Y")), false, $viewed);
   }
 
   if ($menu->num_items() > 0)
