@@ -14,7 +14,10 @@ $path_to_classes = dir_to_array( realpath(dirname(__FILE__).'/tv/'), '.*\.php' )
 $files = array();
 foreach ($path_to_classes as $file)
 {
-  $files[] = "$file";
-  require_once( "$file" );
+  if ( is_parser($file) )
+  {
+    $files[] = "$file";
+    require_once( "$file" );
+  }
 }
 ?>

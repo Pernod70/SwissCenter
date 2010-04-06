@@ -3,8 +3,8 @@
    SWISScenter Source
  *************************************************************************************************/
 
-require_once( realpath(dirname(__FILE__).'/include_tv_parsers.php'));
 require_once( realpath(dirname(__FILE__).'/get_parsers_list.php'));
+require_once( realpath(dirname(__FILE__).'/include_tv_parsers.php'));
 
 function ParserTvLookup($tv_id, $filename, $search_params) {
   $retrycount = get_sys_pref('tv_parser_retry_count', 1);
