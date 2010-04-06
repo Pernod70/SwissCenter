@@ -3,8 +3,8 @@
    SWISScenter Source
  *************************************************************************************************/
 
-require_once( realpath(dirname(__FILE__).'/include_movie_parsers.php'));
 require_once( realpath(dirname(__FILE__).'/get_parsers_list.php'));
+require_once( realpath(dirname(__FILE__).'/include_movie_parsers.php'));
 
 function ParserMovieLookup($movie_id, $filename, $search_params) {
   $use_smartsearch  = get_sys_pref('use_smartsearch', 'YES') == 'YES';
