@@ -173,6 +173,11 @@
         <version>1.20</version>
       </string>
       <string>
+        <id>BANNERS</id>
+        <text>Banner</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>BOOKMARKS</id>
         <text>Lesezeichen</text>
         <version>1.19</version>
@@ -945,12 +950,12 @@ Dieses Format wird von MySQL und Spezifikationssymbolen definiert. Diese sind:
       </string>
       <string>
         <id>EP_NEXT</id>
-        <text>Nächste Folge</text>
+        <text>Nächste Folge: %s</text>
         <version>1.21.1</version>
       </string>
       <string>
         <id>EP_PREV</id>
-        <text>Vorherige Folge</text>
+        <text>Vorherige Folge: %s</text>
         <version>1.21.1</version>
       </string>
       <string>
@@ -1134,6 +1139,11 @@ Dieses Format wird von MySQL und Spezifikationssymbolen definiert. Diese sind:
         <version>1.21.1</version>
       </string>
       <string>
+        <id>EXTENSION</id>
+        <text>Erweiterung</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>EXTRAS_TEST_TITLE</id>
         <text>Zusätzliche Komponenten</text>
         <version>1.19</version>
@@ -1303,6 +1313,11 @@ in eine XML-Datei</text>
         <id>FAIL_SWISS_PLAYLIST</id>
         <text>Schreiben in den SwissCenter Playlist-Ordner (%s) fehlgeschlagen.</text>
         <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FANART</id>
+        <text>Fanart</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>FAVORITES</id>
@@ -1507,6 +1522,46 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>IGNORED_EXTENSIONS</id>
+        <text>ignorierte Erweiterungen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_ADDED_OK</id>
+        <text>Erweiterung hinzugefügt. Der Service muss neu gestartet werden, damit Änderungen wirksam werden.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_ADD_BUTTON</id>
+        <text>Erweiterung hinzufügen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_ADD_TITLE</id>
+        <text>Erweiterung hinzufügen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_DELETE_OK</id>
+        <text>Die ausgewählten Erweiterungen wurden entfernt. Der Service muss neu gestartet werden, damit Änderungen wirksam werden.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_DEL_BUTTON</id>
+        <text>Ausgewählte Erweiterungen entfernen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_ERROR</id>
+        <text>Bitte eine Erweiterung auswählen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_PROMPT</id>
+        <text>Eine Erweiterung auswählen, die von SwissMonitor ignoriert wird.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IMAGE_EXIF_ROTATE</id>
         <text>Automatisch drehen</text>
         <version>1.19</version>
@@ -1565,6 +1620,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>IMAGE_TRANS_PROMPT</id>
         <text>Übergangseffekte für Diashows. Diese Effekte können sich bei verschiedenen Media-Playern unterschiedlich auswirken und manche unterstützen sie gar nicht.</text>
         <version>1.20</version>
+      </string>
+      <string>
+        <id>IMDBTT</id>
+        <text>IMDb ID</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>IMPEXP_TITLE</id>
@@ -2282,6 +2342,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>LOOKUP_SUCCESS_MISSING</id>
+        <text>Parser-Suche erfolgreich, aber es fehl(en)t: %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>LOOKUP_TV</id>
         <text>Nach Folge suchen</text>
         <version>1.19</version>
@@ -2837,6 +2902,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.22</version>
       </string>
       <string>
+        <id>MOVIE_PARSER_SMARTSEARCH</id>
+        <text>Smart Suche verwenden</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>MOVIE_UPD_TEXT</id>
         <text>Die folgenden Filme werden aktualisiert</text>
         <version>1.19</version>
@@ -3140,6 +3210,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>PAGE</id>
         <text>Seite %s</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PARSER_RETRIES</id>
+        <text>Parser Wiederholungen</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PASSWORD</id>
@@ -3767,6 +3842,11 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
         <id>PLEASE_SELECT</id>
         <text>Bitte wählen Sie</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>POSTER</id>
+        <text>Poster</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PRESS_KEY_NOW</id>
@@ -4459,6 +4539,11 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
         <version>1.22</version>
       </string>
       <string>
+        <id>SERVICE_RESTART</id>
+        <text>Service Neustart</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SERVICE_START</id>
         <text>Starte Service</text>
         <version>1.22</version>
@@ -4754,8 +4839,48 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
         <version>1.22</version>
       </string>
       <string>
+        <id>SWISSMONITOR_CONFIG</id>
+        <text>SwissMonitor Konfiguration</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_CONFIG_OK</id>
+        <text>SwissMonitor Konfiguration geändert. Der Service muss neu gestartet werden, damit Änderungen wirksam werden.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SWISSMONITOR_DESCRIPTION</id>
         <text>Der SwissMonitor ist ein einfacher Windows-Dienst, der Ihre voreingestellten Medien-Verzeichnisse nach Änderungen durchsucht (inklusive neuer oder gelöschter Dateien). Diese werden dann an SwissCenter gemeldet, damit die Datenbank adäquat aktualisiert werden kann. Dennoch ersetzt dies nicht gänzlich die &quot;Automatische Medienaktualisierung&quot;, da es auch Konstellationen gibt, die nicht alle Änderungen ermitteln können. [p][b]Bitte beachten:[/b] Wenn Sie UNC Pfade in Ihren Medien-Verzeichnissen benutzen, (z.B. &quot;\\nas\movies\&quot;) müssen Sie zum Ändern der SwissMonitor-Services die Systemsteuerung(Dienste) Ihres eigenen Benutzerkontos benutzen.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_INI</id>
+        <text>Speicherort der swisscenter.ini</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_INI_NOT_EXIST</id>
+        <text>Der angegebene Dateirpfad der swisscenter.ini existiert nicht!</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_INI_PROMPT</id>
+        <text>SwissMonitor benötigt Datenbankzugriff-Details, um die Speicherorte Ihrer Multimedia Daten herauszufinden. Diese Details werden aus der swisscenter.ini gelesen, welche im Pfad [b]C:\Users\All Users\Simese\Data\config\swisscenter.ini[/b] vorhanden sein sollte. Dieser Pfad sollte nur dann in Ihrer swisscenter.ini geändert werden, wenn diese an einem anderen Ort gespeichert sein sollte. (z.B. wenn Sie Apache benutzen).</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_PORT</id>
+        <text>SwissCenter Port</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_PORT_INVALID</id>
+        <text>Der SwissCenter Port ist ungültig</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_PORT_PROMPT</id>
+        <text>SwissMonitor benötigt den benutzen Port um dies dem SwissCenter zu melden. Diese Information wird aus der Simese.ini gelesen, welche im Pfad [b]C:\Users\All Users\Simese\Simese.ini[/b] vorhanden sein sollte. Wenn diese Datei nicht existiert, wird der Standard Port [b]8080[/b] angenommen, es sei denn er wird hier angegeben.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4797,6 +4922,11 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
         <id>TASK_SCHEDULER</id>
         <text>Aufgabenplanung</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>TEST_PARSERS</id>
+        <text>Parser Tests</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>THEMES</id>
@@ -5522,6 +5652,11 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
         <id>VALUE</id>
         <text>Wert</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>VERIFY_FILES</id>
+        <text>Datei-Überprüfung</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>VIDEO</id>
