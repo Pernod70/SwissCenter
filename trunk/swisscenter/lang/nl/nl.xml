@@ -173,6 +173,11 @@
         <version>1.21.1</version>
       </string>
       <string>
+        <id>BANNERS</id>
+        <text>Banners</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>BOOKMARKS</id>
         <text>Favorieten</text>
         <version>1.21.1</version>
@@ -568,6 +573,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>CHECKSUM</id>
+        <text>Checksom error</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>CLEAR_NAME</id>
         <text>Wis naam</text>
         <version>1.19</version>
@@ -664,8 +674,8 @@
       </string>
       <string>
         <id>CONFIG_SHOUTCAST_TITLE</id>
-        <text>Shoutcast opties</text>
-        <version>1.19</version>
+        <text>SHOUTcast opties</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>CONFIG_SWISSMONITOR</id>
@@ -689,8 +699,8 @@
       </string>
       <string>
         <id>CONNECT_TEXT</id>
-        <text>Een aantal SwissCenter functies maakt gebruik van een internet connectie om informatie op te halen (bv: weersvoorspellingen) of om periodiek naar informatie te zoeken (bv: nieuwe software versies).</text>
-        <version>1.21.1</version>
+        <text>Een aantal SwissCenter functies maakt gebruik van een internetverbinding om informatie op te halen (bv: weersvoorspellingen) of om periodiek naar informatie te zoeken (bv: nieuwe software versies).</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>CONNECT_TITLE</id>
@@ -858,6 +868,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>DELETE</id>
+        <text>Niet vereist</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>DELETE_MEDIA</id>
         <text>Verwijder media</text>
         <version>1.19</version>
@@ -919,22 +934,22 @@
       </string>
       <string>
         <id>EPISODE</id>
-        <text>Episode</text>
+        <text>Aflevering</text>
         <version>1.19</version>
       </string>
       <string>
         <id>EPISODE_SUFFIX</id>
-        <text>(Episode %s)</text>
+        <text>(Aflevering %s)</text>
         <version>1.19</version>
       </string>
       <string>
         <id>EP_NEXT</id>
-        <text>Volgende episode</text>
+        <text>Volgende Aflevering: %s</text>
         <version>1.21</version>
       </string>
       <string>
         <id>EP_PREV</id>
-        <text>Vorige episode</text>
+        <text>Vorige Aflevering: %s</text>
         <version>1.21</version>
       </string>
       <string>
@@ -1118,6 +1133,11 @@
         <version>1.21</version>
       </string>
       <string>
+        <id>EXTENSION</id>
+        <text>Extensie</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>EXTRAS_TEST_TITLE</id>
         <text>Additionele componenten</text>
         <version>1.19</version>
@@ -1165,6 +1185,11 @@
       <string>
         <id>FAIL_DOTNET2_INSTALLED</id>
         <text>.NET framework 2 moet geïnstalleerd worden.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_LIVE365_TEST</id>
+        <text>Live365 parser lijkt defect</text>
         <version>1.22</version>
       </string>
       <string>
@@ -1239,8 +1264,8 @@
       </string>
       <string>
         <id>FAIL_SHOUTCAST_TEST</id>
-        <text>ShoutCast-ontleder lijkt niet functioneel</text>
-        <version>1.19</version>
+        <text>SHOUTcast parser lijkt defect</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>FAIL_SWISSMONITOR_INSTALLED</id>
@@ -1256,6 +1281,11 @@
         <id>FAIL_SWISS_CACHE</id>
         <text>SwissCenter kan de buffer directory niet benaderen (%s).</text>
         <version>1.21</version>
+      </string>
+      <string>
+        <id>FAIL_SWISS_FILES</id>
+        <text>De volgende installatiebestanden missen of bevatten fouten. Klik op elk bestand om te downloaden, en kopieer ze vervolgens naar de juiste locatie.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>FAIL_SWISS_INI</id>
@@ -1276,6 +1306,11 @@
         <id>FAIL_SWISS_PLAYLIST</id>
         <text>SwissCenter kan de afspeellijsten directory niet benaderen (%s).</text>
         <version>1.21</version>
+      </string>
+      <string>
+        <id>FANART</id>
+        <text>Fanart</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>FAVORITES</id>
@@ -1314,7 +1349,7 @@
       </string>
       <string>
         <id>FILTER_MISSING_EPISODE</id>
-        <text>Geen episode</text>
+        <text>Geen aflevering</text>
         <version>1.22</version>
       </string>
       <string>
@@ -1479,6 +1514,46 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IGNORED_EXTENSIONS</id>
+        <text>Negeerde Extensies</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_ADDED_OK</id>
+        <text>Extensie toegevoegd. De service moet herstart worden om de wijziging(en) actief te maken.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_ADD_BUTTON</id>
+        <text>Voeg extensie toe</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_ADD_TITLE</id>
+        <text>Voeg een extensie toe</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_DELETE_OK</id>
+        <text>De geselecteerde extensies zijn verwijderd. De service moet herstart worden om de wijziging(en) actief te maken.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_DEL_BUTTON</id>
+        <text>Verwijder geselecteerde extensies</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_ERROR</id>
+        <text>Voer een extensie in</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_PROMPT</id>
+        <text>Geef de bestandsextensies die door SwissMonitor genegeerd moeten worden.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IMAGE_EXIF_ROTATE</id>
         <text>Automatisch roteren</text>
         <version>1.19</version>
@@ -1537,6 +1612,11 @@
         <id>IMAGE_TRANS_PROMPT</id>
         <text>Beschikbare overgangseffecten voor diavoorstellingen. De effecten kunnen - afhankelijk van uw speler - van elkaar afwijken. Ook kan het voorkomen dat uw speler de sommige overgangseffecten niet ondersteunt.</text>
         <version>1.20.1</version>
+      </string>
+      <string>
+        <id>IMDBTT</id>
+        <text>IMDb ID</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>IMPEXP_TITLE</id>
@@ -1760,8 +1840,8 @@
       </string>
       <string>
         <id>IRADIO_COUNTRY_PROMPT</id>
-        <text>Specificeer een land waarop u wilt zoeken. Alleen %s ondersteunt zoeken op land; u kunt toepasbare landen vinden op de webpagina. In geval van ShoutCast wordt gezocht op namen van radiostations waarin het land voorkomt.</text>
-        <version>1.21.1</version>
+        <text>Specificeer een land waarop u wilt zoeken. Alleen %s ondersteunt zoeken op land; u kunt toepasbare landen vinden op de webpagina. In geval van SHOUTcast wordt gezocht op namen van radiostations waarin het land voorkomt.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>IRADIO_COUNTRY_SELECT</id>
@@ -1819,9 +1899,24 @@
         <version>1.21.1</version>
       </string>
       <string>
+        <id>IRADIO_LIVE365</id>
+        <text>Live365</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_LIVE365_DESC</id>
+        <text>Live365 (%s) is een radionetwerk met miljoenen luisteraars over de gehele wereld. Live365 biedt een grotere breedte en diepte van hoge kwaliteit streaming muziek, gesprekken, en audio dan enig ander netwerk. Met 260+ genres van muziek, geproduceerd door 5.000+ omroepen en muziek Smaakmakers uit meer dan 150 landen, het netwerk heeft een rooster van kunstenaars en producenten van radio-, variërend van de Atlanta Symphony, Pat Metheny, David Navarro en Carlos Santana, de commerciële en publieke radio stations, dj's die aan individuele programma stations in elke muzikale stijl.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_LIVERADIO</id>
+        <text>Live Radio</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IRADIO_LIVERADIO_DESC</id>
-        <text>LiveRadio (%s) is een internet radio-dienst, gelijkwaardig aan ShoutCast. Het biedt de mogelijkheid te zoeken op mediatype, genre, station, land en zelfs stad - maar veel van de weergegeven stations worden niet ondersteund door sommige hardwarespelers. Om deze reden beperkt de LiveRadio-ontleder in SwissCenter de resultaten tot MP3-stations.</text>
-        <version>1.20</version>
+        <text>LiveRadio (%s) is een internet radio-dienst, gelijkwaardig aan SHOUTcast. Het biedt de mogelijkheid te zoeken op mediatype, genre, station, land en zelfs stad - maar veel van de weergegeven stations worden niet ondersteund door sommige hardwarespelers. Om deze reden beperkt de LiveRadio parser in SwissCenter de resultaten tot MP3-stations.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>IRADIO_LOGO</id>
@@ -1865,8 +1960,8 @@
       </string>
       <string>
         <id>IRADIO_PARAM_PROMPT</id>
-        <text>De toepassingen ShoutCast en Live-Radio bieden de mogelijkheid om radiokanalen te zoeken op basis van station, genre of land. Hier kunt u uw favoriete zoekcriteria vastleggen.</text>
-        <version>1.21.1</version>
+        <text>De toepassingen SHOUTcast en Live-Radio bieden de mogelijkheid om radiokanalen te zoeken op basis van station, genre of land. Hier kunt u uw favoriete zoekcriteria vastleggen.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>IRADIO_PARAM_TYPE</id>
@@ -1879,9 +1974,14 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_SHOUTCAST</id>
+        <text>SHOUTcast</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IRADIO_SHOUTCAST_DESC</id>
-        <text>ShoutCast (%s) is een radiodienst op het internet die radiostromen aanbiedt, afspeelbaar op de meeste streamingtoestellen. Deze functie biedt de mogelijkheid te zoeken op genre of station, en geeft details voor alle gevonden stations, inclusief een URL voor de afspeellijst. De Shoutcast-ontleder in SwissCenter ontleedt de HTML van de ontvangen pagina, en toont de resultaten in een op TV-schermen leesbaar resultaat. De functie kan echter mislukken wanneer de paginastructuur door het ShoutCast-personeel gewijzigd wordt.[p]Soms geeft ShoutCast geen resultaten voor een zoekpoging. Ververs in dat geval de pagina, om uit te sluiten dat dit de oorzaak van het probleem is.</text>
-        <version>1.20</version>
+        <text>SHOUTcast (%s) is een radiodienst op het internet die radiostromen aanbiedt, afspeelbaar op de meeste streamingapparaten. Deze functie biedt de mogelijkheid te zoeken op genre of station, en geeft details voor alle gevonden stations, inclusief een URL voor de afspeellijst. De SHOUTcast parser in SwissCenter ontleedt de HTML van de ontvangen pagina, en toont de resultaten in een op TV-schermen leesbaar resultaat. De functie kan echter mislukken wanneer de paginastructuur door het SHOUTcast-personeel gewijzigd wordt.[p]Soms geeft SHOUTcast geen resultaten voor een zoekpoging. Ververs in dat geval de pagina, om uit te sluiten dat dit de oorzaak van het probleem is.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>IRADIO_STATION</id>
@@ -1912,6 +2012,11 @@
         <id>IRADIO_SUBGENRE_SELECT</id>
         <text>Selecteer een subgenre</text>
         <version>1.21</version>
+      </string>
+      <string>
+        <id>IRADIO_TYPE</id>
+        <text>Radio Type</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>IRADIO_UPDATE_PARAM_OK</id>
@@ -2239,8 +2344,13 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>LOOKUP_SUCCESS_MISSING</id>
+        <text>Het zoekproces door de parser is voltooid, maar de volgende informatie ontbreekt nog: %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>LOOKUP_TV</id>
-        <text>Zoek een TV episode</text>
+        <text>Zoek een TV aflevering</text>
         <version>1.19</version>
       </string>
       <string>
@@ -2624,6 +2734,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MISSING</id>
+        <text>Niet gevonden</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>MISSING_DB_TEXT</id>
         <text>Gebruik het configuratie hulpprogramma om een databank te maken.</text>
         <version>1.19</version>
@@ -2779,6 +2894,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MOVIE_PARSER_SMARTSEARCH</id>
+        <text>Gebruik &quot;SmartSearch&quot;</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>MOVIE_UPD_TEXT</id>
         <text>De volgende films zullen worden bijgewerkt:</text>
         <version>1.19</version>
@@ -2875,8 +2995,8 @@
       </string>
       <string>
         <id>NOW_PLAYING</id>
-        <text>SPEELT NU</text>
-        <version>1.19</version>
+        <text>Speelt Nu</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>NOW_PLAYING_FANART</id>
@@ -2926,8 +3046,8 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
       </string>
       <string>
         <id>NOW_PLAYING_SUPPORT</id>
-        <text>SPEELT NU scherm</text>
-        <version>1.20</version>
+        <text>Speelt Nu scherm</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>NO_ITEMS_TO_DISPLAY</id>
@@ -2943,6 +3063,51 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
         <id>NO_SYNOPSIS_AVAILABLE</id>
         <text>Er is geen synopsis beschikbaar.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_ALBUMS</id>
+        <text>Aantal Albums %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_ARTISTS</id>
+        <text>Aantal Artiesten %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_PHOTOS</id>
+        <text>Aantal Foto's %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_PHOTO_ALBUMS</id>
+        <text>Aantal Fotoalbums %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_TITLES</id>
+        <text>Aantal Titels %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_TRACKS</id>
+        <text>Aantal Nummers</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_TV_EPISODES</id>
+        <text>Aantal Afleveringen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_TV_SHOWS</id>
+        <text>Aantal TV Series %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_VIDEOS</id>
+        <text>Aantal Video's %s</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>ONE_ITEM</id>
@@ -3040,6 +3205,11 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
         <version>1.19</version>
       </string>
       <string>
+        <id>PARSER_RETRIES</id>
+        <text>Parser start opnieuw</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>PASSWORD</id>
         <text>Wachtwoord</text>
         <version>1.19</version>
@@ -3052,6 +3222,11 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
       <string>
         <id>PASS_DOTNET2_INSTALLED</id>
         <text>.Net Framework 2 is geïnstalleerd.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_LIVE365_TEST</id>
+        <text>Live365 parser lijkt correct te werken</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3121,8 +3296,8 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
       </string>
       <string>
         <id>PASS_SHOUTCAST_TEST</id>
-        <text>ShoutCast-ontleder lijkt correct te werken</text>
-        <version>1.19</version>
+        <text>SHOUTcast parser lijkt correct te werken</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PASS_SWISSMONITOR_INSTALLED</id>
@@ -3138,6 +3313,11 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
         <id>PASS_SWISS_CACHE</id>
         <text>SwissCenter kan (naar) de buffer directory lezen en schrijven</text>
         <version>1.21</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_FILES</id>
+        <text>De installatiebestanden zijn geverifieerd.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PASS_SWISS_INI</id>
@@ -3654,6 +3834,11 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
         <id>PLEASE_SELECT</id>
         <text>Selecteer</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>POSTER</id>
+        <text>Poster</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PRESS_KEY_NOW</id>
@@ -4351,6 +4536,11 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
         <version>1.22</version>
       </string>
       <string>
+        <id>SERVICE_RESTART</id>
+        <text>Herstart service</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SERVICE_START</id>
         <text>Start service</text>
         <version>1.22</version>
@@ -4424,6 +4614,11 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
         <id>SETUP_UPDATE_SC_SVN</id>
         <text>Update naar de laatste bèta versie</text>
         <version>1.21</version>
+      </string>
+      <string>
+        <id>SHOUTCAST_TV</id>
+        <text>SHOUTcast TV</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>SHUFFLE_OFF</id>
@@ -4641,8 +4836,48 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
         <version>1.22</version>
       </string>
       <string>
+        <id>SWISSMONITOR_CONFIG</id>
+        <text>SwissMonitor Configuratie</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_CONFIG_OK</id>
+        <text>De SwissMonitor configuratie is gewijzigd. De service moet herstart worden om de wijziging(en) actief te maken.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SWISSMONITOR_DESCRIPTION</id>
         <text>De SwissMonitor service is een eenvoudige Windows service die de medialocaties controleert op veranderde bestanden (inclusief nieuwe of verwijderde bestanden) en dit doorgeeft aan SwissCenter, opdat de databank kan worden geactualiseerd. Dit betekent overigens niet dat regelmatige verversing van de databank overbodig is, omdat er bepaalde omstandigheden zijn waarbij veranderingen niet worden gedetecteerd.[p][b]Opgelet:[/b] indien de medialocaties UNC links bevatten (bv: &quot;\\nas\films&quot;), dient de SwissMonitor in het Services Beheer Scherm worden aangepast, zodat deze gestart wordt in uw gebruikersaccount.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_INI</id>
+        <text>Locatie van de swisscenter.ini</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_INI_NOT_EXIST</id>
+        <text>De opgegeven swisscenter.ini locatie bestaat niet</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_INI_PROMPT</id>
+        <text>SwissMonitor vereist een database verbinding om uw media locaties te kunnen bepalen. Deze gegevens worden verkregen uit uw swisscenter.ini die moet bestaan in [b]%AppData%\Simese\Data\Config\Swisscenter.ini[/ b]. Deze locatie hoeft alleen worden aangegeven als uw swisscenter.ini op een andere locatie staat (dwz als u Apache gebruikt).</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_PORT</id>
+        <text>SwissCenter poort</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_PORT_INVALID</id>
+        <text>De SwissCenter poort is niet correct</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_PORT_PROMPT</id>
+        <text>SwissMonitor vereist de gebruikte poort om SwissCenter te informeren. Deze wordt verkregen uit uw Simese.ini die moet bestaan in [b]%AppData%\Simese\Simese.ini[/b]. Als deze niet bestaat dan zal de standaard poort [b]8080[/b] worden verondersteld, tenzij hier anders aangegeven.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4686,6 +4921,11 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
         <version>1.22</version>
       </string>
       <string>
+        <id>TEST_PARSERS</id>
+        <text>Parser testen</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>THEMES</id>
         <text>Thema's</text>
         <version>1.22</version>
@@ -4722,7 +4962,7 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
       </string>
       <string>
         <id>THEME_ON_SERIES</id>
-        <text>Pas toe op een episode selectie pagina</text>
+        <text>Pas toe op een aflevering selectie pagina</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4906,6 +5146,16 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
         <version>1.22</version>
       </string>
       <string>
+        <id>TOP20</id>
+        <text>Top 20</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOP_ALBUMS</id>
+        <text>Top Albums</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>TOP_ARTISTS</id>
         <text>Meest gespeelde bands/artiesten</text>
         <version>na</version>
@@ -5012,8 +5262,8 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
       </string>
       <string>
         <id>TTF_FONT_PROMPT</id>
-        <text>Lettertype dat gebruikt wordt om de muziek-informatie op het &quot;SPEELT NU&quot;-scherm te tonen, indien dit ondersteund wordt (en ingeschakeld is). Geef een lettertype-bestandsnaam op, inclusief het volledige pad naar het bestand ; laat dit veld leeg voor automatische detectie van een lettertype.</text>
-        <version>1.21.1</version>
+        <text>Lettertype dat gebruikt wordt om de muziek-informatie op het &quot;Speelt Nu&quot;-scherm te tonen, indien dit ondersteund wordt (en ingeschakeld is). Geef een lettertype-bestandsnaam op, inclusief het volledige pad naar het bestand ; laat dit veld leeg voor automatische detectie van een lettertype.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>TVID_RESET_DEFAULT</id>
@@ -5077,7 +5327,7 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
       </string>
       <string>
         <id>TV_EXPR_PROMPT</id>
-        <text>De details voor een TV serie worden bepaald aan de hand van de bestandsnaam en bijbehorend pad door middel van vaste &quot;TV expressies&quot;. Het bestand wordt vergeleken met de volgende expressies totdat een overeenkomst is gevonden. De expressies bevatten verwijzingen ('placeholders') naar programma {p}, serie {s}, episode {e} en titel {t}. Een expressie moet minimaal één 'placeholder' bevatten. Voor nadere informatie of hulp wordt u verwezen naar de SwissCenter fora.</text>
+        <text>De details voor een TV serie worden bepaald aan de hand van de bestandsnaam en bijbehorend pad door middel van vaste &quot;TV expressies&quot;. Het bestand wordt vergeleken met de volgende expressies totdat een overeenkomst is gevonden. De expressies bevatten verwijzingen ('placeholders') naar programma {p}, serie {s}, aflevering {e} en titel {t}. Een expressie moet minimaal één 'placeholder' bevatten. Voor nadere informatie of hulp wordt u verwezen naar de SwissCenter fora.</text>
         <version>1.21</version>
       </string>
       <string>
@@ -5103,7 +5353,7 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
       </string>
       <string>
         <id>TV_EXPR_TEST_SUCCESS</id>
-        <text>Overeenkomsten  %s. Gevonden programma: %s, Serie: %s, Episode: %s, Titel: %s</text>
+        <text>Overeenkomsten  %s. Gevonden programma: %s, Serie: %s, Aflevering: %s, Titel: %s</text>
         <version>1.21</version>
       </string>
       <string>
@@ -5400,6 +5650,11 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
         <id>VALUE</id>
         <text>Waarde</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>VERIFY_FILES</id>
+        <text>Controleer bestanden</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>VIDEO</id>

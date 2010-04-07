@@ -173,6 +173,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>BANNERS</id>
+        <text>Banners</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>BOOKMARKS</id>
         <text>Preferiti</text>
         <version>1.22</version>
@@ -400,7 +405,7 @@
       <string>
         <id>CACHE_ERROR_NOT_EXIST</id>
         <text>La directory specificata non esiste</text>
-        <version>1.19</version>
+        <version>1.22</version>
       </string>
       <string>
         <id>CACHE_ERROR_NOT_NUMBER</id>
@@ -660,7 +665,7 @@
       <string>
         <id>CONFIG_SHOUTCAST_TITLE</id>
         <text>Opzioni Shoutcast</text>
-        <version>1.19</version>
+        <version>1.22</version>
       </string>
       <string>
         <id>CONFIG_SWISSMONITOR</id>
@@ -853,6 +858,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>DELETE</id>
+        <text>Non neccessario</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>DELETE_MEDIA</id>
         <text>Cancella Media</text>
         <version>1.19</version>
@@ -924,12 +934,12 @@
       </string>
       <string>
         <id>EP_NEXT</id>
-        <text>Episodio Successivo</text>
-        <version>1.21</version>
+        <text>Episodio successivo: %s</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>EP_PREV</id>
-        <text>Episodio Precedente</text>
+        <text>Episodio precedente: %s</text>
         <version>1.22</version>
       </string>
       <string>
@@ -1113,6 +1123,11 @@
         <version>1.21</version>
       </string>
       <string>
+        <id>EXTENSION</id>
+        <text>Estensione</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>EXTRAS_TEST_TITLE</id>
         <text>Componenti addizionali</text>
         <version>1.19</version>
@@ -1160,6 +1175,11 @@
       <string>
         <id>FAIL_DOTNET2_INSTALLED</id>
         <text>.NET Framework versione 2 deve esserre installata.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_LIVE365_TEST</id>
+        <text>Il parser Live365 risulta non funzionante</text>
         <version>1.22</version>
       </string>
       <string>
@@ -1235,7 +1255,7 @@
       <string>
         <id>FAIL_SHOUTCAST_TEST</id>
         <text>Il parser ShoutCast non funziona correttamente</text>
-        <version>1.19</version>
+        <version>1.22</version>
       </string>
       <string>
         <id>FAIL_SWISSMONITOR_INSTALLED</id>
@@ -1275,6 +1295,11 @@
       <string>
         <id>FAIL_SWISS_PLAYLIST</id>
         <text>Impossibile scrivere nella cache nella Directory di SwissCenter (%s).</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FANART</id>
+        <text>Fanart</text>
         <version>1.22</version>
       </string>
       <string>
@@ -1478,6 +1503,46 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IGNORED_EXTENSIONS</id>
+        <text>Estensioni ignorate</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_ADDED_OK</id>
+        <text>Estensione aggiunta. Il servizio deve essere riavviato per applicare le modifiche</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_ADD_BUTTON</id>
+        <text>Aggiungere estensione</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_ADD_TITLE</id>
+        <text>Aggiungi un'estensione</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_DELETE_OK</id>
+        <text>L'estensione selezionata sara' rimossa. Il servizio deve essere riavviato per applicare l'effetto</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_DEL_BUTTON</id>
+        <text>Cancella le estensioni selezionate</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_ERROR</id>
+        <text>Digita un'estensione</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_PROMPT</id>
+        <text>Specifica l'estensione che deve essere ignorata da SwissMonitor</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IMAGE_EXIF_ROTATE</id>
         <text>Rotazione automatica</text>
         <version>1.19</version>
@@ -1536,6 +1601,11 @@
         <id>IMAGE_TRANS_PROMPT</id>
         <text>Effetti di transizione disponibili per le presentazioni. Questi effetti possono essere diversi per i diversi PLAYERS e alcuni PLAYERS non possono sostenere tutti i transizioni.</text>
         <version>1.20.1</version>
+      </string>
+      <string>
+        <id>IMDBTT</id>
+        <text>IMDb ID</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>IMPEXP_TITLE</id>
@@ -1808,9 +1878,24 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>IRADIO_LIVE365</id>
+        <text>Live365</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_LIVE365_DESC</id>
+        <text>Live365 (%s) è una network radio che raccoglie milioni di utenti nel mondo web, offrendo is a radio network that reaches millions of listeners worldwide, offering greater ampia e profonda alta qualità di musica in streaming, parole e audio per ogni network. Rappresenta più di 260 tipi di musica, prodotta da più di 5.000  stazioni radio da 150 paesi, la rete di network raccoglie artisti e produttori radio da Atlanta Symphony, Pat Metheny, David Navarr e Carlos Santana, da commerciali e pubbliche radio, a DeeJay che programmano le stazioni radio con ogni tipo di genere musicale.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_LIVERADIO</id>
+        <text>Live-Radio</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IRADIO_LIVERADIO_DESC</id>
-        <text>LiveRadio (%s) e' un servizio radio su internet simile a ShoutCast. Fornisce la funzionalita' di ricerca per tipo di media, genere, nome della stazione, nazione e citta' - ma molte stazioni trovate non sono supportate da alcuni apparati. Quindi il parser LiveRadio usato da SwissCenter restringe la ricerca alle stazioni MP3.</text>
-        <version>1.19</version>
+        <text>LiveRadio (%s) e' un servizio radio su internet simile a ShoutCast. Fornisce la funzionalita' di ricerca per tipo di media, genere, nome della stazione, nazione e città, ma molte stazioni trovate non sono supportate da alcuni apparati. Quindi il parser LiveRadio usato da SwissCenter restringe la ricerca alle stazioni MP3.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>IRADIO_LOGO</id>
@@ -1868,9 +1953,14 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_SHOUTCAST</id>
+        <text>SHOUTcast</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IRADIO_SHOUTCAST_DESC</id>
         <text>ShoutCast (%s) e' un servizio radio su internet, fornendo audio stream ascoltabili con molti apparati (o programmi). Fornisce la funzionalita' di ricerca per genere o nome della stazione, e ritorna molti dettagli su ciascuna stazione trovata, inclusa una URL con la playlist. Il parser ShoutCast usato da SwissCenter analizza l'HTML della pagina risultante e visualizza i risultati in una modalita' facilmente leggibile su di uno schermo TV. Se pero' ShoutCast modifica la struttura della pagina, l'analisi potrebbe risultare errata.[p]A volte ShoutCast ritiene di non avere stazioni che soddisfano la nostra ricerca. In questo caso si consiglia di ripetere la ricerca per assicurarsi che il problema non sia quello.</text>
-        <version>1.19</version>
+        <version>1.22</version>
       </string>
       <string>
         <id>IRADIO_STATION</id>
@@ -1903,6 +1993,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_TYPE</id>
+        <text>Tipo Radio</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IRADIO_UPDATE_PARAM_OK</id>
         <text>Ricerca parametri aggiornati</text>
         <version>1.22</version>
@@ -1915,7 +2010,7 @@
       <string>
         <id>ITUNES_ERROR_INVALID</id>
         <text>Mi dispiace, il file specificato deve essere &quot;iTunes Music Library.xml&quot;</text>
-        <version>1.19</version>
+        <version>1.22</version>
       </string>
       <string>
         <id>ITUNES_ERROR_PATH</id>
@@ -2210,7 +2305,7 @@
       <string>
         <id>LOOKUP_FAILURE</id>
         <text>Impossibile trovare i dettagli del film.</text>
-        <version>1.19</version>
+        <version>1.22</version>
       </string>
       <string>
         <id>LOOKUP_MOVIE</id>
@@ -2220,7 +2315,12 @@
       <string>
         <id>LOOKUP_SUCCESS</id>
         <text>Dettagli del film scaricati ed archiviati.</text>
-        <version>1.19</version>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LOOKUP_SUCCESS_MISSING</id>
+        <text>Processo verifica eseguito ma manca: %s</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>LOOKUP_TV</id>
@@ -2315,7 +2415,7 @@
       <string>
         <id>MEDIA_LOC_ERROR_DIRFAIL</id>
         <text>La directory specificata non esiste</text>
-        <version>1.19</version>
+        <version>1.22</version>
       </string>
       <string>
         <id>MEDIA_LOC_ERROR_LOC</id>
@@ -2768,6 +2868,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MOVIE_PARSER_SMARTSEARCH</id>
+        <text>Usa la funzione cerca</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>MOVIE_UPD_TEXT</id>
         <text>Saranno aggioranti i seguenti video</text>
         <version>1.19</version>
@@ -3073,6 +3178,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>PARSER_RETRIES</id>
+        <text>Verifica di nuovo</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>PASSWORD</id>
         <text>Password</text>
         <version>1.19</version>
@@ -3085,6 +3195,11 @@
       <string>
         <id>PASS_DOTNET2_INSTALLED</id>
         <text>.NET Framework versione 2 è installata.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_LIVE365_TEST</id>
+        <text>Il parser Live365 sembra funzionare bene</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3155,7 +3270,7 @@
       <string>
         <id>PASS_SHOUTCAST_TEST</id>
         <text>Il parser ShoutCast funziona correttamente</text>
-        <version>1.19</version>
+        <version>1.22</version>
       </string>
       <string>
         <id>PASS_SWISSMONITOR_INSTALLED</id>
@@ -3590,7 +3705,7 @@
       <string>
         <id>PLAYLISTS_ERROR_INVALID</id>
         <text>La directory specificata non esiste</text>
-        <version>1.19</version>
+        <version>1.22</version>
       </string>
       <string>
         <id>PLAYLISTS_ERROR_PATH</id>
@@ -3701,6 +3816,11 @@
         <id>PLEASE_SELECT</id>
         <text>Seleziona</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>POSTER</id>
+        <text>Poster</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PRESS_KEY_NOW</id>
@@ -3840,6 +3960,11 @@
       <string>
         <id>RECENT_PHOTO</id>
         <text>Foto recenti</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_TRACKS</id>
+        <text>Canzoni recenti</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4388,6 +4513,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>SERVICE_RESTART</id>
+        <text>Riavvia servizio</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SERVICE_START</id>
         <text>Avvia servizio</text>
         <version>1.22</version>
@@ -4460,6 +4590,11 @@
       <string>
         <id>SETUP_UPDATE_SC_SVN</id>
         <text>Aggiorna all'ultima beta rel.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SHOUTCAST_TV</id>
+        <text>TV SHOUTcast</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4678,8 +4813,48 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>SWISSMONITOR_CONFIG</id>
+        <text>Configurazione swissmonitor</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_CONFIG_OK</id>
+        <text>Configurazione SwissMonitor aggiornata. Il servizio deve essere riavviato per applicare i cambiamenti.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SWISSMONITOR_DESCRIPTION</id>
         <text>Il servizio (monitoraggio) del SwissMonitor è un semplice servizio di windows che verifica le cartelle dove sono i files per cambiamenti (esempio nuovi files aggiunti e/o cancellati) e informa lo SwissCenter che salva immediatamente queste informazioni nel database. Questo comunque non elimina la necessità di configurare le attività programmate di controllo files, in quanto in certi eventi i cambiamenti potrebbero non essere aggiornati da questo servizio.[p][b]Nota:[/b] Se si usa un'indirizzo di rete per i files (es: &quot;\\nas\movies&quot;) bisogna ricordarsi di usare il pannello di controllo dei servizi di windows, affinchè il servizio SwissMonitor parta in automatico per il proprio utente.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_INI</id>
+        <text>Cartella file swisscenter.ini</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_INI_NOT_EXIST</id>
+        <text>La cartella di swisscenter.ini non esiste</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_INI_PROMPT</id>
+        <text>SwissMonitor richiede le specifiche della connessione al database determinare le cartelle dei tuoi media file. Queste specifiche sono ottenute dal tuo swisscenter.ini che sarà in [b]%AppData%\Simese\Data\Config\Swisscenter.ini[/b]. Questa cartella deve essere solo specificata se il tuo swisscenter.ini è in altre posizioni (es. se tu usi Apache).</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_PORT</id>
+        <text>Porta per SwissCenter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_PORT_INVALID</id>
+        <text>La porta dello SwissCenter non è corretta</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_PORT_PROMPT</id>
+        <text>SwissMonitor richiede la porta da comunicare allo SwissCenter. Questa è ottenuta dal file Simese.ini che sarà in [b]%AppData%\Simese\Simese.ini[/b]. Se non esiste allora sara' usata la porta di default [b]8080[/b] altrimenti specificala qui.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4720,6 +4895,11 @@
       <string>
         <id>TASK_SCHEDULER</id>
         <text>Utilità di pianificazione</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TEST_PARSERS</id>
+        <text>Test verifica</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4948,6 +5128,16 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>TOP_ALBUMS</id>
+        <text>Top albums</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOP_ARTISTS</id>
+        <text>Top artisti</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>TOP_FAVORITES</id>
         <text>Più preferiti</text>
         <version>1.22</version>
@@ -4955,6 +5145,11 @@
       <string>
         <id>TOP_RATED</id>
         <text>Più selezionati</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOP_TRACKS</id>
+        <text>Top canzoni</text>
         <version>1.22</version>
       </string>
       <string>
@@ -5433,6 +5628,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>VERIFY_FILES</id>
+        <text>Verifica i file</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>VIDEO</id>
         <text>Video</text>
         <version>1.19</version>
@@ -5575,7 +5775,7 @@
       <string>
         <id>WEATHER_NO_MATCHING</id>
         <text>%s non fornisce previsioni del tempo per la citta' di %s al momento.</text>
-        <version>1.19</version>
+        <version>1.22</version>
       </string>
       <string>
         <id>WEATHER_PRESSURE</id>
