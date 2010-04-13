@@ -81,7 +81,7 @@ class wwwTHETVDBcom extends Parser implements ParserInterface {
     // Supported languages (hardcoded from languages.xml)
     $languages = array('da','fi','nl','de','it','es','fr','pl','hu','el','tr','ru','he','ja','pt','zh','cs','en','sv','no');
 
-    send_to_log(4,"Searching for details about ".$this->programme." Season: ".$this->series." Episode: ".$this->episode." online at ".$this->site_url);
+    send_to_log(4,"Searching for details about ".$this->programme." Season: ".$this->series." Episode: ".$this->episode."  Title: ".$this->title." online at ".$this->site_url);
 
     // Users preferred language (use 'en' if not supported)
     $language = substr(get_sys_pref('DEFAULT_LANGUAGE','en'),0,2);
@@ -166,9 +166,12 @@ class wwwTHETVDBcom extends Parser implements ParserInterface {
         if (isset($tvdb_series['EPISODEID'])) {
           $ep = $tvdb_series['EPISODEID'];
           $this->accuracy = 100;
+        } else {
+          $episode_titles = array();
+          foreach ($tvdb_episodes as $ep=>$episode)
+            $episode_titles[$ep] = $episode['EPISODENAME'];
+          $ep = best_match(ucwords(strtolower($this->title)), $episode_titles, $this->accuracy);
         }
-        else
-          $ep = best_match(ucwords(strtolower($this->title)), $tvdb_episodes['EPISODENAME'], $this->accuracy);
 
         if ($ep !== false) {
           // Parse the banners
