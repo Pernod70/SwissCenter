@@ -10,8 +10,6 @@
  # under the terms of the GNU General Public License (see doc/LICENSE)       #
  #############################################################################
 
- /* $Id$ */
-
 require_once(dirname(__FILE__)."/iradio.php");
 
 /** ShoutCast Specific Parsing
@@ -25,7 +23,7 @@ class shoutcast extends iradio {
    */
   function shoutcast() {
     $this->iradio();
-    $this->set_site("classic.shoutcast.com");
+    $this->set_site("yp.shoutcast.com");
     $this->set_type(IRADIO_SHOUTCAST);
   }
 
@@ -45,52 +43,40 @@ class shoutcast extends iradio {
       }
     }
     if (empty($url)) return FALSE;
-    $uri = "http://".$this->iradiosite."/$url&numresult=".$this->numresults;
+    $uri = "http://".$this->iradiosite."/$url&limit=".$this->numresults;
     $this->openpage($uri);
-    $stationcount = 0;
-    $startpos = strpos($this->page,">Type<"); // seek for start position of block
-    if ($startpos===FALSE) {
-      send_to_log(8,"IRadio: ShoutCast claims to find nothing (try #$iteration)");
-      if ($iteration < 3) return $this->parse($url,$cachename,++$iteration);
-      else return FALSE;
-    }
-    $epos = $startpos +1; // prevent endless loop on broken pages
-    while ($startpos) {
-      $spos = strpos($this->page,"a href=",$startpos); // playlist
-      $epos = strpos($this->page,"\">",$spos);
-      $playlist = substr($this->page,$spos+8,$epos - $spos -8);
-      $spos = strpos($this->page,"<b>[",$epos); // genre
-      $epos = strpos($this->page,"]",$spos);
-      $genre = substr($this->page,$spos+4,$epos - $spos -4);
-      $spos = strpos($this->page,"href=",$epos); // website
-      $epos = strpos($this->page,"\">",$spos);
-      $website = substr($this->page,$spos+6,$epos - $spos -6);
-      $spos = $epos +2; // station name
-      $epos = strpos($this->page,"</a>",$spos);
-      $name = substr($this->page,$spos,$epos - $spos);
-      $spos = strpos($this->page,"Now Playing:</font>",$epos); // now playing
-      $epos = strpos($this->page,"</font>",$spos +19);
-      $nowplaying = substr($this->page,$spos +19,$epos - $spos -19);
-      $spos = strpos($this->page,"FFF\">",$epos); // listeners
-      $epos = strpos($this->page,"/",$spos);
-      $listeners = substr($this->page,$spos+5,$epos - $spos -5);
-      $spos = $epos +1; // maxlisteners
-      $epos = strpos($this->page,"</font>",$spos);
-      $maxlisteners = substr($this->page,$spos,$epos - $spos);
-      $spos = strpos($this->page,"FFF\">",$epos); // bitrate
-      $epos = strpos($this->page,"</font>",$spos);
-      $bitrate = substr($this->page,$spos+5,$epos - $spos -5);
-      $spos = strpos($this->page,"FFF\">",$epos); // format
-      $epos = strpos($this->page,"</font>",$spos);
-      $format = substr($this->page,$spos+5,$epos - $spos -5);
-      $this->add_station($name,$playlist,$bitrate,$genre,$format,$listeners,$maxlisteners,$nowplaying,$website);
-      ++$stationcount;
-      if ($stationcount == $this->numresults) break;
-      $startpos = strpos($this->page,"<a href=\"/sbin/shoutcast-playlist.pls",$epos);
+
+    preg_match_all('/station name="(.*)" mt="(.*)" id="(.*)" br="(.*)" genre="(.*)" ct="(.*)" lc="(.*)"/U', $this->page, $matches);
+
+    // Organise directory into usable array
+    for ($i=0; $i<=count($matches[0])-1; $i++)
+    {
+      $name       = trim($matches[1][$i]);
+      $format     = array_search(trim($matches[2][$i]), array('MP3' => 'audio/mpeg', 'AAC+' => 'audio/aacp'));
+      $playlist   = 'http://yp.shoutcast.com/sbin/tunein-station.pls?id='.$matches[3][$i];
+      $bitrate    = $matches[4][$i];
+      $genre      = ucwords(trim($matches[5][$i]));
+      $nowplaying = ucwords(trim($matches[6][$i]));
+      $listeners  = $matches[7][$i];
+
+      $this->add_station($name,$playlist,$bitrate,$genre,$format,$listeners,0,$nowplaying,'');
     }
     send_to_log(6,"IRadio: Read $stationcount stations.");
     if (!empty($cachename)) $this->write_cache($cachename,$this->station);
     return TRUE;
+  }
+
+  /** Restrict search to media type
+   *  Not all (hardware) players support all formats offered by ShoutCast,
+   *  so one may need to restrict it to e.g. "mp3".
+   * @class shoutcast
+   * @method restrict_mediatype
+   * @param optional string mt MediaType to restrict the search to
+   *        (call w/o param to disable restriction)
+   */
+  function restrict_mediatype($mtype="audio/mpeg") {
+    send_to_log(6,"IRadio: Restricting to stations in $mtype format");
+    $this->search_baseparams = "&mt=".$mtype;
   }
 
   /** Searching for a genre
@@ -105,7 +91,7 @@ class shoutcast extends iradio {
    */
   function search_genre($name) {
     send_to_log(6,"IRadio: Initialize genre search for \"$name\"");
-    return $this->parse("/directory/index.phtml?sgenre=".str_replace(' ','+',$name),str_replace(' ','_',$name));
+    return $this->parse("/sbin/newxml.phtml?genre=".str_replace(' ','+',$name),str_replace(' ','_',$name));
   }
 
   /** Searching for a station
@@ -120,7 +106,7 @@ class shoutcast extends iradio {
    */
   function search_station($name) {
     send_to_log(6,"IRadio: Initialize station search for \"$name\"");
-    return $this->parse("/directory/index.phtml?s=".str_replace(' ','+',$name),str_replace(' ','_',$name));
+    return $this->parse("/sbin/newxml.phtml?search=".str_replace(' ','+',$name),str_replace(' ','_',$name));
   }
 
   /** Searching by country
@@ -128,7 +114,7 @@ class shoutcast extends iradio {
    *  stations using iradio::add_station (use get_station() to retrieve
    *  the results). Returns FALSE on error (or if no stations found), TRUE
    *  otherwise.
-   * @class liveradio
+   * @class shoutcast
    * @method search_country
    * @param string name
    * @return boolean success FALSE on error or nothing found, TRUE otherwise
