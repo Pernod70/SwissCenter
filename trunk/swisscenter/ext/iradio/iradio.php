@@ -10,8 +10,6 @@
  # under the terms of the GNU General Public License (see doc/LICENSE)       #
  #############################################################################
 
- /* $Id$ */
-
 // the proxy to use for connections to imdb.
 // leave it empty for no proxy.
 // this is only supported with PEAR.
@@ -312,7 +310,10 @@ class iradio {
   function add_station($name,$playlist,$bitrate,$genre="",$type="MP3",$listeners=0,$maxlisteners=0,$nowplaying="",$website="") {
     if (empty($name)||empty($playlist)) return FALSE;
     $station->name = $name;
-    $station->playlist = "http://".$this->iradiosite.$playlist;
+    if ( substr($playlist, 0, 4) == 'http' )
+      $station->playlist = $playlist;
+    else
+      $station->playlist = "http://".$this->iradiosite.$playlist;
     $station->bitrate = (int) $bitrate;
     $station->type = strtoupper($type);
     $station->listeners = $listeners;
