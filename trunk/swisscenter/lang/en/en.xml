@@ -1529,6 +1529,7 @@
         <text>Specify file extensions that will be ignored by SwissMonitor.</text>
         <version>1.22</version>
       </string>
+      <string>
         <id>IMAGE_EXIF_ROTATE</id>
         <text>Auto-Rotate</text>
         <version>1.19</version>
@@ -3188,7 +3189,6 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <text>The .NET Framework version 2 is installed.</text>
         <version>1.22</version>
       </string>
-      <string>
       <string>
         <id>PASS_LIVE365_TEST</id>
         <text>Live365 parser seems to work properly</text>
