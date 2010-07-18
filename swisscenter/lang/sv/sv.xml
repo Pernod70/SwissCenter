@@ -173,6 +173,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>BANNERS</id>
+        <text>Banners</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>BOOKMARKS</id>
         <text>Bokmärken</text>
         <version>1.22</version>
@@ -638,6 +643,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>CONFIG_PAGE_CHARSET</id>
+        <text>Windows-1252</text>
+        <version>1.19</version>
+      </string>
+      <string>
         <id>CONFIG_RADIO_OPTIONS</id>
         <text>Internetradio</text>
         <version>1.22</version>
@@ -835,6 +845,11 @@
       <string>
         <id>DEBUG_RECOMMENDED</id>
         <text>(Rekommenderad)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DELETE</id>
+        <text>Ej nödvändig</text>
         <version>1.22</version>
       </string>
       <string>
@@ -1098,6 +1113,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>EXTENSION</id>
+        <text>Filändelse</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>EXTRAS_TEST_TITLE</id>
         <text>Extra komponenter</text>
         <version>1.22</version>
@@ -1265,6 +1285,11 @@
       <string>
         <id>FAIL_SWISS_PLAYLIST</id>
         <text>Kan inte skriva till SwissCenters spellist-mapp (%s).</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FANART</id>
+        <text>Fanart</text>
         <version>1.22</version>
       </string>
       <string>
@@ -1469,6 +1494,46 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>IGNORED_EXTENSIONS</id>
+        <text>Ignorerade filändelser</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_ADDED_OK</id>
+        <text>Lade till filändelser. Tjänsten måste startas om för att ändringarna skall börja gälla.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_ADD_BUTTON</id>
+        <text>Lägg till filändelse</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_ADD_TITLE</id>
+        <text>Lägg till en filändelse</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_DELETE_OK</id>
+        <text>De valda filändelserna har tagits bort. Tjänsten måste startas om för att ändringarna skall börja gälla.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_DEL_BUTTON</id>
+        <text>Ta bort valda filändelser</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_ERROR</id>
+        <text>Ange en filändelse</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_PROMPT</id>
+        <text>Ange en filändelse som skall ignoreras av SwissMonitor.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IMAGE_EXIF_ROTATE</id>
         <text>Auto-rotera</text>
         <version>1.22</version>
@@ -1526,6 +1591,11 @@
       <string>
         <id>IMAGE_TRANS_PROMPT</id>
         <text>Övergångseffekter tillgängliga för bildspel. Dessa effekter kan variera mellan olika spelare och vissa spelare kanske inte har några effekter alls.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IMDBTT</id>
+        <text>IMDb-ID</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2253,6 +2323,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>LOOKUP_SUCCESS_MISSING</id>
+        <text>Tolkarna lyckades men saknar: %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>LOOKUP_TV</id>
         <text>Slå upp TV-avsnitt</text>
         <version>1.22</version>
@@ -2798,6 +2873,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>MOVIE_PARSER_SMARTSEARCH</id>
+        <text>Använd SmartSearch</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>MOVIE_UPD_TEXT</id>
         <text>Följande filmer kommer att uppdateras</text>
         <version>1.22</version>
@@ -3091,6 +3171,11 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       <string>
         <id>PAGE</id>
         <text>Sida %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PARSER_RETRIES</id>
+        <text>Antal försök</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3713,6 +3798,11 @@ Om du lägger till några detaljer på denna sida ombeds du uppge dem på SwissC
       <string>
         <id>PLEASE_SELECT</id>
         <text>Välj</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>POSTER</id>
+        <text>Poster</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4401,6 +4491,11 @@ Om du lägger till några detaljer på denna sida ombeds du uppge dem på SwissC
         <version>1.22</version>
       </string>
       <string>
+        <id>SERVICE_RESTART</id>
+        <text>Starta om tjänst</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SERVICE_START</id>
         <text>Starta tjänst</text>
         <version>1.22</version>
@@ -4696,8 +4791,48 @@ Om du lägger till några detaljer på denna sida ombeds du uppge dem på SwissC
         <version>1.22</version>
       </string>
       <string>
+        <id>SWISSMONITOR_CONFIG</id>
+        <text>SwissMonitor-konfiguration</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_CONFIG_OK</id>
+        <text>SwissMonitor-konfigurationen är uppdaterad. Tjänsten måste startas om för att ändringarna skall börja gälla.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SWISSMONITOR_DESCRIPTION</id>
         <text>SwissMonitor-tjänsten är en enkel Windows-tjänst som bevakar dina definierade mediaplatser efter ändringar av filer (inklusive när filer läggs till eller raderas) och informerar SwissCenter om detta så att din databas kan hållas uppdaterad. Detta eliminerar dock inte behovet av att köra schemalagd uppdatering eftersom det kan finnas vissa omständigheter där ändringar inte upptäcks.[p][n]Notera[/b] Om du använder UNC-sökvägar i dina mediaplatser (tex. &quot;\\nas\movies&quot;) så måste du använda 'Tjänster' på Kontrollpanelen i Windows och ändra så att SwissMonitor körs av ditt användarkonto.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_INI</id>
+        <text>Sökväg till swisscenter.ini</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_INI_NOT_EXIST</id>
+        <text>Den angivna sökvägen för swisscenter.ini finns inte.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_INI_PROMPT</id>
+        <text>SwissMonitor behöver uppgifter om databasanslutningen för att kunna avgöra dina mediaplatser. Dessa uppgifter hämtas från swisscenter.ini som borde finnas på: [b]%AppData%\Simese\Data\Config\Swisscenter.ini[/b]. Endast om din swisscenter.ini finns någon annan stans (t.ex. om du använder Apache) bör du fylla i sökväg manuellt.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_PORT</id>
+        <text>SwissCenter-port</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_PORT_INVALID</id>
+        <text>Den angivna SwissCenter-porten är felaktig</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_PORT_PROMPT</id>
+        <text>SwissMonitor behöver veta vilken port SwissCenter använder. Denna information hämtas från Simese.ini som borde finnas på: [b]%AppData%\Simese\Simese.ini[/b]. Om Simese.ini inte finns så antas porten vara [b]8080[/b] (standard), om inget annat anges här.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4738,6 +4873,11 @@ Om du lägger till några detaljer på denna sida ombeds du uppge dem på SwissC
       <string>
         <id>TASK_SCHEDULER</id>
         <text>Tjänst-schemaläggare</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TEST_PARSERS</id>
+        <text>Tolktest</text>
         <version>1.22</version>
       </string>
       <string>
@@ -5463,6 +5603,11 @@ Om du lägger till några detaljer på denna sida ombeds du uppge dem på SwissC
       <string>
         <id>VALUE</id>
         <text>Värde</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>VERIFY_FILES</id>
+        <text>Verifiera filer</text>
         <version>1.22</version>
       </string>
       <string>

@@ -53,14 +53,29 @@
         <version>1.20.1</version>
       </string>
       <string>
+        <id>ALL_TIME</id>
+        <text>Todo Tempo</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>ANYWHERE_IN_NAME</id>
         <text>Em qualquer posição do nome</text>
         <version>1.19</version>
       </string>
       <string>
+        <id>APPLE_TRAILERS</id>
+        <text>Trailers da Apple</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>ARTIST</id>
         <text>Artista</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>ARTIST_INFO</id>
+        <text>Informação sobre Artista</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>ART_ADDED_OK</id>
@@ -158,6 +173,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>BANNERS</id>
+        <text>Baner</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>BOOKMARKS</id>
         <text>Favoritos</text>
         <version>1.19</version>
@@ -188,6 +208,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>BROWSE_COMPOSER</id>
+        <text>Pesquisa por compositor</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>BROWSE_COUNTRY</id>
         <text>Pesquisa por país</text>
         <version>1.19</version>
@@ -201,6 +226,11 @@
         <id>BROWSE_DIRECTOR</id>
         <text>Pesquisar por director</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_DISCOVERED</id>
+        <text>Pesquisa por data de adição</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_DVD</id>
@@ -293,14 +323,29 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>BROWSE_RATING</id>
+        <text>Pesquisa por avaliação</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>BROWSE_STATION</id>
         <text>Pesquisa por emissões</text>
         <version>1.21.1</version>
       </string>
       <string>
+        <id>BROWSE_STUDIO</id>
+        <text>Pesquisa por Estudio</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>BROWSE_TEXT</id>
         <text>O SwissCenter permite pesquisar os seus ficheiros multimédia de varias maneiras. Para reduzir a complexidade da interface ou para personalizá-lo ao seu gosto, você pode desactivar qualquer uma das opções &quot;Pesquisar por...&quot; mostradas abaixo. Se somente uma opção está activada, SwissCenter saltará directamente para essa opção em vez de exibir um menu. [p] Por favor, note que você tem de deixar, pelo menos, [b] uma [/b] opção activada em cada grupo.</text>
         <version>1.20.1</version>
+      </string>
+      <string>
+        <id>BROWSE_TIMESTAMP</id>
+        <text>Pesquisa por data do ficheiro</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_TITLE</id>
@@ -513,14 +558,34 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>CHANNELS</id>
+        <text>Canais</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CHECKSUM</id>
+        <text>Erro de Checksum</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>CLEAR_NAME</id>
         <text>Apagar nome</text>
         <version>1.19</version>
       </string>
       <string>
+        <id>COMMENT</id>
+        <text>Comentário</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>COMPACT_VIEW</id>
         <text>Visualização Compacta</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>COMPOSER</id>
+        <text>Compositor</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>CONFIGURATION</id>
@@ -603,6 +668,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>CONFIG_SWISSMONITOR</id>
+        <text>SwissMonitor</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>CONFIG_TITLE</id>
         <text>Ferramenta de configuração do SwissCenter</text>
         <version>1.19</version>
@@ -626,6 +696,11 @@
         <id>CONNECT_TITLE</id>
         <text>Ligação à internet</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>CONTACTS</id>
+        <text>Contactos</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>CONTINUE</id>
@@ -666,6 +741,26 @@
         <id>DATE</id>
         <text>Data</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>DATE_FORMAT</id>
+        <text>Formato da Data</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DATE_FORMAT_PROMPT</id>
+        <text>Este é o formato usado para exibir datas e pode ser alterado para o formato preferido. O formato é definido por alguns MySQL e especificadores de formato são: [br] [ul] 
+[Li]% b nome do mês abreviado (janeiro dezembro) [/ li] 
+[Li]% d Dia do mês, numérico (00 .. 31) [/ li] 
+[Li]% m mês, numérico (00 .. 12) [/ li] 
+[Li]% Y Ano, numérico, quatro dígitos [/ li] 
+[Li] Ano y%, numérica (dois dígitos) [/ li] [/ ul]</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DATE_FORMAT_TEST</id>
+        <text>Formato Actual: %s</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>DAY_1</id>
@@ -763,6 +858,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>DELETE</id>
+        <text>Desnecessário</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>DELETE_MEDIA</id>
         <text>Apagar arquivos multimédia</text>
         <version>1.19</version>
@@ -798,6 +898,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>DOWNLOADED</id>
+        <text>Download já efectuado</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>DOWNLOADING</id>
         <text>A descarregar...</text>
         <version>1.19</version>
@@ -811,6 +916,11 @@
         <id>ENABLED</id>
         <text>Ligado</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>ENHANCED</id>
+        <text>Enhanced</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>EPISODE</id>
@@ -831,6 +941,11 @@
         <id>EP_PREV</id>
         <text>Episódio Anterior</text>
         <version>1.21.1</version>
+      </string>
+      <string>
+        <id>EXCLUSIVE</id>
+        <text>Exclusivo</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>EXIFVALS_EXPOSE_MODE</id>
@@ -1008,6 +1123,11 @@
         <version>1.21.1</version>
       </string>
       <string>
+        <id>EXTENSION</id>
+        <text>Extensão</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>EXTRAS_TEST_TITLE</id>
         <text>Componentes adicionais</text>
         <version>1.19</version>
@@ -1046,6 +1166,21 @@
         <id>EXTRA_REFRESH_WARNING</id>
         <text>ATENÇÃO, se introduzir informação manualmente usando as setas de substituição da página %s esta pode-se perder.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_DATABASE_PATCH</id>
+        <text>A base de dados não tem patch. Ultimo patch aplicado foi %s.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_DOTNET2_INSTALLED</id>
+        <text>Precisa de intalar o .NET Framework versão 2.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_LIVE365_TEST</id>
+        <text>O parser do Live365 parece inactivo</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>FAIL_LIVERADIO_TEST</id>
@@ -1123,9 +1258,24 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>FAIL_SWISSMONITOR_INSTALLED</id>
+        <text>O Seviço SwissMonitor não está instalado</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_SWISSMONITOR_RUNNING</id>
+        <text>O serviço SwissMonitor está instalado, mas não está a funcionar correctamente.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>FAIL_SWISS_CACHE</id>
         <text>Não foi possível gravar na memória cache do SwissCenter (%s).</text>
         <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FAIL_SWISS_FILES</id>
+        <text>Os seguintes arquivos de instalação estão ausentes ou incorrectos. Clique em cada arquivo para download e em seguida copie manualmente para o local correcto. %s</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>FAIL_SWISS_INI</id>
@@ -1146,6 +1296,16 @@
         <id>FAIL_SWISS_PLAYLIST</id>
         <text>Não foi possível gravar na directoria dplaylist do SwissCenter</text>
         <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FANART</id>
+        <text>&quot;Fanart&quot;</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAVORITES</id>
+        <text>Favoritos</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>FILENAME</id>
@@ -1185,6 +1345,11 @@
       <string>
         <id>FILTER_MISSING_PROGRAMME</id>
         <text>Sem programação</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_RATING</id>
+        <text>Sem avaliação</text>
         <version>1.22</version>
       </string>
       <string>
@@ -1338,6 +1503,46 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IGNORED_EXTENSIONS</id>
+        <text>Extensões ignoradas</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_ADDED_OK</id>
+        <text>Extensão adicionada. O Serviço deve ser reiniciado para que as alteraçãoes sejam assumidas.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_ADD_BUTTON</id>
+        <text>Adiccionar extensão</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_ADD_TITLE</id>
+        <text>Adiccionar uma extensão</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_DELETE_OK</id>
+        <text>As extensões foram eliminadas. O Serviço deve ser reiniciado para que as alteraçãoes sejam assumidas.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_DEL_BUTTON</id>
+        <text>Apagar as extensões seleccionadas</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_ERROR</id>
+        <text>Por favor intoduza uma extensão</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_PROMPT</id>
+        <text>Indique as extensões que serão ignoradas pelo SwissMonitor.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IMAGE_EXIF_ROTATE</id>
         <text>Rodar automaticamente</text>
         <version>1.19</version>
@@ -1396,6 +1601,11 @@
         <id>IMAGE_TRANS_PROMPT</id>
         <text>Efeitos de Transição disponíveis para apresentações de slides. Estes efeitos podem ser diferentes para diferentes aparelhos, e alguns aparelhos podem não suportar todos os tipos de transições.</text>
         <version>1.20.1</version>
+      </string>
+      <string>
+        <id>IMDBTT</id>
+        <text>Identificação IMDb</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>IMPEXP_TITLE</id>
@@ -1515,6 +1725,11 @@
       <string>
         <id>INTERNET_TV</id>
         <text>TV internet</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>INTERNET_TV_OPTIONS</id>
+        <text>Internet TV</text>
         <version>1.22</version>
       </string>
       <string>
@@ -1668,6 +1883,21 @@
         <version>1.21.1</version>
       </string>
       <string>
+        <id>IRADIO_LIVE365</id>
+        <text>Live365</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_LIVE365_DESC</id>
+        <text>Live365 (% s) é uma rede de rádio que atinge milhões de ouvintes em todo o mundo, oferecendo uma maior amplitude e profundidade de alta qualidade de streaming de música, conversas e áudio do que qualquer outra rede. Dispondo de 260 + géneros de música produzida por 5.000 emissoras e tastemakers música de mais de 150 países, a rede oferece uma lista de artistas e produtores de rádio que vão desde a Sinfónica de Atlanta, Pat Metheny, David Navarro e Carlos Santana, a rádio comercial e estações publicas, para DJs que emitam em todo o estilo musical.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_LIVERADIO</id>
+        <text>Live-Radio</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IRADIO_LIVERADIO_DESC</id>
         <text>LiveRadio (%s)  é um serviço de rádio através da Internet semelhante ao Shoutcast. Fornece uma funcionalidade para pesquisar por tipo de ficheiro multimédia, genre, estação de nome, cidade e até mesmo país -, mas muitas estações listadas aqui não são apoiadas por algumas equipes, por isso o parser utilizado pelos SwissCenter de LiveRadio restringe os resultados para exibir apenas MP3 estações .</text>
         <version>1.19</version>
@@ -1728,6 +1958,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_SHOUTCAST</id>
+        <text>SHOUTcast</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IRADIO_SHOUTCAST_DESC</id>
         <text>ShoutCast (%s) é um serviço de rádio de internet que fornece áudio que pode reproduzir a maioria dos dispositivos (e software) streaming. Fornece uma funcionalidade para pesquisar por género ou estação nome, e exibe muitos detalhes para cada estação, incluindo uma URL em uma playlist. O parser utilizado pelo Shoutcast SwissCenter visitou o código HTML da página de resultados para mostrar os resultados em um formas para facilitar a sua leitura mesmo na televisão. De qualquer maneira, você pode parar de funcionar se a equipe Shoutcast alterou a estrutura da página. [P] Shoutcast Às vezes parece não ter qualquer emissora nossa pesquisa e, portanto, se o teste falhar, recarregue a página para ter certeza de que o problema não residir aqui.</text>
         <version>1.19</version>
@@ -1763,6 +1998,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_TYPE</id>
+        <text>Tipo de Rádio</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IRADIO_UPDATE_PARAM_OK</id>
         <text>Parâmetros de pesquisa actualizados</text>
         <version>1.21.1</version>
@@ -1788,6 +2028,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>JUST_ADDED</id>
+        <text>Adicinado recentemente</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>JUST_HD</id>
+        <text>Apenas HD</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>KEYBOARD_DEL</id>
         <text>Apagar</text>
         <version>1.19</version>
@@ -1796,6 +2046,11 @@
         <id>KEYBOARD_SPC</id>
         <text>Espaço</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>LANAGUAGE_ALL</id>
+        <text>Todas as linguagens</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>LANGUAGE</id>
@@ -2068,6 +2323,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>LOOKUP_SUCCESS_MISSING</id>
+        <text>Pesquisa de parser realizada com sucesso mas falta: %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>LOOKUP_TV</id>
         <text>Pesquisa episódio de TV</text>
         <version>1.19</version>
@@ -2251,6 +2511,11 @@
         <id>MEDIA_SCAN_STATUS_TV</id>
         <text>A analisar detalhes das series de TV</text>
         <version>1.21.1</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_TYPE</id>
+        <text>Tipo de Pesquisa</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>MEDIA_SEARCH_PROMPT</id>
@@ -2448,6 +2713,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MISSING</id>
+        <text>Não encontrado</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>MISSING_DB_TEXT</id>
         <text>utilizar ferramenta de configuração para criar base de dados.</text>
         <version>1.19</version>
@@ -2528,6 +2798,21 @@
         <version>1.21.1</version>
       </string>
       <string>
+        <id>MOST_POPULAR</id>
+        <text>Mais Popular</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MOST_RECENT</id>
+        <text>Mais recente</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MOST_VIEWED</id>
+        <text>Mais visto</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>MOVIE_ADD_BUTTON</id>
         <text>Adicionar/Actualizar detalhes</text>
         <version>1.19</version>
@@ -2586,6 +2871,11 @@
         <id>MOVIE_OPTIONS</id>
         <text>Opções de Filme</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>MOVIE_PARSER_SMARTSEARCH</id>
+        <text>Utilize a pesquisa avançada</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>MOVIE_UPD_TEXT</id>
@@ -2648,6 +2938,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>NEWSUBSCRIPTIONVIDEOS</id>
+        <text>Videos Novos</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>NEW_MESSAGES</id>
         <text>Novas Mensagens</text>
         <version>1.19</version>
@@ -2683,9 +2978,50 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>NOW_PLAYING_FANART</id>
+        <text>Descarregar Fanart</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_FANART_GOOGLE</id>
+        <text>Imagens Google</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_FANART_LASTFM</id>
+        <text>Last.fm</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_FANART_NONE</id>
+        <text>Nenhum</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_FANART_PROMPT</id>
+        <text>Selecione a origem das imagens fanart a ser utilizado na tela &quot;Now Playing&quot;. As imagens Fanart são armazenadas para cada artista em [em] swisscenter \ fanart \ artistas [mode \ depeche] / em&gt;. [br] [b] Nenhum [/ b] - fanart não será baixado. Somente as imagens existentes na pasta fanart seram usadas. [Br] [b] Google Images [] / b&gt; - as fanart serão pesquisadas no Google Images e descarregadas localmente para a sua pasta fanart [br] [b] Last.fm [/ b] (recomendado) - As imagens do artista serão descarregadas para a pasta de fanart do Last.fm.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_OPTIONS</id>
+        <text>Opções de Reproduzir agora</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>NOW_PLAYING_PROMPT</id>
         <text>Alguns aparelhos permitem que se mostre imagens enquanto ouve música. - Esta função é activa automaticamente quando começa a música. O SwissCenter usa esta característica para mostrar os detalhes de o arquivo actual[p]Na maioria dos casos, O SwissCenter é capaz de decidir automaticamente se o seu aparelho suporta esta função, Mas se existirem problemas pode desactivar esta função aqui.[p]As opções significam: Activo - O aparelho solicita a imagem correspondente. Desactivo - O aparelho não solicita a imagem correspondente. Automático - O SwissCenter decide.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_STYLE</id>
+        <text>Estilo de Reproduzir agora</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_STYLE_PROMPT</id>
+        <text>A tela Original  &quot;Now Playing&quot; exibe detalhes da faixa com uma imagem albumart que actualiza com as mudanças faixa.
+A melhor opção mostra os detalhes da faixa com uma barra de progresso e uma imagem de fanart como pano de fundo. Esta opção é recomendada para usuários NMT. Na configuração NMT você deve definir &quot;Transição Photo&quot; para &quot;Nenhum&quot;.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>NOW_PLAYING_SUPPORT</id>
@@ -2708,6 +3044,51 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>NUMBER_OF_ALBUMS</id>
+        <text>Número de Albuns %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_ARTISTS</id>
+        <text>Número de Artistas %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_PHOTOS</id>
+        <text>Número de fotos %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_PHOTO_ALBUMS</id>
+        <text>Número de albuns de fotos %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_TITLES</id>
+        <text>Número de Titulos %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_TRACKS</id>
+        <text>Número de Pistas %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_TV_EPISODES</id>
+        <text>Número de Episódios %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_TV_SHOWS</id>
+        <text>Número de Programas %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NUMBER_OF_VIDEOS</id>
+        <text>Número de Videos %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>ONE_ITEM</id>
         <text>Um Item</text>
         <version>1.19</version>
@@ -2716,6 +3097,16 @@
         <id>ONE_TRACK</id>
         <text>Uma Música</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>OPENING_THISWEEK</id>
+        <text>Estreia esta semana</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OPENSUBTITLES_ABOUT</id>
+        <text>OpenSubtitles.org fornece uma base de dados gratuita de legendas disponíveis para download. As legendas estão disponíveis em muitas línguas e correspondem unicamente a seus arquivos de vídeo. Por favor, clique nos seus banners e visite o site para suportar este recurso.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>OPTIONS</id>
@@ -2733,14 +3124,79 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>ORIGINAL</id>
+        <text>Original</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_ABOUT</id>
+        <text>OpenSubtitles.org fornece uma base de dados gratuita de legendas disponíveis para download. As legendas estão disponíveis em muitas línguas e correspondem unicamente a seus arquivos de vídeo. Por favor, clique nos seus banners e visite o site para suportar este recurso. . [Br] Se tiver legendas que não estão disponíveis para download, então é convidado a enviá-las para que outros utilizadores possam se beneficiar deles. Pode carregar legendas em %s.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_DOWNLOAD</id>
+        <text>Download das legendas seleccionadas</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_DOWNLOADED_OK</id>
+        <text>Download das legendas efectuado com sucesso!</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_NOT_AVAILABLE</id>
+        <text>OpenSubtitles.org não está dísponivel actualmente, por favor tente mais tarde.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_NO_SUBTITLES</id>
+        <text>Sem legendas</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_SEARCH_HASH</id>
+        <text>Correspondeência por &quot;hash&quot; de video (recomendado)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_SEARCH_TITLE</id>
+        <text>Correspondente por nome de filme</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OS_UPLOAD</id>
+        <text>Enviar as legendas para OpenSubtitles.org</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>PAGE</id>
         <text>Página %s</text>
         <version>1.20.1</version>
       </string>
       <string>
+        <id>PARSER_RETRIES</id>
+        <text>Tentativas do Parser</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>PASSWORD</id>
         <text>Palavra-passe</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_DATABASE_PATCH</id>
+        <text>Abase de dados está actualizada %s.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_DOTNET2_INSTALLED</id>
+        <text>O .NET Framework version 2 está instalado</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_LIVE365_TEST</id>
+        <text>O parser do Live365 parece estar a funcionar correctamente.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PASS_LIVERADIO_TEST</id>
@@ -2813,9 +3269,24 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>PASS_SWISSMONITOR_INSTALLED</id>
+        <text>O Serviço SwissMonitor está instalado</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_SWISSMONITOR_RUNNING</id>
+        <text>O Serviço SwissMonitor está activo</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>PASS_SWISS_CACHE</id>
         <text>Capaz de efectuar leitura/gravação na directoria de cache do SwissCenter.</text>
         <version>1.21.1</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_FILES</id>
+        <text>A instalação foi verificada.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PASS_SWISS_INI</id>
@@ -2891,6 +3362,16 @@
         <id>PC_LINK_TV</id>
         <text>Programas de TV</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PC_SCREEN_SIZE</id>
+        <text>Tamanho do monitor</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PC_SCREEN_SIZE_PROMPT</id>
+        <text>Esta é a resolução que o SwissCenter vai usar quando utilizado através de um navegador num PC.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PERCENT_SCANNED</id>
@@ -3068,6 +3549,134 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>PLAYER_ADD_BUTTON</id>
+        <text>Adicionar Player</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_ADD_OK</id>
+        <text>Player Adicionado</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_ADD_TITLE</id>
+        <text>Adicionar um novo Player</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_CHIPSET</id>
+        <text>Chipset</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_CONFIG</id>
+        <text>Players suportados</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_DEL_BUTTON</id>
+        <text>Apagar os Players seleccionados</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_DEL_OK</id>
+        <text>Os Players seleccionados foram apagados</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_ERROR_EXISTS</id>
+        <text>A marca e modelo já existe</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_ERROR_MISSING</id>
+        <text>Por favor introduza um nome, marca e modelo</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_ERROR_MODEL</id>
+        <text>Por favor introduza um modelo numérico</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_MAKE</id>
+        <text>Marca</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_MESSAGE</id>
+        <text>Todos os Players  podem ser unicamente identificados pela sua marca e modelo determinado a partir do id firmware. Se o seu Player não está listado com os Players suportados abaixo, então você deve adicioná-la com a marca e  modelo detectado na área 'Clients discovered' na parte inferior desta página. [P]
+É importante que você seleccione o chipset correcto para o seu leitor, pois informa o SwissCenter daquilo que o Player é capaz. Os valores de POD são para informar  
+Como o &quot;Now Playing&quot; são sincronizados. Tem de que experimentar estas definições para determinar que funcionam melhor com o seu leitor. [] P
+Se todos os detalhes são adicionados / alterados nesta página, então você está convidado a apresentar os detalhes para o fórum para que as configurações de compatibilidade possam ser usados por outros utlizadores.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_MODEL</id>
+        <text>Modelo</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_NAME</id>
+        <text>Nome</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_PAGE_CHARSET</id>
+        <text>Charset do Player</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_POD_NO_SYNC</id>
+        <text>POD (Melhorado)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_POD_PROMPT</id>
+        <text>Estes são os POD (Picture On Demand) parâmetros enviados para o Player que controla o hardware como a música e as imagens serão sincronizados juntos na tela &quot;Now Playing&quot;. Se o Player não for capaz de sincronizar música e imagens seleccione 0 para 'POD (Original).</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_POD_STREAM</id>
+        <text>POD (Radio)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_POD_SYNC</id>
+        <text>POD (original)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_PROMPT</id>
+        <text>Se o seu Player  não está listado acima, então ele deve ser adicionado usando a marca e o modelo. Deve seleccionar correctamente o chipset do Player para assim o SwissCenter determinar as suas capacidades.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_RESUME</id>
+        <text>Resumo</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_RESUME_PROMPT</id>
+        <text>Este Palyer suporta o resumo do média (quando utiliza o Simese)?</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_TRANSITION</id>
+        <text>Transição</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_TRANSITION_PROMPT</id>
+        <text>Efeito de transição na utilização &quot;Now Playing&quot;. Definindo para 0 geralmente significa nenhum efeito.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_UPDATE_OK</id>
+        <text>Informação sobre o Player actualizada</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>PLAYLISTS</id>
         <text>Listas de reprodução</text>
         <version>1.19</version>
@@ -3188,9 +3797,19 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>PLAY_TRAILER</id>
+        <text>Ver Trailer</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>PLEASE_SELECT</id>
         <text>Seleccione</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>POSTER</id>
+        <text>Poster</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PRESS_KEY_NOW</id>
@@ -3278,6 +3897,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>RATE</id>
+        <text>Avaliação</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RATING</id>
+        <text>Avaliação</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>RATING_SCHEME_PROMPT</id>
         <text>Esquema de classificação</text>
         <version>1.19</version>
@@ -3293,6 +3922,21 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>RECENTLY_ADDED_OR_CREATED</id>
+        <text>Criado ou adicionado recentemente</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENTLY_CREATED</id>
+        <text>Creado recentemente</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENTLY_FEATURED</id>
+        <text>Apresentado recentemente</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>RECENT_MEDIA</id>
         <text>Recentemente adicionado</text>
         <version>1.22</version>
@@ -3305,6 +3949,11 @@
       <string>
         <id>RECENT_PHOTO</id>
         <text>Fotografias</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_TRACKS</id>
+        <text>Pistas recentes</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3336,6 +3985,11 @@
         <id>REFINE_CERTIFICATE</id>
         <text>Redefinir por qualificação de idade</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_COMPOSER</id>
+        <text>Refinar por compositor</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REFINE_DIRECTOR</id>
@@ -3476,6 +4130,11 @@
         <id>REFRESH_RUNNING</id>
         <text>A actualização da base de dados pode trabalhar em segundo plano enquanto utiliza normalmente o equipamento. Os arquivos da base de dados não estarão disponíveis até que a base de dados seja totalmente carregada. [p]A primeira actualização pode demorar aproximadamente 10 minutos por cada 5.000 arquivos, as seguintes serão mais rápidas.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>RELEASE_DATE</id>
+        <text>Data de lançamento</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REMOTE_ACCESS_ERROR</id>
@@ -3663,6 +4322,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>SCHEDULE_ALL</id>
+        <text>Tudo</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SCHEDULE_AUTO_TITLE</id>
         <text>Pesquisa  Automática de arquivos multimédia</text>
         <version>1.20.1</version>
@@ -3703,6 +4367,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>SCHEDULE_MEDIA_ONLY</id>
+        <text>Apenas Multimédia</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SCHEDULE_MINUTE_PROMPT</id>
         <text>Minutos</text>
         <version>1.19</version>
@@ -3721,6 +4390,11 @@
         <id>SCHEDULE_NOTES</id>
         <text>[li]* indica todos os valores possíveis. [li]Pode especificar múltiplos valores utilizando virgulas (1,5). [li]Um intervalo pode ser especificado usando hífenes (1-5). [li]Ambos podem ser especificados juntos (1-4,7).</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_RSS_ONLY</id>
+        <text>Apenas RSS</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>SCHEDULE_TITLE</id>
@@ -3823,6 +4497,31 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>SERVICE_INSTALL</id>
+        <text>Instalação</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SERVICE_RESTART</id>
+        <text>Reiniciar serviço</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SERVICE_START</id>
+        <text>Inicio de serviço</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SERVICE_STOP</id>
+        <text>Paragem de serviço</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SERVICE_UNINSTALL</id>
+        <text>Desinstalar serviço</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SETUP</id>
         <text>Configuração</text>
         <version>1.19</version>
@@ -3883,6 +4582,11 @@
         <version>1.21.1</version>
       </string>
       <string>
+        <id>SHOUTCAST_TV</id>
+        <text>SHOUTcast TV</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SHUFFLE_OFF</id>
         <text>Desactivar reprodução aleatória</text>
         <version>1.19</version>
@@ -3901,6 +4605,56 @@
         <id>SLIDESHOW</id>
         <text>Apresentação automática de diapositivos</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>SORT_BITRATE</id>
+        <text>Ordenar por bitrate</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_CATEGORY</id>
+        <text>Ordenar por categoria</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_DATE</id>
+        <text>Ordenar por data</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_FAVORITE</id>
+        <text>Ordenar por favoritos</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_ID</id>
+        <text>Ordenar por mais recente</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_NAME</id>
+        <text>Ordenar por nome</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_RATING</id>
+        <text>Ordenar por avaliação</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_TIME</id>
+        <text>Ordenar por tempo</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_VIEWS</id>
+        <text>Ordenar por visualizações</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SPOKEN_LANGUAGE</id>
+        <text>Linguagem</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>STARRING</id>
@@ -3956,6 +4710,16 @@
         <id>STYLE_SHOW_INSTALLED</id>
         <text>Visualizar estilos instalados</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>SUBSCRIPTIONS</id>
+        <text>Subscrições</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SUBTITLES</id>
+        <text>Legendas</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>SUPPORT_CLIENTS_TITLE</id>
@@ -4028,6 +4792,66 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>SWISSMONITOR_ACTION_FAILED</id>
+        <text>O Serviço SwissCenter não consegiu realizar a acção pretendida - por favor consulte o &quot;support.log&quot;</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_ACTION_SUCCESS</id>
+        <text>A acção seleccionada foi aplicada com sucesso pelo serviço SwissMonitor.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_CONFIG</id>
+        <text>Configuração do SwissMonitor</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_CONFIG_OK</id>
+        <text>Configuração SwissMonitor atualizada. O serviço deve ser reiniciado para que as alterações tenham efeito.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_DESCRIPTION</id>
+        <text>O serviço SwissMonitor é um serviço do Windows que irá aos  seus  locais definidos de multimédia para ver as alterações nos arquivos (incluindo arquivos novos que estão sendo adicionados, ou arquivos que estão sendo apagados) e informar o SwissCenter para que seu banco de dados possa ser actualizado de forma apropriada. No entanto, isso não elimina a necessidade de executar uma actualização programada completamente, pois há algumas situações em que as mudanças não podem ser capturados. [P] [b] Nota: [/ b] Se você usar caminhos UNC em locais de seus meios (por exemplo, : &quot;\ \ NAS filmes \&quot;), então você deve usar o Services Control Panel para modificar o serviço SwissMonitor para executar a sua própria conta de usuário.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_INI</id>
+        <text>Localização do swisscenter.ini</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_INI_NOT_EXIST</id>
+        <text>A localização indicada para o swisscenter.ini não existe</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_INI_PROMPT</id>
+        <text>O SwissMonitor exige detalhes da ligação à base de dados para ser capaz de determinar a localização dos seus meios. Estes dados são obtidos a partir do seu swisscenter.ini que deve existir em [b]%% AppData \ Simese \ Data \ Config \ Swisscenter.ini [/ b]. Esta localização só deve ser especificada se o seu swisscenter.ini está localizado noutro lugar (ou seja, se você usar o Apache).</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_PORT</id>
+        <text>Porta do SwissCenter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_PORT_INVALID</id>
+        <text>A porta do SwissCenter é inválida</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_PORT_PROMPT</id>
+        <text>O SwissMonitor requer a porta usada para comunicar com o SwissCenter. Este resultado é obtido a partir do seu Simese.ini que deve existir em [b]%% AppData \ Simese \ Simese.ini [/ b]. Se ele não existir, então a porta padrão do [b] 8080 [/ b] será assumida, a menos que especifique aqui.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_TITLE</id>
+        <text>Serviço SwissMonitor</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SYNOPSIS</id>
         <text>Sinopse</text>
         <version>1.19</version>
@@ -4048,9 +4872,104 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>TABLE_DEFINITION</id>
+        <text>Defenição de tabela: %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>TAG</id>
         <text>Marca</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>TASK_SCHEDULER</id>
+        <text>Agenda de tarefas</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TEST_PARSERS</id>
+        <text>Testar Parsers</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEMES</id>
+        <text>Temas</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEMES_PROMPT</id>
+        <text>Os temas são descarregados automaticamente para filmes e séries de TV pelo &amp;amp; quot; themoviedb &amp;amp; quot; e &amp;amp; quot; TheTVDB &amp;amp; quot; parsers quando os detalhes são adicionados para novas mídias. Seleccione um título no menu suspenso e seleccione um tema nas miniaturas disponíveis. Para usar um tema escolhido você deve seleccionar um &quot;uso em ...» opção. Se vários temas são seleccionados por um título, então eles serão usados de forma aleatória nas páginas seleccionadas.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_APPLY</id>
+        <text>Aplicar definição do tema</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_APPLY_OK</id>
+        <text>Tema guardado com sucesso</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_EFFECTS</id>
+        <text>Efeitos:</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_FLIP_IMAGE</id>
+        <text>Imagem de espelho</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_GREYSCALE</id>
+        <text>Escala de cinzas:</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_ON_SERIES</id>
+        <text>Use na página de selecção de episódios</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_ON_SYNOPSIS</id>
+        <text>Use a página de sumário.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_PREVIEW_THUMBS</id>
+        <text>Visualização dos temas disponíveis para %s.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_SAVED_SUCCESS</id>
+        <text>Tema guardado com sucesso</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_SETTINGS</id>
+        <text>Definições:</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_SHOW_BANNER</id>
+        <text>Mostrar banner</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_SHOW_IMAGE</id>
+        <text>Mostrar imagem</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THIS_MONTH</id>
+        <text>Este mês</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THIS_WEEK</id>
+        <text>Esta semana</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>THUMBNAIL_VIEW</id>
@@ -4088,6 +5007,141 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>TODAY</id>
+        <text>Hoje</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_BROWSE_CATEGORY</id>
+        <text>Filtrar por categoria</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_BROWSE_CHANNELS</id>
+        <text>Pesquisa de canais</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_BROWSE_COUNTRY</id>
+        <text>Filtrar por País</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_CHANNELS_AVAILABLE</id>
+        <text>Existem canais de% s disponível com os filtros selecionados.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_CHANNELS_UPDATE_MSG</id>
+        <text>Atualizando a lista de canais - Aguarde</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_INTERNET_TV</id>
+        <text>TOMA - Internet TV</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_MEDIA_TYPES</id>
+        <text>Tipos de Multimedia</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_MEDIA_TYPES_PROMPT</id>
+        <text>Seleccione os tipos de média, que estará disponível nos canais de navegação. Você só deve seleccionar os tipos que são conhecidos por serem compatíveis com seu reprodutor de média.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_REMOVE_FILTER</id>
+        <text>Remover filtros</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_RP</id>
+        <text>Media Real</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_CHANNELS_FAIL</id>
+        <text>Erro ao actualizar a lista de canais</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_CHANNELS_OK</id>
+        <text>%s Canais actualizados com sucesso</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_CHANNELS_TIME_FAIL</id>
+        <text>Não é possível atualizar os canais, última actualização foi há %s horas atrás</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_MEDIA_FAIL</id>
+        <text>Você não seleccionou nenhum tipo de média</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_TEXT</id>
+        <text>O site %s pretende ser o maior e mais actualizado banco de dados de canais de TV pela internet (canais disponíveis gratuitamente na internet). Nós temos canais de todo o mundo e o banco de dados é actualizado diariamente pelos nossos usuários.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_UPDATE_OK</id>
+        <text>Definições guardadas</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_UPDATE_CHANNELS</id>
+        <text>Actualizar lista de canais</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_UPDATE_CHANNELS_TEXT</id>
+        <text>A lista de canais é mantida e hospedada pelo autor da TOMA - Internet TV. Para conservar a largura de banda não é permitido actualizar a lista mais de uma vez a cada 24 horas.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_WA</id>
+        <text>Nullsoft Video</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_WM</id>
+        <text>Windows Media</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOP20</id>
+        <text>Top 20</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOP_ALBUMS</id>
+        <text>Top Albums</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOP_ARTISTS</id>
+        <text>Top Artistas</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOP_FAVORITES</id>
+        <text>Top de favoritos</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOP_RATED</id>
+        <text>Melhor avaliado</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOP_TRACKS</id>
+        <text>Top Músicas</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>TRACKS</id>
         <text>Músicas</text>
         <version>1.19</version>
@@ -4111,6 +5165,11 @@
         <id>TRACK_NAME</id>
         <text>Nome da música</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>TRAILER_LOCATION</id>
+        <text>Lacalização do trailer</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>TRANS_CLOSE_VERTICAL</id>
@@ -4334,6 +5393,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>UPLOADER</id>
+        <text>Uploader</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>UPLOADS</id>
+        <text>upload</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>UPLOAD_FAILED</id>
         <text>Envio do arquivo falhou.</text>
         <version>1.19</version>
@@ -4381,6 +5450,16 @@
       <string>
         <id>URL_DEL_OK</id>
         <text>Os endereços seleccionados foram apagados</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ERROR_CAT</id>
+        <text>Por favor seleccione uma categoria</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ERROR_CERT</id>
+        <text>Por favor seleccione um certificado</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4539,14 +5618,29 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>VERIFY_FILES</id>
+        <text>Verificar ficheiros</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>VIDEO</id>
         <text>Vídeo</text>
         <version>1.19</version>
       </string>
       <string>
+        <id>VIDEOS</id>
+        <text>Videos</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>VIDEO_INFO</id>
         <text>Informação do vídeo</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>VIEWED</id>
+        <text>Visto</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>VIEWED_BY</id>
@@ -4704,6 +5798,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>WEEKEND_BOXOFFICE</id>
+        <text>Fim de semana &quot;Box Office&quot;</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>WIKI_LOOKUP</id>
         <text>A pesquisar Wikipedia</text>
         <version>1.19</version>
@@ -4732,6 +5831,66 @@
         <id>YES</id>
         <text>Sim</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>YOUTUBE</id>
+        <text>YouTube</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_DESC</id>
+        <text>YouTube %s é um site de partilha de vídeo no qual os usuários podem carregar e partilhar vídeos.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_HD</id>
+        <text>Utilize HD</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_HD_PROMPT</id>
+        <text>Todos os vídeos do YouTube podem ser transmitidos numa resolução padrão (480x360). Seleccionar esta opção irá transmitir um HD (1280x720), se a versão disponível. Isso deve ser desactivado se você tem problemas de largura de banda de transmissão de conteúdo HD.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_PROMPT_GENERAL</id>
+        <text>Feeds gerais</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_PROMPT_PERSONAL</id>
+        <text>Feeds pessoais</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_SEARCH_CHANNELS</id>
+        <text>Pesquisa de canais</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_SEARCH_PLAYLISTS</id>
+        <text>Pesquisa de playlist</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_SEARCH_VIDEOS</id>
+        <text>Pesquisa de videos</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_UNKNOWN_USER</id>
+        <text>Nenhum usuário com o nome de usuário (s%) foi encontrado.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_USERID_PROMPT</id>
+        <text>Cada usuário SwissCenter pode ser associado a um nome de usuário do YouTube. Se você não inserir um nome de usuário, então você não terá acesso a assinaturas, favoritos, etc</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_USERNAMES</id>
+        <text>Username do Youtube</text>
+        <version>1.22</version>
       </string>
     </language>
   </languages>

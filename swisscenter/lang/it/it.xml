@@ -184,13 +184,13 @@
       </string>
       <string>
         <id>BROWSE_ACTOR</id>
-        <text>Cerca per attore</text>
-        <version>1.19</version>
+        <text>Cerca x attore</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_ALBUM</id>
-        <text>Cerca per nome album</text>
-        <version>1.19</version>
+        <text>Cerca x album</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_ALBUM_ARTIST</id>
@@ -199,37 +199,37 @@
       </string>
       <string>
         <id>BROWSE_ARTIST</id>
-        <text>Cerca per nome artista</text>
-        <version>1.19</version>
+        <text>Cerca x artista</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_CERTIFICATE</id>
-        <text>Cerca per certificato</text>
+        <text>Cerca x certificato</text>
         <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_COMPOSER</id>
-        <text>Cerca per compositore</text>
+        <text>Cerca x compositore</text>
         <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_COUNTRY</id>
-        <text>Ricerca per nazione</text>
-        <version>1.19</version>
+        <text>Cerca x nazione</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_DATE</id>
-        <text>Cerca per data</text>
-        <version>1.19</version>
+        <text>Cerca x data</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_DIRECTOR</id>
-        <text>Cerca per regista</text>
-        <version>1.19</version>
+        <text>Cerca x regista</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_DISCOVERED</id>
-        <text>Cerca per data di aggiunta</text>
+        <text>Cerca x aggiunta</text>
         <version>1.22</version>
       </string>
       <string>
@@ -244,8 +244,8 @@
       </string>
       <string>
         <id>BROWSE_GENRE</id>
-        <text>Cerca per genere</text>
-        <version>1.19</version>
+        <text>Cerca x genere</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_IPTC_BYLINE</id>
@@ -314,17 +314,17 @@
       </string>
       <string>
         <id>BROWSE_PHOTO_ALBUM</id>
-        <text>Cerca per album</text>
-        <version>1.19</version>
+        <text>Cerca x album</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_PHOTO_TITLE</id>
-        <text>Cerca per titolo</text>
-        <version>1.19</version>
+        <text>Cerca x titolo</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_RATING</id>
-        <text>Cerca per valutazione</text>
+        <text>Cerca x valutazione</text>
         <version>1.22</version>
       </string>
       <string>
@@ -344,18 +344,18 @@
       </string>
       <string>
         <id>BROWSE_TIMESTAMP</id>
-        <text>Cerca per data file</text>
+        <text>Cerca x data file</text>
         <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_TITLE</id>
-        <text>Cerca per titolo</text>
-        <version>1.19</version>
+        <text>Cerca x titolo</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_TRACK</id>
-        <text>Cerca per brano</text>
-        <version>1.19</version>
+        <text>Cerca x brano</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_WEB</id>
@@ -374,7 +374,7 @@
       </string>
       <string>
         <id>BROWSE_YEAR</id>
-        <text>Cerca per anno</text>
+        <text>Cerca x anno</text>
         <version>1.22</version>
       </string>
       <string>
@@ -1949,8 +1949,8 @@
       </string>
       <string>
         <id>IRADIO_SEARCH</id>
-        <text>Ricerca per stazione</text>
-        <version>1.19</version>
+        <text>Cerca per stazione</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>IRADIO_SHOUTCAST</id>
@@ -3114,7 +3114,7 @@
       </string>
       <string>
         <id>ORG_TITLE</id>
-        <text>Modifica i dettagli del video</text>
+        <text>Modifica dettagli video</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4899,7 +4899,7 @@
       </string>
       <string>
         <id>TEST_PARSERS</id>
-        <text>Test verifica</text>
+        <text>Test parser</text>
         <version>1.22</version>
       </string>
       <string>
@@ -5629,7 +5629,7 @@
       </string>
       <string>
         <id>VERIFY_FILES</id>
-        <text>Verifica i file</text>
+        <text>Test files sistema</text>
         <version>1.22</version>
       </string>
       <string>
