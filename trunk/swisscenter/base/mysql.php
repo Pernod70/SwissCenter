@@ -3,7 +3,7 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-require_once( realpath(dirname(__FILE__).'/file.php'));
+require_once( realpath(dirname(__FILE__).'/logging.php'));
 
 #-------------------------------------------------------------------------------------------------
 # Converts all keys to uppercase
