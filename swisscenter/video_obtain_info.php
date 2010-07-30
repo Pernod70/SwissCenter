@@ -50,9 +50,9 @@
   {
     $best_match = array("id" => 0, "chars" => 0, "pc" => 0);
 
-    for ($i=0; $i<count($haystack); $i++)
+    foreach ($haystack as $i=>$item)
     {
-      $chars = similar_text(trim($needle),trim($haystack[$i]),$pc);
+      $chars = similar_text(trim($needle),trim($item),$pc);
       $haystack[$i] .= " (".round($pc,2)."%)";
 
       if ( ($chars > $best_match["chars"] && $pc >= $best_match["pc"]) || $pc > $best_match["pc"])
