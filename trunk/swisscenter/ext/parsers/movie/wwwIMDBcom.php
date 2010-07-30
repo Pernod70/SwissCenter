@@ -42,23 +42,21 @@ class wwwIMDBcom extends Parser implements ParserInterface {
   protected function populatePage($search_params) {
     if (isset($search_params['TITLE']) && !empty($search_params['TITLE']))
       $this->title = $search_params['TITLE'];
-    if (isset($search_params['YEAR']) && !empty($search_params['YEAR'])) {
+    if (isset($search_params['YEAR']) && !empty($search_params['YEAR']))
       $year = $search_params['YEAR'];
-    }
 
-    send_to_log(4, "Searching for details about title: " . $this->title . " online at " . $this->site_url);
-    send_to_log(4, "Using year: " . $year);
+    send_to_log(4, "Searching for details about " . $this->title . " " . $year . " online at " . $this->site_url);
 
     // Check filename and title for an IMDb ID
-    if (isset ($search_params['IGNORE_IMDBTT']) && !$search_params['IGNORE_IMDBTT']) {
+    if (! (isset ($search_params['IGNORE_IMDBTT']) && $search_params['IGNORE_IMDBTT']) ) {
+	    send_to_log(4, "IMDB.com: Searching for IMDB in file details.");
       $details = db_row("select * from movies where file_id=" . $this->id);
       $imdbtt = $this->checkForIMDBTT($details);
     }
 
     $temp_title = $this->title;
     if (isset ($year))
-      $temp_title .= "(" .
-      $year . ")";
+      $temp_title .= " (" . $year . ")";
 
     if (!$imdbtt) {
       // Use IMDb's internal search to get a list a possible matches
@@ -82,9 +80,9 @@ class wwwIMDBcom extends Parser implements ParserInterface {
       if (strpos($html, $this->getSearchPageHTML()) > 0) {
         send_to_log(8, "Multiple IMDb matches...");
 
-        if ((preg_match("/\((\d+)\)/", $details["TITLE"], $title_year) != 0) || (preg_match("/\((\d+)\)/", $temp_title . ($year != "" && $year != false ? $year : ""), $title_year) != 0)) {
+        if ((preg_match("/\((\d{4})\)/", $details["TITLE"], $title_year) != 0) || (preg_match("/\((\d{4})\)/", $temp_title, $title_year) != 0)) {
           send_to_log(8, "Found year in the title: " . $title_year[0]);
-          $html = preg_replace('/<\/a>\s+\((\d\d\d\d).*\)/Ui', ' ($1)</a>', $html);
+          $html = preg_replace('/<\/a>\s+\((\d{4}).*\)/Ui', ' ($1)</a>', $html);
         }
         $html = substr($html, strpos($html, "Titles"));
         $matches = get_urls_from_html($html, '\/title\/tt\d+\/');
@@ -153,7 +151,7 @@ class wwwIMDBcom extends Parser implements ParserInterface {
       $end = strpos($html, "<span>", $start + 1);
       $title = substr($html, $start, $end - $start);
     }
-    $title = preg_replace('/\"/', '', ParserUtil :: decodeSpecialCharacters($title));
+    $title = trim(preg_replace('/\"/', '', ParserUtil :: decodeSpecialCharacters($title)));
     if (isset($title) && !empty($title)) {
       $this->setProperty(TITLE, $title);
       return $title;
@@ -276,6 +274,8 @@ class wwwIMDBcom extends Parser implements ParserInterface {
       $rating = (isset ($certlist["UK"]) ? $certlist["UK"] : $certlist["USA"]);
     elseif (get_rating_scheme_name() == 'MPAA')
       $rating = (isset ($certlist["USA"]) ? $certlist["USA"] : $certlist["UK"]);
+    elseif (get_rating_scheme_name() == 'Kijkwijzer')
+      $rating = (isset ($certlist["Netherlands"]) ? $certlist["Netherlands"] : (isset ($certlist["USA"]) ? $certlist["USA"] : $certlist["UK"]));
     if(isset($rating) && !empty($rating)){
       $this->setProperty(CERTIFICATE, $rating);
       return $rating;

@@ -170,7 +170,7 @@ abstract class Parser
   }
 
   protected function doSmartSearch($id, $filename, $title, $use_foldersearch = false) {
-    send_to_log (8, "Enter SmartSearch.. ".$title." parser ".$this->getName());
+    send_to_log (8, "SmartSearch: ".$title." parser ".$this->getName());
     // Perform search for matching titles
     $is_sample = ParserUtil :: is_sample_folder($filename);
 
@@ -184,19 +184,17 @@ abstract class Parser
 
     if ($title_year != FALSE) {
       $movie_year = $title_year;
-    } else
+    } else {
       if ($moviefolder_year != FALSE) {
         $movie_year = $moviefolder_year;
       } else {
         $movie_year = ParserUtil :: getYearFromFilePath($filename);
       }
-    $title = ParserUtil :: my_ucwords($title);
-    if (substr($title, strlen($title) - 1, 1) !== " ") {
-      $title = $title . " ";
     }
+    $title = ParserUtil :: my_ucwords($title);
     send_to_log(4, "Searching for details about " . $title . " online at " . $this->site_url);
     if ($use_foldersearch)
-      send_to_log(4, "In case of folder search: " . $moviefolder_name . " ");
+      send_to_log(4, "In case of folder search: " . $moviefolder_name);
 
     $this->accuracy = 0;
     $searchStrings = null;
@@ -225,7 +223,7 @@ abstract class Parser
         $this->populatePage( array('TITLE' => $parameters["title"],
                                    'YEAR'  => $parameters["year"]) );
         if ($this->accuracy >= 75) {
-          send_to_log(8, "Success for string: " . $parameters["title"]);
+          send_to_log(8, "Success for string: " . $parameters["title"]." ".$parameters["year"]);
           return true;
         } else
           send_to_log(8, "This string didn't work: " . $parameters["title"]." ".$parameters["year"]);
@@ -257,4 +255,3 @@ abstract class Parser
   }
 }
 ?>
-

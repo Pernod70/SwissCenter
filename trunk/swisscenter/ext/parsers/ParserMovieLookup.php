@@ -49,7 +49,11 @@ function ParserMovieLookup($movie_id, $filename, $search_params) {
                 break;
               case CERTIFICATE:
                 $returnval = db_lookup('certificates', 'name', 'cert_id', $parser->getProperty(CERTIFICATE));
+                scdb_set_movie_attribs($movie_id, array(ParserConstants :: $allMovieConstants[$i]['ID'] => $returnval));
+                break;
               case TITLE:
+                // Ensure title is used for subsequent parsers
+                $search_params['TITLE'] = $returnval;
               case SYNOPSIS:
               case YEAR:
               case EXTERNAL_RATING_PC:
@@ -82,25 +86,22 @@ function ParserMovieLookup($movie_id, $filename, $search_params) {
   $fanart = $parser->getProperty(FANART);
   if (isset ($fanart)) {
     $title = db_value("select title from movies where file_id=$movie_id");
-    foreach ($fanart['THUMB'] as $thumb) {
-      // TMDb doesn't use unique filenames so retrieve image id
-      $image_id = preg_get('/backdrops\/(\d+)/', $thumb);
-
+    foreach ($fanart as $image) {
       // Reset the timeout counter for each image downloaded
       set_time_limit(30);
-      $thumb_cache = $cache_dir . '/fanart/' . $image_id . '_' . basename($thumb);
+      $thumb_cache = $cache_dir . '/fanart/' . $image['id'] . '_' . basename($image['thumb']);
 
       if (!file_exists($thumb_cache))
-        file_save_albumart($thumb, $thumb_cache, '');
+        file_save_albumart($image['thumb'], $thumb_cache, '');
 
       // Insert information into database
       $data = array (
         "title" => $title,
         "media_type" => MEDIA_TYPE_VIDEO,
         "thumb_cache" => os_path($thumb_cache),
-        "original_url" => str_replace('_thumb', '', $thumb)
+        "original_url" => $image['original']
       );
-      $file_id = db_value("select file_id from themes where title='" . db_escape_str($title) . "' and instr(original_url,'/" . $image_id . "/')>0");
+      $file_id = db_value("select file_id from themes where title='" . db_escape_str($title) . "' and instr(original_url,'/" . $image['id'] . "/')>0");
       if ($file_id)
         db_update_row("themes", $file_id, $data);
       else

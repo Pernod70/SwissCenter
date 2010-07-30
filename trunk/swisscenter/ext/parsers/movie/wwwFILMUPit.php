@@ -8,8 +8,6 @@
 
  *************************************************************************************************/
 
-require_once (SC_LOCATION."/ext/json/json.php");
-
 class wwwFILMUPit extends Parser implements ParserInterface {
 
   public static function getName() {

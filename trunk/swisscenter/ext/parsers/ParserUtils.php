@@ -40,7 +40,7 @@ class parserUtil
       "pc" => 0
     );
     $pc = 0;
-    $title_and_year = $needle . ($year != false && $year != "" ? $year : "");
+    $title_and_year = $needle . (empty($year) ? "" : " (" . $year . ")");
     $haystack_copy = $haystack;
     $match_array_index = 0;
 
@@ -91,7 +91,7 @@ class parserUtil
             send_to_log(6, "found a match that contains the number(s), will use this: " . $secondary_array["name"]);
             $index = $secondary_array["id"];
             if ($index != $best_match["id"])
-              send_to_log(6, "ovverriding the previously selected title will set the accuracy to " . $secondary_array["pc"]);
+              send_to_log(6, "overriding the previously selected title will set the accuracy to " . $secondary_array["pc"]);
             break;
           }
         }
@@ -205,7 +205,7 @@ class parserUtil
     for ($i = 0; $i < $count; $i++) {
       $pos = strpos(strtoupper($title), $array[$i]);
       if ($pos != FALSE)
-        $title = substr($title, 0, $pos +1);
+        $title = substr($title, 0, $pos);
     }
     return $title;
   }
@@ -340,13 +340,20 @@ class parserUtil
 
   function getYearFromFilePath($filename) {
     $year = false;
-    $filename = self::getFilenameFromPath($filename);
+    $filename = basename($filename);
+
     if ((strpos($filename, "(") && strpos($filename, ")")) && strpos($filename, ")") - strpos($filename, "(") == 5) {
       $yearstring = substr($filename, strpos($filename, "(") + 1, 4);
       if (self::isValidYear($yearstring)) {
         $year = $yearstring;
       }
+    } else {
+      $yearstring = preg_get('/[^0-9]((19|20)\d{2})[^0-9]/', $filename);
+      if (self::isValidYear($yearstring)) {
+        $year = $yearstring;
+      }
     }
+
     return $year;
   }
 
@@ -361,13 +368,6 @@ class parserUtil
       return true;
     else
       return false;
-  }
-
-  function getFilenameFromPath($filename) {
-    while (strpos($filename, "/") != false) {
-      $filename = substr($filename, strpos($filename, "/") + 1);
-    }
-    return $filename;
   }
 }
 ?>

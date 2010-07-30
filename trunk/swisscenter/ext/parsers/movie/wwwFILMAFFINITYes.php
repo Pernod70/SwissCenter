@@ -84,6 +84,7 @@ class wwwFILMAFFINITYes extends Parser implements ParserInterface {
   protected function parseTitle() {
     $html = $this->page;
     $title = substr_between_strings($html,'<title>','</title>');
+    $title = trim(preg_replace('/\(\d{4}\) - FilmAffinity/', '', $title));
     if (isset($title) && !empty($title)) {
       $this->setProperty(TITLE, $title);
       return $title;

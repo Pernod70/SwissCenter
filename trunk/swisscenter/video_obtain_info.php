@@ -199,7 +199,8 @@
         else
           $filename = $row["DIRNAME"].$row["FILENAME"];
 
-        ParserMovieLookup( $row["FILE_ID"], $filename, array('TITLE' => $row["TITLE"]) );
+        ParserMovieLookup( $row["FILE_ID"], $filename, array('TITLE' => $row["TITLE"],
+                                                             'YEAR'  => $row["YEAR"]) );
         // Export to XML
         if ( get_sys_pref('movie_xml_save','NO') == 'YES' )
           export_video_to_xml( $row["FILE_ID"] );

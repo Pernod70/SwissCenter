@@ -19,8 +19,6 @@
 
  *************************************************************************************************/
 
-require_once( SC_LOCATION."/ext/json/json.php");
-
 class wwwOFDBde extends Parser implements ParserInterface {
 
   public static function getName() {
@@ -31,6 +29,7 @@ class wwwOFDBde extends Parser implements ParserInterface {
 
   public $supportedProperties = array (
     IMDBTT,
+    TITLE,
     ACTORS,
     DIRECTORS,
     GENRES,
@@ -131,6 +130,7 @@ class wwwOFDBde extends Parser implements ParserInterface {
   protected function parseTitle() {
     $html = $this->page;
     $title = substr_between_strings($html,'<title>','</title>');
+    $title = trim(preg_replace(array('/OFDb -/', '/\(\d{4}\)/'), '', $title));
     if (isset($title) && !empty($title)) {
       $this->setProperty(TITLE, $title);
       return $title;
