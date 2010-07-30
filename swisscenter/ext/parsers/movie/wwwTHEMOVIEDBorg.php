@@ -11,8 +11,11 @@
    Version history:
    01-Feb-2009: v1.0:     First public release
    29-May-2009: v2.0:     Updated to use API 2.1
+   29-Jul-2010: v2.1:     Use JSON instead of XML
 
  *************************************************************************************************/
+
+require_once (SC_LOCATION."/ext/json/json.php");
 
 // API key registered to SwissCenter project
 define('MOVIEDB_API_KEY', '2548980e43e9c7d08b705a2e57e9afe3');
@@ -49,10 +52,10 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
    * @return bool
    */
   function populatePage($search_params) {
-    global $moviematches;
-
     if (isset($search_params['TITLE']) && !empty($search_params['TITLE']))
       $this->title = $search_params['TITLE'];
+    if (isset($search_params['YEAR']) && !empty($search_params['YEAR']))
+      $year = $search_params['YEAR'];
 
     // Ensure local cache folders exist
     $this->cache_dir = get_sys_pref('cache_dir') . '/tmdb';
@@ -63,7 +66,7 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
       @ mkdir($this->cache_dir . '/fanart');
     }
 
-    send_to_log(4, "Searching for details about " . $this->title . " online at " . $this->site_url);
+    send_to_log(4, "Searching for details about " . $this->title . " " . $year . " online at " . $this->site_url);
 
     // Check filename and title for an IMDb ID
     if (isset($search_params['IGNORE_IMDBTT']) && !$search_params['IGNORE_IMDBTT']) {
@@ -72,11 +75,12 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
     }
 
     // User TMDb's internal search to get a list a possible matches
-    $moviedb_id = $this->get_moviedb_id(htmlspecialchars($this->title, ENT_QUOTES), $imdbtt);
+    $moviedb_id = $this->get_moviedb_id(htmlspecialchars($this->title, ENT_QUOTES), $year, $imdbtt);
     if ($moviedb_id) {
       // Parse the movie details
-      $moviematches = array ();
-      parse_moviedb_xml('http://api.themoviedb.org/2.1/Movie.getInfo/en/xml/' . MOVIEDB_API_KEY . '/' . $moviedb_id, 'start_tag_moviematches', 'end_tag_moviematches', 'tag_contents_moviematches');
+      $url = 'http://api.themoviedb.org/2.1/Movie.getInfo/en/json/' . MOVIEDB_API_KEY . '/' . $moviedb_id;
+      $index = json_decode( file_get_contents($url) );
+      $moviematches = object_to_array($index);
       $this->page = $moviematches;
       $this->accuracy = 100;
       if ( isset ($imdbtt) && !empty($imdbtt)) {
@@ -96,19 +100,19 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
   }
   protected function parseIMDBTT() {
     $moviematches = $this->page;
-    $imdbtt = $moviematches[0]['IMDB_ID'];
+    $imdbtt = $moviematches[0]['imdb_id'];
     $this->setProperty(IMDBTT, $imdbtt);
     return $imdbtt;
   }
   protected function parseTitle() {
     $moviematches = $this->page;
-    $title = $moviematches[0]['NAME'];
+    $title = $moviematches[0]['name'];
     $this->setProperty(TITLE, $title);
     return $title;
   }
   protected function parseSynopsis() {
     $moviematches = $this->page;
-    $synopsis = $moviematches[0]['OVERVIEW'];
+    $synopsis = $moviematches[0]['overview'];
     if (isset($synopsis) && !empty($synopsis)) {
       $this->setProperty(SYNOPSIS, $synopsis);
       return $synopsis;
@@ -116,37 +120,48 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
   }
   protected function parseActors() {
     $moviematches = $this->page;
-    $actors = $moviematches[0]['ACTOR'];
-    if (isset($actors) && !empty($actors)) {
-      $this->setProperty(ACTORS, $actors);
-      return $actors;
+    $cast = $moviematches[0]['cast'];
+    if (isset($cast) && !empty($cast)) {
+      $names = array();
+      foreach ($cast as $person)
+        if ( $person['job'] == 'Actor' )
+          $names[] = $person['name'];
+      $this->setProperty(ACTORS, $names);
+      return $names;
     }
   }
   protected function parseDirectors() {
     $moviematches = $this->page;
-    $directors = $moviematches[0]['DIRECTOR'];
-    if (isset($directors) && !empty($directors)) {
-      $this->setProperty(DIRECTORS, $directors);
-      return $directors;
+    $cast = $moviematches[0]['cast'];
+    if (isset($cast) && !empty($cast)) {
+      $names = array();
+      foreach ($cast as $person)
+        if ( $person['job'] == 'Director' )
+          $names[] = $person['name'];
+      $this->setProperty(DIRECTORS, $names);
+      return $names;
     }
   }
   protected function parseGenres() {
     $moviematches = $this->page;
-    $genres = $moviematches[0]['CATEGORY'];
+    $genres = $moviematches[0]['genres'];
     if (isset($genres) && !empty($genres)) {
-      $this->setProperty(GENRES, $genres);
-      return $genres;
+      $names = array();
+      foreach ($genres as $genre)
+        $names[] = $genre['name'];
+      $this->setProperty(GENRES, $names);
+      return $names;
     }
   }
   protected function parseYear() {
     $moviematches = $this->page;
-    $year = substr($moviematches[0]['RELEASED'], 0, 4);
+    $year = substr($moviematches[0]['released'], 0, 4);
     $this->setProperty(YEAR, $year);
     return $year;
   }
   protected function parseExternalRatingPc() {
     $moviematches = $this->page;
-    $rating = floor($moviematches[0]['RATING'] * 10);
+    $rating = floor($moviematches[0]['rating'] * 10);
     if (isset($rating) && !empty($rating)) {
       $this->setProperty(EXTERNAL_RATING_PC, $rating);
       return $rating;
@@ -154,25 +169,35 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
   }
   protected function parseTrailer() {
     $moviematches = $this->page;
-    $trailer = $moviematches[0]['TRAILER'];
+    $trailer = $moviematches[0]['trailer'];
     $this->setProperty(TRAILER, $trailer);
     return $trailer;
   }
   protected function parsePoster() {
     $moviematches = $this->page;
-    $poster = $moviematches[0]['POSTER']['ORIGINAL'][0];
-    if (isset($poster) && !empty ($poster)) {
-      if (url_exists($poster)) {
-        $this->setProperty(POSTER, $poster);
-        return $poster;
+    $posters = $moviematches[0]['posters'];
+    if (isset($posters) && !empty($posters)) {
+      foreach ($posters as $image) {
+        if ( $image['image']['size'] == 'original' ) {
+          $poster = $image['image']['url'];
+          break;
+        }
       }
+      $this->setProperty(POSTER, $poster);
+      return $poster;
     }
   }
   protected function parseFanart() {
     $moviematches = $this->page;
-    if (isset ($moviematches[0]['BACKDROP'])) {
-      $this->setProperty(FANART, $moviematches[0]['BACKDROP']);
-      return $moviematches[0]['BACKDROP'];
+    $backdrops = $moviematches[0]['backdrops'];
+    if (isset($backdrops) && !empty($backdrops)) {
+      $fanart = array();
+      foreach ($backdrops as $image) {
+        $fanart[$image['image']['id']]['id'] = $image['image']['id'];
+        $fanart[$image['image']['id']][$image['image']['size']] = $image['image']['url'];
+      }
+      $this->setProperty(FANART, $fanart);
+      return $fanart;
     }
   }
   protected function parseMatchPc() {
@@ -189,18 +214,16 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
    * @param  string $imdbtt - IMDB id if provided
    * @return integer
    */
-  function get_moviedb_id($title, $imdbtt = '') {
-    global $moviematches;
-
+  function get_moviedb_id($title, $year = '', $imdbtt = '') {
     // Use IMDb id (if provided), otherwise submit a search
     if (!empty ($imdbtt))
-      $filename = 'http://api.themoviedb.org/2.1/Movie.imdbLookup/en/xml/' . MOVIEDB_API_KEY . '/' . $imdbtt;
+      $url = 'http://api.themoviedb.org/2.1/Movie.imdbLookup/en/json/' . MOVIEDB_API_KEY . '/' . $imdbtt;
     else
-      $filename = 'http://api.themoviedb.org/2.1/Movie.search/en/xml/' . MOVIEDB_API_KEY . '/' . urlencode($title);
+      $url = 'http://api.themoviedb.org/2.1/Movie.search/en/json/' . MOVIEDB_API_KEY . '/' . urlencode(trim($title.' '.$year));
 
     // Parse the xml results and determine best match for title
-    $moviematches = array ();
-    parse_moviedb_xml($filename, 'start_tag_moviematches', 'end_tag_moviematches', 'tag_contents_moviematches');
+    $index = json_decode( file_get_contents($url) );
+    $moviematches = object_to_array($index);
 
     // Find best match for required title
     if (count($moviematches) > 0) {
@@ -208,18 +231,18 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
         // Found IMDb id
         $this->accuracy = 100;
         $index = 0;
-        send_to_log(4, "Matched IMDb Id:", $moviematches[$index]['NAME']);
-        return $moviematches[$index]['ID'];
+        send_to_log(4, "Matched IMDb Id:", $moviematches[$index]['name']);
+        return $moviematches[$index]['id'];
       } else {
         // There are multiple matches found... process them
         $matches = array ();
         $matches_id = array ();
         foreach ($moviematches as $movie) {
-          $matches[] = $movie['NAME'];
-          $matches_id[] = $movie['ID'];
-          if (isset ($movie['ALTERNATIVE_NAME']) && !empty ($movie['ALTERNATIVE_NAME'])) {
-            $matches[] = $movie['ALTERNATIVE_NAME'];
-            $matches_id[] = $movie['ID'];
+          $matches[] = $movie['name'];
+          $matches_id[] = $movie['id'];
+          if (isset ($movie['alternative_name']) && !empty ($movie['alternative_name'])) {
+            $matches[] = $movie['alternative_name'];
+            $matches_id[] = $movie['id'];
           }
         }
         $index = best_match($title, $matches, $this->accuracy);
@@ -240,115 +263,6 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
         return false;
       }
     }
-  }
-}
-/**
- * Parse the XML file
- *
- * @param string $filename
- */
-function parse_moviedb_xml($filename, $start_tag, $end_tag, $tag_contents) {
-  // Create XML parser
-  $xmlparser = xml_parser_create();
-  $success = true;
-  if ($xmlparser !== false) {
-    xml_set_element_handler($xmlparser, $start_tag, $end_tag);
-    xml_set_character_data_handler($xmlparser, $tag_contents);
-
-    // Read and process XML file
-    $fp = @ fopen($filename, "r");
-    if ($fp !== false) {
-      send_to_log(6, 'Parsing XML: ' . $filename);
-      while ($data = fread($fp, 8192)) {
-        $data = preg_replace("/>\s+/u", ">", $data);
-        $data = preg_replace("/\s+</u", "<", $data);
-        if (!xml_parse($xmlparser, $data, feof($fp))) {
-          send_to_log(8, 'XML parse error: ' . xml_error_string(xml_get_error_code($xmlparser)) . xml_get_current_line_number($xmlparser));
-          $success = false;
-          break;
-        }
-      }
-    } else {
-      send_to_log(5, 'Unable to read the specified file: ' . $filename);
-      $success = false;
-    }
-
-  } else {
-    send_to_log(5, 'Unable to create an expat XML parser - is the "xml" extension loaded into PHP?');
-    $success = false;
-  }
-  return $success;
-}
-
-//-------------------------------------------------------------------------------------------------
-// Callback functions to perform parsing of the various XML files.
-//-------------------------------------------------------------------------------------------------
-
-function start_tag_moviematches($parser, $name, $attribs)
-{
-  global $tag;
-  global $movie;
-
-  switch ($name)
-  {
-    case 'MOVIE':
-      $movie = array();
-      break;
-    case 'PERSON':
-      if (strtoupper($attribs['JOB']) == 'ACTOR')    { $movie['ACTOR'][]    = utf8_decode($attribs['NAME']); }
-      if (strtoupper($attribs['JOB']) == 'DIRECTOR') { $movie['DIRECTOR'][] = utf8_decode($attribs['NAME']); }
-      break;
-    case 'CATEGORY':
-      if (strtoupper($attribs['TYPE']) == 'GENRE')   { $movie['CATEGORY'][] = utf8_decode($attribs['NAME']); }
-      break;
-    case 'STUDIO':
-      $movie['STUDIO'][] = utf8_decode($attribs['NAME']);
-      break;
-    case 'COUNTRY':
-      $movie['COUNTRY'][] = utf8_decode($attribs['NAME']);
-      break;
-    case 'IMAGE':
-      $movie[strtoupper($attribs['TYPE'])][strtoupper($attribs['SIZE'])][] = $attribs['URL'];
-      break;
-    default:
-      $tag = $name;
-  }
-}
-
-function end_tag_moviematches($parser, $name)
-{
-  global $movie;
-  global $moviematches;
-
-  switch ($name)
-  {
-    case 'MOVIE':
-      if ( $movie['TYPE'] == 'movie' ) $moviematches[] = $movie;
-      break;
-    default:
-  }
-}
-
-function tag_contents_moviematches($parser, $data)
-{
-  global $tag;
-  global $movie;
-
-  $data = utf8_decode($data);
-
-  switch ($tag)
-  {
-    case 'NAME':            { $movie['NAME'] .= $data; break; }
-    case 'ALTERNATIVE_NAME':{ $movie['ALTERNATIVE_NAME'] .= $data; break; }
-    case 'TYPE':            { $movie['TYPE'] .= $data; break; }
-    case 'ID':              { $movie['ID'] .= $data; break; }
-    case 'IMDB_ID':         { $movie['IMDB_ID'] .= $data; break; }
-    case 'URL':             { $movie['URL'] .= $data; break; }
-    case 'OVERVIEW':        { $movie['OVERVIEW'] .= $data; break; }
-    case 'RATING':          { $movie['RATING'] .= $data; break; }
-    case 'RELEASED':        { $movie['RELEASED'] .= $data; break; }
-    case 'RUNTIME':         { $movie['RUNTIME'] .= $data; break; }
-    case 'TRAILER':         { $movie['TRAILER'] .= $data; break; }
   }
 }
 ?>
