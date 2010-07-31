@@ -78,6 +78,14 @@ function ParserTvLookup($tv_id, $filename, $search_params) {
   // Cache folder for downloading images
   $cache_dir = get_sys_pref('cache_dir').'/tvdb';
 
+  // Ensure local cache folders exist
+  if (!file_exists($cache_dir)) { @mkdir($cache_dir); }
+  if (!file_exists($cache_dir.'/banners')) { @mkdir($cache_dir.'/banners'); }
+  if (!file_exists(dirname($this->filename).'/banners')) { @mkdir(dirname($this->filename).'/banners'); }
+  if (!file_exists($cache_dir.'/fanart')) { @mkdir($cache_dir.'/fanart'); }
+  if (!file_exists($cache_dir.'/actors')) { @mkdir($cache_dir.'/actors'); }
+  if (!file_exists(SC_LOCATION.'fanart/actors')) { @mkdir(SC_LOCATION.'fanart/actors'); }
+
   // Download series banners (save to cache before copying to video folder)
   $banners = $parser->getProperty(BANNERS);
   $series = db_value("select series from tv where file_id=$tv_id");

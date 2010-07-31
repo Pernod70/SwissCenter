@@ -15,6 +15,7 @@ class wwwIMDBcom extends Parser implements ParserInterface {
     TITLE,
     SYNOPSIS,
     ACTORS,
+    ACTOR_IMAGES,
     DIRECTORS,
     GENRES,
     LANGUAGES,
@@ -204,6 +205,33 @@ class wwwIMDBcom extends Parser implements ParserInterface {
     $actors = ParserUtil :: decodeSpecialCharactersList($matches[2]);
     if (isset($actors) && !empty($actors)) {
       $this->setProperty(ACTORS, $actors);
+      return $actors;
+    }
+  }
+  protected function parseActorImages() {
+    if (get_sys_pref('PARSER_IMDB_FULL_CAST', 'NO') == 'YES')
+      $html = file_get_contents($this->url_imdb . "/fullcredits#cast");
+    else
+      $html = $this->page;
+
+    $start = strpos($html, "<table class=\"cast\">");
+    $end = strpos($html, "</table>", $start + 1);
+    $html_actors = substr($html, $start, $end - $start);
+    preg_match_all('/<img src="(.*)" width="\d{2}" height="\d{2}" border="0">.*<\/td><td class="nm"><a href="\/name\/(nm\d+)\/" onclick=".*">(.*)<\/a>/Us', $html_actors, $matches);
+    $actors = array();
+    for ($i = 0; $i < count($matches[0]); $i++) {
+      if (strpos($matches[1][$i], 'no_photo') === false && strlen($matches[2][$i]) > 0) {
+        // Replace resize attributes with maximum allowed
+        $matches[1][$i] = preg_replace('/SX\d+_/', 'SX450_', $matches[1][$i]);
+        $matches[1][$i] = preg_replace('/SY\d+_/', 'SY700_', $matches[1][$i]);
+
+        $actors[] = array('ID'    => $matches[2][$i],
+                          'IMAGE' => $matches[1][$i],
+                          'NAME'  => ParserUtil :: decodeSpecialCharacters($matches[3][$i]));
+      }
+    }
+    if (isset($actors) && !empty($actors)) {
+      $this->setProperty(ACTOR_IMAGES, $actors);
       return $actors;
     }
   }

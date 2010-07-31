@@ -82,6 +82,12 @@ function ParserMovieLookup($movie_id, $filename, $search_params) {
   // Cache folder for downloading images
   $cache_dir = get_sys_pref('cache_dir') . '/tmdb';
 
+  // Ensure local cache folders exist
+  if (!file_exists($cache_dir)) { @mkdir($cache_dir); }
+  if (!file_exists($cache_dir.'/fanart')) { @mkdir($cache_dir.'/fanart'); }
+  if (!file_exists($cache_dir.'/actors')) { @mkdir($cache_dir.'/actors'); }
+  if (!file_exists(SC_LOCATION.'fanart/actors')) { @mkdir(SC_LOCATION.'fanart/actors'); }
+
   // Download fanart thumbnails
   $fanart = $parser->getProperty(FANART);
   if (isset ($fanart)) {
@@ -106,6 +112,26 @@ function ParserMovieLookup($movie_id, $filename, $search_params) {
         db_update_row("themes", $file_id, $data);
       else
         db_insert_row("themes", $data);
+    }
+  }
+
+  // Download actor images (save to cache before copying to fanart folder)
+  $actors = $parser->getProperty(ACTOR_IMAGES);
+  if (isset($actors)) {
+    foreach ($actors as $actor) {
+      if ( !empty($actor['IMAGE']) ) {
+        // Reset the timeout counter for each image downloaded
+        set_time_limit(30);
+        if (!file_exists($cache_dir.'/actors/'.$actor['ID'].'.'.file_ext($actor['IMAGE'])))
+          file_save_albumart( $actor['IMAGE']
+                            , $cache_dir.'/actors/'.$actor['ID'].'.'.file_ext($actor['IMAGE'])
+                            , '');
+        if (!file_exists(SC_LOCATION.'fanart/actors/'.strtolower($actor['NAME']).'/'.$actor['ID'].'.'.file_ext($actor['IMAGE']))) {
+          if (!file_exists(SC_LOCATION.'fanart/actors/'.strtolower($actor['NAME']))) { @mkdir(SC_LOCATION.'fanart/actors/'.strtolower($actor['NAME'])); }
+            copy($cache_dir.'/actors/'.$actor['ID'].'.'.file_ext($actor['IMAGE']),
+                 SC_LOCATION.'fanart/actors/'.strtolower($actor['NAME']).'/'.$actor['ID'].'.'.file_ext($actor['IMAGE']));
+        }
+      }
     }
   }
 
