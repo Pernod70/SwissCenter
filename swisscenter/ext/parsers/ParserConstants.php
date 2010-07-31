@@ -10,7 +10,9 @@ define("EPISODE", "EPISODE");
 define("TITLE", "TITLE");
 define("SYNOPSIS", "SYNOPSIS");
 define("ACTORS", "ACTORS");
+define("ACTOR_IMAGES", "ACTOR_IMAGES");
 define("DIRECTORS", "DIRECTORS");
+define("DIRECTOR_IMAGES", "DIRECTOR_IMAGES");
 define("GENRES", "GENRES");
 define("LANGUAGES", "LANGUAGES");
 define("YEAR", "YEAR");
@@ -20,8 +22,6 @@ define("TRAILER", "TRAILER");
 define("POSTER", "POSTER");
 define("FANART", "FANART");
 define("BANNERS", "BANNERS");
-define("ACTOR_IMAGES", "ACTOR_IMAGES");
-define("DIRECTOR_IMAGES", "DIRECTOR_IMAGES");
 define("MATCH_PC", "MATCH_PC");
 
 abstract class ParserConstants {
@@ -32,6 +32,7 @@ abstract class ParserConstants {
     array('ID'=>'SYNOPSIS',           'TEXT'=>'SYNOPSIS',         'DEFAULT'=>'wwwIMDBcom'),
     array('ID'=>'YEAR',               'TEXT'=>'YEAR',             'DEFAULT'=>'wwwIMDBcom'),
     array('ID'=>'ACTORS',             'TEXT'=>'ACTOR',            'DEFAULT'=>'wwwIMDBcom'),
+    array('ID'=>'ACTOR_IMAGES',       'TEXT'=>'ACTOR_IMAGES',     'DEFAULT'=>'wwwIMDBcom'),
     array('ID'=>'DIRECTORS',          'TEXT'=>'DIRECTOR',         'DEFAULT'=>'wwwIMDBcom'),
     array('ID'=>'GENRES',             'TEXT'=>'GENRE',            'DEFAULT'=>'wwwIMDBcom'),
     array('ID'=>'LANGUAGES',          'TEXT'=>'SPOKEN_LANGUAGE',  'DEFAULT'=>'wwwIMDBcom'),
@@ -51,6 +52,7 @@ abstract class ParserConstants {
     array('ID'=>'SYNOPSIS',           'TEXT'=>'SYNOPSIS',         'DEFAULT'=>'wwwTHETVDBcom'),
     array('ID'=>'YEAR',               'TEXT'=>'YEAR',             'DEFAULT'=>'wwwTHETVDBcom'),
     array('ID'=>'ACTORS',             'TEXT'=>'ACTOR',            'DEFAULT'=>'wwwTHETVDBcom'),
+    array('ID'=>'ACTOR_IMAGES',       'TEXT'=>'ACTOR_IMAGES',     'DEFAULT'=>'wwwTHETVDBcom'),
     array('ID'=>'DIRECTORS',          'TEXT'=>'DIRECTOR',         'DEFAULT'=>'wwwTHETVDBcom'),
     array('ID'=>'GENRES',             'TEXT'=>'GENRE',            'DEFAULT'=>'wwwTHETVDBcom'),
     array('ID'=>'LANGUAGES',          'TEXT'=>'SPOKEN_LANGUAGE',  'DEFAULT'=>'NoParser'),

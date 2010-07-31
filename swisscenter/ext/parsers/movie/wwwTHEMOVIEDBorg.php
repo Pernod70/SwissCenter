@@ -41,8 +41,6 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
     return "www.themoviedb.org";
   }
 
-  private $cache_dir;
-  private $xmlparser;
   protected $site_url = 'http://themoviedb.org/';
 
   /**
@@ -56,15 +54,6 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
       $this->title = $search_params['TITLE'];
     if (isset($search_params['YEAR']) && !empty($search_params['YEAR']))
       $year = $search_params['YEAR'];
-
-    // Ensure local cache folders exist
-    $this->cache_dir = get_sys_pref('cache_dir') . '/tmdb';
-    if (!file_exists($this->cache_dir)) {
-      @ mkdir($this->cache_dir);
-    }
-    if (!file_exists($this->cache_dir . '/fanart')) {
-      @ mkdir($this->cache_dir . '/fanart');
-    }
 
     send_to_log(4, "Searching for details about " . $this->title . " " . $year . " online at " . $this->site_url);
 

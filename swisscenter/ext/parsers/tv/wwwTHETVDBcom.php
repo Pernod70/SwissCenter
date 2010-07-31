@@ -38,6 +38,7 @@ class wwwTHETVDBcom extends Parser implements ParserInterface {
     EPISODE,
     TITLE,
     ACTORS,
+    ACTOR_IMAGES,
     DIRECTORS,
     GENRES,
     YEAR,
@@ -46,7 +47,7 @@ class wwwTHETVDBcom extends Parser implements ParserInterface {
     POSTER,
     BANNERS,
     FANART,
-    ACTOR_IMAGES
+    MATCH_PC
   );
 
   public static function getName() {
@@ -93,11 +94,6 @@ class wwwTHETVDBcom extends Parser implements ParserInterface {
     // Ensure local cache folders exist
     $cache_dir = get_sys_pref('cache_dir').'/tvdb';
     if (!file_exists($cache_dir)) { @mkdir($cache_dir); }
-    if (!file_exists($cache_dir.'/banners')) { @mkdir($cache_dir.'/banners'); }
-    if (!file_exists(dirname($this->filename).'/banners')) { @mkdir(dirname($this->filename).'/banners'); }
-    if (!file_exists($cache_dir.'/fanart')) { @mkdir($cache_dir.'/fanart'); }
-    if (!file_exists($cache_dir.'/actors')) { @mkdir($cache_dir.'/actors'); }
-    if (!file_exists(SC_LOCATION.'fanart/actors')) { @mkdir(SC_LOCATION.'fanart/actors'); }
 
     // Get mirror for xml and banners
     $this->get_mirrors();
@@ -256,6 +252,15 @@ class wwwTHETVDBcom extends Parser implements ParserInterface {
       return $actors;
     }
   }
+  protected function parseActorImages() {
+    $tvdb = $this->page;
+    $actors = isset($tvdb['ACTORS']) ? $tvdb['ACTORS'] : array();
+    if (isset($actors) && !empty($actors)) {
+      $actors['MIRROR'] = $this->bannermirror;
+      $this->setProperty(ACTOR_IMAGES, $actors);
+      return $actors;
+    }
+  }
   protected function parseDirectors() {
     $tvdb = $this->page;
     $directors = explode('|', $this->clean_name_list($tvdb['EPISODE']['DIRECTOR']));
@@ -315,13 +320,10 @@ class wwwTHETVDBcom extends Parser implements ParserInterface {
       return $banners;
     }
   }
-  protected function parseActorImages() {
-    $tvdb = $this->page;
-    $actors = isset($tvdb['ACTORS']) ? $tvdb['ACTORS'] : array();
-    if (isset($actors) && !empty($actors)) {
-      $actors['MIRROR'] = $this->bannermirror;
-      $this->setProperty(ACTOR_IMAGES, $actors);
-      return $actors;
+  protected function parseMatchPc() {
+    if (isset ($this->accuracy)) {
+      $this->setProperty(MATCH_PC, $this->accuracy);
+      return $this->accuracy;
     }
   }
   /**
