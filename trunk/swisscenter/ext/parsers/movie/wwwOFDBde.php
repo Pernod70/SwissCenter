@@ -160,10 +160,10 @@ class wwwOFDBde extends Parser implements ParserInterface {
     if ($start !== false) {
       $end = strpos($html,"</tr>", $start + 1);
       if ($end !== false) {
-        $html_year = substr($html, $start, $end  -$start);
+        $html_year = substr($html, $start, $end - $start);
         $matches = get_urls_from_html($html_year,"Jahr");
         if(isset($matches[2]) && !empty($matches[2])){
-          $this->setProperty(ACTORS, $matches[2][0]);
+          $this->setProperty(YEAR, $matches[2][0]);
           return $matches[2][0];
         }
       }

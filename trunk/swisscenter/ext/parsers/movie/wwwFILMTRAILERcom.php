@@ -38,7 +38,7 @@ class wwwFILMTRAILERcom extends Parser implements ParserInterface {
     // Perform search for matching titles
     send_to_log(4, "Searching for details about ".$this->title." online at ".$this->site_url);
     $filmtrailer = new FilmTrailer();
-    $trailers = $filmtrailer->quickFind($this->title);
+    $trailers = $filmtrailer->quickFind('');
 
     // Examine returned page
     if (count($trailers) == 0) {

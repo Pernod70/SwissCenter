@@ -81,7 +81,7 @@ function ParserTvLookup($tv_id, $filename, $search_params) {
   // Ensure local cache folders exist
   if (!file_exists($cache_dir)) { @mkdir($cache_dir); }
   if (!file_exists($cache_dir.'/banners')) { @mkdir($cache_dir.'/banners'); }
-  if (!file_exists(dirname($this->filename).'/banners')) { @mkdir(dirname($this->filename).'/banners'); }
+  if (!file_exists(dirname($filename).'/banners')) { @mkdir(dirname($filename).'/banners'); }
   if (!file_exists($cache_dir.'/fanart')) { @mkdir($cache_dir.'/fanart'); }
   if (!file_exists($cache_dir.'/actors')) { @mkdir($cache_dir.'/actors'); }
   if (!file_exists(SC_LOCATION.'fanart/actors')) { @mkdir(SC_LOCATION.'fanart/actors'); }

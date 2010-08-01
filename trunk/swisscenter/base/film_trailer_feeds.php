@@ -202,7 +202,8 @@ class FilmTrailer {
 
     // Search the film ID list for matches
     $matches = array();
-    preg_match_all('/<tr><td><a href="javascript: get_player\(this,\'([0-9]+)_([0-9]+)_([0-9]+)\'\);">\d+<\/a>[\s\d\(\)]+<\/td><td><a href="javascript: get_player\(this,\'[0-9_]+\'\);">([\w]*'.$query.'[\w]*)<\/a>/Usi', $this->response, $matches);
+    $query = (empty($query) ? '.*' : '[\w]*'.$query.'[\w]*');
+    preg_match_all('/<tr><td><a href="javascript: get_player\(this,\'([0-9]+)_([0-9]+)_([0-9]+)\'\);">\d+<\/a>[\s\d\(\)]+<\/td><td><a href="javascript: get_player\(this,\'[0-9_]+\'\);">('.$query.')<\/a>/Usi', $this->response, $matches);
 
     // Remove duplicate movies, caused by having multiple trailers
     $trailers = array();
