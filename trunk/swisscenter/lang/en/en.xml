@@ -13,6 +13,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>ACTOR_IMAGES</id>
+        <text>Actor Images</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>ADDITIONAL_COMPONENTS</id>
         <text>Other Components</text>
         <version>1.20.1</version>
@@ -556,6 +561,11 @@
         <id>CLEAR_NAME</id>
         <text>Clear name</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>COMING-50</id>
+        <text>Coming soon to cinemas</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>COMMENT</id>
@@ -1304,6 +1314,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>FILM_TRAILERS</id>
+        <text>Film Trailers</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>FILTER</id>
         <text>Filter</text>
         <version>1.19</version>
@@ -1863,6 +1878,11 @@
         <id>IRADIO_GENRE_PROMPT</id>
         <text>Please specify a genre and sub-genre (optional) that you would like to search for. Both %s and %s support searching by genre so visit the sites to lookup valid genres</text>
         <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_ICECAST</id>
+        <text>IceCast</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>IRADIO_LIVE365</id>
@@ -2934,6 +2954,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>NEWEST-50</id>
+        <text>Newest film trailers</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>NEWSUBSCRIPTIONVIDEOS</id>
         <text>New videos</text>
         <version>1.22</version>
@@ -2967,6 +2992,11 @@
         <id>NOT_RATED</id>
         <text>Not Rated</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>NOW-50</id>
+        <text>Now in cinemas</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>NOW_PLAYING</id>
@@ -3932,23 +3962,8 @@ If any details are added/changed on this page then you are requested to submit t
         <version>1.22</version>
       </string>
       <string>
-        <id>RECENT_MUSIC</id>
-        <text>Music</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>RECENT_PHOTO</id>
-        <text>Photographs</text>
-        <version>1.22</version>
-      </string>
-      <string>
         <id>RECENT_TRACKS</id>
         <text>Recent Tracks</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>RECENT_VIDEO</id>
-        <text>Video</text>
         <version>1.22</version>
       </string>
       <string>
@@ -5643,8 +5658,8 @@ If any details are added/changed on this page then you are requested to submit t
       </string>
       <string>
         <id>VIEW_WEATHER</id>
-        <text>View weather forecast</text>
-        <version>1.19</version>
+        <text>Weather forecast</text>
+        <version>1.21.1</version>
       </string>
       <string>
         <id>WATCH_INTERNET_TV</id>
