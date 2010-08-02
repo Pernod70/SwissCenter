@@ -6,39 +6,20 @@
 require_once( realpath(dirname(__FILE__).'/../../base/mysql.php'));
 require_once( realpath(dirname(__FILE__).'/../json/json.php'));
 
-// Decides which include path delimiter to use.  Windows should be using a semi-colon
-// and everything else should be using a colon.  If this isn't working on your system,
-// comment out this if statement and manually set the correct value into $path_delimiter.
-if (strpos(__FILE__, ':') !== false) {
-  $path_delimiter = ';';
-} else {
-  $path_delimiter = ':';
-}
-
-// This will add the packaged PEAR files into the include path for PHP, allowing you
-// to use them transparently.  This will prefer officially installed PEAR files if you
-// have them.  If you want to prefer the packaged files (there shouldn't be any reason
-// to), swap the two elements around the $path_delimiter variable.  If you don't have
-// the PEAR packages installed, you can leave this like it is and move on.
-
-ini_set('include_path', ini_get('include_path') . $path_delimiter . dirname(__FILE__) . '/../PEAR');
-
 class phpYouTube {
-  var $GET = 'http://gdata.youtube.com/';
-  var $service = 'youtube';
+  private $GET = 'http://gdata.youtube.com/';
 
   // Not used - required for API requests that need authentication
-  var $developer_key = 'AI39si4es6-gXx07JdA7stI80G_1cics8gnt76TkH8qiODFg4NKflrvGlr1YQQCOn1zU6Y2jBH7qMw8kEMmRmNKEuvoG8oZG2g';
+  private $developer_key = 'AI39si4es6-gXx07JdA7stI80G_1cics8gnt76TkH8qiODFg4NKflrvGlr1YQQCOn1zU6Y2jBH7qMw8kEMmRmNKEuvoG8oZG2g';
 
-  var $req;
-  var $response;
-  var $response_code;
-  var $cache_table = null;
-  var $cache_expire = null;
+  private $service;
+  private $response;
+  private $cache_table = null;
+  private $cache_expire = null;
 
-  var $api_version = 2;
-  var $start_index = 1;
-  var $max_results = 50;
+  private $api_version = 2;
+  private $start_index = 1;
+  private $max_results = 50;
 
   /*
    * When your database cache table hits this many rows, a cleanup
@@ -50,14 +31,11 @@ class phpYouTube {
    * happens every once in a while, so this will depend on the growth
    * of your table.
    */
-  var $max_cache_rows = 1000;
+  private $max_cache_rows = 1000;
 
   function phpYouTube ()
   {
-    // All calls to the API are done via the GET method using the PEAR::HTTP_Request package.
-    require_once 'HTTP/Request.php';
-    $this->req =& new HTTP_Request();
-    $this->req->setMethod(HTTP_REQUEST_METHOD_GET);
+    $this->service = 'youtube';
     $this->enableCache(3600);
   }
 
@@ -67,7 +45,7 @@ class phpYouTube {
    * @param unknown_type $cache_expire
    * @param unknown_type $table
    */
-  function enableCache($cache_expire = 600, $table = 'cache_api_request')
+  private function enableCache($cache_expire = 600, $table = 'cache_api_request')
   {
     if (db_value("SELECT COUNT(*) FROM $table WHERE service = '".$this->service."'") > $this->max_cache_rows)
     {
@@ -78,7 +56,7 @@ class phpYouTube {
     $this->cache_expire = $cache_expire;
   }
 
-  function getCached ($request)
+  private function getCached ($request)
   {
     //Checks the database for a cached result to the request.
     //If there is no cache result, it returns a value of false. If it finds one,
@@ -87,12 +65,12 @@ class phpYouTube {
 
     $result = db_value("SELECT response FROM ".$this->cache_table." WHERE request = '$reqhash' AND DATE_SUB(NOW(), INTERVAL " . (int) $this->cache_expire . " SECOND) < expiration");
     if (!empty($result)) {
-      return object_to_array(json_decode($result));
+      return $result;
     }
     return false;
   }
 
-  function cache ($request, $response)
+  private function cache ($request, $response)
   {
     //Caches the unparsed XML of a request.
     $reqhash = md5(serialize($request));
@@ -106,26 +84,19 @@ class phpYouTube {
     return false;
   }
 
-  function request ($command, $args = array())
+  private function request($request, $args = array(), $nocache = false)
   {
     // Select JSON output and set the API version to use
-    $args = array_merge($args, array("alt" => "json", "v" => $this->api_version));
+    $request = url_add_params($this->GET.$request, array_merge(array("alt" => "json", "v" => $this->api_version), $args));
 
     //Sends a request to YouTube
-    $url = url_add_params($this->GET.$command, $args);
-    $this->req->setURL($url);
-    send_to_log(6,'YouTube API request',$url);
-
-    if (!($this->response = $this->getCached($url)) ) {
-      $this->req->addHeader("Connection", "Keep-Alive");
-
-      //Send Requests
-      if ($this->req->sendRequest()) {
-        $this->response = object_to_array(json_decode($this->req->getResponseBody()));
-        $this->response_code = $this->req->getResponseCode();
-        $this->cache($url, $this->req->getResponseBody());
+    send_to_log(6,'YouTube API request', $request);
+    if (!($this->response = $this->getCached($request)) || $nocache) {
+      if ($this->response = file_get_contents($request)) {
+        $this->response = object_to_array(json_decode($this->response));
+        $this->cache($url, $this->response);
       } else {
-        die("There has been a problem sending your command to the server.");
+        send_to_log(2,"There has been a problem sending your command to the server.", $request);
         return false;
       }
     }

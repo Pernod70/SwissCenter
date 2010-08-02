@@ -6,33 +6,13 @@
 require_once( realpath(dirname(__FILE__).'/mysql.php'));
 require_once( realpath(dirname(__FILE__).'/../ext/json/json.php'));
 
-// Decides which include path delimiter to use.  Windows should be using a semi-colon
-// and everything else should be using a colon.  If this isn't working on your system,
-// comment out this if statement and manually set the correct value into $path_delimiter.
-if (strpos(__FILE__, ':') !== false) {
-  $path_delimiter = ';';
-} else {
-  $path_delimiter = ':';
-}
-
-// This will add the packaged PEAR files into the include path for PHP, allowing you
-// to use them transparently.  This will prefer officially installed PEAR files if you
-// have them.  If you want to prefer the packaged files (there shouldn't be any reason
-// to), swap the two elements around the $path_delimiter variable.  If you don't have
-// the PEAR packages installed, you can leave this like it is and move on.
-
-ini_set('include_path', ini_get('include_path') . $path_delimiter . dirname(__FILE__) . '/../ext/PEAR');
-
 define('APPLE_TRAILERS_URL','http://trailers.apple.com');
 
 class AppleTrailers {
-  var $service  = 'apple_trailers';
-
-  var $req;
-  var $response;
-  var $response_code;
-  var $cache_table = null;
-  var $cache_expire = null;
+  private $service;
+  private $response;
+  private $cache_table = null;
+  private $cache_expire = null;
 
   /*
    * When your database cache table hits this many rows, a cleanup
@@ -44,14 +24,11 @@ class AppleTrailers {
    * happens every once in a while, so this will depend on the growth
    * of your table.
    */
-  var $max_cache_rows = 1000;
+  private $max_cache_rows = 1000;
 
   function AppleTrailers ()
   {
-    // All calls to the API are done via the GET method using the PEAR::HTTP_Request package.
-    require_once 'HTTP/Request.php';
-    $this->req =& new HTTP_Request();
-    $this->req->setMethod(HTTP_REQUEST_METHOD_GET);
+    $this->service = 'apple_trailers';
     $this->enableCache(3600);
   }
 
@@ -61,7 +38,7 @@ class AppleTrailers {
    * @param unknown_type $cache_expire
    * @param unknown_type $table
    */
-  function enableCache($cache_expire = 600, $table = 'cache_api_request')
+  private function enableCache($cache_expire = 600, $table = 'cache_api_request')
   {
     if (db_value("SELECT COUNT(*) FROM $table WHERE service = '".$this->service."'") > $this->max_cache_rows)
     {
@@ -72,7 +49,7 @@ class AppleTrailers {
     $this->cache_expire = $cache_expire;
   }
 
-  function getCached ($request)
+  private function getCached ($request)
   {
     //Checks the database for a cached result to the request.
     //If there is no cache result, it returns a value of false. If it finds one,
@@ -81,12 +58,12 @@ class AppleTrailers {
 
     $result = db_value("SELECT response FROM ".$this->cache_table." WHERE request = '$reqhash' AND DATE_SUB(NOW(), INTERVAL " . (int) $this->cache_expire . " SECOND) < expiration");
     if (!empty($result)) {
-      return object_to_array(json_decode($result));
+      return $result;
     }
     return false;
   }
 
-  function cache ($request, $response)
+  private function cache ($request, $response)
   {
     //Caches the unparsed XML of a request.
     $reqhash = md5(serialize($request));
@@ -100,27 +77,20 @@ class AppleTrailers {
     return false;
   }
 
-  function request ($command, $args = array())
+  private function request ($request, $nocache = false)
   {
     //Sends a request to Apple
-    $url = url_add_params(APPLE_TRAILERS_URL.'/trailers/home/'.$command, $args);
-    $this->req->setURL($url);
-    send_to_log(6,'Apple feed request',$url);
-
-    if (!($this->response = $this->getCached($url)) ) {
-      $this->req->addHeader("Connection", "Keep-Alive");
-
-      //Send Requests
-      if ($this->req->sendRequest()) {
+    send_to_log(6,'Apple feed request', $request);
+    if (!($this->response = $this->getCached($request)) || $nocache) {
+      if ($this->response = file_get_contents($request)) {
         // Clean response body
-        $response = substr($this->req->getResponseBody(), strpos($this->req->getResponseBody(),'['), strrpos($this->req->getResponseBody(),']') - strpos($this->req->getResponseBody(),'[') + 1);
+        $body = substr($this->response, strpos($this->response,'['), strrpos($this->response,']') - strpos($this->response,'[') + 1);
         // Decode response
-        $response = unicode_decode($response);
-        $this->response = object_to_array(json_decode($response));
-        $this->response_code = $this->req->getResponseCode();
-        $this->cache($url, $response);
+        $body = unicode_decode($body);
+        $this->response = object_to_array(json_decode($body));
+        $this->cache($url, $this->response);
       } else {
-        die("There has been a problem sending your command to the server.");
+        send_to_log(2,"There has been a problem sending your command to the server.", $request);
         return false;
       }
     }
@@ -135,8 +105,10 @@ class AppleTrailers {
    */
   function getFeed ($feed)
   {
-    $this->request('feeds/'.$feed.'.json');
-    return $this->response;
+    if ( $this->request(APPLE_TRAILERS_URL.'/trailers/home/feeds/'.$feed.'.json') )
+      return $this->response;
+    else
+      return false;
   }
 
   /**
@@ -150,14 +122,16 @@ class AppleTrailers {
     // Remove anything within brackets from query
     $query = preg_replace('/\(.*?\)/', '', $query);
 
-    $this->request('scripts/quickfind.php?callback=searchCallback&q='.rawurlencode($query));
+    if ( $this->request(APPLE_TRAILERS_URL.'/trailers/home/scripts/quickfind.php?callback=searchCallback&q='.rawurlencode($query)) ) {
+      // Fix poster url's
+      for ($i=0; $i<count($this->response); $i++)
+        if (strpos($this->response[$i]["poster"], 'http') !== 0)
+          $this->response[$i]["poster"] = APPLE_TRAILERS_URL.$this->response[$i]["poster"];
 
-    // Fix poster url's
-    for ($i=0; $i<count($this->response); $i++)
-      if (strpos($this->response[$i]["poster"], 'http') !== 0)
-        $this->response[$i]["poster"] = APPLE_TRAILERS_URL.$this->response[$i]["poster"];
-
-    return $this->response;
+      return $this->response;
+    } else {
+      return false;
+    }
   }
 }
 
