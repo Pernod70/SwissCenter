@@ -5,36 +5,18 @@
 
 require_once( realpath(dirname(__FILE__).'/mysql.php'));
 
-// Decides which include path delimiter to use.  Windows should be using a semi-colon
-// and everything else should be using a colon.  If this isn't working on your system,
-// comment out this if statement and manually set the correct value into $path_delimiter.
-if (strpos(__FILE__, ':') !== false) {
-  $path_delimiter = ';';
-} else {
-  $path_delimiter = ':';
-}
-
-// This will add the packaged PEAR files into the include path for PHP, allowing you
-// to use them transparently.  This will prefer officially installed PEAR files if you
-// have them.  If you want to prefer the packaged files (there shouldn't be any reason
-// to), swap the two elements around the $path_delimiter variable.  If you don't have
-// the PEAR packages installed, you can leave this like it is and move on.
-
-ini_set('include_path', ini_get('include_path') . $path_delimiter . dirname(__FILE__) . '/../ext/PEAR');
-
 define('FILMTRAILER_URL','http://www.services.filmtrailer.com');
 define('FILMTRAILER_CHANNEL_USER_ID', '41100914-1'); // Unique ID for SwissCenter
 define('FILMTRAILER_FILE_TYPE', 'wmv');              // flv, mp4, mov, wmv
 define('FILMTRAILER_QUALITY', 'xxlarge');            // small, medium, large, xlarge, xxlarge
 
 class FilmTrailer {
-  var $service  = 'film_trailers';
+
   var $product_type = 'cinema';
   var $region_code = 'uk';
 
-  private $req;
+  private $service;
   private $response;
-  private $response_code;
   private $cache_table = null;
   private $cache_expire = null;
 
@@ -52,10 +34,7 @@ class FilmTrailer {
 
   function FilmTrailer ()
   {
-    // All calls to the API are done via the GET method using the PEAR::HTTP_Request package.
-    require_once 'HTTP/Request.php';
-    $this->req =& new HTTP_Request();
-    $this->req->setMethod(HTTP_REQUEST_METHOD_GET);
+    $this->service = 'film_trailers';
     $this->enableCache(3600);
   }
 
@@ -104,23 +83,15 @@ class FilmTrailer {
     return false;
   }
 
-  private function request($command, $args = array())
+  private function request($request, $nocache = false)
   {
     //Sends a request to FilmTrailer.com
-    $url = url_add_params($command, $args);
-    $this->req->setURL($url);
-    send_to_log(6,'FilmTrailer feed request',$url);
-
-    if (!($this->response = $this->getCached($url)) ) {
-      $this->req->addHeader("Connection", "Keep-Alive");
-
-      //Send Requests
-      if ($this->req->sendRequest()) {
-        $this->response = $this->req->getResponseBody();
-        $this->response_code = $this->req->getResponseCode();
-        $this->cache($url, $this->req->getResponseBody());
+    send_to_log(6,'FilmTrailer feed request',$request);
+    if (!($this->response = $this->getCached($request)) || $nocache) {
+      if ($this->response = file_get_contents($request)) {
+        $this->cache($request, $this->response);
       } else {
-        die("There has been a problem sending your command to the server.");
+        send_to_log(2,"There has been a problem sending your command to the server.", $request);
         return false;
       }
     }
@@ -135,9 +106,12 @@ class FilmTrailer {
    */
   function getFeed($feed)
   {
-    $this->request($this->get_feed_url($feed));
-    $trailers = parse_filmtrailer_xml($this->response);
-    return $trailers;
+    if ( $this->request($this->get_feed_url($feed)) ) {
+      $trailers = parse_filmtrailer_xml($this->response);
+      return $trailers;
+    } else {
+      return false;
+    }
   }
 
   /**
@@ -148,9 +122,12 @@ class FilmTrailer {
    */
   function getGenreFeed($genre)
   {
-    $this->request($this->get_genre_feed_url($genre));
-    $trailers = parse_filmtrailer_xml($this->response);
-    return $trailers;
+    if ( $this->request($this->get_genre_feed_url($genre)) ) {
+      $trailers = parse_filmtrailer_xml($this->response);
+      return $trailers;
+    } else {
+      return false;
+    }
   }
 
   /**
