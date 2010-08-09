@@ -51,7 +51,7 @@ class parserUtil
 
       $match_array[$match_array_index]["pc"] = $pc;
       $match_array[$match_array_index]["id"] = $i;
-      $match_array[$match_array_index]["numbers"] = ereg_replace("[^0-9]", "", ($year != false && "" != $year ? $haystack[$i] : strip_title($haystack[$i])));
+      $match_array[$match_array_index]["numbers"] = preg_replace("[^0-9]", "", ($year != false && "" != $year ? $haystack[$i] : strip_title($haystack[$i])));
       $match_array[$match_array_index]["name"] = $haystack[$i];
       $match_array_index = $match_array_index +1;
 
@@ -74,12 +74,12 @@ class parserUtil
       } else
         $index = $best_match["id"];
 
-      $number_in_title = ereg_replace("[^0-9]", "", $needle);
-      $title_numbers = ereg_replace("[^0-9]", "", $title_and_year);
+      $number_in_title = preg_replace("[^0-9]", "", $needle);
+      $title_numbers = preg_replace("[^0-9]", "", $title_and_year);
       //Check if the title contains numbers
       if ($title_numbers != "") {
 
-        $year_numbers = ereg_replace("[^0-9]", "", $year);
+        $year_numbers = preg_replace("[^0-9]", "", $year);
         $number_alias = self :: get_number_roman($number_in_title);
         send_to_log(8, "This title contains numbers..");
         send_to_log(8, "number alias: " . $number_alias);
@@ -163,6 +163,7 @@ class parserUtil
     $pos = 0;
     //Edit this array if needed. There must be a blank space in front of the strings to make sure that they are not part of other words.
     $array = array (
+      " LIMITED ",
       " DVDRIP",
       " UNRATED ",
       " HDRIP",
@@ -190,7 +191,6 @@ class parserUtil
       " X264",
       " H264",
       " STV ",
-      " LIMITED ",
       " NTSC ",
       " PAL ",
       " RETAIL",
