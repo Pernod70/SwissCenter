@@ -37,6 +37,11 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
     MATCH_PC
   );
 
+  public $settings = array (
+    ADULT_RESULTS => array("options" => array('Yes', 'No'),
+                           "default" => 'No')
+  );
+
   public static function getName() {
     return "www.themoviedb.org";
   }
@@ -226,12 +231,16 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
         // There are multiple matches found... process them
         $matches = array ();
         $matches_id = array ();
+        $adult_results = (get_sys_pref(get_class($this).'_ADULT_RESULTS', $this->settings[ADULT_RESULTS]["default"]) === 'YES');
         foreach ($moviematches as $movie) {
-          $matches[] = $movie['name'];
-          $matches_id[] = $movie['id'];
-          if (isset ($movie['alternative_name']) && !empty ($movie['alternative_name'])) {
-            $matches[] = $movie['alternative_name'];
+          // Filter out adult results if not required
+          if ($adult_results || !$movie['adult']) {
+            $matches[] = $movie['name'];
             $matches_id[] = $movie['id'];
+            if (isset ($movie['alternative_name']) && !empty ($movie['alternative_name'])) {
+              $matches[] = $movie['alternative_name'];
+              $matches_id[] = $movie['id'];
+            }
           }
         }
         $index = best_match($title, $matches, $this->accuracy);

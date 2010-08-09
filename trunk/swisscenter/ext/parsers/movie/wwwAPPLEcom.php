@@ -27,6 +27,11 @@ class wwwAPPLEcom extends Parser implements ParserInterface {
     MATCH_PC,
   );
 
+  public $settings = array (
+    TRAILER_SIZE => array("options" => array('Small', 'Medium', 'Large', 'HD 480p', 'HD 720p', 'HD 1080p'),
+                          "default" => 'HD 480p')
+  );
+
   public static function getName() {
     return "www.Apple.com";
   }
@@ -131,7 +136,16 @@ class wwwAPPLEcom extends Parser implements ParserInterface {
     $trailers = $this->page;
     $trailer_xmls = get_trailer_index($trailers);
     $trailer_urls = get_trailer_urls($trailer_xmls[1][0]);
+    $file_size = get_sys_pref(get_class($this).'_TRAILER_SIZE', $this->settings[TRAILER_SIZE]["default"]);
     $trailer = array_pop($trailer_urls[2]);
+    foreach ($trailer_urls[1] as $key=>$name)
+    {
+      if (strtoupper(preg_get('/\((.*)\)/', $name)) == $file_size)
+      {
+        $trailer = $trailer_urls[2][$key];
+        break;
+      }
+    }
     if (isset($trailer) && !empty($trailer)) {
       $this->setProperty(TRAILER, $trailer);
       return $trailer;

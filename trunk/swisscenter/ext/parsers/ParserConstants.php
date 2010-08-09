@@ -3,6 +3,7 @@
    SWISScenter Source
  *************************************************************************************************/
 
+// Parser results
 define("IMDBTT", "IMDBTT");
 define("PROGRAMME", "PROGRAMME");
 define("SERIES", "SERIES");
@@ -23,6 +24,12 @@ define("POSTER", "POSTER");
 define("FANART", "FANART");
 define("BANNERS", "BANNERS");
 define("MATCH_PC", "MATCH_PC");
+
+// Parser settings
+define("ADULT_RESULTS", "ADULT_RESULTS");
+define("FULL_CAST", "FULL_CAST");
+define("TRAILER_FORMAT", "TRAILER_FORMAT");
+define("TRAILER_SIZE", "TRAILER_SIZE");
 
 abstract class ParserConstants {
 
