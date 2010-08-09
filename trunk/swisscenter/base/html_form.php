@@ -271,6 +271,7 @@ function form_list_static_html( $param, $list, $value = "", $opt = false,  $subm
   elseif ($initial_txt)
     $html.= '<option value=""> &lt;'.str('PLEASE_SELECT').'&gt; ';
 
+  reset($list);
   while( list($akey,$avalue) = each($list) )
     $html.= '<option '.( $avalue ==$value ? 'selected ' : '').'value="'.htmlspecialchars($avalue, ENT_QUOTES).'">'.htmlspecialchars($akey, ENT_QUOTES);
 
@@ -305,6 +306,7 @@ function form_radio_static( $param, $prompt, $list, $value = "", $opt = false, $
   echo '<tr><td valign="top">'.form_prompt($prompt,$opt).'</td>
         <td>';
 
+  reset($list);
   while( list($akey,$avalue) = each($list) )
   {
     echo '<input type="radio" name="'.$param.'" '.( $avalue == $value ? 'checked ' : '').'value="'.$avalue.'">'.$akey;
@@ -333,6 +335,7 @@ function form_checkbox_static( $param, $prompt, $list, $values = array(), $opt =
   echo '<tr><td valign="top">'.form_prompt($prompt,$opt).'</td>
         <td>';
 
+  reset($list);
   while( list($akey,$avalue) = each($list) )
   {
     echo '<input type="checkbox" name="'.$param.'['.$avalue.']" '.( $values[$avalue] ? 'checked ' : '').'>'.$akey;
@@ -624,9 +627,9 @@ function form_end()
  * This function is similar the javascript mask feature except it can validate data if
  * the user has javascript turned off.
  *
- * @param unknown_type $value
- * @param unknown_type $mask
- * @return unknown
+ * @param string $value
+ * @param string $mask
+ * @return boolean
  */
 
 function form_mask( $value, $mask )
