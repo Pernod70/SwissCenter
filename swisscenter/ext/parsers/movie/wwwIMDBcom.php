@@ -26,6 +26,11 @@ class wwwIMDBcom extends Parser implements ParserInterface {
     MATCH_PC
   );
 
+  public $settings = array (
+    FULL_CAST => array("options" => array('Yes', 'No'),
+                       "default" => 'No')
+  );
+
   public static function getName() {
     return "www.IMDb.com";
   }
@@ -187,7 +192,7 @@ class wwwIMDBcom extends Parser implements ParserInterface {
     }
   }
   protected function parseActors() {
-    if (get_sys_pref('PARSER_IMDB_FULL_CAST', 'NO') == 'YES')
+    if (get_sys_pref(get_class($this).'_FULL_CAST', $this->settings[FULL_CAST]["default"]) == 'YES')
       $html = file_get_contents($this->url_imdb . "/fullcredits#cast");
     else
       $html = $this->page;
@@ -209,7 +214,7 @@ class wwwIMDBcom extends Parser implements ParserInterface {
     }
   }
   protected function parseActorImages() {
-    if (get_sys_pref('PARSER_IMDB_FULL_CAST', 'NO') == 'YES')
+    if (get_sys_pref(get_class($this).'_FULL_CAST', $this->settings[FULL_CAST]["default"]) == 'YES')
       $html = file_get_contents($this->url_imdb . "/fullcredits#cast");
     else
       $html = $this->page;

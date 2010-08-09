@@ -8,12 +8,14 @@ require_once( realpath(dirname(__FILE__).'/mysql.php'));
 define('FILMTRAILER_URL','http://www.services.filmtrailer.com');
 define('FILMTRAILER_CHANNEL_USER_ID', '41100914-1'); // Unique ID for SwissCenter
 define('FILMTRAILER_FILE_TYPE', 'wmv');              // flv, mp4, mov, wmv
-define('FILMTRAILER_QUALITY', 'xxlarge');            // small, medium, large, xlarge, xxlarge
+define('FILMTRAILER_FILE_SIZE', 'xxlarge');          // small, medium, large, xlarge, xxlarge
 
 class FilmTrailer {
 
-  var $product_type = 'cinema';
-  var $region_code = 'uk';
+  private $product_type = 'cinema';
+  private $region_code = 'uk';
+  private $file_type;
+  private $file_size;
 
   private $service;
   private $response;
@@ -36,6 +38,8 @@ class FilmTrailer {
   {
     $this->service = 'film_trailers';
     $this->enableCache(3600);
+    $this->file_type = FILMTRAILER_FILE_TYPE;
+    $this->file_size = FILMTRAILER_FILE_SIZE;
   }
 
   /**
@@ -99,6 +103,26 @@ class FilmTrailer {
   }
 
   /**
+   * Set the preferred file size of trailers.
+   *
+   * @param string $filesize
+   */
+  function setTrailerSize($filesize)
+  {
+    $this->file_size = strtolower($filesize);
+  }
+
+  /**
+   * Set the preferred file type of trailers.
+   *
+   * @param string $filetype
+   */
+  function setTrailerType($filetype)
+  {
+    $this->file_type = strtolower($filetype);
+  }
+
+  /**
    * Return requested feed.
    *
    * @param string $feed
@@ -158,12 +182,12 @@ class FilmTrailer {
 
   function get_feed_url($feed)
   {
-    return "http://$this->region_code.feed.previewnetworks.com/v3.1/$this->product_type/$feed/".FILMTRAILER_CHANNEL_USER_ID."/?file_type=".FILMTRAILER_FILE_TYPE;
+    return "http://$this->region_code.feed.previewnetworks.com/v3.1/$this->product_type/$feed/".FILMTRAILER_CHANNEL_USER_ID."/?file_type=".$this->file_type."&quality=".$this->file_size;
   }
 
   function get_genre_feed_url($genre)
   {
-    return "http://$this->region_code.feed.playnw.com/?ListType=$genre&channel_user_id=".FILMTRAILER_CHANNEL_USER_ID."&file_type=".FILMTRAILER_FILE_TYPE;
+    return "http://$this->region_code.feed.playnw.com/?ListType=$genre&channel_user_id=".FILMTRAILER_CHANNEL_USER_ID."&file_type=".$this->file_type."&quality=".$this->file_size;
   }
 
   /**

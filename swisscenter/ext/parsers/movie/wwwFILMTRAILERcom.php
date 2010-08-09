@@ -27,6 +27,13 @@ class wwwFILMTRAILERcom extends Parser implements ParserInterface {
     MATCH_PC,
   );
 
+  public $settings = array (
+    TRAILER_FORMAT => array("options" => array('MP4', 'WMV'),
+                            "default" => 'WMV'),
+    TRAILER_SIZE   => array("options" => array('Small', 'Medium', 'Large', 'xLarge', 'xxLarge'),
+                            "default" => 'xxLarge')
+  );
+
   public static function getName() {
     return "www.FilmTrailer.com";
   }
@@ -38,6 +45,8 @@ class wwwFILMTRAILERcom extends Parser implements ParserInterface {
     // Perform search for matching titles
     send_to_log(4, "Searching for details about ".$this->title." online at ".$this->site_url);
     $filmtrailer = new FilmTrailer();
+    $filmtrailer->setTrailerType(get_sys_pref(get_class($this).'_TRAILER_FORMAT', $this->settings[TRAILER_FORMAT]["default"]));
+    $filmtrailer->setTrailerSize(get_sys_pref(get_class($this).'_TRAILER_SIZE', $this->settings[TRAILER_SIZE]["default"]));
     $trailers = $filmtrailer->quickFind('');
 
     // Examine returned page
