@@ -30,6 +30,7 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
     DIRECTORS,
     GENRES,
     YEAR,
+    CERTIFICATE,
     EXTERNAL_RATING_PC,
     POSTER,
     TRAILER,
@@ -159,6 +160,14 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
     if (isset($rating) && !empty($rating)) {
       $this->setProperty(EXTERNAL_RATING_PC, $rating);
       return $rating;
+    }
+  }
+  protected function parseCertificate() {
+    $moviematches = $this->page;
+    $cert = $moviematches[0]['certification'];
+    if(isset($cert) && !empty($cert)){
+      $this->setProperty(CERTIFICATE, $cert);
+      return $cert;
     }
   }
   protected function parseTrailer() {
