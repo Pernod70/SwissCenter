@@ -65,7 +65,7 @@ class phpYouTube {
 
     $result = db_value("SELECT response FROM ".$this->cache_table." WHERE request = '$reqhash' AND DATE_SUB(NOW(), INTERVAL " . (int) $this->cache_expire . " SECOND) < expiration");
     if (!empty($result)) {
-      return $result;
+      return object_to_array(json_decode($result));;
     }
     return false;
   }
@@ -92,9 +92,9 @@ class phpYouTube {
     //Sends a request to YouTube
     send_to_log(6,'YouTube API request', $request);
     if (!($this->response = $this->getCached($request)) || $nocache) {
-      if ($this->response = file_get_contents($request)) {
-        $this->response = object_to_array(json_decode($this->response));
-        $this->cache($url, $this->response);
+      if ($body = file_get_contents($request)) {
+        $this->response = object_to_array(json_decode($body));
+        $this->cache($request, $body);
       } else {
         send_to_log(2,"There has been a problem sending your command to the server.", $request);
         return false;

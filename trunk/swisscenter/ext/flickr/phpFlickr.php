@@ -22,6 +22,7 @@ if ( !class_exists('phpFlickr') ) {
 	class phpFlickr {
 		var $api_key;
 		var $secret;
+		var $service;
 
 		var $rest_endpoint = 'http://api.flickr.com/services/rest/';
 		var $upload_endpoint = 'http://api.flickr.com/services/upload/';
@@ -77,7 +78,7 @@ if ( !class_exists('phpFlickr') ) {
 			// access to. Use absolute paths for best results.  Relative paths may have unexpected behavior
 			// when you include this.  They'll usually work, you'll just want to test them.
 			if ($type == 'db') {
-				if ( preg_match('|mysql://([^:]*):([^@]*)@([^/]*)/(.*)|', $connection, $matches) ) {
+//				if ( preg_match('|mysql://([^:]*):([^@]*)@([^/]*)/(.*)|', $connection, $matches) ) {
 					//Array ( [0] => mysql://user:password@server/database [1] => user [2] => password [3] => server [4] => database )
 //					$db = mysql_connect($matches[3], $matches[1], $matches[2]);
 //					mysql_select_db($matches[4], $db);
@@ -86,24 +87,24 @@ if ( !class_exists('phpFlickr') ) {
 					 * If high performance is crucial, you can easily comment
 					 * out this query once you've created your database table.
 					 */
-					db_sqlcommand("
-						CREATE TABLE IF NOT EXISTS `$table` (
-							`request` CHAR( 35 ) NOT NULL ,
-							`response` MEDIUMTEXT NOT NULL ,
-							`expiration` DATETIME NOT NULL ,
-							INDEX ( `request` )
-						) TYPE = MYISAM
-					");
+//					db_sqlcommand("
+//						CREATE TABLE IF NOT EXISTS `$table` (
+//							`request` CHAR( 35 ) NOT NULL ,
+//							`response` MEDIUMTEXT NOT NULL ,
+//							`expiration` DATETIME NOT NULL ,
+//							INDEX ( `request` )
+//						) TYPE = MYISAM
+//					");
 
-					$result = db_value("SELECT COUNT(*) FROM $table");
+					$result = db_value("SELECT COUNT(*) FROM $table WHERE service = 'flickr'");
 					if ( $result > $this->max_cache_rows ) {
-						db_sqlcommand("DELETE FROM $table WHERE expiration < DATE_SUB(NOW(), INTERVAL $cache_expire second)");
+						db_sqlcommand("DELETE FROM $table WHERE service = 'flickr' AND expiration < DATE_SUB(NOW(), INTERVAL $cache_expire second)");
 						db_sqlcommand('OPTIMIZE TABLE ' . $this->cache_table);
 					}
 					$this->cache = 'db';
 					$this->cache_db = $db;
 					$this->cache_table = $table;
-				}
+//				}
 			} elseif ($type == 'fs') {
 				$this->cache = 'fs';
 				$connection = realpath($connection);
@@ -174,7 +175,7 @@ if ( !class_exists('phpFlickr') ) {
 					$sql = "UPDATE " . $this->cache_table . " SET response = '" . str_replace("'", "''", $response) . "', expiration = '" . strftime("%Y-%m-%d %H:%M:%S") . "' WHERE request = '" . $reqhash . "'";
 					db_sqlcommand($sql);
 				} else {
-					$sql = "INSERT INTO " . $this->cache_table . " (request, response, expiration) VALUES ('$reqhash', '" . str_replace("'", "''", $response) . "', '" . strftime("%Y-%m-%d %H:%M:%S") . "')";
+					$sql = "INSERT INTO " . $this->cache_table . " (request, service, response, expiration) VALUES ('$reqhash', 'flickr', '" . str_replace("'", "''", $response) . "', '" . strftime("%Y-%m-%d %H:%M:%S") . "')";
 					db_sqlcommand($sql);
 				}
 			} elseif ($this->cache == "fs") {

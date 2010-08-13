@@ -58,7 +58,7 @@ class AppleTrailers {
 
     $result = db_value("SELECT response FROM ".$this->cache_table." WHERE request = '$reqhash' AND DATE_SUB(NOW(), INTERVAL " . (int) $this->cache_expire . " SECOND) < expiration");
     if (!empty($result)) {
-      return $result;
+      return object_to_array(json_decode($result));
     }
     return false;
   }
@@ -82,13 +82,13 @@ class AppleTrailers {
     //Sends a request to Apple
     send_to_log(6,'Apple feed request', $request);
     if (!($this->response = $this->getCached($request)) || $nocache) {
-      if ($this->response = file_get_contents($request)) {
+      if ($body = file_get_contents($request)) {
         // Clean response body
-        $body = substr($this->response, strpos($this->response,'['), strrpos($this->response,']') - strpos($this->response,'[') + 1);
+        $body = substr($body, strpos($body,'['), strrpos($body,']') - strpos($body,'[') + 1);
         // Decode response
         $body = unicode_decode($body);
         $this->response = object_to_array(json_decode($body));
-        $this->cache($url, $this->response);
+        $this->cache($request, $body);
       } else {
         send_to_log(2,"There has been a problem sending your command to the server.", $request);
         return false;
