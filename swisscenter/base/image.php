@@ -102,12 +102,12 @@ function preferred_resize( &$dimg, &$simg, $dx, $dy, $sx, $sy, $dw, $dh, $sw, $s
  * @return string - local filename
  */
 
-function download_and_cache_image( $url )
+function download_and_cache_image( $url, $overwrite = false )
 {
   $filename = get_sys_pref('cache_dir').'/SwissCenter_download_'.md5($url).'.'.file_ext($url);
 //  $filename = get_sys_pref('cache_dir').'/SwissCenter_download_'.md5($url).'_'.date('YmdH').'.'.file_ext($url);
 
-  return (file_download_and_save($url, $filename) ? $filename : false);
+  return (file_download_and_save($url, $filename, $overwrite) ? $filename : false);
 }
 
 // -------------------------------------------------------------------------------------------------
@@ -334,7 +334,7 @@ class CImage
       $this->image = false;
     }
 
-    if ( is_file($filename))
+    if ( is_file($filename) || is_remote_file($filename))
     {
       switch (strtolower(file_ext($filename)))
       {
@@ -484,7 +484,7 @@ class CImage
   // will be scaled to the given X,Y size, but the aspect ratio will be maintained.
   // -------------------------------------------------------------------------------------------------
 
-  function resize($x, $y, $bgcolour=0, $keep_aspect = true, $rs_mode = '', $border_colour = false)
+  function resize($x, $y, $bgcolour=0, $keep_aspect = true, $rs_mode = '', $border_colour = false, $fill_size = true)
   {
     if ($this->image !== false && $x > 0 && $y > 0 && ($x != $this->width || $y != $this->height))
     {
@@ -504,6 +504,14 @@ class CImage
       }
 
       $old = $this->image;
+
+      // If size is not to be filled then new image should not be padded
+      if (!$fill_size)
+      {
+        $x = $newx;
+        $y = $newy;
+      }
+
       $this->image = ImageCreateTrueColor($x,$y);
       ImageAlphaBlending( $this->image, false);
       ImageSaveAlpha($this->image, true);
@@ -690,6 +698,11 @@ class CImage
     if ($this->image !== false)
     {
       session_write_close();
+
+      // Cache all images for one hour
+      header("Cache-Control: max-age=3600, must-revalidate");
+      header("Expires: ".gmdate('D, d M Y H:i:s', time()+3600)." GMT");
+
       switch (strtolower($type))
       {
         case 'jpg':
