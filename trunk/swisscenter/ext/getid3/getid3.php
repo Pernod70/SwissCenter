@@ -1056,7 +1056,7 @@ class getID3
 				'ogg'       => array('vorbiscomment' , 'UTF-8'),
 				'png'       => array('png'           , 'UTF-8'),
 				'tiff'      => array('tiff'          , 'ISO-8859-1'),
-				'quicktime' => array('quicktime'     , 'ISO-8859-1'),
+				'quicktime' => array('quicktime'     , 'UTF-8'),
 				'real'      => array('real'          , 'ISO-8859-1'),
 				'vqf'       => array('vqf'           , 'ISO-8859-1'),
 				'zip'       => array('zip'           , 'ISO-8859-1'),
