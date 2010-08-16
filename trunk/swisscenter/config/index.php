@@ -100,15 +100,16 @@
       $menu->add_item(str('CONNECT_TITLE')          ,'section=CONNECT&action=DISPLAY');
       $menu->add_item(str('INTERNET_URLS')          ,'section=BOOKMARKS&action=DISPLAY');
       $menu->add_item(str('CONFIG_RADIO_OPTIONS')   ,'section=RADIO&action=DISPLAY');
-      $menu->add_item(str('CONFIG_LASTFM_TITLE')    ,'section=LASTFM&action=DISPLAY');
-      $menu->add_item(str('YOUTUBE')                ,'section=YOUTUBE&action=DISPLAY');
       $menu->add_item(str('INTERNET_TV_OPTIONS')    ,'section=INTERNET_TV&action=DISPLAY');
       $menu->add_item(str('CONFIG_FLICKR')          ,'section=FLICKR&action=DISPLAY');
+      $menu->add_item(str('CONFIG_LASTFM_TITLE')    ,'section=LASTFM&action=DISPLAY');
       $menu->add_item(str('RSS_FEEDS')              ,'section=RSS&action=DISPLAY');
+      $menu->add_item(str('YOUTUBE')                ,'section=YOUTUBE&action=DISPLAY');
 
       $menu->add_menu(str('ADVANCED_OPTIONS'));
       $menu->add_item(str('ART_FILES_TITLE')        ,'section=ART&action=DISPLAY');
       $menu->add_item(str('BROWSE_OPTIONS')         ,'section=BROWSE&action=DISPLAY');
+      $menu->add_item(str('RECENT_OPTIONS')         ,'section=RECENT&action=DISPLAY');
       $menu->add_item(str('CACHE_CONFIG_TITLE')     ,'section=CACHE&action=DISPLAY');
       $menu->add_item(str('MISC_TITLE')             ,'section=MISC&action=DISPLAY');
 
