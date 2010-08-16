@@ -3957,8 +3957,33 @@ If any details are added/changed on this page then you are requested to submit t
         <version>1.22</version>
       </string>
       <string>
+        <id>RECENT_DATE_LIMIT</id>
+        <text>Recent number of days</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_DATE_LIMIT_PROMPT</id>
+        <text>The number of days in the past that media added to SwissCenter will be shown in the 'Recent Media' on your media player.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_DATE_TYPE</id>
+        <text>Recent date type</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_DATE_TYPE_PROMPT</id>
+        <text>Select the date to be used to determine which media is recent:[br][ul][li]Recently added: If it has recently been added to the media library.[/li][li]Recently created: If it has recently been created on the system.[/li][li]Recently added or created: If is was either recently added to the media library or recently created on the system.[/li][/ul]</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>RECENT_MEDIA</id>
         <text>Recently added</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_OPTIONS</id>
+        <text>Recent Media Options</text>
         <version>1.22</version>
       </string>
       <string>
