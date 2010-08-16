@@ -24,23 +24,24 @@
   <script type="text/javascript" src="jquery.js"></script>
   <script type="text/javascript" src="slider.js"></script>
   <script type="text/javascript" src="sdmenu.js"></script>
-	<script type="text/javascript">
-  	var myMenu;
-  	window.onload = function()
-  	{
-	  	myMenu = new SDMenu("my_menu");
+  <script type="text/javascript">
+    var myMenu;
+    window.onload = function()
+    {
+      myMenu = new SDMenu("my_menu");
       myMenu.speed = 2;                     // Menu sliding speed (1 - 5 recomended)
       myMenu.remember = true;               // Store menu states (expanded or collapsed) in cookie and restore later
       myMenu.oneSmOnly = false;             // One expanded submenu at a time
       myMenu.markCurrent = true;            // Mark current link / page (link.href == location.href)
-  		myMenu.init();
-	  };
+      myMenu.init();
+    };
 
     $(document).ready(function() {
-	    <?php inject_javascript(); ?>
+      <?php inject_javascript(); ?>
     });
-	</script>
+  </script>
 </head>
+<?php flush(); ?>
 <body style="margin:20px;" background="../images/bgr.png">
 
 <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="eeeeee">
