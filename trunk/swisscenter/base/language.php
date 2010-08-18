@@ -197,14 +197,18 @@ function str( $key )
  * @param string $search_terms
  * @return string
  */
-function lang_wikipedia_search( $search_terms )
+function lang_wikipedia_search( $search_terms, $back_url = '' )
 {
   // Determine the appropriate wikipedia address for the current language
-  $lang = get_sys_pref('DEFAULT_LANGUAGE','en-gb');
-  if ( strpos($lang,'-') !== false)
-    $lang = substr($lang,0,strpos($lang,'-'));
+  $lang = get_sys_pref('WIKIPEDIA_LANGUAGE','');
+  if ( empty($lang) )
+  {
+    $lang = get_sys_pref('DEFAULT_LANGUAGE','en-gb');
+    if ( strpos($lang,'-') !== false)
+      $lang = substr($lang,0,strpos($lang,'-'));
+  }
 
-  return '/wikipedia_proxy.php?wiki='.urlencode($lang.'.wikipedia.org').'&url='.urlencode('/w/index.php').'&search='.urlencode($search_terms);
+  return '/wikipedia_proxy.php?wiki='.urlencode($lang.'.wikipedia.org').'&url='.urlencode('/w/index.php').'&search='.urlencode($search_terms).'&back_url='.urlencode($back_url);
 }
 
 /**
