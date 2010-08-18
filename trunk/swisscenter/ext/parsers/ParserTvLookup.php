@@ -94,7 +94,7 @@ function ParserTvLookup($tv_id, $filename, $search_params) {
       // Reset the timeout counter for each image downloaded
       set_time_limit(30);
       if (!file_exists($cache_dir.'/banners/'.basename($banner_path)))
-        file_save_albumart( add_site_to_url($banner_path, $banners['MIRROR'].'/banners/')
+        file_save_albumart( $banner_path
                           , $cache_dir.'/banners/'.basename($banner_path)
                           , '');
       if (!file_exists(dirname($filename).'/banners/series'.sprintf("%02d", $series).'_'.basename($banner_path)))
@@ -109,7 +109,7 @@ function ParserTvLookup($tv_id, $filename, $search_params) {
       // Reset the timeout counter for each image downloaded
       set_time_limit(30);
       if (!file_exists($cache_dir.'/banners/'.basename($banner_path)))
-        file_save_albumart( add_site_to_url($banner_path, $banners['MIRROR'].'/banners/')
+        file_save_albumart( $banner_path
                           , $cache_dir.'/banners/'.basename($banner_path)
                           , '');
       if (!file_exists(dirname($filename).'/banners/banner_'.basename($banner_path)))
@@ -127,13 +127,13 @@ function ParserTvLookup($tv_id, $filename, $search_params) {
       set_time_limit(30);
       $thumb_cache = $cache_dir.'/fanart/'.basename($thumb['THUMBNAIL']);
       if (!file_exists($thumb_cache))
-        file_save_albumart( add_site_to_url($thumb['THUMBNAIL'], $fanart['MIRROR'].'/banners/'), $thumb_cache, '');
+        file_save_albumart( $thumb['THUMBNAIL'], $thumb_cache, '');
 
       // Insert information into database
       $data = array( "title"        => $programme
                    , "media_type"   => MEDIA_TYPE_TV
                    , "thumb_cache"  => os_path($thumb_cache)
-                   , "original_url" => $fanart['MIRROR'].'/banners/'.$thumb['ORIGINAL']
+                   , "original_url" => $thumb['ORIGINAL']
                    , "resolution"   => $thumb['RESOLUTION']
                    , "colors"       => $thumb['COLORS'] );
       $file_id = db_value("select file_id from themes where title='".db_escape_str($programme)."' and instr(original_url,'".db_escape_str($thumb['ORIGINAL'])."')>0");
@@ -152,7 +152,7 @@ function ParserTvLookup($tv_id, $filename, $search_params) {
         // Reset the timeout counter for each image downloaded
         set_time_limit(30);
         if (!file_exists($cache_dir.'/actors/'.basename($actor['IMAGE'])))
-          file_save_albumart( add_site_to_url($actor['IMAGE'], $actors['MIRROR'].'/banners/')
+          file_save_albumart( $actor['IMAGE']
                             , $cache_dir.'/actors/'.basename($actor['IMAGE'])
                             , '');
         if (!file_exists(SC_LOCATION.'fanart/actors/'.strtolower($actor['NAME']).'/'.basename($actor['IMAGE']))) {

@@ -256,7 +256,11 @@ class wwwTHETVDBcom extends Parser implements ParserInterface {
     $tvdb = $this->page;
     $actors = isset($tvdb['ACTORS']) ? $tvdb['ACTORS'] : array();
     if (isset($actors) && !empty($actors)) {
-      $actors['MIRROR'] = $this->bannermirror;
+      // Add mirror path to images
+      foreach ($actors as $id=>$actor) {
+        if ( isset($actor['IMAGE']) )
+          $actors[$id]['IMAGE'] = $this->bannermirror.'/banners/'.$actor['IMAGE'];
+      }
       $this->setProperty(ACTOR_IMAGES, $actors);
       return $actors;
     }
@@ -305,7 +309,12 @@ class wwwTHETVDBcom extends Parser implements ParserInterface {
     $tvdb = $this->page;
     $fanart = isset($tvdb['IMAGES']['FANART']) ? array('FANART' => $tvdb['IMAGES']['FANART']) : array();
     if (isset($fanart) && !empty($fanart)) {
-      $fanart['MIRROR'] = $this->bannermirror;
+      // Add mirror path to images
+      foreach ($fanart['FANART'] as $id=>$image) {
+        $fanart['FANART'][$id]['ORIGINAL'] = $this->bannermirror.'/banners/'.$image['ORIGINAL'];
+        $fanart['FANART'][$id]['VIGNETTE'] = $this->bannermirror.'/banners/'.$image['VIGNETTE'];
+        $fanart['FANART'][$id]['THUMBNAIL'] = $this->bannermirror.'/banners/'.$image['THUMBNAIL'];
+      }
       $this->setProperty(FANART, $fanart);
       return $fanart;
     }
@@ -314,7 +323,12 @@ class wwwTHETVDBcom extends Parser implements ParserInterface {
     $tvdb = $this->page;
     $banners = isset($tvdb['IMAGES']) ? $tvdb['IMAGES'] : array();
     if (isset($banners) && !empty($banners)) {
-      $banners['MIRROR'] = $this->bannermirror;
+      // Add mirror path to images
+      foreach ($banners as $type=>$array) {
+        foreach ($array as $id=>$image) {
+          $banners[$type][$id] = $this->bannermirror.'/banners/'.$image;
+        }
+      }
       unset($banners['FANART']);
       $this->setProperty(BANNERS, $banners);
       return $banners;
