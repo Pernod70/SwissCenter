@@ -13,6 +13,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>ACTOR_IMAGES</id>
+        <text>Immagini attore</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>ADDITIONAL_COMPONENTS</id>
         <text>Comp. Addizionali</text>
         <version>1.21</version>
@@ -571,6 +576,11 @@
         <id>CLEAR_NAME</id>
         <text>Pulisci Nome</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>COMING-50</id>
+        <text>Al cinema</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>COMMENT</id>
@@ -1318,6 +1328,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>FILM_TRAILERS</id>
+        <text>Film Trailers</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>FILTER</id>
         <text>Filtro</text>
         <version>1.19</version>
@@ -1875,6 +1890,11 @@
       <string>
         <id>IRADIO_GENRE_PROMPT</id>
         <text>Specifica un genere o sotto-genere (opzionale) che si vuole ricercare. La ricerca supportata per genere ritorna i siti validi</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_ICECAST</id>
+        <text>IceCast</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2933,6 +2953,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>NEWEST-50</id>
+        <text>Trailers nuovi film</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>NEWSUBSCRIPTIONVIDEOS</id>
         <text>Nuovi video</text>
         <version>1.22</version>
@@ -2966,6 +2991,11 @@
         <id>NOT_RATED</id>
         <text>Non classificato</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>NOW-50</id>
+        <text>Ora al cinema</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>NOW_PLAYING</id>
@@ -3924,8 +3954,8 @@
       </string>
       <string>
         <id>RECENTLY_ADDED</id>
-        <text>Aggiunti recentemente</text>
-        <version>1.19</version>
+        <text>Data aggiunta</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>RECENTLY_ADDED_DAYS</id>
@@ -3934,17 +3964,37 @@
       </string>
       <string>
         <id>RECENTLY_ADDED_OR_CREATED</id>
-        <text>Aggiunto o creato recentemente</text>
+        <text>Data aggiunta o creazione</text>
         <version>1.22</version>
       </string>
       <string>
         <id>RECENTLY_CREATED</id>
-        <text>Creato recentemente</text>
+        <text>Data creazione</text>
         <version>1.22</version>
       </string>
       <string>
         <id>RECENTLY_FEATURED</id>
         <text>Aggiunto di recente</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_DATE_LIMIT</id>
+        <text>Numero giorni x recenti</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_DATE_LIMIT_PROMPT</id>
+        <text>Numero di giorni indietro, che lo SwissCenter considerera', per inserire i tuoi video o media, nella categoria &quot;Recenti&quot; del media player</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_DATE_TYPE</id>
+        <text>Seleziona tipo recenti</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_DATE_TYPE_PROMPT</id>
+        <text>Seleziona la modalita' per la categoria recente:[br][ul][li]Data aggiunta: aggiunto ai recenti in base alla data di aggiunta.[/li][li]Data creazione: aggiunto ai recenti in base alla data di creazione nel sistema.[/li][li]Data aggiunta o creazione: aggiunto ai recenti per data o per creazione nel sistema.[/li][/ul]</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3955,6 +4005,11 @@
       <string>
         <id>RECENT_MUSIC</id>
         <text>Musica recente</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_OPTIONS</id>
+        <text>Opzioni x recenti</text>
         <version>1.22</version>
       </string>
       <string>

@@ -13,6 +13,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>ACTOR_IMAGES</id>
+        <text>Darsteller Bilder</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>ADDITIONAL_COMPONENTS</id>
         <text>Sonst. Komponenten</text>
         <version>1.21.1</version>
@@ -583,6 +588,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>COMING-50</id>
+        <text>Demnächst im Kino</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>COMMENT</id>
         <text>Kommentar</text>
         <version>1.22</version>
@@ -877,6 +887,11 @@ Dieses Format wird von MySQL und Spezifikationssymbolen definiert. Diese sind:
         <id>DEBUG_RECOMMENDED</id>
         <text>(Empfohlen)</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>DELETE</id>
+        <text>Nicht benötigt</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>DELETE_MEDIA</id>
@@ -1333,6 +1348,11 @@ in eine XML-Datei</text>
         <id>FILE_EXISTS</id>
         <text>WARNUNG: Eine Datei mit demselben Namen existiert bereits! Wenn Sie jetzt speichern, überschreiben Sie diese Datei.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>FILM_TRAILERS</id>
+        <text>Film Trailer</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>FILTER</id>
@@ -1900,6 +1920,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>IRADIO_GENRE_PROMPT</id>
         <text>Bitte geben Sie ein Genre und (optional) ein Sub-Genre ein, nach dem Sie suchen wollen. Sowohl %s als auch %s unterstützen die Suche nach Genre. Bitte besuchen Sie die Webseiten, um die gültigen Genres zu ermitteln.</text>
         <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_ICECAST</id>
+        <text>IceCast</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>IRADIO_LIVE365</id>
@@ -2967,6 +2992,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>NEWEST-50</id>
+        <text>Neueste Trailer</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>NEWSUBSCRIPTIONVIDEOS</id>
         <text>Neue Filme</text>
         <version>1.22</version>
@@ -3000,6 +3030,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>NOT_RATED</id>
         <text>Nicht bewertet</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>NOW-50</id>
+        <text>Jetzt im Kino</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>NOW_PLAYING</id>
@@ -3974,6 +4009,26 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
         <version>1.22</version>
       </string>
       <string>
+        <id>RECENT_DATE_LIMIT</id>
+        <text>Anzahl der Tage</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_DATE_LIMIT_PROMPT</id>
+        <text>Anzahl der Tage, die SwissCenter rückblickend von kürzlich hinzugefügten Medien anzeigen soll.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_DATE_TYPE</id>
+        <text>Auswahl</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_DATE_TYPE_PROMPT</id>
+        <text>Auswählen nach welchen Gesichtspunkten im SwissCenter angezeigt werden soll:[br][ul][li]Kürzlich hinzugefügt: Alle Medien anzeigen, die vor Kurzem zur Medien Bibliothek hinzugefügt wurden.[/li][li]Vor Kurzem erstellt: Alle Medien anzeigen, die vor Kurzem auf dem System erstellt wurden.[/li][li]Vor Kurzem hinzugefügt, oder erstellt: Alle Medien anzeigen, die entweder vor Kurzem erstellt, oder hinzugefügt wurden.[/li][/ul]</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>RECENT_MEDIA</id>
         <text>Zuletzt hinzugefügte</text>
         <version>1.21.1</version>
@@ -3982,6 +4037,11 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
         <id>RECENT_MUSIC</id>
         <text>Musik</text>
         <version>1.21.1</version>
+      </string>
+      <string>
+        <id>RECENT_OPTIONS</id>
+        <text>Kürzlich hinzugefügt</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>RECENT_PHOTO</id>
@@ -4860,7 +4920,7 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
       </string>
       <string>
         <id>SWISSMONITOR_INI_NOT_EXIST</id>
-        <text>Der angegebene Dateirpfad der swisscenter.ini existiert nicht!</text>
+        <text>Der angegebene Dateipfad der swisscenter.ini existiert nicht!</text>
         <version>1.22</version>
       </string>
       <string>

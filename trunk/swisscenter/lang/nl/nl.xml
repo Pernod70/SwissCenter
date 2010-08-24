@@ -13,6 +13,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>ACTOR_IMAGES</id>
+        <text>Foto's van Acteurs</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>ADDITIONAL_COMPONENTS</id>
         <text>Extra componenten</text>
         <version>1.21</version>
@@ -29,8 +34,8 @@
       </string>
       <string>
         <id>ADVANCED_OPTIONS</id>
-        <text>Geavanceerde opties</text>
-        <version>1.19</version>
+        <text>Speciale opties</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>ALBUM</id>
@@ -583,6 +588,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>COMING-50</id>
+        <text>Binnenkort in de bioscoop</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>COMMENT</id>
         <text>Opmerking</text>
         <version>1.22</version>
@@ -1094,8 +1104,8 @@
       </string>
       <string>
         <id>EXPERT_EDIT_PREFS</id>
-        <text>Wijzig systeeminstellingen</text>
-        <version>1.19</version>
+        <text>Wijzig systeemopties</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>EXPERT_OPTIONS</id>
@@ -1328,6 +1338,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>FILM_TRAILERS</id>
+        <text>Film Trailers</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>FILTER</id>
         <text>Filter</text>
         <version>1.19</version>
@@ -1495,8 +1510,8 @@
       </string>
       <string>
         <id>FONTWIDTH_MULTIPLIER_PROMPT</id>
-        <text>Met deze optie wijzigt U het aantal getoonde karakters in de SwissCenter menu's. De waarde hangt af van het gebruikte lettertype, and moet tussen [b]1.0[/b] (standaard) en [b]2.2[/b] liggen.</text>
-        <version>1.20</version>
+        <text>Met deze optie wijzigt U het aantal getoonde karakters in de SwissCenter menu's. De waarde hangt af van het gebruikte lettertype, en moet tussen [b]1.0[/b] (standaard) en [b]2.2[/b] liggen.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>GENRE</id>
@@ -1620,8 +1635,8 @@
       </string>
       <string>
         <id>IMPEXP_TITLE</id>
-        <text>Instellingen laden/opslaan</text>
-        <version>1.19</version>
+        <text>Instellingen&amp;nbsp;laden/opslaan</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>IMPORT_FAILED</id>
@@ -1705,8 +1720,8 @@
       </string>
       <string>
         <id>INTERNET_FEATURES</id>
-        <text>Internet toepassingen</text>
-        <version>1.21.1</version>
+        <text>Internet applicaties</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>INTERNET_RADIO</id>
@@ -1897,6 +1912,11 @@
         <id>IRADIO_GENRE_PROMPT</id>
         <text>Specificeer een hoofd- en subgenre waarop u wilt zoeken. Zowel %s als %s ondersteunen zoeken op genre; u kunt toepasbare genres vinden op de webpagina.</text>
         <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_ICECAST</id>
+        <text>IceCast</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>IRADIO_LIVE365</id>
@@ -2160,7 +2180,20 @@
       </string>
       <string>
         <id>LANG_PROMPT</id>
-        <text>Taaldefinities bestaan uit de verbindingen tussen interne IDs (bv: &quot;ADD_PLAYLIST&quot;) en werkelijk weergegeven tekst. De &lt;tekst&gt; kan worden opgemaakt met behulp van een beperkt aantal markeercodes die identiek zijn aan de HTML-markeercodes en moeten tussen rechte haken worden geplaatst. De volgende codes kunnen worden gebruikt: [li]&amp;#91;br&amp;#93; - Nieuwe regel[/li] [li]&amp;amp#91;p&amp;amp#93;&amp;amp#91;/p&amp;#93; - Nieuwe paragraaf[/li] [li]&amp;#91;b&amp;#93;&amp;#91;/b&amp;#93; - Vet[/li] [li]&amp;#91;i&amp;#93;&amp;#91;/i&amp;#93; - Cursief[/li] [li]&amp;#91;em&amp;#93; and &amp;#91;/em&amp;#93; - Nadruk[/li] [li]&amp;#91;ol&amp;#93;&amp;#91;/ol&amp;#93; - Een geordende lijst[/li] [li]&amp;#91;ul&amp;#93;&amp;#91;/ul&amp;#93; - Een ongeordende lijst[/li] [li]&amp;amp#91;li&amp;amp#93;&amp;#91;/li&amp;#93; - Een item binnen ee geordende of ongeordende lijst[/li] [/ul] [p]In sommige gevallen kan het nodig zijn om een variabel onderdeel in de tekst te plaatsen. Deze wordt in de tekst aangegeven met '&amp;#37;s'.[br]bv: In de onderstaande ID, wordt het aantal nummers dat in de databank is gevonden vervangen door &amp;#37;s. Een zoekresultaat van vier nummers wordt weergegeven als &quot;4 nummers&quot;;[br]MANY_TRACKS=&amp;#37;s nummers.</text>
+        <text>Taaldefinities bestaan uit de verbindingen tussen interne IDs (bv: &quot;ADD_PLAYLIST&quot;) en werkelijk weergegeven tekst. De &lt;tekst&gt; kan worden opgemaakt met behulp van een beperkt aantal markeercodes die identiek zijn aan de HTML-markeercodes en moeten tussen rechte haken worden geplaatst.
+[p]De volgende codes kunnen worden gebruikt:
+[ul]
+[li]&amp;#91;br&amp;#93; - Nieuwe regel[/li]
+[li]&amp;#91;p&amp;#93;&amp;#91;/p&amp;#93; - Nieuwe paragraaf[/li]
+[li]&amp;#91;b&amp;#93;&amp;#91;/b&amp;#93; - Vet[/li]
+[li]&amp;#91;i&amp;#93;&amp;#91;/i&amp;#93; - Cursief[/li]
+[li]&amp;#91;em&amp;#93; en &amp;#91;/em&amp;#93; - Nadruk[/li]
+[li]&amp;#91;ol&amp;#93;&amp;#91;/ol&amp;#93; - Een geordende lijst[/li]
+[li]&amp;#91;ul&amp;#93;&amp;#91;/ul&amp;#93; - Een ongeordende lijst[/li]
+[li]&amp;#91;li&amp;#93;&amp;#91;/li&amp;#93; - Een item binnen een geordende of ongeordende lijst[/li]
+[/ul]
+[/p]
+[p]In sommige gevallen kan het nodig zijn om een variabel onderdeel in de tekst te plaatsen. Deze wordt in de tekst aangegeven met '&amp;#37;s'.[br]bv: In de onderstaande ID, wordt het aantal nummers dat in de databank is gevonden vervangen door &amp;#37;s. Een zoekresultaat van vier nummers wordt weergegeven als &quot;4 nummers&quot;;[br]MANY_TRACKS=&amp;#37;s nummers.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2480,8 +2513,8 @@
       </string>
       <string>
         <id>MEDIA_REFRESH</id>
-        <text>Zoek naar nieuwe media</text>
-        <version>1.19</version>
+        <text>Zoek nieuwe media</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>MEDIA_SCAN_OVERALL</id>
@@ -2959,6 +2992,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>NEWEST-50</id>
+        <text>Nieuwste filmtrailers</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>NEWSUBSCRIPTIONVIDEOS</id>
         <text>Nieuwe videos</text>
         <version>1.22</version>
@@ -2992,6 +3030,11 @@
         <id>NOT_RATED</id>
         <text>Niet gekwalificeerd</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>NOW-50</id>
+        <text>Nu in de bioscoop</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>NOW_PLAYING</id>
@@ -3091,12 +3134,12 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
       </string>
       <string>
         <id>NUMBER_OF_TRACKS</id>
-        <text>Aantal Nummers</text>
+        <text>Aantal Nummers %s</text>
         <version>1.22</version>
       </string>
       <string>
         <id>NUMBER_OF_TV_EPISODES</id>
-        <text>Aantal Afleveringen</text>
+        <text>Aantal Afleveringen %s</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3601,7 +3644,7 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
       </string>
       <string>
         <id>PLAYER_CONFIG</id>
-        <text>Ondersteunde mediaspelers</text>
+        <text>Ondersteunde spelers</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3947,8 +3990,8 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
       </string>
       <string>
         <id>RECENTLY_ADDED</id>
-        <text>Recent toegevoegd</text>
-        <version>1.19</version>
+        <text>Recentelijk toegevoegd</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>RECENTLY_ADDED_DAYS</id>
@@ -3971,6 +4014,26 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
         <version>1.22</version>
       </string>
       <string>
+        <id>RECENT_DATE_LIMIT</id>
+        <text>Aantal dagen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_DATE_LIMIT_PROMPT</id>
+        <text>Het aantal dagen terug in de tijd waarin aan SwissCenter toegevoegde media zullen worden weergegeven in het menu 'Recente media' op de mediaspeler.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_DATE_TYPE</id>
+        <text>Datum type</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_DATE_TYPE_PROMPT</id>
+        <text>Selecteer de datum die gebruikt moet worden om te bepalen welke media als recent moet worden beschouwd:[br][ul][li]Recentelijk toegevoegd: indien de media recentelijk is toegevoegd aan de media bibiliotheek.[/li][li]Recentelijk gecreëerd: indien de media recentelijk is gecreëerd in het systeem.[/li][li]Recentelijk toegevoegd of gecreëerd: indien de media ofwel recentelijk is toegevoegd, ofwel recentelijk is gecreëerd.[/li][/ul]</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>RECENT_MEDIA</id>
         <text>Onlangs toegevoegd</text>
         <version>1.22</version>
@@ -3978,6 +4041,11 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
       <string>
         <id>RECENT_MUSIC</id>
         <text>Muziek</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_OPTIONS</id>
+        <text>Opties voor recente media</text>
         <version>1.22</version>
       </string>
       <string>
@@ -5277,8 +5345,8 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
       </string>
       <string>
         <id>TV_DETAILS</id>
-        <text>Bewerk TV series details</text>
-        <version>1.19</version>
+        <text>Bewerk TV series</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>TV_EXPRESSIONS</id>
@@ -5363,8 +5431,8 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
       </string>
       <string>
         <id>TV_OPTIONS</id>
-        <text>TV series</text>
-        <version>1.19</version>
+        <text>TV serie opties</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>UNKNOWN_ERROR</id>
