@@ -2,22 +2,22 @@
 /**************************************************************************************************
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
-  
+
   // ----------------------------------------------------------------------------------
   // Display current config
   // ----------------------------------------------------------------------------------
-  
+
   function users_display($modify_msg = '', $add_msg = '', $edit_id = 0)
   {
-    $data = db_toarray("select user_id, u.Name 'Name', u.Pin, c.name 'Max Certificate Viewable', 
+    $data = db_toarray("select user_id, u.Name 'Name', u.Pin, c.name 'Max Certificate Viewable',
                                   (CASE u.Admin WHEN 0 THEN '".str('NO')."'
                                                 WHEN 1 THEN '".str('YES')."'
                                                 ELSE '".str('NO')."'
                                                 END) 'Super User'
-                          from users u, certificates c 
+                          from users u, certificates c
                          where u.maxcert=c.cert_id order by u.name asc");
-    
-    
+
+
     echo "<h1>".str('USERS_ADD_TITLE')."</h1>";
     message($modify_msg);
     form_start("index.php", 150, "users");
@@ -34,7 +34,7 @@
     if (!$edit_id)
       form_submit(str('USERS_DEL_BUTTON'), 1 ,"center");
     form_end();
-    
+
     echo "<p><h1>".str('USERS_ADD_BUTTON')."</h1>";
     message($add_msg);
     form_start("index.php", 150);
@@ -51,14 +51,14 @@
     form_submit(str('USERS_ADD_BUTTON'), 2);
     form_end();
   }
-  
+
   function users_new()
   {
     $name = $_REQUEST["name"];
     $cert = $_REQUEST["cert"];
     $pin  = $_REQUEST["pin"];
     $admin = $_REQUEST["admin"];
-    
+
     if(empty($name))
     {
       users_display("", "!".str('USERS_ERROR_NAME'));
@@ -70,7 +70,7 @@
     else
     {
       $user_count = db_value("select count(*) from users where name='".db_escape_str($name)."'");
-      
+
       if($user_count > 0)
       {
         users_display("", "!".str('USERS_ERROR_EXISTS'));
@@ -86,13 +86,13 @@
       }
     }
   }
-  
+
   function users_modify()
   {
     $selected = form_select_table_vals("user_id");
     $edit_id = form_select_table_edit("user_id", "users");
     $update_data = form_select_table_update("user_id", "users");
-    
+
     if(!empty($edit_id))
     {
       users_display("", "", $edit_id);
@@ -104,10 +104,10 @@
       $max_cert = $update_data["MAX_CERTIFICATE_VIEWABLE"];
       $pin = $update_data["PIN"];
       $admin = $update_data["SUPER_USER"];
-      
+
       if(empty($name))
       {
-        user_display("!".str('USERS_ERROR_NAME'));
+        users_display("!".str('USERS_ERROR_NAME'));
       }
       else
       {
@@ -116,9 +116,9 @@
           $sql = $sql.",pin=NULL";
         else
           $sql = $sql.",pin='".db_escape_str($pin)."'";
-        
+
         $sql = $sql.",maxcert=$max_cert, admin=$admin where user_id=$user_id";
-        
+
         db_sqlcommand($sql);
         users_display(str('USERS_EDIT_OK'));
       }
@@ -126,7 +126,7 @@
     elseif(!empty($selected))
     {
       $message = str('USERS_DEL_OK');
-      
+
       foreach($selected as $selected_item)
       {
         if($selected_item != 1)
@@ -136,13 +136,13 @@
         else
           $message = "!".str('USERS_ERROR_DEFAULT');
       }
-      
+
       users_display($message);
     }
     else
       users_display();
   }
-  
+
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/
