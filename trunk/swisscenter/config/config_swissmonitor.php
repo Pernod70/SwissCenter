@@ -63,7 +63,6 @@
 
       // Display ignored extensions
       echo '<p><h1>'.str('SWISSMONITOR_CONFIG').'<p>';
-      message($delete);
       form_start('index.php', 200, 'ignore');
       form_hidden('section','SWISSMONITOR');
       form_hidden('action','EXT_MODIFY');
@@ -76,7 +75,6 @@
 
       // Add an ignored extension
       echo '<p><h1>'.str('IGNORE_EXTENSION_ADD_TITLE').'<p>';
-      message($new);
       form_start('index.php', 200);
       form_hidden('section','SWISSMONITOR');
       form_hidden('action','EXT_NEW');
