@@ -9,17 +9,17 @@
  *************************************************************************************************/
 
 /**
- * Class to query the German IMDb for imdbtt and title
+ * Class to query the French IMDb for imdbtt and title
  */
-class wwwIMDBde extends wwwIMDBcom implements ParserInterface {
-  protected $site_url = 'http://www.imdb.de/';
-  protected $search_url = 'http://www.imdb.de/find?s=tt&q=';
+class wwwIMDBfr extends wwwIMDBcom implements ParserInterface {
+  protected $site_url = 'http://www.imdb.fr/';
+  protected $search_url = 'http://www.imdb.fr/find?s=tt&q=';
 
-  protected $match_plot = 'Handlung';
+  protected $match_plot = 'Intrigue';
   protected $match_genre = 'Genre';
-  protected $match_director = 'Regisseur';
-  protected $match_language = 'Sprache';
-  protected $match_certificate = 'Altersfreigabe';
+  protected $match_director = 'Réalisateur';
+  protected $match_language = 'Langue';
+  protected $match_certificate = 'Classification';
 
   public $supportedProperties = array (
     IMDBTT,
@@ -40,15 +40,15 @@ class wwwIMDBde extends wwwIMDBcom implements ParserInterface {
   public $settings = array ();
 
   public static function getName() {
-    return "www.IMDb.de";
+    return "www.IMDb.fr";
   }
 
   protected function getSearchPageHTML() {
-    return "<title>IMDb Titelsuche</title>";
+    return "<title>rechercher IMDb par titre</title>";
   }
 
   protected function getNoMatchFoundHTML() {
-    return "Keine Treffer.";
+    return "Pas de résultats.";
   }
 
   /**
@@ -65,7 +65,7 @@ class wwwIMDBde extends wwwIMDBcom implements ParserInterface {
         $html_genres = substr($html,$start,$end-$start+1);
         $matches = preg_get("/class=\"info-content\">(.*)</Us", $html_genres);
         if (!empty($matches)) {
-        	$new_genres = array_map("trim", explode(' | ', $matches));
+          $new_genres = array_map("trim", explode(' | ', $matches));
           $this->setProperty(GENRES, $new_genres);
           return $new_genres;
         }

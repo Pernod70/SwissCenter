@@ -9,17 +9,17 @@
  *************************************************************************************************/
 
 /**
- * Class to query the German IMDb for imdbtt and title
+ * Class to query the Spanish IMDb for imdbtt and title
  */
-class wwwIMDBde extends wwwIMDBcom implements ParserInterface {
-  protected $site_url = 'http://www.imdb.de/';
-  protected $search_url = 'http://www.imdb.de/find?s=tt&q=';
+class wwwIMDBes extends wwwIMDBcom implements ParserInterface {
+  protected $site_url = 'http://www.imdb.es/';
+  protected $search_url = 'http://www.imdb.es/find?s=tt&q=';
 
-  protected $match_plot = 'Handlung';
-  protected $match_genre = 'Genre';
-  protected $match_director = 'Regisseur';
-  protected $match_language = 'Sprache';
-  protected $match_certificate = 'Altersfreigabe';
+  protected $match_plot = 'Trama';
+  protected $match_genre = 'Género';
+  protected $match_director = 'Director';
+  protected $match_language = 'Idioma';
+  protected $match_certificate = 'Clasificación';
 
   public $supportedProperties = array (
     IMDBTT,
@@ -40,15 +40,15 @@ class wwwIMDBde extends wwwIMDBcom implements ParserInterface {
   public $settings = array ();
 
   public static function getName() {
-    return "www.IMDb.de";
+    return "www.IMDb.es";
   }
 
   protected function getSearchPageHTML() {
-    return "<title>IMDb Titelsuche</title>";
+    return "<title>Búsqueda de Títulos de IMDb</title>";
   }
 
   protected function getNoMatchFoundHTML() {
-    return "Keine Treffer.";
+    return "No hay resultados.";
   }
 
   /**
@@ -65,7 +65,7 @@ class wwwIMDBde extends wwwIMDBcom implements ParserInterface {
         $html_genres = substr($html,$start,$end-$start+1);
         $matches = preg_get("/class=\"info-content\">(.*)</Us", $html_genres);
         if (!empty($matches)) {
-        	$new_genres = array_map("trim", explode(' | ', $matches));
+          $new_genres = array_map("trim", explode(' | ', $matches));
           $this->setProperty(GENRES, $new_genres);
           return $new_genres;
         }
@@ -86,6 +86,25 @@ class wwwIMDBde extends wwwIMDBcom implements ParserInterface {
           return $new_languages;
         }
       }
+    }
+  }
+protected function parseCertificate() {
+    $html = $this->page;
+    $certlist = array ();
+    foreach (explode('|', substr_between_strings($html, $this->match_certificate.':', '</div>')) as $cert) {
+      $country = trim(substr($cert, 0, strpos($cert, ':')));
+      $certificate = trim(substr($cert, strpos($cert, ':') + 1)) . ' ';
+      $certlist[$country] = substr($certificate, 0, strpos($certificate, ' '));
+    }
+    if (get_rating_scheme_name() == 'BBFC')
+      $rating = (isset ($certlist["Reino Unido"]) ? $certlist["Reino Unido"] : $certlist["Estados Unidos"]);
+    elseif (get_rating_scheme_name() == 'MPAA')
+      $rating = (isset ($certlist["Estados Unidos"]) ? $certlist["Estados Unidos"] : $certlist["Reino Unido"]);
+    elseif (get_rating_scheme_name() == 'Kijkwijzer')
+      $rating = (isset ($certlist["Netherlands"]) ? $certlist["Netherlands"] : (isset ($certlist["Estados Unidos"]) ? $certlist["Estados Unidos"] : $certlist["Reino Unido"]));
+    if(isset($rating) && !empty($rating)){
+      $this->setProperty(CERTIFICATE, $rating);
+      return $rating;
     }
   }
 }

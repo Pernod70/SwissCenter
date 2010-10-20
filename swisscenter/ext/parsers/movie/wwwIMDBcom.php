@@ -9,6 +9,15 @@
  *************************************************************************************************/
 
 class wwwIMDBcom extends Parser implements ParserInterface {
+  protected $url_imdb;
+  protected $site_url = 'http://www.imdb.com/';
+  protected $search_url = 'http://www.imdb.com/find?s=tt&q=';
+
+  protected $match_plot = 'Plot';
+  protected $match_genre = 'Genre';
+  protected $match_director = 'Director';
+  protected $match_language = 'Language';
+  protected $match_certificate = 'Certification';
 
   public $supportedProperties = array (
     IMDBTT,
@@ -35,10 +44,6 @@ class wwwIMDBcom extends Parser implements ParserInterface {
     return "www.IMDb.com";
   }
 
-  protected $url_imdb;
-  protected $site_url = 'http://www.imdb.com/';
-  protected $search_url = 'http://www.imdb.com/find?s=tt;q=';
-
   /**
    * Populate the page variable. This is the part of the html thats needed to get all the properties.
    *
@@ -55,7 +60,7 @@ class wwwIMDBcom extends Parser implements ParserInterface {
 
     // Check filename and title for an IMDb ID
     if (! (isset ($search_params['IGNORE_IMDBTT']) && $search_params['IGNORE_IMDBTT']) ) {
-	    send_to_log(4, "IMDB.com: Searching for IMDB in file details.");
+      send_to_log(4, "Searching for IMDb ID in file details.");
       $details = db_row("select * from movies where file_id=" . $this->id);
       $imdbtt = $this->checkForIMDBTT($details);
     }
@@ -66,24 +71,19 @@ class wwwIMDBcom extends Parser implements ParserInterface {
 
     if (!$imdbtt) {
       // Use IMDb's internal search to get a list a possible matches
-      send_to_log(8, "Using IMDb internal search: " . $temp_title);
-      $html = file_get_contents($this->search_url . str_replace('%20', '+', urlencode($temp_title)));
-    } else {
-      // Use IMDb ID to get movie page
-      send_to_log(8, "Using IMDb ID to retrieve page: " . $imdbtt);
-      $html = file_get_contents($this->search_url . $imdbtt);
-    }
+      $search_url = $this->search_url . str_replace('%20', '+', urlencode($temp_title));
+      send_to_log(8, "Using IMDb internal search: " . $search_url);
 
-    // Decode HTML entities found on page
-    $html = html_entity_decode($html, ENT_QUOTES);
+      // Download page and decode HTML entities
+      $html = html_entity_decode(file_get_contents($search_url), ENT_QUOTES);
 
-    // Examine returned page
-    if (strpos(strtolower($html), "no matches") !== false) {
-      // There are no matches found... do nothing
-      $this->accuracy = 0;
-      send_to_log(4, $this->getNoMatchFoundHTML());
-    } else
-      if (strpos($html, $this->getSearchPageHTML()) > 0) {
+      // Examine returned page
+      if (strpos($html, $this->getNoMatchFoundHTML()) > 0) {
+        // No matches found
+        $this->accuracy = 0;
+        send_to_log(4, "No matches");
+      } elseif (strpos($html, $this->getSearchPageHTML()) > 0) {
+        // Search results for a match
         send_to_log(8, "Multiple IMDb matches...");
 
         if ((preg_match("/\((\d{4})\)/", $details["TITLE"], $title_year) != 0) || (preg_match("/\((\d{4})\)/", $temp_title, $title_year) != 0)) {
@@ -93,23 +93,31 @@ class wwwIMDBcom extends Parser implements ParserInterface {
         $html = substr($html, strpos($html, "Titles"));
         $matches = get_urls_from_html($html, '\/title\/tt\d+\/');
         $index = ParserUtil :: most_likely_match($this->title, $matches[2], $this->accuracy, $year);
+
         // If we are sure that we found a good result, then get the file details.
         if ($this->accuracy > 75) {
-          $url_imdb = add_site_to_url($matches[1][$index], $this->site_url);
-          $url_imdb = substr($url_imdb, 0, strpos($url_imdb, "?fr=") - 1);
-          $html = html_entity_decode(file_get_contents($url_imdb), ENT_QUOTES);
+          $this->url_imdb = add_site_to_url($matches[1][$index], $this->site_url);
+          $this->url_imdb = substr($this->url_imdb, 0, strpos($this->url_imdb, "?fr=") - 1);
         }
       } else {
         // Direct hit on the title
+        $this->url_imdb = $this->site_url . "title/" . $this->findIMDBTTInPage() ;
         send_to_log(8, "Direct IMDb hit...");
         $this->accuracy = 100;
       }
+    } else {
+      // Use IMDb ID to get movie page
+      $this->url_imdb = $this->site_url . 'title/' . $imdbtt;
+      send_to_log(8, "Using IMDb ID: " . $imdbtt);
+      $this->accuracy = 100;
+    }
 
+    // Download the combined view of the required page
     if ($this->accuracy >= 75) {
+      $html = html_entity_decode(file_get_contents($this->url_imdb . '/combined'), ENT_QUOTES);
       $this->page = $this->getRelevantPartOfHTML($html);
-      $this->url_imdb = $this->site_url . "title/" . $this->findIMDBTTInPage();
       if (isset ($this->page)) {
-        send_to_log(8, "returning true..." . $this->url_imdb);
+        send_to_log(8, "Returning true..." . $this->url_imdb);
         return true;
       }
     }
@@ -117,17 +125,16 @@ class wwwIMDBcom extends Parser implements ParserInterface {
   }
   protected function getSearchPageHTML(){
     return "<title>IMDb Title Search</title>";
-
   }
   protected function getNoMatchFoundHTML(){
-    return "No Match found.";
-
+    return "No Matches.";
   }
-  /*
-   * store the relevant part of the page
+
+  /**
+   * Get the relevant part of the page
    */
   private function getRelevantPartOfHTML($html) {
-    $start = strpos($html, "<div class=\"photo\">");
+    $start = strpos($html, "<div id=\"pagecontent\">");
     if ($start !== false) {
       $end = strpos($html, "<a name=\"comment\">");
       if ($end !== false) {
@@ -143,11 +150,10 @@ class wwwIMDBcom extends Parser implements ParserInterface {
 
   protected function parseYear() {
     $html = $this->page;
-    $year = array();
-    preg_match('/href=\"\/year\/(\d+)/', $html, $year);
-    if (isset($year[1]) && !empty($year[1])) {
-      $this->setProperty(YEAR, $year[1]);
-      return $year[1];
+    $year = preg_get('/<b>.*\((\d{4})\)<\/b>/Us', $html);
+    if (!empty($year)) {
+      $this->setProperty(YEAR, $year);
+      return $year;
     }
   }
   protected function parseTitle() {
@@ -165,12 +171,18 @@ class wwwIMDBcom extends Parser implements ParserInterface {
   }
   protected function parseSynopsis() {
     $html = $this->page;
-    $synopsis = array();
-    preg_match("/<h5>Plot(| Outline| Summary):<\/h5>\n<div class=\"info-content\">([^<]*)</sm", $html, $synopsis);
-    $synopsis = trim(trim($synopsis[2]), " |");
-    if (isset($synopsis) && !empty($synopsis)) {
-      $this->setProperty(SYNOPSIS, $synopsis);
-      return $synopsis;
+    $start = strpos($html,"<h5>$this->match_plot:</h5>");
+    if ($start !== false) {
+      $end = strpos($html,"</div>", $start + 1);
+      if ($end !== false) {
+        $html_synopsis = substr($html,$start,$end-$start+1);
+        $matches = preg_get("/class=\"info-content\">(.*)</Usm", $html_synopsis);
+        $synopsis = trim(trim($matches), " |");
+        if (isset($synopsis) && !empty($synopsis)) {
+          $this->setProperty(SYNOPSIS, $synopsis);
+          return $synopsis;
+        }
+      }
     }
   }
   protected function parseIMDBTT() {
@@ -181,24 +193,15 @@ class wwwIMDBcom extends Parser implements ParserInterface {
     }
   }
   protected function findIMDBTTInPage() {
-    $html = $this->page;
-    $searchstring = "/fullcredits';";
-    if (strpos($html, $searchstring) > 0) {
-      $pos = strpos($html, $searchstring);
-      if ($pos !== false) {
-        $imdbtt = substr($html, $pos -9, 9);
-        return $imdbtt;
-      }
-    }
+    return preg_get('~/title/(tt\d+)/fullcredits~U', $this->page);
   }
   protected function parseActors() {
-    if (get_sys_pref(get_class($this).'_FULL_CAST', $this->settings[FULL_CAST]["default"]) == 'YES')
-      $html = file_get_contents($this->url_imdb . "/fullcredits#cast");
-    else
-      $html = $this->page;
-
+    $html = $this->page;
     $start = strpos($html, "<table class=\"cast\">");
-    $end = strpos($html, "</table>", $start + 1);
+    if (get_sys_pref(get_class($this).'_FULL_CAST', $this->settings[FULL_CAST]["default"]) == 'YES')
+      $end = strpos($html, "</table>", $start + 1);
+    else
+      $end = strpos($html, "<small>", $start + 1);
     $html_actors = substr($html, $start, $end - $start);
     $matches = get_urls_from_html($html_actors, "\/name\/nm\d+\/");
     for ($i = 0; $i < count($matches[2]); $i++) {
@@ -214,13 +217,12 @@ class wwwIMDBcom extends Parser implements ParserInterface {
     }
   }
   protected function parseActorImages() {
-    if (get_sys_pref(get_class($this).'_FULL_CAST', $this->settings[FULL_CAST]["default"]) == 'YES')
-      $html = file_get_contents($this->url_imdb . "/fullcredits#cast");
-    else
-      $html = $this->page;
-
+    $html = $this->page;
     $start = strpos($html, "<table class=\"cast\">");
-    $end = strpos($html, "</table>", $start + 1);
+    if (get_sys_pref(get_class($this).'_FULL_CAST', $this->settings[FULL_CAST]["default"]) == 'YES')
+      $end = strpos($html, "</table>", $start + 1);
+    else
+      $end = strpos($html, "<small>", $start + 1);
     $html_actors = substr($html, $start, $end - $start);
     preg_match_all('/<img src="(.*)" width="\d{2}" height="\d{2}" border="0">.*<\/td><td class="nm"><a href="\/name\/(nm\d+)\/" onclick=".*">(.*)<\/a>/Us', $html_actors, $matches);
     $actors = array();
@@ -242,9 +244,9 @@ class wwwIMDBcom extends Parser implements ParserInterface {
   }
   protected function parseDirectors() {
     $html  = $this->page;
-    $start = strpos($html, "<h5>Director");
+    $start = strpos($html, "<h5>$this->match_director");
     if ($start !== false) {
-      $end = strpos($html, "<h5>", $start + 1);
+      $end = strpos($html,"</div>", $start + 1);
       if ($end !== false) {
         $html_directed = substr($html, $start, $end - $start);
         $matches = get_urls_from_html($html_directed, "\/name\/nm\d+\/");
@@ -257,7 +259,7 @@ class wwwIMDBcom extends Parser implements ParserInterface {
   }
   protected function parseGenres() {
     $html  = $this->page;
-    $start = strpos($html,"<h5>Genre:</h5>");
+    $start = strpos($html,"<h5>$this->match_genre:</h5>");
     if ($start !== false) {
       $end = strpos($html,"</div>", $start + 1);
       if ($end !== false) {
@@ -272,12 +274,12 @@ class wwwIMDBcom extends Parser implements ParserInterface {
   }
   protected function parseLanguages() {
     $html  = $this->page;
-    $start = strpos($html,"<h5>Language:</h5>");
+    $start = strpos($html,"<h5>$this->match_language:</h5>");
     if ($start !== false) {
       $end = strpos($html,"</div>", $start + 1);
       if ($end !== false) {
         $html_langs = str_replace("\n","",substr($html,$start,$end-$start));
-        $matches = get_urls_from_html($html_langs,"\/Sections\/Languages\/");
+        $matches = get_urls_from_html($html_langs,"\/language\/");
         $new_languages = $matches[2];
         if (isset($new_languages) && !empty($new_languages)) {
           $this->setProperty(LANGUAGES, $new_languages);
@@ -288,7 +290,7 @@ class wwwIMDBcom extends Parser implements ParserInterface {
   }
   protected function parseExternalRatingPc() {
     $html = $this->page;
-    $user_rating = preg_get("/<h5>User Rating:<\/h5>.*?<b>(.*)\/10<\/b>/sm", $html);
+    $user_rating = preg_get("/<div.*class=\"starbar-meta\">.*<b>(.*)\/10<\/b>/Usm", $html);
     if (!empty ($user_rating)) {
       $user_rating = intval($user_rating * 10);
       $this->setProperty(EXTERNAL_RATING_PC, $user_rating);
@@ -298,7 +300,7 @@ class wwwIMDBcom extends Parser implements ParserInterface {
   protected function parseCertificate() {
     $html = $this->page;
     $certlist = array ();
-    foreach (explode('|', substr_between_strings($html, 'Certification:', '</div>')) as $cert) {
+    foreach (explode('|', substr_between_strings($html, $this->match_certificate.':', '</div>')) as $cert) {
       $country = trim(substr($cert, 0, strpos($cert, ':')));
       $certificate = trim(substr($cert, strpos($cert, ':') + 1)) . ' ';
       $certlist[$country] = substr($certificate, 0, strpos($certificate, ' '));
