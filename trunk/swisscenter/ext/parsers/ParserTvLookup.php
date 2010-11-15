@@ -11,6 +11,7 @@ function ParserTvLookup($tv_id, $filename, $search_params) {
 
   $oneInstancePerParserArray = array ();
   $propertyFail = array();
+  $allFail = true;
   for ($i = 0; $i < count(ParserConstants :: $allTvConstants); $i++) {
     $parser_pref = explode(',', get_sys_pref('tv_parser_' . ParserConstants :: $allTvConstants[$i]['ID'],
                                                             ParserConstants :: $allTvConstants[$i]['DEFAULT']));
@@ -29,9 +30,10 @@ function ParserTvLookup($tv_id, $filename, $search_params) {
         if (!isset ($propertyCheck)) {
           $returnval = $parser->parseProperty(ParserConstants :: $allTvConstants[$i]['ID']);
           if (!isset ($returnval)) {
-            send_to_log(4, "ERROR: Parsing of " . ParserConstants :: $allTvConstants[$i]['ID'] . " from " . $parser->getName() . " failed! : ");
+            send_to_log(4, "ERROR: Parsing of " . ParserConstants :: $allTvConstants[$i]['ID'] . " from " . $parser->getName() . " failed!");
           } else {
             // Store successfully retrieved properties
+            $allFail = false;
             switch (ParserConstants :: $allTvConstants[$i]['ID']) {
               case ACTORS:
                 scdb_add_tv_actors($tv_id, $returnval);
@@ -57,6 +59,9 @@ function ParserTvLookup($tv_id, $filename, $search_params) {
               case MATCH_PC:
                 scdb_set_tv_attribs($tv_id, array(ParserConstants :: $allTvConstants[$i]['ID'] => $returnval));
                 break;
+              case POSTER:
+                $poster = $returnval;
+                break;
             }
           }
         }
@@ -70,7 +75,6 @@ function ParserTvLookup($tv_id, $filename, $search_params) {
   }
 
   // Download poster
-  $poster = $parser->getProperty(POSTER);
   if (!empty($poster) && file_albumart($filename, false) == '') {
     file_save_albumart($poster, dirname($filename) . '/' . file_noext($filename) . '.' . file_ext($poster), '');
   }
@@ -164,7 +168,7 @@ function ParserTvLookup($tv_id, $filename, $search_params) {
     }
   }
 
-  return empty($propertyFail) ? true : $propertyFail;
+  return empty($propertyFail) ? true : ($allFail ? false : $propertyFail);
 }
 ?>
 

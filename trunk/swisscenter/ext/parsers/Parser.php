@@ -53,6 +53,8 @@ abstract class Parser
           // If IMDBTT is set in property map, there's no need for smartsearch
           if (isset ($props_imdbtt) && !empty ($props_imdbtt))
             $use_smartsearch = false;
+
+          // Populate the page
           if ($use_smartsearch)
             $this->doSmartSearch($id, $filename, $search_params['TITLE'], $use_foldersearch);
           else
@@ -180,17 +182,18 @@ abstract class Parser
     $moviefolder_year = ParserUtil :: get_year_from_title(ParserUtil :: strip_moviefolder_title(dirname($filename)));
     $title_year = ParserUtil :: get_year_from_title(strip_title($title));
     $title = ParserUtil :: remove_metadata($title);
-    $movie_year = FALSE;
+    $movie_year = false;
 
-    if ($title_year != FALSE) {
+    if ($title_year != false) {
       $movie_year = $title_year;
     } else {
-      if ($moviefolder_year != FALSE) {
+      if ($moviefolder_year != false) {
         $movie_year = $moviefolder_year;
       } else {
         $movie_year = ParserUtil :: getYearFromFilePath($filename);
       }
     }
+
     $title = ParserUtil :: my_ucwords($title);
     send_to_log(4, "Searching for details about " . $title . " online at " . $this->site_url);
     if ($use_foldersearch)
@@ -200,6 +203,7 @@ abstract class Parser
     $searchStrings = null;
 
     $index = 0;
+    $searchList = array();
     $searchList[$index]["title"] = $title;
     $searchList[$index]["year"] = ($movie_year != false) ? $movie_year : null;
 
@@ -207,7 +211,7 @@ abstract class Parser
       $searchList[++ $index]["title"] = $moviefolder_name;
       $searchList[$index]["year"] = ($movie_year != false) ? $movie_year : null;
     }
-    if ($movie_year = !false) {
+    if ($movie_year != false) {
       $searchList[++ $index]["title"] = $title;
       $searchList[$index]["year"] = null;
       if ($use_foldersearch) {

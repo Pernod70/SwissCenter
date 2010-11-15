@@ -70,7 +70,7 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
     }
 
     // User TMDb's internal search to get a list a possible matches
-    $moviedb_id = $this->get_moviedb_id(htmlspecialchars($this->title, ENT_QUOTES), $year, $imdbtt);
+    $moviedb_id = $this->get_moviedb_id($this->title, $year, $imdbtt);
     if ($moviedb_id) {
       // Parse the movie details
       $url = 'http://api.themoviedb.org/2.1/Movie.getInfo/en/json/' . MOVIEDB_API_KEY . '/' . $moviedb_id;
@@ -223,6 +223,7 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
       $url = 'http://api.themoviedb.org/2.1/Movie.imdbLookup/en/json/' . MOVIEDB_API_KEY . '/' . $imdbtt;
     else
       $url = 'http://api.themoviedb.org/2.1/Movie.search/en/json/' . MOVIEDB_API_KEY . '/' . urlencode(trim($title.' '.$year));
+    send_to_log(6, 'Feed request', $url);
 
     // Parse the xml results and determine best match for title
     $index = json_decode( file_get_contents($url) );
