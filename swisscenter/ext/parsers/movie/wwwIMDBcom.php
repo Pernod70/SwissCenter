@@ -9,7 +9,6 @@
  *************************************************************************************************/
 
 class wwwIMDBcom extends Parser implements ParserInterface {
-  protected $url_imdb;
   protected $site_url = 'http://www.imdb.com/';
   protected $search_url = 'http://www.imdb.com/find?s=tt&q=';
 
@@ -96,28 +95,28 @@ class wwwIMDBcom extends Parser implements ParserInterface {
 
         // If we are sure that we found a good result, then get the file details.
         if ($this->accuracy > 75) {
-          $this->url_imdb = add_site_to_url($matches[1][$index], $this->site_url);
-          $this->url_imdb = substr($this->url_imdb, 0, strpos($this->url_imdb, "?fr=") - 1);
+          $url_imdb = add_site_to_url($matches[1][$index], $this->site_url);
+          $url_imdb = substr($url_imdb, 0, strpos($url_imdb, "?fr=") - 1);
         }
       } else {
         // Direct hit on the title
-        $this->url_imdb = $this->site_url . "title/" . $this->findIMDBTTInPage() ;
+        $url_imdb = $this->site_url . "title/" . $this->findIMDBTTInPage($html);
         send_to_log(8, "Direct IMDb hit...");
         $this->accuracy = 100;
       }
     } else {
       // Use IMDb ID to get movie page
-      $this->url_imdb = $this->site_url . 'title/' . $imdbtt;
+      $url_imdb = $this->site_url . 'title/' . $imdbtt;
       send_to_log(8, "Using IMDb ID: " . $imdbtt);
       $this->accuracy = 100;
     }
 
     // Download the combined view of the required page
     if ($this->accuracy >= 75) {
-      $html = html_entity_decode(file_get_contents($this->url_imdb . '/combined'), ENT_QUOTES);
+      $html = html_entity_decode(file_get_contents($url_imdb . '/combined'), ENT_QUOTES);
       $this->page = $this->getRelevantPartOfHTML($html);
       if (isset ($this->page)) {
-        send_to_log(8, "Returning true..." . $this->url_imdb);
+        send_to_log(8, "Returning true..." . $url_imdb);
         return true;
       }
     }
@@ -186,14 +185,14 @@ class wwwIMDBcom extends Parser implements ParserInterface {
     }
   }
   protected function parseIMDBTT() {
-    $imdbtt = $this->findIMDBTTInPage();
+    $imdbtt = $this->findIMDBTTInPage($this->page);
     if (isset($imdbtt) && !empty($imdbtt)) {
       $this->setProperty(IMDBTT, $imdbtt);
       return $imdbtt;
     }
   }
-  protected function findIMDBTTInPage() {
-    return preg_get('~/title/(tt\d+)/fullcredits~U', $this->page);
+  protected function findIMDBTTInPage($html) {
+    return preg_get('~/title/(tt\d+)/fullcredits~U', $html);
   }
   protected function parseActors() {
     $html = $this->page;
@@ -228,9 +227,8 @@ class wwwIMDBcom extends Parser implements ParserInterface {
     $actors = array();
     for ($i = 0; $i < count($matches[0]); $i++) {
       if (strpos($matches[1][$i], 'no_photo') === false && strlen($matches[2][$i]) > 0) {
-        // Replace resize attributes with maximum allowed
-        $matches[1][$i] = preg_replace('/SX\d+_/', 'SX450_', $matches[1][$i]);
-        $matches[1][$i] = preg_replace('/SY\d+_/', 'SY700_', $matches[1][$i]);
+        // Remove the resize attributes (_V1._SYxx_SXxx_)
+        $matches[1][$i] = preg_replace('/\._V\d\._.*\.jpg/U', '.jpg', $matches[1][$i]);
 
         $actors[] = array('ID'    => $matches[2][$i],
                           'IMAGE' => $matches[1][$i],
@@ -321,9 +319,8 @@ class wwwIMDBcom extends Parser implements ParserInterface {
     $matches = get_images_from_html($html);
     $img_addr = $matches[1][0];
     if (file_ext($img_addr) == 'jpg' && !stristr($img_addr, 'addposter')) {
-      // Replace resize attributes with maximum allowed
-      $img_addr = preg_replace('/SX\d+_/', 'SX450_', $img_addr);
-      $img_addr = preg_replace('/SY\d+_/', 'SY700_', $img_addr);
+      // Remove the resize attributes (_V1._SYxx_SXxx_)
+      $img_addr = preg_replace('/\._V\d\._.*\.jpg/U', '.jpg', $img_addr);
       if (url_exists($img_addr)) {
         $this->setProperty(POSTER, $img_addr);
         return $img_addr;

@@ -13,6 +13,7 @@ function ParserMovieLookup($movie_id, $filename, $search_params) {
 
   $oneInstancePerParserArray = array ();
   $propertyFail = array();
+  $allFail = true;
   for ($i = 0; $i < count(ParserConstants :: $allMovieConstants); $i++) {
     $parser_pref = explode(',', get_sys_pref('movie_parser_' . ParserConstants :: $allMovieConstants[$i]['ID'],
                                                                ParserConstants :: $allMovieConstants[$i]['DEFAULT']));
@@ -31,9 +32,10 @@ function ParserMovieLookup($movie_id, $filename, $search_params) {
         if (!isset ($propertyCheck)) {
           $returnval = $parser->parseProperty(ParserConstants :: $allMovieConstants[$i]['ID']);
           if (!isset ($returnval)) {
-            send_to_log(4, "ERROR: Parsing of " . ParserConstants :: $allMovieConstants[$i]['ID'] . " from " . $parser->getName() . " failed! : ");
+            send_to_log(4, "ERROR: Parsing of " . ParserConstants :: $allMovieConstants[$i]['ID'] . " from " . $parser->getName() . " failed!");
           } else {
             // Store successfully retrieved properties
+            $allFail = false;
             switch (ParserConstants :: $allMovieConstants[$i]['ID']) {
               case ACTORS:
                 scdb_add_actors($movie_id, $returnval);
@@ -61,6 +63,9 @@ function ParserMovieLookup($movie_id, $filename, $search_params) {
               case MATCH_PC:
                 scdb_set_movie_attribs($movie_id, array(ParserConstants :: $allMovieConstants[$i]['ID'] => $returnval));
                 break;
+              case POSTER:
+                $poster = $returnval;
+                break;
             }
           }
         }
@@ -74,7 +79,6 @@ function ParserMovieLookup($movie_id, $filename, $search_params) {
   }
 
   // Download poster
-  $poster = $parser->getProperty(POSTER);
   if (!empty($poster) && file_albumart($filename, false) == '') {
     file_save_albumart($poster, dirname($filename) . '/' . file_noext($filename) . '.' . file_ext($poster), '');
   }
@@ -135,7 +139,7 @@ function ParserMovieLookup($movie_id, $filename, $search_params) {
     }
   }
 
-  return empty($propertyFail) ? true : $propertyFail;
+  return empty($propertyFail) ? true : ($allFail ? false : $propertyFail);
 }
 ?>
 
