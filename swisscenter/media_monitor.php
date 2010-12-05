@@ -64,7 +64,7 @@
       else
       {
         // Remove files in old folder from database
-        db_sqlcommand("delete from $table where dirname like '".db_escape_str($dir)."/%'");
+        db_sqlcommand("delete from $table where dirname like '".db_escape_str($oldpath)."/%'");
       }
 
     case "Created":
