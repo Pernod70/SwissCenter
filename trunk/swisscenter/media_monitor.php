@@ -15,21 +15,27 @@
   $path        = str_replace('\\','/',un_magic_quote($_REQUEST["Path"]));
   $oldpath     = isset($_REQUEST["OldPath"]) ? str_replace('\\','/',un_magic_quote($_REQUEST["OldPath"])) : '';
   $changed     = $_REQUEST["ChangedDate"];
+  $isDirectory = $_REQUEST["IsDirectory"];
+  $isFile      = ($isDirectory == 'Yes' ? false : true);
 
   $dir         = dirname($path);
   $file        = basename($path);
 
-  $location    = db_row("select * from media_locations where '".db_escape_str($dir)."' like concat(name,'%')");
-  $table       = db_value("select media_table from media_types where  media_id = $location[MEDIA_TYPE]");
+  $location    = db_row("select * from media_locations where '".db_escape_str($dir)."/' like concat(name,'/%')");
+  $table       = db_value("select media_table from media_types where media_id = $location[MEDIA_TYPE]");
   $file_exts   = media_exts( $location["MEDIA_TYPE"] );
   $extra_info  = (db_value("select download_info from categories where cat_id = $location[CAT_ID]") == 'Y');
 
-  send_to_log(5,"SwissMonitor update detected:", array("Type"=>$type,"Path"=>$path,"OldPath"=>$oldpath,"Changed"=>$changed));
+  send_to_log(5,"SwissMonitor update detected:", array("Type"      => $type,
+                                                       "Path"      => $path,
+                                                       "OldPath"   => $oldpath,
+                                                       "Changed"   => $changed,
+                                                       "Directory" => $isDirectory));
 
   switch ( $type )
   {
     case "Deleted":
-      if ( is_file($path) )
+      if ( $isFile )
       {
         // Remove file from database
         db_sqlcommand("delete from $table where dirname='".db_escape_str($dir)."/' and filename='".db_escape_str($file)."'");
@@ -41,16 +47,16 @@
       else
       {
         // Remove files in folder from database
-//        db_sqlcommand("delete from $table where dirname like '".db_escape_str($path)."/%'");
-//
-//        $response = array("status"  => "OK",
-//                          "message" => "Folder deleted from the database.",
-//                          "retry"   => "false");
+        db_sqlcommand("delete from $table where dirname like '".db_escape_str($path)."/%'");
+
+        $response = array("status"  => "OK",
+                          "message" => "Folder deleted from the database.",
+                          "retry"   => "false");
       }
       break;
 
     case "Renamed":
-      if ( is_file($path) )
+      if ( $isFile )
       {
         // Remove old file from database
         db_sqlcommand("delete from $table where dirname='".db_escape_str(dirname($oldpath))."/' and filename='".db_escape_str(basename($oldpath))."'");
@@ -58,12 +64,12 @@
       else
       {
         // Remove files in old folder from database
-//        db_sqlcommand("delete from $table where dirname like '".db_escape_str($dir)."/%'");
+        db_sqlcommand("delete from $table where dirname like '".db_escape_str($dir)."/%'");
       }
 
     case "Created":
     case "Changed":
-      if ( is_file($path) )
+      if ( $isFile )
       {
         // Add new file to database
         $file_added = process_media_file( $dir.'/', $file, $location["LOCATION_ID"], $location["NETWORK_SHARE"], $table, $file_exts, true );
@@ -145,9 +151,11 @@
   //  </result>
 
   send_to_log(5,"SwissMonitor response:", $response);
+  header('Content-Type: text/xml');
   echo '<?xml version="1.0" encoding="utf-8"?>
         <result xmlns="http://www.swisscenter.co.uk/schemas/2009/03/SwissMonitor">
           <status>'.$response["status"].'</status>
           <message>'.$response["message"].'</message>
           <retry>'.$response["retry"].'</retry>
         </result>';
+?>
