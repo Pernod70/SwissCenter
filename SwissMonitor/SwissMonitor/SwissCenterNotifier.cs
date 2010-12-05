@@ -18,6 +18,7 @@ namespace Swiss.Monitor
                                    {"Path", change.ItemPath},
                                    {"Type", change.ChangeType},
                                    {"ChangedDate", DateTime.UtcNow.ToString("u")},
+                                   {"IsDirectory", change.IsDirectory ? "Yes" : "No"}
                                };
 
             if(change is RenameChange)
@@ -39,12 +40,20 @@ namespace Swiss.Monitor
             using(Stream responseStream = response.GetResponseStream())
             using(StreamReader reader = new StreamReader(responseStream))
             {
-                string result = reader.ReadToEnd();
+                string result = "";
+                while (reader.Peek() >= 0)
+                {
+                    result += reader.ReadLine();
+                }
 
                 Tracing.Default.Source.TraceData(TraceEventType.Verbose, (int)Tracing.Events.NOTIFICATION_RESULTS,
                                                  change.ChangeId, result);
 
                 NotificationResult notificationResult = ExtractResult(result);
+
+                Tracing.Default.Source.TraceEvent(TraceEventType.Information, (int)Tracing.Events.NOTIFICATION_RESULTS,
+                                                 "Results received: {0} {1}", change.ChangeId, notificationResult.ToString());
+
                 ValidateResult(notificationResult);
             }
 
