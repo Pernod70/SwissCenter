@@ -94,7 +94,10 @@
 
   // Add a link to search wikipedia
   if (internet_available() && get_sys_pref('wikipedia_lookups','YES') == 'YES' )
-    $menu->add_item( str('SEARCH_WIKIPEDIA'), lang_wikipedia_search( ucwords(strip_title($data[0]["PROGRAMME"])) ) ,true);
+  {
+    $back_url = url_remove_params(current_url(), array('add','p_del'));
+    $menu->add_item( str('SEARCH_WIKIPEDIA'), lang_wikipedia_search( ucwords(strip_title($data[0]["PROGRAMME"])), $back_url ), true);
+  }
 
   // Link to full cast & directors
   if ($data[0]["DETAILS_AVAILABLE"] == 'Y')
