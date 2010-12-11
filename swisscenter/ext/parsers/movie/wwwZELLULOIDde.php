@@ -183,10 +183,11 @@ class wwwZELLULOIDde extends Parser implements ParserInterface {
     $html = $this->page;
     $start = strpos($html,"FSK: ");
     if ($start !== false) {
-      $end = strpos($html, ",", $start + 1);
+      $end = strpos($html, "</TD>", $start + 1);
       if ($start !== false) {
-        $cert = substr($html, $start, $end - $start);
+        $cert = preg_get('/(FSK: ab \d+|FSK: ohne)/',substr($html, $start, $end - $start));
         $cert = str_replace('FSK: ab', 'FSK', $cert);
+        $cert = str_replace('FSK: ohne','FSK 0',$cert);
         if (isset($cert) && !empty($cert)) {
           $this->setProperty(CERTIFICATE, $cert);
           return $cert;
