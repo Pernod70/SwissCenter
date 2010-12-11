@@ -150,8 +150,8 @@
         $file = $data[0]["DIRNAME"].$data[0]["FILENAME"];
       $file = str_replace($data[0]["NAME"], "", $file);
       // Can't use gen_playlist as the NMT does something different with zcd=2.
-      $menu->add_item( str('PLAY_NOW') , 'href="file:///opt/sybhttpd/localhost.drives/'.$data[0]["NETWORK_SHARE"].$file.'" zcd="2" ' );
-      send_to_log(2,'href for dvd: href="file:///opt/sybhttpd/localhost.drives/'.$data[0]["NETWORK_SHARE"].$file.'" zcd="2" ');
+      $menu->add_item( str('PLAY_NOW') , 'href="file:///opt/sybhttpd/localhost.drives/'.rawurlencode($data[0]["NETWORK_SHARE"].$file).'" zcd="2" ' );
+      send_to_log(2,'href for dvd: href="file:///opt/sybhttpd/localhost.drives/'.rawurlencode($data[0]["NETWORK_SHARE"].$file).'" zcd="2" ');
     }
     else
     {
