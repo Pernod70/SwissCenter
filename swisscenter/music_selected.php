@@ -65,10 +65,11 @@
   // Adda menu option to lookup the artist/album in Wikipedia
   if (internet_available() && get_sys_pref('wikipedia_lookups','YES') == 'YES')
   {
+    $back_url = url_remove_params(current_url(), array('add','p_del'));
     if ( !empty($artist_name) )
-      $menu->add_item( str("SEARCH_WIKIPEDIA"), lang_wikipedia_search( strip_title($artist_name)), true);
+      $menu->add_item( str("SEARCH_WIKIPEDIA"), lang_wikipedia_search( strip_title($artist_name), $back_url ), true);
     elseif ( !empty($album_name) )
-      $menu->add_item( str("SEARCH_WIKIPEDIA"), lang_wikipedia_search( strip_title($album_name)), true);
+      $menu->add_item( str("SEARCH_WIKIPEDIA"), lang_wikipedia_search( strip_title($album_name), $back_url ), true);
   }
 
   // Is there a picture for us to display? (only if selected media is in a single folder)
