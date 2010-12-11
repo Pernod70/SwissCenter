@@ -42,12 +42,16 @@
     $sched = syscall('at');
     foreach(explode("\n",$sched) as $line)
     {
-      if (strpos($line,'media_search.php') && strpos($line,'Each '))
+      if (strpos($line,'media_search.php') && strpos($line,str('SCHEDULE_AT_EVERY').' '))
       {
-         $schedule[] = array("at_days" => explode(' ',trim(substr($line,17,19))),
-                             "at_hrs"  => trim(substr($line,36,2)),
-                             "at_mins" => trim(substr($line,39,2)),
-                             "url"     => trim(substr($line,strpos($line,'media_search.php'))));
+        // Get individual schedule details
+        $task_id = preg_get('/(\d+)/',$line);
+        $sched_detail = syscall('at '.$task_id);
+        $line_details = explode("\n",$sched_detail);
+        $schedule[] = array("at_days" => explode(' ',preg_get('/'.str('SCHEDULE_AT_EVERY').' (.*)/',$line_details[3])),
+                            "at_hrs"  => preg_get('/(\d\d):/',$line_details[4]),
+                            "at_mins" => preg_get('/:(\d\d)/',$line_details[4]),
+                            "url"     => trim(substr($line_details[6],strpos($line_details[6],'media_search.php'))));
       }
     }
 
@@ -65,13 +69,13 @@
                <table width="450" class="form_select_tab" border=0 >
                <tr>
                  <th style="text-align:center;">'.str('TIME').'</th>
-                 <th style="text-align:center;">'.str('DAY_1').'</th>
-                 <th style="text-align:center;">'.str('DAY_2').'</th>
-                 <th style="text-align:center;">'.str('DAY_3').'</th>
-                 <th style="text-align:center;">'.str('DAY_4').'</th>
-                 <th style="text-align:center;">'.str('DAY_5').'</th>
-                 <th style="text-align:center;">'.str('DAY_6').'</th>
-                 <th style="text-align:center;">'.str('DAY_7').'</th>
+                 <th style="text-align:center;">'.str('SCHEDULE_AT_MON').'</th>
+                 <th style="text-align:center;">'.str('SCHEDULE_AT_TUE').'</th>
+                 <th style="text-align:center;">'.str('SCHEDULE_AT_WED').'</th>
+                 <th style="text-align:center;">'.str('SCHEDULE_AT_THU').'</th>
+                 <th style="text-align:center;">'.str('SCHEDULE_AT_FRI').'</th>
+                 <th style="text-align:center;">'.str('SCHEDULE_AT_SAT').'</th>
+                 <th style="text-align:center;">'.str('SCHEDULE_AT_SUN').'</th>
                  <th style="text-align:center;">'.str('MEDIA_SCAN_TYPE').'</th>
                </tr>';
     $line = 0;
@@ -84,25 +88,25 @@
                    <input size="1" name="mi'.$line.'" value="'.$entry["at_mins"].'">
                  </td>
                  <td style="text-align:center;">
-                   <input type="checkbox" name="day'.$line.'[]" value="M" '. (in_array('M',$entry["at_days"]) ? 'checked' : '').'>
+                   <input type="checkbox" name="day'.$line.'[]" value="'.str('SCHEDULE_AT_MON').'" '. (in_array(str('SCHEDULE_AT_MON'),$entry["at_days"]) ? 'checked' : '').'>
                  </td>
                  <td style="text-align:center;">
-                   <input type="checkbox" name="day'.$line.'[]" value="T" '. (in_array('T',$entry["at_days"]) ? 'checked' : '').'>
+                   <input type="checkbox" name="day'.$line.'[]" value="'.str('SCHEDULE_AT_TUE').'" '. (in_array(str('SCHEDULE_AT_TUE'),$entry["at_days"]) ? 'checked' : '').'>
                  </td>
                  <td style="text-align:center;">
-                   <input type="checkbox" name="day'.$line.'[]" value="W" '. (in_array('W',$entry["at_days"]) ? 'checked' : '').'>
+                   <input type="checkbox" name="day'.$line.'[]" value="'.str('SCHEDULE_AT_WED').'" '. (in_array(str('SCHEDULE_AT_WED'),$entry["at_days"]) ? 'checked' : '').'>
                  </td>
                  <td style="text-align:center;">
-                   <input type="checkbox" name="day'.$line.'[]" value="Th" '.(in_array('Th',$entry["at_days"]) ? 'checked' : '').'>
+                   <input type="checkbox" name="day'.$line.'[]" value="'.str('SCHEDULE_AT_THU').'" '. (in_array(str('SCHEDULE_AT_THU'),$entry["at_days"]) ? 'checked' : '').'>
                  </td>
                  <td style="text-align:center;">
-                   <input type="checkbox" name="day'.$line.'[]" value="F" '. (in_array('F',$entry["at_days"]) ? 'checked' : '').'>
+                   <input type="checkbox" name="day'.$line.'[]" value="'.str('SCHEDULE_AT_FRI').'" '. (in_array(str('SCHEDULE_AT_FRI'),$entry["at_days"]) ? 'checked' : '').'>
                  </td>
                  <td style="text-align:center;">
-                   <input type="checkbox" name="day'.$line.'[]" value="S" '. (in_array('S',$entry["at_days"]) ? 'checked' : '').'>
+                   <input type="checkbox" name="day'.$line.'[]" value="'.str('SCHEDULE_AT_SAT').'" '. (in_array(str('SCHEDULE_AT_SAT'),$entry["at_days"]) ? 'checked' : '').'>
                  </td>
                  <td style="text-align:center;">
-                   <input type="checkbox" name="day'.$line.'[]" value="Su" '.(in_array('Su',$entry["at_days"]) ? 'checked' : '').'>
+                   <input type="checkbox" name="day'.$line.'[]" value="'.str('SCHEDULE_AT_SUN').'" '. (in_array(str('SCHEDULE_AT_SUN'),$entry["at_days"]) ? 'checked' : '').'>
                  </td>
                  <td style="text-align:center;">
                    '.form_list_static_html('url'.$line, sched_scan_options(), $entry["url"], false, false, false).'
@@ -160,13 +164,13 @@
                <table width="450" class="form_select_tab" border=0 >
                <tr>
                  <th style="text-align:center;">'.str('TIME').'</th>
-                 <th style="text-align:center;">'.str('DAY_1').'</th>
-                 <th style="text-align:center;">'.str('DAY_2').'</th>
-                 <th style="text-align:center;">'.str('DAY_3').'</th>
-                 <th style="text-align:center;">'.str('DAY_4').'</th>
-                 <th style="text-align:center;">'.str('DAY_5').'</th>
-                 <th style="text-align:center;">'.str('DAY_6').'</th>
-                 <th style="text-align:center;">'.str('DAY_7').'</th>';
+                 <th style="text-align:center;">'.str('SCHEDULE_AT_MON').'</th>
+                 <th style="text-align:center;">'.str('SCHEDULE_AT_TUE').'</th>
+                 <th style="text-align:center;">'.str('SCHEDULE_AT_WED').'</th>
+                 <th style="text-align:center;">'.str('SCHEDULE_AT_THU').'</th>
+                 <th style="text-align:center;">'.str('SCHEDULE_AT_FRI').'</th>
+                 <th style="text-align:center;">'.str('SCHEDULE_AT_SAT').'</th>
+                 <th style="text-align:center;">'.str('SCHEDULE_AT_SUN').'</th>';
     if ( $use_scan_type )
       echo      '<th style="text-align:center;">'.str('MEDIA_SCAN_TYPE').'</th>';
     echo '     </tr>';
@@ -314,7 +318,7 @@
       // Find and remove old schedule entries
       $sched = syscall('at');
       foreach(explode("\n",$sched) as $line)
-        if (strpos($line,'media_search.php') && strpos($line,'Each '))
+        if (strpos($line,'media_search.php') && strpos($line,str('SCHEDULE_AT_EVERY').' '))
          syscall('at '.substr(ltrim($line),0,strpos(ltrim($line),' ')).' /delete');
 
       if ( count($schedule) > 0 )

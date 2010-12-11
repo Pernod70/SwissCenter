@@ -794,41 +794,6 @@ Dieses Format wird von MySQL und Spezifikationssymbolen definiert. Diese sind:
         <version>1.22</version>
       </string>
       <string>
-        <id>DAY_1</id>
-        <text>Mo.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_2</id>
-        <text>Di.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_3</id>
-        <text>Mi.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_4</id>
-        <text>Do.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_5</id>
-        <text>Fr.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_6</id>
-        <text>Sa.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_7</id>
-        <text>So.</text>
-        <version>1.19</version>
-      </string>
-      <string>
         <id>DB_CREATE_DB_ERR</id>
         <text>Datenbank konnte nicht erstellt werden - bitte überprüfen Sie das Passwort für den MySQL-&quot;Root&quot;-Benutzer</text>
         <version>1.19</version>
@@ -4424,6 +4389,46 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
         <version>1.22</version>
       </string>
       <string>
+        <id>SCHEDULE_AT_EVERY</id>
+        <text>Jeden</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_AT_FRI</id>
+        <text>Fr</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_AT_MON</id>
+        <text>Mo</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_AT_SAT</id>
+        <text>Sa</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_AT_SUN</id>
+        <text>So</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_AT_THU</id>
+        <text>Do</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_AT_TUE</id>
+        <text>Di</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_AT_WED</id>
+        <text>Mi</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SCHEDULE_AUTO_TITLE</id>
         <text>Automatische Medienaktualisierung</text>
         <version>1.19</version>
@@ -4980,8 +4985,8 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
       </string>
       <string>
         <id>TASK_SCHEDULER</id>
-        <text>Aufgabenplanung</text>
-        <version>1.19</version>
+        <text>Taskplaner</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>TEST_PARSERS</id>

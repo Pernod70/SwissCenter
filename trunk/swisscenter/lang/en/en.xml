@@ -758,41 +758,6 @@
         <version>1.22</version>
       </string>
       <string>
-        <id>DAY_1</id>
-        <text>Mon</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_2</id>
-        <text>Tue</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_3</id>
-        <text>Wed</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_4</id>
-        <text>Thu</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_5</id>
-        <text>Fri</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_6</id>
-        <text>Sat</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_7</id>
-        <text>Sun</text>
-        <version>1.19</version>
-      </string>
-      <string>
         <id>DB_CREATE_DB_ERR</id>
         <text>Unable to create database - Is your MySQL &quot;Root&quot; password correct?</text>
         <version>1.19</version>
@@ -4354,6 +4319,46 @@ If any details are added/changed on this page then you are requested to submit t
       <string>
         <id>SCHEDULE_ALL</id>
         <text>All</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_AT_EVERY</id>
+        <text>Each</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_AT_FRI</id>
+        <text>F</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_AT_MON</id>
+        <text>M</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_AT_SAT</id>
+        <text>S</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_AT_SUN</id>
+        <text>Su</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_AT_THU</id>
+        <text>Th</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_AT_TUE</id>
+        <text>T</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_AT_WED</id>
+        <text>W</text>
         <version>1.22</version>
       </string>
       <string>
