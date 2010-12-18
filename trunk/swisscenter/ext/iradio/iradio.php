@@ -10,12 +10,6 @@
  # under the terms of the GNU General Public License (see doc/LICENSE)       #
  #############################################################################
 
-// the proxy to use for connections to imdb.
-// leave it empty for no proxy.
-// this is only supported with PEAR.
-define ('PROXY', "");
-define ('PROXY_PORT', "");
-
 if (!function_exists("send_to_log")) require_once ("logging.php");
 
 # ==========================================================[ Config Class ]===
@@ -309,6 +303,7 @@ class iradio {
    */
   function add_station($name,$playlist,$bitrate,$genre="",$type="MP3",$listeners=0,$maxlisteners=0,$nowplaying="",$website="") {
     if (empty($name)||empty($playlist)) return FALSE;
+    $station = new StdClass();
     $station->name = $name;
     if ( substr($playlist, 0, 4) == 'http' )
       $station->playlist = $playlist;
@@ -348,6 +343,8 @@ class iradio {
    */
   function openpage($url) {
     send_to_log(6,"IRadio: Retrieving content from radio site ($url)");
+    // Set User-Agent as some services (ShoutCAST) fail to return data without it.
+    ini_set('user_agent', 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-GB; rv:1.9.2.13) Gecko/20101203 Firefox/3.6.13');
     $this->page = @file_get_contents($url);
     return TRUE;
   }
