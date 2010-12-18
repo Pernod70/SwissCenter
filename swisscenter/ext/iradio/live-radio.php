@@ -10,8 +10,6 @@
  # under the terms of the GNU General Public License (see doc/LICENSE)       #
  #############################################################################
 
- /* $Id$ */
-
 require_once(dirname(__FILE__)."/iradio.php");
 
 /** Live-Radio Specific Parsing
@@ -27,7 +25,7 @@ class liveradio extends iradio {
     $this->iradio();
     $this->set_site("www.live-radio.net");
     $this->set_type(IRADIO_LIVERADIO);
-    $this->search_baseparams = "?OSt=Li&OCnt=Li&OSta=Li&Sta=&OCit=Li&Cit=&OGen=Li&$url";
+    $this->search_baseparams = "?OSt=Li&OCnt=Li&OSta=Li&Sta=&OCit=Li&Cit=&OGen=Li&";
   }
 
   /** Parse Live-Radio result page and store stations using add_station()
@@ -107,7 +105,7 @@ class liveradio extends iradio {
     while ($spos>0) {
       $spos = strpos($options,'<option',$epos);
       $epos = strpos($options,'">',$spos);
-      $optval = strtolower(substr($options,$spos +15,$epos - $spos -15));
+      $optval = substr($options,$spos +15,$epos - $spos -15);
       $spos = $epos +2;
       $epos = strpos($options,'<',$spos);
       $optname = strtolower(substr($options,$spos,$epos - $spos));
