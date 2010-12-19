@@ -43,7 +43,7 @@
 
     // Make sure the "back" button goes to the correct page:
     if (category_count(MEDIA_TYPE_INTERNET_TV)==1)
-      page_footer('index.php?submenu=internet');
+      page_footer('internet_tv.php');
     else
       page_footer($prev_page);
   }
@@ -57,9 +57,9 @@
   if( category_count(MEDIA_TYPE_INTERNET_TV)==1 || isset($_REQUEST["cat"]) )
     display_internet_tv_menu($_REQUEST["cat"]);
   elseif ( isset($_REQUEST["subcat"]) )
-    display_categories('internet_tv_urls.php', MEDIA_TYPE_INTERNET_TV, $_REQUEST["subcat"], 'index.php?submenu=internet');
+    display_categories('internet_tv_urls.php', MEDIA_TYPE_INTERNET_TV, $_REQUEST["subcat"], 'internet_tv.php');
   else
-    display_categories('internet_tv_urls.php', MEDIA_TYPE_INTERNET_TV, 0, 'index.php?submenu=internet');
+    display_categories('internet_tv_urls.php', MEDIA_TYPE_INTERNET_TV, 0, 'internet_tv.php');
 
 /**************************************************************************************************
                                                End of file
