@@ -10,7 +10,8 @@
  # under the terms of the GNU General Public License (see doc/LICENSE)       #
  #############################################################################
 
-require_once(dirname(__FILE__)."/iradio.php");
+require_once( realpath(dirname(__FILE__)."/iradio.php"));
+require_once( realpath(dirname(__FILE__)."/../json/json.php"));
 
 /** ShoutCast Specific Parsing
  * @package IRadio
@@ -23,7 +24,7 @@ class shoutcast extends iradio {
    */
   function shoutcast() {
     $this->iradio();
-    $this->set_site("yp.shoutcast.com");
+    $this->set_site("www.shoutcast.com");
     $this->set_type(IRADIO_SHOUTCAST);
   }
 
@@ -43,23 +44,18 @@ class shoutcast extends iradio {
       }
     }
     if (empty($url)) return FALSE;
-    $uri = "http://".$this->iradiosite."$url&limit=".$this->numresults;
+    $uri = "http://".$this->iradiosite."$url&cnt=".$this->numresults;
     $this->openpage($uri);
 
-    preg_match_all('/station name="(.*)" mt="(.*)" id="(.*)" br="(.*)" genre="(.*)" ct="(.*)" lc="(.*)"/U', $this->page, $matches);
-    $stationcount = count($matches[0]);
-    // Organise directory into usable array
-    for ($i=0; $i<=$stationcount-1; $i++)
-    {
-      $name       = trim($matches[1][$i]);
-      $format     = array_search(trim($matches[2][$i]), array('MP3' => 'audio/mpeg', 'AAC+' => 'audio/aacp'));
-      $playlist   = 'http://yp.shoutcast.com/sbin/tunein-station.pls?id='.$matches[3][$i];
-      $bitrate    = $matches[4][$i];
-      $genre      = ucwords(trim($matches[5][$i]));
-      $nowplaying = ucwords(trim($matches[6][$i]));
-      $listeners  = $matches[7][$i];
+    $results = json_decode( $this->page );
+    $stations = $results->ResultSet->stations;
+    $stationcount = count($stations);
 
-      $this->add_station($name,$playlist,$bitrate,$genre,$format,$listeners,0,$nowplaying,'');
+    // Organise directory into usable array
+    foreach ($stations as $station)
+    {
+      $playlist = 'http://yp.shoutcast.com/sbin/tunein-station.pls?id='.$station->id;
+      $this->add_station($station->name,$playlist,$station->br,$station->genre,$station->mt,$station->lc,0,$station->ct,'');
     }
     send_to_log(6,"IRadio: Read $stationcount stations.");
     if (!empty($cachename)) $this->write_cache($cachename,$this->station);
@@ -91,7 +87,7 @@ class shoutcast extends iradio {
    */
   function search_genre($name) {
     send_to_log(6,"IRadio: Initialize genre search for \"$name\"");
-    return $this->parse("/sbin/newxml.phtml?genre=".str_replace(' ','+',$name),str_replace(' ','_',$name));
+    return $this->parse("/embed_module?reqType=GENRE_SEARCH&s=".str_replace(' ','+',$name),str_replace(' ','_',$name));
   }
 
   /** Searching for a station
@@ -106,7 +102,7 @@ class shoutcast extends iradio {
    */
   function search_station($name) {
     send_to_log(6,"IRadio: Initialize station search for \"$name\"");
-    return $this->parse("/sbin/newxml.phtml?search=".str_replace(' ','+',$name),str_replace(' ','_',$name));
+    return $this->parse("/embed_module?reqType=KEYWORD_SEARCH&s=".str_replace(' ','+',$name),str_replace(' ','_',$name));
   }
 
   /** Searching by country
