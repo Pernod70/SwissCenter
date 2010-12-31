@@ -47,6 +47,9 @@ class shoutcast extends iradio {
     $uri = "http://".$this->iradiosite."$url&cnt=".$this->numresults;
     $this->openpage($uri);
 
+    // Ensure valid ResultSet was returned.
+    if (strpos($this->page, "ResultSet") === false) return FALSE;
+
     $results = json_decode( $this->page );
     $stations = $results->ResultSet->stations;
     $stationcount = count($stations);
