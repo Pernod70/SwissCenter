@@ -343,8 +343,6 @@ class iradio {
    */
   function openpage($url) {
     send_to_log(6,"IRadio: Retrieving content from radio site ($url)");
-    // Set User-Agent as some services (ShoutCAST) fail to return data without it.
-    ini_set('user_agent', 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-GB; rv:1.9.2.13) Gecko/20101203 Firefox/3.6.13');
     $this->page = @file_get_contents($url);
     return TRUE;
   }
