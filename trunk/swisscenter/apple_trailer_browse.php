@@ -32,12 +32,28 @@
   else
   {
     $feed = $_REQUEST["feed"];
+    $cat  = isset($_REQUEST["cat"]) ? $_REQUEST["cat"] : '';
     $apple = new AppleTrailers();
     $trailers = $apple->getFeed($feed);
     switch ($feed)
     {
-      case 'most_pop': { $subtitle = str('MOST_POPULAR'); break; }
-      default:         { $subtitle = str($feed); }
+      case 'popular/most_pop': { $subtitle = str('WEEKEND_BOXOFFICE'); break; }
+      case 'opening':          { $subtitle = str('OPENING_THISWEEK'); break; }
+      case 'most_pop':         { $subtitle = str('MOST_POPULAR'); break; }
+      default:                 { $subtitle = str($feed); }
+    }
+  }
+
+  // Refine trailers to selected category
+  if ( !empty($cat) )
+  {
+    foreach ($trailers["items"] as $id=>$item)
+    {
+      if ( $item["category"] == $cat )
+      {
+        $trailers = $trailers["items"][$id]["thumbnails"];
+        break;
+      }
     }
   }
 
@@ -51,7 +67,10 @@
     foreach ($trailers as $id=>$trailer)
     {
       $text = utf8_decode($trailer["title"]).(count($trailer["trailers"]) > 1 ? ' ('.count($trailer["trailers"]).')' : '');
-      $url  = url_add_params('apple_trailer_selected.php', array('feed'=>$feed, 'id'=>$id));
+      if ( !empty($cat) )
+        $url = url_add_params('apple_trailer_selected.php', array('query'=>$trailer["title"]));
+      else
+        $url = url_add_params('apple_trailer_selected.php', array('feed'=>$feed, 'id'=>$id));
       $trailer_list[] = array('thumb'=>$trailer["poster"], 'text'=>$text, 'url'=>$url);
     }
 

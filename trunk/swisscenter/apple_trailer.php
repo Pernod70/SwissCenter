@@ -37,10 +37,8 @@
     // Set subtitle for current menu
     switch ($_REQUEST["menu"])
     {
-      case 'genres':            { $subtitle = str('BROWSE_GENRE'); break; }
-      case 'studios':           { $subtitle = str('BROWSE_STUDIO'); break; }
-      case 'weekendboxoffice':  { $subtitle = str('WEEKEND_BOXOFFICE'); break; }
-      case 'openingthisweek':   { $subtitle = str('OPENING_THISWEEK'); break; }
+      case 'genres':  { $subtitle = str('BROWSE_GENRE'); break; }
+      case 'studios': { $subtitle = str('BROWSE_STUDIO'); break; }
     }
   }
   else
@@ -69,19 +67,14 @@
     $back_url = apple_trailer_page_params();
     display_apple_trailer_menu( get_apple_trailers_studios() );
   }
-  elseif ( isset($_REQUEST["menu"]) )
-  {
-    $back_url = apple_trailer_page_params();
-    display_apple_trailer_menu( get_apple_trailers_page_section($_REQUEST["menu"]) );
-  }
   else
   {
     $back_url = 'internet_tv.php';
     apple_trailer_hist_init(url_remove_param(current_url(), 'del'));
 
     $menu = new menu();
-    $menu->add_item(str('WEEKEND_BOXOFFICE'), 'apple_trailer.php?menu=weekendboxoffice', true);
-    $menu->add_item(str('OPENING_THISWEEK'),  'apple_trailer.php?menu=openingthisweek', true);
+    $menu->add_item(str('WEEKEND_BOXOFFICE'), 'apple_trailer_browse.php?feed='.rawurlencode('popular/most_pop').'&cat='.rawurlencode('Weekend Box Office'), true);
+    $menu->add_item(str('OPENING_THISWEEK'),  'apple_trailer_browse.php?feed=opening&cat='.rawurlencode('Opening This Week'), true);
     $menu->add_item(str('JUST_ADDED'),        'apple_trailer_browse.php?feed=just_added', true);
     $menu->add_item(str('EXCLUSIVE'),         'apple_trailer_browse.php?feed=exclusive', true);
     $menu->add_item(str('JUST_HD'),           'apple_trailer_browse.php?feed=just_hd', true);

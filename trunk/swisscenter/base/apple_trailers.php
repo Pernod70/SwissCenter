@@ -83,8 +83,9 @@ class AppleTrailers {
     send_to_log(6,'Apple feed request', $request);
     if (!($this->response = $this->getCached($request)) || $nocache) {
       if ($body = file_get_contents($request)) {
-        // Clean response body
-        $body = substr($body, strpos($body,'['), strrpos($body,']') - strpos($body,'[') + 1);
+        // Remove Callback from response body
+        if ( strpos($body, 'searchCallback') !== false )
+          $body = preg_get('/"results":(.*)}/', $body);
         // Decode response
         $body = unicode_decode($body);
         $this->response = object_to_array(json_decode($body));
@@ -209,40 +210,6 @@ function get_apple_trailers_by_studio($studio)
   {
     if ( $trailer['studio'] !== $studio )
       unset($trailers[$id]);
-  }
-  return $trailers;
-}
-
-/**
- * Retrieve and parse a section of the Apple trailers page for list of movies.
- *
- * @param string $section
- * @return array
- */
-function get_apple_trailers_page_section($section)
-{
-  $match_section = array("weekendboxoffice" => '/Weekend Box Office.*<ul>(.*)<\/ul>/siU',
-                         "openingthisweek"  => '/Opening this week.*<ul>(.*)<\/ul>/siU');
-  // Get Apple trailers main page
-  $html = file_get_contents(APPLE_TRAILERS_URL);
-
-  // Parse page for Weekend Box Office or Opening trailers
-  $html = preg_get($match_section[$section], $html);
-
-  $trailer_urls = array();
-  foreach (explode('<li>', $html) as $item)
-  {
-    if (strpos($item, 'title='))
-      preg_match('/<a class="title" href="(.*)".*title="(.*)".*<\/a>/sU', $item, $trailer);
-    elseif (strpos($item, 'title'))
-      preg_match('/<a class="title" href="(.*)">(.*)<\/a>/sU', $item, $trailer);
-
-    if (!empty($trailer[2]))
-    {
-      // Remove any preceding number
-      $trailer[2] = preg_replace('/(\d+\. )/','',$trailer[2]);
-      $trailers[] = array("title"=>$trailer[2], "url"=>'apple_trailer_selected.php?query='.rawurlencode($trailer[2]));
-    }
   }
   return $trailers;
 }
