@@ -3,11 +3,15 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-  require_once( realpath(dirname(__FILE__).'/base/page.php'));
+  require_once( realpath(dirname(__FILE__).'/base/session.php'));
   require_once( realpath(dirname(__FILE__).'/base/mysql.php'));
   require_once( realpath(dirname(__FILE__).'/base/utils.php'));
   require_once( realpath(dirname(__FILE__).'/base/file.php'));
   require_once( realpath(dirname(__FILE__).'/base/playlist.php'));
+
+  // Log details of the playlist request
+  send_to_log(1,"------------------------------------------------------------------------------");
+  send_to_log(1,"Playlist Requested : ".current_url()." by client (".client_ip().")");
 
   /**
    * Displays the slideshow on the PC using a simple piece of Javascript

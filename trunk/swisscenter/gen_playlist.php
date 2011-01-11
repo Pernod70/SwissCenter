@@ -3,7 +3,7 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-  require_once( realpath(dirname(__FILE__).'/base/page.php'));
+  require_once( realpath(dirname(__FILE__).'/base/session.php'));
   require_once( realpath(dirname(__FILE__).'/base/server.php'));
   require_once( realpath(dirname(__FILE__).'/base/utils.php'));
   require_once( realpath(dirname(__FILE__).'/base/playlist.php'));
@@ -11,6 +11,10 @@
   require_once( realpath(dirname(__FILE__).'/base/file.php'));
   require_once( realpath(dirname(__FILE__).'/base/db_abstract.php'));
   require_once( realpath(dirname(__FILE__).'/base/media.php'));
+
+  // Log details of the playlist request
+  send_to_log(1,"------------------------------------------------------------------------------");
+  send_to_log(1,"Playlist Requested : ".current_url()." by client (".client_ip().")");
 
 /**************************************************************************************************
 // Notes
@@ -61,8 +65,8 @@
     $start_pos = 0;
     if ( $resume && support_resume() )
     {
-      $filename = ucfirst($row["DIRNAME"]).$row["FILENAME"];
-      $bookmark_filename = SC_LOCATION."config/bookmarks/".md5("/".$filename).".dat";
+      $filename = $row["DIRNAME"].$row["FILENAME"];
+      $bookmark_filename = bookmark_file($filename);
       if (file_exists($bookmark_filename))
       {
         $start_pos = (int)trim(file_get_contents($bookmark_filename));
@@ -100,7 +104,7 @@
     send_to_log(7," - ".$url);
 
     if (is_hardware_player())
-      echo  $title.'|'.$start_pos.'|0|'.$url."|\n";
+      echo  rawurlencode($title).'|'.$start_pos.'|0|'.$url."|\n";
     else
       echo  $url.newline();
 
@@ -118,7 +122,7 @@
     ob_flush();
   }
 
-  /**************************************************************************************************
+/**************************************************************************************************
                                                End of file
  **************************************************************************************************/
 ?>
