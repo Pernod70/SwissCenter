@@ -32,6 +32,8 @@
 
     form_list_static('fanart',str('NOW_PLAYING_FANART'),$fanart_vals,get_sys_pref('NOW_PLAYING_FANART','LASTFM'), false,false,false);
     form_label(str('NOW_PLAYING_FANART_PROMPT'));
+    form_slider('quality',str('NOW_PLAYING_FANART_QUALITY'),0,500,3, get_sys_pref('NOW_PLAYING_FANART_QUALITY',0));
+    form_label(str('NOW_PLAYING_FANART_QUALITY_PROMPT'));
     form_submit(str('SAVE_SETTINGS'));
     form_end();
   }
@@ -45,6 +47,7 @@
     set_sys_pref('SUPPORT_NOW_PLAYING',$_REQUEST["support"]);
     set_sys_pref('NOW_PLAYING_STYLE',$_REQUEST["style"]);
     set_sys_pref('NOW_PLAYING_FANART',$_REQUEST["fanart"]);
+    set_sys_pref('NOW_PLAYING_FANART_QUALITY',$_REQUEST["quality"]);
     audio_display(str('SAVE_SETTINGS_OK'));
   }
 

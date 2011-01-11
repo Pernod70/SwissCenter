@@ -2994,6 +2994,16 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>NOW_PLAYING_FANART_QUALITY</id>
+        <text>Fanart Quality</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_FANART_QUALITY_PROMPT</id>
+        <text>This is the minimum width and height of fanart downloaded from Last.fm. Increasing this setting will result in lower quality images not being used.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>NOW_PLAYING_OPTIONS</id>
         <text>Now Playing Options</text>
         <version>1.22</version>

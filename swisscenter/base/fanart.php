@@ -98,6 +98,8 @@ function get_lastfm_artist_image( $artist )
 
     // Number of pages available
     $pages = $images["images"]["@attr"]["totalpages"];
+    if ($pages == 0)
+      return false;
 
     // Choose random page
     $page = mt_rand(1, $pages);
@@ -108,9 +110,10 @@ function get_lastfm_artist_image( $artist )
     $image = $images["images"]["image"][mt_rand(0,count($images["images"]["image"])-1)];
 
     // Find the URL of the original image
+    $fanart_size = get_sys_pref('NOW_PLAYING_FANART_QUALITY',0);
     foreach ($image["sizes"]["size"] as $size)
     {
-      if ($size["name"] == 'original')
+      if ($size["name"] == 'original' && $size["width"] >= $fanart_size && $size["height"] >= $fanart_size)
       {
         $image_url = $size["#text"];
         $local_filename = basename($image["url"]).'.'.file_ext($image_url);
