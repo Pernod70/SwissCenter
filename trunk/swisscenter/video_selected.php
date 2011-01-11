@@ -91,7 +91,7 @@
   $sql_table    .= get_rating_join().' where 1=1 ';
   $file_ids      = db_col_to_list("select distinct media.file_id from $sql_table $predicate");
   $playtime      = db_value("select sum(length) from movies where file_id in (".implode(',',$file_ids).")");
-  $num_unique    = db_value("select count( distinct synopsis) from movies where file_id in (".implode(',',$file_ids).")");
+  $num_unique    = db_value("select count(distinct synopsis) from movies where file_id in (".implode(',',$file_ids).")");
   $num_rows      = count($file_ids);
   $this_url      = url_set_param(current_url(),'add','N');
   $cert_img      = '';
@@ -124,8 +124,8 @@
     }
 
     // Random fanart image
-    $themes = db_toarray('select processed_image, show_banner, show_image from themes where title="'.db_escape_str($data[0]["TITLE"]).'" and use_synopsis=1 and processed_image is not NULL');
-    $theme = $themes[rand(0,count($themes)-1)];
+    $themes = db_toarray('select processed_image, show_banner, show_image from themes where media_type='.MEDIA_TYPE_VIDEO.' and title="'.db_escape_str($data[0]["TITLE"]).'" and use_synopsis=1 and processed_image is not NULL');
+    $theme = $themes[mt_rand(0,count($themes)-1)];
 
     if ( file_exists($theme['PROCESSED_IMAGE']) )
       $background = $theme['PROCESSED_IMAGE'];
@@ -170,10 +170,11 @@
     if (!empty($data[0]["TRAILER"]))
     {
       if (strpos($data[0]["TRAILER"],'youtube.com') > 0)
-        $menu->add_item( str('PLAY_TRAILER'), 'href="'.url_add_param('stream_url.php', 'youtube_id', get_youtube_video_id($data[0]["TRAILER"])).'" vod');
+        $menu->add_item( str('PLAY_TRAILER'), 'href="stream_url.php?'.current_session().'&youtube_id='.get_youtube_video_id($data[0]["TRAILER"]).'&ext=.mp4" vod ');
       elseif (is_remote_file($data[0]["TRAILER"]))
-        $menu->add_item( $title, 'href="'.url_add_params('stream_url.php', array('user_agent' => rawurlencode('QuickTime/7.6'),
-                                                                                 'url' => rawurlencode($data[0]["TRAILER"]))).'" vod ');
+        $menu->add_item( str('PLAY_TRAILER'), 'href="'.url_add_params('stream_url.php', array('user_agent' => rawurlencode('QuickTime/7.6'),
+                                                                                              'url' => rawurlencode($data[0]["TRAILER"]),
+                                                                                              'ext' => '.'.file_ext($data[0]["TRAILER"]))).'" vod ');
       else
         $menu->add_item( str('PLAY_TRAILER'), "href='".server_address().make_url_path($data[0]["TRAILER"])."' vod" );
     }
