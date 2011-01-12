@@ -15,8 +15,6 @@ function stats_display()
   echo "<h1>".str('STATISTICS')."</h1>";
 
   // Display statistics
-  form_start('index.php', 200, 'stats');
-
   form_tabs(array('VIDEO', 'TVSERIES', 'MUSIC', 'PHOTOS'), $url, $tab);
 
   switch ($tab)
@@ -83,7 +81,6 @@ function stats_display()
       stats_photos($tab2);
       break;
   }
-  form_end();
 }
 
 function stats_video( $type )
