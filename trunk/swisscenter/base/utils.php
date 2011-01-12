@@ -67,7 +67,7 @@ function make_url_path( $fsp )
   // rather than trying to access it directly
   if ( is_unix() )
   {
-  	// We order the list by the longest path first to ensure we always match the most specific first.
+    // We order the list by the longest path first to ensure we always match the most specific first.
     foreach ( db_toarray("select name,concat('media/',location_id) dir from media_locations order by length(name) desc") as $dir)
     {
       $pos = strpos($fsp, $dir["NAME"]);
@@ -83,9 +83,28 @@ function make_url_path( $fsp )
     $parts[0] = strtoupper($parts[0]);
 
   for ($i=0; $i<count($parts); $i++)
-    $parts[$i] = rawurlencode($parts[$i]);
+    $parts[$i] = rawurlencode(utf8_encode($parts[$i]));
 
   return join('/',$parts);
+}
+
+//-------------------------------------------------------------------------------------------------
+// Makes the path required to access a file via a network share on NMT players
+//-------------------------------------------------------------------------------------------------
+
+function make_network_share_path( $fsp, $share_local, $share_nmt )
+{
+  // If VIDEO_TS folder then pass folder name
+  if ( strtoupper(basename($fsp)) == 'VIDEO_TS.IFO' )
+    $fsp = dirname($fsp);
+
+  // Remove shared path from file path.
+  $fsp = str_replace($share_local, "", $fsp);
+
+  // Create NMT file path of shared file.
+  $path = 'file:///opt/sybhttpd/localhost.drives/'.$share_nmt.$fsp;
+
+  return rawurlencode(utf8_encode($path));
 }
 
 // ----------------------------------------------------------------------------------
@@ -162,6 +181,7 @@ function substr_between_strings( &$string, $startstr, $endstr)
 
 function get_urls_from_html ($string, $search)
 {
+  $matches = array();
   preg_match_all ('/<a.*href="(.*'.$search.'[^"]*)"[^>]*>(.*)<\/a>/Ui', $string, &$matches);
 
   for ($i = 0; $i<count($matches[2]); $i++)
@@ -189,6 +209,7 @@ function add_site_to_url ( $url, $site )
 
 function get_images_from_html ($string)
 {
+  $matches = array();
   preg_match_all ('/<img.*src="([^"]*)"[^>]*>/i', $string, &$matches);
   return $matches;
 }
@@ -551,7 +572,7 @@ function gmt_time()
   $offset = get_sys_pref('GMT_OFFSET',false);
 
   // We only trust the stored offset if was calculated less than 24 hours ago. This is to ensure that DST changes take effect.
-  if ( $offset === false || get_sys_pref_modified_date('GMT_OFFSET') < db_datestr(time()-86400))
+  if ( internet_available() && ($offset === false || get_sys_pref_modified_date('GMT_OFFSET') < db_datestr(time()-86400)) )
   {
     // Get the GMT time from a web service
     send_to_log(6,'Attempting to get GMT Standard Time from NIST timeserver');
@@ -653,7 +674,7 @@ function mysql_version()
 
 function highlight($text, $search, $color='Silver')
 {
-  return preg_replace('/('.$search.')/i', '<FONT style="BACKGROUND-COLOR: '.$color.'">$1</FONT>', $text);
+  return (strlen($text)==0 ? '' : preg_replace('/('.$search.')/i', '<FONT style="BACKGROUND-COLOR: '.$color.'">$1</FONT>', $text));
 }
 
 /**
@@ -736,44 +757,6 @@ if(!function_exists('mime_content_type')) {
       return 'application/octet-stream';
     }
   }
-}
-
-/**
- * array_slice with preserve_keys for every php version
- *
- * @param array $array Input array
- * @param int $offset Start offset
- * @param int $length Length
- * @return array
- */
-function array_slice_preserve_keys($array, $offset, $length = null)
-{
-  // PHP >= 5.0.2 is able to do this itself
-  if((int)str_replace('.', '', phpversion()) >= 502)
-    return(array_slice($array, $offset, $length, true));
-
-  // prepare input variables
-  $result = array();
-  $i = 0;
-  if($offset < 0)
-    $offset = count($array) + $offset;
-  if($length > 0)
-    $endOffset = $offset + $length;
-  else if($length < 0)
-    $endOffset = count($array) + $length;
-  else
-    $endOffset = count($array);
-
-  // collect elements
-  foreach($array as $key=>$value)
-  {
-    if($i >= $offset && $i < $endOffset)
-      $result[$key] = $value;
-    $i++;
-  }
-
-  // return
-  return($result);
 }
 
 /**
