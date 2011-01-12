@@ -73,7 +73,7 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
     $moviedb_id = $this->get_moviedb_id($this->title, $year, $imdbtt);
     if ($moviedb_id) {
       // Parse the movie details
-      $url = 'http://api.themoviedb.org/2.1/Movie.getInfo/en/json/' . MOVIEDB_API_KEY . '/' . $moviedb_id;
+      $url = 'http://api.themoviedb.org/2.1/Movie.getInfo/'.substr(get_sys_pref('DEFAULT_LANGUAGE','en'),0,2).'/json/' . MOVIEDB_API_KEY . '/' . $moviedb_id;
       $index = json_decode( file_get_contents($url) );
       $moviematches = object_to_array($index);
       $this->page = $moviematches;
@@ -101,13 +101,13 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
   }
   protected function parseTitle() {
     $moviematches = $this->page;
-    $title = $moviematches[0]['name'];
+    $title = utf8_decode($moviematches[0]['name']);
     $this->setProperty(TITLE, $title);
     return $title;
   }
   protected function parseSynopsis() {
     $moviematches = $this->page;
-    $synopsis = $moviematches[0]['overview'];
+    $synopsis = utf8_decode($moviematches[0]['overview']);
     if (isset($synopsis) && !empty($synopsis)) {
       $this->setProperty(SYNOPSIS, $synopsis);
       return $synopsis;
@@ -120,7 +120,7 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
       $names = array();
       foreach ($cast as $person)
         if ( $person['job'] == 'Actor' )
-          $names[] = $person['name'];
+          $names[] = utf8_decode($person['name']);
       $this->setProperty(ACTORS, $names);
       return $names;
     }
@@ -132,7 +132,7 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
       $names = array();
       foreach ($cast as $person)
         if ( $person['job'] == 'Director' )
-          $names[] = $person['name'];
+          $names[] = utf8_decode($person['name']);
       $this->setProperty(DIRECTORS, $names);
       return $names;
     }
@@ -143,7 +143,7 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
     if (isset($genres) && !empty($genres)) {
       $names = array();
       foreach ($genres as $genre)
-        $names[] = $genre['name'];
+        $names[] = utf8_decode($genre['name']);
       $this->setProperty(GENRES, $names);
       return $names;
     }
@@ -222,7 +222,7 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
     if (!empty ($imdbtt))
       $url = 'http://api.themoviedb.org/2.1/Movie.imdbLookup/en/json/' . MOVIEDB_API_KEY . '/' . $imdbtt;
     else
-      $url = 'http://api.themoviedb.org/2.1/Movie.search/en/json/' . MOVIEDB_API_KEY . '/' . urlencode(trim($title.' '.$year));
+      $url = 'http://api.themoviedb.org/2.1/Movie.search/'.substr(get_sys_pref('DEFAULT_LANGUAGE','en'),0,2).'/json/' . MOVIEDB_API_KEY . '/' . urlencode(trim($title.' '.$year));
     send_to_log(6, 'Feed request', $url);
 
     // Parse the xml results and determine best match for title
@@ -245,10 +245,10 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
         foreach ($moviematches as $movie) {
           // Filter out adult results if not required
           if ($adult_results || !$movie['adult']) {
-            $matches[] = $movie['name'];
+            $matches[] = utf8_decode($movie['name']);
             $matches_id[] = $movie['id'];
             if (isset ($movie['alternative_name']) && !empty ($movie['alternative_name'])) {
-              $matches[] = $movie['alternative_name'];
+              $matches[] = utf8_decode($movie['alternative_name']);
               $matches_id[] = $movie['id'];
             }
           }
