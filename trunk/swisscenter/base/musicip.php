@@ -12,7 +12,7 @@ require_once( realpath(dirname(__FILE__).'/utils.php'));
 
 function musicip_address()
 {
-  return 'http://localhost:'.get_sys_pref('MUSICIP_PORT','10002').'/';
+  return 'http://127.0.0.1:'.get_sys_pref('MUSICIP_PORT','10002').'/';
 }
 
 // ----------------------------------------------------------------------------------
@@ -60,7 +60,7 @@ function musicip_check( $port, $timeouts = 3 )
     if ( $sock = @fsockopen('127.0.0.1', $port , &$errno, &$errst, 2) )
     {
       fclose($sock);
-      $status = @file_get_contents("http://localhost:$port/api/getstatus");
+      $status = @file_get_contents("http://127.0.0.1:$port/api/getstatus");
       send_to_log(6,'MusicIP status: '.$status);
       $success = true;
       break;
@@ -145,7 +145,7 @@ function musicip_api_call( $type, $value )
 
 function musicip_mix_song( $song )
 {
-  send_to_log(6,'MusicIP mix for song = '.$filelist);
+  send_to_log(6,'MusicIP mix for song = '.$song);
   return musicip_api_call('song',$song);
 }
 
