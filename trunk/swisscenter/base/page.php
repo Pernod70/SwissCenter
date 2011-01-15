@@ -3,14 +3,7 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-// If the current page has a session_id parameter, then this will be used to "share" a session.
-if (isset($_REQUEST["session_id"]) && !empty($_REQUEST["session_id"]))
-  session_id($_REQUEST["session_id"]);
-
-@session_start();
-ini_set("session.gc_maxlifetime", "86400"); // Set session timeout to 1 day
-ob_start();
-
+require_once( realpath(dirname(__FILE__).'/session.php'));
 require_once( realpath(dirname(__FILE__).'/file.php'));
 require_once( realpath(dirname(__FILE__).'/settings.php'));
 require_once( realpath(dirname(__FILE__).'/stylelib.php'));
@@ -21,14 +14,6 @@ require_once( realpath(dirname(__FILE__).'/iconbar.php'));
 require_once( realpath(dirname(__FILE__).'/users.php'));
 require_once( realpath(dirname(__FILE__).'/prefs.php'));
 require_once( realpath(dirname(__FILE__).'/server.php'));
-
-function current_session()
-{
-  if (isset($_COOKIE["PHPSESSID"]))
-    return 'session_id='.$_COOKIE["PHPSESSID"];
-  else
-    return 'session_id='.substr(SID,strpos(SID,'=')+1);
-}
 
 //-------------------------------------------------------------------------------------------------
 // Procedures to output up/down links
@@ -329,21 +314,6 @@ function page_inform( $seconds, $url, $title, $text)
   page_header($title,"",'<meta http-equiv="refresh" content="'.$seconds.';URL='.$url.'">');
   echo "<p>&nbsp;<p>&nbsp;<p><center>".font_tags(32).$text."</center>";
   page_footer('/');
-}
-
-//-------------------------------------------------------------------------------------------------
-// Simple routine to set preformatted text and recursively output the contents or a variable or
-// array for debugging purposed
-//-------------------------------------------------------------------------------------------------
-
-function dump()
-{
-  for ($i=0;$i<@func_num_args();$i++)
-  {
-    echo "<pre>";
-    print_r(@func_get_arg($i));
-    echo "</pre>";
-  }
 }
 
 //-------------------------------------------------------------------------------------------------
