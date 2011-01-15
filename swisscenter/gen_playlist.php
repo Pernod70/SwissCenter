@@ -104,7 +104,7 @@
     send_to_log(7," - ".$url);
 
     if (is_hardware_player())
-      echo  rawurlencode($title).'|'.$start_pos.'|0|'.$url."|\n";
+      echo  $title.'|'.$start_pos.'|0|'.$url."|\n";
     else
       echo  $url.newline();
 
