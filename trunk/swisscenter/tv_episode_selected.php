@@ -53,7 +53,7 @@
   if (isset($_REQUEST["del"]) && strtoupper($_REQUEST["del"]) == 'Y')
     search_hist_pop();
 
-  $back_url      = search_hist_most_recent();
+  $hist = search_hist_most_recent();
 
   if (isset($_REQUEST["add"]) && strtoupper($_REQUEST["add"]) == 'Y')
     search_hist_push( $this_url, '' );
@@ -162,7 +162,7 @@
   if ( is_array($next) )
     $buttons[] = array('text'=>str('EP_NEXT', $next["SERIES"].'x'.$next["EPISODE"]), 'url'=> url_add_params('/tv_episode_selected.php', array("file_id"=>$next["FILE_ID"], "add"=>"Y", "del"=>"Y")) );
 
-  page_footer( url_add_param( $back_url["url"] ,'del','y'), $buttons );
+  page_footer( url_add_param( $hist_url["url"] ,'del','y'), $buttons );
 
 /**************************************************************************************************
                                                End of file
