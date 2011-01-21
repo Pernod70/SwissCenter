@@ -3,6 +3,8 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
+  require_once( realpath(dirname(__FILE__).'/../ext/lastfm/lastfm.php'));
+
   /**
    * Displays the Last.FM configuration options to the user
    *
@@ -47,6 +49,19 @@
     if (!$lastfm_edit_id)
       form_submit(str('CONFIG_LASTFM_CLEAR'), 1 ,"center");
     form_end();
+
+    // Display the status of the Last.fm services
+    $status = lastfm_status();
+    if ( is_array($status) )
+    {
+      form_start("index.php", 150, "lastfm_status");
+      echo '<b>'.str('LASTFM_STATUS').'</b>';
+      for ($i=0; $i<=count($status[1])-1; $i++)
+      {
+        echo '<tr><td>'.$status[1][$i].'</td><td><img src="'.$status[2][$i].'">'.$status[3][$i].'</td></tr>';
+      }
+      form_end();
+    }
   }
 
   /**

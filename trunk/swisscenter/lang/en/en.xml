@@ -2199,6 +2199,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>LASTFM_STATUS</id>
+        <text>Last.fm Status</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>LASTFM_TAGS</id>
         <text>Available tags</text>
         <version>1.19</version>
