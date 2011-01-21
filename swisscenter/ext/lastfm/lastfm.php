@@ -233,12 +233,12 @@
 
       // Wait until we're streaming (and exit if we can't get a stream)
       if ( $this->now_playing() === false)
-        return false;      
-      
+        return false;
+
       // Are we capturing the stream?
       $capture     = (!empty($capture_dir) && is_writable($capture_dir));
       $capture_fsp = os_path($capture_dir,true).( empty($capture_file) ? date('Y-m-d_H-i-s').'.mp3' : $capture_file);
-      if ($capture && $stream) 
+      if ($capture && $stream)
         $file = fopen($capture_fsp,'wb');
 
       $fbytessofar = 0;
@@ -250,11 +250,11 @@
             $fbytessofar += strlen($fbuf);
 
             if ( strpos($fbuf,'SYNC') !== false)
-              $fbuf=str_replace('SYNC','',$fbuf);              
+              $fbuf=str_replace('SYNC','',$fbuf);
 
             if ($capture)
               fwrite($file,$fbuf);
-              
+
             echo $fbuf;
             flush();
         }
@@ -263,9 +263,9 @@
       }
 
       // Close the file on disk if we were capturing the stream.
-      if ($capture) 
-        @fclose($file);    
-        
+      if ($capture)
+        @fclose($file);
+
       return true;
     }
 
@@ -625,6 +625,32 @@
         db_sqlcommand("DELETE FROM lastfm_scrobble_tracks WHERE scrobble_id = ".$item["SCROBBLE_ID"]);
       }
     }
+  }
 
+  /**
+   * Reads the Last.fm status page and returns the results in an array.
+   *
+   * @return array
+   */
+
+  function lastfm_status()
+  {
+    if ( internet_available() )
+    {
+      $status_url = 'http://status.last.fm/';
+      $html = file_get_contents($status_url);
+      preg_match_all('/class="statussvc">(.*)<\/td>.*src="(.*)">(.*)</Us', $html, $matches);
+
+      // Replace images with full url to image
+      foreach ($matches[2] as $i=>$match)
+      {
+        $matches[2][$i] = $status_url.$match;
+      }
+      return $matches;
+    }
+    else
+    {
+      return false;
+    }
   }
 ?>
