@@ -3067,6 +3067,16 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>NOW_PLAYING_FANART_QUALITY</id>
+        <text>Kwaliteit fanart</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_FANART_QUALITY_PROMPT</id>
+        <text>Dit is de minimum breedte en hoogte van fanart, die gedownload wordt van Last.FM. Een hoger getal betekent dat afbeeldingen van een lagere kwaliteit niet worden gebruikt.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>NOW_PLAYING_OPTIONS</id>
         <text>SPEELT NU opties</text>
         <version>1.22</version>
@@ -4426,6 +4436,46 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
       <string>
         <id>SCHEDULE_ALL</id>
         <text>Alle</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_AT_EVERY</id>
+        <text>Elk</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_AT_FRI</id>
+        <text>vr</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_AT_MON</id>
+        <text>ma</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_AT_SAT</id>
+        <text>za</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_AT_SUN</id>
+        <text>zo</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_AT_THU</id>
+        <text>do</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_AT_TUE</id>
+        <text>di</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_AT_WED</id>
+        <text>wo</text>
         <version>1.22</version>
       </string>
       <string>

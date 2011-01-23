@@ -3032,6 +3032,16 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.22</version>
       </string>
       <string>
+        <id>NOW_PLAYING_FANART_QUALITY</id>
+        <text>Fanart Qualität</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_FANART_QUALITY_PROMPT</id>
+        <text>Dies ist die minimalste Breite und Höhe der Fanart-Bilder, die von Last.fm heruntergeladen werden. Das Erhöhen dieser Einstellung bewikt, dass Bilder in schlechterer Qualität nicht benutzt werden.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>NOW_PLAYING_OPTIONS</id>
         <text>&quot;Now Plaing&quot;-Optionen</text>
         <version>1.22</version>
