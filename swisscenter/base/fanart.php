@@ -88,6 +88,8 @@ function get_lastfm_artist_image( $artist )
   if (empty($artist))
     return false;
 
+  send_to_log(6,'Querying Last.fm Images for artist: '.$artist);
+
   if ( $images = lastfm_artist_getImages($artist) )
   {
     // Create folder for artist images
@@ -97,35 +99,55 @@ function get_lastfm_artist_image( $artist )
     if (!file_exists($local_folder)) { @mkdir($local_folder); }
 
     // Number of pages available
-    $pages = $images["images"]["@attr"]["totalpages"];
+    $pages = $images["images"]["@attr"]["totalPages"];
     if ($pages == 0)
+    {
+      send_to_log(2,'No artist images available at Last.fm',$images);
       return false;
+    }
 
     // Choose random page
     $page = mt_rand(1, $pages);
     if ($page > 1)
       $images = lastfm_artist_getImages($artist, $page);
 
-    // Select random image from those returned
-    $image = $images["images"]["image"][mt_rand(0,count($images["images"]["image"])-1)];
-
-    // Find the URL of the original image
+    // Minimum size of image to use
     $fanart_size = get_sys_pref('NOW_PLAYING_FANART_QUALITY',0);
-    foreach ($image["sizes"]["size"] as $size)
+
+    // Filter original images that meet our minimum size requirements
+    $image_urls = array();
+    foreach ($images["images"]["image"] as $image)
     {
-      if ($size["name"] == 'original' && $size["width"] >= $fanart_size && $size["height"] >= $fanart_size)
+      // Find the URL of the original image
+      foreach ($image["sizes"]["size"] as $size)
       {
-        $image_url = $size["#text"];
-        $local_filename = basename($image["url"]).'.'.file_ext($image_url);
-        break;
+        if ($size["name"] == 'original' && $size["width"] >= $fanart_size && $size["height"] >= $fanart_size)
+          $image_urls[] = array( "remote" => $size["#text"],
+                                 "local"  => basename($image["url"]).'.'.file_ext($size["#text"]) );
       }
     }
 
-    // Download image
-    if ( file_download_and_save( $image_url, $local_folder.'/'.$local_filename ) )
-      return $local_folder.'/'.$local_filename;
+    if ( !empty($image_urls) )
+    {
+      // Select random image from those returned
+      $image = $image_urls[mt_rand(0,count($image_urls)-1)];
+
+      // Download image
+      if ( file_download_and_save( $image["remote"], $local_folder.'/'.$image["local"] ) )
+        return $local_folder.'/'.$image["local"];
+      else
+        return false;
+    }
     else
+    {
+      send_to_log(2,'No artist images met minimum size requirements');
       return false;
+    }
+  }
+  else
+  {
+    send_to_log(2,'Failed to get response from Last.fm artist.getImages');
+    return false;
   }
 }
 /**************************************************************************************************
