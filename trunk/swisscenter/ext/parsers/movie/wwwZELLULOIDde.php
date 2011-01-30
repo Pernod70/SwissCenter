@@ -215,7 +215,9 @@ class wwwZELLULOIDde extends Parser implements ParserInterface {
   }
   protected function parsePoster() {
     $html = $this->page;
-    $img_addr = get_html_tag_attrib($html,'img','images/poster/','src');
+    $img_addr = get_html_tag_attrib($html,'a','images/poster/','pic');
+    if ($img_addr === false)
+      $img_addr = get_html_tag_attrib($html,'img','images/poster/','src');
     $poster = $this->site_url.$img_addr;
     if (url_exists($poster)) {
       $this->setProperty(POSTER, $poster);
