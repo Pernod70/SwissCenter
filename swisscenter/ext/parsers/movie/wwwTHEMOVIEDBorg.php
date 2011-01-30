@@ -220,7 +220,7 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
   function get_moviedb_id($title, $year = '', $imdbtt = '') {
     // Use IMDb id (if provided), otherwise submit a search
     if (!empty ($imdbtt))
-      $url = 'http://api.themoviedb.org/2.1/Movie.imdbLookup/en/json/' . MOVIEDB_API_KEY . '/' . $imdbtt;
+      $url = 'http://api.themoviedb.org/2.1/Movie.imdbLookup/'.substr(get_sys_pref('DEFAULT_LANGUAGE','en'),0,2).'/json/' . MOVIEDB_API_KEY . '/' . $imdbtt;
     else
       $url = 'http://api.themoviedb.org/2.1/Movie.search/'.substr(get_sys_pref('DEFAULT_LANGUAGE','en'),0,2).'/json/' . MOVIEDB_API_KEY . '/' . urlencode(trim($title.' '.$year));
     send_to_log(6, 'Feed request', $url);
