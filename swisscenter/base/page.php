@@ -79,7 +79,7 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
   {
     if (style_img_exists($background))
       $page_background = '.'.style_img($background);
-    if ( file_exists($background) )
+    elseif ( file_exists($background) || is_remote_file($background) )
       $page_background = $background;
   }
   elseif (is_numeric($background))
@@ -128,7 +128,7 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
         <title>'.$title.'</title>
         <style>
           body {font-family: arial; font-size: 14px; background-repeat: no-repeat; color: '.style_value("PAGE_TEXT_COLOUR",'#FFFFFF').';}
-          td { color: '.style_value("PAGE_TEXT_COLOUR",'#FFFFFF').';}
+          td {color: '.style_value("PAGE_TEXT_COLOUR",'#FFFFFF').';}
           a {color:'.style_value("PAGE_LINKS_COLOUR",'#FFFFFF').'; text-decoration: none;}
         </style>
         </head>
@@ -316,13 +316,91 @@ function page_inform( $seconds, $url, $title, $text)
   page_footer('/');
 }
 
+#-------------------------------------------------------------------------------------------------
+# Functions for managing the search history.
+#-------------------------------------------------------------------------------------------------
+
+function page_hist_init( $url = '', $sql = '')
+{
+  $_SESSION["hist"] = array();
+
+  if (!empty($url))
+    $_SESSION["hist"][] = array("url"=>$url, "sql"=>$sql);
+}
+
+function page_hist_push( $url, $sql = '' )
+{
+  $_SESSION["hist"][] = array("url"=>$url, "sql"=>$sql);
+}
+
+function page_hist_pop()
+{
+  if (count($_SESSION["hist"]) == 0)
+    page_error(str('DATABASE_ERROR'));
+
+  return array_pop($_SESSION["hist"]);
+}
+
+function page_hist_most_recent( $ref = '' )
+{
+  if (count($_SESSION["hist"]) == 0)
+    page_error(str('DATABASE_ERROR'));
+
+  if ( empty($ref) )
+    return $_SESSION["hist"][count($_SESSION["hist"])-1];
+  else
+    return $_SESSION["hist"][count($_SESSION["hist"])-1][$ref];
+}
+
+function page_hist_back_url()
+{
+  if (count($_SESSION["hist"]) == 0)
+    page_error(str('DATABASE_ERROR'));
+
+  return url_add_param($_SESSION["hist"][count($_SESSION["hist"])-2]["url"], 'hist', PAGE_HISTORY_DELETE);
+}
+
 //-------------------------------------------------------------------------------------------------
 // Actions that should be taken at the start of every page
 //-------------------------------------------------------------------------------------------------
 
+// Page history tracking parameters
+define('PAGE_HISTORY_ADD',1);
+define('PAGE_HISTORY_DELETE',2);
+define('PAGE_HISTORY_REPLACE',3);
+
+// Track page history
+$current_url = url_remove_param(current_url(), 'hist');
+if ( strpos($current_url, '/index.php') !== false )
+  page_hist_init($current_url);
+else
+{
+  $hist_param = isset($_REQUEST["hist"]) ? $_REQUEST["hist"] : PAGE_HISTORY_ADD;
+
+  // If same URL but with different page then replace previous URL with current.
+  if ( url_remove_param($current_url, 'page') == url_remove_param(page_hist_most_recent('url'), 'page') )
+    $hist_param = PAGE_HISTORY_REPLACE;
+
+  switch ( $hist_param )
+  {
+    case PAGE_HISTORY_ADD:
+      // If URL is different from previous URL (ie. ignore page refresh)
+      if ( $current_url !== page_hist_most_recent('url') )
+        page_hist_push($current_url);
+      break;
+    case PAGE_HISTORY_DELETE:
+      page_hist_pop();
+      break;
+    case PAGE_HISTORY_REPLACE:
+      page_hist_pop();
+      page_hist_push($current_url);
+      break;
+  }
+}
+
 // Log details of the page request
 send_to_log(1,"------------------------------------------------------------------------------");
-send_to_log(1,"Page Requested : ".current_url()." by client (".client_ip().")");
+send_to_log(1,"Page Requested : ".$current_url." by client (".client_ip().")");
 
 // If in design mode, then we want to force loading of styles and/or language strings.
 if ( get_sys_pref('CACHE_STYLE_DETAILS','YES') == 'NO' )
