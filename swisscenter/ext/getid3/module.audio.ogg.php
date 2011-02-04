@@ -223,7 +223,7 @@ class getid3_ogg
 		return true;
 	}
 
-	function ParseVorbisPageHeader(&$filedata, &$filedataoffset, &$ThisFileInfo, &$oggpageinfo) {
+	static function ParseVorbisPageHeader(&$filedata, &$filedataoffset, &$ThisFileInfo, &$oggpageinfo) {
 		$ThisFileInfo['audio']['dataformat'] = 'vorbis';
 		$ThisFileInfo['audio']['lossless']   = false;
 
@@ -270,7 +270,7 @@ class getid3_ogg
 		return true;
 	}
 
-	function ParseOggPageHeader(&$fd) {
+	static function ParseOggPageHeader(&$fd) {
 		// http://xiph.org/ogg/vorbis/doc/framing.html
 		$oggheader['page_start_offset'] = ftell($fd); // where we started from in the file
 
@@ -322,7 +322,7 @@ class getid3_ogg
 	}
 
 
-	function ParseVorbisCommentsFilepointer(&$fd, &$ThisFileInfo) {
+	static function ParseVorbisCommentsFilepointer(&$fd, &$ThisFileInfo) {
 
 		$OriginalOffset = ftell($fd);
 		$CommentStartOffset = $OriginalOffset;
@@ -450,7 +450,7 @@ class getid3_ogg
 
 				$commentexploded = explode('=', $commentstring, 2);
 				$ThisFileInfo['ogg']['comments_raw'][$i]['key']   = strtoupper($commentexploded[0]);
-				$ThisFileInfo['ogg']['comments_raw'][$i]['value'] = @$commentexploded[1];
+				$ThisFileInfo['ogg']['comments_raw'][$i]['value'] = (isset($commentexploded[1]) ? $commentexploded[1] : '');
 				$ThisFileInfo['ogg']['comments_raw'][$i]['data']  = base64_decode($ThisFileInfo['ogg']['comments_raw'][$i]['value']);
 
 				$ThisFileInfo['ogg']['comments'][strtolower($ThisFileInfo['ogg']['comments_raw'][$i]['key'])][] = $ThisFileInfo['ogg']['comments_raw'][$i]['value'];
@@ -512,7 +512,7 @@ class getid3_ogg
 		return true;
 	}
 
-	function SpeexBandModeLookup($mode) {
+	static function SpeexBandModeLookup($mode) {
 		static $SpeexBandModeLookup = array();
 		if (empty($SpeexBandModeLookup)) {
 			$SpeexBandModeLookup[0] = 'narrow';
@@ -523,7 +523,7 @@ class getid3_ogg
 	}
 
 
-	function OggPageSegmentLength($OggInfoArray, $SegmentNumber=1) {
+	static function OggPageSegmentLength($OggInfoArray, $SegmentNumber=1) {
 		for ($i = 0; $i < $SegmentNumber; $i++) {
 			$segmentlength = 0;
 			foreach ($OggInfoArray['segment_table'] as $key => $value) {
@@ -537,7 +537,7 @@ class getid3_ogg
 	}
 
 
-	function get_quality_from_nominal_bitrate($nominal_bitrate) {
+	static function get_quality_from_nominal_bitrate($nominal_bitrate) {
 
 		// decrease precision
 		$nominal_bitrate = $nominal_bitrate / 1000;

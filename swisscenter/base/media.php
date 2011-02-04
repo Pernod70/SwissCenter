@@ -400,7 +400,7 @@ function viewed_status_predicate( $status )
  * @param integer $file_id
  */
 
-function store_request_details( $media, $file_id )
+function store_request_details( $media_type, $file_id )
 {
   // Return if no file_id is given
   if ( empty($file_id) ) return;
@@ -409,18 +409,17 @@ function store_request_details( $media, $file_id )
   $user_id = get_current_user_id();
 
   // Increment the downloads counter for this file
-  if ( db_value("select count(*) from viewings where user_id=$user_id and media_type=$media and media_id=$file_id") == 0)
+  if ( db_value("select count(*) from viewings where user_id=$user_id and media_type=$media_type and media_id=$file_id") == 0)
   {
     db_sqlcommand("insert into viewings ( user_id, media_type, media_id, last_viewed, total_viewings )
-                   values ( $user_id, $media, $file_id, now(), 1) ");
+                   values ( $user_id, $media_type, $file_id, now(), 1) ");
   }
   else
   {
     db_sqlcommand("update viewings set total_viewings = total_viewings+1 , last_viewed = now()
-                   where user_id=$user_id and media_type=$media and media_id=$file_id");
+                   where user_id=$user_id and media_type=$media_type and media_id=$file_id");
   }
 }
-
 
 //-------------------------------------------------------------------------------------------------
 // The following functions all relate explicitly to searching for new media.
@@ -876,6 +875,7 @@ function process_movie( $dir, $id, $file )
   $getID3   = new getID3;
   $filepath = os_path($dir.$file);
   $id3      = $getID3->analyze($filepath);
+  $img      = false;
 
   // Standard information about the file
   $data["dirname"]      = $dir;
@@ -885,6 +885,7 @@ function process_movie( $dir, $id, $file )
   $data["verified"]     = 'Y';
   $data["discovered"]   = db_datestr();
   $data["timestamp"]    = db_datestr(filemtime($filepath));
+  $data["art_sha1"]     = null;
 
   if ( ! isset($id3["error"]) )
   {
@@ -915,18 +916,11 @@ function process_movie( $dir, $id, $file )
             $data["year"]   = substr(array_last($id3["comments"]["mediaoriginalbroadcastdatetime"]),0,4);
           $data["details_available"] = 'Y';
 
-          if (get_sys_pref('USE_ID3_ART','YES') == 'YES' && isset($id3["asf"]["comments"]["picture"]))
+          if (get_sys_pref('USE_ID3_ART','YES') == 'YES' && isset($id3["asf"]["comments"]["picture"][0]))
           {
             send_to_log(4,"Image found within ID3 tag - will use as video art");
-            $data["art_sha1"]  = sha1($id3["asf"]["comments"]["picture"]);
-            // Store media art if it doesn't already exist
-            if ( !db_value("select art_sha1 from media_art where art_sha1='".$data["art_sha1"]."'") )
-              db_insert_row('media_art',array("art_sha1"=>$data["art_sha1"], "image"=>$id3["asf"]["comments"]["picture"] ));
-            elseif ( db_value("select sha1(image) from media_art where art_sha1='".$data["art_sha1"]."'") !== $data["art_sha1"] )
-              db_sqlcommand("update media_art set image='".db_escape_str($id3["asf"]["comments"]["picture"])."' where art_sha1='".$data["art_sha1"]."'");
+            $img = sha1($id3["asf"]["comments"]["picture"][0]);
           }
-          else
-            $data["art_sha1"]  = null;
         }
         else
         {
@@ -946,6 +940,17 @@ function process_movie( $dir, $id, $file )
     send_to_log(2,"GETID3 claims there are errors in the video file");
     foreach ($id3["error"] as $err)
       send_to_log(2,' - '.$err);
+  }
+
+  // Store video snapshot in the database
+  if ( !empty($img) )
+  {
+    $data["art_sha1"] = sha1($img);
+    // Store media art if it doesn't already exist
+    if ( !db_value("select art_sha1 from media_art where art_sha1='".$data["art_sha1"]."'") )
+      db_insert_row('media_art',array("art_sha1"=>$data["art_sha1"], "image"=>$img ));
+    elseif ( db_value("select sha1(image) from media_art where art_sha1='".$data["art_sha1"]."'") !== $data["art_sha1"] )
+      db_sqlcommand("update media_art set image='".db_escape_str($img)."' where art_sha1='".$data["art_sha1"]."'");
   }
 
   $file_id = db_value("select file_id from movies where dirname='".db_escape_str($dir)."' and filename='".db_escape_str($file)."'");
@@ -1335,6 +1340,9 @@ function process_media_directory( $dir, $id, $share, $table, $file_exts, $recurs
   update_scan_progress($table, $id);
 
   // Delete any files which cannot be verified
+  $files = db_toarray("select dirname, filename from $table where verified ='N' and dirname like '".db_escape_str($dir)."%'");
+  foreach ($files as $file)
+    send_to_log(4,'Removed  : '.$file['DIRNAME'].$file['FILENAME']);
   db_sqlcommand("delete from $table where verified ='N' and dirname like '".db_escape_str($dir)."%'");
 
   // Remove the browser coords from the session to ensure it gets recalculated to the current browser
