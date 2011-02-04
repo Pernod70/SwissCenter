@@ -187,17 +187,18 @@ class getid3_apetag
 					break;
 
 				case 'tracknumber':
-					foreach ($thisfile_ape_items_current['data'] as $comment) {
-						$thisfile_ape['comments']['track'][] = $comment;
+					if (is_array($thisfile_ape_items_current['data'])) {
+						foreach ($thisfile_ape_items_current['data'] as $comment) {
+							$thisfile_ape['comments']['track'][] = $comment;
+						}
 					}
 					break;
 
 				default:
-				  if(is_array($thisfile_ape_items_current['data']))
-          {
-            foreach ($thisfile_ape_items_current['data'] as $comment) {
-              $thisfile_ape['comments'][strtolower($item_key)][] = $comment;
-            }
+					if (is_array($thisfile_ape_items_current['data'])) {
+						foreach ($thisfile_ape_items_current['data'] as $comment) {
+							$thisfile_ape['comments'][strtolower($item_key)][] = $comment;
+						}
 					}
 					break;
 			}

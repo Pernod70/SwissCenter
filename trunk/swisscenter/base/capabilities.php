@@ -8,6 +8,7 @@ require_once( realpath(dirname(__FILE__).'/utils.php'));
 require_once( realpath(dirname(__FILE__).'/screen.php'));
 require_once( realpath(dirname(__FILE__).'/settings.php'));
 require_once( realpath(dirname(__FILE__).'/prefs.php'));
+require_once( realpath(dirname(__FILE__).'/mysql.php'));
 
 #-------------------------------------------------------------------------------------------------
 # Returns the type of hardware player that the SwissCenter is communicating with.
@@ -210,12 +211,12 @@ function media_exts_movies()
 
 function media_exts_music()
 {
-  return explode(',' ,'ac3,m4a,mp2,mp3,ogg,wav,wma,flac');
+  return explode(',' ,'aac,ac3,m4a,mp2,mp3,ogg,wav,wma,flac');
 }
 
 function media_exts_photos()
 {
-  return explode(',' ,'jpeg,jpg,gif,png');
+  return explode(',' ,'bmp,jpeg,jpg,gif,png');
 }
 
 function media_exts_radio()
@@ -255,7 +256,7 @@ function media_exts( $media_type )
 
 function media_exts_with_GetID3_support()
 {
-  return explode(',' ,'mp3,mp4,asf,riff,flac,jpg,jpeg,gif,ogg,png,quicktime,matroska,mpeg,mpg');
+  return explode(',' ,'aac,bmp,mp3,mp4,asf,riff,flac,jpg,jpeg,gif,ogg,png,quicktime,matroska,mpeg,mpg');
 }
 
 #-------------------------------------------------------------------------------------------------
