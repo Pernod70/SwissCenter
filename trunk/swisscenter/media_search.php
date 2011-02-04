@@ -4,7 +4,7 @@
  *************************************************************************************************/
 
   require_once( realpath(dirname(__FILE__).'/base/settings.php'));
-  require_once( realpath(dirname(__FILE__).'/base/page.php'));
+  require_once( realpath(dirname(__FILE__).'/base/session.php'));
   require_once( realpath(dirname(__FILE__).'/base/mysql.php'));
   require_once( realpath(dirname(__FILE__).'/base/utils.php'));
   require_once( realpath(dirname(__FILE__).'/base/media.php'));
@@ -12,6 +12,10 @@
   require_once( realpath(dirname(__FILE__).'/base/rss.php'));
   require_once( realpath(dirname(__FILE__).'/video_obtain_info.php'));
   require_once( realpath(dirname(__FILE__).'/itunes_import.php'));
+
+  // Log details of the page request
+  send_to_log(1,"------------------------------------------------------------------------------");
+  send_to_log(1,"Page Requested : ".current_url()." by client (".client_ip().")");
 
   set_time_limit(86400);
   ini_set('memory_limit',-1);
@@ -26,17 +30,18 @@
   function process_media_dirs( $media_type = '', $cat_id = '', $update = false)
   {
     // Get a list of matching locations
-    $media_locations = db_toarray("select *
+    $media_locations = db_toarray('select *
                                    from media_locations
-                                   where (media_type not in (".MEDIA_TYPE_RADIO.",".MEDIA_TYPE_WEB."))".
-                                   (empty($cat_id) ? '' : " and cat_id = $cat_id").
-                                   (empty($media_type) ? '' : " and media_type = $media_type")
+                                   where (media_type not in ('.MEDIA_TYPE_RADIO.','.MEDIA_TYPE_WEB.'))'.
+                                   (empty($cat_id) ? '' : ' and cat_id = '.$cat_id).
+                                   (empty($media_type) ? '' : ' and media_type = '.$media_type).
+                                  ' order by media_type, name'
                                  );
 
     // Process each location
     foreach ($media_locations as $location)
     {
-      $table = db_value("select media_table from media_types where  media_id = $location[MEDIA_TYPE]");
+      $table = db_value('select media_table from media_types where  media_id = '.$location["MEDIA_TYPE"]);
       $types = media_exts( $location["MEDIA_TYPE"] );
       send_to_log(4,'Refreshing '.strtoupper($table).' database');
       process_media_directory( str_suffix($location["NAME"],'/'), $location["LOCATION_ID"], $location["NETWORK_SHARE"], $table, $types, true, $update );
@@ -65,9 +70,9 @@
   $cleanup    = get_sys_pref('MEDIA_SCAN_CLEANUP','YES');
   $itunes_library = get_sys_pref('ITUNES_LIBRARY');
   $itunes_date    = get_sys_pref('ITUNES_LIBRARY_DATE');
-  $media_types    = db_col_to_list("select distinct(media_type) from media_locations where 1=1".
-                                  (empty($cat_id) ? '' : " and cat_id = $cat_id").
-                              (empty($media_type) ? '' : " and media_type = $media_type"));
+  $media_types    = db_col_to_list('select distinct(media_type) from media_locations where 1=1'.
+                                  (empty($cat_id) ? '' : ' and cat_id = '.$cat_id).
+                              (empty($media_type) ? '' : ' and media_type = '.$media_type));
 
   db_sqlcommand("delete from system_prefs where name like 'media_scan_%'");
   set_sys_pref('MEDIA_SCAN_STATUS',str('MEDIA_SCAN_STATUS_RUNNING'));
@@ -76,9 +81,9 @@
   if ($scan_type == '' || $scan_type == 'MEDIA')
   {
     // Set the percent_scanned to zero for all locations due to be scanned.
-    db_sqlcommand("update media_locations set percent_scanned=0 where 1=1".
-                    (empty($cat_id) ? '' : " and cat_id = $cat_id").
-                    (empty($media_type) ? '' : " and media_type = $media_type")
+    db_sqlcommand('update media_locations set percent_scanned=0 where 1=1'.
+                    (empty($cat_id) ? '' : ' and cat_id = '.$cat_id).
+                    (empty($media_type) ? '' : ' and media_type = '.$media_type)
                  );
 
     // Scan the appropriate media directories
@@ -131,8 +136,8 @@
     if (internet_available() && get_sys_pref('rss_enabled','YES') == 'YES')
     {
       // Set the percent_scanned to zero for all subscriptions due to be scanned.
-      db_sqlcommand("update rss_subscriptions set percent_scanned=0 where 1=1".
-                    (empty($rss_sub_id) ? '' : " and id = $rss_sub_id")
+      db_sqlcommand('update rss_subscriptions set percent_scanned=0 where 1=1'.
+                    (empty($rss_sub_id) ? '' : ' and id = '.$rss_sub_id)
                    );
 
       // Update the appropriate rss subscriptions
@@ -144,8 +149,8 @@
 
   // Update media search status
   set_sys_pref('MEDIA_SCAN_STATUS',str('MEDIA_SCAN_STATUS_COMPLETE'));
-  db_sqlcommand("update media_locations set percent_scanned = null");
-  db_sqlcommand("update rss_subscriptions set percent_scanned = null");
+  db_sqlcommand('update media_locations set percent_scanned = null');
+  db_sqlcommand('update rss_subscriptions set percent_scanned = null');
 
 /**************************************************************************************************
                                                End of file

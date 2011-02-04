@@ -4,12 +4,16 @@
  *************************************************************************************************/
 
   require_once( realpath(dirname(__FILE__).'/base/settings.php'));
-  require_once( realpath(dirname(__FILE__).'/base/page.php'));
+  require_once( realpath(dirname(__FILE__).'/base/session.php'));
   require_once( realpath(dirname(__FILE__).'/base/mysql.php'));
   require_once( realpath(dirname(__FILE__).'/base/utils.php'));
   require_once( realpath(dirname(__FILE__).'/base/media.php'));
   require_once( realpath(dirname(__FILE__).'/base/xml_sidecar.php'));
   require_once( realpath(dirname(__FILE__).'/video_obtain_info.php'));
+
+  // Log details of the page request
+  send_to_log(1,"------------------------------------------------------------------------------");
+  send_to_log(1,"Page Requested : ".current_url()." by client (".client_ip().")");
 
   $type        = $_REQUEST["Type"];
   $path        = str_replace('\\','/',un_magic_quote($_REQUEST["Path"]));
