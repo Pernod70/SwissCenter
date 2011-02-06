@@ -15,14 +15,13 @@
   if ( isset($_REQUEST["user_id"]) )
   {
     $user_id = $_REQUEST["user_id"];
-    // Update page history
-    $back_url = flickr_page_params();
+    $back_url = page_hist_back_url();
   }
   else
   {
     $user_id = get_user_pref('FLICKR_USERID');
     $back_url = 'index.php?submenu=internet';
-    flickr_hist_init('flickr_menu.php');
+    page_hist_init(current_url());
   }
 
   // If COMPACT mode was last used then set to FULL as downloading 12 images per page takes too long!
@@ -36,7 +35,14 @@
 
   // Page headings
   $tagline = (!empty($user_id) ? $person["username"] : str('FLICKR_NO_USER'));
-  page_header(str('FLICKR_PHOTOS'), $tagline,'',1,false,'', MEDIA_TYPE_PHOTO);
+  page_header(str('FLICKR_PHOTOS'));
+  echo '<table width="100%" cellpadding=0 cellspacing=0 border=0>
+          <tr>
+            <td valign=top width="'.convert_x(280).'" align="left"><br>
+              '.img_gen(style_img('FLICKR',true,false),280,450).'
+            </td>
+            <td width="'.convert_x(20).'"></td>
+            <td valign="top">';
 
   $menu = new menu();
   $menu->add_item( str('FLICKR_PHOTOSETS'), url_add_param('flickr_photosets.php', 'user_id', $user_id), true);
@@ -47,6 +53,10 @@
     $menu->add_item( str('FLICKR_RETURN') ,'flickr_menu.php', true);
 
   $menu->display(1, style_value("MENU_PHOTO_WIDTH"), style_value("MENU_PHOTO_ALIGN"));
+
+  echo '    </td>
+          </tr>
+        </table>';
 
   // Make sure the "back" button goes to the correct page:
   page_footer($back_url);
