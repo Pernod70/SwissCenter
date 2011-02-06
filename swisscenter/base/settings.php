@@ -58,12 +58,10 @@ require_once( realpath(dirname(__FILE__).'/language.php'));
 
 
 #-------------------------------------------------------------------------------------------------
-# Record the details of the client accessing the system, and download any new messages that may be
-# available on the swisscenter.co.uk website.
+# Record the details of the client accessing the system.
 #-------------------------------------------------------------------------------------------------
 
 record_client_details();
-download_new_messages();
 
 /**************************************************************************************************
                                                End of file
