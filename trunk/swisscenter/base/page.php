@@ -13,6 +13,7 @@ require_once( realpath(dirname(__FILE__).'/utils.php'));
 require_once( realpath(dirname(__FILE__).'/iconbar.php'));
 require_once( realpath(dirname(__FILE__).'/users.php'));
 require_once( realpath(dirname(__FILE__).'/prefs.php'));
+require_once( realpath(dirname(__FILE__).'/image.php'));
 require_once( realpath(dirname(__FILE__).'/server.php'));
 
 //-------------------------------------------------------------------------------------------------
@@ -22,7 +23,7 @@ require_once( realpath(dirname(__FILE__).'/server.php'));
 function up_link( $url, $focusload = true )
 {
   if (!empty($url))
-    return '<a href="'.$url.'" '.tvid("PGUP").' '.($focusload ? 'ONFOCUSLOAD' : '').'>'.img_gen(SC_LOCATION.style_img("PAGE_UP"),40,20,false,false,'RESIZE').'</a>';
+    return '<a name="up" href="'.$url.'" '.tvid("PGUP").' '.($focusload ? 'ONFOCUSLOAD' : '').'>'.img_gen(SC_LOCATION.style_img("PAGE_UP"),40,20,false,false,'RESIZE').'</a>';
   else
     return '';
 }
@@ -30,7 +31,7 @@ function up_link( $url, $focusload = true )
 function down_link( $url, $focusload = true )
 {
   if (!empty($url))
-    return '<a href="'.$url.'" '.tvid("PGDN").' '.($focusload ? 'ONFOCUSLOAD' : '').'>'.img_gen(SC_LOCATION.style_img("PAGE_DOWN"),40,20,false,false,'RESIZE').'</a>';
+    return '<a name="down" href="'.$url.'" '.tvid("PGDN").' '.($focusload ? 'ONFOCUSLOAD' : '').'>'.img_gen(SC_LOCATION.style_img("PAGE_DOWN"),40,20,false,false,'RESIZE').'</a>';
   else
     return '';
 }
@@ -45,7 +46,7 @@ function charset()
 // "main" area.
 //-------------------------------------------------------------------------------------------------
 
-function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth = false, $focus_colour = '', $background = -1, $banner = false )
+function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth = false, $focus_colour = '', $background = -1, $banner = false, $text_background = '' )
 {
   // Check if the user has been selected and prompt for logon if needed
   if(!$skip_auth && !is_user_selected())
@@ -61,14 +62,17 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
     if ($banner)
       $headings = '<td height="'.convert_y(60).'" align="center">&nbsp;</td>';
     else
-      $headings = '<td height="'.convert_y(60).'" align="center"><b>'.$title.'</b> : '.font_tags(32).$tagline.'&nbsp;</td>';
+      $headings = '<td height="'.convert_y(60).'"><table '.(empty($title) ? '' : style_background($text_background)).'  align="center" border="0" cellpadding="2" cellspacing="0"><tr><td><b>&nbsp;'.$title.'&nbsp;</b> : '.font_tags(FONTSIZE_HEADER_NTSC).$tagline.'&nbsp;</td></tr></table></td>';
   }
   else
   {
     if ($banner)
       $headings = '<td height="'.convert_y(170).'" align="center"><h2>&nbsp;</h2>&nbsp;</td>';
     else
-      $headings = '<td height="'.convert_y(170).'" align="center"><h2>'.$title.'&nbsp;</h2>'.font_tags(32).$tagline.'&nbsp;</td>';
+    {
+      $headings = '<td height="'.convert_y(100).'"><table '.(empty($title) ? '' : style_background($text_background)).' align="center" border="0" cellpadding="2" cellspacing="0"><tr><td>&nbsp;'.font_tags(FONTSIZE_HEADER).$title.'&nbsp;</td></tr></table></td>
+               <tr><td height="'.convert_y(70).'"><table '.(empty($tagline) ? '' : style_background($text_background)).' align="center" border="0" cellpadding="2" cellspacing="0"><tr><td>&nbsp;'.font_tags(FONTSIZE_SUBHEADER).$tagline.'&nbsp;</td></tr></table></td>';
+    }
   }
 
   // The default background is specified by PAGE_BACKGROUND
@@ -95,6 +99,7 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
       case MEDIA_TYPE_INTERNET_TV : if (style_img_exists("PAGE_INTERNET_TV")) $page_background = '.'.style_img("PAGE_INTERNET_TV"); break;
     }
   }
+
   if ($banner)
   {
     if (is_screen_ntsc())
@@ -119,10 +124,12 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
   header('Content-type: text/html; '.charset());
   echo '<html>
         <head>'.$meta.'
+        <meta SYABAS-COMPACT=OFF>
         <meta SYABAS-FULLSCREEN>
         <meta SYABAS-PHOTOTITLE=0>
         <meta SYABAS-BACKGROUND="'.$background_image.'">
-        <meta syabas-keyoption="caps"><meta myibox-pip="0,0,0,0,0"><meta http-equiv="content-type" content="text/html;charset=Windows-1252">
+        <meta SYABAS-KEYOPTION="caps">
+        <meta myibox-pip="0,0,0,0,0">
         <meta name="generator" content="lyra-box UI">
         <meta http-equiv="Content-Type" content="text/html; '.charset().'">
         <title>'.$title.'</title>
@@ -159,7 +166,7 @@ function page_error($message)
 {
   ob_clean();
   page_header( "Error", "", "", "1", true );
-  echo "<center>".font_tags(32).$message."</center><p>";
+  echo "<center>".font_tags(FONTSIZE_BODY).$message."</center><p>";
   $menu = new menu();
   $menu->add_item(str('RETURN_MAIN_MENU'),'/index.php',true);
   $menu->display();
@@ -171,12 +178,18 @@ function page_error($message)
 // Outputs an IMG tag which uses the thumbnail generator/caching engine
 //-------------------------------------------------------------------------------------------------
 
-function img_gen( $filename, $x, $y, $type = false, $stretch = false, $rs_mode = false, $html_params = array())
+function img_gen( $filename, $x, $y, $type = false, $stretch = false, $rs_mode = false, $html_params = array(), $fill_size = true )
 {
   // Build a string containing the name/value pairs of the extra html_params specified
   $html = '';
   foreach ($html_params as $n => $v)
     $html .= $n.'="'.$v.'" ';
+
+  if ($fill_size == false)
+  {
+    // Get size of resized image
+    image_resized_xy($filename, $x, $y);
+  }
 
   // Build the paramters for the thumb.php script. Also set the onFocusSrc attribute if an image is provided.
   if (is_array($filename))
@@ -202,15 +215,23 @@ function img_gen( $filename, $x, $y, $type = false, $stretch = false, $rs_mode =
   if ($rs_mode !== false)
     $img_params .='&rs_mode='.$rs_mode;
 
+  if ($fill_size == false)
+  {
+    $img_params .='&fill_size=N';
+  }
 
+  // If width or height are not specified then do not use to define img size
+  $width  = empty($x) ? '' : ' width="'.convert_x($x).'"';
+  $height = empty($y) ? '' : ' height="'.convert_y($y).'"';
   $browser = $_SERVER['HTTP_USER_AGENT'];
   if ( strpos($browser,'MSIE ') !== false && preg_replace('/^.*MSIE (.*);.*$/Ui','\1',$browser) < 7)
   {
+    // Make IE (<7) use PNG Alpha transparency
     $filter = "filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='$img_params',sizingMethod='crop');";
-    return '<img '.$html.' style="'.$filter.'" width="'.convert_x($x).'" height="'.convert_y($y).'" src="/images/dot.gif" border=0>';
+    return '<img '.$html.' style="'.$filter.'"'.$width.$height.' src="/images/dot.gif" border="0">';
   }
   else
-    return '<img '.$html.' width="'.convert_x($x).'" height="'.convert_y($y).'" src="'.$img_params.'" '.$focus_attr.' border=0>';
+    return '<img '.$html.$width.$height.' src="'.$img_params.'" '.$focus_attr.' border="0">';
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -233,33 +254,33 @@ function pc_nav_button($text, $url)
 // Adds an iconbar if there is one but only if there are no buttons
 //-------------------------------------------------------------------------------------------------
 
-function page_footer( $back, $buttons= '', $iconbar = 0, $links=true )
+function page_footer( $back, $buttons = '', $iconbar = 0, $links = true, $text_background = '' )
 {
   echo '    </td>
             <td width="'.convert_x(50).'"></td>
           </tr>
         </table>
-        <table width="'.convert_x(1000).'" border="0" cellpadding="0" cellspacing="0">
+        <table '.style_background($text_background).' width="'.convert_x(1000).'" border="0" cellpadding="0" cellspacing="0">
           <tr>
             <td width="'.convert_x(50).'"></td>';
 
   if(!empty($buttons))
   {
-    for ($i=0; $i<count($buttons); $i++)
+    foreach ($buttons as $i=>$button)
     {
-      if (! empty($buttons[$i]["url"]) )
+      if (! empty($button["url"]) )
       {
-        $link = $buttons[$i]["url"];
+        $link = $button["url"];
         if (substr($link,0,5) != 'href=')
           $link = 'href="'.$link.'"';
 
         $link = '<a '.$link.tvid('KEY_'.substr('ABC',$i,1)).'name="'.tvid_code('KEY_'.substr('ABC',$i,1)).'">'.
                 img_gen(SC_LOCATION.style_img(quick_access_img($i)),45,54,false,false,false,array("align" => "absmiddle")).
-                font_tags(32).$buttons[$i]["text"].'</a>';
+                font_tags(FONTSIZE_FOOTER).$button["text"].'</a>';
       }
       else
         $link = img_gen(SC_LOCATION.style_img(quick_access_img($i)),45,54,false,false,false,array("align" => "absmiddle")).
-                font_tags(32).$buttons[$i]["text"];
+                font_tags(FONTSIZE_FOOTER).$button["text"];
 
       echo '<td align="center">'.$link.'</td>';
     }
@@ -278,6 +299,7 @@ function page_footer( $back, $buttons= '', $iconbar = 0, $links=true )
 
   // Test the browser, and if the user is viewing from a browser other than the one on the
   // showcenter then output a "Back" Button (as this would normally be a IR remote button).
+
   if ( is_pc() )
   {
     echo '<table style="position:absolute; top:'.convert_y(1000).'; left:0; " width="'.convert_x(1000).'" cellspacing="10" cellpadding="0"><tr>'.
@@ -312,7 +334,7 @@ function page_inform( $seconds, $url, $title, $text)
 {
   send_to_log(8,"Displaying message",array("message"=>$text, "time"=>$seconds, "url"=>$url));
   page_header($title,"",'<meta http-equiv="refresh" content="'.$seconds.';URL='.$url.'">');
-  echo "<p>&nbsp;<p>&nbsp;<p><center>".font_tags(32).$text."</center>";
+  echo "<p>&nbsp;<p>&nbsp;<p><center>".font_tags(FONTSIZE_BODY).$text."</center>";
   page_footer('/');
 }
 

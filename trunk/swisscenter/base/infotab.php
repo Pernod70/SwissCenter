@@ -16,7 +16,7 @@ class infotab
   # Member Variables
   #-------------------------------------------------------------------------------------------------
   var $items;
-  var $font_size = 32;
+  var $font_size = FONTSIZE_BODY;
   var $cols = array( "1" => array("width"=>"", "align"=>"right")
                    , "2" => array("width"=>"49%", "align"=>"left"));
 
@@ -52,7 +52,7 @@ class infotab
       foreach ($this->items as $item)
       {
         $text = shorten($item["text"],$trunc*$lines);
-          
+
         if (!is_null( $item["text"]))
         {
           echo '<tr>'.newline();
