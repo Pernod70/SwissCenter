@@ -44,9 +44,10 @@
   $menu->add_item(str('PLAY_NOW'), play_sql_list(MEDIA_TYPE_MUSIC,"select * from $sql_table $predicate order by album,lpad(disc,10,'0'),lpad(track,10,'0'),title") );
 
   // If MusicIP support is enabled then add an extra option
-  if ( musicip_available() )
-    $menu->add_item( str('MIP_MIX_SONG'), musicip_mix_link( $sql_table, $predicate) );
-
+  if ( musicip_available() && musicip_status($sql_table, $predicate) )
+    $menu->add_item( str('MIP_MIXER'), url_add_params('mip_mixer.php', array('add'  => 'Y',
+                                                                             'type' => $_REQUEST["type"],
+                                                                             'name' => $_REQUEST["name"])) );
   // Or adds these tracks to their current playlist...
   $menu->add_item(str('ADD_PLAYLIST'),'add_playlist.php?sql='.rawurlencode("select * from $sql_table $predicate order by album,lpad(disc,10,'0'),lpad(track,10,'0'),title"),true);
 
@@ -62,7 +63,7 @@
   search_check_filter( $menu, str('REFINE_GENRE'),  'genre',  $sql_table, $predicate, $refine_url );
   search_check_filter( $menu, str('REFINE_YEAR'),   'year',   $sql_table, $predicate, $refine_url );
 
-  // Adda menu option to lookup the artist/album in Wikipedia
+  // Add a menu option to lookup the artist/album in Wikipedia
   if (internet_available() && get_sys_pref('wikipedia_lookups','YES') == 'YES')
   {
     $back_url = url_remove_params(current_url(), array('add','p_del'));

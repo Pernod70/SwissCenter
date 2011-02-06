@@ -7,12 +7,13 @@ require_once( realpath(dirname(__FILE__).'/prefs.php'));
 require_once( realpath(dirname(__FILE__).'/utils.php'));
 
 // ----------------------------------------------------------------------------------
-// Returns the URL for the MusicIP api
+// Returns the URL for the MusicIP API
 // ----------------------------------------------------------------------------------
 
 function musicip_address()
 {
-  return 'http://127.0.0.1:'.get_sys_pref('MUSICIP_PORT','10002').'/';
+  $host = '127.0.0.1';
+  return 'http://'.$host.':'.get_sys_pref('MUSICIP_PORT','10002').'/';
 }
 
 // ----------------------------------------------------------------------------------
@@ -34,6 +35,18 @@ function musicip_server_refresh_cache()
 {
   if (musicip_available())
     $temp = @file_get_contents(musicip_address().'server/refresh');
+}
+
+// ----------------------------------------------------------------------------------
+// Updates the MusicIP server with the settings used in SwissCenter.
+// ----------------------------------------------------------------------------------
+
+function musicip_server_update( $style, $variety, $size, $size_type, $dupsize, $duptype )
+{
+  if (musicip_available())
+    $temp = @file_get_contents(musicip_address().'server/updateMixSettings?style='.(int)($style/20).
+                                                 '&variety='.$variety.'&size='.$size.'&type='.$size_type.
+                                                 '&dupsize='.$dupsize.'&duptype='.$duptype);
 }
 
 // ----------------------------------------------------------------------------------
@@ -60,7 +73,7 @@ function musicip_check( $port, $timeouts = 3 )
     if ( $sock = @fsockopen('127.0.0.1', $port , &$errno, &$errst, 2) )
     {
       fclose($sock);
-      $status = @file_get_contents("http://127.0.0.1:$port/api/getstatus");
+      $status = @file_get_contents(musicip_address().'api/getstatus');
       send_to_log(6,'MusicIP status: '.$status);
       $success = true;
       break;
@@ -85,20 +98,20 @@ function musicip_available( $recheck = false)
 // Returns a link to a MusicIP playlist.
 // ----------------------------------------------------------------------------------
 
-function musicip_mix_link( $tables, $predicate )
+function musicip_mix_link( $tables, $predicate, $params = '' )
 {
   $num_rows    = db_value("select count(*) from $tables $predicate");
   $num_artists = db_value("select count(distinct artist) from $tables $predicate");
   $num_albums  = db_value("select count(distinct album) from $tables $predicate");
 
   if (  $num_rows == 1 )
-    return musicip_mix_song( db_value("select concat(dirname,filename) from $tables $predicate"));
+    return musicip_mix_song( db_value("select concat(dirname,filename) from $tables $predicate"), $params );
   elseif ( $num_albums == 1 && $num_artists == 1 )
-    return musicip_mix_album( db_value("select distinct concat(artist,'@@',album) from $tables $predicate"));
+    return musicip_mix_album( db_value("select distinct concat(artist,'@@',album) from $tables $predicate"), $params );
   elseif ( $num_albums == 1)
-    return musicip_mix_album( db_value("select distinct album from $tables $predicate"));
+    return musicip_mix_album( db_value("select distinct album from $tables $predicate"), $params );
   elseif ( $num_artists == 1)
-    return musicip_mix_artist( db_value("select distinct artist from $tables $predicate"));
+    return musicip_mix_artist( db_value("select distinct artist from $tables $predicate"), $params );
   else
   {
     $tracks = array();
@@ -115,24 +128,24 @@ function musicip_mix_link( $tables, $predicate )
 
     // Write the playlist.
     array2file($tracks, $fsp);
-    return musicip_mix_playlist( $fsp );
+    return musicip_mix_playlist( $fsp, $params );
   }
 }
 
-function musicip_api_call( $type, $value )
+function musicip_api_call( $type, $value, $params )
 {
   // Settings for the mix...
-  $params = array( 'content'    => 'm3u'
-                 , 'mixgenre'   => 'false'
-                 , 'size'       => get_sys_pref('MUSICIP_SIZE',20)
-                 , 'sizetype'   => get_sys_pref('MUSICIP_SIZE_TYPE','tracks')
-                 , 'rejectsize' => get_sys_pref('MUSICIP_REJECT',5)
-                 , 'rejecttype' => get_sys_pref('MUSICIP_REJECT_TYPE','tracks')
-                 , 'style'      => get_sys_pref('MUSICIP_STYLE',20)
-                 , 'variety'    => get_sys_pref('MUSICIP_VARIETY',0)
-                 , $type        => urlencode($value)
-                 , 'ext'        => '.m3u'
-                 );
+  $params = array_merge( $params, array( 'content'    => 'm3u'
+                                       , 'mixgenre'   => 'false'
+                                       , 'size'       => get_sys_pref('MUSICIP_SIZE',20)
+                                       , 'sizetype'   => get_sys_pref('MUSICIP_SIZE_TYPE','tracks')
+                                       , 'rejectsize' => get_sys_pref('MUSICIP_REJECT',5)
+                                       , 'rejecttype' => get_sys_pref('MUSICIP_REJECT_TYPE','tracks')
+                                       , 'style'      => get_sys_pref('MUSICIP_STYLE',20)
+                                       , 'variety'    => get_sys_pref('MUSICIP_VARIETY',0)
+                                       , $type        => urlencode($value)
+                                       , 'ext'        => '.m3u' )
+                                       );
 
   // Save the playlist generating URL into the session for when the playlist is needed.
   $_SESSION["musicip_playlist"] = url_add_params( musicip_address().'api/mix', $params);
@@ -143,33 +156,93 @@ function musicip_api_call( $type, $value )
   return 'href="gen_playlist.php?'.$params.'" '.$extra;
 }
 
-function musicip_mix_song( $song )
+function musicip_status( $tables, $predicate )
+{
+  $num_rows    = db_value("select count(*) from $tables $predicate");
+  $num_artists = db_value("select count(distinct artist) from $tables $predicate");
+
+  if (  $num_rows == 1 )
+    return musicip_status_song( db_value("select concat(dirname,filename) from $tables $predicate"));
+  elseif ( $num_artists == 1)
+    return musicip_status_artist( db_value("select distinct artist from $tables $predicate"));
+  else
+    return true;
+}
+
+function musicip_status_song( $song )
+{
+  $status = @file_get_contents(musicip_address().'api/status?song='.urlencode($song));
+  send_to_log(6,'MusicIP status for song = '.$song, $status);
+  return ( $status[0] === '1' ? true : false );
+}
+
+function musicip_status_artist( $artist )
+{
+  $status = @file_get_contents(musicip_address().'api/status?artist='.urlencode($artist));
+  send_to_log(6,'MusicIP status for artist = '.$artist, $status);
+  return ( $status[0] === '1' ? true : false );
+}
+
+function musicip_mix_song( $song, $params )
 {
   send_to_log(6,'MusicIP mix for song = '.$song);
-  return musicip_api_call('song',$song);
+  return musicip_api_call('song',$song, $params);
 }
 
-function musicip_mix_artist( $artist )
+function musicip_mix_artist( $artist, $params )
 {
   send_to_log(6,'MusicIP mix for artist = '.$artist);
-  return musicip_api_call('artist',$artist);
+  return musicip_api_call('artist', $artist, $params);
 }
 
-function musicip_mix_album ( $album )
+function musicip_mix_album ( $album, $params )
 {
   send_to_log(6,'MusicIP mix for album = '.$album);
-  return musicip_api_call('album',$album);
+  return musicip_api_call('album', $album, $params);
 }
 
-function musicip_mix_playlist ( $album )
+function musicip_mix_playlist ( $album, $params )
 {
   send_to_log(6,'MusicIP mix for currently selected tracks');
-  return musicip_api_call('playlist', musicip_tempplaylist_name());
+  return musicip_api_call('playlist', musicip_tempplaylist_name(), $params);
 }
 
 function musicip_tempplaylist_name()
 {
   return get_sys_pref('cache_dir', SC_LOCATION).'/MusicIP_TempPlaylist_'.$_SESSION["device"]["ip_address"].'.m3u';
+}
+
+function musicip_moods()
+{
+  $page = @file_get_contents(musicip_address().'api/moods');
+  send_to_log(6,'MusicIP moods :', $page);
+  if ( !empty($page) )
+    $moods = explode( "\n", $page );
+  else
+    $moods = array();
+  return $moods;
+}
+
+function musicip_playlists()
+{
+  $page = @file_get_contents(musicip_address().'api/playlists');
+  send_to_log(6,'MusicIP playlists :', $page);
+  if ( !empty($page) )
+    $playlists = explode( "\n", $page );
+  else
+    $playlists = array();
+  return $playlists;
+}
+
+function musicip_recipes()
+{
+  $page = @file_get_contents(musicip_address().'api/recipes');
+  send_to_log(6,'MusicIP recipes :', $page);
+  if ( !empty($page) )
+    $recipes = explode( "\n", $page );
+  else
+    $recipes = array();
+  return $recipes;
 }
 
 // ----------------------------------------------------------------------------------
@@ -207,6 +280,34 @@ function musicip_mixable_percent( $timeouts = 3 )
       }
     }
     return $percent;
+  }
+  else
+    return false;
+}
+
+// ----------------------------------------------------------------------------------
+// Returns the version number of the current mixer as text.
+// ----------------------------------------------------------------------------------
+
+function musicip_version( $timeouts = 3 )
+{
+  if ( musicip_available() )
+  {
+    for ($i=0; $i < $timeouts; $i++)
+    {
+      if ( $version = @file_get_contents(musicip_address().'api/version') )
+      {
+        $version = preg_get('/Version (\d+\.\d+)/', $version);
+        send_to_log(6,'MusicIP version: '.$version);
+        break;
+      }
+      else
+      {
+        send_to_log(2,'MusicIP version failed: '.$errno, $errst);
+        $version = false;
+      }
+    }
+    return $version;
   }
   else
     return false;

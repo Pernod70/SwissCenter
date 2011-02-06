@@ -185,7 +185,7 @@ function check_display()
   # Music IP
   # ----------------------
 
-  $musicip = $component_tests->add_section("MusicIP",1);
+  $musicip = $component_tests->add_section("MusicIP ".musicip_version(),1);
 
   $component_tests->add_test( $musicip, musicip_available(TRUE), str('PASS_MUSICIP_TEST'),str('FAIL_MUSICIP_TEST').'<p>'.str('MIP_DESC','<a href="http://www.musicip.com">www.musicip.com</a>'),FALSE);
 

@@ -2619,14 +2619,39 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MIP_MIXER</id>
+        <text>MusicIP Mixer</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>MIP_MIX_SONG</id>
-        <text>Play similar tracks</text>
-        <version>1.19</version>
+        <text>Play MusicIP Mix</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MIP_MOODS</id>
+        <text>Moods</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MIP_MOODS_INFO</id>
+        <text>Moods are playlists containing songs to be used as seeds to generate the mix. The Moods playlists must be saved in the 'moods' subfolder of your MusicIP Mixer installation.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MIP_NONE</id>
+        <text>None</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>MIP_NOT_FOUND</id>
         <text>A MusicIP server cannot be found.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_PLAYLISTS</id>
+        <text>Playlists</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>MIP_PORT</id>
@@ -2637,6 +2662,16 @@
         <id>MIP_PORT_PROMPT</id>
         <text>Enter the port number that the MusicIP server is listening on. If you have not changed anything then the default port will be 10002. [p][b]Note:[/b]  MusicIP must be installed on the same server as SwissCenter.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_RECIPES</id>
+        <text>Recipes</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MIP_RECIPES_INFO</id>
+        <text>Recipes are a set of constraints and rules that are applied when generating the mix. Recipes are defined in recipes.xml in your MusicIP Mixer installation folder.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>MIP_REJECT</id>
