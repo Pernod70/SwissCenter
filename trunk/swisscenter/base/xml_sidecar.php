@@ -293,7 +293,7 @@
       $language_list = db_toarray("select language name from languages l, languages_of_tv lot where lot.language_id = l.language_id and tv_id=".$file_id);
       if ( !empty( $language_list ) )
       {
-        $xpath = $xml->appendChild($movie_path,'<languages />');
+        $xpath = $xml->appendChild($tv_path,'<languages />');
         foreach ($language_list as $language)
           $xml->appendChild($xpath,'<language>'.utf8_encode(xmlspecialchars($language["NAME"])).'</language>');
       }
