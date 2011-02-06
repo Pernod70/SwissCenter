@@ -147,7 +147,7 @@
         break;
 
       case 'TOP_ALBUMS':
-        $top = lastfm_user_getTopAlbums($user, $overall);
+        $top = lastfm_user_getTopAlbums($user, 'overall');
 
         foreach ($top["topalbums"]["album"] as $album)
         {
@@ -161,7 +161,7 @@
         break;
 
       case 'TOP_ARTISTS':
-        $top = lastfm_user_getTopArtists($user, $overall);
+        $top = lastfm_user_getTopArtists($user, 'overall');
 
         echo '<table align="center">';
         foreach ($top["topartists"]["artist"] as $artist)
@@ -176,7 +176,7 @@
         break;
 
       case 'TOP_TRACKS':
-        $top = lastfm_user_getTopTracks($user, $overall);
+        $top = lastfm_user_getTopTracks($user, 'overall');
 
         foreach ($top["toptracks"]["track"] as $id=>$track)
         {
@@ -203,12 +203,12 @@
   $tab_strip = '';
   foreach ($tabs as $key=>$tab)
     $tab_strip .= ($key > 0 ? ' | ' : '').'<a href="statistics.php?tab='.$tab.'">'.
-                  ($tab == $current ? font_tags(30, style_value("PAGE_TITLE_COLOUR",'#FFFFFF')).str($tab) : font_tags(30).str($tab)).'</font></a>';
+                  ($tab == $current ? font_tags(FONTSIZE_BODY, style_value("PAGE_TITLE_COLOUR",'#FFFFFF')).str($tab) : font_tags(FONTSIZE_BODY).str($tab)).'</font></a>';
 
   // Output Title
   page_header( str('STATISTICS') );
 
-  echo '<center>'.font_tags(28).$tab_strip.'</center>';
+  echo '<center>'.font_tags(FONTSIZE_BODY).$tab_strip.'</center>';
 
   $info = new infotab();
   $menu = new menu();
@@ -229,8 +229,8 @@
       $tab_strip = '';
       foreach ($tabs as $key=>$tab)
         $tab_strip .= ($key > 0 ? ' | ' : '').'<a href="statistics.php?tab='.$current.'&tab2='.$tab.'">'.
-                      ($tab == $tab2 ? font_tags(30, style_value("PAGE_TITLE_COLOUR",'#FFFFFF')).str($tab) : font_tags(30).str($tab)).'</font></a>';
-      echo '<center>'.font_tags(28).$tab_strip.'</center>';
+                      ($tab == $tab2 ? font_tags(FONTSIZE_BODY, style_value("PAGE_TITLE_COLOUR",'#FFFFFF')).str($tab) : font_tags(FONTSIZE_BODY).str($tab)).'</font></a>';
+      echo '<center>'.font_tags(FONTSIZE_BODY).$tab_strip.'</center>';
 
       $data = stats_video($tab2);
       break;
@@ -248,8 +248,8 @@
       $tab_strip = '';
       foreach ($tabs as $key=>$tab)
         $tab_strip .= ($key > 0 ? ' | ' : '').'<a href="statistics.php?tab='.$current.'&tab2='.$tab.'">'.
-                      ($tab == $tab2 ? font_tags(30, style_value("PAGE_TITLE_COLOUR",'#FFFFFF')).str($tab) : font_tags(30).str($tab)).'</font></a>';
-      echo '<center>'.font_tags(28).$tab_strip.'</center>';
+                      ($tab == $tab2 ? font_tags(FONTSIZE_BODY, style_value("PAGE_TITLE_COLOUR",'#FFFFFF')).str($tab) : font_tags(FONTSIZE_BODY).str($tab)).'</font></a>';
+      echo '<center>'.font_tags(FONTSIZE_BODY).$tab_strip.'</center>';
 
       $data = stats_tv($tab2);
       break;
@@ -269,8 +269,8 @@
       $tab_strip = '';
       foreach ($tabs as $key=>$tab)
         $tab_strip .= ($key > 0 ? ' | ' : '').'<a href="statistics.php?tab='.$current.'&tab2='.$tab.'">'.
-                      ($tab == $tab2 ? font_tags(30, style_value("PAGE_TITLE_COLOUR",'#FFFFFF')).str($tab) : font_tags(30).str($tab)).'</font></a>';
-      echo '<center>'.font_tags(28).$tab_strip.'</center>';
+                      ($tab == $tab2 ? font_tags(FONTSIZE_BODY, style_value("PAGE_TITLE_COLOUR",'#FFFFFF')).str($tab) : font_tags(FONTSIZE_BODY).str($tab)).'</font></a>';
+      echo '<center>'.font_tags(FONTSIZE_BODY).$tab_strip.'</center>';
 
       $data = stats_music($tab2);
       break;
@@ -288,8 +288,8 @@
       $tab_strip = '';
       foreach ($tabs as $key=>$tab)
         $tab_strip .= ($key > 0 ? ' | ' : '').'<a href="statistics.php?tab='.$current.'&tab2='.$tab.'">'.
-                      ($tab == $tab2 ? font_tags(30, style_value("PAGE_TITLE_COLOUR",'#FFFFFF')).str($tab) : font_tags(30).str($tab)).'</font></a>';
-      echo '<center>'.font_tags(28).$tab_strip.'</center>';
+                      ($tab == $tab2 ? font_tags(FONTSIZE_BODY, style_value("PAGE_TITLE_COLOUR",'#FFFFFF')).str($tab) : font_tags(FONTSIZE_BODY).str($tab)).'</font></a>';
+      echo '<center>'.font_tags(FONTSIZE_BODY).$tab_strip.'</center>';
 
       $data = stats_photos($tab2);
       break;
@@ -301,8 +301,8 @@
       $tab_strip = '';
       foreach ($tabs as $key=>$tab)
         $tab_strip .= ($key > 0 ? ' | ' : '').'<a href="statistics.php?tab='.$current.'&tab2='.$tab.'">'.
-                      ($tab == $tab2 ? font_tags(30, style_value("PAGE_TITLE_COLOUR",'#FFFFFF')).str($tab) : font_tags(30).str($tab)).'</font></a>';
-      echo '<center>'.font_tags(28).$tab_strip.'</center>';
+                      ($tab == $tab2 ? font_tags(FONTSIZE_BODY, style_value("PAGE_TITLE_COLOUR",'#FFFFFF')).str($tab) : font_tags(FONTSIZE_BODY).str($tab)).'</font></a>';
+      echo '<center>'.font_tags(FONTSIZE_BODY).$tab_strip.'</center>';
 
       $data = stats_lastfm($tab2);
       break;

@@ -46,11 +46,11 @@
               '.img_gen($img,280,450).'
               </td><td width="'.convert_x(20).'"></td>
               <td valign="top">';
-              echo font_tags(32).$items[$idx_current]["DESCRIPTION"];
+              echo font_tags(FONTSIZE_BODY).$items[$idx_current]["DESCRIPTION"];
     echo '    </td></table>';
   }
   else
-    echo font_tags(32).$items[$idx_current]["DESCRIPTION"];
+    echo font_tags(FONTSIZE_BODY).$items[$idx_current]["DESCRIPTION"];
 
   // Show links to next and previous items.
   echo '<p><table width="100%" cellpadding=0 cellspacing=0 border=0>';
@@ -58,11 +58,11 @@
   {
     echo '<tr><td align="center">'.up_link(url_add_params('/rss_item_selected.php',array('item_id'=>$items[$idx_next]["ID"],
                                                                                          'sub_id'=>$sub_id)), false).'</td></tr>';
-    echo '<tr><td align="center">'.font_tags(32).font_colour_tags('PAGE_TEXT_BOLD_COLOUR',str('NEXT').': ').$items[$idx_next]["TITLE"].'</td></tr>';
+    echo '<tr><td align="center">'.font_tags(FONTSIZE_BODY).font_colour_tags('PAGE_TEXT_BOLD_COLOUR',str('NEXT').': ').$items[$idx_next]["TITLE"].'</td></tr>';
   }
   if ($idx_prev > -1)
   {
-    echo '<tr><td align="center">'.font_tags(32).font_colour_tags('PAGE_TEXT_BOLD_COLOUR',str('PREVIOUS').': ').$items[$idx_prev]["TITLE"].'</td></tr>';
+    echo '<tr><td align="center">'.font_tags(FONTSIZE_BODY).font_colour_tags('PAGE_TEXT_BOLD_COLOUR',str('PREVIOUS').': ').$items[$idx_prev]["TITLE"].'</td></tr>';
     echo '<tr><td align="center">'.down_link(url_add_params('/rss_item_selected.php',array('item_id'=>$items[$idx_prev]["ID"],
                                                                                            'sub_id'=>$sub_id)), false).'</td></tr>';
   }

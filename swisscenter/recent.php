@@ -61,7 +61,7 @@ function show_menu()
   $menu->add_item( str('MUSIC')    ,"recent.php?type=".MEDIA_TYPE_MUSIC,true);
   $menu->add_item( str('PHOTOS')   ,"recent.php?type=".MEDIA_TYPE_PHOTO,true);
   $menu->display(1, style_value("MENU_RECENT_WIDTH"), style_value("MENU_RECENT_ALIGN"));
-  page_footer('index.php', $buttons);
+  page_footer('index.php');
 }
 
 /**

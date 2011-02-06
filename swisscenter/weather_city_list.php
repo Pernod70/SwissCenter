@@ -26,14 +26,14 @@
 
     if (empty($data))
     {
-      echo font_tags(32).str( 'WEATHER_NO_CITY'
+      echo font_tags(FONTSIZE_BODY).str( 'WEATHER_NO_CITY'
               , '<font color="'.style_value("PAGE_TITLE_COLOUR",'#FFFFFF').'">'.$search.'</font>'
               , '<font color="'.style_value("PAGE_TITLE_COLOUR",'#FFFFFF').'">'.str('WEATHER_CHANNEL').'</font>').'<p>';
 
       $menu->add_item( str('SEARCH_YES'),'city_selected.php?name='.rawurlencode($search),true);
       $menu->add_item( str('SEARCH_NO'),$this_url.'?sort='.$sort.'&any='.$prefix,true);
       $menu->display( 1,480 );
- 
+
     }
     else
     {

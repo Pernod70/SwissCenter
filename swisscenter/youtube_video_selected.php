@@ -53,17 +53,17 @@ function star_rating( $rating )
   page_header($title, star_rating($rating));
 
   $menu = new menu();
-  $menu->add_item( str('PLAY_NOW'), 'href="stream_url.php?'.current_session().'&youtube_id='.$video_id.'" vod ');
+  $menu->add_item( str('PLAY_NOW'), 'href="stream_url.php?'.current_session().'&youtube_id='.$video_id.'&ext=.mp4" vod ');
 
   echo '<table width="100%" cellpadding=0 cellspacing=0 border=0>
           <tr>
             <td valign=top width="'.convert_x(280).'" align="left">'.img_gen($image,280,550).'</td>
             <td width="'.convert_x(20).'"></td>
             <td valign="top">'.
-              font_tags(30).utf8_decode($entry['media$group']['media$description']['$t']).'
-              <p>'.font_tags(30).str('RUNNING_TIME').': '.hhmmss($duration).'</font>
-              <p>'.font_tags(30).str('DATE').': '.date('jS M Y', strtotime($uploaded)).'</font>
-              <p>'.font_tags(30).str('VIEWED').': '.number_format($viewed).'</font>';
+              font_tags(FONTSIZE_BODY).utf8_decode($entry['media$group']['media$description']['$t']).'
+              <p>'.font_tags(FONTSIZE_BODY).str('RUNNING_TIME').': '.hhmmss($duration).'</font>
+              <p>'.font_tags(FONTSIZE_BODY).str('DATE').': '.date('jS M Y', strtotime($uploaded)).'</font>
+              <p>'.font_tags(FONTSIZE_BODY).str('VIEWED').': '.number_format($viewed).'</font>';
               $menu->display(1, 480);
   echo     '</td>
           </tr>

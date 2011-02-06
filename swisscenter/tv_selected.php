@@ -49,45 +49,60 @@
 
   search_hist_push( $this_url , $predicate );
 
-  // Random banner image
-  $banner_imgs = dir_to_array($episodes[0]['DIRNAME'].'banners/','banner_*.*');
-  $banner_img = $banner_imgs[rand(0,count($banner_imgs)-1)];
-
-  // Random series image
-  $series_imgs = dir_to_array($episodes[0]['DIRNAME'].'banners/','series'.sprintf("%02d", $current_series).'_*.*');
-  $series_img = $series_imgs[rand(0,count($series_imgs)-1)];
-
   // Random fanart image
-  $themes = db_toarray('select processed_image, show_banner, show_image from themes where title="'.db_escape_str($programme).'" and use_series=1 and processed_image is not NULL');
-  $theme = $themes[rand(0,count($themes)-1)];
+  $themes = db_toarray('select processed_image, show_banner, show_image from themes where media_type='.MEDIA_TYPE_TV.' and title="'.db_escape_str($programme).'" and use_series=1 and processed_image is not NULL');
+  $theme = $themes[mt_rand(0,count($themes)-1)];
 
-  if ( file_exists($theme['PROCESSED_IMAGE']) )
+  // Set banner image
+  if ( !empty($theme) && !$theme['SHOW_BANNER'] )
+    $banner_img = false;
+  else
   {
-    $background = $theme['PROCESSED_IMAGE'];
-    if ( $theme['SHOW_BANNER'] == 0 ) { $banner_img = ''; $programme = ''; }
-    if ( $theme['SHOW_IMAGE'] == 0 ) { $series_img = ''; }
+    // Random banner image
+    $banner_imgs = dir_to_array($episodes[0]['DIRNAME'].'banners/','banner_*.*');
+    $banner_img = $banner_imgs[mt_rand(0,count($banner_imgs)-1)];
   }
+
+  // Set series image
+  if ( !empty($theme) && !$theme['SHOW_IMAGE'] )
+    $series_img = SC_LOCATION.'images/dot.gif';
+  else
+  {
+    // Random series image
+    $series_imgs = dir_to_array($episodes[0]['DIRNAME'].'banners/','series'.sprintf("%02d", $current_series).'_*.*');
+    $series_img = $series_imgs[mt_rand(0,count($series_imgs)-1)];
+  }
+
+  // Set background image
+  if ( !empty($theme) && file_exists($theme['PROCESSED_IMAGE']) )
+    $background = $theme['PROCESSED_IMAGE'];
   else
     $background = (file_exists($series_img) ? -1 : MEDIA_TYPE_TV);
 
-  page_header( $programme,'','',1,false,'',$background,
-               ( get_sys_pref('tv_use_banners','YES') == 'YES' && file_exists($banner_img) ? $banner_img : false) );
+  page_header( $programme,'','<meta SYABAS-PLAYERMODE="video">',1,false,'',$background,
+               ( get_sys_pref('tv_use_banners','YES') == 'YES' && file_exists($banner_img) ? $banner_img : false), 'PAGE_TEXT_BACKGROUND' );
 
   // There may only be a single series for the selected programme
   if (count($series) > 1)
   {
-    // Output a link to the various series/seasons available for this programme.s
-    echo '<center>'.font_tags(32, style_value("PAGE_TITLE_COLOUR",'#FFFFFF')).str('SERIES').'</font>';
-
-    foreach ($series as $s)
+    // Output a link to the various series/seasons available for this programme
+    echo '<table '.style_background('PAGE_TEXT_BACKGROUND').' align="center" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+              <td align=center>'.font_tags(FONTSIZE_BODY, style_value("PAGE_TITLE_COLOUR",'#FFFFFF')).'&nbsp;'.str('SERIES').'</font>';
+    foreach ($series as $idx=>$s)
     {
       if ($s == $current_series)
-        echo '&nbsp; <a href="'.url_add_params($this_url,array("series"=>$s,"page"=>1)).'">',font_tags(32, style_value("PAGE_TITLE_COLOUR",'#FFFFFF')).$s.'</font></a>';
+      {
+        $current_idx = $idx;
+        echo '&nbsp; <a href="'.url_add_params($this_url,array("series"=>$s,"page"=>1)).'">',font_tags(FONTSIZE_BODY, style_value("PAGE_TITLE_COLOUR",'#FFFFFF')).$s.'</font></a>';
+      }
       else
-        echo '&nbsp; <a href="'.url_add_params($this_url,array("series"=>$s,"page"=>1)).'">'.font_tags(32).$s.'</a>';
+        echo '&nbsp; <a href="'.url_add_params($this_url,array("series"=>$s,"page"=>1)).'">'.font_tags(FONTSIZE_BODY).$s.'</font></a>';
     }
+    echo '&nbsp;</td></table>';
 
-    echo '</center>';
+    // Assign prev/next buttons to quickly switch series
+    echo '<a href="'.url_add_params($this_url,array("page"=>1)).'" TVID="0"></a>';
   }
 
   // Build up a menu of episodes that the user can select from.
@@ -102,13 +117,24 @@
   {
     if (file_exists($series_img) )
     {
-      echo '<table width="100%" cellpadding=0 cellspacing=0 border=0>
-            <tr><td valign=top width="'.convert_x(280).'" align="left">
-                '.img_gen($series_img,280,550).'
-                </td><td width="'.convert_x(20).'"></td>
-                <td valign="top">';
-                $menu->display_page( $page,1,480,'right' );
-      echo '    </td></table>';
+      // Column 1: Image
+      echo '<table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td valign="top">
+                  <table '.style_background('PAGE_TEXT_BACKGROUND').' cellpadding="10" cellspacing="0" border="0">
+                    <tr valign="top">
+                      <td>'.img_gen($series_img,280,550,false,false,false,array(),false).'</td>
+                    </tr>
+                  </table>
+                </td>';
+      // Column 2: Gap
+      echo '    <td width="'.convert_x(10).'"></td>';
+      // Column 3: Menu
+      echo '    <td valign="top">';
+                  $menu->display_page( $page,1,480,'right' );
+      echo '    </td>
+              </tr>
+            </table>';
     }
     else
     {
@@ -127,7 +153,7 @@
   else
     $buttons[] = array('text'=>str('VIEW_UNVIEWED'), 'url'=> url_set_param($this_url,'view_status','unviewed') );
 
-  page_footer( url_add_params( search_picker_most_recent(), array("p_del"=>"y","del"=>"y") ), $buttons );
+  page_footer( url_add_params( search_picker_most_recent(), array("p_del"=>"y","del"=>"y") ), $buttons, 0, true, 'PAGE_TEXT_BACKGROUND' );
 
 /**************************************************************************************************
                                                End of file

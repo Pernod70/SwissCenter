@@ -32,11 +32,11 @@
   echo '<table width="100%" cellpadding=0 cellspacing=0 border=0>
           <tr>
             <td valign=top width="'.convert_x(280).'" align="left"><br>
-              '.img_gen(style_img('YOUTUBE_LOGO',true,false),280,450).'
+              '.img_gen(style_img('YOUTUBE',true,false),280,450).'
             </td>
             <td width="'.convert_x(20).'"></td>
             <td valign="top">';
-  echo        '<center>'.font_tags(32).str('YOUTUBE_PROMPT_GENERAL').'</center>';
+  echo        '<center>'.font_tags(FONTSIZE_SUBHEADER).str('YOUTUBE_PROMPT_GENERAL').'</center>';
   $general_menu->display( 1, 520 );
 
   // Only display the personal options if a username is available
@@ -69,7 +69,7 @@
     $personal_menu->add_item( str('PLAYLISTS'),                                 url_add_params('youtube_browse.php', array('username'=>$username, 'type'=>'playlists')), true );
     $personal_menu->add_item( str('SUBSCRIPTIONS').' ('.$num_subscriptions.')', url_add_params('youtube_browse.php', array('username'=>$username, 'type'=>'subscriptions')), true );
 //    $personal_menu->add_item( str('CONTACTS').' ('.$num_contacts.')',           url_add_params('youtube_browse.php', array('username'=>$username, 'type'=>'contacts')), true );
-    echo '<center>'.font_tags(32).str('YOUTUBE_PROMPT_PERSONAL').'</center>';
+    echo '<center>'.font_tags(FONTSIZE_SUBHEADER).str('YOUTUBE_PROMPT_PERSONAL').'</center>';
     $personal_menu->display( $general_menu->num_items()+1, 520 );
   }
 
