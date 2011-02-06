@@ -3,7 +3,6 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-  require_once( realpath(dirname(__FILE__).'/page.php'));
   require_once( realpath(dirname(__FILE__).'/mysql.php'));
   require_once( realpath(dirname(__FILE__).'/file.php'));
   require_once( realpath(dirname(__FILE__).'/../ext/xml/XPath.class.php'));
