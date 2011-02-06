@@ -2229,6 +2229,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>LINES</id>
+        <text>Lines</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>LISTEN_LASTFM</id>
         <text>Listen to Last.fm Station</text>
         <version>1.22</version>
@@ -4757,6 +4762,11 @@ If any details are added/changed on this page then you are requested to submit t
         <version>1.19</version>
       </string>
       <string>
+        <id>STATIONS</id>
+        <text>Stations</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>STATISTICS</id>
         <text>Statistics</text>
         <version>1.22</version>
@@ -4974,6 +4984,26 @@ If any details are added/changed on this page then you are requested to submit t
       <string>
         <id>TEST_PARSERS</id>
         <text>Parser Tests</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TFL</id>
+        <text>Transport for London</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TFL_LIVE_TRAFFIC_CAMERA</id>
+        <text>Live traffic camera images</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TFL_PROMPT</id>
+        <text>Weekend line and station closures from Transport for London. Also traffic camera images from around London.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TFL_TUBE_THIS_WEEKEND</id>
+        <text>Tube - this weekend</text>
         <version>1.22</version>
       </string>
       <string>
