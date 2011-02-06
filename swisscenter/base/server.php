@@ -166,7 +166,7 @@
       foreach ($_POST as $arg => $val)
         $url = url_add_param($url,$arg,$val);
 
-    return $url;
+    return url_remove_param($url,'hist');
   }
 
   // ----------------------------------------------------------------------------------
