@@ -6,7 +6,6 @@
   require_once( realpath(dirname(__FILE__).'/base/page.php'));
   require_once( realpath(dirname(__FILE__).'/base/utils.php'));
   require_once( realpath(dirname(__FILE__).'/base/file.php'));
-  require_once( realpath(dirname(__FILE__).'/base/search.php'));
 
   /**
    * Retrieve and parser the girls details page.
@@ -31,8 +30,6 @@
 // Main Code
 //*************************************************************************************************
 
-  // Update page history
-  $back_url = search_hist_most_recent();
   $cache_dir = get_sys_pref('cache_dir');
 
   // Get ftvgirls details page
@@ -56,7 +53,7 @@
         </table>';
 
   // Make sure the "back" button goes to the correct page:
-  page_footer( $back_url["url"] );
+  page_footer( page_hist_back_url() );
 
 /**************************************************************************************************
                                                End of file

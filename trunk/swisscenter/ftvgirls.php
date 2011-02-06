@@ -5,7 +5,6 @@
 
   require_once( realpath(dirname(__FILE__).'/base/page.php'));
   require_once( realpath(dirname(__FILE__).'/base/browse.php'));
-  require_once( realpath(dirname(__FILE__).'/base/search.php'));
   require_once( realpath(dirname(__FILE__).'/base/playlist.php'));
 
   /**
@@ -62,7 +61,7 @@
   $back_url = 'internet_tv.php';
   $page     = (isset($_REQUEST["page"]) ? $_REQUEST["page"] : 0);
   $this_url = current_url();
-  search_hist_init($this_url);
+  page_hist_init();
 
   $items = ftvgirls_items();
 
