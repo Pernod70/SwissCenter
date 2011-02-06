@@ -15,47 +15,47 @@
     $sub_data = rss_get_subscription_details($sub_id);
     $items    = rss_get_subscription_items($sub_id, 'desc');
     $synlen   = $_SESSION["device"]["browser_x_res"];
-    
+
     if ( strpos(search_picker_most_recent(), 'sub_id') > 0 ) search_picker_pop();
     $back_url = search_picker_most_recent();
     search_picker_push( current_url() );
-    
+
     page_header( $sub_data["TITLE"], shorten($sub_data["DESCRIPTION"],$synlen) );
-    
+
     // Build up a menu of subscription items that the user can select from.
     foreach ($items as $item)
     {
       $menu->add_item( $item["TITLE"], url_add_params('/rss_item_selected.php',array('item_id'=>$item["ID"],
                                                                                      'sub_id'=>$sub_id)));
     }
-  
+
     if ($menu->num_items() > 0)
     {
       if (!empty($sub_data["IMAGE"]) )
         $img = "select image from rss_subscriptions where id=$sub_id.sql";
-      else 
+      else
         $img = style_img('MISSING_RSS_ART',true,false);
-      
+
       echo '<p><table width="100%" cellpadding=0 cellspacing=0 border=0>
             <tr><td valign=top width="'.convert_x(280).'" align="center"><br>
                 '.img_gen($img,280,450).'<br>';
-      echo font_tags(32).str('RSS_LAST_UPDATED').'<br>'.date('Y-m-d H:i',strtotime($sub_data["LAST_UPDATE"])).'</td>';
+      echo font_tags(FONTSIZE_BODY).str('RSS_LAST_UPDATED').'<br>'.date('Y-m-d H:i',strtotime($sub_data["LAST_UPDATE"])).'</td>';
       echo '    <td width="'.convert_x(20).'"></td>
                 <td valign="top">';
                 $menu->display_page( $page,1,520 );
-      echo '    </td></table>';   
+      echo '    </td></table>';
     }
-    
+
     // Define buttons for linked file and url.
     $buttons = array();
     $buttons[] = array('text'=>str('RSS_REFRESH'), 'url'=> 'rss_feeds.php?update_id='.$sub_id);
     page_footer( $back_url, $buttons );
   }
-  
+
   /**************************************************************************************************
    Main page output
    *************************************************************************************************/
-       
+
   $rss_feeds = rss_get_subscriptions();
 
   if ( isset($_REQUEST["update_id"]) )
@@ -67,21 +67,21 @@
     set_sys_pref('MEDIA_SCAN_TYPE','RSS');
     set_sys_pref('MEDIA_SCAN_RSS',$_REQUEST["update_id"]);
     set_sys_pref('MEDIA_SCAN_STATUS',str('MEDIA_SCAN_STATUS_PENDING'));
-    
-    // Call the media search in the background.    
+
+    // Call the media search in the background.
     media_refresh_now();
   }
   elseif ( !empty($_REQUEST["sub_id"]) )
   {
     display_rss_feed($_REQUEST["sub_id"]);
-  } 
+  }
   elseif ( count($rss_feeds) >0 )
   {
     (isset($_REQUEST["page"])) ? $page = $_REQUEST["page"] : $page = 0;
     search_picker_init( current_url() );
     page_header(str('RSS_FEEDS'));
     display_rss(url_remove_param(current_url(),'page'), $rss_feeds, $page);
-    
+
     // Define buttons for linked file and url.
     $buttons = array();
     $buttons[] = array('text'=>str('RSS_REFRESH'), 'url'=> 'rss_feeds.php?update_id=0');

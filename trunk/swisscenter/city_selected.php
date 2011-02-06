@@ -14,8 +14,8 @@
   if (count($matches) == 0)
   {
     page_header(str('WEATHER_MATCHING_TITLE'),str('WEATHER_MATCHING'));
-    
-    echo '&nbsp;<center><p>'.font_tags(32)
+
+    echo '&nbsp;<center><p>'.font_tags(FONTSIZE_BODY)
          .str('WEATHER_NO_MATCHING'
              ,'<font color="'.style_value("PAGE_TEXT_BOLD_COLOUR",'#FFFFFF').'">The Weather Channel</font>'
              ,'<font color="'.style_value("PAGE_TEXT_BOLD_COLOUR",'#FFFFFF').'">'.$_REQUEST["name"].'</font>')
@@ -23,7 +23,7 @@
 
     $menu = new menu();
     $menu->add_item(str('WEATHER_BACK_TO_SEARCH'),'weather_city_list.php',true);
-    $menu->display();    
+    $menu->display();
     page_footer("weather_cc.php");
   }
   elseif (count($matches) == 1)
@@ -34,7 +34,7 @@
   }
   else
   {
-    // More than one match was found, and the database was updated, so redirect the use back to the A-Z 
+    // More than one match was found, and the database was updated, so redirect the use back to the A-Z
     // city listings.
     header("Location: /weather_city_list.php?search=".rawurlencode($city));
   }

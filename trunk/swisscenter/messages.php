@@ -14,21 +14,21 @@
 
     if($num == 0)
     {
-      page_inform(2,(empty($_REQUEST["return"]) ? 'config.php' : $_REQUEST["return"]), str('MESSAGES') 
+      page_inform(2,(empty($_REQUEST["return"]) ? 'config.php' : $_REQUEST["return"]), str('MESSAGES')
                    ,str('MESSAGES_NONE'));
-      exit;      
+      exit;
     }
     else
     {
       page_header( str('MESSAGES'), "" );
       // Display a list of all the outstanding messages
-      echo '<center>'.font_tags(32, style_value("PAGE_TEXT")).str('MESSAGES_SELECT').'</center></br>';
+      echo '<center>'.font_tags(FONTSIZE_BODY, style_value("PAGE_TEXT")).str('MESSAGES_SELECT').'</center></br>';
 
-      // Find out what page we are on, default to page 0 (first page)      
+      // Find out what page we are on, default to page 0 (first page)
       $page = $_REQUEST["page"];
       if(empty($page))
         $page = 0;
-      
+
       // Get the data from the database for the current page
       $data = get_new_and_unread_messages( $page );
 
@@ -40,7 +40,7 @@
           $message_text = '('.str('MESSAGE_STATUS_NEW').') '.$row["TITLE"];
         else
           $message_text = $row["TITLE"];
-        
+
         // Calculate the page that the user should be returned to if they choose to delete
         // this message. Should return to the current page unless this is the last item on
         // the page in which case they'll go back to the previous page unless this is page 0
@@ -63,12 +63,12 @@
         $menu->add_up( '?return='.$_REQUEST["return"].'&page='.($page > 0 ? ($page-1) : $last_page));
         $menu->add_down( '?return='.$_REQUEST["return"].'&page='.($page < $last_page ? ($page+1) : 0));
       }
-      
+
       // Render the menu
       $menu->display();
     }
   }
-  
+
   function display_message($id)
   {
     page_header( str('MESSAGES') , "");
@@ -76,17 +76,17 @@
     global $message_status_string;
     $menu = new menu();
     $data = array_pop(db_toarray("select * from messages where message_id=".$id));
-    
+
     // Render the message
     echo '<table align="center" width="80%">';
-    echo '<tr><td>'.font_tags(32, style_value("PAGE_TITLE_COLOUR"))
+    echo '<tr><td>'.font_tags(FONTSIZE_BODY, style_value("PAGE_TITLE_COLOUR"))
           .str('DATE').':'.$data["ADDED"].'</td>'
-          .'<td align="right">'.font_tags(32, style_value("PAGE_TITLE_COLOUR"))
+          .'<td align="right">'.font_tags(FONTSIZE_BODY, style_value("PAGE_TITLE_COLOUR"))
           .str('STATUS').':'.$message_status_string[$data["STATUS"]].'</td></tr>';
     echo '<tr><td height="8" colspan="2"><img src="/images/dot.gif"></td></tr>';
-    echo '<tr><td colspan="2" align="center">'.font_tags(32, style_value("PAGE_TITLE_COLOUR"))
+    echo '<tr><td colspan="2" align="center">'.font_tags(FONTSIZE_BODY, style_value("PAGE_TITLE_COLOUR"))
           .$data["TITLE"].'</td></tr>';
-    echo '<tr><td colspan="2">'.font_tags(32, style_value("PAGE_TEXT"))
+    echo '<tr><td colspan="2">'.font_tags(FONTSIZE_BODY, style_value("PAGE_TEXT"))
           .$data["MESSAGE_TEXT"].'</td></tr>';
     echo '</table><p>';
 
@@ -102,9 +102,9 @@
                       '&delete='.$id.'&page='.$_REQUEST["pagedel"]);
     else
       $menu->add_item(str('MESSAGES_DELETE'),'messages.php?return='.$_REQUEST["return"].'&delete='.$id);
-      
+
     $menu->display();
-    
+
     db_sqlcommand("UPDATE messages SET status=1 WHERE message_id=".$id);
   }
 
@@ -124,11 +124,11 @@
     display_message($_REQUEST["id"]);
   }
   else
-  {   
+  {
     // Just list the messages
     list_messages();
   }
-   
+
   page_footer( empty($_REQUEST["return"]) ? 'config.php' : $_REQUEST["return"]);
 
 /**************************************************************************************************

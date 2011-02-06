@@ -8,7 +8,6 @@ require_once( realpath(dirname(__FILE__).'/utils.php'));
 require_once( realpath(dirname(__FILE__).'/file.php'));
 require_once( realpath(dirname(__FILE__).'/media.php'));
 require_once( realpath(dirname(__FILE__).'/mysql.php'));
-require_once( realpath(dirname(__FILE__).'/page.php'));
 require_once( realpath(dirname(__FILE__).'/rating.php'));
 require_once( realpath(dirname(__FILE__).'/flickr.php'));
 require_once( realpath(dirname(__FILE__).'/../ext/xml/XPath.class.php'));
@@ -315,7 +314,7 @@ function play_lastfm($station_type, $name = '' )
 // selected using the SQL statement in $spec
 //-------------------------------------------------------------------------------------------------
 
-function play_sql_list( $media_type, $spec)
+function play_sql_list( $media_type, $spec )
 {
   $_SESSION["play_now"]["spec"] = $spec;
   $params = 'spec_type=sql&'.current_session().'&seed='.mt_rand().'&media_type='.$media_type;
@@ -401,7 +400,7 @@ function build_pl($sql)
 
   page_header(str('TRACKS_ADDED_TITLE'));
 
-  echo font_tags(32).str('TRACKS_ADDED_TEXT'
+  echo font_tags(FONTSIZE_BODY).str('TRACKS_ADDED_TEXT'
           ,'<font color="'.style_value("PAGE_TEXT_BOLD_COLOUR".'#FFFFFF').'">'.str('HOME').'</font>'
           ,'<font color="'.style_value("PAGE_TEXT_BOLD_COLOUR",'#FFFFFF').'">"'.str('MANAGE_PLAYLISTS').'"</font>');
 
@@ -437,7 +436,7 @@ function pl_info ()
   }
   else
   {
-    echo '<center>'.font_tags(32).str('NO_PLAYLIST').'</center>';
+    echo '<center>'.font_tags(FONTSIZE_BODY).str('NO_PLAYLIST').'</center>';
   }
   $info->display();
 }
@@ -495,7 +494,7 @@ function load_pl_m3u( $fsp )
 
 /**
  * Parses a WPL playlist file (Windows Media Playlist) and extracts an array of files
- * referenced by the file  with no further processing.
+ * referenced by the file with no further processing.
  *
  * @param filename $fsp
  * @return array

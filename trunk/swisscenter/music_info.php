@@ -57,15 +57,15 @@
 
   // Display artist info
   if (isset($artist_feed["artist"]["bio"]["summary"]))
-    echo '<p>'.font_tags(30).utf8_decode($artist_feed["artist"]["bio"]["summary"]);
+    echo '<p>'.font_tags(FONTSIZE_BODY).utf8_decode($artist_feed["artist"]["bio"]["summary"]);
 
   // Display album info
   if (isset($album_feed["album"]["wiki"]["summary"]))
-    echo '<p>'.font_tags(30).utf8_decode($album_feed["album"]["wiki"]["summary"]);
+    echo '<p>'.font_tags(FONTSIZE_BODY).utf8_decode($album_feed["album"]["wiki"]["summary"]);
 
   // Display track info
   if (isset($track_feed["track"]["wiki"]["summary"]))
-    echo '<p>'.font_tags(30).utf8_decode($track_feed["track"]["wiki"]["summary"]);
+    echo '<p>'.font_tags(FONTSIZE_BODY).utf8_decode($track_feed["track"]["wiki"]["summary"]);
 
   $menu = new menu();
   $menu->add_item(str('RETURN_TO_SELECTION'), $back_url);

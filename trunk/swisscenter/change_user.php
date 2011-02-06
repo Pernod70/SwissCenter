@@ -11,7 +11,7 @@
   {
     page_header(str('USER_CHANGE'), "", "", "1", true);
 
-    echo '<center>'.font_tags(32).str('SELECT_USER').'</center><p>';
+    echo '<center>'.font_tags(FONTSIZE_BODY).str('SELECT_USER').'</center><p>';
 
     $condition = "";
     if(is_user_selected())
@@ -41,7 +41,7 @@
     }
     else
     {
-      print "<center>".font_tags(32).str('CONFIG_DB_ERROR')."</center>";
+      print "<center>".font_tags(FONTSIZE_BODY).str('CONFIG_DB_ERROR')."</center>";
     }
 
     page_footer('index.php');

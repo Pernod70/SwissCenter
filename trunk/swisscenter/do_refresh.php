@@ -12,7 +12,7 @@
   /**
    * Displays a message to the user, and auto-refreshes with the current progress.
    */
-  
+
   function show_progress()
   {
     $menu        = new menu();
@@ -27,25 +27,25 @@
       page_header( str('SETUP_SEARCH_NEW_MEDIA'));
 
     // Display a message to the user
-    echo font_tags(32).str('REFRESH_RUNNING');    
+    echo font_tags(FONTSIZE_BODY).str('REFRESH_RUNNING');
 
     // and then the current status
     echo '<p>&nbsp;<br><center><font color="'.style_value("PAGE_TITLE_COLOUR",'#FFFFFF').'">'.str('MEDIA_SCAN_STATUS').' :</font> '.$status;
     if ($status == str('MEDIA_SCAN_STATUS_RUNNING'))
       echo ' ('.(int)$overall.'%)';
-    
+
     // And then finally a menu option to nagivate away from this page.
     echo '</center><p>';
     $menu->add_item(str('CONTINUE'),'/');
     $menu->display();
-    page_footer( 'config.php' );        
+    page_footer( 'config.php' );
   }
-  
+
   /**
    * Refresh all categories and all media types
    *
    */
-  
+
   function do_refresh_all()
   {
     set_sys_pref('MEDIA_SCAN_TYPE','MEDIA');
@@ -56,31 +56,31 @@
     media_refresh_now();
     show_progress();
   }
-  
+
   /**
    * Refresh all media locations defined for a particular category
    *
    * @param integer $spec - the category ID to refresh
    */
-  
+
   function do_refresh_cat( $spec )
   {
     set_sys_pref('MEDIA_SCAN_CATEGORY',$spec);
     do_refresh_all();
   }
-  
+
   /**
    * Refresh all media locations for a particular media type
    *
    * @param ineteger $spec - the media type to refresh
    */
-  
+
   function do_refresh_type( $spec )
   {
     set_sys_pref('MEDIA_SCAN_MEDIA_TYPE',$spec);
     do_refresh_all();
   }
-  
+
   /**
    * Choose the method to refresh: all, by type or by category
    *
@@ -95,50 +95,50 @@
     $menu->add_item(str('SETUP_SEARCH_CATEGORY'),'/do_refresh.php?type=category',true);
     echo '<p>';
     $menu->display();
-    page_footer( 'config.php' );      
+    page_footer( 'config.php' );
   }
-  
+
   /**
    * Choose the category to refresh
    *
    */
-  
+
   function choose_category()
   {
     $menu = new menu();
-    page_header( str('SETUP_SEARCH_NEW_MEDIA'));          
-    echo '<center>'.font_tags(32).str('SELECT_CATEGORY').'</center><p>';
+    page_header( str('SETUP_SEARCH_NEW_MEDIA'));
+    echo '<center>'.font_tags(FONTSIZE_BODY).str('SELECT_CATEGORY').'</center><p>';
     foreach (db_toarray("select * from categories order by cat_name") as $cat)
     {
       $menu->add_item($cat["CAT_NAME"],'/do_refresh.php?type=category&spec='.$cat["CAT_ID"]);
     }
-    $menu->display_page( nvl($_REQUEST["page"],1) );        
-    page_footer( '/do_refresh.php' );          
+    $menu->display_page( nvl($_REQUEST["page"],1) );
+    page_footer( '/do_refresh.php' );
   }
-  
+
   /**
    * Choose the media type to refresh
    *
    */
-  
+
   function choose_type()
   {
     $menu = new menu();
-    page_header( str('SETUP_SEARCH_NEW_MEDIA'));          
-    echo '<center>'.font_tags(32).str('SETUP_SEARCH_TYPE_TITLE').'</center><p>';
+    page_header( str('SETUP_SEARCH_NEW_MEDIA'));
+    echo '<center>'.font_tags(FONTSIZE_BODY).str('SETUP_SEARCH_TYPE_TITLE').'</center><p>';
     $menu->add_item( str('MUSIC') ,'/do_refresh.php?type=media_type&spec='.MEDIA_TYPE_MUSIC);
     $menu->add_item( str('PHOTOS') ,'/do_refresh.php?type=media_type&spec='.MEDIA_TYPE_PHOTO);
     $menu->add_item( str('TVSERIES') ,'/do_refresh.php?type=media_type&spec='.MEDIA_TYPE_TV);
     $menu->add_item( str('VIDEO') ,'/do_refresh.php?type=media_type&spec='.MEDIA_TYPE_VIDEO);
     $menu->display();
-    page_footer( '/do_refresh.php' );              
+    page_footer( '/do_refresh.php' );
   }
 
   /**
    * Main Logic
-   * 
+   *
    */
-  
+
   $type   = $_REQUEST["type"];
   $spec   = $_REQUEST["spec"];
   $status = get_sys_pref('MEDIA_SCAN_STATUS',str('MEDIA_SCAN_STATUS_COMPLETE'));
@@ -165,7 +165,7 @@
     do_refresh_cat($spec);
   }
   else
-    choose_main_opt();  
+    choose_main_opt();
 
 /**************************************************************************************************
                                                End of file

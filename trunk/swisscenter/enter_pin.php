@@ -18,23 +18,23 @@
   $pin = $_REQUEST["pin"];
   $ok_url = $_REQUEST["ok_url"];
   $cancel_url = $_REQUEST["cancel_url"];
-  
+
   $message = $_REQUEST["message"];
-  
+
   if(strstr($ok_url, "?") === false)
     $next_url = $ok_url.'?pin='.$pin;
   else
     $next_url = $ok_url.'&pin='.$pin;
-  
 
-  echo '<p><center>'.font_tags(32, style_value("PAGE_TITLE_COLOUR")).$message.'</center><p>&nbsp;<p>';
-  
+
+  echo '<p><center>'.font_tags(FONTSIZE_BODY, style_value("PAGE_TITLE_COLOUR")).$message.'</center><p>&nbsp;<p>';
+
   if(strlen($pin) > 0)
-    echo '<center>'.font_tags(32).'&gt; &nbsp; '.str_repeat("*", strlen($pin)).' &nbsp; &lt;</center>';
+    echo '<center>'.font_tags(FONTSIZE_BODY).'&gt; &nbsp; '.str_repeat("*", strlen($pin)).' &nbsp; &lt;</center>';
   else
-    echo '<center>'.font_tags(32).'&gt; &nbsp; &nbsp; &lt;</center>';
-  
-  echo '<p>&nbsp;<p align="center"><a href="'.$next_url.'">'.font_tags(32).'OK</a></center>';
+    echo '<center>'.font_tags(FONTSIZE_BODY).'&gt; &nbsp; &nbsp; &lt;</center>';
+
+  echo '<p>&nbsp;<p align="center"><a href="'.$next_url.'">'.font_tags(FONTSIZE_BODY).'OK</a></center>';
 
   if(strlen($pin) < 10)
   {
@@ -45,7 +45,7 @@
                            '&message='.urlencode($message).
                            '&cancel_url='.urlencode($cancel_url).
                            '&pin='.$pin.'0');
-                          
+
       for($i = 1; $i < 10; $i++)
       {
         echo '<a href="enter_pin.php?ok_url='.urlencode($ok_url).
@@ -76,7 +76,7 @@
                             '&message='.urlencode($message).
                             '&cancel_url='.urlencode($cancel_url).
                             '&pin=');
-                     
+
   $buttons[] = array('text'=>str('PIN_DELETE_LAST')
                     ,'url'=>'enter_pin.php?ok_url='.urlencode($ok_url).
                             '&message='.urlencode($message).
