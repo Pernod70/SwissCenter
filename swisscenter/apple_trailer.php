@@ -17,8 +17,8 @@
 
     if (count($items) > MAX_PER_PAGE)
     {
-      $menu->add_up( url_add_params(current_url(), array('page'=>($page > 1 ? ($page-1) : $last_page), 'del'=>1)) );
-      $menu->add_down( url_add_params(current_url(), array('page'=>($page < $last_page ? ($page+1) : 1), 'del'=>1)) );
+      $menu->add_up( url_add_param(current_url(), 'page', ($page > 1 ? ($page-1) : $last_page)) );
+      $menu->add_down( url_add_param(current_url(), 'page', ($page < $last_page ? ($page+1) : 1)) );
     }
 
     for ($i=$start; $i<$end; $i++)
@@ -59,19 +59,14 @@
 
   if ( isset($_REQUEST["menu"]) && $_REQUEST["menu"] == 'genres' )
   {
-    $back_url = apple_trailer_page_params();
     display_apple_trailer_menu( get_apple_trailers_genres() );
   }
   elseif ( isset($_REQUEST["menu"]) && $_REQUEST["menu"] == 'studios' )
   {
-    $back_url = apple_trailer_page_params();
     display_apple_trailer_menu( get_apple_trailers_studios() );
   }
   else
   {
-    $back_url = 'internet_tv.php';
-    apple_trailer_hist_init(url_remove_param(current_url(), 'del'));
-
     $menu = new menu();
     $menu->add_item(str('WEEKEND_BOXOFFICE'), 'apple_trailer_browse.php?feed='.rawurlencode('popular/most_pop').'&cat='.rawurlencode('Weekend Box Office'), true);
     $menu->add_item(str('OPENING_THISWEEK'),  'apple_trailer_browse.php?feed=opening&cat='.rawurlencode('Opening This Week'), true);
@@ -92,7 +87,7 @@
         </table>';
 
   // Make sure the "back" button goes to the correct page
-  page_footer($back_url, $buttons);
+  page_footer(page_hist_back_url(), $buttons);
 
 /**************************************************************************************************
                                                End of file

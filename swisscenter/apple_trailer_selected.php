@@ -7,7 +7,6 @@
   require_once( realpath(dirname(__FILE__).'/base/utils.php'));
   require_once( realpath(dirname(__FILE__).'/base/file.php'));
   require_once( realpath(dirname(__FILE__).'/base/rating.php'));
-  require_once( realpath(dirname(__FILE__).'/base/search.php'));
   require_once( realpath(dirname(__FILE__).'/base/apple_trailers.php'));
 
   /**
@@ -24,7 +23,7 @@
     // Synopsis
     if ( !empty($synopsis) )
     {
-      $text = isset($_REQUEST["show"]) ? $synopsis : shorten($synopsis,$synlen,1,30);
+      $text = isset($_REQUEST["show"]) ? $synopsis : shorten($synopsis,$synlen,1,FONTSIZE_BODY);
       if (strlen($text) != strlen($synopsis))
       {
         $text = $text.' <a href="'.url_add_param( current_url(), 'show', 'synopsis' ).'">'.font_colour_tags('PAGE_TEXT_BOLD_COLOUR',str('MORE')).'</a>';
@@ -33,7 +32,7 @@
     else
       $text = str('NO_SYNOPSIS_AVAILABLE');
 
-    echo font_tags(30).$text.'</font>';
+    echo font_tags(FONTSIZE_BODY).$text.'</font>';
   }
 
   /**
@@ -41,7 +40,7 @@
    *
    * @param array $trailer
    */
-  function trailer_details($trailer, $back_url)
+  function trailer_details($trailer)
   {
     echo '<table width="100%" cellpadding="0" cellspacing="10" border="0">
             <tr>
@@ -50,7 +49,7 @@
                 trailer_synopsis($trailer);
 
                 $menu = new menu();
-                $menu->add_item(str('RETURN_TO_SELECTION'), $back_url);
+                $menu->add_item(str('RETURN_TO_SELECTION'), page_hist_back_url());
                 $menu->display(1, 400);
 
     echo '    </td>
@@ -63,7 +62,7 @@
    *
    * @param array $trailer
    */
-  function trailer_info($trailer, $back_url)
+  function trailer_info($trailer)
   {
     echo '<table width="100%" cellpadding="0" cellspacing="10" border="0">
             <tr>
@@ -72,26 +71,26 @@
                 // Cast
                 if (isset($trailer["actors"]))
                 {
-                  echo '<p><b>'.font_tags(30,'PAGE_TEXT_BOLD_COLOUR').str('ACTOR').':</font></b>';
-                  echo '<br>'.font_tags(30).implode(', ', $trailer["actors"]).'</font>';
+                  echo '<p><b>'.font_tags(FONTSIZE_BODY,'PAGE_TEXT_BOLD_COLOUR').str('ACTOR').':</font></b>';
+                  echo '<br>'.font_tags(FONTSIZE_BODY).implode(', ', $trailer["actors"]).'</font>';
                 }
 
                 // Director
                 if (isset($trailer["directors"]))
                 {
-                  echo '<p><b>'.font_tags(30,'PAGE_TEXT_BOLD_COLOUR').str('DIRECTOR').':</font></b>';
-                  echo '<br>'.font_tags(30).$trailer["directors"].'</font>';
+                  echo '<p><b>'.font_tags(FONTSIZE_BODY,'PAGE_TEXT_BOLD_COLOUR').str('DIRECTOR').':</font></b>';
+                  echo '<br>'.font_tags(FONTSIZE_BODY).$trailer["directors"].'</font>';
                 }
 
                 // Genres
                 if (isset($trailer["genre"]))
                 {
-                  echo '<p><b>'.font_tags(30,'PAGE_TEXT_BOLD_COLOUR').str('GENRE').':</font></b>';
-                  echo '<br>'.font_tags(30).implode(', ', $trailer["genre"]).'</font>';
+                  echo '<p><b>'.font_tags(FONTSIZE_BODY,'PAGE_TEXT_BOLD_COLOUR').str('GENRE').':</font></b>';
+                  echo '<br>'.font_tags(FONTSIZE_BODY).implode(', ', $trailer["genre"]).'</font>';
                 }
 
                 $menu = new menu();
-                $menu->add_item(str('RETURN_TO_SELECTION'), $back_url);
+                $menu->add_item(str('RETURN_TO_SELECTION'), page_hist_back_url());
                 $menu->display(1, 400);
 
     echo '    </td>
@@ -103,9 +102,7 @@
 // Main Code
 //*************************************************************************************************
 
-  // Update page history
-  $back_url = apple_trailer_page_params();
-  $this_url = url_remove_param(current_url(), 'del');
+  $current_url = current_url();
 
   // Retrieve the selected trailer details
   $apple = new AppleTrailers();
@@ -128,9 +125,9 @@
 
   // Which page to show?
   if ( isset($_REQUEST["show"]) && $_REQUEST["show"]=='cast' )
-    trailer_info($trailers[$id], $back_url);
+    trailer_info($trailers[$id]);
   elseif ( isset($_REQUEST["show"]) && $_REQUEST["show"]=='synopsis' )
-    trailer_details($trailers[$id], $back_url);
+    trailer_details($trailers[$id]);
   else
   {
     $menu = new menu();
@@ -144,7 +141,8 @@
         // Omit iPod trailers
         if (strpos($title, 'iPod') === false)
           $menu->add_item( $title, 'href="'.url_add_params('stream_url.php', array('user_agent' => rawurlencode('QuickTime/7.6'),
-                                                                                   'url' => rawurlencode($items[2][$key]))).'" vod ');
+                                                                                   'url' => rawurlencode($items[2][$key]),
+                                                                                   'ext' => '.'.file_ext($items[2][$key]))).'" vod ');
       }
     }
     else
@@ -158,12 +156,12 @@
 
       if (count($items[1]) > MAX_PER_PAGE)
       {
-        $menu->add_up( url_add_params($this_url, array('page'=>($page > 1 ? ($page-1) : $last_page), 'del'=>1)) );
-        $menu->add_down( url_add_params($this_url, array('page'=>($page < $last_page ? ($page+1) : 1), 'del'=>1)) );
+        $menu->add_up( url_add_param($current_url, 'page', ($page > 1 ? ($page-1) : $last_page)) );
+        $menu->add_down( url_add_param($current_url, 'page', ($page < $last_page ? ($page+1) : 1)) );
       }
 
       for ($i=$start; $i<$end; $i++)
-        $menu->add_item($items[2][$i], url_add_param($this_url, 'xml', rawurlencode($items[1][$i])), true);
+        $menu->add_item($items[2][$i], url_add_param($current_url, 'xml', rawurlencode($items[1][$i])), true);
     }
 
     // Certificate? Get the appropriate image.
@@ -187,18 +185,18 @@
       echo '      <p>';
                   // Release date
                   if (isset($trailers[$id]["releasedate"]))
-                    echo font_tags(30).str('RELEASE_DATE').': '.date('d M Y', strtotime($trailers[$id]["releasedate"])).'</font>';
+                    echo font_tags(FONTSIZE_BODY).str('RELEASE_DATE').': '.date('d M Y', strtotime($trailers[$id]["releasedate"])).'</font>';
                   $menu->display(1, 480);
       echo '    </td>
               </tr>
             </table>';
 
     // Display ABC buttons
-    $buttons[] = array('text'=>str('VIDEO_INFO'), 'url'=> url_add_params($this_url, array('show'=>'cast')) );
+    $buttons[] = array('text'=>str('VIDEO_INFO'), 'url'=> url_add_params($current_url, array('show'=>'cast')) );
   }
 
   // Make sure the "back" button goes to the correct page:
-  page_footer( $back_url, $buttons );
+  page_footer( page_hist_back_url(), $buttons );
 
 /**************************************************************************************************
                                                End of file
