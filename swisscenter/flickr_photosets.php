@@ -5,6 +5,7 @@
 
   require_once( realpath(dirname(__FILE__).'/base/page.php'));
   require_once( realpath(dirname(__FILE__).'/base/browse.php'));
+  require_once( realpath(dirname(__FILE__).'/base/playlist.php'));
   require_once( realpath(dirname(__FILE__).'/base/flickr.php'));
 
   function display_flickr_photoset( $photoset_id )
@@ -12,9 +13,8 @@
     $flickr = new phpFlickr(FLICKR_API_KEY,FLICKR_API_SECRET);
     $flickr->enableCache("db");
 
-    // Update page history
-    $back_url = flickr_page_params();
-    $page     = (isset($_REQUEST["page"]) ? $_REQUEST["page"] : 0);
+    $page   = (isset($_REQUEST["page"]) ? $_REQUEST["page"] : 0);
+    $server = server_address();
 
     // Gets information about a photoset.
     $photoset = $flickr->photosets_getInfo($photoset_id);
@@ -26,32 +26,36 @@
     $person = $flickr->people_getInfo($photoset["owner"]);
 
     $photo_list = array();
-    foreach ($photos["photo"] as $photo)
+    $playlist = array();
+    foreach ($photos["photoset"]["photo"] as $photo)
     {
       $text = (empty($photo["title"]) ? '?' : utf8_decode($photo["title"]) );
       $url  = url_add_param('flickr_photo.php', 'photo_id', $photo["id"]);
       $photo_list[] = array('thumb'=>flickr_photo_url($photo, 'm'), 'text'=>$text, 'url'=>$url);
+
+      // Playlist used for slideshow.
+      $playlist[] = array('TITLE'=>$text, 'FILENAME'=>$server.'flickr_image.php?photo_id='.$photo["id"].'&ext=.jpg');
     }
 
     // Page headings
     page_header(str('FLICKR_PHOTOS'), utf8_decode($person["username"]).' : '.str('FLICKR_PHOTOSETS').' : '.utf8_decode($photoset["title"]));
     $shortlen = $_SESSION["device"]["browser_x_res"];
-    echo shorten(font_tags(32).utf8_decode($photoset["description"]), $shortlen, 1, 32);
+    echo shorten(font_tags(FONTSIZE_BODY).utf8_decode($photoset["description"]), $shortlen, 1, FONTSIZE_BODY);
 
-    browse_array_thumbs(url_add_param(current_url(), 'del', 1), $photo_list, $page);
+    browse_array_thumbs(current_url(), $photo_list, $page);
 
     // Output ABC buttons
     $buttons = array();
-    $buttons[] = array('text' => str('START_SLIDESHOW'),'url' => flickr_slideshow('photoset', $photoset_id));
+    $buttons[] = array('text' => str('START_SLIDESHOW'),'url' => play_array_list(MEDIA_TYPE_PHOTO, $playlist));
 
     // Make sure the "back" button goes to the correct page:
-    page_footer($back_url, $buttons);
+    page_footer(page_hist_back_url(), $buttons);
   }
 
 /**************************************************************************************************
    Main page output
  *************************************************************************************************/
-    
+
   $flickr = new phpFlickr(FLICKR_API_KEY,FLICKR_API_SECRET);
   $flickr->enableCache("db");
 
@@ -67,16 +71,11 @@
   }
   elseif ( count($photosets["photoset"]) == 0 )
   {
-    // Update page history
-    $back_url = flickr_page_params();
-
-    page_inform(2,$back_url,str('FLICKR_PHOTOSETS'),str('NO_ITEMS_TO_DISPLAY'));
+    page_inform(2,page_hist_back_url(),str('FLICKR_PHOTOSETS'),str('NO_ITEMS_TO_DISPLAY'));
   }
   else
   {
-    // Update page history
-    $back_url = flickr_page_params();
-    $page     = (isset($_REQUEST["page"]) ? $_REQUEST["page"] : 0);
+    $page = (isset($_REQUEST["page"]) ? $_REQUEST["page"] : 0);
 
     // Get information about a user.
     $person = $flickr->people_getInfo($user_id);
@@ -92,10 +91,10 @@
     // Page headings
     page_header(str('FLICKR_PHOTOS'), utf8_decode($person["username"]).' : '.str('FLICKR_PHOTOSETS'));
 
-    browse_array_thumbs(url_add_param(current_url(), 'del', 1), $photoset_list, $page);
+    browse_array_thumbs(current_url(), $photoset_list, $page);
 
     // Make sure the "back" button goes to the correct page:
-    page_footer($back_url);
+    page_footer(page_hist_back_url());
   }
 
 /**************************************************************************************************

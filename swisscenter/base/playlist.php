@@ -19,7 +19,7 @@ require_once( realpath(dirname(__FILE__).'/../ext/xml/XPath.class.php'));
  *
  * @param integer $seed - The seed from which to generate a random sequence.
  * @param boolean $shuffle - If true, the playlist will be shuffled.
- * @param string $spec_type - dir | file | sql | playlist | musicip
+ * @param string $spec_type - dir | file | array | sql | playlist | musicip
  * @param mixed $spec - depends upon the $spec_type
  * @param enum $media_type - Only required for (dir|file) types. (MEDIA_TYPE_MUSIC, etc)
  */
@@ -52,6 +52,10 @@ function generate_tracklist( $seed, $shuffle, $spec_type, $spec, $media_type = n
           $tracks     = db_toarray($spec.' LIMIT '.max_playlist_size());
           break;
 
+    case 'array':
+          $tracks     = $_SESSION["play_now"]["spec"];
+          break;
+
     case 'file':
           $spec       = $_REQUEST["spec"];
           $table      = db_value("select media_table from media_types where media_id = $media_type");
@@ -72,10 +76,6 @@ function generate_tracklist( $seed, $shuffle, $spec_type, $spec, $media_type = n
             $tracks     = db_toarray("select * from $table media ".get_rating_join()."where $predicate order by album,lpad(disc,10,'0'),lpad(track,10,'0'),title");
           else
             $tracks     = db_toarray("select * from $table media ".get_rating_join()."where $predicate order by filename");
-          break;
-
-    case 'flickr':
-          $tracks     = flickr_playlist($_REQUEST["flickr_type"], $_REQUEST["flickr_id"]);
           break;
 
   }
@@ -130,10 +130,9 @@ function slideshow_link_by_browser( $params )
       $audio = "MUTE";
     }
 
-
-   // We send the href as MUTE becasue we don't want any music playing. Otherwise (I guess) we would
-   // send a link to a page that generates a music playlist
-   $link .= 'href="'.$audio.'" pod="1,1,'.server_address().'gen_photolist.php?'.$params.'" ';
+    // We send the href as MUTE because we don't want any music playing. Otherwise (I guess) we would
+    // send a link to a page that generates a music playlist
+    $link .= 'href="'.$audio.'" pod="1,1,'.server_address().'gen_photolist.php?'.$params.'" ';
   }
   else
   {
@@ -238,7 +237,7 @@ function play_file( $media_type, $file_id )
          break;
 
     case MEDIA_TYPE_PHOTO:
-         $link   = slideshow_link_by_browser( $params);
+         $link   = slideshow_link_by_browser( $params );
          break;
 
   }
@@ -302,11 +301,11 @@ function play_lastfm($station_type, $name = '' )
 
   if ($station_id == '')
   {
-    send_to_log(1,'Error in LastFM station name');
+    send_to_log(1,'Error in Last.fm station name');
     return '';
   }
   else
-    return 'href="'.$lastfm_url.'&generate_pls&station='.$station_id.'&x=.pls" pod="'.stream_sync_type().',1,'.$lastfm_url.'&image_list"';
+    return 'href="'.$lastfm_url.'&generate_pls&station='.$station_id.'&x=.pls" pod="'.now_playing_sync_type().',1,'.$lastfm_url.'&image_list"';
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -318,6 +317,35 @@ function play_sql_list( $media_type, $spec )
 {
   $_SESSION["play_now"]["spec"] = $spec;
   $params = 'spec_type=sql&'.current_session().'&seed='.mt_rand().'&media_type='.$media_type;
+
+  switch ($media_type)
+  {
+    case MEDIA_TYPE_MUSIC:
+         $link   = 'href="gen_playlist.php?'.$params.'" pod="'.now_playing_sync_type().',1,'.server_address().'playing_list.php?'.$params.'" ';
+         break;
+
+    case MEDIA_TYPE_TV:
+    case MEDIA_TYPE_VIDEO:
+         $link = 'href="gen_playlist.php?'.$params.'" vod="playlist" ';
+         break;
+
+    case MEDIA_TYPE_PHOTO:
+         $link   = slideshow_link_by_browser( $params);
+         break;
+  }
+
+  return $link;
+}
+
+//-------------------------------------------------------------------------------------------------
+// Returns a link to play a collection of $media_type items (constrants defined above) which are
+// selected using the SQL statement in $spec
+//-------------------------------------------------------------------------------------------------
+
+function play_array_list( $media_type, $array )
+{
+  $_SESSION["play_now"]["spec"] = $array;
+  $params = 'spec_type=array&spec=&'.current_session().'&seed='.mt_rand().'&media_type='.$media_type;
 
   switch ($media_type)
   {
