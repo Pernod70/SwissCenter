@@ -346,17 +346,36 @@ function hhmmss( $secs )
 
 function image_resized_xy( $filename, &$x, &$y )
 {
-  $imagedata = getimagesize($filename);
+  // Create a new image
+  $image = new CImage();
 
-  if ($x && ($imagedata[0] < $imagedata[1]))
-  {
-    $x = floor(($y / $imagedata[1]) * $imagedata[0]);
-  }
+  // Load the image from disk
+  if (strtolower(file_ext($filename)) == 'sql')
+    $image->load_from_database( substr($filename,0,-4) );
+  elseif ( file_exists($filename) || is_remote_file($filename) )
+    $image->load_from_file($filename);
   else
+    send_to_log(1,'Unable to process image specified : '.$filename);
+
+  $imagedata = array($image->width, $image->height);
+
+  $x = convert_x($x);
+  $y = convert_y($y);
+
+  $a = $x / $y;
+  $b = $imagedata[0] / $imagedata[1];
+
+  if ($a < $b)
   {
     $y = floor(($x / $imagedata[0]) * $imagedata[1]);
   }
+  else
+  {
+    $x = floor(($y / $imagedata[1]) * $imagedata[0]);
+  }
 
+  $x = convert_tolog_x($x);
+  $y = convert_tolog_y($y);
 }
 
 /**

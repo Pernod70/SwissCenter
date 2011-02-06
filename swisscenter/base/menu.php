@@ -23,15 +23,17 @@ class menu
   #-------------------------------------------------------------------------------------------------
 
   var $menu_items;
-  var $font_size = 24;
+  var $font_size = FONTSIZE_MENUTEXT;
   var $show_icons = true;
 
   var $up;
   var $down;
   var $vertical_margin = 40;
+  var $page;
+  var $page_total;
 
   var $img_size = array("X"=>210, "Y"=>210);
-  var $img_font_size = 20;
+  var $img_font_size = FONTSIZE_THUMBTEXT;
 
   var $icon_left_size = array("X"=>25, "Y"=>40);
   var $icon_right_size = array("X"=>25, "Y"=>40);
@@ -80,6 +82,12 @@ class menu
   function set_menu_type ($type)
   {
     $this->menu_type = $type;
+  }
+
+  function set_page ($page, $page_total)
+  {
+    $this->page = $page;
+    $this->page_total = $page_total;
   }
 
   /**
@@ -215,7 +223,7 @@ class menu
     if ( style_is_colour($bg_style))
       return ' bgcolor="'.style_value($bg_style).'" ';
     elseif ( style_is_image($bg_style))
-      return  ' background="/thumb.php?src='.rawurlencode(style_img($bg_style,true)).'&x='.(convert_x($width)+6).'&y='.(convert_y($height)+6).'&stretch=Y" ';
+      return ' background="/thumb.php?src='.rawurlencode(style_img($bg_style,true)).'&x='.(convert_x($width)+6).'&y='.(convert_y($height)+6).'&stretch=Y" ';
     else
       return '';
   }
@@ -232,12 +240,12 @@ class menu
     {
       echo '<tr>';
       if ($cell_pos == 0)
-        echo '<td colspan="'.($total_cells).'" align="center" valign="middle" width="'.convert_x($size).'" height="'.convert_y($this->vertical_margin).'">'.$link_html.'</td>';
+        echo '<td colspan="'.($total_cells).'" align="center" valign="middle" height="'.convert_y($this->vertical_margin).'">'.$link_html.'</td>';
       else
       {
         if ($cell_pos >1)
           echo '<td colspan="'.($cell_pos-1).'"></td>';
-        echo '<td align="center" valign="middle" width="'.convert_x($size).'" height="'.convert_y($this->vertical_margin).'">'.$link_html.'</td>';
+        echo '<td align="center" valign="middle" height="'.convert_y($this->vertical_margin).'">'.$link_html.'</td>';
         if ($total_cells > $cell_pos)
           echo '<td colspan="'.($total_cells-$cell_pos).'"></td>';
       }
@@ -343,11 +351,11 @@ class menu
         // Main text - NMT players support the marquee tag to scroll text
         if ( get_player_model() > 400 && get_sys_pref('DISABLE_MENU_SCROLL','NO') == 'NO')
           echo '<td valign="middle" width="'.$width_px.'" height="'.$height_px.'" '.$background.'>'.$font_open.
-                  '&nbsp;&nbsp;&nbsp;'.$tvid.'.&nbsp;'.
-                 '<a style="width:'.($width_px-30).'" '.$item["url"].' TVID="'.$tvid.'" name="'.$tvid.'">'.
+                  '&nbsp;&nbsp;&nbsp;'.$tvid.'.&nbsp;
+                  <a style="width:'.($width_px-50).'" '.$item["url"].' TVID="'.$tvid.'" name="'.$tvid.'">'.
                    '<marquee behavior="focus" width="'.($width_px-50).'">'.$item["text"].'</marquee>'.
-                 '</a></font>'.
-                '</td>';
+                 '</a></font>
+                </td>';
         else
           echo '<td valign="middle" width="'.$width_px.'" height="'.$height_px.'" '.$background.'>'.
                  '<a style="width:'.($width_px-2).'" '.
@@ -403,8 +411,13 @@ class menu
         $img_foc = rawurlencode($this->menu_items[$cell_no]["image_on"]);
         $img_x   = $this->img_size["X"];
         $img_y   = $this->img_size["Y"];
+
+        // Set navigation
+        $OnKeyLeftSet = ' OnKeyLeftSet="'.($tvid - 1).'"';
+        $OnKeyRightSet = ' OnKeyRightSet="'.($tvid + 1).'"';
+
         echo '<td align="center" valign="middle" width="'.convert_x($cell_width).'" height="'.convert_y($img_y).'">'
-             .'<a TVID="'.$tvid.'" name="'.$tvid.'" '.$this->menu_items[$cell_no]["url"].'>'
+             .'<a TVID="'.$tvid.'" name="'.$tvid.'" '.$this->menu_items[$cell_no]["url"].$OnKeyLeftSet.$OnKeyRightSet.'>'
              .img_gen(array($img_src,$img_foc), $img_x, $img_y).'</a></td>';
         $tvid++;
       }

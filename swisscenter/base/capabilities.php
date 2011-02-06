@@ -386,17 +386,28 @@ function now_playing_transition()
 
 function player_fontsize_multiplier()
 {
-  $player_model = get_player_model();
-
-  switch ( true )
+  if ( is_pc() )
   {
-    case ( $player_model > 400 ):             return 1.35; break;
-    case ( $player_model > 100 ):             return 1.2; break;
-    default:                                  return 2.0; break;
+    // Return the multiplier for PC browser or the currently set override.
+    return get_sys_pref('FONTWIDTH_MULTIPLIER_PC',2.0);
   }
-
-  // No-match, so return the default (1) or the currently set override.
-  return get_sys_pref('FONTWIDTH_MULTIPLIER',1);
+  else
+  {
+    // Return the multiplier for specific player or the currently set override.
+    $player_model = get_player_model();
+    switch ( true )
+    {
+      case ( $player_model > 400 ):
+        return get_sys_pref('FONTWIDTH_MULTIPLIER_400',1.35); break;
+      case ( $player_model > 200 ):
+        return get_sys_pref('FONTWIDTH_MULTIPLIER_200',1.2); break;
+      case ( $player_model > 100 ):
+        return get_sys_pref('FONTWIDTH_MULTIPLIER_100',1.2); break;
+      default:
+        // Unknown player, so return the default (1) or the currently set override.
+        return get_sys_pref('FONTWIDTH_MULTIPLIER',1.0); break;
+    }
+  }
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -487,13 +498,6 @@ function save_players_config()
   else
     send_to_log(6,"Failed to save players config file: $players_file");
 }
-
-/**
- * Ensure that client profiles have been loaded to the database
- */
-
-if ( db_value("select count(*) from client_profiles") == 0 )
-  load_players_config();
 
 /**************************************************************************************************
                                                End of file

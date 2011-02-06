@@ -12,7 +12,7 @@ class iconbar
 
   var $icons = array();
   var $bar_width = 640;
-  
+
   // -------------------------------------------------------------------------------------------------
   // Get/set methods
   // -------------------------------------------------------------------------------------------------
@@ -21,7 +21,7 @@ class iconbar
   {
     $this->bar_width = $width;
   }
-    
+
   // -------------------------------------------------------------------------------------------------
   // Constructor
   // -------------------------------------------------------------------------------------------------
@@ -30,7 +30,7 @@ class iconbar
   {
     $this->bar_width = $width;
   }
-  
+
   // -------------------------------------------------------------------------------------------------
   // Methods
   // -------------------------------------------------------------------------------------------------
@@ -40,12 +40,12 @@ class iconbar
     $filename = style_img($img_name);
     $this->icons[] = array( "img"=>SC_LOCATION.$filename, "text" => $text, "link"=>$link_url);
   }
-  
+
   function display()
   {
     echo '<table border="0" align="center" width="'.convert_x($this->bar_width).'" >';
     echo '<tr>';
-    
+
     foreach($this->icons as $icon)
     {
       echo '<td valign=middle align="center" width="'.convert_x($this->bar_width / count($this->icons)).'">'
@@ -53,13 +53,13 @@ class iconbar
            . '&nbsp;';
 
       if(!empty($icon["link"]))
-        echo '<a href="'.$icon["link"].'">'.font_tags(32).$icon["text"].'</a>';
-      else 
-        echo font_tags(32).$icon["text"];
+        echo '<a href="'.$icon["link"].'">'.font_tags(FONTSIZE_ICONBAR).$icon["text"].'</a>';
+      else
+        echo font_tags(FONTSIZE_ICONBAR).$icon["text"];
 
       echo '</td>';
     }
-    
+
     echo '</tr></table>';
   }
 }

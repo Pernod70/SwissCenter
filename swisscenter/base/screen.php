@@ -3,9 +3,24 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
+require_once( realpath(dirname(__FILE__).'/mysql.php'));
+
 define('BROWSER_COORDS',1);
 define('SCREEN_COORDS',2);
 define('BROWSER_SCREEN_COORDS',3);
+
+define('FONTSIZE_HEADER',1);
+define('FONTSIZE_SUBHEADER',2);
+define('FONTSIZE_HEADER_NTSC',3);
+define('FONTSIZE_BODY',4);
+define('FONTSIZE_MENUTEXT',5);
+define('FONTSIZE_THUMBTEXT',6);
+define('FONTSIZE_KEYPAD',7);
+define('FONTSIZE_ICONBAR',8);
+define('FONTSIZE_FOOTER',9);
+
+define('SD',1);
+define('HD',2);
 
 function store_browser_size( $res )
 {
@@ -86,20 +101,19 @@ function get_screen_size()
   return $_SESSION["device"]["screen_x_res"].'x'.$_SESSION["device"]["screen_y_res"];
 }
 
-#-------------------------------------------------------------------------------------------------
-# This function determines the type of display that the user is using to view the SwissCenter on
-# and therefore how the interface should be adjusted to allow for different capabilities
-#
-# EG: HDTV is always widescreen, whilst PAL and NTSC are more 4:3.
-#     PAL has more lines than NTSC and therefore a portion of the interface is "lost".
-#
-# NOTES:
-#
-# If there is no HTTP_USER_AGENT string, then it is likely that the Showcenter media firmware is
-# trying to access SwissCenter (the firmware doesn't identify itself at all). Therefore, we need
-# to determine the screen attributes by re-loading the cached agent string for this IP address.
-#-------------------------------------------------------------------------------------------------
-
+/**
+ * This function determines the type of display that the user is using to view the SwissCenter on
+ * and therefore how the interface should be adjusted to allow for different capabilities
+ *
+ * EG: HDTV is always widescreen, whilst PAL and NTSC are more 4:3.
+ *     PAL has more lines than NTSC and therefore a portion of the interface is "lost".
+ *
+ * NOTES:
+ *
+ * If there is no HTTP_USER_AGENT string, then it is likely that the Showcenter media firmware is
+ * trying to access SwissCenter (the firmware doesn't identify itself at all). Therefore, we need
+ * to determine the screen attributes by re-loading the cached agent string for this IP address.
+ */
 function get_screen_type()
 {
   if (!isset($_SESSION["device"]["screen_type"]))
@@ -155,11 +169,12 @@ function is_screen_ntsc()
 function is_screen_hdtv()
 { return ( get_screen_type() == 'HDTV' ? true : false ); }
 
-#-------------------------------------------------------------------------------------------------
-# Routines to take X and Y (or width and height) values which are specified as a percentage and
-# return them as actual pixel values in the current screen type (values may be specified with
-# a decimal component).
-#-------------------------------------------------------------------------------------------------
+/**
+ * Routines to take X and Y (or width and height) values which are specified as a percentage and
+ * return them as actual pixel values in the current screen type (values may be specified with
+ * a decimal component).
+ *
+ */
 
 function convert_x( $x, $coords = BROWSER_COORDS )
 {
@@ -205,20 +220,84 @@ function convert_tolog_y( $y, $coords = BROWSER_COORDS )
     return ceil(1000 * $y / $_SESSION["device"]["browser_y_res"]);
 }
 
-#-------------------------------------------------------------------------------------------------
-# Returns the size (in pixels) given a size in logical coordinates
-#-------------------------------------------------------------------------------------------------
-
+/**
+ * Returns the size (in pixels) given a size in logical coordinates.
+ *
+ * @param $desired_size
+ * @param $coords
+ * @return unknown_type
+ */
 function font_size( $desired_size, $coords = BROWSER_COORDS )
 {
   return convert_y( $desired_size, $coords );
 }
 
-#-------------------------------------------------------------------------------------------------
-# Given a desired font size (in logical coordinates), return the nearest size HTML font that the
-# hardware player can display.
-#-------------------------------------------------------------------------------------------------
+/**
+ * Returns the font to be used dependant on hardware player and whether HD output is used.
+ *
+ * @param $font
+ * @param $player
+ * @param $def
+ * @return integer
+ */
+function get_font( $font, $player = 0, $def = HD )
+{
+  $fonts = array(
+  // PC browser.
+   0  => array( FONTSIZE_HEADER      => 40,
+                FONTSIZE_SUBHEADER   => 32,
+                FONTSIZE_HEADER_NTSC => 32,
+                FONTSIZE_BODY        => 32,
+                FONTSIZE_MENUTEXT    => 28,
+                FONTSIZE_THUMBTEXT   => 20,
+                FONTSIZE_KEYPAD      => 30,
+                FONTSIZE_ICONBAR     => 32,
+                FONTSIZE_FOOTER      => 32 ),
+  // 8550 based players. ie. ShowCenter 1000
+  100 => array( FONTSIZE_HEADER      => array( SD => 5, HD => 5 ),
+                FONTSIZE_SUBHEADER   => array( SD => 3, HD => 3 ),
+                FONTSIZE_HEADER_NTSC => array( SD => 3, HD => 3 ),
+                FONTSIZE_BODY        => array( SD => 2, HD => 2 ),
+                FONTSIZE_MENUTEXT    => array( SD => 3, HD => 3 ),
+                FONTSIZE_THUMBTEXT   => array( SD => 1, HD => 1 ),
+                FONTSIZE_KEYPAD      => array( SD => 2, HD => 2 ),
+                FONTSIZE_ICONBAR     => array( SD => 3, HD => 3 ),
+                FONTSIZE_FOOTER      => array( SD => 3, HD => 3 ) ),
+  // 8620 based players. ie. ShowCenter 200, EVA700, etc.
+  200 => array( FONTSIZE_HEADER      => array( SD => 4, HD => 4 ),
+                FONTSIZE_SUBHEADER   => array( SD => 3, HD => 3 ),
+                FONTSIZE_HEADER_NTSC => array( SD => 3, HD => 3 ),
+                FONTSIZE_BODY        => array( SD => 2, HD => 2 ),
+                FONTSIZE_MENUTEXT    => array( SD => 2, HD => 2 ),
+                FONTSIZE_THUMBTEXT   => array( SD => 1, HD => 1 ),
+                FONTSIZE_KEYPAD      => array( SD => 2, HD => 2 ),
+                FONTSIZE_ICONBAR     => array( SD => 2, HD => 3 ),
+                FONTSIZE_FOOTER      => array( SD => 3, HD => 3 ) ),
+  // 8635/8643 based players. ie. PCH A100/C200, etc.
+  400 => array( FONTSIZE_HEADER      => array( SD => 6, HD => 6 ),
+                FONTSIZE_SUBHEADER   => array( SD => 4, HD => 5 ),
+                FONTSIZE_HEADER_NTSC => array( SD => 4, HD => 5 ),
+                FONTSIZE_BODY        => array( SD => 4, HD => 5 ),
+                FONTSIZE_MENUTEXT    => array( SD => 3, HD => 4 ),
+                FONTSIZE_THUMBTEXT   => array( SD => 2, HD => 2 ),
+                FONTSIZE_KEYPAD      => array( SD => 4, HD => 5 ),
+                FONTSIZE_ICONBAR     => array( SD => 5, HD => 5 ),
+                FONTSIZE_FOOTER      => array( SD => 5, HD => 5 ) ) );
 
+  if ( $player == 0 )
+    return $fonts[$player][$font];
+  else
+    return $fonts[$player][$font][$def];
+}
+
+/**
+ * Given a desired font size (in logical coordinates), return the nearest size HTML font that the
+ * hardware player can display.
+ *
+ * @param $size
+ * @param $colour
+ * @return string
+ */
 function font_tags( $size = false, $colour = false)
 {
   // Size
@@ -226,44 +305,16 @@ function font_tags( $size = false, $colour = false)
     $size_param = '';
   else
   {
-    // Convert logical coordinates font-size (1-1000) to actual pixels
-    $size = convert_y($size);
-
     if ( is_pc() )
+    {
+      // Convert logical coordinates font-size (1-1000) to actual pixels
+      $size = convert_y(get_font($size));
       $size_param = 'style="font-size : '.$size.'px;"';
+    }
     else
     {
-      // The hardware players only have a small number of font sizes available... so try to pick the best one
-      if ( get_player_model() > 400 )
-      {
-        if     ($size <= 12)
-          $size_param = 'size="2"';
-        elseif ($size <= 15)
-          $size_param = 'size="3"';
-        elseif ($size <= 17)
-          $size_param = 'size="4"';
-        elseif ($size <= 20)
-          $size_param = 'size="5"';
-        elseif ($size <= 26)
-          $size_param = 'size="6"';
-        else
-          $size_param = 'size="7"';
-      }
-      else
-      {
-        if     ($size <= 12)
-          $size_param = 'size="1"';
-        elseif ($size <= 15)
-          $size_param = 'size="2"';
-        elseif ($size <= 17)
-          $size_param = 'size="3"';
-        elseif ($size <= 20)
-          $size_param = 'size="4"';
-        elseif ($size <= 26)
-          $size_param = 'size="5"';
-        else
-          $size_param = 'size="6"';
-      }
+      $player_type = floor(get_player_model()/100)*100;
+      $size_param = 'size="'.get_font($size, $player_type, is_screen_hdtv() ? HD : SD).'"';
     }
   }
 
