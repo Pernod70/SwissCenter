@@ -111,6 +111,13 @@
     apply_database_patches();
 
     /**
+     * Ensure that client profiles have been loaded to the database
+     */
+
+    if ( db_value("select count(*) from client_profiles") === 0 )
+      load_players_config();
+
+    /**
      * Automatically load playlist?
      */
 
@@ -122,6 +129,12 @@
       set_current_playlist($name, $tracks);
       $_SESSION["playlist_autoloaded"] = 'yes';
     }
+
+    /**
+     * Download any new messages that may be available on the swisscenter.co.uk website.
+     */
+
+    download_new_messages();
 
     /**
      * Reset the filter.
