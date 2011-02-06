@@ -3,7 +3,6 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-  require_once( realpath(dirname(__FILE__).'/page.php'));
   require_once( realpath(dirname(__FILE__).'/image.php'));
   require_once( realpath(dirname(__FILE__).'/stylelib.php'));
   require_once( realpath(dirname(__FILE__).'/users.php'));
@@ -23,7 +22,7 @@
 
     while (strlen($text)>0)
     {
-      $output = shorten($text, $width, 1, $font_size, false);
+      $output = shorten($text, $width, 1, $font_size.'px', false);
       $image->text($output, $x, $y, $font_colour, $font_size);
       $text = substr($text,strlen($output));
       $y += $line_spacing;

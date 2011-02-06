@@ -3,7 +3,6 @@
    SWISScenter Source
  *************************************************************************************************/
 
-require_once( realpath(dirname(__FILE__).'/page.php'));
 require_once( realpath(dirname(__FILE__).'/mysql.php'));
 require_once( realpath(dirname(__FILE__).'/prefs.php'));
 require_once( realpath(dirname(__FILE__).'/file.php'));
