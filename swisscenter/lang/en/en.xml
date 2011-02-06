@@ -1455,6 +1455,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>FTV_GIRLS</id>
+        <text>FTV Girls</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>GENRE</id>
         <text>Genre</text>
         <version>1.19</version>
