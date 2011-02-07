@@ -121,7 +121,7 @@
       echo '<table width="100%" cellpadding="0" cellspacing="0" border="0">
               <tr>
                 <td valign="top">
-                  <table '.style_background('PAGE_TEXT_BACKGROUND').' cellpadding="10" cellspacing="0" border="0">
+                  <table '.($theme['SHOW_IMAGE'] ? style_background('PAGE_TEXT_BACKGROUND') : '').' cellpadding="10" cellspacing="0" border="0">
                     <tr valign="top">
                       <td>'.img_gen($series_img,280,550,false,false,false,array(),false).'</td>
                     </tr>
