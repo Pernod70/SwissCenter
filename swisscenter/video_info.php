@@ -76,6 +76,27 @@
 
     echo '<table '.style_background('PAGE_TEXT_BACKGROUND').' width="100%" cellpadding="5" cellspacing="0" border="0" align="center">';
 
+    // Genres
+    if ($genres)
+    {
+      echo '<tr><td colspan="5"><b>'.font_tags(FONTSIZE_BODY,'PAGE_TEXT_BOLD_COLOUR').str('GENRE').':</font></b></td></tr>';
+      echo '<tr><td colspan="5">'.font_tags(FONTSIZE_BODY).implode(', ', $genres).'</font></td></tr>';
+    }
+
+    // Languages
+    if ($languages)
+    {
+      echo '<tr><td colspan="5"><b>'.font_tags(FONTSIZE_BODY,'PAGE_TEXT_BOLD_COLOUR').str('SPOKEN_LANGUAGE').':</font></b></td></tr>';
+      echo '<tr><td colspan="5">'.font_tags(FONTSIZE_BODY).implode(', ', $languages).'</font></td></tr>';
+    }
+
+    // Director
+    if ($directors)
+    {
+      echo '<tr><td colspan="5"><b>'.font_tags(FONTSIZE_BODY,'PAGE_TEXT_BOLD_COLOUR').str('DIRECTOR').':</font></b></td></tr>';
+      echo '<tr><td colspan="5">'.font_tags(FONTSIZE_BODY).implode(', ', $directors).'</font></td></tr>';
+    }
+
     // Cast
     if ($actors)
     {
@@ -99,27 +120,6 @@
           echo '</tr><tr>';
       }
       echo '</tr>';
-    }
-
-    // Director
-    if ($directors)
-    {
-      echo '<tr><td colspan="5"><b>'.font_tags(FONTSIZE_BODY,'PAGE_TEXT_BOLD_COLOUR').str('DIRECTOR').':</font></b></td></tr>';
-      echo '<tr><td colspan="5">'.font_tags(FONTSIZE_BODY).implode(', ', $directors).'</font></td></tr>';
-    }
-
-    // Genres
-    if ($genres)
-    {
-      echo '<tr><td colspan="5"><b>'.font_tags(FONTSIZE_BODY,'PAGE_TEXT_BOLD_COLOUR').str('GENRE').':</font></b></td></tr>';
-      echo '<tr><td colspan="5">'.font_tags(FONTSIZE_BODY).implode(', ', $genres).'</font></td></tr>';
-    }
-
-    // Languages
-    if ($languages)
-    {
-      echo '<tr><td colspan="5"><b>'.font_tags(FONTSIZE_BODY,'PAGE_TEXT_BOLD_COLOUR').str('SPOKEN_LANGUAGE').':</font></b></td></tr>';
-      echo '<tr><td colspan="5">'.font_tags(FONTSIZE_BODY).implode(', ', $languages).'</font></td></tr>';
     }
 
     echo '</table>';
