@@ -285,7 +285,7 @@
               <td valign="middle">
                 <table '.style_background('PAGE_TEXT_BACKGROUND').' cellpadding="10" cellspacing="0" border="0">
                   <tr>
-                    <td>'.img_gen($folder_img,280,550,false,false,false,array(),false).'<br><center>'.$cert_img.'</center></td>
+                    <td><center>'.img_gen($folder_img,280,550,false,false,false,array(),false).'<br>'.$cert_img.'</center></td>
                   </tr>
                 </table>
               </td>';
