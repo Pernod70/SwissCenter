@@ -206,7 +206,7 @@
   echo '<table width="100%" height="'.convert_y(650).'" cellpadding="0" cellspacing="10" border="0">
           <tr>
             <td valign="middle">
-              <table '.style_background('PAGE_TEXT_BACKGROUND').' cellpadding="10" cellspacing="0" border="0">
+              <table '.($theme['SHOW_IMAGE'] ? style_background('PAGE_TEXT_BACKGROUND') : '').' cellpadding="10" cellspacing="0" border="0">
                 <tr>
                   <td>'.img_gen($folder_img,280,550,false,false,false,array(),false).'<br><center>'.$cert_img.'</center></td>
                 </tr>
