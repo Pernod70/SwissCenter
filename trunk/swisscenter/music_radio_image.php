@@ -3,125 +3,59 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
+  require_once( realpath(dirname(__FILE__).'/base/session.php'));
   require_once( realpath(dirname(__FILE__).'/base/image_screens.php'));
   require_once( realpath(dirname(__FILE__).'/base/capabilities.php'));
+  require_once( realpath(dirname(__FILE__).'/ext/iradio/iradio_playing.php'));
 
-  /**
-   * Returns the track title currently being played by the ShoutCast server.
-   *
-   * @param integer $host
-   * @param integer $port
-   * @return string
-   */
-  function shoutcast_now_playing($host, $port)
-  {
-    $info = "";
-    $songs = array();
+  // Log details of the image request
+  send_to_log(1,"------------------------------------------------------------------------------");
+  send_to_log(1,"Image Requested : ".current_url()." by client (".client_ip().")");
 
-    // Retrieve the HTML page detailing the recently played songs from the server
+  // SHOUTcast reference
+  $IP_Port[1]  = isset($_REQUEST["schost"]) ? $_REQUEST["schost"] : 0;
+  $IP_Port[2]  = isset($_REQUEST["scport"]) ? $_REQUEST["scport"] : 0;
 
-    send_to_log(5,'Connecting to ShoutCast server '.$host.':'.$port);
-    if (($fp = @fsockopen($host, $port, &$errno ,&$errstr, 10)) === FALSE)
-    {
-      send_to_log(2,'- Connection refused to ShoutCast server',array("Host"=>$host,"Port"=>$port));
-      return false;
-    }
-    else
-    {
-      fputs($fp, "GET /played.html HTTP/1.0\r\nUser-Agent: Mozilla\r\n\r\n");
-      while (!feof($fp))
-        $info .= fgets($fp);
-    }
+  // Live365 reference
+  $broadcaster = isset($_REQUEST["live365"]) ? $_REQUEST["live365"] : '';
 
-    // Process the results into an array
-
-    $info = explode('<td>',$info);
-    if (count($info)<4)
-    {
-      send_to_log(5,'- The current song is not available');
-      return false;
-    }
-    else
-    {
-      for ($i=(count($info)-6)/2; $i>0; $i--)
-        array_unshift($songs, strip_tags($info[$i*2+6]));
-
-      array_unshift($songs,$info[4]);
-    }
-
-    // Return the results
-
-    send_to_log(8,'Songs returned from the Shoutcast server',$songs);
-    return $songs[0].'<>'.$songs[1].'<>'.$songs[2];
-  }
-
-  $IP_Port = array();
-  if ( strpos($_REQUEST["playlist"],'http')===0 && (empty($_REQUEST["host"]) || empty($_REQUEST["port"])) )
-  {
-    // Retrieve server details from playlist (pls) (3 attempts)
-    $i=0;
-    send_to_log(6,'Attempting to obtain server details from radio playlist');
-    while ( $i < 3 && empty($info) )
-    {
-      if ( ($info = file_get_contents(un_magic_quote($_REQUEST["playlist"]))) == false )
-        send_to_log(6,'- Attempt '.$i.': Failed to download playlist');
-      elseif ( preg_match('/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}):(\d{1,5})/', $info, $IP_Port) == 0 )
-        send_to_log(6,'- Failed to find internet radio server in playlist:', $info);
-      else
-        send_to_log(6,'- Radio server found at '.$IP_Port[1].':'.$IP_Port[2]);
-      $i++;
-    }
-  }
+  // Get now playing details
+  $iradio_playing = new iradio_playing();
+  if (!empty($broadcaster))
+    $playing = $iradio_playing->live365_played($broadcaster);
+  elseif (!empty($IP_Port[1]) && !empty($IP_Port[2]))
+    $playing = $iradio_playing->shoutcast_played($IP_Port[1], $IP_Port[2]);
   else
+    $playing = array();
+
+  // Generate and display the "Now Playing" screen.
+  // - If EVA700 then only send a new image if the details have changed. Avoids continuous refreshing.
+  if (get_player_make()!=='NGR' || $_SESSION["now_playing"]!==$playing[0] )
   {
-    $IP_Port[1] = $_REQUEST["host"];
-    $IP_Port[2] = $_REQUEST["port"];
-  }
+    $_SESSION["now_playing"] = $playing[0];
+    $playing[0]["STATION"]   = un_magic_quote($_REQUEST["station"]);
 
-  if ( isset($_REQUEST["list"]))
-  {
-    // List of images to display to the user (changes every 30 seconds)
-    $server     = server_address();
-    $station    = un_magic_quote($_REQUEST["station"]);
-    $url        = $server."music_radio_image.php?".current_session()."&host=".$IP_Port[1]."&port=".$IP_Port[2].
-                          "&station=".urlencode($station)."&x=.jpg";
-    $transition = now_playing_transition();
-    $refresh    = get_sys_pref("NOW_PLAYING_REFRESH_INTERVAL",20);
-
-    // Clear the Now Playing details
-    $_SESSION["now_playing"] = '';
-
-    echo "$refresh|$transition| |$url|\n";
-    echo "$refresh|$transition| |$url|\n";
-  }
-  else
-  {
-    // Get now playing details
-    $playing = shoutcast_now_playing($IP_Port[1], $IP_Port[2]);
-
-    // Generate and display the "Now Playing" screen.
-    // - If EVA700 then only send a new image if the details have changed. Avoids continuous refreshing.
-    if (get_player_make()!=='NGR' || $_SESSION["now_playing"]!==$playing )
+    // Determine image to display for this track
+    if ( !isset($playing[0]["ALBUMART"]) )
     {
-      $_SESSION["now_playing"] = $playing;
-      $station = un_magic_quote($_REQUEST["station"]);
-
-      // Search for a defined image for this station
-      $logo = '';
-      $station_logos = db_toarray("select lower(station) station, image from iradio_stations");
-      foreach ($station_logos as $station_logo)
+      // Get an artist image from Last.fm
+      if ( ($playing[0]["ALBUMART"] = get_lastfm_artist_image($playing[0]["ARTIST"])) == false )
       {
-        if (strpos(str_replace(' ','',strtolower($station)), str_replace(' ','',$station_logo["STATION"])) !== false)
+        // No artist image so do we have a station image defined?
+        $station_logos = db_toarray("select lower(station) station, image from iradio_stations");
+        foreach ($station_logos as $station_logo)
         {
-          $logo = $station_logo["IMAGE"];
-          break;
+          if (strpos(str_replace(' ','',strtolower($playing[0]["STATION"])), str_replace(' ','',$station_logo["STATION"])) !== false)
+          {
+            $playing[0]["ALBUMART"] = SC_LOCATION.'images/iradio/'.$station_logo["IMAGE"];
+            break;
+          }
         }
       }
-
-      $image = station_playing_image($station, $playing, $logo);
-      $image->output('jpeg');
-
     }
+
+    $image = now_playing_image($playing[0], array_slice($playing, 1));
+    $image->output('jpeg');
   }
 
 /**************************************************************************************************

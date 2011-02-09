@@ -3,7 +3,13 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
+  require_once( realpath(dirname(__FILE__).'/base/session.php'));
   require_once( realpath(dirname(__FILE__).'/base/image_screens.php'));
+  require_once( realpath(dirname(__FILE__).'/base/playlist.php'));
+
+  // Log details of the image request
+  send_to_log(1,"------------------------------------------------------------------------------");
+  send_to_log(1,"Image Requested : ".current_url()." by client (".client_ip().")");
 
   $tracks    = get_tracklist();
   $prev_info = array();
@@ -15,9 +21,9 @@
 
   // Get the previous and next track details if available.
   if ($idx > 0)
-    $prev_info = $tracks[$idx-1];
+    $prev_info[0] = $tracks[$idx-1];
   if ($idx < count($tracks)-1)
-    $next_info = $tracks[$idx+1];
+    $next_info[0] = $tracks[$idx+1];
 
   // Generate and display the "Now Playing" screen.
   // - If EVA700 then only send a new image if the details have changed. Avoids continuous refreshing.

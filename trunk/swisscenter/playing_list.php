@@ -3,10 +3,14 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-  require_once( realpath(dirname(__FILE__).'/base/page.php'));
+  require_once( realpath(dirname(__FILE__).'/base/session.php'));
   require_once( realpath(dirname(__FILE__).'/base/capabilities.php'));
   require_once( realpath(dirname(__FILE__).'/base/mysql.php'));
   require_once( realpath(dirname(__FILE__).'/base/playlist.php'));
+
+  // Log details of the playlist request
+  send_to_log(1,"------------------------------------------------------------------------------");
+  send_to_log(1,"Playlist Requested : ".current_url()." by client (".client_ip().")");
 
   $server     = server_address();
   $transition = now_playing_transition();
