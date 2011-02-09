@@ -6,7 +6,6 @@
   require_once( realpath(dirname(__FILE__).'/base/page.php'));
   require_once( realpath(dirname(__FILE__).'/base/utils.php'));
   require_once( realpath(dirname(__FILE__).'/base/file.php'));
-  require_once( realpath(dirname(__FILE__).'/base/search.php'));
   require_once( realpath(dirname(__FILE__).'/base/film_trailer_feeds.php'));
 
   /**
@@ -39,7 +38,7 @@
    *
    * @param array $trailer
    */
-  function trailer_details($trailer, $back_url)
+  function trailer_details($trailer)
   {
     echo '<table width="100%" cellpadding="0" cellspacing="10" border="0">
             <tr>
@@ -48,7 +47,7 @@
                 trailer_synopsis($trailer[0]['PRODUCTS'][0]['DESCRIPTION']);
 
                 $menu = new menu();
-                $menu->add_item(str('RETURN_TO_SELECTION'), $back_url);
+                $menu->add_item(str('RETURN_TO_SELECTION'), page_hist_back_url());
                 $menu->display(1, 400);
 
     echo '    </td>
@@ -61,7 +60,7 @@
    *
    * @param array $trailer
    */
-  function trailer_info($trailer, $back_url)
+  function trailer_info($trailer)
   {
     echo '<table width="100%" cellpadding="0" cellspacing="10" border="0">
             <tr>
@@ -89,7 +88,7 @@
                 }
 
                 $menu = new menu();
-                $menu->add_item(str('RETURN_TO_SELECTION'), $back_url);
+                $menu->add_item(str('RETURN_TO_SELECTION'), page_hist_back_url());
                 $menu->display(1, 400);
 
     echo '    </td>
@@ -100,10 +99,6 @@
 //*************************************************************************************************
 // Main Code
 //*************************************************************************************************
-
-  // Update page history
-  $back_url = film_trailer_page_params();
-  $this_url = url_remove_param(current_url(), 'del');
 
   // Retrieve the selected trailer details
   $filmtrailer = new FilmTrailer();
@@ -116,9 +111,9 @@
 
   // Which page to show?
   if ( isset($_REQUEST["show"]) && $_REQUEST["show"]=='cast' )
-    trailer_info($trailer, $back_url);
+    trailer_info($trailer);
   elseif ( isset($_REQUEST["show"]) && $_REQUEST["show"]=='synopsis' )
-    trailer_details($trailer, $back_url);
+    trailer_details($trailer);
   else
   {
     $menu = new menu();
@@ -152,11 +147,11 @@
           </table>';
 
     // Display ABC buttons
-    $buttons[] = array('text'=>str('VIDEO_INFO'), 'url'=> url_add_params($this_url, array('show'=>'cast')) );
+    $buttons[] = array('text'=>str('VIDEO_INFO'), 'url'=> url_add_params(current_url(), array('show'=>'cast')) );
   }
 
   // Make sure the "back" button goes to the correct page:
-  page_footer( $back_url, $buttons );
+  page_footer( page_hist_back_url(), $buttons );
 
 /**************************************************************************************************
                                                End of file

@@ -20,11 +20,11 @@ class youtube_picker extends list_picker
   function youtube_picker()
   {
     parent::list_picker();
-    $this->url = 'youtube_search.php?del=1';
+    $this->url = url_add_param('youtube_search.php', 'hist', PAGE_HISTORY_REPLACE);
     $this->feed_type = isset($_REQUEST["type"]) ? $_REQUEST["type"] : 'videos';
 
     // Where do we send the user back to if they quit this page?
-    $this->back_url = youtube_page_params();
+    $this->back_url = page_hist_back_url();
   }
 
   function link_url($item)
@@ -147,11 +147,11 @@ class youtube_picker extends list_picker
     // Display ABC buttons
     $buttons = array();
     if ( $this->feed_type == 'videos' )
-      $buttons[] = array( 'text' => str('YOUTUBE_SEARCH_PLAYLISTS'), 'url' => url_add_params($this->url, array("type"=>"playlists", "search"=>urlencode($this->search))) );
+      $buttons[] = array( 'text' => str('YOUTUBE_SEARCH_PLAYLISTS'), 'url' => url_add_params($this->url, array("type"=>"playlists", "search"=>urlencode($this->search), "hist"=>PAGE_HISTORY_REPLACE)) );
     elseif ( $this->feed_type == 'playlists' )
-      $buttons[] = array( 'text' => str('YOUTUBE_SEARCH_CHANNELS'), 'url' => url_add_params($this->url, array("type"=>"channels", "search"=>urlencode($this->search))) );
+      $buttons[] = array( 'text' => str('YOUTUBE_SEARCH_CHANNELS'), 'url' => url_add_params($this->url, array("type"=>"channels", "search"=>urlencode($this->search), "hist"=>PAGE_HISTORY_REPLACE)) );
     else
-      $buttons[] = array( 'text' => str('YOUTUBE_SEARCH_VIDEOS'), 'url' => url_add_params($this->url, array("type"=>"videos", "search"=>urlencode($this->search))) );
+      $buttons[] = array( 'text' => str('YOUTUBE_SEARCH_VIDEOS'), 'url' => url_add_params($this->url, array("type"=>"videos", "search"=>urlencode($this->search), "hist"=>PAGE_HISTORY_REPLACE)) );
     $buttons[] = array( 'text' => str('SEARCH_CLEAR'), 'url' => $this->url );
 
     // Make sure the "back" button goes to the correct page

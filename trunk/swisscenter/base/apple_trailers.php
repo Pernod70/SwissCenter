@@ -297,7 +297,7 @@ function get_trailer_index($trailer)
     $trailer_xmls[1] = array_unique($trailer_xmls[1]);
     $trailer_xmls[2] = array_unique($trailer_xmls[2]);
     array_multisort($trailer_xmls[2], $trailer_xmls[1]);
-    send_to_log(8,'Found the following trailers',$trailer_xmls);
+    send_to_log(8,'Found the following trailers',$trailer_xmls[2]);
   }
   else
   {
@@ -331,52 +331,6 @@ function get_trailer_urls($trailer_xml)
   }
 
   return $trailer_urls;
-}
-
-/**
- * Functions for managing the trailer navigation history.
- */
-function apple_trailer_hist_init( $url )
-{
-  $_SESSION["history"] = array();
-  $_SESSION["history"][] = $url;
-}
-
-function apple_trailer_hist_push( $url )
-{
-  $_SESSION["history"][] = $url;
-}
-
-function apple_trailer_hist_pop()
-{
-  if (count($_SESSION["history"]) == 0)
-    page_error(str('DATABASE_ERROR'));
-
-  return array_pop($_SESSION["history"]);
-}
-
-function apple_trailer_hist_most_recent()
-{
-  if (count($_SESSION["history"]) == 0)
-    page_error(str('DATABASE_ERROR'));
-
-  return $_SESSION["history"][count($_SESSION["history"])-1];
-}
-
-function apple_trailer_page_params()
-{
-  // Remove pages from history
-  if (isset($_REQUEST["del"]))
-    for ($i=0; $i<$_REQUEST["del"]; $i++)
-      apple_trailer_hist_pop();
-
-  $this_url = url_remove_param(current_url(), 'del');
-  $back_url = url_add_param(apple_trailer_hist_most_recent(), 'del', 2);
-
-  // Add page to history
-  apple_trailer_hist_push($this_url);
-
-  return $back_url;
 }
 
 /**************************************************************************************************

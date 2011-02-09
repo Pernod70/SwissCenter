@@ -22,12 +22,12 @@ class shoutcast_tv_picker extends list_picker
   function shoutcast_tv_picker()
   {
     parent::list_picker();
-    $this->url = 'shoutcast_tv_search.php?del=1';
+    $this->url = url_add_param('shoutcast_tv_search.php', 'hist', PAGE_HISTORY_REPLACE);
     $this->genre = (isset($_REQUEST["genre"]) ? $_REQUEST["genre"] : '');
     $this->sort  = (isset($_REQUEST["sort"])  ? $_REQUEST["sort"] : 'viewers');
 
     // Where do we send the user back to if they quit this page?
-    $this->back_url = 'shoutcast_tv.php';
+    $this->back_url = page_hist_back_url();
   }
 
   function link_url($item)

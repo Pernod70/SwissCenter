@@ -12,9 +12,9 @@
   //*************************************************************************************************
 
   // Update page history
-  $back_url = youtube_page_params();
+  $back_url = page_hist_back_url();
   $page     = (isset($_REQUEST["page"]) ? $_REQUEST["page"] : 0);
-  $this_url = url_remove_param(current_url(), 'del');
+  $this_url = current_url();
 
   $youtube   = new phpYouTube();
   $feed_type = $_REQUEST["type"];
@@ -37,6 +37,8 @@
 
     // Playlist feeds
     case 'playlist':
+      $username = $_REQUEST["username"];
+      $time = isset($_REQUEST["time"]) ? $_REQUEST["time"] : 'all_time';
       $playlist_id = $_REQUEST["playlist_id"];
       $feed = $youtube->playlistFeed($playlist_id);
       $title = utf8_decode($feed['feed']['title']['$t']);
@@ -183,7 +185,7 @@
     if ( !empty($_REQUEST["thumbs"]) )
       set_user_pref('DISPLAY_THUMBS',strtoupper($_REQUEST["thumbs"]));
 
-    browse_array_thumbs(url_add_param(current_url(), 'del', 1), $entry_list, $page);
+    browse_array_thumbs(current_url(), $entry_list, $page);
 
     // Output ABC buttons
     $buttons = array();
@@ -194,55 +196,55 @@
       $buttons[] = array('text' => str('QUICK_PLAY'),'url' => 'href="gen_playlist_youtube.php?'.current_session().'&seed='.mt_rand().'" vod="playlist" ');
 
       if ( $feed_type == 'top_rated' )
-        $buttons[] = array('text'=>str('TOP_FAVORITES'), 'url'=>url_add_params($this_url, array('type'=>'top_favorites', 'sort'=>'favorite', 'page'=>0, 'del'=>1)));
+        $buttons[] = array('text'=>str('TOP_FAVORITES'), 'url'=>url_add_params($this_url, array('type'=>'top_favorites', 'sort'=>'favorite', 'page'=>0, 'hist'=>PAGE_HISTORY_REPLACE)));
       elseif ( $feed_type == 'top_favorites' )
-        $buttons[] = array('text'=>str('MOST_VIEWED'), 'url'=>url_add_params($this_url, array('type'=>'most_viewed', 'sort'=>'views', 'page'=>0, 'del'=>1)));
+        $buttons[] = array('text'=>str('MOST_VIEWED'), 'url'=>url_add_params($this_url, array('type'=>'most_viewed', 'sort'=>'views', 'page'=>0, 'hist'=>PAGE_HISTORY_REPLACE)));
       elseif ( $feed_type == 'most_viewed' )
-        $buttons[] = array('text'=>str('MOST_POPULAR'), 'url'=>url_add_params($this_url, array('type'=>'most_popular', 'sort'=>'views', 'page'=>0, 'del'=>1)));
+        $buttons[] = array('text'=>str('MOST_POPULAR'), 'url'=>url_add_params($this_url, array('type'=>'most_popular', 'sort'=>'views', 'page'=>0, 'hist'=>PAGE_HISTORY_REPLACE)));
       elseif ( $feed_type == 'most_popular' )
-        $buttons[] = array('text'=>str('MOST_RECENT'), 'url'=>url_add_params($this_url, array('type'=>'most_recent', 'sort'=>'date', 'page'=>0, 'del'=>1)));
+        $buttons[] = array('text'=>str('MOST_RECENT'), 'url'=>url_add_params($this_url, array('type'=>'most_recent', 'sort'=>'date', 'page'=>0, 'hist'=>PAGE_HISTORY_REPLACE)));
       elseif ( $feed_type == 'most_recent' )
-        $buttons[] = array('text'=>str('RECENTLY_FEATURED'), 'url'=>url_add_params($this_url, array('type'=>'recently_featured', 'sort'=>'name', 'page'=>0, 'del'=>1)));
+        $buttons[] = array('text'=>str('RECENTLY_FEATURED'), 'url'=>url_add_params($this_url, array('type'=>'recently_featured', 'sort'=>'name', 'page'=>0, 'hist'=>PAGE_HISTORY_REPLACE)));
       elseif ( $feed_type == 'recently_featured' )
-        $buttons[] = array('text'=>str('TOP_RATED'), 'url'=>url_add_params($this_url, array('type'=>'top_rated', 'sort'=>'rating', 'page'=>0, 'del'=>1)));
-      elseif ( $order == 'name' )
-        $buttons[] = array('text'=>str('SORT_TIME'), 'url'=>url_add_params($this_url, array('del'=>1, 'sort'=>'time')));
-      elseif ( $order == 'time' )
-        $buttons[] = array('text'=>str('SORT_DATE'), 'url'=>url_add_params($this_url, array('del'=>1, 'sort'=>'date' )));
-      elseif ( $order == 'date' )
-        $buttons[] = array('text'=>str('SORT_VIEWS'), 'url'=>url_add_params($this_url, array('del'=>1, 'sort'=>'views')));
-      elseif ( $order == 'views' )
-        $buttons[] = array('text'=>str('SORT_RATING'), 'url'=>url_add_params($this_url, array('del'=>1, 'sort'=>'rating')));
-      elseif ( $order == 'rating' )
-        $buttons[] = array('text'=>str('SORT_NAME'), 'url'=>url_add_params($this_url, array('del'=>1, 'sort'=>'name')));
+        $buttons[] = array('text'=>str('TOP_RATED'), 'url'=>url_add_params($this_url, array('type'=>'top_rated', 'sort'=>'rating', 'page'=>0, 'hist'=>PAGE_HISTORY_REPLACE)));
+      elseif ( $sort == 'name' )
+        $buttons[] = array('text'=>str('SORT_TIME'), 'url'=>url_add_params($this_url, array('hist'=>PAGE_HISTORY_REPLACE, 'sort'=>'time')));
+      elseif ( $sort == 'time' )
+        $buttons[] = array('text'=>str('SORT_DATE'), 'url'=>url_add_params($this_url, array('hist'=>PAGE_HISTORY_REPLACE, 'sort'=>'date' )));
+      elseif ( $sort == 'date' )
+        $buttons[] = array('text'=>str('SORT_VIEWS'), 'url'=>url_add_params($this_url, array('hist'=>PAGE_HISTORY_REPLACE, 'sort'=>'views')));
+      elseif ( $sort == 'views' )
+        $buttons[] = array('text'=>str('SORT_RATING'), 'url'=>url_add_params($this_url, array('hist'=>PAGE_HISTORY_REPLACE, 'sort'=>'rating')));
+      elseif ( $sort == 'rating' )
+        $buttons[] = array('text'=>str('SORT_NAME'), 'url'=>url_add_params($this_url, array('hist'=>PAGE_HISTORY_REPLACE, 'sort'=>'name')));
     }
 
     // Time parameter for standard feeds
     if ( in_array($feed_type, array('top_rated', 'top_favorites', 'most_viewed', 'most_popular', 'most_recent', 'recently_featured')) )
     {
       if ( $time == 'today' )
-        $buttons[] = array('text' => str('THIS_WEEK'), 'url'=>url_add_params($this_url, array('time'=>'this_week', 'del'=>1)));
+        $buttons[] = array('text' => str('THIS_WEEK'), 'url'=>url_add_params($this_url, array('time'=>'this_week', 'hist'=>PAGE_HISTORY_REPLACE)));
       elseif ( $time == 'this_week' )
-        $buttons[] = array('text' => str('THIS_MONTH'), 'url'=>url_add_params($this_url, array('time'=>'this_month', 'del'=>1)));
+        $buttons[] = array('text' => str('THIS_MONTH'), 'url'=>url_add_params($this_url, array('time'=>'this_month', 'hist'=>PAGE_HISTORY_REPLACE)));
       elseif ( $time == 'this_month' )
-        $buttons[] = array('text' => str('ALL_TIME'), 'url'=>url_add_params($this_url, array('time'=>'all_time', 'del'=>1)));
+        $buttons[] = array('text' => str('ALL_TIME'), 'url'=>url_add_params($this_url, array('time'=>'all_time', 'hist'=>PAGE_HISTORY_REPLACE)));
       elseif ( $time == 'all_time' )
-        $buttons[] = array('text' => str('TODAY'), 'url'=>url_add_params($this_url, array('time'=>'today', 'del'=>1)));
+        $buttons[] = array('text' => str('TODAY'), 'url'=>url_add_params($this_url, array('time'=>'today', 'hist'=>PAGE_HISTORY_REPLACE)));
     }
 
     // Toggle between Videos and Playlists
     if ( $feed_type == 'uploads' )
-      $buttons[] = array('text' => str('PLAYLISTS'), 'url'=>url_add_params('youtube_browse.php', array('username'=>$username, 'type'=>'playlists', 'del'=>1)));
+      $buttons[] = array('text' => str('PLAYLISTS'), 'url'=>url_add_params('youtube_browse.php', array('username'=>$username, 'type'=>'playlists', 'hist'=>PAGE_HISTORY_REPLACE)));
     elseif ( $feed_type == 'playlists' )
-      $buttons[] = array('text' => str('VIDEOS'),'url'=>url_add_params('youtube_browse.php', array('username'=>$username, 'type'=>'uploads', 'del'=>1)));
+      $buttons[] = array('text' => str('VIDEOS'),'url'=>url_add_params('youtube_browse.php', array('username'=>$username, 'type'=>'uploads', 'hist'=>PAGE_HISTORY_REPLACE)));
 
     // Only add the change view type button if less than 3 have been defined
     if ( count($buttons) < 3 )
     {
       if ( get_user_pref("DISPLAY_THUMBS") == "LARGE" )
-        $buttons[] = array('text'=>str('THUMBNAIL_VIEW'), 'url'=>url_add_params($this_url, array('page'=>floor($page/2), 'thumbs'=>'FULL', 'del'=>1)));
+        $buttons[] = array('text'=>str('THUMBNAIL_VIEW'), 'url'=>url_add_params($this_url, array('page'=>floor($page/2), 'thumbs'=>'FULL', 'hist'=>PAGE_HISTORY_REPLACE)));
       elseif ( get_user_pref("DISPLAY_THUMBS") == "FULL" )
-        $buttons[] = array('text'=>str('LARGE_VIEW'), 'url'=>url_add_params($this_url, array('page'=>floor($page*2), 'thumbs'=>'LARGE', 'del'=>1)));
+        $buttons[] = array('text'=>str('LARGE_VIEW'), 'url'=>url_add_params($this_url, array('page'=>floor($page*2), 'thumbs'=>'LARGE', 'hist'=>PAGE_HISTORY_REPLACE)));
     }
 
     // Make sure the "back" button goes to the correct page:

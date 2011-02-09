@@ -32,10 +32,6 @@ function star_rating( $rating )
 
   $youtube = new phpYouTube();
 
-  // Update page history
-  $back_url = youtube_page_params();
-  $this_url = url_remove_param(current_url(), 'del');
-
   $video_id = $_REQUEST["video_id"];
 
   // Get information about a video.
@@ -70,7 +66,7 @@ function star_rating( $rating )
         </table>';
 
   // Make sure the "back" button goes to the correct page:
-  page_footer($back_url);
+  page_footer(page_hist_back_url());
 
 /**************************************************************************************************
                                                End of file

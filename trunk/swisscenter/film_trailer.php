@@ -17,8 +17,8 @@
 
     if (count($items) > MAX_PER_PAGE)
     {
-      $menu->add_up( url_add_params(current_url(), array('page'=>($page > 1 ? ($page-1) : $last_page), 'del'=>1)) );
-      $menu->add_down( url_add_params(current_url(), array('page'=>($page < $last_page ? ($page+1) : 1), 'del'=>1)) );
+      $menu->add_up( url_add_params(current_url(), array('page'=>($page > 1 ? ($page-1) : $last_page))) );
+      $menu->add_down( url_add_params(current_url(), array('page'=>($page < $last_page ? ($page+1) : 1))) );
     }
 
     for ($i=$start; $i<$end; $i++)
@@ -49,13 +49,12 @@
 
   if ( isset($_REQUEST["menu"]) && $_REQUEST["menu"] == 'genres' )
   {
-    $back_url = film_trailer_page_params();
+    $back_url = page_hist_back_url();
     display_film_trailer_menu( get_film_trailer_genres() );
   }
   else
   {
     $back_url = 'internet_tv.php';
-    film_trailer_hist_init(url_remove_param(current_url(), 'del'));
 
     $menu = new menu();
     $menu->add_item(str('NOW-50'), 'film_trailer_browse.php?feed=now-50', true);
