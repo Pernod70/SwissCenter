@@ -14,8 +14,6 @@
   // Get YouTube username of current user
   $username = get_user_pref('YOUTUBE_USERNAME');
 
-  youtube_hist_init(url_remove_param(current_url(), 'del'));
-
   // If COMPACT mode was last used then set to FULL as downloading 12 images per page takes too long!
   if ( get_user_pref("DISPLAY_THUMBS") == "COMPACT" ) { set_user_pref("DISPLAY_THUMBS","FULL"); }
 

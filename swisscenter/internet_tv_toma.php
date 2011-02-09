@@ -58,7 +58,7 @@ function display_toma_countries($category)
 $category = (isset($_REQUEST["category"]) ? $_REQUEST["category"] : '');
 $country  = (isset($_REQUEST["country"])  ? $_REQUEST["country"] : '');
 $sort     = (isset($_REQUEST["sort"])     ? $_REQUEST["sort"] : 'rating');
-$current_url = url_remove_param(current_url(), 'filter');
+$current_url = url_remove_params(current_url(), array('filter', 'page'));
 
 // Update the channel list if requested, or if no channels exist
 if (isset($_REQUEST["update"]) || toma_channels_count()==0)

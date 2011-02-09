@@ -19,10 +19,10 @@ class trailer_picker extends list_picker
   function trailer_picker()
   {
     parent::list_picker();
-    $this->url = 'apple_trailer_search.php?del=1';
+    $this->url = url_add_param('apple_trailer_search.php', 'hist', PAGE_HISTORY_REPLACE);
 
     // Where do we send the user back to if they quit this page?
-    $this->back_url = apple_trailer_page_params();
+    $this->back_url = page_hist_back_url();
   }
 
   function link_url($item)

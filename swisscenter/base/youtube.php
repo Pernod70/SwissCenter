@@ -71,52 +71,6 @@
     return $type;
   }
 
-  /**
-   * Functions for managing the YouTube navigation history.
-   */
-  function youtube_hist_init( $url )
-  {
-    $_SESSION["history"] = array();
-    $_SESSION["history"][] = $url;
-  }
-
-  function youtube_hist_push( $url )
-  {
-    $_SESSION["history"][] = $url;
-  }
-
-  function youtube_hist_pop()
-  {
-    if (count($_SESSION["history"]) == 0)
-      page_error(str('DATABASE_ERROR'));
-
-    return array_pop($_SESSION["history"]);
-  }
-
-  function youtube_hist_most_recent()
-  {
-    if (count($_SESSION["history"]) == 0)
-      page_error(str('DATABASE_ERROR'));
-
-    return $_SESSION["history"][count($_SESSION["history"])-1];
-  }
-
-  function youtube_page_params()
-  {
-    // Remove pages from history
-    if (isset($_REQUEST["del"]))
-      for ($i=0; $i<$_REQUEST["del"]; $i++)
-        youtube_hist_pop();
-
-    $this_url = url_remove_param(current_url(), 'del');
-    $back_url = url_add_param(youtube_hist_most_recent(), 'del', 2);
-
-    // Add page to history
-    youtube_hist_push($this_url);
-
-    return $back_url;
-  }
-
  /**************************************************************************************************
                                                End of file
  **************************************************************************************************/
