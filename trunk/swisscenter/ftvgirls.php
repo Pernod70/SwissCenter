@@ -61,7 +61,6 @@
   $back_url = 'internet_tv.php';
   $page     = (isset($_REQUEST["page"]) ? $_REQUEST["page"] : 0);
   $this_url = current_url();
-  page_hist_init();
 
   $items = ftvgirls_items();
 
@@ -83,9 +82,9 @@
     // Display ABC buttons
     $buttons = array();
     if ( get_user_pref("DISPLAY_THUMBS") == "LARGE" )
-      $buttons[] = array('text'=>str('THUMBNAIL_VIEW'), 'url'=>url_add_params($this_url, array('page'=>floor($page/2), 'thumbs'=>'FULL')) );
+      $buttons[] = array('text'=>str('THUMBNAIL_VIEW'), 'url'=>url_add_params($this_url, array('page'=>floor($page/2), 'thumbs'=>'FULL', 'hist'=>PAGE_HISTORY_REPLACE)) );
     elseif ( get_user_pref("DISPLAY_THUMBS") == "FULL" )
-      $buttons[] = array('text'=>str('LARGE_VIEW'), 'url'=>url_add_params($this_url, array('page'=>floor($page*2), 'thumbs'=>'LARGE')) );
+      $buttons[] = array('text'=>str('LARGE_VIEW'), 'url'=>url_add_params($this_url, array('page'=>floor($page*2), 'thumbs'=>'LARGE', 'hist'=>PAGE_HISTORY_REPLACE)) );
     $buttons[] = array('text' => str('START_SLIDESHOW'),'url' => play_array_list(MEDIA_TYPE_PHOTO, ftvgirls_playlist()));
 
     // Make sure the "back" button goes to the correct page
