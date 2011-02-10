@@ -108,18 +108,18 @@ function check_mysql_connect()
     return false;
   }
 
-  if ( ($db = @mysql_pconnect( DB_HOST, DB_USERNAME, DB_PASSWORD )) )
-    return true;
-  else
-    return false;
+  $db = @mysql_pconnect( DB_HOST, DB_USERNAME, DB_PASSWORD );
+  return ( $db ? true : false );
 }
 
 function check_mysql_version()
 {
-  if ( ($db = @mysql_pconnect( DB_HOST, DB_USERNAME, DB_PASSWORD )) )
+  $db = @mysql_pconnect( DB_HOST, DB_USERNAME, DB_PASSWORD );
+  if ( $db )
   {
     $stmt = mysql_query( 'select version()', $db);
-    if ($row = mysql_fetch_array( $stmt, MYSQL_ASSOC ))
+    $row = mysql_fetch_array( $stmt, MYSQL_ASSOC );
+    if ( $row )
     {
       $version = array_pop($row);
       send_to_log(5,"- MySQL Version : $version");
@@ -264,7 +264,7 @@ function check_swiss_files()
   set_time_limit(0);
 
   // Create array of all local files (excluding Bookmarks, cache, styles, and fanart folders)
-  $local = dir_to_array(SC_LOCATION, '^(?!Bookmarks|cache|fanart|media|styles|Thumbs.db)', 5, true);
+  $local = dir_to_array(SC_LOCATION, '^(?!Bookmarks|cache|fanart|media|playlists|styles|Thumbs.db)', 5, true);
 
   $data = array();
   foreach ($local as $path)
