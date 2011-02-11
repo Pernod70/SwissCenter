@@ -292,7 +292,6 @@ function page_footer( $back, $buttons = '', $iconbar = 0, $links = true, $text_b
     echo '</td>';
   }
 
-
   echo '    <td width="'.convert_x(50).'"></td>
           </tr>
         </table>';
@@ -358,28 +357,43 @@ function page_hist_push( $url, $sql = '' )
 function page_hist_pop()
 {
   if (count($_SESSION["hist"]) == 0)
-    page_error(str('DATABASE_ERROR'));
-
-  return array_pop($_SESSION["hist"]);
+  {
+    send_to_log(2,'ERROR: Failed to read $_SESSION in page_hist_pop()');
+    return array("url"=>'index.php', "sql"=>'');
+  }
+  else
+    return array_pop($_SESSION["hist"]);
 }
 
 function page_hist_most_recent( $ref = '' )
 {
   if (count($_SESSION["hist"]) == 0)
-    page_error(str('DATABASE_ERROR'));
-
-  if ( empty($ref) )
-    return $_SESSION["hist"][count($_SESSION["hist"])-1];
+  {
+    send_to_log(2,'ERROR: Failed to read $_SESSION in page_hist_most_recent()');
+    $recent = array("url"=>'index.php', "sql"=>'');
+    if ( empty($ref) )
+      return $recent;
+    else
+      return $recent[$ref];
+  }
   else
-    return $_SESSION["hist"][count($_SESSION["hist"])-1][$ref];
+  {
+    if ( empty($ref) )
+      return $_SESSION["hist"][count($_SESSION["hist"])-1];
+    else
+      return $_SESSION["hist"][count($_SESSION["hist"])-1][$ref];
+  }
 }
 
 function page_hist_back_url()
 {
   if (count($_SESSION["hist"]) == 0)
-    page_error(str('DATABASE_ERROR'));
-
-  return url_add_param($_SESSION["hist"][count($_SESSION["hist"])-2]["url"], 'hist', PAGE_HISTORY_DELETE);
+  {
+    send_to_log(2,'ERROR: Failed to read $_SESSION in page_hist_back_url()');
+    return 'index.php';
+  }
+  else
+    return url_add_param($_SESSION["hist"][count($_SESSION["hist"])-2]["url"], 'hist', PAGE_HISTORY_DELETE);
 }
 
 //-------------------------------------------------------------------------------------------------
