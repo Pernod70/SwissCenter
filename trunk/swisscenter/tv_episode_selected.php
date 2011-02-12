@@ -10,6 +10,7 @@
   require_once( realpath(dirname(__FILE__).'/base/playlist.php'));
   require_once( realpath(dirname(__FILE__).'/base/rating.php'));
   require_once( realpath(dirname(__FILE__).'/base/search.php'));
+  require_once( realpath(dirname(__FILE__).'/base/categories.php'));
   require_once( realpath(dirname(__FILE__).'/base/filter.php'));
   require_once( realpath(dirname(__FILE__).'/base/xml_sidecar.php'));
   require_once( realpath(dirname(__FILE__).'/video_obtain_info.php'));
@@ -94,6 +95,7 @@
 
   // Decode & assign page parameters to variables.
   $sql_table     = "tv media".get_rating_join().' where 1=1 ';
+  $predicate     = get_rating_filter().category_select_sql($_REQUEST["cat"], MEDIA_TYPE_TV).filter_get_predicate();
   $select_fields = "file_id, dirname, filename, title, year, length";
   $file_id       = $_REQUEST["file_id"];
   $this_url      = url_set_param(current_url(),'add','N');
@@ -233,10 +235,10 @@
 
   // Buttons for Next and Previous episodes
   $prev = db_row("select file_id, series, episode from tv media ".get_rating_join()." where programme = '".db_escape_str($data["PROGRAMME"])."'".
-                 " and concat(lpad(series,2,0),lpad(episode,3,0)) < concat(lpad(".$data["SERIES"].',2,0),lpad('.$data["EPISODE"].',3,0)) '.get_rating_filter().filter_get_predicate().
+                 " and concat(lpad(series,2,0),lpad(episode,3,0)) < concat(lpad(".$data["SERIES"].',2,0),lpad('.$data["EPISODE"].',3,0)) '.$predicate.
                  " order by series desc,episode desc limit 1");
   $next = db_row("select file_id, series, episode from tv media ".get_rating_join()." where programme = '".db_escape_str($data["PROGRAMME"])."'".
-                 " and concat(lpad(series,2,0),lpad(episode,3,0)) > concat(lpad(".$data["SERIES"].',2,0),lpad('.$data["EPISODE"].',3,0)) '.get_rating_filter().filter_get_predicate().
+                 " and concat(lpad(series,2,0),lpad(episode,3,0)) > concat(lpad(".$data["SERIES"].',2,0),lpad('.$data["EPISODE"].',3,0)) '.$predicate.
                  " order by series asc, episode asc limit 1");
   $buttons = array();
   if ( is_array($prev) )
