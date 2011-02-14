@@ -198,13 +198,12 @@ class wwwZELLULOIDde extends Parser implements ParserInterface {
   protected function parseExternalRatingPc() {
     $html = $this->page;
     $start = strpos($html,"User-Wertung:");
-    $start = strpos($html,">&nbsp;", $start + 1);
     if ($start !== false) {
-      $end = strpos($html, "%", $start + 1);
-      if ($start !== false) {
+      $end = strpos($html,'</TABLE>', $start + 1);
+      if ($end !== false) {
         $html_rating = substr($html, $start, $end - $start);
         $matches = array();
-        preg_match("/(\d+)/", $html_rating, $matches);
+        preg_match('/(\d+) *%[^";]/', $html_rating, $matches);
         $rating = $matches[1];
         if (isset($rating) && !empty($rating)) {
           $this->setProperty(EXTERNAL_RATING_PC, $rating);
