@@ -25,25 +25,26 @@ function isdir( $fsp )
 }
 
 /**
- * A function to get around the limitation that some versions of PHP on linux machines only have
+ * A function to get around the limitation that some versions of PHP only have
  * support for 32-bit integers and therefore cannot return the size of a file > 2Gb.
+ * This workaround uses the web server to determine the size and return it in the
+ * header Content-Length.
  *
  * @param string $fsp
- * @return integer
+ * @return float
  */
 
 function large_filesize( $fsp )
 {
-  if ( is_windows() )
+  if ( file_exists($fsp) )
   {
-    return filesize($fsp);
+    $server  = server_address();
+    $headers = get_headers( $server.make_url_path($fsp), 1 );
+    $filesize = (float)$headers["Content-Length"];
+    return $filesize;
   }
   else
-  {
-    $details = preg_split('/ +/',exec('ls -l "'.$fsp.'"'));
-    send_to_log(8,'File details from "ls -l '.$fsp.'" command',$details);
-    return $details[4];
-  }
+    return false;
 }
 
 /**
