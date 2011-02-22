@@ -19,8 +19,8 @@ class getid3_id3v1
 
 	function getid3_id3v1(&$fd, &$ThisFileInfo) {
 
-		if ($ThisFileInfo['filesize'] >= pow(2, 31)) {
-			$ThisFileInfo['warning'][] = 'Unable to check for ID3v1 because file is larger than 2GB';
+		if (!getid3_lib::intValueSupported($ThisFileInfo['filesize'])) {
+			$ThisFileInfo['warning'][] = 'Unable to check for ID3v1 because file is larger than '.round(PHP_INT_MAX / 1073741824).'GB';
 			return false;
 		}
 

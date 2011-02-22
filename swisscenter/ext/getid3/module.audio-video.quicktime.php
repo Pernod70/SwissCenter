@@ -21,7 +21,8 @@ class getid3_quicktime
 	function getid3_quicktime(&$fd, &$ThisFileInfo, $ReturnAtomData=true, $ParseAllPossibleAtoms=false) {
 
 		$ThisFileInfo['fileformat'] = 'quicktime';
-		$ThisFileInfo['quicktime']['hinting'] = false;
+		$ThisFileInfo['quicktime']['hinting']    = false;
+		$ThisFileInfo['quicktime']['controller'] = 'standard'; // may be overridden if 'ctyp' atom is present
 
 		fseek($fd, $ThisFileInfo['avdataoffset'], SEEK_SET);
 
@@ -29,8 +30,8 @@ class getid3_quicktime
 		$atomcounter = 0;
 
 		while ($offset < $ThisFileInfo['avdataend']) {
-			if ($offset >= pow(2, 31)) {
-				$ThisFileInfo['error'][] = 'Unable to parse atom at offset '.$offset.' because beyond 2GB limit of PHP filesystem functions';
+			if (!getid3_lib::intValueSupported($offset)) {
+				$ThisFileInfo['error'][] = 'Unable to parse atom at offset '.$offset.' because beyond '.round(PHP_INT_MAX / 1073741824).'GB limit of PHP filesystem functions';
 				break;
 			}
 			fseek($fd, $offset, SEEK_SET);
@@ -590,7 +591,7 @@ class getid3_quicktime
 								case 'mp4v':
 									$ThisFileInfo['fileformat'] = 'mp4';
 									$ThisFileInfo['video']['fourcc'] = $atom_structure['sample_description_table'][$i]['data_format'];
-									$ThisFileInfo['warning'][] = 'This version of getID3() [v'.GETID3_VERSION.'] does not fully support MPEG-4 audio/video streams';
+									//$ThisFileInfo['warning'][] = 'This version of getID3() [v'.GETID3_VERSION.'] does not fully support MPEG-4 audio/video streams'; // 2011-02-18: why am I warning about this again? What's not supported?
 									break;
 
 								case 'qtvr':
@@ -1061,21 +1062,19 @@ class getid3_quicktime
 				$atom_structure['creation_time_unix']  = getid3_lib::DateMac2Unix($atom_structure['creation_time']);
 				$atom_structure['modify_time_unix']    = getid3_lib::DateMac2Unix($atom_structure['modify_time']);
 
-				if (!isset($ThisFileInfo['video']['resolution_x']) || !isset($ThisFileInfo['video']['resolution_y'])) {
-					$ThisFileInfo['video']['resolution_x'] = $atom_structure['width'];
-					$ThisFileInfo['video']['resolution_y'] = $atom_structure['height'];
-				}
 				if ($atom_structure['flags']['enabled'] == 1) {
+					if (!isset($ThisFileInfo['video']['resolution_x']) || !isset($ThisFileInfo['video']['resolution_y'])) {
+						$ThisFileInfo['video']['resolution_x'] = $atom_structure['width'];
+						$ThisFileInfo['video']['resolution_y'] = $atom_structure['height'];
+					}
 					$ThisFileInfo['video']['resolution_x'] = max($ThisFileInfo['video']['resolution_x'], $atom_structure['width']);
 					$ThisFileInfo['video']['resolution_y'] = max($ThisFileInfo['video']['resolution_y'], $atom_structure['height']);
-				}
-				if (!empty($ThisFileInfo['video']['resolution_x']) && !empty($ThisFileInfo['video']['resolution_y'])) {
 					$ThisFileInfo['quicktime']['video']['resolution_x'] = $ThisFileInfo['video']['resolution_x'];
 					$ThisFileInfo['quicktime']['video']['resolution_y'] = $ThisFileInfo['video']['resolution_y'];
 				} else {
-					unset($ThisFileInfo['video']['resolution_x']);
-					unset($ThisFileInfo['video']['resolution_y']);
-					unset($ThisFileInfo['quicktime']['video']);
+					if (isset($ThisFileInfo['video']['resolution_x'])) { unset($ThisFileInfo['video']['resolution_x']); }
+					if (isset($ThisFileInfo['video']['resolution_y'])) { unset($ThisFileInfo['video']['resolution_y']); }
+					if (isset($ThisFileInfo['quicktime']['video']))    { unset($ThisFileInfo['quicktime']['video']);    }
 				}
 				break;
 
@@ -1175,6 +1174,7 @@ class getid3_quicktime
 				//   0x00 + 'std' for linear movie
 				//   'none' for no controls
 				$atom_structure['ctyp'] = substr($atom_data, 0, 4);
+				$ThisFileInfo['quicktime']['controller'] = $atom_structure['ctyp'];
 				switch ($atom_structure['ctyp']) {
 					case 'qtvr':
 						$ThisFileInfo['video']['dataformat'] = 'quicktimevr';

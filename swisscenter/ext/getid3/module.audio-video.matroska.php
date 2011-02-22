@@ -218,8 +218,8 @@ class getid3_matroska
 		$EBMLdata = '';
 		$EBMLdata_offset = $offset;
 
-		if ($ThisFileInfo['avdataend'] > 2147483648) {
-			$this->warnings[] = 'This version of getID3() may or may not correctly handle Matroska files larger than 2GB';
+		if (!getid3_lib::intValueSupported($ThisFileInfo['avdataend'])) {
+			$this->warnings[] = 'This version of getID3() may or may not correctly handle Matroska files larger than '.round(PHP_INT_MAX / 1073741824).'GB';
 		}
 
 		while ($offset < $ThisFileInfo['avdataend']) {
@@ -396,7 +396,7 @@ class getid3_matroska
 													case EBML_ID_NAME:
 													case EBML_ID_CODECNAME:
 													case EBML_ID_CODECPRIVATE:
-														$track_entry[$subelement_idname] =                              trim(substr($EBMLdata, $offset - $EBMLdata_offset, $subelement_length), "\x00");
+														$track_entry[$subelement_idname] =                             trim(substr($EBMLdata, $offset - $EBMLdata_offset, $subelement_length), "\x00");
 														break;
 
 													case EBML_ID_FLAGENABLED:
@@ -1170,6 +1170,7 @@ class getid3_matroska
 						if (!empty($trackarray['SamplingFrequency'])) { $track_info['sample_rate']     =                                    $trackarray['SamplingFrequency']; }
 						if (!empty($trackarray['Channels']))          { $track_info['channels']        =                                    $trackarray['Channels'];          }
 						if (!empty($trackarray['BitDepth']))          { $track_info['bits_per_sample'] =                                    $trackarray['BitDepth'];          }
+						if (!empty($trackarray['Language']))          { $track_info['language']        =                                    $trackarray['Language'];          }
 						switch (isset($trackarray[$this->EBMLidName(EBML_ID_CODECID)]) ? $trackarray[$this->EBMLidName(EBML_ID_CODECID)] : '') {
 							case 'A_PCM/INT/LIT':
 							case 'A_PCM/INT/BIG':
@@ -1385,7 +1386,7 @@ $this->warnings[] = 'This version of getID3() [v'.GETID3_VERSION.'] has problems
 
 		if (!empty($ThisFileInfo['video']['streams'])) {
 			$ThisFileInfo['mime_type'] = 'video/x-matroska';
-		} elseif (!empty($ThisFileInfo['video']['streams'])) {
+		} elseif (!empty($ThisFileInfo['audio']['streams'])) {
 			$ThisFileInfo['mime_type'] = 'audio/x-matroska';
 		} elseif (isset($ThisFileInfo['mime_type'])) {
 			unset($ThisFileInfo['mime_type']);
@@ -1404,8 +1405,8 @@ $this->warnings[] = 'This version of getID3() [v'.GETID3_VERSION.'] has problems
 
 	function EnsureBufferHasEnoughData(&$fd, &$EBMLdata, &$offset, &$EBMLdata_offset) {
 		$min_data = 1024;
-		if ($offset > 2147450880) { // 2^31 - 2^15 (2G-32k)
-			$offset = pow(2,63);
+		if (!getid3_lib::intValueSupported($offset + $this->read_buffer_size)) {
+			$offset = pow(2, 63);
 			return false;
 		} elseif (($offset - $EBMLdata_offset) >= (strlen($EBMLdata) - $min_data)) {
 			fseek($fd, $offset, SEEK_SET);
@@ -1417,8 +1418,8 @@ $this->warnings[] = 'This version of getID3() [v'.GETID3_VERSION.'] has problems
 
 	function readEBMLint(&$string, &$offset, $dataoffset=0) {
 		$actual_offset = $offset - $dataoffset;
-		if ($offset > 2147450880) { // 2^31 - 2^15 (2G-32k)
-			$this->warnings[] = 'aborting readEBMLint() because $offset larger than 2GB';
+		if (!getid3_lib::intValueSupported($offset + $this->read_buffer_size)) {
+			$this->warnings[] = 'aborting readEBMLint() because $offset larger than '.round(PHP_INT_MAX / 1073741824).'GB';
 			return false;
 		} elseif ($actual_offset >= strlen($string)) {
 			$this->warnings[] = '$actual_offset > $string in readEBMLint($string['.strlen($string).'], '.$offset.', '.$dataoffset.')';
@@ -1445,7 +1446,7 @@ $this->warnings[] = 'This version of getID3() [v'.GETID3_VERSION.'] has problems
 		} elseif (0x01 & $first_byte_int) {
 			$length = 8;
 		} else {
-			$offset = pow(2,63); // abort processing, skip to end of file
+			$offset = pow(2, 63); // abort processing, skip to end of file
 			$this->warnings[] = 'invalid EBML integer (leading 0x00) at '.$offset;
 			return false;
 		}

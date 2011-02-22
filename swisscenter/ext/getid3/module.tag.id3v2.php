@@ -417,7 +417,7 @@ class getid3_id3v2
 		if (isset($thisfile_id3v2['comments']['genre'])) {
 			foreach ($thisfile_id3v2['comments']['genre'] as $key => $value) {
 				unset($thisfile_id3v2['comments']['genre'][$key]);
-				$thisfile_id3v2['comments'] = getid3_lib::array_merge_noclobber($thisfile_id3v2['comments'], $this->ParseID3v2GenreString($value));
+				$thisfile_id3v2['comments'] = getid3_lib::array_merge_noclobber($thisfile_id3v2['comments'], array('genre'=>$this->ParseID3v2GenreString($value)));
 			}
 		}
 
@@ -448,65 +448,22 @@ class getid3_id3v2
 		// Parse genres into arrays of genreName and genreID
 		// ID3v2.2.x, ID3v2.3.x: '(21)' or '(4)Eurodisco' or '(51)(39)' or '(55)((I think...)'
 		// ID3v2.4.x: '21' $00 'Eurodisco' $00
-
-		$genrestring = trim($genrestring); // trailing nulls will cause an infinite loop
-		$returnarray = array();
-		if (strpos($genrestring, "\x00") !== false) {
-			// remove duplicate nulls
-			$unprocessed = trim($genrestring); // remove trailing nulls
-			while (strpos($unprocessed, "\x00\x00") !== false) {
-				$unprocessed = str_replace("\x00\x00", "\x00", $unprocessed);
-			}
-			$genrestring = '';
-			while (($endpos = strpos($unprocessed, "\x00")) !== false) {
-				// convert null-seperated v2.4-format into v2.3 ()-seperated format
-				$genrestring .= '('.trim(substr($unprocessed, 0, $endpos), '()').')'; // use trim() to avoid duplicate bracets
-				$unprocessed = substr($unprocessed, $endpos + 1);
-			}
-			unset($unprocessed);
-		} elseif (preg_match('#^([0-9]+|CR|RX)$#i', $genrestring)) {
-			// some tagging program (including some that use TagLib) fail to include null byte after numeric genre
-			$genrestring = '('.$genrestring.')';
+		$clean_genres = array();
+		if (strpos($genrestring, "\x00") === false) {
+			$genrestring = preg_replace('#\(([0-9]{1,3})\)#', '$1'."\x00", $genrestring);
 		}
-		if (getid3_id3v1::LookupGenreID($genrestring)) {
-
-			$returnarray['genre'][] = $genrestring;
-
-		} else {
-
-			if ((strpos($genrestring, '(') !== false) && (strpos($genrestring, ')') !== false)) {
-				do {
-					$startpos = strpos($genrestring, '(');
-					$endpos   = strpos($genrestring, ')');
-					if (substr($genrestring, $startpos + 1, 1) == '(') {
-						$genrestring = substr($genrestring, 0, $startpos).substr($genrestring, $startpos + 1);
-						$endpos--;
-					}
-					$element     = substr($genrestring, $startpos + 1, $endpos - ($startpos + 1));
-					$genrestring = substr($genrestring, 0, $startpos).substr($genrestring, $endpos + 1);
-					if (getid3_id3v1::LookupGenreName($element)) { // $element is a valid genre id/abbreviation
-
-						if (empty($returnarray['genre']) || !in_array(getid3_id3v1::LookupGenreName($element), $returnarray['genre'])) { // avoid duplicate entires
-							$returnarray['genre'][] = getid3_id3v1::LookupGenreName($element);
-						}
-
-					} else {
-
-						if (empty($returnarray['genre']) || !in_array($element, $returnarray['genre'])) { // avoid duplicate entires
-							$returnarray['genre'][] = $element;
-						}
-
-					}
-				} while ($endpos > $startpos);
+		$genre_elements = explode("\x00", $genrestring);
+		foreach ($genre_elements as $element) {
+			$element = trim($element);
+			if ($element) {
+				if (preg_match('#^[0-9]{1,3}#', $element)) {
+					$clean_genres[] = getid3_id3v1::LookupGenreName($element);
+				} else {
+					$clean_genres[] = str_replace('((', '(', $element);
+				}
 			}
 		}
-		if ($genrestring) {
-			if (empty($returnarray['genre']) || !in_array($genrestring, $returnarray['genre'])) { // avoid duplicate entires
-				$returnarray['genre'][]   = $genrestring;
-			}
-		}
-
-		return $returnarray;
+		return $clean_genres;
 	}
 
 
@@ -1283,10 +1240,7 @@ class getid3_id3v2
 			$parsedFrame['description']      = $frame_description;
 			$parsedFrame['data']             = substr($parsedFrame['data'], $frame_terminatorpos + strlen($this->TextEncodingTerminatorLookup($frame_textencoding)));
 
-			if (!empty($parsedFrame['framenameshort']) && !empty($parsedFrame['data'])) {
-				$ThisFileInfo['id3v2']['comments'][$parsedFrame['framenameshort']][] = getid3_lib::iconv_fallback($parsedFrame['encoding'], $ThisFileInfo['id3v2']['encoding'], $parsedFrame['data']);
-			}
-
+			$parsedFrame['image_mime'] = '';
 			$imageinfo = array();
 			$imagechunkcheck = getid3_lib::GetDataImageSize($parsedFrame['data'], $imageinfo);
 			if (($imagechunkcheck[2] >= 1) && ($imagechunkcheck[2] <= 3)) {
@@ -1300,6 +1254,12 @@ class getid3_id3v2
 				$parsedFrame['image_bytes']      = strlen($parsedFrame['data']);
 			}
 
+			if (!empty($parsedFrame['framenameshort']) && !empty($parsedFrame['data'])) {
+				if (!isset($ThisFileInfo['id3v2']['comments']['picture'])) {
+					$ThisFileInfo['id3v2']['comments']['picture'] = array();
+				}
+				$ThisFileInfo['id3v2']['comments']['picture'][] = array('data'=>$parsedFrame['data'], 'image_mime'=>$parsedFrame['image_mime']);
+			}
 
 		} elseif ((($id3v2_majorversion >= 3) && ($parsedFrame['frame_name'] == 'GEOB')) || // 4.15  GEOB General encapsulated object
 				(($id3v2_majorversion == 2) && ($parsedFrame['frame_name'] == 'GEO'))) {     // 4.16  GEO  General encapsulated object
