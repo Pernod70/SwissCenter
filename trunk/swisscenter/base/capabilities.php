@@ -256,7 +256,7 @@ function media_exts( $media_type )
 
 function media_exts_with_GetID3_support()
 {
-  return explode(',' ,'aac,bmp,mp3,mp4,asf,riff,flac,jpg,jpeg,gif,ogg,png,quicktime,matroska,mpeg,mpg');
+  return explode(',' ,'aac,ac3,bmp,mp3,mp4,asf,riff,flac,jpg,jpeg,gif,ogg,png,quicktime,matroska,mpeg,mpg');
 }
 
 #-------------------------------------------------------------------------------------------------

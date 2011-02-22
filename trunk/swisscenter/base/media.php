@@ -480,6 +480,7 @@ function process_mp3( $dir, $id, $file)
     if (in_array( $id3["fileformat"], media_exts_with_GetID3_support() ))
     {
       // ID3 data successfully obtained, so enter it into the database
+      $data["size"]         = $id3["filesize"];
       $data["length"]       = floor($id3["playtime_seconds"]);
       $data["lengthstring"] = $id3["playtime_string"];
       $data["bitrate"]      = floor($id3["bitrate"]);
@@ -494,7 +495,7 @@ function process_mp3( $dir, $id, $file)
       $data["disc"]         = null;
       $data["band"]         = null;
       $data["composer"]     = null;
-      $image                = null;
+      $image                = array();
 
       // Set specific tags for each file format
       if ( isset($id3["tags"]["id3v1"]) )
@@ -515,17 +516,18 @@ function process_mp3( $dir, $id, $file)
         set_var( $data["genre"],  array_last($id3["tags"]["vorbiscomment"]["genre"]) );
         set_var( $data["year"],   array_last($id3["tags"]["vorbiscomment"]["date"]) );
         set_var( $data["band"],   array_last($id3["tags"]["vorbiscomment"]["band"]) );
+        set_var( $data["band"],   array_last($id3["tags"]["vorbiscomment"]["album artist"]) );
         set_var( $data["composer"], array_last($id3["tags"]["vorbiscomment"]["composer"]) );
         set_var( $data["track"],  ltrim(array_last($id3["tags"]["vorbiscomment"]["tracknumber"]),'0') );
         set_var( $data["disc"],   ltrim(array_last($id3["tags"]["vorbiscomment"]["discnumber"]),'0') );
         if ( isset($id3["tags"]["vorbiscomment"]["coverart"]) )
-          $image = base64_decode(array_last($id3["tags"]["vorbiscomment"]["coverart"]));
+          $image["data"] = base64_decode(array_last($id3["tags"]["vorbiscomment"]["coverart"]));
       }
 
       if ( isset($id3["flac"]["PICTURE"]) )
       {
         $image = array_last($id3["flac"]["PICTURE"]);
-        $image = $image["image_data"];
+        $image = array("data"=>$image["image_data"], "image_mime"=>$image["mime_type"]);
       }
 
       if ( isset($id3["tags"]["ape"]) )
@@ -538,6 +540,7 @@ function process_mp3( $dir, $id, $file)
         set_var( $data["composer"], array_last($id3["tags"]["ape"]["composer"]) );
         set_var( $data["track"],  ltrim(array_last($id3["tags"]["ape"]["track"]),'0') );
         set_var( $data["disc"],   ltrim(array_last($id3["tags"]["ape"]["disc"]),'0') );
+        set_var( $image,          array_last($id3["tags"]["ape"]["picture"]) );
       }
 
       if ( isset($id3["tags"]["quicktime"]) )
@@ -551,7 +554,7 @@ function process_mp3( $dir, $id, $file)
         set_var( $data["composer"], array_last($id3["tags"]["quicktime"]["composer"]) );
         set_var( $data["track"],  ltrim(array_last($id3["tags"]["quicktime"]["track_number"]),'0') );
         set_var( $data["disc"],   ltrim(array_last($id3["tags"]["quicktime"]["disc_number"]),'0') );
-        set_var( $image,          array_last($id3["tags"]["quicktime"]["artwork"]) );
+        set_var( $image["data"],  array_last($id3["tags"]["quicktime"]["artwork"]) );
       }
 
       if ( isset($id3["tags"]["asf"]) )
@@ -578,7 +581,7 @@ function process_mp3( $dir, $id, $file)
         set_var( $data["composer"], array_last($id3["tags"]["id3v2"]["composer"]) );
         set_var( $data["track"],  ltrim(array_last($id3["tags"]["id3v2"]["track_number"]),'0') );
         set_var( $data["disc"],   ltrim(array_last($id3["tags"]["id3v2"]["part_of_a_set"]),'0') );
-        set_var( $image,          array_last($id3["tags"]["id3v2"]["attached_picture"]) );
+        set_var( $image,          array_last($id3["tags"]["id3v2"]["picture"]) );
       }
 
       // Remove track and disc totals, ie. 3/10 becomes 3
@@ -588,15 +591,15 @@ function process_mp3( $dir, $id, $file)
       if (get_sys_pref('USE_ID3_ART','YES') == 'YES' && !empty($image))
       {
         send_to_log(4,"Image found within ID3 tag - will use as album art");
-        $data["art_sha1"]   = sha1($image);
+        $data["art_sha1"] = sha1($image["data"]);
         // Store media art if it doesn't already exist
         if ( !db_value("select art_sha1 from media_art where art_sha1='".$data["art_sha1"]."'") )
-          db_insert_row('media_art',array("art_sha1"=>$data["art_sha1"], "image"=>$image ));
+          db_insert_row('media_art',array("art_sha1"=>$data["art_sha1"], "image"=>$image["data"] ));
         elseif ( db_value("select sha1(image) from media_art where art_sha1='".$data["art_sha1"]."'") !== $data["art_sha1"] )
-          db_sqlcommand("update media_art set image='".db_escape_str($image)."' where art_sha1='".$data["art_sha1"]."'");
+          db_sqlcommand("update media_art set image='".db_escape_str($image["data"])."' where art_sha1='".$data["art_sha1"]."'");
       }
       else
-        $data["art_sha1"]   = null;
+        $data["art_sha1"] = null;
     }
     else
     {
@@ -653,7 +656,8 @@ function add_photo_album( $dir, $id )
 
   send_to_log(6,'Adding photo album "'.$title.'"');
 
-  if ($file_id = db_value("select file_id from photo_albums where dirname='".db_escape_str($dir)."'"))
+  $file_id = db_value("select file_id from photo_albums where dirname='".db_escape_str($dir)."'");
+  if ( $file_id )
   {
     if ( db_update_row( "photo_albums", $file_id, $row) === false )
       send_to_log(1,'Unable to update photo album to the database');
@@ -875,7 +879,7 @@ function process_movie( $dir, $id, $file )
   $getID3   = new getID3;
   $filepath = os_path($dir.$file);
   $id3      = $getID3->analyze($filepath);
-  $img      = false;
+  $image    = array();
 
   // Standard information about the file
   $data["dirname"]      = $dir;
@@ -919,7 +923,7 @@ function process_movie( $dir, $id, $file )
           if (get_sys_pref('USE_ID3_ART','YES') == 'YES' && isset($id3["asf"]["comments"]["picture"][0]))
           {
             send_to_log(4,"Image found within ID3 tag - will use as video art");
-            $img = sha1($id3["asf"]["comments"]["picture"][0]);
+            $image = $id3["asf"]["comments"]["picture"][0];
           }
         }
         else
@@ -943,14 +947,14 @@ function process_movie( $dir, $id, $file )
   }
 
   // Store video snapshot in the database
-  if ( !empty($img) )
+  if ( !empty($image) )
   {
-    $data["art_sha1"] = sha1($img);
+    $data["art_sha1"] = sha1($image["data"]);
     // Store media art if it doesn't already exist
     if ( !db_value("select art_sha1 from media_art where art_sha1='".$data["art_sha1"]."'") )
-      db_insert_row('media_art',array("art_sha1"=>$data["art_sha1"], "image"=>$img ));
+      db_insert_row('media_art',array("art_sha1"=>$data["art_sha1"], "image"=>$image["data"] ));
     elseif ( db_value("select sha1(image) from media_art where art_sha1='".$data["art_sha1"]."'") !== $data["art_sha1"] )
-      db_sqlcommand("update media_art set image='".db_escape_str($img)."' where art_sha1='".$data["art_sha1"]."'");
+      db_sqlcommand("update media_art set image='".db_escape_str($image["data"])."' where art_sha1='".$data["art_sha1"]."'");
   }
 
   $file_id = db_value("select file_id from movies where dirname='".db_escape_str($dir)."' and filename='".db_escape_str($file)."'");
@@ -1310,7 +1314,8 @@ function process_media_directory( $dir, $id, $share, $table, $file_exts, $recurs
   db_sqlcommand("update $table set verified ='N' where dirname like'".db_escape_str($dir)."%'");
 
   send_to_log(4,'Scanning : '.$dir);
-  if ($dh = @opendir($dir))
+  $dh = @opendir($dir);
+  if ( $dh )
   {
     while (($file = readdir($dh)) !== false)
     {
