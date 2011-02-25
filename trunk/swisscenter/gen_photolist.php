@@ -80,7 +80,8 @@
    */
 
   send_to_log(7,'Generating list of pictures to display as a slideshow');
-  generate_tracklist( $_REQUEST["seed"], ($_SESSION["shuffle"] == "on"), $_REQUEST["spec_type"], $_REQUEST["spec"], $_REQUEST["media_type"]);
+  $shuffle = isset($_REQUEST["shuffle"]) ? ($_REQUEST["shuffle"] == 'on') : ($_SESSION["shuffle"] == 'on');
+  generate_tracklist( $_REQUEST["seed"], $shuffle, $_REQUEST["spec_type"], $_REQUEST["spec"], $_REQUEST["media_type"]);
 
   if (is_hardware_player())
     player_slideshow();

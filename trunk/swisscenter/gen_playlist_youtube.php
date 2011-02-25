@@ -15,7 +15,7 @@
 
   // Generate the playlist based on the values passed as part of the request
   $seed       = $_REQUEST["seed"];
-  $shuffle    = ($_SESSION["shuffle"] == "on");
+  $shuffle    = isset($_REQUEST["shuffle"]) ? ($_REQUEST["shuffle"] == 'on') : ($_SESSION["shuffle"] == 'on');
   $video_ids  = explode(',', $_SESSION["play_now"]["spec"]);
   $server     = server_address();
   $max_size   = max_playlist_size();
