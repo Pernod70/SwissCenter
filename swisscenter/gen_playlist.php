@@ -31,8 +31,9 @@
 */
 
   // Generate the playlist based on the values passed as part of the request
+  $shuffle   = isset($_REQUEST["shuffle"]) ? ($_REQUEST["shuffle"] == 'on') : ($_SESSION["shuffle"] == 'on');
   $tracklist = nvl($_REQUEST["tracklist"],'');
-  generate_tracklist( $_REQUEST["seed"], ($_SESSION["shuffle"] == "on"), $_REQUEST["spec_type"], $_REQUEST["spec"], $_REQUEST["media_type"], $tracklist);
+  generate_tracklist( $_REQUEST["seed"], $shuffle, $_REQUEST["spec_type"], $_REQUEST["spec"], $_REQUEST["media_type"], $tracklist);
 
   $data       = get_tracklist($tracklist);
   $server     = server_address();
@@ -116,9 +117,9 @@
   if ( is_pc() )
   {
     header('Content-Disposition: attachment; filename=Playlist.m3u');
-    header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+    header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
     header('Content-Type: audio/x-mpegurl');
-    header("Content-Length: ".ob_get_length());
+    header('Content-Length: '.ob_get_length());
     ob_flush();
   }
 
