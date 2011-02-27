@@ -389,7 +389,7 @@ function player_fontsize_multiplier()
   if ( is_pc() )
   {
     // Return the multiplier for PC browser or the currently set override.
-    return get_sys_pref('FONTWIDTH_MULTIPLIER_PC',2.0);
+    return get_sys_pref('FONTWIDTH_MULTIPLIER_PC',1.0);
   }
   else
   {
