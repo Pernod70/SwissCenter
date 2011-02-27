@@ -223,7 +223,7 @@ class menu
     if ( style_is_colour($bg_style))
       return ' bgcolor="'.style_value($bg_style).'" ';
     elseif ( style_is_image($bg_style))
-      return ' background="/thumb.php?src='.rawurlencode(style_img($bg_style,true)).'&x='.(convert_x($width)+6).'&y='.(convert_y($height)+6).'&stretch=Y" ';
+      return ' background="/thumb.php?src='.rawurlencode(style_img($bg_style,true)).'&x='.convert_x($width+4).'&y='.convert_y($height+10).'&stretch=Y" ';
     else
       return '';
   }
@@ -335,7 +335,7 @@ class menu
     {
       foreach ($this->menu_items as $item)
       {
-        $text = shorten($item["text"], $width_px-80, 1, $this->font_size, true, false);
+        $text = shorten($item["text"], $width_px-convert_x(80), 1, $this->font_size, true, false);
 
         // Single fixed background at the moment - may allow it to change based on position in the future.
         $background      = $this->private_background_tags( $tvid, $width, $height);
