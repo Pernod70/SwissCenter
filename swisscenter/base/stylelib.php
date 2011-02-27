@@ -152,9 +152,20 @@ function shorten( $text, $width, $lines = 1, $font_size = FONTSIZE_BODY, $dots =
 
   // Use either actual font size in pixels or get player dependant font.
   if (strpos($font_size,'px') !== false)
-    $size = $font_size;
+  {
+    // Remove px to leave size as a number
+    $size = str_replace('px','',$font_size);
+  }
+  elseif ( is_pc() )
+  {
+    // Convert logical coordinates font-size (1-1000) to actual pixels
+    $size = convert_y(get_font($font_size));
+  }
   else
+  {
+    // Get the appropriate font for the player
     $size = get_font($font_size);
+  }
 
   // The character sizes specified in the array are for a fixed size font. therefore, we
   // need to calculate the max_len for the font size we were given.
