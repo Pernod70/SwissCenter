@@ -45,7 +45,8 @@
       $count++;
 
       $pic_num = mt_rand(0,count($images)-1);
-      $pic_fsp = download_and_cache_image($images[$pic_num]);
+      $pic_url = is_array($images[$pic_num]) ? $images[$pic_num]["remote"] : $images[$pic_num];
+      $pic_fsp = download_and_cache_image($pic_url);
       if ($pic_fsp !== false)
       {
         array_splice($images,$pic_num,1);
@@ -116,10 +117,12 @@
     #----------
 
     if ( isset($current_track["ALBUMART"]) && !empty($current_track["ALBUMART"]))
+    {
       if ( is_remote_file($current_track["ALBUMART"]) )
         $art_fsp = download_and_cache_image($current_track["ALBUMART"]);
       else
         $art_fsp = $current_track["ALBUMART"];
+    }
     else
       $art_fsp = file_albumart($current_track["DIRNAME"].$current_track["FILENAME"]);
 
@@ -256,7 +259,7 @@
     $text_width		  = convert_x(750,BROWSER_SCREEN_COORDS);
     $text_y         = convert_y(680,BROWSER_SCREEN_COORDS);
     $image->rectangle($text_x, $text_y , convert_x(850,BROWSER_SCREEN_COORDS), convert_y(2,BROWSER_SCREEN_COORDS), $title_text_col);
-    $text_y        += convert_y(60,BROWSER_SCREEN_COORDS);
+    $text_y        += convert_y(40,BROWSER_SCREEN_COORDS);
 
     # ------------------------
     # Prev/Next track
@@ -296,7 +299,7 @@
     # Photos
     # ------------------------
 
-    if ( !is_array($previous_track) && !is_array($next_track) && is_array($photos))
+    if ( is_array($photos) )
       image_rand_pics($image, 75, convert_tolog_y($text_y,BROWSER_SCREEN_COORDS)-20, 850, 120, $border_col, $photos);
 
     // return finished image
@@ -352,10 +355,12 @@
     #----------
 
     if ( isset($current_track["ALBUMART"]) && !empty($current_track["ALBUMART"]))
+    {
       if ( is_remote_file($current_track["ALBUMART"]) )
         $art_fsp = download_and_cache_image($current_track["ALBUMART"]);
       else
         $art_fsp = $current_track["ALBUMART"];
+    }
     else
       $art_fsp   = file_albumart($current_track["DIRNAME"].$current_track["FILENAME"]);
 

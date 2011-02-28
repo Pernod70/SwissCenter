@@ -9,7 +9,16 @@
 
   // Log details of the image request
   send_to_log(1,"------------------------------------------------------------------------------");
-  send_to_log(1,"Image Requested : ".current_url()." by client (".client_ip().")");
+  send_to_log(1,"Image Requested : ".$_SERVER["REQUEST_METHOD"]." ".current_url()." by client (".client_ip().")");
+
+  // Send headers only if HEAD request
+  if ( $_SERVER["REQUEST_METHOD"] == 'HEAD' )
+  {
+    header("Content-Type: image/jpeg");
+    header("Connection: Keep-Alive");
+    send_to_log(8,'HTTP Response Headers:',headers_list());
+    exit;
+  }
 
   $tracks    = get_tracklist();
   $prev_info = array();
@@ -34,6 +43,13 @@
       $_SESSION["now_playing_start_time"] = time();
 
     $_SESSION["now_playing"] = $tracks[$idx];
+
+    // Send any pending output (inc headers) and stop timeouts or user aborts killing the script
+    ob_end_flush();
+    ignore_user_abort(TRUE);
+    session_write_close();
+    @set_time_limit(0);
+
     if ( get_sys_pref('NOW_PLAYING_STYLE', 'ORIGINAL') == 'ENHANCED' )
     {
       // Percentage to show on progress bar (based upon time since track started)
@@ -41,7 +57,10 @@
       $image = now_playing_image_fanart( $tracks[$idx], $prev_info, $next_info, ($idx+1).' / '.count($tracks), $percent_played );
     }
     else
-      $image = now_playing_image( $tracks[$idx], $prev_info, $next_info, ($idx+1).' / '.count($tracks) );
+    {
+      $photos = internet_available() ? get_lastfm_artist_images( $tracks[$idx]["ARTIST"], 'large' ) : '';
+      $image = now_playing_image( $tracks[$idx], $prev_info, $next_info, ($idx+1).' / '.count($tracks), $photos );
+    }
 
     $image->output('jpeg');
   }

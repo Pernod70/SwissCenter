@@ -10,7 +10,16 @@
 
   // Log details of the image request
   send_to_log(1,"------------------------------------------------------------------------------");
-  send_to_log(1,"Image Requested : ".current_url()." by client (".client_ip().")");
+  send_to_log(1,"Image Requested : ".$_SERVER["REQUEST_METHOD"]." ".current_url()." by client (".client_ip().")");
+
+  // Send headers only if HEAD request
+  if ( $_SERVER["REQUEST_METHOD"] == 'HEAD' )
+  {
+    header("Content-Type: image/jpeg");
+    header("Connection: Keep-Alive");
+    send_to_log(8,'HTTP Response Headers:',headers_list());
+    exit;
+  }
 
   // SHOUTcast reference
   $IP_Port[1]  = isset($_REQUEST["schost"]) ? $_REQUEST["schost"] : 0;
@@ -35,11 +44,27 @@
     $_SESSION["now_playing"] = $playing[0];
     $playing[0]["STATION"]   = un_magic_quote($_REQUEST["station"]);
 
+    // Send any pending output (inc headers) and stop timeouts or user aborts killing the script
+    ob_end_flush();
+    ignore_user_abort(TRUE);
+    session_write_close();
+    @set_time_limit(0);
+
     // Determine image to display for this track
     if ( !isset($playing[0]["ALBUMART"]) )
     {
-      // Get an artist image from Last.fm
-      if ( ($playing[0]["ALBUMART"] = get_lastfm_artist_image($playing[0]["ARTIST"])) == false )
+      // Get an album/artist image from Last.fm
+      $track_info = lastfm_track_getInfo($playing[0]["ARTIST"], $playing[0]["TITLE"]);
+      if ( isset($track_info["track"]["album"]["image"]) )
+      {
+        $image = array_last($track_info["track"]["album"]["image"]);
+        $playing[0]["ALBUMART"] = $image["#text"];
+      }
+      else
+      {
+        $playing[0]["ALBUMART"] = get_lastfm_artist_image($playing[0]["ARTIST"]);
+      }
+      if ( empty($playing[0]["ALBUMART"]) )
       {
         // No artist image so do we have a station image defined?
         $station_logos = db_toarray("select lower(station) station, image from iradio_stations");
@@ -54,7 +79,8 @@
       }
     }
 
-    $image = now_playing_image($playing[0], array_slice($playing, 1));
+    $photos = get_lastfm_artist_images( $playing[0]["ARTIST"], 'large' );
+    $image = now_playing_image($playing[0], array_slice($playing, 1), '', '', $photos);
     $image->output('jpeg');
   }
 
