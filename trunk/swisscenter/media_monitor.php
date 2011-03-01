@@ -16,8 +16,10 @@
   send_to_log(1,"Page Requested : ".current_url()." by client (".client_ip().")");
 
   $type        = $_REQUEST["Type"];
-  $path        = str_replace('\\','/',un_magic_quote($_REQUEST["Path"]));
-  $oldpath     = isset($_REQUEST["OldPath"]) ? str_replace('\\','/',un_magic_quote($_REQUEST["OldPath"])) : '';
+  $path        = str_replace('\\','/',un_magic_quote(rawurldecode($_REQUEST["Path"])));
+  $path        = utf8_decode($path);
+  $oldpath     = isset($_REQUEST["OldPath"]) ? str_replace('\\','/',un_magic_quote(rawurldecode($_REQUEST["OldPath"]))) : '';
+  $oldpath     = utf8_decode($oldpath);
   $changed     = $_REQUEST["ChangedDate"];
   $isDirectory = $_REQUEST["IsDirectory"];
   $isFile      = ($isDirectory == 'Yes' ? false : true);
