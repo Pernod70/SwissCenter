@@ -183,9 +183,10 @@
       // Read bookmark file
       $bookmark_filename = bookmark_file($data[0]["DIRNAME"].$data[0]["FILENAME"]);
       if (!support_resume() && file_exists($bookmark_filename))
-        $percent_played = ' ('.(int)trim(file_get_contents($bookmark_filename)).'%)';
+        $pc = (int)trim(file_get_contents($bookmark_filename));
       else
-        $percent_played = '';
+        $pc = 0;
+      $percent_played = ($pc !== 0 && $pc < 99) ? ' ('.$pc.'%)' : '';
 
       // Play now
       $menu->add_item( str('PLAY_NOW').$percent_played, play_sql_list(MEDIA_TYPE_VIDEO,"select distinct $select_fields from $sql_table $predicate order by title, filename"));
@@ -316,21 +317,21 @@
   }
 
   // Buttons for Next and Previous videos
-//  $prev = db_row("select file_id,title from movies media ".get_rating_join()." where ".
-//                 " title < '".$data[0]["TITLE"]."' ".get_rating_filter().filter_get_predicate().$history["sql"].
-//                 " order by title desc limit 1");
-//  $next = db_row("select file_id, title from movies media ".get_rating_join()." where ".
-//                 " title > '".$data[0]["TITLE"]."' ".get_rating_filter().filter_get_predicate().$history["sql"].
-//                 " order by title asc limit 1");
+  $prev = db_row("select file_id,title from movies media ".get_rating_join()." where ".
+                 " title < '".db_escape_str($data[0]["TITLE"])."' ".get_rating_filter().filter_get_predicate().$history["sql"].
+                 " order by title desc limit 1");
+  $next = db_row("select file_id, title from movies media ".get_rating_join()." where ".
+                 " title > '".db_escape_str($data[0]["TITLE"])."' ".get_rating_filter().filter_get_predicate().$history["sql"].
+                 " order by title asc limit 1");
   $buttons = array();
-//  if ( is_array($prev) )
-//    $buttons[] = array('text'=>str('PREVIOUS').': '.$prev["TITLE"], 'url'=> url_add_params($this_url, array("type"=>"title", "name"=>$prev["TITLE"])) );
-//  if ( is_array($next) )
-//    $buttons[] = array('text'=>str('NEXT').': '.$next["TITLE"], 'url'=> url_add_params($this_url, array("type"=>"title", "name"=>$next["TITLE"])) );
+  if ( is_array($prev) )
+    $buttons[0] = array('text'=>str('PREVIOUS').': '.$prev["TITLE"], 'url'=> url_add_params($this_url, array("type"=>"title", "name"=>rawurlencode($prev["TITLE"]))) );
+  if ( is_array($next) )
+    $buttons[1] = array('text'=>str('NEXT').': '.$next["TITLE"], 'url'=> url_add_params($this_url, array("type"=>"title", "name"=>rawurlencode($next["TITLE"]))) );
   if (!isset($_SESSION["shuffle"]) || $_SESSION["shuffle"] == 'off')
-    $buttons[] = array('text'=>str('SHUFFLE_ON'), 'url'=> url_set_param($this_url,'shuffle','on') );
+    $buttons[2] = array('text'=>str('SHUFFLE_ON'), 'url'=> url_set_param($this_url,'shuffle','on') );
   else
-    $buttons[] = array('text'=>str('SHUFFLE_OFF'), 'url'=> url_set_param($this_url,'shuffle','off') );
+    $buttons[2] = array('text'=>str('SHUFFLE_OFF'), 'url'=> url_set_param($this_url,'shuffle','off') );
 
   page_footer( url_add_params( search_picker_most_recent(), array("p_del"=>"y","del"=>"y") ), $buttons, 0, true, 'PAGE_TEXT_BACKGROUND' );
 
