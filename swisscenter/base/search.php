@@ -217,7 +217,11 @@ function search_process_passed_params()
   if (empty($type))
     $predicate = $history["sql"]." and $name";
   else
+  {
+    // Remove any existing predicate before appending the new one.
+    $history["sql"] = preg_replace("/ and $type like '.*'",'',$history["sql"]);
     $predicate = $history["sql"]." and $type like '".db_escape_str(str_replace('_','\_',$name))."'";
+  }
 
   if (isset($_REQUEST["shuffle"]))
   {
