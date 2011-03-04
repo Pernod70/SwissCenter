@@ -82,8 +82,9 @@ function make_url_path( $fsp )
   if ( is_windows() )
     $parts[0] = strtoupper($parts[0]);
 
+  // Simese doesn't like UTF-8 encoded URL's
   for ($i=0; $i<count($parts); $i++)
-    $parts[$i] = rawurlencode(utf8_encode($parts[$i]));
+    $parts[$i] = rawurlencode(is_server_simese() ? $parts[$i] : utf8_encode($parts[$i]));
 
   return join('/',$parts);
 }
