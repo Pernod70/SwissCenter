@@ -49,7 +49,9 @@ function star_rating( $rating )
   page_header($title, star_rating($rating));
 
   $menu = new menu();
-  $menu->add_item( str('PLAY_NOW'), 'href="stream_url.php?'.current_session().'&youtube_id='.$video_id.'&ext=.mp4" vod ');
+  $menu->add_item( str('PLAY_NOW'), 'href="'.url_add_params('stream_url.php?'.current_session(), array('user_agent' => rawurlencode('QuickTime/7.6'),
+                                                                                                       'youtube_id' => $video_id,
+                                                                                                       'ext'        => '.mp4" vod ')));
 
   echo '<table width="100%" cellpadding=0 cellspacing=0 border=0>
           <tr>
