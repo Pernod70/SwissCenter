@@ -51,37 +51,28 @@
     send_to_log(8,'Request method : '.$_SERVER["REQUEST_METHOD"]);
     send_to_log(8,'Requesting HTTP Range : '.$_SERVER["HTTP_RANGE"]);
 
-    send_to_log(8,'Accept-Ranges: bytes');
-    send_to_log(8,'Content-Range: bytes '.$fstart.'-'.$fend.'/'.$fsize);
-    send_to_log(8,'Content-Length: '.$fbytes);
-    send_to_log(8,'Content-Type: '.$ftype);
-
     header('Accept-Ranges: bytes');
     header('Content-Range: bytes '.$fstart.'-'.$fend.'/'.$fsize);
     header('Content-Length: '.$fbytes);
     header('Content-Type: '.$ftype);
-    header('HTTP/1.1 206 Partial Content');
+    header($_SERVER["SERVER_PROTOCOL"].' 206 Partial Content');
 
     // Send additional headers from source
     foreach ($headers as $field=>$header)
     {
-      send_to_log(2,'field',$field);
-      send_to_log(2,'header',$header);
-      if ( in_array($field, array('etag', 'last-modified')) )
-      {
-        send_to_log(8,ucfirst($field).': '.$header);
+      if ( in_array($field, array('etag', 'last-modified'), true) )
         header(ucfirst($field).': '.$header);
-      }
     }
 
     // Override Simese no-cache headers
-    header("Pragma: public");
-    header("Expires: ".gmdate('D, d M Y H:i:s', time()+1800)." GMT");
-    header("Cache-Control: max-age=1800");
+    header('Pragma: public');
+    header('Expires: '.gmdate('D, d M Y H:i:s', time()+1800).' GMT');
+    header('Cache-Control: max-age=1800');
 
     // Force a "File Download" Dialog Box when using a browser
-    send_to_log(8,'Content-Disposition: inline; filename="'.$filename.'"');
     header('Content-Disposition: inline; filename="'.$filename.'"');
+
+    send_to_log(8,'HTTP Response Headers:',headers_list());
 
     // Send any pending output (inc headers) and stop timeouts or user aborts killing the script
     ob_end_flush();
@@ -105,7 +96,7 @@
         send_to_log(8,"Sending : $fstart-$fend/$fsize ($fbytes bytes)");
 
         // Send request for required range
-        fwrite($fh, "GET ".$url_parts["path"].($url_parts["query"] ? '?'.$url_parts["query"] : "")." HTTP/1.1\r\n".
+        fwrite($fh, "GET ".$url_parts["path"].($url_parts["query"] ? '?'.$url_parts["query"] : "")." HTTP/1.0\r\n".
                     "Host: ".$url_parts["host"]."\r\n".
                     "User-Agent: ".$user_agent."\r\n".
                     "Accept-Ranges: bytes\r\n".
@@ -151,8 +142,8 @@
   if ( in_array(strtolower($req_ext),$subtitles) )
   {
     // Tell the showcenter that we don't have the requested subtitle file
-    send_to_log(7,"Subtitles requested for remote file - sending 'HTTP/1.1 404' to the player");
-    header ("HTTP/1.1 404 Not Found");
+    send_to_log(7,"Subtitles requested for remote file - sending '".$_SERVER["SERVER_PROTOCOL"]." 404' to the player");
+    header ($_SERVER["SERVER_PROTOCOL"].' 404 Not Found');
   }
   else
   {
@@ -172,11 +163,11 @@
         //   Version 1.0.4 : Date 2010-07-24
         //
         // Obtain video ID, temporary ticket, formats map
-        $video_player  = preg_get('/<div id="watch-player".*<script>(.*)<\/script>/Usm', $html);
+        $video_player = preg_get('/<div id="watch-player".*>(.*)<\/div>/Usm', $html);
         if ( !empty($video_player) )
         {
-          $video_ticket  = preg_get('/\&t=([^(\&|$)]*)/', $video_player);
-          $video_formats = preg_get('/\&fmt_url_map=([^(\&|$)]*)/', $video_player);
+          $video_ticket  = preg_get('/\&amp;t=([^(\&|$)]*)/', $video_player);
+          $video_formats = preg_get('/\&amp;fmt_url_map=([^(\&|$)]*)/', $video_player);
 
           if ( empty($video_ticket) ) // new UI
           {
@@ -287,7 +278,7 @@
     {
       // Redirect to the actual video file.
       send_to_log(8,'Redirecting to '.$_SESSION["stream_url"]);
-      header ("location: ".$_SESSION["stream_url"]);
+      header ('Location: '.$_SESSION["stream_url"]);
     }
   }
 
