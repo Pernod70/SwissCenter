@@ -10,17 +10,19 @@ require_once( realpath(dirname(__FILE__).'/prefs.php'));
 // set to the IP of http://swisscenter.co.uk/)
 // ----------------------------------------------------------------------------------
 
-function internet_check( $timeouts = 3)
+function internet_check( $timeouts = 3 )
 {
-  $temp = '';
-
   for ($i=0; $i < $timeouts; $i++)
-    if ( $sock = @fsockopen('www.google.com', 80, $temp, $temp, 0.5))
+  {
+    $sock = @fsockopen('www.google.com', 80, &$errno, &$errst, 0.5);
+    if ($sock !== false)
     {
       fclose($sock);
-      return true; 
+      return true;
     }
+  }
 
+  send_to_log(2,'Internet check failed: '.$errno, $errst);
   return false;
 }
 
@@ -34,18 +36,18 @@ function internet_available()
 
   // Has the user selected 'Automatic' for the internet connection?
   if ( $check_type == 'AUTO' )
-  {    
+  {
     // Don't check more often that ever 900 seconds (15 minutes)
     if ( get_sys_pref('INTERNET_CHECK_TIME',time()) <= time() )
     {
-      set_sys_pref('INTERNET_AVAILABLE', internet_check() );    
-      set_sys_pref('INTERNET_CHECK_TIME', time()+900);    
-    }    
-    
+      set_sys_pref('INTERNET_AVAILABLE', (internet_check() ? 'YES' : 'NO'));
+      set_sys_pref('INTERNET_CHECK_TIME', time()+900);
+    }
+
     // Return the status of the internet connection
-    return get_sys_pref('INTERNET_AVAILABLE',false);
+    return (get_sys_pref('INTERNET_AVAILABLE', 'NO') == 'YES') ? true : false;
   }
-  else 
+  else
   {
     // Don't attempt to determine whether the connection is available, just return the
     // setting specified by the user.
@@ -61,16 +63,16 @@ function internet_available()
 function update_available()
 {
   $next_check = get_sys_pref('UPDATE_CHECK_TIME', time() );
-  
+
   // Make sure that internet connectivity is available, and only check once a day for updates.
   if (get_sys_pref('updates_enabled','YES') == 'YES' && internet_available() && $next_check <= time() )
   {
     $new_update_version = @file_get_contents('http://update.swisscenter.co.uk/release/last_update.txt');
     $status = ( version_compare($new_update_version, swisscenter_version()) > 0);
-    
+
     // Store availability and check again for new messages in 24 hours.
-    set_sys_pref('UPDATE_AVAILABLE', $status );    
-    set_sys_pref('UPDATE_CHECK_TIME', time()+86400);    
+    set_sys_pref('UPDATE_AVAILABLE', $status );
+    set_sys_pref('UPDATE_CHECK_TIME', time()+86400);
   }
 
   return get_sys_pref('UPDATE_AVAILABLE',false);
@@ -83,13 +85,13 @@ function update_available()
 function download_new_messages()
 {
   $next_check = get_sys_pref('NEW_MESSAGES_CHECK_TIME', time() );
-  
+
   if ( get_sys_pref('messages_enabled','YES') == 'YES' && internet_available() && $next_check <= time() )
   {
     // Check for new messages
     $last_update = db_value("select max(added) from messages");
     $messages = @file_get_contents("http://update.swisscenter.co.uk/messages.php?last_check=".urlencode($last_update));
-  
+
     // Add the messages to the database
     if (!empty($messages))
     {
@@ -103,12 +105,12 @@ function download_new_messages()
         }
       }
     }
-    
+
     // Check again for new messages in 24 hours.
     set_sys_pref('NEW_MESSAGES_CHECK_TIME', time()+86400);
-  }  
+  }
 }
-  
+
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/
