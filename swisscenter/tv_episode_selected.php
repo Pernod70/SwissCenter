@@ -174,9 +174,10 @@
   // Read bookmark file
   $bookmark_filename = bookmark_file($data["DIRNAME"].$data["FILENAME"]);
   if (!support_resume() && file_exists($bookmark_filename))
-    $percent_played = ' ('.(int)trim(file_get_contents($bookmark_filename)).'%)';
+    $pc = (int)trim(file_get_contents($bookmark_filename));
   else
-    $percent_played = '';
+    $pc = 0;
+  $percent_played = ($pc !== 0 && $pc < 99) ? ' ('.$pc.'%)' : '';
 
   // Play now
   $menu->add_item( str('PLAY_NOW').$percent_played, play_file( MEDIA_TYPE_TV, $data["FILE_ID"]));
@@ -245,7 +246,8 @@
     $buttons[0] = array('text'=>str('EP_PREV', $prev["SERIES"].'x'.$prev["EPISODE"]), 'url'=> url_add_params('/tv_episode_selected.php', array("file_id"=>$prev["FILE_ID"], "add"=>"Y", "del"=>"Y")) );
   if ( is_array($next) )
     $buttons[1] = array('text'=>str('EP_NEXT', $next["SERIES"].'x'.$next["EPISODE"]), 'url'=> url_add_params('/tv_episode_selected.php', array("file_id"=>$next["FILE_ID"], "add"=>"Y", "del"=>"Y")) );
-  $buttons[2] = array('text'=>str('LOOKUP_TV'), 'url'=> url_add_params('/tv_episode_selected.php', array("file_id"=>$file_id, "lookup"=>"Y", "add"=>"Y", "del"=>"Y")) );
+  if ( internet_available() )
+    $buttons[2] = array('text'=>str('LOOKUP_TV'), 'url'=> url_add_params('/tv_episode_selected.php', array("file_id"=>$file_id, "lookup"=>"Y", "add"=>"Y", "del"=>"Y")) );
 
   page_footer( url_add_param( $hist["url"] ,'del','y'), $buttons, 0, true, 'PAGE_TEXT_BACKGROUND' );
 
