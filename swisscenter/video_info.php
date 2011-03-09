@@ -12,8 +12,8 @@
 
   if ( isset($_REQUEST["image"]) )
   {
-    $actor = rawurldecode($_REQUEST["actor"]);
-    $image = rawurldecode($_REQUEST["image"]);
+    $actor = un_magic_quote(rawurldecode($_REQUEST["actor"]));
+    $image = un_magic_quote(rawurldecode($_REQUEST["image"]));
 
     // Update page history
     $back_url = url_remove_params(current_url(), array('image', 'actor'));
@@ -114,7 +114,7 @@
         else
         {
           $image = $images[mt_rand(0,count($images)-1)];
-          echo '<td align="center">'.img_gen($image,70,150,false,false,false,array(),false).'<br><a href="'.url_add_params($this_url, array('image'=>$image, 'actor'=>$actor)).'">'.font_tags(FONTSIZE_BODY).$actor.'</font></a></td>';
+          echo '<td align="center">'.img_gen($image,70,150,false,false,false,array(),false).'<br><a href="'.url_add_params($this_url, array('image'=>rawurlencode($image), 'actor'=>rawurlencode($actor))).'">'.font_tags(FONTSIZE_BODY).$actor.'</font></a></td>';
         }
         if (($i+1) % 5 == 0)
           echo '</tr><tr>';
