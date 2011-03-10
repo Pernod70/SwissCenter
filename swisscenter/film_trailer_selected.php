@@ -121,8 +121,11 @@
     // List available trailers by title
     foreach ($trailer[0]['CLIPS'] as $clip)
     {
-      $file = array_pop($clip['FILES']);
-      $menu->add_item($clip['NAME'], 'href="'.$file['URL'].'" vod');
+      if (is_array($clip['FILES']))
+      {
+        $file = array_pop($clip['FILES']);
+        $menu->add_item($clip['NAME'], 'href="'.$file['URL'].'" vod');
+      }
     }
 
     // Column 1: Image
