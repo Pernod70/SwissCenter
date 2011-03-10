@@ -320,9 +320,19 @@
   $prev = db_row("select file_id,title from movies media ".get_rating_join()." where ".
                  " title < '".db_escape_str($data[0]["TITLE"])."' ".get_rating_filter().filter_get_predicate().$history["sql"].
                  " order by title desc limit 1");
+  if ( !is_array($prev) )
+    $prev = db_row("select file_id,title from movies media ".get_rating_join()." where ".
+                   " 1=1 ".get_rating_filter().filter_get_predicate().$history["sql"].
+                   " order by title desc limit 1");
+
   $next = db_row("select file_id, title from movies media ".get_rating_join()." where ".
                  " title > '".db_escape_str($data[0]["TITLE"])."' ".get_rating_filter().filter_get_predicate().$history["sql"].
                  " order by title asc limit 1");
+  if ( !is_array($next) )
+    $next = db_row("select file_id,title from movies media ".get_rating_join()." where ".
+                   " 1=1 ".get_rating_filter().filter_get_predicate().$history["sql"].
+                   " order by title asc limit 1");
+
   $buttons = array();
   if ( is_array($prev) )
     $buttons[0] = array('text'=>str('PREVIOUS').': '.$prev["TITLE"], 'url'=> url_add_params($this_url, array("type"=>"title", "name"=>rawurlencode($prev["TITLE"]))) );
