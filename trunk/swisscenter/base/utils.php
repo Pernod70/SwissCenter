@@ -390,10 +390,8 @@ function image_resized_xy( $filename, &$x, &$y )
 
 function socket_check( $address, $port, $timeouts = 3)
 {
-  $temp = '';
-
   for ($i=0; $i < $timeouts; $i++)
-    if ( $sock = @fsockopen($address, $port, $temp, $temp, 0.5))
+    if ( $sock = @fsockopen($address, $port, &$errno, &$errst, 0.5))
     {
       fclose($sock);
       return true;
@@ -718,6 +716,11 @@ function convert_mms_to_rtsp( $url )
 function xmlspecialchars( $text )
 {
   return str_replace('&#039;', '&apos;', htmlspecialchars( html_entity_decode($text), ENT_QUOTES ));
+}
+
+function xmlspecialchars_decode( $text )
+{
+  return str_replace('&apos;', '\'', html_entity_decode($text, ENT_QUOTES));
 }
 
 if(!function_exists('mime_content_type')) {
