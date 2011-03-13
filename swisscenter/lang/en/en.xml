@@ -1446,13 +1446,36 @@
       </string>
       <string>
         <id>FONTWIDTH_MULTIPLIER</id>
-        <text>Font width Multiplier</text>
-        <version>1.19</version>
+        <text>Font width multipliers</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FONTWIDTH_MULTIPLIER_100</id>
+        <text>Player type 100</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FONTWIDTH_MULTIPLIER_200</id>
+        <text>Player type 200</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FONTWIDTH_MULTIPLIER_400</id>
+        <text>Player type 400</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FONTWIDTH_MULTIPLIER_PC</id>
+        <text>PC Browser</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>FONTWIDTH_MULTIPLIER_PROMPT</id>
-        <text>This option allows you to modify the maximum number of displayed characters in the SwissCenter menus. The value depends on the chosen font, and should be in the range of [b]1.0[/b] (default) to [b]2.2[/b].</text>
-        <version>1.19</version>
+        <text>This option allows you to modify the maximum number of displayed characters in the SwissCenter menus. The value depends on the font used by the various player types, and should be in the range of [b]1.0[/b] to [b]2.2[/b]. The player types are grouped as follows:
+[ul][li]100 - ShowCenter 1000g, etc.[/li]
+[li]200 - ShowCenter 200/250HD, EVA700, etc.[/li]
+[li]400 - Popcorn Hour A-100/A-110/A-200, HDX 1000, etc.[/li][/ul]</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>FTV_GIRLS</id>
