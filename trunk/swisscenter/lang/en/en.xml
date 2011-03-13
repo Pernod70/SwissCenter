@@ -33,6 +33,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>ADULT_RESULTS</id>
+        <text>Use adult results</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>ADVANCED_OPTIONS</id>
         <text>Advanced Options</text>
         <version>1.19</version>
@@ -1480,6 +1485,11 @@
       <string>
         <id>FTV_GIRLS</id>
         <text>FTV Girls</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FULL_CAST</id>
+        <text>Full cast</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3248,8 +3258,18 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <version>1.19</version>
       </string>
       <string>
+        <id>PARSER_OPTIONS</id>
+        <text>Parser Options</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>PARSER_RETRIES</id>
         <text>Parser retries</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PARSER_SETTINGS_PROMPT</id>
+        <text>These are the various options that can be set which affect results returned by the individual parsers.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -5300,8 +5320,18 @@ If any details are added/changed on this page then you are requested to submit t
         <version>1.19</version>
       </string>
       <string>
+        <id>TRAILER_FORMAT</id>
+        <text>Trailer format</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>TRAILER_LOCATION</id>
         <text>Trailer Location</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TRAILER_SIZE</id>
+        <text>Trailer size</text>
         <version>1.22</version>
       </string>
       <string>
