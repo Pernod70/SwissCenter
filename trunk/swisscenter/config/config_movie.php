@@ -127,7 +127,8 @@ function movie_lookup()
   purge_movie_details($movie_id);
 
   // Lookup movie
-  $lookup = ParserMovieLookup($movie_id, $filename, array('TITLE' => $title));
+  $lookup = ParserMovieLookup($movie_id, $filename, array('TITLE' => $title,
+                                                          'YEAR'  => $details["YEAR"]));
 
   // Was lookup successful?
   if ( $lookup )
@@ -196,6 +197,8 @@ function movie_display_list($movie_list)
 function movie_display_thumbs($movie_list)
 {
   $cnt = 0;
+  $thumb_html = '';
+  $title_html = '';
 
   foreach ($movie_list as $movie)
   {
@@ -219,6 +222,11 @@ function movie_display_thumbs($movie_list)
   }
 
   // and last row...
+  for ($i=0; $i<(4 - $cnt % 4); $i++)
+  {
+    $thumb_html .= '<td></td>';
+    $title_html .= '<td width="25%"></td>';
+  }
   echo '<table class="form_select_tab" width="100%"><tr>'.$thumb_html.'</tr><tr>'.$title_html.'</table>';
 }
 
@@ -258,6 +266,7 @@ function movie_display( $message = '')
       case "NOCERT"     : $where .= "and (ifnull(m.certificate,'')='')"; break;
       case "NOYEAR"     : $where .= "and (ifnull(m.year,'')='')"; break;
       case "NORATING"   : $where .= "and (ifnull(m.external_rating_pc,0)=0)"; break;
+      case "NOTRAILER"  : $where .= "and (ifnull(m.trailer,'')='')"; break;
     }
   }
 
@@ -280,7 +289,7 @@ function movie_display( $message = '')
   $this_url = '?last_where='.urlencode($where).'&filter='.$_REQUEST["filter"].'&search='.un_magic_quote($_REQUEST["search"]).'&cat_id='.$_REQUEST["cat_id"].'&section=MOVIE&action=DISPLAY&page=';
   $filter_list = array( str('FILTER_MISSING_DETAILS')=>"NODETAILS" , str('FILTER_MISSING_SYNOPSIS')=>"NOSYNOPSIS"
                       , str('FILTER_MISSING_CERT')=>"NOCERT"       , str('FILTER_MISSING_YEAR')=>"NOYEAR"
-                      , str('FILTER_MISSING_RATING')=>"NORATING");
+                      , str('FILTER_MISSING_RATING')=>"NORATING"   , str('FILTER_MISSING_TRAILER')=>"NOTRAILER");
 
   echo '<form enctype="multipart/form-data" action="" method="post">
         <table width="100%"><tr><td width="70%">';
