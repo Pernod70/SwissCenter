@@ -1334,6 +1334,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>FILTER_MISSING_TRAILER</id>
+        <text>No trailer</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>FILTER_MISSING_YEAR</id>
         <text>No year</text>
         <version>1.22</version>
