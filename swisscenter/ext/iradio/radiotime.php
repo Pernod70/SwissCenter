@@ -43,7 +43,7 @@ class radiotime extends iradio {
       $cache = $this->read_cache($cachename);
       if ($cache !== FALSE) {
         $this->station = $cache["stations"];
-        $this->links = $cache["links"];
+        $this->link = $cache["links"];
         $this->title = $cache["title"];
         return TRUE;
       }
@@ -68,15 +68,15 @@ class radiotime extends iradio {
     switch ( $method ) {
       case 'Describe':
         // Extract text from results
-        $this->links = array();
+        $this->link = array();
         foreach ($results["text"] as $item)
         {
           if (isset($item["guide_id"]))
           {
-            $link = array();
-            $link["id"] = $item["guide_id"];
-            $link["text"] = utf8_decode($item["text"]);
-            $this->links[$link->id] = $link;
+            $id   = $item["guide_id"];
+            $name = utf8_decode($item["text"]);
+
+            $this->add_link($name,$id);
           }
         }
         $cache["links"] = $this->links;
@@ -110,19 +110,19 @@ class radiotime extends iradio {
         send_to_log(6,'IRadio: Read '.$stationcount.' stations.',$cache["stations"]);
 
         // Extract links from results
-        $this->links = array();
+        $this->link = array();
         foreach ($results["link"] as $item)
         {
           if (!isset($item["item"]) && isset($item["guide_id"]))
           {
-            $link = array();
-            $link["id"]   = $item["guide_id"];
-            $link["text"] = utf8_decode($item["text"]);
-            $this->links[] = $link;
+            $id   = $item["guide_id"];
+            $name = utf8_decode($item["text"]);
+
+            $this->add_link($name,$id);
           }
         }
-        $cache["links"] = $this->links;
-        send_to_log(6,'IRadio: Read '.count($this->links).' links.');
+        $cache["links"] = $this->get_link();
+        send_to_log(6,'IRadio: Read '.count($cache["links"]).' links.',$cache["links"]);
         break;
     }
     if (!empty($cachename)) $this->write_cache($cachename,$cache);
@@ -136,15 +136,21 @@ class radiotime extends iradio {
    * @return array feed elements grouped in arrays by type
    */
   function parse_feed($results) {
-    $items = array();
+    $item_types = array();
     foreach ($results as $object)
     {
       if (isset($object->children) && !empty($object->children))
-        $items = array_merge($items, $this->parse_feed($object->children));
+      {
+        $item_type = array();
+        $item_type = $this->parse_feed($object->children);
+        foreach ($item_type as $type=>$items)
+          foreach ($items as $item)
+            $item_types[$type][] = $item;
+      }
       else
-        $items[$object->type][] = object_to_array($object);
+        $item_types[$object->type][] = object_to_array($object);
     }
-    return $items;
+    return $item_types;
   }
 
   /** Restrict search to media type

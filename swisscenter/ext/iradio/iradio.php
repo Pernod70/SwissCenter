@@ -329,6 +329,33 @@ class iradio {
     return $this->station;
   }
 
+  /** Add a link to the list
+   * @class iradio
+   * @method add_link
+   * @param string name link name
+   * @param string id link id
+   * @return boolean success
+   */
+  function add_link($name,$id) {
+    if (empty($name)||empty($id)) return FALSE;
+    $link = new StdClass();
+    $link->name = $name;
+    $link->id   = $id;
+    $this->link[] = $link;
+    send_to_log(8,'IRadio: Added link "'.$name.'" ('.$id.')');
+    return TRUE;
+  }
+
+  /** Get the link list
+   * @class iradio
+   * @method get_link
+   * @return array link (array of objects)
+   */
+  function get_link() {
+    send_to_log(6,'IRadio: Link list was requested.');
+    return $this->link;
+  }
+
   /** Retrieve page content
    * @class iradio
    * @method openpage
