@@ -86,7 +86,7 @@
 
    $iradio->parse($method,'id='.$id,$method.'_'.$id);
    $stations = $iradio->get_station();
-   $links    = $iradio->links;
+   $links    = $iradio->get_link();
 
    page_header($iradio->title);
    echo $radio_logo_start;
@@ -96,7 +96,7 @@
    if ($view == 'links' && count($links)>0)
    {
      foreach ($links as $item)
-       $array[] = array("name"=>ucwords($item["text"]), "url"=>url_set_param( $url, 'id', $item["id"] ) );
+       $array[] = array("name"=>ucwords($item->name), "url"=>url_set_param( $url, 'id', $item->id ) );
      browse_array($url,$array,$page,MEDIA_TYPE_RADIO);
    }
    elseif ( count($stations)>0 )
@@ -109,9 +109,9 @@
    // Output ABC buttons
    $buttons = array();
    if ($view == 'stations' && count($links)>0)
-    $buttons[] = array('text'=>str('IRADIO_VIEW_LINKS'), 'url'=> url_add_params($current_url, array('view'=>'links', 'hist'=>PAGE_HISTORY_REPLACE)) );
-  elseif ($view == 'links' && count($stations)>0)
-    $buttons[] = array('text'=>str('IRADIO_VIEW_STATIONS'), 'url'=> url_add_params($current_url, array('view'=>'stations', 'hist'=>PAGE_HISTORY_REPLACE)) );
+     $buttons[] = array('text'=>str('IRADIO_VIEW_LINKS'), 'url'=> url_add_params($current_url, array('view'=>'links', 'hist'=>PAGE_HISTORY_REPLACE)) );
+   elseif ($view == 'links' && count($stations)>0)
+     $buttons[] = array('text'=>str('IRADIO_VIEW_STATIONS'), 'url'=> url_add_params($current_url, array('view'=>'stations', 'hist'=>PAGE_HISTORY_REPLACE)) );
 
    page_footer( page_hist_back_url(), $buttons );
  }
@@ -134,7 +134,8 @@
      send_to_log(8,"Station search for '".$_REQUEST["station"]."'");
      $iradio->search_station($_REQUEST["station"]);
      $stations = $iradio->get_station();
-     send_to_log(8,"Station list parsed",$stations);
+     $links    = $iradio->get_link();
+
      if (count($stations) >0 )
      {
        (isset($_REQUEST["page"])) ? $page = $_REQUEST["page"] : $page = 0;
@@ -150,9 +151,19 @@
             img_gen($image,280,550).
             '</td><td width="'.convert_x(20).'"></td>'.
             '<td valign="top">';
-            display_iradio(url_remove_param( $current_url, 'page'),$stations,$page);
+
+       display_iradio(url_remove_param($current_url, 'page'), $stations, $page);
+
        echo '</td></table>';
-       page_footer( page_hist_back_url() );
+
+       // Output ABC buttons
+       $buttons = array();
+//       if ($view == 'stations' && count($links)>0)
+//         $buttons[] = array('text'=>str('IRADIO_VIEW_LINKS'), 'url'=> url_add_params($current_url, array('view'=>'links', 'hist'=>PAGE_HISTORY_REPLACE)) );
+//       elseif ($view == 'links' && count($stations)>0)
+//         $buttons[] = array('text'=>str('IRADIO_VIEW_STATIONS'), 'url'=> url_add_params($current_url, array('view'=>'stations', 'hist'=>PAGE_HISTORY_REPLACE)) );
+
+       page_footer( page_hist_back_url(), $buttons );
      }
      else
      {
