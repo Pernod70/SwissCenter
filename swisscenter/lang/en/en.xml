@@ -1143,6 +1143,10 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>FAIL_ICECAST_TEST</id>
+        <text>IceCast parser looks broken</text>
+        <version>1.22</version>
+      </string>
       <string>
         <id>FAIL_LIVE365_TEST</id>
         <text>Live365 parser looks broken</text>
@@ -1214,6 +1218,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>FAIL_RADIOTIME_TEST</id>
+        <text>RadioTime parser looks broken</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>FAIL_SERVER_SCHED</id>
         <text>Background jobs are unable to run - this may be because cron (linux) or the task scheduler service (windows) is disabled.</text>
         <version>1.19</version>
@@ -1221,6 +1230,11 @@
       <string>
         <id>FAIL_SHOUTCAST_TEST</id>
         <text>SHOUTcast parser looks broken</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_STEAMCAST_TEST</id>
+        <text>Steamcast parser looks broken</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3328,6 +3342,11 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <version>1.22</version>
       </string>
       <string>
+        <id>PASS_ICECAST_TEST</id>
+        <text>IceCast parser seems to work properly</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>PASS_LIVE365_TEST</id>
         <text>Live365 parser seems to work properly</text>
         <version>1.22</version>
@@ -3393,6 +3412,11 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <version>1.19</version>
       </string>
       <string>
+        <id>PASS_RADIOTIME_TEST</id>
+        <text>RadioTime parser seems to work properly</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>PASS_SERVER_SCHED</id>
         <text>Automatic searching for new media is supported.</text>
         <version>1.19</version>
@@ -3400,6 +3424,11 @@ The enhanced option shows track details with a progress bar and a fanart image a
       <string>
         <id>PASS_SHOUTCAST_TEST</id>
         <text>SHOUTcast parser seems to work properly</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_STEAMCAST_TEST</id>
+        <text>Steamcast parser seems to work properly</text>
         <version>1.22</version>
       </string>
       <string>

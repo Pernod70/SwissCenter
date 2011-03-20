@@ -25,6 +25,9 @@ require_once( realpath(dirname(__FILE__).'/svn.php'));
 require_once( realpath(dirname(__FILE__).'/../ext/iradio/shoutcast.php'));
 require_once( realpath(dirname(__FILE__).'/../ext/iradio/live-radio.php'));
 require_once( realpath(dirname(__FILE__).'/../ext/iradio/live365.php'));
+require_once( realpath(dirname(__FILE__).'/../ext/iradio/icecast.php'));
+require_once( realpath(dirname(__FILE__).'/../ext/iradio/steamcast.php'));
+require_once( realpath(dirname(__FILE__).'/../ext/iradio/radiotime.php'));
 
 #-------------------------------------------------------------------------------------------------
 # PHP checks
@@ -392,6 +395,30 @@ function check_live365()
   $live365 = new live365();
   $result = $live365->test();
   unset ($live365);
+  return $result;
+}
+
+function check_icecast()
+{
+  $icecast = new icecast();
+  $result = $icecast->test();
+  unset ($icecast);
+  return $result;
+}
+
+function check_steamcast()
+{
+  $steamcast = new steamcast();
+  $result = $steamcast->test();
+  unset ($steamcast);
+  return $result;
+}
+
+function check_radiotime()
+{
+  $radiotime = new radiotime();
+  $result = $radiotime->test();
+  unset ($radiotime);
   return $result;
 }
 

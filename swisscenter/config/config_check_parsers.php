@@ -82,11 +82,14 @@ function check_parsers_display()
 
   if (internet_available())
   {
-    set_time_limit(30);
+    set_time_limit(60);
     $iradio = $parser_tests->add_section("Internet Radio Parser",3);
     $parser_tests->add_test( $iradio, check_shoutcast(), str('PASS_SHOUTCAST_TEST'),str('FAIL_SHOUTCAST_TEST').'<p>'.str('IRADIO_SHOUTCAST_DESC','<a href="http://www.shoutcast.com/">www.shoutcast.com</a>'),FALSE);
     $parser_tests->add_test( $iradio, check_liveradio(), str('PASS_LIVERADIO_TEST'),str('FAIL_LIVERADIO_TEST').'<p>'.str('IRADIO_LIVERADIO_DESC','<a href="http://www.live-radio.net/">www.live-radio.net</a>'),FALSE);
     $parser_tests->add_test( $iradio, check_live365(),   str('PASS_LIVE365_TEST'),str('FAIL_LIVE365_TEST').'<p>'.str('IRADIO_LIVE365_DESC','<a href="http://www.live365.com/">www.live365.com</a>'),FALSE);
+    $parser_tests->add_test( $iradio, check_icecast(),   str('PASS_ICECAST_TEST'),str('FAIL_ICECAST_TEST').'<p>'.str('IRADIO_ICECAST_DESC','<a href="http://dir.xiph.org/index.php/">www.icecast.org</a>'),FALSE);
+    $parser_tests->add_test( $iradio, check_steamcast(), str('PASS_STEAMCAST_TEST'),str('FAIL_STEAMCAST_TEST').'<p>'.str('IRADIO_STEAMCAST_DESC','<a href="http://www.steamcast.com/">www.steamcast.com</a>'),FALSE);
+    $parser_tests->add_test( $iradio, check_radiotime(), str('PASS_STEAMCAST_TEST'),str('FAIL_RADIOTIME_TEST').'<p>'.str('IRADIO_RADIOTIME_DESC','<a href="http://radiotime.com/">www.radiotime.com</a>'),FALSE);
   }
 
   # ----------------------
