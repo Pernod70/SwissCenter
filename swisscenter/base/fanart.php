@@ -146,6 +146,10 @@ function get_lastfm_artist_images( $artist, $size = 'original', $min_size = 0 )
     if ($page > 1)
       $images = lastfm_artist_getImages($artist, $page);
 
+    // Manage the array of images if only a single image is returned
+    if (!array_key_exists(0, $images["images"]["image"]))
+      $images["images"]["image"] = array(0=>$images["images"]["image"]);
+
     // Filter original images that meet our minimum size requirements
     $image_urls = array();
     foreach ($images["images"]["image"] as $image)
@@ -154,8 +158,11 @@ function get_lastfm_artist_images( $artist, $size = 'original', $min_size = 0 )
       foreach ($image["sizes"]["size"] as $img_size)
       {
         if ($img_size["name"] == $size && $img_size["width"] >= $min_size && $img_size["height"] >= $min_size)
+        {
           $image_urls[] = array( "remote" => $img_size["#text"],
                                  "local"  => basename($image["url"]).'.'.file_ext($img_size["#text"]) );
+          break;
+        }
       }
     }
 
