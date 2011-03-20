@@ -55,10 +55,10 @@ class steamcast extends iradio {
       foreach ($xml->match('/rss/channel/item') as $filepath)
       {
         $playlist     = $xml->getData($filepath.'/link');
-        $name         = html_entity_decode($xml->getData($filepath.'/title'));
+        $name         = utf8_decode(html_entity_decode($xml->getData($filepath.'/title')));
         $name         = trim(preg_replace('/\[.*\] /','',$name));
-        $description  = html_entity_decode($xml->getData($filepath.'/description'));
-        $genre        = html_entity_decode($xml->getData($filepath.'/category'));
+        $description  = utf8_decode(html_entity_decode($xml->getData($filepath.'/description')));
+        $genre        = utf8_decode(html_entity_decode($xml->getData($filepath.'/category')));
         $bitrate      = preg_get('/Bitrate: (\d+)/', $description);
         $attrib       = $xml->getAttributes($filepath.'/enclosure');
         $format       = $this->mime_type_decode($attrib["TYPE"]);

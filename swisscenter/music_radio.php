@@ -10,12 +10,15 @@
   require_once( realpath(dirname(__FILE__).'/messages_db.php'));
   require_once( realpath(dirname(__FILE__).'/ext/lastfm/lastfm.php'));
 
-  $menu       = new menu();
+  $menu = new menu();
 
-  if ( lastfm_enabled() )
-    $menu->add_item(str('LASTFM'), '/music_radio_lastfm.php' );
+//  if ( lastfm_enabled() )
+//    $menu->add_item(str('LASTFM'), '/music_radio_lastfm.php' );
 
   $menu->add_item(str('IRADIO_SHOUTCAST'), url_add_param('music_radio_shoutcast.php', 'class','shoutcast') );
+  $menu->add_item(str('IRADIO_RADIOTIME'), url_add_param('music_radio_radiotime.php', 'class','radiotime') );
+//  $menu->add_item(str('IRADIO_ICECAST'), url_add_param('music_radio_shoutcast.php', 'class','icecast') );
+//  $menu->add_item(str('IRADIO_STEAMCAST'), url_add_param('music_radio_shoutcast.php', 'class','steamcast') );
   $menu->add_item(str('IRADIO_LIVERADIO'), url_add_param('music_radio_shoutcast.php', 'class','liveradio') );
   $menu->add_item(str('IRADIO_LIVE365'), url_add_param('music_radio_shoutcast.php', 'class','live365') );
   $menu->add_item(str('BOOKMARKS'), './music_radio_urls.php');

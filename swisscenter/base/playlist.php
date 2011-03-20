@@ -249,12 +249,11 @@ function play_file( $media_type, $file_id )
 // Returns the href part of a link to play a radio station
 //-------------------------------------------------------------------------------------------------
 
-function play_internet_radio( $playlist_url, $station_name )
+function play_internet_radio( $source, $playlist_url, $station_name, $type='', $image='' )
 {
-  $params = current_session().'&url='.urlencode($playlist_url).'&station='.urlencode($station_name);
+  $params = current_session().'&src='.$source.'&url='.urlencode($playlist_url).'&st='.urlencode($station_name).'&mt='.urlencode($type).'&img='.urlencode($image);
 
-  return 'href="'.$playlist_url.'" pod="'.stream_sync_type().',1,'.server_address().
-         'music_radio_image_list.php?'.$params.'" ';
+  return 'href="gen_playlist_iradio.php?'.$params.'&ext=.pls" pod="'.stream_sync_type().',1,'.server_address().'music_radio_image_list.php?'.$params.'" ';
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -494,6 +493,34 @@ function pl_validate_file( $fsp )
 }
 
 /**
+ * Parses a ASX playlist file (Advanced Stream Redirector) and extracts an array of files
+ * referenced by the file with no further processing.
+ *
+ * @param filename $fsp
+ * @return array
+ */
+
+function load_pl_asx( $fsp )
+{
+  send_to_log(6,'Playlist is of type: ASX (Advanced Stream Redirector)');
+  $filelist = array();
+
+  $xml = new XPath(FALSE, array(XML_OPTION_CASE_FOLDING => TRUE, XML_OPTION_SKIP_WHITE => TRUE) );
+  if ( $xml->importFromFile($fsp) !== false)
+  {
+    foreach ($xml->match('/asx/entry/ref') as $filepath)
+    {
+      $attrib = $xml->getAttributes($filepath);
+      $filelist[] = $attrib["HREF"];
+    }
+  }
+  else
+    send_to_log(1,'Unable to read playlist file or format not recognised/supported.');
+
+  return $filelist;
+}
+
+/**
  * Parses a M3U playlist file and extracts an array of files referenced by the file
  * with no further processing.
  *
@@ -513,6 +540,34 @@ function load_pl_m3u( $fsp )
       $entry = rtrim($l);
       if ($entry[0] != '#' && !empty($entry) )
         $filelist[] = $entry;
+    }
+  }
+  else
+    send_to_log(1,'Unable to read playlist file.');
+
+  return $filelist;
+}
+
+/**
+ * Parses a PLS playlist file and extracts an array of files referenced by the file
+ * with no further processing.
+ *
+ * @param filename $fsp
+ * @return array
+ */
+
+function load_pl_pls( $fsp )
+{
+  send_to_log(6,'Playlist is of type: PLS');
+  $filelist = array();
+
+  if (($lines = file($fsp)) !== false)
+  {
+    foreach ($lines as $l)
+    {
+      $entry = rtrim($l);
+      if (stripos($entry,'File') !== false)
+        $filelist[] = preg_get('/File\d+=(.*)/i',$entry);
     }
   }
   else
@@ -549,6 +604,33 @@ function load_pl_wpl( $fsp )
   return $filelist;
 }
 
+/**
+ * Parses a XSPF playlist file (XML Shareable Playlist Format) and extracts an array of files
+ * referenced by the file with no further processing.
+ *
+ * @param filename $fsp
+ * @return array
+ */
+
+function load_pl_xspf( $fsp )
+{
+  send_to_log(6,'Playlist is of type: XSPF (XML Shareable Playlist Format)');
+  $filelist = array();
+
+  $xml = new XPath(FALSE, array(XML_OPTION_CASE_FOLDING => TRUE, XML_OPTION_SKIP_WHITE => TRUE) );
+  if ( $xml->importFromFile($fsp) !== false)
+  {
+    foreach ($xml->match('/playlist/tracklist/track/location') as $filepath)
+    {
+      $filelist[] = $xml->getData($filepath);
+    }
+  }
+  else
+    send_to_log(1,'Unable to read playlist file or format not recognised/supported.');
+
+  return $filelist;
+}
+
 //-------------------------------------------------------------------------------------------------
 // Loads the contents of the file into the current session.
 //-------------------------------------------------------------------------------------------------
@@ -559,8 +641,11 @@ function load_pl ($file, &$failed)
 
   switch ( file_ext($file) )
   {
+    case 'asx' : $filelist = load_pl_asx( $file ); break;
     case 'm3u' : $filelist = load_pl_m3u( $file ); break;
+    case 'pls' : $filelist = load_pl_pls( $file ); break;
     case 'wpl' : $filelist = load_pl_wpl( $file ); break;
+    case 'xspf': $filelist = load_pl_xspf( $file ); break;
     default    : send_to_log(1,'Unknown playlist format'); break;
   }
 
