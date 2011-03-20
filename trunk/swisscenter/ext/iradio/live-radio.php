@@ -23,9 +23,9 @@ class liveradio extends iradio {
    */
   function liveradio() {
     $this->iradio();
-    $this->set_site("www.live-radio.net");
+    $this->set_site('www.live-radio.net');
     $this->set_type(IRADIO_LIVERADIO);
-    $this->search_baseparams = "?OSt=Li&OCnt=Li&OSta=Li&Sta=&OCit=Li&Cit=&OGen=Li&";
+    $this->search_baseparams = '?OSt=Li&OCnt=Li&OSta=Li&Sta=&OCit=Li&Cit=&OGen=Li&';
   }
 
   /** Parse Live-Radio result page and store stations using add_station()
@@ -44,20 +44,20 @@ class liveradio extends iradio {
       }
     }
     if (empty($url)) return FALSE;
-    $uri = "http://".$this->iradiosite."/SearchResults.php3".$this->search_baseparams.$url."&OPag=".$this->numresults;
+    $uri = 'http://'.$this->iradiosite.'/SearchResults.php3'.$this->search_baseparams.$url.'&OPag='.$this->numresults;
     $this->openpage($uri);
     $stationcount = 0;
     $startpos = strpos($this->page,'HREF="redirstation'); // seek for start position of block
     $epos = $startpos +1; // prevent endless loop on broken pages
     while ($startpos) {
       $spos = strpos($this->page,'HREF="',$startpos); // website
-      $epos = strpos($this->page,"\">",$spos);
-      $website = "http://".$this->iradiosite."/".substr($this->page,$spos+6,$epos - $spos -6);
+      $epos = strpos($this->page,'">',$spos);
+      $website = 'http://'.$this->iradiosite.'/'.substr($this->page,$spos+6,$epos - $spos -6);
       $spos = $epos+2; // name
-      $epos = strpos($this->page,"</A>",$spos);
+      $epos = strpos($this->page,'</A>',$spos);
       $name = trim(substr($this->page,$spos,$epos - $spos));
-      $spos = strpos($this->page,"(",$epos); // location
-      $epos = strpos($this->page,")&nbsp;",$spos);
+      $spos = strpos($this->page,'(',$epos); // location
+      $epos = strpos($this->page,')&nbsp;',$spos);
       $location = substr($this->page,$spos+1,$epos - $spos -1);
       $spos = strpos($this->page,'F00">',$epos); // genre
       $epos = strpos($this->page,'</FONT>',$spos);
@@ -70,16 +70,16 @@ class liveradio extends iradio {
       if ($epos - $spos > 20) $epos = strpos($this->page,'<LI>',$spos); // multiple feeds
       $format = trim(substr($this->page,$spos+7,$epos - $spos -7));
       // following information is not available here, so place dummies
-      $bitrate = "?";
-      $nowplaying = "?";
-      $listeners = "";
-      $maxlisteners = "";
-      $this->add_station($name,$playlist."&filetype=.pls",$bitrate,$genre,$format,$listeners,$maxlisteners,$nowplaying,$website);
+      $bitrate = '?';
+      $nowplaying = '?';
+      $listeners = '';
+      $maxlisteners = '';
+      $this->add_station($name,$playlist,$bitrate,$genre,$format,$listeners,$maxlisteners,$nowplaying,$website);
       ++$stationcount;
       if ($stationcount == $this->numresults) break;
       $startpos = strpos($this->page,'HREF="redirstation',$epos);
     }
-    send_to_log(6,"IRadio: Read $stationcount stations.");
+    send_to_log(6,'IRadio: Read $stationcount stations.');
     if (!empty($cachename)) $this->write_cache($cachename,$this->station);
     return TRUE;
   }
@@ -95,7 +95,7 @@ class liveradio extends iradio {
   function get_siteparams() {
     if (is_array($this->params->mediatype)) return;
     $uri = 'http://'.$this->iradiosite.'/SearchStations.php3';
-    send_to_log(6,"IRadio: Retrieving site parameters from Live-Radio site ($uri)");
+    send_to_log(6,'IRadio: Retrieving site parameters from Live-Radio site ('.$uri.')');
     $this->openpage($uri);
     # Media Types
     $spos = strpos($this->page,'<select name="OFee"');
@@ -111,7 +111,7 @@ class liveradio extends iradio {
       $optname = strtolower(substr($options,$spos,$epos - $spos));
       $this->params->mediatype[$optname] = $optval;
       $spos = strpos($options,'<option',$epos) -1;
-      send_to_log(8,"IRadio: Got site parameter $optname with value $optval");
+      send_to_log(8,'IRadio: Got site parameter '.$optname.' with value '.$optval);
     }
   }
 
@@ -123,14 +123,14 @@ class liveradio extends iradio {
    * @param optional string mtype MediaType to restrict the search to
    *        (call w/o param to disable restriction)
    */
-  function restrict_mediatype($mtype="any") {
-    send_to_log(6,"IRadio: Restricting to stations in $mtype format");
+  function restrict_mediatype($mtype='any') {
+    send_to_log(6,'IRadio: Restricting to stations in '.$mtype.' format');
     $this->get_siteparams();
     $mtype = strtolower($mtype);
     if (isset($this->params->mediatype[$mtype]))
-      $this->search_baseparams .= "&OFee=".$this->params->mediatype[$mtype];
+      $this->search_baseparams .= '&OFee='.$this->params->mediatype[$mtype];
     else
-      $this->search_baseparams .= "&OFee=".$this->params->mediatype["any"];
+      $this->search_baseparams .= '&OFee='.$this->params->mediatype['any'];
   }
 
   /** Searching for a genre
@@ -144,8 +144,8 @@ class liveradio extends iradio {
    * @return boolean success FALSE on error or nothing found, TRUE otherwise
    */
   function search_genre($name) {
-    send_to_log(6,"IRadio: Initialize genre search for \"$name\"");
-    return $this->parse("&Genre=".str_replace(' ','+',$name)."&Cnt=&St=",str_replace(' ','_',$name));
+    send_to_log(6,'IRadio: Initialize genre search for "'.$name.'"');
+    return $this->parse('&Genre='.str_replace(' ','+',$name).'&Cnt=&St=',str_replace(' ','_',$name));
   }
 
   /** Searching for a station
@@ -159,8 +159,8 @@ class liveradio extends iradio {
    * @return boolean success FALSE on error or nothing found, TRUE otherwise
    */
   function search_station($name) {
-    send_to_log(6,"IRadio: Initialize station search for \"$name\"");
-    return $this->parse("&Genre=&Cnt=&St=".str_replace(' ','+',$name),str_replace(' ','_',$name));
+    send_to_log(6,'IRadio: Initialize station search for "'.$name.'"');
+    return $this->parse('&Genre=&Cnt=&St='.str_replace(' ','+',$name),str_replace(' ','_',$name));
   }
 
   /** Searching by country
@@ -174,8 +174,8 @@ class liveradio extends iradio {
    * @return boolean success FALSE on error or nothing found, TRUE otherwise
    */
   function search_country($name) {
-    send_to_log(6,"IRadio: Initialize country search for \"$name\"");
-    return $this->parse("&Genre=&Cnt=".str_replace(' ','+',$name)."&St=",str_replace(' ','_',$name));
+    send_to_log(6,'IRadio: Initialize country search for "'.$name.'"');
+    return $this->parse('&Genre=&Cnt='.str_replace(' ','+',$name).'&St=',str_replace(' ','_',$name));
   }
 
   /** Test parser functionality
@@ -188,24 +188,24 @@ class liveradio extends iradio {
    * @return boolean OK
    */
   function test() {
-    send_to_log(6,"IRadio: Testing Live-Radio interface");
-    $this->set_cache("");       // disable cache
+    send_to_log(6,'IRadio: Testing Live-Radio interface');
+    $this->set_cache('');       // disable cache
     $this->set_max_results(2);  // only 2 results needed
-    $this->restrict_mediatype("mp3");
-    $this->search_genre("pop"); // init search
+    $this->restrict_mediatype('mp3');
+    $this->search_genre('pop'); // init search
     if (empty($this->station[1]->name)) {
-      send_to_log(3,"IRadio: Live-Radio parser returned empty station name");
+      send_to_log(3,'IRadio: Live-Radio parser returned empty station name');
       return FALSE;
     }
     $url = parse_url($this->station[1]->playlist);
     if (empty($url["host"])) {
-      send_to_log(3,"IRadio: Live-Radio parser returned invalid playlist: No hostname given");
+      send_to_log(3,'IRadio: Live-Radio parser returned invalid playlist: No hostname given');
       return FALSE;
     } elseif (empty($url["path"]) && empty($url["query"])) {
-      send_to_log(3,"IRadio: Live-Radio parser returned invalid playlist: No filename given");
+      send_to_log(3,'IRadio: Live-Radio parser returned invalid playlist: No filename given');
       return FALSE;
     }
-    send_to_log(8,"IRadio: Live-Radio parser looks OK");
+    send_to_log(8,'IRadio: Live-Radio parser looks OK');
     return TRUE;
   }
 

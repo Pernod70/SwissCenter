@@ -94,7 +94,7 @@
     # Radio Station with no Details
     #------------------------------
 
-    if (isset($current_track["STATION"]) && empty($current_track["TITLE"]))
+    if (isset($current_track["STATION"]) && !isset($current_track["ALBUMART"]) && empty($current_track["TITLE"]))
     {
       $title_text_size  = font_size( 24, BROWSER_SCREEN_COORDS);
       $title_text_col   = hexdec(style_value('RADIO_TITLE_COLOUR','#000000'));
@@ -141,7 +141,7 @@
       $artfile->load_from_file( $art_fsp );
 
     // Resize album art and then overlay onto the background image.
-    $artfile->resize( $art_w, $art_h, $art_bg_colour, true, '', $border_col );
+    $artfile->resize( $art_w, $art_h, $art_bg_colour, true, '' );
     $image->copy($artfile, $art_x, $art_y);
 
     #-----------

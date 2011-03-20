@@ -1893,6 +1893,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>IRADIO_ICECAST_DESC</id>
+        <text>IceCast (%s) is an internet radio service similiar to SHOUTcast. It provides the functionality to search by genre and station name.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IRADIO_LIVE365</id>
         <text>Live365</text>
         <version>1.22</version>
@@ -1963,6 +1968,16 @@
         <version>1.21.1</version>
       </string>
       <string>
+        <id>IRADIO_RADIOTIME</id>
+        <text>RadioTime</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_RADIOTIME_DESC</id>
+        <text>Listen to online radio, find streaming music radio and streaming talk radio with RadioTime.  The best guide to every type of radio: conservative, progressive, public, news, sports, religious, jazz, classical, rock, country, business, latin, hip-hop, pop, adult contemporary, and more.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IRADIO_SEARCH</id>
         <text>Search for stations</text>
         <version>1.19</version>
@@ -1998,6 +2013,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_STEAMCAST</id>
+        <text>Steamcast</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_STEAMCAST_DESC</id>
+        <text>Steamcast (%s) is a drop in replacement for both SHOUTcast or Icecast or both. Bringing both the versitility of Icecast and the popularity of SHOUTcast together into one small package. Steamcast uses the popular HTTP/ICY protocol to deliever media to your clients which means that just about any player can support it.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IRADIO_SUBGENRE</id>
         <text>Sub-Genre</text>
         <version>1.21.1</version>
@@ -2016,6 +2041,16 @@
         <id>IRADIO_UPDATE_PARAM_OK</id>
         <text>Search parameter updated</text>
         <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_VIEW_LINKS</id>
+        <text>View links</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_VIEW_STATIONS</id>
+        <text>View stations</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>ITUNES_CONFIG_PROMPT</id>

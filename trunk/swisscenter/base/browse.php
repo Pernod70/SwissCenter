@@ -88,11 +88,12 @@
       $menu->add_up( url_add_param($url,'page',($page > 0 ? ($page-1) : $last_page)) );
       $menu->add_down( url_add_param($url,'page',($page < $last_page ? ($page+1) : 0)) );
     }
+    $menu->set_page($page+1, $last_page+1);
 
     for ($i=$start; $i<$end; $i++)
     {
       // Output a link to cause the specified playlist to be loaded into the session
-      $menu->add_info_item($stations[$i]->name, $stations[$i]->bitrate."k", play_internet_radio($stations[$i]->playlist, $stations[$i]->name));
+      $menu->add_info_item($stations[$i]->name.' ('.$stations[$i]->type.')', $stations[$i]->bitrate."k", play_internet_radio($stations[$i]->source, $stations[$i]->playlist, $stations[$i]->name, $stations[$i]->type, $stations[$i]->image));
     }
 
     $menu->display(1,style_value("MENU_RADIO_WIDTH"), style_value("MENU_RADIO_ALIGN"));
@@ -166,7 +167,11 @@
     }
 
     for ($i=$start; $i<$end; $i++)
-      $menu->add_item($array[$i]["name"], $array[$i]["url"]);
+    {
+      $sub  = isset($array[$i]["submenu"]) ? $array[$i]["submenu"] : false;
+      $icon = isset($array[$i]["icon"]) ? $array[$i]["icon"] : false;
+      $menu->add_item($array[$i]["name"], $array[$i]["url"], $sub, $icon);
+    }
 
     // Determine menu properties for this media type
     switch ($media_type)

@@ -13,18 +13,21 @@
   send_to_log(1,"Playlist Requested : ".current_url()." by client (".client_ip().")");
 
   $server  = server_address();
-  $station = un_magic_quote($_REQUEST["station"]);
+  $source  = un_magic_quote($_REQUEST["src"]);
+  $stream  = un_magic_quote($_REQUEST["url"]);
+  $station = un_magic_quote($_REQUEST["st"]);
+  $image   = un_magic_quote($_REQUEST["img"]);
 
   // Determine type of radio stream being played
-  if ( strpos($_REQUEST["url"],'live365') > 0 )
+  if ( $source == IRADIO_LIVE365 )
   {
     // Determine broadcaster for Live365 station
     $broadcaster = preg_get('/broadcaster=(.*)&/U', un_magic_quote($_REQUEST["url"]));
 
     $url = $server."music_radio_image.php?".current_session()."&live365=".$broadcaster.
-                   "&station=".urlencode($station)."&x=.jpg";
+                   "&st=".urlencode($station)."&x=.jpg";
   }
-  else
+  elseif ( $source == IRADIO_SHOUTCAST )
   {
     // Determine host and port for SHOUTcast server
     $IP_Port = array();
@@ -46,8 +49,13 @@
       }
 
       $url = $server."music_radio_image.php?".current_session()."&schost=".$IP_Port[1]."&scport=".$IP_Port[2].
-                     "&station=".urlencode($station)."&x=.jpg";
+                     "&st=".urlencode($station)."&img=".urlencode($image)."&x=.jpg";
     }
+  }
+  else
+  {
+    $url = $server."music_radio_image.php?".current_session().
+                   "&st=".urlencode($station)."&img=".urlencode($image)."&x=.jpg";
   }
 
   // List of images to display to the user (changes every 30 seconds)
