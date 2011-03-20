@@ -348,10 +348,13 @@ class menu
         if ($left_icons == 1)
           echo '<td align="right" valign="middle" height="'.$height_px.'">'.$item["left"].'</td>';
 
+        // Older players require bold font for visibility
+        if ( get_player_model() == 100 || get_player_model() == 200 ) $font_open .= '<b>';
+
         // Main text - NMT players support the marquee tag to scroll text
         if ( get_player_model() > 400 && get_sys_pref('DISABLE_MENU_SCROLL','NO') == 'NO')
           echo '<td valign="middle" width="'.$width_px.'" height="'.$height_px.'" '.$background.'>'.$font_open.
-                  '&nbsp;&nbsp;&nbsp;'.$tvid.'.&nbsp;
+                  '&nbsp;&nbsp;'.$tvid.'.&nbsp;
                   <a style="width:'.($width_px-50).'" '.$item["url"].' TVID="'.$tvid.'" name="'.$tvid.'">'.
                    '<marquee behavior="focus" width="'.($width_px-50).'">'.$item["text"].'</marquee>'.
                  '</a></font>
@@ -359,7 +362,7 @@ class menu
         else
           echo '<td valign="middle" width="'.$width_px.'" height="'.$height_px.'" '.$background.'>'.
                  '<a style="width:'.($width_px-2).'" '.
-                   $item["url"].' TVID="'.$tvid.'" name="'.$tvid.'">'.$font_open.'&nbsp;&nbsp;&nbsp;'.$tvid.'. '.$text.'</font>'.
+                   $item["url"].' TVID="'.$tvid.'" name="'.$tvid.'">'.$font_open.'&nbsp;'.$tvid.'. '.$text.'</font>'.
                  '</a>'.
                 '</td>';
 
