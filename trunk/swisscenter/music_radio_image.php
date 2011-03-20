@@ -64,11 +64,11 @@
             $image = array_last($track_info["track"]["album"]["image"]);
             $playing[0]["ALBUMART"] = $image["#text"];
           }
-        }
-        else
-        {
-          // Get an artist image from Last.fm
-          $playing[0]["ALBUMART"] = get_lastfm_artist_image($playing[0]["ARTIST"]);
+          else
+          {
+            // Get an artist image from Last.fm
+            $playing[0]["ALBUMART"] = get_lastfm_artist_image($playing[0]["ARTIST"]);
+          }
         }
       }
       else
