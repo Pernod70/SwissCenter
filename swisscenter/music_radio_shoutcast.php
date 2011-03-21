@@ -33,8 +33,9 @@
 
  $menu = new menu();
  $current_url = current_url();
+ $iradio_class = $_REQUEST["class"];
 
- switch ($_REQUEST["class"])
+ switch ($iradio_class)
  {
    case shoutcast :
        send_to_log(8,"Initializing ShoutCast parser");
@@ -75,7 +76,7 @@
        break;
  }
 
- if (!empty($_REQUEST["class"]))
+ if (!empty($iradio_class))
  {
    if (!file_exists($cachedir))
      @mkdir($cachedir);
@@ -90,7 +91,7 @@
  $radio_logo_start = '<table width="100%" cellpadding=0 cellspacing=0 border=0>
                         <tr>
                           <td valign=top width="'.convert_x(280).'" align="left"><br>
-                            '.img_gen(style_img(strtoupper($_REQUEST["class"]),true,false),280,450).'
+                            '.img_gen(style_img(strtoupper($iradio_class),true,false),280,450).'
                           </td>
                           <td width="'.convert_x(20).'"></td>
                           <td valign="top">';
@@ -118,9 +119,15 @@
  {
    if (!empty($_REQUEST["by_genre"]))
    {
+     $maingenre = isset($_REQUEST["maingenre"]) ? $_REQUEST["maingenre"] : '';
+     $subgenre  = isset($_REQUEST["subgenre"]) ? $_REQUEST["subgenre"] : '';
+
+     // Steamcast has no subgenres so set to maingenre
+     $subgenre = ($iradio_class == 'steamcast') ? $maingenre : $subgenre;
+
      $genres = $iradio->get_genres();
      // Browse by Genre/Subgenre
-     if (empty($_REQUEST["maingenre"]) )
+     if (empty($maingenre) )
      {
        // Choose main genre
        page_header(str('IRADIO_MAINGENRE SELECT'));
@@ -131,13 +138,13 @@
        echo $radio_logo_end;
        page_footer( page_hist_back_url() );
      }
-     elseif (empty($_REQUEST["subgenre"]) )
+     elseif (empty($subgenre) )
      {
        // Choose sub-genre
        page_header(str('IRADIO_SUBGENRE_SELECT'));
        echo $radio_logo_start;
-       $genres = $iradio->get_subgenres($_REQUEST["maingenre"]);
-       send_to_log(8,"Browsing by genre chosen. Main genre: '".$_REQUEST["maingenre"]."', sub-genre list:",$genres);
+       $genres = $iradio->get_subgenres($maingenre);
+       send_to_log(8,"Browsing by genre chosen. Main genre: '".$maingenre."', sub-genre list:",$genres);
        make_genre_menu($genres,"subgenre");
        echo $radio_logo_end;
        page_footer( page_hist_back_url() );
@@ -145,8 +152,8 @@
      else
      {
        // Main and subgenre chosen, so list the available radio stations.
-       send_to_log(8,"Genre search for '".$_REQUEST["subgenre"]."'");
-       $iradio->search_genre($_REQUEST["subgenre"]);
+       send_to_log(8,"Genre search for '".$subgenre."'");
+       $iradio->search_genre($subgenre);
        $stations = $iradio->get_station();
        send_to_log(8,"Station list parsed",$stations);
        if (count($stations) >0 )

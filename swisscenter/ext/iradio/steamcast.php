@@ -81,6 +81,37 @@ class steamcast extends iradio {
     return TRUE;
   }
 
+  /** Get the genre list
+   * @class iradio
+   * @method get_genres
+   * @return array genres (genre[main][sub])
+   */
+  function get_genres() {
+    send_to_log(6,'IRadio: Complete genre list was requested.');
+    if (empty($this->genre)) {
+      $uri = 'http://'.$this->iradiosite;
+      $this->openpage($uri);
+      # Genres
+      $spos = strpos($this->page,'<select name="g"');
+      $epos = strpos($this->page,'</select>',$spos);
+      $options = substr($this->page,$spos,$epos - $spos);
+      $epos = 1;
+      while ($spos>0) {
+        $spos = strpos($options,'<option',$epos);
+        $epos = strpos($options,'">',$spos);
+        $g_id = urldecode(substr($options,$spos +15,$epos - $spos -15));
+        $spos = $epos +2;
+        $epos = strpos($options,'<',$spos);
+        $genre = html_entity_decode(strtolower(substr($options,$spos,$epos - $spos)));
+        $spos = strpos($options,'<option',$epos) -1;
+        send_to_log(8,'IRadio: Got genre '.$genre.' with value '.$g_id);
+        if (empty($g_id)) $g_id = 'All';
+        $this->genre[$g_id][$g_id] = array("text" => $genre, "id"   => $g_id);
+      }
+    }
+    return $this->genre;
+  }
+
   /** Searching for a genre
    *  Initiates a genre search at the Steamcast site and stores all returned
    *  stations using iradio::add_station (use get_station() to retrieve
@@ -93,6 +124,7 @@ class steamcast extends iradio {
    */
   function search_genre($name) {
     send_to_log(6,'IRadio: Initialize genre search for "'.$name.'"');
+    if ($name == 'All') $name = '';
     return $this->parse('&g='.str_replace(' ','+',$name),str_replace(' ','_',$name));
   }
 
