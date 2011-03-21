@@ -1187,7 +1187,6 @@ class getID3
 
 				foreach ($this->info[$comment_name]['comments'] as $tag_key => $valuearray) {
 					foreach ($valuearray as $key => $value) {
-						$value = (is_string($value) ? trim($value) : $value);
 						if (!empty($value) > 0) {
 							$this->info['tags'][trim($tag_name)][trim($tag_key)][] = $value; // do not trim!! Unicode characters will get mangled if trailing nulls are removed!
 						}
