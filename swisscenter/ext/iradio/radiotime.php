@@ -69,14 +69,17 @@ class radiotime extends iradio {
       case 'Describe':
         // Extract text from results
         $this->link = array();
-        foreach ($results["text"] as $item)
+        if (isset($results["text"]))
         {
-          if (isset($item["guide_id"]))
+          foreach ($results["text"] as $item)
           {
-            $id   = $item["guide_id"];
-            $name = utf8_decode($item["text"]);
+            if (isset($item["guide_id"]))
+            {
+              $id   = $item["guide_id"];
+              $name = utf8_decode($item["text"]);
 
-            $this->add_link($name,$id);
+              $this->add_link($name,$id);
+            }
           }
         }
         $cache["links"] = $this->links;
@@ -88,22 +91,25 @@ class radiotime extends iradio {
         // Extract stations from results
         $stationcount = 0;
         $genres = $this->get_genres();
-        foreach ($results["audio"] as $item)
+        if (isset($results["audio"]))
         {
-          if (isset($item["item"]) && $item["item"] == 'station')
+          foreach ($results["audio"] as $item)
           {
-            $name       = utf8_decode($item["text"]);
-            $format     = $item["formats"];
-            $playlist   = $item["URL"];
-            $bitrate    = $item["bitrate"];
-            $genre      = isset($genres[$item["genre_id"]]) ? $genres[$item["genre_id"]]["text"] : '';
-            $nowplaying = '';
-            $website    = '';
-            $image      = $item["image"];
+            if (isset($item["item"]) && $item["item"] == 'station')
+            {
+              $name       = utf8_decode($item["text"]);
+              $format     = $item["formats"];
+              $playlist   = $item["URL"];
+              $bitrate    = $item["bitrate"];
+              $genre      = isset($genres[$item["genre_id"]]) ? $genres[$item["genre_id"]]["text"] : '';
+              $nowplaying = '';
+              $website    = '';
+              $image      = $item["image"];
 
-            $this->add_station($name,$playlist,$bitrate,$genre,$format,0,0,$nowplaying,$website,$image);
-            ++$stationcount;
-            if ($stationcount == $this->numresults) break;
+              $this->add_station($name,$playlist,$bitrate,$genre,$format,0,0,$nowplaying,$website,$image);
+              ++$stationcount;
+              if ($stationcount == $this->numresults) break;
+            }
           }
         }
         $cache["stations"] = $this->get_station();
@@ -111,14 +117,17 @@ class radiotime extends iradio {
 
         // Extract links from results
         $this->link = array();
-        foreach ($results["link"] as $item)
+        if (isset($results["link"]))
         {
-          if (!isset($item["item"]) && isset($item["guide_id"]))
+          foreach ($results["link"] as $item)
           {
-            $id   = $item["guide_id"];
-            $name = utf8_decode($item["text"]);
+            if (!isset($item["item"]) && isset($item["guide_id"]))
+            {
+              $id   = $item["guide_id"];
+              $name = utf8_decode($item["text"]);
 
-            $this->add_link($name,$id);
+              $this->add_link($name,$id);
+            }
           }
         }
         $cache["links"] = $this->get_link();
