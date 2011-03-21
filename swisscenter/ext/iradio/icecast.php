@@ -57,7 +57,6 @@ class icecast extends iradio {
       $bitrate  = preg_get('/<bitrate>(.*)<\/bitrate>/U', $block);
       $format   = $this->mime_type_decode(preg_get('/<server_type>(.*)<\/server_type>/U', $block));
       $genre    = utf8_decode(xmlspecialchars_decode(preg_get('/<genre>(.*)<\/genre>/U', $block)));
-      $playlist = url_add_param($playlist, 'ext', '.'.$format);
 
       // following information is not available here, so place dummies
       $nowplaying = '?';
