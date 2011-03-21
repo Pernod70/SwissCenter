@@ -17,7 +17,7 @@
 
   $menu->add_item(str('IRADIO_SHOUTCAST'), url_add_param('music_radio_shoutcast.php', 'class','shoutcast') );
   $menu->add_item(str('IRADIO_RADIOTIME'), url_add_param('music_radio_radiotime.php', 'class','radiotime') );
-//  $menu->add_item(str('IRADIO_ICECAST'), url_add_param('music_radio_shoutcast.php', 'class','icecast') );
+  $menu->add_item(str('IRADIO_ICECAST'), url_add_param('music_radio_shoutcast.php', 'class','icecast') );
   $menu->add_item(str('IRADIO_STEAMCAST'), url_add_param('music_radio_shoutcast.php', 'class','steamcast') );
   $menu->add_item(str('IRADIO_LIVERADIO'), url_add_param('music_radio_shoutcast.php', 'class','liveradio') );
   $menu->add_item(str('IRADIO_LIVE365'), url_add_param('music_radio_shoutcast.php', 'class','live365') );
