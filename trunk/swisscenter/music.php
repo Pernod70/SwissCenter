@@ -74,6 +74,10 @@
 
     $buttons = array();
     $buttons[] = array('text' => str('QUICK_PLAY'),'url'  => quick_play_link(MEDIA_TYPE_MUSIC,$_SESSION["history"][0]["sql"]));
+    if (get_sys_pref('NOW_PLAYING_STYLE','ORIGINAL') == 'ORIGINAL')
+      $buttons[] = array('text'=>str('NOW_PLAYING_STYLE').': '.str('ENHANCED'), 'url'=> url_set_param(current_url(),'playing','ENHANCED') );
+    else
+      $buttons[] = array('text'=>str('NOW_PLAYING_STYLE').': '.str('ORIGINAL'), 'url'=> url_set_param(current_url(),'playing','ORIGINAL') );
     $buttons[] = array('text' => filter_text(),'url'  => 'get_filter.php?return='.urlencode('music.php?cat='.$cat_id));
 
     // Make sure the "back" button goes to the correct page:
@@ -86,6 +90,10 @@
  /**************************************************************************************************
    Main page output
   **************************************************************************************************/
+
+  // Toggle Now Playing screen
+  if (isset($_REQUEST["playing"]))
+    set_sys_pref('NOW_PLAYING_STYLE',$_REQUEST["playing"]);
 
   $subtitle = isset($_REQUEST["cat"]) ? db_value('select cat_name from categories where cat_id='.$_REQUEST["cat"]) : '';
   page_header( str('LISTEN_MUSIC'), $subtitle,'',1,false,'',MEDIA_TYPE_MUSIC);
