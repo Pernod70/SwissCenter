@@ -159,10 +159,11 @@ function ParserTvLookup($tv_id, $filename, $search_params) {
           file_save_albumart( $actor['IMAGE']
                             , $cache_dir.'/actors/'.basename($actor['IMAGE'])
                             , '');
-        if (!file_exists(SC_LOCATION.'fanart/actors/'.strtolower($actor['NAME']).'/'.basename($actor['IMAGE']))) {
-          if (!file_exists(SC_LOCATION.'fanart/actors/'.strtolower($actor['NAME']))) { @mkdir(SC_LOCATION.'fanart/actors/'.strtolower($actor['NAME'])); }
+        $actor_name_safe = filename_safe(strtolower($actor['NAME']));
+        if (!file_exists(SC_LOCATION.'fanart/actors/'.$actor_name_safe.'/'.basename($actor['IMAGE']))) {
+          if (!file_exists(SC_LOCATION.'fanart/actors/'.$actor_name_safe)) { @mkdir(SC_LOCATION.'fanart/actors/'.$actor_name_safe); }
             copy($cache_dir.'/actors/'.basename($actor['IMAGE']),
-                 SC_LOCATION.'fanart/actors/'.strtolower($actor['NAME']).'/'.basename($actor['IMAGE']));
+                 SC_LOCATION.'fanart/actors/'.$actor_name_safe.'/'.basename($actor['IMAGE']));
         }
       }
     }
