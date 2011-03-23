@@ -130,10 +130,11 @@ function ParserMovieLookup($movie_id, $filename, $search_params) {
           file_save_albumart( $actor['IMAGE']
                             , $cache_dir.'/actors/'.$actor['ID'].'.'.file_ext($actor['IMAGE'])
                             , '');
-        if (!file_exists(SC_LOCATION.'fanart/actors/'.strtolower($actor['NAME']).'/'.$actor['ID'].'.'.file_ext($actor['IMAGE']))) {
-          if (!file_exists(SC_LOCATION.'fanart/actors/'.strtolower($actor['NAME']))) { @mkdir(SC_LOCATION.'fanart/actors/'.strtolower($actor['NAME'])); }
+        $actor_name_safe = filename_safe(strtolower($actor['NAME']));
+        if (!file_exists(SC_LOCATION.'fanart/actors/'.$actor_name_safe.'/'.$actor['ID'].'.'.file_ext($actor['IMAGE']))) {
+          if (!file_exists(SC_LOCATION.'fanart/actors/'.$actor_name_safe)) { @mkdir(SC_LOCATION.'fanart/actors/'.$actor_name_safe); }
             copy($cache_dir.'/actors/'.$actor['ID'].'.'.file_ext($actor['IMAGE']),
-                 SC_LOCATION.'fanart/actors/'.strtolower($actor['NAME']).'/'.$actor['ID'].'.'.file_ext($actor['IMAGE']));
+                 SC_LOCATION.'fanart/actors/'.$actor_name_safe.'/'.$actor['ID'].'.'.file_ext($actor['IMAGE']));
         }
       }
     }

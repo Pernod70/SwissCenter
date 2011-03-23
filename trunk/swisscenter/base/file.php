@@ -162,7 +162,7 @@ function paths_to_array( $path_str )
 }
 
 /**
- * Returns the file extentsion from a given filename.
+ * Returns the file extension from a given filename.
  *
  * @param string $filename
  * @return string
@@ -174,7 +174,7 @@ function file_ext( $filename )
 }
 
 /**
- * Returns the filename with the extentsion removed.
+ * Returns the filename with the extension removed.
  *
  * @param string $filename
  * @return string
@@ -542,6 +542,11 @@ function file_albumart( $fsp, $default_image = true )
     // No directory specified.
     return '';
   }
+//  elseif ((0 == strncmp($fsp, '\\', 2)) && (strrpos(dirname($fsp), '/') == 1))
+//  {
+//    // Its a UNC path with just a hostname
+//    return '';
+//  }
   elseif ( isdir($fsp) )
   {
     // Is there an image file with the same name as those listed in the configuration page?
@@ -747,6 +752,21 @@ function wget_location()
 function system_root()
 {
   return str_replace('\\\\','\\',getenv('SystemRoot'));
+}
+
+/**
+ * Makes a filename safe by replacing reserved characters.
+ *
+ * @param $filename
+ * @return string
+ */
+
+function filename_safe($filename)
+{
+  $reserved = array('<', '>', ':', '"', '/', '\\', '|', '?', '%', '*', '__');
+  $replace  = '_';
+  $filename = str_replace($reserved, $replace, $filename);
+  return $filename;
 }
 
 /**************************************************************************************************
