@@ -40,6 +40,8 @@ class OpenSubtitles
   // API useragent registered to SwissCenter project
   var $useragent = 'SwissCenter v1.23';
 
+  var $timeout = 60;
+
   var $token;
   var $client;
 
@@ -61,7 +63,7 @@ class OpenSubtitles
   function ServerInfo()
   {
     $message = new xmlrpcmsg("ServerInfo");
-    $resp = $this->client->send($message);
+    $resp = $this->client->send($message, $this->timeout);
 
     if ($resp->faultCode())
     {
@@ -91,7 +93,7 @@ class OpenSubtitles
                                             new xmlrpcval($password, "string"),
                                             new xmlrpcval($language, "string"),
                                             new xmlrpcval($useragent, "string")));
-    $resp = $this->client->send($message);
+    $resp = $this->client->send($message, $this->timeout);
 
     if ($resp->faultCode())
     {
@@ -111,7 +113,7 @@ class OpenSubtitles
   function LogOut()
   {
     $message = new xmlrpcmsg("LogOut", array(new xmlrpcval($this->token, "string")));
-    $resp = $this->client->send($message);
+    $resp = $this->client->send($message, $this->timeout);
 
     if ($resp->faultCode())
     {
@@ -143,7 +145,7 @@ class OpenSubtitles
     }
     $message = new xmlrpcmsg("SearchSubtitles", array(new xmlrpcval($this->token, "string"),
                                                       new xmlrpcval($xmlrpc_search, "array")));
-    $resp = $this->client->send($message);
+    $resp = $this->client->send($message, $this->timeout);
 
     if ($resp->faultCode())
     {
@@ -179,7 +181,7 @@ class OpenSubtitles
     $message = new xmlrpcmsg("SearchToMail", array(new xmlrpcval($this->token, "string"),
                                                    new xmlrpcval($xmlrpc_sublanguageid, "array"),
                                                    new xmlrpcval($xmlrpc_search, "array")));
-    $resp = $this->client->send($message);
+    $resp = $this->client->send($message, $this->timeout);
 
     if ($resp->faultCode())
     {
@@ -206,7 +208,7 @@ class OpenSubtitles
     }
     $message = new xmlrpcmsg("CheckSubHash", array(new xmlrpcval($this->token, "string"),
                                                    new xmlrpcval($xmlrpc_subhash, "array")));
-    $resp = $this->client->send($message);
+    $resp = $this->client->send($message, $this->timeout);
 
     if ($resp->faultCode())
     {
@@ -233,7 +235,7 @@ class OpenSubtitles
     }
     $message = new xmlrpcmsg("CheckMovieHash", array(new xmlrpcval($this->token, "string"),
                                                      new xmlrpcval($xmlrpc_moviehash, "array")));
-    $resp = $this->client->send($message);
+    $resp = $this->client->send($message, $this->timeout);
 
     if ($resp->faultCode())
     {
@@ -254,13 +256,13 @@ class OpenSubtitles
   function CheckMovieHash2( $moviehash )
   {
     $xmlrpc_moviehash = array();
-    foreach ($moviehashhash as $item)
+    foreach ($moviehash as $item)
     {
       $xmlrpc_moviehash[] = new xmlrpcval($item, "string");
     }
     $message = new xmlrpcmsg("CheckMovieHash2", array(new xmlrpcval($this->token, "string"),
                                                       new xmlrpcval($xmlrpc_moviehash, "array")));
-    $resp = $this->client->send($message);
+    $resp = $this->client->send($message, $this->timeout);
 
     if ($resp->faultCode())
     {
@@ -292,7 +294,7 @@ class OpenSubtitles
     }
     $message = new xmlrpcmsg("InsertMovieHash", array(new xmlrpcval($this->token, "string"),
                                                       new xmlrpcval($xmlrpc_movie, "array")));
-    $resp = $this->client->send($message);
+    $resp = $this->client->send($message, $this->timeout);
 
     if ($resp->faultCode())
     {
@@ -327,7 +329,7 @@ class OpenSubtitles
     }
     $message = new xmlrpcmsg("TryUploadSubtitles", array(new xmlrpcval($this->token, "string"),
                                                          new xmlrpcval($xmlrpc_subtitles, "array")));
-    $resp = $this->client->send($message);
+    $resp = $this->client->send($message, $this->timeout);
 
     if ($resp->faultCode())
     {
@@ -379,7 +381,7 @@ class OpenSubtitles
     }
     $message = new xmlrpcmsg("UploadSubtitles", array(new xmlrpcval($this->token, "string"),
                                                       new xmlrpcval($xmlrpc_subtitles, "array")));
-    $resp = $this->client->send($message);
+    $resp = $this->client->send($message, $this->timeout);
 
     if ($resp->faultCode())
     {
@@ -407,7 +409,7 @@ class OpenSubtitles
     }
     $message = new xmlrpcmsg("DetectLanguage", array(new xmlrpcval($this->token, "string"),
                                                      new xmlrpcval($xmlrpc_text, "array")));
-    $resp = $this->client->send($message);
+    $resp = $this->client->send($message, $this->timeout);
 
     if ($resp->faultCode())
     {
@@ -434,7 +436,7 @@ class OpenSubtitles
     }
     $message = new xmlrpcmsg("DownloadSubtitles", array(new xmlrpcval($this->token, "string"),
                                                         new xmlrpcval($xmlrpc_id, "array")));
-    $resp = $this->client->send($message);
+    $resp = $this->client->send($message, $this->timeout);
 
     if ($resp->faultCode())
     {
@@ -457,7 +459,7 @@ class OpenSubtitles
   {
     $message = new xmlrpcmsg("ReportWrongMovieHash", array(new xmlrpcval($this->token, "string"),
                                                            new xmlrpcval($IDSubMovieFile, "string")));
-    $resp = $this->client->send($message);
+    $resp = $this->client->send($message, $this->timeout);
 
     if ($resp->faultCode())
     {
@@ -478,7 +480,7 @@ class OpenSubtitles
   function GetSubLanguages( $language = 'en' )
   {
     $message = new xmlrpcmsg("GetSubLanguages", array(new xmlrpcval($language, "string")));
-    $resp = $this->client->send($message);
+    $resp = $this->client->send($message, $this->timeout);
 
     if ($resp->faultCode())
     {
@@ -501,7 +503,7 @@ class OpenSubtitles
   {
     $message = new xmlrpcmsg("GetAvailableTranslations", array(new xmlrpcval($this->token, "string"),
                                                                new xmlrpcval($program, "string")));
-    $resp = $this->client->send($message);
+    $resp = $this->client->send($message, $this->timeout);
 
     if ($resp->faultCode())
     {
@@ -528,7 +530,7 @@ class OpenSubtitles
                                                       new xmlrpcval($iso639, "string"),
                                                       new xmlrpcval($format, "string"),
                                                       new xmlrpcval($program, "string")));
-    $resp = $this->client->send($message);
+    $resp = $this->client->send($message, $this->timeout);
 
     if ($resp->faultCode())
     {
@@ -550,7 +552,7 @@ class OpenSubtitles
   {
     $message = new xmlrpcmsg("SearchMoviesOnIMDB", array(new xmlrpcval($this->token, "string"),
                                                          new xmlrpcval($query, "string")));
-    $resp = $this->client->send($message);
+    $resp = $this->client->send($message, $this->timeout);
 
     if ($resp->faultCode())
     {
@@ -572,7 +574,7 @@ class OpenSubtitles
   {
     $message = new xmlrpcmsg("GetIMDBMovieDetails", array(new xmlrpcval($this->token, "string"),
                                                           new xmlrpcval($imdbid, "string")));
-    $resp = $this->client->send($message);
+    $resp = $this->client->send($message, $this->timeout);
 
     if ($resp->faultCode())
     {
@@ -597,7 +599,7 @@ class OpenSubtitles
 
     $message = new xmlrpcmsg("InsertMovie", array(new xmlrpcval($this->token, "string"),
                                                   new xmlrpcval($xmlrpc_movie, "array")));
-    $resp = $this->client->send($message);
+    $resp = $this->client->send($message, $this->timeout);
 
     if ($resp->faultCode())
     {
@@ -623,7 +625,7 @@ class OpenSubtitles
 
     $message = new xmlrpcmsg("SubtitlesVote", array(new xmlrpcval($this->token, "string"),
                                                     new xmlrpcval($xmlrpc_vote, "array")));
-    $resp = $this->client->send($message);
+    $resp = $this->client->send($message, $this->timeout);
 
     if ($resp->faultCode())
     {
@@ -650,7 +652,7 @@ class OpenSubtitles
     }
     $message = new xmlrpcmsg("GetComments", array(new xmlrpcval($this->token, "string"),
                                                   new xmlrpcval($xmlrpc_array, "array")));
-    $resp = $this->client->send($message);
+    $resp = $this->client->send($message, $this->timeout);
 
     if ($resp->faultCode())
     {
@@ -676,7 +678,7 @@ class OpenSubtitles
 
     $message = new xmlrpcmsg("AddComment", array(new xmlrpcval($this->token, "string"),
                                                  new xmlrpcval($xmlrpc_comment, "array")));
-    $resp = $this->client->send($message);
+    $resp = $this->client->send($message, $this->timeout);
 
     if ($resp->faultCode())
     {
@@ -702,7 +704,7 @@ class OpenSubtitles
 
     $message = new xmlrpcmsg("AddRequest", array(new xmlrpcval($this->token, "string"),
                                                  new xmlrpcval($xmlrpc_request, "array")));
-    $resp = $this->client->send($message);
+    $resp = $this->client->send($message, $this->timeout);
 
     if ($resp->faultCode())
     {
@@ -723,7 +725,7 @@ class OpenSubtitles
   function AutoUpdate ( $program_name )
   {
     $message = new xmlrpcmsg("AutoUpdate", array(new xmlrpcval($program_name, "string")));
-    $resp = $this->client->send($message);
+    $resp = $this->client->send($message, $this->timeout);
 
     if ($resp->faultCode())
     {
@@ -744,7 +746,7 @@ class OpenSubtitles
   function NoOperation()
   {
     $message = new xmlrpcmsg("NoOperation", array(new xmlrpcval($this->token, "string")));
-    $resp = $this->client->send($message);
+    $resp = $this->client->send($message, $this->timeout);
 
     if ($resp->faultCode())
     {

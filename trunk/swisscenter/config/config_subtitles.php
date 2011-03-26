@@ -40,7 +40,7 @@ function subtitles_display( $message = '')
   }
 
   // Initialise the OpenSubtitles API
-  $os = new OpenSubtitles('', '', $lang);
+  $os = new OpenSubtitles();
 
   if (empty($os->token))
     $message = "!".str('OS_NOT_AVAILABLE');
