@@ -173,6 +173,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>AVAILABLE_VERSION</id>
+        <text>Available Version</text>
+        <version>1.23</version>
+      </string>
+      <string>
         <id>BACKSPACE</id>
         <text>Previous Page</text>
         <version>1.19</version>
