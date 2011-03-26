@@ -51,44 +51,40 @@
     @set_time_limit(0);
 
     // Determine image to display for this track
+    if ( !isset($playing[0]["ALBUMART"]) && !empty($playing[0]["ARTIST"]) && !empty($playing[0]["TITLE"]) )
+    {
+      // Get an album/artist image from Last.fm
+      $track_info = lastfm_track_getInfo($playing[0]["ARTIST"], $playing[0]["TITLE"]);
+      if ( isset($track_info["track"]["album"]["image"]) )
+      {
+        $image = array_last($track_info["track"]["album"]["image"]);
+        $playing[0]["ALBUMART"] = $image["#text"];
+      }
+    }
+    if ( !isset($playing[0]["ALBUMART"]) && !empty($playing[0]["ARTIST"]) )
+    {
+      // Get an artist image from Last.fm
+      $image = get_lastfm_artist_image($playing[0]["ARTIST"]);
+      if ( $image )
+        $playing[0]["ALBUMART"] = $image;
+    }
     if ( !isset($playing[0]["ALBUMART"]) )
     {
-      if ( !empty($playing[0]["ARTIST"]) )
+      // No artist image so do we have a station image defined?
+      $logo = un_magic_quote($_REQUEST["img"]);
+      if ( !empty($logo) )
       {
-        if ( !empty($playing[0]["TITLE"]) )
-        {
-          // Get an album/artist image from Last.fm
-          $track_info = lastfm_track_getInfo($playing[0]["ARTIST"], $playing[0]["TITLE"]);
-          if ( isset($track_info["track"]["album"]["image"]) )
-          {
-            $image = array_last($track_info["track"]["album"]["image"]);
-            $playing[0]["ALBUMART"] = $image["#text"];
-          }
-          else
-          {
-            // Get an artist image from Last.fm
-            $playing[0]["ALBUMART"] = get_lastfm_artist_image($playing[0]["ARTIST"]);
-          }
-        }
+        $playing[0]["ALBUMART"] = $logo;
       }
       else
       {
-        // No artist image so do we have a station image defined?
-        $logo = un_magic_quote($_REQUEST["img"]);
-        if ( !empty($logo) )
+        $station_logos = db_toarray("select lower(station) station, image from iradio_stations");
+        foreach ($station_logos as $station_logo)
         {
-          $playing[0]["ALBUMART"] = $logo;
-        }
-        else
-        {
-          $station_logos = db_toarray("select lower(station) station, image from iradio_stations");
-          foreach ($station_logos as $station_logo)
+          if (strpos(str_replace(' ','',strtolower($playing[0]["STATION"])), str_replace(' ','',$station_logo["STATION"])) !== false)
           {
-            if (strpos(str_replace(' ','',strtolower($playing[0]["STATION"])), str_replace(' ','',$station_logo["STATION"])) !== false)
-            {
-              $playing[0]["ALBUMART"] = SC_LOCATION.'images/iradio/'.$station_logo["IMAGE"];
-              break;
-            }
+            $playing[0]["ALBUMART"] = SC_LOCATION.'images/iradio/'.$station_logo["IMAGE"];
+            break;
           }
         }
       }
