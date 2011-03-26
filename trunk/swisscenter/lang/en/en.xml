@@ -5004,6 +5004,11 @@ If any details are added/changed on this page then you are requested to submit t
         <version>1.19</version>
       </string>
       <string>
+        <id>SVN_REVISION</id>
+        <text>SVN Revision</text>
+        <version>1.23</version>
+      </string>
+      <string>
         <id>SWISSMONITOR_ACTION_FAILED</id>
         <text>SwissCenter was unable to perform the selected action - please check the support.log.</text>
         <version>1.22</version>

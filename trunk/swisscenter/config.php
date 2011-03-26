@@ -7,7 +7,7 @@
   require_once( realpath(dirname(__FILE__).'/base/svn.php'));
   require_once( realpath(dirname(__FILE__).'/messages_db.php'));
 
-  page_header( str('SETUP_TITLE'), str('CURRENT_VERSION').' '.swisscenter_version().' : SVN Revision ['.svn_current_revision().']','',1,false,'','PAGE_CONFIG');
+  page_header( str('SETUP_TITLE'), str('CURRENT_VERSION').' '.swisscenter_version().' : '.str('SVN_REVISION').' ['.svn_current_revision().']','',1,false,'','PAGE_CONFIG');
 
   echo '<p>';
   $menu = new menu();
