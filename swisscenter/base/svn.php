@@ -46,6 +46,24 @@ function svn_current_revision()
 }
 
 /**
+ * Returns the latest revision number available in SVN.
+ *
+ * @return integer
+ */
+function svn_latest_revision()
+{
+  $svn = new phpsvnclient;
+  $svn->setRepository( svn_swisscenter_repository() );
+  $trunk = $svn->getDirectoryFiles("/trunk");
+  $folders = array();
+
+  foreach($trunk as $t)
+    $folders[basename($t["path"])] = $t["revision"];
+
+  return $folders['swisscenter'];
+}
+
+/**
  * Returns an associative array which maps the various release tags which have a reversion
  * greater than that specified (1 by default - lists all release tags).
  *
