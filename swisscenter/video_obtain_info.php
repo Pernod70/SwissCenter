@@ -3,7 +3,6 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-  require_once( realpath(dirname(__FILE__).'/base/page.php'));
   require_once( realpath(dirname(__FILE__).'/base/db_abstract.php'));
   require_once( realpath(dirname(__FILE__).'/base/utils.php'));
   require_once( realpath(dirname(__FILE__).'/base/rating.php'));
@@ -18,6 +17,7 @@
 
   function get_html_tag_attrib( $html, $tag, $find, $attribute )
   {
+    $tag_html = array();
     preg_match ('`<.*'.$tag.'.*'.$find.'.*>`Ui', $html, &$tag_html);
     preg_match ('`'.$attribute.'="(.*)"`Ui',$tag_html[0],$val);
     if (isset($val[1]) && !empty($val[1]))
@@ -28,6 +28,7 @@
 
   function get_html_tag_value( $html, $tag, $find)
   {
+    $val = array();
     preg_match ('`<.*'.$tag.'.*'.$find.'.*>(.*)</'.$tag.'>`Ui', $html, &$val);
     if (isset($val[1]) && !empty($val[1]))
       return $val[1];
@@ -52,7 +53,7 @@
 
     foreach ($haystack as $i=>$item)
     {
-      $chars = similar_text(trim($needle),trim($item),$pc);
+      $chars = similar_text(strtolower(trim($needle)),strtolower(trim($item)),$pc);
       $haystack[$i] .= " (".round($pc,2)."%)";
 
       if ( ($chars > $best_match["chars"] && $pc >= $best_match["pc"]) || $pc > $best_match["pc"])
@@ -296,7 +297,7 @@
   {
     $titles = array();
     foreach ($result_set as $result)
-      $titles[] = $result->titleNoFormatting;
+      $titles[] = utf8_decode($result->titleNoFormatting);
 
     $index = best_match($title, $titles, $accuracy);
 
