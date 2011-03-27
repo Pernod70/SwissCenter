@@ -10,13 +10,13 @@ define(BASE_URL,'http://tools.assembla.com/svn/swiss/tags/');
   {
     $opts = array('http'=>array('method'=>'GET','header'=>'Authorization: Basic '.base64_encode($username.':'.$password)));
     $context = stream_context_create($opts);
-    return file_get_contents($url,false,$context);  
+    return file_get_contents($url,false,$context);
   }
 
-  
-  function get_urls_from_html ($string, $search ) 
+
+  function get_urls_from_html ($string, $search )
   {
-    preg_match_all ('/<a.*href="(.*'.$search.'[^"]*)"[^>]*>(.*)<\/a>/Ui', $string, &$matches);  
+    preg_match_all ('/<a.*href="(.*'.$search.'[^"]*)"[^>]*>(.*)<\/a>/Ui', $string, &$matches);
     for ($i = 0; $i<count($matches[2]); $i++)
       $matches[2][$i] = preg_replace('/<[^>]*>/','',$matches[2][$i]);
     return $matches;
@@ -27,11 +27,11 @@ define(BASE_URL,'http://tools.assembla.com/svn/swiss/tags/');
   {
     $html = file_get_contents_authenticated($url);
     preg_match_all ('/<a.*href="(.*[^"]*)"[^>]*>(.*)<\/a>/Ui', $html, &$matches);
-  
+
     for ($i = 0; $i<count($matches[2]); $i++)
       $matches[2][$i] = preg_replace('/<[^>]*>/','',$matches[2][$i]);
-  
-    return array_splice( $matches[1], 1, count($matches[1])-2);
+
+    return array_splice( $matches[1], 1, count($matches[1])-1);
   }
 
 
@@ -39,12 +39,12 @@ define(BASE_URL,'http://tools.assembla.com/svn/swiss/tags/');
   {
     if ( ! file_exists($dir) )
       mkdir ($dir);
-    
+
     foreach ( get_page_links($base_url) as $url )
     {
       if ( $url[strlen($url)-1] == '/' )
         download_files( $base_url.$url, $dir.'/'.urldecode($url));
-      else     
+      else
       {
         if (! file_exists($dir.'/'.urldecode($url)) )
         {
@@ -62,7 +62,7 @@ define(BASE_URL,'http://tools.assembla.com/svn/swiss/tags/');
   {
     if ( is_file($dir) )
       unlink($dir);
-    else 
+    else
     {
       // Recurse sub_directory first, then delete it.
       if ($dh = opendir($dir))
@@ -116,7 +116,7 @@ define(BASE_URL,'http://tools.assembla.com/svn/swiss/tags/');
      {
      // Compress the file
       $file_contents = file_get_contents($from.$fsp["filename"]);
-       
+
       if ( $file_contents === false)
         echo "Unable to read contents of file : ".$fsp["filename"];
       else
@@ -129,7 +129,7 @@ define(BASE_URL,'http://tools.assembla.com/svn/swiss/tags/');
           $tmp_file = $to.md5( $fsp["filename"].$fsp["checksum"]).'.bin';
           $out = fopen($tmp_file, "w");
           fwrite($out, $str);
-          fclose($out); 
+          fclose($out);
         }
       }
     }
@@ -142,7 +142,7 @@ define(BASE_URL,'http://tools.assembla.com/svn/swiss/tags/');
 function release_display()
 {
   echo "<h1>Release SwissCenter Version</h1>";
-  
+
   if (empty($_REQUEST["type"]))
   {
     form_start('index.php5', 150, 'mesg');
@@ -154,7 +154,7 @@ function release_display()
     form_end();
   }
 }
-  
+
 function release_tag()
 {
   echo "<h1>Release SwissCenter Version</h1>";
@@ -162,12 +162,12 @@ function release_tag()
 
   $html = file_get_contents_authenticated(BASE_URL.$type);
   $urls = get_urls_from_html( $html, '');
-  $urls = array_slice($urls[1],1,count($urls[1])-2);
+  $urls = array_slice($urls[1],1,count($urls[1])-1);
   $tag = array();
-  
+
   foreach ($urls as $tagname)
     $tag[rtrim($tagname,'/')] = rtrim($tagname,'/');
-    
+
   form_start('index.php5', 150, 'mesg');
   form_hidden('section','RELEASE');
   form_hidden('action','FETCH');
@@ -192,11 +192,11 @@ function release_fetch()
   echo '<li>Downloading files';
   exec('mkdir /home/swisscenter/www/update/source');
   exec('rm -rf /home/swisscenter/www/update/source/*');
-  download_files( BASE_URL."$type/$tag/swisscenter/", '/home/swisscenter/www/update/source' );  
-    
+  download_files( BASE_URL."$type/$tag/swisscenter/", '/home/swisscenter/www/update/source' );
+
   echo '<li>Checksuming Files';
   chksum_files( '../source/','',$files, $dirs);
-  
+
   echo '<li>Writing the filelist and last_update file';
   exec("mkdir /home/swisscenter/www/update/$reldir");
   exec("rm -rf /home/swisscenter/www/update/$reldir/*");
@@ -204,7 +204,7 @@ function release_fetch()
   $out = fopen("../$reldir/last_update.txt", "w");
   fwrite($out, $tag);
   fclose($out);
-  
+
   echo '<li>Compressing the files';
   zip_files('../source/',"../$reldir/", $files,$dirs);
 
