@@ -14,7 +14,7 @@
       </string>
       <string>
         <id>ACTOR_IMAGES</id>
-        <text>Foto's van Acteurs</text>
+        <text>Foto's van acteurs</text>
         <version>1.22</version>
       </string>
       <string>
@@ -31,6 +31,11 @@
         <id>ADMIN</id>
         <text>Beheerder</text>
         <version>1.21.1</version>
+      </string>
+      <string>
+        <id>ADULT_RESULTS</id>
+        <text>Inclusief adult resultaten</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>ADVANCED_OPTIONS</id>
@@ -139,8 +144,8 @@
       </string>
       <string>
         <id>ART_FILES_PROMPT</id>
-        <text>[em]Albumhoes[/em] bestanden zijn bestanden die SwissCenter gebruikt om een muziekalbum- of videohoes te tonen, wanneer u een zoekfunctie gebruikt zoek in video's, zoek in muziek, enz.) of wanneer er een album of video geselecteerd is.[p]Indien er verschillede van bovenstaande bestanden gevonden worden, zal SwissCenter het eerste dat gevonden wordt, tonen.</text>
-        <version>1.20</version>
+        <text>[em]Albumhoes[/em] bestanden zijn bestanden die SwissCenter gebruikt om een muziekalbum- of videohoes te tonen, wanneer u een zoekfunctie gebruikt zoek in video's, zoek in muziek, enz.) of wanneer er een album of video geselecteerd is.[p]Indien er verschillende van bovenstaande bestanden gevonden worden, zal SwissCenter het eerste dat gevonden wordt, tonen.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>ART_FILES_TITLE</id>
@@ -166,6 +171,11 @@
         <id>AUTOMATIC</id>
         <text>Automatisch</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>AVAILABLE_VERSION</id>
+        <text>Beschikbare versie</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>BACKSPACE</id>
@@ -469,8 +479,8 @@
       </string>
       <string>
         <id>CACHE_STYLE_PROMPT</id>
-        <text>Wanneer geactiveerd zal SwissCenter alle stijldetails bufferen in het geheugen. Zet deze optie uit indien u een nieuwe stijl ontwikkelt en wijzigingen onmiddelijk wilt zien.</text>
-        <version>1.19</version>
+        <text>Wanneer geactiveerd zal SwissCenter alle stijldetails bufferen in het geheugen. Zet deze optie uit indien u een nieuwe stijl ontwikkelt en wijzigingen onmiddellijk wilt zien.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>CATEGORIES</id>
@@ -654,8 +664,8 @@
       </string>
       <string>
         <id>CONFIG_IMAGE_OPTIONS</id>
-        <text>Afbeeldings opties</text>
-        <version>1.19</version>
+        <text>Opties voor afbeeldingen</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>CONFIG_LASTFM_CLEAR</id>
@@ -984,8 +994,8 @@
       </string>
       <string>
         <id>EXIFVALS_LIGHT_SOURCE</id>
-        <text>Onbekend, daglicht, fluorescerend, Tungsten (gloeilamp/wolfraam), flitslicht, helder weer, bewolkt, share, daglicht fluorescerend, dagwit fluorescerend, helder wit fluorescerend, wit fluorescerend, standarad licht A, standaard licht B, standaard licht C, D55, D65, D75, D50, ISO studio tungsten</text>
-        <version>1.19</version>
+        <text>Onbekend, daglicht, fluorescerend, Tungsten (gloeilamp/wolfraam), flitslicht, helder weer, bewolkt, share, daglicht fluorescerend, dagwit fluorescerend, helder wit fluorescerend, wit fluorescerend, standaard licht A, standaard licht B, standaard licht C, D55, D65, D75, D50, ISO studio tungsten</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>EXIFVALS_METER_MODE</id>
@@ -994,8 +1004,8 @@
       </string>
       <string>
         <id>EXIFVALS_ORIENTATION</id>
-        <text>normaal, horizontaal spiegelen, omdraaien, vertikaal spiegelen, transponeren, rechts roteren, overdwarsen, links roteren</text>
-        <version>1.19</version>
+        <text>normaal, horizontaal spiegelen, omdraaien, verticaal spiegelen, transponeren, rechts roteren, overdwarsen, links roteren</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>EXIFVALS_SCENE_TYPE</id>
@@ -1119,7 +1129,7 @@
       </string>
       <string>
         <id>EXPERT_WARNING</id>
-        <text>U kunt de SwissCenter databank en systeeminstelingen aanpassen. Het is ten zeerste aanbevolen dat slechts (zeer) ervaren gebruikers van deze mogelijkheid gebruik maken. Meer details kunt u hier %s vinden. [b]Handmatige aanpassing van de SwissCenter databank is op eigen risico![/b]</text>
+        <text>U kunt de SwissCenter databank en systeeminstellingen aanpassen. Het is ten zeerste aanbevolen dat slechts (zeer) ervaren gebruikers van deze mogelijkheid gebruik maken. Meer details kunt u hier %s vinden. [b]Handmatige aanpassing van de SwissCenter databank is op eigen risico![/b]</text>
         <version>1.22</version>
       </string>
       <string>
@@ -1198,6 +1208,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>FAIL_ICECAST_TEST</id>
+        <text>IceCast parser functioneert mogelijk niet.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>FAIL_LIVE365_TEST</id>
         <text>Live365 parser lijkt defect</text>
         <version>1.22</version>
@@ -1268,13 +1283,23 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>FAIL_RADIOTIME_TEST</id>
+        <text>RadioTime parser functioneert mogelijk niet.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>FAIL_SERVER_SCHED</id>
-        <text>Achtergrondtaken konden niet uitgevoerd worden - misschien is cron (linux) of de task scheduler service (windows) uitgeschakeld.</text>
-        <version>1.19</version>
+        <text>Achtergrondtaken konden niet uitgevoerd worden - misschien is cron (Linux) of de task scheduler service (windows) uitgeschakeld.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>FAIL_SHOUTCAST_TEST</id>
         <text>SHOUTcast parser lijkt defect</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_STEAMCAST_TEST</id>
+        <text>Steamcast parser functioneert mogelijk niet.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -1304,8 +1329,8 @@
       </string>
       <string>
         <id>FAIL_SWISS_LOCS</id>
-        <text>De medialokaties zijn niet gedefinieerd.</text>
-        <version>1.19</version>
+        <text>Er zijn geen medialocaties gedefinieerd.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>FAIL_SWISS_LOG</id>
@@ -1388,6 +1413,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>FILTER_MISSING_TRAILER</id>
+        <text>Geen trailer</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>FILTER_MISSING_YEAR</id>
         <text>Geen jaar</text>
         <version>1.22</version>
@@ -1429,9 +1459,9 @@
       </string>
       <string>
         <id>FLICKR_DESC</id>
-        <text>Flickr %s is een website voor het delen van (digitale) foto's. Het belangrijkste doel is gebruikers te helpen bij het beschikbaar stellen van fotos aan anderen, en de fotos te ordenen. Registratie bij Flickr is gratis en na aanmelding kunnen afbeeldingen direct worden gedeeld.
+        <text>Flickr %s is een website voor het delen van (digitale) foto's. Het belangrijkste doel is gebruikers te helpen bij het beschikbaar stellen van foto's aan anderen, en de foto's te ordenen. Registratie bij Flickr is gratis en na aanmelding kunnen afbeeldingen direct worden gedeeld.
 [p]Met SwissCenter kunnen eigen en die van de contacten worden bekeken.</text>
-        <version>1.21.1</version>
+        <version>1.22</version>
       </string>
       <string>
         <id>FLICKR_FAVORITES</id>
@@ -1509,8 +1539,38 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>FONTWIDTH_MULTIPLIER_100</id>
+        <text>Spelertype 100</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FONTWIDTH_MULTIPLIER_200</id>
+        <text>Spelertype 200</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FONTWIDTH_MULTIPLIER_400</id>
+        <text>Spelertype 400</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FONTWIDTH_MULTIPLIER_PC</id>
+        <text>PC-browser</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>FONTWIDTH_MULTIPLIER_PROMPT</id>
         <text>Met deze optie wijzigt U het aantal getoonde karakters in de SwissCenter menu's. De waarde hangt af van het gebruikte lettertype, en moet tussen [b]1.0[/b] (standaard) en [b]2.2[/b] liggen.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FTV_GIRLS</id>
+        <text>FTV Girls</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FULL_CAST</id>
+        <text>Volledige filmbezetting</text>
         <version>1.22</version>
       </string>
       <string>
@@ -1600,8 +1660,8 @@
       </string>
       <string>
         <id>IMAGE_RESIZE_PROMPT</id>
-        <text>Kies a.u.b. de methode die door SwissCenter gebruikt dient te worden om afbeeldingen on the fly aan te maken.</text>
-        <version>1.19</version>
+        <text>Kies de methode die SwissCenter moet gebruiken om afbeeldingen on-the-fly aan te maken.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>IMAGE_RESIZE_TYPE</id>
@@ -1835,8 +1895,8 @@
       </string>
       <string>
         <id>IRADIO_CACHE_EXPIRE_PROMPT</id>
-        <text>SwissCenter kan stationinformatie bufferen. Maar aangezien de lijst van stations voortdurend wijzigt, moeten we de buffer regelmatig verversen. Een uur (3600s) is een goed compromis.</text>
-        <version>1.19</version>
+        <text>SwissCenter kan de informatie over stations bufferen. Maar aangezien de lijst van stations voortdurend wijzigt, moeten we de buffer regelmatig verversen. Een uur (3600s) is een goed compromis.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>IRADIO_CLASS_SELECT</id>
@@ -1919,6 +1979,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>IRADIO_ICECAST_DESC</id>
+        <text>IceCast (%s) is een internet radio service die overeenkomt met ShoutCast. Er kan gezocht worden op genre en naam van een radiostation.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IRADIO_LIVE365</id>
         <text>Live365</text>
         <version>1.22</version>
@@ -1935,7 +2000,7 @@
       </string>
       <string>
         <id>IRADIO_LIVERADIO_DESC</id>
-        <text>LiveRadio (%s) is een internet radio-dienst, gelijkwaardig aan SHOUTcast. Het biedt de mogelijkheid te zoeken op mediatype, genre, station, land en zelfs stad - maar veel van de weergegeven stations worden niet ondersteund door sommige hardwarespelers. Om deze reden beperkt de LiveRadio parser in SwissCenter de resultaten tot MP3-stations.</text>
+        <text>LiveRadio (%s) is een internet radio-dienst, gelijkwaardig aan SHOUTcast. Het biedt de mogelijkheid te zoeken op mediatype, genre, station, land en zelfs stad - maar veel van de weergegeven stations worden niet ondersteund door sommige mediaspelers. Om deze reden beperkt de LiveRadio parser in SwissCenter de resultaten tot MP3-stations.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -1989,6 +2054,16 @@
         <version>1.21.1</version>
       </string>
       <string>
+        <id>IRADIO_RADIOTIME</id>
+        <text>RadioTime</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_RADIOTIME_DESC</id>
+        <text>Luister naar online radio, zoek en vind streaming radio met RadioTime. De beste gids voor elk type radio: conservatief, progressief, publiek, nieuws, sport, religieuze, jazz, klassiek, rock, country, het bedrijfsleven, latin, hip-hop, pop, volwassen hedendaagse, en nog veel meer ...</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IRADIO_SEARCH</id>
         <text>Zoek naar stations</text>
         <version>1.19</version>
@@ -2010,8 +2085,8 @@
       </string>
       <string>
         <id>IRADIO_STATION_PROMPT</id>
-        <text>Specificeer de naam van een radiostation waarop u wilt zoeken. Toevoegen van een logo is mogelijk, zodat deze zichtbaar worden in het &quot;[i]NU SPEELT[/i]&quot;-scherm wanneer een kanaal van dit radiostation wordt afgespeeld. De afbeelding moet opgeslagen woden in directory [em]&quot;../images/iradio/&quot;[/em].</text>
-        <version>1.21.1</version>
+        <text>Specificeer de naam van een radiostation waarop u wilt zoeken. Toevoegen van een logo is mogelijk, zodat deze zichtbaar worden in het &quot;[i]NU SPEELT[/i]&quot;-scherm wanneer een kanaal van dit radiostation wordt afgespeeld. De afbeelding moet opgeslagen worden in directory [em]&quot;../images/iradio/&quot;[/em].</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>IRADIO_STATION_SEARCH</id>
@@ -2022,6 +2097,16 @@
         <id>IRADIO_STATION_SELECT</id>
         <text>Selecteer een kanaal</text>
         <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_STEAMCAST</id>
+        <text>Steamcast</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_STEAMCAST_DESC</id>
+        <text>Steamcast (%s) is een kant-en-klare vervanger voor zowel SHOUTcast als IceCast, of beide, waarbij de flexibiliteit van IceCast en de populariteit van SHOUTcast samen komen in één klein pakket. Steamcast gebruikt het wijdverbreide HTTP/ICY protocol om media naar uw clients te streamen, hetgeen door vrijwel iedere speler wordt ondersteund.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>IRADIO_SUBGENRE</id>
@@ -2042,6 +2127,16 @@
         <id>IRADIO_UPDATE_PARAM_OK</id>
         <text>Zoekparameter geactualiseerd</text>
         <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_VIEW_LINKS</id>
+        <text>Bekijk links</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_VIEW_STATIONS</id>
+        <text>Bekijk stations</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>ITUNES_CONFIG_PROMPT</id>
@@ -2267,6 +2362,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>LASTFM_STATUS</id>
+        <text>Statusrapport van Last.FM</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>LASTFM_TAGS</id>
         <text>Beschikbare labels</text>
         <version>1.19</version>
@@ -2290,6 +2390,11 @@
         <id>LICENSE</id>
         <text>GPL licentie</text>
         <version>1.20</version>
+      </string>
+      <string>
+        <id>LINES</id>
+        <text>Lijnen</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>LISTEN_LASTFM</id>
@@ -2682,14 +2787,39 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MIP_MIXER</id>
+        <text>MusicIP Mixer</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>MIP_MIX_SONG</id>
         <text>Soortgelijke nummers</text>
         <version>1.19</version>
       </string>
       <string>
+        <id>MIP_MOODS</id>
+        <text>Stemmingen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MIP_MOODS_INFO</id>
+        <text>[i]Stemmingen[/i] zijn afspeellijsten bestaande uit nummers die gebruikt worden om een nieuwe muziekmix te genereren. De [i]Stemmingen[/i]-afspeellijsten moeten opgeslagen worden in de submap 'moods' van het MusicIP Mixer programma.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MIP_NONE</id>
+        <text>Geen</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>MIP_NOT_FOUND</id>
         <text>Er kan geen MusicIP server gevonden worden.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_PLAYLISTS</id>
+        <text>Afspeellijsten</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>MIP_PORT</id>
@@ -2700,6 +2830,16 @@
         <id>MIP_PORT_PROMPT</id>
         <text>Geef het poortnummer waarop de MusicIP server actief is. De standaard ingestelde poort is 10002. [p][b]Noot:[/b]  MusicIP moet op dezelfde server als SwissCenter geinstalleerd zijn.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_RECIPES</id>
+        <text>Recepten (Recipes)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MIP_RECIPES_INFO</id>
+        <text>[i]Recepten[/i] (ofwel '[i]Recipes[/i]') zijn verzamelingen van instellingen en verfijningen die worden toegepast bij het genereren van een muziekmix. [i]Recepten[/i] worden vastgelegd in 'recipes.xml' en opgeslagen in de MusicIP Mixer installatiemap.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>MIP_REJECT</id>
@@ -2803,8 +2943,8 @@
       </string>
       <string>
         <id>MISSING_PERMS_TEXT</id>
-        <text>De map waarin het SwissCenter programma is ge?nstalleerd is niet lees- of schrijfbaar voor de server.</text>
-        <version>1.19</version>
+        <text>De map waarin het SwissCenter programma is geïnstalleerd is niet lees- of schrijfbaar voor de server.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>MISSING_PERMS_TITLE</id>
@@ -2813,8 +2953,8 @@
       </string>
       <string>
         <id>MISSING_SCHED_TEXT</id>
-        <text>De windows &quot;Task Scheduler&quot; service is nodig voor SwissCenter om in de achtergrond naar mediabestanden te kunnen zoeken.</text>
-        <version>1.19</version>
+        <text>De Windows &quot;Task Scheduler&quot; service is nodig voor SwissCenter om in de achtergrond naar mediabestanden te kunnen zoeken.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>MISSING_SCHED_TITLE</id>
@@ -2983,7 +3123,7 @@
       </string>
       <string>
         <id>NETWORK_SHARE_PROMPT</id>
-        <text>De gedeelde netwerklocatie is alleen van toepassing voor het media type 'DVD video' (iso, img, etc ...) en kan slechts gebruikt worden met een NMT speler. Om DVD videos te kunnen afspelen moet u eerst een SMB of NFS gedeelde netwerklocatie op uw NMT installeren om toegang tot uw DVD afbeeldingen te verkrijgen. Daarna dient de gedeelde netwerk locatie te worden verbonden met deze medialocatie.</text>
+        <text>De gedeelde netwerklocatie is alleen van toepassing voor het media type 'DVD video' (iso, img, etc ...) en kan slechts gebruikt worden met een NMT speler. Om DVD video's te kunnen afspelen moet u eerst een SMB of NFS gedeelde netwerklocatie op uw NMT installeren om toegang tot uw DVD afbeeldingen te verkrijgen. Daarna dient de gedeelde netwerk locatie te worden verbonden met deze medialocatie.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3258,8 +3398,18 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
         <version>1.19</version>
       </string>
       <string>
+        <id>PARSER_OPTIONS</id>
+        <text>Parser opties</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>PARSER_RETRIES</id>
         <text>Parser start opnieuw</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PARSER_SETTINGS_PROMPT</id>
+        <text>Met onderstaande opties worden de individuele parsers ingesteld.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3278,14 +3428,19 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
         <version>1.22</version>
       </string>
       <string>
+        <id>PASS_ICECAST_TEST</id>
+        <text>De IceCast parser lijkt goed te functioneren</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>PASS_LIVE365_TEST</id>
-        <text>Live365 parser lijkt correct te werken</text>
+        <text>Live365 parser lijkt goed te functioneren</text>
         <version>1.22</version>
       </string>
       <string>
         <id>PASS_LIVERADIO_TEST</id>
-        <text>LiveRadio parser lijkt correct te werken</text>
-        <version>1.19</version>
+        <text>LiveRadio parser lijkt goed te functioneren</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PASS_MIP_MIXABLE</id>
@@ -3343,13 +3498,23 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
         <version>1.19</version>
       </string>
       <string>
+        <id>PASS_RADIOTIME_TEST</id>
+        <text>De RadioTime Paser lijkt goed te functioneren</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>PASS_SERVER_SCHED</id>
         <text>Het automatisch zoeken naar nieuwe media wordt ondersteund.</text>
         <version>1.19</version>
       </string>
       <string>
         <id>PASS_SHOUTCAST_TEST</id>
-        <text>SHOUTcast parser lijkt correct te werken</text>
+        <text>SHOUTcast parser lijkt goed te functioneren</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_STEAMCAST_TEST</id>
+        <text>De Steamcast parser lijkt goed te functioneren</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3379,8 +3544,8 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
       </string>
       <string>
         <id>PASS_SWISS_LOCS</id>
-        <text>De medialokaties zijn gedefinieerd.</text>
-        <version>1.19</version>
+        <text>De medialocaties zijn gedefinieerd.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PASS_SWISS_LOG</id>
@@ -3715,7 +3880,7 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
       </string>
       <string>
         <id>PLAYER_POD_PROMPT</id>
-        <text>Dit zijn de POD (Picture on Demand = Afbeelding op Verzoek) parameters, gestuurd naar de mediaspeler, die ervoor zorgen dat muziek en afbeeldingen gesynchroniseerd worden in de 'SPEELT NU' schermen. Wanneer de mediaspeler muziek en afbeelding niet kan synchroniseren, selecteer dan 0 voor 'POD (orgineel)'.</text>
+        <text>Dit zijn de POD (Picture on Demand = Afbeelding op Verzoek) parameters, gestuurd naar de mediaspeler, die ervoor zorgen dat muziek en afbeeldingen gesynchroniseerd worden in de 'SPEELT NU' schermen. Wanneer de mediaspeler muziek en afbeelding niet kan synchroniseren, selecteer dan 0 voor 'POD (origineel)'.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3785,8 +3950,8 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
       </string>
       <string>
         <id>PLAYLISTS_ERROR_SIZE</id>
-        <text>Voer een geldig maximum in. Het maximum van een afspeellijst moet miminaal 10 en mag maximaal 2000 groot zijn.</text>
-        <version>1.21.1</version>
+        <text>Voer een geldig maximum in. Het maximum van een afspeellijst moet minimaal 10 en mag maximaal 2000 groot zijn.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PLAYLIST_APPEND</id>
@@ -3915,8 +4080,8 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
       </string>
       <string>
         <id>PRIVACY_DATA_COLLECTION</id>
-        <text>[b]Data Verzameling[/b] [p]Informatie die betrekking heeft op de mediabestanden op uw systeem worden opgeslagen in een MySQL databank op de PC waarop de SwissCenter software is ge?nstalleerd. Deze informatie wordt alleen gebruikt om gegevens over deze mediabestanden op apparaten zoals Pinnacle Showcenter te tonen. Er wordt nooit informatie, in welke vorm dan ook, verstuurd naar de makers van SwissCenter of naar een andere partij. [p]Er is een uitzondering hierop: om extra film informatie (zoals acteurs, regisseurs, filmbeschrijving etc.) te verkrijgen wordt een zoekstring, met daarin de bestandsnaam, verstuurd naar de www.lovefilm.com website. Indien u niet wenst dat deze informatie wordt verstuurd kunt u de &quot;Film Info Download&quot; optie uitschakelen op &quot;Extra Filminformatie&quot; pagina.</text>
-        <version>1.21.1</version>
+        <text>[b]Data Verzameling[/b] [p]Informatie die betrekking heeft op de mediabestanden op uw systeem worden opgeslagen in een MySQL databank op de PC waarop de SwissCenter software is geïnstalleerd. Deze informatie wordt alleen gebruikt om gegevens over deze mediabestanden op apparaten zoals Pinnacle Showcenter te tonen. Er wordt nooit informatie, in welke vorm dan ook, verstuurd naar de makers van SwissCenter of naar een andere partij. [p]Er is een uitzondering hierop: om extra film informatie (zoals acteurs, regisseurs, filmbeschrijving etc.) te verkrijgen wordt een zoekstring, met daarin de bestandsnaam, verstuurd naar de www.lovefilm.com website. Indien u niet wenst dat deze informatie wordt verstuurd kunt u de &quot;Film Info Download&quot; optie uitschakelen op &quot;Extra Filminformatie&quot; pagina.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PRIVACY_POLICY</id>
@@ -4040,7 +4205,7 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
       </string>
       <string>
         <id>RECENT_DATE_TYPE_PROMPT</id>
-        <text>Selecteer de datum die gebruikt moet worden om te bepalen welke media als recent moet worden beschouwd:[br][ul][li]Recentelijk toegevoegd: indien de media recentelijk is toegevoegd aan de media bibiliotheek.[/li][li]Recentelijk gecreëerd: indien de media recentelijk is gecreëerd in het systeem.[/li][li]Recentelijk toegevoegd of gecreëerd: indien de media ofwel recentelijk is toegevoegd, ofwel recentelijk is gecreëerd.[/li][/ul]</text>
+        <text>Selecteer de datum die gebruikt moet worden om te bepalen welke media als recent moet worden beschouwd:[br][ul][li]Recentelijk toegevoegd: indien de media recentelijk is toegevoegd aan de media bibliotheek.[/li][li]Recentelijk gecreëerd: indien de media recentelijk is gecreëerd in het systeem.[/li][li]Recentelijk toegevoegd of gecreëerd: indien de media ofwel recentelijk is toegevoegd, ofwel recentelijk is gecreëerd.[/li][/ul]</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4190,8 +4355,8 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
       </string>
       <string>
         <id>REFRESH_CLEANUP_PROMPT</id>
-        <text>Met 'opruimen databank' zullen alle niet-gerelateede records, zoals media zonder medialocatie of acteurs en regiseurs zonder verwijzing, uit de databank worden verwijderd. Met deze optie zal de tijd voor het doorzoeken van uw medialocaties meer tijd in beslag nemen. Daarom is het raadzaam deze optie alleen gebruikt worden wanneer media is verwijderd.</text>
-        <version>1.21.1</version>
+        <text>Met 'opruimen databank' zullen alle niet-gerelateerde records, zoals media zonder medialocatie of acteurs en regisseurs zonder verwijzing, uit de databank worden verwijderd. Met deze optie zal de tijd voor het doorzoeken van uw medialocaties meer tijd in beslag nemen. Daarom is het raadzaam deze optie alleen gebruikt worden wanneer media is verwijderd.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>REFRESH_DATABASE</id>
@@ -4215,7 +4380,7 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
       </string>
       <string>
         <id>REFRESH_DIR_TEXT</id>
-        <text>SwissCenter is aan het zoeken naar nieuwe of gewijzigde media en voegt deze toe aan de databank.[p]een moment geduld a.u.b.</text>
+        <text>SwissCenter is aan het zoeken naar nieuwe of gewijzigde media en voegt deze toe aan de databank.[p]even geduld a.u.b.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4400,8 +4565,8 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
       </string>
       <string>
         <id>RSS_UPDATE</id>
-        <text>SwissCenter is bezig uw RSS feed(s) te actualiseren. Dit kan een paar minuten duren. Een ogenblikje geduld aub.</text>
-        <version>1.20</version>
+        <text>SwissCenter is bezig uw RSS feed(s) te actualiseren. Dit kan een paar minuten duren.[p]even geduld a.u.b.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>RSS_UPDATE_OK</id>
@@ -4540,8 +4705,8 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
       </string>
       <string>
         <id>SCHEDULE_NOTES</id>
-        <text>[li]* betekent alle mogelijke waarden. [li]Verschillende waarden kunnen gescheiden worden door kommas (1,5). [li]Een bereik kan gespecificeerd worden met een streepje (1-5). [li]Beide kunnen tegelijk toegepast worden (1-4,7).</text>
-        <version>1.20</version>
+        <text>[li]* betekent alle mogelijke waarden. [li]Verschillende waarden kunnen gescheiden worden door komma's (1,5). [li]Een bereik kan gespecificeerd worden met een streepje (1-5). [li]Beide kunnen tegelijk toegepast worden (1-4,7).</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>SCHEDULE_RSS_ONLY</id>
@@ -4740,13 +4905,13 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
       </string>
       <string>
         <id>SHUFFLE_OFF</id>
-        <text>Zet afspelen in willekeurige volgorde uit</text>
-        <version>1.19</version>
+        <text>Willekeurige volgorde uitschakelen</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>SHUFFLE_ON</id>
-        <text>Zet afspelen in willekeurige volgorde aan</text>
-        <version>1.19</version>
+        <text>Willekeurige volgorde inschakelen</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>SIMESE_SCHED_PROMPT</id>
@@ -4824,6 +4989,11 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
         <version>1.19</version>
       </string>
       <string>
+        <id>STATIONS</id>
+        <text>Stations</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>STATISTICS</id>
         <text>Statistieken</text>
         <version>1.22</version>
@@ -4850,8 +5020,8 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
       </string>
       <string>
         <id>STYLE_DOWNLOADING</id>
-        <text>Bezig downloaden van stijl - even geduld aub.</text>
-        <version>1.20</version>
+        <text>Bezig downloaden van stijl - even geduld a.u.b.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>STYLE_NONE_AVAILABLE</id>
@@ -4860,8 +5030,8 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
       </string>
       <string>
         <id>STYLE_SHOW_INSTALLED</id>
-        <text>Toon geinstalleerde stijlen</text>
-        <version>1.19</version>
+        <text>Toon geïnstalleerde stijlen</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>SUBSCRIPTIONS</id>
@@ -4944,6 +5114,11 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
         <version>1.19</version>
       </string>
       <string>
+        <id>SVN_REVISION</id>
+        <text>SVN herziening</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>SWISSMONITOR_ACTION_FAILED</id>
         <text>SwissCenter kon de actie niet uitvoeren - raadpleeg het logboek</text>
         <version>1.22</version>
@@ -4980,7 +5155,7 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
       </string>
       <string>
         <id>SWISSMONITOR_INI_PROMPT</id>
-        <text>SwissMonitor vereist een database verbinding om uw media locaties te kunnen bepalen. Deze gegevens worden verkregen uit uw swisscenter.ini die moet bestaan in [b]%AppData%\Simese\Data\Config\Swisscenter.ini[/ b]. Deze locatie hoeft alleen worden aangegeven als uw swisscenter.ini op een andere locatie staat (dwz als u Apache gebruikt).</text>
+        <text>SwissMonitor vereist een database verbinding om uw media locaties te kunnen bepalen. Deze gegevens worden verkregen uit uw swisscenter.ini die moet bestaan in [b]%AppData%\Simese\Data\Config\Swisscenter.ini[/ b]. Deze locatie hoeft alleen worden aangegeven als uw swisscenter.ini op een andere locatie staat (d.w.z. als u Apache gebruikt).</text>
         <version>1.22</version>
       </string>
       <string>
@@ -5044,6 +5219,26 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
         <version>1.22</version>
       </string>
       <string>
+        <id>TFL</id>
+        <text>Transport voor Londen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TFL_LIVE_TRAFFIC_CAMERA</id>
+        <text>Live verkeer camerabeelden</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TFL_PROMPT</id>
+        <text>Weekendlijnen en stationssluitingen van 'Transport voor Londen'. Ook verkeer camerabeelden rondom Londen.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TFL_TUBE_THIS_WEEKEND</id>
+        <text>Tube - dit weekend</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>THEMES</id>
         <text>Thema's</text>
         <version>1.22</version>
@@ -5075,7 +5270,7 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
       </string>
       <string>
         <id>THEME_GREYSCALE</id>
-        <text>Zwartwit</text>
+        <text>Zwart-Wit</text>
         <version>1.22</version>
       </string>
       <string>
@@ -5250,7 +5445,7 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
       </string>
       <string>
         <id>TOMA_UPDATE_CHANNELS_TEXT</id>
-        <text>De lijst met kanalen wordt aangeboden en onderhouden door de de eigenaar van TOMA - Internet TV. Om bandbreedte te sparen mag de lijst slechts één keer per 24 uur worden bijgewerkt.</text>
+        <text>De lijst met kanalen wordt aangeboden en onderhouden door de eigenaar van TOMA - Internet TV. Om bandbreedte te sparen mag de lijst slechts één keer per 24 uur worden bijgewerkt.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -5319,14 +5514,24 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
         <version>1.19</version>
       </string>
       <string>
+        <id>TRAILER_FORMAT</id>
+        <text>Formaat trailer</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>TRAILER_LOCATION</id>
         <text>Trailer locatie</text>
         <version>1.22</version>
       </string>
       <string>
+        <id>TRAILER_SIZE</id>
+        <text>Grootte trailer</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>TRANS_CLOSE_VERTICAL</id>
-        <text>Sluit vertikaal</text>
-        <version>1.20.1</version>
+        <text>Sluit verticaal</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>TRANS_FADE_BLACK</id>
@@ -5345,8 +5550,8 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
       </string>
       <string>
         <id>TRANS_OPEN_VERTICAL</id>
-        <text>Vertikaal geopend</text>
-        <version>1.20.1</version>
+        <text>Verticaal geopend</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>TRANS_RANDOM</id>
@@ -5355,13 +5560,13 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
       </string>
       <string>
         <id>TRANS_SPLIT_VERTICAL_1</id>
-        <text>Vertikaal gesplitst 1</text>
-        <version>1.20.1</version>
+        <text>Verticaal gesplitst 1</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>TRANS_SPLIT_VERTICAL_2</id>
-        <text>Vertikaal gesplitst 2</text>
-        <version>1.20.1</version>
+        <text>Verticaal gesplitst 2</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>TRANS_WIPE_DOWN</id>
@@ -5486,8 +5691,8 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
       </string>
       <string>
         <id>UNKNOWN_ERROR</id>
-        <text>Er is een onbekende fout opgetreden. Wilt u een foutmelding op het SwissCenter forum plaatsen, waarbij u aangeeft welke activiteiten u uitvoerde op het moment dat de fout opgetrad?</text>
-        <version>1.21</version>
+        <text>Er is een onbekende fout opgetreden. Wilt u een foutmelding op het SwissCenter forum plaatsen, waarbij u aangeeft welke activiteiten u uitvoerde op het moment dat de fout optrad?</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>UNRATED_CERTIFICATE</id>
@@ -5541,8 +5746,8 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
       </string>
       <string>
         <id>UPDATING_PLEASE_WAIT</id>
-        <text>Bijwerken - Een ogenblik a.u.b.</text>
-        <version>1.19</version>
+        <text>Bijwerken - even geduld a.u.b.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>UPLOADER</id>

@@ -33,6 +33,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>ADULT_RESULTS</id>
+        <text>Erwachseneninhalte erlauben</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>ADVANCED_OPTIONS</id>
         <text>Erweiterte Optionen</text>
         <version>1.19</version>
@@ -1105,13 +1110,15 @@ Dieses Format wird von MySQL und Spezifikationssymbolen definiert. Diese sind:
       </string>
       <string>
         <id>EXPORT_SETTINGS</id>
-        <text>Einstellungen speichern</text>
-        <version>1.20</version>
+        <text>Einstellungen
+speichern</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>EXPORT_SETTINGS_SUBMIT</id>
-        <text>Einstellungen speichern</text>
-        <version>1.20</version>
+        <text>Einstellungen 
+speichern</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>EXPRESSION</id>
@@ -1172,6 +1179,11 @@ in eine XML-Datei</text>
       <string>
         <id>FAIL_DOTNET2_INSTALLED</id>
         <text>Sie müssen .NET Framework - Version 2 zuerst installieren.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_ICECAST_TEST</id>
+        <text>IceCast Parser scheint defekt zu sein.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -1245,6 +1257,11 @@ in eine XML-Datei</text>
         <version>1.22</version>
       </string>
       <string>
+        <id>FAIL_RADIOTIME_TEST</id>
+        <text>RadioTime Parser scheint defekt zu sein.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>FAIL_SERVER_SCHED</id>
         <text>Hintergrund-Jobs können nicht ausgeführt werden. Eine mögliche Ursache ist, dass Cron (Linux) bzw. der Scheduler Service (Windows) deaktiviert ist.</text>
         <version>1.19</version>
@@ -1253,6 +1270,11 @@ in eine XML-Datei</text>
         <id>FAIL_SHOUTCAST_TEST</id>
         <text>ShoutCast-Parser scheint defekt</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_STEAMCAST_TEST</id>
+        <text>StreamCast Parser scheint defekt zu sein.</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>FAIL_SWISSMONITOR_INSTALLED</id>
@@ -1363,6 +1385,11 @@ in eine XML-Datei</text>
         <id>FILTER_MISSING_SYNOPSIS</id>
         <text>ohne Zusammenfassung</text>
         <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_TRAILER</id>
+        <text>Kein Trailer</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>FILTER_MISSING_YEAR</id>
@@ -1487,9 +1514,39 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>FONTWIDTH_MULTIPLIER_100</id>
+        <text>Spieler Typ 100</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FONTWIDTH_MULTIPLIER_200</id>
+        <text>Spieler Typ 200</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FONTWIDTH_MULTIPLIER_400</id>
+        <text>Spieler Typ 400</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FONTWIDTH_MULTIPLIER_PC</id>
+        <text>PC Browser</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>FONTWIDTH_MULTIPLIER_PROMPT</id>
         <text>Hiermit lässt sich die maximale Anzahl der im SwissCenter-Menü darzustellenden Zeichen pro Zeile einstellen. Der Wert hängt vom gewählten Zeichensatz (Font) ab, und sollte zwischen [b]1.0[/b] (default) und [b]2.2[/b] liegen.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>FTV_GIRLS</id>
+        <text>FTV Girls</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FULL_CAST</id>
+        <text>Gesamte Besetzung</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>GENRE</id>
@@ -1892,6 +1949,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.22</version>
       </string>
       <string>
+        <id>IRADIO_ICECAST_DESC</id>
+        <text>IceCast (%s) ist ein Internet Radio Service ähnlich SHOUTcast. Es besteht die Möglichkeit per Genre oder Stationsname zu suchen.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IRADIO_LIVE365</id>
         <text>Live365</text>
         <version>1.22</version>
@@ -1962,6 +2024,16 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.21.1</version>
       </string>
       <string>
+        <id>IRADIO_RADIOTIME</id>
+        <text>RadioTime</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_RADIOTIME_DESC</id>
+        <text>Online-Radio hören, Musik Programme, oder gesprochene Nachrichten finden mit RadioTime. Der beste Führer zu jeder Art von Radio: konservativ, progressiv, öffentlich, News, Religion, Jazz, Klassisch, Rock, Country, Business, Latin, Hip-Hop, Pop, zeitgemäße Musik und vieles mehr.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IRADIO_SEARCH</id>
         <text>Suche nach Stationen</text>
         <version>1.19</version>
@@ -1997,6 +2069,16 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_STEAMCAST</id>
+        <text>StreamCast</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_STEAMCAST_DESC</id>
+        <text>StreamCast (%s) ist ein Schritt in Richtung der Ablösung von SHOUTcast und/oder IceCast. Ein kleines Paket führt die Vielseitigkeit von IceCast und die Popularität von SHOUTcast zusammen. StreamCast verwendet das populäre HTTP/ICY Protokoll, um die Medien an Ihre Spieler zu liefern, was bedeutet, daß fast jeder Spieler unterstützt wird.</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>IRADIO_SUBGENRE</id>
         <text>Sub-Genre</text>
         <version>1.21.1</version>
@@ -2015,6 +2097,16 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>IRADIO_UPDATE_PARAM_OK</id>
         <text>Auswahlkriterium wurde geändert</text>
         <version>1.21.1</version>
+      </string>
+      <string>
+        <id>IRADIO_VIEW_LINKS</id>
+        <text>Links betrachten</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_VIEW_STATIONS</id>
+        <text>Stationen betrachten</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>ITUNES_CONFIG_PROMPT</id>
@@ -2227,6 +2319,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.21.1</version>
       </string>
       <string>
+        <id>LASTFM_STATUS</id>
+        <text>Last.fm Status</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>LASTFM_TAGS</id>
         <text>Verfügbare Tags</text>
         <version>1.19</version>
@@ -2245,6 +2342,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>LICENSE</id>
         <text>GPL Lizenz</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>LINES</id>
+        <text>Linien</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>LISTEN_LASTFM</id>
@@ -2637,14 +2739,39 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>MIP_MIXER</id>
+        <text>MusicIP Mixer</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>MIP_MIX_SONG</id>
         <text>Ähnliche Titel spielen</text>
         <version>1.19</version>
       </string>
       <string>
+        <id>MIP_MOODS</id>
+        <text>Stimmungen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MIP_MOODS_INFO</id>
+        <text>Stimmungen sind Playlisten, die als Ursprung für die Lieder dienen, um einen Mix zu generieren. Die Stimmungs-Playliste muß im Unterverzeichnis &quot;Stimmungen&quot; Ihrer MusicIP Mixer Installation gespeichert werden.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MIP_NONE</id>
+        <text>Kein</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>MIP_NOT_FOUND</id>
         <text>Es konnte kein MusicIP Server gefunden werden.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_PLAYLISTS</id>
+        <text>Playlisten</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>MIP_PORT</id>
@@ -2655,6 +2782,16 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>MIP_PORT_PROMPT</id>
         <text>Geben Sie bitte die Portnummer an, unter der der MusicIP Server erreichbar ist. Der Default-Port ist 10002, sofern an der Konfiguration nichts verändert wurde.[p][b]Anmerkung:[/b]  MusicIP muss auf dem selben Rechner installiert sein wie SwissCenter.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_RECIPES</id>
+        <text>Rezeptur</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MIP_RECIPES_INFO</id>
+        <text>Rezepturen sind Einstellungen von Grenzen und Regeln die angewandt werden, wenn ein Mix erstellt wird. Rezepturen werden in der receipes.xml im MusicIP Mixer Installationsordner definiert</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>MIP_REJECT</id>
@@ -3222,8 +3359,18 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>PARSER_OPTIONS</id>
+        <text>Parser Optionen</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>PARSER_RETRIES</id>
         <text>Parser Wiederholungen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PARSER_SETTINGS_PROMPT</id>
+        <text>Dies sind die verschiedenen Einstellungsoptionen, welche die Resultate der individuellen Parser beeinflussen.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3242,8 +3389,13 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.22</version>
       </string>
       <string>
+        <id>PASS_ICECAST_TEST</id>
+        <text>IceCast Parser funktioniert ordnungsgemäß</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>PASS_LIVE365_TEST</id>
-        <text>Live365 Parser arbeitet korrekt.</text>
+        <text>Live365 Parser funktioniert ordnungsgemäß</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3307,6 +3459,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>PASS_RADIOTIME_TEST</id>
+        <text>RadioTime Parser funktioniert ordnungsgemäß</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>PASS_SERVER_SCHED</id>
         <text>Automatische Suche nach neuen Medien wird unterstützt.</text>
         <version>1.19</version>
@@ -3315,6 +3472,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>PASS_SHOUTCAST_TEST</id>
         <text>ShoutCast-Parser funktioniert ordnungsgemäß</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_STEAMCAST_TEST</id>
+        <text>StreamCast Parser funktioniert ordnungsgemäß</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>PASS_SWISSMONITOR_INSTALLED</id>
@@ -4385,8 +4547,9 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
       </string>
       <string>
         <id>SAVE_SETTINGS</id>
-        <text>Einstellungen speichern</text>
-        <version>1.19</version>
+        <text>Einstellungen
+speichern</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>SAVE_SETTINGS_OK</id>
@@ -4784,6 +4947,11 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
         <version>1.19</version>
       </string>
       <string>
+        <id>STATIONS</id>
+        <text>Stationen</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>STATISTICS</id>
         <text>Statistik</text>
         <version>1.21.1</version>
@@ -5001,6 +5169,26 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
       <string>
         <id>TEST_PARSERS</id>
         <text>Parser Tests</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TFL</id>
+        <text>Nahverkehr London</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TFL_LIVE_TRAFFIC_CAMERA</id>
+        <text>Bilder Live Verkehrskameras</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TFL_PROMPT</id>
+        <text>Wochenend Linien und Schließungen im Londoner Nahverkehr. Ebenso Verkehrskameras im Großraum London.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TFL_TUBE_THIS_WEEKEND</id>
+        <text>Tube - Wochenende</text>
         <version>1.22</version>
       </string>
       <string>
@@ -5279,8 +5467,18 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
         <version>1.19</version>
       </string>
       <string>
+        <id>TRAILER_FORMAT</id>
+        <text>Trailer Format</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>TRAILER_LOCATION</id>
         <text>&quot;Tralier&quot; Adresse</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TRAILER_SIZE</id>
+        <text>Trailer Größe</text>
         <version>1.22</version>
       </string>
       <string>
