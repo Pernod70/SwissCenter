@@ -173,6 +173,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>AVAILABLE_VERSION</id>
+        <text>Verfügbare Version</text>
+        <version>1.22</version>
+      </string>
+      <string>
         <id>BACKSPACE</id>
         <text>vorige Seite</text>
         <version>1.20</version>
@@ -1158,8 +1163,9 @@ in eine XML-Datei</text>
       </string>
       <string>
         <id>EXTRA_REFRESH_GO</id>
-        <text>Aktualisiere alle Zusatzinformationen</text>
-        <version>1.21.1</version>
+        <text>Aktualisiere alle
+Zusatzinformationen</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>EXTRA_REFRESH_TITLE</id>
@@ -5070,6 +5076,11 @@ speichern</text>
         <id>SUPPORT_USRPREF_TITLE</id>
         <text>Benutzereinstellungen</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>SVN_REVISION</id>
+        <text>SVN Version</text>
+        <version>1.22</version>
       </string>
       <string>
         <id>SWISSMONITOR_ACTION_FAILED</id>
