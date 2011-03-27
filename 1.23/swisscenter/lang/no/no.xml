@@ -1,0 +1,5399 @@
+<?xml version="1.0" encoding="utf-8"?>
+<swisscenter>
+  <languages>
+    <language name="no" fullname="Norsk">
+      <string>
+        <id>ACCESS_DENIED</id>
+        <text>Ingen adgang</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ACTOR</id>
+        <text>Skuespiller</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ADDITIONAL_COMPONENTS</id>
+        <text>Tillegg</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>ADD_PLAYLIST</id>
+        <text>Legg til i spillelisten</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ADMIN</id>
+        <text>Super Bruker</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ADVANCED_OPTIONS</id>
+        <text>For den avanserte</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ALBUM</id>
+        <text>Album</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ALL_CATEGORIES</id>
+        <text>Alle kategorier</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>ALL_MEDIA_TYPES</id>
+        <text>Alle media typer</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>ALL_RSS_FEEDS</id>
+        <text>Alle RSS kanaler</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>ALL_TIME</id>
+        <text>All tid</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ANYWHERE_IN_NAME</id>
+        <text>Hele navnet</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>APPLE_TRAILERS</id>
+        <text>Apple - film trailere</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ARTIST</id>
+        <text>Artist</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ARTIST_INFO</id>
+        <text>Artist info</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ART_ADDED_OK</id>
+        <text>Album/film bildefil lagt til</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_DELETE_OK</id>
+        <text>De valgte filene har blitt fjernet</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_ERROR_FILENAME</id>
+        <text>Tast inn et filnavn</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_ERROR_FILETYPE</id>
+        <text>Kun filer som ender med JPG, JPEG, GIF eller PNG er lovlige filnavn</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_ERROR_QUOTE</id>
+        <text>Filnavn kan ikke inneholde anførselstegn</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_ERROR_SLASH</id>
+        <text>Filnavn kan ikke inneholde katalog referanser</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_FILENAME_PROMPT</id>
+        <text>Spesifiser navnet på en bildefil som skal benyttes som album/film bilde hvis det finnes i en media katalog.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_FILES_ADD_BUTTON</id>
+        <text>Legg til filnavn</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_FILES_ADD_TITLE</id>
+        <text>Legg til filnavn</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_FILES_CURRENT</id>
+        <text>Nåværende bildefiler</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_FILES_DEL_BUTTON</id>
+        <text>Fjern valgte filer</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_FILES_PROMPT</id>
+        <text>[em]Album/film bilde[/em] filer er navn på bildefiler som SwissCenter skal se etter når den viser en &quot;Bla&quot; funksjon (Bla i Videoer, Bla i musikk etter katalog, etc) eller når du har valgt et album eller en film. [p] Hvis en av filene du spesifiserer her finnes i en katalog, vil den første som finnes brukes av SwissCenter.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_FILES_TITLE</id>
+        <text>Album/film bildefiler</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_ID3_TAG</id>
+        <text>ID3-tagg bildefiler</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_ID3_TAG_PROMPT</id>
+        <text>Dersom et album bilde eksisterer som en ID3-tagg i en musikk fil, vil det bli kopiert ut og lagt inn i databasen og benyttet som foretrukket bilde av SwissCenter.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ART_UPDATE_OK</id>
+        <text>Album/film bilde informasjon oppdatert</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>AUTOMATIC</id>
+        <text>Automatisk</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BACKSPACE</id>
+        <text>Tilbake</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BAND</id>
+        <text>Album artist</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BOOKMARKS</id>
+        <text>Bokmerker</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_ACTOR</id>
+        <text>Bla etter skuespiller</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_ALBUM</id>
+        <text>Bla etter album navn</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_ALBUM_ARTIST</id>
+        <text>Bla etter album artist navn</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_ARTIST</id>
+        <text>Bla etter artist navn</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_CERTIFICATE</id>
+        <text>Bla etter sertifikat</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_COMPOSER</id>
+        <text>Bla etter komponist</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_COUNTRY</id>
+        <text>Bla etter land</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_DATE</id>
+        <text>Bla etter dato</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_DIRECTOR</id>
+        <text>Bla etter regissør</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_DISCOVERED</id>
+        <text>Bla etter opprettet dato</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_DVD</id>
+        <text>Bla i DVD'er</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>BROWSE_FILESYSTEM</id>
+        <text>Bla i kataloger</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_GENRE</id>
+        <text>Bla etter sjanger</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_IPTC_BYLINE</id>
+        <text>Bla etter forfatter</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_IPTC_CAPTION</id>
+        <text>Bla etter beskrivelse</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_IPTC_CITY</id>
+        <text>Bla etter by</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_IPTC_COUNTRY</id>
+        <text>Bla etter land</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_IPTC_DATE_CREATED</id>
+        <text>Bla etter dato opprettet</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_IPTC_KEYWORDS</id>
+        <text>Bla etter nøkkelord</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_IPTC_LOCATION</id>
+        <text>Bla etter sted</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_IPTC_PROVINCE_STATE</id>
+        <text>Bla etter region</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_IPTC_SUPPCATEGORY</id>
+        <text>Bla etter underkategorier</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_MOVIES</id>
+        <text>Bla etter videoer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_MUSIC</id>
+        <text>Bla etter musikk</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_OPTIONS</id>
+        <text>Bla innstillinger</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_PHOTOS</id>
+        <text>Bla etter bilder</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_PHOTO_ALBUM</id>
+        <text>Bla etter fotoalbum</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_PHOTO_TITLE</id>
+        <text>Bla etter tittel</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_RATING</id>
+        <text>Bla etter rangering</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_STATION</id>
+        <text>Bla etter stasjon</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_STUDIO</id>
+        <text>Bla etter studio</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_TEXT</id>
+        <text>SwissCenter tillater deg å bla i dine mediafiler på mange forskjellige måter. For å redusere kompleksiteten i bruker grensesnittet eller for å tilpasse det mer til dine preferanser kan du deaktivere noen av &quot;Bla etter...&quot; opsjonene vist under. Hvis kun en opsjon er aktivert vil SwissCenter utføre dette valget uten å vise en meny. [p]Merk at du må ha minimum [b]en[/b] opsjon aktiv i hver gruppe.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_TIMESTAMP</id>
+        <text>Bla etter media dato</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_TITLE</id>
+        <text>Bla etter tittel</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_TRACK</id>
+        <text>Bla etter spor navn</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_WEB</id>
+        <text>Bla etter web sider</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_WEB_PROMPT</id>
+        <text>Denne opsjonen gjør det mulig å benytte SwissCenter til å bla i enkle Web sider, både på lokal nettverk og på internet (forutsatt at du har internet tilknytning).</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_XMP_RATING</id>
+        <text>Bla etter rangering</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_YEAR</id>
+        <text>Bla etter utgivelses år</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CACHE_CONFIG_TITLE</id>
+        <text>Mellomlagring</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>CACHE_DIR</id>
+        <text>Mellomlagrings katalog</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_DIR_PROMPT</id>
+        <text>Spesifiser en katalog hvor SwissCenter kan mellomlagre bildefiler som har endret størrelse (f.eks. katalog bildet til et album eller ikonet til et bilde)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_ERROR_FULL_DIR</id>
+        <text>Tast inn en fullt kvalifisert katalog referanse</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_ERROR_MISSING</id>
+        <text>Tast inn en melomlagrings katalog referanse</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_ERROR_NOT_EXIST</id>
+        <text>Katalogen du spesifiserte eksisterer ikke</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_ERROR_NOT_NUMBER</id>
+        <text>Verdien du speisifiserte for mellomlager størrelse er ikke et nummer</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>CACHE_ERROR_SIZE</id>
+        <text>Tast inn størrelse på mellomlagret (eller 0 for et ubegrenset mellomlager)</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>CACHE_ERROR_SMALL</id>
+        <text>Størrelsen på mellomlagret du spesifiserte er for liten</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_LANG</id>
+        <text>Minnebruk for språk tekster</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_LANG_PROMPT</id>
+        <text>Når den er aktivert, vil SwissCenter lagre alle språk tekster i minnet. Deaktiver denne funksjonen dersom du legger til en oversettelse og ønsker å se endringene reflektert umiddelbart.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_PRECACHE</id>
+        <text>Forhåndslagring av bilder</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_PRECACHE_PROMPT</id>
+        <text>Dersom denne opsjonen aktiveres vil SwissCenter generere ikoner for alle bilder som blir funnet i et media søk.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>CACHE_SIZE</id>
+        <text>Maks størrelse</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_SIZE_PROMPT</id>
+        <text>Dette representerer maks disk kapasitet (i megabyte) som vil bli benyttet til mellomlagring av bildefiler (en verdi på 0 indikerer et ubegrenset mellomlager). Når denne begrensningen nås vil tidligere mellomlagrede filer bli slettet på basis av hva som sist ble benyttet.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CACHE_STYLE</id>
+        <text>Minnebruk for style detaljer</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CACHE_STYLE_PROMPT</id>
+        <text>Når den er aktivert, vil SwissCenter lagre alle style detaljer i minnet. Deaktiver denne funksjonen dersom du utvikler en ny style og ønsker å se endringene reflektert umiddelbart.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CATEGORIES</id>
+        <text>Kategorier</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CATEGORY</id>
+        <text>Kategori</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CATEGORY_LIST_ALL</id>
+        <text>Alle kategorier</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CATEGORY_PROMPT</id>
+        <text>Ved å velge kategori kan du lettere sortere mediafiler i logiske grupperinger som f.eks. &quot;Lydbøker&quot; og &quot;Språk opplæring&quot; så vell som &quot;Generell&quot;. Ved å benytte denne funskjonen kan du f.eks. spille av et tilfeldig utvalg av musikk uten at et kapittel fra en lydbok blir lagt til spillelisten.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_ADDED_OK</id>
+        <text>Kategori lagt til</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_ADD_BUTTON</id>
+        <text>Legg til kategori</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_ADD_TITLE</id>
+        <text>Legg til en ny kategori</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_DELETE_OK</id>
+        <text>De valgte kategoriene har blitt slettet</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_DEL_BUTTON</id>
+        <text>Slett valgte kategorier</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_DOWNLOAD</id>
+        <text>Last ned ekstra info</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_DOWNLOAD_PROMPT</id>
+        <text>Denne opsjonen styrer hvorvidt ekstra informasjon skal lastes ned fra internet for filer i denne kategorien når dette er tilgjengelig.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_ERROR_DELETE</id>
+        <text>Kategori %s kan ikke slettes</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_ERROR_EXISTS</id>
+        <text>Kategori eksisterer allerede</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_ERROR_NAME</id>
+        <text>Tast kategori navn</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_LIST_ALL</id>
+        <text>Alle kategorier</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_PARENT</id>
+        <text>Hovedkategori</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CAT_UPDATE_OK</id>
+        <text>Kategori informasjon oppdatert</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CERTIFICATE</id>
+        <text>Sertifikat</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CHANNEL</id>
+        <text>Kanal</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CHANNELS</id>
+        <text>Kanaler</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CLEAR_NAME</id>
+        <text>Nullstill navn</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>COMPACT_VIEW</id>
+        <text>Kompakt visning</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>COMPOSER</id>
+        <text>Komponist</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CONFIGURATION</id>
+        <text>Konfigurasjon</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_AUDIO_OPTIONS</id>
+        <text>Lyd</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_BROWSE_NONE_SELECTED</id>
+        <text>Innstillinger er ikke lagret, du må gjøre minst ett valg i hver gruppe</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_DB_CREATE</id>
+        <text>Opprett database</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_DB_CREATE_TXT</id>
+        <text>Dette bildet gir deg mulighet til å opprette SwissCenter databasen. Parameterne som benyttes for å bygge databasen er vist under.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_DB_ERROR</id>
+        <text>Kan ikke koble til databasen - er dine [i]database konfigurasjons[/i] innstillinger korrekte?</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_DB_ROOT_PW</id>
+        <text>&quot;root&quot; passord</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_DB_ROOT_PW_TXT</id>
+        <text>Med mindre du spesifiserte en verdi for [em]root[/em] passord i forbindelse med installasjonen av MySQL, så er det sannsynlig at det ikke er speifisert og du skal dermed la dette feltet være tomt.[p][em]Merk: Det kan ta opptil flere minutter å lage en database. Vær tolmodig. [/em]</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_FLICKR</id>
+        <text>Flickr innstillinger</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CONFIG_IMAGE_OPTIONS</id>
+        <text>Bilder</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_LASTFM_CLEAR</id>
+        <text>Nullstill valgte innloggings detaljer</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_LASTFM_TITLE</id>
+        <text>Last.fm alternativer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CONFIG_MIP_OPTIONS</id>
+        <text>MusicIP</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_MUSICIP</id>
+        <text>MusicIP innstillinger</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>CONFIG_RADIO_OPTIONS</id>
+        <text>Internet radio</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_SHOUTCAST_TITLE</id>
+        <text>Shoutcast alternativer</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_SWISSMONITOR</id>
+        <text>SwissMonitor</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CONFIG_TITLE</id>
+        <text>SwissCenter konfigurasjons program</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIRM_DELETE</id>
+        <text>Slett følgende mediafil(er)?</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONNECT_OPT_TEXT</id>
+        <text>Du kan velge å aktivere eller deaktivere utvalgte funksjoner som gjør bruk av en internet forbindelse nedenfor. Det anbefales å la alle funksjoner være aktivert.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONNECT_TEXT</id>
+        <text>Det er en rekke funksjoner i SwissCenter bruker grensesnittet som gjør bruk av kobling mot internet for å hente informasjon (f.eks. værvarsler) eller for periodisk å se etter oppdatert informasjon (f.eks. nye oppdateringer).</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONNECT_TITLE</id>
+        <text>Internet tilknytning</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CONTACTS</id>
+        <text>Kontakter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CONTINUE</id>
+        <text>Fortsett</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>CURRENT_VERSION</id>
+        <text>Gjeldende versjon</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>CUSTOM</id>
+        <text>Tilpasset</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DATABASE_ERROR</id>
+        <text>En database feil oppstod</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DATABASE_NAME</id>
+        <text>Database navn</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DATABASE_NOCONNECT</id>
+        <text>Kan ikke koble til MySQL med de data som er spesifisert (vertsmaskin, brukernavn og passord)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DATABASE_NOSELECT</id>
+        <text>Kobling til MySQL etablert, men er ikke i stand til å velge den spesifiserte databasen</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DATE</id>
+        <text>Dato</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DATE_FORMAT</id>
+        <text>Dato format</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DATE_FORMAT_PROMPT</id>
+        <text>Dette er formatet som benyttes for å vise datoer og kan endres til ditt foretrukne format. Formatet er definert av MySQL og noen format tegn er:[br][ul]
+[li]%b Måned, alfabetisk kortform (jan..des) [/li]
+[li]%d Dato, numerisk (00..31)[/li]
+[li]%m Måned, numerisk (00..12) [/li]
+[li]%Y År, numerisk, fire sifre[/li]
+[li]%y År, numerisk, to sifre[/li][/ul]</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DATE_FORMAT_TEST</id>
+        <text>Gjeldende format: %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DAY_1</id>
+        <text>Man</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DAY_2</id>
+        <text>Tir</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DAY_3</id>
+        <text>Ons</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DAY_4</id>
+        <text>Tor</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DAY_5</id>
+        <text>Fre</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DAY_6</id>
+        <text>Lør</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DAY_7</id>
+        <text>Søn</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DB_CREATE_DB_ERR</id>
+        <text>Kan ikke opprette database - Er ditt MySQL &quot;root&quot; passord korrekt?</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DB_CREATE_USER_ERR</id>
+        <text>Kan ikke opprette bruker - Er ditt MySQL &quot;root&quot; passord korrekt?</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DB_RUN_SQL</id>
+        <text>Utfør SQL</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DB_SQL_FAIL</id>
+        <text>SQL kommando feilet</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DB_SQL_SUCCESS</id>
+        <text>SQL kommando utført uten feil.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DB_TABLE_LIST</id>
+        <text>Tabell Liste</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DEBUG_LEVEL</id>
+        <text>Nivå %s %s</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DEBUG_MAXIMUM</id>
+        <text>(Maks)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DEBUG_MINIMUM</id>
+        <text>(Min)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DEBUG_MODE</id>
+        <text>Logg nivå</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DEBUG_MODE_PROMPT</id>
+        <text>[i]Logg nivå[/i] kontrollerer hvor mye informasjon som skal skrives til filen &quot;support.log&quot; når SwissCenter kjører. Hvis du rapporterer en feil som kan reproduseres må du påse at logg nivå er satt til maks før du reproduserer feilen.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DEBUG_RECOMMENDED</id>
+        <text>(Anbefalt)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DELETE_MEDIA</id>
+        <text>Slett media</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DETAILS_CLEAR</id>
+        <text>Nullstill detaljer</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DETAILS_CLEARED_OK</id>
+        <text>Detaljer nullstillt</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DETAILS_EDIT</id>
+        <text>Editer detaljer</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DETAILS_EXPORT</id>
+        <text>Eksport detaljer</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>DIRECTOR</id>
+        <text>Regissør</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DISABLED</id>
+        <text>Deaktivert</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DOWNLOADING</id>
+        <text>Laster ned...</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>DROP_DATABASE</id>
+        <text>ADVARSEL: Du har allerede opprettet en SwissCenter database. [br]Hvis du velger å fortsette vil all nåværende informasjon og innstillinger gå tapt.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ENABLED</id>
+        <text>Aktivert</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ENHANCED</id>
+        <text>Forbedret</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EPISODE</id>
+        <text>Episode</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EPISODE_SUFFIX</id>
+        <text>(Episode %s)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EP_NEXT</id>
+        <text>Neste episode</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>EP_PREV</id>
+        <text>Foregående episode</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXCLUSIVE</id>
+        <text>Eksklusiv</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXIFVALS_EXPOSE_MODE</id>
+        <text>Auto, Manuell, Auto Bracket</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIFVALS_EXP_PROG</id>
+        <text>Manuell, Program, Blender prioritet, Lukker prioritet, Program kreativ, Program bevegelse, Portrett, Landskap</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIFVALS_FLASH</id>
+        <text>Ikke benyttet, Benyttet</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIFVALS_LIGHT_SOURCE</id>
+        <text>Ukjent, Dagslys, Fluorescent, Tungsten (incandescent), Blitz, Fint vær, Overskyet vær, Share, Dagslys fluorescent, Dag hvitt fluorescent, Kjølig hvitt fluorescent, Hvitt fluorescent, Standard lys A, Standard lys B, Standard lys C, D55, D65, D75, D50, ISO Studio Tungsten</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIFVALS_METER_MODE</id>
+        <text>Ukjent, Gjennomsnitt, Gjennomsnitt vektet, Spot, Multi-Spot, Mønster, Delvis</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIFVALS_ORIENTATION</id>
+        <text>Normal, Flip horisontalt, Roter 180, Flip vertikalt, Transpose, Roter høyre, Transverse, Roter venstre</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIFVALS_SCENE_TYPE</id>
+        <text>Standard, Landskap, Portrett, Nattsene</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIFVALS_WHITE_BALANCE</id>
+        <text>Auto, Manuell</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_EXPOSE_MODE</id>
+        <text>Eksponerings modus</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_EXPOSE_PROG</id>
+        <text>Eksponerings program</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_EXPOSE_TIME</id>
+        <text>Eksponerings tid</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_EXPOSURE</id>
+        <text>Eksponering</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_FLASH</id>
+        <text>Blitz</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_FNUMBER</id>
+        <text>F-nummer</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_FOCAL_LENGTH</id>
+        <text>Fokus lengde</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_ISO</id>
+        <text>ISO rangering</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_LIGHT_SOURCE</id>
+        <text>Lyskilde</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_MAKE</id>
+        <text>Fabrikat</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_METER_MODE</id>
+        <text>Avstands måling</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_MODEL</id>
+        <text>Modell</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_NONE</id>
+        <text>Ingen EXIF data tilgjengelig</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXIF_ORIENTATION</id>
+        <text>Orientering</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_SCENCE_CAPTURE</id>
+        <text>Sensor modus</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_SOURCE</id>
+        <text>Bilde kilde</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXIF_VIEW</id>
+        <text>Se på EXIF data</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>EXIF_WHITE_BALANCE</id>
+        <text>Hvit balanse</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXPERT_EDIT_DB</id>
+        <text>Database innstillinger</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXPERT_EDIT_PREFS</id>
+        <text>System innstillinger</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXPERT_OPTIONS</id>
+        <text>For eksperten</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXPERT_PREFS_UPDATED</id>
+        <text>Innstillinger oppdatert</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXPERT_WARNING</id>
+        <text>Kontrollene på denne siden tillater endring av interne parametere for SwissCenter og bør kun benyttes av avanserte brukere med inngående kunnskap om SwissCenter. For mer informasjon, se %s. [b]Brukes for egen risiko[/b].</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXPORT_PROMPT</id>
+        <text>Ved å klikke på knappen under vil alle dine konfigurasjons innstillinger bli lagret til en XML fil som du siden kan benytte til å rekonfigurere Swisscenter dersom det blir nødvendig å reinstallere eller gjenopprette din database.[p][b]Merk:[/b] Denne opsjonen lagrer ikke detaljer vedrørende audio, video eller bilder som er samlet inn av Swisscenter. Den vil heller ikke lagre film informasjon som har blitt lastet ned fra internet eller registrert manuellt.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXPORT_SETTINGS</id>
+        <text>Lagre innstillinger</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXPORT_SETTINGS_SUBMIT</id>
+        <text>Lagre innstillinger</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXPRESSION</id>
+        <text>Makro</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>EXTRAS_TEST_TITLE</id>
+        <text>Ekstra komponenter</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXTRA_EXPORT_DETAILS</id>
+        <text>Tilleggsinformasjon som sammendrag, skuespiller etc. kan eksporteres til en XML sidecar fil. Denne filen kan siden benyttes for å lese tilbake video detaljer når en ny database opprettes. Vaget 'Bruk XML sidecar' (se ovenfor) må først aktiveres.</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>EXTRA_EXPORT_GO</id>
+        <text>Eksporter all informasjon til XML</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>EXTRA_EXPORT_TITLE</id>
+        <text>Eksporter ekstra informasjon</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>EXTRA_REFRESH_DETAILS</id>
+        <text>Hvis du har behov for å oppdatere all video informasjon som har blitt lastet ned fra internet, uansett årsak, kan du gjøre dette ved å klikke på knappen under.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXTRA_REFRESH_GO</id>
+        <text>Oppdater all ekstra informasjon</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>EXTRA_REFRESH_TITLE</id>
+        <text>Oppdater all ekstra video informasjon</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>EXTRA_REFRESH_WARNING</id>
+        <text>Vær oppmerksom på at dersom du manuellt har registrert informasjon ved å benytte %s siden så vil denne informasjonen gå tapt.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_DATABASE_PATCH</id>
+        <text>Databasen er ikke fullt oppdatert. Siste vellykkede oppdatering var %s.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_DOTNET2_INSTALLED</id>
+        <text>.NET rammeverk versjon 2 må være installert</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_LIVERADIO_TEST</id>
+        <text>LiveRadio parser synes å være defekt</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_MIP_MIXABLE</id>
+        <text>Kun en liten andel (&lt;50%) av din musikk har blitt analysert av MusicIP. Selv om MusicIP vil være i stand til å generere spillelister vil du kunne opåpleve at de ikke er særlig nøyaktige.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_MUSICIP_TEST</id>
+        <text>MusicIP er ikke installert (eller konfigurert korrekt).</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_MYSQL_CONNECT</id>
+        <text>Kobling mot MySQL server feilet.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_MYSQL_DB</id>
+        <text>Kobling mot SwissCener databasen feilet (Har du laget en database?)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_MYSQL_VERSION</id>
+        <text>Din versjon av MySQL er ikke støttet. Minimum versjon 5.0 av MySQL må være installert.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_PHP_CLI</id>
+        <text>Du har ingen kommando linje versjon av PHP installert. SwissCenter vil ikke kunne søke etter nye mediafiler.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_PHP_EXTRA_MODS</id>
+        <text>Ikke alle anbefalte PHP moduler er tilgjengelige. Noen ikke-kritiske funksjoner har blitt deaktivert (anbefalte moduler er: [b]%s[/b]).</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_PHP_FONTS</id>
+        <text>Finner ikke TrueType font. Bildet &quot;Spilles av nå&quot; vil ikke inkludere informasjon om spor.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_PHP_FONT_SET</id>
+        <text>... men fonten ser ut til å være ugyldig (eller ikke tilgjengelig)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_PHP_INI</id>
+        <text>Kan ikke lokalisere &quot;php.ini&quot; filen.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_PHP_REQ_MODS</id>
+        <text>Ikke alle PHP moduler som kreves av SwissCenter er tilgjengelige (kritiske moduler er: [b]%s[/b]).</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>FAIL_PHP_VERSION</id>
+        <text>Din versjon av PHP er ikke støttet (%s). Du må ha minimum versjon 5.2.6 av PHP installert.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_SERVER_SCHED</id>
+        <text>Bakgrunns jobber kan ikke kjøres - dette kan skyldes at cron (Linux) eller oppgaveplanlegging (Windows) er deaktivert.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_SHOUTCAST_TEST</id>
+        <text>ShoutCast parser synes å være defekt</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_SWISSMONITOR_INSTALLED</id>
+        <text>SwissMonitor tjenesten er ikke installert.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_SWISSMONITOR_RUNNING</id>
+        <text>SwissMonitor tjenesten er installert, men kjører ikke.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FAIL_SWISS_CACHE</id>
+        <text>Kan ikke skrive til SwissCenter hurtiglagrings området (%s).</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>FAIL_SWISS_INI</id>
+        <text>Kan ikke lokalisere &quot;swisscenter.ini&quot; filen. [br]Har du laget en SwissCenter database?</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_SWISS_LOCS</id>
+        <text>Ingen media kataloger har blitt spesifisert.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_SWISS_LOG</id>
+        <text>Kan ikke skrive til SwissCenter logg filen (%s).</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_SWISS_PLAYLIST</id>
+        <text>Kan ikke skrive til SwissCenter spilleliste området (%s).</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>FAVORITES</id>
+        <text>Favoritter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILENAME</id>
+        <text>Filnavn</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FILE_EXISTS</id>
+        <text>ADVARSEL: En fil med dette navnet eksisterer allerede. Hvis du lagrer nå vil den eksisterende filen bli overskrevet.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FILTER</id>
+        <text>Filter</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FILTER_ACTIVE_SUFFIX</id>
+        <text>(aktiv)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_CERT</id>
+        <text>Ingen sertifikat</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_DETAILS</id>
+        <text>Ingen detaljer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_EPISODE</id>
+        <text>Ingen episoder</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_PROGRAMME</id>
+        <text>Ingen programmer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_RATING</id>
+        <text>Ingen rangering</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_SERIES</id>
+        <text>Ingen serier</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_SYNOPSIS</id>
+        <text>Ingen sammendrag</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_YEAR</id>
+        <text>Ingen år</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_VIEWED</id>
+        <text>Avspilt status</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FILTER_VIEWED_FINISHED</id>
+        <text>Helt avspilt</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FILTER_VIEWED_NONE</id>
+        <text>Ikke avspilt</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FILTER_VIEWED_NOTFINISHED</id>
+        <text>Ikke avspilt eller delvis avspilt</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FILTER_VIEWED_PLAYED</id>
+        <text>Delvis eller helt avspilt</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FINISHED</id>
+        <text>Ferdig</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FLICKR_CONTACTS</id>
+        <text>Kontakter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_DESC</id>
+        <text>Flickr %s er en online applikasjon for administrasjon og deling av bilder. Hovedmålet er å hjepe brukerne med å gjøre bilder tilgjengelig for sine nærmeste samt å muliggjøre nye måter å organisere bilder på. Medlemskap i Flickr er gratis og du kan begynne å dele bilder umiddelbart. 
+[p]SwissCenter gir deg mulighet til å se egne bilder og bilder fra dine kontakter.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_FAVORITES</id>
+        <text>Favoritter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_FILTER_BOTH</id>
+        <text>Utvalg familie</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_FILTER_FAMILY</id>
+        <text>Utvalg familie</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_FILTER_FRIENDS</id>
+        <text>Utvalg venner</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_FILTER_NEITHER</id>
+        <text>Vis alle</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_INTERESTINGNESS</id>
+        <text>Popularitet</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_NO_USER</id>
+        <text>Ingen Flickr bruker har blitt registrert!</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_PHOTOS</id>
+        <text>Flickr bilder</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_PHOTOSETS</id>
+        <text>Foto album</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_PROMPT</id>
+        <text>Se på Flickr bilder fra deg selv og dine kontakter.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_RETURN</id>
+        <text>Returner til standard bruker</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_UNKNOWN_USER</id>
+        <text>Ingen bruker med det angitte navnet (%s) ble funnet.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_USERID_PROMPT</id>
+        <text>Hver SwissCenter bruker kan knyttes opp mot en Flickr bruker. Hvis du ikke legger inn ditt Flickr brukernavn vil du ikke få tilgang til bilder og kontakter.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FLICKR_USERNAMES</id>
+        <text>Flickr brukernavn</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FONTWIDTH_MULTIPLIER</id>
+        <text>Font bredde faktor</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>FONTWIDTH_MULTIPLIER_PROMPT</id>
+        <text>Denne opsjonen gjør det mulig å endre maks antall tegn som kan benyttes i SwissCenter menyer. Verdien avhenger av hvilken font som er i bruk, og bør være i området [b]1.0[/b] (standard) til [b]2.2[/b].</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>GENRE</id>
+        <text>Sjanger</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>HOME</id>
+        <text>Hjem</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>HOUR</id>
+        <text>Time</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMAGE_EXIF_ROTATE</id>
+        <text>Auto-roter</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMAGE_EXIF_ROTATE_PROMPT</id>
+        <text>De fleste moderne digital kameraer registrerer om kameraet var i &quot;Landskap&quot; eller &quot;Portrett&quot; modus når et bilde blir tatt. Ved å aktivere denne funksjonen vil SwissCenter automatisk rotere bildene før de vises.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMAGE_LANDSCAPE_CROP</id>
+        <text>Beskjær</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>IMAGE_LANDSCAPE_CROP_PROMPT</id>
+        <text>SwissCenter vil som standard sentrere landskaps orienterte bilder og beskjære dem for å tilpasse de til TV'ens skjerm format. Hvis du derimot foretrekker å vise hele bildet (med sorte felter på topp og i bunn) skal du deaktivere denne opsjonen.</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>IMAGE_RESAMPLE</id>
+        <text>Lage et utsnitt (bedre kvalitet)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMAGE_RESIZE</id>
+        <text>Endre størrelse (hurtigere)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMAGE_RESIZE_PROMPT</id>
+        <text>Velg hvilken metode SwissCenter skal benytte for å generere bilder i sanntid.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMAGE_RESIZE_TYPE</id>
+        <text>Bilde generering</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMAGE_SCALE_UP</id>
+        <text>Forstørr bilder</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>IMAGE_SCALE_UP_PROMPT</id>
+        <text>Ved å aktivere denne opsjonen vil SwissCenter forstørre små bilder slik at de fyller hele skjermen.</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>IMAGE_TRANSITIONS</id>
+        <text>Overgangs effekter</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>IMAGE_TRANS_PROMPT</id>
+        <text>Overgangs effekter tilgjengelig for bildevisning. Disse effektene kan variere for ulike spillere og noen spillere vil ikke støtte noen overganger.</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>IMPEXP_TITLE</id>
+        <text>Last/lagre innstillinger</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMPORT_FAILED</id>
+        <text>Det oppstod en feil i forbindelse med lasting av innstillinger fra fil.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMPORT_FILE</id>
+        <text>XML innstillings fil</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMPORT_PROMPT</id>
+        <text>For å gjenopprette en tidligere lagret konfigurasjon, velg din XML innstillingsfil nedenfor.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMPORT_SETTINGS</id>
+        <text>Last innstillinger</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMPORT_SUCCESS</id>
+        <text>Innstillinger lastet fra fil uten feil.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMP_LOC_CAT_MISSING</id>
+        <text>Import av media katalog '%s' feilet fordi kategori '%s' ikke eksisterer.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMP_LOC_CERT_MISSING</id>
+        <text>Import av media katalog '%s' feilet fordi sertifikat '%s' (Scheme:%s) ikke eksisterer.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMP_LOC_TYPE_MISSING</id>
+        <text>Import av media katalog '%s' feilet fordi media type '%s' ikke eksisterer.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IMP_USER_CERT_MISSING</id>
+        <text>Import av bruker '%s' feilet fordi sertifikat '%s' (Scheme:%s) ikke eksisterer.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>INFORMATION</id>
+        <text>Informasjon</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>INSTALLATION_TESTS</id>
+        <text>System tester</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>INSTALLATION_TITLE</id>
+        <text>Installasjon</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>INSTALL_TEST_FAIL_CLI</id>
+        <text>Følgende tester feilet: når de ble kjørt i bakgrunnen.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>INSTALL_TEST_FAIL_WEB</id>
+        <text>Følgende tester feilet:</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>INSTALL_TEST_SUCCESS</id>
+        <text>Følgende tester var ok:</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>INSTALL_TEST_TITLE</id>
+        <text>Installasjons kontroller</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>INTERNET_FEATURES</id>
+        <text>Internet valg</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>INTERNET_RADIO</id>
+        <text>Internet radio</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>INTERNET_RADIO_PROMPT</id>
+        <text>Tilknytning til individuelle internet radio stasjoner gjøres direkte fra ShowCenter boksen når dette velges av brukeren. Hvis din ShowCenter ikke har direkte aksess til internet bør du deaktivere denne funksjonen.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>INTERNET_SERVICES</id>
+        <text>Internet tjenester</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>INTERNET_SETTING</id>
+        <text>Internet tilknytning</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>INTERNET_SETTING_PROMPT</id>
+        <text>Dette spesifiserer hvorvidt din PC har en internet tilknytning som SwissCenter kan benytte. Hvis du velger 'Automatisk' vil SwissCenter forsøke å detektere en internet tilknytning automatisk.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>INTERNET_TV</id>
+        <text>Internet TV</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>INTERNET_TV_OPTIONS</id>
+        <text>Internet TV</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>INTERNET_TV_PROMPT</id>
+        <text>Kobling mot individuelle TV stasjoner kan gjøres fra SwissCenter når dette er aktivert.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>INTERNET_URLS</id>
+        <text>Internet bokmerker</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IPTC_BYLINE</id>
+        <text>Forfatter</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IPTC_CAPTION</id>
+        <text>Beskrivelse</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IPTC_CITY</id>
+        <text>By</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IPTC_COUNTRY</id>
+        <text>Land</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IPTC_DATE_CREATED</id>
+        <text>Dato oprettet</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IPTC_KEYWORDS</id>
+        <text>Nøkkelord</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IPTC_LOCATION</id>
+        <text>Katalog</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IPTC_PROVINCE_STATE</id>
+        <text>Region</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IPTC_SUPPCATEGORY</id>
+        <text>Underkategorier</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_ADD_PARAM</id>
+        <text>Legg til et nytt kriterie</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_ADD_PARAM_BUTTON</id>
+        <text>Legg til parameter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_CACHE_EXPIRE</id>
+        <text>Levetid før oppdatering</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_CACHE_EXPIRE_PROMPT</id>
+        <text>SwissCenter kan lagre stasjons informasjon, men fordi stasjons listen endres kontinuerlig, bør den oppdateres regelmessig. En time (3600s) er et godt kompromiss.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_CLASS_SELECT</id>
+        <text>Velg radio tjeneste:</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_COUNTRIES</id>
+        <text>Land</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_COUNTRY</id>
+        <text>Land</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_COUNTRY_PROMPT</id>
+        <text>Spesifiser et land du ønsker å søke etter. Kun %s støtter søk etter land så sjekk med web siden for en liste over tilgjengelige land. Når du søker i ShoutCast letes det etter en tittel som inkluderer navnet på landet.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_COUNTRY_SELECT</id>
+        <text>Velg land å søke etter:</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_DELETE_PARAM_OK</id>
+        <text>De valgte søke kriteriene har blitt fjernet</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_DEL_PARAM_BUTTON</id>
+        <text>Slett valgte kriterier</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_ERROR_CACHE_EXPIRE</id>
+        <text>Du må spesifisere en (numerisk) verdi for 'Levetid før oppdatering'! Hvis du ønsker å deaktivere denne funksjonen, tast 0 (null).</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_ERROR_MAXNUM</id>
+        <text>Du må spesifisere en (numerisk) verdi for 'Maks stasjoner/sjangere'!</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_ERROR_MAXNUM_ZERO</id>
+        <text>Du må spesifisere en [b][i]numerisk, ikke-null[/i][/b] verdi for 'Maks stasjoner/sjangere'!</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_ERROR_PARAM</id>
+        <text>Tast inn et søke kriterie</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_GENRE</id>
+        <text>Kategori</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_GENRES</id>
+        <text>Kategorier</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_GENRE_PROMPT</id>
+        <text>Spesifiser kategori og under-kategori (opsjon) som du ønsker å søke etter. Både %s og % s støtter søk etter kategori så besøk web sidene for en liste over tilgjengelige kategorier.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_LIVERADIO_DESC</id>
+        <text>LiveRadio (%s) er en internet radio tjeneste tilsvarende ShoutCast. Den tilbyr funksjonalitet for å søke etter media type, sjanger, stasjons navn, land og til og med by - men mange stasjoner listet her er ikke støttet av enkelte media spillere. På grunn av dette begrenser SwissCenter sin LiveRadio parser seg til kun å inkludere MP3 stasjoner.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>IRADIO_LOGO</id>
+        <text>Bilde filnavn</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_MAINGENRE</id>
+        <text>Hoved kategori</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_MAINGENRE SELECT</id>
+        <text>Velg hovedsjanger å søke etter:</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_MAX_STATIONS</id>
+        <text>Maks stasjoner/sjangere</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_MAX_STATIONS_PROMPT</id>
+        <text>Maks antall radio stasjoner som skal hentes per sjangre. Mer er [b]ikke[/b] bedre: Setter du dette antallet for høyt vil du ikke bare øke tiden det tar å hente de (og gjøre en timeout mer sannsynlig), men også muligheten for en &quot;ikke nok minne&quot; feil fra PHP. Et egnet antall er 24. Reduser antallet dersom du opplever en av feil situasjonene.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_NO_STATIONS</id>
+        <text>Ingen stasjoner funnet.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_NO_STATIONS_MSG</id>
+        <text>Ingen stasjoner ble funnet som tilfredsstiller ditt søk etter '%s'</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_PARAM_ADDED_OK</id>
+        <text>Søke kriterie lagt til</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_PARAM_PROMPT</id>
+        <text>ShoutCast og Live-Radio tillatter søk etter radio stasjoner basert på stasjons navn, kategori og land. Her kan du definere dine favoritt søke kriterier.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_PARAM_TYPE</id>
+        <text>Søke kriterie kategori</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_SEARCH</id>
+        <text>Søk etter stasjoner</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_SHOUTCAST_DESC</id>
+        <text>ShoutCast (%s) er en radio tjeneste på internet, som gjør tilgjengelig audio kanaler som kan spilles av de fleste media spillere (og programmer). Den tilbyr funksjonalitet for å søke etter sjangre eller stasjons navn, og returnere mange detaljer for hver as de stasjoner som finnes, inklusive en spilleliste URL. ShoutCast parser'en som benyttes av SwissCenter leser HTML koden fra resultat siden, for så å vise resultatet i en form som er egnet for lesing også på TV skjermer. Dog kan dete oppstå problemer dersom side endres av ShoutCast ansatte. [p]Noen ganger vil ShoutCast gi inntrykk av ikke å ha noen stasjoner som tilfredsstiller vårt søk. Desrom testen feiler, bør du forsøke å laste siden igjen - for å forsikre deg om at problemet ikke ligger her.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_STATION</id>
+        <text>Stasjon</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_STATION_PROMPT</id>
+        <text>Spesifiser en stasjon du ønsker å søke etter. Et bilde (valgfritt) kan også knyttes opp mot stasjonen og vil da vises på &quot;Spilles nå&quot; bildet for denne stasjonen. Bildet må plasseres i din [em]&quot;../images/iradio/&quot;[/em] katalog.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_STATION_SEARCH</id>
+        <text>Velg stasjon du ønsker å søke etter:</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_STATION_SELECT</id>
+        <text>Velg stasjon du ønsker å lytte til:</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_SUBGENRE</id>
+        <text>Under kategori</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>IRADIO_SUBGENRE_SELECT</id>
+        <text>Velg undersjanger å søke etter:</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_UPDATE_PARAM_OK</id>
+        <text>Søke kriterie oppdatert</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ITUNES_CONFIG_PROMPT</id>
+        <text>Tast inn en fullt kvalifisert referanse til din &quot;iTunes Music Library.xml&quot; fil. Denne vil bli benyttet til å legge til/oppdatere din iTunes spilleliste i SwissCenter.[p]F.eks.: I Windows kan dette være [em]&quot;C:\Mine Dokumenter og Innstillinger\Robert\Min Musikk\iTunes\iTunes Music Library.xml&quot;[/em]</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ITUNES_ERROR_INVALID</id>
+        <text>Referansen du spesifiserer må være til &quot;iTunes Music Library.xml&quot;</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ITUNES_ERROR_PATH</id>
+        <text>Tast inn en fullt kvalifisert referanse til din &quot;iTunes Music Library.xml&quot; fil</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ITUNES_LIBRARY</id>
+        <text>iTunes biblioteks fil</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>JUST_ADDED</id>
+        <text>Nylig opprettet</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>JUST_HD</id>
+        <text>Kun HD</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>KEYBOARD_DEL</id>
+        <text>SLETT</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>KEYBOARD_SPC</id>
+        <text>BLANK</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LANGUAGE</id>
+        <text>Norsk</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LANG_ADD_BUTTON</id>
+        <text>Legg til ny tekst</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_ADD_NEW</id>
+        <text>Legg til ny tekst</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_CANCEL_BUTTON</id>
+        <text>Avbryt</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_CHANGE</id>
+        <text>Endre språk</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LANG_DELETE_BUTTON</id>
+        <text>Slett valgte språk tekster</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_DELETE_OK</id>
+        <text>De valgte tekstene har blitt slettet</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_EDIT</id>
+        <text>Editer oversettelsen</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_EDITOR</id>
+        <text>Språk editor</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_ERROR_NO_SELECT</id>
+        <text>Du har ikke valgt språk tekster for sletting</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_ISO639</id>
+        <text>ISO 639-1 kode</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_NATIVE</id>
+        <text>Lokalt språk navn</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_NEW</id>
+        <text>Legg til nytt språk</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_NEW_BUTTON</id>
+        <text>Opprett nytt språk</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_NEW_EXISTS</id>
+        <text>Språket eksisterer allerede</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_NEW_FAIL</id>
+        <text>Tast inn både lokalt navn og ISO kode for å legge til et språk</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_NEW_OK</id>
+        <text>Språk lagt til</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_NEW_PROMPT</id>
+        <text>Bruk denne funksjonen for å legge til et nytt språk. Skriv inn språkets lokale navn, eks. Español (ikke Spanish) og dets korresponderende %s  kode (es). Du kan også legge inn lokale språk variasjoner som f.eks. en-us for engelsk (US). Denne er sammensatt fra ISO 639-1 koden (en) og %s region koden (us).</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANG_PROMPT</id>
+        <text>Støtte for flere språk gjøres ved at en intern ID (f.eks. &quot;ADD_PLAYLIST&quot;) refererer til den aktuelle teksten som skal vises. Denne &lt;teksten&gt; kan inneholde enkel formatering som spesifiseres med firkant parenteser tilsvarende det som benyttes til HTML formatering. [p]Følgende formaterings tegn støttes:[ul] [li]&amp;#91;br&amp;#93; - linjeskift[/li] [li]&amp;#91;p&amp;#93;&amp;#91;/p&amp;#93; - nytt avsnitt[/li] [li]&amp;#91;b&amp;#93;&amp;#91;/b&amp;#93; - fet[/li] [li]&amp;#91;i&amp;#93;&amp;#91;/i&amp;#93; - kursiv[/li] [li]&amp;#91;em&amp;#93;&amp;#91;/em&amp;#93; - uthevet[/li] [li]&amp;#91;ol&amp;#93;&amp;#91;/ol&amp;#93; - sortert liste[/li] [li]&amp;#91;ul&amp;#93;&amp;#91;/ul&amp;#93; - usortert liste[/li] [li]&amp;#91;li&amp;#93;&amp;#91;/li&amp;#93; - et element i en sortert eller usortert liste[/li] [/ul] [p]I noen tilfeller vil det kunne være behov for å erstatte eller sette inn ord i tekst strengen. Posisjonen i strengen hvor teksten skal erstattes markeres med '&amp;#37;s'. F.eks. i ID'en &quot;MANY_TRACKS=&amp;#37;s spor&quot; vil antall spor som har blitt funnet i databasen erstatte &amp;#37;s i strengen... slik at et søk som returnerer 4 spor vil vises til brukeren som &quot;4 spor&quot;.</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>LANG_SAVE_BUTTON</id>
+        <text>Spar endringer</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_SELECT</id>
+        <text>Velg språket du ønsker å bruke</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LANG_TEXT</id>
+        <text>Tekst</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_TEXT_ID</id>
+        <text>Tekst id</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_TRANS</id>
+        <text>Oversettelse</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LANG_UPDATE_OK</id>
+        <text>Språk informasjon er oppdatert</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LARGE_VIEW</id>
+        <text>Stor visning</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LASTFM</id>
+        <text>Last.fm</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LASTFM_ABOUT</id>
+        <text>Last.fm er verdens største sosiale musikk plattform med mer enn 20 millioner aktive brukere fra over 232 land. Ved å benytte et unikt anbefalings system, kjent som &amp;quot;Audioscrobbler&amp;quot;, lager Last.fm en detaljert profil av hver brukers musikk smak gjennom registrering av detaljer fra alle sangene brukeren lytter til, via radio stasjoner eller via stasjonære eller portable media spillere. [p] Brukere kan lage tilpassede radio stasjoner og spillelister fra lydspor i Last.fm sitt musikk bibliotek, men kan ikke lytte til individuelle spor på forespørsel eller laste ned spor med mindre rettighetshaverne tillater dette. Registrering kreves for å kunne opprette en egen profil, men er ikke nødvendig for å kunne bla i web sidene eller lytte til radio stasjoner.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LASTFM_ARTIST</id>
+        <text>Tilgjengelige artister/grupper</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LASTFM_ENABLED_PROMPT</id>
+        <text>Når den er aktivert vil SwissCenter kunne koble seg til Last.fm web siden og aksessere personlige radio kanaler.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LASTFM_LOGIN_HEADINGS</id>
+        <text>Bruker,Last.fm[br]Brukernavn,Last.fm[br]Passord,Scrobble?,Bilder?</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LASTFM_PROMPT_GENERAL</id>
+        <text>Bla etter stasjoner</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LASTFM_PROMPT_PERSONAL</id>
+        <text>Dine personlige stasjoner</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LASTFM_TAGS</id>
+        <text>Tilgjengelige tagger</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LASTFM_WHATIS</id>
+        <text>Hva er Last.fm?</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LENGTH_MM</id>
+        <text>mm</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LICENSE</id>
+        <text>GPL lisens</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LISTEN_LASTFM</id>
+        <text>Lytt til Last.fm stasjon</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LISTEN_LASTFM_ARTISTS</id>
+        <text>Spill musikk som ligner på en artist eller gruppe</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LISTEN_LASTFM_LOVED</id>
+        <text>Spill dine favoritter</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LISTEN_LASTFM_MY_STATION</id>
+        <text>Spill din stasjon</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LISTEN_LASTFM_NEIGHBOURHOOD</id>
+        <text>Spill av ditt nærmiljø</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>LISTEN_LASTFM_RECOMMEND</id>
+        <text>Spill dine anbefalinger</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LISTEN_LASTFM_TAGS</id>
+        <text>Spill musikk med en spesifikk tag</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LISTEN_MUSIC</id>
+        <text>Lytt til musikk</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LISTEN_RADIO</id>
+        <text>Internet radio</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LIST_VIEW</id>
+        <text>Liste visning</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LOCATION</id>
+        <text>Katalog</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LOCATION_ON_DISK</id>
+        <text>Lokalisering på disk</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LOCATION_PROMPT</id>
+        <text>Spesifiser en full katalog referanse til hvor mediafiler kan lokaliseres. F.eks.: I Windows kan dette være [em]&quot;C:\Dokumenter og innstillinger\Robert\Mine Dokumenter\Min Musikk&quot;[/em] eller på et Linux system kan det være [em]&quot;/home/Robert/Music&quot;[/em]</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LOGFILE_ERROR</id>
+        <text>Kan ikke skrive til loggfil:</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LOOKUP_FAILURE</id>
+        <text>Kan ikke lokalisere film detaljer.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LOOKUP_MOVIE</id>
+        <text>Oppslag film</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LOOKUP_SUCCESS</id>
+        <text>Film detaljer har blitt lastet ned og lagret.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LOOKUP_TV</id>
+        <text>Slå opp på TV episode</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>LOWERCASE</id>
+        <text>Små bokstaver</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MACHINE_NAME</id>
+        <text>Maskin navn</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MAIN_MENU</id>
+        <text>Hovedmeny</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MANAGE_PLAYLISTS</id>
+        <text>Administrer spillelister</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MANY_ITEMS</id>
+        <text>%s elementer</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MANY_TRACKS</id>
+        <text>%s spor</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MAX_PLAYLIST_SIZE</id>
+        <text>Maksimum spilleliste størrelse</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MAX_PLAYLIST_SIZE_PROMPT</id>
+        <text>Tast inn maksimum størrelse for gnerrerte spillelister. Absolutt tillatt maksimum er 2000 på grunn av spiller begrensninger. En fornuftig begresning er ca. 200.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_DELETED</id>
+        <text>Media slettet</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOCATIONS</id>
+        <text>Media kataloger</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ADD_BUTTON</id>
+        <text>Legg til katalog</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ADD_OK</id>
+        <text>Media katalog lagt til</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ADD_TITLE</id>
+        <text>Legg til en ny katalog</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_DEL_BUTTON</id>
+        <text>Fjern valgte kataloger</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_DEL_OK</id>
+        <text>De valgte katalogene har blitt fjernet</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ERROR_CAT</id>
+        <text>Velg en kategori</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ERROR_CERT</id>
+        <text>Velg standard sertifikat for ikke rangerte mediafiler</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ERROR_DIRFAIL</id>
+        <text>Katalogen du spesifiserte finnes ikke</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ERROR_LOC</id>
+        <text>Tast inn en media katalog</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ERROR_PATH</id>
+        <text>Tas inn en fullt kvalifisert katalog referanse</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ERROR_SHARE</id>
+        <text>Spesisifiser en nettverks referanse</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_ERROR_TYPE</id>
+        <text>Velg media type</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_HEADINGS</id>
+        <text>Type, Kategori, Sertifikat, Katalog, Nettverks referanse</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_UPDATE_OK</id>
+        <text>Media katalog informasjon er oppdatert</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_MANAGEMENT</id>
+        <text>Media oppsett</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>MEDIA_REFRESH</id>
+        <text>Søk etter mediafiler</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_OVERALL</id>
+        <text>Søk fullført</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_PROGRESS</id>
+        <text>Media søk fremdrift</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS</id>
+        <text>Gjeldende status</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_CLEANUP</id>
+        <text>Rydder i databasen</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_COMPLETE</id>
+        <text>Fullført</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_ITUNES</id>
+        <text>Leser iTunes biblioteket</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_MOVIE</id>
+        <text>Leser film detaljer</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_PENDING</id>
+        <text>Venter</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_RUNNING</id>
+        <text>Kjører</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_TV</id>
+        <text>Leser TV detaljer</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_TYPE</id>
+        <text>Søke type</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_SEARCH_PROMPT</id>
+        <text>Når du klikker på knappen nedenfor vil det startes et bakgrunns søk i alle dine media kataloger. Mediafiler som ikke lenger finnes på systemet vil blit slettet fra databasen mens nye eller endrede mediafiler vil bli lagt til.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE</id>
+        <text>Media type</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_MUSIC</id>
+        <text>Lyd</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_PHOTO</id>
+        <text>Bilde</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_PROMPT</id>
+        <text>Velg media type det skal søkes etter i denne katalogen.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_RADIO</id>
+        <text>Radio</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_TV SERIES</id>
+        <text>TV serier</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_VIDEO</id>
+        <text>Video</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_TYPE_WEB</id>
+        <text>Web</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MESSAGES</id>
+        <text>Meldinger</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MESSAGES_DELETE</id>
+        <text>Slett denne meldingen</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MESSAGES_KEEP</id>
+        <text>Behold denne meldingen</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MESSAGES_NONE</id>
+        <text>Det er ingen meldinger å vise</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MESSAGES_SELECT</id>
+        <text>Velg en melding du ønsker å lese</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MESSAGES_VIEW</id>
+        <text>Les meldinger</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MESSAGE_STATUS_DELETED</id>
+        <text>slettet</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MESSAGE_STATUS_NEW</id>
+        <text>nye</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MESSAGE_STATUS_READ</id>
+        <text>lest</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MINUTE</id>
+        <text>Minutt</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MINUTES</id>
+        <text>%s minutter</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_DESC</id>
+        <text>MusicIP (fritt tilgjengelig fra %s) er et utmerket program som analyserer din musikk samling og genererer et &quot;akustisk fingeravtrykk&quot; for hver sang. Denne informasjonen blir så benyttet til å generere en personlig spilleliste av lignende spor basert på et valgt mal spor, artist eller album. [p]Hvis MusicIP er installert på den samme maskinen som SwissCenter, får du tilgang til ekstra funksjoner for å lage og lytte til MusicIP spillelister direkte fra SwissCenter bruker grensesnittet.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_INVALID_PORT</id>
+        <text>MusicIP server ble ikke funnet på port %s</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_MIX_SONG</id>
+        <text>Spill lignende spor</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_NOT_FOUND</id>
+        <text>Kan ikke finne noen MusicIP server.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_PORT</id>
+        <text>MusicIP port</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_PORT_PROMPT</id>
+        <text>Tast inn port nummeret som MusicIP server lytter på. Hvis du ikke har endret noe vil standard port være 10002. [p][b]Merk:[/b]  MusicIP må installeres på samme server som SwissCenter.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_REJECT</id>
+        <text>Artist repeter</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_REJECT_PROMPT</id>
+        <text>Du kan forhindre at samme artist blir spilt to ganger innenfor en tidsperiode (eller antall spor) ved å benytte denne opsjonen.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_SIZE</id>
+        <text>Spilleliste antall</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_SIZE_PROMPT</id>
+        <text>Antall spor som MusicIP skal returnere som del av en spilleliste.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_STYLE</id>
+        <text>Stil</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_STYLE_PROMPT</id>
+        <text>Denne innstillingen lar deg spesifisere hvor nøyaktig stilen til artistene i blandingen vil måtte stemme overens med mal sangen. Et høyt nummer vil sannsynligvis resultere i at kun et fåtall artister blir valgt, mens et lavt nummer vil tillate større variasjon i stil.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_VARIETY</id>
+        <text>Variasjon</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_VARIETY_PROMPT</id>
+        <text>Lar deg spesifisere hvor mye variasjon du vil ha i blandingen. Dess høyere verdi, dess større variasjon vil bli introdusert i blandingen.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_WHATIS</id>
+        <text>Hva er MusicIP?</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISC_CONFIG_TITLE</id>
+        <text>Diverse Konfigurasjon</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISC_FONTWIDTH_NOT_NUMBER</id>
+        <text>Font bredde faktoren er ikke et nummer</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISC_FONTWIDTH_TOO_SMALL</id>
+        <text>Font bredde faktoren er for liten</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISC_TITLE</id>
+        <text>Diverse</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISSING_DB_TEXT</id>
+        <text>Bruk konfigurasjons programmet for å opprette en database.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISSING_DB_TITLE</id>
+        <text>Du har ikke opprettet en database.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISSING_INI_TEXT</id>
+        <text>Bruk konfigurasjons programmet for å opprette en konfigurasjons fil.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISSING_INI_TITLE</id>
+        <text>Din SwissCenter konfigurasjons fil mangler.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISSING_MEDIA_TEXT</id>
+        <text>Bruk konfigurasjons programmet for å legge til media kataloger.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISSING_MEDIA_TITLE</id>
+        <text>Du har ikke definert noen media kataloger.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISSING_PERMS_TEXT</id>
+        <text>Katalogen hvor du installerte SwissCenter er ikke lesbar/skrivbar for &quot;webserver&quot; brukeren.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISSING_PERMS_TITLE</id>
+        <text>Installasjonen er ikke korrekt</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISSING_SCHED_TEXT</id>
+        <text>Windows sin &quot;Planlagte Oppgaver&quot; tjeneste er nødvendig for at SwissCenter skal kunne aktivisere søk etter mediafiler.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISSING_SCHED_TITLE</id>
+        <text>&quot;Planlagte Oppgaver&quot; tjenesten kjører ikke.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MISSING_SETUP_SQL</id>
+        <text>Filen &quot;Setup.sql&quot; mangler i SwissCenter katalogen.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MODULE_MISSING_LINUX</id>
+        <text>%s modulen er ikke lastet - bygg PHP på nytt med de nødvendige opsjoner valgt.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MODULE_MISSING_TITLE</id>
+        <text>En kritisk PHP modul mangler</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MODULE_MISSING_WINDOWS</id>
+        <text>%s modulen er ikke lastet - modifiser &quot;php.ini&quot; filen for å aktivere den.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MONTH</id>
+        <text>Måned</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MORE</id>
+        <text>[mer]</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MOST_POPULAR</id>
+        <text>Mest populær</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MOST_RECENT</id>
+        <text>Nyest</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MOST_VIEWED</id>
+        <text>Mest sett</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MOVIE_ADD_BUTTON</id>
+        <text>Legg til/oppdater detaljer</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MOVIE_ADD_PROMPT</id>
+        <text>Tast inn detaljer som du ønsker å [em]legge til[/em] hver av videoene listet ovenfor [br] (hold nede CTRL tasten for å velge flere fra listen)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MOVIE_CHANGES_MADE</id>
+        <text>Endringer utført</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MOVIE_ERROR_NO_SELECT</id>
+        <text>Du valgte ingen videoer for oppdatering</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>MOVIE_EXTRA_DL_PROMPT</id>
+        <text>Når nye video filer oppdages i forbindelse med &quot;nytt media søk&quot;, vil SwissCenter bruke filnavnet for å søke etter og laste ned tilleggs informasjon (f.eks. skuespiller, regissør, etc.) fra web siden du velger under.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MOVIE_EXTRA_DL_TITLE</id>
+        <text>Last ned ekstra video informasjon</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MOVIE_EXTRA_EXPORT_OK</id>
+        <text>All ekstra video informasjon blir eksportert til XML</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>MOVIE_EXTRA_REFRESH_OK</id>
+        <text>All ekstra video informasjon er planlagt for oppdatering</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MOVIE_EXTRA_SITE_PROMPT</id>
+        <text>Last ned info fra</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MOVIE_EXTRA_TITLE</id>
+        <text>Ekstra video informasjon</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MOVIE_NEW_PROMPT</id>
+        <text>Du kan legge til nye skuespillere, regissører eller sjangre som ikke er listet i boksene under. [br] For å legge til mer enn en kan du skille ordene med komma.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>MOVIE_OPTIONS</id>
+        <text>Videoer</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MOVIE_UPD_TEXT</id>
+        <text>Følgende videoer vil bli oppdatert</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MOVIE_UPD_TTILE</id>
+        <text>Oppdater Videoer</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MUSIC</id>
+        <text>Musikk</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MUSIC_BEFORE_PREV</id>
+        <text>Før det</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MUSIC_PLAY_NEXT</id>
+        <text>Neste</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MUSIC_PLAY_PREV</id>
+        <text>Foregående</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>MUSIC_PLAY_TIME</id>
+        <text>Spilletid</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NAME</id>
+        <text>Navn</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NETWORK_SHARE</id>
+        <text>Nettverk referanse</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>NETWORK_SHARE_MSG</id>
+        <text>Ingen delte nettverks stasjoner ble detektert. Hvis du har en NMT spiller må denne være påslått.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NETWORK_SHARE_PROMPT</id>
+        <text>Nettverks referansen ver kun påkrevd hvis du har DVD image kopier (iso, img, etc) i denne media katalogen og kan kun benyttes med en NMT media spiller. For å spille DVD kopier må du først definere en SMB eller NFS nettverks referanse på din NMT for å gi adgang til dine DVD kopier, deretter må du koble nettverks referansen mot denne media katalogen.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NEW</id>
+        <text>Ny</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NEWSUBSCRIPTIONVIDEOS</id>
+        <text>Nye videoer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NEW_MESSAGES</id>
+        <text>Nye meldinger</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NEW_MESSAGES_PROMPT</id>
+        <text>En daglig kontroll gjøres for viktige meldinger relatert til SwissCenter programmet. Hvis nye meldinger er tilgjengelige vil et ikon vises på hovedmenyen som indikasjon.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NEXT</id>
+        <text>Neste</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NO</id>
+        <text>Nei</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NOTES</id>
+        <text>Noter</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NOT_RATED</id>
+        <text>Ikke rangert</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING</id>
+        <text>Nå spilles</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_FANART</id>
+        <text>Last ned fan grafikk</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_FANART_GOOGLE</id>
+        <text>Google bilder</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_FANART_LASTFM</id>
+        <text>Last.fm</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_FANART_NONE</id>
+        <text>Ingen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_FANART_PROMPT</id>
+        <text>Velg kilde for fan grafikk som skal benyttes på det utvidede &quot;Nå spilles&quot; bildet. Fan grafikk lagres for hver artist i [em]swisscenter\fanart\artists\depeche mode[/em].[br][b]Ingen[/b] - ingen fan grafikk vill bli lastet ned. Kun eksisterende bilder i din fan grafikk folder vil benyttes.[br][b]Google bilder[/b] - fan grafikk vil hentes fra Google bilder og lastet ned lokalt til din fan grafikk katalog..[br][b]Last.fm[/b] (anbefalt) - artist bilder vil bli lastet ned til til din fant grafikk katalog fra Last.fm.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_OPTIONS</id>
+        <text>Nå spilles alternativer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_PROMPT</id>
+        <text>Noen media spillere tillater at et bilde vises mens musikk blir avspilt - og de ber automatisk om nytt bilde ved endring av spor. SwissCenter benytter denne funksjonaliteten for å vise detaljer om gjeldende spor.[p]I de fleste tilfeller, vil SwissCenter automatisk kunne avgjøre om din spiller støtter dette, men dersom du opplever problemer er det mulig å overstyre denne innstillingen her.[p]Innstillingene betyr: Aktivert - spilleren ber om relevant bilde automatisk. Deaktivert - spilleren ber ikke om slik informasjon automatisk, og SwissCenter benytter spillelisten for å be om at det forespørres om nytt bilde etter et tids intervall. Automatisk - la SwissCenter finne ut hvordan dette skal gjøres.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_STYLE</id>
+        <text>Nå spilles stil</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_STYLE_PROMPT</id>
+        <text>Det originale 'Nå spilles' bildet viser spor detaljer med album grafikk som oppdateres ved bytte av spor.
+Den utvidede versjonen viser spor detaljer med en progresjons søyle og fan grafikk som bakgrunn. Dette valget anbefales for NMT brukere. I NMT oppsettet må du sette 'Bilde overgang' til 'ingen'.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_SUPPORT</id>
+        <text>Nå spilles synkronisering</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NO_ITEMS_TO_DISPLAY</id>
+        <text>Det er ingen elementer å vise</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NO_PLAYLIST</id>
+        <text>Du har ingen aktiv spilleliste.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>NO_SYNOPSIS_AVAILABLE</id>
+        <text>Ingen omtale er tilgjengelig.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ONE_ITEM</id>
+        <text>1 element</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ONE_TRACK</id>
+        <text>1 spor</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>OPENING_THISWEEK</id>
+        <text>Starter denne uken</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>OPTIONS</id>
+        <text>Opsjoner</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>OR</id>
+        <text>- eller -</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ORG_TITLE</id>
+        <text>Endre video/DVD detaljer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ORIGINAL</id>
+        <text>Original</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PAGE</id>
+        <text>Side %s</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASSWORD</id>
+        <text>Passord</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_DATABASE_PATCH</id>
+        <text>Databasen er fullt oppdatert til %s.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_DOTNET2_INSTALLED</id>
+        <text>.NET rammeverk versjon 2 er installert.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_LIVERADIO_TEST</id>
+        <text>LiveRadio parser synes å være ok</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_MIP_MIXABLE</id>
+        <text>Mer enn 50% av din musikk har blitt analysert av MusicIP</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_MUSICIP_TEST</id>
+        <text>MusicIP tjeneste detektert.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_MYSQL_CONNECT</id>
+        <text>Kobling mot MySQL server er ok.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_MYSQL_DB</id>
+        <text>Kobling ot SwissCenter database er ok.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_MYSQL_VERSION</id>
+        <text>Din versjon av MySQL er støttet.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_PHP_CLI</id>
+        <text>En kommando linje versjon av PHP er funnet.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_PHP_EXTRA_MODS</id>
+        <text>Alle anbefalte PHP moduler er tilgjengelige.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_PHP_FONTS</id>
+        <text>En TrueType font for generering av &quot;Spilles av nå&quot; bilder er tilgjengelig.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_PHP_INI</id>
+        <text>Filen &quot;php.ini&quot; ble funnet.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_PHP_REQ_MODS</id>
+        <text>Alle kritiske PHP moduler er tilgjengelige.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_PHP_VERSION</id>
+        <text>Din versjon av PHP er støttet.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_SERVER_SCHED</id>
+        <text>Automatisk søk etter nye mediafiler er støttet.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_SHOUTCAST_TEST</id>
+        <text>ShoutCast parser synes å virke ok</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_SWISSMONITOR_INSTALLED</id>
+        <text>SwissMonitor tjenesten er installert.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_SWISSMONITOR_RUNNING</id>
+        <text>SwissMonitor tjenesten kjører.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_CACHE</id>
+        <text>Les/skriv til SwissCenter hutiglagrings katalog er OK.</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_INI</id>
+        <text>Filen &quot;swisscenter.ini&quot; ble funnet.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_LOCS</id>
+        <text>En eller flere media kataloger har blitt spesfisert.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_LOG</id>
+        <text>Logging er aktivert.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_PLAYLIST</id>
+        <text>Les/skriv til SwissCenter spilleliste katalog er Ok.</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_ROOT_INS</id>
+        <text>Installasjonen ble foretatt av en annen bruker enn &quot;root&quot;.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_SWISS_RW_FILES</id>
+        <text>Kan lese/skrive til SwissCenter installasjons katalogen.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PC_LINK_BACK</id>
+        <text>Tilbake</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PC_LINK_CONFIG</id>
+        <text>Oppsett</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PC_LINK_HOME</id>
+        <text>Hjem</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PC_LINK_INTERNET</id>
+        <text>Internet</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>PC_LINK_MOVIES</id>
+        <text>Video</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PC_LINK_MUSIC</id>
+        <text>Musikk</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PC_LINK_PHOTOS</id>
+        <text>Bilder</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PC_LINK_RADIO</id>
+        <text>Radio</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PC_LINK_TV</id>
+        <text>TV</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PERCENT_SCANNED</id>
+        <text>% Gjennomsøkt</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PGDN</id>
+        <text>Side ned</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PGUP</id>
+        <text>Side opp</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTOS</id>
+        <text>Bilder</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTOS_MUSIC_CHANGE</id>
+        <text>Endre bakgrunns musikk</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTOS_MUSIC_CURRENT</id>
+        <text>Gjeldende spilleliste</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTOS_MUSIC_INFO</id>
+        <text>Bakgrunns musikk</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTOS_MUSIC_NONE</id>
+        <text>Ingen</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTOS_NO_SELECTED</id>
+        <text>Antall bilder</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTOS_TIME_ALL</id>
+        <text>Total spilletid</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTOS_TIME_ONE</id>
+        <text>Tid per bilde</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTO_ALBUM</id>
+        <text>Fotoalbum</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTO_CHANGE_ORDER</id>
+        <text>Endre rekkefølge</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTO_CHANGE_TIME</id>
+        <text>Endre tid per bilde</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTO_ORDER_DATE_DISK</id>
+        <text>Dato endret</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTO_ORDER_DATE_RANDOM</id>
+        <text>Tilfeldig</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTO_ORDER_DATE_TAKEN</id>
+        <text>Dato fotografert</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTO_ORDER_NAME</id>
+        <text>Navn</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTO_PLAY_ORDER</id>
+        <text>Rekkefølge</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTO_TITLE</id>
+        <text>Tittel</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHP_VERSION_TEXT</id>
+        <text>Du må ha minimum versjon 4.3.9 av PHP installert</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PHP_VERSION_TITLE</id>
+        <text>Din PHP versjon er for gammel.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PIN_CHANGE</id>
+        <text>Endre PIN kode</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PIN_CHANGED</id>
+        <text>Din PIN kode har blitt endret</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PIN_CLEAR</id>
+        <text>Slett PIN kode</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PIN_CONFIRM_NEW</id>
+        <text>Bekreft ny PIN kode</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PIN_DELETE_LAST</id>
+        <text>Slett siste siffer</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PIN_ENTER</id>
+        <text>Tast PIN kode</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PIN_ENTER_NEW</id>
+        <text>Tast ny PIN kode</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PIN_ENTER_OLD</id>
+        <text>Tast gammel PIN kode</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PIN_ENTER_PROMPT</id>
+        <text>Tast din PIN kode ved å bruke nummer tastene på fjernkontrollen</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PIN_INCORRECT</id>
+        <text>PIN koden er feil</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PIN_MAXLEN</id>
+        <text>Maks PIN kode lengde er overskredet</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PIN_MISMATCH</id>
+        <text>PIN kodene var ikke like, endring ble ikke gjennomført</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAY</id>
+        <text>Spill av</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLISTS</id>
+        <text>Spillelister</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLISTS_CONFIG_PROMPT</id>
+        <text>Velg en fullt kvalifisert katalog hvor SwissCenter kan lagre spillelister. [p]F.eks.: I Windows kan dette være [em]&quot;C:\Dokumenter og Innstillinger\Robert\Mine Dokumenter\Mine Spillelister&quot;[/em] eller på et LINUX system kan dette være [em]&quot;/home/Robert/Playlists&quot;[/em]</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLISTS_ERROR_DIR</id>
+        <text>Velg en spilleliste katalog</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLISTS_ERROR_INVALID</id>
+        <text>Den spesifiserte katalogen eksisterer ikke</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLISTS_ERROR_PATH</id>
+        <text>Tast inn en fullt spesifisert katalog referanse</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLISTS_ERROR_SIZE</id>
+        <text>Tast en tillatt verdi for maksimum størrelse på spilleliste (mellom 10 og 2000)</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLIST_APPEND</id>
+        <text>Legg til en annen spilleliste</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_AUTOLOAD</id>
+        <text>Automatisk spilleliste</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>PLAYLIST_AUTOLOAD_PROMPT</id>
+        <text>Velg en spilleliste som automatisk skal lastes ved oppstart. Dette er nyttig hvis du ønsker en standard spilleliste for bakgrunnsmusikk ved fremvisning av bilder.</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>PLAYLIST_CLEAR</id>
+        <text>Nullstill spillelisten</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_DELETE</id>
+        <text>Slett en spilleliste</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>PLAYLIST_DELETED</id>
+        <text>Spillelisten er slettet</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>PLAYLIST_DELETE_CONFIRM</id>
+        <text>Slett spilleliste?</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>PLAYLIST_EDIT</id>
+        <text>Editer spillelisten</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_LOAD</id>
+        <text>Last spilleliste</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_LOAD_FAIL</id>
+        <text>Lastet %s spor fra spillelisten, %s ble ikke funnet i databasen.</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>PLAYLIST_LOAD_NEW</id>
+        <text>Last en ny spilleliste</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_LOAD_OK</id>
+        <text>Spillelisten ble lastet.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_NAME_CANCEL</id>
+        <text>Avbryt - uten å lagre</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_NAME_USE</id>
+        <text>Lagre med dette filnavnet</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_SAVE</id>
+        <text>Lagre spilleliste</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_SAVE_CURRENT</id>
+        <text>Lagre aktiv spilleliste</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAYLIST_SAVE_PROMPT</id>
+        <text>Tast inn navnet du ønsker å benytte for din spilleliste</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAY_NOW</id>
+        <text>Spill av nå</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PLAY_TRAILER</id>
+        <text>Spill av trailer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLEASE_SELECT</id>
+        <text>Velg</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PRESS_KEY_NOW</id>
+        <text>Trykk '%s' nå!</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PREVIOUS</id>
+        <text>Foregående</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PRIORITY</id>
+        <text>Prioritet</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>PRIVACY_COMMUNICATION</id>
+        <text>[b]Uspesifiserte e-post/meldinger[/b] [p][ul][li]Vi vil aldri sende uspesifisert e-post.[li]Meldinger som lastes ned til SwissCenter vil kun omhandle egenskaper samt bruk og betjening av programmet. Hvis du ønsker å stoppe også disse meldingene fra å bli lastet ned kan du gjøre dette ved å deaktivere &quot;Nye meldinger&quot; under &quot;Internet tilknytning&quot;.[/ul]</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PRIVACY_DATA_COLLECTION</id>
+        <text>[b]Data innsamling[/b] [p]Informasjon relatert til mediafiler på din maskin samles og lagres i en MySQL database lokalisert på PC'en hvor SwissCenter programvaren er installert. Denne informasjonen benyttes utelukkende for å gi deg adgang til dine mediafiler på enheter som Pinnacle ShowCenter. Ikke på noe tidspunkt vil slik informasjon overføres i noen form til utviklerne av SwissCenter, eller noen andre tredje part. [p]Det er ett unntak til dette:- For å kunne hente ekstra informasjon relatert til video filer (som f.eks. skuespiller, regissør, etc.) vil filnavnet bli sent som en del av søke strengen til den web siden som er valgt på %s bildet. Hvis du foretekker at denne informasjonen ikke skal sendes bør du deaktivere &quot;Last ned ekstra video informasjon&quot;.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PRIVACY_POLICY</id>
+        <text>Fortrolighet</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PROGRAMME</id>
+        <text>Program</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>PROGRAMME_LIST_ALL</id>
+        <text>Alle programmer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>QUICK_HOME</id>
+        <text>Hurtigtast Home</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>QUICK_KEY_A</id>
+        <text>Hurtigtast A</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>QUICK_KEY_B</id>
+        <text>Hurtigtast B</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>QUICK_KEY_C</id>
+        <text>Hurtigtast C</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>QUICK_MOVIE</id>
+        <text>Hurtigtast Video</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>QUICK_MUSIC</id>
+        <text>Hurtigtast Music</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>QUICK_PHOTO</id>
+        <text>Hurtigtast Photo</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>QUICK_PLAY</id>
+        <text>Hurtig avspilling</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>RANGE</id>
+        <text>Fra/til</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>RATING</id>
+        <text>Rangering</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RATING_SCHEME_PROMPT</id>
+        <text>Klassifisering</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RECENTLY_ADDED</id>
+        <text>Nylig lagt til</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>RECENTLY_ADDED_DAYS</id>
+        <text>I løpet av de siste %s dagene</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>RECENTLY_FEATURED</id>
+        <text>Nylig vist</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_MEDIA</id>
+        <text>Nylig lagt til</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_MUSIC</id>
+        <text>Musikk</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_PHOTO</id>
+        <text>Bilder</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENT_VIDEO</id>
+        <text>Video</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFERENCE</id>
+        <text>Referanse</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_ACTOR</id>
+        <text>Selekter på skuespiller</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_ALBUM</id>
+        <text>Selekter på album</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_ARTIST</id>
+        <text>Selekter på artist</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_CERTIFICATE</id>
+        <text>Selekter på serifikat</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_COMPOSER</id>
+        <text>Selekter på komponist.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFINE_DIRECTOR</id>
+        <text>Selekter på regissør</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_GENRE</id>
+        <text>Selekter på genre</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_IPTC_BYLINE</id>
+        <text>Selekter på forfatter</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_IPTC_CAPTION</id>
+        <text>Selekter på beskrivelse</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_IPTC_CITY</id>
+        <text>Selekter på by</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_IPTC_COUNTRY</id>
+        <text>Selekter på land</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_IPTC_DATE_CREATED</id>
+        <text>Selekter på dato opprettet</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_IPTC_KEYWORDS</id>
+        <text>Selekter på nøkkelord</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_IPTC_LOCATION</id>
+        <text>Selekter på sted</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_IPTC_PROVINCE_STATE</id>
+        <text>Selekter på region</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_IPTC_SUPPCATEGORY</id>
+        <text>Selekter på underkategorier</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_PHOTO_ALBUM</id>
+        <text>Selekter på fotoalbum</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_PHOTO_TITLE</id>
+        <text>Selekter på bilde tittel</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFINE_TITLE</id>
+        <text>Selekter på tittel</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_XMP_RATING</id>
+        <text>Selekter på rangering</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_YEAR</id>
+        <text>Selekter på utgivelses år</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFRESH_CLEANUP</id>
+        <text>Rydd i databasen</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>REFRESH_CLEANUP_PROMPT</id>
+        <text>Valget database opprydding vil slette unødvendig informasjon fra databasen som f.ek. media som ikke lenger finnes på disk og skuespillere/regissører det ikke lenger refereres til. Slik informasjon vil øke tiden det tar å søke etter nye media og bør derfor benyttes når media har blitt fjernet.</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>REFRESH_DATABASE</id>
+        <text>Oppdater database</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFRESH_DATABASE_PROMPT</id>
+        <text>Leter etter nye/oppdaterte mediafiler</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFRESH_DIR</id>
+        <text>Oppdaterer</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFRESH_DIR_BUTTON</id>
+        <text>Oppdater</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFRESH_DIR_TEXT</id>
+        <text>SwissCenter søker etter nye og oppdaterte mediafiler og legger de til databasen. Dette vil ta noe tid, vær tålmodig.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFRESH_ITUNES</id>
+        <text>Oppdater iTunes bibliotek</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>REFRESH_ITUNES_PROMPT</id>
+        <text>Velg denne opsjonen for å inkludere skanning av ditt iTunes spilleliste bibliotek i dette media søket.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>REFRESH_METADATA</id>
+        <text>Oppdater metadata</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFRESH_METADATA_PROMPT</id>
+        <text>Velg denne opsjonen for å oppdatere all metadata informasjon. Dette bør kun utføres etter en SwissCenter oppdatering som introduserer ny metadata funksjonalitet.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REFRESH_RUNNING</id>
+        <text>Database oppdatering har blitt startet i bakgrunnen og du kan fortsette å benytte systemet som normalt. Vær dog oppmerksom på at ikke alle mediafiler vil være tilgjengelige for avspilling inntil oppdateringen er fullført. [p]Første gangs oppdatering kan ta ca. 10 minutter for 5,000 mediafiler. Senere oppdateringer vil være langt hurtigere.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>RELEASE_DATE</id>
+        <text>Utgivelses dato</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REMOTE_ACCESS_ERROR</id>
+        <text>Fjern-aksess til [em]SwissCenter konfigurasjons programmet[/em] har blitt deaktivert av sikkerhets grunner.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REMOTE_PROMPT</id>
+        <text>Velg funksjons tast som skal endres:</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>REMOVE_FILTER</id>
+        <text>Fjern filter</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>RESUME_PLAYING</id>
+        <text>Fortsett avspilling</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>RETURN_MAIN_MENU</id>
+        <text>Tilbake til hovedmenyen</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>RETURN_TO_LIST</id>
+        <text>Returner til listen</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>RETURN_TO_SELECTION</id>
+        <text>Tilbake til utvalg</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ROOT_INSTALL_TEXT</id>
+        <text>Du må installere SwissCenter programvaren som bruker &quot;webserver&quot; - &quot;root&quot; installasjoner er ikke støttet.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>ROOT_INSTALL_TITLE</id>
+        <text>Installasjonen ble utført som &quot;root&quot;</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>RSS_ADD_BUTTON</id>
+        <text>Legg til RSS kanal</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ADD_OK</id>
+        <text>RSS kanal har blitt lagt til</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ADD_TITLE</id>
+        <text>Legg til ny RSS kanal</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_AUDIO</id>
+        <text>Lyd</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_CACHE</id>
+        <text>Mellomlager</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_CACHE_LABEL</id>
+        <text>Spesifiser antall meldinger som skal mellomlagres for denne kanalen. Når denne grensen nås vil eldre meldinger bli slettet. Spesifiser '0' for å beholde alle meldinger.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RSS_DEL_BUTTON</id>
+        <text>Fjern valgte RSS kanaler</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_DEL_OK</id>
+        <text>De valgte RSS kanalene har blitt fjernet</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_CACHE</id>
+        <text>Antall RSS meldinger som skal mellomlagres må spesifiseres</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_TITLE</id>
+        <text>Tittel for RSS kanal må spesifiseres</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_TYPE</id>
+        <text>Type RSS kanal må velges</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ERROR_URL</id>
+        <text>URL for RSS kanal må spesifiseres</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_FEEDS</id>
+        <text>RSS kanaler</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_FEED_PROMPT</id>
+        <text>Dette valget åpner for å benytte SwissCenter for å lese RSS kanaler, inklusive video og podcast.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_IMAGE</id>
+        <text>Bilde</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_ITEM_URL</id>
+        <text>Gå til URL</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_LAST_UPDATED</id>
+        <text>Sist oppdatert:</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_PLAY_LINK</id>
+        <text>Spill av filen</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_REFRESH</id>
+        <text>Oppdater kanal(er)</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_TITLE</id>
+        <text>Tittel</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_TYPE</id>
+        <text>Type</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_UPDATE</id>
+        <text>SwissCenter oppdaterer dine RSS kanal(er). Dette kan ta flere minutter så vær tålmodig.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_UPDATE_OK</id>
+        <text>RSS informasjon oppdatert</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_URL</id>
+        <text>URL</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RSS_VIDEO</id>
+        <text>Video</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>RUNNING_TIME</id>
+        <text>Spilletid</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SAVE_SETTINGS</id>
+        <text>Lagre innstillinger</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SAVE_SETTINGS_OK</id>
+        <text>Innstillinger har blitt lagret</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_ALL</id>
+        <text>Alle</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_AUTO_TITLE</id>
+        <text>Automatisk media oppdatering</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_AUTO_TXT</id>
+        <text>Søk etter nye/endrede mediafiler vil blit utført den angitte tiden for hver av ukedagene spesifisert nedenfor. Det anbefales at du søker etter nye mediafiler daglig på et tidspunkt når det er usannsynlig at du benytter PC'en.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_DATE_PROMPT</id>
+        <text>Dato</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_ERROR_CHARS</id>
+        <text>Lovlige tegn er %s</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_ERROR_FIELDS</id>
+        <text>Du må alltid spesifisere en verdi for minutt</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>SCHEDULE_ERROR_HOUR</id>
+        <text>Tast en lovlig time (mellom 0 og 23)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_ERROR_MIN</id>
+        <text>Tast et lovlig minutt (mellom 0 og 59)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_HOUR_PROMPT</id>
+        <text>Time</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_MEDIA_ONLY</id>
+        <text>Kun media</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_MINUTE_PROMPT</id>
+        <text>Minutt</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_MONTH_PROMPT</id>
+        <text>1 = januar, 2 = februar, etc</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_NONE</id>
+        <text>Automatisk media oppdatering - ikke lenger aktiv</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_NOTES</id>
+        <text>[li]* betyr alle mulige verdier. [li]Flere verdier kan spesifiseres ved å skille de med komma (1,5). [li]Fra/til verdier kan spesifiseres ved bruk av bindestrek (1-5). [li]Disse kan kombineres (1-4,7).</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_RSS_ONLY</id>
+        <text>Kun RSS</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SCHEDULE_TITLE</id>
+        <text>Planlagte oppgaver</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_UPDATED</id>
+        <text>Automatisk media oppdatering - tidsplan oppdatert</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_UPDATE_BUTTON</id>
+        <text>Oppdaterings tidsplan</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SCHEDULE_WEEKDAY_PROMPT</id>
+        <text>1 = mandag, 2 = tirsdag, etc</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SEARCH</id>
+        <text>Søk</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SEARCH_ANYWHERE</id>
+        <text>Hele navnet</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SEARCH_CLEAR</id>
+        <text>Nullstill søk</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SEARCH_NO</id>
+        <text>Nei, begynn et nytt søk</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SEARCH_NO_ITEMS</id>
+        <text>Det er ingen elementer som tilfredsstiller ditt søk</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SEARCH_START</id>
+        <text>Først i navnet</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SEARCH_WIKIPEDIA</id>
+        <text>Oppslag i Wikipedia</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SEARCH_YES</id>
+        <text>Ja, søk allikevel</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SECONDS</id>
+        <text>%s sekunder</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SELECT_ALL</id>
+        <text>Velg alle</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SELECT_CATEGORY</id>
+        <text>Velg en kategori:</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SELECT_ENTIRE_ALBUM</id>
+        <text>Velg hele albumet</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SELECT_OPTION</id>
+        <text>Velg et alternativ:</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SELECT_RSS_FEED</id>
+        <text>Velg RSS kanal fra listen:</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>SELECT_USER</id>
+        <text>Velg en bruker:</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SERIES</id>
+        <text>Serier</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SERVICE_INSTALL</id>
+        <text>Installer tjeneste</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SERVICE_START</id>
+        <text>Start tjeneste</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SERVICE_STOP</id>
+        <text>Stopp tjeneste</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SERVICE_UNINSTALL</id>
+        <text>Avinstaller tjeneste</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SETUP</id>
+        <text>Konfigurasjon</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>SETUP_CHANGE_UI</id>
+        <text>Endre utseende på bruker grensesnitt</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SETUP_REMOTE</id>
+        <text>Oppsett for fjernkontroll</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SETUP_SEARCH_ALL</id>
+        <text>Søk i alle kataloger</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SETUP_SEARCH_CATEGORY</id>
+        <text>Søk etter en spesifikk kategori</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SETUP_SEARCH_NEW_MEDIA</id>
+        <text>Søk etter mediafiler</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SETUP_SEARCH_TYPE</id>
+        <text>Søk etter en spesifikk media type</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SETUP_SEARCH_TYPE_TITLE</id>
+        <text>Velg media type</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SETUP_TITLE</id>
+        <text>Preferanser og oppsett</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SETUP_UPDATE_SC</id>
+        <text>Oppdater SwissCenter</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SETUP_UPDATE_SC_RELEASE</id>
+        <text>Oppgrader til siste stabile versjon</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>SETUP_UPDATE_SC_SVN</id>
+        <text>Oppgrader til siste beta versjon</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>SHUFFLE_OFF</id>
+        <text>Tilfeldig rekkefølge av</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SHUFFLE_ON</id>
+        <text>Tilfeldig rekkefølge på</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SIMESE_SCHED_PROMPT</id>
+        <text>Du kan starte en automatisk oppdatering av SwissCenter databasen gjennom å høyre klikke på Simese ikonet i oppgave panelet og velge [i]Update media scheduler[/i].</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SLIDESHOW</id>
+        <text>Lysbilde visning</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SORT_BITRATE</id>
+        <text>Sorter etter bit rate</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_CATEGORY</id>
+        <text>Sorter etter kategori</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_DATE</id>
+        <text>Sorter etter dato</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_FAVORITE</id>
+        <text>Sorter etter favoritter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_ID</id>
+        <text>Sorter etter sist</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_NAME</id>
+        <text>Sorter etter navn</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_RATING</id>
+        <text>Sorter etter rangering</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_TIME</id>
+        <text>Sorter etter tid</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_VIEWS</id>
+        <text>Sorter etter visninger</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SPOKEN_LANGUAGE</id>
+        <text>Språk</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>STARRING</id>
+        <text>Skuespillere</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>START_OF_NAME</id>
+        <text>Først i navnet</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>START_SLIDESHOW</id>
+        <text>Begynn lysbilde visning</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>STATISTICS</id>
+        <text>Statistikk</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>STATUS</id>
+        <text>Status</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>STYLE_CHECK_ONLINE</id>
+        <text>Last ned styles fra %s</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>STYLE_CHOOSE</id>
+        <text>Velg style</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>STYLE_DOWNLOAD</id>
+        <text>Last ned style</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>STYLE_DOWNLOADING</id>
+        <text>Laster ned style - vent.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>STYLE_NONE_AVAILABLE</id>
+        <text>Det er ingen styles tilgjengelig</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>STYLE_SHOW_INSTALLED</id>
+        <text>Vis installerte styles</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUBSCRIPTIONS</id>
+        <text>Abonnement</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SUPPORT_CLIENTS_TITLE</id>
+        <text>Klienter som har vært pålogget</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_CLINTS_TABLE</id>
+        <text>IP addresse, Agent streng</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_DB_CONN_TABLE</id>
+        <text>Tilknytnings detaljer</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_DB_DB_LIST</id>
+        <text>Databaser</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_DB_TABLE_LIST</id>
+        <text>Tabell, Rader</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_DB_TITLE</id>
+        <text>Database innstillinger</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_PROG_HEADINGS</id>
+        <text>Program, Katalog</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_PROG_TITLE</id>
+        <text>Program kataloger</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_SYSPREF_TABLE</id>
+        <text>Preferense, Innstilling</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_SYSPREF_TITLE</id>
+        <text>System preferanser</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_TITLE</id>
+        <text>Brukerstøtte</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_TXT</id>
+        <text>Hvis du opplever problemer med SwissCenter, vennligst legg inn en beskrivelse av problemet du har og annen relevant informasjon (som f.eks. operativsystem) til [em]Help forum[/em] på %s web siden. [p] Alt eller deler av informasjonen vist under kan være nødvendig for å løse ditt problem.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_USRPREF_TABLE</id>
+        <text>Bruker, Preferanse, Innstilling</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SUPPORT_USRPREF_TITLE</id>
+        <text>Bruker preferanser</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_ACTION_FAILED</id>
+        <text>SwissCenter kunne ikke utføre den valgte operasjonen - sjekk support loggen.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_ACTION_SUCCESS</id>
+        <text>Den valgte operasjonen ble utført i forhold til SwissMonitor tjenesten.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_DESCRIPTION</id>
+        <text>SwissMonitor tjenesten er en enkel Windows tjeneste som vil overvåke dine definerte media kataloger for endring av filer (inklusive nylig opprettede og slettede filer) og informere SwissCenter slik at din database kan oppdateres tilsvarende. Allikevel kan det være behov for å kjøre en fullstendig gjennomsøking fordi endringer i noen tilfeller ikke vil kunne fanges opp.[p][b]Merk:[/b] Hvis du benytter UNC referanser i dine media kataloger  (eks. &amp;quot;\\nas\filmer&amp;quot;) må du benytte kontroll panel - tjenester og endre SwissMonitor tjenesten slik at den kjøres med din brukers rettigheter.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SWISSMONITOR_TITLE</id>
+        <text>SwissMonitor tjeneste</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SYNOPSIS</id>
+        <text>Sammendrag</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SYSPREF_ADD_NEW</id>
+        <text>Legg til en system innstilling</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SYSPREF_DEL_BUTTON</id>
+        <text>Slett valgte innstillinger</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>SYSPREF_EDIT_EXISTING</id>
+        <text>Endre en system innstilling</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TABLE_DEFINITION</id>
+        <text>Definisjon av tabell: %s</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TAG</id>
+        <text>Tagg</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TASK_SCHEDULER</id>
+        <text>Oppgave planlegger</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEMES</id>
+        <text>Temaer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEMES_PROMPT</id>
+        <text>Temaer blir automatisk lastet ned for filmer og TV serier av &amp;amp;quot;themoviedb&amp;amp;quot; and &amp;amp;quot;TheTVDB&amp;amp;quot; parserne når detajer legges til for nye media. Velg en tittel fra nedtrekks menyen og velg så et tema fra tilgjengelige ikonene. For å bruke et valgt tema må du velge et 'Bruk på ...' alternativ. Hvis flere tema velges for en tittel vil de vekselvis benyttes på de valgte sidene.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_APPLY</id>
+        <text>Bruk tema valgene</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_APPLY_OK</id>
+        <text>Tema ble lagret.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_EFFECTS</id>
+        <text>Effekter:</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_FLIP_IMAGE</id>
+        <text>Speilvendt</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_GREYSCALE</id>
+        <text>Gråskala</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_ON_SERIES</id>
+        <text>Bruk på episode utvalgs siden</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_ON_SYNOPSIS</id>
+        <text>Bruk på sammendrag siden</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_PREVIEW_THUMBS</id>
+        <text>Forhåndsvisning av tilgjengelige temaer for %s.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_SAVED_SUCCESS</id>
+        <text>Tema ble lagret.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_SETTINGS</id>
+        <text>Innstillinger:</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_SHOW_BANNER</id>
+        <text>Vis overskrift</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THEME_SHOW_IMAGE</id>
+        <text>Vis bilde</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THIS_MONTH</id>
+        <text>Denne måneden</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THIS_WEEK</id>
+        <text>Denne uken</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THUMBNAIL_VIEW</id>
+        <text>Ikon visning</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TIME</id>
+        <text>Tid</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TIME_DAY_SHORT</id>
+        <text>d</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TIME_HOUR_SHORT</id>
+        <text>t</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TIME_MINUTE_SHORT</id>
+        <text>m</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TIME_SECOND_SHORT</id>
+        <text>s</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TITLE</id>
+        <text>Tittel</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TODAY</id>
+        <text>I dag</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_BROWSE_CATEGORY</id>
+        <text>Filtrer etter kategori</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_BROWSE_CHANNELS</id>
+        <text>Bla etter kanaler</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_BROWSE_COUNTRY</id>
+        <text>Filtere etter land</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_CHANNELS_AVAILABLE</id>
+        <text>Det er %s kanaler tilgjengelige med valgte filtere.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_CHANNELS_UPDATE_MSG</id>
+        <text>Kanal listen oppdateres - vennligst vent</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_INTERNET_TV</id>
+        <text>TOMA - Internet TV</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_MEDIA_TYPES</id>
+        <text>Media typer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_MEDIA_TYPES_PROMPT</id>
+        <text>Velg media typene som skal vises ved blaing etter kanaler. Du bør kun velge typer som er kompatible med din media spiller.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_REMOVE_FILTER</id>
+        <text>Fjern filtere</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_RP</id>
+        <text>Real Media</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_CHANNELS_FAIL</id>
+        <text>Kanal listen kunne ikke oppdateres</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_CHANNELS_OK</id>
+        <text>%s kanaler ble oppdatert</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_CHANNELS_TIME_FAIL</id>
+        <text>Kan ikke oppdatere kanaler, sist oppdatert for %s timer siden</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_MEDIA_FAIL</id>
+        <text>Du har ikke valgt noen media typer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_TEXT</id>
+        <text>%s web siden har som mål å bli det største og mest oppdaterte arkivet av Internet TV kanaler (kanaler som er fritt tilgjengelige via Internet). Vi har kanaler fra hele verden og databasen oppdateres hver dag av våre brukere.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_TV_UPDATE_OK</id>
+        <text>TOMA innstillinger ble lagret</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_UPDATE_CHANNELS</id>
+        <text>Oppdater kanal listen</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_UPDATE_CHANNELS_TEXT</id>
+        <text>Kanal listen vedlikeholdes og lagres av TOMA utvikleren - Internet TV. For å begrense båndbredde er det ikke tillatt å oppdatere listen mer enn en gang hver 24. time.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_WA</id>
+        <text>Nullsoft video</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOMA_WM</id>
+        <text>Windows media</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOP_FAVORITES</id>
+        <text>Topp favoritter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TOP_RATED</id>
+        <text>Topp rangering</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TRACKS</id>
+        <text>Spor</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TRACKS_ADDED_TEXT</id>
+        <text>Sporene du valgte har blitt lagt til spillelisten.[p] For å spille av sporene i spillelisten eller for å endre spillelisten, trykker du på %s tasten på fjernkontrollen og velger deretter %s opsjonen.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>TRACKS_ADDED_TITLE</id>
+        <text>Spor lagt til</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TRACK_LENGTH</id>
+        <text>Varighet</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TRACK_NAME</id>
+        <text>Navn på spor</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TRAILER_LOCATION</id>
+        <text>Tariler plassering</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TRANS_CLOSE_VERTICAL</id>
+        <text>Lukk vertikalt</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_FADE_BLACK</id>
+        <text>Visk ut til sort</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_INTERLACE</id>
+        <text>Miks bilder</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_NO_EFFECT</id>
+        <text>Ingen effekt</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_OPEN_VERTICAL</id>
+        <text>Åpne vertikalt</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_RANDOM</id>
+        <text>Blandet</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_SPLIT_VERTICAL_1</id>
+        <text>Del vertikalt 1</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_SPLIT_VERTICAL_2</id>
+        <text>Del vertikalt 2</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_WIPE_DOWN</id>
+        <text>Slett nedover</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TRANS_WIPE_UP</id>
+        <text>Slett oppover</text>
+        <version>1.20.1</version>
+      </string>
+      <string>
+        <id>TTF_FONT</id>
+        <text>TrueType font</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TTF_FONT_PROMPT</id>
+        <text>Font som skal benyttes ved visning av spor informasjon på &quot;Spilles av nå&quot; bildet, hvis støttet (og aktivert). Tast inn navnet på en font fil med full bane til filen, eller la den være blank for å forsøke å auto-detektere en font.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TVID_RESET_DEFAULT</id>
+        <text>Tilbakestill TVID koder til standardverdier</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TVSERIES</id>
+        <text>TV serier</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>TV_DETAILS</id>
+        <text>TV detaljer</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPRESSIONS</id>
+        <text>TV makroer</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ADD</id>
+        <text>Legg til en ny TV makro</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ADDED_OK</id>
+        <text>TV makro lagt til</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ADD_BUTTON</id>
+        <text>Legg til TV makro</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_DEFAULTS</id>
+        <text>Tibakestill til standard verdier</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_DELETE_OK</id>
+        <text>TV makro(er) slettet</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_DEL_BUTTON</id>
+        <text>Slett valgte makroer</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ERROR_INVALID</id>
+        <text>Skriv inn en gyldig makro</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_ERROR_MISSING</id>
+        <text>Skriv inn en prioritet og en makro</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_PROMPT</id>
+        <text>Detaljer for en TV serie bestemmes ut fra filnavn og bane ved bruk av makroer. Filen sammenlignes med de følgende makroene inntil et treff finnes. Disse makroene inneholder markører for program {p}, serier {s}, episode {e} og tittel {t}. Du må ha minst en av disse markørene i hver makro for å trekke ut detaljer. Hvis du har behov for assistanse med dette kan du stille spørsmål i forumet.</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST</id>
+        <text>Test makroer</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_BUTTON</id>
+        <text>Test makroer</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_FAILED</id>
+        <text>Ingen treff for noen makroer</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_PROMPT</id>
+        <text>Spesifiser et fullt filnavn for å teste hvorvidt dine gjeldende makroer vil kunne identifisere korrekte detaljer: Eks.: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep End.avi</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_TEST_SUCCESS</id>
+        <text>Treff %s. Funnet program: %s, serie: %s, episode: %s, tittel: %s</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_EXPR_UPDATE_OK</id>
+        <text>TV makro oppdatert</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>TV_OPTIONS</id>
+        <text>TV serier</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UNKNOWN_ERROR</id>
+        <text>Ukjent feil. Registrer en feilrapport i forumet som beskriver aktiviteten du gjorde frem til feilen inntraff.</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>UNRATED_CERTIFICATE</id>
+        <text>Ikke rangert sertifikat</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UNRATED_CERT_PROMPT</id>
+        <text>Du bør spesifisere et standard sertifikat som skal benyttes for alle filer i denne media katalogen som ikke har noe eksplisitt sertifikat.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UPDATE</id>
+        <text>Oppdater</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UPDATE_CHECK</id>
+        <text>Oppdaterings kontroll</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UPDATE_CHECK_PROMPT</id>
+        <text>En daglig oppdaterings kontroll utføres mot web siden %s for å avgjøre om en ny versjon av SwissCenter er tilgjengelig. Hvis en oppdatering er tilgjengelig vil et ikon vises på hovedmenyen som indikasjon.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UPDATE_FAILED</id>
+        <text>Oppdatering feilet - prøv igjen senere</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UPDATE_NONE</id>
+        <text>Det er ingen oppdateringer tilgjengelig nå</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UPDATE_SUCCESS</id>
+        <text>Oppdatering fullført</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UPDATE_TITLE</id>
+        <text>Online oppdatering</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UPDATING</id>
+        <text>Oppdaterer...</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UPDATING_PLEASE_WAIT</id>
+        <text>Oppdaterer - vent</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UPLOADS</id>
+        <text>Opplastinger</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>UPLOAD_FAILED</id>
+        <text>Opplasting av fil feilet.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UPLOAD_FILE</id>
+        <text>Last opp fil</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>UPPERCASE</id>
+        <text>Store bokstaver</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>URL</id>
+        <text>URL</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ADD_BUTTON</id>
+        <text>Legg til URL</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ADD_OK</id>
+        <text>URL lagt til</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ADD_TITLE</id>
+        <text>Legg til en ny URL</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_AUDIO</id>
+        <text>Audio kanal</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_DEL_BUTTON</id>
+        <text>Fjern valgte URL'er</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_DEL_OK</id>
+        <text>De valgte URL'ene har blitt fjernet</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ERROR_CAT</id>
+        <text>Velg en kategori</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ERROR_CERT</id>
+        <text>Velg et sertifikat</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ERROR_TITLE</id>
+        <text>Tast inn et navn for denne URL'en</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ERROR_TYPE</id>
+        <text>Velg URL type</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_ERROR_URL</id>
+        <text>Tst inn en URL</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_TITLE</id>
+        <text>Tittel</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_TYPE</id>
+        <text>URL type</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_UPDATE_OK</id>
+        <text>URL informasjon oppdatert</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_VIDEO</id>
+        <text>Video kanal</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>URL_WEB</id>
+        <text>Web side</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>USERNAME</id>
+        <text>Brukernavn</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_ADDED_OK</id>
+        <text>Ny bruker opprettet</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_ADD_BUTTON</id>
+        <text>Legg til bruker</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_ADD_TITLE</id>
+        <text>Bruker administrasjon</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_ADMIN_PROMPT</id>
+        <text>En Super Bruker vil ha tilgang til flere valg i media avspilleren. Dette inkluderer muligheten til å slette media.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_CONFIG_TITLE</id>
+        <text>Bruker administrasjon</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_DEL_BUTTON</id>
+        <text>Fjern valgte brukere</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_DEL_OK</id>
+        <text>De valgte brukerne har blitt fjernet</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_EDIT_OK</id>
+        <text>Den valgte brukeren har blitt endret</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_ERROR_CERT</id>
+        <text>Spesifiser maks sertifikat som denne brukeren kan se på</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_ERROR_DEFAULT</id>
+        <text>Standard brukeren kan ikke fjernes</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_ERROR_EXISTS</id>
+        <text>Brukeren eksisterer, forsøk med et annet navn</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_ERROR_NAME</id>
+        <text>Tast inn brukernavn</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_MAX_CERT</id>
+        <text>Maks sertifikat</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_MAX_CERT_PROMPT</id>
+        <text>Tast inn [em]maks[/em] sertifikat som denne brukeren tillates å se på. Elementer som har et høyere sertifikat enn det du spesifiserer her vil [em]ikke[/em] være synlige for denne brukeren.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_NAME_PROMPT</id>
+        <text>Tast inn et navn for denne brukeren slik det skal fremkomme i SwissCenter.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_PIN</id>
+        <text>PIN</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_PIN_PROMPT</id>
+        <text>Du kan også velge å beskytte denne brukeren med en PIN kode (inntil 10 siffer lang)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USERS_TABLE_HEADINGS</id>
+        <text>Navn, PIN, Maks sertifikat, Super Bruker</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USER_CHANGE</id>
+        <text>Velg bruker</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>USER_CHANGED</id>
+        <text>Bruker har blitt endret</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>USE_BANNER</id>
+        <text>Bruk overskrifter</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>VALUE</id>
+        <text>Verdi</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>VIDEO</id>
+        <text>Video</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>VIDEOS</id>
+        <text>Videoer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>VIDEO_INFO</id>
+        <text>Video info</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>VIEWED</id>
+        <text>Vist</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>VIEWED_BY</id>
+        <text>Sett av</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>VIEW_ALL</id>
+        <text>Vis alt</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>VIEW_PHOTO</id>
+        <text>Se på bilder</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>VIEW_UNVIEWED</id>
+        <text>Vis ikke avspilt</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>VIEW_WEATHER</id>
+        <text>Se på værvarsel</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WATCH_DVD</id>
+        <text>Se på DVD</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>WATCH_INTERNET_TV</id>
+        <text>Se på Internet TV</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>WATCH_MOVIE</id>
+        <text>Se på video</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WATCH_TV</id>
+        <text>Se på TV</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_5DAY</id>
+        <text>Vis fem dagers varsel</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_BACK_TO_SEARCH</id>
+        <text>Tilbake til søkesiden</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_CHANNEL</id>
+        <text>The Weather Channel</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_CURRENT</id>
+        <text>Gjeldende forhold</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_FEELS_LIKE</id>
+        <text>Oppleves som</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_FORECAST</id>
+        <text>Værmeldinger</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_FORECAST_PROMPT</id>
+        <text>Informasjon om gjeldende værforhold (eller 5 dagers varsel) blir lastet ned fra %s ved behov.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_HOME</id>
+        <text>Velg som hjemme</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_HUMIDITY</id>
+        <text>Fuktighet</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_IMPERIAL</id>
+        <text>Bytt til imperisk</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_LOCATION</id>
+        <text>Velg et annet sted</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_MATCHING</id>
+        <text>Byer som omfattes av ditt søk</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_MATCHING_TITLE</id>
+        <text>Byer funnet</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_METRIC</id>
+        <text>Bytt til metrisk</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_NO_CITY</id>
+        <text>Det er ingen byer som omfattes av ditt søk etter %s i SwissCenter databasen.[p] Ønsker du å søke i %s for mulige treff allikevel? (tast inn fullt bynavn før du søker)</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_NO_MATCHING</id>
+        <text>%s tilbyr ikke værvarsel for %s.</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_PRESSURE</id>
+        <text>Trykk</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_SELECT_CITY</id>
+        <text>Velg by :</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_UV</id>
+        <text>UV indeks</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_VISIBILITY</id>
+        <text>Sikt</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_WIND</id>
+        <text>Vind</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEEKDAY</id>
+        <text>Ukedag</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WEEKEND_BOXOFFICE</id>
+        <text>Weekend Box Office</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>WIKI_LOOKUP</id>
+        <text>Wikipedia oppslag</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>WIKI_LOOKUP_PROMPT</id>
+        <text>Når denne opsjonen er valgt vil SwissCenter inkludere et valg for oppslag av informasjon (som f.eks. artister og filmer) i Wikipedia.</text>
+        <version>1.20</version>
+      </string>
+      <string>
+        <id>XML_SAVE</id>
+        <text>Bruk XML sidecar filer</text>
+        <version>1.21</version>
+      </string>
+      <string>
+        <id>XMP_RATING</id>
+        <text>Rangering</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>YEAR</id>
+        <text>År</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>YES</id>
+        <text>Ja</text>
+        <version>1.19</version>
+      </string>
+      <string>
+        <id>YOUTUBE</id>
+        <text>YouTube</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_DESC</id>
+        <text>YouTube %s er en web side for video deling der brukere kan laste opp og dele videoer.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_HD</id>
+        <text>Bruk HD</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_HD_PROMPT</id>
+        <text>Alle YouTube videoer kan vises i standard oppløsning (480x360). Ved å velge denne opsjonen vil de vises i en HD (1280x720) versjon hvis tilgjengelig. Dette valget bør ikke benyttes hvis du har problemer med båndbredde når det vises HD innhold.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_PROMPT_GENERAL</id>
+        <text>Generelle videoer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_PROMPT_PERSONAL</id>
+        <text>Egne videoer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_SEARCH_CHANNELS</id>
+        <text>Søk etter kanaler</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_SEARCH_PLAYLISTS</id>
+        <text>Søk i spillelister</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_SEARCH_VIDEOS</id>
+        <text>Søk etter videoer</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_UNKNOWN_USER</id>
+        <text>Ingen bruker med det angitte brukernavnet (%s) ble funnet.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_USERID_PROMPT</id>
+        <text>Hver SwissCenter bruker kan assosieres med et YouTube brukernavn. Hvis du ikke legger inn et brukernavn vil du ikke ha tilgang til abonnement, favoritter, etc.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YOUTUBE_USERNAMES</id>
+        <text>YouTube brukernavn</text>
+        <version>1.22</version>
+      </string>
+    </language>
+  </languages>
+</swisscenter>

@@ -1,0 +1,12 @@
+Dansk,da
+Deutsch,de
+English,en
+English (US),en-us
+Español,es
+Français,fr
+Italiano,it
+Nederlands,nl
+Norsk,no
+Polski,pl
+Português,pt
+Svenska,sv
