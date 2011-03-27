@@ -44,7 +44,7 @@ class wwwIMDBpt extends wwwIMDBcom implements ParserInterface {
   }
 
   protected function getSearchPageHTML() {
-    return "<title>Buscar po Título da IMDb </title>";
+    return "<title>Pesquisa de Título da IMDb </title>";
   }
 
   protected function getNoMatchFoundHTML() {
