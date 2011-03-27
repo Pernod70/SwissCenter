@@ -67,12 +67,12 @@ class parserUtil
     // If we are sure that we found a good result, then get the file details.
     if ($best_match["pc"] > 75) {
       send_to_log(6, 'Possible matches are:', $haystack_copy);
-      send_to_log(6, 'Best guess per cent wise so far without taking numbers into account: [' . $best_match["id"] . '] - ' . $haystack[$best_match["id"]]);
+      send_to_log(6, 'Best guess without taking numbers into account: [' . $best_match["id"] . '] - ' . $haystack[$best_match["id"]]);
       $accuracy = $best_match["pc"];
-      if ($match_array[0]["pc"] > 75) {
-        $index = $match_array[0]["id"];
-        send_to_log(6, "The first result from imdb is >75%, so will use this unless there are numbers involved.");
-      } else
+//      if ($match_array[0]["pc"] > 75) {
+//        $index = $match_array[0]["id"];
+//        send_to_log(6, "The first result from imdb is >75%, so will use this unless there are numbers involved.");
+//      } else
         $index = $best_match["id"];
 
       $number_in_title = preg_replace("/[^0-9]/", "", $needle);
@@ -219,7 +219,7 @@ class parserUtil
     );
     $count = count($array);
     for ($i = 0; $i < $count; $i++) {
-      $pos = strpos(strtoupper($title), $array[$i]);
+      $pos = strpos(strtoupper($title.' '), $array[$i]);
       if ($pos != FALSE)
         $title = substr($title, 0, $pos).' ';
     }
