@@ -24,7 +24,7 @@
     echo '<p><b>'.str('YOUTUBE_USERNAMES').'</b>';
 
     foreach ( db_toarray("select * from users order by name") as $row)
-      form_input($row["USER_ID"], $row["NAME"], 30, '', get_user_pref('YOUTUBE_USERNAME', '', $row["USER_ID"]));
+      form_input($row["USER_ID"], $row["NAME"], 30, '', get_user_pref('YOUTUBE_USERNAME', '', $row["USER_ID"]), true);
 
     form_label(str('YOUTUBE_USERID_PROMPT'));
 

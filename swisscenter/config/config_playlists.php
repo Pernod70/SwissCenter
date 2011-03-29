@@ -31,9 +31,9 @@
     form_hidden('action','UPDATE');
     form_input('location',str('LOCATION'),50,'',get_sys_pref('PLAYLISTS'));
     form_label(str('PLAYLISTS_CONFIG_PROMPT'));
-    form_input('itunes',str('ITUNES_LIBRARY'),50,'',get_sys_pref('ITUNES_LIBRARY'));
+    form_input('itunes',str('ITUNES_LIBRARY'),50,'',get_sys_pref('ITUNES_LIBRARY'),true);
     form_label(str('ITUNES_CONFIG_PROMPT'));
-    form_list_static('autoload',str('PLAYLIST_AUTOLOAD'),$playlists,get_sys_pref('PLAYLIST_AUTOLOAD',''),false,false);
+    form_list_static('autoload',str('PLAYLIST_AUTOLOAD'),$playlists,get_sys_pref('PLAYLIST_AUTOLOAD',''),true,false);
     form_label(str('PLAYLIST_AUTOLOAD_PROMPT'));
     form_input('size',str('MAX_PLAYLIST_SIZE'),10,'',max_playlist_size());
     form_label(str('MAX_PLAYLIST_SIZE_PROMPT'));
