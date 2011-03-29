@@ -24,7 +24,7 @@
   $latest_stable_svn = $releases[$latest_stable];
 
   // Available SVN revision
-  $latest_svn = svn_latest_revision();
+  $latest_svn = max(svn_latest_revision(), $latest_stable_svn);
 
   page_header( str('SETUP_UPDATE_SC'),'','',1,false,'','PAGE_CONFIG');
 
