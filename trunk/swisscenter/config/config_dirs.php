@@ -96,7 +96,7 @@
     form_hidden('action','NEW');
     form_input('location',str('LOCATION'),50,'',un_magic_quote($_REQUEST['location']));
     form_label(str('LOCATION_PROMPT'));
-    form_list_static('share',str('NETWORK_SHARE'), $share_list, un_magic_quote($_REQUEST['share']));
+    form_list_static('share',str('NETWORK_SHARE'), $share_list, un_magic_quote($_REQUEST['share']), true);
     if (count($share_opts)==1)
       form_label(str('NETWORK_SHARE_MSG'));
     else

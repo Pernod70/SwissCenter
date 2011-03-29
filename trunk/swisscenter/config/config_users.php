@@ -44,7 +44,7 @@
     form_label(str('USERS_NAME_PROMPT'));
     form_list_dynamic("cert", str('USERS_MAX_CERT'), get_cert_list_sql(), $_REQUEST["cert"]);
     form_label(str('USERS_MAX_CERT_PROMPT'));
-    form_input('pin',str('USERS_PIN'),5,10);
+    form_input('pin',str('USERS_PIN'),5,10,'',true);
     form_label(str('USERS_PIN_PROMPT'));
     form_list_static("admin",str('ADMIN'),array( str('YES')=>1,str('NO')=>0), $_REQUEST["admin"]);
     form_label(str('USERS_ADMIN_PROMPT'));

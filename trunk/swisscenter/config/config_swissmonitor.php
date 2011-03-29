@@ -87,9 +87,9 @@
       form_start('index.php', 200);
       form_hidden('section','SWISSMONITOR');
       form_hidden('action','UPDATE');
-      form_input('swissport',str('SWISSMONITOR_PORT'),3,'', $simese["port"]);
+      form_input('swissport',str('SWISSMONITOR_PORT'),3,'', $simese["port"], true);
       form_label(str('SWISSMONITOR_PORT_PROMPT'));
-      form_input('swissini',str('SWISSMONITOR_INI'),80,'', os_path($swisscenter["iniPath"]));
+      form_input('swissini',str('SWISSMONITOR_INI'),80,'', os_path($swisscenter["iniPath"]), true);
       form_label(str('SWISSMONITOR_INI_PROMPT'));
       form_submit(str('SAVE_SETTINGS'));
       form_end();
