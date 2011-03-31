@@ -95,7 +95,7 @@
       case 'iradio_stations':
         form_list_static('type',str('IRADIO_TYPE'), $iradio_list, $type, false, false, false);
         form_input('param1', str('IRADIO_STATION'), 20, '', $param1);
-        form_input('param2', str('IRADIO_LOGO'), 20, '', $param2);
+        form_input('param2', str('IRADIO_LOGO'), 20, '', $param2, true);
         form_label(str('IRADIO_STATION_PROMPT'));
         break;
 
