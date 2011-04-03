@@ -121,7 +121,7 @@
      * Ensure that client profiles have been loaded to the database
      */
 
-    if ( db_value("select count(*) from client_profiles") === 0 )
+    if ( db_value("select count(*) from client_profiles") == 0 )
       load_players_config();
 
     /**
