@@ -101,9 +101,10 @@
       $menu->add_item(str('CONNECT_TITLE')          ,'section=CONNECT&action=DISPLAY');
       $menu->add_item(str('INTERNET_URLS')          ,'section=BOOKMARKS&action=DISPLAY');
       $menu->add_item(str('CONFIG_RADIO_OPTIONS')   ,'section=RADIO&action=DISPLAY');
+      $menu->add_item('- '.str('CONFIG_LASTFM_TITLE'),'section=LASTFM&action=DISPLAY');
+      $menu->add_item('- '.str('IRADIO_RADIOTIME')  ,'section=RADIOTIME&action=DISPLAY');
       $menu->add_item(str('INTERNET_TV_OPTIONS')    ,'section=INTERNET_TV&action=DISPLAY');
       $menu->add_item(str('CONFIG_FLICKR')          ,'section=FLICKR&action=DISPLAY');
-      $menu->add_item(str('CONFIG_LASTFM_TITLE')    ,'section=LASTFM&action=DISPLAY');
       $menu->add_item(str('RSS_FEEDS')              ,'section=RSS&action=DISPLAY');
       $menu->add_item(str('YOUTUBE')                ,'section=YOUTUBE&action=DISPLAY');
 
@@ -130,9 +131,9 @@
       $menu->add_item(str('SUPPORT_TITLE')          ,'section=SUPPORT&action=DISPLAY');
       $menu->add_item(str('PRIVACY_POLICY')         ,'section=PRIVACY&action=DISPLAY');
       $menu->add_item(str('LICENSE')                ,'section=LICENSE&action=DISPLAY');
-  }
+    }
 
-  	$menu->display();
+    $menu->display();
   }
 
   // ----------------------------------------------------------------------------------

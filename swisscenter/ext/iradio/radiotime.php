@@ -12,12 +12,16 @@
 
 require_once( realpath(dirname(__FILE__)."/iradio.php"));
 require_once( realpath(dirname(__FILE__)."/../json/json.php"));
+require_once( realpath(dirname(__FILE__)."/../../base/server.php"));
 
 /** RadioTime Specific Parsing
  * @package IRadio
  * @class radiotime
  */
 class radiotime extends iradio {
+  var $partner_id = 'g74oe2T8';
+  var $serial;
+  var $username;
 
   /** Initializing the class
    * @constructor radiotime
@@ -26,8 +30,10 @@ class radiotime extends iradio {
     $this->iradio();
     $this->set_site('opml.radiotime.com');
     $this->set_type(IRADIO_RADIOTIME);
-    $this->search_baseparams = '?render=json&filter=s&locale='.substr(get_sys_pref('DEFAULT_LANGUAGE','en'),0,2);
-    $this->restrict_mediatype('mp3');
+    $this->serial = str_replace(':','',$_SESSION["device"]["mac_addr"]);
+    $this->username = get_user_pref('RADIOTIME_USERNAME');
+    $this->search_baseparams = '?partnerId='.$this->partner_id.'&serial='.$this->serial.'&username='.$this->username.'&render=json&filter=s&locale='.substr(get_sys_pref('DEFAULT_LANGUAGE','en'),0,2);
+    $this->restrict_mediatype('aac','mp3');
   }
 
   /** Parse RadioTime result page and store stations using add_station()
@@ -95,7 +101,7 @@ class radiotime extends iradio {
         {
           foreach ($results["audio"] as $item)
           {
-            if (isset($item["item"]) && $item["item"] == 'station')
+            if ((isset($item["item"]) && $item["item"] == 'station') || $param == 'query=aa2')
             {
               $name       = utf8_decode($item["text"]);
               $format     = $item["formats"];

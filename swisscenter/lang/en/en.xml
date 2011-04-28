@@ -248,9 +248,19 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>BROWSE_EDITORS_PICKS</id>
+        <text>Browse editor's picks</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>BROWSE_FILESYSTEM</id>
         <text>Browse filesystem</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_FREE_STATIONS</id>
+        <text>Browse free stations</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>BROWSE_GENRE</id>
@@ -303,6 +313,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>BROWSE_LOCAL</id>
+        <text>Browse local radio</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>BROWSE_MOVIES</id>
         <text>Browse videos</text>
         <version>1.22</version>
@@ -333,6 +348,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>BROWSE_PRESETS</id>
+        <text>Browse presets</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>BROWSE_RATING</id>
         <text>Browse by rating</text>
         <version>1.22</version>
@@ -361,6 +381,11 @@
         <id>BROWSE_TITLE</id>
         <text>Browse by title</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_TOP_STATIONS</id>
+        <text>Browse top stations</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>BROWSE_TRACK</id>
@@ -646,6 +671,11 @@
         <id>CONFIG_LASTFM_CLEAR</id>
         <text>Clear selected login details</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>CONFIG_LASTFM_CLEAR_OK</id>
+        <text>Login details cleared</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>CONFIG_LASTFM_TITLE</id>
@@ -2286,6 +2316,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>LASTFM_MISSING_LOGIN</id>
+        <text>Please enter username and password</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>LASTFM_PROMPT_GENERAL</id>
         <text>Browse stations</text>
         <version>1.19</version>
@@ -2376,6 +2411,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>LIVE365_LOGIN_HEADINGS</id>
+        <text>User,Live365 Username,Live365 Password</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>LOCATION</id>
         <text>Location</text>
         <version>1.19</version>
@@ -2394,6 +2434,11 @@
         <id>LOGFILE_ERROR</id>
         <text>Unable to write to logfile:</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>LOGIN_INVALID</id>
+        <text>Invalid login details</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>LOOKUP_FAILURE</id>
@@ -3572,6 +3617,11 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <version>1.19</version>
       </string>
       <string>
+        <id>PHOTOS_MUSIC_IRADIO</id>
+        <text>Internet radio</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>PHOTOS_MUSIC_NONE</id>
         <text>None</text>
         <version>1.19</version>
@@ -4052,6 +4102,16 @@ If any details are added/changed on this page then you are requested to submit t
         <id>QUICK_PLAY</id>
         <text>Quick play</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>RADIOTIME_LOGIN_HEADINGS</id>
+        <text>User,RadioTime Username</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>RADIOTIME_MISSING_LOGIN</id>
+        <text>Please enter username</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>RANGE</id>
