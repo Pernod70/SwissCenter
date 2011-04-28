@@ -72,6 +72,8 @@
      $menu->add_item(str('BROWSE_STATION'), url_add_param($current_url, 'by_station','1') );
    $menu->add_item(str('BROWSE_GENRE'), url_add_params($current_url, array('by_method'=>'Browse', 'id'=>'g0')) );
    $menu->add_item(str('BROWSE_COUNTRY'), url_add_params($current_url, array('by_method'=>'Browse', 'id'=>'r0')) );
+   $menu->add_item(str('BROWSE_LOCAL'), url_add_params($current_url, array('by_method'=>'Browse', 'c'=>'local')) );
+   $menu->add_item(str('BROWSE_PRESETS'), url_add_params($current_url, array('by_method'=>'Browse', 'c'=>'presets')) );
    $menu->display(1, style_value("MENU_RADIO_WIDTH"), style_value("MENU_RADIO_ALIGN"));
    echo $radio_logo_end;
    page_footer( page_hist_back_url() );
@@ -80,40 +82,55 @@
  {
    // API method and id parameter
    $method = $_REQUEST["by_method"];
-   $id     = $_REQUEST["id"];
    $view   = isset($_REQUEST["view"]) ? $_REQUEST["view"] : 'links';
    $page   = isset($_REQUEST["page"]) ? $_REQUEST["page"] : 0;
 
-   $iradio->parse($method,'id='.$id,$method.'_'.$id);
+   if ( isset($_REQUEST["id"]) )
+     $iradio->parse($method,'id='.$_REQUEST["id"],$method.'_'.$_REQUEST["id"]);
+   else
+     $iradio->parse($method,'c='.$_REQUEST["c"],$method.'_'.$_REQUEST["c"]);
+
    $stations = $iradio->get_station();
    $links    = $iradio->get_link();
 
-   page_header($iradio->title);
-   echo $radio_logo_start;
-
    send_to_log(8,"Browsing by genre chosen. Main genre list:",$stations);
    $url = url_remove_param($current_url, 'page');
+
    if ($view == 'links' && count($links)>0)
    {
+     page_header($iradio->title);
+     echo $radio_logo_start;
      foreach ($links as $item)
        $array[] = array("name"=>ucwords($item->name), "url"=>url_set_param( $url, 'id', $item->id ) );
      browse_array($url,$array,$page,MEDIA_TYPE_RADIO);
+     echo $radio_logo_end;
+
+     // Output ABC buttons
+     $buttons = array();
+     if (count($stations)>0)
+       $buttons[] = array('text'=>str('IRADIO_VIEW_STATIONS'), 'url'=> url_add_params($current_url, array('view'=>'stations', 'hist'=>PAGE_HISTORY_REPLACE)) );
+
+     page_footer( page_hist_back_url(), $buttons );
    }
    elseif ( count($stations)>0 )
    {
      $view = 'stations';
+     page_header($iradio->title);
+     echo $radio_logo_start;
      display_iradio($url, $stations, $page);
+     echo $radio_logo_end;
+
+     // Output ABC buttons
+     $buttons = array();
+     if (count($links)>0)
+       $buttons[] = array('text'=>str('IRADIO_VIEW_LINKS'), 'url'=> url_add_params($current_url, array('view'=>'links', 'hist'=>PAGE_HISTORY_REPLACE)) );
+
+     page_footer( page_hist_back_url(), $buttons );
    }
-   echo $radio_logo_end;
-
-   // Output ABC buttons
-   $buttons = array();
-   if ($view == 'stations' && count($links)>0)
-     $buttons[] = array('text'=>str('IRADIO_VIEW_LINKS'), 'url'=> url_add_params($current_url, array('view'=>'links', 'hist'=>PAGE_HISTORY_REPLACE)) );
-   elseif ($view == 'links' && count($stations)>0)
-     $buttons[] = array('text'=>str('IRADIO_VIEW_STATIONS'), 'url'=> url_add_params($current_url, array('view'=>'stations', 'hist'=>PAGE_HISTORY_REPLACE)) );
-
-   page_footer( page_hist_back_url(), $buttons );
+   else
+   {
+     page_inform(5,page_hist_back_url(),str('IRADIO_NO_STATIONS'),str('IRADIO_NO_STATIONS_MSG',$_REQUEST["c"]));
+   }
  }
  elseif (isset($_REQUEST["by_station"]))
  {
