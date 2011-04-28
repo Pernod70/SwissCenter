@@ -11,20 +11,20 @@
  #############################################################################
 
 require_once( realpath(dirname(__FILE__)."/iradio.php"));
-require_once( realpath(dirname(__FILE__)."/../json/json.php"));
 
 /** ShoutCast Specific Parsing
  * @package IRadio
  * @class shoutcast
  */
 class shoutcast extends iradio {
+  var $api_key = 'pe1DPxlnBcQpX78Y';
 
   /** Initializing the class
    * @constructor shoutcast
    */
   function shoutcast() {
     $this->iradio();
-    $this->set_site("www.shoutcast.com");
+    $this->set_site('api.shoutcast.com');
     $this->set_type(IRADIO_SHOUTCAST);
   }
 
@@ -44,23 +44,27 @@ class shoutcast extends iradio {
       }
     }
     if (empty($url)) return FALSE;
-    $uri = "http://".$this->iradiosite."$url&cnt=".$this->numresults;
+    $uri = 'http://'.$this->iradiosite.$url.'&cnt='.$this->numresults;
     $this->openpage($uri);
 
-    // Ensure valid ResultSet was returned.
-    if (strpos($this->page, "ResultSet") === false) return FALSE;
-
-    $results = json_decode( $this->page );
-    $stations = $results->ResultSet->stations;
-    $stationcount = count($stations);
+    preg_match_all('/station name="(.*)" mt="(.*)" id="(.*)" br="(.*)" genre="(.*)" ct="(.*)" lc="(.*)"/U', $this->page, $matches);
+    $stationcount = count($matches[0]);
 
     // Organise directory into usable array
-    foreach ($stations as $station)
+    for ($i=0; $i<=$stationcount-1; $i++)
     {
-      $playlist = 'http://yp.shoutcast.com/sbin/tunein-station.pls?id='.$station->id;
-      $this->add_station($station->name,$playlist,$station->br,$station->genre,$station->mt,$station->lc,0,$station->ct,'');
+      $name       = trim(xmlspecialchars_decode($matches[1][$i]));
+      $format     = array_search(trim($matches[2][$i]), array('MP3' => 'audio/mpeg', 'AAC+' => 'audio/aacp'));
+      $playlist   = 'http://yp.shoutcast.com/sbin/tunein-station.pls?id='.$matches[3][$i];
+      $bitrate    = $matches[4][$i];
+      $genre      = ucwords(trim(xmlspecialchars_decode($matches[5][$i])));
+      $nowplaying = ucwords(trim(xmlspecialchars_decode($matches[6][$i])));
+      $listeners  = $matches[7][$i];
+
+      $this->add_station($name,$playlist,$bitrate,$genre,$format,$listeners,0,$nowplaying,'');
     }
-    send_to_log(6,"IRadio: Read $stationcount stations.");
+
+    send_to_log(6,'IRadio: Read '.$stationcount.' stations.');
     if (!empty($cachename)) $this->write_cache($cachename,$this->station);
     return TRUE;
   }
@@ -73,9 +77,9 @@ class shoutcast extends iradio {
    * @param optional string mt MediaType to restrict the search to
    *        (call w/o param to disable restriction)
    */
-  function restrict_mediatype($mtype="audio/mpeg") {
-    send_to_log(6,"IRadio: Restricting to stations in $mtype format");
-    $this->search_baseparams = "&mt=".$mtype;
+  function restrict_mediatype($mtype='audio/mpeg') {
+    send_to_log(6,'IRadio: Restricting to stations in '.$mtype.' format');
+    $this->search_baseparams = '&mt='.$mtype;
   }
 
   /** Searching for a genre
@@ -89,8 +93,8 @@ class shoutcast extends iradio {
    * @return boolean success FALSE on error or nothing found, TRUE otherwise
    */
   function search_genre($name) {
-    send_to_log(6,"IRadio: Initialize genre search for \"$name\"");
-    return $this->parse("/embed_module?reqType=GENRE_SEARCH&s=".str_replace(' ','+',$name),str_replace(' ','_',$name));
+    send_to_log(6,'IRadio: Initialize genre search for "'.$name.'"');
+    return $this->parse('/legacy/genresearch?k='.$this->api_key.'&genre='.str_replace(' ','+',$name),str_replace(' ','_',$name));
   }
 
   /** Searching for a station
@@ -104,8 +108,8 @@ class shoutcast extends iradio {
    * @return boolean success FALSE on error or nothing found, TRUE otherwise
    */
   function search_station($name) {
-    send_to_log(6,"IRadio: Initialize station search for \"$name\"");
-    return $this->parse("/embed_module?reqType=KEYWORD_SEARCH&s=".str_replace(' ','+',$name),str_replace(' ','_',$name));
+    send_to_log(6,'IRadio: Initialize station search for "'.$name.'"');
+    return $this->parse('/legacy/stationsearch?k='.$this->api_key.'&search='.str_replace(' ','+',$name),str_replace(' ','_',$name));
   }
 
   /** Searching by country
@@ -119,7 +123,7 @@ class shoutcast extends iradio {
    * @return boolean success FALSE on error or nothing found, TRUE otherwise
    */
   function search_country($name) {
-    send_to_log(6,"IRadio: Country search not supported - faking it:");
+    send_to_log(6,'IRadio: Country search not supported - faking it:');
     return $this->search_station($name);
   }
 
@@ -133,36 +137,35 @@ class shoutcast extends iradio {
    * @return boolean OK
    */
   function test($iteration=1) {
-    send_to_log(6,"IRadio: Testing ShoutCast interface");
-    $this->set_cache("");       // disable cache
+    send_to_log(6,'IRadio: Testing ShoutCast interface');
+    $this->set_cache('');       // disable cache
     $this->set_max_results(5);  // only 5 results needed (smallest number accepted by ShoutCast website)
-    $this->search_genre("pop"); // init search
+    $this->search_genre('pop'); // init search
     if (count($this->station)==0) { // work around shoutcast claiming to find nothing
       if ($iteration <3) {
-        send_to_log(6,"IRadio: ShoutCast claims to find nothing - retry #$iteration");
+        send_to_log(6,'IRadio: ShoutCast claims to find nothing - retry #'.$iteration);
         ++$iteration;
         return $this->test($iteration);
       } else {
-        send_to_log(3,"IRadio: ShoutCast still claims to have no stations listed - giving up after $iteration tries.");
+        send_to_log(3,'IRadio: ShoutCast still claims to have no stations listed - giving up after '.$iteration.' tries.');
         return FALSE;
       }
     }
     if (empty($this->station[1]->name)) {
-      send_to_log(3,"IRadio: ShoutCast parser returned empty station name");
+      send_to_log(3,'IRadio: ShoutCast parser returned empty station name');
       return FALSE;
     }
     $url = parse_url($this->station[1]->playlist);
     if (empty($url["host"])) {
-      send_to_log(3,"IRadio: ShoutCast parser returned invalid playlist: No hostname given");
+      send_to_log(3,'IRadio: ShoutCast parser returned invalid playlist: No hostname given');
       return FALSE;
     } elseif (empty($url["path"]) && empty($url["query"])) {
-      send_to_log(3,"IRadio: ShoutCast parser returned invalid playlist: No filename given");
+      send_to_log(3,'IRadio: ShoutCast parser returned invalid playlist: No filename given');
       return FALSE;
     }
-    send_to_log(8,"IRadio: ShoutCast parser looks OK");
+    send_to_log(8,'IRadio: ShoutCast parser looks OK');
     return TRUE;
   }
 
 }
-
 ?>
