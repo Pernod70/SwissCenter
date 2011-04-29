@@ -33,7 +33,7 @@ class radiotime extends iradio {
     $this->serial = str_replace(':','',$_SESSION["device"]["mac_addr"]);
     $this->username = get_user_pref('RADIOTIME_USERNAME');
     $this->search_baseparams = '?partnerId='.$this->partner_id.'&serial='.$this->serial.'&username='.$this->username.'&render=json&filter=s&locale='.substr(get_sys_pref('DEFAULT_LANGUAGE','en'),0,2);
-    $this->restrict_mediatype('aac','mp3');
+    $this->restrict_mediatype('aac,mp3');
   }
 
   /** Parse RadioTime result page and store stations using add_station()
