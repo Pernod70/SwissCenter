@@ -22,7 +22,7 @@
   if ( $source == IRADIO_LIVE365 )
   {
     // Determine broadcaster for Live365 station
-    $broadcaster = preg_get('/broadcaster=(.*)&/U', un_magic_quote($_REQUEST["url"]));
+    $broadcaster = preg_get('/play\/(.*)&/U', un_magic_quote($_REQUEST["url"]));
 
     $url = $server."music_radio_image.php?".current_session()."&live365=".$broadcaster.
                    "&st=".urlencode($station)."&x=.jpg";

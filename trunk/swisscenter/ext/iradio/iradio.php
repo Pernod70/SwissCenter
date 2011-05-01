@@ -368,6 +368,20 @@ class iradio {
     return TRUE;
   }
 
+  /** Browse options for this radio type
+   * @class iradio
+   * @method browse_options
+   * @return array options
+   */
+  function browse_options() {
+    $browse_opts = array();
+    if (count($this->get_stations()) > 0)
+      $browse_opts[] = array('text'=>str('BROWSE_STATION'), 'params'=>array('by_station'=>'1') );
+    $browse_opts[] = array('text'=>str('BROWSE_GENRE'),     'params'=>array('by_genre'=>'1') );
+    $browse_opts[] = array('text'=>str('BROWSE_COUNTRY'),   'params'=>array('by_country'=>'1') );
+    return $browse_opts;
+  }
+
   /** Determines file type from mime-type
    * @class iradio
    * @method mime_type_decode

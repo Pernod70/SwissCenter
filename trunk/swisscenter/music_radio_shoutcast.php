@@ -107,10 +107,8 @@
    // Select Browse Type
    page_header(str('IRADIO_SEARCH'));
    echo $radio_logo_start;
-   if (count($iradio->get_stations()) > 0)
-     $menu->add_item(str('BROWSE_STATION'), url_add_param($current_url,'by_station','1') );
-   $menu->add_item(str('BROWSE_GENRE'), url_add_param($current_url,'by_genre','1') );
-   $menu->add_item(str('BROWSE_COUNTRY'), url_add_param($current_url,'by_country','1') );
+   foreach ($iradio->browse_options() as $opt)
+     $menu->add_item($opt["text"], url_add_params($current_url,$opt["params"]) );
    $menu->display(1, style_value("MENU_RADIO_WIDTH"), style_value("MENU_RADIO_ALIGN"));
    echo $radio_logo_end;
    page_footer('music_radio.php');
