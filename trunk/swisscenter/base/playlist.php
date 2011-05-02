@@ -115,7 +115,7 @@ function slideshow_link_by_browser( $params )
 
     // At the moment we only support the current playlist. However, in the future we will allow the
     // user to specify a saved playlist.
-    if ($bg_music_spec != '')
+    if ($bg_music_spec == '*')
     {
       if (count($_SESSION["playlist"]) > 0)
       {
@@ -124,6 +124,11 @@ function slideshow_link_by_browser( $params )
       }
       else
         $audio = 'MUTE';
+    }
+    elseif ($bg_music_spec)
+    {
+      $audio = $bg_music_spec;
+      send_to_log(5,'Using internet radio as background music', $audio);
     }
     else
     {

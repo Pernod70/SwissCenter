@@ -36,10 +36,10 @@
   // What do we output to the user when it comes to describing the currently selected background music?
   if ($music == '')
     $music_txt = str('PHOTOS_MUSIC_NONE');
-  elseif ($music='*')
+  elseif ($music == '*')
     $music_txt = str('PHOTOS_MUSIC_CURRENT');
   else
-    $music_txt = $music;
+    $music_txt = urldecode(preg_get('/st=(.*)&/U', $music));
 
   // Work out what to display
   if ($count == 1)
@@ -88,7 +88,7 @@
     }
 
     $menu->add_item(str('START_SLIDESHOW'), play_sql_list(MEDIA_TYPE_PHOTO,"select media.* from $sql_table $predicate order by $play_order") );
-    search_check_filter( $menu, str('REFINE_PHOTO_ALBUM'),  'title',  $sql_table_all, $predicate, $refine_url );
+    search_check_filter( $menu, str('REFINE_PHOTO_ALBUM'),  'dirname',  $sql_table_all, $predicate, $refine_url );
     search_check_filter( $menu, str('REFINE_PHOTO_TITLE'),  'filename',  $sql_table, $predicate, $refine_url );
     search_check_filter( $menu, str('REFINE_IPTC_BYLINE'),  'iptc_byline',  $sql_table, $predicate, $refine_url );
     search_check_filter( $menu, str('REFINE_IPTC_CAPTION'), 'iptc_caption',  $sql_table, $predicate, $refine_url );
