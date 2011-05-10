@@ -218,7 +218,7 @@ class Image_XMP
 					// Return the XMP text
 					$xmp_data = substr($jpeg_header_data[$i]['SegData'], 29);
 
-					return $xmp_data;
+					return trim($xmp_data);
 				}
 			}
 		}
