@@ -182,10 +182,18 @@ function check_display()
   $core_tests->add_test( $server, check_server_scheduler(), str("PASS_SERVER_SCHED"), str("FAIL_SERVER_SCHED"));
 
   # ----------------------
+  # Wget
+  # ----------------------
+
+  $wget = $component_tests->add_section("Wget ".wget_version(),1);
+
+  $component_tests->add_test( $wget, file_exists(wget_location()), str('PASS_WGET_TEST'),str('FAIL_WGET_TEST','<a href="'.server_address().'config/index.php?section=EXT_FILES&action=DISPLAY">'.str('EXTERNAL_FILES').'</a>').'<p>'.str('WGET_DESC'),FALSE);
+
+  # ----------------------
   # Music IP
   # ----------------------
 
-  $musicip = $component_tests->add_section("MusicIP ".musicip_version(),1);
+  $musicip = $component_tests->add_section("MusicIP ".musicip_version(),2);
 
   $component_tests->add_test( $musicip, musicip_available(TRUE), str('PASS_MUSICIP_TEST'),str('FAIL_MUSICIP_TEST').'<p>'.str('MIP_DESC','<a href="http://www.musicip.com">www.musicip.com</a>'),FALSE);
 
@@ -198,7 +206,7 @@ function check_display()
 
   if (is_windows())
   {
-    $monitor = $component_tests->add_section("SwissMonitor",4);
+    $monitor = $component_tests->add_section("SwissMonitor",3);
     $installed = win_service_installed("SwissMonitorService");
     $component_tests->add_test( $monitor, $installed , str('PASS_SWISSMONITOR_INSTALLED'),str('FAIL_SWISSMONITOR_INSTALLED').'<p>'.str('SWISSMONITOR_DESCRIPTION'));
 
