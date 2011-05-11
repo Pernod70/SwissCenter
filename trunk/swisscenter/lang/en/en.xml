@@ -1128,6 +1128,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>EXTERNAL_FILES</id>
+        <text>External File Locations</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>EXTRAS_TEST_TITLE</id>
         <text>Additional Components</text>
         <version>1.19</version>
@@ -1311,6 +1316,11 @@
         <id>FAIL_SWISS_PLAYLIST</id>
         <text>Unable to write to the SwissCenter playlists directory (%s).</text>
         <version>1.20.1</version>
+      </string>
+      <string>
+        <id>FAIL_WGET_TEST</id>
+        <text>Unable to locate Wget. The media search will fail to run. Please specify the correct location in the %s section.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FANART</id>
@@ -3530,6 +3540,11 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <id>PASS_SWISS_RW_FILES</id>
         <text>Able to Read/Write to the SwissCenter installation directory.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_WGET_TEST</id>
+        <text>Wget has been located.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>PC_LINK_BACK</id>
@@ -6097,6 +6112,26 @@ If any details are added/changed on this page then you are requested to submit t
         <id>WEEKEND_BOXOFFICE</id>
         <text>Weekend Box Office</text>
         <version>1.22</version>
+      </string>
+      <string>
+        <id>WGET_DESC</id>
+        <text>GNU Wget is a network utility to retrieve files using HTTP, HTTPS and FTP, the most widely-used Internet protocols. It works non-interactively, so it can work in the background.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>WGET_PATH</id>
+        <text>Wget path</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>WGET_PATH_NOT_FOUND</id>
+        <text>Wget was not found at the specified location</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>WGET_PATH_PROMPT</id>
+        <text>Please specify the full path of the Wget executable. This is usually detected correctly but on some Linux based systems you may have to manually enter this.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>WIKI_LOOKUP</id>

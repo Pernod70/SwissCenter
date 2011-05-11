@@ -119,7 +119,8 @@
       $menu->add_menu(str('ADDITIONAL_COMPONENTS'));
       $menu->add_item(str('CONFIG_MUSICIP')         ,'section=MUSICIP&action=DISPLAY');
       if (is_windows())
-        $menu->add_item(str('CONFIG_SWISSMONITOR')    ,'section=SWISSMONITOR&action=DISPLAY');
+        $menu->add_item(str('CONFIG_SWISSMONITOR')  ,'section=SWISSMONITOR&action=DISPLAY');
+      $menu->add_item(str('EXTERNAL_FILES')         ,'section=EXT_FILES&action=DISPLAY');
 
       $menu->add_menu(str('EXPERT_OPTIONS'));
       $menu->add_item(str('LANG_EDITOR')            ,'section=LANGUAGE&action=DISPLAY');

@@ -733,14 +733,40 @@ function bgrun_location()
  * @return string
  */
 
-function wget_location()
+function wget_location($system_setting = true)
 {
-  if (is_windows())
-    return os_path(SC_LOCATION.'ext/wget/wget.exe');
-  elseif (is_synology())
-    return trim(exec("which wget | grep '^/' | head -1"));
+  if ( $system_setting )
+    return get_sys_pref('WGET_PATH', wget_location(false));
   else
-    return trim(shell_exec("which wget | grep '^/' | head -1"));
+  {
+    if (is_windows())
+      return os_path(SC_LOCATION.'ext/wget/wget.exe');
+    elseif (is_synology())
+      return trim(exec("which wget | grep '^/' | head -1"));
+    else
+      return trim(shell_exec("which wget | grep '^/' | head -1"));
+  }
+}
+
+/**
+ * Returns the version of the WGET command
+ *
+ * @return string
+ */
+
+function wget_version()
+{
+  if ( file_exists(wget_location()) )
+  {
+    $cmd = wget_location().' --version';
+    ob_start();
+    passthru($cmd);
+    $output = ob_get_contents();
+    ob_end_clean();
+    return preg_get('/Wget ([0-9.]+)/i', $output);
+  }
+  else
+    return '';
 }
 
 /**
