@@ -24,6 +24,7 @@
   // Adult restricted options
   if (get_current_user_rank() >= 100)
   {
+    $menu->add_item( str('YOUPORN'), 'youporn_menu.php' );
     $menu->add_item( str('FTV_GIRLS'), 'ftvgirls.php' );
   }
   $menu->add_item( str('BOOKMARKS'), 'internet_tv_urls.php' );
