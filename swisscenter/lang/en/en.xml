@@ -3136,6 +3136,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>NEW_VIDEOS</id>
+        <text>New videos</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>NEXT</id>
         <text>Next</text>
         <version>1.19</version>
@@ -4904,9 +4909,19 @@ If any details are added/changed on this page then you are requested to submit t
         <version>1.22</version>
       </string>
       <string>
+        <id>SORT_DURATION</id>
+        <text>Sort by duration</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>SORT_FAVORITE</id>
         <text>Sort by favourite</text>
         <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_HYBRID</id>
+        <text>Sort by hybrid</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>SORT_ID</id>
@@ -4922,6 +4937,11 @@ If any details are added/changed on this page then you are requested to submit t
         <id>SORT_RATING</id>
         <text>Sort by rating</text>
         <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_RELEVANCE</id>
+        <text>Sort by relevance</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>SORT_TIME</id>
@@ -5277,6 +5297,11 @@ If any details are added/changed on this page then you are requested to submit t
         <id>THIS_WEEK</id>
         <text>This week</text>
         <version>1.22</version>
+      </string>
+      <string>
+        <id>THIS_YEAR</id>
+        <text>This year</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>THUMBNAIL_VIEW</id>
@@ -6162,6 +6187,16 @@ If any details are added/changed on this page then you are requested to submit t
         <id>YES</id>
         <text>Yes</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>YESTERDAY</id>
+        <text>Yesterday</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>YOUPORN</id>
+        <text>YouPorn</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>YOUTUBE</id>
