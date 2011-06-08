@@ -7,9 +7,6 @@
   require_once( realpath(dirname(__FILE__).'/base/utils.php'));
   require_once( realpath(dirname(__FILE__).'/base/playlist.php'));
 
-  page_header( str('MANAGE_PLAYLISTS'), '','',1,false,'',PAGE_PLAYLISTS);
-  $buttons = array();
-
   //---------------------------------------------------------------------------------------
   // Process any actions passed on the query string
   //---------------------------------------------------------------------------------------
@@ -23,7 +20,6 @@
     clear_pl();
 
   // Turn shuffle on/off.
-
   if (isset($_REQUEST["shuffle"]))
     $_SESSION["shuffle"] = $_REQUEST["shuffle"];
 
@@ -32,6 +28,7 @@
   //---------------------------------------------------------------------------------------
 
   $num_tracks = count($_SESSION["playlist"]);
+  $play_name  = $_SESSION["playlist_name"];
   $menu       = new menu();
 
   if ($num_tracks > 0 )
@@ -52,14 +49,40 @@
       $menu->add_item(str('PLAYLIST_DELETE'),'delete_pl.php', true);
   }
 
+  // Is there a picture for us to display?
+  $pl_img = file_albumart(get_sys_pref('PLAYLISTS', SC_LOCATION.'playlists').'/'.$play_name.'.m3u', false);
+
+  if ( empty($pl_img) )
+  {
+    page_header( str('MANAGE_PLAYLISTS'), '','',1,false,'','PAGE_PLAYLISTS' );
+    $pl_img = SC_LOCATION.'images/dot.gif';
+  }
+  else
+  {
+    page_header( str('MANAGE_PLAYLISTS') );
+  }
+
+  pl_info();
+
+  echo '<table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr><td valign="top" width="'.convert_x(280).'" align="center">
+            <table width="100%">
+              <tr><td height="'.convert_y(10).'"></td></tr>
+              <tr><td valign="top"><center>'.img_gen($pl_img,280,550).'</center></td></tr>
+            </table></td>
+            <td valign="top">';
+
+  $menu->display(1, style_value("MENU_PLAYLISTS_WIDTH"), style_value("MENU_PLAYLISTS_ALIGN"));
+
+  echo '</td></tr></table>';
+
   // Buttons (Shuffle on/off)
+  $buttons = array();
   if (!isset($_SESSION["shuffle"]) || $_SESSION["shuffle"] == 'off')
     $buttons[] = array('text'=>str('SHUFFLE_ON'), 'url'=>'manage_pl.php?shuffle=on');
   else
     $buttons[] = array('text'=>str('SHUFFLE_OFF'), 'url'=>'manage_pl.php?shuffle=off');
 
-  pl_info();
-  $menu->display(1, style_value("MENU_PLAYLISTS_WIDTH"), style_value("MENU_PLAYLISTS_ALIGN"));
   page_footer( 'index.php', $buttons );
 
 /**************************************************************************************************
