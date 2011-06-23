@@ -60,7 +60,7 @@
       playlists_display("!".str('PLAYLISTS_ERROR_PATH'));
     elseif (!empty($_REQUEST["itunes"]) && !is_file($itunes_library))
       playlists_display("!".str('ITUNES_ERROR_PATH'));
-    elseif (!empty($_REQUEST["itunes"]) && !strpos($itunes_library, 'iTunes Music Library.xml'))
+    elseif (!empty($_REQUEST["itunes"]) && basename($itunes_library) !== 'iTunes Music Library.xml' && basename($itunes_library) !== 'iTunes Library.xml')
       playlists_display("!".str('ITUNES_ERROR_INVALID'));
     elseif (empty($_REQUEST["size"]) || !is_numeric($_REQUEST["size"]) || $_REQUEST["size"]<10 || $_REQUEST["size"]>2000)
       playlists_display("!".str('PLAYLISTS_ERROR_SIZE'));
