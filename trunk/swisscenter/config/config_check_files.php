@@ -46,8 +46,8 @@ function format_filelist_html( $filelist )
     if ($file["error"] == 'delete')
       $filelist_html .= '<br>'.$path.' ('.str($file["error"]).')';
     else
-      $filelist_html .= '<br><a href="http://tools.assembla.com/swiss/export/'.$revision.'/trunk/swisscenter/'.$path.'" target="_blank">'.$path.'</a>
-                             <a href="http://tools.assembla.com/swiss/changeset/'.$file["revision"].'" target="_blank">['.$file["revision"].']</a> ('.str($file["error"]).')';
+      $filelist_html .= '<br><a href="http://www.assembla.com/code/swiss/subversion/nodes/trunk/swisscenter/'.$path.'?_format=raw&rev='.$revision.'" target="_blank">'.$path.'</a>
+                             <a href="http://www.assembla.com/code/swiss/subversion/changesets/'.$file["revision"].'" target="_blank">['.$file["revision"].']</a> ('.str($file["error"]).')';
   return $filelist_html;
 }
 
