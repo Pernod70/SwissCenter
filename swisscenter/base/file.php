@@ -756,7 +756,7 @@ function wget_location($system_setting = true)
 
 function wget_version()
 {
-  if ( file_exists(wget_location()) )
+  if ( is_file(wget_location()) )
   {
     $cmd = wget_location().' --version';
     ob_start();
