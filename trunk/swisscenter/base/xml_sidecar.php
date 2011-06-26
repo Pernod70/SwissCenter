@@ -5,6 +5,7 @@
 
   require_once( realpath(dirname(__FILE__).'/mysql.php'));
   require_once( realpath(dirname(__FILE__).'/../ext/xml/XPath.class.php'));
+  require_once( realpath(dirname(__FILE__).'/../ext/xml/xmlbuilder.php'));
 
   /**
    * Exports the movie details to a file
@@ -34,94 +35,98 @@
     else
     {
       send_to_log(5, 'Saving movie XML:', $filename);
-      $options = array(XML_OPTION_CASE_FOLDING => FALSE, XML_OPTION_SKIP_WHITE => TRUE);
-      $xml = new XPath(FALSE, $options);
-      $xml->importFromString('<?xml version="1.0" encoding="utf-8"?><movie xmlns="http://www.swisscenter.co.uk" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.swisscenter.co.uk movies.xsd"></movie>');
-      $movie_path = '/movie[1]';
 
-      $xml->appendChild($movie_path,'<title>'.utf8_encode(xmlspecialchars($details[0]["TITLE"])).'</title>');
+      $xml = new XmlBuilder();
+      $xml->Push('movie', array('xmlns'=>'http://www.swisscenter.co.uk', 'xmlns:xsi'=>'http://www.w3.org/2001/XMLSchema-instance', 'xsi:schemaLocation'=>'http://www.swisscenter.co.uk movies.xsd'));
+      $xml->Element('title', utf8_encode($details[0]["TITLE"]));
       if ( !empty( $details[0]["SYNOPSIS"] ) )
-        $xml->appendChild($movie_path,'<synopsis>'.utf8_encode(xmlspecialchars($details[0]["SYNOPSIS"])).'</synopsis>');
+        $xml->Element('synopsis', utf8_encode($details[0]["SYNOPSIS"]));
 
       // Actors
       $actor_list = db_toarray("select actor_name name from actors a, actors_in_movie aim where aim.actor_id = a.actor_id and movie_id=".$file_id);
       if ( !empty( $actor_list ) )
       {
-        $actors_path = $xml->appendChild($movie_path,'<actors />');
+        $xml->Push('actors');
         foreach ($actor_list as $actor)
         {
-          $xpath = $xml->appendChild($actors_path,'<actor />');
-          $xml->appendChild($xpath,'<name>'.utf8_encode(xmlspecialchars($actor["NAME"])).'</name>');
+          $xml->Push('actor');
+          $xml->Element('name', utf8_encode($actor["NAME"]));
+          $xml->Pop('actor');
         }
+        $xml->Pop('actors');
       }
 
       // Certificates
       if ( !empty( $details[0]["CERTIFICATE"] ) )
       {
         $certificate = db_toarray("select name, scheme from certificates where cert_id = ".$details[0]["CERTIFICATE"]);
-        $xpath = $xml->appendChild($movie_path,'<certificates />');
-        $xml->appendChild($xpath,'<certificate scheme="'.$certificate[0]["SCHEME"].'">'.utf8_encode(xmlspecialchars($certificate[0]["NAME"])).'</certificate>');
+        $xml->Push('certificates');
+        $xml->Element('certificate', utf8_encode($certificate[0]["NAME"]), array('scheme'=>$certificate[0]["SCHEME"]));
+        $xml->Pop('certificates');
       }
 
       // Genres
       $genre_list = db_toarray("select genre_name name from genres g, genres_of_movie gom where gom.genre_id = g.genre_id and movie_id=".$file_id);
       if ( !empty( $genre_list ) )
       {
-        $xpath = $xml->appendChild($movie_path,'<genres />');
+        $xml->Push('genres');
         foreach ($genre_list as $genre)
-          $xml->appendChild($xpath,'<genre>'.utf8_encode(xmlspecialchars($genre["NAME"])).'</genre>');
+          $xml->Element('genre', utf8_encode($genre["NAME"]));
+        $xml->Pop('genres');
       }
 
       // Directors
       $director_list = db_toarray("select director_name name from directors d, directors_of_movie dom where dom.director_id = d.director_id and movie_id=".$file_id);
       if ( !empty( $director_list ) )
       {
-        $xpath = $xml->appendChild($movie_path,'<directors />');
+        $xml->Push('directors');
         foreach ($director_list as $director)
-          $xml->appendChild($xpath,'<director>'.utf8_encode(xmlspecialchars($director["NAME"])).'</director>');
+          $xml->Element('director', utf8_encode($director["NAME"]));
+        $xml->Pop('directors');
       }
 
       // Languages
       $language_list = db_toarray("select language name from languages l, languages_of_movie lom where lom.language_id = l.language_id and movie_id=".$file_id);
       if ( !empty( $language_list ) )
       {
-        $xpath = $xml->appendChild($movie_path,'<languages />');
+        $xml->Push('languages');
         foreach ($language_list as $language)
-          $xml->appendChild($xpath,'<language>'.utf8_encode(xmlspecialchars($language["NAME"])).'</language>');
+          $xml->Element('language', utf8_encode($language["NAME"]));
+        $xml->Pop('languages');
       }
 
       // Running Time
       if ( !empty( $details[0]["LENGTH"] ) )
-        $xml->appendChild($movie_path,'<runtime>'.floor($details[0]["LENGTH"]/60).'</runtime>');
+        $xml->Element('runtime', floor($details[0]["LENGTH"]/60));
 
       // Year
       if ( !empty( $details[0]["YEAR"] ) )
-      {
-        $xml->appendChild($movie_path,'<year>'.$details[0]["YEAR"].'</year>');
-      }
+        $xml->Element('year', $details[0]["YEAR"]);
 
       // Rating
       if ( !empty( $details[0]["EXTERNAL_RATING_PC"] ) )
-      {
-        $xml->appendChild($movie_path,'<rating>'.($details[0]["EXTERNAL_RATING_PC"]/10).'</rating>');
-      }
+        $xml->Element('rating', ($details[0]["EXTERNAL_RATING_PC"]/10));
 
       // Trailer
       if ( !empty( $details[0]["TRAILER"] ) )
-      {
-        $xml->appendChild($movie_path,'<trailer>'.xmlspecialchars($details[0]["TRAILER"]).'</trailer>');
-      }
+        $xml->Element('trailer', $details[0]["TRAILER"]);
 
       // Viewed Status
       $user_list = db_toarray("select name from users u, viewings v where u.user_id=v.user_id and v.media_type=".MEDIA_TYPE_VIDEO." and v.media_id = ".$file_id);
       if ( !empty ( $user_list ) )
       {
-        $xpath = $xml->appendChild($movie_path,'<viewed />');
+        $xml->Push('viewed');
         foreach ($user_list as $user)
-          $xml->appendChild($xpath,'<name>'.utf8_encode(xmlspecialchars($user["NAME"])).'</name>');
+          $xml->Element('name', utf8_encode($user["NAME"]));
+        $xml->Pop('viewed');
       }
 
-      return $xml->exportToFile( $filename );
+      $xml->Pop('movie');
+      if ($fsp = fopen($filename, 'wb'))
+      {
+        fwrite($fsp, $xml->getXml());
+        fclose($fsp);
+      }
     }
   }
 
@@ -239,91 +244,96 @@
     else
     {
       send_to_log(5, 'Saving tv XML:', $filename);
-      $options = array(XML_OPTION_CASE_FOLDING => FALSE, XML_OPTION_SKIP_WHITE => TRUE);
-      $xml = new XPath(FALSE, $options);
-      $xml->importFromString('<?xml version="1.0" encoding="utf-8"?><tv xmlns="http://www.swisscenter.co.uk" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.swisscenter.co.uk tv.xsd"></tv>');
-      $tv_path = '/tv[1]';
 
-      $xml->appendChild($tv_path,'<programme>'.utf8_encode(xmlspecialchars($details[0]["PROGRAMME"])).'</programme>');
-      $xml->appendChild($tv_path,'<series>'.$details[0]["SERIES"].'</series>');
-      $xml->appendChild($tv_path,'<episode>'.$details[0]["EPISODE"].'</episode>');
-      $xml->appendChild($tv_path,'<title>'.utf8_encode(xmlspecialchars($details[0]["TITLE"])).'</title>');
+      $xml = new XmlBuilder();
+      $xml->Push('tv', array('xmlns'=>'http://www.swisscenter.co.uk', 'xmlns:xsi'=>'http://www.w3.org/2001/XMLSchema-instance', 'xsi:schemaLocation'=>'http://www.swisscenter.co.uk tv.xsd'));
+      $xml->Element('programme', utf8_encode($details[0]["PROGRAMME"]));
+      $xml->Element('series', $details[0]["SERIES"]);
+      $xml->Element('episode', $details[0]["EPISODE"]);
+      $xml->Element('title', utf8_encode($details[0]["TITLE"]));
       if ( !empty( $details[0]["SYNOPSIS"] ) )
-        $xml->appendChild($tv_path,'<synopsis>'.utf8_encode(xmlspecialchars($details[0]["SYNOPSIS"])).'</synopsis>');
+        $xml->Element('synopsis', utf8_encode($details[0]["SYNOPSIS"]));
 
       // Actors
       $actor_list = db_toarray("select actor_name name from actors a, actors_in_tv ait where ait.actor_id = a.actor_id and tv_id=".$file_id);
       if ( !empty( $actor_list ) )
       {
-        $actors_path = $xml->appendChild($tv_path,'<actors />');
+        $xml->Push('actors');
         foreach ($actor_list as $actor)
         {
-          $xpath = $xml->appendChild($actors_path,'<actor />');
-          $xml->appendChild($xpath,'<name>'.utf8_encode(xmlspecialchars($actor["NAME"])).'</name>');
+          $xml->Push('actor');
+          $xml->Element('name', utf8_encode($actor["NAME"]));
+          $xml->Pop('actor');
         }
+        $xml->Pop('actors');
       }
-
       // Certificates
       if ( !empty( $details[0]["CERTIFICATE"] ) )
       {
         $certificate = db_toarray("select name, scheme from certificates where cert_id = ".$details[0]["CERTIFICATE"]);
-        $xpath = $xml->appendChild($tv_path,'<certificates />');
-        $xml->appendChild($xpath,'<certificate scheme="'.$certificate[0]["SCHEME"].'">'.utf8_encode(xmlspecialchars($certificate[0]["NAME"])).'</certificate>');
+        $xml->Push('certificates');
+        $xml->Element('certificate', utf8_encode($certificate[0]["NAME"]), array('scheme'=>$certificate[0]["SCHEME"]));
+        $xml->Pop('certificates');
       }
 
       // Genres
       $genre_list = db_toarray("select genre_name name from genres g, genres_of_tv got where got.genre_id = g.genre_id and tv_id=".$file_id);
       if ( !empty( $genre_list ) )
       {
-        $xpath = $xml->appendChild($tv_path,'<genres />');
+        $xml->Push('genres');
         foreach ($genre_list as $genre)
-          $xml->appendChild($xpath,'<genre>'.utf8_encode(xmlspecialchars($genre["NAME"])).'</genre>');
+          $xml->Element('genre', utf8_encode($genre["NAME"]));
+        $xml->Pop('genres');
       }
 
       // Directors
       $director_list = db_toarray("select director_name name from directors d, directors_of_tv dot where dot.director_id = d.director_id and tv_id=".$file_id);
       if ( !empty( $director_list ) )
       {
-        $xpath = $xml->appendChild($tv_path,'<directors />');
+        $xml->Push('directors');
         foreach ($director_list as $director)
-          $xml->appendChild($xpath,'<director>'.utf8_encode(xmlspecialchars($director["NAME"])).'</director>');
+          $xml->Element('director', utf8_encode($director["NAME"]));
+        $xml->Pop('directors');
       }
 
       // Languages
       $language_list = db_toarray("select language name from languages l, languages_of_tv lot where lot.language_id = l.language_id and tv_id=".$file_id);
       if ( !empty( $language_list ) )
       {
-        $xpath = $xml->appendChild($tv_path,'<languages />');
+        $xml->Push('languages');
         foreach ($language_list as $language)
-          $xml->appendChild($xpath,'<language>'.utf8_encode(xmlspecialchars($language["NAME"])).'</language>');
+          $xml->Element('language', utf8_encode($language["NAME"]));
+        $xml->Pop('languages');
       }
 
       // Running Time
       if ( !empty( $details[0]["LENGTH"] ) )
-        $xml->appendChild($tv_path,'<runtime>'.floor($details[0]["LENGTH"]/60).'</runtime>');
+        $xml->Element('runtime', floor($details[0]["LENGTH"]/60));
 
       // Year
       if ( !empty( $details[0]["YEAR"] ) )
-      {
-        $xml->appendChild($tv_path,'<year>'.$details[0]["YEAR"].'</year>');
-      }
+        $xml->Element('year', $details[0]["YEAR"]);
 
       // Rating
       if ( !empty( $details[0]["EXTERNAL_RATING_PC"] ) )
-      {
-        $xml->appendChild($tv_path,'<rating>'.($details[0]["EXTERNAL_RATING_PC"]/10).'</rating>');
-      }
+        $xml->Element('rating', ($details[0]["EXTERNAL_RATING_PC"]/10));
 
       // Viewed Status
       $user_list = db_toarray("select name from users u, viewings v where u.user_id=v.user_id and v.media_type=".MEDIA_TYPE_TV." and v.media_id = ".$file_id);
       if ( !empty ( $user_list ) )
       {
-        $xpath = $xml->appendChild($tv_path,'<viewed />');
+        $xml->Push('viewed');
         foreach ($user_list as $user)
-          $xml->appendChild($xpath,'<name>'.utf8_encode(xmlspecialchars($user["NAME"])).'</name>');
+          $xml->Element('name', utf8_encode($user["NAME"]));
+        $xml->Pop('viewed');
       }
 
-      return $xml->exportToFile( $filename );
+      $xml->Pop('tv');
+      if ($fsp = fopen($filename, 'wb'))
+      {
+        fwrite($fsp, $xml->getXml());
+        fclose($fsp);
+      }
     }
   }
 
