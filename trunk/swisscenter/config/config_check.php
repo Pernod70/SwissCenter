@@ -187,7 +187,7 @@ function check_display()
 
   $wget = $component_tests->add_section("Wget ".wget_version(),1);
 
-  $component_tests->add_test( $wget, file_exists(wget_location()), str('PASS_WGET_TEST'),str('FAIL_WGET_TEST','<a href="'.server_address().'config/index.php?section=EXT_FILES&action=DISPLAY">'.str('EXTERNAL_FILES').'</a>').'<p>'.str('WGET_DESC'),FALSE);
+  $component_tests->add_test( $wget, is_file(wget_location()), str('PASS_WGET_TEST'),str('FAIL_WGET_TEST','<a href="'.server_address().'config/index.php?section=EXT_FILES&action=DISPLAY">'.str('EXTERNAL_FILES').'</a>').'<p>'.str('WGET_DESC'),FALSE);
 
   # ----------------------
   # Music IP
