@@ -466,145 +466,145 @@ function process_mp3( $dir, $id, $file)
   $id3      = $getID3->analyze($filepath);
 
   // Standard information about the file
-  $data["dirname"]      = $dir;
-  $data["filename"]     = $file;
-  $data["location_id"]  = $id;
-  $data["title"]        = file_noext($file);
-  $data["size"]         = filesize($dir.$file);
-  $data["verified"]     = 'Y';
-  $data["discovered"]   = db_datestr();
-  $data["timestamp"]    = db_datestr(filemtime($filepath));
+  $data['dirname']      = $dir;
+  $data['filename']     = $file;
+  $data['location_id']  = $id;
+  $data['title']        = file_noext($file);
+  $data['size']         = filesize($dir.$file);
+  $data['verified']     = 'Y';
+  $data['discovered']   = db_datestr();
+  $data['timestamp']    = db_datestr(filemtime($filepath));
 
-  if ( ! isset($id3["error"]) )
+  if ( ! isset($id3['error']) )
   {
-    if (in_array( $id3["fileformat"], media_exts_with_GetID3_support() ))
+    if (in_array( $id3['fileformat'], media_exts_with_GetID3_support() ))
     {
       // ID3 data successfully obtained, so enter it into the database
-      $data["size"]         = $id3["filesize"];
-      $data["length"]       = floor($id3["playtime_seconds"]);
-      $data["lengthstring"] = $id3["playtime_string"];
-      $data["bitrate"]      = floor($id3["bitrate"]);
-      $data["bitrate_mode"] = strtoupper($id3["audio"]["bitrate_mode"]);
-      $data["version"]      = 0;
-      $data["title"]        = null;
-      $data["artist"]       = null;
-      $data["album"]        = null;
-      $data["genre"]        = null;
-      $data["year"]         = null;
-      $data["track"]        = null;
-      $data["disc"]         = null;
-      $data["band"]         = null;
-      $data["composer"]     = null;
+      $data['size']         = $id3['filesize'];
+      $data['length']       = floor($id3['playtime_seconds']);
+      $data['lengthstring'] = $id3['playtime_string'];
+      $data['bitrate']      = floor($id3['bitrate']);
+      $data['bitrate_mode'] = strtoupper($id3['audio']['bitrate_mode']);
+      $data['version']      = 0;
+      $data['title']        = null;
+      $data['artist']       = null;
+      $data['album']        = null;
+      $data['genre']        = null;
+      $data['year']         = null;
+      $data['track']        = null;
+      $data['disc']         = null;
+      $data['band']         = null;
+      $data['composer']     = null;
       $image                = array();
 
       // Set specific tags for each file format
-      if ( isset($id3["tags"]["id3v1"]) )
+      if ( isset($id3['tags']['id3v1']) )
       {
-        set_var( $data["title"],  array_last($id3["tags"]["id3v1"]["title"]) );
-        set_var( $data["artist"], array_last($id3["tags"]["id3v1"]["artist"]) );
-        set_var( $data["album"],  array_last($id3["tags"]["id3v1"]["album"]) );
-        set_var( $data["genre"],  array_last($id3["tags"]["id3v1"]["genre"]) );
-        set_var( $data["year"],   array_last($id3["tags"]["id3v1"]["year"]) );
-        set_var( $data["track"],  ltrim(array_last($id3["tags"]["id3v1"]["track"]),'0') );
+        set_var( $data['title'],  array_last($id3['tags']['id3v1']['title']) );
+        set_var( $data['artist'], array_last($id3['tags']['id3v1']['artist']) );
+        set_var( $data['album'],  array_last($id3['tags']['id3v1']['album']) );
+        set_var( $data['genre'],  array_last($id3['tags']['id3v1']['genre']) );
+        set_var( $data['year'],   array_last($id3['tags']['id3v1']['year']) );
+        set_var( $data['track'],  ltrim(array_last($id3['tags']['id3v1']['track']),'0') );
       }
 
-      if ( isset($id3["tags"]["vorbiscomment"]) )
+      if ( isset($id3['tags']['vorbiscomment']) )
       {
-        set_var( $data["title"],  array_last($id3["tags"]["vorbiscomment"]["title"]) );
-        set_var( $data["artist"], array_last($id3["tags"]["vorbiscomment"]["artist"]) );
-        set_var( $data["album"],  array_last($id3["tags"]["vorbiscomment"]["album"]) );
-        set_var( $data["genre"],  array_last($id3["tags"]["vorbiscomment"]["genre"]) );
-        set_var( $data["year"],   array_last($id3["tags"]["vorbiscomment"]["date"]) );
-        set_var( $data["band"],   array_last($id3["tags"]["vorbiscomment"]["band"]) );
-        set_var( $data["band"],   array_last($id3["tags"]["vorbiscomment"]["album artist"]) );
-        set_var( $data["composer"], array_last($id3["tags"]["vorbiscomment"]["composer"]) );
-        set_var( $data["track"],  ltrim(array_last($id3["tags"]["vorbiscomment"]["tracknumber"]),'0') );
-        set_var( $data["disc"],   ltrim(array_last($id3["tags"]["vorbiscomment"]["discnumber"]),'0') );
-        if ( isset($id3["tags"]["vorbiscomment"]["coverart"]) )
-          $image["data"] = base64_decode(array_last($id3["tags"]["vorbiscomment"]["coverart"]));
+        set_var( $data['title'],  array_last($id3['tags']['vorbiscomment']['title']) );
+        set_var( $data['artist'], array_last($id3['tags']['vorbiscomment']['artist']) );
+        set_var( $data['album'],  array_last($id3['tags']['vorbiscomment']['album']) );
+        set_var( $data['genre'],  array_last($id3['tags']['vorbiscomment']['genre']) );
+        set_var( $data['year'],   array_last($id3['tags']['vorbiscomment']['date']) );
+        set_var( $data['band'],   array_last($id3['tags']['vorbiscomment']['band']) );
+        set_var( $data['band'],   array_last($id3['tags']['vorbiscomment']['album artist']) );
+        set_var( $data['composer'], array_last($id3['tags']['vorbiscomment']['composer']) );
+        set_var( $data['track'],  ltrim(array_last($id3['tags']['vorbiscomment']['tracknumber']),'0') );
+        set_var( $data['disc'],   ltrim(array_last($id3['tags']['vorbiscomment']['discnumber']),'0') );
+        set_var( $image,          array_last($id3['comments']['picture']) );
       }
 
-      if ( isset($id3["flac"]["PICTURE"]) )
+      if ( isset($id3['flac']['PICTURE']) )
       {
-        $image = array_last($id3["flac"]["PICTURE"]);
-        $image = array("data"=>$image["image_data"], "image_mime"=>$image["mime_type"]);
+        $image = array_last($id3['flac']['PICTURE']);
+        $image = array('data'=>$image['data'], 'image_mime'=>$image['image_mime']);
       }
 
-      if ( isset($id3["tags"]["ape"]) )
+      if ( isset($id3['tags']['ape']) )
       {
-        set_var( $data["title"],  array_last($id3["tags"]["ape"]["title"]) );
-        set_var( $data["artist"], array_last($id3["tags"]["ape"]["artist"]) );
-        set_var( $data["album"],  array_last($id3["tags"]["ape"]["album"]) );
-        set_var( $data["genre"],  array_last($id3["tags"]["ape"]["genre"]) );
-        set_var( $data["year"],   array_last($id3["tags"]["ape"]["date"]) );
-        set_var( $data["composer"], array_last($id3["tags"]["ape"]["composer"]) );
-        set_var( $data["track"],  ltrim(array_last($id3["tags"]["ape"]["track"]),'0') );
-        set_var( $data["disc"],   ltrim(array_last($id3["tags"]["ape"]["disc"]),'0') );
-        set_var( $image,          array_last($id3["tags"]["ape"]["picture"]) );
+        set_var( $data['title'],  array_last($id3['tags']['ape']['title']) );
+        set_var( $data['artist'], array_last($id3['tags']['ape']['artist']) );
+        set_var( $data['album'],  array_last($id3['tags']['ape']['album']) );
+        set_var( $data['genre'],  array_last($id3['tags']['ape']['genre']) );
+        set_var( $data['year'],   array_last($id3['tags']['ape']['date']) );
+        set_var( $data['composer'], array_last($id3['tags']['ape']['composer']) );
+        set_var( $data['track'],  ltrim(array_last($id3['tags']['ape']['track']),'0') );
+        set_var( $data['disc'],   ltrim(array_last($id3['tags']['ape']['disc']),'0') );
+        set_var( $image,          array_last($id3['comments']['picture']) );
       }
 
-      if ( isset($id3["tags"]["quicktime"]) )
+      if ( isset($id3['tags']['quicktime']) )
       {
-        set_var( $data["title"],  array_last($id3["tags"]["quicktime"]["title"]) );
-        set_var( $data["artist"], array_last($id3["tags"]["quicktime"]["artist"]) );
-        set_var( $data["album"],  array_last($id3["tags"]["quicktime"]["album"]) );
-        set_var( $data["genre"],  array_last($id3["tags"]["quicktime"]["genre"]) );
-        set_var( $data["year"],   substr(array_last($id3["tags"]["quicktime"]["creation_date"]),0,4) );
-        set_var( $data["band"],   array_last($id3["tags"]["quicktime"]["album_artist"]) );
-        set_var( $data["composer"], array_last($id3["tags"]["quicktime"]["composer"]) );
-        set_var( $data["track"],  ltrim(array_last($id3["tags"]["quicktime"]["track_number"]),'0') );
-        set_var( $data["disc"],   ltrim(array_last($id3["tags"]["quicktime"]["disc_number"]),'0') );
-        set_var( $image["data"],  array_last($id3["tags"]["quicktime"]["artwork"]) );
+        set_var( $data['title'],  array_last($id3['tags']['quicktime']['title']) );
+        set_var( $data['artist'], array_last($id3['tags']['quicktime']['artist']) );
+        set_var( $data['album'],  array_last($id3['tags']['quicktime']['album']) );
+        set_var( $data['genre'],  array_last($id3['tags']['quicktime']['genre']) );
+        set_var( $data['year'],   substr(array_last($id3['tags']['quicktime']['creation_date']),0,4) );
+        set_var( $data['band'],   array_last($id3['tags']['quicktime']['album_artist']) );
+        set_var( $data['composer'], array_last($id3['tags']['quicktime']['composer']) );
+        set_var( $data['track'],  ltrim(array_last($id3['tags']['quicktime']['track_number']),'0') );
+        set_var( $data['disc'],   ltrim(array_last($id3['tags']['quicktime']['disc_number']),'0') );
+        set_var( $image,          array_last($id3['comments']['picture']) );
       }
 
-      if ( isset($id3["tags"]["asf"]) )
+      if ( isset($id3['tags']['asf']) )
       {
-        set_var( $data["title"],  array_last($id3["tags"]["asf"]["title"]) );
-        set_var( $data["artist"], array_last($id3["tags"]["asf"]["artist"]) );
-        set_var( $data["album"],  array_last($id3["tags"]["asf"]["album"]) );
-        set_var( $data["genre"],  array_last($id3["tags"]["asf"]["genre"]) );
-        set_var( $data["year"],   array_last($id3["tags"]["asf"]["year"]) );
-        set_var( $data["band"],   array_last($id3["tags"]["asf"]["albumartist"]) );
-        set_var( $data["track"],  ltrim(array_last($id3["tags"]["asf"]["track"]),'0') );
-        set_var( $data["disc"],   ltrim(array_last($id3["tags"]["asf"]["partofset"]),'0') );
-        set_var( $image,          array_last($id3["tags"]["asf"]["picture"]) );
+        set_var( $data['title'],  array_last($id3['tags']['asf']['title']) );
+        set_var( $data['artist'], array_last($id3['tags']['asf']['artist']) );
+        set_var( $data['album'],  array_last($id3['tags']['asf']['album']) );
+        set_var( $data['genre'],  array_last($id3['tags']['asf']['genre']) );
+        set_var( $data['year'],   array_last($id3['tags']['asf']['year']) );
+        set_var( $data['band'],   array_last($id3['tags']['asf']['albumartist']) );
+        set_var( $data['track'],  ltrim(array_last($id3['tags']['asf']['track']),'0') );
+        set_var( $data['disc'],   ltrim(array_last($id3['tags']['asf']['partofset']),'0') );
+        set_var( $image,          array_last($id3['comments']['picture']) );
       }
 
-      if ( isset($id3["tags"]["id3v2"]) )
+      if ( isset($id3['tags']['id3v2']) )
       {
-        set_var( $data["title"],  array_last($id3["tags"]["id3v2"]["title"]) );
-        set_var( $data["artist"], array_last($id3["tags"]["id3v2"]["artist"]) );
-        set_var( $data["album"],  array_last($id3["tags"]["id3v2"]["album"]) );
-        set_var( $data["genre"],  array_last($id3["tags"]["id3v2"]["genre"]) );
-        set_var( $data["year"],   array_last($id3["tags"]["id3v2"]["year"]) );
-        set_var( $data["band"],   array_last($id3["tags"]["id3v2"]["band"]) );
-        set_var( $data["composer"], array_last($id3["tags"]["id3v2"]["composer"]) );
-        set_var( $data["track"],  ltrim(array_last($id3["tags"]["id3v2"]["track_number"]),'0') );
-        set_var( $data["disc"],   ltrim(array_last($id3["tags"]["id3v2"]["part_of_a_set"]),'0') );
-        set_var( $image,          array_last($id3["tags"]["id3v2"]["picture"]) );
+        set_var( $data['title'],  array_last($id3['tags']['id3v2']['title']) );
+        set_var( $data['artist'], array_last($id3['tags']['id3v2']['artist']) );
+        set_var( $data['album'],  array_last($id3['tags']['id3v2']['album']) );
+        set_var( $data['genre'],  array_last($id3['tags']['id3v2']['genre']) );
+        set_var( $data['year'],   array_last($id3['tags']['id3v2']['year']) );
+        set_var( $data['band'],   array_last($id3['tags']['id3v2']['band']) );
+//        set_var( $data['mood'],   array_last($id3['tags']['id3v2']['mood']) );
+        set_var( $data['composer'], array_last($id3['tags']['id3v2']['composer']) );
+        set_var( $data['track'],  ltrim(array_last($id3['tags']['id3v2']['track_number']),'0') );
+        set_var( $data['disc'],   ltrim(array_last($id3['tags']['id3v2']['part_of_a_set']),'0') );
+        set_var( $image,          array_last($id3['comments']['picture']) );
       }
 
       // Remove track and disc totals, ie. 3/10 becomes 3
-      if (strstr($data["track"], '/')) list($data["track"], $dummy) = explode('/', $data["track"]);
-      if (strstr($data["disc"], '/'))  list($data["disc"], $dummy) = explode('/', $data["disc"]);
+      if (strstr($data['track'], '/')) list($data['track'], $dummy) = explode('/', $data['track']);
+      if (strstr($data['disc'], '/'))  list($data['disc'], $dummy) = explode('/', $data['disc']);
 
       if (get_sys_pref('USE_ID3_ART','YES') == 'YES' && !empty($image))
       {
-        send_to_log(4,"Image found within ID3 tag - will use as album art");
-        $data["art_sha1"] = sha1($image["data"]);
+        send_to_log(4,'Image found within ID3 tag - will use as album art');
+        $data['art_sha1'] = sha1($image['data']);
         // Store media art if it doesn't already exist
-        if ( !db_value("select art_sha1 from media_art where art_sha1='".$data["art_sha1"]."'") )
-          db_insert_row('media_art',array("art_sha1"=>$data["art_sha1"], "image"=>$image["data"] ));
-        elseif ( db_value("select sha1(image) from media_art where art_sha1='".$data["art_sha1"]."'") !== $data["art_sha1"] )
-          db_sqlcommand("update media_art set image='".db_escape_str($image["data"])."' where art_sha1='".$data["art_sha1"]."'");
+        if ( !db_value("select art_sha1 from media_art where art_sha1='".$data['art_sha1']."'") )
+          db_insert_row('media_art',array('art_sha1'=>$data['art_sha1'], 'image'=>$image['data'] ));
+        elseif ( db_value("select sha1(image) from media_art where art_sha1='".$data['art_sha1']."'") !== $data['art_sha1'] )
+          db_sqlcommand("update media_art set image='".db_escape_str($image['data'])."' where art_sha1='".$data['art_sha1']."'");
       }
       else
-        $data["art_sha1"] = null;
+        $data['art_sha1'] = null;
     }
     else
     {
       // File extension is MP3, but the file itself isn't!
-      send_to_log(3,'This filetype ('.$id3["fileformat"].') is not supported by the GetID3 library, so although it will be added there will not be any supplemental information available.');
+      send_to_log(3,'This filetype ('.$id3['fileformat'].') is not supported by the GetID3 library, so although it will be added there will not be any supplemental information available.');
     }
   }
   else
@@ -612,7 +612,7 @@ function process_mp3( $dir, $id, $file)
     // File is an MP3, but there were (critical) problems reading the ID3 tag info
     // or the file itself is not an MP3
     send_to_log(2,'Errors occurred whilst reading ID3 tag information');
-    foreach ($id3["error"] as $err)
+    foreach ($id3['error'] as $err)
       send_to_log(2,' - '.$err);
   }
 
@@ -621,14 +621,14 @@ function process_mp3( $dir, $id, $file)
   {
     // Update the existing record
     send_to_log(5,'Updating MP3  : '.$file);
-    unset($data["discovered"]);
-    $success = db_update_row( "mp3s", $file_id, $data);
+    unset($data['discovered']);
+    $success = db_update_row( 'mp3s', $file_id, $data);
   }
   else
   {
     // Insert the row into the database
     send_to_log(5,'Adding MP3    : '.$file);
-    $success = db_insert_row( "mp3s", $data);
+    $success = db_insert_row( 'mp3s', $data);
   }
 
   if ( !$success )
@@ -659,12 +659,12 @@ function add_photo_album( $dir, $id )
   $file_id = db_value("select file_id from photo_albums where dirname='".db_escape_str($dir)."'");
   if ( $file_id )
   {
-    if ( db_update_row( "photo_albums", $file_id, $row) === false )
+    if ( db_update_row( 'photo_albums', $file_id, $row) === false )
       send_to_log(1,'Unable to update photo album to the database');
   }
   else
   {
-    if ( db_insert_row( "photo_albums", $row) === false )
+    if ( db_insert_row( 'photo_albums', $row) === false )
       send_to_log(1,'Unable to add photo album to the database');
   }
 }
@@ -692,13 +692,13 @@ function process_photo( $dir, $id, $file)
   $id3      = $getID3->analyze($filepath);
 
   // Standard information about the file
-  $data["dirname"]      = $dir;
-  $data["filename"]     = $file;
-  $data["location_id"]  = $id;
-  $data["size"]         = filesize($dir.$file);
-  $data["verified"]     = 'Y';
-  $data["discovered"]   = db_datestr();
-  $data["timestamp"]    = db_datestr(filemtime($filepath));
+  $data['dirname']      = $dir;
+  $data['filename']     = $file;
+  $data['location_id']  = $id;
+  $data['size']         = filesize($dir.$file);
+  $data['verified']     = 'Y';
+  $data['discovered']   = db_datestr();
+  $data['timestamp']    = db_datestr(filemtime($filepath));
 
   // Get EXIF data
   $exif     = exif($dir.$file);
@@ -709,40 +709,42 @@ function process_photo( $dir, $id, $file)
 
   if ( ! isset($id3["error"]) )
   {
-    if (in_array( $id3["fileformat"], media_exts_with_GetID3_support() ))
+    if (in_array( $id3['fileformat'], media_exts_with_GetID3_support() ))
     {
       // Get IPTC (IIM legacy) data
       if (isset($id3["iptc"]))
       {
         send_to_log(5,'Found IPTC data : Yes');
-        set_var($iptcxmp['byline'],         implode(',',$id3["iptc"]["IPTCApplication"]["By-line"]));
-        set_var($iptcxmp['caption'],        implode(',',$id3["iptc"]["IPTCApplication"]["Caption-Abstract"]));
-        set_var($iptcxmp['keywords'],       implode(',',$id3["iptc"]["IPTCApplication"]["Keywords"]));
-        set_var($iptcxmp['city'],           implode(',',$id3["iptc"]["IPTCApplication"]["City"]));
-        set_var($iptcxmp['country'],        implode(',',$id3["iptc"]["IPTCApplication"]["Country-PrimaryLocationName"]));
-        set_var($iptcxmp['province_state'], implode(',',$id3["iptc"]["IPTCApplication"]["Province-State"]));
-        set_var($iptcxmp['suppcategories'], implode(',',$id3["iptc"]["IPTCApplication"]["SupplementalCategories"]));
-        set_var($iptcxmp['date_created'],   implode(',',$id3["iptc"]["IPTCApplication"]["DateCreated"]));
-        set_var($iptcxmp['location'],       implode(',',$id3["iptc"]["IPTCApplication"]["Sub-location"]));
+        set_var($iptcxmp['byline'],         implode(',',$id3['iptc']['IPTCApplication']['By-line']));
+        set_var($iptcxmp['caption'],        implode(',',$id3['iptc']['IPTCApplication']['Caption-Abstract']));
+        set_var($iptcxmp['keywords'],       implode(',',$id3['iptc']['IPTCApplication']['Keywords']));
+        set_var($iptcxmp['city'],           implode(',',$id3['iptc']['IPTCApplication']['City']));
+        set_var($iptcxmp['country'],        implode(',',$id3['iptc']['IPTCApplication']['Country-PrimaryLocationName']));
+        set_var($iptcxmp['province_state'], implode(',',$id3['iptc']['IPTCApplication']['Province-State']));
+        set_var($iptcxmp['suppcategories'], implode(',',$id3['iptc']['IPTCApplication']['SupplementalCategories']));
+        set_var($iptcxmp['date_created'],   implode(',',$id3['iptc']['IPTCApplication']['DateCreated']));
+        set_var($iptcxmp['location'],       implode(',',$id3['iptc']['IPTCApplication']['Sub-location']));
       }
       else
         send_to_log(5,'Found IPTC data : No');
 
       // Get XMP data
-      if (isset($id3["xmp"]))
+      if (isset($id3['xmp']))
       {
         send_to_log(5,'Found XMP data : Yes');
-        set_var($iptcxmp['byline'],         implode(',',$id3["xmp"]["dc"]["creator"]));
-        set_var($iptcxmp['caption'],        implode(',',$id3["xmp"]["dc"]["description"]));
-        set_var($iptcxmp['keywords'],       implode(',',$id3["xmp"]["dc"]["subject"]));
-        set_var($iptcxmp['city'],           implode(',',$id3["xmp"]["photoshop"]["City"]));
-        set_var($iptcxmp['country'],        implode(',',$id3["xmp"]["photoshop"]["Country"]));
-        set_var($iptcxmp['province_state'], implode(',',$id3["xmp"]["photoshop"]["State"]));
-        set_var($iptcxmp['suppcategories'], implode(',',$id3["xmp"]["photoshop"]["SupplementalCategories"]));
-        set_var($iptcxmp['date_created'],   implode(',',$id3["xmp"]["photoshop"]["DateCreated"]));
-        set_var($iptcxmp['location'],       implode(',',$id3["xmp"]["Iptc4xmpCore"]["Location"]));
-        if (is_numeric($id3["xmp"]["xap"]["Rating"]))
-          $iptcxmp['rating'] = str_repeat('*',$id3["xmp"]["xap"]["Rating"]);
+        set_var($iptcxmp['byline'],         implode(',',$id3['xmp']['dc']['creator']));
+        set_var($iptcxmp['caption'],        implode(',',$id3['xmp']['dc']['description']));
+        set_var($iptcxmp['keywords'],       implode(',',$id3['xmp']['dc']['subject']));
+        set_var($iptcxmp['city'],           implode(',',$id3['xmp']['photoshop']['City']));
+        set_var($iptcxmp['country'],        implode(',',$id3['xmp']['photoshop']['Country']));
+        set_var($iptcxmp['province_state'], implode(',',$id3['xmp']['photoshop']['State']));
+        set_var($iptcxmp['suppcategories'], implode(',',$id3['xmp']['photoshop']['SupplementalCategories']));
+        set_var($iptcxmp['date_created'],   implode(',',$id3['xmp']['photoshop']['DateCreated']));
+        set_var($iptcxmp['location'],       implode(',',$id3['xmp']['Iptc4xmpCore']['Location']));
+        if (is_numeric($id3['xmp']['xap']['Rating']))
+          $iptcxmp['rating'] = str_repeat('*',$id3['xmp']['xap']['Rating']);
+        elseif (is_numeric($id3['xmp']['xmp']['Rating']))
+          $iptcxmp['rating'] = str_repeat('*',$id3['xmp']['xmp']['Rating']);
         else
           $iptcxmp['rating'] = str('NOT_RATED');
       }
@@ -753,48 +755,48 @@ function process_photo( $dir, $id, $file)
       }
 
       // File Info successfully obtained, so enter it into the database
-      $data["size"]                = $id3["filesize"];
-      $data["width"]               = $id3["video"]["resolution_x"];
-      $data["height"]              = $id3["video"]["resolution_y"];
-      $data["date_modified"]       = filemtime($filepath);
-      $data["date_created"]        = $exif["DTDigitised"];
-      $data["exif_exposure_mode"]  = $exif['ExposureMode'];
-      $data["exif_exposure_time"]  = dec2frac($exif['ExposureTime']);
-      $data["exif_fnumber"]        = rtrim($exif['FNumber'],'0');
-      $data["exif_focal_length"]   = (empty($exif['FocalLength']) ? null : $exif['FocalLength'].str('LENGTH_MM') );
-      $data["exif_image_source"]   = $exif['ImageSource'];
-      $data["exif_make"]           = $exif['Make'];
-      $data["exif_model"]          = $exif['Model'];
-      $data["exif_orientation"]    = $exif['Orientation'];
-      $data["exif_white_balance"]  = $exif['WhiteBalance'];
-      $data["exif_flash"]          = $exif['Flash'][1];
-      $data["exif_iso"]            = $exif['ISOSpeedRating'];
-      $data["exif_light_source"]   = $exif['LightSource'];
-      $data["exif_exposure_prog"]  = $exif['ExpProg'];
-      $data["exif_meter_mode"]     = $exif['MeterMode'];
-      $data["exif_capture_type"]   = $exif['SceneCaptureType'];
-      $data["iptc_caption"]        = $iptcxmp['caption'];
-      $data["iptc_suppcategory"]   = $iptcxmp['suppcategories'];
-      $data["iptc_keywords"]       = $iptcxmp['keywords'];
-      $data["iptc_city"]           = $iptcxmp['city'];
-      $data["iptc_province_state"] = $iptcxmp['province_state'];
-      $data["iptc_country"]        = $iptcxmp['country'];
-      $data["iptc_byline"]         = $iptcxmp['byline'];
-      $data["iptc_date_created"]   = $iptcxmp['date_created'];
-      $data["iptc_location"]       = $iptcxmp['location'];
-      $data["xmp_rating"]          = $iptcxmp['rating'];
+      $data['size']                = $id3['filesize'];
+      $data['width']               = $id3['video']['resolution_x'];
+      $data['height']              = $id3['video']['resolution_y'];
+      $data['date_modified']       = filemtime($filepath);
+      $data['date_created']        = $exif['DTDigitised'];
+      $data['exif_exposure_mode']  = $exif['ExposureMode'];
+      $data['exif_exposure_time']  = dec2frac($exif['ExposureTime']);
+      $data['exif_fnumber']        = rtrim($exif['FNumber'],'0');
+      $data['exif_focal_length']   = (empty($exif['FocalLength']) ? null : $exif['FocalLength'].str('LENGTH_MM') );
+      $data['exif_image_source']   = $exif['ImageSource'];
+      $data['exif_make']           = $exif['Make'];
+      $data['exif_model']          = $exif['Model'];
+      $data['exif_orientation']    = $exif['Orientation'];
+      $data['exif_white_balance']  = $exif['WhiteBalance'];
+      $data['exif_flash']          = $exif['Flash'][1];
+      $data['exif_iso']            = $exif['ISOSpeedRating'];
+      $data['exif_light_source']   = $exif['LightSource'];
+      $data['exif_exposure_prog']  = $exif['ExpProg'];
+      $data['exif_meter_mode']     = $exif['MeterMode'];
+      $data['exif_capture_type']   = $exif['SceneCaptureType'];
+      $data['iptc_caption']        = $iptcxmp['caption'];
+      $data['iptc_suppcategory']   = $iptcxmp['suppcategories'];
+      $data['iptc_keywords']       = $iptcxmp['keywords'];
+      $data['iptc_city']           = $iptcxmp['city'];
+      $data['iptc_province_state'] = $iptcxmp['province_state'];
+      $data['iptc_country']        = $iptcxmp['country'];
+      $data['iptc_byline']         = $iptcxmp['byline'];
+      $data['iptc_date_created']   = $iptcxmp['date_created'];
+      $data['iptc_location']       = $iptcxmp['location'];
+      $data['xmp_rating']          = $iptcxmp['rating'];
     }
     else
     {
       // File extension is OK, but the file itself isn't!
-      send_to_log(3,'GETID3 claims this is not a valid photo file: '.$id3["fileformat"]);
+      send_to_log(3,'GETID3 claims this is not a valid photo file: '.$id3['fileformat']);
     }
   }
   else
   {
     // File is a photo, but there were problems reading the info
     send_to_log(2,'Errors occurred whilst reading photo information');
-    foreach ($id3["error"] as $err)
+    foreach ($id3['error'] as $err)
       send_to_log(2,' - '.$err);
   }
 
@@ -803,14 +805,14 @@ function process_photo( $dir, $id, $file)
   {
     // Update the existing record
     send_to_log(5,'Updating Photo : '.$file);
-    unset($data["discovered"]);
-    $success = db_update_row( "photos", $file_id, $data);
+    unset($data['discovered']);
+    $success = db_update_row( 'photos', $file_id, $data);
   }
   else
   {
     // Insert the row into the database
     send_to_log(5,'Adding Photo   : '.$file);
-    $success = db_insert_row( "photos", $data);
+    $success = db_insert_row( 'photos', $data);
   }
 
   if ( $success )
@@ -822,11 +824,11 @@ function process_photo( $dir, $id, $file)
       send_to_log(6,'Pre-caching thumbnail');
       foreach ($browsers as $row)
       {
-        if ( !empty($row["BROWSER_X_RES"]) && !empty($row["BROWSER_Y_RES"]) )
+        if ( !empty($row['BROWSER_X_RES']) && !empty($row['BROWSER_Y_RES']) )
         {
-          $_SESSION["device"]["browser_x_res"]=$row["BROWSER_X_RES"];
-          $_SESSION["device"]["browser_y_res"]=$row["BROWSER_Y_RES"];
-          send_to_log(6,"- for browser size ".$row["BROWSER_X_RES"]."x".$row["BROWSER_Y_RES"]);
+          $_SESSION['device']['browser_x_res']=$row['BROWSER_X_RES'];
+          $_SESSION['device']['browser_y_res']=$row['"BROWSER_Y_RES'];
+          send_to_log(6,'- for browser size '.$row['BROWSER_X_RES'].'x'.$row['BROWSER_Y_RES']);
           precache($dir.$file, convert_x(THUMBNAIL_X_SIZE), convert_y(THUMBNAIL_Y_SIZE) );
         }
       }
@@ -860,6 +862,17 @@ function determine_dvd_name( $fsp )
     }
   }
 
+  // Only attempt to determine the BluRay title if this is a M2TS file
+  if ( file_ext($fsp) == 'm2ts' )
+  {
+    // Check for BluRay folder structure
+    if ( stripos(dirname($fsp), 'BDMV/STREAM') > 0 )
+    {
+      $fsp = str_ireplace('BDMV/STREAM/', '', $fsp);
+      $fsp = dirname($fsp);
+    }
+  }
+
   return strip_title( basename($fsp) );
 }
 
@@ -882,14 +895,14 @@ function process_movie( $dir, $id, $file )
   $image    = array();
 
   // Standard information about the file
-  $data["dirname"]      = $dir;
-  $data["filename"]     = $file;
-  $data["location_id"]  = $id;
-  $data["size"]         = filesize($dir.$file);
-  $data["verified"]     = 'Y';
-  $data["discovered"]   = db_datestr();
-  $data["timestamp"]    = db_datestr(filemtime($filepath));
-  $data["art_sha1"]     = null;
+  $data['dirname']      = $dir;
+  $data['filename']     = $file;
+  $data['location_id']  = $id;
+  $data['size']         = filesize($dir.$file);
+  $data['verified']     = 'Y';
+  $data['discovered']   = db_datestr();
+  $data['timestamp']    = db_datestr(filemtime($filepath));
+  $data['art_sha1']     = null;
 
   if ( ! isset($id3["error"]) )
   {
@@ -897,33 +910,33 @@ function process_movie( $dir, $id, $file )
     {
       // Tag data successfully obtained, so record the following information
       getid3_lib::CopyTagsToComments($id3);
-      $data["size"]          = $id3["filesize"];
-      $data["length"]        = $id3["playtime_seconds"];
-      $data["lengthstring"]  = $id3["playtime_string"];
-      $data["audio_channels"]= $id3["audio"]["channels"];
-      $data["audio_codec"]   = isset($id3["audio"]["codec"]) ? $id3["audio"]["codec"] : $id3["audio"]["dataformat"];
-      $data["video_codec"]   = isset($id3["video"]["codec"]) ? $id3["video"]["codec"] : $id3["video"]["dataformat"];
-      $data["resolution"]    = $id3["video"]["resolution_x"].'x'.$id3["video"]["resolution_y"];
-      $data["frame_rate"]    = $id3["video"]["frame_rate"];
+      $data['size']          = $id3['filesize'];
+      $data['length']        = $id3['playtime_seconds'];
+      $data['lengthstring']  = $id3['playtime_string'];
+      $data['audio_channels']= $id3['audio']['channels'];
+      $data['audio_codec']   = isset($id3['audio']['codec']) ? $id3['audio']['codec'] : $id3['audio']['dataformat'];
+      $data['video_codec']   = isset($id3['video']['codec']) ? $id3['video']['codec'] : $id3['video']['dataformat'];
+      $data['resolution']    = $id3['video']['resolution_x'].'x'.$id3['video']['resolution_y'];
+      $data['frame_rate']    = $id3['video']['frame_rate'];
 
       // Get metadata from asf files
-      if ( strtolower($id3["fileformat"]) == 'asf' )
+      if ( strtolower($id3['fileformat']) == 'asf' )
       {
         if (file_ext($file) == 'dvr-ms') // created by Windows Media Center
         {
           // Synopsis including Subtitle
-          $data["synopsis"] = empty($id3["comments"]["subtitle"]) ? '' :'"'.array_last($id3["comments"]["subtitle"]).'" - ';
-          $data["synopsis"] = $data["synopsis"].array_last($id3["comments"]["subtitledescription"]);
-          if (substr(array_last($id3["comments"]["originalreleasetime"]),0,4) != '0001')
-            $data["year"]   = substr(array_last($id3["comments"]["originalreleasetime"]),0,4);
+          $data['synopsis'] = empty($id3['comments']['subtitle']) ? '' : '"'.array_last($id3['comments']['subtitle']).'" - ';
+          $data['synopsis'] = $data['synopsis'].array_last($id3['comments']['subtitledescription']);
+          if (substr(array_last($id3['comments']['originalreleasetime']),0,4) != '0001')
+            $data['year']   = substr(array_last($id3['comments']['originalreleasetime']),0,4);
           else
-            $data["year"]   = substr(array_last($id3["comments"]["mediaoriginalbroadcastdatetime"]),0,4);
-          $data["details_available"] = 'Y';
+            $data['year']   = substr(array_last($id3['comments']['mediaoriginalbroadcastdatetime']),0,4);
+          $data['details_available'] = 'Y';
 
-          if (get_sys_pref('USE_ID3_ART','YES') == 'YES' && isset($id3["asf"]["comments"]["picture"][0]))
+          if (get_sys_pref('USE_ID3_ART','YES') == 'YES' && isset($id3['asf']['comments']['picture'][0]))
           {
-            send_to_log(4,"Image found within ID3 tag - will use as video art");
-            $image = $id3["asf"]["comments"]["picture"][0];
+            send_to_log(4,'Image found within ID3 tag - will use as video art');
+            $image = $id3['asf']['comments']['picture'][0];
           }
         }
         else
@@ -935,26 +948,26 @@ function process_movie( $dir, $id, $file )
     }
     else
     {
-      send_to_log(3,"GETID3 claims this is not a valid video: ".$id3["fileformat"]);
+      send_to_log(3,"GETID3 claims this is not a valid video: ".$id3['fileformat']);
     }
   }
   else
   {
     // File is a valid movie format, but there were (critical) problems reading the tag info.
     send_to_log(2,"GETID3 claims there are errors in the video file");
-    foreach ($id3["error"] as $err)
+    foreach ($id3['error'] as $err)
       send_to_log(2,' - '.$err);
   }
 
   // Store video snapshot in the database
   if ( !empty($image) )
   {
-    $data["art_sha1"] = sha1($image["data"]);
+    $data['art_sha1'] = sha1($image['data']);
     // Store media art if it doesn't already exist
-    if ( !db_value("select art_sha1 from media_art where art_sha1='".$data["art_sha1"]."'") )
-      db_insert_row('media_art',array("art_sha1"=>$data["art_sha1"], "image"=>$image["data"] ));
-    elseif ( db_value("select sha1(image) from media_art where art_sha1='".$data["art_sha1"]."'") !== $data["art_sha1"] )
-      db_sqlcommand("update media_art set image='".db_escape_str($image["data"])."' where art_sha1='".$data["art_sha1"]."'");
+    if ( !db_value("select art_sha1 from media_art where art_sha1='".$data['art_sha1']."'") )
+      db_insert_row('media_art',array("art_sha1"=>$data['art_sha1'], "image"=>$image['data'] ));
+    elseif ( db_value("select sha1(image) from media_art where art_sha1='".$data['art_sha1']."'") !== $data['art_sha1'] )
+      db_sqlcommand("update media_art set image='".db_escape_str($image['data'])."' where art_sha1='".$data['art_sha1']."'");
   }
 
   $file_id = db_value("select file_id from movies where dirname='".db_escape_str($dir)."' and filename='".db_escape_str($file)."'");
@@ -962,18 +975,18 @@ function process_movie( $dir, $id, $file )
   {
     // Update the existing record
     send_to_log(5,'Updating Video : '.$file);
-    unset($data["discovered"]);
-    $success = db_update_row( "movies", $file_id, $data);
+    unset($data['discovered']);
+    $success = db_update_row( 'movies', $file_id, $data);
   }
   else
   {
     // Only set the title for a new record (an existing title may have been edited)
-    if ( empty($data["title"]) )
-      $data["title"] = determine_dvd_name( $dir.$file );
+    if ( empty($data['title']) )
+      $data['title'] = determine_dvd_name( $dir.$file );
 
     // Insert the row into the database
     send_to_log(5,'Adding Video   : '.$file);
-    $success = db_insert_row( "movies", $data);
+    $success = db_insert_row( 'movies', $data);
   }
 
   if ( $success )
@@ -982,17 +995,17 @@ function process_movie( $dir, $id, $file )
     $file_id = db_value("select file_id from movies where dirname='".db_escape_str($dir)."' and filename='".db_escape_str($file)."'");
     if (file_ext($file) == 'dvr-ms')
     {
-      $mediacredits = explode(';', $id3["comments"]["mediacredits"][0]);
+      $mediacredits = explode(';', $id3['comments']['mediacredits'][0]);
       scdb_add_actors   ($file_id, explode('/', $mediacredits[0]));
       scdb_add_directors($file_id, explode('/', $mediacredits[1]));
-      scdb_add_genres   ($file_id, explode(',', $id3["comments"]["genre"][0]));
+      scdb_add_genres   ($file_id, explode(',', $id3['comments']['genre'][0]));
     }
 
     // DVD Video details are stored in the parent folder
     if ( strtoupper($file) == 'VIDEO_TS.IFO' )
-      $filename = rtrim($dir,'/').".xml";
+      $filename = rtrim($dir,'/').'.xml';
     else
-      $filename = substr($dir.$file,0,strrpos($dir.$file,'.')).".xml";
+      $filename = substr($dir.$file,0,strrpos($dir.$file,'.')).'.xml';
 
     // Check for an accompanying XML file containing details
     if ( file_exists($filename) )
@@ -1111,47 +1124,47 @@ function process_tv( $dir, $id, $file)
   $id3      = $getID3->analyze($filepath);
 
   // Standard information about the file
-  $data["dirname"]      = $dir;
-  $data["filename"]     = $file;
-  $data["title"]        = $dir.$file;
-  $data["location_id"]  = $id;
-  $data["size"]         = filesize($dir.$file);
-  $data["verified"]     = 'Y';
-  $data["discovered"]   = db_datestr();
-  $data["timestamp"]    = db_datestr(filemtime($filepath));
+  $data['dirname']      = $dir;
+  $data['filename']     = $file;
+  $data['title']        = $dir.$file;
+  $data['location_id']  = $id;
+  $data['size']         = filesize($dir.$file);
+  $data['verified']     = 'Y';
+  $data['discovered']   = db_datestr();
+  $data['timestamp']    = db_datestr(filemtime($filepath));
 
   // Determine the part of the path to process for metadata about the episode.
   $media_loc_dir = db_value("select name from media_locations where location_id=$id");
   $meta_fsp = substr($dir,strlen($media_loc_dir)+1).file_noext($file);
 
   $data = array_merge($data, get_tvseries_info($meta_fsp) );
-  unset($data["rule"]);
+  unset($data['rule']);
 
-  if ( ! isset($id3["error"]) )
+  if ( ! isset($id3['error']) )
   {
-    if ( in_array(strtolower($id3["fileformat"]), media_exts_with_GetID3_support() ))
+    if ( in_array(strtolower($id3['fileformat']), media_exts_with_GetID3_support() ))
     {
       // Tag data successfully obtained, so record the following information
       getid3_lib::CopyTagsToComments($id3);
-      $data["size"]          = $id3["filesize"];
-      $data["length"]        = $id3["playtime_seconds"];
-      $data["lengthstring"]  = $id3["playtime_string"];
-      $data["audio_channels"]= $id3["audio"]["channels"];
-      $data["audio_codec"]   = $id3["audio"]["codec"];
-      $data["video_codec"]   = $id3["video"]["codec"];
-      $data["resolution"]    = $id3["video"]["resolution_x"].'x'.$id3["video"]["resolution_y"];
-      $data["frame_rate"]    = $id3["video"]["frame_rate"];
+      $data['size']          = $id3['filesize'];
+      $data['length']        = $id3['playtime_seconds'];
+      $data['lengthstring']  = $id3['playtime_string'];
+      $data['audio_channels']= $id3['audio']['channels'];
+      $data['audio_codec']   = isset($id3['audio']['codec']) ? $id3['audio']['codec'] : $id3['audio']['dataformat'];
+      $data['video_codec']   = isset($id3['video']['codec']) ? $id3['video']['codec'] : $id3['video']['dataformat'];
+      $data['resolution']    = $id3['video']['resolution_x'].'x'.$id3['video']['resolution_y'];
+      $data['frame_rate']    = $id3['video']['frame_rate'];
     }
     else
     {
-      send_to_log(3,"GETID3 claims this is not a valid movie (format is '$id3[fileformat]')");
+      send_to_log(3,"GETID3 claims this is not a valid movie (format is '".$id3['fileformat']."')");
     }
   }
   else
   {
     // File is a valid movie format, but there were (critical) problems reading the tag info.
     send_to_log(2,"GETID3 claims there are errors in the video file");
-    foreach ($id3["error"] as $err)
+    foreach ($id3['error'] as $err)
       send_to_log(2,' - '.$err);
   }
 
@@ -1160,14 +1173,14 @@ function process_tv( $dir, $id, $file)
   {
     // Update the existing record
     send_to_log(5,'Updating TV episode  : '.$file);
-    unset($data["discovered"]);
-    $success = db_update_row( "tv", $file_id, $data);
+    unset($data['discovered']);
+    $success = db_update_row( 'tv', $file_id, $data);
   }
   else
   {
     // Insert the row into the database
     send_to_log(5,'Adding TV episode    : '.$file);
-    $success = db_insert_row( "tv", $data);
+    $success = db_insert_row( 'tv', $data);
   }
 
   if ( !$success )
@@ -1175,7 +1188,7 @@ function process_tv( $dir, $id, $file)
   else
   {
     // Check for an accompanying XML file containing details
-    $filename = substr($dir.$file,0,strrpos($dir.$file,'.')).".xml";
+    $filename = substr($dir.$file,0,strrpos($dir.$file,'.')).'.xml';
     if ( file_exists($filename) )
     {
       if ( !$file_id )
@@ -1276,7 +1289,7 @@ function process_media_file( $dir, $file, $id, $share, $table, $file_exts, $upda
   if ( preg_match('/vts_[0-9]*_[0-9]*.ifo/i', basename($file)) == 1 )
     return false;
 
-  // Is a DVD imge and no Network Share is defined. VOB's are ignored if a Network Share is defined, they will be played with IFO.
+  // Is a DVD image and no Network Share is defined. VOB's are ignored if a Network Share is defined, they will be played with IFO.
   if ( $table == 'movies' && ( (empty($share) && in_array(file_ext($file), media_exts_dvd())) || (!empty($share) && file_ext($file)=='vob') ) )
     return false;
 
