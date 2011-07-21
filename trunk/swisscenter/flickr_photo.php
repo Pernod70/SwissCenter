@@ -50,7 +50,7 @@
       $photo = $flickr->photos_getInfo($photo_id);
 
       // Page headings
-      page_header(str('FLICKR_PHOTOS'), $photo["owner"]["username"].' : '.$photo["title"]);
+      page_header(str('FLICKR_PHOTOS'), $photo["photo"]["owner"]["username"].' : '.$photo["photo"]["title"]);
 
       $info->display();
 
@@ -88,16 +88,16 @@
     $photo = $flickr->photos_getInfo($photo_id);
 
     // Page headings
-    page_header(str('FLICKR_PHOTOS'), utf8_decode($photo["owner"]["username"]).' : '.utf8_decode($photo["title"]));
+    page_header(str('FLICKR_PHOTOS'), utf8_decode($photo["photo"]["owner"]["username"]).' : '.utf8_decode($photo["photo"]["title"]));
 
     echo '<p><table width="100%" cellpadding=0 cellspacing=0 border=0>
           <tr><td valign=top width="'.convert_x(400).'" align="left">
           <a name="photo" href="'.url_add_params($curent_url, array('full' => flickr_get_photo_size($photo_id),
-                                                                  'title' => $photo["title"])).'">'
+                                                                    'title' => $photo["photo"]["title"])).'">'
           .img_gen(flickr_get_photo_size($photo_id),400,650).'</a>
           </td><td width="'.convert_x(20).'"></td>
           <td valign="center">';
-    echo  font_tags(FONTSIZE_BODY).utf8_decode($photo["description"]);
+    echo  font_tags(FONTSIZE_BODY).utf8_decode($photo["photo"]["description"]);
     echo '</td></table>';
 
     // Output ABC buttons

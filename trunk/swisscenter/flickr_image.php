@@ -20,7 +20,7 @@
     // Get the url from Flickr of the original sized image.
     $redirect_url = flickr_get_photo_size($photo_id);
     send_to_log(8,'Redirecting to : '.$redirect_url);
-    header ("location: ".$redirect_url);
+    header ("Location: ".$redirect_url);
   }
 
 /**************************************************************************************************
