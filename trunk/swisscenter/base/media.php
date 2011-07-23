@@ -498,6 +498,14 @@ function process_mp3( $dir, $id, $file)
       $image                = array();
 
       // Set specific tags for each file format
+      if ( isset($id3['tags']['cue']) )
+      {
+        set_var( $data['artist'], $id3['cue']['performer'] );
+        set_var( $data['album'],  $id3['cue']['title'] );
+        set_var( $data['genre'],  array_last($id3['cue']['comments']['genre']) );
+        set_var( $data['year'],   array_last($id3['cue']['comments']['date']) );
+      }
+
       if ( isset($id3['tags']['id3v1']) )
       {
         set_var( $data['title'],  array_last($id3['tags']['id3v1']['title']) );
@@ -535,7 +543,7 @@ function process_mp3( $dir, $id, $file)
         set_var( $data['artist'], array_last($id3['tags']['ape']['artist']) );
         set_var( $data['album'],  array_last($id3['tags']['ape']['album']) );
         set_var( $data['genre'],  array_last($id3['tags']['ape']['genre']) );
-        set_var( $data['year'],   array_last($id3['tags']['ape']['date']) );
+        set_var( $data['year'],   array_last($id3['tags']['ape']['year']) );
         set_var( $data['composer'], array_last($id3['tags']['ape']['composer']) );
         set_var( $data['track'],  ltrim(array_last($id3['tags']['ape']['track']),'0') );
         set_var( $data['disc'],   ltrim(array_last($id3['tags']['ape']['disc']),'0') );
