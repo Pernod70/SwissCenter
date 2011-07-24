@@ -11,7 +11,7 @@
  #############################################################################
 
 require_once( realpath(dirname(__FILE__)."/iradio.php"));
-require_once( realpath(dirname(__FILE__).'/../xml/XPath.class.php'));
+require_once( realpath(dirname(__FILE__).'/../xml/xmlparser.php'));
 
 /** Live365 Specific Parsing
  * @package IRadio
@@ -52,16 +52,19 @@ class live365 extends iradio {
    */
   function login($username, $password) {
     send_to_log(5,"Attempting to login to Live365 with username '$username'");
-    $login    = file_get_contents('http://'.$this->iradiosite.'/cgi-bin/api_login.cgi?action=login&remember=Y&org=live365&member_name='.$username.'&password='.$password);
-    $code     = preg_get('/<Code>(.*)<\/Code>/U', $login);
-    $reason   = preg_get('/<Reason>(.*)<\/Reason>/U', $login);
+    $login = file_get_contents('http://'.$this->iradiosite.'/cgi-bin/api_login.cgi?action=login&remember=Y&org=live365&member_name='.$username.'&password='.$password);
+    $xml = new XmlParser($login, array(XML_OPTION_CASE_FOLDING => TRUE, XML_OPTION_SKIP_WHITE => TRUE) );
+    $login = $xml->GetData();
+
+    $code   = $login['LIVE365_API_LOGIN_CGI']['CODE']['VALUE'];
+    $reason = $login['LIVE365_API_LOGIN_CGI']['REASON']['VALUE'];
 
     if ( $reason == 'Success' )
     {
-      $this->application_id = preg_get('/<Application_ID>(.*)<\/Application_ID>/Ui', $login);
-      $this->session_id     = preg_get('/<Session_ID>(.*)<\/Session_ID>/Ui', $login);
-      $this->device_id      = preg_get('/<Device_ID>(.*)<\/Device_ID>/Ui', $login);
-      $this->status         = preg_get('/<Member_Status>(.*)<\/Member_Status>/Ui', $login);
+      $this->application_id = $login['LIVE365_API_LOGIN_CGI']['APPLICATION_ID']['VALUE'];
+      $this->session_id     = $login['LIVE365_API_LOGIN_CGI']['SESSION_ID']['VALUE'];
+      $this->device_id      = $login['LIVE365_API_LOGIN_CGI']['DEVICE_ID']['VALUE'];
+      $this->status         = $login['LIVE365_API_LOGIN_CGI']['MEMBER_STATUS']['VALUE'];
       $this->access         = ($this->status == 'REGULAR' ? 'PUBLIC' : 'ALL');
       send_to_log(8,'IRadio: Live365 successful login:', $reason);
       return true;
@@ -79,9 +82,12 @@ class live365 extends iradio {
    */
   function logout($session_id) {
     send_to_log(5,"Attempting to logout of Live365");
-    $logout   = file_get_contents('http://'.$this->iradiosite.'/cgi-bin/api_login.cgi?action=logout&sessionid='.$session_id.'&org=live365');
-    $code     = preg_get('/<Code>(.*)<\/Code>/U', $logout);
-    $reason   = preg_get('/<Reason>(.*)<\/Reason>/U', $logout);
+    $logout = file_get_contents('http://'.$this->iradiosite.'/cgi-bin/api_login.cgi?action=logout&sessionid='.$session_id.'&org=live365');
+    $xml = new XmlParser($logout, array(XML_OPTION_CASE_FOLDING => TRUE, XML_OPTION_SKIP_WHITE => TRUE) );
+    $logout = $xml->GetData();
+
+    $code   = $logout['LIVE365_API_LOGIN_CGI']['CODE']['VALUE'];
+    $reason = $logout['LIVE365_API_LOGIN_CGI']['REASON']['VALUE'];
 
     if ( $reason == 'Success' )
     {
@@ -132,21 +138,24 @@ class live365 extends iradio {
     $uri = 'http://'.$this->iradiosite.'/'.$url.'&sessionid='.$this->session_id;
     $this->openpage($uri);
 
-    $xml = new XPath(FALSE, array(XML_OPTION_CASE_FOLDING => TRUE, XML_OPTION_SKIP_WHITE => TRUE) );
-    if ( $xml->importFromString($this->page) !== false)
+    $xml = new XmlParser($this->page, array(XML_OPTION_CASE_FOLDING => TRUE, XML_OPTION_SKIP_WHITE => TRUE) );
+    $directory = $xml->GetData();
+    if ( isset($directory['LIVE365_DIRECTORY']['LIVE365_STATION']) )
     {
+      if ( !isset($directory['LIVE365_DIRECTORY']['LIVE365_STATION'][0]) )
+        $directory['LIVE365_DIRECTORY']['LIVE365_STATION'] = array($directory['LIVE365_DIRECTORY']['LIVE365_STATION']);
       $stationcount = 0;
-      foreach ($xml->match('/live365_directory/live365_station') as $filepath)
+      foreach ($directory['LIVE365_DIRECTORY']['LIVE365_STATION'] as $station)
       {
-        $station_id   = $xml->getData($filepath.'/station_id');
-        $title        = utf8_decode(xmlspecialchars_decode($xml->getData($filepath.'/station_title')));
-        $broadcaster  = $xml->getData($filepath.'/station_broadcaster');
-        $bitrate      = $xml->getData($filepath.'/station_connection');
-        $codec        = $xml->getData($filepath.'/station_codec');
-        $genre        = $xml->getData($filepath.'/station_genre');
-        $listeners    = $xml->getData($filepath.'/station_listeners_active');
-        $maxlisteners = $xml->getData($filepath.'/station_listeners_max');
-        $status       = $xml->getData($filepath.'/station_status');
+        $station_id   = $station['STATION_ID']['VALUE'];
+        $title        = utf8_decode(xmlspecialchars_decode($station['STATION_TITLE']['VALUE']));
+        $broadcaster  = $station['STATION_BROADCASTER']['VALUE'];
+        $bitrate      = $station['STATION_CONNECTION']['VALUE'];
+        $codec        = $station['STATION_CODEC']['VALUE'];
+        $genre        = $station['STATION_GENRE']['VALUE'];
+        $listeners    = $station['STATION_LISTENERS_ACTIVE']['VALUE'];
+        $maxlisteners = $station['STATION_LISTENERS_MAX']['VALUE'];
+        $status       = $station['STATION_STATUS']['VALUE'];
         $playlist     = '/cgi-bin/play.pls?stationid='.$station_id.'&broadcaster='.$broadcaster.'&sessionid='.$this->session_id.'&ext=.pls';
         $playlist     = '/play/'.$broadcaster.'&sessionid='.$this->session_id;
 
@@ -184,18 +193,20 @@ class live365 extends iradio {
         $uri = 'http://'.$this->iradiosite.'/cgi-bin/api_genres.cgi?action=get&sessionid='.$this->session_id.'&format=xml';
         $this->openpage($uri);
         # Genres
-        $xml = new XPath(FALSE, array(XML_OPTION_CASE_FOLDING => TRUE, XML_OPTION_SKIP_WHITE => TRUE) );
-        if ( $xml->importFromString($this->page) !== false)
+        $xml = new XmlParser($this->page, array(XML_OPTION_CASE_FOLDING => TRUE, XML_OPTION_SKIP_WHITE => TRUE) );
+        $directory = $xml->GetData();
+        if ( isset($directory['LIVE365_API_GENRES_CGI']['GENRES']['GENRE']) )
         {
-          $stationcount = 0;
-          foreach ($xml->match('/live365_api_genres_cgi/genres/genre') as $filepath)
+          if ( !isset($directory['LIVE365_API_GENRES_CGI']['GENRES']['GENRE'][0]) )
+            $directory['LIVE365_API_GENRES_CGI']['GENRES']['GENRE'] = array($directory['LIVE365_API_GENRES_CGI']['GENRES']['GENRE']);
+          foreach ($directory['LIVE365_API_GENRES_CGI']['GENRES']['GENRE'] as $genre)
           {
-            $genre = utf8_decode($xml->getData($filepath.'/display_name'));
-            $g_id  = utf8_decode($xml->getData($filepath.'/name'));
-            $p_id  = utf8_decode($xml->getData($filepath.'/parent_name'));
-            send_to_log(8,'IRadio: Got genre '.$genre.' with value '.$g_id);
+            $name = utf8_decode($genre['DISPLAY_NAME']['VALUE']);
+            $g_id  = utf8_decode($genre['NAME']['VALUE']);
+            $p_id  = utf8_decode($genre['PARENT_NAME']['VALUE']);
+            send_to_log(8,'IRadio: Got genre '.$name.' with value '.$g_id);
             if ($p_id == 'ROOT') $p_id = $g_id;
-            $this->genre[$p_id][$g_id] = array("text" => $genre, "id" => $g_id);
+            $this->genre[$p_id][$g_id] = array("text" => $name, "id" => $g_id);
           }
           $this->write_cache('genres',$this->genre);
         }

@@ -11,7 +11,7 @@
  #############################################################################
 
 require_once( realpath(dirname(__FILE__)."/iradio.php"));
-require_once( realpath(dirname(__FILE__).'/../xml/XPath.class.php'));
+require_once( realpath(dirname(__FILE__).'/../xml/xmlparser.php'));
 
 /** Steamcast Specific Parsing
  * @package IRadio
@@ -48,20 +48,22 @@ class steamcast extends iradio {
     $uri = 'http://'.$this->iradiosite.'/sbin/rss_feed.rss'.$this->search_baseparams.$url;
     $this->openpage($uri);
 
-    $xml = new XPath(FALSE, array(XML_OPTION_CASE_FOLDING => TRUE, XML_OPTION_SKIP_WHITE => TRUE) );
-    if ( $xml->importFromString($this->page) !== false)
+    $xml = new XmlParser($this->page, array(XML_OPTION_CASE_FOLDING => TRUE, XML_OPTION_SKIP_WHITE => TRUE) );
+    $rss = $xml->GetData();
+    if ( isset($rss['RSS']['CHANNEL']['ITEM']) )
     {
+      if ( !isset($rss['RSS']['CHANNEL']['ITEM'][0]) )
+        $rss['RSS']['CHANNEL']['ITEM'] = array($rss['RSS']['CHANNEL']['ITEM']);
       $stationcount = 0;
-      foreach ($xml->match('/rss/channel/item') as $filepath)
+      foreach ($rss['RSS']['CHANNEL']['ITEM'] as $item)
       {
-        $playlist     = $xml->getData($filepath.'/link');
-        $name         = utf8_decode(html_entity_decode($xml->getData($filepath.'/title')));
+        $playlist     = $item['LINK']['VALUE'];
+        $name         = utf8_decode(html_entity_decode($item['TITLE']['VALUE']));
         $name         = trim(preg_replace('/\[.*\] /','',$name));
-        $description  = utf8_decode(html_entity_decode($xml->getData($filepath.'/description')));
-        $genre        = utf8_decode(html_entity_decode($xml->getData($filepath.'/category')));
+        $description  = utf8_decode(html_entity_decode($item['DESCRIPTION']['VALUE']));
+        $genre        = utf8_decode(html_entity_decode($item['CATEGORY']['VALUE']));
         $bitrate      = preg_get('/Bitrate: (\d+)/', $description);
-        $attrib       = $xml->getAttributes($filepath.'/enclosure');
-        $format       = $this->mime_type_decode($attrib["TYPE"]);
+        $format       = $this->mime_type_decode($item['ENCLOSURE']['TYPE']);
 
         // following information is not available here, so place dummies
         $nowplaying = "?";
