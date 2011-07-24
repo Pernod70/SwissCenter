@@ -4,7 +4,7 @@
  *************************************************************************************************/
 
   require_once( realpath(dirname(__FILE__).'/mysql.php'));
-  require_once( realpath(dirname(__FILE__).'/../ext/xml/XPath.class.php'));
+  require_once( realpath(dirname(__FILE__).'/../ext/xml/xmlparser.php'));
   require_once( realpath(dirname(__FILE__).'/../ext/xml/xmlbuilder.php'));
 
   /**
@@ -112,7 +112,7 @@
         $xml->Element('trailer', $details[0]["TRAILER"]);
 
       // Viewed Status
-      $user_list = db_toarray("select name from users u, viewings v where u.user_id=v.user_id and v.media_type=".MEDIA_TYPE_VIDEO." and v.media_id = ".$file_id);
+      $user_list = db_toarray("select distinct(name) from users u, viewings v where u.user_id=v.user_id and v.media_type=".MEDIA_TYPE_VIDEO." and v.media_id = ".$file_id);
       if ( !empty ( $user_list ) )
       {
         $xml->Push('viewed');
@@ -132,84 +132,82 @@
 
   function import_movie_from_xml ( $file_id, $filename )
   {
-    $options = array(XML_OPTION_CASE_FOLDING => FALSE, XML_OPTION_SKIP_WHITE => TRUE);
-    $xml = new XPath(FALSE, $options);
+    $sidecar = file_get_contents($filename);
+    $xml = new XmlParser($sidecar, array(XML_OPTION_CASE_FOLDING => FALSE, XML_OPTION_SKIP_WHITE => TRUE) );
+    $movie = $xml->GetData();
 
-    $xml->importFromFile($filename);
-
-    $data = $xml->match("/movie[1]/title");
-    if ( !empty($data) ) $columns["TITLE"] = utf8_decode(xmlspecialchars_decode($xml->getData($data[0])));
-    $data = $xml->match("/movie[1]/synopsis");
-    if ( !empty($data) ) $columns["SYNOPSIS"] = utf8_decode(xmlspecialchars_decode($xml->getData($data[0])));
-    $data = $xml->match("/movie[1]/year");
-    if ( !empty($data) ) $columns["YEAR"] = $xml->getData($data[0]);
-    $data = $xml->match("/movie[1]/rating");
-    if ( !empty($data) ) $columns["EXTERNAL_RATING_PC"] = $xml->getData($data[0]) * 10;
-    $data = $xml->match("/movie[1]/trailer");
-    if ( !empty($data) ) $columns["TRAILER"] = xmlspecialchars_decode($xml->getData($data[0]));
+    if ( isset($movie['movie']['title']['VALUE']) )    $columns["TITLE"] = utf8_decode(xmlspecialchars_decode($movie['movie']['title']['VALUE']));
+    if ( isset($movie['movie']['synopsis']['VALUE']) ) $columns["SYNOPSIS"] = utf8_decode(xmlspecialchars_decode($movie['movie']['synopsis']['VALUE']));
+    if ( isset($movie['movie']['year']['VALUE']) )     $columns["YEAR"] = $movie['movie']['year']['VALUE'];
+    if ( isset($movie['movie']['rating']['VALUE']) )   $columns["EXTERNAL_RATING_PC"] = $movie['movie']['rating']['VALUE'] * 10;
+    if ( isset($movie['movie']['trailer']['VALUE']) )  $columns["TRAILER"] = xmlspecialchars_decode($movie['movie']['trailer']['VALUE']);
     $columns["DETAILS_AVAILABLE"] = 'Y';
     scdb_set_movie_attribs($file_id, $columns);
 
     // Actors
     @db_sqlcommand('delete from actors_in_movie where movie_id = '.$file_id);
-    $actors = $xml->match('/movie[1]/actors[1]/actor');
-    if ( !empty($actors) )
+    if ( isset($movie['movie']['actors']['actor']) )
     {
+      if ( !isset($movie['movie']['actors']['actor'][0]) )
+        $movie['movie']['actors']['actor'] = array($movie['movie']['actors']['actor']);
       $data = array();
-      foreach ($actors as $actorpath)
-        $data[] = utf8_decode(xmlspecialchars_decode($xml->getData($actorpath.'/name')));
+      foreach ($movie['movie']['actors']['actor'] as $actor)
+        $data[] = utf8_decode(xmlspecialchars_decode($actor['name']['VALUE']));
       scdb_add_actors($file_id,$data);
     }
 
     // Certificates
-    foreach ($xml->match('/movie[1]/certificates[1]/certificate[1]') as $certpath)
+    if ( isset($movie['movie']['certificates']) )
     {
-      $list = $xml->getAttributes($certpath);
-      $cert = $xml->getData($certpath) ;
-      $scheme = $list["scheme"] ;
-      $cert_id = db_value("select cert_id from certificates where scheme='$scheme' and name='$cert'");
+      $cert = $movie['movie']['certificates']['certificate'];
+      $cert_id = db_value("select cert_id from certificates where scheme='".$cert['scheme']."' and name='".$cert['VALUE']."'");
       db_sqlcommand('update movies set certificate = '.$cert_id.' where file_id = '.$file_id);
     }
 
     // Genres
     @db_sqlcommand('delete from genres_of_movie where movie_id = '.$file_id);
-    $genres  =$xml->match('/movie[1]/genres[1]/genre');
-    if ( !empty($genres) )
+    if ( isset($movie['movie']['genres']['genre']) )
     {
+      if ( !isset($movie['movie']['genres']['genre'][0]) )
+        $movie['movie']['genres']['genre'] = array($movie['movie']['genres']['genre']);
       $data = array();
-      foreach ($genres as $genrepath)
-        $data[] = utf8_decode(xmlspecialchars_decode($xml->getData($genrepath)));
+      foreach ($movie['movie']['genres']['genre'] as $genre)
+        $data[] = utf8_decode(xmlspecialchars_decode($genre['VALUE']));
       scdb_add_genres($file_id,$data);
     }
 
     // Directors
     @db_sqlcommand('delete from directors_of_movie where movie_id = '.$file_id) ;
-    $directors = $xml->match('/movie[1]/directors[1]/director');
-    if ( !empty($directors) )
+    if ( isset($movie['movie']['directors']['director']) )
     {
+      if ( !isset($movie['movie']['directors']['director'][0]) )
+        $movie['movie']['directors']['director'] = array($movie['movie']['directors']['director']);
       $data = array();
-      foreach ($directors  as $directorpath)
-        $data[] = utf8_decode(xmlspecialchars_decode($xml->getData($directorpath)));
+      foreach ($movie['movie']['directors']['director'] as $director)
+        $data[] = utf8_decode(xmlspecialchars_decode($director['VALUE']));
       scdb_add_directors($file_id,$data);
     }
 
     // Languages
     @db_sqlcommand('delete from languages_of_movie where movie_id = '.$file_id) ;
-    $languages = $xml->match('/movie[1]/languages[1]/language');
-    if ( !empty($languages) )
+    if ( isset($movie['movie']['languages']['language']) )
     {
+      if ( !isset($movie['movie']['languages']['language'][0]) )
+        $movie['movie']['languages']['language'] = array($movie['movie']['languages']['language']);
       $data = array();
-      foreach ($languages  as $languagepath)
-        $data[] = utf8_decode(xmlspecialchars_decode($xml->getData($languagepath)));
+      foreach ($movie['movie']['languages']['language'] as $language)
+        $data[] = utf8_decode(xmlspecialchars_decode($language['VALUE']));
       scdb_add_languages($file_id,$data);
     }
 
-    $viewed = $xml->match('/movie[1]/viewed[1]/name') ;
-    if ( !empty($viewed) )
+    // Viewed Status
+    if ( isset($movie['movie']['viewed']) )
     {
-      foreach ( $viewed as $viewedpath )
+      if ( !isset($movie['movie']['viewed']['name'][0]) )
+        $movie['movie']['viewed']['name'] = array($movie['movie']['viewed']['name']);
+      foreach ( $movie['movie']['viewed']['name'] as $viewed )
       {
-        $name = utf8_decode(xmlspecialchars_decode($xml->getData($viewedpath)));
+        $name = utf8_decode(xmlspecialchars_decode($viewed['VALUE']));
         $user_id = db_value("SELECT user_id FROM users where name='".$name."'");
         if (viewings_count(MEDIA_TYPE_VIDEO, $file_id, $user_id) == 0)
           db_insert_row('viewings',array("user_id"=>$user_id, "media_type"=>MEDIA_TYPE_VIDEO, "media_id"=>$file_id, "total_viewings"=>1));
@@ -267,6 +265,7 @@
         }
         $xml->Pop('actors');
       }
+
       // Certificates
       if ( !empty( $details[0]["CERTIFICATE"] ) )
       {
@@ -319,7 +318,7 @@
         $xml->Element('rating', ($details[0]["EXTERNAL_RATING_PC"]/10));
 
       // Viewed Status
-      $user_list = db_toarray("select name from users u, viewings v where u.user_id=v.user_id and v.media_type=".MEDIA_TYPE_TV." and v.media_id = ".$file_id);
+      $user_list = db_toarray("select distinct(name) from users u, viewings v where u.user_id=v.user_id and v.media_type=".MEDIA_TYPE_TV." and v.media_id = ".$file_id);
       if ( !empty ( $user_list ) )
       {
         $xml->Push('viewed');
@@ -339,88 +338,84 @@
 
   function import_tv_from_xml ( $file_id, $filename )
   {
-    $options = array(XML_OPTION_CASE_FOLDING => FALSE, XML_OPTION_SKIP_WHITE => TRUE);
-    $xml = new XPath(FALSE, $options);
+    $sidecar = file_get_contents($filename);
+    $xml = new XmlParser($sidecar, array(XML_OPTION_CASE_FOLDING => FALSE, XML_OPTION_SKIP_WHITE => TRUE) );
+    $tv = $xml->GetData();
 
-    $xml->importFromFile($filename);
-
-    $data = $xml->match("/tv[1]/programme");
-    if ( !empty($data) ) $columns["PROGRAMME"] = utf8_decode(xmlspecialchars_decode($xml->getData($data[0])));
-    $data = $xml->match("/tv[1]/series");
-    if ( !empty($data) ) $columns["SERIES"] = $xml->getData($data[0]);
-    $data = $xml->match("/tv[1]/episode");
-    if ( !empty($data) ) $columns["EPISODE"] = $xml->getData($data[0]);
-    $data = $xml->match("/tv[1]/title");
-    if ( !empty($data) ) $columns["TITLE"] = utf8_decode(xmlspecialchars_decode($xml->getData($data[0])));
-    $data = $xml->match("/tv[1]/synopsis");
-    if ( !empty($data) ) $columns["SYNOPSIS"] = utf8_decode(xmlspecialchars_decode($xml->getData($data[0])));
-    $data = $xml->match("/tv[1]/year");
-    if ( !empty($data) ) $columns["YEAR"] = $xml->getData($data[0]);
-    $data = $xml->match("/tv[1]/rating");
-    if ( !empty($data) ) $columns["EXTERNAL_RATING_PC"] = $xml->getData($data[0]) * 10;
+    if ( isset($tv['tv']['programme']['VALUE']) ) $columns["PROGRAMME"] = utf8_decode(xmlspecialchars_decode($tv['tv']['programme']['VALUE']));
+    if ( isset($tv['tv']['series']['VALUE']) )    $columns["SERIES"] = $tv['tv']['series']['VALUE'];
+    if ( isset($tv['tv']['episode']['VALUE']) )   $columns["EPISODE"] = $tv['tv']['episode']['VALUE'];
+    if ( isset($tv['tv']['title']['VALUE']) )     $columns["TITLE"] = utf8_decode(xmlspecialchars_decode($tv['tv']['title']['VALUE']));
+    if ( isset($tv['tv']['synopsis']['VALUE']) )  $columns["SYNOPSIS"] = utf8_decode(xmlspecialchars_decode($tv['tv']['synopsis']['VALUE']));
+    if ( isset($tv['tv']['year']['VALUE']) )      $columns["YEAR"] = $tv['tv']['year']['VALUE'];
+    if ( isset($tv['tv']['rating']['VALUE']) )    $columns["EXTERNAL_RATING_PC"] = $tv['tv']['rating']['VALUE'] * 10;
     $columns["DETAILS_AVAILABLE"] = 'Y';
     scdb_set_tv_attribs($file_id, $columns);
 
     // Actors
     @db_sqlcommand('delete from actors_in_tv where tv_id = '.$file_id);
-    $actors = $xml->match('/tv[1]/actors[1]/actor');
-    if ( !empty($actors) )
+    if ( isset($tv['tv']['actors']['actor']) )
     {
+      if ( !isset($tv['tv']['actors']['actor'][0]) )
+        $tv['tv']['actors']['actor'] = array($tv['tv']['actors']['actor']);
       $data = array();
-      foreach ($actors as $actorpath)
-        $data[] = utf8_decode(xmlspecialchars_decode($xml->getData($actorpath.'/name')));
+      foreach ($tv['tv']['actors']['actor'] as $actor)
+        $data[] = utf8_decode(xmlspecialchars_decode($actor['name']['VALUE']));
       scdb_add_tv_actors($file_id,$data);
     }
 
     // Certificates
-    foreach ($xml->match('/tv[1]/certificates[1]/certificate[1]') as $certpath)
+    if ( isset($tv['tv']['certificates']) )
     {
-      $list = $xml->getAttributes($certpath);
-      $cert = $xml->getData($certpath) ;
-      $scheme = $list["scheme"] ;
-      $cert_id = db_value("select cert_id from certificates where scheme='$scheme' and name='$cert'");
+      $cert = $tv['tv']['certificates']['certificate'];
+      $cert_id = db_value("select cert_id from certificates where scheme='".$cert['scheme']." and name='".$cert['VALUE']."'");
       db_sqlcommand('update tv set certificate = '.$cert_id.' where file_id = '.$file_id);
     }
 
     // Genres
     @db_sqlcommand('delete from genres_of_tv where tv_id = '.$file_id);
-    $genres  =$xml->match('/tv[1]/genres[1]/genre');
-    if ( !empty($genres) )
+    if ( isset($tv['tv']['genres']['genre']) )
     {
+      if ( !isset($tv['tv']['genres']['genre'][0]) )
+        $tv['tv']['genres']['genre'] = array($tv['tv']['genres']['genre']);
       $data = array();
-      foreach ($genres as $genrepath)
-        $data[] = utf8_decode(xmlspecialchars_decode($xml->getData($genrepath)));
+      foreach ($tv['tv']['genres']['genre'] as $genre)
+        $data[] = utf8_decode(xmlspecialchars_decode($genre['VALUE']));
       scdb_add_tv_genres($file_id,$data);
     }
 
     // Directors
     @db_sqlcommand('delete from directors_of_tv where tv_id = '.$file_id) ;
-    $directors = $xml->match('/tv[1]/directors[1]/director');
-    if ( !empty($directors) )
+    if ( isset($tv['tv']['directors']['director']) )
     {
+      if ( !isset($tv['tv']['directors']['director'][0]) )
+        $tv['tv']['directors']['director'] = array($tv['tv']['directors']['director']);
       $data = array();
-      foreach ($directors  as $directorpath)
-        $data[] = utf8_decode(xmlspecialchars_decode($xml->getData($directorpath)));
+      foreach ($tv['tv']['directors']['director'] as $director)
+        $data[] = utf8_decode(xmlspecialchars_decode($director['VALUE']));
       scdb_add_tv_directors($file_id,$data);
     }
 
     // Languages
     @db_sqlcommand('delete from languages_of_tv where tv_id = '.$file_id) ;
-    $languages = $xml->match('/tv[1]/languages[1]/language');
-    if ( !empty($languages) )
+    if ( isset($tv['tv']['languages']['language']) )
     {
+      if ( !isset($tv['tv']['languages']['language'][0]) )
+        $tv['tv']['languages']['language'] = array($tv['tv']['languages']['language']);
       $data = array();
-      foreach ($languages  as $languagepath)
-        $data[] = utf8_decode(xmlspecialchars_decode($xml->getData($languagepath)));
+      foreach ($tv['tv']['languages']['language'] as $language)
+        $data[] = utf8_decode(xmlspecialchars_decode($language['VALUE']));
       scdb_add_tv_languages($file_id,$data);
     }
 
-    $viewed = $xml->match('/tv[1]/viewed[1]/name') ;
-    if ( !empty($viewed) )
+    // Viewed Status
+    if ( isset($tv['tv']['viewed']) )
     {
-      foreach ( $viewed as $viewedpath )
+      if ( !isset($tv['tv']['viewed']['name'][0]) )
+        $tv['tv']['viewed']['name'] = array($tv['tv']['viewed']['name']);
+      foreach ( $tv['tv']['viewed']['name'] as $viewed )
       {
-        $name = utf8_decode($xml->getData($viewedpath));
+        $name = utf8_decode($viewed['VALUE']);
         $user_id = db_value("SELECT user_id FROM users where name='".$name."'");
         if (viewings_count(MEDIA_TYPE_TV, $file_id, $user_id) == 0)
           db_insert_row('viewings',array("user_id"=>$user_id, "media_type"=>MEDIA_TYPE_TV, "media_id"=>$file_id, "total_viewings"=>1));
