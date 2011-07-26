@@ -331,9 +331,18 @@ class phpSVNclient
         foreach($parser->structure as $value) {
             if ( $enable ) {
                 $t = explode("/",$value);
-                if ( is_numeric($t[ count($t) -1 ]) ) {
-                    $this->_repVersion = $t[ count($t) -1 ];
+                // start from the end and move backwards until we find a non-blank entry
+                $index = count($t) - 1;
+                while ($t[$index] == "") {
+                    $index--;
+                }
+                // check the last non-empty element to see if it's numeric. If so, it's the revision number
+                if ( is_numeric($t[$index]) ) {
+                    $this->_repVersion = $t[$index];
                     break;
+                } else {
+                    $enable = false;
+                    continue;
                 }
             }
             if ( is_array($value) && $value['Tag'] == 'D:href') $enable = true;

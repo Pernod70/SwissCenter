@@ -2,7 +2,7 @@
 /*
  * http.php
  *
- * @(#) $Header: /home/mlemos/cvsroot/http/http.php,v 1.76 2008/03/18 07:59:05 mlemos Exp $
+ * @(#) $Header: /home/mlemos/cvsroot/http/http.php,v 1.82 2011/01/27 02:17:28 mlemos Exp $
  *
  */
 
@@ -18,7 +18,8 @@ class http_class
 
 	var $protocol="http";
 	var $request_method="GET";
-	var $user_agent='httpclient (http://www.phpclasses.org/httpclient $Revision: 1.76 $)';
+	var $user_agent='httpclient (http://www.phpclasses.org/httpclient $Revision: 1.82 $)';
+	var $accept='';
 	var $authentication_mechanism="";
 	var $user;
 	var $password;
@@ -46,6 +47,7 @@ class http_class
 	var $timeout=0;
 	var $data_timeout=0;
 	var $debug=0;
+	var $log_debug=0;
 	var $debug_response_body=1;
 	var $html_debug=0;
 	var $support_cookies=1;
@@ -156,11 +158,16 @@ class http_class
 
 	Function OutputDebug($message)
 	{
-		$message.="\n";
-		if($this->html_debug)
-			$message=str_replace("\n","<br />\n",HtmlEntities($message));
-		echo $message;
-		flush();
+		if($this->log_debug)
+			error_log($message);
+		else
+		{
+			$message.="\n";
+			if($this->html_debug)
+				$message=str_replace("\n","<br />\n",HtmlEntities($message));
+			echo $message;
+			flush();
+		}
 	}
 
 	Function GetLine()
@@ -333,7 +340,7 @@ class http_class
 
 	Function Resolve($domain, &$ip, $server_type)
 	{
-		if(ereg('^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$',$domain))
+		if(preg_match('/^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/',$domain))
 			$ip=$domain;
 		else
 		{
@@ -380,7 +387,7 @@ class http_class
 			$this->OutputDebug('Connecting to '.$server_type.' server IP '.$ip.' port '.$port.'...');
 		if($ssl)
 			$ip="ssl://".$ip;
-		if(($this->connection=($this->timeout ? @fsockopen($ip, $port, &$errno, &$error, $this->timeout) : @fsockopen($ip, $port, &$errno)))==0)
+		if(($this->connection=($this->timeout ? @fsockopen($ip, $port, $errno, $error, $this->timeout) : @fsockopen($ip, $port, $errno)))==0)
 		{
 			switch($errno)
 			{
@@ -533,9 +540,9 @@ class http_class
 
 	Function GetRequestArguments($url, &$arguments)
 	{
-		if(strlen($this->error))
-			return($this->error);
+		$this->error = '';
 		$arguments=array();
+		$url = str_replace(' ', '%20', $url);
 		$parameters=@parse_url($url);
 		if(!$parameters)
 			return($this->SetError("it was not specified a valid URL"));
@@ -577,6 +584,8 @@ class http_class
 		$arguments["RequestURI"]=(IsSet($parameters["path"]) ? $parameters["path"] : "/").(IsSet($parameters["query"]) ? "?".$parameters["query"] : "");
 		if(strlen($this->user_agent))
 			$arguments["Headers"]["User-Agent"]=$this->user_agent;
+		if(strlen($this->accept))
+			$arguments["Headers"]["Accept"]=$this->accept;
 		return("");
 	}
 
@@ -941,6 +950,8 @@ class http_class
 		if(!$this->PutLine('CONNECT '.$this->host_name.':'.($this->host_port ? $this->host_port : 443).' HTTP/1.0')
 		|| (strlen($this->user_agent)
 		&& !$this->PutLine('User-Agent: '.$this->user_agent))
+		|| (strlen($this->accept)
+		&& !$this->PutLine('Accept: '.$this->accept))
 		|| (IsSet($arguments['Headers']['Proxy-Authorization'])
 		&& !$this->PutLine('Proxy-Authorization: '.$arguments['Headers']['Proxy-Authorization']))
 		|| !$this->PutLine(''))
@@ -1021,6 +1032,11 @@ class http_class
 		if(!IsSet($arguments["Headers"]["User-Agent"])
 		&& strlen($this->user_agent))
 			$arguments["Headers"]["User-Agent"]=$this->user_agent;
+		if(IsSet($arguments["Accept"]))
+			$this->user_agent=$arguments["Accept"];
+		if(!IsSet($arguments["Headers"]["Accept"])
+		&& strlen($this->accept))
+			$arguments["Headers"]["Accept"]=$this->accept;
 		if(strlen($this->request_method)==0)
 			return($this->SetError("3 it was not specified a valid request method"));
 		if(IsSet($arguments["RequestURI"]))
@@ -1186,7 +1202,7 @@ class http_class
 		}
 		if($this->use_curl)
 		{
-			$version=(GetType($v=curl_version())=="array" ? (IsSet($v["version"]) ? $v["version"] : "0.0.0") : (ereg("^libcurl/([0-9]+\\.[0-9]+\\.[0-9]+)",$v,$m) ? $m[1] : "0.0.0"));
+			$version=(GetType($v=curl_version())=="array" ? (IsSet($v["version"]) ? $v["version"] : "0.0.0") : (preg_match("/^libcurl\\/([0-9]+\\.[0-9]+\\.[0-9]+)/",$v,$m) ? $m[1] : "0.0.0"));
 			$curl_version=100000*intval($this->Tokenize($version,"."))+1000*intval($this->Tokenize("."))+intval($this->Tokenize(""));
 			$protocol_version=($curl_version<713002 ? "1.0" : $this->protocol_version);
 		}
@@ -1458,7 +1474,7 @@ class http_class
 				return($this->SetError("4 could not read request reply: ".$this->error));
 			if(strlen($this->response_status)==0)
 			{
-				if(!eregi($match="^http/[0-9]+\\.[0-9]+[ \t]+([0-9]+)[ \t]*(.*)\$",$line,$matches))
+				if(!preg_match($match="/^http\\/[0-9]+\\.[0-9]+[ \t]+([0-9]+)[ \t]*(.*)\$/i",$line,$matches))
 					return($this->SetError("3 it was received an unexpected HTTP response status"));
 				$this->response_status=$matches[1];
 				$this->response_message=$matches[2];
@@ -1509,7 +1525,7 @@ class http_class
 								$path="/";
 								$expires="";
 								$secure=0;
-								while(($name=trim(UrlDecode($this->Tokenize("="))))!="")
+								while(($name = strtolower(trim(UrlDecode($this->Tokenize("=")))))!="")
 								{
 									$value=UrlDecode($this->Tokenize(";"));
 									switch($name)
@@ -1521,7 +1537,7 @@ class http_class
 											$path=$value;
 											break;
 										case "expires":
-											if(ereg("^((Mon|Monday|Tue|Tuesday|Wed|Wednesday|Thu|Thursday|Fri|Friday|Sat|Saturday|Sun|Sunday), )?([0-9]{2})\\-(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\\-([0-9]{2,4}) ([0-9]{2})\\:([0-9]{2})\\:([0-9]{2}) GMT\$",$value,$matches))
+											if(preg_match("/^((Mon|Monday|Tue|Tuesday|Wed|Wednesday|Thu|Thursday|Fri|Friday|Sat|Saturday|Sun|Sunday), )?([0-9]{2})\\-(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\\-([0-9]{2,4}) ([0-9]{2})\\:([0-9]{2})\\:([0-9]{2}) GMT\$/",$value,$matches))
 											{
 												$year=intval($matches[5]);
 												if($year<1900)
@@ -1817,7 +1833,7 @@ class http_class
 		}
 		return("");
 	}
-
+	
 	Function ReadReplyHeaders(&$headers)
 	{
 		if(strlen($error=$this->ReadReplyHeadersResponse($headers)))
@@ -1881,6 +1897,19 @@ class http_class
 		}
 		$this->read_length+=strlen($body);
 		return("");
+	}
+
+	Function ReadWholeReplyBody(&$body)
+	{
+		$body = '';
+		for(;;)
+		{
+			if(strlen($error = $this->ReadReplyBody($block, $this->file_buffer_length)))
+				return($error);
+			if(strlen($block) == 0)
+				return('');
+			$body .= $block;
+		}
 	}
 
 	Function SaveCookies(&$cookies, $domain='', $secure_only=0, $persistent_only=0)
@@ -1960,7 +1989,7 @@ class http_class
 						$value=$cookies[$secure][$domain_pattern][$path][$cookie_name]["value"];
 						if(GetType($expires)!="string"
 						|| (strlen($expires)
-						&& !ereg("^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}\$", $expires)))
+						&& !preg_match("/^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}\$/", $expires)))
 							return($this->SetError("invalid cookie expiry value type (".serialize($expires).")"));
 						$new_cookies[$secure][$domain_pattern][$path][$cookie_name]=array(
 							"name"=>$cookie_name,
