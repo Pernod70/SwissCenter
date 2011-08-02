@@ -15,9 +15,12 @@
   $menu = new menu();
   $info = new infotab();
 
-  // Displays the details for a single movie (identified by the movie ID) including the title, year, certificate
-  // and synopsis (where available).
-
+  /**
+   * Displays the synopsis (where available) for a single movie (identified by the movie ID).
+   *
+   * @param $movie
+   * @param $num_menu_items
+   */
   function movie_details ($movie, $num_menu_items)
   {
     $synopsis = db_value("select synopsis from movies where file_id=$movie");
@@ -36,15 +39,26 @@
     echo font_tags(FONTSIZE_BODY).$text.'</font>';
   }
 
+  /**
+   * Displays the running time for a movie.
+   *
+   * @param $runtime
+   */
   function running_time($runtime)
   {
     if (!is_null($runtime))
       echo font_tags(FONTSIZE_BODY).str('RUNNING_TIME').': '.hhmmss($runtime).'</font>';
   }
 
-  // Function that checks to see if the supplied SQL contains a filter for the specified type.
-  // If it doesn't, then we can output a menu item which allows the user to filter on that type.
-
+  /**
+   * Function that checks to see if the supplied SQL contains a filter for the specified type.
+   * If it doesn't, then we can output a menu item which allows the user to filter on that type.
+   *
+   * @param $filter_list
+   * @param $sql_table
+   * @param $predicate
+   * @param $menu
+   */
   function check_filters ($filter_list, $sql_table, $predicate, &$menu )
   {
     foreach ($filter_list as $filter)
@@ -65,6 +79,12 @@
     }
   }
 
+  /**
+   * Displays the rating for a movie as a string of stars.
+   *
+   * @param $rating
+   * @return string - HTML
+   */
   function star_rating( $rating )
   {
     // Form star rating
@@ -85,6 +105,12 @@
     return $img_rating;
   }
 
+  /**
+   * Displays audio/video codec logos for a movie based upon it's metadata.
+   *
+   * @param $metadata
+   * @return string - HTML
+   */
   function media_logos( $metadata )
   {
     // Media logos
@@ -96,7 +122,7 @@
     if (stristr($metadata["VIDEO_CODEC"], 'mpeg-2') )  { $media_logos .= img_gen(style_img('MEDIA_MPEG',true), 80,40); }
     if (stristr($metadata["VIDEO_CODEC"], 'divx') )    { $media_logos .= img_gen(style_img('MEDIA_DIVX',true), 80,40); }
     if (stristr($metadata["VIDEO_CODEC"], 'xvid') )    { $media_logos .= img_gen(style_img('MEDIA_XVID',true), 80,40); }
-    if (stristr($metadata["VIDEO_CODEC"], '???') )     { $media_logos .= img_gen(style_img('MEDIA_MP4V',true), 80,40); }
+    if (stristr($metadata["VIDEO_CODEC"], 'quick') )   { $media_logos .= img_gen(style_img('MEDIA_MP4V',true), 80,40); }
     if (stristr($metadata["AUDIO_CODEC"], 'dts') )     { $media_logos .= img_gen(style_img('MEDIA_DTS',true), 65,40); }
     if (stristr($metadata["AUDIO_CODEC"], 'mpeg') )    { $media_logos .= img_gen(style_img('MEDIA_MP3',true), 65,40); }
     if (stristr($metadata["AUDIO_CODEC"], 'ac3') )     { $media_logos .= img_gen(style_img('MEDIA_DOLBY',true), 65,40); }
@@ -141,6 +167,8 @@
   $num_rows      = count($file_ids);
   $this_url      = url_set_param(current_url(),'add','N');
   $cert_img      = '';
+  $name          = un_magic_quote(rawurldecode($_REQUEST["name"]));
+  $type          = un_magic_quote($_REQUEST["type"]);
 
   //
   // A single movie has been matched/selected by the user, so display as much information as possible
@@ -162,6 +190,7 @@
     else
       $background = -1;
 
+    // Display page header
     if (!empty($data[0]["YEAR"]))
       page_header( $data[0]["TITLE"].' ('.$data[0]["YEAR"].')', '', '<meta SYABAS-PLAYERMODE="video">', 1, false, '', $background, false, 'PAGE_TEXT_BACKGROUND' );
     else
@@ -170,7 +199,7 @@
     // Is DVD image?
     $is_dvd = in_array(file_ext($data[0]["FILENAME"]), media_exts_dvd());
 
-    // Play now
+    // Add Play now menu item
     if ( $is_dvd )
     {
       // Can't use gen_playlist as the NMT does something different with zcd=2.
@@ -200,7 +229,7 @@
         $menu->add_item( str('ADD_PLAYLIST'), 'add_playlist.php?sql='.rawurlencode("select distinct $select_fields from $sql_table $predicate order by title, filename"),true);
     }
 
-    // Movie trailer
+    // Add Movie trailer menu item
     if (!empty($data[0]["TRAILER"]))
     {
       if (strpos($data[0]["TRAILER"],'youtube.com') > 0)
@@ -238,27 +267,48 @@
   //
   else
   {
-
     // More than one track matches, so output filter details and menu options to add new filters
-    page_header( str('MANY_ITEMS',$num_unique),'' );
+    page_header( $name, str('MANY_ITEMS',$num_unique) );
 
     if ( ($data = db_toarray("select file_id, dirname from $sql_table $predicate group by dirname")) === false )
       page_error( str('DATABASE_ERROR') );
 
-    if ( count($data)==1)
+    // Browse by actor or director, so check for an image to display
+    if ( $type == 'actor_name' || $type == 'director_name' )
+    {
+      // Random person image
+      $images = dir_to_array(SC_LOCATION.'fanart/actors/'.filename_safe(strtolower($name)), '.jpg', 5);
+      if (!empty($images))
+      {
+        $folder_img = $images[mt_rand(0,count($images)-1)];
+      }
+    }
+    // Browse by genre, so check for appropriate image to display
+    if ( $type == 'genre_name' )
+    {
+      $genre_img = SC_LOCATION.'images/genres/'.$name.'.png';
+      if ( file_exists($genre_img) )
+        $folder_img = $genre_img;
+    }
+    elseif ( count($data) == 1 )
+    {
       $folder_img = file_albumart($data[0]["DIRNAME"]);
+    }
 
+    // Display common details
     search_distinct_info($info, str('TITLE'), 'title', $sql_table, $predicate);
     search_distinct_info($info, str('YEAR'), 'year',$sql_table, $predicate);
     search_distinct_info($info, str('CERTIFICATE'), get_cert_name_sql(),$sql_table, $predicate);
+    $info->display();
+
+    // Add Play now menu item
     $menu->add_item( str('PLAY_NOW'), play_sql_list(MEDIA_TYPE_VIDEO,"select distinct $select_fields from $sql_table $predicate order by title, filename"));
 
     if (pl_enabled())
       $menu->add_item( str('ADD_PLAYLIST'), 'add_playlist.php?sql='.rawurlencode("select distinct $select_fields from $sql_table $predicate order by title, filename"),true);
 
+    // Add Refine by ... menu items
     check_filters( array('title','year','certificate','external_rating_pc','genre_name','actor_name','director_name'), $sql_table_all, $predicate, $menu);
-
-    $info->display();
   }
 
   // Delete media (limited to a small number of files)
@@ -277,13 +327,14 @@
       $cert_img = img_gen(SC_LOCATION.'images/ratings/'.get_rating_scheme_name().'/'.get_cert_name( get_nearest_cert_in_scheme($data[0]["CERTIFICATE"])).'.gif',280,100,false,false,false,array(),false);
   }
 
+  echo '<table width="100%" height="'.convert_y(650).'" cellpadding="0" cellspacing="0" border="0">
+          <tr>';
+
   // Is there a picture for us to display?
   if ( !empty($folder_img) )
   {
     // Column 1: Image
-    echo '<table width="100%" height="'.convert_y(650).'" cellpadding="0" cellspacing="0" border="0">
-            <tr>
-              <td valign="middle">
+    echo '    <td valign="middle">
                 <table '.style_background('PAGE_TEXT_BACKGROUND').' cellpadding="10" cellspacing="0" border="0">
                   <tr>
                     <td><center>'.img_gen($folder_img,280,550,false,false,false,array(),false).'<br>'.$cert_img.'</center></td>
@@ -292,6 +343,11 @@
               </td>';
     // Column 2: Gap
     echo '    <td width="'.convert_x(10).'"></td>';
+  }
+
+  // Is a single movie selected?
+  if ($num_rows == 1 || $num_unique == 1)
+  {
     // Column 3: Details and menu
     echo '    <td valign="top">
                 <table '.style_background('PAGE_TEXT_BACKGROUND').' width="100%" cellpadding="5" cellspacing="0" border="0">
@@ -307,14 +363,18 @@
                   </tr>
                 </table>';
                 $menu->display(1, 480);
-    echo '    </td>
-            </tr>
-          </table>';
+    echo '    </td>';
   }
   else
   {
-    $menu->display();
+    echo '    <td>';
+              $menu->display(1, 480);
+    echo '    </td>';
   }
+
+  echo '
+            </tr>
+          </table>';
 
   // Buttons for Next and Previous videos
   $prev = db_row("select file_id,title from movies media ".get_rating_join()." where ".
@@ -333,6 +393,7 @@
                    " 1=1 ".get_rating_filter().filter_get_predicate().$history["sql"].
                    " order by title asc limit 1");
 
+  // Output ABC buttons
   $buttons = array();
   if ( is_array($prev) )
     $buttons[0] = array('text'=>str('PREVIOUS').': '.$prev["TITLE"], 'url'=> url_add_params($this_url, array("type"=>"title", "name"=>rawurlencode($prev["TITLE"]))) );
@@ -343,6 +404,7 @@
   else
     $buttons[2] = array('text'=>str('SHUFFLE_OFF'), 'url'=> url_set_param($this_url,'shuffle','off') );
 
+  // Make sure the "back" button goes to the correct page:
   page_footer( url_add_params( search_picker_most_recent(), array("p_del"=>"y","del"=>"y") ), $buttons, 0, true, 'PAGE_TEXT_BACKGROUND' );
 
 /**************************************************************************************************
