@@ -175,7 +175,7 @@
       <string>
         <id>AVAILABLE_VERSION</id>
         <text>Beschikbare versie</text>
-        <version>1.22</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>BACKSPACE</id>
@@ -199,22 +199,22 @@
       </string>
       <string>
         <id>BROWSE_ACTOR</id>
-        <text>Zoek op acteur</text>
+        <text>Zoek acteur</text>
         <version>1.19</version>
       </string>
       <string>
         <id>BROWSE_ALBUM</id>
-        <text>Zoek op albumnaam</text>
+        <text>Zoek albumnaam</text>
         <version>1.19</version>
       </string>
       <string>
         <id>BROWSE_ALBUM_ARTIST</id>
-        <text>Zoek op albumartiest</text>
+        <text>Zoek albumartiest</text>
         <version>1.21.1</version>
       </string>
       <string>
         <id>BROWSE_ARTIST</id>
-        <text>Zoek op artiestennaam</text>
+        <text>Zoek artiestennaam</text>
         <version>1.19</version>
       </string>
       <string>
@@ -224,32 +224,32 @@
       </string>
       <string>
         <id>BROWSE_CERTIFICATE</id>
-        <text>Zoek op kijkwijzer leeftijd</text>
+        <text>Zoek kijkwijzer leeftijd</text>
         <version>1.19</version>
       </string>
       <string>
         <id>BROWSE_COMPOSER</id>
-        <text>Zoek op componist</text>
+        <text>Zoek componist</text>
         <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_COUNTRY</id>
-        <text>Zoek op land</text>
+        <text>Zoek land</text>
         <version>1.19</version>
       </string>
       <string>
         <id>BROWSE_DATE</id>
-        <text>Zoek op datum</text>
+        <text>Zoek datum</text>
         <version>1.19</version>
       </string>
       <string>
         <id>BROWSE_DIRECTOR</id>
-        <text>Zoek op regisseur</text>
+        <text>Zoek regisseur</text>
         <version>1.19</version>
       </string>
       <string>
         <id>BROWSE_DISCOVERED</id>
-        <text>Zoek op datum van toevoeging</text>
+        <text>Zoek datum van toevoeging</text>
         <version>1.22</version>
       </string>
       <string>
@@ -258,64 +258,79 @@
         <version>1.21</version>
       </string>
       <string>
+        <id>BROWSE_EDITORS_PICKS</id>
+        <text>Zoek binnen de editor's keuze</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>BROWSE_FILESYSTEM</id>
         <text>Zoek binnen mappen</text>
         <version>1.19</version>
       </string>
       <string>
+        <id>BROWSE_FREE_STATIONS</id>
+        <text>Zoek gratis stations</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>BROWSE_GENRE</id>
-        <text>Zoek op genre</text>
+        <text>Zoek genre</text>
         <version>1.19</version>
       </string>
       <string>
         <id>BROWSE_IPTC_BYLINE</id>
-        <text>Zoek op auteur</text>
+        <text>Zoek auteur</text>
         <version>1.19</version>
       </string>
       <string>
         <id>BROWSE_IPTC_CAPTION</id>
-        <text>Zoek op omschrijving</text>
+        <text>Zoek omschrijving</text>
         <version>1.19</version>
       </string>
       <string>
         <id>BROWSE_IPTC_CITY</id>
-        <text>Zoek op stad</text>
+        <text>Zoek stad</text>
         <version>1.19</version>
       </string>
       <string>
         <id>BROWSE_IPTC_COUNTRY</id>
-        <text>Zoek op land</text>
+        <text>Zoek land</text>
         <version>1.19</version>
       </string>
       <string>
         <id>BROWSE_IPTC_DATE_CREATED</id>
-        <text>Zoek op creatiedatum</text>
+        <text>Zoek creatiedatum</text>
         <version>1.19</version>
       </string>
       <string>
         <id>BROWSE_IPTC_KEYWORDS</id>
-        <text>Zoek op sleutelwoorden</text>
+        <text>Zoek sleutelwoorden</text>
         <version>1.19</version>
       </string>
       <string>
         <id>BROWSE_IPTC_LOCATION</id>
-        <text>Zoek op locatie</text>
+        <text>Zoek locatie</text>
         <version>1.19</version>
       </string>
       <string>
         <id>BROWSE_IPTC_PROVINCE_STATE</id>
-        <text>Zoek op provincie/staat</text>
+        <text>Zoek provincie/staat</text>
         <version>1.19</version>
       </string>
       <string>
         <id>BROWSE_IPTC_SUPPCATEGORY</id>
-        <text>Zoek op aanvullende categorieën</text>
+        <text>Zoek aanvullende categorieën</text>
         <version>1.19</version>
       </string>
       <string>
+        <id>BROWSE_LOCAL</id>
+        <text>Zoek lokale radio</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>BROWSE_MOVIES</id>
-        <text>Zoek in video's</text>
-        <version>1.20</version>
+        <text>Zoek video's</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>BROWSE_MUSIC</id>
@@ -334,27 +349,32 @@
       </string>
       <string>
         <id>BROWSE_PHOTO_ALBUM</id>
-        <text>Zoek op fotoalbum</text>
+        <text>Zoek fotoalbum</text>
         <version>1.19</version>
       </string>
       <string>
         <id>BROWSE_PHOTO_TITLE</id>
-        <text>Zoek op titel</text>
+        <text>Zoek titel</text>
         <version>1.19</version>
       </string>
       <string>
+        <id>BROWSE_PRESETS</id>
+        <text>Zoek vastgelegde stations</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>BROWSE_RATING</id>
-        <text>Zoek op beoordeling</text>
-        <version>1.22</version>
+        <text>Zoek op waardering</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>BROWSE_STATION</id>
-        <text>Zoek op radiostation</text>
+        <text>Zoek radiostation</text>
         <version>1.21.1</version>
       </string>
       <string>
         <id>BROWSE_STUDIO</id>
-        <text>Zoek op studio</text>
+        <text>Zoek studio</text>
         <version>1.22</version>
       </string>
       <string>
@@ -364,17 +384,22 @@
       </string>
       <string>
         <id>BROWSE_TIMESTAMP</id>
-        <text>Zoek op media datum</text>
+        <text>Zoek media datum</text>
         <version>1.22</version>
       </string>
       <string>
         <id>BROWSE_TITLE</id>
-        <text>Zoek op titel</text>
+        <text>Zoek titel</text>
         <version>1.19</version>
       </string>
       <string>
+        <id>BROWSE_TOP_STATIONS</id>
+        <text>Zoek top stations</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>BROWSE_TRACK</id>
-        <text>Zoek op nummer</text>
+        <text>Zoek titel</text>
         <version>1.19</version>
       </string>
       <string>
@@ -389,13 +414,13 @@
       </string>
       <string>
         <id>BROWSE_XMP_RATING</id>
-        <text>Zoek op beoordeling</text>
-        <version>1.22</version>
+        <text>Zoek op waardering</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>BROWSE_YEAR</id>
-        <text>Zoek op jaar</text>
-        <version>1.19</version>
+        <text>Zoek verschijningsdatum</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>CACHE_CONFIG_TITLE</id>
@@ -425,7 +450,7 @@
       <string>
         <id>CACHE_ERROR_NOT_EXIST</id>
         <text>De opgegeven mapnaam bestaat niet.</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>CACHE_ERROR_NOT_NUMBER</id>
@@ -580,7 +605,7 @@
       <string>
         <id>CHANNEL</id>
         <text>Kanaal</text>
-        <version>1.20.1</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>CHANNELS</id>
@@ -610,7 +635,7 @@
       <string>
         <id>COMPACT_VIEW</id>
         <text>Compacte weergave</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>COMPOSER</id>
@@ -673,9 +698,14 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>CONFIG_LASTFM_CLEAR_OK</id>
+        <text>De login gegevens zijn gewist.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>CONFIG_LASTFM_TITLE</id>
         <text>Last.FM opties</text>
-        <version>1.20</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>CONFIG_MIP_OPTIONS</id>
@@ -964,13 +994,13 @@
       </string>
       <string>
         <id>EP_NEXT</id>
-        <text>Volgende Aflevering: %s</text>
-        <version>1.21</version>
+        <text>Volgende aflevering: %s</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>EP_PREV</id>
-        <text>Vorige Aflevering: %s</text>
-        <version>1.21</version>
+        <text>Vorige aflevering: %s</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>EXCLUSIVE</id>
@@ -1158,6 +1188,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>EXTERNAL_FILES</id>
+        <text>Externe bestandslocaties</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>EXTRAS_TEST_TITLE</id>
         <text>Additionele componenten</text>
         <version>1.19</version>
@@ -1259,7 +1294,7 @@
       </string>
       <string>
         <id>FAIL_PHP_FONTS</id>
-        <text>TrueType lettertype [b]niet[/b] gevonden. Het &quot;SPEELT NU&quot;-scherm zal geen informatie over het muzieknummer tonen.</text>
+        <text>TrueType lettertype [b]niet[/b] gevonden. Het &quot;SPEELT NU&quot;-scherm zal geen muziekinformatie tonen.</text>
         <version>1.21.1</version>
       </string>
       <string>
@@ -1343,6 +1378,11 @@
         <version>1.21</version>
       </string>
       <string>
+        <id>FAIL_WGET_TEST</id>
+        <text>Wget is niet gevonden. Hierdoor kan de media search niet worden uitgevoerd. Specificeer handmatig de juiste Wget-locatie in de %s sectie.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>FANART</id>
         <text>Fanart</text>
         <version>1.22</version>
@@ -1399,8 +1439,8 @@
       </string>
       <string>
         <id>FILTER_MISSING_RATING</id>
-        <text>Geen beoordeling</text>
-        <version>1.22</version>
+        <text>Geen waardering</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FILTER_MISSING_SERIES</id>
@@ -1536,7 +1576,7 @@
       <string>
         <id>FONTWIDTH_MULTIPLIER</id>
         <text>Lettertypefactor</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FONTWIDTH_MULTIPLIER_100</id>
@@ -2145,8 +2185,8 @@
       </string>
       <string>
         <id>ITUNES_ERROR_INVALID</id>
-        <text>Het spijt me, maar het bestand dat u heeft aangegeven moet &quot;iTunes Music Library.xml&quot; zijn.</text>
-        <version>1.21.1</version>
+        <text>Het bestand moet een &quot;iTunes Music Library.xml&quot; zijn.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>ITUNES_ERROR_PATH</id>
@@ -2155,8 +2195,8 @@
       </string>
       <string>
         <id>ITUNES_LIBRARY</id>
-        <text>iTunes Library File</text>
-        <version>1.19</version>
+        <text>iTunes Library bestand</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>JUST_ADDED</id>
@@ -2329,11 +2369,11 @@
       <string>
         <id>LASTFM</id>
         <text>Last.FM</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>LASTFM_ABOUT</id>
-        <text>Last.FM is 's werelds grootste sociale muziekplatform met meer dan 20 miljoen actieve gebruikers in meer dan 232 landen. Door gebruik te maken van een uniek aanbevelingssysteem, bekend als &quot;audioscrobbler&quot;, creëert Last.FM een gedetailleerd profiel van de muzieksmaak van iedere individuele gebruiker door details van alle nummers waarnaar de gebruiker naar luistert vast te leggen. Dit gebeurt op basis van beluisterde radio streams of eigen muziek opgeslagen op PC of draagbare speler. [p] Gebruikers kunnen radio stations of afpeellijsten op maat maken vanuit alle audio die in de Last.FM muziekbibliotheek is opgenomen; het is echter niet mogelijk om individuele nummers op te vragen en te beluisteren. Ook is het niet mogelijk om audio te downloaden, tenzij de eigenaar van de audio hiertoe vooraf toestemming heeft verleend. Registratie is vereist om een profiel aan te maken, maar registratie is niet noodzakelijk om de internetpagina van Last.FM te bekijken of om naar de radiostations te luisteren.</text>
+        <text>Last.FM is 's werelds grootste sociale muziekplatform met meer dan 20 miljoen actieve gebruikers in meer dan 232 landen. Door gebruik te maken van een uniek aanbevelingssysteem, bekend als &quot;audioscrobbler&quot;, cre?t Last.FM een gedetailleerd profiel van de muzieksmaak van iedere individuele gebruiker door details van de muziek waarnaar de gebruiker naar luistert vast te leggen. Dit gebeurt op basis van beluisterde radio streams of eigen muziek opgeslagen op PC of draagbare speler. [p] Gebruikers kunnen radio stations of afpeellijsten op maat maken vanuit alle audio die in de Last.FM muziekbibliotheek is opgenomen; het is echter niet mogelijk om individuele tracks op te vragen en te beluisteren. Ook is het niet mogelijk om audio te downloaden, tenzij de eigenaar van de audio hiertoe vooraf toestemming heeft verleend. Registratie is vereist om een profiel aan te maken, maar registratie is niet noodzakelijk om de internetpagina van Last.FM te bekijken of om naar de radiostations te luisteren.</text>
         <version>1.21.1</version>
       </string>
       <string>
@@ -2344,12 +2384,17 @@
       <string>
         <id>LASTFM_ENABLED_PROMPT</id>
         <text>Indien ingeschakeld kan SwissCenter verbinding maken met de Last.FM internetpagina and toegang krijgen tot persoonlijke radio streams.</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>LASTFM_LOGIN_HEADINGS</id>
         <text>Gebruiker,LastFM[br]Gebruikersnaam,LastFM[br]Wachtwoord,Scrobble?,Afbeeldingen?</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>LASTFM_MISSING_LOGIN</id>
+        <text>Voer gebruikersnaam en wachtwoord in</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>LASTFM_PROMPT_GENERAL</id>
@@ -2374,7 +2419,7 @@
       <string>
         <id>LASTFM_WHATIS</id>
         <text>Wat is Last.FM?</text>
-        <version>1.20</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>LENGTH_MM</id>
@@ -2408,7 +2453,7 @@
       </string>
       <string>
         <id>LISTEN_LASTFM_LOVED</id>
-        <text>Speel uw favoriete nummers</text>
+        <text>Speel uw favoriete muziek</text>
         <version>1.19</version>
       </string>
       <string>
@@ -2447,6 +2492,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>LIVE365_LOGIN_HEADINGS</id>
+        <text>Gebruiker, Live365 gebruikersnaam, Live365 wachtwoord</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>LOCATION</id>
         <text>Locatie</text>
         <version>1.19</version>
@@ -2467,9 +2517,14 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>LOGIN_INVALID</id>
+        <text>Inlog gegevens zijn onjuist</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>LOOKUP_FAILURE</id>
         <text>Filmgegevens niet gevonden.</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>LOOKUP_MOVIE</id>
@@ -2478,8 +2533,8 @@
       </string>
       <string>
         <id>LOOKUP_SUCCESS</id>
-        <text>Filmgegevens gedownloaded en opgeslagen.</text>
-        <version>1.19</version>
+        <text>Filmgegevens gedownloaded en opgeslagen</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>LOOKUP_SUCCESS_MISSING</id>
@@ -2518,7 +2573,7 @@
       </string>
       <string>
         <id>MANY_TRACKS</id>
-        <text>%s Nummers</text>
+        <text>%s Titels</text>
         <version>1.19</version>
       </string>
       <string>
@@ -2579,7 +2634,7 @@
       <string>
         <id>MEDIA_LOC_ERROR_DIRFAIL</id>
         <text>De opgegeven map bestaat niet.</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>MEDIA_LOC_ERROR_LOC</id>
@@ -2614,7 +2669,7 @@
       <string>
         <id>MEDIA_MANAGEMENT</id>
         <text>Mediabeheer</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>MEDIA_REFRESH</id>
@@ -2778,7 +2833,7 @@
       </string>
       <string>
         <id>MIP_DESC</id>
-        <text>MusicIP (gratis beschikbaar op %s) is een interessante applicatie die uw muziekcollectie analyseert, en een &quot;akoestische vingerafdruk&quot; aanmaakt voor elk nummer. Deze informatie wordt dan gebruikt om een persoonlijke afspeellijst van soortgelijke nummers aan te maken, gebaseerd op titel, artiest of album. [p]Indien MusicIP op hetzelfde toestel als SwissCenter geinstalleerd is, worden binnen de SwissCenter interface extra features beschikbaar voor het genereren en beluisteren van MusicIP afspeellijsten.</text>
+        <text>MusicIP (gratis beschikbaar op %s) is een interessante applicatie die uw muziekcollectie analyseert, en een &quot;akoestische vingerafdruk&quot; aanmaakt voor elk muziekstuk. Deze informatie wordt dan gebruikt om een persoonlijke afspeellijst van soortgelijke tracks aan te maken, gebaseerd op titel, artiest of album. [p]Indien MusicIP op hetzelfde toestel als SwissCenter geinstalleerd is, worden binnen de SwissCenter interface extra features beschikbaar voor het genereren en beluisteren van MusicIP afspeellijsten.</text>
         <version>1.21.1</version>
       </string>
       <string>
@@ -2794,7 +2849,7 @@
       <string>
         <id>MIP_MIX_SONG</id>
         <text>Soortgelijke nummers</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>MIP_MOODS</id>
@@ -3150,6 +3205,11 @@
         <id>NEW_MESSAGES_PROMPT</id>
         <text>Dagelijks wordt gekeken of er nieuwe belangrijke berichten zijn betreffende SwissCenter. Indien er nieuwe berichten zijn zal er een pictogram onderaan op het Hoofdmenu verschijnen.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>NEW_VIDEOS</id>
+        <text>Nieuwe videos</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>NEXT</id>
@@ -3568,6 +3628,11 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
         <version>1.21.1</version>
       </string>
       <string>
+        <id>PASS_WGET_TEST</id>
+        <text>Wget is gevonden</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>PC_LINK_BACK</id>
         <text>Terug</text>
         <version>1.19</version>
@@ -3644,8 +3709,8 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
       </string>
       <string>
         <id>PHOTOS_MUSIC_CHANGE</id>
-        <text>verander achtergrondmuziek</text>
-        <version>1.19</version>
+        <text>Verander achtergrondmuziek</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>PHOTOS_MUSIC_CURRENT</id>
@@ -3654,13 +3719,18 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
       </string>
       <string>
         <id>PHOTOS_MUSIC_INFO</id>
-        <text>achtergrondmuziek</text>
-        <version>1.19</version>
+        <text>Achtergrondmuziek</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>PHOTOS_MUSIC_IRADIO</id>
+        <text>Internet radio</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>PHOTOS_MUSIC_NONE</id>
-        <text>geen achtergrondmuziek</text>
-        <version>1.19</version>
+        <text>Geen achtergrondmuziek</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>PHOTOS_NO_SELECTED</id>
@@ -3941,7 +4011,7 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
       <string>
         <id>PLAYLISTS_ERROR_INVALID</id>
         <text>De naam van de map bestaat niet</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>PLAYLISTS_ERROR_PATH</id>
@@ -4144,6 +4214,16 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
         <version>na</version>
       </string>
       <string>
+        <id>RADIOTIME_LOGIN_HEADINGS</id>
+        <text>Gebruiker, RadioTime gebruikersnaam</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>RADIOTIME_MISSING_LOGIN</id>
+        <text>Voer gebruikersnaam in</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>RANGE</id>
         <text>Bereik</text>
         <version>1.19</version>
@@ -4155,8 +4235,8 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
       </string>
       <string>
         <id>RATING</id>
-        <text>Beoordeling</text>
-        <version>1.22</version>
+        <text>Waardering</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>RATING_SCHEME_PROMPT</id>
@@ -4245,108 +4325,108 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
       </string>
       <string>
         <id>REFINE_ACTOR</id>
-        <text>Verfijn via acteur</text>
+        <text>Zoek acteur</text>
         <version>1.19</version>
       </string>
       <string>
         <id>REFINE_ALBUM</id>
-        <text>Verfijn via albumnaam</text>
+        <text>Zoek albumnaam</text>
         <version>1.19</version>
       </string>
       <string>
         <id>REFINE_ARTIST</id>
-        <text>Verfijn via artiestennaam</text>
+        <text>Zoek artiestennaam</text>
         <version>1.19</version>
       </string>
       <string>
         <id>REFINE_CERTIFICATE</id>
-        <text>Verfijn via leeftijdsgrens</text>
+        <text>Zoek leeftijdsgrens</text>
         <version>1.19</version>
       </string>
       <string>
         <id>REFINE_COMPOSER</id>
-        <text>Verfijn via componist</text>
+        <text>Zoek componist</text>
         <version>1.22</version>
       </string>
       <string>
         <id>REFINE_DIRECTOR</id>
-        <text>Verfijn via regisseur</text>
+        <text>Zoek regisseur</text>
         <version>1.19</version>
       </string>
       <string>
         <id>REFINE_GENRE</id>
-        <text>Verfijn via genre</text>
+        <text>Zoek genre</text>
         <version>1.19</version>
       </string>
       <string>
         <id>REFINE_IPTC_BYLINE</id>
-        <text>Verfijn via auteur</text>
+        <text>Zoek auteur</text>
         <version>1.19</version>
       </string>
       <string>
         <id>REFINE_IPTC_CAPTION</id>
-        <text>Verfijn via omschrijving</text>
+        <text>Zoek omschrijving</text>
         <version>1.19</version>
       </string>
       <string>
         <id>REFINE_IPTC_CITY</id>
-        <text>Verfijn via stad</text>
+        <text>Zoek stad</text>
         <version>1.19</version>
       </string>
       <string>
         <id>REFINE_IPTC_COUNTRY</id>
-        <text>Verfijn via land</text>
+        <text>Zoek land</text>
         <version>1.19</version>
       </string>
       <string>
         <id>REFINE_IPTC_DATE_CREATED</id>
-        <text>Verfijn via creatiedatum</text>
+        <text>Zoek creatiedatum</text>
         <version>1.19</version>
       </string>
       <string>
         <id>REFINE_IPTC_KEYWORDS</id>
-        <text>Verfijn via sleutelwoorden</text>
+        <text>Zoek sleutelwoorden</text>
         <version>1.19</version>
       </string>
       <string>
         <id>REFINE_IPTC_LOCATION</id>
-        <text>Verfijn via locatie</text>
+        <text>Zoek locatie</text>
         <version>1.19</version>
       </string>
       <string>
         <id>REFINE_IPTC_PROVINCE_STATE</id>
-        <text>Verfijn via provincie/staat</text>
+        <text>Zoek provincie/staat</text>
         <version>1.19</version>
       </string>
       <string>
         <id>REFINE_IPTC_SUPPCATEGORY</id>
-        <text>Verfijn via aanvullende categorieën</text>
+        <text>Zoek aanvullende categorieën</text>
         <version>1.19</version>
       </string>
       <string>
         <id>REFINE_PHOTO_ALBUM</id>
-        <text>Verfijn via fotoalbum</text>
+        <text>Zoek fotoalbum</text>
         <version>1.19</version>
       </string>
       <string>
         <id>REFINE_PHOTO_TITLE</id>
-        <text>Verfijn via titel</text>
+        <text>Zoek titel</text>
         <version>1.19</version>
       </string>
       <string>
         <id>REFINE_TITLE</id>
-        <text>Verfijn via titel</text>
+        <text>Zoek titel</text>
         <version>1.19</version>
       </string>
       <string>
         <id>REFINE_XMP_RATING</id>
-        <text>Verfijn via beoordeling</text>
-        <version>1.22</version>
+        <text>Zoek op waardering</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>REFINE_YEAR</id>
-        <text>Verfijn via jaartal</text>
-        <version>1.19</version>
+        <text>Zoek verschijningsdatum</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>REFRESH_CLEANUP</id>
@@ -4410,8 +4490,8 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
       </string>
       <string>
         <id>RELEASE_DATE</id>
-        <text>Datum van verschijnen</text>
-        <version>1.22</version>
+        <text>Verschijningsdatum</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>REMOTE_ACCESS_ERROR</id>
@@ -4666,7 +4746,7 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
       <string>
         <id>SCHEDULE_ERROR_FIELDS</id>
         <text>U moet een geldige waarde geven voor elk veld.</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>SCHEDULE_ERROR_HOUR</id>
@@ -4841,7 +4921,7 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
       <string>
         <id>SETUP</id>
         <text>Instellingen</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>SETUP_CHANGE_UI</id>
@@ -4939,9 +5019,19 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
         <version>1.22</version>
       </string>
       <string>
+        <id>SORT_DURATION</id>
+        <text>Sorteer op looptijd</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>SORT_FAVORITE</id>
         <text>Sorteer op favoriet</text>
         <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_HYBRID</id>
+        <text>Sorteer op een combinatie van criteria</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>SORT_ID</id>
@@ -4955,13 +5045,18 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
       </string>
       <string>
         <id>SORT_RATING</id>
-        <text>Sorteer op beoordeling</text>
-        <version>1.22</version>
+        <text>Sorteer op waardering</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>SORT_RELEVANCE</id>
+        <text>Sorteer op relevantie</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>SORT_TIME</id>
-        <text>Sorteer op tijd</text>
-        <version>1.22</version>
+        <text>Sorteer op speelduur</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>SORT_VIEWS</id>
@@ -5116,7 +5211,7 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
       <string>
         <id>SVN_REVISION</id>
         <text>SVN herziening</text>
-        <version>1.22</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>SWISSMONITOR_ACTION_FAILED</id>
@@ -5317,6 +5412,11 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
         <id>THIS_WEEK</id>
         <text>Deze week</text>
         <version>1.22</version>
+      </string>
+      <string>
+        <id>THIS_YEAR</id>
+        <text>Dit jaar</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>THUMBNAIL_VIEW</id>
@@ -6022,7 +6122,7 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
       <string>
         <id>VIEW_WEATHER</id>
         <text>Weersverwachting</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>WATCH_DVD</id>
@@ -6127,7 +6227,7 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
       <string>
         <id>WEATHER_NO_MATCHING</id>
         <text>Helaas : de %s heeft geen weersvoorspelling voor de plaats %s op dit moment.</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>WEATHER_PRESSURE</id>
@@ -6165,6 +6265,26 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
         <version>1.22</version>
       </string>
       <string>
+        <id>WGET_DESC</id>
+        <text>GNU Wget is een netwerk hulpprogramma om bestanden met behulp van HTTP, HTTPS en FTP (de meest gebruikte internet protocollen)op te halen. Het is een niet-interactief programma, waardoor het op de achtergrond kan lopen.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>WGET_PATH</id>
+        <text>Wget pad</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>WGET_PATH_NOT_FOUND</id>
+        <text>Wget is niet gevonden op de opgegeven locatie</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>WGET_PATH_PROMPT</id>
+        <text>Voer het volledige pad in van Wget-programma. Normaal gesproken wordt dit automatisch correct gevonden, maar op sommige Linux systemen moet het het pad handmatig worden ingevoerd.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>WIKI_LOOKUP</id>
         <text>Wikipedia zoekmogelijkheden</text>
         <version>1.19</version>
@@ -6181,8 +6301,8 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
       </string>
       <string>
         <id>XMP_RATING</id>
-        <text>Beoordeling</text>
-        <version>1.22</version>
+        <text>Waardering</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>YEAR</id>
@@ -6193,6 +6313,16 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
         <id>YES</id>
         <text>Ja</text>
         <version>1.22</version>
+      </string>
+      <string>
+        <id>YESTERDAY</id>
+        <text>Gisteren</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>YOUPORN</id>
+        <text>YouPorn</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>YOUTUBE</id>
