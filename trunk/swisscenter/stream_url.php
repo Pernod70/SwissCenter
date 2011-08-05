@@ -159,19 +159,19 @@
         $html = file_get_contents($youtube_url);
 
         //
-        // This code is based upon a script found at http://userscripts.org/scripts/review/25105
-        //   Version 1.0.4 : Date 2010-07-24
+        // This code is based upon a script found at http://userscripts.org/scripts/show/109103
+        //   Version 1.2.5 : Date 2011-08-04
         //
         // Obtain video ID, temporary ticket, formats map
         $video_player = preg_get('/<div id="watch-player".*>(.*)<\/div>/Usm', $html);
         if ( !empty($video_player) )
         {
           $video_ticket  = preg_get('/\&amp;t=([^(\&|$)]*)/', $video_player);
-          $video_formats = preg_get('/\&amp;fmt_url_map=([^(\&|$)]*)/', $video_player);
+          $video_formats = preg_get('/\&amp;url_encoded_fmt_stream_map=([^(\&|$)]*)/', $video_player);
 
-          if ( empty($video_ticket) ) // new UI
+          if ( empty($video_formats) )
           {
-            // TODO
+            $video_formats = preg_get('/\&amp;fmt_url_map=([^(\&|$)]*)/', $video_player);
           }
 
           // Video title
@@ -186,23 +186,32 @@
           // 35 - FLV 480p
           // 37 - MP4 1080p (HD)
           // 38 - MP4 Original (HD)
-          // 43 - WebM 480p
+          // 43 - WebM 360p
+          // 44 - WebM 480p
           // 45 - WebM 720p (HD)
 
           // Parse fmt_url_map
           $video_url = array();
           $sep1 = '%2C';
-          $sep2 = '%7C';
+          $sep2 = '%26';
+          $sep3 = '%3D';
           if ( strpos($video_formats, ',') !== false ) // new UI
           {
             $sep1 = ',';
-            $sep2 = '|';
+            $sep2 = '\\u0026';
+            $sep3 = '=';
+            if ( strpos($video_formats, '&') !== false )
+              $sep2 = '&';
           }
           $video_formats_group = explode($sep1, $video_formats);
           for ($i=0; $i<count($video_formats_group); $i++)
           {
             $video_formats_elem = explode($sep2, $video_formats_group[$i]);
-            $video_url[$video_formats_elem[0]] = rawurldecode($video_formats_elem[1]);
+            $url = explode($sep3, $video_formats_elem[0]);
+            $itag = explode($sep3, $video_formats_elem[4]);
+            $video_url[$itag[1]] = rawurldecode(rawurldecode($url[1]));
+            $video_url[$itag[1]] = str_replace('\/','/',$video_url[$itag[1]]);
+            $video_url[$itag[1]] = str_replace('\u0026','&',$video_url[$itag[1]]);
           }
           if (!isset($video_url[18]))
           {
