@@ -5,7 +5,7 @@
 
 class parserUtil
 {
-  public function decodeSpecialCharacters($html) {
+  public function decodeHexEntities($html) {
     while (strpos($html, '&#x') && strpos($html, ';'))
     {
       $startpos = strpos($html, '&#x');
@@ -15,9 +15,9 @@ class parserUtil
     return html_entity_decode($html, ENT_QUOTES, 'ISO-8859-15');
   }
 
-  public function decodeSpecialCharactersList($html) {
+  public function decodeHexEntitiesList($html) {
     for($i = 0; $i< count($html); $i++)
-      $html[$i]= self::decodeSpecialCharacters($html[$i]);
+      $html[$i]= self::decodeHexEntities($html[$i]);
 
     return $html;
   }
@@ -33,72 +33,43 @@ class parserUtil
   * @return best match
   */
 
-  function most_likely_match($needle, $haystack, & $accuracy, $year = null) {
-    $best_match = array (
-      "id" => 0,
-      "chars" => 0,
-      "pc" => 0
-    );
-    $pc = 0;
+  function most_likely_match($needle, $haystack, &$accuracy, $year = null) {
+    $best_match = array ( "id" => 0, "chars" => 0, "pc" => 0 );
+
     $title_and_year = $needle . (empty($year) ? "" : " (" . $year . ")");
-    $haystack_copy = $haystack;
-    $match_array = array();
-    $match_array_index = 0;
 
-    for ($i = 0; $i < count($haystack); $i++) {
-      $haystack[$i] = $haystack_copy[$i] = trim(html_entity_decode(self :: decodeSpecialCharacters($haystack[$i]), ENT_QUOTES, 'ISO-8859-15'));
-      $chars = similar_text(trim($title_and_year), $haystack[$i], $pc);
-      $haystack_copy[$i] .= " (" . round($pc, 2) . "%)";
+    // Check if the title contains numbers
+    $title_and_year_alt = self :: get_alt_title_number($title_and_year);
 
-      $match_array[$match_array_index]["pc"] = $pc;
-      $match_array[$match_array_index]["id"] = $i;
-      $match_array[$match_array_index]["numbers"] = preg_replace("[^0-9]", "", ($year != false && "" != $year ? $haystack[$i] : strip_title($haystack[$i])));
-      $match_array[$match_array_index]["name"] = $haystack[$i];
-      $match_array_index++;
+    foreach ($haystack as $i=>$item)
+    {
+      $chars = similar_text(strtolower(trim($title_and_year)),strtolower(trim($item)),$pc);
 
       if (($chars > $best_match["chars"] && $pc >= $best_match["pc"]) || $pc > $best_match["pc"])
-        $best_match = array (
-          "id" => $i,
-          "chars" => $chars,
-          "pc" => $pc
-        );
+        $best_match = array ( "id" => $i, "chars" => $chars, "pc" => $pc );
+
+      if ( $title_and_year_alt !== $title_and_year )
+      {
+        $chars = similar_text(strtolower(trim($title_and_year_alt)),strtolower(trim($item)),$pc_alt);
+
+        if (($chars > $best_match["chars"] && $pc_alt >= $best_match["pc"]) || $pc_alt > $best_match["pc"])
+          $best_match = array ( "id" => $i, "chars" => $chars, "pc" => $pc_alt );
+      }
+
+      $haystack[$i] .= " (" . round(max($pc, $pc_alt), 2) . "%)";
     }
 
     // If we are sure that we found a good result, then get the file details.
-    if ($best_match["pc"] > 75) {
-      send_to_log(6, 'Possible matches are:', $haystack_copy);
-      send_to_log(6, 'Best guess without taking numbers into account: [' . $best_match["id"] . '] - ' . $haystack[$best_match["id"]]);
+    if ($best_match["pc"] > 75)
+    {
+      send_to_log(6, 'Possible matches are:', $haystack);
+      send_to_log(6, 'Best guess: [' . $best_match["id"] . '] - ' . $haystack[$best_match["id"]]);
       $accuracy = $best_match["pc"];
-//      if ($match_array[0]["pc"] > 75) {
-//        $index = $match_array[0]["id"];
-//        send_to_log(6, "The first result from imdb is >75%, so will use this unless there are numbers involved.");
-//      } else
-        $index = $best_match["id"];
-
-      $number_in_title = preg_replace("/[^0-9]/", "", $needle);
-      $title_numbers = preg_replace("/[^0-9]/", "", $title_and_year);
-
-      // Check if the title contains numbers
-      if ($title_numbers != "") {
-        $year_numbers = preg_replace("/[^0-9]/", "", $year);
-        $number_alias = self :: get_number_roman($number_in_title);
-        send_to_log(8, "This title contains numbers, using alias: " . $number_alias);
-        $found = false;
-        foreach ($match_array AS $key => $secondary_array) {
-          $title_number_from_alias = self :: get_number_from_roman_in_title($secondary_array["name"]);
-          send_to_log(8, "Comparing numbers... ");
-          if (($secondary_array["numbers"] != "" && false !== strpos($title_numbers, $secondary_array["numbers"])) || ($number_alias != false && $title_number_from_alias != false && false !== strpos($secondary_array["name"], $number_alias) && $title_number_from_alias == $number_in_title)) {
-            send_to_log(6, "Found a match that contains the number(s), will use this: " . $secondary_array["name"]);
-            $index = $secondary_array["id"];
-            if ($index != $best_match["id"])
-              send_to_log(6, "Overriding the previously selected title will set the accuracy to " . $secondary_array["pc"]);
-            break;
-          }
-        }
-      }
-      return $match_array[$index]["id"];
-    } else {
-      send_to_log(4, 'Multiple Matches found, No match > 75%', $haystack_copy);
+      return $best_match["id"];
+    }
+    else
+    {
+      send_to_log(4, 'Multiple Matches found, No match > 75%', $haystack);
       return false;
     }
   }
@@ -108,7 +79,7 @@ class parserUtil
    *
    */
 
-  function get_number_roman($number) {
+  function convertRomanNumeral($number, $dec2rom = true ) {
     $roman = array("1" => "I",
                    "2" => "II",
                    "3" => "III",
@@ -120,38 +91,34 @@ class parserUtil
                    "9" => "IX",
                    "10" => "X");
 
-    if (isset($roman[$number]))
+    $decimal = array_flip($roman);
+
+    if ($dec2rom && isset($roman[$number]))
       return $roman[$number];
+    elseif (!$dec2rom && isset($decimal[$number]))
+      return $decimal[$number];
     else
       return false;
   }
 
-  /**
-   * Get number from roman numerals in a title.
-   *
-   */
+  function get_alt_title_number($title) {
+    // Check for decimal number in title
+    $number_in_title = preg_get('/([0-9])/', $title);
+    if ( $number_in_title )
+      $title_alt = preg_replace('/[0-9]/', self :: convertRomanNumeral($number_in_title, true), $title);
+    else {
+      // Check for roman numeral in title
+      $roman_in_title = preg_get('/(VIII|VII|VI|IV|III|II|IX|X|V|I)/U', $title);
+      if ( $roman_in_title )
+        $title_alt = preg_replace('/(VIII|VII|VI|IV|III|II|IX|X|V|I)/U', self :: convertRomanNumeral($roman_in_title, false), $title);
+    }
 
-  function get_number_from_roman_in_title($title) {
-    if (false != strpos($title, " VIII"))
-      return "8";
-    elseif (false != strpos($title, " VII"))
-      return "7";
-    elseif (false != strpos($title, " VI"))
-      return "6";
-    elseif (false != strpos($title, " IV"))
-      return "4";
-    elseif (false != strpos($title, " III"))
-      return "3";
-    elseif (false != strpos($title, " II"))
-      return "2";
-    elseif (false != strpos($title, " IX"))
-      return "9";
-    elseif (false != strpos($title, " X"))
-      return "10";
-    elseif (false != strpos($title, " V"))
-      return "5";
-    else
-      return false;
+    if ( $title !== $title_alt ) {
+      send_to_log(8, 'This title contains numbers, also checking alias: ' . $title_alt);
+      return $title_alt;
+    } else {
+      return $title;
+    }
   }
 
   /**
