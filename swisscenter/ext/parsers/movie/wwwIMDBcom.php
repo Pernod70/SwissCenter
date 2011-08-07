@@ -75,6 +75,7 @@ class wwwIMDBcom extends Parser implements ParserInterface {
 
       // Download page and decode HTML entities
       $html = html_entity_decode(file_get_contents($search_url), ENT_QUOTES);
+      $html = html_entity_decode(ParserUtil :: decodeHexEntities($html), ENT_QUOTES, 'ISO-8859-15');
 
       // Examine returned page
       if (strpos($html, $this->getNoMatchFoundHTML()) > 0) {
@@ -114,6 +115,7 @@ class wwwIMDBcom extends Parser implements ParserInterface {
     // Download the combined view of the required page
     if ($this->accuracy >= 75) {
       $html = html_entity_decode(file_get_contents($url_imdb . '/combined'), ENT_QUOTES);
+      $html = html_entity_decode(ParserUtil :: decodeHexEntities($html), ENT_QUOTES, 'ISO-8859-15');
       $this->page = $this->getRelevantPartOfHTML($html);
       if (isset ($this->page)) {
         send_to_log(8, "Returning true..." . $url_imdb);
@@ -149,7 +151,7 @@ class wwwIMDBcom extends Parser implements ParserInterface {
 
   protected function parseYear() {
     $html = $this->page;
-    $year = preg_get('/<b>.*\((\d{4})\)<\/b>/Us', $html);
+    $year = preg_get('/<b>.*\((\d{4})\).*<\/b>/Us', $html);
     if (!empty($year)) {
       $this->setProperty(YEAR, $year);
       return $year;
@@ -162,7 +164,7 @@ class wwwIMDBcom extends Parser implements ParserInterface {
       $end = strpos($html, "<span>", $start + 1);
       $title = substr($html, $start, $end - $start);
     }
-    $title = trim(preg_replace('/\"/', '', ParserUtil :: decodeSpecialCharacters($title)));
+    $title = trim(preg_replace('/\"/', '', ParserUtil :: decodeHexEntities($title)));
     if (isset($title) && !empty($title)) {
       $this->setProperty(TITLE, $title);
       return $title;
@@ -200,7 +202,7 @@ class wwwIMDBcom extends Parser implements ParserInterface {
     if (get_sys_pref(get_class($this).'_FULL_CAST', $this->settings[FULL_CAST]["default"]) == 'YES')
       $end = strpos($html, "</table>", $start + 1);
     else
-      $end = strpos($html, "<small>", $start + 1);
+      $end = (strpos($html, "<small>", $start + 1) !== false ? strpos($html, "<small>", $start + 1) : strpos($html, "</table>", $start + 1));
     $html_actors = substr($html, $start, $end - $start);
     $matches = get_urls_from_html($html_actors, "\/name\/nm\d+\/");
     for ($i = 0; $i < count($matches[2]); $i++) {
@@ -209,7 +211,7 @@ class wwwIMDBcom extends Parser implements ParserInterface {
         $i--;
       }
     }
-    $actors = ParserUtil :: decodeSpecialCharactersList($matches[2]);
+    $actors = ParserUtil :: decodeHexEntitiesList($matches[2]);
     if (isset($actors) && !empty($actors)) {
       $this->setProperty(ACTORS, $actors);
       return $actors;
@@ -232,7 +234,7 @@ class wwwIMDBcom extends Parser implements ParserInterface {
 
         $actors[] = array('ID'    => $matches[2][$i],
                           'IMAGE' => $matches[1][$i],
-                          'NAME'  => ParserUtil :: decodeSpecialCharacters($matches[3][$i]));
+                          'NAME'  => ParserUtil :: decodeHexEntities($matches[3][$i]));
       }
     }
     if (isset($actors) && !empty($actors)) {

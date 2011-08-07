@@ -135,9 +135,17 @@ class wwwAPPLEcom extends Parser implements ParserInterface {
   protected function parseTrailer() {
     $trailers = $this->page;
     $trailer_xmls = get_trailer_index($trailers);
-    $trailer_urls = get_trailer_urls($trailer_xmls[1][0]);
+    // Search for a trailer title that contains 'Trailer'
+    foreach ($trailer_xmls[2] as $key=>$trailer_title)
+    {
+      if ( stripos($trailer_title,'Trailer') === 0 )
+        break;
+    }
+    $trailer_urls = get_trailer_urls($trailer_xmls[1][$key]);
     $file_size = get_sys_pref(get_class($this).'_TRAILER_SIZE', $this->settings[TRAILER_SIZE]["default"]);
+    // Take the highest resolution trailer
     $trailer = array_pop($trailer_urls[2]);
+    // Now search for preferred resolution
     foreach ($trailer_urls[1] as $key=>$name)
     {
       if (strtoupper(preg_get('/\((.*)\)/', $name)) == $file_size)
