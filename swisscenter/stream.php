@@ -3,7 +3,8 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-  require_once( realpath(dirname(__FILE__).'/base/page.php'));
+  require_once( realpath(dirname(__FILE__).'/base/session.php'));
+  require_once( realpath(dirname(__FILE__).'/base/server.php'));
   require_once( realpath(dirname(__FILE__).'/base/settings.php'));
   require_once( realpath(dirname(__FILE__).'/base/utils.php'));
   require_once( realpath(dirname(__FILE__).'/base/file.php'));
@@ -12,6 +13,10 @@
   require_once( realpath(dirname(__FILE__).'/base/media.php'));
   require_once( realpath(dirname(__FILE__).'/base/playlist.php'));
   require_once( realpath(dirname(__FILE__).'/ext/lastfm/lastfm.php'));
+
+  // Log details of the stream request
+  send_to_log(1,"------------------------------------------------------------------------------");
+  send_to_log(1,"Stream Requested : ".$_SERVER["REQUEST_METHOD"]." ".current_url()." by client (".client_ip().")");
 
 /**
  * Outputs the image file to the browser.
@@ -25,16 +30,24 @@
  * @param integer $y
  */
 
-  function output_image( $file_id, $filename)
+  function output_image( $file_id, $filename )
   {
-    $x = convert_x(1000, SCREEN_COORDS);
-    $y = convert_y(1000, SCREEN_COORDS);
+    $x = convert_x(1000, BROWSER_SCREEN_COORDS);
+    $y = convert_y(1000, BROWSER_SCREEN_COORDS);
 
     // If the file is on the internet, download it into a temporary location first
     if ( is_remote_file($filename) )
+    {
       $filename = download_and_cache_image($filename);
+      if ( !$filename )
+      {
+        header($_SERVER["SERVER_PROTOCOL"].' 404 Not Found');
+        exit;
+      }
+    }
 
     $cache_file = cache_filename($filename, $x, $y);
+
     if ( !false &&  $cache_file !== false && file_exists($cache_file) && (time()-filemtime($filename) < 300) )
     {
       send_to_log(6,"Cached file exists for $filename at ($x x $y)");
@@ -42,7 +55,7 @@
     }
     else
     {
-     $image = new CImage();
+      $image = new CImage();
 
       // Load the image from disk
       if (strtolower(file_ext($filename)) == 'sql')
@@ -89,7 +102,7 @@
       }
 
       // Rotate/mirror the image as specified in the EXIF data (if enabled)
-      if (get_sys_pref('IMAGE_ROTATE','YES') =='YES')
+      if (get_sys_pref('IMAGE_ROTATE','YES') == 'YES')
         $image->rotate_by_exif();
 
       $image->output('jpg');
@@ -124,8 +137,8 @@
     {
       // Tell the showcenter that we don't have the requested file
       send_to_log(7,"Subtitles File  : ".$fsp);
-      send_to_log(7,"File not found - sending 'HTTP/1.0 404' to the player");
-      header ("HTTP/1.0 404 - Not Found");
+      send_to_log(7,"File not found - sending '".$_SERVER["SERVER_PROTOCOL"]." 404' to the player");
+      header($_SERVER["SERVER_PROTOCOL"].' 404 Not Found');
     }
   }
 
@@ -150,31 +163,24 @@
     $fend        = (empty($startArray[1]) ? ($fsize-1) : $startArray[1]);
     $fbytes      = $fend-$fstart+1;
 
-    send_to_log(8,'Requesting HTTP Range : '.$_SERVER["HTTP_RANGE"]);
+    send_to_log(8,$_SERVER["REQUEST_METHOD"].' Request for HTTP Range : '.$_SERVER["HTTP_RANGE"]);
     send_to_log(8,"Sending : $fstart-$fend/$fsize ($fbytes bytes)");
 
-    if ($fbytes == $fsize)
-    {
+    // Only store request details when end of file has been requested.
+    if ($fend == $fsize-1)
       store_request_details( $media, $file_id);
-      send_to_log(8,'Content-Length: '.$fsize);
-      send_to_log(8,'Accept-Ranges: bytes');
-      header('Content-Length: '.$fsize);
-      header('Accept-Ranges: bytes');
-    }
-    else
-    {
-      send_to_log(8,'Content-Range: bytes '.$fstart.'-'.$fend.'/'.$fsize);
-      send_to_log(8,'Content-Length: '.$fbytes);
-      header('Content-Range: bytes '.$fstart.'-'.$fend.'/'.$fsize);
-      header('Content-Length: '.$fbytes);
-      header("HTTP/1.1 206 Partial Content");
-    }
+
+    header($_SERVER["SERVER_PROTOCOL"].' 206 Partial Content');
+    header('Accept-Ranges: bytes');
+    header('Content-Range: bytes '.$fstart.'-'.$fend.'/'.$fsize);
+    header('Content-Length: '.$fbytes);
+    header('Connection: Keep-Alive');
 
     foreach ($headers as $html_header)
     {
-      send_to_log(8,'Header: '.$html_header);
       header ($html_header);
     }
+    send_to_log(8,'HTTP Response Headers:',headers_list());
 
     // Send any pending output (inc headers) and stop timeouts or user aborts killing the script
     ob_end_flush();
@@ -184,29 +190,35 @@
     @set_magic_quotes_runtime(0);
     @mb_http_output("pass");
 
-    // Open the file
-    $fh=fopen($location, 'rb');
-    fseek($fh, $fstart);
-    $fbytessofar = 0;
-    $fbytestoget = 1024*128;
-
-    // Loop while the connection is open
-    while ( !feof($fh) && (connection_status() == CONNECTION_NORMAL) )
+    // Only send the content body with GET request.
+    if ( $_SERVER["REQUEST_METHOD"] == 'GET' )
     {
-      // $fbytestoget = min($fbytestoget, $fbytes-$fbytessofar);
-      $fbuf=fread($fh,$fbytestoget);
-      $fbytessofar += strlen($fbuf);
-      echo $fbuf;
-      flush();
+      // Open the file
+      $fh=fopen($location, 'rb');
+      fseek($fh, $fstart);
+      $fbytessofar = 0;
+      $fbytestoget = 1024*16;
 
-      // Put SQL command to update the amount of file served here (on a per-user basis)
-      $bookmark = $fstart + $fbytessofar;
+      // Loop while the connection is open
+      while ( !feof($fh) && ($fbytessofar < $fbytes) && (connection_status() == CONNECTION_NORMAL) )
+      {
+        $fbytestoget = min($fbytestoget, $fbytes-$fbytessofar);
+        $fbuf = fread($fh,$fbytestoget);
+        $fbytessofar += strlen($fbuf);
+
+        ob_start();
+        echo $fbuf;
+        ob_end_flush();
+
+        // Put SQL command to update the amount of file served here (on a per-user basis)
+        $bookmark = $fstart + $fbytessofar;
+      }
+
+      if (!$fh || feof($fh))
+        $bookmark = "NULL";
+
+      fclose($fh);
     }
-
-    if (!$fh || feof($fh))
-      $bookmark = "NULL";
-
-    fclose($fh);
   }
 
   //*************************************************************************************************
@@ -214,8 +226,6 @@
   //*************************************************************************************************
 
   // Retrieve the tracklist, and the index (idx) of the item to stream.
-  send_to_log(1,'Stream request');
-
   $tracklist    = nvl($_REQUEST["tracklist"],'');
   $tracks       = get_tracklist($tracklist);
   $idx          = $_REQUEST["idx"];
@@ -226,7 +236,7 @@
   $media        = $_REQUEST["media_type"];
   $file_id      = $tracks[$idx]["FILE_ID"];
   $location     = $tracks[$idx]["DIRNAME"].$tracks[$idx]["FILENAME"];
-  $redirect_url = make_url_path($location);
+  $redirect_url = (!is_remote_file($location) ? $server.make_url_path($location) : $location);
   $req_ext      = $_REQUEST["ext"];
   $subtitles    = array('.srt','.sub', '.ssa', '.smi');
   $headers      = array();
@@ -243,13 +253,13 @@
     // Sanity check - Do we have permissions to read this file?
     send_to_log(1,"Error: SwissCenter does not have permissions to read the file '$location'");
   }
-//  elseif ($media == MEDIA_TYPE_VIDEO || $media_type == MEDIA_TYPE_TV)
+//  elseif ($media == MEDIA_TYPE_VIDEO || $media == MEDIA_TYPE_TV)
 //  {
 //    // Store the request details
 //    send_to_log(7,'Attempting to stream the following Video file',$tracks[$idx]);
 //
 //    $headers[] = "Content-type: ".mime_content_type($tracks[$idx]["FILENAME"]);
-//    $headers[] = "Last-Changed: ".date('r',filemtime($location));
+//    $headers[] = "Last-Modified: ".date('r',filemtime($location));
 //    stream_file($media, $file_id, $location, $headers);
 //  }
   elseif ($media == MEDIA_TYPE_MUSIC )
@@ -258,8 +268,15 @@
     if ($tracks[$idx]["LENGTH"] > 0)
       $headers[] = "TimeSeekRange.dlna.org: npt=0-/".$tracks[$idx]["LENGTH"];
 
-    $headers[] = "Content-type: ".mime_content_type($tracks[$idx]["FILENAME"]);
-    $headers[] = "Last-Changed: ".date('r',filemtime($location));
+    $headers[] = "Content-Type: ".mime_content_type($tracks[$idx]["FILENAME"]);
+ //   $headers[] = 'ETag: "'.file_etag($location).'"';
+    $headers[] = "Last-Modified: ".gmdate('D, d M Y H:i:s',filemtime($location))." GMT";
+    $headers[] = "Date: ".gmdate('d M Y H:i:s').' GMT';
+
+    // Override Simese no-cache headers
+ //   $headers[] = "Pragma: public";
+ //   $headers[] = "Expires: ".gmdate('D, d M Y H:i:s', time()+3600)." GMT";
+ //   $headers[] = "Cache-Control: max-age=3600";
 
     // Submit the track to Last.fm
     if (lastfm_scrobble_enabled() && (!isset($_SESSION["last_scrobbled"]) || $_SESSION["last_scrobbled"] !== $idx))
@@ -269,7 +286,31 @@
       $_SESSION["last_scrobbled"] = $idx;
     }
 
+    // PCH 200 series only
+    if ( get_player_model() >= 408 )
+    {
+      // Suspend screensaver
+      $response = file_get_contents('http://'.$_SERVER['REMOTE_ADDR'].':8008/system?arg0=suspend_screensaver&arg1=1');
+      send_to_log(7,'- PCH 200 detected: Screensaver suspended',$response);
+    }
+
     stream_file($media, $file_id, $location, $headers);
+
+    // PCH 200 series only
+    if ( get_player_model() >= 408 )
+    {
+      // Disable the OSD when second chunk is requested, ie. start byte = 512k
+      $startArray  = sscanf( $_SERVER["HTTP_RANGE"], "bytes=%d-%d" );
+      if ( $startArray[0] == 524288 )
+      {
+        // Send Info key to player, to remove OSD
+        $response = file_get_contents('http://'.$_SERVER['REMOTE_ADDR'].':8008/system?arg0=send_key&arg1=info&arg2=playback');
+        send_to_log(7,'- PCH 200 detected: Sent Info key, to remove OSD',$response);
+      }
+      // Enable screensaver
+      $response = file_get_contents('http://'.$_SERVER['REMOTE_ADDR'].':8008/system?arg0=suspend_screensaver&arg1=0');
+      send_to_log(7,'- PCH 200 detected: Screensaver enabled',$response);
+    }
   }
   elseif ($media == MEDIA_TYPE_PHOTO)
   {
@@ -277,7 +318,31 @@
     // script. No idea why, but it seems the showcenter firmware responsible for displaying slideshows doesn't support redirects.
     send_to_log(7,'Attempting to stream the following Photo',$tracks[$idx]);
     store_request_details( $media, $file_id);
-    output_image( $file_id, $location );
+
+    // PCH 200 series only
+    if ( get_player_model() >= 408 )
+    {
+      // Suspend screensaver
+      $response = file_get_contents('http://'.$_SERVER['REMOTE_ADDR'].':8008/system?arg0=suspend_screensaver&arg1=1');
+      send_to_log(7,'- PCH 200 detected: Screensaver suspended',$response);
+    }
+
+    // If passthru enabled then redirect to image, to let the player handle resizing
+    if (get_sys_pref('IMAGE_RESIZING','RESAMPLE') == 'PASSTHRU')
+    {
+      send_to_log(8,'Redirecting to '.$redirect_url);
+      header ("Location: ".$redirect_url);
+    }
+    else
+      output_image( $file_id, $location );
+
+    // PCH 200 series only
+    if ( get_player_model() >= 408 )
+    {
+      // Enable screensaver
+      $response = file_get_contents('http://'.$_SERVER['REMOTE_ADDR'].':8008/system?arg0=suspend_screensaver&arg1=0');
+      send_to_log(7,'- PCH 200 detected: Screensaver enabled',$response);
+    }
   }
   else
   {
@@ -285,9 +350,8 @@
     send_to_log(7,'Attempting to stream the following file',$tracks[$idx]);
     store_request_details( $media, $file_id);
 
-    send_to_log(8,'Redirecting to '.$server.$redirect_url);
-    header ("HTTP/1.0 307 Temporary redirect");
-    header ("location: ".$server.$redirect_url);
+    send_to_log(8,'Redirecting to '.$redirect_url);
+    header ("Location: ".$redirect_url);
   }
 
 /**************************************************************************************************
