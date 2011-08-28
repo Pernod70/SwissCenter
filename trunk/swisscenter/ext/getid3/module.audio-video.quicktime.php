@@ -371,7 +371,7 @@ class getid3_quicktime extends getid3_handler
 									$atom_structure['data'] = $boxsmalldata;
 									break;
 								default:
-									$info['warning'][] = 'Unknown QuickTime smallbox type: "'.$boxsmalltype.'" at offset '.$baseoffset;
+									$info['warning'][] = 'Unknown QuickTime smallbox type: "'.getid3_lib::PrintHexBytes($boxsmalltype).'" at offset '.$baseoffset;
 									$atom_structure['data'] = $atom_data;
 									break;
 							}
@@ -454,7 +454,7 @@ class getid3_quicktime extends getid3_handler
 									break;
 
 								default:
-									$info['warning'][] = 'Unknown QuickTime box type: "'.$boxtype.'" at offset '.$baseoffset;
+									$info['warning'][] = 'Unknown QuickTime box type: "'.getid3_lib::PrintHexBytes($boxtype).'" at offset '.$baseoffset;
 									$atom_structure['data'] = $atom_data;
 
 							}
@@ -1317,6 +1317,7 @@ class getid3_quicktime extends getid3_handler
 	            $atom_structure['version']   =          getid3_lib::BigEndian2Int(substr($atom_data, 0, 1));
 	            $atom_structure['flags_raw'] =          getid3_lib::BigEndian2Int(substr($atom_data, 1, 3));
 	            $atom_structure['subatoms']  = $this->QuicktimeParseContainerAtom(substr($atom_data, 4), $baseoffset + 8, $atomHierarchy, $ParseAllPossibleAtoms);
+				//$atom_structure['subatoms']  = $this->QuicktimeParseContainerAtom($atom_data, $baseoffset + 8, $atomHierarchy, $ParseAllPossibleAtoms);
 				break;
 
 			case 'data': // metaDATA atom
@@ -1327,7 +1328,7 @@ class getid3_quicktime extends getid3_handler
 				break;
 
 			default:
-				$info['warning'][] = 'Unknown QuickTime atom type: "'.$atomname.'" at offset '.$baseoffset;
+				$info['warning'][] = 'Unknown QuickTime atom type: "'.getid3_lib::PrintHexBytes($atomname).'" at offset '.$baseoffset;
 				$atom_structure['data'] = $atom_data;
 				break;
 		}
