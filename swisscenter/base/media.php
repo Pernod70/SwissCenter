@@ -11,6 +11,7 @@ require_once( realpath(dirname(__FILE__).'/screen.php'));
 require_once( realpath(dirname(__FILE__).'/utils.php'));
 require_once( realpath(dirname(__FILE__).'/users.php'));
 require_once( realpath(dirname(__FILE__).'/musicip.php'));
+require_once( realpath(dirname(__FILE__).'/opensubtitles.php'));
 
 // Libraries for reading file metadata
 require_once( realpath(dirname(__FILE__).'/../ext/getid3/getid3.php'));
@@ -586,7 +587,7 @@ function process_mp3( $dir, $id, $file)
         set_var( $data['genre'],  array_last($id3['tags']['id3v2']['genre']) );
         set_var( $data['year'],   array_last($id3['tags']['id3v2']['year']) );
         set_var( $data['band'],   array_last($id3['tags']['id3v2']['band']) );
-//        set_var( $data['mood'],   array_last($id3['tags']['id3v2']['mood']) );
+        set_var( $data['mood'],   array_last($id3['tags']['id3v2']['mood']) );
         set_var( $data['composer'], array_last($id3['tags']['id3v2']['composer']) );
         set_var( $data['track'],  ltrim(array_last($id3['tags']['id3v2']['track_number']),'0') );
         set_var( $data['disc'],   ltrim(array_last($id3['tags']['id3v2']['part_of_a_set']),'0') );
@@ -902,6 +903,8 @@ function process_movie( $dir, $id, $file )
   $getID3->setOption(array('encoding' => "ISO-8859-1", 'option_tags_html' => false));
   $filepath = os_path($dir.$file);
   $id3      = $getID3->analyze($filepath);
+  $os_hash  = OpenSubtitlesHash($filepath);
+  $imdb_id  = preg_get('/tt(\d+)/', $file);
   $image    = array();
 
   // Standard information about the file
@@ -913,6 +916,8 @@ function process_movie( $dir, $id, $file )
   $data['discovered']   = db_datestr();
   $data['timestamp']    = db_datestr(filemtime($filepath));
   $data['art_sha1']     = null;
+  $data['os_hash']      = (empty($os_hash) ? null : $os_hash);
+  $data['imdb_id']      = (empty($imdb_id) ? null : $imdb_id);
 
   if ( ! isset($id3["error"]) )
   {
@@ -1133,6 +1138,8 @@ function process_tv( $dir, $id, $file)
   $getID3->setOption(array('encoding' => "ISO-8859-1", 'option_tags_html' => false));
   $filepath = os_path($dir.$file);
   $id3      = $getID3->analyze($filepath);
+  $os_hash  = OpenSubtitlesHash($filepath);
+  $imdb_id  = preg_get('/tt(\d+)/', $file);
 
   // Standard information about the file
   $data['dirname']      = $dir;
@@ -1143,6 +1150,8 @@ function process_tv( $dir, $id, $file)
   $data['verified']     = 'Y';
   $data['discovered']   = db_datestr();
   $data['timestamp']    = db_datestr(filemtime($filepath));
+  $data['os_hash']      = (empty($os_hash) ? null : $os_hash);
+  $data['imdb_id']      = (empty($imdb_id) ? null : $imdb_id);
 
   // Determine the part of the path to process for metadata about the episode.
   $media_loc_dir = db_value("select name from media_locations where location_id=$id");
