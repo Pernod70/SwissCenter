@@ -7,7 +7,7 @@
 // Displays the players details for editing
 // ----------------------------------------------------------------------------------
 
-function players_display($delete = '', $new = '', $edit_id = 0)
+function players_display($delete = '', $new = '', $edit_id = 0, $client_id = 0)
 {
   $chipset_opts    = array( array("VAL"=>'EM8550',  "NAME"=> 'EM8550' )
                           , array("VAL"=>'EM8620L', "NAME"=> 'EM8620L')
@@ -29,6 +29,9 @@ function players_display($delete = '', $new = '', $edit_id = 0)
                           , array("VAL"=>6,         "NAME"=> 6)
                           , array("VAL"=>7,         "NAME"=> 7)
                           , array("VAL"=>8,         "NAME"=> 8));
+  $tv_types        = array( array("VAL"=>'4:3',     "NAME"=> '4:3')
+                          , array("VAL"=>'16:9',    "NAME"=> '16:9')
+                          , array("VAL"=>'16:10',   "NAME"=> '16:10'));
 
   $data = db_toarray("select player_id, name, make, model, chipset,
                             (CASE resume WHEN 'NO' THEN '".str('NO')."'
@@ -84,7 +87,16 @@ function players_display($delete = '', $new = '', $edit_id = 0)
 
   // Display all detected clients on the network
   echo "<h1>".str('SUPPORT_CLIENTS_TITLE')."</h1><p>";
-  array_to_table( db_toarray("select device_type, name, box_id, concat(browser_x_res,'x',browser_y_res) from clients left join client_profiles on make=substring(device_type,1,3) and model=substring(device_type,5,3) order by 1,2"), 'Make-Model,Name,Firmware,Resolution');
+
+  $data = db_toarray("select client_id, ip_address, device_type, name, box_id, concat(browser_x_res,'x',browser_y_res) resolution, aspect from clients left join client_profiles on make=substring(device_type,1,3) and model=substring(device_type,5,3) order by 4");
+  form_start('index.php', 150, 'clients');
+  form_hidden('section','PLAYERS');
+  form_hidden('action','CLIENT');
+  form_select_table('client_id', $data, str('PLAYER_IP_ADDR').','.str('PLAYER_MODEL').','.str('PLAYER_NAME').','.str('PLAYER_FIRMWARE').','.str('RESOLUTION').','.str('TV_TYPE')
+                   ,array('class'=>'form_select_tab','width'=>'100%'),'client_id',
+                    array('IP_ADDRESS'=>'!','DEVICE_TYPE'=>'!','NAME'=>'!', 'BOX_ID'=>'!', 'RESOLUTION'=>'!', 'ASPECT'=>$tv_types)
+                   , $client_id, 'clients');
+  form_end();
 }
 
 // ----------------------------------------------------------------------------------
@@ -192,6 +204,38 @@ function players_new()
       players_display('',str('PLAYER_ADD_OK'));
     }
   }
+}
+
+// ----------------------------------------------------------------------------------
+// Modify/delete an existing player
+// ----------------------------------------------------------------------------------
+
+function players_client()
+{
+  $selected = form_select_table_vals('client_id');               // Get the selected items
+  $edit     = form_select_table_edit('client_id', 'clients');    // Get the id of the edited row
+  $update   = form_select_table_update('client_id', 'clients');  // Get the updates from an edit
+
+  if(!empty($edit))
+  {
+    // There was an edit, display the players with the table in edit mode on the selected row
+    players_display('', '', 0, $edit);
+  }
+  elseif(!empty($update))
+  {
+    // Update the row given in the database and redisplay the players
+    $id      = $update["CLIENT_ID"];
+    $aspect  = $update["ASPECT"];
+
+    send_to_log(4,'Updating client details',$update);
+
+    db_sqlcommand("update clients set aspect='".db_escape_str($aspect)."' where client_id=".$id);
+
+    players_display(str('PLAYER_UPDATE_OK'));
+
+  }
+  else
+    players_display();
 }
 
 /**************************************************************************************************
