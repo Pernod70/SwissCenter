@@ -1378,6 +1378,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>FILTER_MISSING_IMDB</id>
+        <text>No IMDb</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>FILTER_MISSING_PROGRAMME</id>
         <text>No programme</text>
         <version>1.22</version>
@@ -1680,6 +1685,11 @@
         <id>IMDBTT</id>
         <text>IMDb ID</text>
         <version>1.22</version>
+      </string>
+      <string>
+        <id>IMDB_ID</id>
+        <text>IMDb</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>IMPEXP_TITLE</id>

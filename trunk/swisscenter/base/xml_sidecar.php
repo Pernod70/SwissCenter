@@ -38,7 +38,15 @@
 
       $xml = new XmlBuilder();
       $xml->Push('movie', array('xmlns'=>'http://www.swisscenter.co.uk', 'xmlns:xsi'=>'http://www.w3.org/2001/XMLSchema-instance', 'xsi:schemaLocation'=>'http://www.swisscenter.co.uk movies.xsd'));
+
+      // Title
       $xml->Element('title', utf8_encode($details[0]["TITLE"]));
+
+      // IMDb
+      if ( !empty( $details[0]["IMDB_ID"] ) )
+        $xml->Element('imdb_id', $details[0]["IMDB_ID"]);
+
+      // Synopsis
       if ( !empty( $details[0]["SYNOPSIS"] ) )
         $xml->Element('synopsis', utf8_encode($details[0]["SYNOPSIS"]));
 
@@ -137,6 +145,7 @@
     $movie = $xml->GetData();
 
     if ( isset($movie['movie']['title']['VALUE']) )    $columns["TITLE"] = utf8_decode(xmlspecialchars_decode($movie['movie']['title']['VALUE']));
+    if ( isset($movie['movie']['imdb_id']['VALUE']) )  $columns["IMDB_ID"] = $movie['movie']['imdb_id']['VALUE'];
     if ( isset($movie['movie']['synopsis']['VALUE']) ) $columns["SYNOPSIS"] = utf8_decode(xmlspecialchars_decode($movie['movie']['synopsis']['VALUE']));
     if ( isset($movie['movie']['year']['VALUE']) )     $columns["YEAR"] = $movie['movie']['year']['VALUE'];
     if ( isset($movie['movie']['rating']['VALUE']) )   $columns["EXTERNAL_RATING_PC"] = $movie['movie']['rating']['VALUE'] * 10;
