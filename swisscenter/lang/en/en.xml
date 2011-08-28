@@ -318,6 +318,11 @@
         <version>1.23.1</version>
       </string>
       <string>
+        <id>BROWSE_MOOD</id>
+        <text>Browse by mood</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>BROWSE_MOVIES</id>
         <text>Browse videos</text>
         <version>1.22</version>
@@ -2971,6 +2976,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MOOD</id>
+        <text>Mood</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>MORE</id>
         <text>[more]</text>
         <version>1.21.1</version>
@@ -3832,6 +3842,16 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <version>1.22</version>
       </string>
       <string>
+        <id>PLAYER_FIRMWARE</id>
+        <text>Firmware</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>PLAYER_IP_ADDR</id>
+        <text>IP Address</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>PLAYER_MAKE</id>
         <text>Make</text>
         <version>1.22</version>
@@ -4299,6 +4319,11 @@ If any details are added/changed on this page then you are requested to submit t
         <version>1.19</version>
       </string>
       <string>
+        <id>REFINE_MOOD</id>
+        <text>Refine mood</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>REFINE_PHOTO_ALBUM</id>
         <text>Refine by photo album</text>
         <version>1.19</version>
@@ -4402,6 +4427,11 @@ If any details are added/changed on this page then you are requested to submit t
         <id>REMOVE_FILTER</id>
         <text>Remove filter</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>RESOLUTION</id>
+        <text>Resolution</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>RESUME_PLAYING</id>
@@ -5672,6 +5702,11 @@ If any details are added/changed on this page then you are requested to submit t
         <id>TV_OPTIONS</id>
         <text>TV Series</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>TV_TYPE</id>
+        <text>TV Type</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>UNKNOWN_ERROR</id>
