@@ -116,8 +116,18 @@ function subtitles_display( $message = '')
     // Rest timeout for each video
     set_time_limit(30);
 
+    // Get the hash of current file
+    if ( empty($movie["OS_HASH"]) )
+    {
+      $moviehash = OpenSubtitlesHash($movie["DIRNAME"].$movie["FILENAME"]);
+      $success = db_update_row( 'movies', $movie["FILE_ID"], array('os_hash' => $moviehash) );
+    }
+    else
+    {
+      $moviehash = $movie["OS_HASH"];
+    }
+
     // Search for subtitles for current movie
-    $moviehash = OpenSubtitlesHash($movie["DIRNAME"].$movie["FILENAME"]);
     if ($method == 'hash')
       $search = array( array('sublanguageid' => $search_lang,
                              'moviehash'     => $moviehash,
