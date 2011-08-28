@@ -121,14 +121,14 @@ function movie_lookup()
     $filename = rtrim($details["DIRNAME"],'/').".xml";
   else
     $filename = $details["DIRNAME"].$details["FILENAME"];
-  $title = strip_title($details["TITLE"]);
 
   // Clear old details first
   purge_movie_details($movie_id);
 
   // Lookup movie
-  $lookup = ParserMovieLookup($movie_id, $filename, array('TITLE' => $title,
-                                                          'YEAR'  => $details["YEAR"]));
+  $lookup = ParserMovieLookup($movie_id, $filename, array('TITLE'   => $details["TITLE"],
+                                                          'YEAR'    => $details["YEAR"],
+                                                          'IMDB_ID' => $details["IMDB_ID"]));
 
   // Was lookup successful?
   if ( $lookup )
@@ -180,6 +180,7 @@ function movie_display_list($movie_list)
           <td valign="top" width="4%"><input type="checkbox" name="movie[]" value="'.$movie["FILE_ID"].'"></input></td>
           <td valign="top" width="24%">
              <a href="?section=movie&action=display_info&movie_id='.$movie["FILE_ID"].'">'.highlight($movie["TITLE"], un_magic_quote($_REQUEST["search"])).'</a><br>'.
+             str('IMDB_ID').' : '.nvl($movie["IMDB_ID"]).'<br>'.
              str('CERTIFICATE').' : '.nvl($cert).'<br>'.
              str('YEAR').' : '.nvl($movie["YEAR"]).'<br>'.
              str('RATING').' : '.nvl($movie["EXTERNAL_RATING_PC"]/10,'-').'/10<br>'.
@@ -267,6 +268,7 @@ function movie_display( $message = '')
       case "NOYEAR"     : $where .= "and (ifnull(m.year,'')='')"; break;
       case "NORATING"   : $where .= "and (ifnull(m.external_rating_pc,0)=0)"; break;
       case "NOTRAILER"  : $where .= "and (ifnull(m.trailer,'')='')"; break;
+      case "NOIMDB"     : $where .= "and (ifnull(m.imdb_id,'')='')"; break;
     }
   }
 
@@ -289,7 +291,8 @@ function movie_display( $message = '')
   $this_url = '?last_where='.urlencode($where).'&filter='.$_REQUEST["filter"].'&search='.un_magic_quote($_REQUEST["search"]).'&cat_id='.$_REQUEST["cat_id"].'&section=MOVIE&action=DISPLAY&page=';
   $filter_list = array( str('FILTER_MISSING_DETAILS')=>"NODETAILS" , str('FILTER_MISSING_SYNOPSIS')=>"NOSYNOPSIS"
                       , str('FILTER_MISSING_CERT')=>"NOCERT"       , str('FILTER_MISSING_YEAR')=>"NOYEAR"
-                      , str('FILTER_MISSING_RATING')=>"NORATING"   , str('FILTER_MISSING_TRAILER')=>"NOTRAILER");
+                      , str('FILTER_MISSING_RATING')=>"NORATING"   , str('FILTER_MISSING_TRAILER')=>"NOTRAILER"
+                      , str('FILTER_MISSING_IMDB')=>"NOIMDB" );
 
   echo '<form enctype="multipart/form-data" action="" method="post">
         <table width="100%"><tr><td width="70%">';
@@ -413,13 +416,18 @@ function movie_update_form_single()
         <input type="hidden" name="action" value="UPDATE_SINGLE">
         <input type="hidden" name="movie[]" value="'.$movie_id.'">
         <table class="form_select_tab" width="100%" cellspacing="4">
-        <tr><th colspan="4" align="center"><input type="hidden" name="update_title" value="yes">'
-        .str('TITLE').'
-        </th></tr>
-        <tr><td colspan="4"><input name="title" size="90" value="'.$details["TITLE"].'"></td></tr>
-        <tr><td colspan="4" align="center">&nbsp<br>
+        <tr>
+        <th colspan="3" align="center"><input type="hidden" name="update_title" value="yes">'
+        .str('TITLE').'</th>
+        <th><input type="hidden" name="update_imdb" value="yes">'.str('IMDB_ID').'</th>
+        </tr><tr>
+        <td colspan="3"><input name="title" size="90" value="'.$details["TITLE"].'"></td>
+        <td><input name="imdb_id" size="10" value="'.$details["IMDB_ID"].'"></td>
+        </tr><tr>
+        <td colspan="4" align="center">&nbsp<br>
         '.str('MOVIE_ADD_PROMPT').'
-        <br>&nbsp;</td></tr><tr>
+        <br>&nbsp;</td>
+        </tr><tr>
         <th width="25%"><input type="hidden" name="update_actors" value="yes">'.str('ACTOR').'</th>
         <th width="25%"><input type="hidden" name="update_directors" value="yes">'.str('DIRECTOR').'</th>
         <th width="25%"><input type="hidden" name="update_genres" value="yes">'.str('GENRE').'</th>
@@ -435,7 +443,8 @@ function movie_update_form_single()
         '.list_option_elements($languages,$l_select).'
         </select></td></tr></tr><tr><td colspan="4" align="center">&nbsp<br>
         '.str('MOVIE_NEW_PROMPT').'
-        <br>&nbsp;</td></tr><tr>
+        <br>&nbsp;</td>
+        </tr><tr>
         <td width="25%"><input name="actor_new" size=25></td>
         <td width="25%"><input name="director_new" size=25></td>
         <td width="25%"><input name="genre_new" size=25></td>
@@ -491,6 +500,7 @@ function movie_update_form_multiple( $movie_list )
   // Display movies that will be affected.
   echo '<h1>'.str('MOVIE_UPD_TTILE').'</h1>
         <input type="hidden" name="update_title" value="no">
+        <input type="hidden" name="update_imdb" value="no">
        <center>'.str('MOVIE_UPD_TEXT').'<p>';
        array_to_table(db_toarray("select title, filename from movies where file_id in (".implode(',',$movie_list).")"),str('Title').','.str('Filename'));
 
@@ -584,6 +594,8 @@ function movie_update_multiple()
     $columns["EXTERNAL_RATING_PC"] = $_REQUEST["rating"] * 10;
   if ($_REQUEST["update_trailer"] == 'yes')
     $columns["TRAILER"] = $_REQUEST["trailer"];
+  if ($_REQUEST["update_imdb"] == 'yes')
+    $columns["IMDB_ID"] = preg_get('/(\d+)/', $_REQUEST["imdb_id"]);
 
   // Add Actors/Genres/Directors?
   if ($_REQUEST["update_actors"] == 'yes')
