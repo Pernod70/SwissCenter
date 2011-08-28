@@ -49,6 +49,7 @@
         form_radio_static('music_album',str('BROWSE_ALBUM'),$option_vals,get_sys_pref('browse_music_album_enabled','YES'),false,true);
         form_radio_static('music_track',str('BROWSE_TRACK'),$option_vals,get_sys_pref('browse_music_track_enabled','YES'),false,true);
         form_radio_static('music_genre',str('BROWSE_GENRE'),$option_vals,get_sys_pref('browse_music_genre_enabled','YES'),false,true);
+        form_radio_static('music_mood',str('BROWSE_MOOD'),$option_vals,get_sys_pref('browse_music_mood_enabled','YES'),false,true);
         form_radio_static('music_year',str('BROWSE_YEAR'),$option_vals,get_sys_pref('browse_music_year_enabled','YES'),false,true);
         form_radio_static('music_discovered',str('BROWSE_DISCOVERED'),$option_vals,get_sys_pref('browse_music_discovered_enabled','YES'),false,true);
         form_radio_static('music_timestamp',str('BROWSE_TIMESTAMP'),$option_vals,get_sys_pref('browse_music_timestamp_enabled','YES'),false,true);
@@ -113,7 +114,7 @@
         if ( $_REQUEST["music_artist"] == 'YES' || $_REQUEST["music_album"] == 'YES' || $_REQUEST["music_track"] == 'YES' ||
              $_REQUEST["music_genre"] == 'YES' || $_REQUEST["music_year"] == 'YES' || $_REQUEST["music_filesystem"] == 'YES' ||
              $_REQUEST["music_discovered"] == 'YES' || $_REQUEST["music_timestamp"] == 'YES' || $_REQUEST["music_album_artist"] == 'YES' ||
-             $_REQUEST["music_composer"] == 'YES' )
+             $_REQUEST["music_composer"] == 'YES' || $_REQUEST["music_mood"] == 'YES')
         {
           set_sys_pref('browse_music_artist_enabled',$_REQUEST["music_artist"]);
           set_sys_pref('browse_music_album_artist_enabled',$_REQUEST["music_album_artist"]);
@@ -121,6 +122,7 @@
           set_sys_pref('browse_music_album_enabled',$_REQUEST["music_album"]);
           set_sys_pref('browse_music_track_enabled',$_REQUEST["music_track"]);
           set_sys_pref('browse_music_genre_enabled',$_REQUEST["music_genre"]);
+          set_sys_pref('browse_music_mood_enabled',$_REQUEST["music_mood"]);
           set_sys_pref('browse_music_year_enabled',$_REQUEST["music_year"]);
           set_sys_pref('browse_music_discovered_enabled',$_REQUEST["music_discovered"]);
           set_sys_pref('browse_music_timestamp_enabled',$_REQUEST["music_timestamp"]);

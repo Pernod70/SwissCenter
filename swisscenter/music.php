@@ -37,6 +37,8 @@
       $browse[] = array('text'=>str('BROWSE_TRACK'), 'url'=>"music_search.php?sort=title");
     if (get_sys_pref('browse_music_genre_enabled','YES') == 'YES')
       $browse[] = array('text'=>str('BROWSE_GENRE'), 'url'=>"music_search.php?sort=genre");
+    if (get_sys_pref('browse_music_mood_enabled','YES') == 'YES')
+      $browse[] = array('text'=>str('BROWSE_MOOD'), 'url'=>"music_search.php?sort=mood");
     if (get_sys_pref('browse_music_year_enabled','YES') == 'YES')
       $browse[] = array('text'=>str('BROWSE_YEAR'), 'url'=>"music_search.php?sort=year");
     if (get_sys_pref('browse_music_discovered_enabled','YES') == 'YES')
