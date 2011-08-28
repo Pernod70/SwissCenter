@@ -463,6 +463,7 @@ function process_mp3( $dir, $id, $file)
   $filepath = os_path($dir.$file);
   $data     = array();
   $getID3   = new getID3;
+  $getID3->setOption(array('encoding' => "ISO-8859-1", 'option_tags_html' => false));
   $id3      = $getID3->analyze($filepath);
 
   // Standard information about the file
@@ -898,6 +899,7 @@ function process_movie( $dir, $id, $file )
   send_to_log(4,'Found Video    : '.$file);
   $data     = array();
   $getID3   = new getID3;
+  $getID3->setOption(array('encoding' => "ISO-8859-1", 'option_tags_html' => false));
   $filepath = os_path($dir.$file);
   $id3      = $getID3->analyze($filepath);
   $image    = array();
@@ -1128,6 +1130,7 @@ function process_tv( $dir, $id, $file)
   send_to_log(4,'Found TV episode : '.$file);
   $data     = array();
   $getID3   = new getID3;
+  $getID3->setOption(array('encoding' => "ISO-8859-1", 'option_tags_html' => false));
   $filepath = os_path($dir.$file);
   $id3      = $getID3->analyze($filepath);
 
