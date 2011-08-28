@@ -16,6 +16,7 @@
     case "band":
     case "artist":
     case "genre":
+    case "mood":
     case "composer":
       $title  = str(strtoupper(($column)));
       $search = array("display" => $column,

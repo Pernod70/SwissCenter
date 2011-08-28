@@ -37,6 +37,7 @@
   $artist_name = search_distinct_info($info, str('ARTIST')     ,'artist',$sql_table, $predicate);
   search_distinct_info($info, str('COMPOSER')   ,'composer',$sql_table, $predicate);
   search_distinct_info($info, str('GENRE')      ,'genre' ,$sql_table, $predicate);
+  search_distinct_info($info, str('MOOD')       ,'mood' ,$sql_table, $predicate);
   search_distinct_info($info, str('YEAR')       ,'year'  ,$sql_table, $predicate);
   $info->add_item( str('MUSIC_PLAY_TIME'),  hhmmss($playtime));
 
@@ -61,6 +62,7 @@
   search_check_filter( $menu, str('REFINE_ALBUM'),  'album',  $sql_table, $predicate, $refine_url );
   search_check_filter( $menu, str('REFINE_TITLE'),  'title',  $sql_table, $predicate, $refine_url );
   search_check_filter( $menu, str('REFINE_GENRE'),  'genre',  $sql_table, $predicate, $refine_url );
+  search_check_filter( $menu, str('REFINE_MOOD'),   'mood',   $sql_table, $predicate, $refine_url );
   search_check_filter( $menu, str('REFINE_YEAR'),   'year',   $sql_table, $predicate, $refine_url );
 
   // Add a menu option to lookup the artist/album in Wikipedia
@@ -112,6 +114,10 @@
     $buttons[] = array('text'=>str('ARTIST_INFO'), 'url'=> url_add_params('music_info.php', array('artist'=>urlencode($artist_name),
                                                                                                   'album'=>urlencode($album_name),
                                                                                                   'track'=>urlencode($track_name))) );
+//  if (internet_available() && !empty($track_name))
+//    $buttons[] = array('text'=>str('LYRICS'), 'url'=> url_add_params('music_lyrics.php', array('artist'=>urlencode($artist_name),
+//                                                                                               'album'=>urlencode($album_name),
+//                                                                                               'track'=>urlencode($track_name))) );
 
   page_footer( url_add_params( search_picker_most_recent(), array("p_del"=>"y","del"=>"y") ), $buttons );
 
