@@ -469,6 +469,14 @@ class db_query
       return '';
   }
 
+  function db_get_errno()
+  {
+    if ($this->db_handle)
+      return mysql_errno($this->db_handle);
+    else
+      return -1;
+  }
+
   function db_success($log_error = true)
   {
     if(!$this->stmt_handle)

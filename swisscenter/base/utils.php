@@ -130,7 +130,7 @@ function strip_title ($title)
 {
   $search  = array ( '/\.[^.]*$/U'
                    , '/\(.*\)/'
-                   , '/\[.*]/'
+                   , '/\[.*\]/'
                    , '/\s[^\w&$]/'
                    , '/[^\w&$]\s/'
                    , '/\sCD[^\w].*/i'
@@ -664,7 +664,7 @@ function strrpos_str($string, $searchFor, $startFrom = 0)
 /**
  * Returns the MySQL version.
  *
- * @return unknown
+ * @return string
  */
 
 function mysql_version()
@@ -672,6 +672,46 @@ function mysql_version()
   if ( ($db = @mysql_pconnect( DB_HOST, DB_USERNAME, DB_PASSWORD )) )
   {
     $stmt = mysql_query( 'select version()', $db);
+    if ($row = mysql_fetch_array( $stmt, MYSQL_ASSOC ))
+      return array_pop($row);
+    else
+      return false;
+  }
+  else
+    return false;
+}
+
+/**
+ * Returns the MySQL charset.
+ *
+ * @return string
+ */
+
+function mysql_charset()
+{
+  if ( ($db = @mysql_pconnect( DB_HOST, DB_USERNAME, DB_PASSWORD )) )
+  {
+    $stmt = mysql_query( 'select charset(\'abc\')', $db);
+    if ($row = mysql_fetch_array( $stmt, MYSQL_ASSOC ))
+      return array_pop($row);
+    else
+      return false;
+  }
+  else
+    return false;
+}
+
+/**
+ * Returns the MySQL collation.
+ *
+ * @return string
+ */
+
+function mysql_collation()
+{
+  if ( ($db = @mysql_pconnect( DB_HOST, DB_USERNAME, DB_PASSWORD )) )
+  {
+    $stmt = mysql_query( 'select collation(\'abc\')', $db);
     if ($row = mysql_fetch_array( $stmt, MYSQL_ASSOC ))
       return array_pop($row);
     else
@@ -715,7 +755,7 @@ function convert_mms_to_rtsp( $url )
 
 function xmlspecialchars( $text )
 {
-  return str_replace('&#039;', '&apos;', htmlspecialchars( html_entity_decode($text), ENT_QUOTES ));
+  return str_replace('&#039;', '&apos;', htmlspecialchars( html_entity_decode($text, ENT_QUOTES) ));
 }
 
 function xmlspecialchars_decode( $text )

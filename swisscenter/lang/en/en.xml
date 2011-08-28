@@ -1213,6 +1213,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>FAIL_MYSQL_CHARSET</id>
+        <text>The default charset of your MySQL server is not 'latin1', this will cause encoding issues. Reconfigure your MySQL server with [i]character-set-server=latin1[/i], and recreate the database.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>FAIL_MYSQL_COLLATION</id>
+        <text>The default collation of your MySQL server is not 'latin1_swedish_ci', this will cause encoding issues. Reconfigure your MySQL server with [i]collation-server=latin1_swedish_ci[/i], and recreate the database.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>FAIL_MYSQL_CONNECT</id>
         <text>Unable to connect to the MySQL server.</text>
         <version>1.19</version>
@@ -3450,6 +3460,16 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <id>PASS_MUSICIP_TEST</id>
         <text>MusicIP service detected.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_MYSQL_CHARSET</id>
+        <text>MySQL server is using 'latin1' charset.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>PASS_MYSQL_COLLATION</id>
+        <text>MySQL server is using 'latin1_swedish_ci' collation.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>PASS_MYSQL_CONNECT</id>

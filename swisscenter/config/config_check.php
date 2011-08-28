@@ -164,6 +164,8 @@ function check_display()
 
     $core_tests->add_test( $mysql, check_mysql_connect(), str("PASS_MYSQL_CONNECT"), str("FAIL_MYSQL_CONNECT"));
     $core_tests->add_test( $mysql, check_mysql_version(), str("PASS_MYSQL_VERSION"), str("FAIL_MYSQL_VERSION"));
+    $core_tests->add_test( $mysql, check_mysql_charset(), str("PASS_MYSQL_CHARSET"), str("FAIL_MYSQL_CHARSET"));
+    $core_tests->add_test( $mysql, check_mysql_collation(), str("PASS_MYSQL_COLLATION"), str("FAIL_MYSQL_COLLATION"));
     $core_tests->add_test( $mysql, check_mysql_database_exists(), str("PASS_MYSQL_DB"), str("FAIL_MYSQL_DB"));
   }
 

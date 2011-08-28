@@ -117,22 +117,47 @@ function check_mysql_connect()
 
 function check_mysql_version()
 {
-  $db = @mysql_pconnect( DB_HOST, DB_USERNAME, DB_PASSWORD );
-  if ( $db )
+  if (check_mysql_connect())
   {
-    $stmt = mysql_query( 'select version()', $db);
-    $row = mysql_fetch_array( $stmt, MYSQL_ASSOC );
-    if ( $row )
-    {
-      $version = array_pop($row);
-      send_to_log(5,"- MySQL Version : $version");
-      return version_compare($version,'5.0','>=');
-    }
-    else
-      return false;
+    $version = mysql_version();
+    send_to_log(5,"- MySQL Version : $version");
+    return version_compare($version,'5.0','>=');
   }
   else
+  {
+    send_to_log(5,"- Unable to connect to MySQL");
     return false;
+  }
+}
+
+function check_mysql_collation()
+{
+  if (check_mysql_connect())
+  {
+    $collation = mysql_collation();
+    send_to_log(5,"- MySQL Collation : $collation");
+    return ($collation == 'latin1_swedish_ci');
+  }
+  else
+  {
+    send_to_log(5,"- Unable to connect to MySQL");
+    return false;
+  }
+}
+
+function check_mysql_charset()
+{
+  if (check_mysql_connect())
+  {
+    $charset = mysql_charset();
+    send_to_log(5,"- MySQL Charset : $charset");
+    return ($charset == 'latin1');
+  }
+  else
+  {
+    send_to_log(5,"- Unable to connect to MySQL");
+    return false;
+  }
 }
 
 function check_mysql_database_exists()
