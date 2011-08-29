@@ -4,7 +4,6 @@
  *************************************************************************************************/
 
 require_once( realpath(dirname(__FILE__).'/mysql.php'));
-require_once( realpath(dirname(__FILE__).'/../ext/json/json.php'));
 
 define('APPLE_TRAILERS_URL','http://trailers.apple.com');
 
@@ -58,7 +57,7 @@ class AppleTrailers {
 
     $result = db_value("SELECT response FROM ".$this->cache_table." WHERE request = '$reqhash' AND DATE_SUB(NOW(), INTERVAL " . (int) $this->cache_expire . " SECOND) < expiration");
     if (!empty($result)) {
-      return object_to_array(json_decode($result));
+      return json_decode($result, true);
     }
     return false;
   }
@@ -88,7 +87,7 @@ class AppleTrailers {
           $body = preg_get('/"results":(.*)}/', $body);
         // Decode response
         $body = unicode_decode($body);
-        $this->response = object_to_array(json_decode($body));
+        $this->response = json_decode($body, true);
         $this->cache($request, $body);
       } else {
         send_to_log(2,"There has been a problem sending your command to the server.", $request);

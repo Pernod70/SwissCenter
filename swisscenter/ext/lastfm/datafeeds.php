@@ -3,7 +3,6 @@
    SWISScenter Source                                                              Nigel Barnes
  *************************************************************************************************/
 
-require_once( realpath(dirname(__FILE__).'/../json/json.php'));
 require_once( realpath(dirname(__FILE__).'/../../base/mysql.php'));
 
 class lastfmapi {
@@ -60,7 +59,7 @@ class lastfmapi {
 
     $result = db_value("SELECT response FROM ".$this->cache_table." WHERE request = '$reqhash' AND DATE_SUB(NOW(), INTERVAL " . (int) $this->cache_expire . " SECOND) < expiration");
     if (!empty($result)) {
-      return object_to_array(json_decode($result));
+      return json_decode($result, true);
     }
     return false;
   }
@@ -89,7 +88,7 @@ class lastfmapi {
     if (!($this->response = $this->getCached($url)) ) {
       //Send Requests
       if ($response = file_get_contents($url)) {
-        $this->response = object_to_array(json_decode($response));
+        $this->response = json_decode($response, true);
         if (isset($this->response["error"])) {
           $this->response_code = $this->response["error"];
           send_to_log(2,'Error returned by LastFM API', $this->response["message"]);
@@ -248,6 +247,48 @@ function lastfm_track_getInfo($artist, $track)
 {
   $lastfm = new lastfmapi();
   return $lastfm->getFeed('method=track.getInfo&artist='.urlencode(utf8_encode($artist)).'&track='.urlencode(utf8_encode($track)));
+}
+
+/**
+ * Used to add a track-play to a user's profile.
+ *
+ * @param string $artist
+ * @param string $album
+ * @param string $track
+ * @param integer $duration
+ * @param integer $trackNumber
+ * @param integer $timestamp
+ * @return array
+ */
+function lastfm_track_scrobble($artist, $album, $track, $duration, $trackNumber, $timestamp)
+{
+  $lastfm = new lastfmapi();
+  return $lastfm->postFeed('method=track.scrobble&track[0]='.urlencode(utf8_encode($track)).
+                                            '&timestamp[0]='.$timestamp.
+                                               '&artist[0]='.urlencode(utf8_encode($artist)).
+                                                '&album[0]='.urlencode(utf8_encode($album)).
+                                          '&trackNumber[0]='.$trackNumber.
+                                             '&duration[0]='.$duration);
+}
+
+/**
+ * Used to notify Last.fm that a user has started listening to a track.
+ *
+ * @param string $artist
+ * @param string $album
+ * @param string $track
+ * @param integer $duration
+ * @param integer $trackNumber
+ * @return array
+ */
+function lastfm_track_updateNowPlaying($artist, $album, $track, $duration, $trackNumber)
+{
+  $lastfm = new lastfmapi();
+  return $lastfm->postFeed('method=track.updateNowPlaying&track='.urlencode(utf8_encode($track)).
+                                                       '&artist='.urlencode(utf8_encode($artist)).
+                                                        '&album='.urlencode(utf8_encode($album)).
+                                                  '&trackNumber='.$trackNumber.
+                                                     '&duration='.$duration);
 }
 
 /**

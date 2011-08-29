@@ -15,8 +15,6 @@
 
  *************************************************************************************************/
 
-require_once (SC_LOCATION."/ext/json/json.php");
-
 // API key registered to SwissCenter project
 define('MOVIEDB_API_KEY', '2548980e43e9c7d08b705a2e57e9afe3');
 
@@ -74,8 +72,7 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
     if ($moviedb_id) {
       // Parse the movie details
       $url = 'http://api.themoviedb.org/2.1/Movie.getInfo/'.substr(get_sys_pref('DEFAULT_LANGUAGE','en'),0,2).'/json/' . MOVIEDB_API_KEY . '/' . $moviedb_id;
-      $index = json_decode( file_get_contents($url) );
-      $moviematches = object_to_array($index);
+      $moviematches = json_decode( file_get_contents($url), true );
       $this->page = $moviematches;
       $this->accuracy = 100;
       if ( isset ($imdbtt) && !empty($imdbtt)) {
@@ -226,8 +223,7 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
     send_to_log(6, 'Feed request', $url);
 
     // Parse the xml results and determine best match for title
-    $index = json_decode( file_get_contents($url) );
-    $moviematches = object_to_array($index);
+    $moviematches = json_decode( file_get_contents($url), true );
 
     // Find best match for required title
     if (count($moviematches) > 0) {

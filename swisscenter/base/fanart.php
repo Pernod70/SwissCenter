@@ -5,7 +5,6 @@
 
 require_once( realpath(dirname(__FILE__).'/cache_api_request.php'));
 require_once( realpath(dirname(__FILE__).'/../ext/lastfm/datafeeds.php'));
-require_once( realpath(dirname(__FILE__).'/../ext/json/json.php'));
 
 /**
  * Searches for and downloads an artist image from Google Images.

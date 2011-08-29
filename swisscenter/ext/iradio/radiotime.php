@@ -11,7 +11,6 @@
  #############################################################################
 
 require_once( realpath(dirname(__FILE__)."/iradio.php"));
-require_once( realpath(dirname(__FILE__)."/../json/json.php"));
 require_once( realpath(dirname(__FILE__)."/../../base/server.php"));
 
 /** RadioTime Specific Parsing
