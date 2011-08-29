@@ -4,7 +4,6 @@
  *************************************************************************************************/
 
 require_once( realpath(dirname(__FILE__).'/../../base/mysql.php'));
-require_once( realpath(dirname(__FILE__).'/../json/json.php'));
 
 class phpYouTube {
   private $GET = 'http://gdata.youtube.com/';
@@ -65,7 +64,7 @@ class phpYouTube {
 
     $result = db_value("SELECT response FROM ".$this->cache_table." WHERE request = '$reqhash' AND DATE_SUB(NOW(), INTERVAL " . (int) $this->cache_expire . " SECOND) < expiration");
     if (!empty($result)) {
-      return object_to_array(json_decode($result));;
+      return json_decode($result, true);;
     }
     return false;
   }
@@ -93,7 +92,7 @@ class phpYouTube {
     send_to_log(6,'YouTube API request', $request);
     if (!($this->response = $this->getCached($request)) || $nocache) {
       if ($body = file_get_contents($request)) {
-        $this->response = object_to_array(json_decode($body));
+        $this->response = json_decode($body, true);
         $this->cache($request, $body);
       } else {
         send_to_log(2,"There has been a problem sending your command to the server.", $request);

@@ -57,7 +57,7 @@ class YouPorn {
 
     $result = db_value("SELECT response FROM ".$this->cache_table." WHERE request = '$reqhash' AND DATE_SUB(NOW(), INTERVAL " . (int) $this->cache_expire . " SECOND) < expiration");
     if (!empty($result)) {
-      return object_to_array(json_decode($result));
+      return json_decode($result, true);
     }
     return false;
   }

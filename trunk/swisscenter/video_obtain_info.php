@@ -7,7 +7,6 @@
   require_once( realpath(dirname(__FILE__).'/base/utils.php'));
   require_once( realpath(dirname(__FILE__).'/base/rating.php'));
   require_once( realpath(dirname(__FILE__).'/base/xml_sidecar.php'));
-  require_once( realpath(dirname(__FILE__).'/ext/json/json.php'));
   require_once( realpath(dirname(__FILE__).'/ext/parsers/ParserMovieLookup.php'));
   require_once( realpath(dirname(__FILE__).'/ext/parsers/ParserTvLookup.php'));
 
