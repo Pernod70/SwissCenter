@@ -145,6 +145,7 @@ class wwwTHETVDBcom extends Parser implements ParserInterface {
         }
 
         // Parse the Full Series Record
+        send_to_log(6,'Parsing XML: '.$series_cache);
         $series = file_get_contents($series_cache);
         $xml = new XmlParser($series, array(XML_OPTION_CASE_FOLDING => TRUE, XML_OPTION_SKIP_WHITE => TRUE) );
         $tvdb_series = $xml->GetData();
@@ -172,6 +173,7 @@ class wwwTHETVDBcom extends Parser implements ParserInterface {
 
         if ($ep !== false) {
           // Parse the banners
+          send_to_log(6,'Parsing XML: '.$banner_cache);
           $banners = file_get_contents($banner_cache);
           $xml = new XmlParser($banners, array(XML_OPTION_CASE_FOLDING => TRUE, XML_OPTION_SKIP_WHITE => TRUE) );
           $tvdb_banners = $xml->GetData();
@@ -179,6 +181,7 @@ class wwwTHETVDBcom extends Parser implements ParserInterface {
             $tvdb_banners['BANNERS']['BANNER'] = array($tvdb_banners['BANNERS']['BANNER']);
 
           // Parse the actor images
+          send_to_log(6,'Parsing XML: '.$actors_cache);
           $actors = file_get_contents($actors_cache);
           $xml = new XmlParser($actors, array(XML_OPTION_CASE_FOLDING => TRUE, XML_OPTION_SKIP_WHITE => TRUE) );
           $tvdb_actors = $xml->GetData();
@@ -382,7 +385,9 @@ class wwwTHETVDBcom extends Parser implements ParserInterface {
    */
   function get_series_id($programme)
   {
-    $series = file_get_contents('http://www.thetvdb.com/api/GetSeries.php?seriesname='.urlencode(utf8_encode($programme)).'&language=all');
+    $url = 'http://www.thetvdb.com/api/GetSeries.php?seriesname='.urlencode(utf8_encode($programme)).'&language=all';
+    send_to_log(6,'Parsing XML: '.$url);
+    $series = file_get_contents($url);
     $xml = new XmlParser($series, array(XML_OPTION_CASE_FOLDING => TRUE, XML_OPTION_SKIP_WHITE => TRUE) );
     $data = $xml->GetData();
     if ( !isset($data['DATA']['SERIES'][0]) )
@@ -391,7 +396,7 @@ class wwwTHETVDBcom extends Parser implements ParserInterface {
     $seriesids = array();
     foreach ($data['DATA']['SERIES'] as $series)
     {
-      $seriesids['SERIESNAME'][] = $series['SERIESNAME']['VALUE'];
+      $seriesids['SERIESNAME'][] = utf8_decode($series['SERIESNAME']['VALUE']);
       $seriesids['SERIESID'][] = $series['SERIESID']['VALUE'];
     }
 
