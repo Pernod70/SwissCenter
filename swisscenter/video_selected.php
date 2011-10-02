@@ -170,6 +170,13 @@
   $name          = un_magic_quote(rawurldecode($_REQUEST["name"]));
   $type          = un_magic_quote($_REQUEST["type"]);
 
+  // Set viewed status
+  if (isset($_REQUEST["viewed"]))
+  {
+    foreach ($file_ids as $file_id)
+      store_request_details(MEDIA_TYPE_VIDEO, $file_id, ($_REQUEST["viewed"] == 1 ? true : false));
+  }
+
   //
   // A single movie has been matched/selected by the user, so display as much information as possible
   // on the screen, along with commands to "Play Now" or "Add to Playlist".
@@ -376,6 +383,11 @@
             </tr>
           </table>';
 
+  // Count viewed items
+  $viewed_count = 0;
+  foreach ($file_ids as $file_id)
+    $viewed_count += viewings_count( MEDIA_TYPE_VIDEO, $file_id );
+
   // Buttons for Next and Previous videos
   $prev = db_row("select file_id,title from movies media ".get_rating_join()." where ".
                  " title < '".db_escape_str($data[0]["TITLE"])."' ".get_rating_filter().filter_get_predicate().$history["sql"].
@@ -403,6 +415,13 @@
     $buttons[2] = array('text'=>str('SHUFFLE_ON'), 'url'=> url_set_param($this_url,'shuffle','on') );
   else
     $buttons[2] = array('text'=>str('SHUFFLE_OFF'), 'url'=> url_set_param($this_url,'shuffle','off') );
+  if ( is_user_admin() )
+  {
+    if ( $viewed_count == 0 )
+      $buttons[3] = array('text'=>str('VIEWED_SET'), 'url'=> url_set_param($this_url,'viewed',1) );
+    else
+      $buttons[3] = array('text'=>str('VIEWED_RESET'), 'url'=> url_set_param($this_url,'viewed',0) );
+  }
 
   // Make sure the "back" button goes to the correct page:
   page_footer( url_add_params( search_picker_most_recent(), array("p_del"=>"y","del"=>"y") ), $buttons, 0, true, 'PAGE_TEXT_BACKGROUND' );

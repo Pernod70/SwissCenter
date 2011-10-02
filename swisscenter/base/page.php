@@ -70,7 +70,7 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
       $headings = '<td height="'.convert_y(170).'" align="center"><h2>&nbsp;</h2>&nbsp;</td>';
     else
     {
-      $headings = '<td height="'.convert_y(100).'"><table '.(empty($title) ? '' : style_background($text_background)).' align="center" border="0" cellpadding="2" cellspacing="0"><tr><td>&nbsp;'.font_tags(FONTSIZE_HEADER).$title.'&nbsp;</td></tr></table></td>
+      $headings = '<td height="'.convert_y(100).'"><table '.(empty($title) ? '' : style_background($text_background)).' align="center" border="0" cellpadding="2" cellspacing="0"><tr><td><b>&nbsp;'.font_tags(FONTSIZE_HEADER).$title.'&nbsp;</b></td></tr></table></td>
                <tr><td height="'.convert_y(70).'"><table '.(empty($tagline) ? '' : style_background($text_background)).' align="center" border="0" cellpadding="2" cellspacing="0"><tr><td>&nbsp;'.font_tags(FONTSIZE_SUBHEADER).$tagline.'&nbsp;</td></tr></table></td>';
     }
   }
@@ -274,12 +274,12 @@ function page_footer( $back, $buttons = '', $iconbar = 0, $links = true, $text_b
         if (substr($link,0,5) != 'href=')
           $link = 'href="'.$link.'"';
 
-        $link = '<a '.$link.tvid('KEY_'.substr('ABC',$i,1)).'name="'.tvid_code('KEY_'.substr('ABC',$i,1)).'">'.
-                img_gen(SC_LOCATION.style_img(quick_access_img($i)),45,54,false,false,false,array("align" => "absmiddle")).
+        $link = '<a '.$link.tvid('KEY_'.substr('ABCD',$i,1)).'name="'.tvid_code('KEY_'.substr('ABCD',$i,1)).'">'.
+                img_gen(SC_LOCATION.style_img(quick_access_img($i)),25,40,false,false,false,array("align" => "absmiddle")).
                 font_tags(FONTSIZE_FOOTER).$button["text"].'</a>';
       }
       else
-        $link = img_gen(SC_LOCATION.style_img(quick_access_img($i)),45,54,false,false,false,array("align" => "absmiddle")).
+        $link = img_gen(SC_LOCATION.style_img(quick_access_img($i)),25,40,false,false,false,array("align" => "absmiddle")).
                 font_tags(FONTSIZE_FOOTER).$button["text"];
 
       echo '<td align="center">'.$link.'</td>';

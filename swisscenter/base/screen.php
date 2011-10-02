@@ -282,7 +282,7 @@ function get_font( $font, $player = 0, $def = HD )
                 FONTSIZE_THUMBTEXT   => array( SD => 2, HD => 2 ),
                 FONTSIZE_KEYPAD      => array( SD => 4, HD => 5 ),
                 FONTSIZE_ICONBAR     => array( SD => 5, HD => 5 ),
-                FONTSIZE_FOOTER      => array( SD => 5, HD => 5 ) ) );
+                FONTSIZE_FOOTER      => array( SD => 3, HD => 4 ) ) );
 
   if ( $player == 0 )
     return $fonts[$player][$font];

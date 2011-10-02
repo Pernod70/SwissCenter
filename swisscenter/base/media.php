@@ -399,9 +399,10 @@ function viewed_status_predicate( $status )
  *
  * @param integer $media
  * @param integer $file_id
+ * @param boolean $viewed
  */
 
-function store_request_details( $media_type, $file_id )
+function store_request_details( $media_type, $file_id, $viewed = true )
 {
   // Return if no file_id is given
   if ( empty($file_id) ) return;
@@ -409,16 +410,24 @@ function store_request_details( $media_type, $file_id )
   // Current user
   $user_id = get_current_user_id();
 
-  // Increment the downloads counter for this file
-  if ( db_value("select count(*) from viewings where user_id=$user_id and media_type=$media_type and media_id=$file_id") == 0)
+  if ( $viewed )
   {
-    db_sqlcommand("insert into viewings ( user_id, media_type, media_id, last_viewed, total_viewings )
-                   values ( $user_id, $media_type, $file_id, now(), 1) ");
+    // Increment the downloads counter for this file
+    if ( db_value("select count(*) from viewings where user_id=$user_id and media_type=$media_type and media_id=$file_id") == 0)
+    {
+      db_sqlcommand("insert into viewings ( user_id, media_type, media_id, last_viewed, total_viewings )
+                     values ( $user_id, $media_type, $file_id, now(), 1) ");
+    }
+    else
+    {
+      db_sqlcommand("update viewings set total_viewings = total_viewings+1 , last_viewed = now()
+                     where user_id=$user_id and media_type=$media_type and media_id=$file_id");
+    }
   }
   else
   {
-    db_sqlcommand("update viewings set total_viewings = total_viewings+1 , last_viewed = now()
-                   where user_id=$user_id and media_type=$media_type and media_id=$file_id");
+    // Remove downloads counter for this file
+    db_sqlcommand("delete from viewings where user_id=$user_id and media_type=$media_type and media_id=$file_id");
   }
 }
 

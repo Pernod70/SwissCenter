@@ -43,6 +43,13 @@
 
   $episodes       = db_toarray($episodes_sql);
 
+  // Set viewed status
+  if (isset($_REQUEST["viewed"]))
+  {
+    foreach ($episodes as $ep)
+      store_request_details(MEDIA_TYPE_TV, $ep["FILE_ID"], ($_REQUEST["viewed"] == 1 ? true : false));
+  }
+
   // Should we delete the last entry on the history stack?
   if (isset($_REQUEST["del"]) && strtoupper($_REQUEST["del"]) == 'Y')
     search_hist_pop();
@@ -106,8 +113,10 @@
   }
 
   // Build up a menu of episodes that the user can select from.
+  $viewed_count = 0;
   foreach ($episodes as $ep)
   {
+    $viewed_count += viewings_count( MEDIA_TYPE_TV, $ep["FILE_ID"] );
     $viewed = viewed_icon(viewings_count( MEDIA_TYPE_TV, $ep["FILE_ID"]));
     $episode_info = (empty($ep["EPISODE"]) && empty($ep["SERIES"])) ? '' : $ep["SERIES"].'x'.$ep["EPISODE"];
     $menu->add_info_item( $ep[TITLE], $episode_info, url_add_params('/tv_episode_selected.php', array("file_id"=>$ep["FILE_ID"],"cat"=>$_REQUEST["cat"],"add"=>"Y")), false, $viewed);
@@ -142,17 +151,26 @@
     }
   }
 
+  // Output ABC buttons
   $buttons = array();
-  $buttons[] = array('text' => str('QUICK_PLAY'),'url' => play_sql_list(MEDIA_TYPE_TV, $episodes_sql));
+  $buttons[0] = array('text' => str('QUICK_PLAY'),'url' => play_sql_list(MEDIA_TYPE_TV, $episodes_sql));
   if (!isset($_SESSION["shuffle"]) || $_SESSION["shuffle"] == 'off')
-    $buttons[] = array('text'=>str('SHUFFLE_ON'), 'url'=> url_set_param($this_url,'shuffle','on') );
+    $buttons[1] = array('text'=>str('SHUFFLE_ON'), 'url'=> url_set_param($this_url,'shuffle','on') );
   else
-    $buttons[] = array('text'=>str('SHUFFLE_OFF'), 'url'=> url_set_param($this_url,'shuffle','off') );
+    $buttons[1] = array('text'=>str('SHUFFLE_OFF'), 'url'=> url_set_param($this_url,'shuffle','off') );
   if ( $view_status == 'unviewed')
-    $buttons[] = array('text'=>str('VIEW_ALL'), 'url'=> url_set_param($this_url,'view_status','all') );
+    $buttons[2] = array('text'=>str('VIEW_ALL'), 'url'=> url_set_param($this_url,'view_status','all') );
   else
-    $buttons[] = array('text'=>str('VIEW_UNVIEWED'), 'url'=> url_set_param($this_url,'view_status','unviewed') );
+    $buttons[2] = array('text'=>str('VIEW_UNVIEWED'), 'url'=> url_set_param($this_url,'view_status','unviewed') );
+  if ( is_user_admin() )
+  {
+    if ( $viewed_count == 0 )
+      $buttons[3] = array('text'=>str('VIEWED_SET'), 'url'=> url_set_param($this_url,'viewed',1) );
+    else
+      $buttons[3] = array('text'=>str('VIEWED_RESET'), 'url'=> url_set_param($this_url,'viewed',0) );
+  }
 
+  // Make sure the "back" button goes to the correct page:
   page_footer( url_add_params( search_picker_most_recent(), array("p_del"=>"y","del"=>"y") ), $buttons, 0, true, 'PAGE_TEXT_BACKGROUND' );
 
 /**************************************************************************************************

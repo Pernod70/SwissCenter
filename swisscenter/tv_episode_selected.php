@@ -78,7 +78,7 @@
     if (stristr($video_codec, 'mpeg-2') )  { $media_logos .= img_gen(style_img('MEDIA_MPEG',true), 80,40); }
     if (stristr($video_codec, 'divx') )    { $media_logos .= img_gen(style_img('MEDIA_DIVX',true), 80,40); }
     if (stristr($video_codec, 'xvid') )    { $media_logos .= img_gen(style_img('MEDIA_XVID',true), 80,40); }
-    if (stristr($video_codec, '???') )     { $media_logos .= img_gen(style_img('MEDIA_MP4V',true), 80,40); }
+    if (stristr($video_codec, 'quick') )   { $media_logos .= img_gen(style_img('MEDIA_MP4V',true), 80,40); }
     if (stristr($audio_codec, 'dts') )     { $media_logos .= img_gen(style_img('MEDIA_DTS',true), 65,40); }
     if (stristr($audio_codec, 'mpeg') )    { $media_logos .= img_gen(style_img('MEDIA_MP3',true), 65,40); }
     if (stristr($audio_codec, 'ac3') )     { $media_logos .= img_gen(style_img('MEDIA_DOLBY',true), 65,40); }
@@ -124,6 +124,10 @@
     $data = db_row("select media.*, ".get_cert_name_sql()." certificate_name from $sql_table and file_id=$file_id");
     $this_url = url_remove_param($this_url,'lookup');
   }
+
+  // Set viewed status
+  if (isset($_REQUEST["viewed"]))
+    store_request_details(MEDIA_TYPE_TV, $data["FILE_ID"], ($_REQUEST["viewed"] == 1 ? true : false));
 
   // Should we delete the last entry on the history stack?
   if (isset($_REQUEST["del"]) && strtoupper($_REQUEST["del"]) == 'Y')
@@ -183,7 +187,7 @@
   $menu->add_item( str('PLAY_NOW').$percent_played, play_file( MEDIA_TYPE_TV, $data["FILE_ID"]));
 
   // Resume playing
-  if ( support_resume() && file_exists( bookmark_file($data["DIRNAME"].$data["FILENAME"]) ))
+  if ( support_resume() && file_exists( $bookmark_filename ))
     $menu->add_item( str('RESUME_PLAYING').$percent_played, resume_file(MEDIA_TYPE_TV,$file_id), true);
 
   // Add to your current playlist
@@ -241,6 +245,8 @@
   $next = db_row("select file_id, series, episode from tv media ".get_rating_join()." where programme = '".db_escape_str($data["PROGRAMME"])."'".
                  " and concat(lpad(series,2,0),lpad(episode,3,0)) > concat(lpad(".$data["SERIES"].',2,0),lpad('.$data["EPISODE"].',3,0)) '.$predicate.
                  " order by series asc, episode asc limit 1");
+
+  // Output ABC buttons
   $buttons = array();
   if ( is_array($prev) )
     $buttons[0] = array('text'=>str('EP_PREV', $prev["SERIES"].'x'.$prev["EPISODE"]), 'url'=> url_add_params('/tv_episode_selected.php', array("file_id"=>$prev["FILE_ID"], "add"=>"Y", "del"=>"Y")) );
@@ -248,7 +254,15 @@
     $buttons[1] = array('text'=>str('EP_NEXT', $next["SERIES"].'x'.$next["EPISODE"]), 'url'=> url_add_params('/tv_episode_selected.php', array("file_id"=>$next["FILE_ID"], "add"=>"Y", "del"=>"Y")) );
   if ( internet_available() )
     $buttons[2] = array('text'=>str('LOOKUP_TV'), 'url'=> url_add_params('/tv_episode_selected.php', array("file_id"=>$file_id, "lookup"=>"Y", "add"=>"Y", "del"=>"Y")) );
+  if ( is_user_admin() )
+  {
+    if ( viewings_count(MEDIA_TYPE_TV, $data["FILE_ID"]) == 0 )
+      $buttons[3] = array('text'=>str('VIEWED_SET'), 'url'=> url_add_params('/tv_episode_selected.php', array("file_id"=>$file_id, "viewed"=>1, "add"=>"Y", "del"=>"Y")) );
+    else
+      $buttons[3] = array('text'=>str('VIEWED_RESET'), 'url'=> url_add_params('/tv_episode_selected.php', array("file_id"=>$file_id, "viewed"=>0, "add"=>"Y", "del"=>"Y")) );
+  }
 
+  // Make sure the "back" button goes to the correct page:
   page_footer( url_add_param( $hist["url"] ,'del','y'), $buttons, 0, true, 'PAGE_TEXT_BACKGROUND' );
 
 /**************************************************************************************************
