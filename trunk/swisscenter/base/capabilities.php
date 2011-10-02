@@ -32,6 +32,8 @@ function get_player_type()
       $type = 'PC';
     elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'Opera')!== false ) // Browser
       $type = 'PC';
+    elseif ( strpos($_SERVER['HTTP_USER_AGENT'],'Wget')!== false ) // Browser
+      $type = 'PC';
     else
       $type = get_player_make().'-'.get_player_model(); // Media player
 
@@ -168,13 +170,6 @@ function quick_access_img( $position )
 {
   switch ( get_player_make() )
   {
-    case 'EGT':
-    case 'NST':
-         $map = array('QUICK_RED','QUICK_GREEN','QUICK_BLUE');
-         break;
-    case 'HNB':
-         $map = array('QUICK_RED','QUICK_GREEN','QUICK_BLUE');
-         break;
     case 'IOD':
          $map = array('QUICK_PAUSE','QUICK_STOP','QUICK_REPEAT');
          break;
@@ -184,15 +179,18 @@ function quick_access_img( $position )
     case 'NGR':
          $map = array('QUICK_NGR_A','QUICK_NGR_B','QUICK_NGR_C');
          break;
+    case 'PIN':
+         $map = array('QUICK_A','QUICK_B','QUICK_C');
+         break;
 
     default:
-         $map = array('QUICK_A','QUICK_B','QUICK_C');
+         $map = array('QUICK_RED','QUICK_GREEN','QUICK_YELLOW','QUICK_BLUE');
   }
 
   if (isset($map[$position]))
     return $map[$position];
   else
-    return false;
+    return 'QUICK_BLUE';
 }
 
 #-------------------------------------------------------------------------------------------------

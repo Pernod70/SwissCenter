@@ -4154,6 +4154,11 @@ If any details are added/changed on this page then you are requested to submit t
         <version>1.19</version>
       </string>
       <string>
+        <id>QUICK_KEY_D</id>
+        <text>Quick Key D</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>QUICK_MOVIE</id>
         <text>Quick Video</text>
         <version>1.19</version>
@@ -6052,6 +6057,16 @@ If any details are added/changed on this page then you are requested to submit t
         <id>VIEWED_BY</id>
         <text>Viewed by</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>VIEWED_RESET</id>
+        <text>Cancel viewed status</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>VIEWED_SET</id>
+        <text>Set viewed status</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>VIEW_ALL</id>
