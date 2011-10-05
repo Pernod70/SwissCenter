@@ -258,9 +258,19 @@
         <version>1.21.1</version>
       </string>
       <string>
+        <id>BROWSE_EDITORS_PICKS</id>
+        <text>Empfehlungen durchsuchen.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>BROWSE_FILESYSTEM</id>
         <text>In Ordnern blättern</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_FREE_STATIONS</id>
+        <text>Freie Stationen durchsuchen.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>BROWSE_GENRE</id>
@@ -313,6 +323,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>BROWSE_LOCAL</id>
+        <text>Lokale Stationen durchsuchen.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>BROWSE_MOOD</id>
+        <text>Stimmungen durchsuchen</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>BROWSE_MOVIES</id>
         <text>In Filmliste blättern</text>
         <version>1.19</version>
@@ -343,6 +363,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>BROWSE_PRESETS</id>
+        <text>Vorgaben durchsuchen.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>BROWSE_RATING</id>
         <text>Nach Bewertung</text>
         <version>1.22</version>
@@ -371,6 +396,11 @@
         <id>BROWSE_TITLE</id>
         <text>Nach Titel</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>BROWSE_TOP_STATIONS</id>
+        <text>Top Stationen durchsuchen.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>BROWSE_TRACK</id>
@@ -671,6 +701,11 @@
         <id>CONFIG_LASTFM_CLEAR</id>
         <text>Gewählte Details löschen</text>
         <version>1.20</version>
+      </string>
+      <string>
+        <id>CONFIG_LASTFM_CLEAR_OK</id>
+        <text>Login Details gelöscht.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>CONFIG_LASTFM_TITLE</id>
@@ -1136,6 +1171,11 @@ speichern</text>
         <version>1.22</version>
       </string>
       <string>
+        <id>EXTERNAL_FILES</id>
+        <text>Externe Dateispeicherorte</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>EXTRAS_TEST_TITLE</id>
         <text>Zusätzliche Komponenten</text>
         <version>1.19</version>
@@ -1211,6 +1251,16 @@ Zusatzinformationen</text>
         <id>FAIL_MUSICIP_TEST</id>
         <text>MusicIP ist nicht installiert (oder nicht korrekt konfiguriert).</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>FAIL_MYSQL_CHARSET</id>
+        <text>Der Standard Zeichensatz Ihres MySQL Servers ist nicht 'Latin1'. Dies führt zu Verschlüsselungs Prpblemen. Konfigurieren Sie dem MySQL Server erneut mit [i]character-set-server=latin1[/i], und erstellen Sie die Datenbank neu.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>FAIL_MYSQL_COLLATION</id>
+        <text>Der Standard Zeichensatz Ihres MySQL Servers ist nicht 'Latin1_Swedish_ci'. Dies führt zu Verschlüsselungs Prpblemen. Konfigurieren Sie dem MySQL Server erneut mit [i]collation-server=latin1_swedish_ci[/i], und erstellen Sie die Datenbank neu.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FAIL_MYSQL_CONNECT</id>
@@ -1323,6 +1373,11 @@ Zusatzinformationen</text>
         <version>1.21.1</version>
       </string>
       <string>
+        <id>FAIL_WGET_TEST</id>
+        <text>Wget wurde nicht gefunden. Das Suchen von neuen Medien wird fehlschlagen. Bitte den korrekten Speicherort in der %s Sektion eintragen.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>FANART</id>
         <text>Fanart</text>
         <version>1.22</version>
@@ -1371,6 +1426,11 @@ Zusatzinformationen</text>
         <id>FILTER_MISSING_EPISODE</id>
         <text>ohne Episodennummer</text>
         <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_IMDB</id>
+        <text>Keine IMDb</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FILTER_MISSING_PROGRAMME</id>
@@ -1673,6 +1733,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>IMDBTT</id>
         <text>IMDb ID</text>
         <version>1.22</version>
+      </string>
+      <string>
+        <id>IMDB_ID</id>
+        <text>IMDb</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>IMPEXP_TITLE</id>
@@ -2315,6 +2380,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>LASTFM_MISSING_LOGIN</id>
+        <text>Bitte Benutzername und Passwort eingeben.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>LASTFM_PROMPT_GENERAL</id>
         <text>Stationen anzeigen</text>
         <version>1.21.1</version>
@@ -2405,6 +2475,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>LIVE365_LOGIN_HEADINGS</id>
+        <text>Benutzer, Live365 Benutzername, Live365 Passwort.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>LOCATION</id>
         <text>Ort</text>
         <version>1.19</version>
@@ -2425,6 +2500,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>LOGIN_INVALID</id>
+        <text>Falsche Benutzerangaben.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>LOOKUP_FAILURE</id>
         <text>Keine Details zu diesem Film auffindbar.</text>
         <version>1.19</version>
@@ -2441,8 +2521,8 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>LOOKUP_SUCCESS_MISSING</id>
-        <text>Parser-Suche erfolgreich, aber es fehl(en)t: %s</text>
-        <version>1.22</version>
+        <text>Parser-Suche erfolgreich, aber es fehlt/fehlen: %s</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>LOOKUP_TV</id>
@@ -2955,6 +3035,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>MOOD</id>
+        <text>Stimmung</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>MORE</id>
         <text>[mehr]</text>
         <version>1.21.1</version>
@@ -3118,6 +3203,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>NEW_MESSAGES_PROMPT</id>
         <text>Täglich wird auf wichtige Informationen, die SwissCenter-Oberfläche betreffend, geprüft. Wenn neue Nachrichten vorhanden sind, wird mit einem Symbol im Hauptmenü angezeigt, dass Sie diese Nachrichten ansehen können.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>NEW_VIDEOS</id>
+        <text>Neue Videos</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>NEXT</id>
@@ -3420,6 +3510,16 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>PASS_MYSQL_CHARSET</id>
+        <text>MySQL Server benutzt den 'Latin1' Zeichensatz.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>PASS_MYSQL_COLLATION</id>
+        <text>MySQL Server benutzt den 'Latin1_Swedisch_ci' Zeichensatz.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>PASS_MYSQL_CONNECT</id>
         <text>Verbindung mit dem MySQL Server erfolgreich hergestellt.</text>
         <version>1.19</version>
@@ -3535,6 +3635,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>PASS_WGET_TEST</id>
+        <text>Wget wurde gefunden.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>PC_LINK_BACK</id>
         <text>Zurück</text>
         <version>1.19</version>
@@ -3623,6 +3728,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>PHOTOS_MUSIC_INFO</id>
         <text>Hintergrund Musik</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PHOTOS_MUSIC_IRADIO</id>
+        <text>Internet Radio</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>PHOTOS_MUSIC_NONE</id>
@@ -3813,6 +3923,16 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>PLAYER_ERROR_MODEL</id>
         <text>Bitte einen numerischen Modell Eintrag machen</text>
         <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYER_FIRMWARE</id>
+        <text>Firmware</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>PLAYER_IP_ADDR</id>
+        <text>IP Adresse</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>PLAYER_MAKE</id>
@@ -4087,6 +4207,11 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
         <version>1.20</version>
       </string>
       <string>
+        <id>QUICK_KEY_D</id>
+        <text>Schnelltaste D</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>QUICK_MOVIE</id>
         <text>Schnelltaste Filme</text>
         <version>1.20</version>
@@ -4105,6 +4230,16 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
         <id>QUICK_PLAY</id>
         <text>Schnellstart</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>RADIOTIME_LOGIN_HEADINGS</id>
+        <text>Benutzer, RadioTime Benutzername.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>RADIOTIME_MISSING_LOGIN</id>
+        <text>Bitte Benutzername eingeben.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>RANGE</id>
@@ -4287,6 +4422,11 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
         <version>1.19</version>
       </string>
       <string>
+        <id>REFINE_MOOD</id>
+        <text>Stimmung verfeinern</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>REFINE_PHOTO_ALBUM</id>
         <text>Nach Fotoalbum einschränken</text>
         <version>1.19</version>
@@ -4390,6 +4530,11 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
         <id>REMOVE_FILTER</id>
         <text>Filter entfernen</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>RESOLUTION</id>
+        <text>Auflösung</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>RESUME_PLAYING</id>
@@ -4903,9 +5048,19 @@ speichern</text>
         <version>1.22</version>
       </string>
       <string>
+        <id>SORT_DURATION</id>
+        <text>Nach Länge sortieren</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>SORT_FAVORITE</id>
         <text>Nach Favoriten sortieren</text>
         <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_HYBRID</id>
+        <text>Nach Mischung sortieren</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>SORT_ID</id>
@@ -4921,6 +5076,11 @@ speichern</text>
         <id>SORT_RATING</id>
         <text>Nach Bewertung</text>
         <version>1.22</version>
+      </string>
+      <string>
+        <id>SORT_RELEVANCE</id>
+        <text>Nach Relevanz sortieren</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>SORT_TIME</id>
@@ -5281,6 +5441,11 @@ speichern</text>
         <id>THIS_WEEK</id>
         <text>Aktuelle Woche</text>
         <version>1.22</version>
+      </string>
+      <string>
+        <id>THIS_YEAR</id>
+        <text>Dieses Jahr</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>THUMBNAIL_VIEW</id>
@@ -5653,6 +5818,11 @@ speichern</text>
         <version>1.19</version>
       </string>
       <string>
+        <id>TV_TYPE</id>
+        <text>TV Typ</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>UNKNOWN_ERROR</id>
         <text>Ein unerwarteter Fehler ist aufgetreten. Bitte schreiben Sie im Forum einen Bug Report und schildern Sie möglichst genau die Umstände, unter denen das Problem aufgetreten ist.</text>
         <version>1.21.1</version>
@@ -5968,6 +6138,16 @@ speichern</text>
         <version>1.19</version>
       </string>
       <string>
+        <id>VIEWED_RESET</id>
+        <text>Auf 'Schon gesehen' - zurücksetzen</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>VIEWED_SET</id>
+        <text>Auf 'Schon gesehen' - setzten</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>VIEW_ALL</id>
         <text>Alle anzeigen</text>
         <version>1.19</version>
@@ -6123,6 +6303,26 @@ speichern</text>
         <version>1.22</version>
       </string>
       <string>
+        <id>WGET_DESC</id>
+        <text>GNU Wget ist ein Netzwerk Dienstprogramm, das mit den meistverwendeten Internet Protokollen - HTTP, HTTPS und FTP, Dateien abruft. Es arbeitet ohne Interaktion und kann im Hintergrund laufen.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>WGET_PATH</id>
+        <text>Wget Pfad</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>WGET_PATH_NOT_FOUND</id>
+        <text>Wget wurde nicht am angegebenen Speicherort gefunden.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>WGET_PATH_PROMPT</id>
+        <text>Bitte den gesamten Pfad zur Wget.exe angeben. Dieser wird in aller Regel automatisch ermittelt, aber bei einigen Linux Systemen muss dieser von Hand eingetragen werden.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>WIKI_LOOKUP</id>
         <text>Wikipedia Suche</text>
         <version>1.19</version>
@@ -6151,6 +6351,16 @@ speichern</text>
         <id>YES</id>
         <text>Ja</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>YESTERDAY</id>
+        <text>Gestern</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>YOUPORN</id>
+        <text>YouPorn</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>YOUTUBE</id>
