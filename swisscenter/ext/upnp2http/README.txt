@@ -1,4 +1,4 @@
-upnp2http version 1.2
+upnp2http version 1.3
 =====================
  
 The goal of upnp2http is to publish, through upnp, the addresses of HTTP servers where the media center should connect. This way there is no need to create special share.
