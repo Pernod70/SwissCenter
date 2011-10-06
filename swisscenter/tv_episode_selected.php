@@ -99,6 +99,7 @@
   $select_fields = "file_id, dirname, filename, title, year, length";
   $file_id       = $_REQUEST["file_id"];
   $this_url      = url_set_param(current_url(),'add','N');
+  $this_url      = url_remove_params($this_url, array('lookup', 'viewed'));
   $cert_img      = '';
 
   // Single match, so get the details from the database
@@ -122,12 +123,13 @@
       export_tv_to_xml($file_id);
 
     $data = db_row("select media.*, ".get_cert_name_sql()." certificate_name from $sql_table and file_id=$file_id");
-    $this_url = url_remove_param($this_url,'lookup');
   }
 
   // Set viewed status
   if (isset($_REQUEST["viewed"]))
+  {
     store_request_details(MEDIA_TYPE_TV, $data["FILE_ID"], ($_REQUEST["viewed"] == 1 ? true : false));
+  }
 
   // Should we delete the last entry on the history stack?
   if (isset($_REQUEST["del"]) && strtoupper($_REQUEST["del"]) == 'Y')

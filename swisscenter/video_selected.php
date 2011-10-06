@@ -166,6 +166,7 @@
   $num_unique    = db_value("select count(distinct synopsis) from movies where file_id in (".implode(',',$file_ids).")");
   $num_rows      = count($file_ids);
   $this_url      = url_set_param(current_url(),'add','N');
+  $this_url      = url_remove_params($this_url, array('shuffle', 'viewed'));
   $cert_img      = '';
   $name          = un_magic_quote(rawurldecode($_REQUEST["name"]));
   $type          = un_magic_quote($_REQUEST["type"]);
