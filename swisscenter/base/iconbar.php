@@ -46,14 +46,14 @@ class iconbar
     echo '<table border="0" align="center" width="'.convert_x($this->bar_width).'" >';
     echo '<tr>';
 
-    foreach($this->icons as $icon)
+    foreach($this->icons as $i=>$icon)
     {
       echo '<td valign=middle align="center" width="'.convert_x($this->bar_width / count($this->icons)).'">'
            .img_gen($icon["img"], 100, 65, false, false, 'RESIZE', array("align" => "absmiddle"))
            . '&nbsp;';
 
       if(!empty($icon["link"]))
-        echo '<a href="'.$icon["link"].'">'.font_tags(FONTSIZE_ICONBAR).$icon["text"].'</a>';
+        echo '<a href="'.$icon["link"].'"'.tvid('ICON_'.substr('123',$i,1)).'name="'.tvid_code('ICON_'.substr('123',$i,1)).'">'.font_tags(FONTSIZE_ICONBAR).$icon["text"].'</a>';
       else
         echo font_tags(FONTSIZE_ICONBAR).$icon["text"];
 
