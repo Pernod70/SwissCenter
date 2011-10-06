@@ -10,17 +10,13 @@
   require_once( realpath(dirname(__FILE__).'/base/categories.php'));
   require_once( realpath(dirname(__FILE__).'/base/filter.php'));
 
-  $menu           = new menu();
-  $programme      = un_magic_quote($_REQUEST["programme"]);
-  $view_status    = $_REQUEST["view_status"];
-  $page           = nvl($_REQUEST["page"],1);
-  $predicate      = get_rating_filter().category_select_sql($_REQUEST["cat"], MEDIA_TYPE_TV).filter_get_predicate();
-
-  if (isset($_REQUEST["shuffle"]))
-  {
-    $_SESSION["shuffle"] = $_REQUEST["shuffle"];
-    set_user_pref('shuffle',$_REQUEST["shuffle"]);
-  }
+  $menu        = new menu();
+  $programme   = un_magic_quote($_REQUEST["programme"]);
+  $view_status = $_REQUEST["view_status"];
+  $page        = nvl($_REQUEST["page"],1);
+  $predicate   = get_rating_filter().category_select_sql($_REQUEST["cat"], MEDIA_TYPE_TV).filter_get_predicate();
+  $this_url    = url_set_param(current_url(),'del','N');
+  $this_url    = url_remove_params($this_url, array('shuffle', 'viewed'));
 
   $min_viewed_series = db_value("select min(series)
                                    from tv media ".get_rating_join().viewed_join(MEDIA_TYPE_TV)."
@@ -33,7 +29,6 @@
                                   order by 1");
 
   $current_series = (in_array($_REQUEST["series"], $series) ? $_REQUEST["series"] : nvl($min_viewed_series,$series[0]) );
-  $this_url       = url_set_param(current_url(),'del','N');
 
   $episodes_sql = "select *
                      from tv media ".get_rating_join().viewed_join(MEDIA_TYPE_TV)."
@@ -41,7 +36,13 @@
                       and series = $current_series $predicate").viewed_n_times_predicate( ($view_status == 'unviewed' ? '=' : '>='),0)."
                               order by episode";
 
-  $episodes       = db_toarray($episodes_sql);
+  $episodes = db_toarray($episodes_sql);
+
+  if (isset($_REQUEST["shuffle"]))
+  {
+    $_SESSION["shuffle"] = $_REQUEST["shuffle"];
+    set_user_pref('shuffle',$_REQUEST["shuffle"]);
+  }
 
   // Set viewed status
   if (isset($_REQUEST["viewed"]))
