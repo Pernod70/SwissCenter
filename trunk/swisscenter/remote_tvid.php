@@ -7,6 +7,7 @@
   require_once( realpath(dirname(__FILE__).'/base/page.php'));
   require_once( realpath(dirname(__FILE__).'/base/prefs.php'));
 
+  // All user definable button actions
   $tvid_sc = array('QUICK_MUSIC'=>'MUSIC',
                    'QUICK_MOVIE'=>'MOVIE',
                    'QUICK_PHOTO'=>'PHOTO',
@@ -15,9 +16,12 @@
                    'QUICK_KEY_B'=>'KEY_B',
                    'QUICK_KEY_C'=>'KEY_C',
                    'QUICK_KEY_D'=>'KEY_D',
-                   'BACKSPACE'  =>'BACKSPACE');
-//                   'PGUP'       =>'PGUP',
-//                   'PGDN'       =>'PGDN');
+                   'QUICK_ICON_1'=>'ICON_1',
+                   'QUICK_ICON_2'=>'ICON_2',
+                   'QUICK_ICON_3'=>'ICON_3',
+                   'BACKSPACE'  =>'BACKSPACE',
+                   'PGUP'       =>'PGUP',
+                   'PGDN'       =>'PGDN');
 
   // The following is a list of all known possible TVID codes that are recognised
   $tvid_list     = array('MUSIC',
@@ -30,17 +34,22 @@
                          'A',
                          'B',
                          'C',
+                         'D',
                          'KEY_A',
                          'KEY_B',
                          'KEY_C',
+                         'KEY_D',
                          'CLEAR',
+                         'COPY',
                          'ENTER',
                          'EPG',
                          'ESCAPE',
                          'ESC',
                          'GOTO',
                          'HELP',
+                         'INFO',
                          'MUTE',
+                         'PASTE',
                          'PIP',
                          'REC',
                          'REFRESH',
@@ -91,10 +100,28 @@
   }
 
   // Show the current configuration
+  $page  = (isset($_REQUEST["page"]) ? $_REQUEST["page"] : 1);
+  $start = ($page-1) * MAX_PER_PAGE;
+  $end   = min($start+MAX_PER_PAGE,count($tvid_sc));
+  $last_page  = ceil(count($tvid_sc)/(MAX_PER_PAGE));
+
   $menu = new menu();
 
+  if (count($tvid_sc) > MAX_PER_PAGE)
+  {
+    $menu->add_up( url_add_param(current_url(),'page',($page > 1 ? ($page-1) : $last_page)) );
+    $menu->add_down( url_add_param(current_url(),'page',($page < $last_page ? ($page+1) : 1)) );
+  }
+
+  $count = 0;
   foreach (array_keys($tvid_sc) as $tvid_key)
-    $menu->add_item(str($tvid_key).' -> ['.get_tvid_pref(get_player_type(), $tvid_sc[$tvid_key]).']', url_set_param('remote_tvid.php','func',$tvid_key));
+  {
+    if ($count >= $start && $count < $end)
+    {
+      $menu->add_item(str($tvid_key).' -> ['.get_tvid_pref(get_player_type(), $tvid_sc[$tvid_key]).']', url_set_params('remote_tvid.php',array('func'=>$tvid_key, 'page'=>$page)));
+    }
+    $count++;
+  }
 
   // Add menu options to reset values to default, and to exit
   $menu->add_item(str('TVID_RESET_DEFAULT'), url_set_param('remote_tvid.php','default','Y'));

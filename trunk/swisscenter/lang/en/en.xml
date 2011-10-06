@@ -4139,6 +4139,21 @@ If any details are added/changed on this page then you are requested to submit t
         <version>1.19</version>
       </string>
       <string>
+        <id>QUICK_ICON_1</id>
+        <text>Quick Icon 1</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>QUICK_ICON_2</id>
+        <text>Quick Icon 2</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>QUICK_ICON_3</id>
+        <text>Quick Icon 3</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>QUICK_KEY_A</id>
         <text>Quick Key A</text>
         <version>1.19</version>
