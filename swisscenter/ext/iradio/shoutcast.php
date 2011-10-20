@@ -44,7 +44,7 @@ class shoutcast extends iradio {
       }
     }
     if (empty($url)) return FALSE;
-    $uri = 'http://'.$this->iradiosite.$url.'&cnt='.$this->numresults;
+    $uri = 'http://'.$this->iradiosite.$url.'&limit='.$this->numresults;
     $this->openpage($uri);
 
     preg_match_all('/station name="(.*)" mt="(.*)" id="(.*)" br="(.*)" genre="(.*)" ct="(.*)" lc="(.*)"/U', $this->page, $matches);
@@ -54,6 +54,7 @@ class shoutcast extends iradio {
     for ($i=0; $i<=$stationcount-1; $i++)
     {
       $name       = trim(xmlspecialchars_decode($matches[1][$i]));
+      $name       = str_replace(' - a SHOUTcast.com member station', '', $name);
       $format     = array_search(trim($matches[2][$i]), array('MP3' => 'audio/mpeg', 'AAC+' => 'audio/aacp'));
       $playlist   = 'http://yp.shoutcast.com/sbin/tunein-station.pls?id='.$matches[3][$i];
       $bitrate    = $matches[4][$i];
