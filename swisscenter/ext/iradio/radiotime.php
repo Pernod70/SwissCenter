@@ -57,18 +57,18 @@ class radiotime extends iradio {
     // Get stations from RadioTime
     $uri = 'http://'.$this->iradiosite.'/'.$method.'.ashx'.$this->search_baseparams.'&'.$param;
     $this->openpage($uri);
-    $results = json_decode( $this->page );
+    $results = json_decode($this->page, true);
 
     // Ensure valid response was returned.
-    $head = $results->head;
-    if ($head->status !== '200') return FALSE;
+    $head = $results["head"];
+    if ($head["status"] !== '200') return FALSE;
 
     // Title of returned results
     $this->title = $head->title;
     $cache["title"] = $this->title;
 
     // Parse the results into an array
-    $results = $this->parse_feed($results->body);
+    $results = $this->parse_feed($results["body"]);
 
     switch ( $method ) {
       case 'Describe':
@@ -153,16 +153,16 @@ class radiotime extends iradio {
     $item_types = array();
     foreach ($results as $object)
     {
-      if (isset($object->children) && !empty($object->children))
+      if (isset($object["children"]) && !empty($object["children"]))
       {
         $item_type = array();
-        $item_type = $this->parse_feed($object->children);
+        $item_type = $this->parse_feed($object["children"]);
         foreach ($item_type as $type=>$items)
           foreach ($items as $item)
             $item_types[$type][] = $item;
       }
       else
-        $item_types[$object->type][] = object_to_array($object);
+        $item_types[$object["type"]][] = $object;
     }
     return $item_types;
   }
