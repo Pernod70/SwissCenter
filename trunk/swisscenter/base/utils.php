@@ -822,26 +822,6 @@ if(!function_exists('mime_content_type')) {
   }
 }
 
-/**
- * Converts a php object to an associative array
- *
- * @param object $data
- * @return array
- */
-function object_to_array($data)
-{
-  if(is_array($data) || is_object($data))
-  {
-    $result = array();
-    foreach($data as $key => $value)
-    {
-      $result[$key] = object_to_array($value);
-    }
-    return $result;
-  }
-  return $data;
-}
-
 function unicode_decode($str)
 {
   return preg_replace('/\%u([0-9a-f]{4})/e', "unicode_value(\\1)", $str);
