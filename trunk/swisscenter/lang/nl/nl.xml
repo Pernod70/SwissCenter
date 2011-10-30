@@ -328,6 +328,11 @@
         <version>1.23.1</version>
       </string>
       <string>
+        <id>BROWSE_MOOD</id>
+        <text>Zoek stemming</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>BROWSE_MOVIES</id>
         <text>Zoek video's</text>
         <version>1.23.1</version>
@@ -1268,6 +1273,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>FAIL_MYSQL_CHARSET</id>
+        <text>De standaard tekenset van de MySQL server is niet 'latin1'; dit leidt tot coderingsproblemen. Configureer de MySQL server met [i]character-set-server=latin1[/i], en recreëer de database opnieuw.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>FAIL_MYSQL_COLLATION</id>
+        <text>De standaard collatie van de MySQL server is niet 'latin1_swedish_ci'; dit leidt tot coderingsproblemen. Configureer de MySQL server opnieuw met [i]collation-server=latin1_swedish_ci[/i], en recreëer de database.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>FAIL_MYSQL_CONNECT</id>
         <text>De verbinding met de MySQL-server is mislukt.</text>
         <version>1.20</version>
@@ -1431,6 +1446,11 @@
         <id>FILTER_MISSING_EPISODE</id>
         <text>Geen aflevering</text>
         <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_MISSING_IMDB</id>
+        <text>Geen IMDb</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FILTER_MISSING_PROGRAMME</id>
@@ -1732,6 +1752,11 @@
         <id>IMDBTT</id>
         <text>IMDb ID</text>
         <version>1.22</version>
+      </string>
+      <string>
+        <id>IMDB_ID</id>
+        <text>IMDb</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>IMPEXP_TITLE</id>
@@ -3042,6 +3067,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>MOOD</id>
+        <text>Stemming</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>MORE</id>
         <text>[meer]</text>
         <version>1.21.1</version>
@@ -3513,6 +3543,16 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
         <version>1.19</version>
       </string>
       <string>
+        <id>PASS_MYSQL_CHARSET</id>
+        <text>De MySQl server gebruikt de 'latin1' tekenset.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>PASS_MYSQL_COLLATION</id>
+        <text>De MySQL server gebruikt de 'latin1_swedish_ci' collatie.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>PASS_MYSQL_CONNECT</id>
         <text>Verbinding met MySQL-server geslaagd.</text>
         <version>1.19</version>
@@ -3918,6 +3958,16 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
         <version>1.22</version>
       </string>
       <string>
+        <id>PLAYER_FIRMWARE</id>
+        <text>Firmware</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>PLAYER_IP_ADDR</id>
+        <text>IP adres</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>PLAYER_MAKE</id>
         <text>Type</text>
         <version>1.22</version>
@@ -4174,6 +4224,21 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
         <version>1.19</version>
       </string>
       <string>
+        <id>QUICK_ICON_1</id>
+        <text>Sneltoets 1</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>QUICK_ICON_2</id>
+        <text>Sneltoets 2</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>QUICK_ICON_3</id>
+        <text>Sneltoets 3</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>QUICK_KEY_A</id>
         <text>Sneltoets A</text>
         <version>1.19</version>
@@ -4187,6 +4252,11 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
         <id>QUICK_KEY_C</id>
         <text>Sneltoets C</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>QUICK_KEY_D</id>
+        <text>Sneltoets D</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>QUICK_MOVIE</id>
@@ -4404,6 +4474,11 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
         <version>1.19</version>
       </string>
       <string>
+        <id>REFINE_MOOD</id>
+        <text>Zoek stemming</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>REFINE_PHOTO_ALBUM</id>
         <text>Zoek fotoalbum</text>
         <version>1.19</version>
@@ -4507,6 +4582,11 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
         <id>REMOVE_FILTER</id>
         <text>Verwijder filter</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>RESOLUTION</id>
+        <text>Resolutie</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>RESUME_PLAYING</id>
@@ -5790,6 +5870,11 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
         <version>1.22</version>
       </string>
       <string>
+        <id>TV_TYPE</id>
+        <text>TV type</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>UNKNOWN_ERROR</id>
         <text>Er is een onbekende fout opgetreden. Wilt u een foutmelding op het SwissCenter forum plaatsen, waarbij u aangeeft welke activiteiten u uitvoerde op het moment dat de fout optrad?</text>
         <version>1.22</version>
@@ -6103,6 +6188,16 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
         <id>VIEWED_BY</id>
         <text>Bekeken door</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>VIEWED_RESET</id>
+        <text>Gezien status ongedaan annuleren</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>VIEWED_SET</id>
+        <text>Gezien status instellen</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>VIEW_ALL</id>
