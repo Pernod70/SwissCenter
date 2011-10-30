@@ -86,7 +86,13 @@
                                          implode(',', db_col_to_list('select distinct parent_id from categories')).') order by cat_name',
                             'CERTIFICATE'=>get_cert_list_sql()), $edit, 'dirs');
     if (!$edit)
-      form_submit(str('MEDIA_LOC_DEL_BUTTON'),1,'center');
+    {
+      echo '<tr><td align="center" colspan="3">
+            <input type="Submit" name="subaction" value="'.str('MEDIA_LOC_DEL_BUTTON').'"> &nbsp;';
+      if (is_unix())
+        echo '<input type="Submit" name="subaction" value="'.str('MEDIA_LOC_SYMLINKS').'"> &nbsp;';
+      echo '</td></tr>';
+    }
     form_end();
 
     echo '<p><h1>'.str('MEDIA_LOC_ADD_TITLE').'<p>';
@@ -141,13 +147,73 @@
     }
   }
 
+  function dirs_modify()
+  {
+    if ($_REQUEST["subaction"] == str('MEDIA_LOC_DEL_BUTTON'))
+      dirs_delete();
+    elseif ($_REQUEST["subaction"] == str('MEDIA_LOC_SYMLINKS'))
+      dirs_recreate_symlinks();
+    elseif (empty($_REQUEST["subaction"]))
+      dirs_edit();
+    else
+      send_to_log(1,'Unknown value recieved for "subaction" parameter : '.$_REQUEST["subaction"]);
+  }
+
+  // ----------------------------------------------------------------------------------
+  // Recreate symbolic links for all locations
+  // ----------------------------------------------------------------------------------
+
+  function dirs_recreate_symlinks()
+  {
+    $locs = db_toarray("select location_id, name from media_locations");
+    foreach ($locs as $loc)
+    {
+      unlink(SC_LOCATION.'media/'.$loc['LOCATION_ID']);
+      symlink($loc['NAME'],SC_LOCATION.'media/'.$loc['LOCATION_ID']);
+    }
+    dirs_display(str('MEDIA_LOC_SYMINKS_OK'));
+  }
+
   // ----------------------------------------------------------------------------------
   // Delete an existing location
   // ----------------------------------------------------------------------------------
 
-  function dirs_modify()
+  function dirs_delete()
   {
-    $selected = form_select_table_vals('loc_id');            // Get the selected items
+    // Get the selected items
+    $selected = form_select_table_vals('loc_id');
+
+    if (count($selected) == 0)
+      dirs_display("!".str('MEDIA_LOC_NO_SELECT'));
+    else
+    {
+      // Delete the selected directories
+      foreach ($selected as $id)
+      {
+        db_sqlcommand("delete from media_art using mp3s m, media_art ma where m.art_sha1 = ma.art_sha1 and m.location_id=$id");
+        db_sqlcommand("delete from media_art using movies m, media_art ma where m.art_sha1 = ma.art_sha1 and m.location_id=$id");
+        db_sqlcommand("delete from media_locations where location_id=$id");
+        db_sqlcommand("delete from mp3s where location_id=$id");
+        db_sqlcommand("delete from movies where location_id=$id");
+        db_sqlcommand("delete from photos where location_id=$id");
+        db_sqlcommand("delete from tv where location_id=$id");
+
+        if ( is_windows() )
+          restart_swissmonitor();
+        else
+          unlink(SC_LOCATION.'media/'.$id);
+      }
+
+      dirs_display(str('MEDIA_LOC_DEL_OK'));
+    }
+  }
+
+  // ----------------------------------------------------------------------------------
+  // Edit an existing location
+  // ----------------------------------------------------------------------------------
+
+  function dirs_edit()
+  {
     $edit     = form_select_table_edit('loc_id', 'dirs');    // Get the id of the edited row
     $update   = form_select_table_update('loc_id', 'dirs');  // Get the updates from an edit
 
@@ -182,20 +248,20 @@
         log_dir_failure($dir);
         dirs_display('',"!".str('MEDIA_LOC_ERROR_DIRFAIL'));
       }
-      elseif ( ($dir[0] != '/' && $dir[1] != ':') || $dir=='..' || $dir=='.')
+      elseif ( ($dir[0] != '/' && $dir[1] != ':') || $dir == '..' || $dir == '.')
         dirs_display('',"!".str('MEDIA_LOC_ERROR_PATH'));
       else
       {
         // Update dirs for all media at the old location, otherwise they will orphaned after the next scan
         $type_id_old = db_value("select media_type from media_locations where location_id=$id");
-        if ($type_id==$type_id_old)
+        if ($type_id == $type_id_old)
         {
           // Location same media type so update existing media with new dirname
           // (if media is not physically moved to new location then it will be removed during next scan)
           $table = db_value("select mt.media_table from media_types mt, media_locations ml
                               where ml.media_type = mt.media_id and ml.location_id=$id");
           $dir_old = db_value("select name from media_locations where location_id=$id");
-          foreach ( db_toarray("select file_id, dirname from $table where location_id=$id") as $row)
+          foreach (db_toarray("select file_id, dirname from $table where location_id=$id") as $row)
           {
             $dir_new = str_replace($dir_old, $dir, $row["DIRNAME"]);
             db_sqlcommand("update $table set dirname='".db_escape_str($dir_new)."' where file_id=".$row["FILE_ID"]);
@@ -205,15 +271,15 @@
         {
           // Location changed type so remove media from location
           // (same as removing and adding location)
-          db_sqlcommand("delete from media_art using mp3s m, media_art ma where m.art_sha1 = ma.art_sha1 and m.location_id=".$id);
-          db_sqlcommand("delete from media_art using movies m, media_art ma where m.art_sha1 = ma.art_sha1 and m.location_id=".$id);
+          db_sqlcommand("delete from media_art using mp3s m, media_art ma where m.art_sha1 = ma.art_sha1 and m.location_id=$id");
+          db_sqlcommand("delete from media_art using movies m, media_art ma where m.art_sha1 = ma.art_sha1 and m.location_id=$id");
           db_sqlcommand("delete from mp3s where location_id=$id");
           db_sqlcommand("delete from movies where location_id=$id");
           db_sqlcommand("delete from photos where location_id=$id");
           db_sqlcommand("delete from tv where location_id=$id");
         }
 
-        db_sqlcommand("update media_locations set name='".db_escape_str($dir)."',media_type=$type_id,cat_id=$cat_id,unrated=$cert,network_share='".db_escape_str($share)."'
+        db_sqlcommand("update media_locations set name='".db_escape_str($dir)."',media_type=$type_id, cat_id=$cat_id, unrated=$cert, network_share='".db_escape_str($share)."'
                         where location_id=$id");
 
         if ( is_windows() )
@@ -232,27 +298,6 @@
         if ($type_id == MEDIA_TYPE_MUSIC)
           musicip_server_add_dir($dir);
       }
-    }
-    elseif(!empty($selected))
-    {
-      // Delete the selected directories
-      foreach ($selected as $id)
-      {
-        db_sqlcommand("delete from media_art using mp3s m, media_art ma where m.art_sha1 = ma.art_sha1 and m.location_id=".$id);
-        db_sqlcommand("delete from media_art using movies m, media_art ma where m.art_sha1 = ma.art_sha1 and m.location_id=".$id);
-        db_sqlcommand("delete from media_locations where location_id=".$id);
-        db_sqlcommand("delete from mp3s where location_id=$id");
-        db_sqlcommand("delete from movies where location_id=$id");
-        db_sqlcommand("delete from photos where location_id=$id");
-        db_sqlcommand("delete from tv where location_id=$id");
-
-        if ( is_windows() )
-          restart_swissmonitor();
-        else
-          unlink(SC_LOCATION.'media/'.$id);
-      }
-
-      dirs_display(str('MEDIA_LOC_DEL_OK'));
     }
     else
       dirs_display();
@@ -297,12 +342,14 @@
         dirs_display(db_error());
       else
       {
-        $id = db_value("select location_id from media_locations where name='$dir' and media_type=".$_REQUEST["type"]);
-
         if ( is_windows() )
           restart_swissmonitor();
         else
+        {
+          $id = db_value("select location_id from media_locations where name='$dir' and media_type=".$_REQUEST["type"]);
+          unlink(SC_LOCATION.'media/'.$id);
           symlink($dir,SC_LOCATION.'media/'.$id);
+        }
 
         dirs_display('',str('MEDIA_LOC_ADD_OK'));
 
