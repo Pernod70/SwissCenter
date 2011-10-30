@@ -2616,6 +2616,16 @@
         <version>1.20.1</version>
       </string>
       <string>
+        <id>MEDIA_LOC_NO_SELECT</id>
+        <text>You did not select any locations to delete</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_SYMLINKS</id>
+        <text>Recreate all symbolic links</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>MEDIA_LOC_UPDATE_OK</id>
         <text>Updated media location information</text>
         <version>1.19</version>
