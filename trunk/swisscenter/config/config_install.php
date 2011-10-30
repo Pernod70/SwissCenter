@@ -69,8 +69,8 @@
       // Set character set and collation.
       @db_root_sqlcommand($pass,"ALTER DATABASE ".DB_DATABASE." CHARACTER SET latin1 COLLATE latin1_swedish_ci");
 
-      // Fix for MySQL 4.1 and above (the authentication method changed and PHP 4.x uses an older uncompatible MySQL client).
-      @db_root_sqlcommand($pass,"set password for ".DB_USERNAME."@'".DB_HOST."' = OLD_PASSWORD('".DB_PASSWORD."')");
+      // Set database password.
+      @db_root_sqlcommand($pass,"SET PASSWORD FOR ".DB_USERNAME."@'".DB_HOST."' = PASSWORD('".DB_PASSWORD."')");
 
       // Open the setup.sql file
       if ( file_exists('../setup.sql') )
