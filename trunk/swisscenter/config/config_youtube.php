@@ -3,7 +3,7 @@
    SWISScenter Source                                                              Nigel Barnes
  *************************************************************************************************/
 
-  require_once( realpath(dirname(__FILE__).'/../ext/youtube/youtube_api.php'));
+  require_once( realpath(dirname(__FILE__).'/../resources/video/youtube_api.php'));
 
   // ----------------------------------------------------------------------------------
   // Display current config

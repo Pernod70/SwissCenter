@@ -4,7 +4,7 @@
  *************************************************************************************************/
 
   require_once( realpath(dirname(__FILE__).'/base/page.php'));
-  require_once( realpath(dirname(__FILE__).'/ext/shoutcasttv/shoutcasttv.php'));
+  require_once( realpath(dirname(__FILE__).'/resources/video/shoutcasttv.php'));
 
   //*************************************************************************************************
   // Build page elements
@@ -18,7 +18,7 @@
   $order    = (isset($_REQUEST["sort"]) ? $_REQUEST["sort"] : 'viewers');
 
   // Get the list of trailers.
-  $shoutcast = new SHOUTcast_TV();
+  $shoutcast = new SHOUTcastTV();
   $items = $shoutcast->getDirectory();
 
   if ( count($items) == 0 )
@@ -38,7 +38,7 @@
     // Page headings
     page_header(str('SHOUTCAST_TV'));
 
-    browse_array(url_add_param(current_url(), 'del', 1), $trailer_list, $page);
+    browse_array(current_url(), $trailer_list, $page);
 
     // Make sure the "back" button goes to the correct page
     page_footer($back_url);

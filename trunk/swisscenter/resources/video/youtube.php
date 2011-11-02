@@ -3,7 +3,7 @@
    SWISScenter Source                                                              Nigel Barnes
  *************************************************************************************************/
 
-  require_once( realpath(dirname(__FILE__).'/../ext/youtube/youtube_api.php'));
+  require_once( realpath(dirname(__FILE__).'/youtube_api.php'));
 
   /**
    * Return the video_id of a YouTube video url.
@@ -14,7 +14,7 @@
    */
   function get_youtube_video_id( $video_url )
   {
-    return preg_get("/[^a-z]v=([^(\&|$)]*)/", $video_url);
+    return preg_get("/[^a-z]v=([^(&|$)]*)/", $video_url);
   }
 
   /**

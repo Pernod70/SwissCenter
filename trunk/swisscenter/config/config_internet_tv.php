@@ -3,7 +3,7 @@
    SWISScenter Source                                                              Nigel Barnes
  *************************************************************************************************/
 
-require_once( realpath(dirname(__FILE__).'/../base/toma_internet_tv.php'));
+require_once( realpath(dirname(__FILE__).'/../resources/video/toma_internet_tv.php'));
 
 // ----------------------------------------------------------------------------------
 // Displays the various internet TV options

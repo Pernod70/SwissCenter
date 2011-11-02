@@ -5,7 +5,7 @@
 
 require_once( realpath(dirname(__FILE__).'/../../base/mysql.php'));
 
-class SHOUTcast_TV {
+class SHOUTcastTV {
   var $GET = 'http://yp.shoutcast.com/sbin/newtvlister.phtml';
   var $service = 'shoutcast_tv';
 
@@ -26,7 +26,7 @@ class SHOUTcast_TV {
    */
   var $max_cache_rows = 500;
 
-  function SHOUTcast_TV ()
+  function SHOUTcastTV ()
   {
     $this->enableCache(3600);
   }
