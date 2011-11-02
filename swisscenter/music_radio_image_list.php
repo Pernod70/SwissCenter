@@ -6,7 +6,7 @@
   require_once( realpath(dirname(__FILE__).'/base/session.php'));
   require_once( realpath(dirname(__FILE__).'/base/image_screens.php'));
   require_once( realpath(dirname(__FILE__).'/base/capabilities.php'));
-  require_once( realpath(dirname(__FILE__).'/ext/iradio/iradio_playing.php'));
+  require_once( realpath(dirname(__FILE__).'/resources/radio/iradio_playing.php'));
 
   // Log details of the playlist request
   send_to_log(1,"------------------------------------------------------------------------------");

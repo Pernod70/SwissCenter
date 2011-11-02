@@ -3,7 +3,7 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-  require_once( realpath(dirname(__FILE__).'/../ext/iradio/live365.php'));
+  require_once( realpath(dirname(__FILE__).'/../resources/radio/live365.php'));
 
   /**
    * Displays the Live365 configuration options to the user

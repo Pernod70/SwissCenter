@@ -36,7 +36,7 @@
  $current_url = current_url();
 
  send_to_log(8,"Initializing RadioTime parser");
- require_once( realpath(dirname(__FILE__).'/ext/iradio/radiotime.php'));
+ require_once( realpath(dirname(__FILE__).'/resources/radio/radiotime.php'));
  $iradio  = new radiotime;
  $cachedir = get_sys_pref('CACHE_DIR').'/radiotime';
 
