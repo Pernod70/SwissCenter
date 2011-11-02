@@ -4,7 +4,7 @@
  *************************************************************************************************/
 
 require_once( realpath(dirname(__FILE__).'/base/page.php'));
-require_once( realpath(dirname(__FILE__).'/base/youtube.php'));
+require_once( realpath(dirname(__FILE__).'/resources/video/youtube.php'));
 
 function star_rating( $rating )
 {

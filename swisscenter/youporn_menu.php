@@ -5,7 +5,7 @@
 
   require_once( realpath(dirname(__FILE__).'/base/page.php'));
   require_once( realpath(dirname(__FILE__).'/base/prefs.php'));
-  require_once( realpath(dirname(__FILE__).'/base/youporn.php'));
+  require_once( realpath(dirname(__FILE__).'/resources/video/youporn.php'));
 
   function display_youporn_categories($items)
   {

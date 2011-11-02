@@ -6,7 +6,7 @@
 require_once( realpath(dirname(__FILE__).'/base/page.php'));
 require_once( realpath(dirname(__FILE__).'/base/playlist.php'));
 require_once( realpath(dirname(__FILE__).'/base/list_picker.class.php'));
-require_once( realpath(dirname(__FILE__).'/ext/shoutcasttv/shoutcasttv.php'));
+require_once( realpath(dirname(__FILE__).'/resources/video/shoutcasttv.php'));
 
 /**
  * A class that extends the abstract list_picker class to provide a keyboard style picker
@@ -37,7 +37,7 @@ class shoutcast_tv_picker extends list_picker
 
   function data_list( $search_string)
   {
-    $shoutcast = new SHOUTcast_TV();
+    $shoutcast = new SHOUTcastTV();
 
     return $shoutcast->getDirectory();
   }

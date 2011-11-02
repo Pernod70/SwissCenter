@@ -10,7 +10,7 @@
   require_once( realpath(dirname(__FILE__).'/base/playlist.php'));
   require_once( realpath(dirname(__FILE__).'/base/rating.php'));
   require_once( realpath(dirname(__FILE__).'/base/search.php'));
-  require_once( realpath(dirname(__FILE__).'/base/youtube.php'));
+  require_once( realpath(dirname(__FILE__).'/resources/video/youtube.php'));
 
   $menu = new menu();
   $info = new infotab();

@@ -5,7 +5,7 @@
 
   require_once( realpath(dirname(__FILE__).'/base/page.php'));
   require_once( realpath(dirname(__FILE__).'/base/browse.php'));
-  require_once( realpath(dirname(__FILE__).'/base/youporn.php'));
+  require_once( realpath(dirname(__FILE__).'/resources/video/youporn.php'));
 
   //*************************************************************************************************
   // Build page elements

@@ -5,7 +5,7 @@
 
  require_once( realpath(dirname(__FILE__).'/base/page.php'));
  require_once( realpath(dirname(__FILE__).'/base/browse.php'));
- require_once( realpath(dirname(__FILE__).'/ext/shoutcasttv/shoutcasttv.php'));
+ require_once( realpath(dirname(__FILE__).'/resources/video/shoutcasttv.php'));
 
 /**
  * Displays a menu of genres and allows you to choose one.
@@ -32,7 +32,7 @@ function display_shoutcast_tv_genres($genres)
 
 $current_url = url_remove_param(current_url(), 'filter');
 
-$shoutcast = new SHOUTcast_TV();
+$shoutcast = new SHOUTcastTV();
 
 if ( isset($_REQUEST["menu"]) )
 {

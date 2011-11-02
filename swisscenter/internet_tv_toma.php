@@ -5,7 +5,7 @@
 
  require_once( realpath(dirname(__FILE__).'/base/page.php'));
  require_once( realpath(dirname(__FILE__).'/base/browse.php'));
- require_once( realpath(dirname(__FILE__).'/base/toma_internet_tv.php'));
+ require_once( realpath(dirname(__FILE__).'/resources/video/toma_internet_tv.php'));
 
 /**
  * Displays a menu of categories and allows you to choose one.
