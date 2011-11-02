@@ -3,7 +3,7 @@
    SWISScenter Source                                                              Nigel Barnes
  *************************************************************************************************/
 
-require_once( realpath(dirname(__FILE__).'/../base/opensubtitles.php'));
+require_once( realpath(dirname(__FILE__).'/../resources/subtitles/opensubtitles.php'));
 
 /**
  * Displays available subtitles for selected movies

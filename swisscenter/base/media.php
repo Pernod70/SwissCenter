@@ -11,7 +11,7 @@ require_once( realpath(dirname(__FILE__).'/screen.php'));
 require_once( realpath(dirname(__FILE__).'/utils.php'));
 require_once( realpath(dirname(__FILE__).'/users.php'));
 require_once( realpath(dirname(__FILE__).'/musicip.php'));
-require_once( realpath(dirname(__FILE__).'/opensubtitles.php'));
+require_once( realpath(dirname(__FILE__).'/../resources/subtitles/opensubtitles.php'));
 
 // Libraries for reading file metadata
 require_once( realpath(dirname(__FILE__).'/../ext/getid3/getid3.php'));
