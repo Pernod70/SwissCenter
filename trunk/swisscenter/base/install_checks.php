@@ -22,12 +22,12 @@ require_once( realpath(dirname(__FILE__).'/file.php'));
 require_once( realpath(dirname(__FILE__).'/image.php'));
 require_once( realpath(dirname(__FILE__).'/musicip.php'));
 require_once( realpath(dirname(__FILE__).'/svn.php'));
-require_once( realpath(dirname(__FILE__).'/../ext/iradio/shoutcast.php'));
-require_once( realpath(dirname(__FILE__).'/../ext/iradio/live-radio.php'));
-require_once( realpath(dirname(__FILE__).'/../ext/iradio/live365.php'));
-require_once( realpath(dirname(__FILE__).'/../ext/iradio/icecast.php'));
-require_once( realpath(dirname(__FILE__).'/../ext/iradio/steamcast.php'));
-require_once( realpath(dirname(__FILE__).'/../ext/iradio/radiotime.php'));
+require_once( realpath(dirname(__FILE__).'/../resources/radio/shoutcast.php'));
+require_once( realpath(dirname(__FILE__).'/../resources/radio/live-radio.php'));
+require_once( realpath(dirname(__FILE__).'/../resources/radio/live365.php'));
+require_once( realpath(dirname(__FILE__).'/../resources/radio/icecast.php'));
+require_once( realpath(dirname(__FILE__).'/../resources/radio/steamcast.php'));
+require_once( realpath(dirname(__FILE__).'/../resources/radio/radiotime.php'));
 
 #-------------------------------------------------------------------------------------------------
 # PHP checks
