@@ -7,7 +7,7 @@
   require_once( realpath(dirname(__FILE__).'/base/prefs.php'));
   require_once( realpath(dirname(__FILE__).'/base/utils.php'));
   require_once( realpath(dirname(__FILE__).'/base/infotab.php'));
-  require_once( realpath(dirname(__FILE__).'/base/weather.php'));
+  require_once( realpath(dirname(__FILE__).'/resources/info/weather.php'));
 
   $buttons  = array();
 

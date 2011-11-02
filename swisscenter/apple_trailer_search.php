@@ -5,7 +5,7 @@
 
 require_once( realpath(dirname(__FILE__).'/base/page.php'));
 require_once( realpath(dirname(__FILE__).'/base/list_picker.class.php'));
-require_once( realpath(dirname(__FILE__).'/base/apple_trailers.php'));
+require_once( realpath(dirname(__FILE__).'/resources/trailers/apple_trailers.php'));
 
 /**
  * A class that extends the abstract list_picker class to provide a keyboard style picker

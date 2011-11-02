@@ -4,7 +4,7 @@
  *************************************************************************************************/
 
   require_once( realpath(dirname(__FILE__).'/base/page.php'));
-  require_once( realpath(dirname(__FILE__).'/base/apple_trailers.php'));
+  require_once( realpath(dirname(__FILE__).'/resources/trailers/apple_trailers.php'));
 
   function display_apple_trailer_menu($items)
   {

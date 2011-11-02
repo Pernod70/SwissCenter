@@ -7,7 +7,7 @@
   require_once( realpath(dirname(__FILE__).'/base/utils.php'));
   require_once( realpath(dirname(__FILE__).'/base/file.php'));
   require_once( realpath(dirname(__FILE__).'/base/rating.php'));
-  require_once( realpath(dirname(__FILE__).'/base/apple_trailers.php'));
+  require_once( realpath(dirname(__FILE__).'/resources/trailers/apple_trailers.php'));
 
   /**
    * Return truncated synopsis.
