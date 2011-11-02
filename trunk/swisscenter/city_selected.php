@@ -6,7 +6,7 @@
   require_once( realpath(dirname(__FILE__).'/base/page.php'));
   require_once( realpath(dirname(__FILE__).'/base/mysql.php'));
   require_once( realpath(dirname(__FILE__).'/base/utils.php'));
-  require_once( realpath(dirname(__FILE__).'/base/weather.php'));
+  require_once( realpath(dirname(__FILE__).'/resources/info/weather.php'));
 
   $city    = un_magic_quote($_REQUEST["name"]);
   $matches = get_matching_cities($city);

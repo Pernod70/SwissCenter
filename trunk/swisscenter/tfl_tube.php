@@ -4,7 +4,7 @@
  *************************************************************************************************/
 
   require_once( realpath(dirname(__FILE__).'/base/page.php'));
-  require_once( realpath(dirname(__FILE__).'/base/tfl_feeds.php'));
+  require_once( realpath(dirname(__FILE__).'/resources/info/tfl_feeds.php'));
 
 /**************************************************************************************************
    Main page output

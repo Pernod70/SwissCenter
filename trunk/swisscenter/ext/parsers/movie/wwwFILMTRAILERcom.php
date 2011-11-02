@@ -8,7 +8,7 @@
 
  *************************************************************************************************/
 
-require_once (SC_LOCATION.'/base/film_trailer_feeds.php');
+require_once (SC_LOCATION.'/resources/trailers/film_trailer_feeds.php');
 
 class wwwFILMTRAILERcom extends Parser implements ParserInterface {
 

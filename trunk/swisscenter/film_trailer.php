@@ -4,7 +4,7 @@
  *************************************************************************************************/
 
   require_once( realpath(dirname(__FILE__).'/base/page.php'));
-  require_once( realpath(dirname(__FILE__).'/base/film_trailer_feeds.php'));
+  require_once( realpath(dirname(__FILE__).'/resources/trailers/film_trailer_feeds.php'));
 
   function display_film_trailer_menu($items)
   {

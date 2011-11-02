@@ -8,7 +8,7 @@
 
  *************************************************************************************************/
 
-require_once (SC_LOCATION.'/base/apple_trailers.php');
+require_once (SC_LOCATION.'/resources/trailers/apple_trailers.php');
 
 class wwwAPPLEcom extends Parser implements ParserInterface {
 
