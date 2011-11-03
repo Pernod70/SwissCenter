@@ -3,7 +3,7 @@
    SWISScenter Source                                                              Nigel Barnes
  *************************************************************************************************/
 
-require_once( realpath(dirname(__FILE__).'/mysql.php'));
+require_once( SC_LOCATION.'/base/mysql.php');
 
 define('FILMTRAILER_URL','http://www.services.filmtrailer.com');
 define('FILMTRAILER_CHANNEL_USER_ID', '41100914-1'); // Unique ID for SwissCenter

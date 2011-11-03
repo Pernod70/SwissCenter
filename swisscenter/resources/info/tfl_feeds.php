@@ -3,7 +3,7 @@
    SWISScenter Source                                                              Nigel Barnes
  *************************************************************************************************/
 
-require_once( realpath(dirname(__FILE__).'/mysql.php'));
+require_once( SC_LOCATION.'/base/mysql.php');
 
 define('TFL_URL','http://www.tfl.gov.uk/tfl/businessandpartners/syndication/feed.aspx?email=ngbarnes@hotmail.com');
 

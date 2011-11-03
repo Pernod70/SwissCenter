@@ -11,7 +11,7 @@
  #############################################################################
 
 require_once( realpath(dirname(__FILE__)."/iradio.php"));
-require_once( realpath(dirname(__FILE__).'/../xml/xmlparser.php'));
+require_once( realpath(dirname(__FILE__).'/../../ext/xml/xmlparser.php'));
 
 /** Live365 Specific Parsing
  * @package IRadio

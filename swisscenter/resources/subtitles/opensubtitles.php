@@ -3,7 +3,7 @@
    SWISScenter Source                                                              Nigel Barnes
  *************************************************************************************************/
 
-require_once( realpath(dirname(__FILE__).'/file.php'));
+require_once( SC_LOCATION.'/base/file.php');
 require_once( SC_LOCATION.'/ext/xmlrpc/xmlrpc.inc' );
 
 /**
