@@ -669,7 +669,7 @@ function strrpos_str($string, $searchFor, $startFrom = 0)
 
 function mysql_version()
 {
-  if ( ($db = @mysql_pconnect( DB_HOST, DB_USERNAME, DB_PASSWORD )) )
+  if (extension_loaded('mysql') && ($db = @mysql_pconnect( DB_HOST, DB_USERNAME, DB_PASSWORD )) )
   {
     $stmt = mysql_query( 'select version()', $db);
     if ($row = mysql_fetch_array( $stmt, MYSQL_ASSOC ))
@@ -689,7 +689,7 @@ function mysql_version()
 
 function mysql_charset()
 {
-  if ( ($db = @mysql_pconnect( DB_HOST, DB_USERNAME, DB_PASSWORD )) )
+  if (extension_loaded('mysql') &&  ($db = @mysql_pconnect( DB_HOST, DB_USERNAME, DB_PASSWORD )) )
   {
     $stmt = mysql_query( 'select charset(\'abc\')', $db);
     if ($row = mysql_fetch_array( $stmt, MYSQL_ASSOC ))
@@ -709,7 +709,7 @@ function mysql_charset()
 
 function mysql_collation()
 {
-  if ( ($db = @mysql_pconnect( DB_HOST, DB_USERNAME, DB_PASSWORD )) )
+  if (extension_loaded('mysql') &&  ($db = @mysql_pconnect( DB_HOST, DB_USERNAME, DB_PASSWORD )) )
   {
     $stmt = mysql_query( 'select collation(\'abc\')', $db);
     if ($row = mysql_fetch_array( $stmt, MYSQL_ASSOC ))
