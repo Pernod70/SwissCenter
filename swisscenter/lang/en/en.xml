@@ -1193,6 +1193,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>FAIL_IMAGEMAGICK_TEST</id>
+        <text>ImageMagick is not installed.</text>
+        <version>1.23</version>
+      </string>
+      <string>
         <id>FAIL_LIVE365_TEST</id>
         <text>Live365 parser looks broken</text>
         <version>1.22</version>
@@ -1630,6 +1635,31 @@
         <id>IGNORE_EXTENSION_PROMPT</id>
         <text>Specify file extensions that will be ignored by SwissMonitor.</text>
         <version>1.22</version>
+      </string>
+      <string>
+        <id>IMAGEMAGICK_CONFIG</id>
+        <text>ImageMagick</text>
+        <version>1.23</version>
+      </string>
+      <string>
+        <id>IMAGEMAGICK_DESC</id>
+        <text>ImageMagick (available from %s) is used to improve performance when manipulating images. It is much faster at rotating and scaling images than PHP so will cause pages containing many images to load quicker.</text>
+        <version>1.23</version>
+      </string>
+      <string>
+        <id>IMAGEMAGICK_PATH</id>
+        <text>ImageMagick path</text>
+        <version>1.23</version>
+      </string>
+      <string>
+        <id>IMAGEMAGICK_PATH_NOT_FOUND</id>
+        <text>Please enter a fully qualified directory path</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>IMAGEMAGICK_PATH_PROMPT</id>
+        <text>Please specify the full path of the ImageMagick installation folder. This is usually detected on Windows systems but on Linux based systems you will have to manually enter this.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>IMAGE_EXIF_ROTATE</id>
@@ -3459,6 +3489,11 @@ The enhanced option shows track details with a progress bar and a fanart image a
       <string>
         <id>PASS_ICECAST_TEST</id>
         <text>IceCast parser seems to work properly</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PASS_IMAGEMAGICK_TEST</id>
+        <text>ImageMagick is installed.</text>
         <version>1.22</version>
       </string>
       <string>
