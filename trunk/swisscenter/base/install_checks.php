@@ -106,7 +106,7 @@ function check_php_ttf()
 function check_mysql_connect()
 {
   # Do we have defined constants for database connectivity?
-  if ( !defined('DB_HOST') || !defined('DB_DATABASE') || !defined('DB_PASSWORD'))
+  if ( !extension_loaded('mysql') || !defined('DB_HOST') || !defined('DB_DATABASE') || !defined('DB_PASSWORD'))
   {
     send_to_log(5,"- Unable to determine database connection details");
     return false;
