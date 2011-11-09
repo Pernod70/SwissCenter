@@ -219,6 +219,14 @@ function check_display()
   }
 
   # ----------------------
+  # ImageMagick
+  # ----------------------
+
+//  $imagemagick = $component_tests->add_section("ImageMagick ".imagemagick_version(),5);
+
+//  $component_tests->add_test( $imagemagick, imagemagick_available(true), str('PASS_IMAGEMAGICK_TEST'),str('FAIL_IMAGEMAGICK_TEST').'<p>'.str('IMAGEMAGICK_DESC','<a href="http://www.imagemagick.org">www.imagemagick.org</a>'),FALSE);
+
+  # ----------------------
   # Display test results
   # ----------------------
 

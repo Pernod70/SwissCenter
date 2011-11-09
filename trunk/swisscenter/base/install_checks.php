@@ -22,6 +22,7 @@ require_once( realpath(dirname(__FILE__).'/file.php'));
 require_once( realpath(dirname(__FILE__).'/image.php'));
 require_once( realpath(dirname(__FILE__).'/musicip.php'));
 require_once( realpath(dirname(__FILE__).'/svn.php'));
+require_once( realpath(dirname(__FILE__).'/imagemagick.php'));
 require_once( realpath(dirname(__FILE__).'/../resources/radio/shoutcast.php'));
 require_once( realpath(dirname(__FILE__).'/../resources/radio/live-radio.php'));
 require_once( realpath(dirname(__FILE__).'/../resources/radio/live365.php'));

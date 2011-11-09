@@ -118,6 +118,7 @@
 
       $menu->add_menu(str('ADDITIONAL_COMPONENTS'));
       $menu->add_item(str('CONFIG_MUSICIP')         ,'section=MUSICIP&action=DISPLAY');
+//    $menu->add_item(str('IMAGEMAGICK_CONFIG')     ,'section=IMAGEMAGICK&action=DISPLAY');
       if (is_windows())
         $menu->add_item(str('CONFIG_SWISSMONITOR')  ,'section=SWISSMONITOR&action=DISPLAY');
       $menu->add_item(str('EXTERNAL_FILES')         ,'section=EXT_FILES&action=DISPLAY');
