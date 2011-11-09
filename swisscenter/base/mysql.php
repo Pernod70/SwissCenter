@@ -36,6 +36,7 @@ function db_datestr( $time = '')
 
 function db_escape_str( $text )
 {
+  if (function_exists(mysql_real_escape_string))
   return @mysql_real_escape_string($text);
 }
 
@@ -50,7 +51,7 @@ function db_escape_wildcards( $text )
 
 function test_db($host = DB_HOST , $username = DB_USERNAME , $password = DB_PASSWORD , $database = DB_DATABASE)
 {
-  if ( !defined('DB_HOST') || !defined('DB_USERNAME') || !defined('DB_PASSWORD') || !defined('DB_DATABASE'))
+  if ( !extension_loaded('mysql') || !defined('DB_HOST') || !defined('DB_USERNAME') || !defined('DB_PASSWORD') || !defined('DB_DATABASE'))
     return 'FAIL';
   elseif (! $db_handle = @mysql_pconnect( $host, $username, $password))
     return '!'.str('DATABASE_NOCONNECT');
@@ -384,13 +385,12 @@ class db_query
 
   function db_query($sql = '', $dbname = '')
   {
-    if (!defined('DB_HOST'))
+    if (!extension_loaded('mysql') || !defined('DB_HOST'))
     {
       $this->stmt_handle = false;
     }
     else
     {
-
       if ($dbname == '')
         $dbname = DB_DATABASE;
 
@@ -421,7 +421,8 @@ class db_query
 
   function destroy()
   {
-    @mysql_free_result($this->stmt_handle);
+    if (extension_loaded('mysql'))
+      @mysql_free_result($this->stmt_handle);
     return true;
   }
 
