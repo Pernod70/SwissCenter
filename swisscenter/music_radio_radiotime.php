@@ -37,7 +37,8 @@
 
  send_to_log(8,"Initializing RadioTime parser");
  require_once( realpath(dirname(__FILE__).'/resources/radio/radiotime.php'));
- $iradio  = new radiotime;
+ $iradio = new radiotime;
+ $iradio->restrict_mediatype('mp3,aac'); // Restrict to mp3, ogg, aac, etc.
  $cachedir = get_sys_pref('CACHE_DIR').'/radiotime';
 
  if (!file_exists($cachedir))

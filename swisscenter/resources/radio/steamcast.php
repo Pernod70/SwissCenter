@@ -26,7 +26,8 @@ class steamcast extends iradio {
     $this->iradio();
     $this->set_site('www.steamcast.com');
     $this->set_type(IRADIO_STEAMCAST);
-    $this->search_baseparams = '?t=a';
+    $this->search_baseparams = '?';
+    $this->mediatype = 'a'; // Audio only
   }
 
   /** Parse Steamcast result page and store stations using add_station()
@@ -45,7 +46,7 @@ class steamcast extends iradio {
       }
     }
     if (empty($url)) return FALSE;
-    $uri = 'http://'.$this->iradiosite.'/sbin/rss_feed.rss'.$this->search_baseparams.$url;
+    $uri = 'http://'.$this->iradiosite.'/sbin/rss_feed.rss'.$this->search_baseparams.'&t='.$this->mediatype.$url;
     $this->openpage($uri);
 
     $xml = new XmlParser($this->page, array(XML_OPTION_CASE_FOLDING => TRUE, XML_OPTION_SKIP_WHITE => TRUE) );
@@ -83,8 +84,26 @@ class steamcast extends iradio {
     return TRUE;
   }
 
+	/** Restrict search to media type
+   *  Not all (hardware) players support all formats offered by ShoutCast,
+   *  so one may need to restrict it to e.g. "mp3".
+   * @class steamcast
+   * @method restrict_mediatype
+   * @param optional string mt MediaType to restrict the search to
+   *        (call w/o param to disable restriction)
+   */
+  function restrict_mediatype($mtype='mp3') {
+    if (!empty($mtype)) {
+      send_to_log(6,'IRadio: Restricting to stations in '.$mtype.' format');
+      $this->mediatype = $mtype;
+    }
+    else {
+      $this->mediatype = 'a'; // All
+    }
+  }
+
   /** Get the genre list
-   * @class iradio
+   * @class steamcast
    * @method get_genres
    * @return array genres (genre[main][sub])
    */

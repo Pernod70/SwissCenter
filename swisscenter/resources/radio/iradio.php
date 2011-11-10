@@ -25,6 +25,9 @@ class iradio {
   var $storecache;
   var $cache_expire;
 
+  var $numresults;
+  var $mediatype;
+
   /** Constructor and only method of this base class.
    *  There's no need to call this yourself - you should just place your
    *  configuration data here.
@@ -43,6 +46,8 @@ class iradio {
     $this->cache_expire = 3600; // 3600=1h
     // limit result list
     $this->numresults = 24; // shoutcast: 25/30/50/100
+    // parameter to restrict media type
+    $this->mediatype = '';
     // file naming for cache
     if (substr(php_uname(), 0, 7) == 'Windows') {
       $this->os_slash = "\\";

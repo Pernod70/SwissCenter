@@ -32,7 +32,6 @@ class radiotime extends iradio {
     $this->serial = str_replace(':','',$_SESSION["device"]["mac_addr"]);
     $this->username = get_user_pref('RADIOTIME_USERNAME');
     $this->search_baseparams = '?partnerId='.$this->partner_id.'&serial='.$this->serial.'&username='.$this->username.'&render=json&filter=s&locale='.substr(get_sys_pref('DEFAULT_LANGUAGE','en'),0,2);
-    $this->restrict_mediatype('aac,mp3');
   }
 
   /** Parse RadioTime result page and store stations using add_station()
@@ -55,7 +54,7 @@ class radiotime extends iradio {
     }
 
     // Get stations from RadioTime
-    $uri = 'http://'.$this->iradiosite.'/'.$method.'.ashx'.$this->search_baseparams.'&'.$param;
+    $uri = 'http://'.$this->iradiosite.'/'.$method.'.ashx'.$this->search_baseparams.'&formats='.$this->mediatype.'&'.$param;
     $this->openpage($uri);
     $results = json_decode($this->page, true);
 
@@ -177,7 +176,7 @@ class radiotime extends iradio {
    */
   function restrict_mediatype($mtype='mp3') {
     send_to_log(6,'IRadio: Restricting to stations in '.$mtype.' format');
-    $this->search_baseparams .= '&formats='.$mtype;
+    $this->mediatype = $mtype;
   }
 
   /** Get the genre list

@@ -40,39 +40,36 @@
    case shoutcast :
        send_to_log(8,"Initializing ShoutCast parser");
        require_once( realpath(dirname(__FILE__).'/resources/radio/shoutcast.php'));
-       $iradio  = new shoutcast;
+       $iradio = new shoutcast;
+       $iradio->restrict_mediatype(''); // Restrict to 'audio/mpeg' or 'audio/aacp'
        $cachedir = get_sys_pref('CACHE_DIR').'/shoutcast';
        break;
    case radiotime :
        send_to_log(8,"Initializing RadioTime parser");
        require_once( realpath(dirname(__FILE__).'/resources/radio/radiotime.php'));
-       $iradio  = new radiotime;
+       $iradio = new radiotime;
+       $iradio->restrict_mediatype('mp3,aac'); // Restrict to mp3, ogg, aac, etc.
        $cachedir = get_sys_pref('CACHE_DIR').'/radiotime';
        break;
-//   case webstation :
-//       send_to_log(8,"Initializing WebStation parser");
-//       require_once( realpath(dirname(__FILE__).'/resources/radio/webstation.php'));
-//       $iradio  = new webstation;
-//       $cachedir = get_sys_pref('CACHE_DIR').'/webstation';
-//       break;
    case icecast :
        send_to_log(8,"Initializing Icecast parser");
        require_once( realpath(dirname(__FILE__).'/resources/radio/icecast.php'));
-       $iradio  = new icecast;
+       $iradio = new icecast;
        $cachedir = get_sys_pref('CACHE_DIR').'/icecast';
        break;
    case steamcast :
        send_to_log(8,"Initializing Steamcast parser");
        require_once( realpath(dirname(__FILE__).'/resources/radio/steamcast.php'));
-       $iradio  = new steamcast;
+       $iradio = new steamcast;
+       $iradio->restrict_mediatype(''); // Restrict to mp3, ogg, aac, etc.
        $cachedir = get_sys_pref('CACHE_DIR').'/steamcast';
        break;
    case liveradio :
        send_to_log(8,"Initializing Live-Radio parser");
        require_once( realpath(dirname(__FILE__).'/resources/radio/live-radio.php'));
-       $iradio  = new liveradio;
+       $iradio = new liveradio;
+       $iradio->restrict_mediatype('mp3'); // Restrict to aac, aac+, mp3, ogg, wmp, etc.
        $cachedir = get_sys_pref('CACHE_DIR').'/liveradio';
-       $iradio->restrict_mediatype("mp3");
        break;
    case live365 :
        send_to_log(8,"Initializing Live365 parser");
