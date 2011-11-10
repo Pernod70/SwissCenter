@@ -27,6 +27,7 @@ class shoutcast extends iradio {
     $this->iradio();
     $this->set_site('api.shoutcast.com');
     $this->set_type(IRADIO_SHOUTCAST);
+    $this->search_baseparams = '?k='.$this->api_key;
   }
 
   /** Parse shoutcast result page and store stations using add_station()
@@ -45,7 +46,7 @@ class shoutcast extends iradio {
       }
     }
     if (empty($url)) return FALSE;
-    $uri = 'http://'.$this->iradiosite.$url.'&limit='.$this->numresults;
+    $uri = 'http://'.$this->iradiosite.$url.'&mt='.$this->mediatype.'&limit='.$this->numresults;
     $this->openpage($uri);
 
     preg_match_all('/station name="(.*)" mt="(.*)" id="(.*)" br="(.*)" genre="(.*)" ct="(.*)" lc="(.*)"/U', $this->page, $matches);
@@ -81,7 +82,7 @@ class shoutcast extends iradio {
    */
   function restrict_mediatype($mtype='audio/mpeg') {
     send_to_log(6,'IRadio: Restricting to stations in '.$mtype.' format');
-    $this->search_baseparams = '&mt='.$mtype;
+    $this->mediatype = $mtype;
   }
 
   /** Searching for a genre
@@ -96,7 +97,7 @@ class shoutcast extends iradio {
    */
   function search_genre($name) {
     send_to_log(6,'IRadio: Initialize genre search for "'.$name.'"');
-    return $this->parse('/legacy/genresearch?k='.$this->api_key.'&genre='.str_replace(' ','+',$name),str_replace(' ','_',$name));
+    return $this->parse('/legacy/genresearch'.$this->search_baseparams.'&genre='.str_replace(' ','+',$name),str_replace(' ','_',$name));
   }
 
   /** Searching for a station
@@ -111,7 +112,7 @@ class shoutcast extends iradio {
    */
   function search_station($name) {
     send_to_log(6,'IRadio: Initialize station search for "'.$name.'"');
-    return $this->parse('/legacy/stationsearch?k='.$this->api_key.'&search='.str_replace(' ','+',$name),str_replace(' ','_',$name));
+    return $this->parse('/legacy/stationsearch'.$this->search_baseparams.'&search='.str_replace(' ','+',$name),str_replace(' ','_',$name));
   }
 
   /** Searching by country

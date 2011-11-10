@@ -25,7 +25,9 @@ class liveradio extends iradio {
     $this->iradio();
     $this->set_site('www.live-radio.net');
     $this->set_type(IRADIO_LIVERADIO);
+    $this->get_siteparams();
     $this->search_baseparams = '?OSt=Li&OCnt=Li&OSta=Li&Sta=&OCit=Li&Cit=&OGen=Li&';
+    $this->mediatype = $this->params->mediatype['any'];
   }
 
   /** Parse Live-Radio result page and store stations using add_station()
@@ -44,7 +46,7 @@ class liveradio extends iradio {
       }
     }
     if (empty($url)) return FALSE;
-    $uri = 'http://'.$this->iradiosite.'/SearchResults.php3'.$this->search_baseparams.$url.'&OPag='.$this->numresults;
+    $uri = 'http://'.$this->iradiosite.'/SearchResults.php3'.$this->search_baseparams.$url.'&OFee='.$this->mediatype.'&OPag='.$this->numresults;
     $this->openpage($uri);
     $stationcount = 0;
     $startpos = strpos($this->page,'HREF="redirstation'); // seek for start position of block
@@ -125,12 +127,11 @@ class liveradio extends iradio {
    */
   function restrict_mediatype($mtype='any') {
     send_to_log(6,'IRadio: Restricting to stations in '.$mtype.' format');
-    $this->get_siteparams();
     $mtype = strtolower($mtype);
-    if (isset($this->params->mediatype[$mtype]))
-      $this->search_baseparams .= '&OFee='.$this->params->mediatype[$mtype];
+    if (isset($this->params->mediatype[$mtype]) && !empty($this->params->mediatype[$mtype]))
+      $this->mediatype = $this->params->mediatype[$mtype];
     else
-      $this->search_baseparams .= '&OFee='.$this->params->mediatype['any'];
+      $this->mediatype = $this->params->mediatype['any'];
   }
 
   /** Searching for a genre
@@ -183,7 +184,7 @@ class liveradio extends iradio {
    *  "pop" (there are always plenty of stations available), and then checks
    *  the second station returned whether it has at least a name and a valid
    *  playlist URL. If so, it returns TRUE - otherwise FALSE.
-   * @class shoutcast
+   * @class liveradio
    * @method test
    * @return boolean OK
    */
@@ -191,7 +192,6 @@ class liveradio extends iradio {
     send_to_log(6,'IRadio: Testing Live-Radio interface');
     $this->set_cache('');       // disable cache
     $this->set_max_results(2);  // only 2 results needed
-    $this->restrict_mediatype('mp3');
     $this->search_genre('pop'); // init search
     if (empty($this->station[1]->name)) {
       send_to_log(3,'IRadio: Live-Radio parser returned empty station name');
