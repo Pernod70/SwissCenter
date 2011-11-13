@@ -36,13 +36,13 @@ function db_datestr( $time = '')
 
 function db_escape_str( $text )
 {
-  if (function_exists(mysql_real_escape_string))
+  if (function_exists('mysql_real_escape_string'))
   return @mysql_real_escape_string($text);
 }
 
 function db_escape_wildcards( $text )
 {
-  return str_replace("%","\%",str_replace("_","\_",$text));
+  return str_replace('%','\%',str_replace('_','\_',$text));
 }
 
 #-------------------------------------------------------------------------------------------------
@@ -107,8 +107,8 @@ function db_row($sql)
   $recs    = new db_query( $sql );
   $success = $recs->db_success();
 
-  if($success && ($row = $recs->db_fetch_row()))
-      $data = $row;
+  if ($success && ($row = $recs->db_fetch_row()))
+    $data = $row;
 
   $recs->destroy();
   return ($success ? $data : false );
@@ -126,8 +126,8 @@ function db_col_to_list( $sql)
 {
   $data = array();
 
-  $recs     = new db_query( $sql );
-  $success  = $recs->db_success();
+  $recs    = new db_query( $sql );
+  $success = $recs->db_success();
 
   if ($success)
     while ($row = $recs->db_fetch_row())
@@ -215,12 +215,15 @@ function db_value( $sql)
   $success = $recs->db_success();
   $result  = '';
 
-  if (!$success)
+  if ($success)
+  {
+    $row    = $recs->db_fetch_row();
+    $result = @array_pop($row);
+  }
+  else
     send_to_log(1,"Unable to query database: ".$recs->db_get_error());
 
-  $result = @array_pop($recs->db_fetch_row());
   $recs->destroy();
-
   return ($success ? $result : false );
 }
 
@@ -235,7 +238,7 @@ function db_array_to_set_list( $array)
 
   foreach( $array as $key => $value )
   {
-    if     (!is_numeric($value) and empty($value))
+    if (!is_numeric($value) and empty($value))
       $columns[] = $key."=null";
     elseif (is_string($value))
       $columns[] = $key ."='".db_escape_str($value)."'";
@@ -335,8 +338,8 @@ function db_table_columns( $table )
 {
   $data = array();
 
-  $recs     = new db_query( "SHOW COLUMNS FROM $table" );
-  $success  = $recs->db_success();
+  $recs    = new db_query( "SHOW COLUMNS FROM $table" );
+  $success = $recs->db_success();
 
   if ($success)
     while ($row = $recs->db_fetch_row())
@@ -401,7 +404,7 @@ class db_query
           $this->rows_fetched = 0;
           if (! empty($sql) )
           {
-            @set_magic_quotes_runtime(0);
+            ini_set('magic_quotes_runtime', 0);
             $this->sql_to_execute = $sql;
             $this->stmt_handle = mysql_query( $sql, $this->db_handle);
             @send_to_log(9,"SQL> ".$sql);
@@ -421,7 +424,7 @@ class db_query
 
   function destroy()
   {
-    if (extension_loaded('mysql'))
+    if (extension_loaded('mysql') && is_resource($this->stmt_handle))
       @mysql_free_result($this->stmt_handle);
     return true;
   }
