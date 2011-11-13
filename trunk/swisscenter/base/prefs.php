@@ -16,7 +16,10 @@
    if ($user_id == '')
      $user_id = get_current_user_id();
 
-   $result = db_value("select modified from user_prefs where user_id = ".$user_id." and name='".strtoupper($pref)."'");
+   if (is_numeric($user_id))
+     $result = db_value("select modified from user_prefs where user_id = ".$user_id." and name='".strtoupper($pref)."'");
+   else
+     $result = false;
 
    if (!$result || is_null($result))
      return false;
@@ -29,32 +32,34 @@
    if ($user_id == '')
      $user_id = get_current_user_id();
 
-   if ($user_id != '')
+   if (is_numeric($user_id))
      $result = db_value("select value from user_prefs where user_id = ".$user_id." and name='".strtoupper($pref)."'");
+   else
+     $result = false;
 
-   if ($result == '')
+   if (!$result || is_null($result))
      return $default;
    else
      return $result;
  }
 
- function set_user_pref( $name, $value, $user = '')
+ function set_user_pref( $name, $value, $user_id = '')
  {
-   if ($user == '')
-     $user = get_current_user_id();
+   if ($user_id == '')
+     $user_id = get_current_user_id();
 
-   if(!empty($user))
+   if (is_numeric($user_id))
    {
-     db_sqlcommand("delete from user_prefs where name='".strtoupper($name)."' and user_id=".$user);
+     db_sqlcommand("delete from user_prefs where name='".strtoupper($name)."' and user_id=".$user_id);
      if ( in_array('modified', db_table_columns('user_prefs')) )
-       $result = db_insert_row('user_prefs', array("USER_ID"=>$user, "NAME"=>strtoupper($name), "VALUE"=>$value, "MODIFIED"=>db_datestr()) );
+       $result = db_insert_row('user_prefs', array("USER_ID"=>$user_id, "NAME"=>strtoupper($name), "VALUE"=>$value, "MODIFIED"=>db_datestr()) );
      else
-       $result = db_insert_row('user_prefs', array("USER_ID"=>$user, "NAME"=>strtoupper($name), "VALUE"=>$value) );
+       $result = db_insert_row('user_prefs', array("USER_ID"=>$user_id, "NAME"=>strtoupper($name), "VALUE"=>$value) );
 
      if (!$result)
-       send_to_log(1,"Unable to store preferemce '$name' = '$value' for user '$user'");
+       send_to_log(1,"Unable to store preferemce '$name' = '$value' for user '$user_id'");
      else
-       send_to_log(6,"Set user preference '$name' to '$value' for user '$user'");
+       send_to_log(6,"Set user preference '$name' to '$value' for user '$user_id'");
    }
 
    return $result;
@@ -78,7 +83,7 @@
  {
    $result = db_value("select value from system_prefs where name='".strtoupper($pref)."'");
 
-   if ($result == '')
+   if (!$result || is_null($result))
      return $default;
    else
      return $result;
