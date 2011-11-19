@@ -338,38 +338,39 @@ function page_inform( $seconds, $url, $title, $text)
 }
 
 #-------------------------------------------------------------------------------------------------
-# Functions for managing the search history.
+# Functions for managing the page history.
 #-------------------------------------------------------------------------------------------------
 
-function page_hist_init( $url = '', $sql = '')
+function page_hist_init( $url = '', $sql = '' )
 {
-  $_SESSION["hist"] = array();
+  // Initialise the page tracking array.
+  $_SESSION["history"] = array();
 
   if (!empty($url))
-    $_SESSION["hist"][] = array("url"=>$url, "sql"=>$sql);
+    $_SESSION["history"][] = array("url"=>$url, "sql"=>$sql);
 }
 
 function page_hist_push( $url, $sql = '' )
 {
-  $_SESSION["hist"][] = array("url"=>$url, "sql"=>$sql);
+  $_SESSION["history"][] = array("url"=>$url, "sql"=>$sql);
 }
 
 function page_hist_pop()
 {
-  if (count($_SESSION["hist"]) == 0)
+  if (count($_SESSION["history"]) == 0)
   {
     send_to_log(2,'ERROR: Failed to read $_SESSION in page_hist_pop()');
     return array("url"=>'index.php', "sql"=>'');
   }
   else
-    return array_pop($_SESSION["hist"]);
+    return array_pop($_SESSION["history"]);
 }
 
-function page_hist_most_recent( $ref = '' )
+function page_hist_current( $ref = '' )
 {
-  if (count($_SESSION["hist"]) == 0)
+  if (count($_SESSION["history"]) == 0)
   {
-    send_to_log(2,'ERROR: Failed to read $_SESSION in page_hist_most_recent()');
+    send_to_log(2,'ERROR: Failed to read $_SESSION in page_hist_current()');
     $recent = array("url"=>'index.php', "sql"=>'');
     if ( empty($ref) )
       return $recent;
@@ -379,21 +380,35 @@ function page_hist_most_recent( $ref = '' )
   else
   {
     if ( empty($ref) )
-      return $_SESSION["hist"][count($_SESSION["hist"])-1];
+      return $_SESSION["history"][count($_SESSION["history"])-1];
     else
-      return $_SESSION["hist"][count($_SESSION["hist"])-1][$ref];
+      return $_SESSION["history"][count($_SESSION["history"])-1][$ref];
   }
 }
 
-function page_hist_back_url()
+function page_hist_current_update( $url, $sql )
 {
-  if (count($_SESSION["hist"]) == 0)
+  page_hist_pop();
+  page_hist_push($url, $sql);
+}
+
+function page_hist_previous( $ref = 'url' )
+{
+  if (count($_SESSION["history"]) == 0)
   {
     send_to_log(2,'ERROR: Failed to read $_SESSION in page_hist_back_url()');
-    return 'index.php';
+    if ($ref == 'url')
+      return 'index.php';
+    else
+      return '';
   }
   else
-    return url_add_param($_SESSION["hist"][count($_SESSION["hist"])-2]["url"], 'hist', PAGE_HISTORY_DELETE);
+  {
+    if ($ref == 'url')
+      return url_add_param($_SESSION["history"][count($_SESSION["history"])-2]["url"], 'hist', PAGE_HISTORY_DELETE);
+    else
+      return $_SESSION["history"][count($_SESSION["history"])-2]["sql"];
+  }
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -401,35 +416,41 @@ function page_hist_back_url()
 //-------------------------------------------------------------------------------------------------
 
 // Page history tracking parameters
-define('PAGE_HISTORY_ADD',1);
-define('PAGE_HISTORY_DELETE',2);
-define('PAGE_HISTORY_REPLACE',3);
+define('PAGE_HISTORY_ADD',     'add');
+define('PAGE_HISTORY_DELETE',  'delete');
+define('PAGE_HISTORY_REPLACE', 'replace');
 
 // Track page history
 $current_url = url_remove_param(current_url(), 'hist');
+
+// Initialise the page history tracker at index page
 if ( strpos($current_url, '/index.php') !== false )
+{
   page_hist_init($current_url);
+}
 else
 {
-  $hist_param = isset($_REQUEST["hist"]) ? $_REQUEST["hist"] : PAGE_HISTORY_ADD;
-
-  // If same URL but with different page then replace previous URL with current.
-  if ( url_remove_param($current_url, 'page') == url_remove_param(page_hist_most_recent('url'), 'page') )
+  // Determine whether to add, replace, or delete page from history
+  if (url_remove_params($current_url, array('page', 'last', 'search')) == url_remove_params(page_hist_current('url'), array('page', 'last', 'search')))
     $hist_param = PAGE_HISTORY_REPLACE;
+  elseif (isset($_REQUEST["hist"]))
+    $hist_param = $_REQUEST["hist"];
+  else
+    $hist_param = PAGE_HISTORY_ADD;
 
   switch ( $hist_param )
   {
     case PAGE_HISTORY_ADD:
-      // If URL is different from previous URL (ie. ignore page refresh)
-      if ( $current_url !== page_hist_most_recent('url') )
-        page_hist_push($current_url);
+      // Add only if URL is different from previous URL (ie. ignore page refresh)
+      if ( $current_url !== page_hist_current('url') )
+        page_hist_push($current_url, page_hist_current('sql'));
       break;
     case PAGE_HISTORY_DELETE:
       page_hist_pop();
       break;
     case PAGE_HISTORY_REPLACE:
       page_hist_pop();
-      page_hist_push($current_url);
+      page_hist_push($current_url, page_hist_current('sql'));
       break;
   }
 }

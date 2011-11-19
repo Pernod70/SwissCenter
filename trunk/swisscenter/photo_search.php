@@ -58,7 +58,7 @@
   }
 
   // Only join tables that are actually required
-  $history = search_hist_most_recent();
+  $history = page_hist_current();
   if ($search["display"] == 'title' || strpos($history["sql"],'title like') > 0)
     $joined_tables .= 'left outer join photo_albums pa on media.dirname = pa.dirname ';
 

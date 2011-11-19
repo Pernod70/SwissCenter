@@ -34,6 +34,7 @@
       break;
     case "certificate":
       $title  = str(strtoupper(($column)));
+//    $search = array("display" => "IFNULL((select name from certificates where rank >= media_cert.rank and scheme = '".get_rating_scheme_name()."' order by rank limit 1),(select name from certificates where rank >= unrated_cert.rank and scheme = '".get_rating_scheme_name()."' order by rank limit 1))",
       $search = array("display" => "IFNULL(media_cert.name,unrated_cert.name)",
                       "info"    => "count(distinct synopsis)",
                       "order"   => "display");
@@ -59,7 +60,7 @@
   }
 
   // Only join tables that are actually required
-  $history = search_hist_most_recent();
+  $history = page_hist_current();
   if ($search["display"] == 'director_name' || strpos($history["sql"],'director_name like') > 0)
     $joined_tables .= 'left outer join directors_of_movie dom on media.file_id = dom.movie_id '.
                       'left outer join directors d on dom.director_id = d.director_id ';

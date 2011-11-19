@@ -202,7 +202,7 @@
 
   $tab_strip = '';
   foreach ($tabs as $key=>$tab)
-    $tab_strip .= ($key > 0 ? ' | ' : '').'<a href="statistics.php?tab='.$tab.'">'.
+    $tab_strip .= ($key > 0 ? ' | ' : '').'<a href="statistics.php?tab='.$tab.'&hist='.PAGE_HISTORY_REPLACE.'">'.
                   ($tab == $current ? font_tags(FONTSIZE_BODY, style_value("PAGE_TITLE_COLOUR",'#FFFFFF')).str($tab) : font_tags(FONTSIZE_BODY).str($tab)).'</font></a>';
 
   // Output Title
@@ -228,7 +228,7 @@
 
       $tab_strip = '';
       foreach ($tabs as $key=>$tab)
-        $tab_strip .= ($key > 0 ? ' | ' : '').'<a href="statistics.php?tab='.$current.'&tab2='.$tab.'">'.
+        $tab_strip .= ($key > 0 ? ' | ' : '').'<a href="statistics.php?tab='.$current.'&tab2='.$tab.'&hist='.PAGE_HISTORY_REPLACE.'">'.
                       ($tab == $tab2 ? font_tags(FONTSIZE_BODY, style_value("PAGE_TITLE_COLOUR",'#FFFFFF')).str($tab) : font_tags(FONTSIZE_BODY).str($tab)).'</font></a>';
       echo '<center>'.font_tags(FONTSIZE_BODY).$tab_strip.'</center>';
 
@@ -247,7 +247,7 @@
 
       $tab_strip = '';
       foreach ($tabs as $key=>$tab)
-        $tab_strip .= ($key > 0 ? ' | ' : '').'<a href="statistics.php?tab='.$current.'&tab2='.$tab.'">'.
+        $tab_strip .= ($key > 0 ? ' | ' : '').'<a href="statistics.php?tab='.$current.'&tab2='.$tab.'&hist='.PAGE_HISTORY_REPLACE.'">'.
                       ($tab == $tab2 ? font_tags(FONTSIZE_BODY, style_value("PAGE_TITLE_COLOUR",'#FFFFFF')).str($tab) : font_tags(FONTSIZE_BODY).str($tab)).'</font></a>';
       echo '<center>'.font_tags(FONTSIZE_BODY).$tab_strip.'</center>';
 
@@ -268,7 +268,7 @@
 
       $tab_strip = '';
       foreach ($tabs as $key=>$tab)
-        $tab_strip .= ($key > 0 ? ' | ' : '').'<a href="statistics.php?tab='.$current.'&tab2='.$tab.'">'.
+        $tab_strip .= ($key > 0 ? ' | ' : '').'<a href="statistics.php?tab='.$current.'&tab2='.$tab.'&hist='.PAGE_HISTORY_REPLACE.'">'.
                       ($tab == $tab2 ? font_tags(FONTSIZE_BODY, style_value("PAGE_TITLE_COLOUR",'#FFFFFF')).str($tab) : font_tags(FONTSIZE_BODY).str($tab)).'</font></a>';
       echo '<center>'.font_tags(FONTSIZE_BODY).$tab_strip.'</center>';
 
@@ -287,7 +287,7 @@
 
       $tab_strip = '';
       foreach ($tabs as $key=>$tab)
-        $tab_strip .= ($key > 0 ? ' | ' : '').'<a href="statistics.php?tab='.$current.'&tab2='.$tab.'">'.
+        $tab_strip .= ($key > 0 ? ' | ' : '').'<a href="statistics.php?tab='.$current.'&tab2='.$tab.'&hist='.PAGE_HISTORY_REPLACE.'">'.
                       ($tab == $tab2 ? font_tags(FONTSIZE_BODY, style_value("PAGE_TITLE_COLOUR",'#FFFFFF')).str($tab) : font_tags(FONTSIZE_BODY).str($tab)).'</font></a>';
       echo '<center>'.font_tags(FONTSIZE_BODY).$tab_strip.'</center>';
 
@@ -300,7 +300,7 @@
 
       $tab_strip = '';
       foreach ($tabs as $key=>$tab)
-        $tab_strip .= ($key > 0 ? ' | ' : '').'<a href="statistics.php?tab='.$current.'&tab2='.$tab.'">'.
+        $tab_strip .= ($key > 0 ? ' | ' : '').'<a href="statistics.php?tab='.$current.'&tab2='.$tab.'&hist='.PAGE_HISTORY_REPLACE.'">'.
                       ($tab == $tab2 ? font_tags(FONTSIZE_BODY, style_value("PAGE_TITLE_COLOUR",'#FFFFFF')).str($tab) : font_tags(FONTSIZE_BODY).str($tab)).'</font></a>';
       echo '<center>'.font_tags(FONTSIZE_BODY).$tab_strip.'</center>';
 
@@ -319,7 +319,7 @@
 
   $menu->display_page($page);
 
-  page_footer( 'config.php' );
+  page_footer( page_hist_previous() );
 
 /**************************************************************************************************
                                                End of file

@@ -11,14 +11,14 @@
 
   function output_link( $file )
   {
-    return '/photo_selected.php?add=Y&name='.rawurlencode(" concat(media.dirname,media.filename) like '".db_escape_str($file)."%'");
+    return '/photo_selected.php?name='.rawurlencode(" concat(media.dirname,media.filename) like '".db_escape_str($file)."%'");
   }
 
   $sql = 'from photos media'.get_rating_join().'where 1=1';
 
   browse_db( str('BROWSE_PHOTOS')                                                   // Title
-           , $sql.$_SESSION["history"][0]["sql"]                                    // SQL (from...)
-           , $_SESSION["history"][0]["url"]                                         // Back URL
+           , $sql.page_hist_current('sql')                                          // SQL (from...)
+           , page_hist_previous()                                                   // Back URL
            , MEDIA_TYPE_PHOTO                                                       // Select All media type
            );
 

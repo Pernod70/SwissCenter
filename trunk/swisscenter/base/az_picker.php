@@ -17,12 +17,10 @@ function show_picker( $url="", $search, $case = '', $validchars = '' )
     $cols = 6;
 
     echo '<table cellspacing=2 border=0 '.style_background('KEYBOARD_BACKGROUND').'><tr>';
-    $url = url_set_param($url,'last','KEY_SPC');
-    $url = url_set_param($url,'search', rawurlencode($search.' '));
+    $url = url_set_params($url, array('last'=>'KEY_SPC', 'search'=>rawurlencode($search.' ')));
     echo '<td colspan=3 height="'.convert_y(50).'" '.style_background('KEYBOARD_KEY_BACKGROUND').'
            align="center"><a href="'.$url.'" style="width:'.convert_x(105).'"name="KEY_SPC">'.font_tags(FONTSIZE_KEYPAD).str('KEYBOARD_SPC').'</a></td>';
-    $url = url_set_param($url,'last','KEY_DEL');
-    $url = url_set_param($url,'search', rawurlencode(substr($search,0,-1)));
+    $url = url_set_params($url, array('last'=>'KEY_DEL', 'search'=>rawurlencode(substr($search,0,-1))));
     echo '<td colspan=3 height="'.convert_y(50).'" '.style_background('KEYBOARD_KEY_BACKGROUND').'
            align="center"><a href="'.$url.'" style="width:'.convert_x(105).'"name="KEY_DEL">'.font_tags(FONTSIZE_KEYPAD).str('KEYBOARD_DEL').'</a></td>';
     echo '</tr><tr>';
@@ -30,8 +28,7 @@ function show_picker( $url="", $search, $case = '', $validchars = '' )
     for ($n=1; $n<=strlen($keys); $n++)
     {
       $this_key = substr($keys,($n-1),1);
-      $url = url_set_param($url,'last','KEY_'.$this_key);
-      $url = url_set_param($url,'search',rawurlencode($search.$this_key));
+      $url = url_set_params($url, array('last'=>'KEY_'.$this_key, 'search'=>rawurlencode($search.$this_key)));
       $link = '<a href="'.$url.'" name="KEY_'.$this_key.'">'.font_tags(FONTSIZE_KEYPAD).$this_key.'</a>';
 
       echo '<td width="'.convert_x(35).'" height="'.convert_y(50).'"'.style_background('KEYBOARD_KEY_BACKGROUND').'
@@ -44,9 +41,6 @@ function show_picker( $url="", $search, $case = '', $validchars = '' )
 
     echo '  </tr>
           </table>';
-
-    // Save the history of the A-Z picker.
-    search_picker_push( current_url() );
   }
 
 /**************************************************************************************************

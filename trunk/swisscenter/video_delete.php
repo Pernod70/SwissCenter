@@ -7,16 +7,12 @@
   require_once( realpath(dirname(__FILE__).'/base/mysql.php'));
   require_once( realpath(dirname(__FILE__).'/base/file.php'));
   require_once( realpath(dirname(__FILE__).'/base/rating.php'));
-  require_once( realpath(dirname(__FILE__).'/base/search.php'));
 
   $menu = new menu();
 
 //*************************************************************************************************
 // Main Code
 //*************************************************************************************************
-
-  // Decode & assign page parameters to variables.
-  $history = search_hist_most_recent();
 
   $cert_img = '';
   $media_type = $_REQUEST["media_type"];
@@ -40,7 +36,7 @@
 
     // Delete options
     $menu->add_item( str('YES'), 'video_delete.php?delete='.$_REQUEST["del"].'&media_type='.$_REQUEST["media_type"]);
-    $menu->add_item( str('NO'), url_add_params( $history["url"] , array('add'=>'N','del'=>'N')));
+    $menu->add_item( str('NO'), page_hist_previous());
 
     // Display thumbnail
     $folder_img = file_albumart($data[0]["DIRNAME"].$data[0]["FILENAME"]);
@@ -72,11 +68,11 @@
       case MEDIA_TYPE_VIDEO : remove_orphaned_movie_info(); break;
     }
 
-    page_inform(2,url_add_param( search_picker_most_recent() , 'del','y'),'',str('MEDIA_DELETED'));
+    page_inform(2, page_hist_previous(), '', str('MEDIA_DELETED'));
   }
 
   // Certificate? Get the appropriate image.
-  $scheme    = get_rating_scheme_name();
+  $scheme = get_rating_scheme_name();
   if (!empty($data[0]["CERTIFICATE"]))
     $cert_img  = img_gen(SC_LOCATION.'images/ratings/'.$scheme.'/'.get_cert_name( get_nearest_cert_in_scheme($data[0]["CERTIFICATE"], $scheme)).'.gif', 280, 100);
 
@@ -105,7 +101,7 @@
     $menu->display();
   }
 
-  page_footer( url_add_params($history["url"],array('add'=>'N','del'=>'N')) );
+  page_footer( page_hist_previous() );
 
 /**************************************************************************************************
                                                End of file

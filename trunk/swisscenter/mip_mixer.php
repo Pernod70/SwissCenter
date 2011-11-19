@@ -19,8 +19,7 @@
   $menu       = new menu();
   $info       = new infotab();
   $sql_table  = 'mp3s media'.get_rating_join().' where 1=1 ';
-  $predicate  = search_process_passed_params();
-  $back_url   = url_add_params('music_selected.php', array('add'  => 'N', 'type' => $_REQUEST["type"], 'name' => $_REQUEST["name"]));
+  $predicate  = page_hist_current('sql');
   $meta       = '<meta SYABAS-PLAYERMODE="music">';
 
   // Display Information about current selection
@@ -65,7 +64,7 @@
         </table>';
 
   // Make sure the "back" button goes to the correct page:
-  page_footer($back_url);
+  page_footer( page_hist_previous() );
 
 /**************************************************************************************************
                                                End of file

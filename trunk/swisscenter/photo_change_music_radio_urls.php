@@ -11,16 +11,6 @@
 
   function display_radio_menu($cat_id)
   {
-//    if(empty($cat_id))
-//      search_hist_init( 'photo_change_music_radio_urls.php' );
-//    else
-//      search_hist_init( 'photo_change_music_radio_urls.php?cat='.$cat_id );
-
-    if ($cat_id <= 0)
-      $prev_page = "photo_change_music_radio_urls.php?subcat=".abs($cat_id);
-    else
-      $prev_page = "photo_change_music_radio_urls.php?subcat=".db_value("select parent_id from categories where cat_id=$cat_id");
-
     // > 0 indicates normal categories, < 0 indicates all sub-categories
     if($cat_id > 0)
       $category_select_sql = ' and cat_id='.$cat_id;
@@ -34,7 +24,7 @@
                         where media.type=".MEDIA_TYPE_RADIO.$category_select_sql." AND IFNULL(media_cert.rank,0) <= ".get_current_user_rank()." order by title");
 
     for ($i=0; $i<count($data); $i++)
-      $array[] = array("name"=>$data[$i]["TITLE"], "url"=>'photo_change_music.php?url='.rawurlencode($data[$i]["URL"]).'&title='.rawurlencode($data[$i]["TITLE"]).'&music=iradio');
+      $array[] = array("name"=>$data[$i]["TITLE"], "url"=>'photo_change_music.php?url='.rawurlencode($data[$i]["URL"]).'&title='.rawurlencode($data[$i]["TITLE"]).'&music=iradio&hist='.PAGE_HISTORY_DELETE);
 
     $page = isset($_REQUEST["page"]) ? $_REQUEST["page"] : 0;
     $url  = url_remove_param(current_url(), 'page');
@@ -43,9 +33,9 @@
 
     // Make sure the "back" button goes to the correct page:
     if (category_count(MEDIA_TYPE_RADIO)==1)
-      page_footer('photo_change_music.php');
+      page_footer('photo_change_music.php?hist='.PAGE_HISTORY_DELETE);
     else
-      page_footer($prev_page);
+      page_footer(page_hist_previous());
   }
 
 /*************************************************************************************************

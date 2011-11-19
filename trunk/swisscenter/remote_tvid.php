@@ -91,7 +91,7 @@
   {
     // Setup hidden links for all recognised tvid codes
     foreach ($tvid_list as $tvid)
-      echo '<a href="remote_tvid.php?tvid='.$tvid.'&tvid_sel='.$_REQUEST["func"].'" tvid="'.$tvid.'"></a>';
+      echo '<a href="remote_tvid.php?tvid='.$tvid.'&tvid_sel='.$_REQUEST["func"].'&hist='.PAGE_HISTORY_REPLACE.'" tvid="'.$tvid.'"></a>';
   }
   elseif (isset($_REQUEST["default"]) && $_REQUEST["default"] == 'Y')
   {
@@ -118,14 +118,14 @@
   {
     if ($count >= $start && $count < $end)
     {
-      $menu->add_item(str($tvid_key).' -> ['.get_tvid_pref(get_player_type(), $tvid_sc[$tvid_key]).']', url_set_params('remote_tvid.php',array('func'=>$tvid_key, 'page'=>$page)));
+      $menu->add_item(str($tvid_key).' -> ['.get_tvid_pref(get_player_type(), $tvid_sc[$tvid_key]).']', url_set_params('remote_tvid.php',array('func'=>$tvid_key, 'page'=>$page, 'hist'=>PAGE_HISTORY_REPLACE)));
     }
     $count++;
   }
 
   // Add menu options to reset values to default, and to exit
-  $menu->add_item(str('TVID_RESET_DEFAULT'), url_set_param('remote_tvid.php','default','Y'));
-  $menu->add_item(str('RETURN_MAIN_MENU'), 'config.php');
+  $menu->add_item(str('TVID_RESET_DEFAULT'), url_set_params('remote_tvid.php', array('default'=>'Y', 'hist'=>PAGE_HISTORY_REPLACE)));
+  $menu->add_item(str('RETURN_MAIN_MENU'), page_hist_previous());
 
   $menu->display();
 

@@ -12,21 +12,20 @@
     // Get the number of new or read messages
     $num = count_new_and_unread_messages();
 
-    if($num == 0)
+    if ($num == 0)
     {
-      page_inform(2,(empty($_REQUEST["return"]) ? 'config.php' : $_REQUEST["return"]), str('MESSAGES')
-                   ,str('MESSAGES_NONE'));
+      page_inform(2, page_hist_previous(), str('MESSAGES'), str('MESSAGES_NONE'));
       exit;
     }
     else
     {
-      page_header( str('MESSAGES'), "" );
+      page_header( str('MESSAGES') );
       // Display a list of all the outstanding messages
       echo '<center>'.font_tags(FONTSIZE_BODY, style_value("PAGE_TEXT")).str('MESSAGES_SELECT').'</center></br>';
 
       // Find out what page we are on, default to page 0 (first page)
       $page = $_REQUEST["page"];
-      if(empty($page))
+      if (empty($page))
         $page = 0;
 
       // Get the data from the database for the current page
@@ -45,14 +44,14 @@
         // this message. Should return to the current page unless this is the last item on
         // the page in which case they'll go back to the previous page unless this is page 0
         // in which case they'll always go back to page 0
-        if((count($data) > 1) || ($page == 0))
+        if ((count($data) > 1) || ($page == 0))
           $pagedel = $page;
-        elseif($page > 0)
+        elseif ($page > 0)
           $pagedel = $page - 1;
 
         // Add a link to display the message, this includes the pages that should be displayed
         // if the keep or delete options are chosen
-        $menu->add_item($message_text,'messages.php?return='.$_REQUEST["return"].'&id='.$row["MESSAGE_ID"].'&pagekeep='.$page
+        $menu->add_item($message_text,'messages.php?id='.$row["MESSAGE_ID"].'&pagekeep='.$page
               .'&pagedel='.$pagedel);
       }
 
@@ -60,8 +59,8 @@
       $last_page = ceil($num/MAX_PER_PAGE)-1;
       if ($num > MAX_PER_PAGE)
       {
-        $menu->add_up( '?return='.$_REQUEST["return"].'&page='.($page > 0 ? ($page-1) : $last_page));
-        $menu->add_down( '?return='.$_REQUEST["return"].'&page='.($page < $last_page ? ($page+1) : 0));
+        $menu->add_up( '?page='.($page > 0 ? ($page-1) : $last_page));
+        $menu->add_down( '?page='.($page < $last_page ? ($page+1) : 0));
       }
 
       // Render the menu
@@ -71,7 +70,7 @@
 
   function display_message($id)
   {
-    page_header( str('MESSAGES') , "");
+    page_header( str('MESSAGES') );
 
     global $message_status_string;
     $menu = new menu();
@@ -93,15 +92,14 @@
     // Add the keep and delete links, if there was a keep or delete page to return
     // to then ensure that the link returns the user to the correct page
     if(!empty($_REQUEST["pagekeep"]))
-      $menu->add_item(str('MESSAGES_KEEP'),'messages.php?return='.$_REQUEST["return"].'&page='.$_REQUEST["pagekeep"]);
+      $menu->add_item(str('MESSAGES_KEEP'),'messages.php?page='.$_REQUEST["pagekeep"].'&hist='.PAGE_HISTORY_DELETE);
     else
-      $menu->add_item(str('MESSAGES_KEEP'),'messages.php?return='.$_REQUEST["return"]);
+      $menu->add_item(str('MESSAGES_KEEP'),'messages.php?&hist='.PAGE_HISTORY_DELETE);
 
     if(!empty($_REQUEST["pagedel"]))
-      $menu->add_item(str('MESSAGES_DELETE'),'messages.php?return='.$_REQUEST["return"].
-                      '&delete='.$id.'&page='.$_REQUEST["pagedel"]);
+      $menu->add_item(str('MESSAGES_DELETE'),'messages.php?delete='.$id.'&page='.$_REQUEST["pagedel"].'&hist='.PAGE_HISTORY_DELETE);
     else
-      $menu->add_item(str('MESSAGES_DELETE'),'messages.php?return='.$_REQUEST["return"].'&delete='.$id);
+      $menu->add_item(str('MESSAGES_DELETE'),'messages.php?delete='.$id.'&hist='.PAGE_HISTORY_DELETE);
 
     $menu->display();
 
@@ -129,7 +127,7 @@
     list_messages();
   }
 
-  page_footer( empty($_REQUEST["return"]) ? 'config.php' : $_REQUEST["return"]);
+  page_footer( page_hist_previous() );
 
 /**************************************************************************************************
                                                End of file

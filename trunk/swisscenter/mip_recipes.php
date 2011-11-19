@@ -14,7 +14,7 @@
   $page = (empty($_REQUEST["page"]) ? 1 : $_REQUEST["page"]);
 
   // Where to return to?
-  $back_url = page_hist_back_url();
+  $back_url = page_hist_previous();
 
   // Build menu of options
   $recipes = musicip_recipes();

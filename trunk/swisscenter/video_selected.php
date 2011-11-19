@@ -148,7 +148,6 @@
                     get_rating_join().' where 1=1 ';
   $select_fields = "file_id, dirname, filename, title, year, length";
   $predicate     = search_process_passed_params();
-  $history       = search_hist_most_recent_prev();
   $sql_table     = "movies media ";
   // Only join tables that are actually required
   if (strpos($predicate,'director_name like') > 0)
@@ -165,11 +164,13 @@
   $playtime      = db_value("select sum(length) from movies where file_id in (".implode(',',$file_ids).")");
   $num_unique    = db_value("select count(distinct synopsis) from movies where file_id in (".implode(',',$file_ids).")");
   $num_rows      = count($file_ids);
-  $this_url      = url_set_param(current_url(),'add','N');
-  $this_url      = url_remove_params($this_url, array('shuffle', 'viewed'));
+  $this_url      = url_remove_params(current_url(), array('shuffle', 'viewed'));
   $cert_img      = '';
   $name          = un_magic_quote(rawurldecode($_REQUEST["name"]));
   $type          = un_magic_quote($_REQUEST["type"]);
+
+  // Clean the current url in the history
+  page_hist_current_update($this_url, $predicate);
 
   // Set viewed status
   if (isset($_REQUEST["viewed"]))
@@ -252,10 +253,7 @@
 
     // Add a link to search wikipedia
     if (internet_available() && get_sys_pref('wikipedia_lookups','YES') == 'YES' )
-    {
-      $back_url = url_remove_params(current_url(), array('add','p_del'));
-      $menu->add_item( str('SEARCH_WIKIPEDIA'), lang_wikipedia_search( ucwords(strip_title($data[0]["TITLE"])), $back_url ), true);
-    }
+      $menu->add_item( str('SEARCH_WIKIPEDIA'), lang_wikipedia_search( ucwords(strip_title($data[0]["TITLE"])), url_add_param($this_url, 'hist', PAGE_HISTORY_DELETE) ), true);
 
     // Link to full cast & directors
     if ($data[0]["DETAILS_AVAILABLE"] == 'Y')
@@ -391,41 +389,41 @@
 
   // Buttons for Next and Previous videos
   $prev = db_row("select file_id,title from movies media ".get_rating_join()." where ".
-                 " title < '".db_escape_str($data[0]["TITLE"])."' ".get_rating_filter().filter_get_predicate().$history["sql"].
+                 " title < '".db_escape_str($data[0]["TITLE"])."' ".get_rating_filter().filter_get_predicate().page_hist_previous('sql').
                  " order by title desc limit 1");
-  if ( !is_array($prev) )
+  if ( !is_array($prev) ) // Return last video
     $prev = db_row("select file_id,title from movies media ".get_rating_join()." where ".
-                   " 1=1 ".get_rating_filter().filter_get_predicate().$history["sql"].
+                   " 1=1 ".get_rating_filter().filter_get_predicate().page_hist_previous('sql').
                    " order by title desc limit 1");
 
   $next = db_row("select file_id, title from movies media ".get_rating_join()." where ".
-                 " title > '".db_escape_str($data[0]["TITLE"])."' ".get_rating_filter().filter_get_predicate().$history["sql"].
+                 " title > '".db_escape_str($data[0]["TITLE"])."' ".get_rating_filter().filter_get_predicate().page_hist_previous('sql').
                  " order by title asc limit 1");
-  if ( !is_array($next) )
+  if ( !is_array($next) ) // Return first video
     $next = db_row("select file_id,title from movies media ".get_rating_join()." where ".
-                   " 1=1 ".get_rating_filter().filter_get_predicate().$history["sql"].
+                   " 1=1 ".get_rating_filter().filter_get_predicate().page_hist_previous('sql').
                    " order by title asc limit 1");
 
   // Output ABC buttons
   $buttons = array();
   if ( is_array($prev) )
-    $buttons[0] = array('text'=>str('PREVIOUS').': '.$prev["TITLE"], 'url'=> url_add_params($this_url, array("type"=>"title", "name"=>rawurlencode($prev["TITLE"]))) );
+    $buttons[0] = array('text'=>str('PREVIOUS').': '.$prev["TITLE"], 'url'=> url_add_params($this_url, array('type'=>'title', 'name'=>rawurlencode($prev["TITLE"]), 'hist'=>PAGE_HISTORY_REPLACE)) );
   if ( is_array($next) )
-    $buttons[1] = array('text'=>str('NEXT').': '.$next["TITLE"], 'url'=> url_add_params($this_url, array("type"=>"title", "name"=>rawurlencode($next["TITLE"]))) );
+    $buttons[1] = array('text'=>str('NEXT').': '.$next["TITLE"], 'url'=> url_add_params($this_url, array('type'=>'title', 'name'=>rawurlencode($next["TITLE"]), 'hist'=>PAGE_HISTORY_REPLACE)) );
   if (!isset($_SESSION["shuffle"]) || $_SESSION["shuffle"] == 'off')
-    $buttons[2] = array('text'=>str('SHUFFLE_ON'), 'url'=> url_set_param($this_url,'shuffle','on') );
+    $buttons[2] = array('text'=>str('SHUFFLE_ON'), 'url'=> url_set_params($this_url, array('shuffle'=>'on', 'hist'=>PAGE_HISTORY_REPLACE)) );
   else
-    $buttons[2] = array('text'=>str('SHUFFLE_OFF'), 'url'=> url_set_param($this_url,'shuffle','off') );
+    $buttons[2] = array('text'=>str('SHUFFLE_OFF'), 'url'=> url_set_params($this_url, array('shuffle'=>'off', 'hist'=>PAGE_HISTORY_REPLACE)) );
   if ( is_user_admin() )
   {
     if ( $viewed_count == 0 )
-      $buttons[3] = array('text'=>str('VIEWED_SET'), 'url'=> url_set_param($this_url,'viewed',1) );
+      $buttons[3] = array('text'=>str('VIEWED_SET'), 'url'=> url_set_params($this_url, array('viewed'=>1, 'hist'=>PAGE_HISTORY_REPLACE)) );
     else
-      $buttons[3] = array('text'=>str('VIEWED_RESET'), 'url'=> url_set_param($this_url,'viewed',0) );
+      $buttons[3] = array('text'=>str('VIEWED_RESET'), 'url'=> url_set_params($this_url, array('viewed'=>0, 'hist'=>PAGE_HISTORY_REPLACE)) );
   }
 
   // Make sure the "back" button goes to the correct page:
-  page_footer( url_add_params( search_picker_most_recent(), array("p_del"=>"y","del"=>"y") ), $buttons, 0, true, 'PAGE_TEXT_BACKGROUND' );
+  page_footer( page_hist_previous(), $buttons, 0, true, 'PAGE_TEXT_BACKGROUND' );
 
 /**************************************************************************************************
                                                End of file
