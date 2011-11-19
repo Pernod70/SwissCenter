@@ -73,7 +73,7 @@
       $buttons[] = array('text' => str('NOW_PLAYING_STYLE').': '.str('ENHANCED'), 'url' => url_set_params(current_url(), array('playing'=>'ENHANCED', 'hist'=>PAGE_HISTORY_REPLACE)) );
     else
       $buttons[] = array('text' => str('NOW_PLAYING_STYLE').': '.str('ORIGINAL'), 'url' => url_set_params(current_url(), array('playing'=>'ORIGINAL', 'hist'=>PAGE_HISTORY_REPLACE)) );
-    $buttons[] = array('text' => filter_text(),'url' => 'get_filter.php?return='.urlencode('music.php?cat='.$cat_id));
+    $buttons[] = array('text' => filter_text(),'url' => 'get_filter.php');
 
     // Make sure the "back" button goes to the correct page:
     page_footer(page_hist_previous(), $buttons );

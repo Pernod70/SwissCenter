@@ -67,7 +67,7 @@
 
     $buttons = array();
     $buttons[] = array('text' => str('QUICK_PLAY'),'url'  => quick_play_link(MEDIA_TYPE_VIDEO, page_hist_current('sql')));
-    $buttons[] = array('text' => filter_text(),'url'  => 'get_filter.php?return='.urlencode('video.php?cat='.$cat_id));
+    $buttons[] = array('text' => filter_text(),'url'  => 'get_filter.php');
 
     // Make sure the "back" button goes to the correct page:
     page_footer(page_hist_previous(), $buttons );
