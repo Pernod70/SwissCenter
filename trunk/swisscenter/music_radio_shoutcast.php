@@ -114,7 +114,7 @@
      $menu->add_item($opt["text"], url_add_params($current_url,$opt["params"]) );
    $menu->display(1, style_value("MENU_RADIO_WIDTH"), style_value("MENU_RADIO_ALIGN"));
    echo $radio_logo_end;
-   page_footer('music_radio.php');
+   page_footer( page_hist_previous() );
  }
  else
  {
@@ -137,7 +137,7 @@
        send_to_log(8,"Browsing by genre chosen. Main genre list:",$genres);
        make_genre_menu($genres,"maingenre");
        echo $radio_logo_end;
-       page_footer( page_hist_back_url() );
+       page_footer( page_hist_previous() );
      }
      elseif (empty($subgenre) )
      {
@@ -148,7 +148,7 @@
        send_to_log(8,"Browsing by genre chosen. Main genre: '".$maingenre."', sub-genre list:",$genres);
        make_genre_menu($genres,"subgenre");
        echo $radio_logo_end;
-       page_footer( page_hist_back_url() );
+       page_footer( page_hist_previous() );
      }
      else
      {
@@ -164,11 +164,11 @@
          echo $radio_logo_start;
          display_iradio(url_remove_param( $current_url, 'page'), $stations, $page);
          echo $radio_logo_end;
-         page_footer( page_hist_back_url() );
+         page_footer( page_hist_previous() );
        }
        else
        {
-         page_inform(5,page_hist_back_url(),str('IRADIO_NO_STATIONS'),str('IRADIO_NO_STATIONS_MSG',$_REQUEST["maingenre"].':'.$_REQUEST["subgenre"]));
+         page_inform(5,page_hist_previous(),str('IRADIO_NO_STATIONS'),str('IRADIO_NO_STATIONS_MSG',$_REQUEST["maingenre"].':'.$_REQUEST["subgenre"]));
        }
      }
    }
@@ -183,7 +183,7 @@
        send_to_log(8,"Station search for station initialized. Station array:",$stations);
        make_genre_menu($stations,"station");
        echo $radio_logo_end;
-       page_footer( page_hist_back_url() );
+       page_footer( page_hist_previous() );
      }
      else
      {
@@ -209,11 +209,11 @@
               '<td valign="top">';
               display_iradio(url_remove_param( $current_url, 'page'),$stations,$page);
          echo '</td></table>';
-         page_footer( page_hist_back_url() );
+         page_footer( page_hist_previous() );
        }
        else
        {
-         page_inform(5,page_hist_back_url(),str('IRADIO_NO_STATIONS'),str('IRADIO_NO_STATIONS_MSG',$_REQUEST["station"]));
+         page_inform(5,page_hist_previous(),str('IRADIO_NO_STATIONS'),str('IRADIO_NO_STATIONS_MSG',$_REQUEST["station"]));
        }
      }
    }
@@ -228,7 +228,7 @@
        send_to_log(8,"Station search for country initialized. Country array:",$countries);
        make_genre_menu($countries,"country");
        echo $radio_logo_end;
-       page_footer( page_hist_back_url() );
+       page_footer( page_hist_previous() );
      }
      else
      {
@@ -244,11 +244,11 @@
          echo $radio_logo_start;
          display_iradio(url_remove_param( $current_url, 'page'),$stations,$page);
          echo $radio_logo_end;
-         page_footer( page_hist_back_url() );
+         page_footer( page_hist_previous() );
        }
        else
        {
-         page_inform(5,page_hist_back_url(),str('IRADIO_NO_STATIONS'),str('IRADIO_NO_STATIONS_MSG',$_REQUEST["country"]));
+         page_inform(5,page_hist_previous(),str('IRADIO_NO_STATIONS'),str('IRADIO_NO_STATIONS_MSG',$_REQUEST["country"]));
        }
      }
    }

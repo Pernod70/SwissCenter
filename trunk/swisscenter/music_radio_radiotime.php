@@ -77,7 +77,7 @@
    $menu->add_item(str('BROWSE_PRESETS'), url_add_params($current_url, array('by_method'=>'Browse', 'c'=>'presets')) );
    $menu->display(1, style_value("MENU_RADIO_WIDTH"), style_value("MENU_RADIO_ALIGN"));
    echo $radio_logo_end;
-   page_footer( page_hist_back_url() );
+   page_footer( page_hist_previous() );
  }
  elseif (!empty($_REQUEST["by_method"]))
  {
@@ -111,7 +111,7 @@
      if (count($stations)>0)
        $buttons[] = array('text'=>str('IRADIO_VIEW_STATIONS'), 'url'=> url_add_params($current_url, array('view'=>'stations', 'hist'=>PAGE_HISTORY_REPLACE)) );
 
-     page_footer( page_hist_back_url(), $buttons );
+     page_footer( page_hist_previous(), $buttons );
    }
    elseif ( count($stations)>0 )
    {
@@ -126,11 +126,11 @@
      if (count($links)>0)
        $buttons[] = array('text'=>str('IRADIO_VIEW_LINKS'), 'url'=> url_add_params($current_url, array('view'=>'links', 'hist'=>PAGE_HISTORY_REPLACE)) );
 
-     page_footer( page_hist_back_url(), $buttons );
+     page_footer( page_hist_previous(), $buttons );
    }
    else
    {
-     page_inform(5,page_hist_back_url(),str('IRADIO_NO_STATIONS'),str('IRADIO_NO_STATIONS_MSG',$_REQUEST["c"]));
+     page_inform(5,page_hist_previous(),str('IRADIO_NO_STATIONS'),str('IRADIO_NO_STATIONS_MSG',$_REQUEST["c"]));
    }
  }
  elseif (isset($_REQUEST["by_station"]))
@@ -144,7 +144,7 @@
      send_to_log(8,"Station search for station initialized. Station array:",$stations);
      make_genre_menu($stations,"station");
      echo $radio_logo_end;
-     page_footer( page_hist_back_url() );
+     page_footer( page_hist_previous() );
    }
    else
    {
@@ -181,11 +181,11 @@
 //       elseif ($view == 'links' && count($stations)>0)
 //         $buttons[] = array('text'=>str('IRADIO_VIEW_STATIONS'), 'url'=> url_add_params($current_url, array('view'=>'stations', 'hist'=>PAGE_HISTORY_REPLACE)) );
 
-       page_footer( page_hist_back_url(), $buttons );
+       page_footer( page_hist_previous(), $buttons );
      }
      else
      {
-       page_inform(5,page_hist_back_url(),str('IRADIO_NO_STATIONS'),str('IRADIO_NO_STATIONS_MSG',$_REQUEST["station"]));
+       page_inform(5,page_hist_previous(),str('IRADIO_NO_STATIONS'),str('IRADIO_NO_STATIONS_MSG',$_REQUEST["station"]));
      }
    }
  }
