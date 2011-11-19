@@ -23,7 +23,7 @@
   $contacts = $flickr->contacts_getPublicList($user_id);
   if ( count($contacts["contact"]) == 0 )
   {
-    page_inform(2,page_hist_back_url(),str('FLICKR_CONTACTS'),str('NO_ITEMS_TO_DISPLAY'));
+    page_inform(2,page_hist_previous(),str('FLICKR_CONTACTS'),str('NO_ITEMS_TO_DISPLAY'));
   }
   else
   {
@@ -40,7 +40,7 @@
     browse_array_thumbs(current_url(), $contact_list, $page);
 
     // Make sure the "back" button goes to the correct page:
-    page_footer(page_hist_back_url());
+    page_footer(page_hist_previous());
   }
 
 /**************************************************************************************************
