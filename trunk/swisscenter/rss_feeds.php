@@ -16,10 +16,6 @@
     $items    = rss_get_subscription_items($sub_id, 'desc');
     $synlen   = $_SESSION["device"]["browser_x_res"];
 
-    if ( strpos(search_picker_most_recent(), 'sub_id') > 0 ) search_picker_pop();
-    $back_url = search_picker_most_recent();
-    search_picker_push( current_url() );
-
     page_header( $sub_data["TITLE"], shorten($sub_data["DESCRIPTION"],$synlen) );
 
     // Build up a menu of subscription items that the user can select from.
@@ -49,7 +45,7 @@
     // Define buttons for linked file and url.
     $buttons = array();
     $buttons[] = array('text'=>str('RSS_REFRESH'), 'url'=> 'rss_feeds.php?update_id='.$sub_id);
-    page_footer( $back_url, $buttons );
+    page_footer( page_hist_previous(), $buttons );
   }
 
   /**************************************************************************************************
@@ -60,7 +56,7 @@
 
   if ( isset($_REQUEST["update_id"]) )
   {
-    page_inform(5,"rss_feeds.php?sub_id=".$_REQUEST["update_id"], str('RSS_FEEDS'), str('RSS_UPDATE'));
+    page_inform(5, page_hist_previous(), str('RSS_FEEDS'), str('RSS_UPDATE'));
     // Store the parameters to the media search (rss subscription id) in the system_prefs table
     // as this is the only way of passing the info to the background process in Simese.
     clear_media_scan_prefs();
@@ -77,19 +73,19 @@
   }
   elseif ( count($rss_feeds) >0 )
   {
-    (isset($_REQUEST["page"])) ? $page = $_REQUEST["page"] : $page = 0;
-    search_picker_init( current_url() );
+    $page = isset($_REQUEST["page"]) ? $_REQUEST["page"] : 0;
+
     page_header(str('RSS_FEEDS'));
     display_rss(url_remove_param(current_url(),'page'), $rss_feeds, $page);
 
     // Define buttons for linked file and url.
     $buttons = array();
     $buttons[] = array('text'=>str('RSS_REFRESH'), 'url'=> 'rss_feeds.php?update_id=0');
-    page_footer('index.php?submenu=internet', $buttons);
+    page_footer(page_hist_previous(), $buttons);
   }
   else
   {
-    page_inform(2,'index.php?submenu=internet',str('RSS_FEEDS'),str('NO_ITEMS_TO_DISPLAY'));
+    page_inform(2, page_hist_previous(), str('RSS_FEEDS'), str('NO_ITEMS_TO_DISPLAY'));
   }
 
 /**************************************************************************************************

@@ -80,7 +80,7 @@
 //  $buttons[] = array('text' => str('SELECT_REGION'), 'url' => 'youtube_regions.php');
 
   // Make sure the "back" button goes to the correct page:
-  page_footer('internet_tv.php', $buttons);
+  page_footer(page_hist_previous(), $buttons);
 
 /**************************************************************************************************
                                                End of file

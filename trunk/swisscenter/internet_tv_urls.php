@@ -11,16 +11,6 @@
 
   function display_internet_tv_menu($cat_id)
   {
-    if(empty($cat_id))
-      search_hist_init( 'internet_tv_urls.php' );
-    else
-      search_hist_init( 'internet_tv_urls.php?cat='.$cat_id );
-
-    if ($cat_id <= 0)
-      $prev_page = "internet_tv_urls.php?subcat=".abs($cat_id);
-    else
-      $prev_page = "internet_tv_urls.php?subcat=".db_value("select parent_id from categories where cat_id=$cat_id");
-
     // > 0 indicates normal categories, < 0 indicates all sub-categories
     if($cat_id > 0)
       $category_select_sql = ' and cat_id='.$cat_id;
@@ -42,10 +32,7 @@
     browse_array($url,$array,$page,MEDIA_TYPE_INTERNET_TV);
 
     // Make sure the "back" button goes to the correct page:
-    if (category_count(MEDIA_TYPE_INTERNET_TV)==1)
-      page_footer('internet_tv.php');
-    else
-      page_footer($prev_page);
+    page_footer(page_hist_previous());
   }
 
 /*************************************************************************************************
@@ -57,9 +44,9 @@
   if( category_count(MEDIA_TYPE_INTERNET_TV)==1 || isset($_REQUEST["cat"]) )
     display_internet_tv_menu($_REQUEST["cat"]);
   elseif ( isset($_REQUEST["subcat"]) )
-    display_categories('internet_tv_urls.php', MEDIA_TYPE_INTERNET_TV, $_REQUEST["subcat"], 'internet_tv.php');
+    display_categories('internet_tv_urls.php', MEDIA_TYPE_INTERNET_TV, $_REQUEST["subcat"], page_hist_previous());
   else
-    display_categories('internet_tv_urls.php', MEDIA_TYPE_INTERNET_TV, 0, 'internet_tv.php');
+    display_categories('internet_tv_urls.php', MEDIA_TYPE_INTERNET_TV, 0, page_hist_previous());
 
 /**************************************************************************************************
                                                End of file

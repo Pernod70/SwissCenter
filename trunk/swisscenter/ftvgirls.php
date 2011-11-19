@@ -58,7 +58,6 @@
   //*************************************************************************************************
 
   // Update page history
-  $back_url = 'internet_tv.php';
   $page     = (isset($_REQUEST["page"]) ? $_REQUEST["page"] : 0);
   $this_url = current_url();
 
@@ -66,7 +65,7 @@
 
   if ( count($items) == 0 )
   {
-    page_inform(2,$back_url,str('FTV_GIRLS'),str('NO_ITEMS_TO_DISPLAY'));
+    page_inform(2, page_hist_previous(), str('FTV_GIRLS'), str('NO_ITEMS_TO_DISPLAY'));
   }
   else
   {
@@ -88,7 +87,7 @@
     $buttons[] = array('text' => str('START_SLIDESHOW'),'url' => play_array_list(MEDIA_TYPE_PHOTO, ftvgirls_playlist()));
 
     // Make sure the "back" button goes to the correct page
-    page_footer($back_url, $buttons);
+    page_footer(page_hist_previous(), $buttons);
   }
 
 /**************************************************************************************************

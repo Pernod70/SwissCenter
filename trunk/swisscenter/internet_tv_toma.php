@@ -97,15 +97,15 @@ else
 $buttons = array();
 // Sort order
 if (isset($_REQUEST["sort"]) && $_REQUEST["sort"] == 'rating')
-  $buttons[] = array('text' => str('SORT_NAME'),'url' => url_add_param($current_url,'sort','name') );
+  $buttons[] = array('text' => str('SORT_NAME'),'url' => url_add_params($current_url, array('sort'=>'name', 'hist'=>PAGE_HISTORY_REPLACE)) );
 elseif (isset($_REQUEST["sort"]) && $_REQUEST["sort"] == 'name')
-  $buttons[] = array('text' => str('SORT_CATEGORY'),'url' => url_add_param($current_url,'sort','category') );
+  $buttons[] = array('text' => str('SORT_CATEGORY'),'url' => url_add_params($current_url, array('sort'=>'category', 'hist'=>PAGE_HISTORY_REPLACE)) );
 elseif (isset($_REQUEST["sort"]) && $_REQUEST["sort"] == 'category')
-  $buttons[] = array('text' => str('SORT_ID'),'url' => url_add_param($current_url,'sort','id') );
+  $buttons[] = array('text' => str('SORT_ID'),'url' => url_add_params($current_url, array('sort'=>'id', 'hist'=>PAGE_HISTORY_REPLACE)) );
 elseif (isset($_REQUEST["sort"]) && $_REQUEST["sort"] == 'id')
-  $buttons[] = array('text' => str('SORT_BITRATE'),'url' => url_add_param($current_url,'sort','bitrate') );
+  $buttons[] = array('text' => str('SORT_BITRATE'),'url' => url_add_params($current_url, array('sort'=>'bitrate', 'hist'=>PAGE_HISTORY_REPLACE)) );
 else
-  $buttons[] = array('text' => str('SORT_RATING'),'url' => url_add_param($current_url,'sort','rating') );
+  $buttons[] = array('text' => str('SORT_RATING'),'url' => url_add_params($current_url, array('sort'=>'rating', 'hist'=>PAGE_HISTORY_REPLACE)) );
 
 // Remove filters
 $buttons[] = array('text' => str('TOMA_REMOVE_FILTER'), 'url' => url_remove_params($current_url,array('category','country')) );

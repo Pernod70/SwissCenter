@@ -12,7 +12,7 @@
   //*************************************************************************************************
 
   // Update page history
-  $back_url = page_hist_back_url();
+  $back_url = page_hist_previous();
   $page     = (isset($_REQUEST["page"]) ? $_REQUEST["page"] : 0);
   $this_url = url_remove_params(current_url(),array('page','thumbs'));
 

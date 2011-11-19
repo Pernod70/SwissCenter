@@ -57,7 +57,7 @@ function star_rating( $rating )
         </table>';
 
   // Make sure the "back" button goes to the correct page:
-  page_footer(page_hist_back_url());
+  page_footer(page_hist_previous());
 
 /**************************************************************************************************
                                                End of file

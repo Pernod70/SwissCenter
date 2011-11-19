@@ -14,9 +14,6 @@
   if ( isset($_REQUEST["full"]) )
   {
     page_header( '', '', '', 1, true, '', $_REQUEST["full"] );
-
-    // Make sure the "back" button goes to the correct page:
-    page_footer(url_remove_param(current_url(), 'full'));
   }
   else
   {
@@ -40,10 +37,10 @@
     array_sort($items,'name');
 
     browse_array($this_url, $items, $page);
-
-    // Make sure the "back" button goes to the correct page
-    page_footer('tfl.php');
   }
+
+  // Make sure the "back" button goes to the correct page
+  page_footer( page_hist_previous() );
 
 /**************************************************************************************************
                                                End of file
