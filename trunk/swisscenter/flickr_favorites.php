@@ -26,7 +26,7 @@
 
   if ( count($photos["photos"]["photo"]) == 0 )
   {
-    page_inform(2,page_hist_back_url(),str('FLICKR_FAVORITES'),str('NO_ITEMS_TO_DISPLAY'));
+    page_inform(2,page_hist_previous(),str('FLICKR_FAVORITES'),str('NO_ITEMS_TO_DISPLAY'));
   }
   else
   {
@@ -55,7 +55,7 @@
     $buttons[] = array('text' => str('START_SLIDESHOW'),'url' => play_array_list(MEDIA_TYPE_PHOTO, $playlist));
 
     // Make sure the "back" button goes to the correct page:
-    page_footer(page_hist_back_url(), $buttons);
+    page_footer(page_hist_previous(), $buttons);
   }
 
 /**************************************************************************************************

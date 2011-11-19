@@ -18,7 +18,7 @@
 
     if ( count($exif["exif"]) == 0 )
     {
-      page_inform(2,page_hist_back_url(),str('FLICKR_PHOTOS'),str('EXIF_NONE'));
+      page_inform(2,page_hist_previous(),str('FLICKR_PHOTOS'),str('EXIF_NONE'));
     }
     else
     {
@@ -55,7 +55,7 @@
       $info->display();
 
       // Make sure the "back" button goes to the correct page:
-      page_footer(page_hist_back_url());
+      page_footer(page_hist_previous());
     }
 
   }
@@ -69,7 +69,7 @@
     page_header( $_REQUEST["title"], '', '', 1, true, '', $_REQUEST["full"] );
 
     // Make sure the "back" button goes to the correct page:
-    page_footer(page_hist_back_url());
+    page_footer(page_hist_previous());
   }
   elseif ( isset($_REQUEST["exif"]) )
   {
@@ -105,7 +105,7 @@
     $buttons[] = array('text' => str('EXIF_VIEW'),'url' => url_add_param($curent_url, 'exif', 'Y'));
 
     // Make sure the "back" button goes to the correct page:
-    page_footer(page_hist_back_url(), $buttons);
+    page_footer(page_hist_previous(), $buttons);
   }
 
 /**************************************************************************************************

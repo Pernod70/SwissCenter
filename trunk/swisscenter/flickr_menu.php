@@ -13,16 +13,9 @@
 
   // Get Flickr UserID of current user
   if ( isset($_REQUEST["user_id"]) )
-  {
     $user_id = $_REQUEST["user_id"];
-    $back_url = page_hist_back_url();
-  }
   else
-  {
     $user_id = get_user_pref('FLICKR_USERID');
-    $back_url = 'index.php?submenu=internet';
-    page_hist_init(current_url());
-  }
 
   // If COMPACT mode was last used then set to FULL as downloading 12 images per page takes too long!
   if ( get_user_pref("DISPLAY_THUMBS") == "COMPACT" ) { set_user_pref("DISPLAY_THUMBS","FULL"); }
@@ -35,7 +28,7 @@
 
   // Page headings
   $tagline = (!empty($user_id) ? $person["username"] : str('FLICKR_NO_USER'));
-  page_header(str('FLICKR_PHOTOS'));
+  page_header(str('FLICKR_PHOTOS'), $tagline);
   echo '<table width="100%" cellpadding=0 cellspacing=0 border=0>
           <tr>
             <td valign=top width="'.convert_x(280).'" align="left"><br>
@@ -59,7 +52,7 @@
         </table>';
 
   // Make sure the "back" button goes to the correct page:
-  page_footer($back_url);
+  page_footer( page_hist_previous() );
 
 /**************************************************************************************************
                                                End of file

@@ -21,15 +21,15 @@
   // Returns the list of interesting photos for the most recent day or a user-specified date.
   $photos = $flickr->interestingness_getList();
 
-  if ( count($photos["photo"]) == 0 )
+  if ( count($photos["photos"]["photo"]) == 0 )
   {
-    page_inform(2,page_hist_back_url(),str('FLICKR_INTERESTINGNESS'),str('NO_ITEMS_TO_DISPLAY'));
+    page_inform(2,page_hist_previous(),str('FLICKR_INTERESTINGNESS'),str('NO_ITEMS_TO_DISPLAY'));
   }
   else
   {
     $photo_list = array();
     $playlist = array();
-    foreach ($photos["photo"] as $photo)
+    foreach ($photos["photos"]["photo"] as $photo)
     {
       $text = (empty($photo["title"]) ? '?' : utf8_decode($photo["title"]) );
       $url  = url_add_param('flickr_photo.php', 'photo_id', $photo["id"]);
@@ -49,7 +49,7 @@
     $buttons[] = array('text' => str('START_SLIDESHOW'),'url' => play_array_list(MEDIA_TYPE_PHOTO, $playlist));
 
     // Make sure the "back" button goes to the correct page:
-    page_footer(page_hist_back_url(), $buttons);
+    page_footer(page_hist_previous(), $buttons);
   }
 
 /**************************************************************************************************
