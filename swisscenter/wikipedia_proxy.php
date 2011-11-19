@@ -16,7 +16,7 @@
 
     if ($found == 0)
       return $link;
-    elseif ( $matches[2] == 'edit')
+    elseif ( in_array($matches[2], array('edit', 'redigér', 'Bearbeiten', 'editar', 'modifier', 'modifica', 'bewerken', 'rediger', 'edytuj', 'redigera')) )
       return 'edit';
     elseif ( strpos($matches[1],'http://') !== false )
       return'<a href="'.$matches[1].'"><img src="/images/extlink.gif"> <font color="'.$color.'">'.$matches[2].'</font></a>';
@@ -31,7 +31,7 @@
 //-------------------------------------------------------------------------------------------------
 
   // Get the page parameters, decode them and assign to variables.
-  $back_url = isset($_REQUEST["back_url"]) ? $_REQUEST["back_url"] : '';
+  $back_url = isset($_REQUEST["back_url"]) ? $_REQUEST["back_url"] : page_hist_previous();
   $wiki = urldecode($_REQUEST["wiki"]);
   $url  = urldecode($_REQUEST["url"]);
   if (isset($_REQUEST["search"]))
@@ -53,8 +53,8 @@
     preg_match('~<title>(.*?) - .*?</title>~s',$html,$title);
 
     // Strip the unwanted information from the top and bottom of the file
-    $content_start = strpos($html,'<!-- bodytext -->');
-    $content_end   = strpos($html,'<!-- /bodytext -->');
+    $content_start = strpos($html,'<!-- bodycontent -->');
+    $content_end   = strpos($html,'<!-- /bodycontent -->');
     $html          = substr($html, $content_start, $content_end-$content_start);
 
     // Search for all links and process them
@@ -70,13 +70,16 @@
     // Remove hidden structures
     $html = preg_replace('~<tr class="hiddenStructure">.*?</tr>~s','',$html);
 
+    // Remove [edit] prompts
+    $html = str_replace('[edit]','',$html);
+
     // Output the page
     page_header('Wikipedia : '.$title[1]);
 
     if (is_hardware_player())
-      echo str_replace('[edit]','',$html);
+      echo $html;
     else
-      echo '<div style="height:'.convert_y(750).'; overflow:scroll;">'.str_replace('[edit]','',$html).'</div>';
+      echo '<div style="height:'.convert_y(750).'; overflow:scroll;">'.$html.'</div>';
 
     page_footer($back_url);
   }
