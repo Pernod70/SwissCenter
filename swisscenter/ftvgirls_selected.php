@@ -19,9 +19,9 @@
 
     $title = preg_get('/<title>(.*)<\/title>/U',$html);
     $image = dirname($url).'/'.preg_get('/<img border="0" src="(.*)"/U',$html);
-		$video = preg_get('/<a href="(.*.wmv)">/U',$html);
-		if (strpos($video,'http') !== 0 ) $video = dirname($url).'/'.$video;
-		$stats = preg_get('/<font face="Arial" color="#ffffff" size="2">.*(Age.*)<\/font>/Us',$html);
+    $video = preg_get('/<a href="(.*.wmv)">/U',$html);
+    if (strpos($video,'http') !== 0 ) $video = dirname($url).'/'.$video;
+    $stats = preg_get('/<font face="Arial" color="#ffffff" size="2">.*(Age.*)<\/font>/Us',$html);
 
     return array('title'=>$title, 'image'=>$image, 'video'=>$video, 'stats'=>$stats);
   }
@@ -53,7 +53,7 @@
         </table>';
 
   // Make sure the "back" button goes to the correct page:
-  page_footer( page_hist_back_url() );
+  page_footer( page_hist_previous() );
 
 /**************************************************************************************************
                                                End of file

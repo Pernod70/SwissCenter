@@ -27,7 +27,7 @@ class shoutcast_tv_picker extends list_picker
     $this->sort  = (isset($_REQUEST["sort"])  ? $_REQUEST["sort"] : 'viewers');
 
     // Where do we send the user back to if they quit this page?
-    $this->back_url = page_hist_back_url();
+    $this->back_url = page_hist_previous();
   }
 
   function link_url($item)

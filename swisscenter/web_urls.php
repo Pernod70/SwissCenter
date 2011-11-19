@@ -10,16 +10,6 @@
 
   function display_web_menu($cat_id)
   {
-    if(empty($cat_id))
-      search_hist_init( 'web_urls.php' );
-    else
-      search_hist_init( 'web_urls.php?cat='.$cat_id );
-
-    if ($cat_id <= 0)
-      $prev_page = "web_urls.php?subcat=".abs($cat_id);
-    else
-      $prev_page = "web_urls.php?subcat=".db_value("select parent_id from categories where cat_id=$cat_id");
-
     // > 0 indicates normal categories, < 0 indicates all sub-categories
     if($cat_id > 0)
       $category_select_sql = ' and cat_id='.$cat_id;
@@ -41,10 +31,7 @@
     browse_array($url,$array,$page,MEDIA_TYPE_WEB);
 
     // Make sure the "back" button goes to the correct page:
-    if (category_count(MEDIA_TYPE_WEB)==1)
-      page_footer('index.php?submenu=internet');
-    else
-      page_footer($prev_page);
+    page_footer( page_hist_previous() );
   }
 
 /*************************************************************************************************
@@ -56,9 +43,9 @@
   if( category_count(MEDIA_TYPE_WEB)==1 || isset($_REQUEST["cat"]) )
     display_web_menu($_REQUEST["cat"]);
   elseif ( isset($_REQUEST["subcat"]) )
-    display_categories('web_urls.php', MEDIA_TYPE_WEB, $_REQUEST["subcat"], 'index.php?submenu=internet');
+    display_categories('web_urls.php', MEDIA_TYPE_WEB, $_REQUEST["subcat"], page_hist_previous());
   else
-    display_categories('web_urls.php', MEDIA_TYPE_WEB, 0, 'index.php?submenu=internet');
+    display_categories('web_urls.php', MEDIA_TYPE_WEB, 0, page_hist_previous());
 
 /**************************************************************************************************
                                                End of file

@@ -57,14 +57,16 @@
   if ($idx_next > -1)
   {
     echo '<tr><td align="center">'.up_link(url_add_params('/rss_item_selected.php',array('item_id'=>$items[$idx_next]["ID"],
-                                                                                         'sub_id'=>$sub_id)), false).'</td></tr>';
+                                                                                         'sub_id'=>$sub_id,
+                                                                                         'hist'=>PAGE_HISTORY_REPLACE)), false).'</td></tr>';
     echo '<tr><td align="center">'.font_tags(FONTSIZE_BODY).font_colour_tags('PAGE_TEXT_BOLD_COLOUR',str('NEXT').': ').$items[$idx_next]["TITLE"].'</td></tr>';
   }
   if ($idx_prev > -1)
   {
     echo '<tr><td align="center">'.font_tags(FONTSIZE_BODY).font_colour_tags('PAGE_TEXT_BOLD_COLOUR',str('PREVIOUS').': ').$items[$idx_prev]["TITLE"].'</td></tr>';
     echo '<tr><td align="center">'.down_link(url_add_params('/rss_item_selected.php',array('item_id'=>$items[$idx_prev]["ID"],
-                                                                                           'sub_id'=>$sub_id)), false).'</td></tr>';
+                                                                                           'sub_id'=>$sub_id,
+                                                                                           'hist'=>PAGE_HISTORY_REPLACE)), false).'</td></tr>';
   }
   echo '</table>';
 
@@ -85,7 +87,7 @@
     $buttons[] = array('text'=>str('RSS_ITEM_URL'), 'url'=> $items[$idx_current]["URL"]);
   }
 
-  page_footer( search_picker_most_recent(), $buttons );
+  page_footer( page_hist_previous(), $buttons );
 
 /**************************************************************************************************
                                                End of file

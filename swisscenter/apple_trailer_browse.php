@@ -57,7 +57,7 @@
 
   if ( count($trailers) == 0 )
   {
-    page_inform(2,page_hist_back_url(),str('APPLE_TRAILERS'),str('NO_ITEMS_TO_DISPLAY'));
+    page_inform(2,page_hist_previous(),str('APPLE_TRAILERS'),str('NO_ITEMS_TO_DISPLAY'));
   }
   else
   {
@@ -89,7 +89,7 @@
       $buttons[] = array('text'=>str('LARGE_VIEW'), 'url'=>url_add_params($this_url, array('page'=>floor($page*2), 'thumbs'=>'LARGE', 'hist'=>PAGE_HISTORY_REPLACE)) );
 
     // Make sure the "back" button goes to the correct page
-    page_footer(page_hist_back_url(), $buttons);
+    page_footer(page_hist_previous(), $buttons);
   }
 
 /**************************************************************************************************

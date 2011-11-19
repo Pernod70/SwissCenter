@@ -49,7 +49,7 @@
 
   if ( isset($_REQUEST["menu"]) && $_REQUEST["menu"] == 'genres' )
   {
-    $back_url = page_hist_back_url();
+    $back_url = page_hist_previous();
     display_film_trailer_menu( get_film_trailer_genres() );
   }
   else

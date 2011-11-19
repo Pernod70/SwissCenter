@@ -32,7 +32,7 @@
   $menu->display(1, style_value("MENU_INTERNET_TV_WIDTH"), style_value("MENU_INTERNET_TV_ALIGN"));
 
   // Make sure the "back" button goes to the correct page:
-  page_footer('./index.php?submenu=internet');
+  page_footer( page_hist_previous() );
 
 /**************************************************************************************************
                                                End of file

@@ -47,7 +47,7 @@
                 trailer_synopsis($trailer[0]['PRODUCTS'][0]['DESCRIPTION']);
 
                 $menu = new menu();
-                $menu->add_item(str('RETURN_TO_SELECTION'), page_hist_back_url());
+                $menu->add_item(str('RETURN_TO_SELECTION'), page_hist_previous());
                 $menu->display(1, 400);
 
     echo '    </td>
@@ -88,7 +88,7 @@
                 }
 
                 $menu = new menu();
-                $menu->add_item(str('RETURN_TO_SELECTION'), page_hist_back_url());
+                $menu->add_item(str('RETURN_TO_SELECTION'), page_hist_previous());
                 $menu->display(1, 400);
 
     echo '    </td>
@@ -154,7 +154,7 @@
   }
 
   // Make sure the "back" button goes to the correct page:
-  page_footer( page_hist_back_url(), $buttons );
+  page_footer( page_hist_previous(), $buttons );
 
 /**************************************************************************************************
                                                End of file

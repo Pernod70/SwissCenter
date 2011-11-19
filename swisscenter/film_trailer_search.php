@@ -22,7 +22,7 @@ class filmtrailer_picker extends list_picker
     $this->url = url_add_param('film_trailer_search.php', 'hist', PAGE_HISTORY_REPLACE);
 
     // Where do we send the user back to if they quit this page?
-    $this->back_url = page_hist_back_url();
+    $this->back_url = page_hist_previous();
   }
 
   function link_url($item)
