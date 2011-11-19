@@ -11,16 +11,6 @@
 
   function display_radio_menu($cat_id)
   {
-    if(empty($cat_id))
-      search_hist_init( 'music_radio_urls.php' );
-    else
-      search_hist_init( 'music_radio_urls.php?cat='.$cat_id );
-
-    if ($cat_id <= 0)
-      $prev_page = "music_radio_urls.php?subcat=".abs($cat_id);
-    else
-      $prev_page = "music_radio_urls.php?subcat=".db_value("select parent_id from categories where cat_id=$cat_id");
-
     // > 0 indicates normal categories, < 0 indicates all sub-categories
     if($cat_id > 0)
       $category_select_sql = ' and cat_id='.$cat_id;
@@ -42,10 +32,7 @@
     browse_array($url,$array,$page,MEDIA_TYPE_RADIO);
 
     // Make sure the "back" button goes to the correct page:
-    if (category_count(MEDIA_TYPE_RADIO)==1)
-      page_footer('music_radio.php');
-    else
-      page_footer($prev_page);
+    page_footer(page_hist_previous());
   }
 
 /*************************************************************************************************
