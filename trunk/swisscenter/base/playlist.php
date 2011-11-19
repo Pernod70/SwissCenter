@@ -244,7 +244,6 @@ function play_file( $media_type, $file_id )
     case MEDIA_TYPE_PHOTO:
          $link   = slideshow_link_by_browser( $params );
          break;
-
   }
 
   return $link;
@@ -268,6 +267,7 @@ function play_internet_radio( $source, $playlist_url, $station_name, $type='', $
 function play_internet_tv( $url )
 {
   return 'href="'.convert_mms_to_rtsp($url).'" vod';
+//  return 'href="stream_url.php?'.current_session().'&url='.urlencode($url).'&use_vlc=yes&ext=.mpg" vod ';
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -417,31 +417,19 @@ function clear_pl()
 
 function build_pl($sql)
 {
-  $back_url  = $_SESSION["history"][count($_SESSION["history"])-1]["url"];
-  $data      = array();
-
   // Get the file details from the database and add to the session playlist
-  if ( ($data = db_toarray($sql)) === false)
-    page_error(str('DATABASE_ERROR'));
+  $data = db_toarray($sql);
+  if ($data === false)
+    return false;
   else
   {
     $_SESSION["playlist_name"] = "&lt;".str('CUSTOM')."&gt;";
 
     foreach ($data as $row)
       $_SESSION["playlist"][] = $row;
+
+    return true;
   }
-
-  page_header(str('TRACKS_ADDED_TITLE'));
-
-  echo font_tags(FONTSIZE_BODY).str('TRACKS_ADDED_TEXT'
-          ,'<font color="'.style_value("PAGE_TEXT_BOLD_COLOUR".'#FFFFFF').'">'.str('HOME').'</font>'
-          ,'<font color="'.style_value("PAGE_TEXT_BOLD_COLOUR",'#FFFFFF').'">"'.str('MANAGE_PLAYLISTS').'"</font>');
-
-  $menu = new menu();
-  $menu->add_item(str('MANAGE_PLAYLISTS'),'manage_pl.php');
-  $menu->add_item(str('RETURN_TO_SELECTION'),$back_url);
-  $menu->display();
-  page_footer($back_url);
 }
 
 //-------------------------------------------------------------------------------------------------
