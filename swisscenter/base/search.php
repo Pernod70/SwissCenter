@@ -12,82 +12,6 @@
   require_once( realpath(dirname(__FILE__).'/filter.php'));
 
 #-------------------------------------------------------------------------------------------------
-# Functions for managing the search history.
-#-------------------------------------------------------------------------------------------------
-
-function search_hist_init( $url = '', $sql = '')
-{
-  $_SESSION["picker"]  = array();
-  $_SESSION["history"] = array();
-
-  if (!empty($url))
-    $_SESSION["history"][] = array("url"=> $url, "sql"=>$sql);
-}
-
-function search_picker_init( $url )
-{
-  $_SESSION["picker"]  = array($url);
-}
-
-function search_picker_push( $url )
-{
-  $_SESSION["picker"][]  = $url;
-}
-
-function search_picker_pop()
-{
-  if (count($_SESSION["picker"]) == 0)
-    page_error(str('DATABASE_ERROR'));
-
-  return array_pop($_SESSION["picker"]);
-}
-
-function search_picker_most_recent()
-{
-  if (count($_SESSION["picker"]) == 0)
-    page_error(str('DATABASE_ERROR'));
-
-  return $_SESSION["picker"][count($_SESSION["picker"])-1];
-}
-
-function search_hist_push( $url, $sql )
-{
-  $_SESSION["history"][] = array("url"=> $url, "sql"=>$sql);
-}
-
-function search_hist_pop()
-{
-  if (count($_SESSION["history"]) == 0)
-    page_error(str('DATABASE_ERROR'));
-
-  return array_pop($_SESSION["history"]);
-}
-
-function search_hist_most_recent()
-{
-  if (count($_SESSION["history"]) == 0)
-    page_error(str('DATABASE_ERROR'));
-
-  return $_SESSION["history"][count($_SESSION["history"])-1];
-}
-
-function search_hist_most_recent_prev()
-{
-  if (count($_SESSION["history"]) == 0)
-    page_error(str('DATABASE_ERROR'));
-
-  return $_SESSION["history"][count($_SESSION["history"])-2];
-}
-
-function search_hist_first()
-{
-  if (count($_SESSION["history"]) == 0)
-    page_error(str('DATABASE_ERROR'));
-
-  return $_SESSION["history"][0];
-}
-
-#-------------------------------------------------------------------------------------------------
 # Function to output a "search" page for any media type.
 #-------------------------------------------------------------------------------------------------
 
@@ -96,21 +20,16 @@ function search_media_page( $heading, $title, $media_type, $joined_tables, $colu
   // Make sure that the session variable for "shuffle" matches the user's preference (because it will have been set "on" for quick play).
   $_SESSION["shuffle"] = get_user_pref('shuffle','off');
 
-  // Should we delete the last entry on the history stack?
-  if (isset($_REQUEST["del"]) && strtoupper($_REQUEST["del"]) == 'Y')
-    search_hist_pop();
-
   // Get important paramters from the URL
-  $this_url       = url_remove_param(current_url(),'del');
-  $this_url       = url_set_param($this_url,'p_del','Y');
-  $search         = ( isset($_REQUEST["search"]) ? un_magic_quote(rawurldecode($_REQUEST["search"])) : '');
-  $prefix         = ( isset($_REQUEST["any"]) ? $_REQUEST["any"] : '');
-  $page           = ( empty($_REQUEST["page"]) ? 0 : $_REQUEST["page"]);
-  $focus          = ( empty($_REQUEST["last"]) ? '1' : $_REQUEST["last"] );
-  $menu           = new menu();
-  $data           = array();
-  $history        = search_hist_most_recent();
-  $articles       = get_sys_pref('IGNORE_ARTICLES');
+  $this_url  = current_url();
+  $search    = ( isset($_REQUEST["search"]) ? un_magic_quote(rawurldecode($_REQUEST["search"])) : '');
+  $prefix    = ( isset($_REQUEST["any"]) ? $_REQUEST["any"] : '');
+  $page      = ( empty($_REQUEST["page"]) ? 0 : $_REQUEST["page"]);
+  $focus     = ( empty($_REQUEST["last"]) ? '1' : $_REQUEST["last"] );
+  $menu      = new menu();
+  $data      = array();
+  $predicate = page_hist_current('sql');
+  $articles  = get_sys_pref('IGNORE_ARTICLES');
 
   // Contents and ordering of search menu
   $display = $column["display"];
@@ -120,13 +39,13 @@ function search_media_page( $heading, $title, $media_type, $joined_tables, $colu
   // Variables that form the SQL statement
   $main_table     = get_media_table($media_type);
   $main_table_sql = "$main_table media ";
-  $restrict_sql   = "trim_article($display,'$articles') like '$prefix".db_escape_str(str_replace('_','\_',$search))."%' ".$history["sql"];
+  $restrict_sql   = "trim_article($display,'$articles') like '$prefix".db_escape_str(str_replace('_','\_',$search))."%' ".$predicate;
 
   $viewed_sql     = "select concat( sum(if(v.total_viewings>0,1,0)),':',count(*) ) view_status
                      from $main_table_sql $joined_tables";
 
   // Adding necessary paramters to the target URL (for when an item is selected)
-  $choose_url = url_set_params($choose_url, array('add'=>'Y', 'type'=>$display));
+  $choose_url = url_set_params($choose_url, array('type'=>$display));
 
   // Get the matching records from the database.
   $data       = db_toarray("   select $display display, $info info
@@ -151,14 +70,10 @@ function search_media_page( $heading, $title, $media_type, $joined_tables, $colu
   else
     $valid = '';
 
-  // Remove last picker state before adding the new one
-  if (isset($_REQUEST["p_del"]) && strtoupper($_REQUEST["p_del"]) == 'Y')
-    search_picker_pop();
-
   // Start outputting the page
   page_header( $heading, $title.' : '.$search, '', $focus, false,'','PAGE_KEYBOARD');
   echo '<table border=0 width="100%"><tr><td width="'.convert_x(300).'" valign="top">';
-  show_picker( url_set_param($this_url,'page',0), $search, '', $valid);
+  show_picker( url_set_param($this_url, 'page', 0), $search, '', $valid);
   echo '</td><td valign=top>';
 
   if (empty($data))
@@ -189,18 +104,18 @@ function search_media_page( $heading, $title, $media_type, $joined_tables, $colu
   // Output ABC buttons
   if (empty($prefix))
   {
-    $buttons[] = array('text'=>str('SEARCH_ANYWHERE'), 'url'=>url_add_param($this_url,'any','%') );
-    $buttons[] = array('text'=>str('SEARCH_CLEAR'), 'url'=>url_add_param($this_url,'search','') );
-    $buttons[] = array('text'=>str('SELECT_ALL'),   'url'=>url_set_param($choose_url,'name',rawurlencode($search.'%')) );
+    $buttons[] = array('text'=>str('SEARCH_ANYWHERE'), 'url'=>url_add_params($this_url, array('any'=>'%', 'hist'=>PAGE_HISTORY_REPLACE)) );
+    $buttons[] = array('text'=>str('SEARCH_CLEAR'),    'url'=>url_add_params($this_url, array('search'=>'', 'hist'=>PAGE_HISTORY_REPLACE)) );
+    $buttons[] = array('text'=>str('SELECT_ALL'),      'url'=>url_set_params($choose_url, array('name'=>rawurlencode($search.'%'))) );
   }
   else
   {
-    $buttons[] = array('text'=>str('SEARCH_START'), 'url'=>url_add_param($this_url,'any','') );
-    $buttons[] = array('text'=>str('SEARCH_CLEAR'), 'url'=>url_add_param($this_url,'search','') );
-    $buttons[] = array('text'=>str('SELECT_ALL'),   'url'=>url_set_param($choose_url,'name',rawurlencode('%'.$search.'%')) );
+    $buttons[] = array('text'=>str('SEARCH_START'), 'url'=>url_add_params($this_url, array('any'=>'', 'hist'=>PAGE_HISTORY_REPLACE)) );
+    $buttons[] = array('text'=>str('SEARCH_CLEAR'), 'url'=>url_add_params($this_url, array('search'=>'', 'hist'=>PAGE_HISTORY_REPLACE)) );
+    $buttons[] = array('text'=>str('SELECT_ALL'),   'url'=>url_set_params($choose_url, array('name'=>rawurlencode('%'.$search.'%'))) );
   }
 
-  page_footer( url_add_param($history["url"],'p_del','Y'), $buttons);
+  page_footer(page_hist_previous(), $buttons);
 }
 
 #-------------------------------------------------------------------------------------------------
@@ -211,16 +126,16 @@ function search_process_passed_params()
 {
   $name      = un_magic_quote(rawurldecode($_REQUEST["name"]));
   $type      = un_magic_quote($_REQUEST["type"]);
-  $history   = search_hist_most_recent();
+  $predicate = page_hist_current('sql');
 
   // If no $type is specified, then $name contains a pure SQL predicate to add.
   if (empty($type))
-    $predicate = $history["sql"]." and $name";
+    $predicate .= " and $name";
   else
   {
     // Remove any existing predicate before appending the new one.
-    $history["sql"] = preg_replace("/ and $type like '.*'/",'',$history["sql"]);
-    $predicate = $history["sql"]." and $type like '".db_escape_str(str_replace('_','\_',$name))."'";
+    $predicate = preg_replace("/ and $type like '.*'/", '', $predicate);
+    $predicate .= " and $type like '".db_escape_str(str_replace('_','\_',$name))."'";
   }
 
   if (isset($_REQUEST["shuffle"]))
@@ -229,17 +144,8 @@ function search_process_passed_params()
     set_user_pref('shuffle',$_REQUEST["shuffle"]);
   }
 
-  // Add page to history
-  if (isset($_REQUEST["add"]) && strtoupper($_REQUEST["add"]) == 'Y')
-  {
-    $hist_url  = url_remove_params(current_url(), array('add','p_del'));
-    search_hist_push( $hist_url, $predicate );
-  }
-
-  if (isset($_REQUEST["p_del"]) && strtoupper($_REQUEST["p_del"]) == 'Y')
-  {
-    search_picker_pop();
-  }
+  // Add new SQL predicate to history
+  page_hist_current_update(page_hist_current('url'), $predicate);
 
   return $predicate;
 }

@@ -12,7 +12,7 @@
     load_lang($_REQUEST["lang"]);
     page_inform(2,'index.php',str('LANG_CHANGE'),str('SAVE_SETTINGS_OK'));
   }
-  else 
+  else
   {
     $page = isset($_REQUEST["page"]) ? $_REQUEST["page"] : 0;
     $array = array();
@@ -27,9 +27,9 @@
 
     page_header( str('LANG_CHANGE'), '');
     browse_array_thumbs(url_remove_param(current_url(),'page'), $array, $page);
-    page_footer( 'config.php' );
+    page_footer( page_hist_previous() );
   }
-  
+
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/

@@ -20,7 +20,7 @@
   {
     echo '<p>';
 
-    $special    = array( array("CAT_NAME"=>str('CAT_LIST_ALL'),"CAT_ID"=>-$parent_id) );
+    $special = array( array("CAT_NAME"=>str('CAT_LIST_ALL'), "CAT_ID"=>-$parent_id) );
 
     $media_table = db_value("select media_table from media_types where media_id=$media_type");
 
@@ -114,13 +114,7 @@
     $menu->display(1, $width, $align);
 
     // Make sure the "back" button goes to the correct page:
-    if ($parent_id==0)
-      page_footer( $back_url );
-    else
-    {
-      $back_id = db_value("select parent_id from categories where cat_id=$parent_id");
-      page_footer( $next_page."?subcat=".$back_id );
-    }
+    page_footer( $back_url );
   }
 
   /**

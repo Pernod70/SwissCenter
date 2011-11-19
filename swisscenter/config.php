@@ -19,7 +19,7 @@
   {
     $menu->add_item(str('MESSAGES_VIEW')
                    ." (".$num_new." ".str('MESSAGE_STATUS_NEW').", ".$num_read." ".str('MESSAGE_STATUS_READ').")"
-                   ,'messages.php?return='.current_url(),true);
+                   ,'messages.php',true);
   }
 
   $menu->add_item(str('STATISTICS'),'statistics.php',true);

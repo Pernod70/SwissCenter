@@ -7,20 +7,14 @@
   require_once( realpath(dirname(__FILE__).'/base/categories.php'));
   require_once( realpath(dirname(__FILE__).'/base/rating.php'));
   require_once( realpath(dirname(__FILE__).'/base/playlist.php'));
-  require_once( realpath(dirname(__FILE__).'/base/search.php'));
   require_once( realpath(dirname(__FILE__).'/base/filter.php'));
 
   function display_video_menu($cat_id)
   {
-    if(empty($cat_id))
-      search_hist_init( 'video.php', get_rating_filter().filter_get_predicate() );
+    if (empty($cat_id))
+      page_hist_current_update( 'video.php', get_rating_filter().filter_get_predicate() );
     else
-      search_hist_init( 'video.php?cat='.$cat_id, category_select_sql($cat_id, MEDIA_TYPE_VIDEO).get_rating_filter().filter_get_predicate() );
-
-    if ($cat_id <= 0)
-      $prev_page = "video.php?subcat=".abs($cat_id);
-    else
-      $prev_page = "video.php?subcat=".db_value("select parent_id from categories where cat_id=$cat_id");
+      page_hist_current_update( 'video.php?cat='.$cat_id, category_select_sql($cat_id, MEDIA_TYPE_VIDEO).get_rating_filter().filter_get_predicate() );
 
     echo '<p>';
 
@@ -44,12 +38,11 @@
     if (get_sys_pref('browse_video_timestamp_enabled','YES') == 'YES')
       $browse[] = array('text'=>str('BROWSE_TIMESTAMP'), 'url'=>"video_search.php?sort=timestamp");
     if (get_sys_pref('browse_video_filesystem_enabled','YES') == 'YES')
-      $browse[] = array('text'=>str('BROWSE_FILESYSTEM'), 'url'=>"video_browse.php");
+      $browse[] = array('text'=>str('BROWSE_FILESYSTEM'), 'url'=>"video_browse.php?DIR=");
 
     if (count($browse) == 1)
     {
-      search_hist_init( $prev_page, category_select_sql($cat_id, MEDIA_TYPE_VIDEO).get_rating_filter().filter_get_predicate() );
-      header('Location: '.server_address().$browse[0]["url"]);
+      header('Location: '.server_address().$browse[0]["url"].'&hist='.PAGE_HISTORY_REPLACE);
     }
     else
     {
@@ -73,14 +66,11 @@
     }
 
     $buttons = array();
-    $buttons[] = array('text' => str('QUICK_PLAY'),'url'  => quick_play_link(MEDIA_TYPE_VIDEO,$_SESSION["history"][0]["sql"]));
+    $buttons[] = array('text' => str('QUICK_PLAY'),'url'  => quick_play_link(MEDIA_TYPE_VIDEO, page_hist_current('sql')));
     $buttons[] = array('text' => filter_text(),'url'  => 'get_filter.php?return='.urlencode('video.php?cat='.$cat_id));
 
     // Make sure the "back" button goes to the correct page:
-    if (category_count(MEDIA_TYPE_VIDEO)==1)
-      page_footer('index.php', $buttons);
-    else
-      page_footer($prev_page, $buttons );
+    page_footer(page_hist_previous(), $buttons );
   }
 
 /**************************************************************************************************
@@ -93,9 +83,9 @@
   if( category_count(MEDIA_TYPE_VIDEO)==1 || isset($_REQUEST["cat"]) )
     display_video_menu($_REQUEST["cat"]);
   elseif ( isset($_REQUEST["subcat"]) )
-    display_categories('video.php', MEDIA_TYPE_VIDEO, $_REQUEST["subcat"]);
+    display_categories('video.php', MEDIA_TYPE_VIDEO, $_REQUEST["subcat"], page_hist_previous());
   else
-    display_categories('video.php', MEDIA_TYPE_VIDEO);
+    display_categories('video.php', MEDIA_TYPE_VIDEO, 0, page_hist_previous());
 
 /**************************************************************************************************
                                                End of file

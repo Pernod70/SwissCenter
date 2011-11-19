@@ -25,15 +25,7 @@ class tv_series_picker extends list_picker
     $this->url = url_add_param('tv.php','cat',$_REQUEST["cat"]);
 
     // Where do we send the user back to if they quit this page?
-    if ( category_count(MEDIA_TYPE_TV) <= 1)
-      $this->back_url = 'index.php';
-    else
-    {
-      if ($_REQUEST["cat"] <= 0)
-        $this->back_url = "tv.php?subcat=".abs($_REQUEST["cat"]);
-      else
-        $this->back_url = "tv.php?subcat=".db_value("select parent_id from categories where cat_id=".$_REQUEST["cat"]);
-    }
+    $this->back_url = page_hist_previous();
   }
 
   function link_url($item)
@@ -114,9 +106,9 @@ class tv_series_picker extends list_picker
  */
 
 if(empty($_REQUEST["cat"]))
-  search_hist_init( 'tv.php', get_rating_filter().filter_get_predicate() );
+  page_hist_current_update( 'tv.php', get_rating_filter().filter_get_predicate() );
 else
-  search_hist_init( 'tv.php?cat='.$_REQUEST["cat"], category_select_sql($_REQUEST["cat"], MEDIA_TYPE_TV).get_rating_filter().filter_get_predicate() );
+  page_hist_current_update( 'tv.php?cat='.$_REQUEST["cat"], category_select_sql($_REQUEST["cat"], MEDIA_TYPE_TV).get_rating_filter().filter_get_predicate() );
 
 /**
  *  If the user has not selected a category, then display a page to select the appropriate category, otherwise
@@ -134,9 +126,9 @@ else
 {
   page_header( str('WATCH_TV') , '','',1,false,'',MEDIA_TYPE_TV);
   if ( isset($_REQUEST["subcat"]) )
-    display_categories('tv.php', MEDIA_TYPE_TV, $_REQUEST["subcat"]);
+    display_categories('tv.php', MEDIA_TYPE_TV, $_REQUEST["subcat"], page_hist_previous());
   else
-    display_categories('tv.php', MEDIA_TYPE_TV);
+    display_categories('tv.php', MEDIA_TYPE_TV, 0, page_hist_previous());
 }
 
 /**************************************************************************************************

@@ -4,7 +4,6 @@
  *************************************************************************************************/
 
   require_once( realpath(dirname(__FILE__).'/base/page.php'));
-  require_once( realpath(dirname(__FILE__).'/base/search.php'));
 
 /**************************************************************************************************
    Main page output
@@ -15,15 +14,12 @@
     $actor = un_magic_quote(rawurldecode($_REQUEST["actor"]));
     $image = un_magic_quote(rawurldecode($_REQUEST["image"]));
 
-    // Update page history
-    $back_url = url_remove_params(current_url(), array('image', 'actor'));
-
     page_header( $actor );
 
     echo '<center>'.img_gen($image,500,670).'</center>';
 
     // Make sure the "back" button goes to the correct page:
-    page_footer( $back_url );
+    page_footer( page_hist_previous() );
   }
   else
   {
@@ -54,11 +50,6 @@
       $title_theme = $info['TITLE'];
       $media_type = 3;
     }
-
-    // Where to return to?
-    $history  = search_hist_pop();
-    $back_url = url_add_param($history["url"], 'add','Y');
-    $this_url = url_remove_param(current_url(), 'del');
 
     // Random fanart image
     $themes = db_toarray('select processed_image, show_banner, show_image from themes where media_type='.$media_type.' and title="'.db_escape_str($title_theme).'" and use_synopsis=1 and processed_image is not NULL');
@@ -114,7 +105,7 @@
         else
         {
           $image = $images[mt_rand(0,count($images)-1)];
-          echo '<td align="center">'.img_gen($image,70,150,false,false,false,array(),false).'<br><a href="'.url_add_params($this_url, array('image'=>rawurlencode($image), 'actor'=>rawurlencode($actor))).'">'.font_tags(FONTSIZE_BODY).$actor.'</font></a></td>';
+          echo '<td align="center">'.img_gen($image,70,150,false,false,false,array(),false).'<br><a href="'.url_add_params(current_url(), array('image'=>rawurlencode($image), 'actor'=>rawurlencode($actor))).'">'.font_tags(FONTSIZE_BODY).$actor.'</font></a></td>';
         }
         if (($i+1) % 5 == 0)
           echo '</tr><tr>';
@@ -127,7 +118,7 @@
     if (is_pc())
       echo '</div>';
 
-    page_footer( $back_url );
+    page_footer( page_hist_previous() );
   }
 
 /**************************************************************************************************

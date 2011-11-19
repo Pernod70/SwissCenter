@@ -6,14 +6,14 @@
  // Fairly rudimentary at the moment... but will be changed later to display the range of dates
  // as a calendar that the user can navigate (defaults to year=any, month=any and day=any, but allows
  // the user to refine each value)
- 
+
  function show_date_picker( $url="", $search, $case = '' )
   {
     if ($case == '' || $case == 'U')
       $keys = "0123456789:";
     else
       $keys = "0123456789:";
-    
+
     $cols = 6;
 
     echo '<table><tr>
@@ -36,11 +36,8 @@
     }
 
     echo '</tr></table>';
-    
-    // Save the history of the A-Z picker.
-    search_picker_push( current_url() );
   }
-  
+
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/

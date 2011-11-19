@@ -9,7 +9,6 @@
   require_once( realpath(dirname(__FILE__).'/base/file.php'));
   require_once( realpath(dirname(__FILE__).'/base/playlist.php'));
   require_once( realpath(dirname(__FILE__).'/base/rating.php'));
-  require_once( realpath(dirname(__FILE__).'/base/search.php'));
   require_once( realpath(dirname(__FILE__).'/base/categories.php'));
   require_once( realpath(dirname(__FILE__).'/base/filter.php'));
   require_once( realpath(dirname(__FILE__).'/base/xml_sidecar.php'));
@@ -98,9 +97,11 @@
   $predicate     = get_rating_filter().category_select_sql($_REQUEST["cat"], MEDIA_TYPE_TV).filter_get_predicate();
   $select_fields = "file_id, dirname, filename, title, year, length";
   $file_id       = $_REQUEST["file_id"];
-  $this_url      = url_set_param(current_url(),'add','N');
-  $this_url      = url_remove_params($this_url, array('lookup', 'viewed'));
+  $this_url      = url_remove_params(current_url(), array('lookup', 'viewed'));
   $cert_img      = '';
+
+  // Clean the current url in the history
+  page_hist_current_update($this_url, $predicate);
 
   // Single match, so get the details from the database
   if ( ($data = db_row("select media.*, ".get_cert_name_sql()." certificate_name from $sql_table and file_id=$file_id")) === false)
@@ -130,15 +131,6 @@
   {
     store_request_details(MEDIA_TYPE_TV, $data["FILE_ID"], ($_REQUEST["viewed"] == 1 ? true : false));
   }
-
-  // Should we delete the last entry on the history stack?
-  if (isset($_REQUEST["del"]) && strtoupper($_REQUEST["del"]) == 'Y')
-    search_hist_pop();
-
-  $hist = search_hist_most_recent();
-
-  if (isset($_REQUEST["add"]) && strtoupper($_REQUEST["add"]) == 'Y')
-    search_hist_push( $this_url, '' );
 
   // Random fanart image
   $themes = db_toarray('select processed_image, show_banner, show_image from themes where media_type='.MEDIA_TYPE_TV.' and title="'.db_escape_str($data["PROGRAMME"]).'" and use_synopsis=1 and processed_image is not NULL');
@@ -198,10 +190,7 @@
 
   // Add a link to search wikipedia
   if (internet_available() && get_sys_pref('wikipedia_lookups','YES') == 'YES' )
-  {
-    $back_url = url_remove_params(current_url(), array('add','p_del'));
-    $menu->add_item( str('SEARCH_WIKIPEDIA'), lang_wikipedia_search( ucwords(strip_title($data["PROGRAMME"])), $back_url ), true);
-  }
+    $menu->add_item( str('SEARCH_WIKIPEDIA'), lang_wikipedia_search( ucwords(strip_title($data["PROGRAMME"])), url_add_param($this_url, 'hist', PAGE_HISTORY_DELETE) ), true);
 
   // Link to full cast & directors
   if ($data["DETAILS_AVAILABLE"] == 'Y')
@@ -209,7 +198,7 @@
 
   // Delete media (limited to a small number of files)
   if (is_user_admin())
-    $menu->add_item( str('DELETE_MEDIA'), 'video_delete.php?del='.$file_id.'&media_type='.MEDIA_TYPE_TV,true);
+    $menu->add_item( str('DELETE_MEDIA'), 'video_delete.php?del='.$file_id.'&media_type='.MEDIA_TYPE_TV, true);
 
   // Column 1: Image
   echo '<table width="100%" height="'.convert_y(650).'" cellpadding="0" cellspacing="10" border="0">
@@ -251,21 +240,21 @@
   // Output ABC buttons
   $buttons = array();
   if ( is_array($prev) )
-    $buttons[0] = array('text'=>str('EP_PREV', $prev["SERIES"].'x'.$prev["EPISODE"]), 'url'=> url_add_params('/tv_episode_selected.php', array("file_id"=>$prev["FILE_ID"], "add"=>"Y", "del"=>"Y")) );
+    $buttons[0] = array('text'=>str('EP_PREV', $prev['SERIES'].'x'.$prev['EPISODE']), 'url'=> url_add_params('/tv_episode_selected.php', array('file_id'=>$prev['FILE_ID'], 'hist'=>PAGE_HISTORY_REPLACE)) );
   if ( is_array($next) )
-    $buttons[1] = array('text'=>str('EP_NEXT', $next["SERIES"].'x'.$next["EPISODE"]), 'url'=> url_add_params('/tv_episode_selected.php', array("file_id"=>$next["FILE_ID"], "add"=>"Y", "del"=>"Y")) );
+    $buttons[1] = array('text'=>str('EP_NEXT', $next['SERIES'].'x'.$next['EPISODE']), 'url'=> url_add_params('/tv_episode_selected.php', array('file_id'=>$next['FILE_ID'], 'hist'=>PAGE_HISTORY_REPLACE)) );
   if ( internet_available() )
-    $buttons[2] = array('text'=>str('LOOKUP_TV'), 'url'=> url_add_params('/tv_episode_selected.php', array("file_id"=>$file_id, "lookup"=>"Y", "add"=>"Y", "del"=>"Y")) );
+    $buttons[2] = array('text'=>str('LOOKUP_TV'), 'url'=> url_add_params('/tv_episode_selected.php', array('file_id'=>$file_id, 'lookup'=>'Y', 'hist'=>PAGE_HISTORY_REPLACE)) );
   if ( is_user_admin() )
   {
     if ( viewings_count(MEDIA_TYPE_TV, $data["FILE_ID"]) == 0 )
-      $buttons[3] = array('text'=>str('VIEWED_SET'), 'url'=> url_add_params('/tv_episode_selected.php', array("file_id"=>$file_id, "viewed"=>1, "add"=>"Y", "del"=>"Y")) );
+      $buttons[3] = array('text'=>str('VIEWED_SET'), 'url'=> url_add_params('/tv_episode_selected.php', array('file_id'=>$file_id, 'viewed'=>1, 'hist'=>PAGE_HISTORY_REPLACE)) );
     else
-      $buttons[3] = array('text'=>str('VIEWED_RESET'), 'url'=> url_add_params('/tv_episode_selected.php', array("file_id"=>$file_id, "viewed"=>0, "add"=>"Y", "del"=>"Y")) );
+      $buttons[3] = array('text'=>str('VIEWED_RESET'), 'url'=> url_add_params('/tv_episode_selected.php', array('file_id'=>$file_id, 'viewed'=>0, 'hist'=>PAGE_HISTORY_REPLACE)) );
   }
 
   // Make sure the "back" button goes to the correct page:
-  page_footer( url_add_param( $hist["url"] ,'del','y'), $buttons, 0, true, 'PAGE_TEXT_BACKGROUND' );
+  page_footer( page_hist_previous(), $buttons, 0, true, 'PAGE_TEXT_BACKGROUND' );
 
 /**************************************************************************************************
                                                End of file

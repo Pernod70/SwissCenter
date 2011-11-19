@@ -4,16 +4,11 @@
  *************************************************************************************************/
 
   require_once( realpath(dirname(__FILE__).'/base/page.php'));
-  require_once( realpath(dirname(__FILE__).'/base/search.php'));
   require_once( realpath(dirname(__FILE__).'/ext/lastfm/datafeeds.php'));
 
 /**************************************************************************************************
    Main page output
  *************************************************************************************************/
-
-  // Where to return to?
-  $history  = search_hist_pop();
-  $back_url = url_add_param($history["url"], 'add','Y');
 
   // Get artist, album, and track details
   $artist = $_REQUEST["artist"];
@@ -68,14 +63,14 @@
     echo '<p>'.font_tags(FONTSIZE_BODY).utf8_decode($track_feed["track"]["wiki"]["summary"]);
 
   $menu = new menu();
-  $menu->add_item(str('RETURN_TO_SELECTION'), $back_url);
+  $menu->add_item(str('RETURN_TO_SELECTION'), page_hist_previous());
   $menu->display(1, 400);
 
   echo '    </td>
           </tr>
         </table>';
 
-  page_footer( $back_url );
+  page_footer( page_hist_previous() );
 
 /**************************************************************************************************
                                                End of file

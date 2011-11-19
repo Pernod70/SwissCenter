@@ -22,8 +22,11 @@
   $playtime   = db_value("select sum(length) from $sql_table $predicate");
   $num_rows   = db_value("select count(*) from $sql_table $predicate");
   $refine_url = 'music_search.php';
-  $this_url   = url_set_param(current_url(),'add','N');
+  $this_url   = url_remove_params(current_url(), array('shuffle'));
   $meta       = '<meta SYABAS-PLAYERMODE="music">';
+
+  // Clean the current url in the history
+  page_hist_current_update($this_url, $predicate);
 
   // Output Title
   if ($num_rows ==1)
@@ -46,9 +49,7 @@
 
   // If MusicIP support is enabled then add an extra option
   if ( musicip_available() && musicip_status($sql_table, $predicate) )
-    $menu->add_item( str('MIP_MIXER'), url_add_params('mip_mixer.php', array('add'  => 'Y',
-                                                                             'type' => $_REQUEST["type"],
-                                                                             'name' => $_REQUEST["name"])) );
+    $menu->add_item( str('MIP_MIXER'), 'mip_mixer.php' );
   // Or adds these tracks to their current playlist...
   $menu->add_item(str('ADD_PLAYLIST'),'add_playlist.php?sql='.rawurlencode("select * from $sql_table $predicate order by album,lpad(disc,10,'0'),lpad(track,10,'0'),title"),true);
 
@@ -68,11 +69,10 @@
   // Add a menu option to lookup the artist/album in Wikipedia
   if (internet_available() && get_sys_pref('wikipedia_lookups','YES') == 'YES')
   {
-    $back_url = url_remove_params(current_url(), array('add','p_del'));
     if ( !empty($artist_name) )
-      $menu->add_item( str("SEARCH_WIKIPEDIA"), lang_wikipedia_search( strip_title($artist_name), $back_url ), true);
+      $menu->add_item( str("SEARCH_WIKIPEDIA"), lang_wikipedia_search( strip_title($artist_name), url_add_param($this_url, 'hist', PAGE_HISTORY_DELETE) ), true);
     elseif ( !empty($album_name) )
-      $menu->add_item( str("SEARCH_WIKIPEDIA"), lang_wikipedia_search( strip_title($album_name), $back_url ), true);
+      $menu->add_item( str("SEARCH_WIKIPEDIA"), lang_wikipedia_search( strip_title($album_name), url_add_param($this_url, 'hist', PAGE_HISTORY_DELETE) ), true);
   }
 
   // Is there a picture for us to display? (only if selected media is in a single folder)
@@ -107,19 +107,18 @@
   // Display ABC buttons
   $buttons = array();
   if (!isset($_SESSION["shuffle"]) || $_SESSION["shuffle"] == 'off')
-    $buttons[] = array('text'=>str('SHUFFLE_ON'), 'url'=> url_set_param($this_url,'shuffle','on') );
+    $buttons[] = array('text'=>str('SHUFFLE_ON'), 'url'=> url_set_params($this_url, array('shuffle'=>'on', 'hist'=>PAGE_HISTORY_REPLACE)) );
   else
-    $buttons[] = array('text'=>str('SHUFFLE_OFF'), 'url'=> url_set_param($this_url,'shuffle','off') );
+    $buttons[] = array('text'=>str('SHUFFLE_OFF'), 'url'=> url_set_params($this_url, array('shuffle'=>'off', 'hist'=>PAGE_HISTORY_REPLACE)) );
   if (internet_available() && !empty($artist_name))
     $buttons[] = array('text'=>str('ARTIST_INFO'), 'url'=> url_add_params('music_info.php', array('artist'=>urlencode($artist_name),
                                                                                                   'album'=>urlencode($album_name),
                                                                                                   'track'=>urlencode($track_name))) );
-//  if (internet_available() && !empty($track_name))
-//    $buttons[] = array('text'=>str('LYRICS'), 'url'=> url_add_params('music_lyrics.php', array('artist'=>urlencode($artist_name),
-//                                                                                               'album'=>urlencode($album_name),
-//                                                                                               'track'=>urlencode($track_name))) );
-
-  page_footer( url_add_params( search_picker_most_recent(), array("p_del"=>"y","del"=>"y") ), $buttons );
+  if (internet_available() && !empty($track_name))
+    $buttons[] = array('text'=>str('LYRICS'), 'url'=> url_add_params('music_lyrics.php', array('artist'=>urlencode($artist_name),
+                                                                                               'track'=>urlencode($track_name))) );
+  // Make sure the "back" button goes to the correct page:
+  page_footer(page_hist_previous(), $buttons);
 
 /**************************************************************************************************
                                                End of file

@@ -11,14 +11,14 @@
 
   function output_link( $file )
   {
-    return '/music_selected.php?add=Y&name='.rawurlencode(" concat(media.dirname,media.filename) like '".db_escape_str($file)."%'");
+    return '/music_selected.php?name='.rawurlencode(" concat(media.dirname,media.filename) like '".db_escape_str($file)."%'");
   }
 
-  $sql  = 'from mp3s media'.get_rating_join().'where 1=1';
+  $sql = 'from mp3s media'.get_rating_join().'where 1=1';
 
   browse_db( str('BROWSE_MUSIC')                                                   // Title
-           , $sql.$_SESSION["history"][0]["sql"]                                   // SQL (from...)
-           , $_SESSION["history"][0]["url"]                                        // Return URL
+           , $sql.page_hist_current('sql')                                         // SQL (from...)
+           , page_hist_previous()                                                  // Return URL
            , MEDIA_TYPE_MUSIC                                                      // Select all media type
            );
 

@@ -417,7 +417,7 @@
     $_SESSION["shuffle"] = get_user_pref('shuffle','off');
 
     // Page settings
-    $url         = url_remove_params(current_url(),array('page','thumbs','del','p_del'));
+    $url         = url_remove_params(current_url(),array('page','thumbs','hist'));
     $page        = ( !isset($_REQUEST["page"]) ? 0 : $_REQUEST["page"]);
     $dir         = ( empty($_REQUEST["DIR"]) ? '' : un_magic_quote(rawurldecode($_REQUEST["DIR"])));
     $buttons     = array();
@@ -461,10 +461,7 @@
       $buttons[] = array('text'=>str('REFRESH_DIR_BUTTON'), 'url' => '/media_dir_refresh.php?media_type='.$media_type.'&dir='.urlencode($dir).'&return_url='.urlencode(current_url()) );
 
     // Output ABC buttons if appropriate
-    if ( empty($dir) )
-      page_footer( $back_url, $buttons );
-    else
-      page_footer( url_add_param($url, 'DIR', rawurlencode(parent_dir($dir))), $buttons );
+    page_footer( page_hist_previous(), $buttons );
   }
 
   // ----------------------------------------------------------------------------------
@@ -496,13 +493,6 @@
 
   function browse_db($heading, $sql_table, $back_url, $media_type = 0 )
   {
-    // Should we delete the last entry on the history stack?
-    if (isset($_REQUEST["del"]) && strtoupper($_REQUEST["del"]) == 'Y')
-      search_hist_pop();
-
-    // Push this page onto the "picker" stack
-    search_picker_init( current_url() );
-
     // Check page parameters, and if not set then assign default values.
     $dir_list        = array();
     $file_list       = array();
