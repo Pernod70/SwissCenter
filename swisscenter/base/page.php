@@ -322,6 +322,9 @@ function page_footer( $back, $buttons = '', $iconbar = 0, $links = true, $text_b
 
   echo '</body>
         </html>';
+
+  // Log the page history stack
+  send_to_log(8, 'Page history:', $_SESSION['history']);
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -388,8 +391,7 @@ function page_hist_current( $ref = '' )
 
 function page_hist_current_update( $url, $sql )
 {
-  page_hist_pop();
-  page_hist_push($url, $sql);
+  $_SESSION["history"][count($_SESSION["history"])-1] = array("url"=>$url, "sql"=>$sql);
 }
 
 function page_hist_previous( $ref = 'url' )
@@ -449,8 +451,7 @@ else
       page_hist_pop();
       break;
     case PAGE_HISTORY_REPLACE:
-      page_hist_pop();
-      page_hist_push($current_url, page_hist_current('sql'));
+      page_hist_current_update($current_url, page_hist_current('sql'));
       break;
   }
 }
