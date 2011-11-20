@@ -19,6 +19,9 @@
   $down_img      = SC_LOCATION.style_img("IMG_PLAYLIST_DOWN");
   $del_img       = SC_LOCATION.style_img("IMG_PLAYLIST_DELETE");
 
+  // Clean the current url in the history
+  page_hist_current_update(url_remove_params(current_url(), array('up', 'down', 'del')), '');
+
   //---------------------------------------------------------------------------------------
   // Process any actions passed on the query string
   //---------------------------------------------------------------------------------------
@@ -55,8 +58,8 @@
   // Output the page
   //---------------------------------------------------------------------------------------
 
-  $items         = $_SESSION["playlist"];
-  $num_tracks    = count($_SESSION["playlist"]);
+  $items      = $_SESSION["playlist"];
+  $num_tracks = count($_SESSION["playlist"]);
 
   page_header( str('PLAYLIST_EDIT'), $_SESSION["playlist_name"],'', $highlight );
 
@@ -77,9 +80,9 @@
     list($media_type, $file_id) = find_media_in_db( $items[$i]["DIRNAME"].$items[$i]["FILENAME"]);
     $play_link     = play_file( $media_type, $file_id);
 
-    $up_link       = 'edit_pl.php?up='.$i;
-    $down_link     = 'edit_pl.php?down='.$i;
-    $del_link      = 'edit_pl.php?del='.$i;
+    $up_link       = 'edit_pl.php?up='.$i.'&hist='.PAGE_HISTORY_REPLACE;
+    $down_link     = 'edit_pl.php?down='.$i.'&hist='.PAGE_HISTORY_REPLACE;
+    $del_link      = 'edit_pl.php?del='.$i.'&hist='.PAGE_HISTORY_REPLACE;
 
     $text = $items[$i]["TITLE"];
 
@@ -105,9 +108,9 @@
 
   echo '</table></center>';
 
-  $buttons[] = array('text'=>str('FINISHED'), 'url'=>'manage_pl.php');
-  page_footer( 'manage_pl.php', $buttons );
-
+  $buttons = array();
+  $buttons[] = array('text'=>str('FINISHED'), 'url'=>page_hist_previous());
+  page_footer( page_hist_previous(), $buttons );
 
 /**************************************************************************************************
                                                End of file

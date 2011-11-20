@@ -12,7 +12,7 @@
   {
     // The user has selected a filename... so use it to save the file
   }
-  else 
+  else
   {
     // Display the keyboard to allow the user to select a name.
     $case      = $_REQUEST["case"];
@@ -20,39 +20,40 @@
     $search    = $_REQUEST["search"];
     $this_url  = 'save_pl.php';
     $base_dir  = str_suffix(get_sys_pref("playlists"),'/');
-    
+
     // Automatically change case to make it easier for the user.
     if (empty($case) && strlen($search) == 1)
       $case = 'L';
-      
+
     page_header(str('PLAYLIST_SAVE'), '','', (empty($_REQUEST["last"]) ? 'KEY_SPC' : $_REQUEST["last"] ) );
     echo '<table border=0 width="100%" height="'.convert_y(650).'"><tr><td width="'.convert_x(320).'" valign="top">';
-    show_picker( $this_url.'?case='.$case.'&search=', $search, $case);
+    show_picker( $this_url.'?case='.$case.'&hist='.PAGE_HISTORY_REPLACE, $search, $case);
     echo '</td><td valign=top>';
-      
+
     echo str('PLAYLIST_SAVE_PROMPT');
     echo '<p><center>&gt; &nbsp; '.$search.' &nbsp; &lt;</center>';
-    
+
     if ( file_exists($base_dir.$search.'.m3u') )
       echo '<p>'.str('FILE_EXISTS').'';
-  
+
     if (strlen($search)>0)
-      $menu->add_item(str('PLAYLIST_NAME_USE'),'manage_pl.php?save='.rawurlencode($base_dir.$search.'.m3u'));
-      
-    $menu->add_item(str('PLAYLIST_NAME_CANCEL'),'manage_pl.php');
+      $menu->add_item(str('PLAYLIST_NAME_USE'), 'manage_pl.php?save='.rawurlencode($base_dir.$search.'.m3u').'&hist='.PAGE_HISTORY_DELETE);
+
+    $menu->add_item(str('PLAYLIST_NAME_CANCEL'), page_hist_previous());
     $menu->display(1, 300);
-      
+
     echo '</td></tr></table>';
-  
+
     // Display the appropriate ABC buttons.
-    $buttons[] = array('text'=>str('CLEAR_NAME'), 'url'=>$this_url);
-  
+    $buttons = array();
+    $buttons[] = array('text'=>str('CLEAR_NAME'), 'url'=>$this_url.'?hist='.PAGE_HISTORY_REPLACE);
+
     if ($case == "L")
-      $buttons[] = array('text'=>str('UPPERCASE'), 'url'=>$this_url.'?case=U&search='.$search);
+      $buttons[] = array('text'=>str('UPPERCASE'), 'url'=>$this_url.'?case=U&search='.$search.'&hist='.PAGE_HISTORY_REPLACE);
     else
-      $buttons[] = array('text'=>str('LOWERCASE'), 'url'=>$this_url.'?case=L&search='.$search);
-    
-    page_footer('manage_pl.php',$buttons);
+      $buttons[] = array('text'=>str('LOWERCASE'), 'url'=>$this_url.'?case=L&search='.$search.'&hist='.PAGE_HISTORY_REPLACE);
+
+    page_footer(page_hist_previous(), $buttons);
   }
 
 /**************************************************************************************************
