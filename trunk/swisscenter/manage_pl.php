@@ -31,22 +31,25 @@
   $play_name  = $_SESSION["playlist_name"];
   $menu       = new menu();
 
+  // Clean the current url in the history
+  page_hist_current_update(url_remove_params(current_url(), array('clear', 'save')), '');
+
   if ($num_tracks > 0 )
   {
-    $menu->add_item(str('PLAY'),play_playlist());
-    $menu->add_item(str('PLAYLIST_CLEAR'),'manage_pl.php?clear=Y');
-    $menu->add_item(str('PLAYLIST_EDIT'),'edit_pl.php',true);
-    $menu->add_item(str('PLAYLIST_LOAD_NEW'),'load_pl.php?action=replace', true);
-    $menu->add_item(str('PLAYLIST_APPEND'),'load_pl.php?action=append', true);
-    $menu->add_item(str('PLAYLIST_SAVE_CURRENT'),'save_pl.php', true);
+    $menu->add_item(str('PLAY'), play_playlist());
+    $menu->add_item(str('PLAYLIST_CLEAR'), 'manage_pl.php?clear=Y&hist='.PAGE_HISTORY_REPLACE);
+    $menu->add_item(str('PLAYLIST_EDIT'), 'edit_pl.php',true);
+    $menu->add_item(str('PLAYLIST_LOAD_NEW'), 'load_pl.php?action=replace', true);
+    $menu->add_item(str('PLAYLIST_APPEND'), 'load_pl.php?action=append', true);
+    $menu->add_item(str('PLAYLIST_SAVE_CURRENT'), 'save_pl.php', true);
     if (is_user_admin())
-      $menu->add_item( str('PLAYLIST_DELETE'),'delete_pl.php', true);
+      $menu->add_item( str('PLAYLIST_DELETE'), 'delete_pl.php', true);
   }
   else
   {
-    $menu->add_item(str('PLAYLIST_LOAD_NEW'),'load_pl.php?action=replace',true);
+    $menu->add_item(str('PLAYLIST_LOAD_NEW'), 'load_pl.php?action=replace',true);
     if (is_user_admin())
-      $menu->add_item(str('PLAYLIST_DELETE'),'delete_pl.php', true);
+      $menu->add_item(str('PLAYLIST_DELETE'), 'delete_pl.php?DIR=', true);
   }
 
   // Is there a picture for us to display?
@@ -79,9 +82,9 @@
   // Buttons (Shuffle on/off)
   $buttons = array();
   if (!isset($_SESSION["shuffle"]) || $_SESSION["shuffle"] == 'off')
-    $buttons[] = array('text'=>str('SHUFFLE_ON'), 'url'=>'manage_pl.php?shuffle=on');
+    $buttons[] = array('text'=>str('SHUFFLE_ON'), 'url'=>url_add_params('manage_pl.php', array('shuffle'=>'on', 'hist'=>PAGE_HISTORY_REPLACE)));
   else
-    $buttons[] = array('text'=>str('SHUFFLE_OFF'), 'url'=>'manage_pl.php?shuffle=off');
+    $buttons[] = array('text'=>str('SHUFFLE_OFF'), 'url'=>url_add_params('manage_pl.php', array('shuffle'=>'off', 'hist'=>PAGE_HISTORY_REPLACE)));
 
   page_footer( 'index.php', $buttons );
 
