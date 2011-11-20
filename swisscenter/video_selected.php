@@ -389,22 +389,20 @@
 
   // Buttons for Next and Previous videos
   $order = strtoupper(preg_get('/sort=([a-z]+)/', page_hist_previous('url')));
-  $prev = db_row("select file_id,title from movies media ".get_rating_join()." where ".
-                 " $order < '".db_escape_str($data[0][$order])."' ".page_hist_previous('sql').
+  $prev = db_row("select file_id,title from $sql_table".page_hist_previous('sql').
+                 " and $order < '".db_escape_str($data[0][$order])."'".
                  " and title != '".db_escape_str($data[0]["TITLE"])."'".
                  " order by $order desc limit 1");
   if ( !is_array($prev) ) // Return last video
-    $prev = db_row("select file_id,title from movies media ".get_rating_join()." where ".
-                   " 1=1 ".page_hist_previous('sql').
+    $prev = db_row("select file_id,title from $sql_table".page_hist_previous('sql').
                    " order by $order desc limit 1");
 
-  $next = db_row("select file_id, title from movies media ".get_rating_join()." where ".
-                 " $order > '".db_escape_str($data[0][$order])."' ".page_hist_previous('sql').
+  $next = db_row("select file_id, title from $sql_table".page_hist_previous('sql').
+                 " and $order > '".db_escape_str($data[0][$order])."'".
                  " and title != '".db_escape_str($data[0]["TITLE"])."'".
                  " order by $order asc limit 1");
   if ( !is_array($next) ) // Return first video
-    $next = db_row("select file_id,title from movies media ".get_rating_join()." where ".
-                   " 1=1 ".page_hist_previous('sql').
+    $next = db_row("select file_id,title from $sql_table".page_hist_previous('sql').
                    " order by $order asc limit 1");
 
   // Output ABC buttons
