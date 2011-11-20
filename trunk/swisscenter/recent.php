@@ -32,7 +32,7 @@ function redirect_to_browse( $media_type )
       break;
   }
 
-  page_hist_current_update( 'recent.php', get_rating_filter().filter_get_predicate() );
+  page_hist_current_update( current_url(), get_rating_filter().filter_get_predicate() );
   switch ($media_type)
   {
     case MEDIA_TYPE_VIDEO:
