@@ -432,8 +432,11 @@ if ( strpos($current_url, '/index.php') !== false )
 }
 else
 {
+  // Common page parameters that can be ignored when checking for page history replacement
+  $page_params = array('page', 'any', 'last', 'search', 'thumbs');
+
   // Determine whether to add, replace, or delete page from history
-  if (url_remove_params($current_url, array('page', 'last', 'search')) == url_remove_params(page_hist_current('url'), array('page', 'last', 'search')))
+  if (url_remove_params($current_url, $page_params) == url_remove_params(page_hist_current('url'), $page_params))
     $hist_param = PAGE_HISTORY_REPLACE;
   elseif (isset($_REQUEST["hist"]))
     $hist_param = $_REQUEST["hist"];

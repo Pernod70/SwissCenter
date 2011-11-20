@@ -12,9 +12,9 @@
   function display_video_menu($cat_id)
   {
     if (empty($cat_id))
-      page_hist_current_update( 'video.php', get_rating_filter().filter_get_predicate() );
+      page_hist_current_update( current_url(), get_rating_filter().filter_get_predicate() );
     else
-      page_hist_current_update( 'video.php?cat='.$cat_id, category_select_sql($cat_id, MEDIA_TYPE_VIDEO).get_rating_filter().filter_get_predicate() );
+      page_hist_current_update( current_url(), category_select_sql($cat_id, MEDIA_TYPE_VIDEO).get_rating_filter().filter_get_predicate() );
 
     echo '<p>';
 

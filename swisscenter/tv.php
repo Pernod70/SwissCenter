@@ -106,9 +106,9 @@ class tv_series_picker extends list_picker
  */
 
 if(empty($_REQUEST["cat"]))
-  page_hist_current_update( 'tv.php', get_rating_filter().filter_get_predicate() );
+  page_hist_current_update( current_url(), get_rating_filter().filter_get_predicate() );
 else
-  page_hist_current_update( 'tv.php?cat='.$_REQUEST["cat"], category_select_sql($_REQUEST["cat"], MEDIA_TYPE_TV).get_rating_filter().filter_get_predicate() );
+  page_hist_current_update( current_url(), category_select_sql($_REQUEST["cat"], MEDIA_TYPE_TV).get_rating_filter().filter_get_predicate() );
 
 /**
  *  If the user has not selected a category, then display a page to select the appropriate category, otherwise

@@ -12,9 +12,9 @@
   function display_photo_menu($cat_id)
   {
     if (empty($cat_id))
-      page_hist_current_update( 'photo.php', get_rating_filter().filter_get_predicate() );
+      page_hist_current_update( current_url(), get_rating_filter().filter_get_predicate() );
     else
-      page_hist_current_update( 'photo.php?cat='.$cat_id, category_select_sql($cat_id, 2).get_rating_filter().filter_get_predicate() );
+      page_hist_current_update( current_url(), category_select_sql($cat_id, 2).get_rating_filter().filter_get_predicate() );
 
     echo '<p>';
 
