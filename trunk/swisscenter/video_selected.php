@@ -388,21 +388,24 @@
     $viewed_count += viewings_count( MEDIA_TYPE_VIDEO, $file_id );
 
   // Buttons for Next and Previous videos
+  $order = strtoupper(preg_get('/sort=([a-z]+)/', page_hist_previous('url')));
   $prev = db_row("select file_id,title from movies media ".get_rating_join()." where ".
-                 " title < '".db_escape_str($data[0]["TITLE"])."' ".get_rating_filter().filter_get_predicate().page_hist_previous('sql').
-                 " order by title desc limit 1");
+                 " $order < '".db_escape_str($data[0][$order])."' ".page_hist_previous('sql').
+                 " and title != '".db_escape_str($data[0]["TITLE"])."'".
+                 " order by $order desc limit 1");
   if ( !is_array($prev) ) // Return last video
     $prev = db_row("select file_id,title from movies media ".get_rating_join()." where ".
-                   " 1=1 ".get_rating_filter().filter_get_predicate().page_hist_previous('sql').
-                   " order by title desc limit 1");
+                   " 1=1 ".page_hist_previous('sql').
+                   " order by $order desc limit 1");
 
   $next = db_row("select file_id, title from movies media ".get_rating_join()." where ".
-                 " title > '".db_escape_str($data[0]["TITLE"])."' ".get_rating_filter().filter_get_predicate().page_hist_previous('sql').
-                 " order by title asc limit 1");
+                 " $order > '".db_escape_str($data[0][$order])."' ".page_hist_previous('sql').
+                 " and title != '".db_escape_str($data[0]["TITLE"])."'".
+                 " order by $order asc limit 1");
   if ( !is_array($next) ) // Return first video
     $next = db_row("select file_id,title from movies media ".get_rating_join()." where ".
-                   " 1=1 ".get_rating_filter().filter_get_predicate().page_hist_previous('sql').
-                   " order by title asc limit 1");
+                   " 1=1 ".page_hist_previous('sql').
+                   " order by $order asc limit 1");
 
   // Output ABC buttons
   $buttons = array();
