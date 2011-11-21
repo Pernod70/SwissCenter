@@ -10,7 +10,7 @@ require_once( realpath(dirname(__FILE__).'/media.php'));
 require_once( realpath(dirname(__FILE__).'/mysql.php'));
 require_once( realpath(dirname(__FILE__).'/rating.php'));
 require_once( realpath(dirname(__FILE__).'/flickr.php'));
-require_once( realpath(dirname(__FILE__).'/../ext/xml/XPath.class.php'));
+require_once( realpath(dirname(__FILE__).'/../ext/xml/xmlparser.php'));
 
 /**
  * Creates a playlist that will be sent to the hardware player based on the parameters
@@ -498,17 +498,19 @@ function load_pl_asx( $fsp )
   send_to_log(6,'Playlist is of type: ASX (Advanced Stream Redirector)');
   $filelist = array();
 
-  $xml = new XPath(FALSE, array(XML_OPTION_CASE_FOLDING => TRUE, XML_OPTION_SKIP_WHITE => TRUE) );
-  if ( $xml->importFromFile($fsp) !== false)
+  if (($playlist = file_get_contents($fsp)) !== false)
   {
-    foreach ($xml->match('/asx/entry/ref') as $filepath)
-    {
-      $attrib = $xml->getAttributes($filepath);
-      $filelist[] = $attrib["HREF"];
-    }
+    $xml = new XmlParser($playlist, array(XML_OPTION_CASE_FOLDING => TRUE, XML_OPTION_SKIP_WHITE => TRUE) );
+    $asx = $xml->GetData();
+
+    if ( !isset($asx['ASX']['ENTRY'][0]) )
+        $asx['ASX']['ENTRY'] = array($asx['ASX']['ENTRY']);
+
+    foreach ($asx['ASX']['ENTRY'] as $entry)
+      $filelist[] = $entry['REF']['HREF'];
   }
   else
-    send_to_log(1,'Unable to read playlist file or format not recognised/supported.');
+    send_to_log(1,'Unable to read playlist file.');
 
   return $filelist;
 }
@@ -559,8 +561,8 @@ function load_pl_pls( $fsp )
     foreach ($lines as $l)
     {
       $entry = rtrim($l);
-      if (stripos($entry,'File') !== false)
-        $filelist[] = preg_get('/File\d+=(.*)/i',$entry);
+      if (stripos($entry, 'File') !== false)
+        $filelist[] = preg_get('/File\d+=(.*)/i', $entry);
     }
   }
   else
@@ -582,17 +584,19 @@ function load_pl_wpl( $fsp )
   send_to_log(6,'Playlist is of type: WPL (Windows media player)');
   $filelist = array();
 
-  $xml = new XPath(FALSE, array(XML_OPTION_CASE_FOLDING => TRUE, XML_OPTION_SKIP_WHITE => TRUE) );
-  if ( $xml->importFromFile($fsp) !== false)
+  if (($playlist = file_get_contents($fsp)) !== false)
   {
-    foreach ($xml->match('/smil/body/seq/media') as $filepath)
-    {
-      $attrib = $xml->getAttributes($filepath);
-      $filelist[] = $attrib["SRC"];
-    }
+    $xml = new XmlParser($playlist, array(XML_OPTION_CASE_FOLDING => TRUE, XML_OPTION_SKIP_WHITE => TRUE) );
+    $wpl = $xml->GetData();
+
+    if ( !isset($wpl['SMIL']['BODY']['SEQ']['MEDIA'][0]) )
+        $wpl['SMIL']['BODY']['SEQ']['MEDIA'] = array($wpl['SMIL']['BODY']['SEQ']['MEDIA']);
+
+    foreach ($wpl['SMIL']['BODY']['SEQ']['MEDIA'] as $media)
+      $filelist[] = $media['SRC'];
   }
   else
-    send_to_log(1,'Unable to read playlist file or format not recognised/supported.');
+    send_to_log(1,'Unable to read playlist file.');
 
   return $filelist;
 }
@@ -610,16 +614,19 @@ function load_pl_xspf( $fsp )
   send_to_log(6,'Playlist is of type: XSPF (XML Shareable Playlist Format)');
   $filelist = array();
 
-  $xml = new XPath(FALSE, array(XML_OPTION_CASE_FOLDING => TRUE, XML_OPTION_SKIP_WHITE => TRUE) );
-  if ( $xml->importFromFile($fsp) !== false)
+  if (($playlist = file_get_contents($fsp)) !== false)
   {
-    foreach ($xml->match('/playlist/tracklist/track/location') as $filepath)
-    {
-      $filelist[] = $xml->getData($filepath);
-    }
+    $xml = new XmlParser($playlist, array(XML_OPTION_CASE_FOLDING => TRUE, XML_OPTION_SKIP_WHITE => TRUE) );
+    $xspf = $xml->GetData();
+
+    if ( !isset($xspf['PLAYLIST']['TRACKLIST']['TRACK'][0]) )
+        $xspf['PLAYLIST']['TRACKLIST']['TRACK'] = array($xspf['PLAYLIST']['TRACKLIST']['TRACK']);
+
+    foreach ($xspf['PLAYLIST']['TRACKLIST']['TRACK'] as $track)
+      $filelist[] = $track['LOCATION']['VALUE'];
   }
   else
-    send_to_log(1,'Unable to read playlist file or format not recognised/supported.');
+    send_to_log(1,'Unable to read playlist file.');
 
   return $filelist;
 }
