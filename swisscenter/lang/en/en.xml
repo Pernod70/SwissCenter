@@ -903,6 +903,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>DISCOVERED</id>
+        <text>Discovered</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>DOWNLOADED</id>
         <text>Already downloaded</text>
         <version>1.22</version>
@@ -5027,6 +5032,11 @@ If any details are added/changed on this page then you are requested to submit t
         <id>SLIDESHOW</id>
         <text>Slideshow</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>SORT</id>
+        <text>Sort</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>SORT_BITRATE</id>
