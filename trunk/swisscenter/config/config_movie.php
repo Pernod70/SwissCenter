@@ -272,6 +272,11 @@ function movie_display( $message = '')
     }
   }
 
+  if (empty($_REQUEST["sort"]) || $_REQUEST["sort"] == 'TITLE')
+    $sort = "trim_article(title,'$articles')";
+  else
+    $sort = strtolower($_REQUEST["sort"]).' desc';
+
   // If the user has changed category, then shunt them back to page 1.
   if (un_magic_quote($_REQUEST["last_where"]) != $where)
   {
@@ -282,17 +287,19 @@ function movie_display( $message = '')
   // SQL to fetch matching rows
   $movie_count = db_value("select count(*) from movies m, media_locations ml where ml.location_id = m.location_id ".$where);
   $movie_list  = db_toarray("select m.* from movies m, media_locations ml where ml.location_id = m.location_id ".$where.
-                            " order by trim_article(title,'$articles') limit $start,$per_page");
+                            " order by $sort limit $start,$per_page");
 
   $list_type = get_sys_pref('CONFIG_VIDEO_LIST','THUMBS');
   echo '<h1>'.str('ORG_TITLE').'  ('.str('PAGE',$page).')</h1>';
   message($message);
 
-  $this_url = '?last_where='.urlencode($where).'&filter='.$_REQUEST["filter"].'&search='.un_magic_quote($_REQUEST["search"]).'&cat_id='.$_REQUEST["cat_id"].'&section=MOVIE&action=DISPLAY&page=';
+  $this_url = '?last_where='.urlencode($where).'&filter='.$_REQUEST["filter"].'&search='.un_magic_quote($_REQUEST["search"]).'&cat_id='.$_REQUEST["cat_id"].'&sort='.$_REQUEST["sort"].'&section=MOVIE&action=DISPLAY&page=';
   $filter_list = array( str('FILTER_MISSING_DETAILS')=>"NODETAILS" , str('FILTER_MISSING_SYNOPSIS')=>"NOSYNOPSIS"
                       , str('FILTER_MISSING_CERT')=>"NOCERT"       , str('FILTER_MISSING_YEAR')=>"NOYEAR"
                       , str('FILTER_MISSING_RATING')=>"NORATING"   , str('FILTER_MISSING_TRAILER')=>"NOTRAILER"
                       , str('FILTER_MISSING_IMDB')=>"NOIMDB" );
+
+  $sort_list = array( str('TITLE')=>"TITLE", str('DISCOVERED')=>"DISCOVERED" );
 
   echo '<form enctype="multipart/form-data" action="" method="post">
         <table width="100%"><tr><td width="70%">';
@@ -300,9 +307,11 @@ function movie_display( $message = '')
   form_hidden('action','DISPLAY');
   form_hidden('last_where',$where);
   echo  str('CATEGORY').' :
-        '.form_list_dynamic_html("cat_id","select distinct c.cat_id,c.cat_name from categories c left join media_locations ml on c.cat_id=ml.cat_id where ml.media_type=".MEDIA_TYPE_VIDEO." order by c.cat_name",$_REQUEST["cat_id"],true,true,str('CATEGORY_LIST_ALL')).'&nbsp;
+        '.form_list_dynamic_html("cat_id","select distinct c.cat_id,c.cat_name from categories c left join media_locations ml on c.cat_id=ml.cat_id where ml.media_type=".MEDIA_TYPE_VIDEO." order by c.cat_name",$_REQUEST["cat_id"],true,true,str('CATEGORY_LIST_ALL')).'<br>
         '.str('FILTER').' :
         '.form_list_static_html("filter",$filter_list,$_REQUEST["filter"],true,true,str('VIEW_ALL')).'&nbsp;
+        '.str('SORT').' :
+        '.form_list_static_html("sort",$sort_list,$_REQUEST["sort"],false,true,false).'&nbsp;
         <a href="'.url_set_param($this_url,'list','LIST').'"><img align="absbottom" border="0"  src="/images/details.gif"></a>
         <a href="'.url_set_param($this_url,'list','THUMBS').'"><img align="absbottom" border="0" src="/images/thumbs.gif"></a>
         <img align="absbottom" border="0" src="/images/select_all.gif" onclick=\'handleClick("movie[]", true)\'>
@@ -743,7 +752,7 @@ function movie_info( $message = "")
     for ($y = 0; $y < $retrycount; $y++)
     {
       // Add no parser option
-      $supported_parsers[NoParser :: getName()] = NoParser;
+      $supported_parsers[NoParser :: getName()] = 'NoParser';
 
       // Determine all parsers that support this property
       foreach ($parsers as $parser)

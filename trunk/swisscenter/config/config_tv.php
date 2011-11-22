@@ -214,6 +214,8 @@ function tv_display_list($tv_list)
 function tv_display_thumbs($tv_list)
 {
   $cnt = 0;
+  $thumb_html = '';
+  $title_html = '';
 
   foreach ($tv_list as $tv)
   {
@@ -232,6 +234,11 @@ function tv_display_thumbs($tv_list)
   }
 
   // and last row...
+  for ($i=0; $i<(4 - $cnt % 4); $i++)
+  {
+    $thumb_html .= '<td></td>';
+    $title_html .= '<td width="25%"></td>';
+  }
   echo '<table class="form_select_tab" width="100%"><tr>'.$thumb_html.'</tr><tr>'.$title_html.'</table>';
 }
 
@@ -242,8 +249,6 @@ function tv_display_thumbs($tv_list)
 function tv_display( $message = '')
 {
   $_SESSION["last_search_page"] = url_remove_param(current_url( true ), 'message');
-  send_to_log(2,'last_search_page',$_SESSION["last_search_page"]);
-  send_to_log(2,'search',$_REQUEST["search"]);
   $per_page    = get_user_pref('PC_PAGINATION',20);
   $page        = (empty($_REQUEST["page"]) ? 1 : $_REQUEST["page"]);
   $start       = ($page-1)*$per_page;
@@ -279,6 +284,11 @@ function tv_display( $message = '')
     }
   }
 
+  if (empty($_REQUEST["sort"]) || $_REQUEST["sort"] == 'TITLE')
+    $sort = "trim_article(programme,'$articles'), series, episode";
+  else
+    $sort = strtolower($_REQUEST["sort"]).' desc';
+
   // If the user has changed category, then shunt them back to page 1.
   if (un_magic_quote($_REQUEST["last_where"]) != $where)
   {
@@ -289,18 +299,19 @@ function tv_display( $message = '')
   // SQL to fetch matching rows
   $tv_count = db_value("select count(*) from tv t, media_locations ml where ml.location_id = t.location_id ".$where);
   $tv_list  = db_toarray("select t.* from tv t, media_locations ml where ml.location_id = t.location_id ".$where.
-                            " order by trim_article(programme,'$articles'), series, episode limit $start,$per_page");
+                            " order by $sort, series, episode limit $start,$per_page");
 
   $list_type = get_sys_pref('CONFIG_VIDEO_LIST','THUMBS');
   echo '<h1>'.str('TV_DETAILS').'  ('.str('PAGE',$page).')</h1>';
   message($message);
 
-  $this_url = '?last_where='.urlencode($where).'&filter='.$_REQUEST["filter"].'&search='.un_magic_quote($_REQUEST["search"]).'&prog='.un_magic_quote($_REQUEST["prog"]).'&section=TV&action=DISPLAY&page=';
+  $this_url = '?last_where='.urlencode($where).'&filter='.$_REQUEST["filter"].'&search='.un_magic_quote($_REQUEST["search"]).'&prog='.un_magic_quote($_REQUEST["prog"]).'&sort='.$_REQUEST["sort"].'&section=TV&action=DISPLAY&page=';
   $filter_list = array( str('FILTER_MISSING_DETAILS')=>"NODETAILS"   , str('FILTER_MISSING_PROGRAMME')=>"NOPROG"
                       , str('FILTER_MISSING_SERIES')=>"NOSERIES"     , str('FILTER_MISSING_EPISODE')=>"NOEPISODE"
                       , str('FILTER_MISSING_SYNOPSIS')=>"NOSYNOPSIS" , str('FILTER_MISSING_CERT')=>"NOCERT"
                       , str('FILTER_MISSING_YEAR')=>"NOYEAR"         , str('FILTER_MISSING_RATING')=>"NORATING");
 
+  $sort_list = array( str('TITLE')=>"TITLE", str('DISCOVERED')=>"DISCOVERED" );
 
   echo '<form enctype="multipart/form-data" action="" method="post">
         <table width="100%"><tr><td width="70%">';
@@ -308,9 +319,11 @@ function tv_display( $message = '')
   form_hidden('action','DISPLAY');
   form_hidden('last_where',$where);
   echo  str('PROGRAMME').' :
-        '.form_list_dynamic_html("prog","select distinct programme id, programme name from tv order by trim_article(programme,'$articles')",un_magic_quote($_REQUEST["prog"]),true,true,str('PROGRAMME_LIST_ALL')).'&nbsp;
+        '.form_list_dynamic_html("prog","select distinct programme id, programme name from tv order by trim_article(programme,'$articles')",un_magic_quote($_REQUEST["prog"]),true,true,str('PROGRAMME_LIST_ALL')).'<br>
         '.str('FILTER').' :
         '.form_list_static_html("filter",$filter_list,$_REQUEST["filter"],true,true,str('VIEW_ALL')).'&nbsp;
+        '.str('SORT').' :
+        '.form_list_static_html("sort",$sort_list,$_REQUEST["sort"],false,true,false).'&nbsp;
         <a href="'.url_set_param($this_url,'list','LIST').'"><img align="absbottom" border="0"  src="/images/details.gif"></a>
         <a href="'.url_set_param($this_url,'list','THUMBS').'"><img align="absbottom" border="0" src="/images/thumbs.gif"></a>
         <img align="absbottom" border="0" src="/images/select_all.gif" onclick=\'handleClick("tv[]", true)\'>
@@ -757,7 +770,7 @@ function tv_info( $message = "")
     for ($y = 0; $y < $retrycount; $y++)
     {
       // Add no parser option
-      $supported_parsers[NoParser :: getName()] = NoParser;
+      $supported_parsers[NoParser :: getName()] = 'NoParser';
 
       // Determine all parsers that support this property
       foreach ($parsers as $parser)
