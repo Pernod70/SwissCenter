@@ -22,10 +22,10 @@ class list_picker
     $this->url = '';
     $this->back_url = '';
     $this->menu = new menu();
-    $this->prefix = $_REQUEST["any"];
-    $this->search = rawurldecode($_REQUEST["search"]);
-    $this->page = (empty($_REQUEST["page"]) ? 0 : $_REQUEST["page"]);
-    $this->focus = (empty($_REQUEST["last"]) ? 'KEY_SPC' : $_REQUEST["last"] );
+    $this->prefix = (isset($_REQUEST["any"]) ? $_REQUEST["any"] : '');
+    $this->search = (isset($_REQUEST["search"]) ? un_magic_quote(rawurldecode($_REQUEST["search"])) : '');
+    $this->page   = (empty($_REQUEST["page"]) ? 0 : $_REQUEST["page"]);
+    $this->focus  = (empty($_REQUEST["last"]) ? '1' : $_REQUEST["last"] );
   }
 
   function link_url($item)
@@ -100,11 +100,11 @@ class list_picker
     else
     {
       // Display links for previous and next pages
-      $last_page  = ceil($num_rows/MAX_PER_PAGE)-1;
+      $last_page = ceil($num_rows/MAX_PER_PAGE)-1;
       if ($num_rows > MAX_PER_PAGE)
       {
-        $this->menu->add_up( url_add_params($this->url, array("last"=>MAX_PER_PAGE, "search"=>rawurlencode($this->search),'any'=>$this->prefix, 'page'=>($this->page > 0 ? ($this->page-1) : $last_page)) ));
-        $this->menu->add_down( url_add_params($this->url, array("last"=>1, "search"=>rawurlencode($this->search),'any'=>$this->prefix, 'page'=>($this->page < $last_page ? ($this->page+1) : 0)) ));
+        $this->menu->add_up( url_add_params($this->url, array('last'=>($this->page > 0 ? MAX_PER_PAGE : ($num_rows % MAX_PER_PAGE)), 'search'=>rawurlencode($this->search),'any'=>$this->prefix, 'page'=>($this->page > 0 ? ($this->page-1) : $last_page)) ));
+        $this->menu->add_down( url_add_params($this->url, array('last'=>1, 'search'=>rawurlencode($this->search),'any'=>$this->prefix, 'page'=>($this->page < $last_page ? ($this->page+1) : 0)) ));
       }
 
       foreach ($data as $item)

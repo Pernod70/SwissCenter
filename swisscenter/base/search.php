@@ -86,8 +86,8 @@ function search_media_page( $heading, $title, $media_type, $joined_tables, $colu
     $last_page = ceil($num_rows/MAX_PER_PAGE)-1;
     if ($num_rows > MAX_PER_PAGE)
     {
-      $menu->add_up( url_add_param($this_url,'page',($page > 0 ? ($page-1) : $last_page)) );
-      $menu->add_down( url_add_param($this_url,'page',($page < $last_page ? ($page+1) : 0)) );
+      $menu->add_up( url_add_params($this_url, array('last'=>($page > 0 ? MAX_PER_PAGE : ($num_rows % MAX_PER_PAGE)), 'page'=>($page > 0 ? ($page-1) : $last_page))) );
+      $menu->add_down( url_add_params($this_url, array('last'=>1, 'page'=>($page < $last_page ? ($page+1) : 0))) );
     }
 
     foreach ($data as $row)
