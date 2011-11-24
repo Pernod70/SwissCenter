@@ -4,7 +4,6 @@
  *************************************************************************************************/
 
   require_once( realpath(dirname(__FILE__).'/base/page.php'));
-  require_once( realpath(dirname(__FILE__).'/base/utils.php'));
   require_once( realpath(dirname(__FILE__).'/base/prefs.php'));
   require_once( realpath(dirname(__FILE__).'/base/infotab.php'));
   require_once( realpath(dirname(__FILE__).'/resources/info/weather.php'));
@@ -18,15 +17,15 @@
 
   // Get XML data (from DB or from weather.com)
   purge_weather();
-  $xml_fc    = get_weather_xml( $loc_id, 'dayf', '5');
-
+  $xml_fc    = get_yahoo_xml( $loc_id, 'dayf', '5');
   $time      = split(' ',$xml_fc["dayf"]["lsup"]);
+  $title     = isset($xml_fc[$loc_id]["dnam"]) ? $xml_fc[$loc_id]["dnam"] : $xml_fc["channel"]["yweather:location"][0]["city"].', '.$xml_fc["channel"]["yweather:location"][0]["country"];
 
   // Display Weather Icon and statistics
-  page_header($xml_fc[$loc_id]["dnam"],'');
+  page_header($title);
 
   $menu = new menu();
-  $menu->add_item( str('WEATHER_CURRENT') ,'weather_cc.php?loc='.$loc_id);
+  $menu->add_item( str('WEATHER_CURRENT') ,page_hist_previous());
 
   echo '<table border=0 cellspacing=0 cellpadding=0 width="100%">
           <tr>';
@@ -56,8 +55,9 @@
     echo '<td><center><font color="'.style_value("PAGE_TITLE_COLOUR").'" size="4">'.$day.'</font><p>'
          .img_gen(SC_LOCATION.'/weather/large/'.$xml_fc["dayf"][$i]["d"]["icon"].'.gif',100,130,false,false,'RESIZE').'<br>';
           $fc->display( 1,100);
-    echo  img_gen(SC_LOCATION.'/weather/large/'.$xml_fc["dayf"][$i]["n"]["icon"].'.gif',100,130,false,false,'RESIZE').'<br>
-          </center><p></td>';
+    if (isset($xml_fc["dayf"][$i]["n"]["icon"]))
+      echo  img_gen(SC_LOCATION.'/weather/large/'.$xml_fc["dayf"][$i]["n"]["icon"].'.gif',100,130,false,false,'RESIZE').'<br>
+            </center><p></td>';
   }
 
   echo '  </tr>
@@ -67,7 +67,7 @@
             <td width="'.convert_x(640).'">';
               $menu->display( 1,560);
   echo '    </td>
-            <td align="center" valign="bottom"><a href="'.weather_link().'">'.img_gen(SC_LOCATION.'/weather/logo.gif',130,130,false,false,'RESIZE').'</a></td>
+            <td align="center" valign="bottom">'.img_gen(SC_LOCATION.'/weather/logo.gif',130,130,false,false,'RESIZE').'</td>
           </tr>
         </table>';
 
@@ -75,11 +75,11 @@
   // Display ABC buttons as necessary
   //
   if (get_user_pref("weather_units") == 'm')
-    $buttons[] = array('id'=>'A', 'text'=>str('WEATHER_IMPERIAL'), 'url'=>'weather_fc.php?units=s&loc='.$loc_id );
+    $buttons[] = array('id'=>'A', 'text'=>str('WEATHER_IMPERIAL'), 'url'=>'weather_fc.php?units=s&loc='.$loc_id.'&hist='.PAGE_HISTORY_REPLACE );
   else
-    $buttons[] = array('id'=>'A', 'text'=>str('WEATHER_METRIC'), 'url'=>'weather_fc.php?units=m&loc='.$loc_id );
+    $buttons[] = array('id'=>'A', 'text'=>str('WEATHER_METRIC'), 'url'=>'weather_fc.php?units=m&loc='.$loc_id.'&hist='.PAGE_HISTORY_REPLACE );
 
-  page_footer('weather_cc.php?loc='.$loc_id, $buttons);
+  page_footer(page_hist_previous(), $buttons);
 
 /**************************************************************************************************
                                                End of file

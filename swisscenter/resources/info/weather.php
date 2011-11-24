@@ -30,27 +30,34 @@ function xml2tree( $xml )
   {
     if ($xml_elem['type'] == 'open')
     {
-     if (array_key_exists('attributes',$xml_elem))
-     {
-       @list($level[$xml_elem['level']],$extra) = array_values($xml_elem['attributes']);
-     }
-     else
-     {
-       $level[$xml_elem['level']] = $xml_elem['tag'];
-     }
+      if (array_key_exists('attributes',$xml_elem))
+      {
+        @list($level[$xml_elem['level']],$extra) = array_values($xml_elem['attributes']);
+      }
+      else
+      {
+        $level[$xml_elem['level']] = $xml_elem['tag'];
+      }
     }
 
     if ($xml_elem['type'] == 'complete')
     {
-     $start_level = 1;
-     $php_stmt = '$tree';
-     while($start_level < $xml_elem['level'])
-     {
-       $php_stmt .= '[$level['.$start_level.']]';
-       $start_level++;
-     }
-     $php_stmt .= '[$xml_elem[\'tag\']] = $xml_elem[\'value\'];';
-     eval($php_stmt);
+      $start_level = 1;
+      $php_stmt = '$tree';
+      while($start_level < $xml_elem['level'])
+      {
+        $php_stmt .= '[$level['.$start_level.']]';
+        $start_level++;
+      }
+      if (array_key_exists('attributes',$xml_elem))
+      {
+        $php_stmt .= '[$xml_elem[\'tag\']][] = $xml_elem[\'attributes\'];';
+      }
+      else
+      {
+        $php_stmt .= '[$xml_elem[\'tag\']] = $xml_elem[\'value\'];';
+      }
+      eval($php_stmt);
     }
   }
   return array_shift($tree);
@@ -102,6 +109,67 @@ function get_weather_xml( $loc, $type, $val )
   $xml_array = xml2tree($xml);
   if (isset($xml_array["err"]))
     send_to_log(2,'Error from Weather.com: '.$fetch_url, $xml_array["err"]);
+
+  return $xml_array;
+}
+
+//
+// Returns a array of RSS data for the given location (from either the database or weather.com, according
+// the the caching requirements).
+//
+
+function get_yahoo_xml( $loc, $type, $val )
+{
+  $units  = (get_user_pref("weather_units") == 'm') ? 'c' : 'f';
+  $url    = 'http://xml.weather.yahoo.com/forecastrss/'.$loc.'_'.$units.'.xml';
+  $xml    = db_value("select xml from weather where url='$url' and type='$type'");
+
+  if (empty($xml))
+  {
+    send_to_log(4,"Fetching weather information from", $url);
+    $xml       = file_get_contents($url);
+    $data      = array("url"       => $url
+                      ,"xml"       => $xml
+                      ,"requested" => time()
+                      ,"type"      => $type );
+
+    if (!db_insert_row( "weather", $data))
+      page_error(str('DATABASE_ERROR'));
+  }
+  $xml_array = xml2tree($xml);
+  if (strpos($xml_array["title"], 'Error'))
+    send_to_log(2,$xml_array["description"].': '.$url, $xml_array["item"]["title"]);
+  else
+  {
+    $xml_array["head"]["ut"] = $xml_array["channel"]["yweather:units"][0]["temperature"];
+    $xml_array["head"]["ud"] = $xml_array["channel"]["yweather:units"][0]["distance"];
+    $xml_array["head"]["up"] = $xml_array["channel"]["yweather:units"][0]["pressure"];
+    $xml_array["head"]["us"] = $xml_array["channel"]["yweather:units"][0]["speed"];
+
+    $xml_array["cc"]["flik"]      = $xml_array["channel"]["yweather:wind"][0]["chill"];
+    $xml_array["cc"]["wind"]["d"] = $xml_array["channel"]["yweather:wind"][0]["direction"];
+    $xml_array["cc"]["wind"]["s"] = $xml_array["channel"]["yweather:wind"][0]["speed"];
+    $xml_array["cc"]["wind"]["t"] = '';
+    $xml_array["cc"]["hmid"]      = $xml_array["channel"]["yweather:atmosphere"][0]["humidity"];
+    $xml_array["cc"]["vis"]       = $xml_array["channel"]["yweather:atmosphere"][0]["visibility"];
+    $xml_array["cc"]["bar"]["r"]  = $xml_array["channel"]["yweather:atmosphere"][0]["pressure"];
+    $xml_array["cc"]["sun"]["r"]  = $xml_array["channel"]["yweather:astronomy"][0]["sunrise"];
+    $xml_array["cc"]["sun"]["s"]  = $xml_array["channel"]["yweather:astronomy"][0]["sunset"];
+    $xml_array["cc"]["t"]         = $xml_array["channel"]["item"]["yweather:condition"][0]["text"];
+    $xml_array["cc"]["icon"]      = $xml_array["channel"]["item"]["yweather:condition"][0]["code"];
+    $xml_array["cc"]["tmp"]       = $xml_array["channel"]["item"]["yweather:condition"][0]["temp"];
+    $xml_array["cc"]["lsup"]      = $xml_array["channel"]["item"]["yweather:condition"][0]["date"];
+
+    for ($i=0; $i<5; $i++)
+    {
+      $xml_array["dayf"][$i]["day"]       = $xml_array["channel"]["item"]["yweather:forecast"][$i]["day"];
+      $xml_array["dayf"][$i]["date"]      = $xml_array["channel"]["item"]["yweather:forecast"][$i]["date"];
+      $xml_array["dayf"][$i]["low"]       = $xml_array["channel"]["item"]["yweather:forecast"][$i]["low"];
+      $xml_array["dayf"][$i]["hi"]        = $xml_array["channel"]["item"]["yweather:forecast"][$i]["high"];
+      $xml_array["dayf"][$i]["text"]      = $xml_array["channel"]["item"]["yweather:forecast"][$i]["text"];
+      $xml_array["dayf"][$i]["d"]["icon"] = $xml_array["channel"]["item"]["yweather:forecast"][$i]["code"];
+    }
+  }
 
   return $xml_array;
 }
