@@ -84,11 +84,11 @@
         $menu->add_item( str('TFL') ,'tfl.php',true);
 
     // Only display the weather options if an internet connection is active and the user has enabled weather support
-//    if (internet_available() && get_sys_pref('weather_enabled','YES') == 'YES')
-//      if ($image_menu)
-//        $menu->add_image_item( str('VIEW_WEATHER') ,style_img('MENU_INTERNET_WEATHER',true),style_img('MENU_INTERNET_WEATHER_ON',true,false),'weather_cc.php');
-//      else
-//        $menu->add_item( str('VIEW_WEATHER') ,'weather_cc.php',true);
+    if (internet_available() && get_sys_pref('weather_enabled','YES') == 'YES')
+      if ($image_menu)
+        $menu->add_image_item( str('VIEW_WEATHER') ,style_img('MENU_INTERNET_WEATHER',true),style_img('MENU_INTERNET_WEATHER_ON',true,false),'weather_cc.php');
+      else
+        $menu->add_item( str('VIEW_WEATHER') ,'weather_cc.php',true);
 
     /**
     * Display the page content

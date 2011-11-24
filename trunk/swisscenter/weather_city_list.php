@@ -19,10 +19,10 @@
     show_picker( $this_url.'?any='.$prefix.'&search=', $search);
     echo '</td><td valign=top>';
 
-    if ( ($data = db_toarray("select name from cities where name like '".$prefix.str_replace("_","\_",$search)."%' order by 1 limit ".(($page*MAX_PER_PAGE)).",".MAX_PER_PAGE)) === false)
+    if ( ($data = db_toarray("select name from cities where name like '".$prefix.str_replace('_','\_',$search)."%' order by 1 limit ".(($page*MAX_PER_PAGE)).",".MAX_PER_PAGE)) === false)
       echo $errmsg;
 
-    $num_rows = db_value("select count(name) from cities where name like '".$prefix.str_replace("_","\_",$search)."%' ",$errmsg);
+    $num_rows = db_value("select count(name) from cities where name like '".$prefix.str_replace('_','\_',$search)."%' ",$errmsg);
 
     if (empty($data))
     {
@@ -31,7 +31,7 @@
               , '<font color="'.style_value("PAGE_TITLE_COLOUR",'#FFFFFF').'">'.str('WEATHER_CHANNEL').'</font>').'<p>';
 
       $menu->add_item( str('SEARCH_YES'),'city_selected.php?name='.rawurlencode($search),true);
-      $menu->add_item( str('SEARCH_NO'),$this_url.'?sort='.$sort.'&any='.$prefix,true);
+      $menu->add_item( str('SEARCH_NO'),$this_url.'?any='.$prefix.'&hist='.PAGE_HISTORY_REPLACE,true);
       $menu->display( 1,480 );
 
     }
@@ -54,15 +54,15 @@
     echo '</td></tr></table>';
 
     // Output ABC buttons if appropriate
-
+    $buttons = array();
     if (empty($prefix))
-      $buttons[] = array('id'=>'A', 'text'=>str('SEARCH_ANYWHERE'), 'url'=>$this_url.'?sort='.$sort.'&search='.rawurlencode($search).'&any=%' );
+      $buttons[] = array('id'=>'A', 'text'=>str('SEARCH_ANYWHERE'), 'url'=>$this_url.'?search='.rawurlencode($search).'&any=%&hist='.PAGE_HISTORY_REPLACE );
     else
-      $buttons[] = array('id'=>'A', 'text'=>str('SEARCH_START'), 'url'=>$this_url.'?sort='.$sort.'&search='.rawurlencode($search).'&any=' );
+      $buttons[] = array('id'=>'A', 'text'=>str('SEARCH_START'), 'url'=>$this_url.'?search='.rawurlencode($search).'&any=&hist='.PAGE_HISTORY_REPLACE );
 
-    $buttons[] = array('id'=>'B', 'text'=>str('SEARCH_CLEAR'), 'url'=>$this_url.'?sort='.$sort.'&any='.$prefix);
+    $buttons[] = array('id'=>'B', 'text'=>str('SEARCH_CLEAR'), 'url'=>$this_url.'?any='.$prefix.'&hist='.PAGE_HISTORY_REPLACE );
 
-    page_footer('weather_cc.php', $buttons);
+    page_footer(page_hist_previous(), $buttons);
   }
 
 //*************************************************************************************************

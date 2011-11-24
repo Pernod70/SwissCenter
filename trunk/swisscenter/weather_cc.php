@@ -5,7 +5,6 @@
 
   require_once( realpath(dirname(__FILE__).'/base/page.php'));
   require_once( realpath(dirname(__FILE__).'/base/prefs.php'));
-  require_once( realpath(dirname(__FILE__).'/base/utils.php'));
   require_once( realpath(dirname(__FILE__).'/base/infotab.php'));
   require_once( realpath(dirname(__FILE__).'/resources/info/weather.php'));
 
@@ -38,17 +37,26 @@
 
   // Get XML data (from DB or from weather.com)
   purge_weather();
-  $xml_cc    = get_weather_xml( $loc_id, 'cc', '*');
+  $xml_cc    = get_yahoo_xml( $loc_id, 'cc', '*');
   $time      = split(' ',$xml_cc["cc"]["lsup"]);
+  $title     = isset($xml_cc[$loc_id]["dnam"]) ? $xml_cc[$loc_id]["dnam"] : $xml_cc["channel"]["yweather:location"][0]["city"].', '.$xml_cc["channel"]["yweather:location"][0]["country"];
 
   // Build Current Conditions information table
   $cc = new infotab();
   $cc->add_item(str('WEATHER_FEELS_LIKE'), $xml_cc["cc"]["flik"].chr(176).$xml_cc["head"]["ut"]);
   $cc->add_item(str('WEATHER_HUMIDITY'),   $xml_cc["cc"]["hmid"].'%');
   $cc->add_item(str('WEATHER_PRESSURE'),   $xml_cc["cc"]["bar"]["r"].' '.$xml_cc["head"]["up"]);
-  $cc->add_item(str('WEATHER_WIND'),       $xml_cc["cc"]["wind"][s].' '.$xml_cc["head"]["us"].' '.$xml_cc["cc"]["wind"]["t"]);
+  $cc->add_item(str('WEATHER_WIND'),       $xml_cc["cc"]["wind"]["s"].' '.$xml_cc["head"]["us"].' '.$xml_cc["cc"]["wind"]["t"]);
   $cc->add_item(str('WEATHER_VISIBILITY'), $xml_cc["cc"]["vis"].' '.$xml_cc["head"]["ud"]);
-  $cc->add_item(str('WEATHER_UV'),         $xml_cc["cc"]["uv"][i].' ('.$xml_cc["cc"]["uv"]["t"].')');
+  if (isset($xml_cc["cc"]["uv"]))
+  {
+    $cc->add_item(str('WEATHER_UV'),       $xml_cc["cc"]["uv"]["i"].' ('.$xml_cc["cc"]["uv"]["t"].')');
+  }
+  if (isset($xml_cc["cc"]["sun"]))
+  {
+    $cc->add_item(str('WEATHER_SUNRISE'),  $xml_cc["cc"]["sun"]["r"]);
+    $cc->add_item(str('WEATHER_SUNSET'),   $xml_cc["cc"]["sun"]["s"]);
+  }
 
   if ( $xml_cc["cc"]["icon"] == '-')
   {
@@ -61,7 +69,7 @@
   $menu->add_item(str('WEATHER_LOCATION'),'weather_city_list.php',true);
 
   // Display Weather Icon and statistics
-  page_header($xml_cc[$loc_id]["dnam"],'');
+  page_header($title);
 
   echo '<table cellspacing=0 border=0 cellpadding=0 width="100%">
           <tr>
@@ -81,16 +89,16 @@
             <td width="'.convert_x(640).'">';
               $menu->display(1, 560);
   echo '    </td>
-            <td align="center" valign="top"><a href="'.weather_link().'">'.img_gen(SC_LOCATION.'/weather/logo.gif',130,130,false,false,'RESIZE').'</a></td>
+            <td align="center" valign="top">'.img_gen(SC_LOCATION.'/weather/logo.gif',130,130,false,false,'RESIZE').'</td>
           </tr>
         </table>';
 
   if ( get_user_pref("weather_units") == 'm')
-    $buttons[] = array('text'=>str('WEATHER_IMPERIAL'), 'url'=>'weather_cc.php?loc='.$loc_id.'&units=s' );
+    $buttons[] = array('text'=>str('WEATHER_IMPERIAL'), 'url'=>'weather_cc.php?loc='.$loc_id.'&units=s&hist='.PAGE_HISTORY_REPLACE );
   else
-    $buttons[] = array('text'=>str('WEATHER_METRIC'), 'url'=>'weather_cc.php?loc='.$loc_id.'&units=m' );
+    $buttons[] = array('text'=>str('WEATHER_METRIC'), 'url'=>'weather_cc.php?loc='.$loc_id.'&units=m&hist='.PAGE_HISTORY_REPLACE );
 
-  page_footer('index.php?submenu=internet', $buttons);
+  page_footer(page_hist_previous(), $buttons);
 
 /**************************************************************************************************
                                                End of file

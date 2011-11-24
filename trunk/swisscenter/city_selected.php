@@ -22,7 +22,7 @@
          .'<p></center>';
 
     $menu = new menu();
-    $menu->add_item(str('WEATHER_BACK_TO_SEARCH'),'weather_city_list.php',true);
+    $menu->add_item(str('WEATHER_BACK_TO_SEARCH'),'weather_city_list.php?hist='.PAGE_HISTORY_DELETE,true);
     $menu->display();
     page_footer("weather_cc.php");
   }
@@ -30,13 +30,14 @@
   {
     // Single match, so redirect back to the main weather page, but passing the selected city as a parameter.
     $codes = array_keys($matches);
-    header("Location: /weather_cc.php?loc=".$codes[0]);
+    page_hist_pop();
+    header("Location: /weather_cc.php?loc=".$codes[0]."&hist=".PAGE_HISTORY_DELETE);
   }
   else
   {
-    // More than one match was found, and the database was updated, so redirect the use back to the A-Z
+    // More than one match was found, and the database was updated, so redirect the user back to the A-Z
     // city listings.
-    header("Location: /weather_city_list.php?search=".rawurlencode($city));
+    header("Location: /weather_city_list.php?search=".rawurlencode($city)."&hist=".PAGE_HISTORY_DELETE);
   }
 
 /**************************************************************************************************
