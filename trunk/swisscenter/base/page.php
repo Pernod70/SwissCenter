@@ -325,6 +325,10 @@ function page_footer( $back, $buttons = '', $iconbar = 0, $links = true, $text_b
 
   // Log the page history stack
   send_to_log(8, 'Page history:', $_SESSION['history']);
+
+  // Save current state to file
+  $save_state = array('history'=>$_SESSION['history']);
+  file_put_contents(get_sys_pref('CACHE_DIR').'/'.get_current_user_id().'_save_state', serialize($save_state));
 }
 
 //-------------------------------------------------------------------------------------------------
