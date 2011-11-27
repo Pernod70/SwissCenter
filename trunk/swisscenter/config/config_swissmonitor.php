@@ -3,8 +3,6 @@
    SWISScenter Source
  *************************************************************************************************/
 
-  require_once( realpath(dirname(__FILE__).'/../ext/xml/XPath.class.php'));
-
   /**
    * Displays the SwissMonitor service options, including the ability to install, uninstall,
    * start and stop the service.
@@ -47,19 +45,18 @@
 
       // Parse the SwissMonitor config
       $config  = SC_LOCATION.'ext/SwissMonitor/SwissMonitor.exe.config';
-      $options = array(XML_OPTION_CASE_FOLDING => FALSE, XML_OPTION_SKIP_WHITE => TRUE);
-      $xml = new XPath(FALSE, $options);
-      $xml->importFromFile($config);
+      $doc = new DOMDocument();
+      $doc->load($config);
+      $xpath = new DOMXPath($doc);
 
       $data = array();
-      foreach ($xml->match('/configuration[1]/swissMonitor[1]/ignoredExtensions[1]/add') as $xpath)
+      foreach ($xpath->query('/configuration/swissMonitor/ignoredExtensions/add') as $node)
       {
-        $ignore = $xml->getAttributes($xpath);
-        $ext    = ltrim($ignore["extension"], '.');
+        $ext    = ltrim($node->getAttribute("extension"), '.');
         $data[] = array('EXT'=>$ext, 'NAME'=>$ext);
       }
-      $simese      = $xml->getAttributes('/configuration[1]/swissMonitor[1]/simese');
-      $swisscenter = $xml->getAttributes('/configuration[1]/swissMonitor[1]/swissCenter');
+      $simese      = $xpath->query('/configuration/swissMonitor/simese');
+      $swisscenter = $xpath->query('/configuration/swissMonitor/swissCenter');
 
       // Display ignored extensions
       echo '<p><h1>'.str('SWISSMONITOR_CONFIG').'<p>';
@@ -87,9 +84,9 @@
       form_start('index.php', 200);
       form_hidden('section','SWISSMONITOR');
       form_hidden('action','UPDATE');
-      form_input('swissport',str('SWISSMONITOR_PORT'),3,'', $simese["port"], true);
+      form_input('swissport',str('SWISSMONITOR_PORT'),3,'', $simese->length > 0 ? $simese->item(0)->getAttribute("port") : '', true);
       form_label(str('SWISSMONITOR_PORT_PROMPT'));
-      form_input('swissini',str('SWISSMONITOR_INI'),80,'', os_path($swisscenter["iniPath"]), true);
+      form_input('swissini',str('SWISSMONITOR_INI'),80,'', $swisscenter->length > 0 ? os_path($swisscenter->item(0)->getAttribute("iniPath")) : '', true);
       form_label(str('SWISSMONITOR_INI_PROMPT'));
       form_submit(str('SAVE_SETTINGS'));
       form_end();
@@ -150,15 +147,17 @@
 
     // Parse the SwissMonitor config
     $config  = SC_LOCATION.'ext/SwissMonitor/SwissMonitor.exe.config';
-    $options = array(XML_OPTION_CASE_FOLDING => FALSE, XML_OPTION_SKIP_WHITE => TRUE);
-    $xml = new XPath(FALSE, $options);
-    $xml->importFromFile($config);
+    $dom = new DOMDocument();
+    $dom->formatOutput = true;
+    $dom->preserveWhiteSpace = false;
+    $dom->load($config);
+    $xpath = new DOMXPath($dom);
 
-    if(!empty($edit_id))
+    if (!empty($edit_id))
     {
       swissmonitor_display('', $edit_id);
     }
-    else if(!empty($update_data))
+    elseif (!empty($update_data))
     {
 
       $name = $update_data["NAME"];
@@ -169,33 +168,22 @@
       else
       {
         // Update the modified extension
-        foreach ($xml->match('/configuration[1]/swissMonitor[1]/ignoredExtensions[1]/add') as $xpath)
-        {
-          $ignore = $xml->getAttributes($xpath);
-          if ($ignore["extension"] == '.'.$oldext)
-            $xml->setAttribute($xpath, 'extension', '.'.$name);
-        }
-        $xml->exportToFile($config);
+        $node = $xpath->query('/configuration/swissMonitor/ignoredExtensions/add[@extension=".'.$oldext.'"]')->item(0);
+        $node->setAttribute("extension", '.'.$name);
+        $dom->save($config);
 
         swissmonitor_display(str('IGNORE_EXTENSION_UPDATE_OK'));
       }
     }
-    else if(!empty($selected))
+    elseif (!empty($selected))
     {
       // Remove the selected extensions
       foreach ($selected as $ext)
       {
-        foreach ($xml->match('/configuration[1]/swissMonitor[1]/ignoredExtensions[1]/add') as $xpath)
-        {
-          $ignore = $xml->getAttributes($xpath);
-          if ($ignore["extension"] == '.'.$ext)
-          {
-            $xml->removeChild($xpath);
-            break;
-          }
-        }
+        $node = $xpath->query('/configuration/swissMonitor/ignoredExtensions/add[@extension=".'.$ext.'"]')->item(0);
+        $node->parentNode->removeChild($node);
       }
-      $xml->exportToFile($config);
+      $dom->save($config);
 
       swissmonitor_display(str('IGNORE_EXTENSION_DELETE_OK'));
     }
@@ -217,15 +205,19 @@
     else
     {
       // Parse the SwissMonitor config
-      $config  = SC_LOCATION.'ext/SwissMonitor/SwissMonitor.exe.config';
-      $options = array(XML_OPTION_CASE_FOLDING => FALSE, XML_OPTION_SKIP_WHITE => TRUE);
-      $xml = new XPath(FALSE, $options);
-      $xml->importFromFile($config);
+      $config = SC_LOCATION.'ext/SwissMonitor/SwissMonitor.exe.config';
+      $dom = new DOMDocument();
+      $dom->formatOutput = true;
+      $dom->preserveWhiteSpace = false;
+      $dom->load($config);
+      $xpath = new DOMXPath($dom);
 
       // Add the new extension
-      $xpath = '/configuration[1]/swissMonitor[1]/ignoredExtensions[1]';
-      $xml->appendChild($xpath,'<add extension=".'.$name.'"/>');
-      $xml->exportToFile($config);
+      $add = $dom->createElement("add");
+      $add->setAttribute("extension", '.'.$name);
+      $node = $xpath->query('/configuration/swissMonitor/ignoredExtensions')->item(0);
+      $node->appendChild($add);
+      $dom->save($config);
 
       swissmonitor_display(str('IGNORE_EXTENSION_ADDED_OK'));
     }
@@ -247,35 +239,67 @@
     else
     {
       // Parse the SwissMonitor config
-      $config  = SC_LOCATION.'ext/SwissMonitor/SwissMonitor.exe.config';
-      $options = array(XML_OPTION_CASE_FOLDING => FALSE, XML_OPTION_SKIP_WHITE => TRUE);
-      $xml = new XPath(FALSE, $options);
-      $xml->importFromFile($config);
+      $config = SC_LOCATION.'ext/SwissMonitor/SwissMonitor.exe.config';
+      $dom = new DOMDocument();
+      $dom->formatOutput = true;
+      $dom->preserveWhiteSpace = false;
+      $dom->load($config);
+      $xpath = new DOMXPath($dom);
 
+      $node = $xpath->query('/configuration/swissMonitor')->item(0);
+
+      $simese = $xpath->query('/configuration/swissMonitor/simese');
       if (!empty($swissport))
       {
-        if (!$xml->getNode('/configuration[1]/swissMonitor[1]/simese[1]'))
-          $xml->appendChild('/configuration[1]/swissMonitor[1]', '<simese/>');
-        $xml->setAttribute('/configuration[1]/swissMonitor[1]/simese[1]', 'port', $swissport);
+        // Add/update simese element
+        if ($simese->length == 0)
+        {
+          $simese = $dom->createElement("simese");
+          $simese->setAttribute("port", $swissport);
+          $simese->setAttribute("iniPath", "path to simese ini file");
+          $node->appendChild($simese);
+        }
+        else
+        {
+          $simese->item(0)->setAttribute("port", $swissport);
+        }
       }
       else
       {
-        if ($xml->getNode('/configuration[1]/swissMonitor[1]/simese[1]'))
-          $xml->removeChild('/configuration[1]/swissMonitor[1]/simese[1]');
+        // Remove simese element
+        if ($simese->length > 0)
+        {
+          $node = $simese->item(0);
+          $node->parentNode->removeChild($node);
+        }
       }
 
+      $swiss = $xpath->query('/configuration/swissMonitor/swissCenter');
       if (!empty($swissini))
       {
-        if (!$xml->getNode('/configuration[1]/swissMonitor[1]/swissCenter[1]'))
-          $xml->appendChild('/configuration[1]/swissMonitor[1]', '<swissCenter/>');
-         $xml->setAttribute('/configuration[1]/swissMonitor[1]/swissCenter[1]', 'iniPath', $swissini);
+        // Add/update swissCenter element
+        if ($swiss->length == 0)
+        {
+          $swiss = $dom->createElement("swissCenter");
+          $swiss->setAttribute("database", "server=localhost;user id=swiss; password=swiss; database=swisscenter; pooling=false");
+          $swiss->setAttribute("iniPath", $swissini);
+          $node->appendChild($swiss);
+        }
+        else
+        {
+          $swiss->item(0)->setAttribute("iniPath", $swissini);
+        }
       }
       else
       {
-        if ($xml->getNode('/configuration[1]/swissMonitor[1]/swissCenter[1]'))
-          $xml->removeChild('/configuration[1]/swissMonitor[1]/swissCenter[1]');
+        // Remove swissCenter element
+        if ($swiss->length > 0)
+        {
+          $node = $swiss->item(0);
+          $node->parentNode->removeChild($node);
+        }
       }
-      $xml->exportToFile($config);
+      $dom->save($config);
 
       swissmonitor_display(str('SWISSMONITOR_CONFIG_OK'));
     }
