@@ -78,7 +78,7 @@ function search_media_page( $heading, $title, $media_type, $joined_tables, $colu
 
   if (empty($data))
   {
-    echo str('SEARCH_NO_ITEMS');
+    echo font_tags(FONTSIZE_BODY).str('SEARCH_NO_ITEMS');
   }
   else
   {
