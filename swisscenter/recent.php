@@ -36,16 +36,16 @@ function redirect_to_browse( $media_type )
   switch ($media_type)
   {
     case MEDIA_TYPE_VIDEO:
-      header("Location: /video_search.php?sort=$sort");
+      header("Location: /video_search.php?sort=$sort&hist=".PAGE_HISTORY_REPLACE);
       break;
     case MEDIA_TYPE_TV:
-      header("Location: /tv.php?cat=0");
+      header("Location: /tv.php?cat=0&hist=".PAGE_HISTORY_REPLACE);
       break;
     case MEDIA_TYPE_MUSIC:
-      header("Location: /music_search.php?sort=$sort");
+      header("Location: /music_search.php?sort=$sort&hist=".PAGE_HISTORY_REPLACE);
       break;
     case MEDIA_TYPE_PHOTO:
-      header("Location: /photo_search.php?sort=$sort");
+      header("Location: /photo_search.php?sort=$sort&hist=".PAGE_HISTORY_REPLACE);
       break;
   }
 }
