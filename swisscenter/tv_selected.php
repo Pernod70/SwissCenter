@@ -97,15 +97,15 @@
       if ($s == $current_series)
       {
         $current_idx = $idx;
-        echo '&nbsp; <a href="'.url_add_params($this_url,array("series"=>$s,"page"=>1)).'">',font_tags(FONTSIZE_BODY, style_value("PAGE_TITLE_COLOUR",'#FFFFFF')).$s.'</font></a>';
+        echo '&nbsp; <a href="'.url_add_params($this_url, array("series"=>$s, "page"=>1, "hist"=>PAGE_HISTORY_REPLACE)).'">',font_tags(FONTSIZE_BODY, style_value("PAGE_TITLE_COLOUR",'#FFFFFF')).$s.'</font></a>';
       }
       else
-        echo '&nbsp; <a href="'.url_add_params($this_url,array("series"=>$s,"page"=>1)).'">'.font_tags(FONTSIZE_BODY).$s.'</font></a>';
+        echo '&nbsp; <a href="'.url_add_params($this_url, array("series"=>$s, "page"=>1, "hist"=>PAGE_HISTORY_REPLACE)).'">'.font_tags(FONTSIZE_BODY).$s.'</font></a>';
     }
     echo '&nbsp;</td></table>';
 
     // Assign prev/next buttons to quickly switch series
-    echo '<a href="'.url_add_params($this_url,array("page"=>1)).'" TVID="0"></a>';
+    echo '<a href="'.url_add_params($this_url, array("page"=>1, "hist"=>PAGE_HISTORY_REPLACE)).'" TVID="0"></a>';
   }
 
   // Build up a menu of episodes that the user can select from.
