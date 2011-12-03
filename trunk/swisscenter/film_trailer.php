@@ -49,13 +49,10 @@
 
   if ( isset($_REQUEST["menu"]) && $_REQUEST["menu"] == 'genres' )
   {
-    $back_url = page_hist_previous();
     display_film_trailer_menu( get_film_trailer_genres() );
   }
   else
   {
-    $back_url = 'internet_tv.php';
-
     $menu = new menu();
     $menu->add_item(str('NOW-50'), 'film_trailer_browse.php?feed=now-50', true);
     $menu->add_item(str('COMING-50'), 'film_trailer_browse.php?feed=coming-50', true);
@@ -72,7 +69,7 @@
         </table>';
 
   // Make sure the "back" button goes to the correct page
-  page_footer($back_url, $buttons);
+  page_footer(page_hist_previous(), $buttons);
 
 /**************************************************************************************************
                                                End of file
