@@ -17,6 +17,7 @@ require_once(dirname(__FILE__)."/iradio.php");
  * @class icecast
  */
 class icecast extends iradio {
+  private $service = 'icecast';
 
   /** Initializing the class
    * @constructor icecast

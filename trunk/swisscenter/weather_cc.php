@@ -36,7 +36,6 @@
     set_user_pref('WEATHER_UNITS',$_REQUEST["units"]);
 
   // Get XML data (from DB or from weather.com)
-  purge_weather();
   $xml_cc    = get_yahoo_xml( $loc_id, 'cc', '*');
   $time      = split(' ',$xml_cc["cc"]["lsup"]);
   $title     = isset($xml_cc[$loc_id]["dnam"]) ? $xml_cc[$loc_id]["dnam"] : $xml_cc["channel"]["yweather:location"][0]["city"].', '.$xml_cc["channel"]["yweather:location"][0]["country"];

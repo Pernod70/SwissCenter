@@ -10,7 +10,7 @@
  # under the terms of the GNU General Public License (see doc/LICENSE)       #
  #############################################################################
 
-if (!function_exists("send_to_log")) require_once ("logging.php");
+require_once( realpath(dirname(__FILE__).'/../../base/cache_api_request.php'));
 
 # ==========================================================[ Config Class ]===
 /** Configuration and structure part of the iradio classes
@@ -20,10 +20,8 @@ if (!function_exists("send_to_log")) require_once ("logging.php");
 class iradio {
   var $iradiosite;
   var $iradiotype;
-  var $cachedir;
-  var $usecache;
-  var $storecache;
   var $cache_expire;
+  var $cache;
 
   var $numresults;
   var $mediatype;
@@ -34,12 +32,6 @@ class iradio {
    * @constructor iradio
    */
   function iradio(){
-    // the iradio server to use.
-    $this->set_site('www.shoutcast.com');
-    $this->set_type(IRADIO_SHOUTCAST);
-    // cachedir should be writable by the webserver. This doesn't need to be
-    // under documentroot.
-    $this->cache_dir = '';
     //whether to use the cache
     $this->cache_enabled = false;
     // automatically delete cached files older than X secs
@@ -48,45 +40,22 @@ class iradio {
     $this->numresults = 24; // shoutcast: 25/30/50/100
     // parameter to restrict media type
     $this->mediatype = '';
-    // file naming for cache
-    if (substr(php_uname(), 0, 7) == 'Windows') {
-      $this->os_slash = "\\";
-    } else {
-      $this->os_slash = "/";
-    }
-  }
-
-  /** Set the cache directory
-   * @class iradio
-   * @method set_cache
-   * @param optional string directory Cache directory (if empty or ommitted, turn cache off)
-   * @return boolean success
-   */
-  function set_cache($dir='') {
-    if (empty($dir)) {
-      $this->cache_enabled = FALSE;
-      return TRUE;
-    }
-    if (!is_dir($dir)||!is_writable($dir)) {
-      $this->cache_enabled = FALSE;
-      return FALSE;
-    }
-    $this->cache_dir = $dir;
-    $this->cache_enabled = TRUE;
-    send_to_log(6,'IRadio: Cache directory set to '.$dir.' - Caching enabled.');
-    $this->purge_cache();
-    return TRUE;
   }
 
   /** Set the cache expiration
    * @class iradio
-   * @method set_cache_expiration
+   * @method set_cache
    * @param integer seconds Seconds to hold parsed station lists in cache (0 to disable caching)
    */
-  function set_cache_expiration($seconds) {
-    if (empty($seconds)) $this->cache_enabled = FALSE;
-    $this->cache_expire = $seconds;
-    send_to_log(6,'IRadio: Cache expiration set to '.$seconds.' seconds.');
+  function set_cache($seconds) {
+    if (empty($seconds)) {
+      $this->cache_enabled = FALSE;
+    } else {
+      $this->cache_enabled = TRUE;
+      $this->cache = new cache_api_request($this->service, $seconds);
+      send_to_log(6,'IRadio: Service '.$this->service.' - Caching enabled.');
+      send_to_log(6,'IRadio: Cache expiration set to '.$seconds.' seconds.');
+    }
   }
 
   /** Set max numbers of stations for result lists
@@ -99,27 +68,6 @@ class iradio {
     send_to_log(6,'IRadio: Limiting station lists to max '.$num.' entries.');
   }
 
-  /** Purge cache dir
-   * @class iradio
-   * @method purge_cache
-   */
-  function purge_cache() {
-    if (!is_dir($this->cache_dir) || !is_writable($this->cache_dir)) return;
-    send_to_log(6,'IRadio: Purging cache...');
-    $now = time();
-    $thisdir = dir($this->cache_dir);
-    while ($file=$thisdir->read()) {
-      if ($file!="." && $file!="..") {
-        $fname = $this->cache_dir . "/$file";
-        $mod = filemtime($fname);
-        if ($mod && ($now - $mod > $this->cache_expire)) {
-          unlink($fname);
-          send_to_log(8,'IRadio: Removing outaged file "'.$fname.'" from cache.');
-        }
-      }
-    }
-  }
-
   /** Write a record set to cache
    * @class iradio
    * @method write_cache
@@ -129,25 +77,16 @@ class iradio {
    */
   function write_cache($name,$record='') {
     if (!$this->cache_enabled) return TRUE;
-    $this->purge_cache();
     if (empty($name)) return FALSE;
-    $filename = $this->cache_dir .$this->os_slash.$name;
+
     if (empty($record)) { // remove cache object
       send_to_log(6,'IRadio: Empty result set. We do not cache this.');
-      if (file_exists($filename)) return unlink($filename);
-      else return TRUE;
+      return TRUE;
+    } else {
+      $this->cache->cache($name, $record);
+      send_to_log(6,'IRadio: Cached '.$name);
+      return TRUE;
     }
-    if (!$file = fopen($filename,'w')) {
-      send_to_log(3,'IRadio: Unable to open cache file $file for writing! Check file/directory permissions.');
-      return FALSE;
-    }
-    if (fwrite($file,serialize($record))===FALSE) {
-      fclose($file);
-      send_to_log(3,'IRadio: Could not write record to cache file '.$file.'!');
-      return FALSE;
-    }
-    send_to_log(6,'IRadio: Cached '.$filename);
-    return fclose($file);
   }
 
   /** Read a record set from cache
@@ -157,26 +96,19 @@ class iradio {
    * @return mixed Cache object (or FALSE if no such object or cache disabled)
    */
   function read_cache($name) {
-    if (!$this->cache_enabled) return FALSE;
-    $this->purge_cache();
-    if (empty($name)) return FALSE;
-    $filename = $this->cache_dir .$this->os_slash.$name;
-    if (!file_exists($filename)) {
-      send_to_log(6,'IRadio: Nothing cached for '.$name.' ('.$filename.' does not exist)');
+    if (empty($name) || !$this->cache_enabled) return FALSE;
+
+    if (($record = $this->cache->getCached($name)) !== false) {
+      if (empty($record)) {
+        send_to_log(6,'IRadio: Ooops - empty record cached?');
+        return FALSE;
+      }
+      send_to_log(6,'IRadio: Successfully read cache for '.$name);
+      return $record;
+    } else {
+      send_to_log(6,'IRadio: Nothing cached for '.$name);
       return FALSE;
     }
-    if (!$file = @fopen($filename,'r')) {
-      send_to_log(3,'IRadio: Error opening cache file "'.$filename.'" - wrong permissions!');
-      return FALSE;
-    }
-    $object = fread($file,filesize($filename));
-    $record = unserialize($object);
-    if (empty($record)) {
-      send_to_log(6,'IRadio: Ooops - empty record cached?');
-      return FALSE;
-    }
-    send_to_log(6,'IRadio: Successfully read cache for '.$name.' from "'.$filename.'"');
-    return $record;
   }
 
   /** Set the Internet Radio site to parse
@@ -196,7 +128,6 @@ class iradio {
    */
   function set_type($type) {
     $this->iradiotype = $type;
-    send_to_log(6,'IRadio: Radio type set to '.$type);
   }
 
 # ------------------------------------------------------------[ Structures ]---
@@ -248,7 +179,7 @@ class iradio {
         foreach ($genres as $genre)
           $this->genre[$genre['GENRE']][$genre['SUBGENRE']] = array("text" => $genre['SUBGENRE'],
                                                                     "id"   => $genre['SUBGENRE']);
-      send_to_log(6,'IRadio: '.count($genres).' genres read',$this->genre);
+      send_to_log(6,'IRadio: '.count($genres).' genres read');
     }
     send_to_log(6,'IRadio: Genre list from database was requested.');
     return $this->genre;

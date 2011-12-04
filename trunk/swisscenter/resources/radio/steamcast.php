@@ -18,6 +18,7 @@ require_once( realpath(dirname(__FILE__).'/../../ext/xml/xmlparser.php'));
  * @class steamcast
  */
 class steamcast extends iradio {
+  private $service = 'steamcast';
 
   /** Initializing the class
    * @constructor steamcast

@@ -17,6 +17,7 @@ require_once(dirname(__FILE__)."/iradio.php");
  * @class liveradio
  */
 class liveradio extends iradio {
+  private $service = 'live-radio';
 
   /** Initializing the class
    * @constructor liveradio
@@ -95,25 +96,31 @@ class liveradio extends iradio {
    * @method get_siteparams
    */
   function get_siteparams() {
-    if (is_array($this->params->mediatype)) return;
-    $uri = 'http://'.$this->iradiosite.'/SearchStations.php3';
-    send_to_log(6,'IRadio: Retrieving site parameters from Live-Radio site ('.$uri.')');
-    $this->openpage($uri);
-    # Media Types
-    $spos = strpos($this->page,'<select name="OFee"');
-    $epos = strpos($this->page,'</Select>',$spos);
-    $options = substr($this->page,$spos,$epos - $spos);
-    $epos = 1;
-    while ($spos>0) {
-      $spos = strpos($options,'<option',$epos);
-      $epos = strpos($options,'">',$spos);
-      $optval = substr($options,$spos +15,$epos - $spos -15);
-      $spos = $epos +2;
-      $epos = strpos($options,'<',$spos);
-      $optname = strtolower(substr($options,$spos,$epos - $spos));
-      $this->params->mediatype[$optname] = $optval;
-      $spos = strpos($options,'<option',$epos) -1;
-      send_to_log(8,'IRadio: Got site parameter '.$optname.' with value '.$optval);
+    // try getting the data from cache
+    $params = $this->read_cache('site_params');
+    if ($params !== FALSE) {
+      $this->params = $params;
+    } else {
+      $uri = 'http://'.$this->iradiosite.'/SearchStations.php3';
+      send_to_log(6,'IRadio: Retrieving site parameters from Live-Radio site ('.$uri.')');
+      $this->openpage($uri);
+      # Media Types
+      $spos = strpos($this->page,'<select name="OFee"');
+      $epos = strpos($this->page,'</Select>',$spos);
+      $options = substr($this->page,$spos,$epos - $spos);
+      $epos = 1;
+      while ($spos>0) {
+        $spos = strpos($options,'<option',$epos);
+        $epos = strpos($options,'">',$spos);
+        $optval = substr($options,$spos +15,$epos - $spos -15);
+        $spos = $epos +2;
+        $epos = strpos($options,'<',$spos);
+        $optname = strtolower(substr($options,$spos,$epos - $spos));
+        $this->params->mediatype[$optname] = $optval;
+        $spos = strpos($options,'<option',$epos) -1;
+        send_to_log(8,'IRadio: Got site parameter '.$optname.' with value '.$optval);
+      }
+      $this->write_cache('site_params',$this->params);
     }
   }
 

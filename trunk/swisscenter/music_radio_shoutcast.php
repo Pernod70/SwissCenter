@@ -6,10 +6,12 @@
  require_once( realpath(dirname(__FILE__).'/base/page.php'));
  require_once( realpath(dirname(__FILE__).'/base/browse.php'));
 
- //
- // Takes
- //
-
+/**
+ * Display the genre menu
+ *
+ * @param array $genre - array of genres
+ * @param string $type - specify 'maingenre' or 'subgenre'
+ */
  function make_genre_menu($genre,$type)
  {
    $url = url_remove_param(current_url(), 'page');
@@ -42,55 +44,44 @@
        require_once( realpath(dirname(__FILE__).'/resources/radio/shoutcast.php'));
        $iradio = new shoutcast;
        $iradio->restrict_mediatype(''); // Restrict to 'audio/mpeg' or 'audio/aacp'
-       $cachedir = get_sys_pref('CACHE_DIR').'/shoutcast';
        break;
    case radiotime :
        send_to_log(8,"Initializing RadioTime parser");
        require_once( realpath(dirname(__FILE__).'/resources/radio/radiotime.php'));
        $iradio = new radiotime;
        $iradio->restrict_mediatype('mp3,aac'); // Restrict to mp3, ogg, aac, etc.
-       $cachedir = get_sys_pref('CACHE_DIR').'/radiotime';
        break;
    case icecast :
        send_to_log(8,"Initializing Icecast parser");
        require_once( realpath(dirname(__FILE__).'/resources/radio/icecast.php'));
        $iradio = new icecast;
-       $cachedir = get_sys_pref('CACHE_DIR').'/icecast';
        break;
    case steamcast :
        send_to_log(8,"Initializing Steamcast parser");
        require_once( realpath(dirname(__FILE__).'/resources/radio/steamcast.php'));
        $iradio = new steamcast;
        $iradio->restrict_mediatype(''); // Restrict to mp3, ogg, aac, etc.
-       $cachedir = get_sys_pref('CACHE_DIR').'/steamcast';
        break;
    case liveradio :
        send_to_log(8,"Initializing Live-Radio parser");
        require_once( realpath(dirname(__FILE__).'/resources/radio/live-radio.php'));
        $iradio = new liveradio;
        $iradio->restrict_mediatype('mp3'); // Restrict to aac, aac+, mp3, ogg, wmp, etc.
-       $cachedir = get_sys_pref('CACHE_DIR').'/liveradio';
        break;
    case live365 :
        send_to_log(8,"Initializing Live365 parser");
        require_once( realpath(dirname(__FILE__).'/resources/radio/live365.php'));
-       $iradio  = new live365;
-       $cachedir = get_sys_pref('CACHE_DIR').'/live365';
+       $iradio = new live365;
        break;
  }
 
  if (!empty($iradio_class))
  {
-   if (!file_exists($cachedir))
-     @mkdir($cachedir);
-
-   send_to_log(8,"Initialize station cache. CacheDir: '$cachedir', Expiry: '".get_sys_pref('iradio_cache_expire',3600)."'");
-   $iradio->set_cache( $cachedir );
-   $iradio->set_cache_expiration(get_sys_pref('iradio_cache_expire',3600));
+   $iradio->set_cache(get_sys_pref('iradio_cache_expire',3600));
    $iradio->set_max_results(get_sys_pref('iradio_max_stations',24));
  }
 
- //
+ // Radio service logo
  $radio_logo_start = '<table width="100%" cellpadding=0 cellspacing=0 border=0>
                         <tr>
                           <td valign=top width="'.convert_x(280).'" align="left"><br>

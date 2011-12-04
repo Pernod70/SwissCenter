@@ -3,98 +3,18 @@
    SWISScenter Source                                                              Nigel Barnes
  *************************************************************************************************/
 
-require_once( SC_LOCATION.'/base/mysql.php');
+require_once( realpath(dirname(__FILE__).'/../../base/cache_api_request.php'));
 
 define('APPLE_TRAILERS_URL','http://trailers.apple.com');
 
 class AppleTrailers {
-  private $service;
-  private $response;
-  private $cache_table = null;
-  private $cache_expire = null;
-
-  /*
-   * When your database cache table hits this many rows, a cleanup
-   * will occur to get rid of all of the old rows and cleanup the
-   * garbage in the table.  For most personal apps, 1000 rows should
-   * be more than enough.  If your site gets hit by a lot of traffic
-   * or you have a lot of disk space to spare, bump this number up.
-   * You should try to set it high enough that the cleanup only
-   * happens every once in a while, so this will depend on the growth
-   * of your table.
-   */
-  private $max_cache_rows = 1000;
+  private $service = 'apple_trailers';
+  private $cache_expire = 3600;
+  private $cache;
 
   function AppleTrailers ()
   {
-    $this->service = 'apple_trailers';
-    $this->enableCache(3600);
-  }
-
-  /**
-   * Enable caching to the database
-   *
-   * @param unknown_type $cache_expire
-   * @param unknown_type $table
-   */
-  private function enableCache($cache_expire = 600, $table = 'cache_api_request')
-  {
-    if (db_value("SELECT COUNT(*) FROM $table WHERE service = '".$this->service."'") > $this->max_cache_rows)
-    {
-      db_sqlcommand("DELETE FROM $table WHERE service = '".$this->service."' AND expiration < DATE_SUB(NOW(), INTERVAL $cache_expire second)");
-      db_sqlcommand('OPTIMIZE TABLE '.$this->cache_table);
-    }
-    $this->cache_table = $table;
-    $this->cache_expire = $cache_expire;
-  }
-
-  private function getCached ($request)
-  {
-    //Checks the database for a cached result to the request.
-    //If there is no cache result, it returns a value of false. If it finds one,
-    //it returns the unparsed XML.
-    $reqhash = md5(serialize($request));
-
-    $result = db_value("SELECT response FROM ".$this->cache_table." WHERE request = '$reqhash' AND DATE_SUB(NOW(), INTERVAL " . (int) $this->cache_expire . " SECOND) < expiration");
-    if (!empty($result)) {
-      return json_decode($result, true);
-    }
-    return false;
-  }
-
-  private function cache ($request, $response)
-  {
-    //Caches the unparsed XML of a request.
-    $reqhash = md5(serialize($request));
-
-    if (db_value("SELECT COUNT(*) FROM {$this->cache_table} WHERE request = '$reqhash'")) {
-      db_sqlcommand( "UPDATE ".$this->cache_table." SET response = '".db_escape_str($response)."', expiration = '".strftime("%Y-%m-%d %H:%M:%S")."' WHERE request = '$reqhash'");
-    } else {
-      db_sqlcommand( "INSERT INTO ".$this->cache_table." (request, service, response, expiration) VALUES ('$reqhash', '$this->service', '".db_escape_str($response)."', '".strftime("%Y-%m-%d %H:%M:%S")."')");
-    }
-
-    return false;
-  }
-
-  private function request ($request, $nocache = false)
-  {
-    //Sends a request to Apple
-    send_to_log(6,'Apple feed request', $request);
-    if (!($this->response = $this->getCached($request)) || $nocache) {
-      if ($body = file_get_contents($request)) {
-        // Remove Callback from response body
-        if ( strpos($body, 'searchCallback') !== false )
-          $body = preg_get('/"results":(.*)}/', $body);
-        // Decode response
-        $body = unicode_decode($body);
-        $this->response = json_decode($body, true);
-        $this->cache($request, $body);
-      } else {
-        send_to_log(2,"There has been a problem sending your command to the server.", $request);
-        return false;
-      }
-    }
-    return true;
+    $this->cache = new cache_api_request($this->service, $this->cache_expire);
   }
 
   /**
@@ -105,10 +25,26 @@ class AppleTrailers {
    */
   function getFeed ($feed)
   {
-    if ( $this->request(APPLE_TRAILERS_URL.'/trailers/home/feeds/'.$feed.'.json') )
-      return $this->response;
-    else
-      return false;
+    // Form the request URL
+    $request = APPLE_TRAILERS_URL.'/trailers/home/feeds/'.$feed.'.json';
+
+    //Sends a request to Apple
+    send_to_log(6,'Apple feed request', $request);
+
+    if (!($body = $this->cache->getCached($request))) {
+      if (($body = file_get_contents($request)) !== false) {
+        // Remove Callback from response body
+        if ( strpos($body, 'searchCallback') !== false )
+          $body = preg_get('/"results":(.*)}/', $body);
+        // Decode response
+        $body = unicode_decode($body);
+        $this->cache->cache($request, $body);
+      } else {
+        send_to_log(2,"There has been a problem sending your command to the server.", $request);
+        return false;
+      }
+    }
+    return json_decode($body, true);;
   }
 
   /**
@@ -122,16 +58,32 @@ class AppleTrailers {
     // Remove anything within brackets from query
     $query = preg_replace('/\(.*?\)/', '', $query);
 
-    if ( $this->request(APPLE_TRAILERS_URL.'/trailers/home/scripts/quickfind.php?callback=searchCallback&q='.rawurlencode($query)) ) {
-      // Fix poster url's
-      for ($i=0; $i<count($this->response); $i++)
-        if (strpos($this->response[$i]["poster"], 'http') !== 0)
-          $this->response[$i]["poster"] = APPLE_TRAILERS_URL.$this->response[$i]["poster"];
+    // Form the request URL
+    $request = APPLE_TRAILERS_URL.'/trailers/home/scripts/quickfind.php?callback=searchCallback&q='.rawurlencode($query);
 
-      return $this->response;
-    } else {
-      return false;
+    //Sends a request to Apple
+    send_to_log(6,'Apple feed request', $request);
+
+    if (!($body = $this->cache->getCached($request))) {
+      if (($body = file_get_contents($request)) !== false) {
+        // Remove Callback from response body
+        if ( strpos($body, 'searchCallback') !== false )
+          $body = preg_get('/"results":(.*)}/', $body);
+        // Decode response
+        $body = unicode_decode($body);
+        $this->cache->cache($request, $body);
+      } else {
+        send_to_log(2,"There has been a problem sending your command to the server.", $request);
+        return false;
+      }
     }
+
+    // Fix poster url's
+    $response = json_decode($body, true);
+    for ($i=0; $i<count($response); $i++)
+      if (strpos($response[$i]["poster"], 'http') !== 0)
+        $response[$i]["poster"] = APPLE_TRAILERS_URL.$response[$i]["poster"];
+    return $response;
   }
 }
 
@@ -286,7 +238,7 @@ function get_trailer_index($trailer)
   }
 
   // Get the iTunes index.xml containing trailer details
-  if ($index_xml = @file_get_contents($index_url))
+  if (($index_xml = @file_get_contents($index_url)) !== false)
   {
     // Parse the iTunes XML
     send_to_log(6,'Parsing iTunes index.xml',$index_url);
@@ -316,7 +268,7 @@ function get_trailer_index($trailer)
 function get_trailer_urls($trailer_xml)
 {
   // Get the iTunes XML containing trailer details
-  if ($xml = @file_get_contents(APPLE_TRAILERS_URL.$trailer_xml))
+  if (($xml = @file_get_contents(APPLE_TRAILERS_URL.$trailer_xml)) !== false)
   {
     // Parse the iTunes XML
     send_to_log(6,'Parsing iTunes trailer.xml',$trailer_xml);

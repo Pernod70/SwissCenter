@@ -3,92 +3,18 @@
    SWISScenter Source                                                              Nigel Barnes
  *************************************************************************************************/
 
-require_once( SC_LOCATION.'/base/mysql.php');
+require_once( realpath(dirname(__FILE__).'/../../base/cache_api_request.php'));
 
 define('TFL_URL','http://www.tfl.gov.uk/tfl/businessandpartners/syndication/feed.aspx?email=ngbarnes@hotmail.com');
 
 class Tfl {
-  private $service;
-  private $response;
-  private $cache_table = null;
-  private $cache_expire = null;
-
-  /*
-   * When your database cache table hits this many rows, a cleanup
-   * will occur to get rid of all of the old rows and cleanup the
-   * garbage in the table.  For most personal apps, 1000 rows should
-   * be more than enough.  If your site gets hit by a lot of traffic
-   * or you have a lot of disk space to spare, bump this number up.
-   * You should try to set it high enough that the cleanup only
-   * happens every once in a while, so this will depend on the growth
-   * of your table.
-   */
-  private $max_cache_rows = 1000;
+  private $service = 'tfl';
+  private $cache_expire = 3600;
+  private $cache;
 
   function Tfl ()
   {
-    $this->service = 'tfl';
-    $this->enableCache(3600);
-  }
-
-  /**
-   * Enable caching to the database
-   *
-   * @param unknown_type $cache_expire
-   * @param unknown_type $table
-   */
-  private function enableCache($cache_expire = 600, $table = 'cache_api_request')
-  {
-    if (db_value("SELECT COUNT(*) FROM $table WHERE service = '".$this->service."'") > $this->max_cache_rows)
-    {
-      db_sqlcommand("DELETE FROM $table WHERE service = '".$this->service."' AND expiration < DATE_SUB(NOW(), INTERVAL $cache_expire second)");
-      db_sqlcommand('OPTIMIZE TABLE '.$this->cache_table);
-    }
-    $this->cache_table = $table;
-    $this->cache_expire = $cache_expire;
-  }
-
-  private function getCached($request)
-  {
-    //Checks the database for a cached result to the request.
-    //If there is no cache result, it returns a value of false. If it finds one,
-    //it returns the unparsed XML.
-    $reqhash = md5(serialize($request));
-
-    $result = db_value("SELECT response FROM ".$this->cache_table." WHERE request = '$reqhash' AND DATE_SUB(NOW(), INTERVAL " . (int) $this->cache_expire . " SECOND) < expiration");
-    if (!empty($result)) {
-      return $result;
-    }
-    return false;
-  }
-
-  private function cache($request, $response)
-  {
-    //Caches the unparsed XML of a request.
-    $reqhash = md5(serialize($request));
-
-    if (db_value("SELECT COUNT(*) FROM {$this->cache_table} WHERE request = '$reqhash'")) {
-      db_sqlcommand( "UPDATE ".$this->cache_table." SET response = '".db_escape_str($response)."', expiration = '".strftime("%Y-%m-%d %H:%M:%S")."' WHERE request = '$reqhash'");
-    } else {
-      db_sqlcommand( "INSERT INTO ".$this->cache_table." (request, service, response, expiration) VALUES ('$reqhash', '$this->service', '".db_escape_str($response)."', '".strftime("%Y-%m-%d %H:%M:%S")."')");
-    }
-
-    return false;
-  }
-
-  private function request($request, $nocache = false)
-  {
-    //Sends a request to Tfl
-    send_to_log(6,'Tfl feed request', $request);
-    if (!($this->response = $this->getCached($request)) || $nocache) {
-      if ($this->response = file_get_contents($request)) {
-        $this->cache($request, $this->response);
-      } else {
-        send_to_log(2,"There has been a problem sending your command to the server.", $request);
-        return false;
-      }
-    }
-    return true;
+    $this->cache = new cache_api_request($this->service, $this->cache_expire);
   }
 
   /**
@@ -99,12 +25,22 @@ class Tfl {
    */
   function getFeed($feed)
   {
-    if ( $this->request(TFL_URL.'&feedId='.$feed) ) {
-      $data = parse_tfl_xml($this->response);
-      return $data;
-    } else {
-      return false;
+    // Form the request URL
+    $request = TFL_URL.'&feedId='.$feed;
+
+    //Sends a request to Tfl
+    send_to_log(6,'Tfl feed request', $request);
+
+    // Use a cached response if available
+    if ( !($response = $this->cache->getCached($request)) ) {
+      if (($response = file_get_contents($request)) !== false) {
+        $this->cache->cache($request, $response);
+      } else {
+        send_to_log(2,"There has been a problem sending your command to the server.", $request);
+        return false;
+      }
     }
+    return parse_tfl_xml($response);
   }
 }
 
@@ -124,8 +60,8 @@ function parse_tfl_xml($xml) {
     xml_set_character_data_handler($xmlparser, 'tag_contents_tfl');
 
     // Process XML file
-    $xml = preg_replace("/>\s+/u", ">", $xml);
-    $xml = preg_replace("/\s+</u", "<", $xml);
+    $xml = preg_replace('/>\s+/u', '>', $xml);
+    $xml = preg_replace('/\s+</u', '<', $xml);
     if (!xml_parse($xmlparser, $xml)) {
       send_to_log(8, 'XML parse error: ' . xml_error_string(xml_get_error_code($xmlparser)) . xml_get_current_line_number($xmlparser));
       $result = false;
