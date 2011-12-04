@@ -7,10 +7,12 @@
  require_once( realpath(dirname(__FILE__).'/base/browse.php'));
  require_once( realpath(dirname(__FILE__).'/base/search.php'));
 
- //
- // Takes
- //
-
+/**
+ * Display the genre menu
+ *
+ * @param array $genre - array of genres
+ * @param string $type - specify 'maingenre' or 'subgenre'
+ */
  function make_genre_menu($genre,$type)
  {
    $url = url_remove_param(current_url(), 'page');
@@ -39,17 +41,10 @@
  require_once( realpath(dirname(__FILE__).'/resources/radio/radiotime.php'));
  $iradio = new radiotime;
  $iradio->restrict_mediatype('mp3,aac'); // Restrict to mp3, ogg, aac, etc.
- $cachedir = get_sys_pref('CACHE_DIR').'/radiotime';
-
- if (!file_exists($cachedir))
-   @mkdir($cachedir);
-
- send_to_log(8,"Initialize station cache. CacheDir: '$cachedir', Expiry: '".get_sys_pref('iradio_cache_expire',3600)."'");
- $iradio->set_cache( $cachedir );
- $iradio->set_cache_expiration(get_sys_pref('iradio_cache_expire',3600));
+ $iradio->set_cache(get_sys_pref('iradio_cache_expire',3600));
  $iradio->set_max_results(get_sys_pref('iradio_max_stations',24));
 
- //
+ // Radio service logo
  $radio_logo_start = '<table width="100%" cellpadding=0 cellspacing=0 border=0>
                         <tr>
                           <td valign=top width="'.convert_x(280).'" align="left"><br>
@@ -154,9 +149,11 @@
      $stations = $iradio->get_station();
      $links    = $iradio->get_link();
 
+     $view = isset($_REQUEST["view"]) ? $_REQUEST["view"] : 'stations';
+     $page = isset($_REQUEST["page"]) ? $_REQUEST["page"] : 0;
+
      if (count($stations) >0 )
      {
-       (isset($_REQUEST["page"])) ? $page = $_REQUEST["page"] : $page = 0;
        $image = db_value("select image from iradio_stations where station='".db_escape_str($_REQUEST["station"])."'");
        if ( is_file(SC_LOCATION.'images/iradio/'.$image) )
          $image = SC_LOCATION.'images/iradio/'.$image;

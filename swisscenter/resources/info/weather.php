@@ -3,8 +3,7 @@
    SWISScenter Source                                                              Robert Taylor
  *************************************************************************************************/
 
-require_once(SC_LOCATION.'/base/utils.php');
-require_once(SC_LOCATION.'/base/mysql.php');
+require_once( realpath(dirname(__FILE__).'/../../base/cache_api_request.php'));
 
 define('PARTNER_ID'  ,'1005644464');
 define('LICENSE_KEY' ,'e8f37039809161cc');
@@ -73,42 +72,28 @@ function weather_link()
 }
 
 //
-// Purge data that is older than the caching requirements.
-//
-
-function purge_weather()
-{
-  db_sqlcommand("delete from weather where type='cc' and requested < ".(time()-1800));     // 30 mins
-  db_sqlcommand("delete from weather where type='dayf' and requested < ".(time()-7200));   // 2 hrs
-}
-
-//
 // Returns a array of XML data for the given location (from either the database or weather.com, according
 // the the caching requirements).
 //
 
 function get_weather_xml( $loc, $type, $val )
 {
+  $expire = ($type == 'cc' ? 1800 : 7200);
+  $cache = new cache_api_request('weather', $expire);
+
   $units  = get_user_pref("weather_units");
-  $url    = 'http://xoap.weather.com/weather/local/'.$loc.'?unit='.$units.'&prod=xoap&link=xoap&par='.PARTNER_ID.'&key='.LICENSE_KEY;
-  $xml    = db_value("select xml from weather where url='$url' and type='$type'");
+  $url    = 'http://xoap.weather.com/weather/local/'.$loc.'?unit='.$units.'&prod=xoap&link=xoap&par='.PARTNER_ID.'&key='.LICENSE_KEY.'&'.$type.'='.$val;
+  $xml    = $cache->getCached($url);
 
   if (empty($xml))
   {
-    $fetch_url = $url.'&'.$type.'='.$val;
-    send_to_log(4,"Fetching weather information from", $fetch_url);
-    $xml       = file_get_contents($fetch_url);
-    $data      = array("url"       => $url
-                      ,"xml"       => $xml
-                      ,"requested" => time()
-                      ,"type"      => $type );
-
-    if (!db_insert_row( "weather", $data))
-      page_error(str('DATABASE_ERROR'));
+    send_to_log(4,"Fetching weather information from", $url);
+    if (($xml = file_get_contents($url)) !== false)
+      $cache->cache($url, $xml, 7200);
   }
   $xml_array = xml2tree($xml);
   if (isset($xml_array["err"]))
-    send_to_log(2,'Error from Weather.com: '.$fetch_url, $xml_array["err"]);
+    send_to_log(2,'Error from Weather.com: '.$url, $xml_array["err"]);
 
   return $xml_array;
 }
@@ -120,21 +105,17 @@ function get_weather_xml( $loc, $type, $val )
 
 function get_yahoo_xml( $loc, $type, $val )
 {
+  $cache = new cache_api_request('weather', 1800);
+
   $units  = (get_user_pref("weather_units") == 'm') ? 'c' : 'f';
   $url    = 'http://xml.weather.yahoo.com/forecastrss/'.$loc.'_'.$units.'.xml';
-  $xml    = db_value("select xml from weather where url='$url' and type='$type'");
+  $xml    = $cache->getCached($url);
 
   if (empty($xml))
   {
     send_to_log(4,"Fetching weather information from", $url);
-    $xml       = file_get_contents($url);
-    $data      = array("url"       => $url
-                      ,"xml"       => $xml
-                      ,"requested" => time()
-                      ,"type"      => $type );
-
-    if (!db_insert_row( "weather", $data))
-      page_error(str('DATABASE_ERROR'));
+    if (($xml = file_get_contents($url)) !== false)
+      $cache->cache($url, $xml);
   }
   $xml_array = xml2tree($xml);
   if (strpos($xml_array["title"], 'Error'))
