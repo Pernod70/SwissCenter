@@ -18,7 +18,7 @@ require_once( realpath(dirname(__FILE__)."/../../base/server.php"));
  * @class radiotime
  */
 class radiotime extends iradio {
-  private $service = 'radiotime';
+  protected $service = 'radiotime';
 
   private $partner_id = 'g74oe2T8';
   private $serial;

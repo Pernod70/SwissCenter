@@ -17,7 +17,7 @@ require_once(dirname(__FILE__)."/iradio.php");
  * @class liveradio
  */
 class liveradio extends iradio {
-  private $service = 'live-radio';
+  protected $service = 'live-radio';
 
   /** Initializing the class
    * @constructor liveradio

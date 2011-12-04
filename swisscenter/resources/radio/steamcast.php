@@ -4,7 +4,7 @@
  # Internet Radio Site parsing utility by Itzchak Rehberg & IzzySoft         #
  # http://www.qumran.org/homes/izzy/                                         #
  # ------------------------------------------------------------------------- #
- # This is the Icecast parser                                                #
+ # This is the Steamcast parser                                              #
  # ------------------------------------------------------------------------- #
  # This program is free software; you can redistribute and/or modify it      #
  # under the terms of the GNU General Public License (see doc/LICENSE)       #
@@ -18,7 +18,7 @@ require_once( realpath(dirname(__FILE__).'/../../ext/xml/xmlparser.php'));
  * @class steamcast
  */
 class steamcast extends iradio {
-  private $service = 'steamcast';
+  protected $service = 'steamcast';
 
   /** Initializing the class
    * @constructor steamcast

@@ -17,7 +17,7 @@ require_once( realpath(dirname(__FILE__)."/iradio.php"));
  * @class shoutcast
  */
 class shoutcast extends iradio {
-  private $service = 'shoutcast';
+  protected $service = 'shoutcast';
 
   private $api_key = 'pe1DPxlnBcQpX78Y';
 //private $api_key = 'fa1jo93O_raeF0v9'; // Winamp

@@ -18,7 +18,7 @@ require_once( realpath(dirname(__FILE__).'/../../ext/xml/xmlparser.php'));
  * @class live365
  */
 class live365 extends iradio {
-  private $service = 'live365';
+  protected $service = 'live365';
 
   private $username;
   private $password;
