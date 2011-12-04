@@ -75,31 +75,36 @@ class MusicXMatch
   /**
    * Search for a track in our database.
    *
-   * @param $q              - a string that will be searched in every data field (q_track, q_artist, q_lyrics)
-   * @param $q_track        - words to be searched among track titles
-   * @param $q_artist       - words to be searched among artist names
-   * @param $q_track_artist - words to be searched among track titles or artist names
-   * @param $q_lyrics       - words to be searched into the lyrics
-   * @param $f_has_lyrics   - exclude tracks without an available lyrics (automatic if q_lyrics is set)
-   * @param $f_artist_id    - filter the results by the artist_id
-   * @param $f_artist_mbid  - filter the results by the artist_mbid
-   * @param $quorum_factor  - only works together with q and q_track_artist parameter.
-   *                          Possible values goes from 0.1 to 0.9
-   *                          A value of 0.9 means: “match at least 90% of the given words”.
+   * @param $q                    - a string that will be searched in every data field (q_track, q_artist, q_lyrics)
+   * @param $q_track              - words to be searched among track titles
+   * @param $q_artist             - words to be searched among artist names
+   * @param $q_track_artist       - words to be searched among track titles or artist names
+   * @param $q_lyrics             - words to be searched into the lyrics
+   * @param $f_has_lyrics         - exclude tracks without an available lyrics (automatic if q_lyrics is set)
+   * @param $f_artist_id          - filter the results by the artist_id
+   * @param $f_artist_mbid        - filter the results by the artist_mbid
+   * @param $s_track_rating       - sort the results by our popularity index, possible values are ASC | DESC
+   * @param $s_track_release_date - sort the results by track release date, possible values are ASC | DESC
+   * @param $quorum_factor        - only works together with q and q_track_artist parameter.
+   *                                Possible values goes from 0.1 to 0.9
+   *                                A value of 0.9 means: “match at least 90% of the given words”.
    * @return array
    */
-  public function track_search($q = null, $q_track = null, $q_artist = null, $q_track_artist = null, $q_lyrics = null, $f_has_lyrics = null, $f_artist_id = null, $f_artist_mbid = null, $quorum_factor = null)
+  public function track_search($q = null, $q_track = null, $q_artist = null, $q_track_artist = null, $q_lyrics = null, $f_has_lyrics = null, $f_has_subtitle = null, $f_artist_id = null, $f_artist_mbid = null, $s_track_rating = null, $s_track_release_date = null, $quorum_factor = null)
   {
     $this->reset_params();
-    if ( !empty($q) )               $this->_query_parameters['q']             = $q;
-    if ( !empty($q_track) )         $this->_query_parameters['q_track']       = $q_track;
-    if ( !empty($q_artist) )        $this->_query_parameters['q_artist']      = $q_artist;
-    if ( !empty($q_track_artist) )  $this->_query_parameters['q_artist']      = $q_track_artist;
-    if ( !empty($q_lyrics) )        $this->_query_parameters['q_lyrics']      = $$q_lyrics;
-    if ( !empty($f_has_lyrics) )    $this->_query_parameters['f_has_lyrics']  = $f_has_lyrics;
-    if ( !empty($f_artist_id) )     $this->_query_parameters['f_artist_id']   = $f_artist_id;
-    if ( !empty($f_artist_mbid) )   $this->_query_parameters['f_artist_mbid'] = $f_artist_mbid;
-    if ( !empty($quorum_factor) )   $this->_query_parameters['quorum_factor'] = $quorum_factor;
+    if ( !empty($q) )                    $this->_query_parameters['q']                    = $q;
+    if ( !empty($q_track) )              $this->_query_parameters['q_track']              = $q_track;
+    if ( !empty($q_artist) )             $this->_query_parameters['q_artist']             = $q_artist;
+    if ( !empty($q_track_artist) )       $this->_query_parameters['q_artist']             = $q_track_artist;
+    if ( !empty($q_lyrics) )             $this->_query_parameters['q_lyrics']             = $$q_lyrics;
+    if ( !empty($f_has_lyrics) )         $this->_query_parameters['f_has_lyrics']         = $f_has_lyrics;
+    if ( !empty($f_has_subtitle) )       $this->_query_parameters['f_has_subtitle']       = $f_has_subtitle;
+    if ( !empty($f_artist_id) )          $this->_query_parameters['f_artist_id']          = $f_artist_id;
+    if ( !empty($f_artist_mbid) )        $this->_query_parameters['f_artist_mbid']        = $f_artist_mbid;
+    if ( !empty($s_track_rating) )       $this->_query_parameters['s_track_rating']       = $s_track_rating;
+    if ( !empty($s_track_release_date) ) $this->_query_parameters['s_track_release_date'] = $s_track_release_date;
+    if ( !empty($quorum_factor) )        $this->_query_parameters['quorum_factor']        = $quorum_factor;
     return $this->execute_request('track.search');
   }
 
@@ -125,26 +130,28 @@ class MusicXMatch
    * @param $f_has_lyrics   - exclude tracks without an available lyrics
    * @return array
    */
-  public function track_chart_get($country, $f_has_lyrics = null)
+  public function chart_tracks_get($country, $f_has_lyrics = null)
   {
     $this->reset_params();
     if ( !empty($country) )         $this->_query_parameters['country']       = $country;
     if ( !empty($f_has_lyrics) )    $this->_query_parameters['f_has_lyrics']  = $f_has_lyrics;
-    return $this->execute_request('track.chart.get');
+    return $this->execute_request('chart.tracks.get');
   }
 
   /**
    * Retreive the subtitle of a track
    *
-   * @param $track_id       - the track identifier expressed as a musiXmatch ID or musicbrainz ID
-   * @param $track_mbid     - the track identifier expressed as a musiXmatch ID or musicbrainz ID
+   * @param $track_id        - the track identifier expressed as a musiXmatch ID or musicbrainz ID
+   * @param $track_mbid      - the track identifier expressed as a musiXmatch ID or musicbrainz ID
+   * @param $subtitle_format - the format of the subtitle (lrc,dfxp,stledu). Default to lrc
    * @return array
    */
-  public function track_subtitle_get($track_id = null, $track_mbid = null)
+  public function track_subtitle_get($track_id = null, $track_mbid = null, $subtitle_format = 'lrc')
   {
     $this->reset_params();
-    if ( !empty($track_id) )        $this->_query_parameters['track_id']      = $track_id;
-    if ( !empty($track_mbid) )      $this->_query_parameters['track_mbid']    = $track_mbid;
+    if ( !empty($track_id) )        $this->_query_parameters['track_id']        = $track_id;
+    if ( !empty($track_mbid) )      $this->_query_parameters['track_mbid']      = $track_mbid;
+    if ( !empty($subtitle_format) ) $this->_query_parameters['subtitle_format'] = $subtitle_format;
     return $this->execute_request('track.subtitle.get');
   }
 
@@ -271,17 +278,32 @@ class MusicXMatch
     return $this->execute_request('artist.albums.get');
   }
 
+/**
+   * Get the discography of an artist.
+   *
+   * @param $artist_id      - the album identifier expressed as a musiXmatch ID
+   * @param $artist_mbid    - the musicbrainz artist id
+   * @return array
+   */
+  public function artist_related_get($artist_id, $artist_mbid = null)
+  {
+    $this->reset_params();
+    if ( !empty($artist_id) )       $this->_query_parameters['artist_id']     = $artist_id;
+    if ( !empty($artist_mbid) )     $this->_query_parameters['artist_mbid']   = $artist_mbid;
+    return $this->execute_request('artist.related.get');
+  }
+
   /**
    * This api provides you the list of the top artists of a given country.
    *
    * @param $country        - the country code of the desired country chart
    * @return array
    */
-  public function artist_chart_get($country)
+  public function chart_artists_get($country)
   {
     $this->reset_params();
     if ( !empty($country) )         $this->_query_parameters['country']       = $country;
-    return $this->execute_request('artist.chart.get');
+    return $this->execute_request('chart.artists.get');
   }
 
   /**
@@ -379,6 +401,4 @@ class MusicXMatch
     return $url;
   }
 }
-
-
 ?>
