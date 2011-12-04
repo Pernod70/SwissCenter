@@ -3,8 +3,8 @@
    SWISScenter Source                                                              Nigel Barnes
  *************************************************************************************************/
 
-require_once( SC_LOCATION.'/base/file.php');
-require_once( SC_LOCATION.'/ext/xmlrpc/xmlrpc.inc' );
+require_once( realpath(dirname(__FILE__).'/../../base/file.php' ));
+require_once( realpath(dirname(__FILE__).'/../../ext/xmlrpc/xmlrpc.inc' ));
 
 /**
  * An implementation of the XML-RPC OpenSubtitles.org API.
@@ -672,9 +672,9 @@ class OpenSubtitles
    */
   function AddComment( $comment )
   {
-    $xmlrpc_comment = new xmlrpcval(array("idsubtitle"  => new xmlrpcval($subtitle["idsubtitle"], "string"),
-                                          "comment"     => new xmlrpcval($subtitle["comment"], "string"),
-                                          "badsubtitle" => new xmlrpcval($subtitle["badsubtitle"], "string")), "struct");
+    $xmlrpc_comment = new xmlrpcval(array("idsubtitle"  => new xmlrpcval($comment["idsubtitle"], "string"),
+                                          "comment"     => new xmlrpcval($comment["comment"], "string"),
+                                          "badsubtitle" => new xmlrpcval($comment["badsubtitle"], "string")), "struct");
 
     $message = new xmlrpcmsg("AddComment", array(new xmlrpcval($this->token, "string"),
                                                  new xmlrpcval($xmlrpc_comment, "array")));
@@ -771,7 +771,7 @@ function OpenSubtitlesHash($file)
 {
   if ( !file_exists($file) ) { return '0'; }
 
-  set_magic_quotes_runtime(0);
+  ini_set('magic_quotes_runtime', 0);
 
   $handle = fopen($file, "rb");
   $fsize = large_filesize($file);
