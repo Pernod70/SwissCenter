@@ -140,7 +140,7 @@ function ParserTvLookup($tv_id, $filename, $search_params) {
                    , "original_url" => $thumb['ORIGINAL']
                    , "resolution"   => $thumb['RESOLUTION']
                    , "colors"       => $thumb['COLORS'] );
-      $file_id = db_value("select file_id from themes where title='".db_escape_str($programme)."' and instr(original_url,'".db_escape_str($thumb['ORIGINAL'])."')>0");
+      $file_id = db_value("select file_id from themes where title='".db_escape_str($programme)."' and original_url='".db_escape_str($thumb['ORIGINAL'])."'");
       if ( $file_id )
         db_update_row( "themes", $file_id, $data);
       else
