@@ -292,15 +292,17 @@ function check_swiss_files()
   // Checks may take a while so disable timeout
   set_time_limit(0);
 
+  // Configuration and log file extensions to be ignored
+  $ignore = array('conf', 'config', 'ini', 'installlog', 'installstate', 'log', 'old', 'txt');
+
   // Create array of all local files (excluding Bookmarks, cache, styles, and fanart folders)
-  $local = dir_to_array(SC_LOCATION, '^(?!Bookmarks|cache|fanart|media|playlists|styles|Thumbs.db)', 5, true);
+  $local = dir_to_array(SC_LOCATION, '^(?!Bookmarks|cache|fanart|genres|media|playlists|styles|Thumbs.db)', 5, true);
 
   $data = array();
   foreach ($local as $path)
   {
     $relative_path = str_replace('\\','/',substr(realpath($path), strlen(SC_LOCATION)));
-    if ( !isdir($path) &&
-         !in_array(file_ext($relative_path), array('ini', 'installlog', 'log', 'old', 'txt')) )
+    if (!isdir($path) && !in_array(file_ext($path), $ignore))
     {
       // Mark all files for deletion until matched with SVN
       $data[$relative_path] = array("revision" => null,
@@ -311,26 +313,28 @@ function check_swiss_files()
   // Compare the checksums of the local files.
   foreach ($file_list as $file)
   {
-    // SVN filelist contains (relative_path,md5_checksum) whilst stable contains (filename,checksum)
-    $path = $file["relative_path"];
+    // SVN filelist contains (relative_path, md5_checksum) whilst stable contains (filename, checksum)
+    $path = urldecode($file["relative_path"]);
     $rev  = $file["revision"];
     $md5  = isset($file["md5_checksum"]) ? $file["md5_checksum"] : '';
 
-    if ( !empty($md5) && !file_exists(SC_LOCATION.urldecode($path)) )
+    if ( !empty($md5) && !file_exists(SC_LOCATION.$path) )
     {
-      $data[urldecode($path)] = array("revision" => $rev,
-                                      "error"    => "missing");
-      send_to_log(5,'  Not Found: '.SC_LOCATION.urldecode($path));
+      // File does not exist locally
+      $data[$path] = array("revision" => $rev,
+                           "error"    => "missing");
+      send_to_log(5,'  Not Found: '.SC_LOCATION.$path);
     }
-    elseif ( !empty($md5) && $md5 !== md5_file(SC_LOCATION.urldecode($path)) )
+    elseif ( !empty($md5) && $md5 !== md5_file(SC_LOCATION.$path) && !in_array(file_ext($path), $ignore) )
     {
-      $data[urldecode($path)] = array("revision" => $rev,
-                                      "error"    => "checksum");
-      send_to_log(5,'  Checksum:  '.SC_LOCATION.urldecode($path));
+      // File exists locally but doesn't match SVN
+      $data[$path] = array("revision" => $rev,
+                           "error"    => "checksum");
+      send_to_log(5,'  Checksum:  '.SC_LOCATION.$path);
     }
     else
     {
-      unset( $data[urldecode($path)] );
+      unset( $data[$path] );
     }
   }
 
