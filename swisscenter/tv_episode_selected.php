@@ -97,6 +97,7 @@
   $predicate     = get_rating_filter().category_select_sql($_REQUEST["cat"], MEDIA_TYPE_TV).filter_get_predicate();
   $select_fields = "file_id, dirname, filename, title, year, length";
   $file_id       = $_REQUEST["file_id"];
+  $view_status   = $_REQUEST["view_status"];
   $this_url      = url_remove_params(current_url(), array('lookup', 'viewed'));
   $cert_img      = '';
 
@@ -230,11 +231,11 @@
         </table>';
 
   // Buttons for Next and Previous episodes
-  $prev = db_row("select file_id, series, episode from tv media ".get_rating_join()." where programme = '".db_escape_str($data["PROGRAMME"])."'".
-                 " and concat(lpad(series,2,0),lpad(episode,3,0)) < concat(lpad(".$data["SERIES"].',2,0),lpad('.$data["EPISODE"].',3,0)) '.$predicate.
+  $prev = db_row("select file_id, series, episode from tv media ".get_rating_join().viewed_join(MEDIA_TYPE_TV)." where programme = '".db_escape_str($data["PROGRAMME"])."'".
+                 " and concat(lpad(series,2,0),lpad(episode,3,0)) < concat(lpad(".$data["SERIES"].',2,0),lpad('.$data["EPISODE"].',3,0)) '.$predicate.viewed_n_times_predicate( ($view_status == 'unviewed' ? '=' : '>='),0).
                  " order by series desc,episode desc limit 1");
-  $next = db_row("select file_id, series, episode from tv media ".get_rating_join()." where programme = '".db_escape_str($data["PROGRAMME"])."'".
-                 " and concat(lpad(series,2,0),lpad(episode,3,0)) > concat(lpad(".$data["SERIES"].',2,0),lpad('.$data["EPISODE"].',3,0)) '.$predicate.
+  $next = db_row("select file_id, series, episode from tv media ".get_rating_join().viewed_join(MEDIA_TYPE_TV)." where programme = '".db_escape_str($data["PROGRAMME"])."'".
+                 " and concat(lpad(series,2,0),lpad(episode,3,0)) > concat(lpad(".$data["SERIES"].',2,0),lpad('.$data["EPISODE"].',3,0)) '.$predicate.viewed_n_times_predicate( ($view_status == 'unviewed' ? '=' : '>='),0).
                  " order by series asc, episode asc limit 1");
 
   // Output ABC buttons

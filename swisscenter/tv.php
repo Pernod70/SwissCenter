@@ -43,12 +43,13 @@ class tv_series_picker extends list_picker
   function data_list( $search_string, $start, $end)
   {
     $articles = get_sys_pref('IGNORE_ARTICLES');
-    $sql = "select distinct programme
+    $sql = "select programme
               from tv media ".get_rating_join().viewed_join(MEDIA_TYPE_TV)."
              where trim_article(programme,'$articles') like '".db_escape_str($search_string)."'
                    ".get_rating_filter()."
                    ".category_select_sql($_REQUEST["cat"], MEDIA_TYPE_TV)."
                    ".filter_get_predicate()."
+          group by programme
             having ".viewed_status_predicate( filter_get_name() )."
           order by trim_article(programme,'$articles') limit $start,$end";
 
@@ -58,15 +59,16 @@ class tv_series_picker extends list_picker
   function data_count( $search_string )
   {
     $articles = get_sys_pref('IGNORE_ARTICLES');
-    $sql = "select count(distinct programme)
+    $sql = "select programme
               from tv media ".get_rating_join().viewed_join(MEDIA_TYPE_TV)."
              where trim_article(programme,'$articles') like '".db_escape_str($search_string)."'
                    ".get_rating_filter()."
                    ".category_select_sql($_REQUEST["cat"], MEDIA_TYPE_TV)."
                    ".filter_get_predicate()."
+          group by programme
             having ".viewed_status_predicate( filter_get_name() );
 
-    return db_value($sql);
+    return count(db_col_to_list($sql));
   }
 
   function data_valid_chars( $search_string )
@@ -78,6 +80,7 @@ class tv_series_picker extends list_picker
                    ".get_rating_filter()."
                    ".category_select_sql($_REQUEST["cat"], MEDIA_TYPE_TV)."
                    ".filter_get_predicate()."
+          group by programme
             having ".viewed_status_predicate( filter_get_name() )."
            order by 1";
 
