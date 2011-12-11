@@ -187,8 +187,10 @@ class parserUtil
     $count = count($array);
     for ($i = 0; $i < $count; $i++) {
       $pos = strpos(strtoupper($title.' '), $array[$i]);
-      if ($pos != FALSE)
+      if ($pos != FALSE) {
         $title = substr($title, 0, $pos).' ';
+        break;
+      }
     }
     return trim($title);
   }
