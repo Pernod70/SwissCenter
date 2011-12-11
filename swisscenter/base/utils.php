@@ -785,6 +785,7 @@ if(!function_exists('mime_content_type')) {
       'mp2' => 'audio/mpeg',
       'mp3' => 'audio/mpeg',
       'ogg' => 'audio/ogg',
+      'tta' => 'audio/tta',
       'wav' => 'audio/x-wav',
       'wma' => 'audio/x-ms-wma',
       'flac' => 'audio/x-flac',
