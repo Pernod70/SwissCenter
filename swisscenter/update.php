@@ -156,9 +156,27 @@ function set_last_update($release_dir)
   }
   else
   {
-    // Rename Files
     if (count($actions) > 0)
     {
+      // Windows services
+      $services = array('SwissMonitorService', 'upnp2http');
+      $services_status = array();
+
+      // Stop Windows services to allow overwrite
+      if ( is_windows() )
+      {
+        foreach ($services as $service)
+        {
+          $services_status[$service] = (win_service_status($service) == SERVICE_STARTED);
+          if ($services_status[$service])
+          {
+            send_to_log(4,"Stopping Windows service: ".$service);
+            win_service_stop($service);
+          }
+        }
+      }
+
+      // Rename Files
       foreach($actions as $a)
       {
         unlink($a["existing"]);
@@ -169,6 +187,19 @@ function set_last_update($release_dir)
       $updated = true;
       force_rmdir('updates');
 
+      // Start Windows services
+      if ( is_windows() )
+      {
+        foreach ($services as $service)
+        {
+          if ($services_status[$service])
+          {
+            send_to_log(4,"Starting Windows service: ".$service);
+            win_service_start($service);
+          }
+        }
+      }
+
       // Update complete, so save file list for comparison to new updates and reset the session
       $_SESSION = array();
       $out = fopen("filelist.txt", "w");
@@ -178,13 +209,13 @@ function set_last_update($release_dir)
       set_sys_pref("SVN_REVISION","");
       send_to_log(4,"Update complete");
       header("Location: /update_outcome.php?status=UPDATED");
-   }
-   else
-   {
-      set_last_update($update_location);
-      send_to_log(4,"No files to update");
-      header("Location: /update_outcome.php?status=NONE");
-   }
+    }
+    else
+    {
+       set_last_update($update_location);
+       send_to_log(4,"No files to update");
+       header("Location: /update_outcome.php?status=NONE");
+    }
 
   }
 
