@@ -244,6 +244,24 @@ function svn_update( $path = SVN_PATH )
       $max_revision = $fsp["revision"];
   }
 
+  // Windows services
+  $services = array('SwissMonitorService', 'upnp2http');
+  $services_status = array();
+
+  // Stop Windows services to allow overwrite
+  if ( is_windows() )
+  {
+    foreach ($services as $service)
+    {
+      $services_status[$service] = (win_service_status($service) == SERVICE_STARTED);
+      if ($services_status[$service])
+      {
+        send_to_log(4,"Stopping Windows service: ".$service);
+        win_service_stop($service);
+      }
+    }
+  }
+
   // All files have been downloaded
   send_to_log(4,"Replacing existing files with those downloaded");
   foreach ($updates_list as $action)
@@ -251,6 +269,19 @@ function svn_update( $path = SVN_PATH )
     unlink($action["existing"]);
     rename($action["downloaded"],$action["existing"]);
     send_to_log(4,"'".$action["existing"]."' updated");
+  }
+
+  // Start Windows services
+  if ( is_windows() )
+  {
+    foreach ($services as $service)
+    {
+      if ($services_status[$service])
+      {
+        send_to_log(4,"Starting Windows service: ".$service);
+        win_service_start($service);
+      }
+    }
   }
 
   // Update complete
