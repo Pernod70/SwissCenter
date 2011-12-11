@@ -99,7 +99,7 @@ function ParserMovieLookup($movie_id, $filename, $search_params) {
     foreach ($fanart as $image) {
       // Reset the timeout counter for each image downloaded
       set_time_limit(30);
-      $thumb_cache = $cache_dir . '/fanart/' . $image['id'] . '_' . basename($image['thumb']);
+      $thumb_cache = $cache_dir.'/fanart/'.$image['id'].'_'.basename($image['thumb']);
 
       if (!file_exists($thumb_cache))
         file_save_albumart($image['thumb'], $thumb_cache, '');
@@ -111,7 +111,7 @@ function ParserMovieLookup($movie_id, $filename, $search_params) {
         "thumb_cache" => os_path($thumb_cache),
         "original_url" => $image['original']
       );
-      $file_id = db_value("select file_id from themes where title='" . db_escape_str($title) . "' and instr(original_url,'/" . $image['id'] . "/')>0");
+      $file_id = db_value("select file_id from themes where title='".db_escape_str($title)."' and original_url='".db_escape_str($image['original'])."'");
       if ($file_id)
         db_update_row("themes", $file_id, $data);
       else
