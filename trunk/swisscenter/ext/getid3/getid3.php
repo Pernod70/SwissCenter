@@ -113,7 +113,7 @@ class getID3
 	protected $startup_warning = '';
 	protected $memory_limit    = 0;
 
-	const VERSION           = '1.9.2-20111209';
+	const VERSION           = '1.9.3-20111213';
 	const FREAD_BUFFER_SIZE = 32768;
 	var $tempdir            = GETID3_TEMP_DIR;
 

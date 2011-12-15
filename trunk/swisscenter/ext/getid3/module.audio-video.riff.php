@@ -1644,7 +1644,7 @@ class getid3_riff extends getid3_handler
 	}
 
 
-	static function RIFFparseWAVEFORMATex($WaveFormatExData) {
+	public static function RIFFparseWAVEFORMATex($WaveFormatExData) {
 		// shortcut
 		$WaveFormatEx['raw'] = array();
 		$WaveFormatEx_raw    = &$WaveFormatEx['raw'];
@@ -1730,21 +1730,21 @@ class getid3_riff extends getid3_handler
 		return true;
 	}
 
-	static function ParseBITMAPINFOHEADER($BITMAPINFOHEADER, $littleEndian=true) {
-		$getid3_lib = new getid3_lib();
+	public static function ParseBITMAPINFOHEADER($BITMAPINFOHEADER, $littleEndian=true) {
+
 		$functionname = ($littleEndian ? 'LittleEndian2Int' : 'BigEndian2Int');
-		$parsed['biSize']          = $getid3_lib->$functionname(substr($BITMAPINFOHEADER,  0, 4)); // number of bytes required by the BITMAPINFOHEADER structure
-		$parsed['biWidth']         = $getid3_lib->$functionname(substr($BITMAPINFOHEADER,  4, 4)); // width of the bitmap in pixels
-		$parsed['biHeight']        = $getid3_lib->$functionname(substr($BITMAPINFOHEADER,  8, 4)); // height of the bitmap in pixels. If biHeight is positive, the bitmap is a 'bottom-up' DIB and its origin is the lower left corner. If biHeight is negative, the bitmap is a 'top-down' DIB and its origin is the upper left corner
-		$parsed['biPlanes']        = $getid3_lib->$functionname(substr($BITMAPINFOHEADER, 12, 2)); // number of color planes on the target device. In most cases this value must be set to 1
-		$parsed['biBitCount']      = $getid3_lib->$functionname(substr($BITMAPINFOHEADER, 14, 2)); // Specifies the number of bits per pixels
+		$parsed['biSize']          = getid3_lib::$functionname(substr($BITMAPINFOHEADER,  0, 4)); // number of bytes required by the BITMAPINFOHEADER structure
+		$parsed['biWidth']         = getid3_lib::$functionname(substr($BITMAPINFOHEADER,  4, 4)); // width of the bitmap in pixels
+		$parsed['biHeight']        = getid3_lib::$functionname(substr($BITMAPINFOHEADER,  8, 4)); // height of the bitmap in pixels. If biHeight is positive, the bitmap is a 'bottom-up' DIB and its origin is the lower left corner. If biHeight is negative, the bitmap is a 'top-down' DIB and its origin is the upper left corner
+		$parsed['biPlanes']        = getid3_lib::$functionname(substr($BITMAPINFOHEADER, 12, 2)); // number of color planes on the target device. In most cases this value must be set to 1
+		$parsed['biBitCount']      = getid3_lib::$functionname(substr($BITMAPINFOHEADER, 14, 2)); // Specifies the number of bits per pixels
 		$parsed['fourcc']          =                            substr($BITMAPINFOHEADER, 16, 4);  // compression identifier
-		$parsed['biSizeImage']     = $getid3_lib->$functionname(substr($BITMAPINFOHEADER, 20, 4)); // size of the bitmap data section of the image (the actual pixel data, excluding BITMAPINFOHEADER and RGBQUAD structures)
-		$parsed['biXPelsPerMeter'] = $getid3_lib->$functionname(substr($BITMAPINFOHEADER, 24, 4)); // horizontal resolution, in pixels per metre, of the target device
-		$parsed['biYPelsPerMeter'] = $getid3_lib->$functionname(substr($BITMAPINFOHEADER, 28, 4)); // vertical resolution, in pixels per metre, of the target device
-		$parsed['biClrUsed']       = $getid3_lib->$functionname(substr($BITMAPINFOHEADER, 32, 4)); // actual number of color indices in the color table used by the bitmap. If this value is zero, the bitmap uses the maximum number of colors corresponding to the value of the biBitCount member for the compression mode specified by biCompression
-		$parsed['biClrImportant']  = $getid3_lib->$functionname(substr($BITMAPINFOHEADER, 36, 4)); // number of color indices that are considered important for displaying the bitmap. If this value is zero, all colors are important
-		unset($getid3_lib);
+		$parsed['biSizeImage']     = getid3_lib::$functionname(substr($BITMAPINFOHEADER, 20, 4)); // size of the bitmap data section of the image (the actual pixel data, excluding BITMAPINFOHEADER and RGBQUAD structures)
+		$parsed['biXPelsPerMeter'] = getid3_lib::$functionname(substr($BITMAPINFOHEADER, 24, 4)); // horizontal resolution, in pixels per metre, of the target device
+		$parsed['biYPelsPerMeter'] = getid3_lib::$functionname(substr($BITMAPINFOHEADER, 28, 4)); // vertical resolution, in pixels per metre, of the target device
+		$parsed['biClrUsed']       = getid3_lib::$functionname(substr($BITMAPINFOHEADER, 32, 4)); // actual number of color indices in the color table used by the bitmap. If this value is zero, the bitmap uses the maximum number of colors corresponding to the value of the biBitCount member for the compression mode specified by biCompression
+		$parsed['biClrImportant']  = getid3_lib::$functionname(substr($BITMAPINFOHEADER, 36, 4)); // number of color indices that are considered important for displaying the bitmap. If this value is zero, all colors are important
+
 		return $parsed;
 	}
 
@@ -2002,7 +2002,7 @@ class getid3_riff extends getid3_handler
 	}
 
 
-	static function RIFFfourccLookup($fourcc) {
+	public static function RIFFfourccLookup($fourcc) {
 
 		$begin = __LINE__;
 
