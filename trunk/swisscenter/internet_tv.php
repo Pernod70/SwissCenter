@@ -17,6 +17,7 @@
   {
     $menu->add_item( str('YOUTUBE'), 'youtube_menu.php' );
     $menu->add_item( str('APPLE_TRAILERS'), 'apple_trailer.php' );
+    $menu->add_item( str('VIDEOBASH'), 'videobash_menu.php' );
   }
   $menu->add_item( str('FILM_TRAILERS'), 'film_trailer.php' );
   $menu->add_item( str('TOMA_INTERNET_TV'), 'internet_tv_toma.php' );
