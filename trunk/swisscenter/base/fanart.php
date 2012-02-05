@@ -51,7 +51,7 @@ function get_google_artist_image( $artist )
     // Create folder for artist images
     $local_folder = SC_LOCATION.'fanart/artists';
     if (!file_exists($local_folder)) { @mkdir($local_folder); }
-    $local_folder = SC_LOCATION.'fanart/artists/'.strtolower($artist);
+    $local_folder = SC_LOCATION.'fanart/artists/'.filename_safe(strtolower($artist));
     if (!file_exists($local_folder)) { @mkdir($local_folder); }
 
     // Collect image URL's from results object
@@ -90,7 +90,7 @@ function get_lastfm_artist_image( $artist )
   // Create folder for artist images
   $local_folder = SC_LOCATION.'fanart/artists';
   if (!file_exists($local_folder)) { @mkdir($local_folder); }
-  $local_folder = SC_LOCATION.'fanart/artists/'.strtolower($artist);
+  $local_folder = SC_LOCATION.'fanart/artists/'.filename_safe(strtolower($artist));
   if (!file_exists($local_folder)) { @mkdir($local_folder); }
 
   // Filter original images that meet our minimum size requirements

@@ -332,7 +332,7 @@
     // Random fanart image for current artist
     if ( !$fanart_img )
     {
-      $fanart_imgs = dir_to_array(SC_LOCATION.'fanart/artists/'.strtolower($current_track["ARTIST"]).'/', '.*', 5);
+      $fanart_imgs = dir_to_array(SC_LOCATION.'fanart/artists/'.filename_safe(strtolower($current_track["ARTIST"])).'/', '.*', 5);
       $fanart_img  = count($fanart_imgs)==0 ? style_img('RADIO_BACKGROUND',true) : $fanart_imgs[mt_rand(0,count($fanart_imgs)-1)];
     }
 
