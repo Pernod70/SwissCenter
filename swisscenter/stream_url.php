@@ -152,31 +152,35 @@
       // A YouTube id has been provided so we need to determine the actual location of the video file.
       if (!isset($_SESSION["stream_id"]) || ($_SESSION["stream_id"] !== $_REQUEST["youtube_id"]))
       {
-        $video_id  = $_REQUEST["youtube_id"];
+        $videoId  = $_REQUEST["youtube_id"];
 
         // Get the YouTube video page to parse
-        $youtube_url = 'http://www.youtube.com/watch?v='.$video_id;
+        $youtube_url = 'http://www.youtube.com/watch?v='.$videoId;
         $html = file_get_contents($youtube_url);
 
         //
         // This code is based upon a script found at http://userscripts.org/scripts/show/109103
-        //   Version 1.2.5 : Date 2011-08-04
+        //   Version 1.3.8 : Date 2012-02-09
         //
         // Obtain video ID, temporary ticket, formats map
-        $video_player = preg_get('/<div id="watch-player".*>(.*)<\/div>/Usm', $html);
-        if ( !empty($video_player) )
+        if (!empty($html))
         {
-          $video_ticket  = preg_get('/\&amp;t=([^(\&|$)]*)/', $video_player);
-          $video_formats = preg_get('/\&amp;url_encoded_fmt_stream_map=([^(\&|$)]*)/', $video_player);
+          $videoTicket  = preg_get('/(?:"|\&amp;t=([^(\&|$)]+)/', $html);
+          $videoFormats = preg_get('/(?:"|\&amp;url_encoded_fmt_stream_map=([^(\&|$|\\)]+)/', $html);
+        }
 
-          if ( empty($video_formats) )
-          {
-            $video_formats = preg_get('/\&amp;fmt_url_map=([^(\&|$)]*)/', $video_player);
-          }
+        if (empty($videoTicket))
+        {
+          $videoTicket  = preg_get('/\"t\":\s*\"([^\"]+)\"/', $html);
+          $videoFormats = preg_get('/\"url_encoded_fmt_stream_map\":\s*\"([^\"]+)\"/', $html);
+        }
 
+        if (!empty($videoTicket) && !empty($videoFormats))
+        {
           // Video title
-          $video_title = preg_get('/<title>(.*)<\/title>/Usm', $html);
-          $video_title = 'video';
+          $videoTitle = preg_get('/<title>(.*)<\/title>/Usm', $html);
+          $videoTitle = str_replace(' - YouTube', '', $videoTitle);
+          $videoTitle = 'video';
 
           // Available formats:
           //  5 - FLV 240p
@@ -185,52 +189,52 @@
           // 34 - FLV 360p
           // 35 - FLV 480p
           // 37 - MP4 1080p (HD)
-          // 38 - MP4 Original (HD)
+          // 38 - MP4 4K (HD)
           // 43 - WebM 360p
           // 44 - WebM 480p
           // 45 - WebM 720p (HD)
 
-          // Parse fmt_url_map
-          $video_url = array();
+          // Parse the formats map
           $sep1 = '%2C';
           $sep2 = '%26';
           $sep3 = '%3D';
-          if ( strpos($video_formats, ',') !== false ) // new UI
+          if ( strpos($videoFormats, ',') !== false )
           {
             $sep1 = ',';
-            $sep2 = '\\u0026';
+            $sep2 = (strpos($videoFormats, '&') !== false ? '&' : '\u0026');
             $sep3 = '=';
-            if ( strpos($video_formats, '&') !== false )
-              $sep2 = '&';
           }
-          $video_formats_group = explode($sep1, $video_formats);
-          for ($i=0; $i<count($video_formats_group); $i++)
+
+          $videoUrl = array();
+          $videoFormatsGroup = explode($sep1, $videoFormats);
+          for ($i=0; $i<count($videoFormatsGroup); $i++)
           {
-            $video_formats_elem = explode($sep2, $video_formats_group[$i]);
-            $url = explode($sep3, $video_formats_elem[0]);
-            $itag = explode($sep3, $video_formats_elem[4]);
-            $video_url[$itag[1]] = rawurldecode(rawurldecode($url[1]));
-            $video_url[$itag[1]] = str_replace('\/','/',$video_url[$itag[1]]);
-            $video_url[$itag[1]] = str_replace('\u0026','&',$video_url[$itag[1]]);
+            $videoFormatsElem = explode($sep2, $videoFormatsGroup[$i]);
+            if (count($videoFormatsElem) < 5) continue;
+            $partialResult1 = explode($sep3, $videoFormatsElem[0]);
+            if (count($partialResult1) < 2) continue;
+            $url = rawurldecode(rawurldecode($partialResult1[1]));
+            $url = str_replace('\/','/',$url);
+            $url = str_replace('\u0026','&',$url);
+            $partialResult2 = explode($sep3, $videoFormatsElem[4]);
+            if (count($partialResult2) < 2) continue;
+            $itag = $partialResult2[1];
+            if (strpos($url, 'http') == 0) // validate URL
+              $videoUrl[$itag] = $url;
           }
-          if (!isset($video_url[18]))
-          {
-            // Add standard MP4 format (fmt18), even if it's not included
-            $video_url[18] = 'http://www.youtube.com/get_video?fmt=18&video_id='.$video_id.'&t='.$video_ticket.'&asv=3';
-          }
-          send_to_log(6,'Available YouTube formats for : '.$youtube_url, $video_url);
+          send_to_log(6,'Available YouTube formats for : '.$youtube_url, $videoUrl);
 
           // Determine whether to request the HD format
           $fmt = 18;
-          if ( get_sys_pref('YOUTUBE_HD','YES') == 'YES' && isset($video_url[22]) )
+          if ( get_sys_pref('YOUTUBE_HD','YES') == 'YES' && isset($videoUrl[22]) )
             $fmt = 22;
 
           // Store parsed details in $_SESSION to avoid reparsing.
-          if ( !empty($video_ticket) )
+          if ( !empty($videoTicket) )
           {
-            $_SESSION["stream_url"] = $video_url[$fmt];
-            $_SESSION["stream_filename"] = $video_title.'.mp4';
-            $_SESSION["stream_id"] = $video_id;
+            $_SESSION["stream_url"] = $videoUrl[$fmt];
+            $_SESSION["stream_filename"] = $videoTitle.'.mp4';
+            $_SESSION["stream_id"] = $videoId;
           }
           else
           {
