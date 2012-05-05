@@ -514,6 +514,7 @@ function process_mp3( $dir, $id, $file)
       $data['disc']         = null;
       $data['band']         = null;
       $data['composer']     = null;
+      $data['publisher']    = null;
       $image                = array();
 
       // Set specific tags for each file format
@@ -606,6 +607,7 @@ function process_mp3( $dir, $id, $file)
         set_var( $data['band'],   array_last($id3['tags']['id3v2']['band']) );
         set_var( $data['mood'],   array_last($id3['tags']['id3v2']['mood']) );
         set_var( $data['composer'], array_last($id3['tags']['id3v2']['composer']) );
+        set_var( $data['publisher'], array_last($id3['tags']['id3v2']['publisher']) );
         set_var( $data['track'],  ltrim(array_last($id3['tags']['id3v2']['track_number']),'0') );
         set_var( $data['disc'],   ltrim(array_last($id3['tags']['id3v2']['part_of_a_set']),'0') );
         set_var( $image,          array_last($id3['comments']['picture']) );
