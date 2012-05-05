@@ -213,6 +213,12 @@
       $image->text(str('YEAR').':', $text_x + $indent - $width, $text_y, $label_text_col, $label_text_size);
       wrap($image, $current_track["YEAR"], $text_x + $indent, $text_y, $text_width, $detail_text_col, $detail_text_size);
     }
+    if (isset($current_track["PUBLISHER"]) && !empty($current_track["PUBLISHER"]))
+    {
+      $width = $image->get_text_width(str('PUBLISHER').': ',$detail_text_size);
+      $image->text(str('PUBLISHER').':', $text_x + $indent - $width, $text_y, $label_text_col, $label_text_size);
+      wrap($image, $current_track["PUBLISHER"], $text_x + $indent, $text_y, $text_width, $detail_text_col, $detail_text_size);
+    }
     if (isset($current_track["STATION"]) && isset($current_track["LENGTH"]) && $current_track["LENGTH"] > 0)
     {
       $width = $image->get_text_width(str('TRACK_LENGTH').': ',$detail_text_size);
