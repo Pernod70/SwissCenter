@@ -35,7 +35,7 @@
     echo '<p><h2>Upload new style</h2><p>';
     echo '<p><ul>
           <li>If the name specified matches an existing style then that style will be replaced.
-          <li>Style thumbnails will be accessed by SwisscCentr clients, and so should typically be less than 50kb in size.
+          <li>Style thumbnails will be accessed by SwissCenter clients, and so should typically be less than 50kb in size.
           <li><font color="red">Please do not upload any skins which contain copyrighted material.</font>
           </ul>';
     
@@ -58,9 +58,9 @@
     if ( empty($name))
       style_display("!Please enter a name for the style");
     elseif ( file_ext($_FILES["zipfile"]["name"]) != 'zip')
-      style_display("!Please specifiy a ZIP file containing the style files");
+      style_display("!Please specify a ZIP file containing the style files");
     elseif ( file_ext($_FILES["thumb"]["name"]) != 'jpg')
-      style_display("!Please specifiy a JPG file for the thumbnail");
+      style_display("!Please specify a JPG file for the thumbnail");
     else
     {
       // Check the zipfile does not contain subfolders (by looking for the style.ini file)

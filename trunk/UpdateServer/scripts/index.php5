@@ -13,14 +13,10 @@
   function display_menu()
   {
     echo '<table width="160">';
-    if ($_ENV["REMOTE_USER"] == 'admin')
+    if ($_ENV["REMOTE_USER"] == 'pernod' || $_ENV["REMOTE_USER"] == 'admin')
     {
       menu_item('Shell Commands','section=CMD&action=DISPLAY');
       menu_item('SQL Commands','section=DB&action=RUNSQL');
-    }
-    
-    if ($_ENV["REMOTE_USER"] == 'pernod' || $_ENV["REMOTE_USER"] == 'admin')
-    {
       menu_item('Release Code','section=RELEASE&action=DISPLAY');
       menu_item('Messages','section=MESG&action=DISPLAY');
       menu_item('Contributors','section=CONTRIB&action=DISPLAY');
@@ -46,7 +42,7 @@
     else
     {
       echo '<p><h1>Welcome...</h1>
-            <p>Welcome to the SwissCenter online configuration utiliuty. 
+            <p>Welcome to the SwissCenter online configuration utility. 
                Depending upon your access level, there will be several menu items listed to the left.';
     }
   }
