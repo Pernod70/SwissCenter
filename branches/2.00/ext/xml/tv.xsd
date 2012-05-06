@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema targetNamespace="http://www.swisscenter.co.uk" elementFormDefault="qualified" xmlns="http://tempuri.org/XMLSchema.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:sc="http://www.swisscenter.co.uk">
+  <!-- Type definitions -->
+  <!-- Director information -->
+  <xs:complexType name="directors">
+    <xs:sequence>
+      <xs:element name="director" type="xs:token" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <!-- Genre information -->
+  <xs:complexType name="genres">
+    <xs:sequence>
+      <xs:element name="genre" type="xs:token" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <!-- User information -->
+  <xs:complexType name="users">
+    <xs:sequence>
+      <xs:element name="name" type="xs:token" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <!-- Actor information -->
+  <xs:complexType name="actors">
+    <xs:sequence>
+      <xs:element name="actor" type="sc:actor" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:group name="characterGroup">
+    <xs:choice>
+      <xs:element name="characters" type="sc:characters"/>
+      <xs:element name="character" type="xs:token"/>
+    </xs:choice>
+  </xs:group>
+  <xs:complexType name="actor">
+    <xs:sequence>
+      <xs:element name="name" type="xs:token" minOccurs="1" maxOccurs="1" />
+    <xs:group ref="sc:characterGroup" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="characters">
+    <xs:sequence>
+      <xs:element name="character" type="xs:token" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <!-- Certificate information -->
+  <xs:complexType name="certificates">
+    <xs:sequence>
+      <xs:element name="certificate" type="sc:certificate" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="certificate">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="scheme" type="sc:certificateScheme" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="certificateScheme">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="BBFC" />
+      <xs:enumeration value="MPAA" />
+      <xs:enumeration value="FSK" />
+      <xs:enumeration value="Kijkwijzer" />
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- Language information -->
+  <xs:complexType name="languages">
+    <xs:sequence>
+      <xs:element name="language" type="xs:token" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <!-- The main tv schema -->
+  <xs:element name="tv">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="title" type="xs:token" minOccurs="1" maxOccurs="1" />
+        <xs:element name="synopsis" type="xs:string" minOccurs="0" maxOccurs="1" />
+        <xs:element name="programme" type="xs:string" minOccurs="0" maxOccurs="1" />
+        <xs:element name="series" type="xs:integer" minOccurs="0" maxOccurs="1" />
+        <xs:element name="episode" type="xs:integer" minOccurs="0" maxOccurs="1" />
+        <xs:element name="year" type="xs:string" minOccurs="0" maxOccurs="1" />
+        <xs:element name="actors" type="sc:actors" minOccurs="0" maxOccurs="1" />
+        <xs:element name="directors" type="sc:directors" minOccurs="0" maxOccurs="1" />
+        <xs:element name="genres" type="sc:genres" minOccurs="0" maxOccurs="1" />
+        <xs:element name="certificates" type="sc:certificates" minOccurs="0" maxOccurs="1" />
+        <xs:element name="languages" type="sc:languages" minOccurs="0" maxOccurs="1" />
+        <xs:element name="rating" type="xs:decimal" minOccurs="0" maxOccurs="1" />
+        <xs:element name="runtime" type="xs:positiveInteger" minOccurs="0" maxOccurs="1" />
+        <xs:element name="viewed" type="sc:users" minOccurs="0" maxOccurs="1" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
