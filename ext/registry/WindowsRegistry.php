@@ -31,7 +31,7 @@
 *
 */
 
-class WindowsRegistry 
+class WindowsRegistry
 {
 	private $RegistryObject;
 
@@ -141,7 +141,7 @@ class WindowsRegistry
 		{
 			//if (!is_string($valueContents))
 			//	$valueContents = strval($valueContents);
-				
+
 			if (self::REG_SZ == $valueType)
 				$result = $this->RegistryObject->SetStringValue($hKeyId, $subKey, $valueName, $valueContents);
 			else
@@ -230,11 +230,11 @@ class WindowsRegistry
 				function deleteSubKeysRecursive(&$thisRef, $hKeyId, $subKey)
 				{
 					$mapHkeysToString = array(
-						b3rtWindowsRegistry::HKEY_CLASSES_ROOT => 'HKEY_CLASSES_ROOT',
-						b3rtWindowsRegistry::HKEY_CURRENT_USER => 'HKEY_CURRENT_USER',
-						b3rtWindowsRegistry::HKEY_LOCAL_MACHINE => 'HKEY_LOCAL_MACHINE',
-						b3rtWindowsRegistry::HKEY_USERS => 'HKEY_USERS',
-						b3rtWindowsRegistry::HKEY_CURRENT_CONFIG => 'HKEY_CURRENT_CONFIG');
+						WindowsRegistry::HKEY_CLASSES_ROOT => 'HKEY_CLASSES_ROOT',
+						WindowsRegistry::HKEY_CURRENT_USER => 'HKEY_CURRENT_USER',
+						WindowsRegistry::HKEY_LOCAL_MACHINE => 'HKEY_LOCAL_MACHINE',
+						WindowsRegistry::HKEY_USERS => 'HKEY_USERS',
+						WindowsRegistry::HKEY_CURRENT_CONFIG => 'HKEY_CURRENT_CONFIG');
 
 					if (!isset($mapHkeysToString[$hKeyId]))
 						return FALSE;
