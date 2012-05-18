@@ -18,7 +18,7 @@
 
   $menu       = new menu();
   $info       = new infotab();
-  $sql_table  = 'mp3s media'.get_rating_join().' where 1=1 ';
+  $sql_table  = 'media_audio media'.get_rating_join().' where 1=1 ';
   $predicate  = page_hist_current('sql');
   $meta       = '<meta SYABAS-PLAYERMODE="music">';
 
