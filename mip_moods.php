@@ -21,7 +21,7 @@
 
   $menu->add_item(str('MIP_NONE'), url_remove_param($back_url, 'mood'));
   foreach ( $moods as $mood )
-    $menu->add_item($mood, url_add_param($back_url, 'mood', urlencode(utf8_decode($mood))));
+    $menu->add_item($mood, url_add_param($back_url, 'mood', urlencode($mood)));
 
   //*************************************************************************************************
   // Display the page
