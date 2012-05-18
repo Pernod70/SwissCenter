@@ -215,10 +215,9 @@ function form_list_dynamic_html ( $param, $sql, $value = "", $opt = false, $subm
           '>'.
           '<option value=""> &lt;'.( empty($inital_txt) ? str('PLEASE_SELECT') : $inital_txt).'&gt; ';
 
-  $recs = new db_query( $sql );
-  if ($recs->db_success() )
+  if (db::getInstance()->query( $sql ))
   {
-    while ($row = $recs->db_fetch_row() )
+    while (!is_null($row = db::getInstance()->fetch_array()))
     {
       $vals = array_values($row);
       $html .= '<option '.( $vals[0] ==$value ? 'selected ' : '').'value="'.htmlspecialchars($vals[0], ENT_QUOTES).'">'.htmlspecialchars($vals[1], ENT_QUOTES);
@@ -226,9 +225,9 @@ function form_list_dynamic_html ( $param, $sql, $value = "", $opt = false, $subm
   }
   else
   {
-    page_error( $recs->db_get_error() );
+    page_error( db::getInstance()->error );
   }
-  $recs->destroy();
+  db::getInstance()->free();
 
   return $html.'</select>';
 }
@@ -272,7 +271,7 @@ function form_list_static_html( $param, $list, $value = "", $opt = false,  $subm
     $html.= '<option value=""> &lt;'.str('PLEASE_SELECT').'&gt; ';
 
   reset($list);
-  while( list($akey,$avalue) = each($list) )
+  while((list($akey,$avalue) = each($list)) !== false)
     $html.= '<option '.( $avalue ==$value ? 'selected ' : '').'value="'.htmlspecialchars($avalue, ENT_QUOTES).'">'.htmlspecialchars($akey, ENT_QUOTES);
 
   return $html.'</select>';
@@ -307,7 +306,7 @@ function form_radio_static( $param, $prompt, $list, $value = "", $opt = false, $
         <td>';
 
   reset($list);
-  while( list($akey,$avalue) = each($list) )
+  while((list($akey,$avalue) = each($list)) !== false)
   {
     echo '<input type="radio" name="'.$param.'" '.( $avalue == $value ? 'checked ' : '').'value="'.$avalue.'">'.$akey;
     echo ( $horiz ? '&nbsp; &nbsp;' : '<br>');
@@ -336,7 +335,7 @@ function form_checkbox_static( $param, $prompt, $list, $values = array(), $opt =
         <td>';
 
   reset($list);
-  while( list($akey,$avalue) = each($list) )
+  while((list($akey,$avalue) = each($list)) !== false)
   {
     echo '<input type="checkbox" name="'.$param.'['.$avalue.']" '.( $values[$avalue] ? 'checked ' : '').'>'.$akey;
     echo ( $horiz ? '&nbsp; &nbsp;' : '<br>');
