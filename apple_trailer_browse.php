@@ -64,7 +64,7 @@
     $trailer_list = array();
     foreach ($trailers as $id=>$trailer)
     {
-      $text = utf8_decode($trailer["title"]).(count($trailer["trailers"]) > 1 ? ' ('.count($trailer["trailers"]).')' : '');
+      $text = $trailer["title"].(count($trailer["trailers"]) > 1 ? ' ('.count($trailer["trailers"]).')' : '');
       if ( !empty($cat) )
         $url = url_add_params('apple_trailer_selected.php', array('query'=>$trailer["title"]));
       else

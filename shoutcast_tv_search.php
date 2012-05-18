@@ -54,12 +54,12 @@ class shoutcast_tv_picker extends list_picker
 
   function display_format_name( $item )
   {
-    return utf8_decode($item["name"]);
+    return $item["name"];
   }
 
   function display_format_info( $item )
   {
-    return utf8_decode($item["viewers"]);
+    return $item["viewers"];
   }
 
   function display()

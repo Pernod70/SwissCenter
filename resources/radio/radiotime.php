@@ -82,7 +82,7 @@ class radiotime extends iradio {
             if (isset($item["guide_id"]))
             {
               $id   = $item["guide_id"];
-              $name = utf8_decode($item["text"]);
+              $name = $item["text"];
 
               $this->add_link($name,$id);
             }
@@ -103,7 +103,7 @@ class radiotime extends iradio {
           {
             if ((isset($item["item"]) && $item["item"] == 'station') || $param == 'query=aa2')
             {
-              $name       = utf8_decode($item["text"]);
+              $name       = $item["text"];
               $format     = $item["formats"];
               $playlist   = $item["URL"];
               $bitrate    = $item["bitrate"];
@@ -130,7 +130,7 @@ class radiotime extends iradio {
             if (!isset($item["item"]) && isset($item["guide_id"]))
             {
               $id   = $item["guide_id"];
-              $name = utf8_decode($item["text"]);
+              $name = $item["text"];
 
               $this->add_link($name,$id);
             }

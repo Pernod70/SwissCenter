@@ -54,10 +54,10 @@ class icecast extends iradio {
       $epos  = strpos($this->page,'</entry>',$spos);
       $block = substr($this->page,$spos,$epos - $spos);
       $playlist = preg_get('/<listen_url>(.*)<\/listen_url>/U', $block);
-      $name     = utf8_decode(xmlspecialchars_decode(preg_get('/<server_name>(.*)<\/server_name>/U', $block)));
+      $name     = xmlspecialchars_decode(preg_get('/<server_name>(.*)<\/server_name>/U', $block));
       $bitrate  = preg_get('/<bitrate>(.*)<\/bitrate>/U', $block);
       $format   = $this->mime_type_decode(preg_get('/<server_type>(.*)<\/server_type>/U', $block));
-      $genre    = utf8_decode(xmlspecialchars_decode(preg_get('/<genre>(.*)<\/genre>/U', $block)));
+      $genre    = xmlspecialchars_decode(preg_get('/<genre>(.*)<\/genre>/U', $block));
 
       // following information is not available here, so place dummies
       $nowplaying = '?';

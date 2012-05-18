@@ -29,7 +29,7 @@
     $playlist = array();
     foreach ($photos["photoset"]["photo"] as $photo)
     {
-      $text = (empty($photo["title"]) ? '?' : utf8_decode($photo["title"]) );
+      $text = (empty($photo["title"]) ? '?' : $photo["title"] );
       $url  = url_add_param('flickr_photo.php', 'photo_id', $photo["id"]);
       $photo_list[] = array('thumb'=>flickr_photo_url($photo, 'm'), 'text'=>$text, 'url'=>$url);
 
@@ -38,9 +38,9 @@
     }
 
     // Page headings
-    page_header(str('FLICKR_PHOTOS'), utf8_decode($person["username"]).' : '.str('FLICKR_PHOTOSETS').' : '.utf8_decode($photoset["title"]));
+    page_header(str('FLICKR_PHOTOS'), $person["username"].' : '.str('FLICKR_PHOTOSETS').' : '.$photoset["title"]);
     $shortlen = $_SESSION["device"]["browser_x_res"];
-    echo shorten(font_tags(FONTSIZE_BODY).utf8_decode($photoset["description"]), $shortlen, 1, FONTSIZE_BODY);
+    echo shorten(font_tags(FONTSIZE_BODY).$photoset["description"], $shortlen, 1, FONTSIZE_BODY);
 
     browse_array_thumbs(current_url(), $photo_list, $page);
 
@@ -83,13 +83,13 @@
     $photoset_list = array();
     foreach ($photosets["photoset"] as $photoset)
     {
-      $text = utf8_decode($photoset["title"]).' ('.$photoset["photos"].')';
+      $text = $photoset["title"].' ('.$photoset["photos"].')';
       $url  = url_add_param('flickr_photosets.php', 'photoset_id', $photoset["id"]);
       $photoset_list[] = array('thumb'=>flickr_photo_url($photoset, 'm'), 'text'=>$text, 'url'=>$url);
     }
 
     // Page headings
-    page_header(str('FLICKR_PHOTOS'), utf8_decode($person["username"]).' : '.str('FLICKR_PHOTOSETS'));
+    page_header(str('FLICKR_PHOTOS'), $person["username"].' : '.str('FLICKR_PHOTOSETS'));
 
     browse_array_thumbs(current_url(), $photoset_list, $page);
 

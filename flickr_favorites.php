@@ -37,7 +37,7 @@
     $playlist = array();
     foreach ($photos["photos"]["photo"] as $photo)
     {
-      $text = (empty($photo["title"]) ? '?' : utf8_decode($photo["title"]) );
+      $text = (empty($photo["title"]) ? '?' : $photo["title"] );
       $url  = url_add_param('flickr_photo.php', 'photo_id', $photo["id"]);
       $photo_list[] = array('thumb'=>flickr_photo_url($photo, 'm'), 'text'=>$text, 'url'=>$url);
 
@@ -46,7 +46,7 @@
     }
 
     // Page headings
-    page_header(str('FLICKR_PHOTOS'), utf8_decode($person["username"]).' : '.str('FLICKR_FAVORITES'));
+    page_header(str('FLICKR_PHOTOS'), $person["username"].' : '.str('FLICKR_FAVORITES'));
 
     browse_array_thumbs(current_url(), $photo_list, $page);
 

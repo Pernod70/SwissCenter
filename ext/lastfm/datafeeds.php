@@ -87,7 +87,7 @@ class lastfmapi {
 
     if (!($this->response = $this->getCached($url)) ) {
       //Send Requests
-      if ($response = file_get_contents($url)) {
+      if (($response = file_get_contents($url)) !== false) {
         $this->response = json_decode($response, true);
         if (isset($this->response["error"])) {
           $this->response_code = $this->response["error"];
@@ -185,7 +185,7 @@ function lastfm_toptags ()
   $lastfm->cache_expire = 86400;
 
   // Download the latest "Top Tags" from audioscrobbler.com every 24 hours
-  if ( $tags = $lastfm->getFeed('method=tag.getTopTags') )
+  if (($tags = $lastfm->getFeed('method=tag.getTopTags')) !== false)
   {
     db_sqlcommand("delete from lastfm_tags");
     foreach ($tags["toptags"]["tag"] as $tag)
@@ -207,7 +207,7 @@ function lastfm_toptags ()
 function lastfm_album_getInfo($artist, $album)
 {
   $lastfm = new lastfmapi();
-  return $lastfm->getFeed('method=album.getInfo&artist='.urlencode(utf8_encode($artist)).'&album='.urlencode(utf8_encode($album)));
+  return $lastfm->getFeed('method=album.getInfo&artist='.urlencode($artist).'&album='.urlencode($album));
 }
 
 /**
@@ -221,7 +221,7 @@ function lastfm_album_getInfo($artist, $album)
 function lastfm_artist_getImages($artist, $page=1, $limit=50)
 {
   $lastfm = new lastfmapi();
-  return $lastfm->getFeed('method=artist.getImages&artist='.urlencode(utf8_encode($artist)).'&page='.$page.'&limit='.$limit);
+  return $lastfm->getFeed('method=artist.getImages&artist='.urlencode($artist).'&page='.$page.'&limit='.$limit);
 }
 
 /**
@@ -233,7 +233,7 @@ function lastfm_artist_getImages($artist, $page=1, $limit=50)
 function lastfm_artist_getInfo($artist)
 {
   $lastfm = new lastfmapi();
-  return $lastfm->getFeed('method=artist.getInfo&artist='.urlencode(utf8_encode($artist)));
+  return $lastfm->getFeed('method=artist.getInfo&artist='.urlencode($artist));
 }
 
 /**
@@ -246,7 +246,7 @@ function lastfm_artist_getInfo($artist)
 function lastfm_track_getInfo($artist, $track)
 {
   $lastfm = new lastfmapi();
-  return $lastfm->getFeed('method=track.getInfo&artist='.urlencode(utf8_encode($artist)).'&track='.urlencode(utf8_encode($track)));
+  return $lastfm->getFeed('method=track.getInfo&artist='.urlencode($artist).'&track='.urlencode($track));
 }
 
 /**
@@ -263,10 +263,10 @@ function lastfm_track_getInfo($artist, $track)
 function lastfm_track_scrobble($artist, $album, $track, $duration, $trackNumber, $timestamp)
 {
   $lastfm = new lastfmapi();
-  return $lastfm->postFeed('method=track.scrobble&track[0]='.urlencode(utf8_encode($track)).
+  return $lastfm->postFeed('method=track.scrobble&track[0]='.urlencode($track).
                                             '&timestamp[0]='.$timestamp.
-                                               '&artist[0]='.urlencode(utf8_encode($artist)).
-                                                '&album[0]='.urlencode(utf8_encode($album)).
+                                               '&artist[0]='.urlencode($artist).
+                                                '&album[0]='.urlencode($album).
                                           '&trackNumber[0]='.$trackNumber.
                                              '&duration[0]='.$duration);
 }
@@ -284,9 +284,9 @@ function lastfm_track_scrobble($artist, $album, $track, $duration, $trackNumber,
 function lastfm_track_updateNowPlaying($artist, $album, $track, $duration, $trackNumber)
 {
   $lastfm = new lastfmapi();
-  return $lastfm->postFeed('method=track.updateNowPlaying&track='.urlencode(utf8_encode($track)).
-                                                       '&artist='.urlencode(utf8_encode($artist)).
-                                                        '&album='.urlencode(utf8_encode($album)).
+  return $lastfm->postFeed('method=track.updateNowPlaying&track='.urlencode($track).
+                                                       '&artist='.urlencode($artist).
+                                                        '&album='.urlencode($album).
                                                   '&trackNumber='.$trackNumber.
                                                      '&duration='.$duration);
 }
@@ -311,7 +311,7 @@ function lastfm_radio_getPlaylist()
 function lastfm_radio_tune($station)
 {
   $lastfm = new lastfmapi();
-  return $lastfm->getFeed('method=radio.tune&station='.rawurlencode(utf8_encode($station)));
+  return $lastfm->getFeed('method=radio.tune&station='.rawurlencode($station));
 }
 
 /**
@@ -325,7 +325,7 @@ function lastfm_radio_tune($station)
 function lastfm_user_getRecentTracks($user, $page=1, $limit=50)
 {
   $lastfm = new lastfmapi();
-  return $lastfm->getFeed('method=user.getRecentTracks&user='.urlencode(utf8_encode($user)).'&page='.$page.'&limit='.$limit);
+  return $lastfm->getFeed('method=user.getRecentTracks&user='.urlencode($user).'&page='.$page.'&limit='.$limit);
 }
 
 /**
@@ -338,7 +338,7 @@ function lastfm_user_getRecentTracks($user, $page=1, $limit=50)
 function lastfm_user_getTopAlbums($user, $period='overall')
 {
   $lastfm = new lastfmapi();
-  return $lastfm->getFeed('method=user.getTopAlbums&user='.urlencode(utf8_encode($user)).'&period='.$period);
+  return $lastfm->getFeed('method=user.getTopAlbums&user='.urlencode($user).'&period='.$period);
 }
 
 /**
@@ -351,7 +351,7 @@ function lastfm_user_getTopAlbums($user, $period='overall')
 function lastfm_user_getTopArtists($user, $period='overall')
 {
   $lastfm = new lastfmapi();
-  return $lastfm->getFeed('method=user.getTopArtists&user='.urlencode(utf8_encode($user)).'&period='.$period);
+  return $lastfm->getFeed('method=user.getTopArtists&user='.urlencode($user).'&period='.$period);
 }
 
 /**
@@ -364,6 +364,6 @@ function lastfm_user_getTopArtists($user, $period='overall')
 function lastfm_user_getTopTracks($user, $period='overall')
 {
   $lastfm = new lastfmapi();
-  return $lastfm->getFeed('method=user.getTopTracks&user='.urlencode(utf8_encode($user)).'&period='.$period);
+  return $lastfm->getFeed('method=user.getTopTracks&user='.urlencode($user).'&period='.$period);
 }
 ?>

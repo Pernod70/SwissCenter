@@ -121,7 +121,7 @@
   }
 
   $buttons = array();
-  page_header( utf8_decode($trailers[$id]["title"]), utf8_decode($trailers[$id]["studio"]), '<meta SYABAS-PLAYERMODE="video">' );
+  page_header( $trailers[$id]["title"], $trailers[$id]["studio"], '<meta SYABAS-PLAYERMODE="video">' );
 
   // Which page to show?
   if ( isset($_REQUEST["show"]) && $_REQUEST["show"]=='cast' )
