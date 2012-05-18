@@ -38,7 +38,7 @@ function down_link( $url, $focusload = true )
 
 function charset()
 {
-  return 'charset='.get_sys_pref('PLAYER_PAGE_CHARSET','Windows-1252');
+  return 'charset='.get_sys_pref('PLAYER_PAGE_CHARSET','utf-8');
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -90,7 +90,7 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
   {
     switch ($background)
     {
-      case MEDIA_TYPE_MUSIC       : if (style_img_exists("PAGE_MUSIC"))       $page_background = '.'.style_img("PAGE_MUSIC"); break;
+      case MEDIA_TYPE_AUDIO       : if (style_img_exists("PAGE_MUSIC"))       $page_background = '.'.style_img("PAGE_MUSIC"); break;
       case MEDIA_TYPE_PHOTO       : if (style_img_exists("PAGE_PHOTO"))       $page_background = '.'.style_img("PAGE_PHOTO"); break;
       case MEDIA_TYPE_VIDEO       : if (style_img_exists("PAGE_VIDEO"))       $page_background = '.'.style_img("PAGE_VIDEO"); break;
       case MEDIA_TYPE_RADIO       : if (style_img_exists("PAGE_RADIO"))       $page_background = '.'.style_img("PAGE_RADIO"); break;
