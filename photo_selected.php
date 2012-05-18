@@ -15,7 +15,7 @@
   {
     $menu       = new menu();
     $info       = new infotab();
-    $sql_table  = "photos media ".get_rating_join()." left outer join photo_albums pa on media.dirname like concat(pa.dirname,'%') where 1=1 ";
+    $sql_table  = "media_photos media ".get_rating_join()." left outer join media_photo_albums pa on media.dirname like concat(pa.dirname,'%') where 1=1 ";
     $predicate  = search_process_passed_params();
 
     $refine_url = 'photo_search.php';
@@ -59,14 +59,14 @@
 
   $menu       = new menu();
   $info       = new infotab();
-  $sql_table_all = 'photos media '.
-                   'left outer join photo_albums pa on media.dirname = pa.dirname '.
+  $sql_table_all = 'media_photos media '.
+                   'left outer join media_photo_albums pa on media.dirname = pa.dirname '.
                    get_rating_join().' where 1=1 ';
   $predicate  = search_process_passed_params();
-  $sql_table  = 'photos media ';
+  $sql_table  = 'media_photos media ';
   // Only join tables that are actually required
   if (strpos($predicate,'title like') > 0)
-    $sql_table .= 'left outer join photo_albums pa on media.dirname = pa.dirname ';
+    $sql_table .= 'left outer join media_photo_albums pa on media.dirname = pa.dirname ';
   $sql_table .= get_rating_join().' where 1=1 ';
   $count      = db_value("select count(distinct media.file_id) from $sql_table $predicate");
   $refine_url = 'photo_search.php';
