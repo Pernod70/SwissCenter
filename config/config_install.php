@@ -58,26 +58,35 @@
     $db_stat = test_db(DB_HOST,'root',$pass,DB_DATABASE);
 
     if ($db_stat == 'OK')
-      db_root_sqlcommand($pass,"Drop database ".DB_DATABASE);
+      db_root_sqlcommand($pass,"DROP DATABASE ".DB_DATABASE);
 
-    if     ( db_root_sqlcommand($pass,"Create database ".DB_DATABASE) == false)
+    if     ( db_root_sqlcommand($pass,"CREATE DATABASE ".DB_DATABASE) == false)
       install_display('!'.str('DB_CREATE_DB_ERR'));
-    elseif ( db_root_sqlcommand($pass,"Grant all on ".DB_DATABASE.".* to ".DB_USERNAME."@'".DB_HOST."' identified by '".DB_PASSWORD."'") == false)
+    elseif ( db_root_sqlcommand($pass,"GRANT ALL ON ".DB_DATABASE.".* TO ".DB_USERNAME."@'".DB_HOST."' IDENTIFIED BY '".DB_PASSWORD."'") == false)
       install_display('!'.str('DB_CREATE_USER_ERR'));
     else
     {
       // Set character set and collation.
-      @db_root_sqlcommand($pass,"ALTER DATABASE ".DB_DATABASE." CHARACTER SET latin1 COLLATE latin1_swedish_ci");
+      @db_root_sqlcommand($pass,"ALTER DATABASE ".DB_DATABASE." CHARACTER SET utf8 COLLATE utf8_unicode_ci");
 
       // Set database password.
       @db_root_sqlcommand($pass,"SET PASSWORD FOR ".DB_USERNAME."@'".DB_HOST."' = PASSWORD('".DB_PASSWORD."')");
 
       // Open the setup.sql file
-      if ( file_exists('../setup.sql') )
+      if ( file_exists('../database/setup.sql') )
       {
         // Run the setup file and all database update files
-        db_sqlfile('../setup.sql');
+        db_sqlfile('../database/setup.sql');
         apply_database_patches();
+
+        // Import language translations
+        load_lang_xml('en');
+        foreach (explode("\n", str_replace("\r", null, file_get_contents(SC_LOCATION.'lang/languages.txt'))) as $line)
+        {
+          $lang = explode(',',$line);
+          if (!is_null($lang[0]) && strlen($lang[0])>0 && $lang[1]!=='en')
+            load_lang_xml($lang[1]);
+        }
 
         // Write an ini file with the database parameters in it
         write_ini ( DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE );
@@ -85,7 +94,7 @@
         // Default cache, playlists location and limit (default is no limit)
         set_sys_pref('CACHE_DIR',SC_LOCATION.'cache');
         set_sys_pref('PLAYLISTS',SC_LOCATION.'playlists');
-        set_sys_pref('CACHE_MAXSIZE_MB','20');
+        set_sys_pref('CACHE_MAXSIZE_MB','100');
 
         // Display the config page
         header('Location: index.php');
