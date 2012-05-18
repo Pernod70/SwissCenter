@@ -101,15 +101,14 @@ if ( !class_exists('phpFlickr') ) {
 						db_sqlcommand('OPTIMIZE TABLE ' . $this->cache_table);
 					}
 					$this->cache = 'db';
-					$this->cache_db = $db;
 					$this->cache_table = $table;
 //				}
 			} elseif ($type == 'fs') {
 				$this->cache = 'fs';
 				$connection = realpath($connection);
 				$this->cache_dir = $connection;
-				if ($dir = opendir($this->cache_dir)) {
-					while ($file = readdir($dir)) {
+				if (($dir = opendir($this->cache_dir)) !== false) {
+					while (($file = readdir($dir)) !== false) {
 						if (substr($file, -6) == '.cache' && ((filemtime($this->cache_dir . '/' . $file) + $cache_expire) < time()) ) {
 							unlink($this->cache_dir . '/' . $file);
 						}
