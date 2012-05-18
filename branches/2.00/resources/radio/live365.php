@@ -150,7 +150,7 @@ class live365 extends iradio {
       foreach ($directory['LIVE365_DIRECTORY']['LIVE365_STATION'] as $station)
       {
         $station_id   = $station['STATION_ID']['VALUE'];
-        $title        = utf8_decode(xmlspecialchars_decode($station['STATION_TITLE']['VALUE']));
+        $title        = xmlspecialchars_decode($station['STATION_TITLE']['VALUE']);
         $broadcaster  = $station['STATION_BROADCASTER']['VALUE'];
         $bitrate      = $station['STATION_CONNECTION']['VALUE'];
         $codec        = $station['STATION_CODEC']['VALUE'];
@@ -203,9 +203,9 @@ class live365 extends iradio {
             $directory['LIVE365_API_GENRES_CGI']['GENRES']['GENRE'] = array($directory['LIVE365_API_GENRES_CGI']['GENRES']['GENRE']);
           foreach ($directory['LIVE365_API_GENRES_CGI']['GENRES']['GENRE'] as $genre)
           {
-            $name = utf8_decode($genre['DISPLAY_NAME']['VALUE']);
-            $g_id  = utf8_decode($genre['NAME']['VALUE']);
-            $p_id  = utf8_decode($genre['PARENT_NAME']['VALUE']);
+            $name = $genre['DISPLAY_NAME']['VALUE'];
+            $g_id  = $genre['NAME']['VALUE'];
+            $p_id  = $genre['PARENT_NAME']['VALUE'];
             send_to_log(8,'IRadio: Got genre '.$name.' with value '.$g_id);
             if ($p_id == 'ROOT') $p_id = $g_id;
             $this->genre[$p_id][$g_id] = array("text" => $name, "id" => $g_id);

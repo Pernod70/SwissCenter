@@ -32,10 +32,10 @@
 
     $contact_list = array();
     foreach ($contacts["contact"] as $contact)
-      $contact_list[] = array('thumb'=>flickr_buddy_icon($contact), 'text'=>utf8_decode($contact["username"]), 'url'=>url_add_param('flickr_menu.php', 'user_id', $contact["nsid"]) );
+      $contact_list[] = array('thumb'=>flickr_buddy_icon($contact), 'text'=>$contact["username"], 'url'=>url_add_param('flickr_menu.php', 'user_id', $contact["nsid"]) );
 
     // Page headings
-    page_header(str('FLICKR_PHOTOS'), utf8_decode($person["username"]).' : '.str('FLICKR_CONTACTS'));
+    page_header(str('FLICKR_PHOTOS'), $person["username"].' : '.str('FLICKR_CONTACTS'));
 
     browse_array_thumbs(current_url(), $contact_list, $page);
 

@@ -55,12 +55,12 @@
     {
       $url = url_add_params('videobash_selected.php', array('url'=>$items[2][$idx], 'img'=>$items[1][$idx]));
       $entry_list[] = array('thumb' => $items[1][$idx],
-                            'text'  => utf8_decode($item),
+                            'text'  => $item,
                             'url'   => $url);
 
       // Playlist used for slideshow.
       $full_image = preg_replace('/_\d+x\d+/', '', $items[1][$idx]);
-      $playlist[] = array('TITLE'=>utf8_decode($item), 'FILENAME'=>$full_image);
+      $playlist[] = array('TITLE'=>$item, 'FILENAME'=>$full_image);
     }
 
     // Page headings

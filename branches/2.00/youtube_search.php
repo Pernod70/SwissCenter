@@ -55,18 +55,18 @@ class youtube_picker extends list_picker
           switch ($this->feed_type)
           {
             case 'videos':
-              $text = utf8_decode($entry['media$group']['media$title']['$t']);
+              $text = $entry['media$group']['media$title']['$t'];
               $url  = url_add_param('youtube_video_selected.php', 'video_id', $entry['media$group']['yt$videoid']['$t']);
               break;
 
             case 'playlists':
-              $text = utf8_decode($entry['title']['$t']).' ('.$entry['yt$countHint']['$t'].')';
+              $text = $entry['title']['$t'].' ('.$entry['yt$countHint']['$t'].')';
               $url  = url_add_params('youtube_browse.php', array('type'=>'playlist', 'playlist_id'=>$entry['yt$playlistId']['$t']));
               break;
 
             case 'channels':
-              $text = utf8_decode($entry['author'][0]['name']['$t']).' ('.$entry['gd$feedLink'][0]['countHint'].')';
-              $url  = url_add_params('youtube_browse.php', array('username'=>utf8_decode($entry['author'][0]['name']['$t']), 'type'=>'uploads'));
+              $text = $entry['author'][0]['name']['$t'].' ('.$entry['gd$feedLink'][0]['countHint'].')';
+              $url  = url_add_params('youtube_browse.php', array('username'=>$entry['author'][0]['name']['$t'], 'type'=>'uploads'));
               break;
           }
           $entry_list[] = array('text' => $text, 'url' => $url);
@@ -102,7 +102,7 @@ class youtube_picker extends list_picker
 
   function display_format_name( $item )
   {
-    return utf8_decode($item);
+    return $item;
   }
 
   function display()

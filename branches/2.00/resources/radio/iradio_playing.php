@@ -105,9 +105,9 @@ class iradio_playing {
 
     foreach ($matches[1] as $entry)
     {
-      $title = utf8_decode(xmlspecialchars_decode(preg_get('/<Title>(.*)<\/Title>/', $entry)));
-      $artist = utf8_decode(xmlspecialchars_decode(preg_get('/<Artist>(.*)<\/Artist>/', $entry)));
-      $album = utf8_decode(xmlspecialchars_decode(preg_get('/<Album>(.*)<\/Album>/', $entry)));
+      $title = xmlspecialchars_decode(preg_get('/<Title>(.*)<\/Title>/', $entry));
+      $artist = xmlspecialchars_decode(preg_get('/<Artist>(.*)<\/Artist>/', $entry));
+      $album = xmlspecialchars_decode(preg_get('/<Album>(.*)<\/Album>/', $entry));
       $image = preg_get('/<visualURL>.*img=(.*)<\/visualURL>/', $entry);
       $length = preg_get('/<Seconds>(.*)<\/Seconds>/', $entry);
       $tracks[] = array("TITLE"    => $title,

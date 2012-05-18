@@ -19,7 +19,7 @@ function update_channel_list()
   $context = stream_context_create($opts);
 
 	// Send request
-	if ($channel_data = file_get_contents('http://www.online-media-archive.net/scripts/tv/get3.php?adult=0', false, $context))
+	if (($channel_data = file_get_contents('http://www.online-media-archive.net/scripts/tv/get3.php?adult=0', false, $context)) !== false)
 	{
     // Clear the channel data table
     db_sqlcommand("delete from toma_channels");
