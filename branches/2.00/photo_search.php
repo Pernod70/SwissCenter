@@ -60,7 +60,7 @@
   // Only join tables that are actually required
   $history = page_hist_current();
   if ($search["display"] == 'title' || strpos($history["sql"],'title like') > 0)
-    $joined_tables .= 'left outer join photo_albums pa on media.dirname = pa.dirname ';
+    $joined_tables .= 'left outer join media_photo_albums pa on media.dirname = pa.dirname ';
 
   search_media_page( str('VIEW_PHOTO'), $title, MEDIA_TYPE_PHOTO, $joined_tables, $search, 'photo_selected.php' );
 

@@ -14,7 +14,7 @@
     return '/photo_selected.php?name='.rawurlencode(" concat(media.dirname,media.filename) like '".db_escape_str($file)."%'");
   }
 
-  $sql = 'from photos media'.get_rating_join().'where 1=1';
+  $sql = 'from media_photos media'.get_rating_join().'where 1=1';
 
   browse_db( str('BROWSE_PHOTOS')                                                   // Title
            , $sql.page_hist_current('sql')                                          // SQL (from...)
