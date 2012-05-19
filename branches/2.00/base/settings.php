@@ -18,7 +18,7 @@ require_once( realpath(dirname(__FILE__).'/language.php'));
   define( 'ALBUMART_EXT', 'jpg,jpeg,gif,png' );
   define( 'MAX_PER_PAGE',   8 ); // Menus only
 
-  define('MEDIA_TYPE_MUSIC',1);
+  define('MEDIA_TYPE_AUDIO',1);
   define('MEDIA_TYPE_PHOTO',2);
   define('MEDIA_TYPE_VIDEO',3);
   define('MEDIA_TYPE_RADIO',4);

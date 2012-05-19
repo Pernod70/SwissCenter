@@ -15,7 +15,7 @@ require_once( realpath(dirname(__FILE__).'/utils.php'));
 
 function isdir( $fsp )
 {
-  if ($dh = @opendir($fsp))
+  if (($dh = @opendir($fsp)) !== false)
   {
     closedir($dh);
     return true;
@@ -80,7 +80,7 @@ function dir_to_array ($dir, $pattern = '.*', $opts = 7, $recursive = false )
   $dir = os_path($dir,true);
 
   $contents = array();
-  if ($dh = @opendir($dir))
+  if (($dh = @opendir($dir)) !== false)
   {
     while (($file = readdir($dh)) !== false)
     {
@@ -250,7 +250,7 @@ function parent_dir( $dirpath)
 function dir_size($dir, $subdirs = false)
 {
    $totalsize=0;
-   if ($dirstream = @opendir($dir))
+   if (($dirstream = @opendir($dir)) !== false)
    {
      while (false !== ($filename = readdir($dirstream)))
      {
@@ -281,7 +281,7 @@ function dir_size($dir, $subdirs = false)
 function find_in_dir($dir, $filename)
 {
   $actual = '';
-  if ($dh = @opendir($dir))
+  if (($dh = @opendir($dir)) !== false)
   {
     while ( $actual == '' && ($file = readdir($dh)) !== false )
     {
@@ -311,7 +311,7 @@ function find_in_dir_all_exts( $dir, $filename_noext )
 {
   $matches = array();
 
-  if ($dh = @opendir($dir))
+  if (($dh = @opendir($dir)) !== false)
   {
     while ( ($file = readdir($dh)) !== false )
     {
@@ -335,7 +335,7 @@ function find_in_dir_all_exts( $dir, $filename_noext )
 function write_binary_file($filename, $str)
 {
   $success = false;
-  if ( $handle = @fopen($filename, 'wb') )
+  if (($handle = @fopen($filename, 'wb')) !== false)
   {
      if ( fwrite($handle, $str) !== FALSE)
        $success = true;
@@ -357,7 +357,7 @@ function array2file( $array, $filename)
 {
   $success = false;
   $str = implode(newline(), $array);
-  if ( $handle = @fopen($filename, 'wt') )
+  if (($handle = @fopen($filename, 'wt')) !== false)
   {
      if ( fwrite($handle, $str) !== FALSE)
        $success = true;
@@ -423,9 +423,9 @@ function file_icon( $fsp )
     return $filetype_icon;
   elseif ( in_array($ext,media_exts_radio()) )
     return style_img('ICON_RADIO',true);
-  elseif ( in_array($ext,media_exts_movies()) )
+  elseif ( in_array($ext,media_exts_videos()) )
     return style_img('ICON_VIDEO',true);
-  elseif ( in_array($ext,media_exts_music()) )
+  elseif ( in_array($ext,media_exts_audio()) )
     return style_img('ICON_AUDIO',true);
   elseif ( in_array($ext,media_exts_photos()) )
     return style_img('ICON_IMAGE',true);
@@ -462,7 +462,7 @@ function force_rmdir($dir)
   else
   {
     // Recurse sub_directory first, then delete it.
-    if ($dh = @opendir($dir))
+    if (($dh = @opendir($dir)) !== false)
     {
       while (($file = readdir($dh)) !== false)
       {
@@ -558,24 +558,24 @@ function file_albumart( $fsp, $default_image = true )
   }
   else
   {
-    $return    = '';
-    if ( in_array(strtolower(file_ext($fsp)), media_exts_movies()) )
-      $id3_image = db_value("select a.art_sha1 from movies m, media_art a where m.art_sha1 = a.art_sha1 and concat(m.dirname,m.filename) = '".db_escape_str($fsp)."'");
-    elseif ( in_array(strtolower(file_ext($fsp)), media_exts_music()) )
-      $id3_image = db_value("select a.art_sha1 from mp3s m, media_art a where m.art_sha1 = a.art_sha1 and concat(m.dirname,m.filename) = '".db_escape_str($fsp)."'");
+    $return = '';
+    if ( in_array(strtolower(file_ext($fsp)), media_exts_videos()) )
+      $id3_image = db_value("select a.image_id from media_videos m, media_artwork a where m.image_id = a.image_id and concat(m.dirname,m.filename) = '".db_escape_str($fsp)."'");
+    elseif ( in_array(strtolower(file_ext($fsp)), media_exts_audio()) )
+      $id3_image = db_value("select a.image_id from media_audio m, media_artwork a where m.image_id = a.image_id and concat(m.dirname,m.filename) = '".db_escape_str($fsp)."'");
     else
       $id3_image = null;
 
     if ( !empty($id3_image) )
     {
       // This file has album art contained within the ID3 tag
-      $return = "select image from media_art where art_sha1='".$id3_image."'.sql";
+      $return = "select image from media_artwork where image_id='".$id3_image."'.sql";
     }
     else
     {
       // Search the directory for an image with the same name as that given, but with an image extension
       foreach ( explode(',' ,ALBUMART_EXT) as $type)
-        if ( $return = find_in_dir( dirname($fsp),file_noext($fsp).'.'.$type))
+        if (($return = find_in_dir(dirname($fsp),file_noext($fsp).'.'.$type)) !== false)
           break;
 
       // No albumart found for this specific file.. is there albumart for the directory?
@@ -585,9 +585,9 @@ function file_albumart( $fsp, $default_image = true )
       // OK, give up! Use a standard picture based on the filetype.
       if ($return == '' && $default_image)
       {
-        if ( in_array(strtolower(file_ext($fsp)), media_exts_movies()) )
+        if ( in_array(strtolower(file_ext($fsp)), media_exts_videos()) )
           $return = style_img('MISSING_FILM_ART',true,false);
-        elseif ( in_array(strtolower(file_ext($fsp)), media_exts_music()) )
+        elseif ( in_array(strtolower(file_ext($fsp)), media_exts_audio()) )
           $return = style_img('MISSING_ALBUM_ART',true,false);
       }
     }
@@ -618,7 +618,7 @@ function file_download_and_save( $url, $filename, $overwrite = false )
       $img = @file_get_contents(str_replace(' ','%20',$url));
       if ($img !== false)
       {
-        if ($out = @fopen($filename, "wb") )
+        if (($out = @fopen($filename, "wb")) !== false)
         {
           @fwrite($out, $img);
           @fclose($out);

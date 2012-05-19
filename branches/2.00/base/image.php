@@ -176,7 +176,7 @@ function reduce_cache()
     $dir_size = 0;
 
     // Calculate sum of images filesizes, and maintain an array of images.
-    if ($dirstream = @opendir($dir))
+    if (($dirstream = @opendir($dir)) !== false)
     {
       while (false !== ($filename = readdir($dirstream)))
         if ($filename!="." && $filename!=".." && substr($filename,0,6) == 'SwissC')

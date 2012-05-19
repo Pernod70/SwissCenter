@@ -11,18 +11,15 @@
   {
     page_header('Cities', str('WEATHER_SELECT_CITY').$search,'', (empty($_REQUEST["last"]) ? 'KEY_SPC' : $_REQUEST["last"] ) );
 
-    $menu      = new menu();
-    $data      = array();
-    $errmsg    = "";
+    $menu = new menu();
+    $data = array();
 
     echo '<table border=0 height="320px" width="100%"><tr><td width="200px" valign="top">';
     show_picker( $this_url.'?any='.$prefix.'&search=', $search);
     echo '</td><td valign=top>';
 
-    if ( ($data = db_toarray("select name from cities where name like '".$prefix.str_replace('_','\_',$search)."%' order by 1 limit ".(($page*MAX_PER_PAGE)).",".MAX_PER_PAGE)) === false)
-      echo $errmsg;
-
-    $num_rows = db_value("select count(name) from cities where name like '".$prefix.str_replace('_','\_',$search)."%' ",$errmsg);
+    $data = db_toarray("select name from cities where name like '".$prefix.str_replace('_','\_',$search)."%' order by 1 limit ".(($page*MAX_PER_PAGE)).",".MAX_PER_PAGE);
+    $num_rows = db_value("select count(name) from cities where name like '".$prefix.str_replace('_','\_',$search)."%' ");
 
     if (empty($data))
     {

@@ -48,7 +48,7 @@
       send_to_log(4,'Completed refreshing '.strtoupper($table).' database');
 
       // Tell MusicIP to rescan this folder
-      if ($media_type == MEDIA_TYPE_MUSIC)
+      if ($media_type == MEDIA_TYPE_AUDIO)
         musicip_server_add_dir($location["NAME"]);
     }
 

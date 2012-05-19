@@ -262,7 +262,7 @@
 //    $headers[] = "Last-Modified: ".date('r',filemtime($location));
 //    stream_file($media, $file_id, $location, $headers);
 //  }
-  elseif ($media == MEDIA_TYPE_MUSIC )
+  elseif ($media == MEDIA_TYPE_AUDIO )
   {
     send_to_log(7,'Attempting to stream the following Audio file',$tracks[$idx]);
     if ($tracks[$idx]["LENGTH"] > 0)
