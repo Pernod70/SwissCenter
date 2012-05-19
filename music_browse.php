@@ -14,12 +14,12 @@
     return '/music_selected.php?name='.rawurlencode(" concat(media.dirname,media.filename) like '".db_escape_str($file)."%'");
   }
 
-  $sql = 'from mp3s media'.get_rating_join().'where 1=1';
+  $sql = 'from media_audio media'.get_rating_join().'where 1=1';
 
   browse_db( str('BROWSE_MUSIC')                                                   // Title
            , $sql.page_hist_current('sql')                                         // SQL (from...)
            , page_hist_previous()                                                  // Return URL
-           , MEDIA_TYPE_MUSIC                                                      // Select all media type
+           , MEDIA_TYPE_AUDIO                                                      // Select all media type
            );
 
 /**************************************************************************************************

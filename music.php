@@ -14,7 +14,7 @@
     if (empty($cat_id))
       page_hist_current_update( current_url(), get_rating_filter().filter_get_predicate() );
     else
-      page_hist_current_update( current_url(), category_select_sql($cat_id, MEDIA_TYPE_MUSIC).get_rating_filter().filter_get_predicate() );
+      page_hist_current_update( current_url(), category_select_sql($cat_id, MEDIA_TYPE_AUDIO).get_rating_filter().filter_get_predicate() );
 
     echo '<p>';
 
@@ -68,7 +68,7 @@
     }
 
     $buttons = array();
-    $buttons[] = array('text' => str('QUICK_PLAY'),'url'  => quick_play_link(MEDIA_TYPE_MUSIC, page_hist_current('sql')));
+    $buttons[] = array('text' => str('QUICK_PLAY'),'url'  => quick_play_link(MEDIA_TYPE_AUDIO, page_hist_current('sql')));
     if (get_sys_pref('NOW_PLAYING_STYLE','ORIGINAL') == 'ORIGINAL')
       $buttons[] = array('text' => str('NOW_PLAYING_STYLE').': '.str('ENHANCED'), 'url' => url_set_params(current_url(), array('playing'=>'ENHANCED', 'hist'=>PAGE_HISTORY_REPLACE)) );
     else
@@ -88,14 +88,14 @@
     set_sys_pref('NOW_PLAYING_STYLE',$_REQUEST["playing"]);
 
   $subtitle = isset($_REQUEST["cat"]) ? db_value('select cat_name from categories where cat_id='.$_REQUEST["cat"]) : '';
-  page_header( str('LISTEN_MUSIC'), $subtitle,'',1,false,'',MEDIA_TYPE_MUSIC);
+  page_header( str('LISTEN_MUSIC'), $subtitle,'',1,false,'',MEDIA_TYPE_AUDIO);
 
-  if( category_count(MEDIA_TYPE_MUSIC)==1 || isset($_REQUEST["cat"]) )
+  if( category_count(MEDIA_TYPE_AUDIO)==1 || isset($_REQUEST["cat"]) )
     display_music_menu($_REQUEST["cat"]);
   elseif ( isset($_REQUEST["subcat"]) )
-    display_categories('music.php', MEDIA_TYPE_MUSIC, $_REQUEST["subcat"], page_hist_previous());
+    display_categories('music.php', MEDIA_TYPE_AUDIO, $_REQUEST["subcat"], page_hist_previous());
   else
-    display_categories('music.php', MEDIA_TYPE_MUSIC, 0, page_hist_previous());
+    display_categories('music.php', MEDIA_TYPE_AUDIO, 0, page_hist_previous());
 
 /**************************************************************************************************
                                                End of file
