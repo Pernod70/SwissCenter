@@ -17,7 +17,7 @@
 
   $menu       = new menu();
   $info       = new infotab();
-  $sql_table  = 'mp3s media'.get_rating_join().' where 1=1 ';
+  $sql_table  = 'media_audio media'.get_rating_join().' where 1=1 ';
   $predicate  = search_process_passed_params();
   $playtime   = db_value("select sum(length) from $sql_table $predicate");
   $num_rows   = db_value("select count(*) from $sql_table $predicate");
@@ -45,7 +45,7 @@
   $info->add_item( str('MUSIC_PLAY_TIME'),  hhmmss($playtime));
 
   // Build menu of options
-  $menu->add_item(str('PLAY_NOW'), play_sql_list(MEDIA_TYPE_MUSIC,"select * from $sql_table $predicate order by album,lpad(disc,10,'0'),lpad(track,10,'0'),title") );
+  $menu->add_item(str('PLAY_NOW'), play_sql_list(MEDIA_TYPE_AUDIO,"select * from $sql_table $predicate order by album,lpad(disc,10,'0'),lpad(track,10,'0'),title") );
 
   // If MusicIP support is enabled then add an extra option
   if ( musicip_available() && musicip_status($sql_table, $predicate) )
