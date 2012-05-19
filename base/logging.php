@@ -64,7 +64,7 @@ function send_to_log($level, $item, $var = '')
       }
 
       // Write log entry to file.
-      if ($handle = fopen($log, 'a'))
+      if (($handle = fopen($log, 'a')) !== false)
       {
         @fwrite($handle, $time.$item.newline());
         if (!empty($var))

@@ -34,7 +34,7 @@
   page_header( $sub_data["TITLE"], $items[$idx_current]["TITLE"].' - '.date('Y-m-d H:i',strtotime($items[$idx_current]["PUBLISHED_DATE"])), '',get_tvid_pref( get_player_type(), 'KEY_A' ) );
 
   // Show the channel image for audio and video feeds.
-  if ($sub_data["TYPE"]==MEDIA_TYPE_MUSIC || $sub_data["TYPE"]==MEDIA_TYPE_VIDEO)
+  if ($sub_data["TYPE"]==MEDIA_TYPE_AUDIO || $sub_data["TYPE"]==MEDIA_TYPE_VIDEO)
   {
     if (!empty($sub_data["IMAGE"]) )
       $img = "select image from rss_subscriptions where id=$sub_id.sql";

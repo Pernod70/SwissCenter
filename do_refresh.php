@@ -126,7 +126,7 @@
     $menu = new menu();
     page_header( str('SETUP_SEARCH_NEW_MEDIA'));
     echo '<center>'.font_tags(FONTSIZE_BODY).str('SETUP_SEARCH_TYPE_TITLE').'</center><p>';
-    $menu->add_item( str('MUSIC') ,'/do_refresh.php?type=media_type&spec='.MEDIA_TYPE_MUSIC);
+    $menu->add_item( str('MUSIC') ,'/do_refresh.php?type=media_type&spec='.MEDIA_TYPE_AUDIO);
     $menu->add_item( str('PHOTOS') ,'/do_refresh.php?type=media_type&spec='.MEDIA_TYPE_PHOTO);
     $menu->add_item( str('TVSERIES') ,'/do_refresh.php?type=media_type&spec='.MEDIA_TYPE_TV);
     $menu->add_item( str('VIDEO') ,'/do_refresh.php?type=media_type&spec='.MEDIA_TYPE_VIDEO);

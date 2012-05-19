@@ -12,7 +12,7 @@
   // Gets the list of styles from the SwissCenter website and returns them.  It also caches
   // them in the session to reduce the bandwidth on the website.
   // ----------------------------------------------------------------------------------
-  
+
   function online_list()
   {
     if (!isset($_SESSION["online_styles"]))
@@ -22,7 +22,7 @@
         foreach ($contents as $name)
           $_SESSION["online_styles"][] = trim($name);
     }
-        
+
     return $_SESSION["online_styles"];
  }
 
@@ -35,7 +35,7 @@
     $dir = 'styles/';
     $style_list = array();
 
-    if ($dh = opendir($dir))
+    if (($dh = opendir($dir)) !== false)
     {
       while (($file = readdir($dh)) !== false)
       {
@@ -60,9 +60,9 @@
       $online_list = online_list();
       if ( count($online_list)>0)
         $styles = array_values(array_diff($online_list,$style_list));
-      else 
+      else
         $styles = array();
-        
+
       sort($styles);
       return $styles;
     }
@@ -77,7 +77,7 @@
     $details = parse_ini_file(SC_LOCATION.'styles/'.$style.'/style.ini');
     return (isset($details["STYLE_RATING"]) ? $details["STYLE_RATING"] : '');
   }
-  
+
   // ----------------------------------------------------------------------------------
   // Main Code
   // ----------------------------------------------------------------------------------
@@ -93,38 +93,38 @@
   $start         = $page * ($n_per_page);
   $end           = min( count($styles), $start+$n_per_page);
   $tlist         = new thumb_list();
-  
+
   if (count($styles) == 0)
   {
     echo '<center>'.str('STYLE_NONE_AVAILABLE').'</center>';
   }
-  else 
-  {  
+  else
+  {
      // Populate an array with the details that will be displayed
     for ($i=$start; $i<$end; $i++)
     {
       if ($_REQUEST["online"] == 'Y')
-        $tlist->add_item( 'http://update.swisscenter.co.uk/styles/'.$styles[$i].'.jpg' , $styles[$i] , 'href="run_style_download.php?name='.rawurlencode($styles[$i]).'"'); 
-      else 
-        $tlist->add_item( 'styles/'.$styles[$i].'/folder.jpg' , $styles[$i] , 'href="set_style.php?style='.rawurlencode($styles[$i]).'"'); 
+        $tlist->add_item( 'http://update.swisscenter.co.uk/styles/'.$styles[$i].'.jpg' , $styles[$i] , 'href="run_style_download.php?name='.rawurlencode($styles[$i]).'"');
+      else
+        $tlist->add_item( 'styles/'.$styles[$i].'/folder.jpg' , $styles[$i] , 'href="set_style.php?style='.rawurlencode($styles[$i]).'"');
     }
-  
+
    // Display a link to the previous page
-    if ( $page > 0)   
-      $tlist->set_up( 'style.php?online='.$_REQUEST["online"].'&page='.($page-1) ); 
-  
+    if ( $page > 0)
+      $tlist->set_up( 'style.php?online='.$_REQUEST["online"].'&page='.($page-1) );
+
     // Display a link to the next page
     if ( $end < count($styles) )
     {
-      $tlist->set_down( 'style.php?online='.$_REQUEST["online"].'&page='.($page+1) ); 
+      $tlist->set_down( 'style.php?online='.$_REQUEST["online"].'&page='.($page+1) );
     }
-  
+
     $tlist->set_num_cols(4);
     $tlist->set_thumbnail_size(192,202);
     $tlist->display();
   }
 
-  // Link to the online resources only if the ZIP extension is enabled and we are 
+  // Link to the online resources only if the ZIP extension is enabled and we are
   // not already viewing the online styles.
   if ( internet_available() && $_REQUEST["online"] != 'Y' && (extension_loaded('zip') || is_unix()))
     $buttons[] = array('text'=>str('STYLE_CHECK_ONLINE','SwissCenter.co.uk'), 'url'=>'style.php?online=Y');

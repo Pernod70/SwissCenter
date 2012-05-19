@@ -21,7 +21,7 @@ require_once( realpath(dirname(__FILE__).'/../ext/xml/xmlparser.php'));
  * @param boolean $shuffle - If true, the playlist will be shuffled.
  * @param string $spec_type - dir | file | array | sql | playlist | musicip
  * @param mixed $spec - depends upon the $spec_type
- * @param enum $media_type - Only required for (dir|file) types. (MEDIA_TYPE_MUSIC, etc)
+ * @param enum $media_type - Only required for (dir|file) types. (MEDIA_TYPE_AUDIO, etc)
  */
 
 function generate_tracklist( $seed, $shuffle, $spec_type, $spec, $media_type = null, $tracklist_name = '')
@@ -176,7 +176,7 @@ function play_dir( $media_type, $dir )
 
   switch ($media_type)
   {
-    case MEDIA_TYPE_MUSIC:
+    case MEDIA_TYPE_AUDIO:
          $link   = 'href="gen_playlist.php?'.$params.'" pod="'.now_playing_sync_type().',1,'.server_address().'playing_list.php?'.$params.'" ';
          break;
 
@@ -203,7 +203,7 @@ function resume_file( $media_type, $file_id )
 
   switch ($media_type)
   {
-    case MEDIA_TYPE_MUSIC:
+    case MEDIA_TYPE_AUDIO:
          $link   = 'href="gen_playlist.php?'.$params.'" pod="'.now_playing_sync_type().',1,'.server_address().'playing_list.php?'.$params.'" ';
          break;
 
@@ -232,7 +232,7 @@ function play_file( $media_type, $file_id )
 
   switch ($media_type)
   {
-    case MEDIA_TYPE_MUSIC:
+    case MEDIA_TYPE_AUDIO:
          $link   = 'href="gen_playlist.php?'.$params.'" pod="'.now_playing_sync_type().',1,'.server_address().'playing_list.php?'.$params.'" ';
          break;
 
@@ -325,7 +325,7 @@ function play_sql_list( $media_type, $spec )
 
   switch ($media_type)
   {
-    case MEDIA_TYPE_MUSIC:
+    case MEDIA_TYPE_AUDIO:
          $link   = 'href="gen_playlist.php?'.$params.'" pod="'.now_playing_sync_type().',1,'.server_address().'playing_list.php?'.$params.'" ';
          break;
 
@@ -354,7 +354,7 @@ function play_array_list( $media_type, $array )
 
   switch ($media_type)
   {
-    case MEDIA_TYPE_MUSIC:
+    case MEDIA_TYPE_AUDIO:
          $link   = 'href="gen_playlist.php?'.$params.'" pod="'.now_playing_sync_type().',1,'.server_address().'playing_list.php?'.$params.'" ';
          break;
 
@@ -691,7 +691,7 @@ function playlist_all_music()
     return false;
 
   foreach ($_SESSION["playlist"] as $row)
-    if ( db_value("select count(*) from mp3s where file_id=$row[FILE_ID] and dirname='".db_escape_str($row["DIRNAME"])."' and filename='".db_escape_str($row["FILENAME"])."'") == 0 )
+    if ( db_value("select count(*) from media_audio where file_id=$row[FILE_ID] and dirname='".db_escape_str($row["DIRNAME"])."' and filename='".db_escape_str($row["FILENAME"])."'") == 0 )
       return false;
 
   return true;
