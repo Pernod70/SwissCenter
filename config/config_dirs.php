@@ -190,13 +190,13 @@
       // Delete the selected directories
       foreach ($selected as $id)
       {
-        db_sqlcommand("delete from media_art using mp3s m, media_art ma where m.art_sha1 = ma.art_sha1 and m.location_id=$id");
-        db_sqlcommand("delete from media_art using movies m, media_art ma where m.art_sha1 = ma.art_sha1 and m.location_id=$id");
+        db_sqlcommand("delete from media_artwork ma using media_audio m where m.image_id = ma.image_id and m.location_id=$id");
+        db_sqlcommand("delete from media_artwork ma using media_videos m where m.image_id = ma.image_id and m.location_id=$id");
         db_sqlcommand("delete from media_locations where location_id=$id");
-        db_sqlcommand("delete from mp3s where location_id=$id");
-        db_sqlcommand("delete from movies where location_id=$id");
-        db_sqlcommand("delete from photos where location_id=$id");
-        db_sqlcommand("delete from tv where location_id=$id");
+        db_sqlcommand("delete from media_audio where location_id=$id");
+        db_sqlcommand("delete from media_videos where location_id=$id");
+        db_sqlcommand("delete from media_photos where location_id=$id");
+        db_sqlcommand("delete from media_tv where location_id=$id");
 
         if ( is_windows() )
           restart_swissmonitor();
@@ -271,12 +271,12 @@
         {
           // Location changed type so remove media from location
           // (same as removing and adding location)
-          db_sqlcommand("delete from media_art using mp3s m, media_art ma where m.art_sha1 = ma.art_sha1 and m.location_id=$id");
-          db_sqlcommand("delete from media_art using movies m, media_art ma where m.art_sha1 = ma.art_sha1 and m.location_id=$id");
-          db_sqlcommand("delete from mp3s where location_id=$id");
-          db_sqlcommand("delete from movies where location_id=$id");
-          db_sqlcommand("delete from photos where location_id=$id");
-          db_sqlcommand("delete from tv where location_id=$id");
+          db_sqlcommand("delete from media_artwork using media_audio m, media_artwork ma where m.image_id = ma.image_id and m.location_id=$id");
+          db_sqlcommand("delete from media_artwork using media_videos m, media_artwork ma where m.image_id = ma.image_id and m.location_id=$id");
+          db_sqlcommand("delete from media_audio where location_id=$id");
+          db_sqlcommand("delete from media_videos where location_id=$id");
+          db_sqlcommand("delete from media_photos where location_id=$id");
+          db_sqlcommand("delete from media_tv where location_id=$id");
         }
 
         db_sqlcommand("update media_locations set name='".db_escape_str($dir)."',media_type=$type_id, cat_id=$cat_id, unrated=$cert, network_share='".db_escape_str($share)."'
@@ -295,7 +295,7 @@
         dirs_display(str('MEDIA_LOC_UPDATE_OK'));
 
         // Tell MusicIP to add this location.
-        if ($type_id == MEDIA_TYPE_MUSIC)
+        if ($type_id == MEDIA_TYPE_AUDIO)
           musicip_server_add_dir($dir);
       }
     }
@@ -338,24 +338,29 @@
 
       send_to_log(4,'Adding new media location',$new_row);
 
-      if ( db_insert_row('media_locations', $new_row) === false)
+      $loc_id = db_insert_row('media_locations', $new_row);
+      if ($loc_id === false)
         dirs_display(db_error());
       else
       {
-        if ( is_windows() )
+        if (is_windows())
           restart_swissmonitor();
         else
         {
-          $id = db_value("select location_id from media_locations where name='$dir' and media_type=".$_REQUEST["type"]);
-          unlink(SC_LOCATION.'media/'.$id);
-          symlink($dir,SC_LOCATION.'media/'.$id);
+          unlink(SC_LOCATION.'media/'.$loc_id);
+          symlink($dir,SC_LOCATION.'media/'.$loc_id);
         }
 
-        dirs_display('',str('MEDIA_LOC_ADD_OK'));
-
         // Tell MusicIP to add this location.
-        if ( $_REQUEST["type"] == MEDIA_TYPE_MUSIC)
+        if ($_REQUEST["type"] == MEDIA_TYPE_AUDIO)
           musicip_server_add_dir($dir);
+
+        // Assign location to all users
+        $users = db_toarray("select user_id from users");
+        foreach ($users as $user)
+          db_insert_row('user_permissions', array('user_id'=>$user['USER_ID'], 'location_id'=>$loc_id));
+
+        dirs_display('',str('MEDIA_LOC_ADD_OK'));
       }
     }
   }

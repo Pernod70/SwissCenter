@@ -40,7 +40,7 @@
     form_start("index.php", 150);
     form_hidden("section", "USERS");
     form_hidden("action", "NEW");
-    form_input("name", str("NAME"), 50, '', $_REQUEST["name"]);
+    form_input("name", str("NAME"), 50, '', un_magic_quote($_REQUEST["name"]));
     form_label(str('USERS_NAME_PROMPT'));
     form_list_dynamic("cert", str('USERS_MAX_CERT'), get_cert_list_sql(), $_REQUEST["cert"]);
     form_label(str('USERS_MAX_CERT_PROMPT'));
@@ -54,7 +54,7 @@
 
   function users_new()
   {
-    $name = $_REQUEST["name"];
+    $name = un_magic_quote($_REQUEST["name"]);
     $cert = $_REQUEST["cert"];
     $pin  = $_REQUEST["pin"];
     $admin = $_REQUEST["admin"];
@@ -79,10 +79,18 @@
       {
         $data = array("name"=>$name, "maxcert"=>$cert,'pin'=>$pin,'admin'=>$admin);
 
-        if(db_insert_row("users", $data) === false)
+        $user_id = db_insert_row("users", $data);
+        if ($user_id === false)
           users_display(db_error());
         else
+        {
+          // Assign all locations to user
+          $locs = db_toarray("select location_id from media_locations");
+          foreach ($locs as $loc)
+            db_insert_row('user_permissions', array('user_id'=>$user_id, 'location_id'=>$loc['LOCATION_ID']));
+
           users_display("", str('USERS_ADDED_OK'));
+        }
       }
     }
   }

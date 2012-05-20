@@ -80,6 +80,7 @@
       $menu->add_item(str('CATEGORIES')             ,'section=CATEGORY&action=DISPLAY');
       $menu->add_item(str('MEDIA_LOCATIONS')        ,'section=DIRS&action=DISPLAY');
       $menu->add_item(str('USERS_ADD_TITLE')        ,'section=USERS&action=DISPLAY');
+      $menu->add_item(str('USER_PERMISSIONS')       ,'section=PERMISSIONS&action=DISPLAY');
       $menu->add_item(str('SCHEDULE_TITLE')         ,'section=SCHED&action=DISPLAY');
       $menu->add_item(str('IMPEXP_TITLE')           ,'section=IMPEXP&action=DISPLAY');
 
