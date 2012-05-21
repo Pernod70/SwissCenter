@@ -36,7 +36,7 @@
                                 inner join $media_table media on media.location_id=ml.location_id
                                 left outer join certificates media_cert on media_cert.cert_id=media.certificate
                                 inner join certificates unrated_cert on unrated_cert.cert_id=ml.unrated
-                              where ml.media_type=$media_type".get_rating_filter());
+                              where ml.media_type=$media_type and ml.location_id in (".get_current_user_permissions().")".get_rating_filter());
 
     // Array of all sub-categories leading to media
     $category_ids = category_parents($category_ids_media);
@@ -78,7 +78,7 @@
     // Determine menu properties for this media type
     switch ($media_type)
     {
-      case MEDIA_TYPE_MUSIC :
+      case MEDIA_TYPE_AUDIO :
         $width = style_value("MENU_MUSIC_WIDTH");
         $align = style_value("MENU_MUSIC_ALIGN");
         break;
@@ -132,14 +132,14 @@
     {
       $locations = db_col_to_list("select location_id from media_locations where cat_id=$cat_id and media_type=$media_type");
       if(!empty($locations))
-        return " and media.location_id in (".implode($locations,",").")";
+        return " and media.location_id in (".implode(",", $locations).")";
     }
     elseif ($cat_id < 0)
     {
       $locations = db_col_to_list("select location_id from media_locations where cat_id in (".
-                                  implode(",",category_children(-$cat_id)).") and media_type=$media_type");
+                                  implode(",", category_children(-$cat_id)).") and media_type=$media_type");
       if(!empty($locations))
-        return " and media.location_id in (".implode($locations,",").")";
+        return " and media.location_id in (".implode(",", $locations).")";
     }
     else
     {
@@ -184,7 +184,7 @@
                               inner join $media_table media on media.location_id=ml.location_id
                               left outer join certificates media_cert on media_cert.cert_id=media.certificate
                               inner join certificates unrated_cert on unrated_cert.cert_id=ml.unrated
-                        where ml.media_type=$media_type".get_rating_filter()." order by c.cat_name ASC");
+                        where ml.media_type=$media_type and ml.location_id in (".get_current_user_permissions().")".get_rating_filter()." order by c.cat_name ASC");
     }
   }
 
