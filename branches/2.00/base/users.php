@@ -240,4 +240,25 @@ function is_user_admin()
 
   return ($admin==1);
 }
+
+/**
+ * Returns a comma separated list of permitted location id's for the current user.
+ *
+ * @return string
+ */
+function get_current_user_permissions()
+{
+  $user_id = get_current_user_id();
+
+  if(!empty($user_id))
+  {
+    $permissions = implode(',', db_col_to_list("select location_id from user_permissions where user_id=$user_id"));
+  }
+  else
+  {
+    $permissions = implode(',', db_col_to_list("select location_id from media_locations"));
+  }
+
+  return $permissions;
+}
 ?>

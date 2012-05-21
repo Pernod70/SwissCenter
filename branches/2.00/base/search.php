@@ -29,7 +29,7 @@ function search_media_page( $heading, $title, $media_type, $joined_tables, $colu
   $menu      = new menu();
   $data      = array();
   $predicate = page_hist_current('sql');
-  $articles  = get_sys_pref('IGNORE_ARTICLES');
+  $user_id   = get_current_user_id();
 
   // Contents and ordering of search menu
   $display = $column["display"];
@@ -39,10 +39,10 @@ function search_media_page( $heading, $title, $media_type, $joined_tables, $colu
   // Variables that form the SQL statement
   $main_table     = get_media_table($media_type);
   $main_table_sql = "$main_table media ";
-  $restrict_sql   = "trim_article($display,'$articles') like '$prefix".db_escape_str(str_replace('_','\_',$search))."%' ".$predicate;
-
+  $restrict_sql   = "$display like '$prefix".db_escape_str(str_replace('_','\_',$search))."%' ".$predicate;
   $viewed_sql     = "select concat( sum(if(v.total_viewings>0,1,0)),':',count(*) ) view_status
                      from $main_table_sql $joined_tables";
+  $permission_sql = "ml.location_id in (".get_current_user_permissions().")";
 
   // Adding necessary paramters to the target URL (for when an item is selected)
   $choose_url = url_set_params($choose_url, array('type'=>$display));
@@ -50,7 +50,7 @@ function search_media_page( $heading, $title, $media_type, $joined_tables, $colu
   // Get the matching records from the database.
   $data       = db_toarray("   select $display display, $info info
                                  from $main_table_sql $joined_tables
-                                where $display != '0' and $restrict_sql and ml.media_type=$media_type
+                                where $display != '0' and $restrict_sql and ml.media_type=$media_type and $permission_sql
                              group by $display
                                having ".viewed_status_predicate( filter_get_name() )."
                              order by $order");
@@ -61,9 +61,9 @@ function search_media_page( $heading, $title, $media_type, $joined_tables, $colu
     page_error(str('DATABASE_ERROR'));
 
   if ($prefix == '')
-    $valid = strtoupper(join(db_col_to_list(" select distinct upper(substring(trim_article($display,'$articles'),".(strlen($search)+1).",1)) display
+    $valid = strtoupper(join(db_col_to_list(" select distinct upper(substring($display,".(strlen($search)+1).",1)) display
                                                 from $main_table_sql $joined_tables
-                                               where $display !='0' and $restrict_sql and ml.media_type=$media_type
+                                               where $display !='0' and $restrict_sql and ml.media_type=$media_type and $permission_sql
                                             group by $display
                                               having ".viewed_status_predicate( filter_get_name() )."
                                             order by 1")));

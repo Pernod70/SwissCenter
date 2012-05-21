@@ -124,7 +124,7 @@
 
       switch ($rss_feeds[$i]['TYPE'])
       {
-        case MEDIA_TYPE_MUSIC:
+        case MEDIA_TYPE_AUDIO:
           $icon = 'RSS_AUDIO';
           break;
         case MEDIA_TYPE_PHOTO:
@@ -176,7 +176,7 @@
     // Determine menu properties for this media type
     switch ($media_type)
     {
-      case MEDIA_TYPE_MUSIC :
+      case MEDIA_TYPE_AUDIO :
         $width = style_value("MENU_MUSIC_WIDTH");
         $align = style_value("MENU_MUSIC_ALIGN");
         break;
@@ -299,7 +299,7 @@
     // Determine menu properties for this media type
     switch ($media_type)
     {
-      case MEDIA_TYPE_MUSIC :
+      case MEDIA_TYPE_AUDIO :
         $width = style_value("MENU_MUSIC_WIDTH");
         $align = style_value("MENU_MUSIC_ALIGN");
         break;
@@ -497,7 +497,7 @@
     $dir_list        = array();
     $file_list       = array();
     $dir             = ( empty($_REQUEST["DIR"]) ? '' : un_magic_quote(rawurldecode($_REQUEST["DIR"])));
-    $media_locations = db_toarray("select * from media_locations where media_type=".$media_type);
+    $media_locations = db_toarray("select * from media_locations where media_type=".$media_type." and location_id in (".get_current_user_permissions().")");
 
     // Get list of files/dirs from the database
     foreach ($media_locations as $row)
