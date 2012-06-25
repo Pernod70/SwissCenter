@@ -56,26 +56,29 @@
   $pl_img = file_albumart(get_sys_pref('PLAYLISTS', SC_LOCATION.'playlists').'/'.$play_name.'.m3u', false);
 
   if ( empty($pl_img) )
-  {
     page_header( str('MANAGE_PLAYLISTS'), '','',1,false,'','PAGE_PLAYLISTS' );
-    $pl_img = SC_LOCATION.'images/dot.gif';
-  }
   else
-  {
     page_header( str('MANAGE_PLAYLISTS') );
-  }
 
   pl_info();
 
-  echo '<table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr><td valign="top" width="'.convert_x(280).'" align="center">
-            <table width="100%">
-              <tr><td height="'.convert_y(10).'"></td></tr>
-              <tr><td valign="top"><center>'.img_gen($pl_img,280,550).'</center></td></tr>
-            </table></td>
-            <td valign="top">';
-
-  $menu->display(1, style_value("MENU_PLAYLISTS_WIDTH"), style_value("MENU_PLAYLISTS_ALIGN"));
+  if ( empty($pl_img) )
+  {
+    echo '<table width="100%" cellpadding="0" cellspacing="0" border="0">
+          <tr><td valign="top">';
+    $menu->display(1, style_value("MENU_PLAYLISTS_WIDTH"), style_value("MENU_PLAYLISTS_ALIGN"));
+  }
+  else
+  {
+    echo '<table width="100%" cellpadding="0" cellspacing="0" border="0">
+          <tr><td valign="top" width="'.convert_x(280).'" align="center">
+              <table width="100%">
+                <tr><td height="'.convert_y(10).'"></td></tr>
+                <tr><td valign="top"><center>'.img_gen($pl_img,280,550).'</center></td></tr>
+              </table></td>
+              <td valign="top">';
+    $menu->display(1, 480);
+  }
 
   echo '</td></tr></table>';
 
