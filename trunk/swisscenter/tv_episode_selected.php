@@ -232,10 +232,10 @@
 
   // Buttons for Next and Previous episodes
   $prev = db_row("select file_id, series, episode from tv media ".get_rating_join().viewed_join(MEDIA_TYPE_TV)." where programme = '".db_escape_str($data["PROGRAMME"])."'".
-                 " and concat(lpad(series,2,0),lpad(episode,3,0)) < concat(lpad(".$data["SERIES"].',2,0),lpad('.$data["EPISODE"].',3,0)) '.$predicate.viewed_n_times_predicate( ($view_status == 'unviewed' ? '=' : '>='),0).
+                 " and concat(lpad(series,4,0),lpad(episode,4,0)) < concat(lpad(".$data["SERIES"].',4,0),lpad('.$data["EPISODE"].',4,0)) '.$predicate.viewed_n_times_predicate( ($view_status == 'unviewed' ? '=' : '>='),0).
                  " order by series desc,episode desc limit 1");
   $next = db_row("select file_id, series, episode from tv media ".get_rating_join().viewed_join(MEDIA_TYPE_TV)." where programme = '".db_escape_str($data["PROGRAMME"])."'".
-                 " and concat(lpad(series,2,0),lpad(episode,3,0)) > concat(lpad(".$data["SERIES"].',2,0),lpad('.$data["EPISODE"].',3,0)) '.$predicate.viewed_n_times_predicate( ($view_status == 'unviewed' ? '=' : '>='),0).
+                 " and concat(lpad(series,4,0),lpad(episode,4,0)) > concat(lpad(".$data["SERIES"].',4,0),lpad('.$data["EPISODE"].',4,0)) '.$predicate.viewed_n_times_predicate( ($view_status == 'unviewed' ? '=' : '>='),0).
                  " order by series asc, episode asc limit 1");
 
   // Output ABC buttons
