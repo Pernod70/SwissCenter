@@ -48,6 +48,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>ALBUM_INFO</id>
+        <text>Album info</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>ALBUM_REVIEW</id>
+        <text>Album review</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>ALL_CATEGORIES</id>
         <text>All Categories</text>
         <version>1.19.2</version>
@@ -3161,6 +3171,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>MUSIC_INFO</id>
+        <text>Music info</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>MUSIC_PLAY_NEXT</id>
         <text>Coming up</text>
         <version>1.19</version>
@@ -3174,6 +3189,11 @@
         <id>MUSIC_PLAY_TIME</id>
         <text>Play time</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>MUSIC_VIDEOS</id>
+        <text>Music video(s)</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>NAME</id>
@@ -5349,6 +5369,11 @@ If any details are added/changed on this page then you are requested to submit t
         <version>1.22</version>
       </string>
       <string>
+        <id>TADB_NO_DETAILS</id>
+        <text>There are currently no details available for this artist/album/track. Please contribute to the community by visiting TheAudioDB.com and adding the missing details.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>TAG</id>
         <text>Tag</text>
         <version>1.19</version>
@@ -5647,6 +5672,11 @@ If any details are added/changed on this page then you are requested to submit t
         <id>TRACKS_ADDED_TITLE</id>
         <text>Tracks Added</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>TRACK_INFO</id>
+        <text>Track info</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>TRACK_LENGTH</id>

@@ -4,73 +4,104 @@
  *************************************************************************************************/
 
   require_once( realpath(dirname(__FILE__).'/base/page.php'));
-  require_once( realpath(dirname(__FILE__).'/ext/lastfm/datafeeds.php'));
+  require_once( realpath(dirname(__FILE__).'/resources/audio/theaudiodb.php'));
 
 /**************************************************************************************************
    Main page output
  *************************************************************************************************/
 
   // Get artist, album, and track details
-  $artist = $_REQUEST["artist"];
-  $album  = $_REQUEST["album"];
-  $track  = $_REQUEST["track"];
+  $artist  = isset($_REQUEST["artist"]) ? un_magic_quote(rawurldecode($_REQUEST["artist"])) : false;
+  $album   = isset($_REQUEST["album"]) ? un_magic_quote(rawurldecode($_REQUEST["album"])) : false;
+  $track   = isset($_REQUEST["track"]) ? un_magic_quote(rawurldecode($_REQUEST["track"])) : false;
+  $display = isset($_REQUEST["display"]) ? un_magic_quote(rawurldecode($_REQUEST["display"])) : 'artist';
 
-  // Get artist info
-  if (!empty($artist) && ($artist_feed = lastfm_artist_getInfo($artist)))
+  // Get data from TheAudioDB
+  if (!empty($artist))
   {
-    $image = array_pop($artist_feed["artist"]["image"]);
-    while (empty($image["#text"]) && count($artist_feed["artist"]["image"])>0)
-      $image = array_pop($artist_feed["artist"]["image"]);
+    $data   = tadb_artist_getInfo($artist);
+    $image  = isset($data['strArtistThumb'])  ? $data['strArtistThumb']  : null;
+    $logo   = isset($data['strArtistLogo'])   ? $data['strArtistLogo']   : null;
+    $fanart = isset($data['strArtistFanart']) ? $data['strArtistFanart'] : null;
+    $text   = isset($data['strBiography'])    ? utf8_decode($data['strBiography']) : null;
+  }
+  switch ($display)
+  {
+    case 'track':
+      $data  = tadb_track_getInfo($artist, $track);
+      $image = isset($data['strTrackThumb'])  ? $data['strTrackThumb']  : null;
+      $text  = isset($data['strDescription']) ? utf8_decode($data['strDescription']) : null;
+      break;
+    case 'album':
+      $data  = tadb_album_getInfo($artist, $album);
+      $image = isset($data['strAlbumThumb'])  ? $data['strAlbumThumb']  : null;
+      $text  = isset($data['strDescription']) ? utf8_decode($data['strDescription']) : null;
+      break;
+    case 'review':
+      $data  = tadb_album_getInfo($artist, $album);
+      $image = isset($data['strAlbumThumb'])  ? $data['strAlbumThumb']  : null;
+      $text  = isset($data['strReview'])      ? utf8_decode($data['strReview']) : null;
+      break;
   }
 
-  // Get album info
-  if (!empty($artist) && !empty($album))
-  {
-    $album_feed = lastfm_album_getInfo($artist, $album);
-  }
+  // Set default text and image if no details available
+  if (empty($text))
+    $text = str('TADB_NO_DETAILS');
+  if (empty($image))
+    $image = style_img('NOW_NO_ALBUMART',true);
 
-  // Get track info
-  if (!empty($artist) && !empty($track))
-  {
-    $track_feed = lastfm_track_getInfo($artist, $track);
-  }
+  page_header( $artist, '', '', 1, false, '', $fanart, $logo, 'PAGE_TEXT_BACKGROUND' );
 
-  page_header( $artist );
-
+  // Column 1: Image
   echo '<table width="100%" height="'.convert_y(650).'" cellpadding="0" cellspacing="0" border="0">
           <tr>';
+  echo '    <td width="'.convert_x(280).'" valign="middle">
+              <table '.style_background('PAGE_TEXT_BACKGROUND').' cellpadding="10" cellspacing="0" border="0">
+                <tr>
+                  <td>'.img_gen($image,280,450,false,false,false,array(),false).'</td>
+                </tr>
+              </table>
+            </td>';
 
-  // Display image
-  if (isset($image["#text"]) && !empty($image["#text"]))
-  {
-    echo '  <td valign=top width="'.convert_x(280).'" align="left"><br>
-              '.img_gen($image["#text"],280,450).'
-            </td>
-            <td width="'.convert_x(20).'"></td>';
-  }
+  // Column 2: Gap
+  echo '    <td width="'.convert_x(10).'"></td>';
+
+  // Column 3: Details
   echo '    <td valign="top">';
 
-  // Display artist info
-  if (isset($artist_feed["artist"]["bio"]["summary"]))
-    echo '<p>'.font_tags(FONTSIZE_BODY).utf8_decode($artist_feed["artist"]["bio"]["summary"]);
+  if (is_pc())
+    echo '<div style="height:'.convert_y(650).'; overflow:scroll;">';
 
-  // Display album info
-  if (isset($album_feed["album"]["wiki"]["summary"]))
-    echo '<p>'.font_tags(FONTSIZE_BODY).utf8_decode($album_feed["album"]["wiki"]["summary"]);
+  echo '      <table '.style_background('PAGE_TEXT_BACKGROUND').' width="100%" cellpadding="5" cellspacing="0" border="0">
+                <tr>
+                  <td>';
 
-  // Display track info
-  if (isset($track_feed["track"]["wiki"]["summary"]))
-    echo '<p>'.font_tags(FONTSIZE_BODY).utf8_decode($track_feed["track"]["wiki"]["summary"]);
+  // Display info
+  echo '<p>'.font_tags(FONTSIZE_BODY).$text;
 
-  $menu = new menu();
-  $menu->add_item(str('RETURN_TO_SELECTION'), page_hist_previous());
-  $menu->display(1, 400);
+  echo '          </td>
+                </tr>
+              </table>';
+
+  if (is_pc())
+    echo '</div>';
 
   echo '    </td>
           </tr>
         </table>';
 
-  page_footer( page_hist_previous() );
+  // Display ABC buttons
+  $buttons = array();
+  if (!empty($artist))
+    $buttons[] = array('text'=>str('ARTIST_INFO'), 'url'=> url_add_params('music_info.php', array('display'=>'artist', 'artist'=>urlencode($artist), 'album'=>urlencode($album), 'track'=>urlencode($track), 'hist'=>PAGE_HISTORY_REPLACE)) );
+  if (!empty($album))
+    $buttons[] = array('text'=>str('ALBUM_INFO'), 'url'=> url_add_params('music_info.php', array('display'=>'album', 'artist'=>urlencode($artist), 'album'=>urlencode($album), 'track'=>urlencode($track), 'hist'=>PAGE_HISTORY_REPLACE)) );
+  if (!empty($track))
+    $buttons[] = array('text'=>str('TRACK_INFO'), 'url'=> url_add_params('music_info.php', array('display'=>'track', 'artist'=>urlencode($artist), 'album'=>urlencode($album), 'track'=>urlencode($track), 'hist'=>PAGE_HISTORY_REPLACE)) );
+  if (!empty($album))
+    $buttons[] = array('text'=>str('ALBUM_REVIEW'), 'url'=> url_add_params('music_info.php', array('display'=>'review', 'artist'=>urlencode($artist), 'album'=>urlencode($album), 'track'=>urlencode($track), 'hist'=>PAGE_HISTORY_REPLACE)) );
+
+  page_footer( page_hist_previous(), $buttons, 0, true, 'PAGE_TEXT_BACKGROUND');
 
 /**************************************************************************************************
                                                End of file
