@@ -89,13 +89,13 @@ class wwwROTTENTOMATOEScom extends Parser implements ParserInterface {
   }
   protected function parseTitle() {
     $moviematches = $this->page;
-    $title = utf8_decode($moviematches['title']);
+    $title = $moviematches['title'];
     $this->setProperty(TITLE, $title);
     return $title;
   }
   protected function parseSynopsis() {
     $moviematches = $this->page;
-    $synopsis = utf8_decode($moviematches['synopsis']);
+    $synopsis = $moviematches['synopsis'];
     if (isset($synopsis) && !empty($synopsis)) {
       $this->setProperty(SYNOPSIS, $synopsis);
       return $synopsis;
@@ -107,7 +107,7 @@ class wwwROTTENTOMATOEScom extends Parser implements ParserInterface {
     if (isset($cast) && !empty($cast)) {
       $names = array();
       foreach ($cast as $person)
-        $names[] = utf8_decode($person['name']);
+        $names[] = $person['name'];
       $this->setProperty(ACTORS, $names);
       return $names;
     }
@@ -118,7 +118,7 @@ class wwwROTTENTOMATOEScom extends Parser implements ParserInterface {
     if (isset($cast) && !empty($cast)) {
       $names = array();
       foreach ($cast as $person)
-        $names[] = utf8_decode($person['name']);
+        $names[] = $person['name'];
       $this->setProperty(DIRECTORS, $names);
       return $names;
     }
@@ -129,7 +129,7 @@ class wwwROTTENTOMATOEScom extends Parser implements ParserInterface {
     if (isset($genres) && !empty($genres)) {
       $names = array();
       foreach ($genres as $genre)
-        $names[] = utf8_decode($genre);
+        $names[] = $genre;
       $this->setProperty(GENRES, $names);
       return $names;
     }
@@ -202,7 +202,7 @@ class wwwROTTENTOMATOEScom extends Parser implements ParserInterface {
         $matches = array ();
         $matches_id = array ();
         foreach ($moviematches['movies'] as $movie) {
-          $matches[] = utf8_decode($movie['title']);
+          $matches[] = $movie['title'];
           $matches_id[] = $movie['id'];
         }
         $index = best_match($title, $matches, $this->accuracy);

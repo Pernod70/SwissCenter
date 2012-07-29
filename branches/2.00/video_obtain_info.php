@@ -296,7 +296,7 @@
   {
     $titles = array();
     foreach ($result_set as $result)
-      $titles[] = utf8_decode($result->titleNoFormatting);
+      $titles[] = $result->titleNoFormatting;
 
     $index = best_match($title, $titles, $accuracy);
 

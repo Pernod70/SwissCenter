@@ -98,13 +98,13 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
   }
   protected function parseTitle() {
     $moviematches = $this->page;
-    $title = utf8_decode($moviematches[0]['name']);
+    $title = $moviematches[0]['name'];
     $this->setProperty(TITLE, $title);
     return $title;
   }
   protected function parseSynopsis() {
     $moviematches = $this->page;
-    $synopsis = utf8_decode($moviematches[0]['overview']);
+    $synopsis = $moviematches[0]['overview'];
     if (isset($synopsis) && !empty($synopsis)) {
       $this->setProperty(SYNOPSIS, $synopsis);
       return $synopsis;
@@ -117,7 +117,7 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
       $names = array();
       foreach ($cast as $person)
         if ( $person['job'] == 'Actor' )
-          $names[] = utf8_decode($person['name']);
+          $names[] = $person['name'];
       $this->setProperty(ACTORS, $names);
       return $names;
     }
@@ -129,7 +129,7 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
       $names = array();
       foreach ($cast as $person)
         if ( $person['job'] == 'Director' )
-          $names[] = utf8_decode($person['name']);
+          $names[] = $person['name'];
       $this->setProperty(DIRECTORS, $names);
       return $names;
     }
@@ -140,7 +140,7 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
     if (isset($genres) && !empty($genres)) {
       $names = array();
       foreach ($genres as $genre)
-        $names[] = utf8_decode($genre['name']);
+        $names[] = $genre['name'];
       $this->setProperty(GENRES, $names);
       return $names;
     }
@@ -241,10 +241,10 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
         foreach ($moviematches as $movie) {
           // Filter out adult results if not required
           if ($adult_results || !$movie['adult']) {
-            $matches[] = utf8_decode($movie['name']);
+            $matches[] = $movie['name'];
             $matches_id[] = $movie['id'];
             if (isset ($movie['alternative_name']) && !empty ($movie['alternative_name'])) {
-              $matches[] = utf8_decode($movie['alternative_name']);
+              $matches[] = $movie['alternative_name'];
               $matches_id[] = $movie['id'];
             }
           }
