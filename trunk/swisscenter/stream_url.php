@@ -152,7 +152,7 @@
       // A YouTube id has been provided so we need to determine the actual location of the video file.
       if (!isset($_SESSION["stream_id"]) || ($_SESSION["stream_id"] !== $_REQUEST["youtube_id"]))
       {
-        $videoId  = $_REQUEST["youtube_id"];
+        $videoId  = un_magic_quote(rawurldecode($_REQUEST["youtube_id"]));
 
         // Get the YouTube video page to parse
         $youtube_url = 'http://www.youtube.com/watch?v='.$videoId;
@@ -272,26 +272,34 @@
 //    }
     else
     {
-      $_SESSION["stream_url"] = $_REQUEST["url"];
-      $_SESSION["stream_filename"] = basename($_REQUEST["url"]);
+      $_SESSION["stream_url"] = un_magic_quote(rawurldecode($_REQUEST["url"]));
+      $_SESSION["stream_filename"] = basename($_SESSION["stream_url"]);
     }
 
     send_to_log(7,'Attempting to stream the following remote file', $_SESSION["stream_url"]);
 
-    // If a User-Agent is specified then we must stream the file ourselves.
-    if (isset($_REQUEST["user_agent"]))
+    if (isset($_SESSION["stream_url"]))
     {
-      // Set User-Agent to use when requesting remote file
-      $user_agent = isset($_REQUEST["user_agent"]) ? $_REQUEST["user_agent"] : 'Mozilla/5.0';
-      ini_set('user_agent', $user_agent);
+      // If a User-Agent is specified then we must stream the file ourselves.
+      if (isset($_REQUEST["user_agent"]))
+      {
+        // Set User-Agent to use when requesting remote file
+        $user_agent = isset($_REQUEST["user_agent"]) ? un_magic_quote(rawurldecode($_REQUEST["user_agent"])) : 'Mozilla/5.0';
+        ini_set('user_agent', $user_agent);
 
-      stream_remote_file($_SESSION["stream_url"], $_SESSION["stream_filename"], $user_agent);
+        stream_remote_file($_SESSION["stream_url"], $_SESSION["stream_filename"], $user_agent);
+      }
+      else
+      {
+        // Redirect to the actual video file.
+        send_to_log(8,'Redirecting to '.$_SESSION["stream_url"]);
+        header ('Location: '.$_SESSION["stream_url"]);
+      }
     }
-    elseif (isset($_SESSION["stream_url"]))
+    else
     {
-      // Redirect to the actual video file.
-      send_to_log(8,'Redirecting to '.$_SESSION["stream_url"]);
-      header ('Location: '.$_SESSION["stream_url"]);
+      // File not found!
+      header ($_SERVER["SERVER_PROTOCOL"].' 404 Not Found');
     }
   }
 
