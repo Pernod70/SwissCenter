@@ -18,10 +18,9 @@ function get_google_artist_image( $artist )
   if (empty($artist))
     return false;
 
-  $query = utf8_encode($artist);
   $url   = 'http://ajax.googleapis.com/ajax/services/search/images'
             .'?v=1.0'
-            .'&q='.str_replace('%20','+',urlencode($query))
+            .'&q='.str_replace('%20','+',urlencode($artist))
             .'&rsz=large'
             .'&start='.mt_rand(0,3)*8
             .'&safe=moderate'

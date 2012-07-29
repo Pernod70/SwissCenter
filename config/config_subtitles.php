@@ -17,7 +17,6 @@ function subtitles_display( $message = '')
   $page        = (empty($_REQUEST["page"]) ? 1 : $_REQUEST["page"]);
   $start       = ($page-1)*$per_page;
   $where       = '';
-  $articles    = get_sys_pref('IGNORE_ARTICLES');
   $user_lang   = substr(get_sys_pref('DEFAULT_LANGUAGE','en'),0,2);
   $search_lang = isset($_REQUEST["lang"]) ? $_REQUEST["lang"] : '';
   $method      = isset($_REQUEST["method"]) ? $_REQUEST["method"] : 'hash';
@@ -52,14 +51,14 @@ function subtitles_display( $message = '')
   {
     foreach ($os_languages["data"] as $os_lang)
     {
-      $lang_list[utf8_decode($os_lang["LanguageName"])] = $os_lang["SubLanguageID"];
+      $lang_list[$os_lang["LanguageName"]] = $os_lang["SubLanguageID"];
       if ( $search_lang == '' && $os_lang["ISO639"] == $user_lang) { $search_lang = $os_lang["SubLanguageID"]; }
     }
   }
 
   // SQL to fetch matching rows
   $movie_list  = db_toarray("select m.* from movies m, media_locations ml where ml.location_id = m.location_id ".$where.
-                            " order by trim_article(title,'$articles')");
+                            " order by sort_title");
   $movie_count = count($movie_list);
   $movie_list = array_slice($movie_list, $start, $per_page);
 
@@ -139,17 +138,17 @@ function subtitles_display( $message = '')
                              'moviehash'     => '',
                              'moviebytesize' => '',
                              'imdbid'        => '',
-                             'query'         => utf8_encode($movie["TITLE"])) );
+                             'query'         => $movie["TITLE"]) );
     $subs = $os->SearchSubtitles($search);
 
     // Search the directory for a file with the same name as that given, but with a subtitle extension
     $subsize = 0;
     $subhash = '';
-    foreach (media_ext_subtitles() as $type)
-      if ( $sub_file = find_in_dir( $movie["DIRNAME"],file_noext($movie["FILENAME"]).'.'.$type ) )
+    foreach (media_exts_subtitles() as $type)
+      if (($sub_file = find_in_dir( $movie["DIRNAME"],file_noext($movie["FILENAME"]).'.'.$type )) !== false )
       {
         $subsize = filesize($sub_file);
-        $subhash = md5(file_get_contents($sub_file));
+        $subhash = md5_file($sub_file);
         break;
       }
 
@@ -165,9 +164,9 @@ function subtitles_display( $message = '')
       {
         echo '<br><input type="radio" name="subtitle['.$movie["FILE_ID"].']" value="'.implode(',', array($sub["IDSubtitleFile"], file_ext($sub["SubFileName"]))).'"></input>';
         // Language with flag
-        echo '<img src="/images/flags/icons/'.$sub["ISO639"].'.gif">['.utf8_decode($sub["LanguageName"]).'] ';
+        echo '<img src="/images/flags/icons/'.$sub["ISO639"].'.gif">['.$sub["LanguageName"].'] ';
         // Subtitle filename (with link to OpenSubtitles.org download page)
-        echo '<a href="'.utf8_decode($sub["SubtitlesLink"]).'" target="_blank">'.utf8_decode($sub["SubFileName"]).'</a> ';
+        echo '<a href="'.$sub["SubtitlesLink"].'" target="_blank">'.$sub["SubFileName"].'</a> ';
         // Rating
         echo $sub["SubRating"] == '0.0' ? '' : '['.str('RATE').':'.$sub["SubRating"].'] ';
         // Subtitle already downloaded
@@ -176,9 +175,9 @@ function subtitles_display( $message = '')
         else
         {
           // Uploader
-          echo '['.str('UPLOADER').':'.($sub["UserNickName"] == '' ? 'Anonymous' : utf8_decode($sub["UserNickName"])).'] ';
+          echo '['.str('UPLOADER').':'.($sub["UserNickName"] == '' ? 'Anonymous' : $sub["UserNickName"]).'] ';
           // Uploader comment
-          echo $sub["SubAuthorComment"] == '' ? '' : '['.str('COMMENT').':'.utf8_decode($sub["SubAuthorComment"]).'] ';
+          echo $sub["SubAuthorComment"] == '' ? '' : '['.str('COMMENT').':'.$sub["SubAuthorComment"].'] ';
         }
       }
     }

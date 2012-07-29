@@ -104,7 +104,7 @@ class wwwOFDBde extends Parser implements ParserInterface {
         $ofdb_url = str_replace('review','film',$ofdb_url);
       }
       send_to_log(6,'Fetching information from: '.$ofdb_url);
-      $html = utf8_decode(file_get_contents( $ofdb_url ));
+      $html = file_get_contents( $ofdb_url );
     }
     if ($html !== false) {
       $this->page = $html;
@@ -146,7 +146,7 @@ class wwwOFDBde extends Parser implements ParserInterface {
         $matches = get_urls_from_html($html_synopsis, "plot");
         if (isset($matches[1]) && !empty($matches[1])) {
           send_to_log(6,'Fetching information from: '.$this->site_url.$matches[1][0]);
-          $html = utf8_decode(file_get_contents( $this->site_url.$matches[1][0] ));
+          $html = file_get_contents( $this->site_url.$matches[1][0] );
           $synopsis = substr_between_strings($html,'</b><br><br>','</p>');
           $this->setProperty(SYNOPSIS, $synopsis);
           return $synopsis;
