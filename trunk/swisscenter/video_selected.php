@@ -68,12 +68,13 @@
       {
         switch ($filter)
         {
-          case 'title'         : $menu->add_item( str('REFINE_TITLE')       ,"video_search.php?sort=title",true); break;
-          case 'year'          : $menu->add_item( str('REFINE_YEAR')        ,"video_search.php?sort=year",true);   break;
-          case 'certificate'   : $menu->add_item( str('REFINE_CERTIFICATE') ,"video_search.php?sort=certificate",true);  break;
-          case 'genre_name'    : $menu->add_item( str('REFINE_GENRE') 	    ,"video_search.php?sort=genre",true);  break;
-          case 'actor_name'    : $menu->add_item( str('REFINE_ACTOR')       ,"video_search.php?sort=actor",true);  break;
-          case 'director_name' : $menu->add_item( str('REFINE_DIRECTOR')    ,"video_search.php?sort=director",true);  break;
+          case 'title'              : $menu->add_item( str('REFINE_TITLE')       ,"video_search.php?sort=title",true); break;
+          case 'year'               : $menu->add_item( str('REFINE_YEAR')        ,"video_search.php?sort=year",true); break;
+          case 'certificate'        : $menu->add_item( str('REFINE_CERTIFICATE') ,"video_search.php?sort=certificate",true); break;
+          case 'external_rating_pc' : $menu->add_item( str('REFINE_RATING')      ,"video_search.php?sort=rating",true); break;
+          case 'genre_name'         : $menu->add_item( str('REFINE_GENRE')       ,"video_search.php?sort=genre",true); break;
+          case 'actor_name'         : $menu->add_item( str('REFINE_ACTOR')       ,"video_search.php?sort=actor",true); break;
+          case 'director_name'      : $menu->add_item( str('REFINE_DIRECTOR')    ,"video_search.php?sort=director",true); break;
         }
       }
     }
@@ -340,7 +341,7 @@
   if ( !empty($folder_img) )
   {
     // Column 1: Image
-    echo '    <td valign="middle">
+    echo '    <td width="'.convert_x(280).'" valign="middle">
                 <table '.style_background('PAGE_TEXT_BACKGROUND').' cellpadding="10" cellspacing="0" border="0">
                   <tr>
                     <td><center>'.img_gen($folder_img,280,550,false,false,false,array(),false).'<br>'.$cert_img.'</center></td>
