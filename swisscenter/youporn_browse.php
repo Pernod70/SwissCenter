@@ -12,7 +12,6 @@
   //*************************************************************************************************
 
   // Update page history
-  $back_url = page_hist_previous();
   $page     = (isset($_REQUEST["page"]) ? $_REQUEST["page"] : 0);
   $this_url = current_url();
 
@@ -33,7 +32,7 @@
 
   if ( count($items[0]) == 0 )
   {
-    page_inform(2, $back_url, str('YOUPORN'), str('NO_ITEMS_TO_DISPLAY'));
+    page_inform(2, page_hist_previous(), str('YOUPORN'), str('NO_ITEMS_TO_DISPLAY'));
   }
   else
   {
@@ -42,7 +41,7 @@
     // Add entries from selected feed
     foreach ($items[3] as $idx=>$item)
     {
-      $url = url_add_params('youporn_video_selected.php', array('url'=>$items[2][$idx], 'img'=>$items[1][$idx]));
+      $url = url_add_params('youporn_video_selected.php', array('url'=>rawurlencode($items[2][$idx]), 'img'=>rawurlencode($items[1][$idx])));
       $entry_list[] = array('thumb' => $items[1][$idx],
                             'text'  => utf8_decode($item),
                             'url'   => $url);
@@ -63,7 +62,7 @@
     // Sort parameter
     if ( in_array($type, array('browse', 'category')) )
     {
-      if ( $sort == 'hybrid' )
+      if ( $sort == 'time' )
         $buttons[] = array('text'=>str('SORT_VIEWS'), 'url'=>url_add_params($this_url, array('hist'=>PAGE_HISTORY_REPLACE, 'sort'=>'views')));
       elseif ( $sort == 'views' )
         $buttons[] = array('text'=>str('SORT_RATING'), 'url'=>url_add_params($this_url, array('hist'=>PAGE_HISTORY_REPLACE, 'sort'=>'rating')));
@@ -71,10 +70,6 @@
         $buttons[] = array('text'=>str('SORT_DURATION'), 'url'=>url_add_params($this_url, array('hist'=>PAGE_HISTORY_REPLACE, 'sort'=>'duration' )));
       elseif ( $sort == 'duration' )
         $buttons[] = array('text'=>str('SORT_DATE'), 'url'=>url_add_params($this_url, array('hist'=>PAGE_HISTORY_REPLACE, 'sort'=>'time')));
-      elseif ( $sort == 'time' )
-        $buttons[] = array('text'=>str('SORT_NAME'), 'url'=>url_add_params($this_url, array('hist'=>PAGE_HISTORY_REPLACE, 'sort'=>'title')));
-      elseif ( $sort == 'title' )
-        $buttons[] = array('text'=>str('SORT_HYBRID'), 'url'=>url_add_params($this_url, array('hist'=>PAGE_HISTORY_REPLACE, 'sort'=>'hybrid')));
     }
 
     // Time parameter
@@ -83,13 +78,13 @@
       if ( $time == 'today' )
         $buttons[] = array('text' => str('YESTERDAY'), 'url'=>url_add_params($this_url, array('time'=>'yesterday', 'hist'=>PAGE_HISTORY_REPLACE)));
       elseif ( $time == 'yesterday' )
-        $buttons[] = array('text' => str('THIS_WEEK'), 'url'=>url_add_params($this_url, array('time'=>'this_week', 'hist'=>PAGE_HISTORY_REPLACE)));
+        $buttons[] = array('text' => str('THIS_WEEK'), 'url'=>url_add_params($this_url, array('time'=>'week', 'hist'=>PAGE_HISTORY_REPLACE)));
       elseif ( $time == 'this_week' || $time == '' )
-        $buttons[] = array('text' => str('THIS_MONTH'), 'url'=>url_add_params($this_url, array('time'=>'this_month', 'hist'=>PAGE_HISTORY_REPLACE)));
+        $buttons[] = array('text' => str('THIS_MONTH'), 'url'=>url_add_params($this_url, array('time'=>'month', 'hist'=>PAGE_HISTORY_REPLACE)));
       elseif ( $time == 'this_month' )
-        $buttons[] = array('text' => str('THIS_YEAR'), 'url'=>url_add_params($this_url, array('time'=>'this_year', 'hist'=>PAGE_HISTORY_REPLACE)));
+        $buttons[] = array('text' => str('THIS_YEAR'), 'url'=>url_add_params($this_url, array('time'=>'year', 'hist'=>PAGE_HISTORY_REPLACE)));
       elseif ( $time == 'this_year' )
-        $buttons[] = array('text' => str('ALL_TIME'), 'url'=>url_add_params($this_url, array('time'=>'all_time', 'hist'=>PAGE_HISTORY_REPLACE)));
+        $buttons[] = array('text' => str('ALL_TIME'), 'url'=>url_add_params($this_url, array('time'=>'all', 'hist'=>PAGE_HISTORY_REPLACE)));
       elseif ( $time == 'all_time' )
         $buttons[] = array('text' => str('TODAY'), 'url'=>url_add_params($this_url, array('time'=>'today', 'hist'=>PAGE_HISTORY_REPLACE)));
     }
@@ -104,7 +99,7 @@
     }
 
     // Make sure the "back" button goes to the correct page:
-    page_footer($back_url, $buttons);
+    page_footer(page_hist_previous(), $buttons);
   }
 
 /**************************************************************************************************

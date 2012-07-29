@@ -12,7 +12,7 @@ function star_rating( $rating )
   $img_rating = '';
   if ( !is_null($rating) )
   {
-    $user_rating = nvl($rating*2,0);
+    $user_rating = nvl($rating/10,0);
     for ($i = 1; $i<=10; $i++)
     {
       if ( $user_rating >= $i )
@@ -30,19 +30,21 @@ function star_rating( $rating )
    Main page output
  *************************************************************************************************/
 
-  $url   = $_REQUEST["url"];
-  $image = $_REQUEST["img"];
+  $url   = un_magic_quote(rawurldecode($_REQUEST["url"]));
+  $image = un_magic_quote(rawurldecode($_REQUEST["img"]));
 
   // Get information about a video.
   $youporn = new YouPorn();
   $details = $youporn->getDetails($url);
 
   // Page headings
-  page_header($details["title"], star_rating($details["rating"]));
+  page_header(utf8_decode($details["title"]), star_rating($details["rating"]));
 
   $menu = new menu();
-  $menu->add_item( str('PLAY_NOW'), 'href="'.url_add_params('stream_url.php?'.current_session(), array('url' => $details["video_url"],
-                                                                                                       'ext' => '.mpg" vod ')));
+  if (!empty($details["mpg_url"]))
+    $menu->add_item( str('PLAY_NOW').' (MPG)', 'href="'.url_add_params('stream_url.php?'.current_session(), array('url' => rawurlencode($details["mpg_url"]))).'" vod ');
+  if (!empty($details["mp4_url"]))
+    $menu->add_item( str('PLAY_NOW').' (MP4)', 'href="'.url_add_params('stream_url.php?'.current_session(), array('url' => rawurlencode($details["mp4_url"]))).'" vod ');
   echo '<table width="100%" cellpadding=0 cellspacing=0 border=0>
           <tr>
             <td valign=top width="'.convert_x(280).'" align="left">'.img_gen($image,280,550).'</td>

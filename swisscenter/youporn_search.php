@@ -37,7 +37,7 @@ class youporn_picker extends list_picker
   function data_list( $search_string, $start, $end)
   {
     $youporn = new YouPorn();
-    $items = $youporn->getItems('/search/'.$this->sort.'?query='.urlencode($search_string).'&type='.$this->type);
+    $items = $youporn->getItems('/search/'.$this->sort.'?query='.rawurlencode($search_string).'&type='.$this->type);
 
     $entry_list = array();
 
@@ -47,7 +47,7 @@ class youporn_picker extends list_picker
       foreach ($items[3] as $idx=>$item)
       {
         $text = utf8_decode($item);
-        $url  = url_add_params('youporn_video_selected.php', array('url'=>$items[2][$idx], 'img'=>$items[1][$idx]));
+        $url  = url_add_params('youporn_video_selected.php', array('url'=>rawurlencode($items[2][$idx]), 'img'=>rawurlencode($items[1][$idx])));
         $entry_list[] = array('text' => $text, 'url' => $url);
       }
     }
@@ -58,7 +58,7 @@ class youporn_picker extends list_picker
   function data_count( $search_string )
   {
     $youporn = new YouPorn();
-    $items = $youporn->getItems('/search?query='.urlencode($search_string).'&type='.$this->type);
+    $items = $youporn->getItems('/search?query='.rawurlencode($search_string).'&type='.$this->type);
 
     return count($items[1]);
   }
@@ -105,8 +105,8 @@ class youporn_picker extends list_picker
       $last_page  = ceil($num_rows/MAX_PER_PAGE)-1;
       if ($num_rows > MAX_PER_PAGE)
       {
-        $this->menu->add_up( url_add_params($this->url, array("type"=>$this->type, "last"=>MAX_PER_PAGE, "search"=>urlencode($this->search), 'page'=>($this->page > 0 ? ($this->page-1) : $last_page)) ));
-        $this->menu->add_down( url_add_params($this->url, array("type"=>$this->type, "last"=>1, "search"=>urlencode($this->search), 'page'=>($this->page < $last_page ? ($this->page+1) : 0)) ));
+        $this->menu->add_up( url_add_params($this->url, array("type"=>$this->type, "last"=>MAX_PER_PAGE, "search"=>rawurlencode($this->search), 'page'=>($this->page > 0 ? ($this->page-1) : $last_page)) ));
+        $this->menu->add_down( url_add_params($this->url, array("type"=>$this->type, "last"=>1, "search"=>rawurlencode($this->search), 'page'=>($this->page < $last_page ? ($this->page+1) : 0)) ));
       }
 
       foreach ($data as $id=>$item)
@@ -120,24 +120,24 @@ class youporn_picker extends list_picker
     // Display ABC buttons
     $buttons = array();
     if ( $this->type == 'straight' )
-      $buttons[] = array( 'text' => 'Gay', 'url' => url_add_params($this->url, array('type'=>'gay', 'sort'=>$this->sort, 'search'=>urlencode($this->search), 'hist'=>PAGE_HISTORY_REPLACE)) );
+      $buttons[] = array( 'text' => 'Gay', 'url' => url_add_params($this->url, array('type'=>'gay', 'sort'=>$this->sort, 'search'=>rawurlencode($this->search), 'hist'=>PAGE_HISTORY_REPLACE)) );
     elseif ( $this->type == 'gay' )
-      $buttons[] = array( 'text' => 'Cocks', 'url' => url_add_params($this->url, array('type'=>'cocks', 'sort'=>$this->sort, 'search'=>urlencode($this->search), 'hist'=>PAGE_HISTORY_REPLACE)) );
+      $buttons[] = array( 'text' => 'Cocks', 'url' => url_add_params($this->url, array('type'=>'cocks', 'sort'=>$this->sort, 'search'=>rawurlencode($this->search), 'hist'=>PAGE_HISTORY_REPLACE)) );
     else
-      $buttons[] = array( 'text' => 'Straight', 'url' => url_add_params($this->url, array('type'=>'straight', 'sort'=>$this->sort, 'search'=>urlencode($this->search), 'hist'=>PAGE_HISTORY_REPLACE)) );
+      $buttons[] = array( 'text' => 'Straight', 'url' => url_add_params($this->url, array('type'=>'straight', 'sort'=>$this->sort, 'search'=>rawurlencode($this->search), 'hist'=>PAGE_HISTORY_REPLACE)) );
     $buttons[] = array( 'text' => str('SEARCH_CLEAR'), 'url' => $this->url );
 
     // Sort parameter
     if ( $this->sort == 'relevance' )
-      $buttons[] = array('text'=>str('SORT_VIEWS'), 'url'=>url_add_params($this->url, array('type'=>$this->type, 'sort'=>'views', 'search'=>urlencode($this->search), 'hist'=>PAGE_HISTORY_REPLACE)));
+      $buttons[] = array('text'=>str('SORT_VIEWS'), 'url'=>url_add_params($this->url, array('type'=>$this->type, 'sort'=>'views', 'search'=>rawurlencode($this->search), 'hist'=>PAGE_HISTORY_REPLACE)));
     elseif ( $this->sort == 'views' )
-      $buttons[] = array('text'=>str('SORT_RATING'), 'url'=>url_add_params($this->url, array('type'=>$this->type, 'sort'=>'rating', 'search'=>urlencode($this->search), 'hist'=>PAGE_HISTORY_REPLACE)));
+      $buttons[] = array('text'=>str('SORT_RATING'), 'url'=>url_add_params($this->url, array('type'=>$this->type, 'sort'=>'rating', 'search'=>rawurlencode($this->search), 'hist'=>PAGE_HISTORY_REPLACE)));
     elseif ( $this->sort == 'rating' )
-      $buttons[] = array('text'=>str('SORT_DURATION'), 'url'=>url_add_params($this->url, array('type'=>$this->type, 'sort'=>'duration', 'search'=>urlencode($this->search), 'hist'=>PAGE_HISTORY_REPLACE )));
+      $buttons[] = array('text'=>str('SORT_DURATION'), 'url'=>url_add_params($this->url, array('type'=>$this->type, 'sort'=>'duration', 'search'=>rawurlencode($this->search), 'hist'=>PAGE_HISTORY_REPLACE )));
     elseif ( $this->sort == 'duration' )
-      $buttons[] = array('text'=>str('SORT_DATE'), 'url'=>url_add_params($this->url, array('type'=>$this->type, 'sort'=>'time', 'search'=>urlencode($this->search), 'hist'=>PAGE_HISTORY_REPLACE)));
+      $buttons[] = array('text'=>str('SORT_DATE'), 'url'=>url_add_params($this->url, array('type'=>$this->type, 'sort'=>'time', 'search'=>rawurlencode($this->search), 'hist'=>PAGE_HISTORY_REPLACE)));
     elseif ( $this->sort == 'time' )
-      $buttons[] = array('text'=>str('SORT_RELEVANCE'), 'url'=>url_add_params($this->url, array('type'=>$this->type, 'sort'=>'relevance', 'search'=>urlencode($this->search), 'hist'=>PAGE_HISTORY_REPLACE)));
+      $buttons[] = array('text'=>str('SORT_RELEVANCE'), 'url'=>url_add_params($this->url, array('type'=>$this->type, 'sort'=>'relevance', 'search'=>rawurlencode($this->search), 'hist'=>PAGE_HISTORY_REPLACE)));
 
     // Make sure the "back" button goes to the correct page
     page_footer( $this->back_url, $buttons);

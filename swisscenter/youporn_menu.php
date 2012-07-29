@@ -58,9 +58,9 @@
   else
   {
     $menu = new menu();
-    $menu->add_item( str('NEW_VIDEOS'),  url_add_params('youporn_browse.php', array('type'=>'browse', 'sort'=>'hybrid')), true);
-    $menu->add_item( str('TOP_RATED'),   url_add_params('youporn_browse.php', array('type'=>'top_rated', 'time'=>'this_week')), true);
-    $menu->add_item( str('MOST_VIEWED'), url_add_params('youporn_browse.php', array('type'=>'most_viewed', 'time'=>'this_week')), true);
+    $menu->add_item( str('NEW_VIDEOS'),  url_add_params('youporn_browse.php', array('type'=>'browse', 'sort'=>'rating')), true);
+    $menu->add_item( str('TOP_RATED'),   url_add_params('youporn_browse.php', array('type'=>'top_rated', 'time'=>'week')), true);
+    $menu->add_item( str('MOST_VIEWED'), url_add_params('youporn_browse.php', array('type'=>'most_viewed', 'time'=>'week')), true);
     $menu->add_item( str('CATEGORIES'),  url_add_params('youporn_menu.php',   array('cat'=>'categories')), true);
     $menu->add_item( str('SEARCH'),      url_add_params('youporn_search.php', array('type'=>'search')), true);
     $menu->display( 1, 520 );
