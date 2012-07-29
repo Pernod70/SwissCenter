@@ -4454,6 +4454,11 @@ If any details are added/changed on this page then you are requested to submit t
         <version>1.19</version>
       </string>
       <string>
+        <id>REFINE_RATING</id>
+        <text>Refine by rating</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>REFINE_TITLE</id>
         <text>Refine by title</text>
         <version>1.19</version>
