@@ -101,7 +101,7 @@
   function process_itunes_playlist( $attribs, $values )
   {
     $file  = get_sys_pref("PLAYLISTS", SC_LOCATION.'playlists').'/'.$attribs["Name"].'.m3u';
-    $sql   = 'select m.* from mp3s m, itunes_map i where i.swisscenter_id = m.file_id and i.itunes_id = ';
+    $sql   = 'select m.* from media_audio m, itunes_map i where i.swisscenter_id = m.file_id and i.itunes_id = ';
     $items = 0;
 
     $playlist = array('#EXTM3U');
@@ -130,16 +130,16 @@
    */
   function process_itunes_track( $values)
   {
-    $fsp = utf8_decode(path_from_file_url($values["Location"]));
-    $location_id = db_value("select location_id from media_locations where instr('".db_escape_str($fsp)."',name)>0 and media_type=".MEDIA_TYPE_MUSIC);
-    $swiss_id = db_value("select file_id from mp3s where dirname='".db_escape_str(dirname($fsp))."/' and filename='".db_escape_str(basename($fsp))."'");
+    $fsp = path_from_file_url($values["Location"]);
+    $location_id = db_value("select location_id from media_locations where instr('".db_escape_str($fsp)."',name)>0 and media_type=".MEDIA_TYPE_AUDIO);
+    $swiss_id = db_value("select file_id from media_audio where dirname='".db_escape_str(dirname($fsp))."/' and filename='".db_escape_str(basename($fsp))."'");
 
     // Perform some sanity checking on the file
     if (!is_file($fsp) )
       send_to_log(5,'File found in iTunes library cannot be located on disk',$fsp);
     elseif ( !is_readable($fsp) )
       send_to_log(5,'SwissCenter does not have permissions to read the file found in the iTunes library',$fsp);
-    elseif ( !in_array(file_ext($fsp), media_exts_music()) )
+    elseif ( !in_array(file_ext($fsp), media_exts_audio()) )
       send_to_log(5,'SwissCenter does not support files of type "'.$values["Kind"].'"',$fsp);
     elseif ( empty($location_id) )
       send_to_log(5,'File found in iTunes library is not within a SwissCenter media location',$fsp);
@@ -147,8 +147,8 @@
     {
       if ( empty($swiss_id) )
       {
-        process_mp3( dirname($fsp).'/' , $location_id, basename($fsp));
-        $swiss_id = db_value("select file_id from mp3s where dirname='".db_escape_str(dirname($fsp))."/' and filename='".db_escape_str(basename($fsp))."'");
+        process_audio( dirname($fsp).'/' , $location_id, basename($fsp));
+        $swiss_id = db_value("select file_id from media_audio where dirname='".db_escape_str(dirname($fsp))."/' and filename='".db_escape_str(basename($fsp))."'");
       }
 
       // Record the mapping between the iTunes ID and the swisscenter ID
@@ -193,10 +193,10 @@
       $fp = fopen($filename, "r");
       if ($fp !== false)
       {
-        while ($data = fread($fp, 8192))
+        while (($data = fread($fp, 8192)) !== false)
         {
-          $data = preg_replace("/>\s+/u", ">", $data);
-          $data = preg_replace("/\s+</u", "<", $data);
+          $data = preg_replace('/>\s+/u', '>', $data);
+          $data = preg_replace('/\s+</u', '<', $data);
           if (!xml_parse($xmlparser, $data , feof($fp)))
           {
             send_to_log(8,'XML parse error: '.xml_error_string(xml_get_error_code($xmlparser)).xml_get_current_line_number($xmlparser));
