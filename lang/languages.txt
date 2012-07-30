@@ -1,12 +1,13 @@
-Dansk,da
+﻿Dansk,da
 Deutsch,de
 English,en
 English (US),en-us
-Espa�ol,es
-Fran�ais,fr
+Español,es
+Français,fr
 Italiano,it
 Nederlands,nl
 Norsk,no
-Polski,pl
-Portugu�s,pt
+Polish,pl
+Português,pt
+Русский,ru
 Svenska,sv

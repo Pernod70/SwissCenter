@@ -1,0 +1,662 @@
+<?xml version="1.0" encoding="utf-8"?>
+<swisscenter>
+  <languages>
+    <language name="ru" fullname="Русский">
+      <string>
+        <id>ACCESS_DENIED</id>
+        <text>Доступ запрещен</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ACTOR</id>
+        <text>Актер</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ADD_PLAYLIST</id>
+        <text>Добавить в плейлист</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ALBUM</id>
+        <text>Альбом</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ANYWHERE_IN_NAME</id>
+        <text>Другое имя</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ARTIST</id>
+        <text>Исполнитель</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_ACTOR</id>
+        <text>Обзор по актеру</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_ALBUM</id>
+        <text>Обзор по названию альбома</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_FILESYSTEM</id>
+        <text>Обзор файлов</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_GENRE</id>
+        <text>Обзор по жанру</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_MOVIES</id>
+        <text>Обзор видео</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_MUSIC</id>
+        <text>Обзор музыки</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_PHOTO_ALBUM</id>
+        <text>Обзор по фотоальбомам</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_PHOTO_TITLE</id>
+        <text>Обзор по названию</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_PHOTOS</id>
+        <text>Обзор фотографий</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_TITLE</id>
+        <text>Обзор по названию</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>BROWSE_TRACK</id>
+        <text>Обзор по названию трека</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CERTIFICATE</id>
+        <text>Сертификат</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CLEAR_NAME</id>
+        <text>Очистить имя</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>COMPACT_VIEW</id>
+        <text>Компактный просмотр</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CONFIGURATION</id>
+        <text>Конфигурация и обновление</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>CONTINUE</id>
+        <text>Продолжить</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>DATABASE_ERROR</id>
+        <text>Ошибка базы данных</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER</id>
+        <text>Фильтр</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_VIEWED</id>
+        <text>По статусу</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_VIEWED_FINISHED</id>
+        <text>Полностью играли</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_VIEWED_NONE</id>
+        <text>Не проигрывались</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_VIEWED_NOTFINISHED</id>
+        <text>Не играли или частично играли</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FILTER_VIEWED_PLAYED</id>
+        <text>Частично или полностью играли</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>FINISHED</id>
+        <text>Закончить</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>GENRE</id>
+        <text>Жанр</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>INTERNET_SERVICES</id>
+        <text>Интернет сервисы</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>KEYBOARD_DEL</id>
+        <text>Удалить</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>KEYBOARD_SPC</id>
+        <text>Пробел</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LANGUAGE</id>
+        <text>Русский</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LARGE_VIEW</id>
+        <text>Большие значки</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LIST_VIEW</id>
+        <text>Список</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LISTEN_MUSIC</id>
+        <text>Прослушивание музыки</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LISTEN_RADIO</id>
+        <text>Прослушивание интернет радио</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>LOWERCASE</id>
+        <text>Нижний регистр</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MAIN_MENU</id>
+        <text>Главное меню</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MANAGE_PLAYLISTS</id>
+        <text>Управление плейлистами</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MANY_ITEMS</id>
+        <text>%s Позиции</text>
+        <version>2.00</version>
+      </string>
+      <string>
+        <id>MANY_TRACKS</id>
+        <text>%s Треки</text>
+        <version>2.00</version>
+      </string>
+      <string>
+        <id>MEDIA_REFRESH</id>
+        <text>Обновление медиаданных</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS</id>
+        <text>Текущий статус</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_SCAN_STATUS_COMPLETE</id>
+        <text>Закончено</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>MUSIC_PLAY_TIME</id>
+        <text>Общее время игры</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NAME</id>
+        <text>По имени</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NO_PLAYLIST</id>
+        <text>Не один плейлист не определен на данный момент</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>NO_SYNOPSIS_AVAILABLE</id>
+        <text>Описания не существует</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ONE_ITEM</id>
+        <text>1 Позиция</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>ONE_TRACK</id>
+        <text>1 Трек</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PHOTO_ALBUM</id>
+        <text>Фотоальбом</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PHOTO_CHANGE_ORDER</id>
+        <text>Изменение порядка позиций</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PHOTO_CHANGE_TIME</id>
+        <text>Изменить интервал времени</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PHOTO_ORDER_DATE_DISK</id>
+        <text>Дата изменения</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PHOTO_ORDER_DATE_RANDOM</id>
+        <text>Произвольно</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PHOTO_ORDER_DATE_TAKEN</id>
+        <text>Дата создания</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PHOTO_ORDER_NAME</id>
+        <text>По имени</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PHOTO_PLAY_ORDER</id>
+        <text>Порядок</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PHOTO_TITLE</id>
+        <text>Название</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PHOTOS_MUSIC_CHANGE</id>
+        <text>Изменить фоновое озвучивание</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PHOTOS_MUSIC_CURRENT</id>
+        <text>Текущий плейлист</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PHOTOS_MUSIC_INFO</id>
+        <text>Озвучивание</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PHOTOS_MUSIC_NONE</id>
+        <text>Отменить</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PHOTOS_NO_SELECTED</id>
+        <text>Фотографий</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PHOTOS_TIME_ALL</id>
+        <text>Общее время</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PHOTOS_TIME_ONE</id>
+        <text>Интервал</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAY</id>
+        <text>Проиграть</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAY_NOW</id>
+        <text>Проиграть</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLIST_APPEND</id>
+        <text>Другой плейлист</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLIST_CLEAR</id>
+        <text>Очистить плейлист</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLIST_DELETE</id>
+        <text>Удалить плейлист</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLIST_DELETED</id>
+        <text>Плейлист удален</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLIST_EDIT</id>
+        <text>Редактировать плейлист</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLIST_LOAD</id>
+        <text>Загрузить плейлист</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLIST_LOAD_NEW</id>
+        <text>Загрузить новый плейлист</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLIST_LOAD_OK</id>
+        <text>Плейлист загружен</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLIST_NAME_CANCEL</id>
+        <text>Не сохранять</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLIST_NAME_USE</id>
+        <text>Сохранить плейлист</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLIST_SAVE</id>
+        <text>Сохранить плейлист</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLIST_SAVE_CURRENT</id>
+        <text>Сохранить текущий плейлист</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLIST_SAVE_PROMPT</id>
+        <text>Введите название плейлиста</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>PLAYLISTS</id>
+        <text>Название плейлиста</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>QUICK_PLAY</id>
+        <text>Быстрое проигрование</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENTLY_ADDED</id>
+        <text>Недавно добавленные</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RECENTLY_ADDED_DAYS</id>
+        <text>За последние %s дней</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFINE_ALBUM</id>
+        <text>Отбор по альбому</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFINE_ARTIST</id>
+        <text>Отбор по артисту</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFINE_GENRE</id>
+        <text>Отбор по жанру</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFINE_PHOTO_ALBUM</id>
+        <text>Отбор по фотоальбому</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFINE_PHOTO_TITLE</id>
+        <text>Отбор по названию</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFINE_TITLE</id>
+        <text>Отбор по названию</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFINE_YEAR</id>
+        <text>Отбор по году</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFRESH_DIR</id>
+        <text>Обновление</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFRESH_DIR_BUTTON</id>
+        <text>Обновить</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFRESH_DIR_TEXT</id>
+        <text>Идет обновление базы, пожайлуста ожидайте.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REFRESH_RUNNING</id>
+        <text>Обновление базы данных было запущено в фоновом режиме, вы можете продолжать использовать систему как обычно.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REMOTE_PROMPT</id>
+        <text>Выбрать кнопку изменения функции</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>REMOVE_FILTER</id>
+        <text>Удалить фильтр</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RETURN_MAIN_MENU</id>
+        <text>Вернуться к главному меню</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RETURN_TO_SELECTION</id>
+        <text>Вернуться к выбору</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>RUNNING_TIME</id>
+        <text>Время проигрывания</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SEARCH_ANYWHERE</id>
+        <text>Другое имя</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SEARCH_CLEAR</id>
+        <text>Очистить поиск</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SEARCH_NO_ITEMS</id>
+        <text>Найдено 0 позиций</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SEARCH_START</id>
+        <text>Начать поиск</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SECONDS</id>
+        <text>%s Секунд</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SELECT_ALL</id>
+        <text>Выбрать все</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SELECT_ENTIRE_ALBUM</id>
+        <text>Выбрать весь альбом</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SETUP</id>
+        <text>Конфигурация и обновление</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SETUP_REMOTE</id>
+        <text>Настройка пульта дистанционного управления</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SETUP_SEARCH_ALL</id>
+        <text>Поиск во всех местах</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SETUP_SEARCH_CATEGORY</id>
+        <text>Поиск конкретной категории</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SETUP_SEARCH_NEW_MEDIA</id>
+        <text>Обновление медиаданных</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SETUP_SEARCH_TYPE</id>
+        <text>Поиск одного типа</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SETUP_TITLE</id>
+        <text>Конфигурация и обновление</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SHUFFLE_OFF</id>
+        <text>Выключить повтор</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SHUFFLE_ON</id>
+        <text>Включить повтор</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>SLIDESHOW</id>
+        <text>Слайдшоу</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>START_SLIDESHOW</id>
+        <text>Показать слайдшоу</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>THUMBNAIL_VIEW</id>
+        <text>Тумбы</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TITLE</id>
+        <text>Название</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TRACK_NAME</id>
+        <text>Название трека</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TRACKS_ADDED_TEXT</id>
+        <text>Выбраные композиции были добавлены в плейлист.</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>TRACKS_ADDED_TITLE</id>
+        <text>Композиции добавлены</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>UPPERCASE</id>
+        <text>Верхний регистр</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>VIEW_PHOTO</id>
+        <text>Просмотр фото</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>WATCH_MOVIE</id>
+        <text>Просмотр видео</text>
+        <version>1.22</version>
+      </string>
+      <string>
+        <id>YEAR</id>
+        <text>Год</text>
+        <version>1.22</version>
+      </string>
+    </language>
+  </languages>
+</swisscenter>
