@@ -73,10 +73,10 @@
       @db_root_sqlcommand($pass,"SET PASSWORD FOR ".DB_USERNAME."@'".DB_HOST."' = PASSWORD('".DB_PASSWORD."')");
 
       // Open the setup.sql file
-      if ( file_exists('../setup.sql') )
+      if ( file_exists('../database/setup.sql') )
       {
         // Run the setup file and all database update files
-        db_sqlfile('../setup.sql');
+        db_sqlfile('../database/setup.sql');
         apply_database_patches();
 
         // Write an ini file with the database parameters in it
