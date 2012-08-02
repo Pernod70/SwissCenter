@@ -66,15 +66,15 @@ function is_hardware_player()
 function is_pc()
 { return get_player_type() == "PC"; }
 
-function get_player_firmware_datestr( $agent = NULL )
+function get_player_firmware_datestr()
 {
   if (is_hardware_player())
-    return preg_get('/([0-9]{6})/',nvl($agent,$_SERVER['HTTP_USER_AGENT']));
+    return preg_get('/([0-9]{6})/', $_SESSION["device"]["box_id"]);
   else
     return false;
 }
 
-function get_player_firmware_date( $agent = NULL )
+function get_player_firmware_date()
 {
   if (is_hardware_player())
   {
@@ -288,9 +288,9 @@ function set_progress_bar_location( $x, $y )
 
 function support_resume()
 {
-  $resume = db_value("select resume from client_profiles where make='".get_player_make()."' and model=".get_player_model());
+  $resume = (db_value("select resume from client_profiles where make='".get_player_make()."' and model=".get_player_model()) == 'YES' );
 
-  return ( $resume && version_compare(simese_version(),'1.36','>=') );
+  return ( $resume == 'YES' && version_compare(simese_version(),'1.36','>=') );
 }
 
 #-------------------------------------------------------------------------------------------------
