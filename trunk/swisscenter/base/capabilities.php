@@ -204,7 +204,7 @@ function media_exts_playlists()
 
 function media_exts_movies()
 {
-  return explode(',' ,'asf,avi,dat,divx,m2ts,m2v,m4v,mkv,mp4,mpe,mpeg,mpg,ts,tp,vob,wmv,xvid,dvr-ms');
+  return explode(',' ,'asf,avi,dat,divx,flv,m2ts,m2v,m4v,mkv,mp4,mpe,mpeg,mpg,ts,tp,vob,wmv,xvid,dvr-ms');
 }
 
 function media_exts_music()
@@ -254,7 +254,7 @@ function media_exts( $media_type )
 
 function media_exts_with_GetID3_support()
 {
-  return explode(',' ,'aac,ac3,bmp,mp3,mp4,asf,riff,flac,jpg,jpeg,gif,ogg,png,quicktime,matroska,mpeg,mpg,tta');
+  return explode(',' ,'aac,ac3,bmp,mp3,mp4,asf,riff,flac,flv,jpg,jpeg,gif,ogg,png,quicktime,matroska,mpeg,mpg,tta');
 }
 
 #-------------------------------------------------------------------------------------------------
