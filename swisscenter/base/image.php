@@ -52,7 +52,7 @@ if (!extension_loaded('gd'))
 }
 
 // -------------------------------------------------------------------------------------------------
-// Modifies the ($x,$y) dimesnsions given for an image after it has been scaled to fit within the
+// Modifies the ($x,$y) dimensions given for an image after it has been scaled to fit within the
 // specified bounding box ($box_x,$box_y)
 // -------------------------------------------------------------------------------------------------
 
@@ -70,7 +70,11 @@ function image_get_scaled_xy(&$x,&$y,$box_x,$box_y)
       $newx = $box_x;
       $newy = floor($box_x / $x * $y);
     }
-
+    else
+    {
+      $newx = $box_x;
+      $newy = $box_y;
+    }
     $x = $newx;
     $y = $newy;
   }
@@ -176,7 +180,8 @@ function reduce_cache()
     $dir_size = 0;
 
     // Calculate sum of images filesizes, and maintain an array of images.
-    if ($dirstream = @opendir($dir))
+    $dirstream = @opendir($dir);
+    if ($dirstream)
     {
       while (false !== ($filename = readdir($dirstream)))
         if ($filename!="." && $filename!=".." && substr($filename,0,6) == 'SwissC')
@@ -313,7 +318,8 @@ class CImage
       $this->image = false;
     }
 
-    $this->image = ImageCreateFromString( db_value($sql) );
+    $image_data = db_value($sql);
+    $this->image = ImageCreateFromString( $image_data );
     if ($this->image !== false)
     {
       $this->update_sizes();
@@ -513,7 +519,7 @@ class CImage
       }
 
       $this->image = ImageCreateTrueColor($x,$y);
-      ImageAlphaBlending( $this->image, false);
+      ImageAlphaBlending($this->image, false);
       ImageSaveAlpha($this->image, true);
       $bgcolour = $this->allocate_colour(0,0,0,127);
       imagefilledrectangle($this->image, 0, 0, $x, $y, $bgcolour);
