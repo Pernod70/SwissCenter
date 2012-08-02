@@ -970,6 +970,15 @@ function process_movie( $dir, $id, $file )
       $data['resolution']    = $id3['video']['resolution_x'].'x'.$id3['video']['resolution_y'];
       $data['frame_rate']    = $id3['video']['frame_rate'];
 
+      if ( isset($id3['tags']['quicktime']) )
+      {
+        set_var( $data['title'],  array_last($id3['tags']['quicktime']['title']) );
+//        set_var( $data['artist'], array_last($id3['tags']['quicktime']['artist']) );
+//        set_var( $data['genre'],  array_last($id3['tags']['quicktime']['genre']) );
+        set_var( $data['year'],   substr(array_last($id3['tags']['quicktime']['creation_date']),0,4) );
+        set_var( $image,          array_last($id3['comments']['picture']) );
+      }
+
       // Get metadata from asf files
       if ( strtolower($id3['fileformat']) == 'asf' )
       {
@@ -983,12 +992,7 @@ function process_movie( $dir, $id, $file )
           else
             $data['year']   = substr(array_last($id3['comments']['mediaoriginalbroadcastdatetime']),0,4);
           $data['details_available'] = 'Y';
-
-          if (get_sys_pref('USE_ID3_ART','YES') == 'YES' && isset($id3['asf']['comments']['picture'][0]))
-          {
-            send_to_log(4,'Image found within ID3 tag - will use as video art');
-            $image = $id3['asf']['comments']['picture'][0];
-          }
+          set_var( $image, array_last($id3['comments']['picture']) );
         }
         else
         {
@@ -996,6 +1000,14 @@ function process_movie( $dir, $id, $file )
           send_to_log(8,'Found ID3:',$id3);
         }
       }
+
+      if (get_sys_pref('USE_ID3_ART','YES') == 'YES' && !empty($image))
+      {
+        send_to_log(4,'Image found within ID3 tag - will use as video art');
+        $data['art_sha1'] = sha1($image['data']);
+      }
+      else
+        $data['art_sha1'] = null;
     }
     else
     {
