@@ -296,8 +296,8 @@
 
     stream_file($media, $file_id, $location, $headers);
 
-    // PCH 200 series only
-    if ( get_player_model() >= 408 )
+    // PCH 200 series (pre May 2012 firmware only)
+    if ( get_player_model() >= 408 && get_player_firmware_datestr() < '120501' )
     {
       // Disable the OSD when second chunk is requested, ie. start byte = 512k
       $startArray  = sscanf( $_SERVER["HTTP_RANGE"], "bytes=%d-%d" );
