@@ -43,6 +43,8 @@
   // If the file is on the internet, download it into a temporary location first
   if ( is_remote_file($filename) )
     $filename = download_and_cache_image($filename);
+  if ( is_remote_file($overname) )
+    $overname = download_and_cache_image($overname);
 
   // Other parameters passed in to the script
   $format     = strtolower(file_ext($filename));
