@@ -58,7 +58,7 @@
     }
     else
     {
-      $photos = internet_available() ? get_lastfm_artist_images( $tracks[$idx]["ARTIST"], 'large' ) : '';
+      $photos = (internet_available() && get_user_pref('LASTFM_IMAGES','YES') == 'YES') ? get_lastfm_artist_images( $tracks[$idx]["ARTIST"], 'large' ) : '';
       $image = now_playing_image( $tracks[$idx], $prev_info, $next_info, ($idx+1).' / '.count($tracks), $photos );
     }
 
