@@ -85,7 +85,7 @@
     if ( $_SERVER["REQUEST_METHOD"] == 'GET' )
     {
       // Open a connection to the remote file
-      $fh = fsockopen($hostname, $port, &$errno, &$errstr);
+      $fh = fsockopen($hostname, $port, $errno, $errstr);
       if (!$fh)
       {
          send_to_log(2,'Failed to connect to remote file : '.$url, $errstr);

@@ -17,7 +17,7 @@
   function get_html_tag_attrib( $html, $tag, $find, $attribute )
   {
     $tag_html = array();
-    preg_match ('`<.*'.$tag.'.*'.$find.'.*>`Ui', $html, &$tag_html);
+    preg_match ('`<.*'.$tag.'.*'.$find.'.*>`Ui', $html, $tag_html);
     preg_match ('`'.$attribute.'="(.*)"`Ui',$tag_html[0],$val);
     if (isset($val[1]) && !empty($val[1]))
       return $val[1];
@@ -28,7 +28,7 @@
   function get_html_tag_value( $html, $tag, $find)
   {
     $val = array();
-    preg_match ('`<.*'.$tag.'.*'.$find.'.*>(.*)</'.$tag.'>`Ui', $html, &$val);
+    preg_match ('`<.*'.$tag.'.*'.$find.'.*>(.*)</'.$tag.'>`Ui', $html, $val);
     if (isset($val[1]) && !empty($val[1]))
       return $val[1];
     else

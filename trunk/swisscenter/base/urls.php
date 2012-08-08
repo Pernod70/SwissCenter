@@ -109,7 +109,7 @@ function http_post( $url, $data, $timeout = 5 )
 
   // Open the connection to the host
   send_to_log(8,"HTTP POST Request (Host: $host Port: $port)",explode("\n",$request));
-  if ( ($socket = fsockopen($host, $port, &$errno, &$errstr, $timeout)) === false)
+  if ( ($socket = fsockopen($host, $port, $errno, $errstr, $timeout)) === false)
   {
     send_to_log(2,"Failed to open socket to '$host' on port '$port'.");
     return false;
