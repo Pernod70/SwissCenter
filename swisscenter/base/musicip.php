@@ -70,7 +70,7 @@ function musicip_check( $port, $timeouts = 3 )
   for ($i=0; $i < $timeouts; $i++)
   {
     // fsockopen doesn't like localhost with PHP5 and Vista.
-    if ( $sock = @fsockopen('127.0.0.1', $port , &$errno, &$errst, 2) )
+    if ( $sock = @fsockopen('127.0.0.1', $port , $errno, $errst, 2) )
     {
       fclose($sock);
       $status = @file_get_contents(musicip_address().'api/getstatus');

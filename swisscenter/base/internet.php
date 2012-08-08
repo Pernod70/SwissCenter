@@ -14,7 +14,7 @@ function internet_check( $timeouts = 3 )
 {
   for ($i=0; $i < $timeouts; $i++)
   {
-    $sock = @fsockopen('www.google.com', 80, &$errno, &$errst, 0.5);
+    $sock = @fsockopen('www.google.com', 80, $errno, $errst, 0.5);
     if ($sock !== false)
     {
       fclose($sock);

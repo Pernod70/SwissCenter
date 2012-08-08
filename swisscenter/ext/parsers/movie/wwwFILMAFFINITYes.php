@@ -55,7 +55,7 @@ class wwwFILMAFFINITYes extends Parser implements ParserInterface {
     } else {
       // Is the text that signifies a successful search present within the HTML?
       if (strpos(strtolower($html),strtolower('Resultados por título')) !== false) {
-        preg_match_all ('/<b><a.*href="(.*\/es\/film\d+\.html[^"]*)"[^>]*>(.*)<\/a>/Ui', $html, &$matches);
+        preg_match_all ('/<b><a.*href="(.*\/es\/film\d+\.html[^"]*)"[^>]*>(.*)<\/a>/Ui', $html, $matches);
 //        $matches = get_urls_from_html($html, '\/es\/film\d+\.html');
         $index = best_match($this->title, $matches[2], $this->accuracy);
 

@@ -183,7 +183,7 @@ function substr_between_strings( &$string, $startstr, $endstr)
 function get_urls_from_html ($string, $search)
 {
   $matches = array();
-  preg_match_all ('/<a.*href="(.*'.$search.'[^"]*)"[^>]*>(.*)<\/a>/Ui', $string, &$matches);
+  preg_match_all ('/<a.*href="(.*'.$search.'[^"]*)"[^>]*>(.*)<\/a>/Ui', $string, $matches);
 
   for ($i = 0; $i<count($matches[2]); $i++)
     $matches[2][$i] = preg_replace('/<[^>]*>/','',$matches[2][$i]);
@@ -211,7 +211,7 @@ function add_site_to_url ( $url, $site )
 function get_images_from_html ($string)
 {
   $matches = array();
-  preg_match_all ('/<img.*src="([^"]*)"[^>]*>/i', $string, &$matches);
+  preg_match_all ('/<img.*src="([^"]*)"[^>]*>/i', $string, $matches);
   return $matches;
 }
 
@@ -391,7 +391,7 @@ function image_resized_xy( $filename, &$x, &$y )
 function socket_check( $address, $port, $timeouts = 3)
 {
   for ($i=0; $i < $timeouts; $i++)
-    if ( $sock = @fsockopen($address, $port, &$errno, &$errst, 0.5))
+    if ( $sock = @fsockopen($address, $port, $errno, $errst, 0.5))
     {
       fclose($sock);
       return true;
@@ -559,25 +559,23 @@ function dec2frac( $decimal)
 
 function query_time_server ($timeserver = 'time-a.timefreq.bldrdoc.gov', $socket = 13)
 {
-  $fp = fsockopen($timeserver,$socket,$err,$errstr,2);
-
-  if ($fp)
+  $time = false;
+  if ($fp = @fsockopen($timeserver,$socket,$errno,$errstr,2))
   {
     fputs($fp,"\n");
     $value = fread($fp,49);
     fclose($fp);
-  }
 
-  if ($value !== false && $value > 0)
-  {
-    $components = explode(' ',$value);
-    dump($components);
-    list( $h, $min, $s) = explode(':',$components[2]);
-    list( $y, $m, $d) = explode('-',$components[1]);
-    return gmmktime( $h, $min, $s, $m, $d, $y);
+    if ($value !== false && $value > 0)
+    {
+      $components = explode(' ',$value);
+      dump($components);
+      list( $h, $min, $s) = explode(':',$components[2]);
+      list( $y, $m, $d) = explode('-',$components[1]);
+      $time = gmmktime( $h, $min, $s, $m, $d, $y);
+    }
   }
-  else
-    return false;
+  return $time;
 }
 
 /**
