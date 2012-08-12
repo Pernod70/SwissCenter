@@ -28,7 +28,7 @@ require_once( realpath(dirname(__FILE__).'/../resources/radio/live-radio.php'));
 require_once( realpath(dirname(__FILE__).'/../resources/radio/live365.php'));
 require_once( realpath(dirname(__FILE__).'/../resources/radio/icecast.php'));
 require_once( realpath(dirname(__FILE__).'/../resources/radio/steamcast.php'));
-require_once( realpath(dirname(__FILE__).'/../resources/radio/radiotime.php'));
+require_once( realpath(dirname(__FILE__).'/../resources/radio/tunein.php'));
 
 #-------------------------------------------------------------------------------------------------
 # PHP checks
