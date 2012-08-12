@@ -103,7 +103,7 @@
       $menu->add_item(str('CONFIG_RADIO_OPTIONS')   ,'section=RADIO&action=DISPLAY');
       $menu->add_item('- '.str('CONFIG_LASTFM_TITLE'),'section=LASTFM&action=DISPLAY');
       $menu->add_item('- '.str('IRADIO_LIVE365')    ,'section=LIVE365&action=DISPLAY');
-      $menu->add_item('- '.str('IRADIO_RADIOTIME')  ,'section=RADIOTIME&action=DISPLAY');
+      $menu->add_item('- '.str('IRADIO_TUNEIN')     ,'section=TUNEIN&action=DISPLAY');
       $menu->add_item(str('INTERNET_TV_OPTIONS')    ,'section=INTERNET_TV&action=DISPLAY');
       $menu->add_item(str('CONFIG_FLICKR')          ,'section=FLICKR&action=DISPLAY');
       $menu->add_item(str('RSS_FEEDS')              ,'section=RSS&action=DISPLAY');

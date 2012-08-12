@@ -4,7 +4,7 @@
  # Internet Radio Site parsing utility by Itzchak Rehberg & IzzySoft         #
  # http://www.qumran.org/homes/izzy/                                         #
  # ------------------------------------------------------------------------- #
- # This is the RadioTime parser                                              #
+ # This is the TuneIn Radio parser                                           #
  # ------------------------------------------------------------------------- #
  # This program is free software; you can redistribute and/or modify it      #
  # under the terms of the GNU General Public License (see doc/LICENSE)       #
@@ -13,33 +13,33 @@
 require_once( realpath(dirname(__FILE__)."/iradio.php"));
 require_once( realpath(dirname(__FILE__)."/../../base/server.php"));
 
-/** RadioTime Specific Parsing
+/** TuneIn Radio Specific Parsing
  * @package IRadio
- * @class radiotime
+ * @class tunein
  */
-class radiotime extends iradio {
-  protected $service = 'radiotime';
+class tunein extends iradio {
+  protected $service = 'tunein';
 
   private $partner_id = 'g74oe2T8';
   private $serial;
   private $username;
 
   /** Initializing the class
-   * @constructor radiotime
+   * @constructor tunein
    */
-  function radiotime() {
+  function tunein() {
     $this->iradio();
     $this->set_site('opml.radiotime.com');
-    $this->set_type(IRADIO_RADIOTIME);
+    $this->set_type(IRADIO_TUNEIN);
     $this->serial = str_replace(':','',$_SESSION["device"]["mac_addr"]);
     $this->username = get_user_pref('RADIOTIME_USERNAME');
     $this->search_baseparams = '?partnerId='.$this->partner_id.'&serial='.$this->serial.'&username='.$this->username.'&render=json&filter=s&locale='.substr(get_sys_pref('DEFAULT_LANGUAGE','en'),0,2);
   }
 
-  /** Parse RadioTime result page and store stations using add_station()
-   * @class radiotime
+  /** Parse TuneIn Radio result page and store stations using add_station()
+   * @class tunein
    * @method parse
-   * @param string method API method used to query RadioTime
+   * @param string method API method used to query TuneIn Radio
    * @param string query parameters used with API method
    * @param string cachename Name of the cache object to use
    * @return boolean success FALSE on error or nothing found, TRUE otherwise
@@ -55,7 +55,7 @@ class radiotime extends iradio {
       }
     }
 
-    // Get stations from RadioTime
+    // Get stations from TuneIn Radio
     $uri = 'http://'.$this->iradiosite.'/'.$method.'.ashx'.$this->search_baseparams.'&formats='.$this->mediatype.'&'.$param;
     $this->openpage($uri);
     $results = json_decode($this->page, true);
@@ -144,8 +144,8 @@ class radiotime extends iradio {
     return TRUE;
   }
 
-  /** Parse RadioTime feed results into an array
-   * @class radiotime
+  /** Parse TuneIn Radio feed results into an array
+   * @class tunein
    * @method parse_feed
    * @param object feed results
    * @return array feed elements grouped in arrays by type
@@ -169,9 +169,9 @@ class radiotime extends iradio {
   }
 
   /** Restrict search to media type
-   *  Not all (hardware) players support all formats offered by RadioTime,
+   *  Not all (hardware) players support all formats offered by TuneIn Radio,
    *  so one may need to restrict it to e.g. "mp3".
-   * @class radiotime
+   * @class tunein
    * @method restrict_mediatype
    * @param optional string mt MediaType to restrict the search to
    *        (call w/o param to disable restriction)
@@ -182,7 +182,7 @@ class radiotime extends iradio {
   }
 
   /** Get the genre list
-   * @class iradio
+   * @class tunein
    * @method get_genres
    * @return array genres (genre[main][sub])
    */
@@ -192,11 +192,11 @@ class radiotime extends iradio {
   }
 
   /** Searching for a genre
-   *  Initiates a genre search at the RadioTime site and stores all returned
+   *  Initiates a genre search at the TuneIn Radio site and stores all returned
    *  stations using iradio::add_station (use get_station() to retrieve
    *  the results). Returns FALSE on error (or if no stations found), TRUE
    *  otherwise.
-   * @class radiotime
+   * @class tunein
    * @method search_genre
    * @param string name
    * @return boolean success FALSE on error or nothing found, TRUE otherwise
@@ -207,11 +207,11 @@ class radiotime extends iradio {
   }
 
   /** Searching for a station
-   *  Initiates a freetext search at the RadioTime site and stores all returned
+   *  Initiates a freetext search at the TuneIn Radio site and stores all returned
    *  stations using iradio::add_station (use get_station() to retrieve
    *  the results). Returns FALSE on error (or if no stations found), TRUE
    *  otherwise.
-   * @class radiotime
+   * @class tunein
    * @method search_station
    * @param string name
    * @return boolean success FALSE on error or nothing found, TRUE otherwise
@@ -222,7 +222,7 @@ class radiotime extends iradio {
   }
 
   /** Retrieve the country list
-   * @class radiotime
+   * @class tunein
    * @method get_countries
    * @return array countries
    */
@@ -232,11 +232,11 @@ class radiotime extends iradio {
   }
 
   /** Searching by country
-   *  Initiates a freetext search at the RadioTime site and stores all returned
+   *  Initiates a freetext search at the TuneIn Radio site and stores all returned
    *  stations using iradio::add_station (use get_station() to retrieve
    *  the results). Returns FALSE on error (or if no stations found), TRUE
    *  otherwise.
-   * @class radiotime
+   * @class tunein
    * @method search_country
    * @param string name
    * @return boolean success FALSE on error or nothing found, TRUE otherwise
@@ -251,38 +251,38 @@ class radiotime extends iradio {
    *  "pop" (there are always plenty of stations available), and then checks
    *  the second station returned whether it has at least a name and a valid
    *  playlist URL. If so, it returns TRUE - otherwise FALSE.
-   * @class radiotime
+   * @class tunein
    * @method test
    * @return boolean OK
    */
   function test($iteration=1) {
-    send_to_log(6,'IRadio: Testing RadioTime interface');
+    send_to_log(6,'IRadio: Testing TuneIn Radio interface');
     $this->set_cache('');       // disable cache
     $this->set_max_results(5);  // only 5 results needed (smallest number accepted by ShoutCast website)
     $this->search_genre('pop'); // init search
     if (count($this->station)==0) { // work around shoutcast claiming to find nothing
       if ($iteration <3) {
-        send_to_log(6,'IRadio: RadioTime claims to find nothing - retry #'.$iteration);
+        send_to_log(6,'IRadio: TuneIn Radio claims to find nothing - retry #'.$iteration);
         ++$iteration;
         return $this->test($iteration);
       } else {
-        send_to_log(3,'IRadio: RadioTime still claims to have no stations listed - giving up after '.$iteration.' tries.');
+        send_to_log(3,'IRadio: TuneIn Radio still claims to have no stations listed - giving up after '.$iteration.' tries.');
         return FALSE;
       }
     }
     if (empty($this->station[1]->name)) {
-      send_to_log(3,'IRadio: RadioTime parser returned empty station name');
+      send_to_log(3,'IRadio: TuneIn Radio parser returned empty station name');
       return FALSE;
     }
     $url = parse_url($this->station[1]->playlist);
     if (empty($url["host"])) {
-      send_to_log(3,'IRadio: RadioTime parser returned invalid playlist: No hostname given');
+      send_to_log(3,'IRadio: TuneIn Radio parser returned invalid playlist: No hostname given');
       return FALSE;
     } elseif (empty($url["path"]) && empty($url["query"])) {
-      send_to_log(3,'IRadio: RadioTime parser returned invalid playlist: No filename given');
+      send_to_log(3,'IRadio: TuneIn Radio parser returned invalid playlist: No filename given');
       return FALSE;
     }
-    send_to_log(8,'IRadio: RadioTime parser looks OK');
+    send_to_log(8,'IRadio: TuneIn Radio parser looks OK');
     return TRUE;
   }
 

@@ -26,7 +26,7 @@
                          array("IRADIO_TYPE"=>IRADIO_LIVE365,   "IRADIO_NAME"=>str('IRADIO_LIVE365')),
                          array("IRADIO_TYPE"=>IRADIO_ICECAST,   "IRADIO_NAME"=>str('IRADIO_ICECAST')),
                          array("IRADIO_TYPE"=>IRADIO_STEAMCAST, "IRADIO_NAME"=>str('IRADIO_STEAMCAST')),
-                         array("IRADIO_TYPE"=>IRADIO_RADIOTIME, "IRADIO_NAME"=>str('IRADIO_RADIOTIME')));
+                         array("IRADIO_TYPE"=>IRADIO_TUNEIN,    "IRADIO_NAME"=>str('IRADIO_TUNEIN')));
 
     for ($i = 0; $i<count($iradio_opts); $i++)
       $iradio_list[$iradio_opts[$i]["IRADIO_NAME"]] = $iradio_opts[$i]["IRADIO_TYPE"];
@@ -52,7 +52,7 @@
                                         WHEN ".IRADIO_LIVE365." THEN '".str('IRADIO_LIVE365')."'
                                         WHEN ".IRADIO_ICECAST." THEN '".str('IRADIO_ICECAST')."'
                                         WHEN ".IRADIO_STEAMCAST." THEN '".str('IRADIO_STEAMCAST')."'
-                                        WHEN ".IRADIO_RADIOTIME." THEN '".str('IRADIO_RADIOTIME')."'
+                                        WHEN ".IRADIO_TUNEIN." THEN '".str('IRADIO_TUNEIN')."'
                                         ELSE 'Unknown'
                                         END
                                        ) iradio_type, station, image FROM $table ORDER BY 2,3");
