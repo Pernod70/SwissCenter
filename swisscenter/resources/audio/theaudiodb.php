@@ -256,6 +256,25 @@ function tadb_artist_getInfo($artist)
   return $result;
 }
 
+function tadb_artist_albums($artistId)
+{
+  $result = false;
+  if (internet_available() && !empty($artistId))
+  {
+    $tadb = new TheAudioDB();
+    $data = $tadb->artistAlbumData($artistId);
+    if (isset($data['album'][0]['album']))
+    {
+      $result = $data['album'];
+      // Order results by released year
+      foreach ($result as $album)
+        $sort_year[] = $album['album']['intYearReleased'];
+      array_multisort($sort_year, SORT_ASC, $result);
+    }
+  }
+  return $result;
+}
+
 function tadb_album_getInfo($artist, $album)
 {
   $result = false;

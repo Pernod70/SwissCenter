@@ -913,6 +913,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>DISCOGRAPHY</id>
+        <text>Discography</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>DISCOVERED</id>
         <text>Discovered</text>
         <version>1.23.1</version>
