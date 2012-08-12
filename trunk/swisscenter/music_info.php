@@ -23,30 +23,42 @@
     $image  = isset($data['strArtistThumb'])  ? $data['strArtistThumb']  : null;
     $logo   = isset($data['strArtistLogo'])   ? $data['strArtistLogo']   : null;
     $fanart = isset($data['strArtistFanart']) ? $data['strArtistFanart'] : null;
-    $text   = isset($data['strBiography'])    ? utf8_decode($data['strBiography']) : null;
+    $text   = isset($data['strBiography'])    ? font_tags(FONTSIZE_BODY).utf8_decode($data['strBiography']).'</font>' : null;
   }
   switch ($display)
   {
     case 'track':
       $data  = tadb_track_getInfo($artist, $track);
       $image = isset($data['strTrackThumb'])  ? $data['strTrackThumb']  : null;
-      $text  = isset($data['strDescription']) ? utf8_decode($data['strDescription']) : null;
+      $text  = isset($data['strDescription']) ? font_tags(FONTSIZE_BODY).utf8_decode($data['strDescription']).'</font>' : null;
       break;
     case 'album':
       $data  = tadb_album_getInfo($artist, $album);
       $image = isset($data['strAlbumThumb'])  ? $data['strAlbumThumb']  : null;
-      $text  = isset($data['strDescription']) ? utf8_decode($data['strDescription']) : null;
+      $text  = isset($data['strDescription']) ? font_tags(FONTSIZE_BODY).utf8_decode($data['strDescription']).'</font>' : null;
       break;
     case 'review':
       $data  = tadb_album_getInfo($artist, $album);
       $image = isset($data['strAlbumThumb'])  ? $data['strAlbumThumb']  : null;
-      $text  = isset($data['strReview'])      ? utf8_decode($data['strReview']) : null;
+      $text  = isset($data['strReview'])      ? font_tags(FONTSIZE_BODY).utf8_decode($data['strReview'].'</font>') : null;
+      break;
+    case 'discog':
+      $data  = tadb_artist_albums($data['idArtist']);
+      $text = '<table width="100%">';
+      foreach ($data as $item)
+      {
+        if (db_value("select 'YES' from mp3s where (artist='".db_escape_str($artist)."' or band='".db_escape_str($artist)."') and album like '".db_escape_str($item['album']['strAlbum'])."' group by album") == 'YES')
+          $text .= '<tr><td><a href="music_selected.php?type=album&name='.rawurlencode($item['album']['strAlbum']).'">'.font_tags(FONTSIZE_BODY,'PAGE_TEXT_BOLD_COLOUR').utf8_decode($item['album']['strAlbum']).'</font></a></td><td align="right">'.font_tags(FONTSIZE_BODY).$item['album']['intYearReleased'].'</font></td></tr>';
+        else
+          $text .= '<tr><td>'.font_tags(FONTSIZE_BODY).utf8_decode($item['album']['strAlbum']).'</font></td><td align="right">'.font_tags(FONTSIZE_BODY).$item['album']['intYearReleased'].'</font></td></tr>';
+      }
+      $text .= '</table>';
       break;
   }
 
   // Set default text and image if no details available
   if (empty($text))
-    $text = str('TADB_NO_DETAILS');
+    $text = font_tags(FONTSIZE_BODY).str('TADB_NO_DETAILS').'</font>';
   if (empty($image))
     $image = style_img('NOW_NO_ALBUMART',true);
 
@@ -77,7 +89,7 @@
                   <td>';
 
   // Display info
-  echo '<p>'.font_tags(FONTSIZE_BODY).$text;
+  echo '<p>'.$text;
 
   echo '          </td>
                 </tr>
@@ -92,13 +104,15 @@
 
   // Display ABC buttons
   $buttons = array();
-  if (!empty($artist))
+  if (!empty($artist) && $display !== 'discog')
+    $buttons[] = array('text'=>str('DISCOGRAPHY'), 'url'=> url_add_params('music_info.php', array('display'=>'discog', 'artist'=>urlencode($artist), 'album'=>urlencode($album), 'track'=>urlencode($track), 'hist'=>PAGE_HISTORY_REPLACE)) );
+  if (!empty($artist) && $display !== 'artist')
     $buttons[] = array('text'=>str('ARTIST_INFO'), 'url'=> url_add_params('music_info.php', array('display'=>'artist', 'artist'=>urlencode($artist), 'album'=>urlencode($album), 'track'=>urlencode($track), 'hist'=>PAGE_HISTORY_REPLACE)) );
-  if (!empty($album))
+  if (!empty($album) && $display !== 'album')
     $buttons[] = array('text'=>str('ALBUM_INFO'), 'url'=> url_add_params('music_info.php', array('display'=>'album', 'artist'=>urlencode($artist), 'album'=>urlencode($album), 'track'=>urlencode($track), 'hist'=>PAGE_HISTORY_REPLACE)) );
-  if (!empty($track))
+  if (!empty($track) && $display !== 'track')
     $buttons[] = array('text'=>str('TRACK_INFO'), 'url'=> url_add_params('music_info.php', array('display'=>'track', 'artist'=>urlencode($artist), 'album'=>urlencode($album), 'track'=>urlencode($track), 'hist'=>PAGE_HISTORY_REPLACE)) );
-  if (!empty($album))
+  if (!empty($album) && $display !== 'review')
     $buttons[] = array('text'=>str('ALBUM_REVIEW'), 'url'=> url_add_params('music_info.php', array('display'=>'review', 'artist'=>urlencode($artist), 'album'=>urlencode($album), 'track'=>urlencode($track), 'hist'=>PAGE_HISTORY_REPLACE)) );
 
   page_footer( page_hist_previous(), $buttons, 0, true, 'PAGE_TEXT_BACKGROUND');

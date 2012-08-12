@@ -135,12 +135,12 @@
   {
     $genre_img = SC_LOCATION.'images/genres/'.$name.'.png';
     if ( file_exists($genre_img) )
-      $folder_img = $genre_img;
+      $image = $genre_img;
   }
   // Is there a picture for us to display? (only if selected media is in a single folder)
   elseif ( db_value("select count(distinct dirname) from $sql_table $predicate")==1 )
   {
-    $folder_img = file_albumart( db_value("select concat(dirname,filename) from $sql_table $predicate limit 0,1") );
+    $image = file_albumart( db_value("select concat(dirname,filename) from $sql_table $predicate limit 0,1") );
   }
 
   //*************************************************************************************************
@@ -154,13 +154,13 @@
           <tr>';
 
   // Is there a picture for us to display?
-  if ( !empty($folder_img) )
+  if ( !empty($image) )
   {
     // Column 1: Image
     echo '    <td width="'.convert_x(280).'" valign="middle">
                 <table '.style_background('PAGE_TEXT_BACKGROUND').' cellpadding="10" cellspacing="0" border="0">
                   <tr>
-                    <td>'.img_gen($folder_img,280,450,false,false,false,array(),false).'</td>
+                    <td>'.img_gen($image,280,450,false,false,false,array(),false).'</td>
                   </tr>
                 </table>
               </td>';
