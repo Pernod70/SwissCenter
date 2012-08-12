@@ -444,11 +444,11 @@ function check_steamcast()
   return $result;
 }
 
-function check_radiotime()
+function check_tunein()
 {
-  $radiotime = new radiotime();
-  $result = $radiotime->test();
-  unset ($radiotime);
+  $tunein = new tunein();
+  $result = $tunein->test();
+  unset ($tunein);
   return $result;
 }
 

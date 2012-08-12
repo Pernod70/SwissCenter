@@ -31,7 +31,7 @@ require_once( realpath(dirname(__FILE__).'/language.php'));
   define('IRADIO_LIVE365',3);
   define('IRADIO_ICECAST',4);
   define('IRADIO_STEAMCAST',5);
-  define('IRADIO_RADIOTIME',6);
+  define('IRADIO_TUNEIN',6);
 
   define('THUMBNAIL_X_SIZE',140);
   define('THUMBNAIL_Y_SIZE',210);

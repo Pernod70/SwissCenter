@@ -89,7 +89,7 @@ function check_parsers_display()
     $parser_tests->add_test( $iradio, check_live365(),   str('PASS_LIVE365_TEST'),str('FAIL_LIVE365_TEST').'<p>'.str('IRADIO_LIVE365_DESC','<a href="http://www.live365.com/">www.live365.com</a>'),FALSE);
     $parser_tests->add_test( $iradio, check_icecast(),   str('PASS_ICECAST_TEST'),str('FAIL_ICECAST_TEST').'<p>'.str('IRADIO_ICECAST_DESC','<a href="http://dir.xiph.org/index.php/">www.icecast.org</a>'),FALSE);
     $parser_tests->add_test( $iradio, check_steamcast(), str('PASS_STEAMCAST_TEST'),str('FAIL_STEAMCAST_TEST').'<p>'.str('IRADIO_STEAMCAST_DESC','<a href="http://www.steamcast.com/">www.steamcast.com</a>'),FALSE);
-    $parser_tests->add_test( $iradio, check_radiotime(), str('PASS_STEAMCAST_TEST'),str('FAIL_RADIOTIME_TEST').'<p>'.str('IRADIO_RADIOTIME_DESC','<a href="http://radiotime.com/">www.radiotime.com</a>'),FALSE);
+    $parser_tests->add_test( $iradio, check_tunein(),    str('PASS_TUNEIN_TEST'),str('FAIL_TUNEIN_TEST').'<p>'.str('IRADIO_TUNEIN_DESC','<a href="http://tunein.com/">www.tunein.com</a>'),FALSE);
   }
 
   # ----------------------

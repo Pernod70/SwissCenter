@@ -1298,11 +1298,6 @@
         <version>1.22</version>
       </string>
       <string>
-        <id>FAIL_RADIOTIME_TEST</id>
-        <text>RadioTime parser looks broken</text>
-        <version>1.22</version>
-      </string>
-      <string>
         <id>FAIL_SERVER_SCHED</id>
         <text>Background jobs are unable to run - this may be because cron (linux) or the task scheduler service (windows) is disabled.</text>
         <version>1.19</version>
@@ -1356,6 +1351,11 @@
         <id>FAIL_SWISS_PLAYLIST</id>
         <text>Unable to write to the SwissCenter playlists directory (%s).</text>
         <version>1.20.1</version>
+      </string>
+      <string>
+        <id>FAIL_TUNEIN_TEST</id>
+        <text>TuneIn Radio parser looks broken</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FAIL_WGET_TEST</id>
@@ -2102,16 +2102,6 @@
         <version>1.21.1</version>
       </string>
       <string>
-        <id>IRADIO_RADIOTIME</id>
-        <text>RadioTime</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>IRADIO_RADIOTIME_DESC</id>
-        <text>Listen to online radio, find streaming music radio and streaming talk radio with RadioTime.  The best guide to every type of radio: conservative, progressive, public, news, sports, religious, jazz, classical, rock, country, business, latin, hip-hop, pop, adult contemporary, and more.</text>
-        <version>1.22</version>
-      </string>
-      <string>
         <id>IRADIO_SEARCH</id>
         <text>Search for stations</text>
         <version>1.19</version>
@@ -2165,6 +2155,16 @@
         <id>IRADIO_SUBGENRE_SELECT</id>
         <text>Select the Sub-Genre to search for:</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>IRADIO_TUNEIN</id>
+        <text>TuneIn Radio</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>IRADIO_TUNEIN_DESC</id>
+        <text>Listen to online radio, find streaming music radio and streaming talk radio with TuneIn Radio.  The best guide to every type of radio: conservative, progressive, public, news, sports, religious, jazz, classical, rock, country, business, latin, hip-hop, pop, adult contemporary, and more.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>IRADIO_TYPE</id>
@@ -3607,11 +3607,6 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <version>1.19</version>
       </string>
       <string>
-        <id>PASS_RADIOTIME_TEST</id>
-        <text>RadioTime parser seems to work properly</text>
-        <version>1.22</version>
-      </string>
-      <string>
         <id>PASS_SERVER_SCHED</id>
         <text>Automatic searching for new media is supported.</text>
         <version>1.19</version>
@@ -3675,6 +3670,11 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <id>PASS_SWISS_RW_FILES</id>
         <text>Able to Read/Write to the SwissCenter installation directory.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>PASS_TUNEIN_TEST</id>
+        <text>TuneIn Radio parser seems to work properly</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>PASS_WGET_TEST</id>
@@ -4287,16 +4287,6 @@ If any details are added/changed on this page then you are requested to submit t
         <id>QUICK_PLAY</id>
         <text>Quick play</text>
         <version>1.19</version>
-      </string>
-      <string>
-        <id>RADIOTIME_LOGIN_HEADINGS</id>
-        <text>User,RadioTime Username</text>
-        <version>1.23.1</version>
-      </string>
-      <string>
-        <id>RADIOTIME_MISSING_LOGIN</id>
-        <text>Please enter username</text>
-        <version>1.23.1</version>
       </string>
       <string>
         <id>RANGE</id>
@@ -5767,6 +5757,16 @@ If any details are added/changed on this page then you are requested to submit t
         <id>TTF_FONT_PROMPT</id>
         <text>Font to be used to display Track information on the &quot;Now Playing&quot; screen, if supported (and enabled). Enter a font file name with full path to the file, or leave blank to try to auto-detect a font.</text>
         <version>1.22</version>
+      </string>
+      <string>
+        <id>TUNEIN_LOGIN_HEADINGS</id>
+        <text>User,TuneIn Username</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>TUNEIN_MISSING_LOGIN</id>
+        <text>Please enter username</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>TVID_RESET_DEFAULT</id>

@@ -37,9 +37,9 @@
  $menu = new menu();
  $current_url = current_url();
 
- send_to_log(8,"Initializing RadioTime parser");
- require_once( realpath(dirname(__FILE__).'/resources/radio/radiotime.php'));
- $iradio = new radiotime;
+ send_to_log(8,"Initializing TuneIn parser");
+ require_once( realpath(dirname(__FILE__).'/resources/radio/tunein.php'));
+ $iradio = new tunein;
  $iradio->restrict_mediatype('mp3,aac'); // Restrict to mp3, ogg, aac, etc.
  $iradio->set_cache(get_sys_pref('iradio_cache_expire',3600));
  $iradio->set_max_results(get_sys_pref('iradio_max_stations',24));
@@ -162,8 +162,8 @@
 
        page_header(str('IRADIO_STATION_SELECT'));
        echo '<table width="100%" cellpadding=0 cellspacing=0 border=0>'.
-            '<tr><td valign=top width="'.convert_x(280).'" align="left">'.
-            img_gen($image,280,550).
+            '<tr><td valign=top width="'.convert_x(280).'" align="left"><br>'.
+            img_gen($image,280,450).
             '</td><td width="'.convert_x(20).'"></td>'.
             '<td valign="top">';
 

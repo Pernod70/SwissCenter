@@ -45,10 +45,10 @@
        $iradio = new shoutcast;
        $iradio->restrict_mediatype(''); // Restrict to 'audio/mpeg' or 'audio/aacp'
        break;
-   case radiotime :
-       send_to_log(8,"Initializing RadioTime parser");
-       require_once( realpath(dirname(__FILE__).'/resources/radio/radiotime.php'));
-       $iradio = new radiotime;
+   case tunein :
+       send_to_log(8,"Initializing TuneIn Radio parser");
+       require_once( realpath(dirname(__FILE__).'/resources/radio/tunein.php'));
+       $iradio = new tunein;
        $iradio->restrict_mediatype('mp3,aac'); // Restrict to mp3, ogg, aac, etc.
        break;
    case icecast :
