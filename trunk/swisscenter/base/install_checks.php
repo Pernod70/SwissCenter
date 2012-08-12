@@ -42,26 +42,26 @@ function check_php_version()
 
 function check_php_required_modules()
 {
-  foreach ( get_required_modules_list() as $module)
-    if (!extension_loaded($module))
-    {
-      send_to_log(5,"- Required PHP module '$module' not installed");
-      return false;
-    }
-
-  return true;
+  $modules = array_diff(get_required_modules_list(), get_loaded_extensions());
+  if (!empty($modules))
+  {
+    send_to_log(5,"- Required PHP module '".implode(',', $modules)."' not loaded");
+    return $modules;
+  }
+  else
+    return true;
 }
 
 function check_php_suggested_modules()
 {
-  foreach ( get_suggested_modules_list() as $module)
-    if (!extension_loaded($module))
-    {
-      send_to_log(5,"- Suggested PHP module '$module' not installed");
-      return false;
-    }
-
-  return true;
+  $modules = array_diff(get_suggested_modules_list(), get_loaded_extensions());
+  if (!empty($modules))
+  {
+    send_to_log(5,"- Suggested PHP module '".implode(',', $modules)."' not loaded");
+    return $modules;
+  }
+  else
+    return true;
 }
 
 function check_php_ttf()

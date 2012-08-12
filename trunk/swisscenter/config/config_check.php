@@ -51,13 +51,11 @@ class test_summary
   {
     if ( key_exists($section,$this->sections) )
     {
-      if ($result)
+      if ($result === true)
         $this->sections[$section]["passed"][] = $pass;
       else
         $this->sections[$section]["failed"][] = $fail;
     }
-    else
-      echo '<li>'.$section.' - '.$key;
   }
 
   #-------------------------------------------------------------------------------------------------
@@ -147,8 +145,8 @@ function check_display()
   $php = $core_tests->add_section("PHP : v".phpversion(),2);
 
   $core_tests->add_test( $php, check_php_version(), str("PASS_PHP_VERSION"), str("FAIL_PHP_VERSION",phpversion()) );
-  $core_tests->add_test( $php, check_php_required_modules(), str("PASS_PHP_REQ_MODS"), str("FAIL_PHP_REQ_MODS", implode(', ',get_required_modules_list())) );
-  $core_tests->add_test( $php, check_php_suggested_modules(), str("PASS_PHP_EXTRA_MODS"), str("FAIL_PHP_EXTRA_MODS", implode(', ',get_suggested_modules_list())) );
+  $core_tests->add_test( $php, check_php_required_modules(), str("PASS_PHP_REQ_MODS"), str("FAIL_PHP_REQ_MODS", implode(', ',check_php_required_modules())) );
+  $core_tests->add_test( $php, check_php_suggested_modules(), str("PASS_PHP_EXTRA_MODS"), str("FAIL_PHP_EXTRA_MODS", implode(', ',check_php_suggested_modules())) );
   $core_tests->add_test( $php, check_php_ttf(), str("PASS_PHP_FONTS"), str("FAIL_PHP_FONTS") );
 
   # ----------------------
