@@ -21,7 +21,7 @@
    else
      $result = false;
 
-   if (!$result || is_null($result))
+   if ($result === false || is_null($result))
      return false;
    else
      return $result;
@@ -37,7 +37,7 @@
    else
      $result = false;
 
-   if (!$result || is_null($result))
+   if ($result === false || is_null($result))
      return $default;
    else
      return $result;
@@ -73,7 +73,7 @@
  {
    $result = db_value("select modified from system_prefs where name='".strtoupper($pref)."'");
 
-   if (!$result || is_null($result))
+   if ($result === false || is_null($result))
      return false;
    else
      return $result;
@@ -83,7 +83,7 @@
  {
    $result = db_value("select value from system_prefs where name='".strtoupper($pref)."'");
 
-   if (!$result || is_null($result))
+   if ($result === false || is_null($result))
      return $default;
    else
      return $result;
