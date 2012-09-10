@@ -852,6 +852,45 @@ function url_exists($url)
   return is_array($hdrs) ? preg_match('/^HTTP\\/\\d+\\.\\d+\\s+2\\d\\d\\s+.*$/',$hdrs[0]) : false;
 }
 
+/**
+ * Given a string to search for ($needle) and an array of possible matches ($haystack) this
+ * function will return the index number of the best match and set $accuracy to the value
+ * determined (0-100). If no match is found, then this function returns FALSE
+ *
+ * @param string $needle - title to match against
+ * @param array $haystack - Array of values to check against
+ * @param integer $accuracy - accuracy level (0-100)
+ * @return integer - index into the $haystack array for the best match (or FALSE).
+ */
+
+function best_match ( $needle, $haystack, &$accuracy )
+{
+  $best_match = array("id" => 0, "chars" => 0, "pc" => 0);
+
+  foreach ($haystack as $i=>$item)
+  {
+    $chars = similar_text(strtolower(trim($needle)),strtolower(trim($item)),$pc);
+    $haystack[$i] .= " (".round($pc,2)."%)";
+
+    if ( ($chars > $best_match["chars"] && $pc >= $best_match["pc"]) || $pc > $best_match["pc"])
+      $best_match = array("id" => $i, "chars" => $chars, "pc" => $pc);
+  }
+
+  // If we are sure that we found a good result, then get the file details.
+  if ($best_match["pc"] > 75)
+  {
+    send_to_log(6,'Possible matches are:',$haystack);
+    send_to_log(4,'Best guess: ['.$best_match["id"].'] - '.$haystack[$best_match["id"]]);
+    $accuracy = $best_match["pc"];
+    return $best_match["id"];
+  }
+  else
+  {
+    send_to_log(4,'Multiple Matches found, No match > 75%',$haystack);
+    return false;
+  }
+}
+
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/

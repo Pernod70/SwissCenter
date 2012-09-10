@@ -4,6 +4,7 @@
  *************************************************************************************************/
 
 require_once( realpath(dirname(__FILE__).'/../../base/cache_api_request.php'));
+require_once( realpath(dirname(__FILE__).'/../../base/utils.php'));
 
 // API key registered to SwissCenter project
 define('AUDIODB_API_KEY', '537769737343656e746572');
@@ -251,7 +252,15 @@ function tadb_artist_getInfo($artist)
     $tadb = new TheAudioDB();
     $data = $tadb->artistSearchArtist(utf8_encode($artist));
     if (isset($data['artists'][0]['artist']))
-      $result = $data['artists'][0]['artist'];
+    {
+      // Search results for exact or best match
+      $results = array();
+      foreach ($data['artists'] as $i=>$item)
+        $results[$i] = $item['artist']['strArtist'];
+      $id = best_match($artist, $results, $accuracy);
+      if ($id !== false)
+        $result = $data['artists'][$id]['artist'];
+    }
   }
   return $result;
 }
