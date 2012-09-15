@@ -160,13 +160,13 @@
 
         //
         // This code is based upon a script found at http://userscripts.org/scripts/show/109103
-        //   Version 1.3.8 : Date 2012-02-09
+        //   Version 1.4.7 : Date 2012-09-13
         //
         // Obtain video ID, temporary ticket, formats map
         if (!empty($html))
         {
           $videoTicket  = preg_get('/(?:"|\&amp;t=([^(\&|$)]+)/', $html);
-          $videoFormats = preg_get('/(?:"|\&amp;url_encoded_fmt_stream_map=([^(\&|$|\\)]+)/', $html);
+          $videoFormats = preg_get('/(?:"|\&amp;url_encoded_fmt_stream_map=([^(\&|$)]+)/', $html);
         }
 
         if (empty($videoTicket))
@@ -193,6 +193,7 @@
           // 43 - WebM 360p
           // 44 - WebM 480p
           // 45 - WebM 720p (HD)
+          // 46 - WebM 1080p (HD)
 
           // Parse the formats map
           $sep1 = '%2C';
@@ -210,15 +211,23 @@
           for ($i=0; $i<count($videoFormatsGroup); $i++)
           {
             $videoFormatsElem = explode($sep2, $videoFormatsGroup[$i]);
-            if (count($videoFormatsElem) < 5) continue;
-            $partialResult1 = explode($sep3, $videoFormatsElem[0]);
-            if (count($partialResult1) < 2) continue;
-            $url = rawurldecode(rawurldecode($partialResult1[1]));
+            $videoFormatsPair = array();
+            for ($j=0; $j<count($videoFormatsElem); $j++)
+            {
+              $pair = explode($sep3, $videoFormatsElem[$j]);
+              if (count($pair) == 2)
+                $videoFormatsPair[$pair[0]] = $pair[1];
+            }
+            $url = isset($videoFormatsPair['url']) ? $videoFormatsPair['url'] : null;
+            if ($url == null) continue;
+            $url = rawurldecode(rawurldecode($videoFormatsPair['url']));
             $url = str_replace('\/','/',$url);
             $url = str_replace('\u0026','&',$url);
-            $partialResult2 = explode($sep3, $videoFormatsElem[4]);
-            if (count($partialResult2) < 2) continue;
-            $itag = $partialResult2[1];
+            $itag = isset($videoFormatsPair['itag']) ? $videoFormatsPair['itag'] : null;
+            if ($itag == null) continue;
+            $signature = isset($videoFormatsPair['sig']) ? $videoFormatsPair['sig'] : null;
+            if ($signature !== null)
+              $url .= '&signature='.$signature;
             if (strpos($url, 'http') == 0) // validate URL
               $videoUrl[$itag] = $url;
           }
