@@ -19,7 +19,7 @@
   $lyrics = $metro->getLyrics($artist, $track);
 
   // Check for no lyrics available
-  if ( strpos($lyrics, 'www.metrolyrics.com') > 0 )
+  if ( $lyrics === false )
   {
     page_inform(2, page_hist_previous(), $artist.' - '.$track,str('NO_LYRICS_AVAILABLE'));
   }
