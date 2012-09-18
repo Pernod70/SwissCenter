@@ -47,8 +47,8 @@
       $text = '<table width="100%">';
       foreach ($data as $item)
       {
-        if (db_value("select 'YES' from mp3s where (artist='".db_escape_str($artist)."' or band='".db_escape_str($artist)."') and album like '".db_escape_str($item['album']['strAlbum'])."' group by album") == 'YES')
-          $text .= '<tr><td><a href="music_selected.php?type=album&name='.rawurlencode($item['album']['strAlbum']).'">'.font_tags(FONTSIZE_BODY,'PAGE_TEXT_BOLD_COLOUR').utf8_decode($item['album']['strAlbum']).'</font></a></td><td align="right">'.font_tags(FONTSIZE_BODY).$item['album']['intYearReleased'].'</font></td></tr>';
+        if (db_value("select 'YES' from mp3s where (artist='".db_escape_str($artist)."' or band='".db_escape_str($artist)."') and album like '".db_escape_str(utf8_decode($item['album']['strAlbum']))."' group by album") == 'YES')
+          $text .= '<tr><td><a href="music_selected.php?type=album&name='.rawurlencode(utf8_decode($item['album']['strAlbum'])).'">'.font_tags(FONTSIZE_BODY,'PAGE_TEXT_BOLD_COLOUR').utf8_decode($item['album']['strAlbum']).'</font></a></td><td align="right">'.font_tags(FONTSIZE_BODY).$item['album']['intYearReleased'].'</font></td></tr>';
         else
           $text .= '<tr><td>'.font_tags(FONTSIZE_BODY).utf8_decode($item['album']['strAlbum']).'</font></td><td align="right">'.font_tags(FONTSIZE_BODY).$item['album']['intYearReleased'].'</font></td></tr>';
       }

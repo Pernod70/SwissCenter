@@ -33,14 +33,14 @@
     }
     if (!empty($track) && !empty($album) && !empty($artist))
     {
-      $data = tadb_track_getInfo($artist, $album, $track);
-      $text = '';
-      $image = '';
+      $data   = tadb_track_getInfo($artist, $album, $track);
+      $image  = isset($data['strTrackThumb'])  ? $data['strTrackThumb'] : null;
+      $text   = isset($data['strDescription']) ? utf8_decode($data['strDescription']) : null;
     }
-    if (!empty($artist) && !empty($album))
+    elseif (!empty($artist) && !empty($album))
     {
       $data   = tadb_album_getInfo($artist, $album);
-      $image  = isset($data['strAlbumThumb'])  ? $data['strAlbumThumb']  : null;
+      $image  = isset($data['strAlbumThumb'])  ? $data['strAlbumThumb'] : null;
       $text   = isset($data['strDescription']) ? utf8_decode($data['strDescription']) : null;
     }
     if (empty($text))
