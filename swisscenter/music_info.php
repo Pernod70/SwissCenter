@@ -28,7 +28,7 @@
   switch ($display)
   {
     case 'track':
-      $data  = tadb_track_getInfo($artist, $track);
+      $data  = tadb_track_getInfo($artist, $album, $track);
       $image = isset($data['strTrackThumb'])  ? $data['strTrackThumb']  : null;
       $text  = isset($data['strDescription']) ? font_tags(FONTSIZE_BODY).utf8_decode($data['strDescription']).'</font>' : null;
       break;
