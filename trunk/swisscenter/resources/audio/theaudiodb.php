@@ -294,12 +294,22 @@ function tadb_album_getInfo($artist, $album)
     $album = trim(preg_replace('/\(.*?\)/', '', $album, 1));
     $data = $tadb->artistSearchAlbum(utf8_encode($artist), utf8_encode($album));
     if (isset($data['album'][0]['album']))
-      $result = $data['album'][0]['album'];
+    {
+      // Search results for exact or best match
+      $results = array();
+      foreach ($data['album'] as $i=>$item)
+        $results[$i] = $item['album']['strAlbum'];
+      $id = best_match($album, $results, $accuracy);
+      if ($id !== false)
+        $result = $data['album'][$id]['album'];
+      else
+        $result = $data['album'][0]['album'];
+    }
   }
   return $result;
 }
 
-function tadb_track_getInfo($artist, $track)
+function tadb_track_getInfo($artist, $album, $track)
 {
   $result = false;
   if (internet_available() && !empty($artist) && !empty($track))
@@ -307,7 +317,17 @@ function tadb_track_getInfo($artist, $track)
     $tadb = new TheAudioDB();
     $data = $tadb->artistSearchTrack(utf8_encode($artist), utf8_encode($track));
     if (isset($data['track'][0]['track']))
-      $result = $data['track'][0]['track'];
+    {
+      // Search results for specified album
+      $results = array();
+      foreach ($data['track'] as $i=>$item)
+        $results[$i] = $item['track']['strAlbum'];
+      $id = best_match($album, $results, $accuracy);
+      if ($id !== false)
+        $result = $data['track'][$id]['track'];
+      else
+        $result = $data['track'][0]['track'];
+    }
   }
   return $result;
 }
