@@ -24,7 +24,7 @@
   $data   = tadb_artist_getInfo($artist);
   $logo   = isset($data['strArtistLogo'])   ? $data['strArtistLogo']   : null;
   $fanart = isset($data['strArtistFanart']) ? $data['strArtistFanart'] : null;
-  $videos = tadb_artist_videos($artist, $album, $track);
+  $videos = tadb_artist_videos($data['strArtist'], $album, $track);
 
   // If COMPACT mode was last used then set to FULL as downloading 12 images per page takes too long!
   if ( get_user_pref("DISPLAY_THUMBS") == "COMPACT" ) { set_user_pref("DISPLAY_THUMBS","FULL"); }
@@ -41,12 +41,12 @@
     // Add videos
     foreach ($videos as $video)
     {
-      $text = utf8_decode($video['track']['strTrack']);
-      $video_id = preg_get('/watch\?v=(.*)/', $video['track']['strMusicVid']);
+      $text = utf8_decode($video['strTrack']);
+      $video_id = preg_get('/watch\?v=(.*)/', $video['strMusicVid']);
       $url  = 'href="'.url_add_params('stream_url.php?'.current_session(), array('user_agent' => rawurlencode('QuickTime/7.6'),
                                                                                                            		'youtube_id' => $video_id,
                                                                                                            		'ext'        => '.mp4" vod '));
-      $thumb = empty($video['track']['strTrackThumb']) ? style_img('NOW_NO_ALBUMART',true) : $video['track']['strTrackThumb'];
+      $thumb = empty($video['strTrackThumb']) ? style_img('NOW_NO_ALBUMART',true) : $video['strTrackThumb'];
       // Do not add duplicate videos
       if (!in_array($video_id, $video_list))
       {

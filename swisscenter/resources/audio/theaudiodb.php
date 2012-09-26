@@ -251,15 +251,15 @@ function tadb_artist_getInfo($artist)
   {
     $tadb = new TheAudioDB();
     $data = $tadb->artistSearchArtist(utf8_encode($artist));
-    if (isset($data['artists'][0]['artist']))
+    if (is_array($data['artists']))
     {
       // Search results for exact or best match
       $results = array();
       foreach ($data['artists'] as $i=>$item)
-        $results[$i] = $item['artist']['strArtist'];
+        $results[$i] = $item['strArtist'];
       $id = best_match($artist, $results, $accuracy);
       if ($id !== false)
-        $result = $data['artists'][$id]['artist'];
+        $result = $data['artists'][$id];
     }
   }
   return $result;
@@ -272,12 +272,12 @@ function tadb_artist_albums($artistId)
   {
     $tadb = new TheAudioDB();
     $data = $tadb->artistAlbumData($artistId);
-    if (isset($data['album'][0]['album']))
+    if (is_array($data['album']))
     {
       $result = $data['album'];
       // Order results by released year
       foreach ($result as $album)
-        $sort_year[] = $album['album']['intYearReleased'];
+        $sort_year[] = $album['intYearReleased'];
       array_multisort($sort_year, SORT_ASC, $result);
     }
   }
@@ -293,17 +293,17 @@ function tadb_album_getInfo($artist, $album)
     // Remove any edition details (in brackets) from the album name, ie. (Deluxe Edition)
     $album = trim(preg_replace('/\(.*?\)/', '', $album, 1));
     $data = $tadb->artistSearchAlbum(utf8_encode($artist), utf8_encode($album));
-    if (isset($data['album'][0]['album']))
+    if (is_array($data['album']))
     {
       // Search results for exact or best match
       $results = array();
-      foreach ($data['album'] as $i=>$item)
-        $results[$i] = $item['album']['strAlbum'];
+      foreach ($data as $i=>$item)
+        $results[$i] = $item['strAlbum'];
       $id = best_match($album, $results, $accuracy);
       if ($id !== false)
-        $result = $data['album'][$id]['album'];
+        $result = $data['album'][$id];
       else
-        $result = $data['album'][0]['album'];
+        $result = $data['album'][0];
     }
   }
   return $result;
@@ -316,17 +316,17 @@ function tadb_track_getInfo($artist, $album, $track)
   {
     $tadb = new TheAudioDB();
     $data = $tadb->artistSearchTrack(utf8_encode($artist), utf8_encode($track));
-    if (isset($data['track'][0]['track']))
+    if (is_array($data['track']))
     {
       // Search results for specified album
       $results = array();
       foreach ($data['track'] as $i=>$item)
-        $results[$i] = $item['track']['strAlbum'];
+        $results[$i] = $item['strAlbum'];
       $id = best_match($album, $results, $accuracy);
       if ($id !== false)
-        $result = $data['track'][$id]['track'];
+        $result = $data['track'][$id];
       else
-        $result = $data['track'][0]['track'];
+        $result = $data['track'][0];
     }
   }
   return $result;
@@ -343,7 +343,7 @@ function tadb_artist_videos($artist, $album, $track)
     {
       $artistId = $data['idArtist'];
       $mvids = $tadb->musicVideos($artistId);
-      if (isset($mvids['mvids']))
+      if (is_array($mvids['mvids']))
       {
         // Filter videos for requested album
         $data = tadb_album_getInfo($artist, $album);
@@ -352,7 +352,7 @@ function tadb_artist_videos($artist, $album, $track)
           $albumId = $data['idAlbum'];
           foreach ($mvids['mvids'] as $id=>$mvid)
           {
-            if ($mvid['track']['idAlbum'] !== $albumId)
+            if ($mvid['idAlbum'] !== $albumId)
               unset($mvids['mvids'][$id]);
           }
         }
@@ -361,7 +361,7 @@ function tadb_artist_videos($artist, $album, $track)
         {
           foreach ($mvids['mvids'] as $id=>$mvid)
           {
-            if ($mvid['track']['strTrack'] !== $track)
+            if ($mvid['strTrack'] !== $track)
               unset($mvids['mvids'][$id]);
           }
         }

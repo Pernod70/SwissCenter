@@ -33,13 +33,13 @@
     }
     if (!empty($track) && !empty($album) && !empty($artist))
     {
-      $data   = tadb_track_getInfo($artist, $album, $track);
+      $data   = tadb_track_getInfo($data['strArtist'], $album, $track);
       $image  = isset($data['strTrackThumb'])  ? $data['strTrackThumb'] : null;
       $text   = isset($data['strDescription']) ? utf8_decode($data['strDescription']) : null;
     }
     elseif (!empty($artist) && !empty($album))
     {
-      $data   = tadb_album_getInfo($artist, $album);
+      $data   = tadb_album_getInfo($data['strArtist'], $album);
       $image  = isset($data['strAlbumThumb'])  ? $data['strAlbumThumb'] : null;
       $text   = isset($data['strDescription']) ? utf8_decode($data['strDescription']) : null;
     }
