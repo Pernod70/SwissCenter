@@ -28,17 +28,17 @@
   switch ($display)
   {
     case 'track':
-      $data  = tadb_track_getInfo($artist, $album, $track);
+      $data  = tadb_track_getInfo($data['strArtist'], $album, $track);
       $image = isset($data['strTrackThumb'])  ? $data['strTrackThumb']  : null;
       $text  = isset($data['strDescription']) ? font_tags(FONTSIZE_BODY).utf8_decode($data['strDescription']).'</font>' : null;
       break;
     case 'album':
-      $data  = tadb_album_getInfo($artist, $album);
+      $data  = tadb_album_getInfo($data['strArtist'], $album);
       $image = isset($data['strAlbumThumb'])  ? $data['strAlbumThumb']  : null;
       $text  = isset($data['strDescription']) ? font_tags(FONTSIZE_BODY).utf8_decode($data['strDescription']).'</font>' : null;
       break;
     case 'review':
-      $data  = tadb_album_getInfo($artist, $album);
+      $data  = tadb_album_getInfo($data['strArtist'], $album);
       $image = isset($data['strAlbumThumb'])  ? $data['strAlbumThumb']  : null;
       $text  = isset($data['strReview'])      ? font_tags(FONTSIZE_BODY).utf8_decode($data['strReview'].'</font>') : null;
       break;
@@ -47,10 +47,10 @@
       $text = '<table width="100%">';
       foreach ($data as $item)
       {
-        if (db_value("select 'YES' from mp3s where (artist='".db_escape_str($artist)."' or band='".db_escape_str($artist)."') and album like '".db_escape_str(utf8_decode($item['album']['strAlbum']))."' group by album") == 'YES')
-          $text .= '<tr><td><a href="music_selected.php?type=album&name='.rawurlencode(utf8_decode($item['album']['strAlbum'])).'">'.font_tags(FONTSIZE_BODY,'PAGE_TEXT_BOLD_COLOUR').utf8_decode($item['album']['strAlbum']).'</font></a></td><td align="right">'.font_tags(FONTSIZE_BODY).$item['album']['intYearReleased'].'</font></td></tr>';
+        if (db_value("select 'YES' from mp3s where (artist='".db_escape_str($artist)."' or band='".db_escape_str($artist)."') and album like '".db_escape_str(utf8_decode($item['strAlbum']))."' group by album") == 'YES')
+          $text .= '<tr><td><a href="music_selected.php?type=album&name='.rawurlencode(utf8_decode($item['strAlbum'])).'">'.font_tags(FONTSIZE_BODY,'PAGE_TEXT_BOLD_COLOUR').utf8_decode($item['strAlbum']).'</font></a></td><td align="right">'.font_tags(FONTSIZE_BODY).$item['intYearReleased'].'</font></td></tr>';
         else
-          $text .= '<tr><td>'.font_tags(FONTSIZE_BODY).utf8_decode($item['album']['strAlbum']).'</font></td><td align="right">'.font_tags(FONTSIZE_BODY).$item['album']['intYearReleased'].'</font></td></tr>';
+          $text .= '<tr><td>'.font_tags(FONTSIZE_BODY).utf8_decode($item['strAlbum']).'</font></td><td align="right">'.font_tags(FONTSIZE_BODY).$item['intYearReleased'].'</font></td></tr>';
       }
       $text .= '</table>';
       break;
