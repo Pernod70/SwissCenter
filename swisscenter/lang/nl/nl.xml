@@ -48,6 +48,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>ALBUM_INFO</id>
+        <text>Album informatie</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>ALBUM_REVIEW</id>
+        <text>Album recentie</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>ALL_CATEGORIES</id>
         <text>Alle categorieën</text>
         <version>1.20</version>
@@ -214,8 +224,8 @@
       </string>
       <string>
         <id>BROWSE_ARTIST</id>
-        <text>Zoek artiestennaam</text>
-        <version>1.19</version>
+        <text>Zoek artiest</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>BROWSE_BROADCASTER</id>
@@ -339,8 +349,8 @@
       </string>
       <string>
         <id>BROWSE_MUSIC</id>
-        <text>Zoek in muziek</text>
-        <version>1.19</version>
+        <text>Zoek in audio</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>BROWSE_OPTIONS</id>
@@ -963,6 +973,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>DISCOGRAPHY</id>
+        <text>Discografie</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>DISCOVERED</id>
+        <text>Gevonden</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>DOWNLOADED</id>
         <text>Reeds gedownload</text>
         <version>1.22</version>
@@ -1249,18 +1269,23 @@
       </string>
       <string>
         <id>FAIL_ICECAST_TEST</id>
-        <text>IceCast parser functioneert mogelijk niet.</text>
-        <version>1.22</version>
+        <text>IceCast parser werkt niet.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>FAIL_IMAGEMAGICK_TEST</id>
+        <text>ImageMagick is niet geïnstalleerd.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FAIL_LIVE365_TEST</id>
-        <text>Live365 parser lijkt defect</text>
-        <version>1.22</version>
+        <text>Live365 parser werkt niet.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FAIL_LIVERADIO_TEST</id>
-        <text>LiveRadio parser lijkt defect</text>
-        <version>1.19</version>
+        <text>LiveRadio parser werkt niet.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FAIL_MIP_MIXABLE</id>
@@ -1344,13 +1369,13 @@
       </string>
       <string>
         <id>FAIL_SHOUTCAST_TEST</id>
-        <text>SHOUTcast parser lijkt defect</text>
-        <version>1.22</version>
+        <text>SHOUTcast parser werkt niet.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FAIL_STEAMCAST_TEST</id>
-        <text>Steamcast parser functioneert mogelijk niet.</text>
-        <version>1.22</version>
+        <text>Steamcast parser werkt niet.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FAIL_SWISSMONITOR_INSTALLED</id>
@@ -1391,6 +1416,11 @@
         <id>FAIL_SWISS_PLAYLIST</id>
         <text>SwissCenter kan de afspeellijsten directory niet benaderen (%s).</text>
         <version>1.21</version>
+      </string>
+      <string>
+        <id>FAIL_TUNEIN_TEST</id>
+        <text>TuneIn Radio parser werkt niet.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FAIL_WGET_TEST</id>
@@ -1687,6 +1717,31 @@
         <id>IGNORE_EXTENSION_PROMPT</id>
         <text>Geef de bestandsextensies die door SwissMonitor genegeerd moeten worden.</text>
         <version>1.22</version>
+      </string>
+      <string>
+        <id>IMAGEMAGICK_CONFIG</id>
+        <text>ImageMagick</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>IMAGEMAGICK_DESC</id>
+        <text>ImageMagick (beschikbaar via %s) verbetert de presetaties op het moment dat afbeeldingen worden gemanipuleerd. Rotatie van afbeeldingen of aanpassingen in de afbeeldingsschalen gaan sneller dan met PHP. Hierdoor worden pagina's die veel afbeeldingen bevatten, sneller geladen.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>IMAGEMAGICK_PATH</id>
+        <text>ImageMagick locatie</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>IMAGEMAGICK_PATH_NOT_FOUND</id>
+        <text>Voer een geldige locatie in.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>IMAGEMAGICK_PATH_PROMPT</id>
+        <text>Voer het volledige pad in van de ImageMagick installatie directory. Op Windows systemen wordt dit automatisch gevonden, maar op sommige Linux systemen moet het het pad handmatig worden ingevoerd.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>IMAGE_EXIF_ROTATE</id>
@@ -2184,6 +2239,16 @@
         <version>1.21</version>
       </string>
       <string>
+        <id>IRADIO_TUNEIN</id>
+        <text>TuneIn radio</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>IRADIO_TUNEIN_DESC</id>
+        <text>Met TuneIn kan online radio worden geluistererd (zowel muziek als &quot;talk&quot; radio). Het is de beste gids naar ierdere soort radio: conservatief, progressief, openbaar, nieuws, sport, religieus, jazz, klassiek, rock, country, zaken, latin, hip-hop, pop, adult contemporary (easy listening), en meer.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>IRADIO_TYPE</id>
         <text>Radio Type</text>
         <version>1.22</version>
@@ -2503,8 +2568,8 @@
       </string>
       <string>
         <id>LISTEN_MUSIC</id>
-        <text>Muziek</text>
-        <version>1.22</version>
+        <text>Audio</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>LISTEN_RADIO</id>
@@ -2575,6 +2640,11 @@
         <id>LOWERCASE</id>
         <text>Kleine letters</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>LYRICS</id>
+        <text>Songteksten</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>MACHINE_NAME</id>
@@ -2685,6 +2755,16 @@
         <id>MEDIA_LOC_HEADINGS</id>
         <text>Type, Categorie, Leeftijdsgrens, Map, Gedeelde Netwerkmappen</text>
         <version>1.22</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_NO_SELECT</id>
+        <text>U heeft geen locaties geselecteerd die verwijderd moeten worden.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_SYMLINKS</id>
+        <text>Vernieuw alle symbolische links</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>MEDIA_LOC_UPDATE_OK</id>
@@ -3087,6 +3167,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>MOST_RELEVANT</id>
+        <text>Relevantste</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>MOST_VIEWED</id>
         <text>Meest bekeken</text>
         <version>1.22</version>
@@ -3168,13 +3253,18 @@
       </string>
       <string>
         <id>MUSIC</id>
-        <text>Muziek</text>
-        <version>1.19</version>
+        <text>Audio</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>MUSIC_BEFORE_PREV</id>
         <text>Daarvoor</text>
         <version>SVN1167</version>
+      </string>
+      <string>
+        <id>MUSIC_INFO</id>
+        <text>Muziek informatie</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>MUSIC_PLAY_NEXT</id>
@@ -3190,6 +3280,11 @@
         <id>MUSIC_PLAY_TIME</id>
         <text>Speelduur</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>MUSIC_VIDEOS</id>
+        <text>Muziek video's</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>NAME</id>
@@ -3336,6 +3431,11 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
         <id>NO_ITEMS_TO_DISPLAY</id>
         <text>Er zijn geen items om weer te geven.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>NO_LYRICS_AVAILABLE</id>
+        <text>Er zijn geen songteksten beschikbaar.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>NO_PLAYLIST</id>
@@ -3519,18 +3619,23 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
       </string>
       <string>
         <id>PASS_ICECAST_TEST</id>
-        <text>De IceCast parser lijkt goed te functioneren</text>
-        <version>1.22</version>
+        <text>IceCast parser werkt goed.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>PASS_IMAGEMAGICK_TEST</id>
+        <text>ImageMagick is geinstalleerd.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>PASS_LIVE365_TEST</id>
-        <text>Live365 parser lijkt goed te functioneren</text>
-        <version>1.22</version>
+        <text>Live365 parser werkt goed.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>PASS_LIVERADIO_TEST</id>
-        <text>LiveRadio parser lijkt goed te functioneren</text>
-        <version>1.22</version>
+        <text>LiveRadio parser werkt goed.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>PASS_MIP_MIXABLE</id>
@@ -3609,13 +3714,13 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
       </string>
       <string>
         <id>PASS_SHOUTCAST_TEST</id>
-        <text>SHOUTcast parser lijkt goed te functioneren</text>
-        <version>1.22</version>
+        <text>SHOUTcast parser werkt goed.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>PASS_STEAMCAST_TEST</id>
-        <text>De Steamcast parser lijkt goed te functioneren</text>
-        <version>1.22</version>
+        <text>Steamcast parser werkt goed.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>PASS_SWISSMONITOR_INSTALLED</id>
@@ -3668,6 +3773,11 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
         <version>1.21.1</version>
       </string>
       <string>
+        <id>PASS_TUNEIN_TEST</id>
+        <text>TuneIn Radio parser werkt goed.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>PASS_WGET_TEST</id>
         <text>Wget is gevonden</text>
         <version>1.23.1</version>
@@ -3694,13 +3804,13 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
       </string>
       <string>
         <id>PC_LINK_MOVIES</id>
-        <text>Video's</text>
-        <version>1.19</version>
+        <text>Video</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>PC_LINK_MUSIC</id>
-        <text>Muziek</text>
-        <version>1.19</version>
+        <text>Audio</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>PC_LINK_PHOTOS</id>
@@ -4219,6 +4329,11 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
         <version>1.22</version>
       </string>
       <string>
+        <id>PUBLISHER</id>
+        <text>Label</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>QUICK_HOME</id>
         <text>Sneltoets startpagina</text>
         <version>1.19</version>
@@ -4405,8 +4520,8 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
       </string>
       <string>
         <id>REFINE_ARTIST</id>
-        <text>Zoek artiestennaam</text>
-        <version>1.19</version>
+        <text>Zoek artiest</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>REFINE_CERTIFICATE</id>
@@ -4487,6 +4602,11 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
         <id>REFINE_PHOTO_TITLE</id>
         <text>Zoek titel</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_RATING</id>
+        <text>Zoek op waardering</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>REFINE_TITLE</id>
@@ -5084,6 +5204,11 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
         <version>1.19</version>
       </string>
       <string>
+        <id>SORT</id>
+        <text>Sorteer</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>SORT_BITRATE</id>
         <text>Sorteer op bitrate</text>
         <version>1.22</version>
@@ -5377,6 +5502,11 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
         <id>TABLE_DEFINITION</id>
         <text>Tabel definitie: %s</text>
         <version>1.22</version>
+      </string>
+      <string>
+        <id>TADB_NO_DETAILS</id>
+        <text>Er zijn geen details beschikbaar voor artiest/album/nummer. De ontbrekende informatie kan worden ingevoerd op de website van TheAudioDB.com.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>TAG</id>
@@ -5684,6 +5814,11 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
         <version>1.19</version>
       </string>
       <string>
+        <id>TRACK_INFO</id>
+        <text>Titel informatie</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>TRACK_LENGTH</id>
         <text>Speelduur</text>
         <version>1.19</version>
@@ -5767,6 +5902,16 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
         <id>TTF_FONT_PROMPT</id>
         <text>Lettertype dat gebruikt wordt om de muziek-informatie op het &quot;Speelt Nu&quot;-scherm te tonen, indien dit ondersteund wordt (en ingeschakeld is). Geef een lettertype-bestandsnaam op, inclusief het volledige pad naar het bestand ; laat dit veld leeg voor automatische detectie van een lettertype.</text>
         <version>1.22</version>
+      </string>
+      <string>
+        <id>TUNEIN_LOGIN_HEADINGS</id>
+        <text>Gebruiker, TuneIn gebruikersnaam</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>TUNEIN_MISSING_LOGIN</id>
+        <text>Voer de gebruikersnaam in</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>TVID_RESET_DEFAULT</id>
@@ -6170,6 +6315,11 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
         <version>1.19</version>
       </string>
       <string>
+        <id>VIDEOBASH</id>
+        <text>VideoBash</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>VIDEOS</id>
         <text>Videos</text>
         <version>1.22</version>
@@ -6335,6 +6485,16 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
         <version>1.19</version>
       </string>
       <string>
+        <id>WEATHER_SUNRISE</id>
+        <text>Zonsopgang</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>WEATHER_SUNSET</id>
+        <text>Zonsondergang</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>WEATHER_UV</id>
         <text>UV index</text>
         <version>1.19</version>
@@ -6376,7 +6536,7 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
       </string>
       <string>
         <id>WGET_PATH_PROMPT</id>
-        <text>Voer het volledige pad in van Wget-programma. Normaal gesproken wordt dit automatisch correct gevonden, maar op sommige Linux systemen moet het het pad handmatig worden ingevoerd.</text>
+        <text>Voer het volledige pad in van Wget-programma. Op Windows systemen wordt dit automatisch gevonden, maar op sommige Linux systemen moet het het pad handmatig worden ingevoerd.</text>
         <version>1.23.1</version>
       </string>
       <string>
