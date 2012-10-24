@@ -29,7 +29,7 @@
 
   // Random fanart image
   $themes = db_toarray('select processed_image, show_banner, show_image from themes where media_type='.$media_type.' and title="'.db_escape_str($title_theme).'" and use_synopsis=1 and processed_image is not NULL');
-  $theme = $themes[mt_rand(0,count($themes)-1)];
+  $theme = (count($themes) > 0 ? $themes[mt_rand(0,count($themes)-1)] : '');
 
   if ( file_exists($theme['PROCESSED_IMAGE']) )
     $background = $theme['PROCESSED_IMAGE'];
