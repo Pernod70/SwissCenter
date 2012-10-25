@@ -48,6 +48,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>ALBUM_INFO</id>
+        <text>Album Info</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>ALBUM_REVIEW</id>
+        <text>Album Kritik</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>ALL_CATEGORIES</id>
         <text>Alle Kategorien</text>
         <version>1.22</version>
@@ -259,7 +269,7 @@
       </string>
       <string>
         <id>BROWSE_EDITORS_PICKS</id>
-        <text>Empfehlungen durchsuchen.</text>
+        <text>Empfehlungen durchsuchen</text>
         <version>1.23.1</version>
       </string>
       <string>
@@ -269,67 +279,67 @@
       </string>
       <string>
         <id>BROWSE_FREE_STATIONS</id>
-        <text>Freie Stationen durchsuchen.</text>
+        <text>Freie Stationen durchsuchen</text>
         <version>1.23.1</version>
       </string>
       <string>
         <id>BROWSE_GENRE</id>
-        <text>Genre Suche</text>
-        <version>1.22</version>
+        <text>Nach Genre</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>BROWSE_IPTC_BYLINE</id>
-        <text>Nach Autor anzeigen</text>
-        <version>1.19</version>
+        <text>Nach Autor</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>BROWSE_IPTC_CAPTION</id>
-        <text>Nach Beschreibung anzeigen</text>
-        <version>1.19</version>
+        <text>Nach Beschreibung</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>BROWSE_IPTC_CITY</id>
-        <text>Nach Stadt anzeigen</text>
-        <version>1.19</version>
+        <text>Nach Stadt</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>BROWSE_IPTC_COUNTRY</id>
-        <text>Nach Land anzeigen</text>
-        <version>1.19</version>
+        <text>Nach Land</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>BROWSE_IPTC_DATE_CREATED</id>
-        <text>Nach Entstehungsdatum anzeigen</text>
-        <version>1.19</version>
+        <text>Nach Entstehungsdatum</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>BROWSE_IPTC_KEYWORDS</id>
-        <text>Nach Schlüsselwörtern anzeigen</text>
-        <version>1.19</version>
+        <text>Nach Schlüsselwörtern</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>BROWSE_IPTC_LOCATION</id>
-        <text>Nach Speicherort anzeigen</text>
-        <version>1.19</version>
+        <text>Nach Speicherort</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>BROWSE_IPTC_PROVINCE_STATE</id>
-        <text>Nach Provinz/Staat anzeigen</text>
-        <version>1.19</version>
+        <text>Nach Provinz/Staat</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>BROWSE_IPTC_SUPPCATEGORY</id>
-        <text>Nach zusätzlichen Kategorien anzeigen</text>
-        <version>1.19</version>
+        <text>Nach zusätzlichen Kategorien</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>BROWSE_LOCAL</id>
-        <text>Lokale Stationen durchsuchen.</text>
+        <text>Lokale Stationen durchsuchen</text>
         <version>1.23.1</version>
       </string>
       <string>
         <id>BROWSE_MOOD</id>
-        <text>Stimmungen durchsuchen</text>
+        <text>Nach Stimmungen</text>
         <version>1.23.1</version>
       </string>
       <string>
@@ -364,7 +374,7 @@
       </string>
       <string>
         <id>BROWSE_PRESETS</id>
-        <text>Vorgaben durchsuchen.</text>
+        <text>Vorgaben durchsuchen</text>
         <version>1.23.1</version>
       </string>
       <string>
@@ -379,8 +389,8 @@
       </string>
       <string>
         <id>BROWSE_STUDIO</id>
-        <text>Studio Suche</text>
-        <version>1.22</version>
+        <text>Nach Studio</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>BROWSE_TEXT</id>
@@ -399,7 +409,7 @@
       </string>
       <string>
         <id>BROWSE_TOP_STATIONS</id>
-        <text>Top Stationen durchsuchen.</text>
+        <text>Top Stationen durchsuchen</text>
         <version>1.23.1</version>
       </string>
       <string>
@@ -419,8 +429,8 @@
       </string>
       <string>
         <id>BROWSE_XMP_RATING</id>
-        <text>Nach Bewertung anzeigen</text>
-        <version>1.19</version>
+        <text>Nach Bewertung</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>BROWSE_YEAR</id>
@@ -529,8 +539,8 @@
       </string>
       <string>
         <id>CATEGORY_PROMPT</id>
-        <text>Wenn Sie Kategorien angeben, können Sie Mediendateien leichter in logische Gruppen einteilen, beispielsweise &quot;Hörbücher&quot;, &quot;Sprachkurse&quot; oder &quot;Allgemein&quot;. Unter anderem haben Sie so die Möglichkeit, Ihre Lieblingsmusik in zufälliger Reihenfolge zu hören, ohne dass Kapitel eines Hörbuchs zur Playliste hinzugefügt werden.</text>
-        <version>1.19</version>
+        <text>Wenn Sie Kategorien angeben, können Sie Mediendateien leichter in logische Gruppen einteilen, beispielsweise &quot;Hörbücher&quot;, &quot;Sprachkurse&quot; oder &quot;Allgemein&quot;. Unter Anderem haben Sie so die Möglichkeit Ihre Lieblingsmusik in zufälliger Reihenfolge zu hören, ohne dass Kapitel eines Hörbuchs zur Playliste hinzugefügt werden.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>CAT_ADDED_OK</id>
@@ -564,8 +574,8 @@
       </string>
       <string>
         <id>CAT_DOWNLOAD_PROMPT</id>
-        <text>Dieses Feld legt fest, ob für Dateien in der gewählten Kategorie weitere Informationen aus dem Internet nachgeladen werden sollen, sofern verfügbar.</text>
-        <version>1.19</version>
+        <text>Dieses Feld legt fest, ob für Dateien in der gewählten Kategorie weitere Informationen aus dem Internet nachgeladen werden sollen, sofern diese verfügbar sind.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>CAT_ERROR_DELETE</id>
@@ -684,8 +694,8 @@
       </string>
       <string>
         <id>CONFIG_DB_ROOT_PW_TXT</id>
-        <text>Wenn Sie keinen Wert für das [em]root[/em]-Passwort während der Installation von MySQL angegeben haben, dann ist es wahrscheinlich leer, und Sie können das Feld leer lassen.[p][em]Bitte beachten Sie: Die Erstellung der Datenbank kann einige Minuten dauern - Bitte um Geduld![/em]</text>
-        <version>1.19</version>
+        <text>Wenn Sie keinen Wert für das [em]root[/em]-Passwort während der Installation von MySQL angegeben haben, dann ist es wahrscheinlich leer und Sie können das Feld leer lassen.[p][em]Bitte beachten Sie: Die Erstellung der Datenbank kann einige Minuten dauern - Bitte um Geduld![/em]</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>CONFIG_FLICKR</id>
@@ -704,7 +714,7 @@
       </string>
       <string>
         <id>CONFIG_LASTFM_CLEAR_OK</id>
-        <text>Login Details gelöscht.</text>
+        <text>Login Details gelöscht</text>
         <version>1.23.1</version>
       </string>
       <string>
@@ -855,8 +865,8 @@ Dieses Format wird von MySQL und Spezifikationssymbolen definiert. Diese sind:
       </string>
       <string>
         <id>DB_SQL_FAIL</id>
-        <text>SQL Befehl fehlgeschlagen.</text>
-        <version>1.19</version>
+        <text>SQL Befehl fehlgeschlagen</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>DB_SQL_SUCCESS</id>
@@ -939,6 +949,16 @@ Dieses Format wird von MySQL und Spezifikationssymbolen definiert. Diese sind:
         <version>1.19</version>
       </string>
       <string>
+        <id>DISCOGRAPHY</id>
+        <text>Inhaltsverzeichnis</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>DISCOVERED</id>
+        <text>Hinzugefügt</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>DOWNLOADED</id>
         <text>Bereits heruntergeladen</text>
         <version>1.22</version>
@@ -950,8 +970,8 @@ Dieses Format wird von MySQL und Spezifikationssymbolen definiert. Diese sind:
       </string>
       <string>
         <id>DROP_DATABASE</id>
-        <text>Warnung: Sie haben bereits eine SwissCenter Datenbank. [br]Wenn Sie fortfahren, gehen alle bisher gesammelten Informationen und Einstellungen verloren.</text>
-        <version>1.19</version>
+        <text>Warnung: Sie haben bereits eine SwissCenter Datenbank. [br]Wenn Sie fortfahren gehen alle bisher gesammelten Informationen und Einstellungen verloren.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>ENABLED</id>
@@ -1229,18 +1249,23 @@ Zusatzinformationen</text>
       </string>
       <string>
         <id>FAIL_ICECAST_TEST</id>
-        <text>IceCast Parser scheint defekt zu sein.</text>
-        <version>1.22</version>
+        <text>IceCast Parser scheint defekt zu sein</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>FAIL_IMAGEMAGICK_TEST</id>
+        <text>ImageMagick ist nicht installiert.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FAIL_LIVE365_TEST</id>
-        <text>Live365 Parser arbeitet nicht korrekt!</text>
-        <version>1.22</version>
+        <text>Live365 Parser scheint defekt zu sein</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FAIL_LIVERADIO_TEST</id>
-        <text>LiveRadio-Parser scheint defekt</text>
-        <version>1.19</version>
+        <text>LiveRadio-Parser scheint defekt zu sein</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FAIL_MIP_MIXABLE</id>
@@ -1254,12 +1279,12 @@ Zusatzinformationen</text>
       </string>
       <string>
         <id>FAIL_MYSQL_CHARSET</id>
-        <text>Der Standard Zeichensatz Ihres MySQL Servers ist nicht 'Latin1'. Dies führt zu Verschlüsselungs Prpblemen. Konfigurieren Sie dem MySQL Server erneut mit [i]character-set-server=latin1[/i], und erstellen Sie die Datenbank neu.</text>
+        <text>Der Standard Zeichensatz Ihres MySQL Servers ist nicht 'Latin1'. Dies führt zu Verschlüsselungsproblemen. Konfigurieren Sie den MySQL Server erneut mit [i]character-set-server=latin1[/i] und erstellen Sie die Datenbank neu.</text>
         <version>1.23.1</version>
       </string>
       <string>
         <id>FAIL_MYSQL_COLLATION</id>
-        <text>Der Standard Zeichensatz Ihres MySQL Servers ist nicht 'Latin1_Swedish_ci'. Dies führt zu Verschlüsselungs Prpblemen. Konfigurieren Sie dem MySQL Server erneut mit [i]collation-server=latin1_swedish_ci[/i], und erstellen Sie die Datenbank neu.</text>
+        <text>Der Standard Kollation Ihres MySQL Servers ist nicht 'Latin1_Swedish_ci'. Dies führt zu Verschlüsselungsproblemen. Konfigurieren Sie den MySQL Server erneut mit [i]collation-server=latin1_swedish_ci[/i] und erstellen Sie die Datenbank neu.</text>
         <version>1.23.1</version>
       </string>
       <string>
@@ -1269,18 +1294,18 @@ Zusatzinformationen</text>
       </string>
       <string>
         <id>FAIL_MYSQL_DB</id>
-        <text>Konnte keine Verbindung mit der SwissCener Datenbank herstellen. (Haben Sie eine angelegt?)</text>
-        <version>1.19</version>
+        <text>Konnte keine Verbindung mit der SwissCenter Datenbank herstellen. (Haben Sie eine angelegt?)</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FAIL_MYSQL_VERSION</id>
-        <text>Ihre MySQL-Version wird nicht unterstützt. Sie müssen mindestend Version 5.0 installiert haben.</text>
-        <version>1.22</version>
+        <text>Ihre MySQL-Version wird nicht unterstützt. Sie müssen mindestens Version 5.0 installiert haben.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FAIL_PHP_CLI</id>
-        <text>Sie haben keine Kommandozeilen-Version von PHP (php-cli) installiert. SwissCenter ist daher nicht in der Lage, nach neuen Medien-Dateien zu suchen.</text>
-        <version>1.19</version>
+        <text>Sie haben keine Kommandozeilen-Version von PHP (php-cli) installiert. SwissCenter ist daher nicht in der Lage nach neuen Medien-Dateien zu suchen.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FAIL_PHP_EXTRA_MODS</id>
@@ -1295,7 +1320,7 @@ Zusatzinformationen</text>
       <string>
         <id>FAIL_PHP_FONT_SET</id>
         <text>... Nur der Font scheint ungültig (oder nicht verfügbar) zu sein.</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FAIL_PHP_INI</id>
@@ -1304,8 +1329,8 @@ Zusatzinformationen</text>
       </string>
       <string>
         <id>FAIL_PHP_REQ_MODS</id>
-        <text>Es sind nicht alle PHP-Module verfügbar, die von SwissCenter benötigt werden. Benötigte Module sind: [b]%s[/b]).</text>
-        <version>1.19</version>
+        <text>Nicht alle von SwissCenter benötigten PHP-Module sind verfügbar (Benötigte Module: [b]%s[/b]).</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FAIL_PHP_VERSION</id>
@@ -1324,13 +1349,13 @@ Zusatzinformationen</text>
       </string>
       <string>
         <id>FAIL_SHOUTCAST_TEST</id>
-        <text>ShoutCast-Parser scheint defekt</text>
-        <version>1.19</version>
+        <text>ShoutCast-Parser scheint defekt zu sein</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FAIL_STEAMCAST_TEST</id>
-        <text>StreamCast Parser scheint defekt zu sein.</text>
-        <version>1.22</version>
+        <text>StreamCast Parser scheint defekt zu sein</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FAIL_SWISSMONITOR_INSTALLED</id>
@@ -1349,8 +1374,8 @@ Zusatzinformationen</text>
       </string>
       <string>
         <id>FAIL_SWISS_FILES</id>
-        <text>Die folgenden Installationsdateien fehlen, oder sind inkorrekt. Durch einen &quot;Klick&quot; können die Dateien heruntergeladen werden, danach an die korrekte Stelle kopieren. %s</text>
-        <version>1.22</version>
+        <text>Die folgenden Installationsdateien fehlen oder sind inkorrekt. Durch einen &quot;Klick&quot; können die Dateien heruntergeladen und danach an die korrekte Stelle kopieren werden. %s</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FAIL_SWISS_INI</id>
@@ -1371,6 +1396,11 @@ Zusatzinformationen</text>
         <id>FAIL_SWISS_PLAYLIST</id>
         <text>Schreiben in den SwissCenter Playlist-Ordner (%s) fehlgeschlagen.</text>
         <version>1.21.1</version>
+      </string>
+      <string>
+        <id>FAIL_TUNEIN_TEST</id>
+        <text>TuneIn Radio Parser scheint fehlerhaft zu sein</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FAIL_WGET_TEST</id>
@@ -1394,8 +1424,8 @@ Zusatzinformationen</text>
       </string>
       <string>
         <id>FILE_EXISTS</id>
-        <text>WARNUNG: Eine Datei mit demselben Namen existiert bereits! Wenn Sie jetzt speichern, überschreiben Sie diese Datei.</text>
-        <version>1.19</version>
+        <text>WARNUNG: Eine Datei mit diesem Namen existiert bereits. Wenn Sie jetzt speichern wird diese überschreiben.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FILM_TRAILERS</id>
@@ -1601,8 +1631,8 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>FONTWIDTH_MULTIPLIER_PROMPT</id>
-        <text>Hiermit lässt sich die maximale Anzahl der im SwissCenter-Menü darzustellenden Zeichen pro Zeile einstellen. Der Wert hängt vom gewählten Zeichensatz (Font) ab, und sollte zwischen [b]1.0[/b] (default) und [b]2.2[/b] liegen.</text>
-        <version>1.19</version>
+        <text>Hiermit lässt sich die maximale Anzahl der im SwissCenter-Menü darzustellenden Zeichen pro Zeile einstellen. Der Wert hängt vom gewählten Zeichensatz (Font) ab und sollte zwischen [b]1.0[/b] (default) und [b]2.2[/b] liegen.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FTV_GIRLS</id>
@@ -1668,6 +1698,31 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>IGNORE_EXTENSION_PROMPT</id>
         <text>Eine Erweiterung auswählen, die von SwissMonitor ignoriert wird.</text>
         <version>1.22</version>
+      </string>
+      <string>
+        <id>IMAGEMAGICK_CONFIG</id>
+        <text>ImageMagick</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>IMAGEMAGICK_DESC</id>
+        <text>ImageMagick (beziehbar von %s) wird genutzt, um die Geschwindigkeit bei der Bearbeitung von Bildern zu erhöhen. Es ist wesentlich schneller beim Drehen und Anpassen der Größe von Bildern als PHP, wodurch Seiten mit vielen Bildern schneller geladen werden.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>IMAGEMAGICK_PATH</id>
+        <text>ImageMagick Pfad</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>IMAGEMAGICK_PATH_NOT_FOUND</id>
+        <text>Bitte den vollständigen Dateipfad eingeben</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>IMAGEMAGICK_PATH_PROMPT</id>
+        <text>Bitte den vollstädigen Pfad des ImageMagick Installationsverzeichnisses angeben. Unter Windows wird dieser in der Regel erkannt aber bei Linux-Systemen muss er eingegeben werden.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>IMAGE_EXIF_ROTATE</id>
@@ -2160,6 +2215,16 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>IRADIO_TUNEIN</id>
+        <text>TuneIn Radio</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>IRADIO_TUNEIN_DESC</id>
+        <text>Online Radio hören, Musik- und Gesprächs-Streams mit TuneIn Radio finden. Der beste Führer durch alle Arten von Sendern: Konservativ, progressiv, öffentlich, Nachrichten, Sport, Religion, Jazz, Klassik, Rock, Country, geschäftlich, Latin, Hip-Hop, Pop, Erwachsenen Programm und mehr.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>IRADIO_TYPE</id>
         <text>Radio Typ</text>
         <version>1.22</version>
@@ -2257,7 +2322,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       <string>
         <id>LANG_DELETE_OK</id>
         <text>Der ausgewählte Text wurde gelöscht.</text>
-        <version>1.20</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>LANG_EDIT</id>
@@ -2272,7 +2337,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       <string>
         <id>LANG_ERROR_NO_SELECT</id>
         <text>Sie haben keinen Text zum Löschen ausgewählt.</text>
-        <version>1.20</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>LANG_ISO639</id>
@@ -2301,8 +2366,8 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>LANG_NEW_FAIL</id>
-        <text>Zum Hinzufügen einer neuen Sprache geben Sie bitte sowohl den Namen der Sprache in Landessprache als auch den ISO-Code ein.</text>
-        <version>1.21.1</version>
+        <text>Zum Hinzufügen einer neuen Sprache geben Sie bitte sowohl den Namen der Sprache in Landessprache als auch den ISO-Code ein</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>LANG_NEW_OK</id>
@@ -2476,7 +2541,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>LIVE365_LOGIN_HEADINGS</id>
-        <text>Benutzer, Live365 Benutzername, Live365 Passwort.</text>
+        <text>Benutzer, Live365 Benutzername, Live365 Passwort</text>
         <version>1.23.1</version>
       </string>
       <string>
@@ -2491,8 +2556,8 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>LOCATION_PROMPT</id>
-        <text>Bitte geben Sie den gesamten Pfad zum Ordner an, in dem sich die Mediendateien befinden. Z.B.: Unter Windows könnten diese Angaben so lauten: [em]&quot;C:\Dokumente und Einstellungen\Robert\Eigene Dateien\Eigene Musik&quot;[/em], auf einem Linux-Rechner beispielsweise [em]&quot;/home/Robert/Musik&quot;[/em]</text>
-        <version>1.19</version>
+        <text>Bitte geben Sie den gesamten Pfad zum Ordner an in dem sich die Mediendateien befinden. Z.B.: Unter Windows könnten diese Angaben so lauten: [em]&quot;C:\Dokumente und Einstellungen\Robert\Eigene Dateien\Eigene Musik&quot;[/em], auf einem Linux-Rechner beispielsweise [em]&quot;/home/Robert/Musik&quot;[/em].</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>LOGFILE_ERROR</id>
@@ -2501,7 +2566,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>LOGIN_INVALID</id>
-        <text>Falsche Benutzerangaben.</text>
+        <text>Falsche Benutzerangaben</text>
         <version>1.23.1</version>
       </string>
       <string>
@@ -2533,6 +2598,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>LOWERCASE</id>
         <text>Kleinbuchstaben</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>LYRICS</id>
+        <text>Songtexte</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>MACHINE_NAME</id>
@@ -2643,6 +2713,16 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>MEDIA_LOC_HEADINGS</id>
         <text>Typ, Kategorie, Zertifikat, Ordner, Netzwerkordner</text>
         <version>1.21.1</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_NO_SELECT</id>
+        <text>Es wurde kein zu löschendes Verzeichnis gewählt</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>MEDIA_LOC_SYMLINKS</id>
+        <text>Alle symbolischen Links neu erstellen</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>MEDIA_LOC_UPDATE_OK</id>
@@ -2871,13 +2951,13 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>MIP_RECIPES</id>
-        <text>Rezeptur</text>
-        <version>1.22</version>
+        <text>Rezepturen</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>MIP_RECIPES_INFO</id>
-        <text>Rezepturen sind Einstellungen von Grenzen und Regeln die angewandt werden, wenn ein Mix erstellt wird. Rezepturen werden in der receipes.xml im MusicIP Mixer Installationsordner definiert</text>
-        <version>1.22</version>
+        <text>Rezepturen sind Einstellungen von Grenzen und Regeln die angewandt werden, wenn ein Mix erstellt wird. Rezepturen werden in der receipes.xml im MusicIP Mixer Installationsordner definiert.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>MIP_REJECT</id>
@@ -3055,6 +3135,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.22</version>
       </string>
       <string>
+        <id>MOST_RELEVANT</id>
+        <text>Beste Entsprechung</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>MOST_VIEWED</id>
         <text>Meist Angesehene</text>
         <version>1.22</version>
@@ -3145,6 +3230,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>SVN1167</version>
       </string>
       <string>
+        <id>MUSIC_INFO</id>
+        <text>Musik Info</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>MUSIC_PLAY_NEXT</id>
         <text>Nächster Titel</text>
         <version>1.19</version>
@@ -3160,6 +3250,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>MUSIC_VIDEOS</id>
+        <text>Musik Video(s)</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>NAME</id>
         <text>Name</text>
         <version>1.19</version>
@@ -3171,13 +3266,13 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>NETWORK_SHARE_MSG</id>
-        <text>Es konnten keine Netzwerk-Verzeichnisse gefunden werden. Wenn Sie einen NMT Player verwenden, muss dieser eingeschaltet sein.</text>
-        <version>1.21.1</version>
+        <text>Es konnten keine Netzwerk-Verzeichnisse gefunden werden. Wenn Sie einen NMT Player verwenden muss dieser eingeschaltet sein.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>NETWORK_SHARE_PROMPT</id>
-        <text>Das Netzwerk-Verzeichnis wird nur für Medien vom Typ 'DVD Video' verwendet und für alle anderen Medientypen ignoriert. Um DVD Videos wiederzugeben, müssen Sie auf Ihrem Media-Player zunächst ein SMB oder NFS Netzwerk-Verzeichnis einrichten und und dieses mit dem hier angegebenen Speicherort verknüpfen</text>
-        <version>1.21.1</version>
+        <text>Das Netzwerk-Verzeichnis wird nur für Medien vom Typ 'DVD Video' verwendet und für alle anderen Medientypen ignoriert. Um DVD Videos wiederzugeben, müssen Sie auf Ihrem Media-Player zunächst ein SMB oder NFS Netzwerk-Verzeichnis einrichten und und dieses mit dem hier angegebenen Speicherort verknüpfen.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>NEW</id>
@@ -3276,8 +3371,8 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>NOW_PLAYING_OPTIONS</id>
-        <text>&quot;Now Plaing&quot;-Optionen</text>
-        <version>1.22</version>
+        <text>&quot;Aktueller Titel&quot;-Optionen</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>NOW_PLAYING_PROMPT</id>
@@ -3301,18 +3396,23 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>NO_ITEMS_TO_DISPLAY</id>
-        <text>Keine Einträge vorhanden</text>
-        <version>1.19</version>
+        <text>Keine Einträge vorhanden.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>NO_LYRICS_AVAILABLE</id>
+        <text>Keine Songtexte vorhanden.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>NO_PLAYLIST</id>
-        <text>Sie haben derzeit keine Playliste definiert</text>
-        <version>1.19</version>
+        <text>Sie haben derzeit keine Playliste definiert.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>NO_SYNOPSIS_AVAILABLE</id>
-        <text>Keine Inhaltsangabe vorhanden</text>
-        <version>1.19</version>
+        <text>Keine Inhaltsangabe vorhanden.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>NUMBER_OF_ALBUMS</id>
@@ -3490,6 +3590,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.22</version>
       </string>
       <string>
+        <id>PASS_IMAGEMAGICK_TEST</id>
+        <text>ImageMagick wurde installiert.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>PASS_LIVE365_TEST</id>
         <text>Live365 Parser funktioniert ordnungsgemäß</text>
         <version>1.22</version>
@@ -3516,7 +3621,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>PASS_MYSQL_COLLATION</id>
-        <text>MySQL Server benutzt den 'Latin1_Swedisch_ci' Zeichensatz.</text>
+        <text>MySQL Server benutzt die 'Latin1_Swedisch_ci' Kollation.</text>
         <version>1.23.1</version>
       </string>
       <string>
@@ -3635,6 +3740,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>PASS_TUNEIN_TEST</id>
+        <text>TuneIn Radio Parser funktioniert ordnungsgemäß</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>PASS_WGET_TEST</id>
         <text>Wget wurde gefunden.</text>
         <version>1.23.1</version>
@@ -3721,8 +3831,8 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>PHOTOS_MUSIC_CURRENT</id>
-        <text>Aktuelle Playlist</text>
-        <version>1.19</version>
+        <text>Aktuelle Playliste</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>PHOTOS_MUSIC_INFO</id>
@@ -3802,7 +3912,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       <string>
         <id>PHP_VERSION_TEXT</id>
         <text>Sie müssen mindestens Version 4.3.9 von PHP installiert haben.</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>PHP_VERSION_TITLE</id>
@@ -3817,7 +3927,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       <string>
         <id>PIN_CHANGED</id>
         <text>Ihre PIN wurde geändert.</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>PIN_CLEAR</id>
@@ -3891,8 +4001,8 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>PLAYER_CHIPSET</id>
-        <text>Chipset</text>
-        <version>1.22</version>
+        <text>Chipsatz</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>PLAYER_CONFIG</id>
@@ -3958,8 +4068,8 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
       </string>
       <string>
         <id>PLAYER_PAGE_CHARSET</id>
-        <text>Windows-1252</text>
-        <version>1.19</version>
+        <text>Spieler Zeichensatz</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>PLAYER_POD_NO_SYNC</id>
@@ -4187,9 +4297,29 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
         <version>1.21.1</version>
       </string>
       <string>
+        <id>PUBLISHER</id>
+        <text>Herausgeber</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>QUICK_HOME</id>
         <text>Schnelltaste Home</text>
         <version>1.20</version>
+      </string>
+      <string>
+        <id>QUICK_ICON_1</id>
+        <text>Schnelltaste Symbol 1</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>QUICK_ICON_2</id>
+        <text>Schnelltaste Symbol 2</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>QUICK_ICON_3</id>
+        <text>Schnelltaste Symbol 3</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>QUICK_KEY_A</id>
@@ -4363,8 +4493,8 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
       </string>
       <string>
         <id>REFINE_COMPOSER</id>
-        <text>Filtere nach Komponist</text>
-        <version>1.22</version>
+        <text>Nach Komponist einschränken</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>REFINE_DIRECTOR</id>
@@ -4423,7 +4553,7 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
       </string>
       <string>
         <id>REFINE_MOOD</id>
-        <text>Stimmung verfeinern</text>
+        <text>Nach Stimmung einschränken</text>
         <version>1.23.1</version>
       </string>
       <string>
@@ -4435,6 +4565,11 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
         <id>REFINE_PHOTO_TITLE</id>
         <text>Nach Titel einschränken</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>REFINE_RATING</id>
+        <text>Nach Bewertung einschränken</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>REFINE_TITLE</id>
@@ -4604,12 +4739,12 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
       <string>
         <id>RSS_DEL_OK</id>
         <text>Die ausgewählten RSS-Feeds wurden gelöscht.</text>
-        <version>1.20</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>RSS_ERROR_CACHE</id>
         <text>Bitte geben Sie die Anzahl der RSS-Einträge an, die für diesen Feed zwischengespeichert werden sollen.</text>
-        <version>1.20</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>RSS_ERROR_TITLE</id>
@@ -4618,13 +4753,13 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
       </string>
       <string>
         <id>RSS_ERROR_TYPE</id>
-        <text>Bitte geben Sie die Art des RSS-Feeds an!</text>
-        <version>1.20</version>
+        <text>Bitte geben Sie die Art des RSS-Feeds an</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>RSS_ERROR_URL</id>
-        <text>Bitte geben Sie die URL für den RSS-Feed an!</text>
-        <version>1.20</version>
+        <text>Bitte geben Sie die URL für den RSS-Feed an</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>RSS_FEEDS</id>
@@ -4804,8 +4939,8 @@ speichern</text>
       </string>
       <string>
         <id>SCHEDULE_MONTH_PROMPT</id>
-        <text>1 = Januar, 2 = Februar, etc .</text>
-        <version>1.19</version>
+        <text>1 = Januar, 2 = Februar, etc</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>SCHEDULE_NONE</id>
@@ -5033,6 +5168,11 @@ speichern</text>
         <version>1.19</version>
       </string>
       <string>
+        <id>SORT</id>
+        <text>Sortieren</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>SORT_BITRATE</id>
         <text>Nach Bitrate</text>
         <version>1.22</version>
@@ -5150,7 +5290,7 @@ speichern</text>
       <string>
         <id>STYLE_NONE_AVAILABLE</id>
         <text>Es sind keine Stile verfügbar.</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>STYLE_SHOW_INSTALLED</id>
@@ -5274,8 +5414,8 @@ speichern</text>
       </string>
       <string>
         <id>SWISSMONITOR_INI_NOT_EXIST</id>
-        <text>Der angegebene Dateipfad der swisscenter.ini existiert nicht!</text>
-        <version>1.22</version>
+        <text>Der angegebene Dateipfad der swisscenter.ini existiert nicht</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>SWISSMONITOR_INI_PROMPT</id>
@@ -5326,6 +5466,11 @@ speichern</text>
         <id>TABLE_DEFINITION</id>
         <text>Definition der Tabelle: %s</text>
         <version>1.22</version>
+      </string>
+      <string>
+        <id>TADB_NO_DETAILS</id>
+        <text>Es gibt derzeit keine Details für diesen Interpreten/Album/Track. Bitte ergänzen Sie die fehlenden Details bei einem Besuch der TheAudioDB.com Community.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>TAG</id>
@@ -5380,7 +5525,7 @@ speichern</text>
       <string>
         <id>THEME_APPLY_OK</id>
         <text>Thema erfolgreich gespeichert.</text>
-        <version>1.22</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>THEME_EFFECTS</id>
@@ -5524,8 +5669,8 @@ speichern</text>
       </string>
       <string>
         <id>TOMA_MEDIA_TYPES_PROMPT</id>
-        <text>Wählen Sie die Medientypen, die für die Kanalanzeige berücksichtigt werden sollen. Es sollten nur Medientypen gewählt werden, die Ihr Player unterstützt</text>
-        <version>1.22</version>
+        <text>Wählen Sie die Medientypen, die für die Kanalanzeige berücksichtigt werden sollen. Es sollten nur Medientypen gewählt werden, die Ihr Player unterstützt.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>TOMA_REMOVE_FILTER</id>
@@ -5633,6 +5778,11 @@ speichern</text>
         <version>1.19</version>
       </string>
       <string>
+        <id>TRACK_INFO</id>
+        <text>Track Info</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>TRACK_LENGTH</id>
         <text>Länge</text>
         <version>1.19</version>
@@ -5649,8 +5799,8 @@ speichern</text>
       </string>
       <string>
         <id>TRAILER_LOCATION</id>
-        <text>&quot;Tralier&quot; Adresse</text>
-        <version>1.22</version>
+        <text>Trailer Adresse</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>TRAILER_SIZE</id>
@@ -5716,6 +5866,16 @@ speichern</text>
         <id>TTF_FONT_PROMPT</id>
         <text>Dieser Font wird für die Anzeige von Track-Informationen während der &quot;Musik-Wiedergabe&quot; benutzt, sofern der Player das unterstützt (und es in der Konfiguration aktiviert wurde). Mögliche Werte sind: Ein Font-Name (z.B. 'Arial'), der Name einer Font-Datei inkl. des kompletten Pfades. Ein leeres Feld aktiviert die automatische Erkennung.</text>
         <version>1.22</version>
+      </string>
+      <string>
+        <id>TUNEIN_LOGIN_HEADINGS</id>
+        <text>Benutzer, TuneIn Benutzername</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>TUNEIN_MISSING_LOGIN</id>
+        <text>Bitte den Benutzernamen eingeben</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>TVID_RESET_DEFAULT</id>
@@ -5854,8 +6014,8 @@ speichern</text>
       </string>
       <string>
         <id>UPDATE_FAILED</id>
-        <text>Aktualisierung fehlgeschlagen - bitte versuchen Sie es später wieder.</text>
-        <version>1.19</version>
+        <text>Aktualisierung fehlgeschlagen - bitte versuchen Sie es später wieder</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>UPDATE_NONE</id>
@@ -5939,8 +6099,8 @@ speichern</text>
       </string>
       <string>
         <id>URL_DEL_OK</id>
-        <text>Die ausgewählten URLs wurden gelöscht.</text>
-        <version>1.21.1</version>
+        <text>Die ausgewählten URLs wurden gelöscht</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>URL_ERROR_CAT</id>
@@ -5954,18 +6114,18 @@ speichern</text>
       </string>
       <string>
         <id>URL_ERROR_TITLE</id>
-        <text>Bitte eine Bezeichnung für die URL angeben.</text>
-        <version>1.21.1</version>
+        <text>Bitte eine Bezeichnung für die URL angeben</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>URL_ERROR_TYPE</id>
-        <text>Bitte den Typ der URL auswählen.</text>
-        <version>1.21.1</version>
+        <text>Bitte den Typ der URL auswählen</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>URL_ERROR_URL</id>
-        <text>Bitte eine URL angeben!</text>
-        <version>1.21.1</version>
+        <text>Bitte eine URL angeben</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>URL_TITLE</id>
@@ -6014,8 +6174,8 @@ speichern</text>
       </string>
       <string>
         <id>USERS_ADMIN_PROMPT</id>
-        <text>Ein Administrator hat Zugriff auf mehr Optionen innerhalb des Mediaplayers. Dazu zählt z.b. die Berechtigung Medien zu löschen.</text>
-        <version>1.19</version>
+        <text>Ein Administrator hat Zugriff auf mehr Optionen innerhalb des Mediaplayers. Dazu zählt z.B. die Berechtigung Medien zu löschen.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>USERS_CONFIG_TITLE</id>
@@ -6080,7 +6240,7 @@ speichern</text>
       <string>
         <id>USERS_PIN_PROMPT</id>
         <text>Sie können den Benutzer optional mit einem PIN-Code schützen (der bis zu 10 Ziffern lang sein darf).</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>USERS_TABLE_HEADINGS</id>
@@ -6118,6 +6278,11 @@ speichern</text>
         <version>1.19</version>
       </string>
       <string>
+        <id>VIDEOBASH</id>
+        <text>VideoBash</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>VIDEOS</id>
         <text>Filme</text>
         <version>1.22</version>
@@ -6134,17 +6299,17 @@ speichern</text>
       </string>
       <string>
         <id>VIEWED_BY</id>
-        <text>Betrachtet von</text>
-        <version>1.19</version>
+        <text>Gesehen von</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>VIEWED_RESET</id>
-        <text>Auf 'Schon gesehen' - zurücksetzen</text>
+        <text>Status &quot;Gesehen&quot; entfernen</text>
         <version>1.23.1</version>
       </string>
       <string>
         <id>VIEWED_SET</id>
-        <text>Auf 'Schon gesehen' - setzten</text>
+        <text>Status &quot;Gesehen&quot; setzten</text>
         <version>1.23.1</version>
       </string>
       <string>
@@ -6276,6 +6441,16 @@ speichern</text>
         <id>WEATHER_SELECT_CITY</id>
         <text>Stadt auswählen:</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>WEATHER_SUNRISE</id>
+        <text>Sonnenaufgang</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>WEATHER_SUNSET</id>
+        <text>Sonnenuntergang</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>WEATHER_UV</id>
