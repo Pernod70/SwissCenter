@@ -145,8 +145,10 @@ function check_display()
   $php = $core_tests->add_section("PHP : v".phpversion(),2);
 
   $core_tests->add_test( $php, check_php_version(), str("PASS_PHP_VERSION"), str("FAIL_PHP_VERSION",phpversion()) );
-  $core_tests->add_test( $php, check_php_required_modules(), str("PASS_PHP_REQ_MODS"), str("FAIL_PHP_REQ_MODS", implode(', ',check_php_required_modules())) );
-  $core_tests->add_test( $php, check_php_suggested_modules(), str("PASS_PHP_EXTRA_MODS"), str("FAIL_PHP_EXTRA_MODS", implode(', ',check_php_suggested_modules())) );
+  $mod_required = check_php_required_modules();
+  $core_tests->add_test( $php, $mod_required, str("PASS_PHP_REQ_MODS"), str("FAIL_PHP_REQ_MODS", implode(', ',is_array($mod_required) ? $mod_required : array())) );
+  $mod_suggested = check_php_suggested_modules();
+  $core_tests->add_test( $php, $mod_suggested, str("PASS_PHP_EXTRA_MODS"), str("FAIL_PHP_EXTRA_MODS", implode(', ',is_array($mod_suggested) ? $mod_suggested : array())) );
   $core_tests->add_test( $php, check_php_ttf(), str("PASS_PHP_FONTS"), str("FAIL_PHP_FONTS") );
 
   # ----------------------
