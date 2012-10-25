@@ -268,7 +268,7 @@
     if ($tracks[$idx]["LENGTH"] > 0)
       $headers[] = "TimeSeekRange.dlna.org: npt=0-/".$tracks[$idx]["LENGTH"];
 
-    $headers[] = "Content-Type: ".mime_content_type($tracks[$idx]["FILENAME"]);
+    $headers[] = "Content-Type: ".mime_content_type($location);
  //   $headers[] = 'ETag: "'.file_etag($location).'"';
     $headers[] = "Last-Modified: ".gmdate('D, d M Y H:i:s',filemtime($location))." GMT";
     $headers[] = "Date: ".gmdate('d M Y H:i:s').' GMT';
