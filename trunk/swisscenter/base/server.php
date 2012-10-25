@@ -35,7 +35,7 @@
         phpinfo(8);
         $info = ob_get_contents();
         ob_end_clean();
-        $_SESSION["Synology"] = !(stristr($info, 'synology') === false);
+        $_SESSION["Synology"] = !(stristr($info, '/syno/') === false);
       }
       else
       {
