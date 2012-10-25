@@ -266,7 +266,7 @@ function svn_update( $path = SVN_PATH )
   send_to_log(4,"Replacing existing files with those downloaded");
   foreach ($updates_list as $action)
   {
-    unlink($action["existing"]);
+    if (file_exists($action["existing"])) unlink($action["existing"]);
     rename($action["downloaded"],$action["existing"]);
     send_to_log(4,"'".$action["existing"]."' updated");
   }
