@@ -212,6 +212,17 @@ function musicip_tempplaylist_name()
   return get_sys_pref('cache_dir', SC_LOCATION).'/MusicIP_TempPlaylist_'.$_SESSION["device"]["ip_address"].'.m3u';
 }
 
+function musicip_genres()
+{
+  $page = @file_get_contents(musicip_address().'api/genres');
+  send_to_log(6,'MusicIP genres :', $page);
+  if ( !empty($page) )
+    $genres = explode( "\n", $page );
+  else
+    $genres = array();
+  return $genres;
+}
+
 function musicip_moods()
 {
   $page = @file_get_contents(musicip_address().'api/moods');
