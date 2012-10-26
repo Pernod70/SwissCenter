@@ -1397,7 +1397,7 @@ function process_media_file( $dir, $file, $id, $share, $table, $file_exts, $upda
 function process_media_directory( $dir, $id, $share, $table, $file_exts, $recurse = true, $update = false)
 {
   // Directories to ignore (lowercase only - case insensitive match).
-  $dirs_to_ignore  = explode(',',strtolower(get_sys_pref('IGNORE_DIR_LIST')).',.,..');
+  $dirs_to_ignore  = explode(',',strtolower(get_sys_pref('IGNORE_DIR_LIST','')).',@eaDir,.,..');
 
   // Mark all the files in this directory as unverified
   db_sqlcommand("update $table set verified ='N' where dirname like'".db_escape_str($dir)."%'");
