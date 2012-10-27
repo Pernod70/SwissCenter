@@ -1657,6 +1657,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>IGNORE_EXTENSION_UPDATE_OK</id>
+        <text>Extension updated. The service must be restarted for changes to take effect.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>IMAGEMAGICK_CONFIG</id>
         <text>ImageMagick</text>
         <version>1.23</version>
@@ -2854,6 +2859,11 @@
         <id>MIP_DESC</id>
         <text>MusicIP (available free from %s) is a great piece of software which analyses your music collection and generates an &quot;acoustic fingerprint&quot; of each song. This information is then used to generate a personal playlist of similar tracks based on a selected track, artist or album. [p]If MusicIP is installed on the same machine as SwissCenter, then extra features become available to generate and listen to MusicIP playlists directly from within the SwissCenter interface.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>MIP_GENRES</id>
+        <text>Genres</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>MIP_INVALID_PORT</id>

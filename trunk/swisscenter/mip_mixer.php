@@ -15,6 +15,7 @@
   $mood     = isset($_REQUEST["mood"]) ? $_REQUEST["mood"] : '';
   $playlist = isset($_REQUEST["playlist"]) ? $_REQUEST["playlist"] : '';
   $recipe   = isset($_REQUEST["recipe"]) ? $_REQUEST["recipe"] : '';
+  $genre    = isset($_REQUEST["genre"]) ? $_REQUEST["genre"] : '';
 
   $menu       = new menu();
   $info       = new infotab();
@@ -33,12 +34,14 @@
   if ( !empty($mood) )     $params = array_merge($params, array( 'mood'     => urlencode($mood) ));
   if ( !empty($playlist) ) $params = array_merge($params, array( 'playlist' => urlencode($playlist) ));
   if ( !empty($recipe) )   $params = array_merge($params, array( 'recipe'   => urlencode($recipe) ));
+  if ( !empty($genre) )    $params = array_merge($params, array( 'genre'    => urlencode($genre) ));
 
   // Build menu of options
   $menu->add_item(str('MIP_MIX_SONG'), musicip_mix_link( $sql_table, $predicate, $params) );
   $menu->add_item(str('MIP_MOODS').(empty($mood) ? '' : ': '.$mood), 'mip_moods.php' );
   $menu->add_item(str('MIP_PLAYLISTS').(empty($playlist) ? '' : ': '.$playlist), 'mip_playlists.php' );
   $menu->add_item(str('MIP_RECIPES').(empty($recipe) ? '' : ': '.$recipe), 'mip_recipes.php' );
+  $menu->add_item(str('MIP_GENRES').(empty($genre) ? '' : ': '.$genre), 'mip_genres.php' );
 
   //*************************************************************************************************
   // Display the page
