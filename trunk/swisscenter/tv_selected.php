@@ -63,7 +63,7 @@
   {
     // Random banner image
     $banner_imgs = dir_to_array($episodes[0]['DIRNAME'].'banners/','banner_*.*');
-    $banner_img = $banner_imgs[mt_rand(0,count($banner_imgs)-1)];
+    $banner_img = (count($banner_imgs) > 0 ? $banner_imgs[mt_rand(0,count($banner_imgs)-1)] : '');
   }
 
   // Set series image
@@ -73,7 +73,7 @@
   {
     // Random series image
     $series_imgs = dir_to_array($episodes[0]['DIRNAME'].'banners/','series'.sprintf("%02d", $current_series).'_*.*');
-    $series_img = $series_imgs[mt_rand(0,count($series_imgs)-1)];
+    $series_img = (count($series_imgs) > 0 ? $series_imgs[mt_rand(0,count($series_imgs)-1)] : '');
   }
 
   // Set background image

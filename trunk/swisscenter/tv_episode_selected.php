@@ -144,7 +144,7 @@
   {
     // Random banner image
     $banner_imgs = dir_to_array($data['DIRNAME'].'banners/','banner_*.*');
-    $banner_img = $banner_imgs[mt_rand(0,count($banner_imgs)-1)];
+    $banner_img = (count($banner_imgs) > 0 ? $banner_imgs[mt_rand(0,count($banner_imgs)-1)] : '');
   }
 
   // Set episode and certificate image
