@@ -86,7 +86,7 @@ class wwwIMDBcom extends Parser implements ParserInterface {
         // Search results for a match
         send_to_log(8, "Multiple IMDb matches...");
 
-        if ((preg_match("/\((\d{4})\)/", $details["TITLE"], $title_year) != 0) || (preg_match("/\((\d{4})\)/", $temp_title, $title_year) != 0)) {
+        if ((preg_match('/\((\d{4})\)/', $details["TITLE"], $title_year) != 0) || (preg_match('/\((\d{4})\)/', $temp_title, $title_year) != 0)) {
           send_to_log(8, "Found year in the title: " . $title_year[0]);
           $html = preg_replace('/<\/a>\s+\((\d{4}).*\)/Ui', ' ($1)</a>', $html);
         }
@@ -204,7 +204,7 @@ class wwwIMDBcom extends Parser implements ParserInterface {
     else
       $end = (strpos($html, "<small>", $start + 1) !== false ? strpos($html, "<small>", $start + 1) : strpos($html, "</table>", $start + 1));
     $html_actors = substr($html, $start, $end - $start);
-    $matches = get_urls_from_html($html_actors, "\/name\/nm\d+\/");
+    $matches = get_urls_from_html($html_actors, '\/name\/nm\d+\/');
     for ($i = 0; $i < count($matches[2]); $i++) {
       if (strlen($matches[2][$i]) == 0) {
         array_splice($matches[2], $i, 1);
@@ -249,7 +249,7 @@ class wwwIMDBcom extends Parser implements ParserInterface {
       $end = strpos($html,"</div>", $start + 1);
       if ($end !== false) {
         $html_directed = substr($html, $start, $end - $start);
-        $matches = get_urls_from_html($html_directed, "\/name\/nm\d+\/");
+        $matches = get_urls_from_html($html_directed, '\/name\/nm\d+\/');
         if (isset($matches[2])&& !empty($matches[2])) {
           $this->setProperty(DIRECTORS, $matches[2]);
           return $matches[2];
@@ -264,7 +264,7 @@ class wwwIMDBcom extends Parser implements ParserInterface {
       $end = strpos($html,"</div>", $start + 1);
       if ($end !== false) {
         $html_genres = substr($html,$start,$end-$start);
-        $matches = get_urls_from_html($html_genres,"\/Sections\/Genres\/");
+        $matches = get_urls_from_html($html_genres,'\/Sections\/Genres\/');
         if (isset($matches[2]) && !empty($matches[2])) {
           $this->setProperty(GENRES, $matches[2]);
           return $matches[2];
@@ -279,7 +279,7 @@ class wwwIMDBcom extends Parser implements ParserInterface {
       $end = strpos($html,"</div>", $start + 1);
       if ($end !== false) {
         $html_langs = str_replace("\n","",substr($html,$start,$end-$start));
-        $matches = get_urls_from_html($html_langs,"\/language\/");
+        $matches = get_urls_from_html($html_langs,'\/language\/');
         $new_languages = $matches[2];
         if (isset($new_languages) && !empty($new_languages)) {
           $this->setProperty(LANGUAGES, $new_languages);
@@ -290,7 +290,7 @@ class wwwIMDBcom extends Parser implements ParserInterface {
   }
   protected function parseExternalRatingPc() {
     $html = $this->page;
-    $user_rating = preg_get("/<div.*class=\"starbar-meta\">.*<b>(.*)\/10<\/b>/Usm", $html);
+    $user_rating = preg_get('/<div.*class=\"starbar-meta\">.*<b>(.*)\/10<\/b>/Usm', $html);
     if (!empty ($user_rating)) {
       $user_rating = intval($user_rating * 10);
       $this->setProperty(EXTERNAL_RATING_PC, $user_rating);
@@ -301,6 +301,7 @@ class wwwIMDBcom extends Parser implements ParserInterface {
     $html = $this->page;
     $certlist = array ();
     foreach (explode('|', substr_between_strings($html, $this->match_certificate.':', '</div>')) as $cert) {
+      $cert = preg_replace('/\(.*\)/U', '', $cert);
       $country = trim(substr($cert, 0, strpos($cert, ':')));
       $certificate = trim(substr($cert, strpos($cert, ':') + 1)) . ' ';
       $certlist[$country] = substr($certificate, 0, strpos($certificate, ' '));

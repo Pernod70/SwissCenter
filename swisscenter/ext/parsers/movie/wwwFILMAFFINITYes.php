@@ -132,7 +132,8 @@ class wwwFILMAFFINITYes extends Parser implements ParserInterface {
   }
   protected function parseYear() {
     $html = $this->page;
-    $year = substr_between_strings($html,'<b>AÑO</b></td>','</td>');
+    $year = substr_between_strings($html,'<title>','</title>');
+    $year = preg_get('/\((\d{4})\)/', $year);
     if (isset($year) && !empty($year)) {
       $this->setProperty(YEAR, $year);
       return $year;
