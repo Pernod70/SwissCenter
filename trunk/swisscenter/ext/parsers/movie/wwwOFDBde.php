@@ -224,9 +224,9 @@ class wwwOFDBde extends Parser implements ParserInterface {
       $end = strpos($html, "&nbsp;", $start + 1);
       if ($end !== false) {
         $matches = array();
-        if (preg_match("/(\d+\.\d+)/", substr($html,$start,$end-$start), $matches) != 0)
+        if (preg_match('/(\d+\.\d+)/', substr($html,$start,$end-$start), $matches) != 0)
           $extrating = intval($matches[1]*10);
-        elseif (preg_match("/(\d+)/", substr($html,$start,$end-$start), $matches) != 0)
+        elseif (preg_match('/(\d+)/', substr($html,$start,$end-$start), $matches) != 0)
           $extrating = intval($matches[1]*10);
         else
           $extrating = 0;

@@ -227,7 +227,7 @@ class wwwMOVIEMETERnl extends Parser implements ParserInterface {
         return $resp->value();
       }
     }
-    elseif (preg_match("/\[(tt\d+)\]/", $title, $imdbtt) != 0)
+    elseif (preg_match('/\[(tt\d+)\]/', $title, $imdbtt) != 0)
     {
       // Film title includes an explicit IMDb title such as '[tt0076759]', use that to find the movie
       $message = new xmlrpcmsg("film.retrieveByImdb", array(new xmlrpcval($this->session_key, "string"), new xmlrpcval($imdbtt[1], "string")));
