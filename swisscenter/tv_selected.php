@@ -115,7 +115,7 @@
     $viewed_count += viewings_count( MEDIA_TYPE_TV, $ep["FILE_ID"] );
     $viewed = viewed_icon(viewings_count( MEDIA_TYPE_TV, $ep["FILE_ID"]));
     $episode_info = (empty($ep["EPISODE"]) && empty($ep["SERIES"])) ? '' : $ep["SERIES"].'x'.$ep["EPISODE"];
-    $menu->add_info_item( $ep[TITLE], $episode_info, url_add_params('/tv_episode_selected.php', array("file_id"=>$ep["FILE_ID"],"cat"=>$_REQUEST["cat"],"view_status"=>$view_status)), false, $viewed);
+    $menu->add_info_item( empty($ep["TITLE"]) ? '?' : $ep["TITLE"], $episode_info, url_add_params('/tv_episode_selected.php', array("file_id"=>$ep["FILE_ID"],"cat"=>$_REQUEST["cat"],"view_status"=>$view_status)), false, $viewed);
   }
 
   if ($menu->num_items() > 0)
@@ -125,7 +125,7 @@
       // Column 1: Image
       echo '<table width="100%" cellpadding="0" cellspacing="0" border="0">
               <tr>
-                <td valign="top">
+                <td width="'.convert_x(280).'" valign="top">
                   <table '.($theme['SHOW_IMAGE'] ? style_background('PAGE_TEXT_BACKGROUND') : '').' cellpadding="10" cellspacing="0" border="0">
                     <tr valign="top">
                       <td>'.img_gen($series_img,280,550,false,false,false,array(),false).'</td>
