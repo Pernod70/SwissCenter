@@ -43,10 +43,6 @@ class wwwIMDBes extends wwwIMDBcom implements ParserInterface {
     return "www.IMDb.es";
   }
 
-  protected function getSearchPageHTML() {
-    return "<title>Búsqueda de Títulos de IMDb</title>";
-  }
-
   protected function getNoMatchFoundHTML() {
     return "No hay resultados.";
   }

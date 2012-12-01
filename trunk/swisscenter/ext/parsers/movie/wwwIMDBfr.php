@@ -43,10 +43,6 @@ class wwwIMDBfr extends wwwIMDBcom implements ParserInterface {
     return "www.IMDb.fr";
   }
 
-  protected function getSearchPageHTML() {
-    return "<title>rechercher IMDb par titre</title>";
-  }
-
   protected function getNoMatchFoundHTML() {
     return "Pas de résultats.";
   }
