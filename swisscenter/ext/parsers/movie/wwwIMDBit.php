@@ -43,10 +43,6 @@ class wwwIMDBit extends wwwIMDBcom implements ParserInterface {
     return "www.IMDb.it";
   }
 
-  protected function getSearchPageHTML() {
-    return "<title>IMDb Ricerca Titolo</title>";
-  }
-
   protected function getNoMatchFoundHTML() {
     return "Nessun risultato.";
   }

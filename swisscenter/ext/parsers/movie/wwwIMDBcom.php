@@ -97,18 +97,19 @@ class wwwIMDBcom extends Parser implements ParserInterface {
         // If we are sure that we found a good result, then get the file details.
         if ($this->accuracy > 75) {
           $url_imdb = add_site_to_url($matches[1][$index], $this->site_url);
-          $url_imdb = substr($url_imdb, 0, strpos($url_imdb, "?fr=") - 1);
+          $url_imdb = substr($url_imdb, 0, strpos($url_imdb, "?") - 1);
+          send_to_log(8, 'Using IMDb ID: '.$url_imdb);
         }
       } else {
         // Direct hit on the title
         $url_imdb = $this->site_url . "title/" . $this->findIMDBTTInPage($html);
-        send_to_log(8, "Direct IMDb hit...");
+        send_to_log(8, 'Direct IMDb hit: '.$url_imdb);
         $this->accuracy = 100;
       }
     } else {
       // Use IMDb ID to get movie page
       $url_imdb = $this->site_url . 'title/' . $imdbtt;
-      send_to_log(8, "Using IMDb ID: " . $imdbtt);
+      send_to_log(8, 'Using IMDb ID: '.$url_imdb);
       $this->accuracy = 100;
     }
 
@@ -125,7 +126,7 @@ class wwwIMDBcom extends Parser implements ParserInterface {
     return false;
   }
   protected function getSearchPageHTML(){
-    return "<title>IMDb Title Search</title>";
+    return "<title>Find - IMDb</title>";
   }
   protected function getNoMatchFoundHTML(){
     return "No Matches.";
@@ -194,7 +195,7 @@ class wwwIMDBcom extends Parser implements ParserInterface {
     }
   }
   protected function findIMDBTTInPage($html) {
-    return preg_get('~/title/(tt\d+)/fullcredits~U', $html);
+    return preg_get('~;id=(tt\d+);~U', $html);
   }
   protected function parseActors() {
     $html = $this->page;
