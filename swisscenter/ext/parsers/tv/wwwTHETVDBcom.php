@@ -87,7 +87,12 @@ class wwwTHETVDBcom extends Parser implements ParserInterface {
 
     // Ensure local cache folders exist
     $cache_dir = get_sys_pref('cache_dir').'/tvdb';
-    if (!file_exists($cache_dir)) { @mkdir($cache_dir); }
+    if (!file_exists($cache_dir))
+    {
+      $oldumask = umask(0);
+      @mkdir($cache_dir,0777);
+      umask($oldumask);
+    }
 
     // Get mirror for xml and banners
     $this->get_mirrors();
@@ -215,7 +220,7 @@ class wwwTHETVDBcom extends Parser implements ParserInterface {
   }
   protected function parseProgramme() {
     $tvdb = $this->page;
-    $programme = utf8_decode($tvdb['SERIES']['SERIESNAME']['VALUE']);
+    $programme = $tvdb['SERIES']['SERIESNAME']['VALUE'];
     if (isset($programme) && !empty($programme)) {
       $this->setProperty(PROGRAMME, $programme);
       return $programme;
@@ -239,7 +244,7 @@ class wwwTHETVDBcom extends Parser implements ParserInterface {
   }
   protected function parseTitle() {
     $tvdb = $this->page;
-    $title = utf8_decode($tvdb['EPISODE']['EPISODENAME']['VALUE']);
+    $title = $tvdb['EPISODE']['EPISODENAME']['VALUE'];
     if (isset($title)&& !empty($title)) {
       $this->setProperty(TITLE, $title);
       return $title;
@@ -247,7 +252,7 @@ class wwwTHETVDBcom extends Parser implements ParserInterface {
   }
   protected function parseSynopsis() {
     $tvdb = $this->page;
-    $synopsis = utf8_decode($tvdb['EPISODE']['OVERVIEW']['VALUE']);
+    $synopsis = $tvdb['EPISODE']['OVERVIEW']['VALUE'];
     if (isset($synopsis) && !empty($synopsis)) {
       $this->setProperty(SYNOPSIS, $synopsis);
       return $synopsis;
@@ -255,8 +260,8 @@ class wwwTHETVDBcom extends Parser implements ParserInterface {
   }
   protected function parseActors() {
     $tvdb = $this->page;
-    $actors = array_merge(explode('|', $this->clean_name_list(utf8_decode($tvdb['SERIES']['ACTORS']['VALUE']))),
-                          explode('|', $this->clean_name_list(utf8_decode($tvdb['EPISODE']['GUESTSTARS']['VALUE']))));
+    $actors = array_merge(explode('|', $this->clean_name_list($tvdb['SERIES']['ACTORS']['VALUE'])),
+                          explode('|', $this->clean_name_list($tvdb['EPISODE']['GUESTSTARS']['VALUE'])));
     if (isset($actors)&& !empty($actors)) {
       $this->setProperty(ACTORS, $actors);
       return $actors;
@@ -269,7 +274,7 @@ class wwwTHETVDBcom extends Parser implements ParserInterface {
       // Add mirror path to images
       foreach ($actors as $id=>$actor) {
         foreach ($actor as $key=>$data)
-          $actors[$id][$key] = isset($data['VALUE']) ? utf8_decode($data['VALUE']) : '';
+          $actors[$id][$key] = isset($data['VALUE']) ? $data['VALUE'] : '';
         if ( isset($actor['IMAGE']) )
           $actors[$id]['IMAGE'] = $this->bannermirror.'/banners/'.$actor['IMAGE']['VALUE'];
       }
@@ -279,7 +284,7 @@ class wwwTHETVDBcom extends Parser implements ParserInterface {
   }
   protected function parseDirectors() {
     $tvdb = $this->page;
-    $directors = explode('|', $this->clean_name_list(utf8_decode($tvdb['EPISODE']['DIRECTOR']['VALUE'])));
+    $directors = explode('|', $this->clean_name_list($tvdb['EPISODE']['DIRECTOR']['VALUE']));
     if (isset($directors)&& !empty($directors)) {
       $this->setProperty(DIRECTORS, $directors);
       return $directors;
@@ -287,7 +292,7 @@ class wwwTHETVDBcom extends Parser implements ParserInterface {
   }
   protected function parseGenres() {
     $tvdb = $this->page;
-    $genres = explode('|', $this->clean_name_list(utf8_decode($tvdb['SERIES']['GENRE']['VALUE'])));
+    $genres = explode('|', $this->clean_name_list($tvdb['SERIES']['GENRE']['VALUE']));
     if (isset($genres)&& !empty($genres)) {
       $this->setProperty(GENRES, $genres);
       return $genres;
@@ -385,7 +390,7 @@ class wwwTHETVDBcom extends Parser implements ParserInterface {
    */
   function get_series_id($programme)
   {
-    $url = 'http://www.thetvdb.com/api/GetSeries.php?seriesname='.urlencode(utf8_encode($programme)).'&language=all';
+    $url = 'http://www.thetvdb.com/api/GetSeries.php?seriesname='.urlencode($programme).'&language=all';
     send_to_log(6,'Parsing XML: '.$url);
     $series = file_get_contents($url);
     $xml = new XmlParser($series, array(XML_OPTION_CASE_FOLDING => TRUE, XML_OPTION_SKIP_WHITE => TRUE) );
@@ -396,7 +401,7 @@ class wwwTHETVDBcom extends Parser implements ParserInterface {
     $seriesids = array();
     foreach ($data['DATA']['SERIES'] as $series)
     {
-      $seriesids['SERIESNAME'][] = utf8_decode($series['SERIESNAME']['VALUE']);
+      $seriesids['SERIESNAME'][] = $series['SERIESNAME']['VALUE'];
       $seriesids['SERIESID'][] = $series['SERIESID']['VALUE'];
     }
 

@@ -18,10 +18,9 @@ function get_google_artist_image( $artist )
   if (empty($artist))
     return false;
 
-  $query = utf8_encode($artist);
   $url   = 'http://ajax.googleapis.com/ajax/services/search/images'
             .'?v=1.0'
-            .'&q='.str_replace('%20','+',urlencode($query))
+            .'&q='.str_replace('%20','+',urlencode($artist))
             .'&rsz=large'
             .'&start='.mt_rand(0,3)*8
             .'&safe=moderate'
@@ -49,10 +48,11 @@ function get_google_artist_image( $artist )
   if ( $response->responseStatus == 200 )
   {
     // Create folder for artist images
+    $oldumask = umask(0);
     $local_folder = SC_LOCATION.'fanart/artists';
-    if (!file_exists($local_folder)) { @mkdir($local_folder); }
+    if (!file_exists($local_folder)) { @mkdir($local_folder,0777); }
     $local_folder = SC_LOCATION.'fanart/artists/'.filename_safe(strtolower($artist));
-    if (!file_exists($local_folder)) { @mkdir($local_folder); }
+    if (!file_exists($local_folder)) { @mkdir($local_folder,0777); }
 
     // Collect image URL's from results object
     $image_urls = array();
@@ -88,10 +88,12 @@ function get_lastfm_artist_image( $artist )
     return false;
 
   // Create folder for artist images
+  $oldumask = umask(0);
   $local_folder = SC_LOCATION.'fanart/artists';
-  if (!file_exists($local_folder)) { @mkdir($local_folder); }
+  if (!file_exists($local_folder)) { @mkdir($local_folder,0777); }
   $local_folder = SC_LOCATION.'fanart/artists/'.filename_safe(strtolower($artist));
-  if (!file_exists($local_folder)) { @mkdir($local_folder); }
+  if (!file_exists($local_folder)) { @mkdir($local_folder,0777); }
+  umask($oldumask);
 
   // Filter original images that meet our minimum size requirements
   $image_urls = get_lastfm_artist_images( $artist, 'original', get_sys_pref('NOW_PLAYING_FANART_QUALITY',0) );
