@@ -39,7 +39,7 @@
 
   // Fake the browser type and download (file_get_contents only supports HTTP/1.0 not HTTP/1.1)
   ini_set('user_agent','Mozilla/5.0');
-  $html = utf8_decode(file_get_contents('http://'.$wiki.$url));
+  $html = file_get_contents('http://'.$wiki.$url);
 
   if ($html === false)
   {

@@ -38,7 +38,7 @@ function star_rating( $rating )
   $details = $youporn->getDetails($url);
 
   // Page headings
-  page_header(utf8_decode($details["title"]), star_rating($details["rating"]));
+  page_header($details["title"], star_rating($details["rating"]));
 
   $menu = new menu();
   if (!empty($details["mpg_url"]))

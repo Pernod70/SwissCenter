@@ -295,8 +295,6 @@ class FilmTrailer {
     global $product;
     global $id;
 
-    $data = utf8_decode($data);
-
     switch ($tag)
     {
       case 'ORIGINAL_TITLE':   { $movie['ORIGINAL_TITLE'] .= $data; break; }

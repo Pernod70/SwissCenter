@@ -58,7 +58,7 @@ class filmtrailer_picker extends list_picker
 
   function display_format_name( $item )
   {
-    return utf8_decode($item["title"]).(count($item["trailers"]) > 1 ? ' ('.count($item["trailers"]).')' : '');
+    return $item["title"].(count($item["trailers"]) > 1 ? ' ('.count($item["trailers"]).')' : '');
   }
 
   function display()

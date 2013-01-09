@@ -45,7 +45,7 @@ class videobash_picker extends list_picker
       // Add entries from selected feed
       foreach ($items[3] as $idx=>$item)
       {
-        $text = utf8_decode($item);
+        $text = $item;
         $url = url_add_params('videobash_selected.php', array('url'=>$items[2][$idx], 'img'=>$items[1][$idx]));
         $entry_list[] = array('text' => $text, 'url' => $url);
       }
@@ -74,7 +74,7 @@ class videobash_picker extends list_picker
 
   function display_format_name( $item )
   {
-    return utf8_decode($item);
+    return $item;
   }
 
   function display()
