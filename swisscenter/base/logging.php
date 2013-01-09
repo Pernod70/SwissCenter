@@ -59,12 +59,13 @@ function send_to_log($level, $item, $var = '')
       // If the file > 1Mb then archive it and start a new log.
       if (@filesize($log) > 1048576)
       {
-        @unlink($log.'.old');
+        if (file_exists($log.'.old')) @unlink($log.'.old');
         @rename($log,$log.'.old');
       }
 
       // Write log entry to file.
-      if ($handle = fopen($log, 'a'))
+      $handle = fopen($log, 'a');
+      if ($handle !== false)
       {
         @fwrite($handle, $time.$item.newline());
         if (!empty($var))
