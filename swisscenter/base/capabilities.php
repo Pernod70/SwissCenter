@@ -263,7 +263,7 @@ function media_exts_with_GetID3_support()
 
 function get_required_modules_list()
 {
-  return explode(',','gd,json,mbstring,mysql,xml,session');
+  return explode(',','gd,json,mbstring,mysql,mysqli,xml,session');
 }
 
 function get_suggested_modules_list()
