@@ -227,9 +227,6 @@
 
   function google_api_search( $query, $site = '', $enc = 'utf8')
   {
-    if ($enc == 'utf8')
-      $query = utf8_encode($query);
-
     $url   = 'http://ajax.googleapis.com/ajax/services/search/web'
             .'?v=1.0'
             .'&oe='.$enc
@@ -257,7 +254,7 @@
   {
     $titles = array();
     foreach ($result_set as $result)
-      $titles[] = utf8_decode($result->titleNoFormatting);
+      $titles[] = $result->titleNoFormatting;
 
     $index = best_match($title, $titles, $accuracy);
 

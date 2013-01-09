@@ -50,12 +50,14 @@
    $subs = rss_get_subscriptions( $sub_id );
 
    // Ensure local cache folders exist
+   $oldumask = umask(0);
    if (!file_exists(get_sys_pref('CACHE_DIR').'/rss'))
-     @mkdir(get_sys_pref('CACHE_DIR').'/rss');
+     @mkdir(get_sys_pref('CACHE_DIR').'/rss',0777);
    if (!file_exists(MAGPIE_CACHE_DIR))
-     @mkdir(MAGPIE_CACHE_DIR);
+     @mkdir(MAGPIE_CACHE_DIR,0777);
    if (!file_exists(RSS_CONTENT_DIR))
-     @mkdir(RSS_CONTENT_DIR);
+     @mkdir(RSS_CONTENT_DIR,0777);
+   umask($oldumask);
 
    foreach($subs as $sub)
    {
@@ -116,7 +118,7 @@
     elseif (isset($item["pubdate"]) && !empty($item["pubdate"]))
       $sql .= " published_date = '".db_datestr(strtotime($item["pubdate"]))."'";
     else
-      $sql .= " title = '".db_escape_str(utf8_decode($item["title"]))."'";
+      $sql .= " title = '".db_escape_str($item["title"])."'";
 
     $sql .= " AND subscription_id=$sub_id";
 
@@ -137,11 +139,11 @@
 
    $item_data = array("subscription_id" => $sub_id,
                       "guid" => $item["guid"],
-                      "title" => utf8_decode($item["title"]).' ',
+                      "title" => $item["title"].' ',
                       "url" => $item["link"],
                       "timestamp" => (empty($item["date_timestamp"]) ? time() : $item["date_timestamp"]),
                       "published_date" => (empty($item["pubdate"]) ? db_datestr(strtotime("now")) : db_datestr(strtotime($item["pubdate"]))),
-                      "description" => utf8_decode(empty($item["atom_content"]) ? $item["description"].' ' : $item["atom_content"])
+                      "description" => (empty($item["atom_content"]) ? $item["description"].' ' : $item["atom_content"])
                      );
 
    send_to_log(8, "Updating item details", $item);
@@ -310,7 +312,7 @@
                                                          "image_url"   => $image));
 
    // Update the subscription in the database with description and image
-   $sql = "UPDATE rss_subscriptions SET ".db_array_to_set_list(array("description" => utf8_decode($channel["description"]),
+   $sql = "UPDATE rss_subscriptions SET ".db_array_to_set_list(array("description" => $channel["description"],
                                                                      "image_url"   => $image,
                                                                      "image"       => $img))." WHERE id=$sub_id";
 
