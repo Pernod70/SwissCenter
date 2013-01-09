@@ -297,7 +297,7 @@ function tadb_album_getInfo($artist, $album)
     {
       // Search results for exact or best match
       $results = array();
-      foreach ($data as $i=>$item)
+      foreach ($data['album'] as $i=>$item)
         $results[$i] = $item['strAlbum'];
       $id = best_match($album, $results, $accuracy);
       if ($id !== false)
