@@ -23,7 +23,7 @@ require_once( realpath(dirname(__FILE__).'/server.php'));
 function up_link( $url, $focusload = true )
 {
   if (!empty($url))
-    return '<a name="up" href="'.$url.'" '.tvid("PGUP").' '.($focusload ? 'ONFOCUSLOAD' : '').'>'.img_gen(SC_LOCATION.style_img("PAGE_UP"),40,20,false,false,'RESIZE').'</a>';
+    return '<a name="up" href="'.htmlspecialchars($url).'" '.tvid("PGUP").' '.($focusload ? 'ONFOCUSLOAD' : '').'>'.img_gen(SC_LOCATION.style_img("PAGE_UP"),40,20,false,false,'RESIZE').'</a>';
   else
     return '';
 }
@@ -31,14 +31,14 @@ function up_link( $url, $focusload = true )
 function down_link( $url, $focusload = true )
 {
   if (!empty($url))
-    return '<a name="down" href="'.$url.'" '.tvid("PGDN").' '.($focusload ? 'ONFOCUSLOAD' : '').'>'.img_gen(SC_LOCATION.style_img("PAGE_DOWN"),40,20,false,false,'RESIZE').'</a>';
+    return '<a name="down" href="'.htmlspecialchars($url).'" '.tvid("PGDN").' '.($focusload ? 'ONFOCUSLOAD' : '').'>'.img_gen(SC_LOCATION.style_img("PAGE_DOWN"),40,20,false,false,'RESIZE').'</a>';
   else
     return '';
 }
 
 function charset()
 {
-  return 'charset='.get_sys_pref('PLAYER_PAGE_CHARSET','Windows-1252');
+  return 'charset='.get_sys_pref('PLAYER_PAGE_CHARSET','utf-8');
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -62,7 +62,7 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
     if ($banner)
       $headings = '<td height="'.convert_y(60).'" align="center">&nbsp;</td>';
     else
-      $headings = '<td height="'.convert_y(60).'"><table '.(empty($title) ? '' : style_background($text_background)).'  align="center" border="0" cellpadding="2" cellspacing="0"><tr><td><b>&nbsp;'.$title.'&nbsp;</b> : '.font_tags(FONTSIZE_HEADER_NTSC).$tagline.'&nbsp;</td></tr></table></td>';
+      $headings = '<td height="'.convert_y(60).'"><table '.(empty($title) ? '' : style_background($text_background)).'  align="center" border="0" cellpadding="2" cellspacing="0"><tr><td><b>&nbsp;'.$title.'&nbsp;</b> : '.font_tags(FONTSIZE_HEADER_NTSC).$tagline.'&nbsp;</font></td></tr></table></td>';
   }
   else
   {
@@ -70,8 +70,8 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
       $headings = '<td height="'.convert_y(170).'" align="center"><h2>&nbsp;</h2>&nbsp;</td>';
     else
     {
-      $headings = '<td height="'.convert_y(100).'"><table '.(empty($title) ? '' : style_background($text_background)).' align="center" border="0" cellpadding="2" cellspacing="0"><tr><td><b>&nbsp;'.font_tags(FONTSIZE_HEADER).$title.'&nbsp;</b></td></tr></table></td>
-               <tr><td height="'.convert_y(70).'"><table '.(empty($tagline) ? '' : style_background($text_background)).' align="center" border="0" cellpadding="2" cellspacing="0"><tr><td>&nbsp;'.font_tags(FONTSIZE_SUBHEADER).$tagline.'&nbsp;</td></tr></table></td>';
+      $headings = '<td height="'.convert_y(100).'"><table '.(empty($title) ? '' : style_background($text_background)).' align="center" border="0" cellpadding="2" cellspacing="0"><tr><td><b>&nbsp;'.font_tags(FONTSIZE_HEADER).$title.'&nbsp;</font></b></td></tr></table></td>
+               <tr><td height="'.convert_y(70).'"><table '.(empty($tagline) ? '' : style_background($text_background)).' align="center" border="0" cellpadding="2" cellspacing="0"><tr><td>&nbsp;'.font_tags(FONTSIZE_SUBHEADER).$tagline.'&nbsp;</font></td></tr></table></td>';
     }
   }
 
@@ -127,7 +127,7 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
         <meta SYABAS-COMPACT=OFF>
         <meta SYABAS-FULLSCREEN>
         <meta SYABAS-PHOTOTITLE=0>
-        <meta SYABAS-BACKGROUND="'.$background_image.'">
+        <meta SYABAS-BACKGROUND="'.htmlspecialchars($background_image).'">
         <meta SYABAS-KEYOPTION="caps">
         <meta myibox-pip="0,0,0,0,0">
         <meta name="generator" content="lyra-box UI">
@@ -140,7 +140,7 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
         </style>
         </head>
         <body  onLoadSet="'.$focus.'"
-               background="'.  $background_image .'"
+               background="'.  htmlspecialchars($background_image) .'"
                FOCUSCOLOR="'.  $focus_colour.'"
                FOCUSTEXT="'.   style_value("PAGE_FOCUS_TEXT",'#FFFFFF').'"
                text="'.        style_value("PAGE_TEXT_COLOUR",'#FFFFFF').'"
@@ -227,11 +227,11 @@ function img_gen( $filename, $x, $y, $type = false, $stretch = false, $rs_mode =
   if ( strpos($browser,'MSIE ') !== false && preg_replace('/^.*MSIE (.*);.*$/Ui','\1',$browser) < 7)
   {
     // Make IE (<7) use PNG Alpha transparency
-    $filter = "filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='$img_params',sizingMethod='crop');";
+    $filter = 'filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.htmlspecialchars($img_params).'",sizingMethod="crop");';
     return '<img '.$html.' style="'.$filter.'"'.$width.$height.' src="/images/dot.gif" border="0">';
   }
   else
-    return '<img '.$html.$width.$height.' src="'.$img_params.'" '.$focus_attr.' border="0">';
+    return '<img '.$html.$width.$height.' src="'.htmlspecialchars($img_params).'" '.$focus_attr.' border="0">';
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -243,7 +243,7 @@ function img_gen( $filename, $x, $y, $type = false, $stretch = false, $rs_mode =
 
 function pc_nav_button($text, $url)
   {
-    return '<td style="cursor: pointer" align="center" valign="center" height="23" width="'.(convert_x(1000)/5).'" '.
+    return '<td style="cursor: pointer" align="center" valign="middle" height="23" width="'.(convert_x(1000)/5).'" '.
                 style_background('PC_BUTTON_BACKGROUND').' onclick="document.location=\''.$url.'\';">
             '.font_colour_tags('PC_BUTTON_TEXT_COLOUR',$text).'
             </td>';
@@ -260,9 +260,9 @@ function page_footer( $back, $buttons = '', $iconbar = 0, $links = true, $text_b
             <td width="'.convert_x(50).'"></td>
           </tr>
         </table>
-        <table '.style_background($text_background).' width="'.convert_x(1000).'" border="0" cellpadding="0" cellspacing="0">
+        <table width="'.convert_x(1000).'" border="0" cellpadding="0" cellspacing="0">
           <tr>
-            <td width="'.convert_x(50).'"></td>';
+            <td width="'.convert_x(25).'"></td>';
 
   if(!empty($buttons))
   {
@@ -276,13 +276,13 @@ function page_footer( $back, $buttons = '', $iconbar = 0, $links = true, $text_b
 
         $link = '<a '.$link.tvid('KEY_'.substr('ABCD',$i,1)).'name="'.tvid_code('KEY_'.substr('ABCD',$i,1)).'">'.
                 img_gen(SC_LOCATION.style_img(quick_access_img($i)),25,40,false,false,false,array("align" => "absmiddle")).
-                font_tags(FONTSIZE_FOOTER).$button["text"].'</a>';
+                font_tags(FONTSIZE_FOOTER).$button["text"].'</font></a>';
       }
       else
         $link = img_gen(SC_LOCATION.style_img(quick_access_img($i)),25,40,false,false,false,array("align" => "absmiddle")).
-                font_tags(FONTSIZE_FOOTER).$button["text"];
+                font_tags(FONTSIZE_FOOTER).$button["text"].'</font>';
 
-      echo '<td align="center">'.$link.'</td>';
+      echo '<td align="center" '.style_background($text_background).'>'.$link.'</td><td width="'.convert_x(25).'"/>';
     }
   }
   elseif(!empty($iconbar))
@@ -292,8 +292,7 @@ function page_footer( $back, $buttons = '', $iconbar = 0, $links = true, $text_b
     echo '</td>';
   }
 
-  echo '    <td width="'.convert_x(50).'"></td>
-          </tr>
+  echo '  </tr>
         </table>';
 
   // Test the browser, and if the user is viewing from a browser other than the one on the
@@ -309,12 +308,12 @@ function page_footer( $back, $buttons = '', $iconbar = 0, $links = true, $text_b
          pc_nav_button(str('PC_LINK_TV')     , '/tv.php').
          pc_nav_button(str('PC_LINK_INTERNET'),'/index.php?submenu=internet').
          pc_nav_button(str('PC_LINK_PHOTOS') , '/photo.php').
-         pc_nav_button(str('PC_LINK_BACK')   , $back).
+         pc_nav_button(str('PC_LINK_BACK')   , htmlspecialchars($back)).
          '</tr></table>';
   }
 
   if ( $links )
-    echo '<a href="'.$back.'" '.tvid('BACKSPACE').'></a>
+    echo '<a href="'.htmlspecialchars($back).'" '.tvid('BACKSPACE').'></a>
           <a href="index.php" '.tvid('HOME').'></a>
           <a href="music.php" '.tvid('MUSIC').'></a>
           <a href="video.php" '.tvid('MOVIE').'></a>
@@ -322,6 +321,14 @@ function page_footer( $back, $buttons = '', $iconbar = 0, $links = true, $text_b
 
   echo '</body>
         </html>';
+
+  // Older players do not support utf-8 encoding so decode the page
+  if (in_array(get_player_chipset(), array('EM8550', 'EM8620L')))
+  {
+    $output = ob_get_contents();
+    ob_clean();
+    echo utf8_decode($output);
+  }
 
   // Log the page history stack
   send_to_log(8, 'Page history:', $_SESSION['history']);
