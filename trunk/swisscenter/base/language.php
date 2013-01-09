@@ -37,7 +37,7 @@ function load_lang_strings ( $lang = 'en-gb', $session = 'language' )
       else
       {
         foreach ($matches[1] as $index=>$id)
-          $keys[strtoupper(trim($id))] = array('TEXT'    => utf8_decode($matches[2][$index]),
+          $keys[strtoupper(trim($id))] = array('TEXT'    => $matches[2][$index],
                                                'VERSION' => $matches[3][$index]);
 
         send_to_log(6,"Loaded $lang language file into $session");
@@ -228,14 +228,14 @@ function save_lang( $lang, $language )
   $xml->Push('swisscenter');
   $xml->Push('languages');
   $xml->Push('language', array('name'     => $lang,
-                               'fullname' => utf8_encode(trim($language['LANGUAGE']['TEXT']))));
+                               'fullname' => trim($language['LANGUAGE']['TEXT'])));
   foreach ($language as $id=>$text)
   {
     if ($lang=='en' || !empty($text['TEXT']))
     {
       $xml->Push('string');
       $xml->Element('id', strtoupper(trim($id)));
-      $xml->Element('text', utf8_encode(trim($text['TEXT'])));
+      $xml->Element('text', trim($text['TEXT']));
       $xml->Element('version', $text['VERSION']);
       $xml->Pop('string');
     }
