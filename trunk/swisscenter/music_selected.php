@@ -29,19 +29,19 @@
       $image  = isset($data['strArtistThumb'])  ? $data['strArtistThumb']  : null;
       $logo   = isset($data['strArtistLogo'])   ? $data['strArtistLogo']   : null;
       $fanart = isset($data['strArtistFanart']) ? $data['strArtistFanart'] : null;
-      $text   = isset($data['strBiography']) ? utf8_decode($data['strBiography']) : null;
+      $text   = isset($data['strBiography']) ? $data['strBiography'] : null;
     }
     if (!empty($track) && !empty($album) && !empty($artist))
     {
       $data   = tadb_track_getInfo($data['strArtist'], $album, $track);
       $image  = isset($data['strTrackThumb'])  ? $data['strTrackThumb'] : null;
-      $text   = isset($data['strDescription']) ? utf8_decode($data['strDescription']) : null;
+      $text   = isset($data['strDescription']) ? $data['strDescription'] : null;
     }
     elseif (!empty($artist) && !empty($album))
     {
       $data   = tadb_album_getInfo($data['strArtist'], $album);
       $image  = isset($data['strAlbumThumb'])  ? $data['strAlbumThumb'] : null;
-      $text   = isset($data['strDescription']) ? utf8_decode($data['strDescription']) : null;
+      $text   = isset($data['strDescription']) ? $data['strDescription'] : null;
     }
     if (empty($text))
       $text = str('TADB_NO_DETAILS');

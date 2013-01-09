@@ -250,7 +250,7 @@ function tadb_artist_getInfo($artist)
   if (internet_available() && !empty($artist))
   {
     $tadb = new TheAudioDB();
-    $data = $tadb->artistSearchArtist(utf8_encode($artist));
+    $data = $tadb->artistSearchArtist($artist);
     if (is_array($data['artists']))
     {
       // Search results for exact or best match
@@ -292,7 +292,7 @@ function tadb_album_getInfo($artist, $album)
     $tadb = new TheAudioDB();
     // Remove any edition details (in brackets) from the album name, ie. (Deluxe Edition)
     $album = trim(preg_replace('/\(.*?\)/', '', $album, 1));
-    $data = $tadb->artistSearchAlbum(utf8_encode($artist), utf8_encode($album));
+    $data = $tadb->artistSearchAlbum($artist, $album);
     if (is_array($data['album']))
     {
       // Search results for exact or best match
@@ -315,7 +315,7 @@ function tadb_track_getInfo($artist, $album, $track)
   if (internet_available() && !empty($artist) && !empty($track))
   {
     $tadb = new TheAudioDB();
-    $data = $tadb->artistSearchTrack(utf8_encode($artist), utf8_encode($track));
+    $data = $tadb->artistSearchTrack($artist, $track);
     if (is_array($data['track']))
     {
       // Search results for specified album

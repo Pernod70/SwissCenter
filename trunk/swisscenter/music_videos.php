@@ -41,7 +41,7 @@
     // Add videos
     foreach ($videos as $video)
     {
-      $text = utf8_decode($video['strTrack']);
+      $text = $video['strTrack'];
       $video_id = preg_get('/watch\?v=(.*)/', $video['strMusicVid']);
       $url  = 'href="'.url_add_params('stream_url.php?'.current_session(), array('user_agent' => rawurlencode('QuickTime/7.6'),
                                                                                                            		'youtube_id' => $video_id,
