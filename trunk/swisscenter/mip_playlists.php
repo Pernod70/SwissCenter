@@ -21,7 +21,7 @@
 
   $menu->add_item(str('MIP_NONE'), url_remove_param($back_url, 'playlist'));
   foreach ( $playlists as $playlist )
-    $menu->add_item($playlist, url_add_param($back_url, 'playlist', urlencode(utf8_decode($playlist))));
+    $menu->add_item($playlist, url_add_param($back_url, 'playlist', urlencode($playlist)));
 
   //*************************************************************************************************
   // Display the page
