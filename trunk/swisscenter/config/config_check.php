@@ -160,12 +160,10 @@ function check_display()
 
   if ( check_swiss_ini_file() )
   {
-    $mysql = $core_tests->add_section("MySQL : v".mysql_version(),3);
+    $mysql = $core_tests->add_section("MySQL : v".db_server_info(),3);
 
     $core_tests->add_test( $mysql, check_mysql_connect(), str("PASS_MYSQL_CONNECT"), str("FAIL_MYSQL_CONNECT"));
     $core_tests->add_test( $mysql, check_mysql_version(), str("PASS_MYSQL_VERSION"), str("FAIL_MYSQL_VERSION"));
-    $core_tests->add_test( $mysql, check_mysql_charset(), str("PASS_MYSQL_CHARSET"), str("FAIL_MYSQL_CHARSET"));
-    $core_tests->add_test( $mysql, check_mysql_collation(), str("PASS_MYSQL_COLLATION"), str("FAIL_MYSQL_COLLATION"));
     $core_tests->add_test( $mysql, check_mysql_database_exists(), str("PASS_MYSQL_DB"), str("FAIL_MYSQL_DB"));
   }
 
@@ -217,6 +215,15 @@ function check_display()
     else
       $component_tests->add_test( $monitor, win_dotnet2_installed(), str('PASS_DOTNET2_INSTALLED'), str('FAIL_DOTNET2_INSTALLED'));
   }
+
+  # ----------------------
+  # VideoLAN
+  # ----------------------
+
+//  $videolan = $component_tests->add_section("VideoLAN ".vlc_version(),4);
+
+//  $component_tests->add_test( $videolan, vlc_available(true), str('PASS_VLC_TEST'),str('FAIL_VLC_TEST').'<p>'.str('VLC_DESC','<a href="http://www.videolan.org">www.videolan.org</a>'),FALSE);
+//  $component_tests->add_test( $videolan, check_vlc_version(), str("PASS_VLC_VERSION"), str("FAIL_VLC_VERSION",vlc_version()));
 
   # ----------------------
   # ImageMagick

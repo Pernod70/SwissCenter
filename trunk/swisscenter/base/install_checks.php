@@ -106,13 +106,13 @@ function check_php_ttf()
 function check_mysql_connect()
 {
   # Do we have defined constants for database connectivity?
-  if ( !extension_loaded('mysql') || !defined('DB_HOST') || !defined('DB_DATABASE') || !defined('DB_PASSWORD'))
+  if ( !extension_loaded('mysqli') || !defined('DB_HOST') || !defined('DB_USERNAME') || !defined('DB_PASSWORD'))
   {
     send_to_log(5,"- Unable to determine database connection details");
     return false;
   }
 
-  $db = @mysql_pconnect( DB_HOST, DB_USERNAME, DB_PASSWORD );
+  $db = @mysqli_connect( DB_HOST, DB_USERNAME, DB_PASSWORD );
   return ( $db ? true : false );
 }
 
@@ -120,39 +120,9 @@ function check_mysql_version()
 {
   if (check_mysql_connect())
   {
-    $version = mysql_version();
+    $version = db_server_info();
     send_to_log(5,"- MySQL Version : $version");
     return version_compare($version,'5.0','>=');
-  }
-  else
-  {
-    send_to_log(5,"- Unable to connect to MySQL");
-    return false;
-  }
-}
-
-function check_mysql_collation()
-{
-  if (check_mysql_connect())
-  {
-    $collation = mysql_collation();
-    send_to_log(5,"- MySQL Collation : $collation");
-    return ($collation == 'latin1_swedish_ci');
-  }
-  else
-  {
-    send_to_log(5,"- Unable to connect to MySQL");
-    return false;
-  }
-}
-
-function check_mysql_charset()
-{
-  if (check_mysql_connect())
-  {
-    $charset = mysql_charset();
-    send_to_log(5,"- MySQL Charset : $charset");
-    return ($charset == 'latin1');
   }
   else
   {
