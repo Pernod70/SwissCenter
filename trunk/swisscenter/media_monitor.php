@@ -17,9 +17,7 @@
 
   $type        = $_REQUEST["Type"];
   $path        = str_replace('\\','/',un_magic_quote(rawurldecode($_REQUEST["Path"])));
-  $path        = utf8_decode($path);
   $oldpath     = isset($_REQUEST["OldPath"]) ? str_replace('\\','/',un_magic_quote(rawurldecode($_REQUEST["OldPath"]))) : '';
-  $oldpath     = utf8_decode($oldpath);
   $changed     = $_REQUEST["ChangedDate"];
   $isDirectory = $_REQUEST["IsDirectory"];
   $isFile      = ($isDirectory == 'Yes' ? false : true);
