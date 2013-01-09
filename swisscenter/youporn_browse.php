@@ -43,7 +43,7 @@
     {
       $url = url_add_params('youporn_video_selected.php', array('url'=>rawurlencode($items[2][$idx]), 'img'=>rawurlencode($items[1][$idx])));
       $entry_list[] = array('thumb' => $items[1][$idx],
-                            'text'  => utf8_decode($item),
+                            'text'  => $item,
                             'url'   => $url);
     }
 

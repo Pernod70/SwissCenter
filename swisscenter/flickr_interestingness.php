@@ -31,7 +31,7 @@
     $playlist = array();
     foreach ($photos["photos"]["photo"] as $photo)
     {
-      $text = (empty($photo["title"]) ? '?' : utf8_decode($photo["title"]) );
+      $text = (empty($photo["title"]) ? '?' : $photo["title"] );
       $url  = url_add_param('flickr_photo.php', 'photo_id', $photo["id"]);
       $photo_list[] = array('thumb'=>flickr_photo_url($photo, 'm'), 'text'=>$text, 'url'=>$url);
 

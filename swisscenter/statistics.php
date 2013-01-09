@@ -138,9 +138,9 @@
         foreach ($recent["recenttracks"]["track"] as $track)
         {
           $image = $track["image"][0]["#text"];
-          $title = utf8_decode($track["name"]);
-          $artist = utf8_decode($track["artist"]["#text"]);
-          $album = utf8_decode($track["album"]["#text"]);
+          $title = $track["name"];
+          $artist = $track["artist"]["#text"];
+          $album = $track["album"]["#text"];
 
           $data[] = array(img_gen($image,30,30), $title, $artist, $album);
         }
@@ -152,8 +152,8 @@
         foreach ($top["topalbums"]["album"] as $album)
         {
           $image = $album["image"][0]["#text"];
-          $title = utf8_decode($album["name"]);
-          $artist = utf8_decode($album["artist"]["name"]);
+          $title = $album["name"];
+          $artist = $album["artist"]["name"];
           $count = $album["playcount"];
 
           $data[] = array($count, img_gen($image,30,30), $title, $artist);
@@ -167,7 +167,7 @@
         foreach ($top["topartists"]["artist"] as $artist)
         {
           $image = $artist["image"][0]["#text"];
-          $title = utf8_decode($artist["name"]);
+          $title = $artist["name"];
           $count = $artist["playcount"];
 
           $data[] = array($count, img_gen($image,30,30), $title);
@@ -181,8 +181,8 @@
         foreach ($top["toptracks"]["track"] as $id=>$track)
         {
           $image = $track["image"][0]["#text"];
-          $title = utf8_decode($track["name"]);
-          $artist = utf8_decode($track["artist"]["name"]);
+          $title = $track["name"];
+          $artist = $track["artist"]["name"];
           $count = $track["playcount"];
 
           $data[] = array($count, img_gen($image,30,30), $title, $artist);

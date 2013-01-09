@@ -42,7 +42,7 @@
     $trailer_list = array();
     foreach ($trailers as $trailer)
     {
-      $text = utf8_decode($trailer["ORIGINAL_TITLE"]).(count($trailer["CLIPS"]) > 1 ? ' ('.count($trailer["CLIPS"]).')' : '');
+      $text = $trailer["ORIGINAL_TITLE"].(count($trailer["CLIPS"]) > 1 ? ' ('.count($trailer["CLIPS"]).')' : '');
       $url  = url_add_param('film_trailer_selected.php', 'id', $trailer["MOVIE_ID"]);
       $trailer_list[] = array('thumb'=>$trailer["PICTURES"][1]['URL'], 'text'=>$text, 'url'=>$url);
     }

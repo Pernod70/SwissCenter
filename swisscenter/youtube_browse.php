@@ -31,7 +31,7 @@
     case 'uploads':
       $username = $_REQUEST["username"];
       $feed = $youtube->usersFeed($username, $feed_type);
-      $title = utf8_decode($feed['feed']['title']['$t']);
+      $title = $feed['feed']['title']['$t'];
       $subtitle = $username.' -> '.str($feed_type).' -> '.str('SORT_'.strtoupper($sort));
       break;
 
@@ -41,7 +41,7 @@
       $time = isset($_REQUEST["time"]) ? $_REQUEST["time"] : 'all_time';
       $playlist_id = $_REQUEST["playlist_id"];
       $feed = $youtube->playlistFeed($playlist_id);
-      $title = utf8_decode($feed['feed']['title']['$t']);
+      $title = $feed['feed']['title']['$t'];
       $subtitle = isset($feed['feed']['subtitle']['$t']) ? $feed['feed']['subtitle']['$t'] : $username.' -> '.str($feed_type).' -> '.str($time).' -> '.str('SORT_'.strtoupper($sort));
       break;
 
@@ -60,14 +60,14 @@
       $category = isset($_REQUEST["cat"]) ? $_REQUEST["cat"] : '';
       $region = isset($_REQUEST["region"]) ? $_REQUEST["region"] : '';
       $feed = $youtube->standardFeed($feed_type, $time, $category, $region);
-      $title = utf8_decode($feed['feed']['title']['$t']);
+      $title = $feed['feed']['title']['$t'];
       $subtitle = str($feed_type).' -> '.str($time).' -> '.str('SORT_'.strtoupper($sort));
       break;
 
     // Channel feeds
     case 'channels':
       $feed = $youtube->channelSearch();
-      $title = utf8_decode($feed['feed']['title']['$t']);
+      $title = $feed['feed']['title']['$t'];
       $subtitle = '';
       break;
   }
@@ -103,21 +103,21 @@
           case 'most_responded':
           case 'recently_featured':
           case 'watch_on_mobile':
-            $text = utf8_decode($entry['media$group']['media$title']['$t']);
+            $text = $entry['media$group']['media$title']['$t'];
             $url  = url_add_param('youtube_video_selected.php', 'video_id', $entry['media$group']['yt$videoid']['$t']);
             $thumb = youtube_thumbnail_url($entry['media$group']['media$thumbnail']);
             $video_list[] = $entry['media$group']['yt$videoid']['$t'];
             break;
 
           case 'playlists':
-            $text = utf8_decode($entry['title']['$t']).' ('.$entry['yt$countHint']['$t'].')';
+            $text = $entry['title']['$t'].' ('.$entry['yt$countHint']['$t'].')';
             $url  = url_add_params('youtube_browse.php', array('type'=>'playlist', 'playlist_id'=>$entry['yt$playlistId']['$t']));
             $thumb = false;
             break;
 
           case 'channels':
-            $text = utf8_decode($entry['author'][0]['name']['$t']).' ('.$entry['gd$feedLink'][0]['countHint'].')';
-            $url  = url_add_params('youtube_browse.php', array('username'=>utf8_decode($entry['author'][0]['name']['$t']), 'type'=>'uploads'));
+            $text = $entry['author'][0]['name']['$t'].' ('.$entry['gd$feedLink'][0]['countHint'].')';
+            $url  = url_add_params('youtube_browse.php', array('username'=>$entry['author'][0]['name']['$t'], 'type'=>'uploads'));
             $thumb = false;
             break;
 
@@ -126,27 +126,27 @@
             switch ( youtube_category_scheme($entry, 'http://gdata.youtube.com/schemas/2007/subscriptiontypes.cat') )
             {
               case 'channel':
-                $text = utf8_decode($entry['yt$username']['$t']).' ('.$entry['yt$countHint']['$t'].')';
-                $url  = url_add_params('youtube_browse.php', array('username'=>utf8_decode($entry['yt$username']['$t']), 'type'=>'uploads'));
+                $text = $entry['yt$username']['$t'].' ('.$entry['yt$countHint']['$t'].')';
+                $url  = url_add_params('youtube_browse.php', array('username'=>$entry['yt$username']['$t'], 'type'=>'uploads'));
                 break;
 
               case 'favorites':
-                $text = utf8_decode($entry['yt$username']['$t']).'\'s '.str('FAVORITES');
-                $url  = url_add_params('youtube_browse.php', array('username'=>utf8_decode($entry['yt$username']['$t']), 'type'=>'favorites'));
+                $text = $entry['yt$username']['$t'].'\'s '.str('FAVORITES');
+                $url  = url_add_params('youtube_browse.php', array('username'=>$entry['yt$username']['$t'], 'type'=>'favorites'));
                 break;
 
               case 'playlist':
-                $text = '['.utf8_decode($entry['yt$playlistTitle']['$t'].']');
+                $text = '['.$entry['yt$playlistTitle']['$t'].']';
                 $url  = url_add_params('youtube_browse.php', array('type'=>'playlist', 'playlist_id'=>$entry['yt$playlistId']['$t']));
                 break;
 
               case 'query':
-                $text = utf8_decode($entry['yt$queryString']['$t']);
+                $text = $entry['yt$queryString']['$t'];
                 break;
 
               case 'user':
-                $text = utf8_decode($entry['yt$username']['$t']);
-                $url  = url_add_params('youtube_browse.php', array('username'=>utf8_decode($entry['yt$username']['$t']), 'type'=>'uploads'));
+                $text = $entry['yt$username']['$t'];
+                $url  = url_add_params('youtube_browse.php', array('username'=>$entry['yt$username']['$t'], 'type'=>'uploads'));
                 break;
             }
             $thumb = youtube_thumbnail_url($entry['media$thumbnail']);

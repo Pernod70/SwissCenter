@@ -38,7 +38,7 @@ function star_rating( $rating )
   $entry = $youtube->videoEntry($video_id);
   $entry = $entry['entry'];
 
-  $title = utf8_decode($entry['media$group']['media$title']['$t']);
+  $title = $entry['media$group']['media$title']['$t'];
   $image = youtube_thumbnail_url($entry['media$group']['media$thumbnail']);
   $duration = $entry['media$group']['yt$duration']['seconds'];
   $uploaded = $entry['media$group']['yt$uploaded']['$t'];
@@ -58,7 +58,7 @@ function star_rating( $rating )
             <td valign=top width="'.convert_x(280).'" align="left">'.img_gen($image,280,550).'</td>
             <td width="'.convert_x(20).'"></td>
             <td valign="top">'.
-              font_tags(FONTSIZE_BODY).utf8_decode($entry['media$group']['media$description']['$t']).'
+              font_tags(FONTSIZE_BODY).$entry['media$group']['media$description']['$t'].'
               <p>'.font_tags(FONTSIZE_BODY).str('RUNNING_TIME').': '.hhmmss($duration).'</font>
               <p>'.font_tags(FONTSIZE_BODY).str('DATE').': '.date('jS M Y', strtotime($uploaded)).'</font>
               <p>'.font_tags(FONTSIZE_BODY).str('VIEWED').': '.number_format($viewed).'</font>';
