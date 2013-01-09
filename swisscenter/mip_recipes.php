@@ -21,7 +21,7 @@
 
   $menu->add_item(str('MIP_NONE'), url_remove_param($back_url, 'recipe'));
   foreach ( $recipes as $recipe )
-    $menu->add_item($recipe, url_add_param($back_url, 'recipe', urlencode(utf8_decode($recipe))));
+    $menu->add_item($recipe, url_add_param($back_url, 'recipe', urlencode($recipe)));
 
 
   //*************************************************************************************************

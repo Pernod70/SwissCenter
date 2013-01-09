@@ -21,7 +21,7 @@
 
   $menu->add_item(str('MIP_NONE'), url_remove_param($back_url, 'genre'));
   foreach ( $genres as $genre )
-    $menu->add_item($genre, url_add_param($back_url, 'genre', urlencode(utf8_decode($genre))));
+    $menu->add_item($genre, url_add_param($back_url, 'genre', urlencode($genre)));
 
 
   //*************************************************************************************************
