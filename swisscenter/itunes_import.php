@@ -130,7 +130,7 @@
    */
   function process_itunes_track( $values)
   {
-    $fsp = utf8_decode(path_from_file_url($values["Location"]));
+    $fsp = path_from_file_url($values["Location"]);
     $location_id = db_value("select location_id from media_locations where instr('".db_escape_str($fsp)."',name)>0 and media_type=".MEDIA_TYPE_MUSIC);
     $swiss_id = db_value("select file_id from mp3s where dirname='".db_escape_str(dirname($fsp))."/' and filename='".db_escape_str(basename($fsp))."'");
 
@@ -193,10 +193,10 @@
       $fp = fopen($filename, "r");
       if ($fp !== false)
       {
-        while ($data = fread($fp, 8192))
+        while (($data = fread($fp, 8192)) !== false)
         {
-          $data = preg_replace("/>\s+/u", ">", $data);
-          $data = preg_replace("/\s+</u", "<", $data);
+          $data = preg_replace('/>\s+/u', '>', $data);
+          $data = preg_replace('/\s+</u', '<', $data);
           if (!xml_parse($xmlparser, $data , feof($fp)))
           {
             send_to_log(8,'XML parse error: '.xml_error_string(xml_get_error_code($xmlparser)).xml_get_current_line_number($xmlparser));
