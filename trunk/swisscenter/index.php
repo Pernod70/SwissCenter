@@ -12,10 +12,6 @@
   require_once( realpath(dirname(__FILE__).'/messages_db.php'));
   require_once( realpath(dirname(__FILE__).'/base/filter.php'));
 
-  // Check for mysqli extension being loaded
-  if (!extension_loaded('mysqli'))
-    page_error("The PHP extension 'mysqli' is now required. You must enable 'mysqli' in your php.ini. Simese users can get the required files from the forum.");
-
   function media_exists( $media_type )
   {
     $table = db_value("select media_table from media_types where media_id = $media_type");
