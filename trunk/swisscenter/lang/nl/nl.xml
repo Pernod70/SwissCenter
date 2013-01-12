@@ -1719,6 +1719,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>IGNORE_EXTENSION_UPDATE_OK</id>
+        <text>De extensie is geactualiseerd. Herstart de service om de wijzigingen te activeren.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>IMAGEMAGICK_CONFIG</id>
         <text>ImageMagick</text>
         <version>1.23.1</version>
@@ -2940,6 +2945,11 @@
         <id>MIP_DESC</id>
         <text>MusicIP (gratis beschikbaar op %s) is een interessante applicatie die uw muziekcollectie analyseert, en een &quot;akoestische vingerafdruk&quot; aanmaakt voor elk muziekstuk. Deze informatie wordt dan gebruikt om een persoonlijke afspeellijst van soortgelijke tracks aan te maken, gebaseerd op titel, artiest of album. [p]Indien MusicIP op hetzelfde toestel als SwissCenter geinstalleerd is, worden binnen de SwissCenter interface extra features beschikbaar voor het genereren en beluisteren van MusicIP afspeellijsten.</text>
         <version>1.21.1</version>
+      </string>
+      <string>
+        <id>MIP_GENRES</id>
+        <text>Genres</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>MIP_INVALID_PORT</id>
