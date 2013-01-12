@@ -2,11 +2,12 @@ Dansk,da
 Deutsch,de
 English,en
 English (US),en-us
-Espa�ol,es
-Fran�ais,fr
+Español,es
+Français,fr
 Italiano,it
 Nederlands,nl
 Norsk,no
 Polski,pl
-Portugu�s,pt
+Português,pt
+Русский,ru
 Svenska,sv
