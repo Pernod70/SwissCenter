@@ -37,12 +37,12 @@
 
   // Get XML data (from DB or from weather.com)
   $xml_cc    = get_yahoo_xml( $loc_id, 'cc', '*');
-  $time      = split(' ',$xml_cc["cc"]["lsup"]);
+  $time      = explode(' ',$xml_cc["cc"]["lsup"]);
   $title     = isset($xml_cc[$loc_id]["dnam"]) ? $xml_cc[$loc_id]["dnam"] : $xml_cc["channel"]["yweather:location"][0]["city"].', '.$xml_cc["channel"]["yweather:location"][0]["country"];
 
   // Build Current Conditions information table
   $cc = new infotab();
-  $cc->add_item(str('WEATHER_FEELS_LIKE'), $xml_cc["cc"]["flik"].chr(176).$xml_cc["head"]["ut"]);
+  $cc->add_item(str('WEATHER_FEELS_LIKE'), $xml_cc["cc"]["flik"].utf8_encode(chr(176)).$xml_cc["head"]["ut"]);
   $cc->add_item(str('WEATHER_HUMIDITY'),   $xml_cc["cc"]["hmid"].'%');
   $cc->add_item(str('WEATHER_PRESSURE'),   $xml_cc["cc"]["bar"]["r"].' '.$xml_cc["head"]["up"]);
   $cc->add_item(str('WEATHER_WIND'),       $xml_cc["cc"]["wind"]["s"].' '.$xml_cc["head"]["us"].' '.$xml_cc["cc"]["wind"]["t"]);
@@ -60,7 +60,7 @@
   if ( $xml_cc["cc"]["icon"] == '-')
   {
     $xml_cc["cc"]["icon"] = 'na';
-    $xml_cc["cc"]["tmp"]  = chr(151);
+    $xml_cc["cc"]["tmp"]  = utf8_encode(chr(151));
   }
 
   $menu = new menu(false);
@@ -74,7 +74,7 @@
           <tr>
             <td align="center" width="40%">'
               .img_gen(SC_LOCATION.'/weather/large/'.$xml_cc["cc"]["icon"].'.gif',200,260,false,false,'RESIZE').
-              font_tags(FONTSIZE_BODY).'<br>'.$xml_cc["cc"]["tmp"].chr(176).$xml_cc["head"]["ut"].'
+              font_tags(FONTSIZE_BODY).'<br>'.$xml_cc["cc"]["tmp"].utf8_encode(chr(176)).$xml_cc["head"]["ut"].'
                   <br>'.$xml_cc["cc"]["t"].'</font>
             </td>
             <td align="center" width="60%">'.

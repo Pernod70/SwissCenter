@@ -39,8 +39,8 @@
       $fc->set_col_attrib(1,'align','right');
       $fc->set_col_attrib(2,'align','right');
       $fc->set_col_attrib(2,'width',convert_x(70));
-      $fc->add_item('Hi', $forecast["forecastday"][$i]['high'][$units].chr(176));
-      $fc->add_item('Lo', $forecast['forecastday'][$i]['low'][$units].chr(176));
+      $fc->add_item('Hi', $forecast["forecastday"][$i]['high'][$units].utf8_encode(chr(176)));
+      $fc->add_item('Lo', $forecast['forecastday'][$i]['low'][$units].utf8_encode(chr(176)));
   //    $fc->add_item('', $forecast['forecastday'][$i]['conditions']);
       $day = $forecast['forecastday'][$i]['date']['weekday_short'];
 

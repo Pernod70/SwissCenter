@@ -17,7 +17,7 @@
 
   // Get XML data (from DB or from weather.com)
   $xml_fc    = get_yahoo_xml( $loc_id, 'dayf', '5');
-  $time      = split(' ',$xml_fc["dayf"]["lsup"]);
+  $time      = explode(' ',$xml_fc["dayf"]["lsup"]);
   $title     = isset($xml_fc[$loc_id]["dnam"]) ? $xml_fc[$loc_id]["dnam"] : $xml_fc["channel"]["yweather:location"][0]["city"].', '.$xml_fc["channel"]["yweather:location"][0]["country"];
 
   // Display Weather Icon and statistics
@@ -34,7 +34,7 @@
     if ( $xml_fc["dayf"][$i]["d"]["icon"] == '-')
     {
       $xml_fc["dayf"][$i]["d"]["icon"] = 'na';
-      $xml_fc["dayf"][$i]["hi"]        = chr(151);
+      $xml_fc["dayf"][$i]["hi"]        = utf8_encode(chr(151));
     }
 
     if ( $xml_fc["dayf"][$i]["n"]["icon"] == '-')
@@ -47,8 +47,8 @@
     $fc->set_col_attrib(1,'align','right');
     $fc->set_col_attrib(2,'align','right');
     $fc->set_col_attrib(2,'width',convert_x(70));
-    $fc->add_item('Hi', $xml_fc["dayf"][$i]["hi"].chr(176).$xml_fc["head"]["ut"]);
-    $fc->add_item('Lo', $xml_fc["dayf"][$i]["low"].chr(176).$xml_fc["head"]["ut"]);
+    $fc->add_item('Hi', $xml_fc["dayf"][$i]["hi"].utf8_encode(chr(176)).$xml_fc["head"]["ut"]);
+    $fc->add_item('Lo', $xml_fc["dayf"][$i]["low"].utf8_encode(chr(176)).$xml_fc["head"]["ut"]);
     $day = date('D',time()+$i*86400);
 
     echo '<td><center><font color="'.style_value("PAGE_TITLE_COLOUR").'" size="4">'.$day.'</font><p>'
