@@ -730,7 +730,10 @@ function mysql_collation()
 
 function highlight($text, $search, $color='Silver')
 {
-  return (strlen($text)==0 ? '' : preg_replace('/('.$search.')/i', '<FONT style="BACKGROUND-COLOR: '.$color.'">$1</FONT>', $text));
+  if (empty($text) || empty($search))
+    return $text;
+  else
+    return preg_replace('/('.$search.')/i', '<FONT style="BACKGROUND-COLOR: '.$color.'">$1</FONT>', $text);
 }
 
 /**
