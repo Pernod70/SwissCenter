@@ -222,7 +222,7 @@
 
   function sched_display_linux( $message = '')
   {
-    $cron = split(" ",syscall('crontab -l | grep "'.SC_LOCATION.'media_search.php" | head -1 | awk \'{ print $1" "$2" "$3" "$4" "$5 }\''));
+    $cron = explode(' ',syscall('crontab -l | grep "'.SC_LOCATION.'media_search.php" | head -1 | awk \'{ print $1" "$2" "$3" "$4" "$5 }\''));
 
     echo "<h1>".str('SCHEDULE_TITLE')."</h1>";
     message($message);
@@ -411,7 +411,7 @@
       syscall("crontab /tmp/swisscron");
 
       // Was it successfully added?
-      $cron = split(" ",syscall('crontab -l | grep "'.SC_LOCATION.'media_search.php" | awk \'{ print $1" "$2" "$3" "$4" "$5 }\''));
+      $cron = explode(' ',syscall('crontab -l | grep "'.SC_LOCATION.'media_search.php" | awk \'{ print $1" "$2" "$3" "$4" "$5 }\''));
       if (count($cron)>0)
         sched_display(str('SCHEDULE_UPDATED'));
       else
