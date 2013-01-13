@@ -185,7 +185,7 @@
       <string>
         <id>AVAILABLE_VERSION</id>
         <text>Verfügbare Version</text>
-        <version>1.22</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>BACKSPACE</id>
@@ -345,7 +345,7 @@
       <string>
         <id>BROWSE_MOVIES</id>
         <text>In Filmliste blättern</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>BROWSE_MUSIC</id>
@@ -465,7 +465,7 @@
       <string>
         <id>CACHE_ERROR_NOT_EXIST</id>
         <text>Der angegebene Ordner existiert nicht</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>CACHE_ERROR_NOT_NUMBER</id>
@@ -650,7 +650,7 @@
       <string>
         <id>COMPACT_VIEW</id>
         <text>Kompaktansicht</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>COMPOSER</id>
@@ -720,7 +720,7 @@
       <string>
         <id>CONFIG_LASTFM_TITLE</id>
         <text>Last.FM Optionen</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>CONFIG_MIP_OPTIONS</id>
@@ -750,7 +750,7 @@
       <string>
         <id>CONFIG_SHOUTCAST_TITLE</id>
         <text>Shoutcast Optionen</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>CONFIG_SWISSMONITOR</id>
@@ -996,12 +996,12 @@ Dieses Format wird von MySQL und Spezifikationssymbolen definiert. Diese sind:
       <string>
         <id>EP_NEXT</id>
         <text>Nächste Folge: %s</text>
-        <version>1.21.1</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>EP_PREV</id>
         <text>Vorherige Folge: %s</text>
-        <version>1.21.1</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>EXCLUSIVE</id>
@@ -1444,18 +1444,18 @@ Zusatzinformationen</text>
       </string>
       <string>
         <id>FILTER_MISSING_CERT</id>
-        <text>ohne Zertifikat</text>
-        <version>1.21.1</version>
+        <text>Kein Zertifikat</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FILTER_MISSING_DETAILS</id>
         <text>Keine Details</text>
-        <version>1.21.1</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FILTER_MISSING_EPISODE</id>
-        <text>ohne Episodennummer</text>
-        <version>1.21.1</version>
+        <text>Keine Episodennummer</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FILTER_MISSING_IMDB</id>
@@ -1464,23 +1464,23 @@ Zusatzinformationen</text>
       </string>
       <string>
         <id>FILTER_MISSING_PROGRAMME</id>
-        <text>ohne Serienname</text>
-        <version>1.21.1</version>
+        <text>Kein Serienname</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FILTER_MISSING_RATING</id>
-        <text>ohne Bewertung</text>
-        <version>1.22</version>
+        <text>Keine Bewertung</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FILTER_MISSING_SERIES</id>
-        <text>ohne Staffel</text>
-        <version>1.21.1</version>
+        <text>Keine Staffel</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FILTER_MISSING_SYNOPSIS</id>
-        <text>ohne Zusammenfassung</text>
-        <version>1.21.1</version>
+        <text>Keine Zusammenfassung</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FILTER_MISSING_TRAILER</id>
@@ -1489,8 +1489,8 @@ Zusatzinformationen</text>
       </string>
       <string>
         <id>FILTER_MISSING_YEAR</id>
-        <text>ohne Jahr</text>
-        <version>1.21.1</version>
+        <text>Kein Jahr</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FILTER_VIEWED</id>
@@ -1607,7 +1607,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       <string>
         <id>FONTWIDTH_MULTIPLIER</id>
         <text>Multiplikator für die Font-Breite</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FONTWIDTH_MULTIPLIER_100</id>
@@ -1698,6 +1698,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>IGNORE_EXTENSION_PROMPT</id>
         <text>Eine Erweiterung auswählen, die von SwissMonitor ignoriert wird.</text>
         <version>1.22</version>
+      </string>
+      <string>
+        <id>IGNORE_EXTENSION_UPDATE_OK</id>
+        <text>Eine Erweiterung wurde aktualisiert. Der Dienst muss neu gestartet werden, um die Änderungen zu übernehmen.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>IMAGEMAGICK_CONFIG</id>
@@ -2017,7 +2022,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       <string>
         <id>IRADIO_COUNTRY_PROMPT</id>
         <text>Bitte geben Sie ein Land an, nach dem Sie suchen wollen. Nur %s unterstützt die Suche nach Ländern. Bitte besuchen Sie die Webseite um die gültigen Länder zu finden. Bei ShoutCast wird danach gesucht, ob der Name der Station das Land enthält.</text>
-        <version>1.21.1</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>IRADIO_COUNTRY_SELECT</id>
@@ -2097,7 +2102,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       <string>
         <id>IRADIO_LIVERADIO_DESC</id>
         <text>LiveRadio (%s) ist ein Internet-Radio Service ähnlich ShoutCast. Hier kann nach Medientyp, Stationsname, Land und sogar Stadt gesucht werden - doch das Format (Medientyp) vieler hier gelisteter Stationen ist zu etlichen Hardware-Playern nicht kompatibel. Daher sucht der von SwissCenter verwendete LiveRadio-Parser hier nur nach MP3 Stationen.</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>IRADIO_LOGO</id>
@@ -2142,7 +2147,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       <string>
         <id>IRADIO_PARAM_PROMPT</id>
         <text>ShoutCast und Live-Radio ermöglichen die Auswahl von Radioprogrammen nach Station, Genre und Land. Hier können Sie die entsprechenden Auswahlkriterien definieren.</text>
-        <version>1.21.1</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>IRADIO_PARAM_TYPE</id>
@@ -2172,7 +2177,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       <string>
         <id>IRADIO_SHOUTCAST_DESC</id>
         <text>ShoutCast (%s) ist ein Internet-Radio Service. Die Website ermöglicht es, nach Genres oder Stations-Namen zu suchen und liefert zahlreiche Details für jede gefundene Station - inklusive einer Playlist URL. Der von SwissCenter verwendete ShoutCast-Parser parst den HTML-Code der Ergebnisseite, um die Stationsliste in einer auch auf TV-Bildschirmen einfach lesbaren Art darzustellen. Dies kann jedoch fehlschlagen, wenn die Betreiber von ShoutCast die Seitenstruktur ändern.[p]Gelegentlich gibt ShoutCast vor, nichts zu finden. Sollte der Test also fehlschlagen, am besten die Seite nochmals laden, um sicher zu gehen, dass das Problem nicht vielleicht dort liegt.</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>IRADIO_STATION</id>
@@ -2252,7 +2257,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       <string>
         <id>ITUNES_ERROR_INVALID</id>
         <text>Achtung, Sie müssen die Datei &quot;iTunes Music Library.xml&quot; angeben!</text>
-        <version>1.20</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>ITUNES_ERROR_PATH</id>
@@ -2262,7 +2267,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       <string>
         <id>ITUNES_LIBRARY</id>
         <text>iTunes-Bibliothek</text>
-        <version>1.20</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>JUST_ADDED</id>
@@ -2381,8 +2386,10 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>LANG_PROMPT</id>
-        <text>Sprachdateien bestehen aus einer Zuordnung zwischen interner ID (z.B. &quot;ADD_PLAYLIST&quot;) und dem tatsächlichen Text, der angezeigt werden soll. Der &lt;Text&gt; kann eine begrenzte Anzahl von Formatierungen (Tags) beinhalten, die durch eckige Klammern gekennzeichnet werden. Die Formatierungen verhalten sich entsprechend ihrer in HTML üblichen Pendants. Die folgenden Tags werden unterstützt: :[br]&amp;#91;br&amp;#93;&amp;#91;/br&amp;#93; &amp;#91;em&amp;#93;&amp;#91;/em&amp;#93; &amp;#91;p&amp;#93;&amp;#91;/p&amp;#93; &amp;#91;b&amp;#93;&amp;#91;/b&amp;#93; &amp;#91;i&amp;#93;&amp;#91;/i&amp;#93; &amp;#91;li&amp;#93;&amp;#91;/li&amp;#93; &amp;#91;ul&amp;#93;&amp;#91;/ul&amp;#93; &amp;#91;ol&amp;#93;&amp;#91;/ul&amp;#93;[p] In einigen Passagen kann es notwendig sein, dass Textteile durch neuen Text ersetzt werden müssen. Solche Platzhalter werden durch folgende Zeichen gekennzeichnet: '&amp;#37;s'.[br]Im folgenden Beispiel wird die Anzahl der Musikstücke aus der Datenbank ausgelesen und an die Stelle des &amp;#37;s kopiert, so dass bei einer Suche mit vier Treffern das Ergebnis als &quot;4 Titel&quot; angezeigt wird.[br]MANY_TRACKS= &amp;#37;s Titel</text>
-        <version>1.21.1</version>
+        <text>Sprachdateien bestehen aus einer Zuordnung zwischen interner ID (z.B. &quot;ADD_PLAYLIST&quot;) und dem tatsächlichen Text, der angezeigt werden soll. Der &lt;Text&gt; kann eine begrenzte Anzahl von Formatierungen (Tags) beinhalten, die durch eckige Klammern gekennzeichnet werden. Die Formatierungen verhalten sich entsprechend ihrer in HTML üblichen Pendants.[p]Die folgenden Tags werden unterstützt: [ul] [li]&amp;#91;br&amp;#93; - Ein Zeilenumbruch[/li] [li]&amp;#91;p&amp;#93;&amp;#91;/p&amp;#93; - Ein neuer Absatz[/li] [li]&amp;#91;b&amp;#93;&amp;#91;/b&amp;#93; - [b]Fettschrift[/b][/li] [li]&amp;#91;i&amp;#93;&amp;#91;/i&amp;#93; - [i]Kursiv[/i][/li] [li]&amp;#91;em&amp;#93;&amp;#91;/em&amp;#93; - [em]Hervorgehoben[/em][/li] [li]&amp;#91;ol&amp;#93;&amp;#91;/ol&amp;#93; - Eine sortierte Liste[/li] [li]&amp;#91;ul&amp;#93;&amp;#91;/ul&amp;#93; - Eine unsortierte Liste[/li] [li]&amp;#91;li&amp;#93;&amp;#91;/li&amp;#93; - Ein Eintrag in einer sorierten oder unsortierten Liste[/li] [/ul]
+
+[p]In einigen Passagen kann es notwendig sein, dass Textteile durch neuen Text ersetzt werden müssen. Solche Platzhalter werden durch folgende Zeichen gekennzeichnet: '&amp;#37;s'.[br]Im folgenden Beispiel wird die Anzahl der Musikstücke aus der Datenbank ausgelesen und an die Stelle des &amp;#37;s kopiert, so dass bei einer Suche mit vier Treffern das Ergebnis als &quot;4 Titel&quot; angezeigt wird.[br]MANY_TRACKS= &amp;#37;s Titel</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>LANG_SAVE_BUTTON</id>
@@ -2422,7 +2429,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       <string>
         <id>LASTFM</id>
         <text>Last.FM</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>LASTFM_ABOUT</id>
@@ -2437,12 +2444,12 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       <string>
         <id>LASTFM_ENABLED_PROMPT</id>
         <text>Wenn aktiviert, kann Swisscenter zur Last.FM-Webseite verbinden und personalisierte Radiostreams empfangen.</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>LASTFM_LOGIN_HEADINGS</id>
         <text>Benutzer,Last.FM[br]Username,Last.FM[br]Passwort,Scrobbeln?,Bilder?</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>LASTFM_MISSING_LOGIN</id>
@@ -2472,7 +2479,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       <string>
         <id>LASTFM_WHATIS</id>
         <text>Was ist Last.FM?</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>LENGTH_MM</id>
@@ -2492,7 +2499,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       <string>
         <id>LISTEN_LASTFM</id>
         <text>Last.FM Radio</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>LISTEN_LASTFM_ARTISTS</id>
@@ -2532,7 +2539,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       <string>
         <id>LISTEN_RADIO</id>
         <text>Internet-Radio</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>LIST_VIEW</id>
@@ -2572,7 +2579,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       <string>
         <id>LOOKUP_FAILURE</id>
         <text>Keine Details zu diesem Film auffindbar.</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>LOOKUP_MOVIE</id>
@@ -2582,7 +2589,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       <string>
         <id>LOOKUP_SUCCESS</id>
         <text>Details zum Film wurden heruntergeladen und gespeichert.</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>LOOKUP_SUCCESS_MISSING</id>
@@ -2687,7 +2694,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       <string>
         <id>MEDIA_LOC_ERROR_DIRFAIL</id>
         <text>Der Ordner existiert nicht</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>MEDIA_LOC_ERROR_LOC</id>
@@ -2900,6 +2907,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>MIP_GENRES</id>
+        <text>Genre</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>MIP_INVALID_PORT</id>
         <text>MusicIP Server wurde nicht auf Port %s gefunden</text>
         <version>1.19</version>
@@ -2912,7 +2924,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       <string>
         <id>MIP_MIX_SONG</id>
         <text>Ähnliche Titel spielen</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>MIP_MOODS</id>
@@ -3332,7 +3344,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       <string>
         <id>NOW_PLAYING</id>
         <text>Aktueller Titel</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>NOW_PLAYING_FANART</id>
@@ -3682,7 +3694,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       <string>
         <id>PASS_SHOUTCAST_TEST</id>
         <text>ShoutCast-Parser funktioniert ordnungsgemäß</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>PASS_STEAMCAST_TEST</id>
@@ -4139,7 +4151,7 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
       <string>
         <id>PLAYLISTS_ERROR_INVALID</id>
         <text>Der angegebene Ordner existiert nicht</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>PLAYLISTS_ERROR_PATH</id>
@@ -4294,7 +4306,7 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
       <string>
         <id>PROGRAMME_LIST_ALL</id>
         <text>Alle anzeigen</text>
-        <version>1.21.1</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>PUBLISHER</id>
@@ -4439,7 +4451,7 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
       <string>
         <id>RECENT_MEDIA</id>
         <text>Zuletzt hinzugefügte</text>
-        <version>1.21.1</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>RECENT_MUSIC</id>
@@ -5260,7 +5272,7 @@ speichern</text>
       <string>
         <id>STATISTICS</id>
         <text>Statistik</text>
-        <version>1.21.1</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>STATUS</id>
@@ -5380,7 +5392,7 @@ speichern</text>
       <string>
         <id>SVN_REVISION</id>
         <text>SVN Version</text>
-        <version>1.22</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>SWISSMONITOR_ACTION_FAILED</id>
@@ -6260,7 +6272,7 @@ speichern</text>
       <string>
         <id>USE_BANNER</id>
         <text>Banner verwenden</text>
-        <version>1.21.1</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>VALUE</id>
@@ -6330,7 +6342,7 @@ speichern</text>
       <string>
         <id>VIEW_WEATHER</id>
         <text>Wettervorhersage</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>WATCH_DVD</id>
@@ -6430,7 +6442,7 @@ speichern</text>
       <string>
         <id>WEATHER_NO_MATCHING</id>
         <text>Leider wird von %s derzeit keine Wettervorhersage für die Stadt %s angeboten.</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>WEATHER_PRESSURE</id>
