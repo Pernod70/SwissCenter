@@ -201,7 +201,7 @@ function reduce_cache()
         if ($dir_size > $target_size)
         {
           unlink($v);
-          $details = split('_',$k);
+          $details = explode('_',$k);
           $dir_size -= $details[1];
         }
 
@@ -342,7 +342,7 @@ class CImage
 
     if ( is_file($filename) || is_remote_file($filename))
     {
-      switch (strtolower(file_ext($filename)))
+      switch (file_ext($filename))
       {
         case 'jpg':
         case 'jpeg':

@@ -156,9 +156,9 @@ function make_abs_file( $fsp, $dir )
 function paths_to_array( $path_str )
 {
   if ( substr(PHP_OS,0,3)=='WIN' )
-    return split(';',$path_str);
+    return explode(';',$path_str);
   else
-    return split(':',$path_str);
+    return explode(':',$path_str);
 }
 
 /**
@@ -170,7 +170,8 @@ function paths_to_array( $path_str )
 
 function file_ext( $filename )
 {
-  return strtolower(array_pop(explode( '.' , $filename)));
+  $parts = explode('.', $filename);
+  return strtolower(array_pop($parts));
 }
 
 /**
@@ -558,7 +559,7 @@ function file_albumart( $fsp, $default_image = true )
   }
   else
   {
-    $return    = '';
+    $return = '';
     if ( in_array(strtolower(file_ext($fsp)), media_exts_movies()) )
       $id3_image = db_value("select a.art_sha1 from movies m, media_art a where m.art_sha1 = a.art_sha1 and concat(m.dirname,m.filename) = '".db_escape_str($fsp)."'");
     elseif ( in_array(strtolower(file_ext($fsp)), media_exts_music()) )
@@ -613,7 +614,7 @@ function file_download_and_save( $url, $filename, $overwrite = false )
     if ($overwrite || !file_exists($filename))
     {
       // Reset the timeout counter for each file downloaded
-      set_time_limit(30);
+      set_time_limit(60);
 
       $img = @file_get_contents(str_replace(' ','%20',$url));
       if ($img !== false)

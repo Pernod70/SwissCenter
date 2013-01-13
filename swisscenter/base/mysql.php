@@ -165,10 +165,10 @@ function db_sqlfile($fsp)
   {
     // If the SQL script contains function or procedure definitions then we do not split
     // into separate commands.
-    if (preg_match('/.*(function|procedure).*/i', implode(" ",$contents)) > 0)
-      $commands = array(implode(" ",$contents));
+    if (preg_match('/.*(function|procedure).*/i', implode(' ',$contents)) > 0)
+      $commands = array(implode(' ',$contents));
     else
-      $commands = split(";",implode(" ",$contents));
+      $commands = explode(';',implode(' ',$contents));
 
     foreach ($commands as $sql)
       if ( strlen(trim($sql)) > 0 )
