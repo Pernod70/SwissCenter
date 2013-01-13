@@ -63,7 +63,7 @@
       if ($data !== false && count($data)>0)
       {
         foreach ($data as $row)
-          $this->xml->appendChild($xpath,'<setting name="'.$row["NAME"].'">'.utf8_encode(xmlspecialchars($row["VALUE"])).'</setting>');
+          $this->xml->appendChild($xpath,'<setting name="'.$row["NAME"].'">'.xmlspecialchars($row["VALUE"]).'</setting>');
       }
     }
 
@@ -80,8 +80,8 @@
       {
         foreach ($data as $row)
         {
-          $user_path = $this->xml->appendChild($xpath,'<user name="'.utf8_encode(xmlspecialchars($row["USERNAME"]).'"/>'));
-          $this->xml->appendChild($user_path, '<max_cert scheme="'.utf8_encode(xmlspecialchars($row["SCHEME"])).'">'.$row["CERTIFICATE"].'</max_cert>');
+          $user_path = $this->xml->appendChild($xpath,'<user name="'.xmlspecialchars($row["USERNAME"].'"/>'));
+          $this->xml->appendChild($user_path, '<max_cert scheme="'.xmlspecialchars($row["SCHEME"]).'">'.$row["CERTIFICATE"].'</max_cert>');
           $this->xml->appendChild($user_path, '<pin>'.$row["PIN"].'</pin>');
           $this->xml->appendChild($user_path, '<admin>'.$row["ADMIN"].'</admin>');
           $pref_path = $this->xml->appendChild($user_path, '<preferences />');
@@ -89,7 +89,7 @@
           if ($prefs != false && count($prefs)>0)
           {
             foreach ($prefs as $pref)
-              $this->xml->appendChild($pref_path,'<setting name="'.$pref["NAME"].'">'.utf8_encode(xmlspecialchars($pref["VALUE"])).'</setting>');
+              $this->xml->appendChild($pref_path,'<setting name="'.$pref["NAME"].'">'.xmlspecialchars($pref["VALUE"]).'</setting>');
           }
         }
       }
@@ -108,7 +108,7 @@
      {
        foreach ($data as $cert)
        {
-         $scheme_xpath = $this->xml->appendChild( $xpath,'<scheme name="'.utf8_encode(xmlspecialchars($cert["SCHEME"])).'" />');
+         $scheme_xpath = $this->xml->appendChild( $xpath,'<scheme name="'.xmlspecialchars($cert["SCHEME"]).'" />');
          $certs = db_toarray("select * from certificates where scheme='".$cert["SCHEME"]."'");
          if ($certs !== false && count($certs)>0)
          {
@@ -116,7 +116,7 @@
            {
              $cert_xpath = $this->xml->appendChild( $scheme_xpath,'<certificate name="'.$row["NAME"].'" />');
              $this->xml->appendChild( $cert_xpath,'<rank>'.$row["RANK"].'</rank>');
-             $this->xml->appendChild( $cert_xpath,'<description>'.utf8_encode(xmlspecialchars($row["DESCRIPTION"])).'</description>');
+             $this->xml->appendChild( $cert_xpath,'<description>'.xmlspecialchars($row["DESCRIPTION"]).'</description>');
            }
          }
        }
@@ -137,9 +137,9 @@
         foreach ($data as $row)
         {
           $cat_xpath = $this->xml->appendChild( $xpath,'<category />');
-          $this->xml->appendChild($cat_xpath,'<name>'.utf8_encode(xmlspecialchars($row["CAT_NAME"])).'</name>');
+          $this->xml->appendChild($cat_xpath,'<name>'.xmlspecialchars($row["CAT_NAME"]).'</name>');
           if ( $row["PARENT_ID"] > 0 )
-            $this->xml->appendChild($cat_xpath,'<parent>'.utf8_encode(xmlspecialchars($row["PARENT"])).'</parent>');
+            $this->xml->appendChild($cat_xpath,'<parent>'.xmlspecialchars($row["PARENT"]).'</parent>');
           else
             $this->xml->appendChild($cat_xpath,'<parent />');
           $this->xml->appendChild($cat_xpath,'<download_info>'.$row["DOWNLOAD_INFO"].'</download_info>');
@@ -184,10 +184,10 @@
         {
           $loc_xpath = $this->xml->appendChild( $xpath,'<location />');
           $this->xml->appendChild( $loc_xpath, '<type>'.$row["MEDIA_NAME"].'</type>');
-          $this->xml->appendChild( $loc_xpath, '<path>'.utf8_encode(xmlspecialchars($row["NAME"])).'</path>');
-          $this->xml->appendChild( $loc_xpath, '<default_certificate scheme="'.utf8_encode(xmlspecialchars($row["SCHEME"])).'">'.$row["CERTIFICATE"].'</default_certificate>');
-          $this->xml->appendChild( $loc_xpath, '<category>'.utf8_encode(xmlspecialchars($row["CAT_NAME"])).'</category>');
-          $this->xml->appendChild( $loc_xpath, '<share>'.utf8_encode(xmlspecialchars($row["NETWORK_SHARE"])).'</share>');
+          $this->xml->appendChild( $loc_xpath, '<path>'.xmlspecialchars($row["NAME"]).'</path>');
+          $this->xml->appendChild( $loc_xpath, '<default_certificate scheme="'.xmlspecialchars($row["SCHEME"]).'">'.$row["CERTIFICATE"].'</default_certificate>');
+          $this->xml->appendChild( $loc_xpath, '<category>'.xmlspecialchars($row["CAT_NAME"]).'</category>');
+          $this->xml->appendChild( $loc_xpath, '<share>'.xmlspecialchars($row["NETWORK_SHARE"]).'</share>');
         }
       }
     }
@@ -207,7 +207,7 @@
         {
           $loc_xpath = $this->xml->appendChild( $xpath,'<expression />');
           $this->xml->appendChild( $loc_xpath, '<pos>'.$row["POS"].'</pos>');
-          $this->xml->appendChild( $loc_xpath, '<expression>'.utf8_encode(xmlspecialchars($row["EXPRESSION"])).'</expression>');
+          $this->xml->appendChild( $loc_xpath, '<expression>'.xmlspecialchars($row["EXPRESSION"]).'</expression>');
         }
       }
     }
@@ -229,8 +229,8 @@
         {
           $loc_xpath = $this->xml->appendChild( $xpath,'<subscription />');
           $this->xml->appendChild( $loc_xpath, '<type>'.$row["MEDIA_NAME"].'</type>');
-          $this->xml->appendChild( $loc_xpath, '<url>'.utf8_encode(xmlspecialchars($row["URL"])).'</url>');
-          $this->xml->appendChild( $loc_xpath, '<title>'.utf8_encode(xmlspecialchars($row["TITLE"])).'</title>');
+          $this->xml->appendChild( $loc_xpath, '<url>'.xmlspecialchars($row["URL"]).'</url>');
+          $this->xml->appendChild( $loc_xpath, '<title>'.xmlspecialchars($row["TITLE"]).'</title>');
           $this->xml->appendChild( $loc_xpath, '<update>'.$row["UPDATE_FREQUENCY"].'</update>');
           $this->xml->appendChild( $loc_xpath, '<cache>'.$row["CACHE"].'</cache>');
         }
@@ -271,8 +271,9 @@
       {
         foreach ($data as $row)
         {
-          $loc_xpath = $this->xml->appendChild( $xpath,'<station name="'.utf8_encode(xmlspecialchars($row["STATION"])).'" />');
-          $this->xml->appendChild( $loc_xpath, '<image>'.utf8_encode(xmlspecialchars($row["IMAGE"])).'</image>');
+          $loc_xpath = $this->xml->appendChild( $xpath,'<station name="'.xmlspecialchars($row["STATION"]).'" />');
+          $this->xml->appendChild( $loc_xpath, '<type>'.$row["IRADIO_TYPE"].'</type>');
+          $this->xml->appendChild( $loc_xpath, '<image>'.xmlspecialchars($row["IMAGE"]).'</image>');
         }
       }
     }
@@ -290,8 +291,8 @@
       {
         foreach ($data as $row)
         {
-          $loc_xpath = $this->xml->appendChild( $xpath,'<genre name="'.utf8_encode(xmlspecialchars($row["GENRE"])).'" />');
-          $this->xml->appendChild( $loc_xpath, '<subgenre>'.utf8_encode(xmlspecialchars($row["SUBGENRE"])).'</subgenre>');
+          $loc_xpath = $this->xml->appendChild( $xpath,'<genre name="'.xmlspecialchars($row["GENRE"]).'" />');
+          $this->xml->appendChild( $loc_xpath, '<subgenre>'.xmlspecialchars($row["SUBGENRE"]).'</subgenre>');
         }
       }
     }
@@ -309,7 +310,7 @@
       {
         foreach ($data as $row)
         {
-          $loc_xpath = $this->xml->appendChild( $xpath,'<country name="'.utf8_encode(xmlspecialchars($row["COUNTRY"])).'" />');
+          $loc_xpath = $this->xml->appendChild( $xpath,'<country name="'.xmlspecialchars($row["COUNTRY"]).'" />');
         }
       }
     }
@@ -332,10 +333,10 @@
         {
           $loc_xpath = $this->xml->appendChild( $xpath,'<bookmark />');
           $this->xml->appendChild( $loc_xpath, '<type>'.$row["MEDIA_NAME"].'</type>');
-          $this->xml->appendChild( $loc_xpath, '<url>'.utf8_encode(xmlspecialchars($row["URL"])).'</url>');
-          $this->xml->appendChild( $loc_xpath, '<title>'.utf8_encode(xmlspecialchars($row["TITLE"])).'</title>');
-          $this->xml->appendChild( $loc_xpath, '<category>'.utf8_encode(xmlspecialchars($row["CAT_NAME"])).'</category>');
-          $this->xml->appendChild( $loc_xpath, '<certificate scheme="'.utf8_encode(xmlspecialchars($row["SCHEME"])).'">'.$row["CERT_NAME"].'</certificate>');
+          $this->xml->appendChild( $loc_xpath, '<url>'.xmlspecialchars($row["URL"]).'</url>');
+          $this->xml->appendChild( $loc_xpath, '<title>'.xmlspecialchars($row["TITLE"]).'</title>');
+          $this->xml->appendChild( $loc_xpath, '<category>'.xmlspecialchars($row["CAT_NAME"]).'</category>');
+          $this->xml->appendChild( $loc_xpath, '<certificate scheme="'.xmlspecialchars($row["SCHEME"]).'">'.$row["CERT_NAME"].'</certificate>');
         }
       }
     }
@@ -372,8 +373,8 @@
       $cat_parent = array();
       foreach ($this->xml->match('/swisscenter[1]/config[1]/categories[1]/category') as $abspath)
       {
-        $name = utf8_decode(xmlspecialchars_decode($this->xml->getData($abspath.'/name[1]')));
-        $parent = utf8_decode(xmlspecialchars_decode($this->xml->getData($abspath.'/parent[1]')));
+        $name = xmlspecialchars_decode($this->xml->getData($abspath.'/name[1]'));
+        $parent = xmlspecialchars_decode($this->xml->getData($abspath.'/parent[1]'));
         if ( !empty($parent) ) $cat_parent[$name] = $parent;
         $download = $this->xml->getData($abspath.'/download_info[1]');
         if (db_value("select count(*) from categories where cat_name = '".db_escape_str($name)."'") == 0)
@@ -401,7 +402,7 @@
       foreach ($this->xml->match('/swisscenter[1]/config[1]/system[1]/setting') as $abspath)
       {
         $attrib = $this->xml->getAttributes($abspath);
-        $value = utf8_decode(xmlspecialchars_decode($this->xml->getData($abspath)));
+        $value = xmlspecialchars_decode($this->xml->getData($abspath));
 
         if ( !in_array($attrib["NAME"], $exceptions) )
         {
@@ -426,11 +427,11 @@
       {
         // Import user
         $attrib = $this->xml->getAttributes($userpath);
-        $name = utf8_decode(xmlspecialchars_decode($attrib["NAME"]));
+        $name = xmlspecialchars_decode($attrib["NAME"]);
         if (db_value("select count(*) from users where name = '".db_escape_str($name)."'") == 0)
         {
           $attrib      = $this->xml->getAttributes($userpath.'/max_cert[1]');
-          $cert_scheme = utf8_decode(xmlspecialchars_decode($attrib["SCHEME"]));
+          $cert_scheme = xmlspecialchars_decode($attrib["SCHEME"]);
           $cert_name   = $this->xml->getData($userpath.'/max_cert[1]');
           $pin         = $this->xml->getData($userpath.'/pin[1]');
           $admin       = $this->xml->getData($userpath.'/admin[1]');
@@ -453,7 +454,7 @@
         foreach ($this->xml->match($userpath.'/preferences[1]/setting') as $prefpath)
         {
           $attrib  = $this->xml->getAttributes($prefpath);
-          $value   = utf8_decode(xmlspecialchars_decode($this->xml->getData($prefpath)));
+          $value   = xmlspecialchars_decode($this->xml->getData($prefpath));
           if (db_value("select count(*) from user_prefs where user_id=$user_id and name = '".$attrib["NAME"]."'") == 0)
             db_insert_row('user_prefs',array("user_id"=>$user_id, "name"=>$attrib["NAME"], "value"=>$value));
           else
@@ -479,7 +480,7 @@
           $attrib    = $this->xml->getAttributes($certpath);
           $cert_name = $attrib["NAME"];
           $rank      = $this->xml->getData($certpath.'/rank[1]');
-          $desc      = utf8_decode(xmlspecialchars_decode($this->xml->getData($certpath.'/description[1]')));
+          $desc      = xmlspecialchars_decode($this->xml->getData($certpath.'/description[1]'));
 
           if (db_value("select count(*) from certificates where name='$cert_name' and scheme='$scheme_name'") == 0)
             db_insert_row("certificates", array("name"=>$cert_name, "rank"=>$rank, "description"=>$desc, "scheme"=>$scheme_name));
@@ -499,12 +500,12 @@
       foreach ($this->xml->match('/swisscenter[1]/config[1]/media_locations[1]/location') as $locpath)
       {
         $type        = $this->xml->getData($locpath.'/type[1]');
-        $path        = utf8_decode(xmlspecialchars_decode($this->xml->getData($locpath.'/path[1]')));
-        $cat_name    = utf8_decode(xmlspecialchars_decode($this->xml->getData($locpath.'/category[1]')));
-        $share       = utf8_decode(xmlspecialchars_decode($this->xml->getData($locpath.'/share[1]')));
+        $path        = xmlspecialchars_decode($this->xml->getData($locpath.'/path[1]'));
+        $cat_name    = xmlspecialchars_decode($this->xml->getData($locpath.'/category[1]'));
+        $share       = xmlspecialchars_decode($this->xml->getData($locpath.'/share[1]'));
         $cert_name   = $this->xml->getData($locpath.'/default_certificate[1]');
         $attrib      = $this->xml->getAttributes($locpath.'/default_certificate[1]');
-        $scheme_name = utf8_decode(xmlspecialchars_decode($attrib["SCHEME"]));
+        $scheme_name = xmlspecialchars_decode($attrib["SCHEME"]);
 
         if (($cert_id = db_value("select cert_id from certificates where name='$cert_name' and scheme='$scheme_name'")) === false)
           $errors[] = str('IMP_LOC_CERT_MISSING',$path,$cert_name,$scheme_name);
@@ -556,7 +557,7 @@
       foreach ($this->xml->match('/swisscenter[1]/config[1]/tv_expressions[1]/expression') as $expressionpath)
       {
         $pos        = $this->xml->getData($expressionpath.'/pos[1]');
-        $expression = utf8_decode(xmlspecialchars_decode($this->xml->getData($expressionpath.'/expression[1]')));
+        $expression = xmlspecialchars_decode($this->xml->getData($expressionpath.'/expression[1]'));
 
         if (db_value("select count(*) from tv_expressions where pos = $pos") == 0)
           db_insert_row("tv_expressions", array("pos"=>$pos, "expression"=>$expression));
@@ -575,8 +576,8 @@
       foreach ($this->xml->match('/swisscenter[1]/config[1]/rss_subscriptions[1]/subscription') as $rsspath)
       {
         $type    = $this->xml->getData($rsspath.'/type[1]');
-        $url     = utf8_decode(xmlspecialchars_decode($this->xml->getData($rsspath.'/url[1]')));
-        $title   = utf8_decode(xmlspecialchars_decode($this->xml->getData($rsspath.'/title[1]')));
+        $url     = xmlspecialchars_decode($this->xml->getData($rsspath.'/url[1]'));
+        $title   = xmlspecialchars_decode($this->xml->getData($rsspath.'/title[1]'));
         $update  = $this->xml->getData($rsspath.'/update[1]');
         $cache   = $this->xml->getData($rsspath.'/cache[1]');
         $type_id = db_value("select media_id from media_types where media_name='$type'");
@@ -617,11 +618,12 @@
       foreach ($this->xml->match('/swisscenter[1]/config[1]/iradio_stations[1]/station') as $iradiopath)
       {
         $attrib  = $this->xml->getAttributes($iradiopath);
-        $station = utf8_decode(xmlspecialchars_decode($attrib["NAME"]));
-        $image   = utf8_decode(xmlspecialchars_decode($this->xml->getData($iradiopath.'/image[1]')));
+        $station = xmlspecialchars_decode($attrib["NAME"]);
+        $type    = $this->xml->getData($iradiopath.'/type[1]');
+        $image   = xmlspecialchars_decode($this->xml->getData($iradiopath.'/image[1]'));
 
         if (db_value("select count(*) from iradio_stations where station='".db_escape_str($station)."'") == 0)
-          db_insert_row("iradio_stations", array("station"=>$station, "image"=>$image));
+          db_insert_row("iradio_stations", array("station"=>$station, "iradio_type"=>$type, "image"=>$image));
       }
     }
 
@@ -635,8 +637,8 @@
       foreach ($this->xml->match('/swisscenter[1]/config[1]/iradio_genres[1]/genre') as $iradiopath)
       {
         $attrib   = $this->xml->getAttributes($iradiopath);
-        $genre    = utf8_decode(xmlspecialchars_decode($attrib["NAME"]));
-        $subgenre = utf8_decode(xmlspecialchars_decode($this->xml->getData($iradiopath.'/subgenre[1]')));
+        $genre    = xmlspecialchars_decode($attrib["NAME"]);
+        $subgenre = xmlspecialchars_decode($this->xml->getData($iradiopath.'/subgenre[1]'));
 
         if (db_value("select count(*) from iradio_genres where genre='".db_escape_str($genre)."' and subgenre='".db_escape_str($subgenre)."'") == 0)
           db_insert_row("iradio_genres", array("genre"=>$genre, "subgenre"=>$subgenre));
@@ -653,7 +655,7 @@
       foreach ($this->xml->match('/swisscenter[1]/config[1]/iradio_countries[1]/country') as $iradiopath)
       {
         $attrib  = $this->xml->getAttributes($iradiopath);
-        $country = utf8_decode(xmlspecialchars_decode($attrib["NAME"]));
+        $country = xmlspecialchars_decode($attrib["NAME"]);
 
         if (db_value("select count(*) from iradio_countries where country='".db_escape_str($country)."'") == 0)
           db_insert_row("iradio_countries", array("country"=>$country));
@@ -671,12 +673,12 @@
       foreach ($this->xml->match('/swisscenter[1]/config[1]/ibookmarks[1]/bookmark') as $ibookmarkpath)
       {
         $type        = $this->xml->getData($ibookmarkpath.'/type[1]');
-        $url         = utf8_decode(xmlspecialchars_decode($this->xml->getData($ibookmarkpath.'/url[1]')));
-        $title       = utf8_decode(xmlspecialchars_decode($this->xml->getData($ibookmarkpath.'/title[1]')));
-        $cat_name    = utf8_decode(xmlspecialchars_decode($this->xml->getData($ibookmarkpath.'/category[1]')));
+        $url         = xmlspecialchars_decode($this->xml->getData($ibookmarkpath.'/url[1]'));
+        $title       = xmlspecialchars_decode($this->xml->getData($ibookmarkpath.'/title[1]'));
+        $cat_name    = xmlspecialchars_decode($this->xml->getData($ibookmarkpath.'/category[1]'));
         $cert_name   = $this->xml->getData($ibookmarkpath.'/certificate[1]');
         $attrib      = $this->xml->getAttributes($ibookmarkpath.'/certificate[1]');
-        $scheme_name = utf8_decode(xmlspecialchars_decode($attrib["SCHEME"]));
+        $scheme_name = xmlspecialchars_decode($attrib["SCHEME"]);
 
         if (($type_id = db_value("select media_id from media_types where media_name='".db_escape_str($type)."'")) === false)
           $errors[] = str('IMP_IBOOKMARK_TYPE_MISSING',$url,$type);
