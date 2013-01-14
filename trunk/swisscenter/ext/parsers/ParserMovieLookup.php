@@ -18,7 +18,7 @@ function ParserMovieLookup($movie_id, $filename, $search_params) {
     $parser_pref = explode(',', get_sys_pref('movie_parser_' . ParserConstants :: $allMovieConstants[$i]['ID'],
                                                                ParserConstants :: $allMovieConstants[$i]['DEFAULT']));
     for ($x = 0; $x < $retrycount; $x++) {
-      if (isset($parser_pref[$x]) && $parser_pref[$x] !== 'NoParser') {
+      if (isset($parser_pref[$x]) && !empty($parser_pref[$x]) && $parser_pref[$x] !== 'NoParser') {
         // Create instance of parser
         $parserclass = $parser_pref[$x];
         if (!isset ($oneInstancePerParserArray[$parserclass])) {
@@ -36,6 +36,8 @@ function ParserMovieLookup($movie_id, $filename, $search_params) {
           } else {
             // Store successfully retrieved properties
             $allFail = false;
+            // Ensure all data is UTF-8 encoded
+            $returnval = encode_utf8($returnval);
             switch (ParserConstants :: $allMovieConstants[$i]['ID']) {
               case ACTORS:
                 scdb_add_actors($movie_id, $returnval);
@@ -87,10 +89,12 @@ function ParserMovieLookup($movie_id, $filename, $search_params) {
   $cache_dir = get_sys_pref('cache_dir') . '/tmdb';
 
   // Ensure local cache folders exist
-  if (!file_exists($cache_dir)) { @mkdir($cache_dir); }
-  if (!file_exists($cache_dir.'/fanart')) { @mkdir($cache_dir.'/fanart'); }
-  if (!file_exists($cache_dir.'/actors')) { @mkdir($cache_dir.'/actors'); }
-  if (!file_exists(SC_LOCATION.'fanart/actors')) { @mkdir(SC_LOCATION.'fanart/actors'); }
+  $oldumask = umask(0);
+  if (!file_exists($cache_dir)) { @mkdir($cache_dir,0777); }
+  if (!file_exists($cache_dir.'/fanart')) { @mkdir($cache_dir.'/fanart',0777); }
+  if (!file_exists($cache_dir.'/actors')) { @mkdir($cache_dir.'/actors',0777); }
+  if (!file_exists(SC_LOCATION.'fanart/actors')) { @mkdir(SC_LOCATION.'fanart/actors',0777); }
+  umask($oldumask);
 
   // Download fanart thumbnails
   $fanart = $parser->getProperty(FANART);
@@ -132,9 +136,14 @@ function ParserMovieLookup($movie_id, $filename, $search_params) {
                             , '');
         $actor_name_safe = filename_safe(strtolower($actor['NAME']));
         if (!file_exists(SC_LOCATION.'fanart/actors/'.$actor_name_safe.'/'.$actor['ID'].'.'.file_ext($actor['IMAGE']))) {
-          if (!file_exists(SC_LOCATION.'fanart/actors/'.$actor_name_safe)) { @mkdir(SC_LOCATION.'fanart/actors/'.$actor_name_safe); }
-            copy($cache_dir.'/actors/'.$actor['ID'].'.'.file_ext($actor['IMAGE']),
-                 SC_LOCATION.'fanart/actors/'.$actor_name_safe.'/'.$actor['ID'].'.'.file_ext($actor['IMAGE']));
+          if (!file_exists(SC_LOCATION.'fanart/actors/'.$actor_name_safe))
+          {
+            $oldumask = umask(0);
+            @mkdir(SC_LOCATION.'fanart/actors/'.$actor_name_safe,0777);
+            umask($oldumask);
+          }
+          copy($cache_dir.'/actors/'.$actor['ID'].'.'.file_ext($actor['IMAGE']),
+               SC_LOCATION.'fanart/actors/'.$actor_name_safe.'/'.$actor['ID'].'.'.file_ext($actor['IMAGE']));
         }
       }
     }
