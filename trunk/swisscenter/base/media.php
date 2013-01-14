@@ -485,10 +485,10 @@ function process_mp3( $dir, $id, $file)
   }
 
   // Standard information about the file
-  $data['dirname']      = $dir;
-  $data['filename']     = $file;
+  $data['dirname']      = encode_utf8($dir);
+  $data['filename']     = encode_utf8($file);
   $data['location_id']  = $id;
-  $data['title']        = file_noext($file);
+  $data['title']        = file_noext($data['filename']);
   $data['size']         = filesize($dir.$file);
   $data['verified']     = 'Y';
   $data['discovered']   = db_datestr();
@@ -608,7 +608,7 @@ function process_mp3( $dir, $id, $file)
         set_var( $data['mood'],   array_last($id3['tags']['id3v2']['mood']) );
         set_var( $data['composer'], array_last($id3['tags']['id3v2']['composer']) );
         set_var( $data['publisher'], array_last($id3['tags']['id3v2']['publisher']) );
-        set_var( $data['involved_people_list'], array_last($id3['tags']['id3v2']['involved_people_list']) );
+//        set_var( $data['involved_people_list'], array_last($id3['tags']['id3v2']['involved_people_list']) );
         set_var( $data['track'],  ltrim(array_last($id3['tags']['id3v2']['track_number']),'0') );
         set_var( $data['disc'],   ltrim(array_last($id3['tags']['id3v2']['part_of_a_set']),'0') );
         set_var( $image,          array_last($id3['comments']['picture']) );
@@ -646,7 +646,7 @@ function process_mp3( $dir, $id, $file)
       send_to_log(2,' - '.$err);
   }
 
-  $file_id = db_value("select file_id from mp3s where dirname='".db_escape_str($dir)."' and filename='".db_escape_str($file)."'");
+  $file_id = db_value("select file_id from mp3s where dirname='".db_escape_str($data['dirname'])."' and filename='".db_escape_str($data['filename'])."'");
   if ( $file_id )
   {
     // Update the existing record
@@ -676,8 +676,8 @@ function add_photo_album( $dir, $id )
 {
   $media_loc = db_value("select name from media_locations where location_id=$id");
   $title     = str_replace('/', ':', trim(substr($dir, strlen($media_loc)+1), '/'));
-  $row       = array('dirname'      => $dir
-                    ,'title'        => $title
+  $row       = array('dirname'      => encode_utf8($dir)
+                    ,'title'        => encode_utf8($title)
                     ,'verified'     => 'Y'
                     ,'discovered'   => db_datestr()
                     ,'timestamp'    => db_datestr(filemtime($dir))
@@ -686,7 +686,7 @@ function add_photo_album( $dir, $id )
 
   send_to_log(6,'Adding photo album "'.$title.'"');
 
-  $file_id = db_value("select file_id from photo_albums where dirname='".db_escape_str($dir)."'");
+  $file_id = db_value("select file_id from photo_albums where dirname='".db_escape_str($row['dirname'])."'");
   if ( $file_id )
   {
     if ( db_update_row( 'photo_albums', $file_id, $row) === false )
@@ -730,8 +730,8 @@ function process_photo( $dir, $id, $file)
   }
 
   // Standard information about the file
-  $data['dirname']      = $dir;
-  $data['filename']     = $file;
+  $data['dirname']      = encode_utf8($dir);
+  $data['filename']     = encode_utf8($file);
   $data['location_id']  = $id;
   $data['size']         = filesize($dir.$file);
   $data['verified']     = 'Y';
@@ -838,7 +838,7 @@ function process_photo( $dir, $id, $file)
       send_to_log(2,' - '.$err);
   }
 
-  $file_id = db_value("select file_id from photos where dirname='".db_escape_str($dir)."' and filename='".db_escape_str($file)."'");
+  $file_id = db_value("select file_id from photos where dirname='".db_escape_str($data['dirname'])."' and filename='".db_escape_str($data['filename'])."'");
   if ( $file_id )
   {
     // Update the existing record
@@ -944,8 +944,8 @@ function process_movie( $dir, $id, $file )
   }
 
   // Standard information about the file
-  $data['dirname']      = $dir;
-  $data['filename']     = $file;
+  $data['dirname']      = encode_utf8($dir);
+  $data['filename']     = encode_utf8($file);
   $data['location_id']  = $id;
   $data['size']         = filesize($dir.$file);
   $data['verified']     = 'Y';
@@ -1033,7 +1033,7 @@ function process_movie( $dir, $id, $file )
       db_sqlcommand("update media_art set image='".db_escape_str($image['data'])."' where art_sha1='".$data['art_sha1']."'");
   }
 
-  $file_id = db_value("select file_id from movies where dirname='".db_escape_str($dir)."' and filename='".db_escape_str($file)."'");
+  $file_id = db_value("select file_id from movies where dirname='".db_escape_str($data['dirname'])."' and filename='".db_escape_str($data['filename'])."'");
   if ( $file_id )
   {
     // Update the existing record
@@ -1045,7 +1045,7 @@ function process_movie( $dir, $id, $file )
   {
     // Only set the title for a new record (an existing title may have been edited)
     if ( empty($data['title']) )
-      $data['title'] = determine_dvd_name( $dir.$file );
+      $data['title'] = determine_dvd_name( $data['dirname'].$data['filename'] );
 
     // Insert the row into the database
     send_to_log(5,'Adding Video   : '.$file);
@@ -1055,7 +1055,7 @@ function process_movie( $dir, $id, $file )
   if ( $success )
   {
     // Add additional info requiring file_id
-    $file_id = db_value("select file_id from movies where dirname='".db_escape_str($dir)."' and filename='".db_escape_str($file)."'");
+    $file_id = db_value("select file_id from movies where dirname='".db_escape_str($data['dirname'])."' and filename='".db_escape_str($data['filename'])."'");
     if (file_ext($file) == 'dvr-ms')
     {
       $mediacredits = explode(';', $id3['comments']['mediacredits'][0]);
@@ -1198,9 +1198,9 @@ function process_tv( $dir, $id, $file)
   }
 
   // Standard information about the file
-  $data['dirname']      = $dir;
-  $data['filename']     = $file;
-  $data['title']        = $dir.$file;
+  $data['dirname']      = encode_utf8($dir);
+  $data['filename']     = encode_utf8($file);
+  $data['title']        = file_noext($data['filename']);
   $data['location_id']  = $id;
   $data['size']         = filesize($dir.$file);
   $data['verified']     = 'Y';
@@ -1211,7 +1211,7 @@ function process_tv( $dir, $id, $file)
 
   // Determine the part of the path to process for metadata about the episode.
   $media_loc_dir = db_value("select name from media_locations where location_id=$id");
-  $meta_fsp = substr($dir,strlen($media_loc_dir)+1).file_noext($file);
+  $meta_fsp = substr($data['dirname'],strlen($media_loc_dir)+1).file_noext($data['filename']);
 
   $data = array_merge($data, get_tvseries_info($meta_fsp) );
   unset($data['rule']);
@@ -1244,7 +1244,7 @@ function process_tv( $dir, $id, $file)
       send_to_log(2,' - '.$err);
   }
 
-  $file_id = db_value("select file_id from tv where dirname='".db_escape_str($dir)."' and filename='".db_escape_str($file)."'");
+  $file_id = db_value("select file_id from tv where dirname='".db_escape_str($data['dirname'])."' and filename='".db_escape_str($data['filename'])."'");
   if ( $file_id )
   {
     // Update the existing record
@@ -1268,7 +1268,7 @@ function process_tv( $dir, $id, $file)
     if ( file_exists($filename) )
     {
       if ( !$file_id )
-        $file_id = db_value("select file_id from tv where dirname='".db_escape_str($dir)."' and filename='".db_escape_str($file)."'");
+        $file_id = db_value("select file_id from tv where dirname='".db_escape_str($data['dirname'])."' and filename='".db_escape_str($data['filename'])."'");
       send_to_log(5,'Importing TV episode details');
       import_tv_from_xml($file_id, $filename);
     }
@@ -1314,8 +1314,8 @@ function file_newer_than_db( $table, $location, $dir, $file )
   // Date of the file in the database
   $db_date = db_value("select timestamp from $table
                         where location_id = $location
-                          and dirname     = '".db_escape_str($dir)."'
-                          and filename    = '".db_escape_str($file)."'" );
+                          and dirname     = '".db_escape_str(encode_utf8($dir))."'
+                          and filename    = '".db_escape_str(encode_utf8($file))."'" );
 
   if ( !is_null($db_date) && ($db_date >= $file_date) )
   {
@@ -1323,8 +1323,8 @@ function file_newer_than_db( $table, $location, $dir, $file )
     db_sqlcommand("update $table
                       set verified     = 'Y'
                     where location_id  = $location
-                      and dirname      = '".db_escape_str($dir)."'
-                      and filename     = '".db_escape_str($file)."'" );
+                      and dirname      = '".db_escape_str(encode_utf8($dir))."'
+                      and filename     = '".db_escape_str(encode_utf8($file))."'" );
   }
   elseif (!is_null($db_date) && $db_date < $file_date)
   {
@@ -1434,10 +1434,10 @@ function process_media_directory( $dir, $id, $share, $table, $file_exts, $recurs
   update_scan_progress($table, $id);
 
   // Delete any files which cannot be verified
-  $files = db_toarray("select dirname, filename from $table where verified ='N' and dirname like '".db_escape_str($dir)."%'");
+  $files = db_toarray("select dirname, filename from $table where verified ='N' and dirname like '".db_escape_str(encode_utf8($dir))."%'");
   foreach ($files as $file)
     send_to_log(4,'Removed  : '.$file['DIRNAME'].$file['FILENAME']);
-  db_sqlcommand("delete from $table where verified ='N' and dirname like '".db_escape_str($dir)."%'");
+  db_sqlcommand("delete from $table where verified ='N' and dirname like '".db_escape_str(encode_utf8($dir))."%'");
 
   // Remove the browser coords from the session to ensure it gets recalculated to the current browser
   unset($_SESSION["device"]);
