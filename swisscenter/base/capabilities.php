@@ -263,7 +263,7 @@ function media_exts_with_GetID3_support()
 
 function get_required_modules_list()
 {
-  return explode(',','gd,json,mbstring,mysql,mysqli,xml,session');
+  return explode(',','curl,gd,json,mbstring,mysqli,xml,session');
 }
 
 function get_suggested_modules_list()
@@ -472,7 +472,7 @@ function save_players_config()
 
   foreach ($data as $player)
   {
-    $xml->Push('player', array('name'        => utf8_encode(trim($player["NAME"])),
+    $xml->Push('player', array('name'        => trim($player["NAME"]),
                                'make'        => $player["MAKE"],
                                'model'       => $player["MODEL"],
                                'chipset'     => $player["CHIPSET"],
