@@ -844,6 +844,23 @@ function unicode_value($code)
 }
 
 /**
+ * Check and convert array elements to UTF-8 encoding
+ *
+ * @param $data - the array to be converted
+ * @return the encoded array
+ */
+function encode_utf8($data)
+{
+  if (is_array($data)) {
+    array_walk($data, 'encode_utf8');
+  } elseif (is_string($data)) {
+    return mb_detect_encoding($data, 'UTF-8', true) ? $data : utf8_encode($data);
+  } else {
+    return $data;
+  }
+}
+
+/**
  * Check whether a URL exists.
  *
  * @param string $url
