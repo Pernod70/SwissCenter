@@ -1397,7 +1397,7 @@ function process_media_file( $dir, $file, $id, $share, $table, $file_exts, $upda
 function process_media_directory( $dir, $id, $share, $table, $file_exts, $recurse = true, $update = false)
 {
   // Directories to ignore (lowercase only - case insensitive match).
-  $dirs_to_ignore  = explode(',',strtolower(get_sys_pref('IGNORE_DIR_LIST','')).',@eaDir,.@__thumb,.,..');
+  $dirs_to_ignore = explode(',',strtolower(get_sys_pref('IGNORE_DIR_LIST','').',@eaDir,.@__thumb,.,..'));
 
   // Mark all the files in this directory as unverified
   db_sqlcommand("update $table set verified ='N' where dirname like'".db_escape_str($dir)."%'");
@@ -1411,7 +1411,7 @@ function process_media_directory( $dir, $id, $share, $table, $file_exts, $recurs
       if (isdir($dir.$file))
       {
         // Regular directory
-        if ( !in_array(strtolower($file),$dirs_to_ignore) && (get_sys_pref('IGNORE_HIDDEN_DIRECTORIES','NO')=="NO" || strpos($file,'.')!==0))
+        if ( !in_array(strtolower($file),$dirs_to_ignore) && (get_sys_pref('IGNORE_HIDDEN_DIRECTORIES','NO')=='NO' || strpos($file,'.')!==0))
         {
           if ($table == 'photos')
             add_photo_album($dir.$file.'/', $id);
