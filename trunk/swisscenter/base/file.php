@@ -411,13 +411,13 @@ function find_in_dir_all_exts( $dir, $filename_noext )
   {
     while ( ($file = readdir($dh)) !== false )
     {
-      if (file_noext($file) == $filename_noext)
+      if (file_noext(encode_utf8($file)) == $filename_noext)
         $matches[] = os_path($dir,true).$file;
     }
     closedir($dh);
   }
 
-  return $matches;
+  return encode_utf8($matches);
 }
 
 /**

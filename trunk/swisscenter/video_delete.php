@@ -83,7 +83,7 @@
       foreach( find_in_dir_all_exts( $row["DIRNAME"], file_noext($row["FILENAME"]) ) as $file)
       {
         send_to_log(8, "Deleting file: $file");
-        unlink($file);
+        Fsw::unlink($file);
       }
 
       // Remove media from database
