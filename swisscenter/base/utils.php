@@ -76,7 +76,10 @@ function make_url_path( $fsp )
     }
   }
 
-  $parts = split('/',str_replace('\\','/',$fsp));
+  $parts = explode('/',str_replace('\\','/',$fsp));
+
+  // Ensure path is UTF-8 encoded
+  $parts = encode_utf8($parts);
 
   // On windows, we should ensure that the drive letter is converted to uppercase
   if ( is_windows() )
@@ -84,7 +87,7 @@ function make_url_path( $fsp )
 
   // Simese doesn't like UTF-8 encoded URL's
   for ($i=0; $i<count($parts); $i++)
-    $parts[$i] = rawurlencode(is_server_simese() ? $parts[$i] : utf8_encode($parts[$i]));
+    $parts[$i] = rawurlencode(is_server_simese() ? decode_utf8($parts[$i]) : $parts[$i]);
 
   return join('/',$parts);
 }
@@ -353,7 +356,7 @@ function image_resized_xy( $filename, &$x, &$y )
   // Load the image from disk
   if (strtolower(file_ext($filename)) == 'sql')
     $image->load_from_database( substr($filename,0,-4) );
-  elseif ( file_exists($filename) || is_remote_file($filename) )
+  elseif ( Fsw::file_exists($filename) || is_remote_file($filename) )
     $image->load_from_file($filename);
   else
     send_to_log(1,'Unable to process image specified : '.$filename);
@@ -660,66 +663,6 @@ function strrpos_str($string, $searchFor, $startFrom = 0)
 }
 
 /**
- * Returns the MySQL version.
- *
- * @return string
- */
-
-function mysql_version()
-{
-  if (extension_loaded('mysql') && ($db = @mysql_pconnect( DB_HOST, DB_USERNAME, DB_PASSWORD )) )
-  {
-    $stmt = mysql_query( 'select version()', $db);
-    if ($row = mysql_fetch_array( $stmt, MYSQL_ASSOC ))
-      return array_pop($row);
-    else
-      return false;
-  }
-  else
-    return false;
-}
-
-/**
- * Returns the MySQL charset.
- *
- * @return string
- */
-
-function mysql_charset()
-{
-  if (extension_loaded('mysql') &&  ($db = @mysql_pconnect( DB_HOST, DB_USERNAME, DB_PASSWORD )) )
-  {
-    $stmt = mysql_query( 'select charset(\'abc\')', $db);
-    if ($row = mysql_fetch_array( $stmt, MYSQL_ASSOC ))
-      return array_pop($row);
-    else
-      return false;
-  }
-  else
-    return false;
-}
-
-/**
- * Returns the MySQL collation.
- *
- * @return string
- */
-
-function mysql_collation()
-{
-  if (extension_loaded('mysql') &&  ($db = @mysql_pconnect( DB_HOST, DB_USERNAME, DB_PASSWORD )) )
-  {
-    $stmt = mysql_query( 'select collation(\'abc\')', $db);
-    if ($row = mysql_fetch_array( $stmt, MYSQL_ASSOC ))
-      return array_pop($row);
-    else
-      return false;
-  }
-  else
-    return false;
-}
-
-/**
  * Highlight the specified text in a string
  *
  * @param string $text
@@ -852,12 +795,25 @@ function unicode_value($code)
 function encode_utf8($data)
 {
   if (is_array($data)) {
-    array_walk($data, 'encode_utf8');
-  } elseif (is_string($data)) {
-    return mb_detect_encoding($data, 'UTF-8', true) ? $data : utf8_encode($data);
-  } else {
-    return $data;
+    foreach ($data as $key => $value) {
+      $data[$key] = encode_utf8($value);
+    }
+  } elseif (is_string($data) && !mb_detect_encoding($data, 'UTF-8', true)) {
+    $data = utf8_encode($data);
   }
+  return $data;
+}
+
+function decode_utf8($data)
+{
+  if (is_array($data)) {
+    foreach ($data as $key => $value) {
+      $data[$key] = decode_utf8($value);
+    }
+  } elseif (is_string($data) && mb_detect_encoding($data, 'UTF-8', true)) {
+    $data = utf8_decode($data);
+  }
+  return $data;
 }
 
 /**
@@ -870,6 +826,42 @@ function url_exists($url)
 {
   $hdrs = @get_headers($url);
   return is_array($hdrs) ? preg_match('/^HTTP\\/\\d+\\.\\d+\\s+2\\d\\d\\s+.*$/',$hdrs[0]) : false;
+}
+
+/**
+ * Get remote file last modification date (returns unix timestamp).
+ *
+ * @param $uri
+ * @return integer
+ */
+function GetRemoteLastModified( $uri )
+{
+  // default
+  $unixtime = 0;
+
+  $fp = fopen( $uri, "r" );
+  if( !$fp ) {return;}
+
+  $MetaData = stream_get_meta_data( $fp );
+
+  foreach( $MetaData['wrapper_data'] as $response )
+  {
+    // case: redirection
+    if( substr( strtolower($response), 0, 10 ) == 'location: ' )
+    {
+      $newUri = substr( $response, 10 );
+      fclose( $fp );
+      return GetRemoteLastModified( $newUri );
+    }
+    // case: last-modified
+    elseif( substr( strtolower($response), 0, 15 ) == 'last-modified: ' )
+    {
+      $unixtime = strtotime( substr($response, 15) );
+      break;
+    }
+  }
+  fclose( $fp );
+  return $unixtime;
 }
 
 /**

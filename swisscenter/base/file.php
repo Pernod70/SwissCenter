@@ -6,6 +6,96 @@
 require_once( realpath(dirname(__FILE__).'/utils.php'));
 
 /**
+ * Wrapper for PHP filesystem functions
+ */
+class Fsw {
+
+  /**
+   * Returns the filename for use with filesystem functions
+   */
+  static function setName ($file) {
+    if (DIRECTORY_SEPARATOR=="\\") {
+      $file=decode_utf8($file);
+    }
+    return $file;
+  }
+
+  /**
+   * Encodes the filename returned by filesystem functions
+   */
+  static function getName ($file) {
+    if (DIRECTORY_SEPARATOR=="\\") {
+      $file=encode_utf8($file);
+    }
+    return $file;
+  }
+
+
+  static function file_exists ($filename) {
+    return file_exists(self::setName($filename));
+  }
+
+  static function file_get_contents ($filename, $use_include_path = false) {
+    return file_get_contents(self::setName($filename), $use_include_path);
+  }
+
+  static function file_put_contents ($filename, $data) {
+    return file_put_contents(self::setName($filename), $data);
+  }
+
+  static function file ($filename) {
+    return file(self::setName($filename));
+  }
+
+  static function fileinode ($filename) {
+    return fileinode(self::setName($filename));
+  }
+
+  static function filemtime ($filename) {
+    return filemtime(self::setName($filename));
+  }
+
+  static function filesize ($filename) {
+    return filesize(self::setName($filename));
+  }
+
+  static function fopen ($filename, $mode) {
+    return fopen(self::setName($filename), $mode);
+  }
+
+  static function is_file ($filename) {
+    return is_file(self::setName($filename));
+  }
+
+  static function is_readable ($filename) {
+    return is_readable(self::setName($filename));
+  }
+
+  static function opendir ($dirname) {
+    return opendir(self::setName($dirname));
+  }
+
+  static function readdir ($dir_handle) {
+    $file=readdir($dir_handle);
+    if ($file) {
+      // check if file is found before converting it's
+      // name or we will convert bool(false) to string
+      $file=self::getName($file);
+    }
+    return $file;
+  }
+
+  static function touch ($filename, $time = null) {
+    if (is_null($time)) $time = time();
+    return touch(self::setName($filename), $time);
+  }
+
+  static function unlink ($dirname) {
+    return unlink(self::setName($dirname));
+  }
+}
+
+/**
  * Replacement function for is_dir() which returns true if the path specified is
  * a directory OR a valid drive/share/mount.
  *
@@ -15,7 +105,8 @@ require_once( realpath(dirname(__FILE__).'/utils.php'));
 
 function isdir( $fsp )
 {
-  if ($dh = @opendir($fsp))
+  $dh = @Fsw::opendir($fsp);
+  if ($dh !== false)
   {
     closedir($dh);
     return true;
@@ -36,7 +127,7 @@ function isdir( $fsp )
 
 function large_filesize( $fsp )
 {
-  if ( file_exists($fsp) )
+  if ( Fsw::file_exists($fsp) )
   {
     $server  = server_address();
     $headers = get_headers( $server.make_url_path($fsp), 1 );
@@ -80,7 +171,8 @@ function dir_to_array ($dir, $pattern = '.*', $opts = 7, $recursive = false )
   $dir = os_path($dir,true);
 
   $contents = array();
-  if ($dh = @opendir($dir))
+  $dh = @Fsw::opendir($dir);
+  if ($dh !== false)
   {
     while (($file = readdir($dh)) !== false)
     {
@@ -88,7 +180,7 @@ function dir_to_array ($dir, $pattern = '.*', $opts = 7, $recursive = false )
       if ( preg_match('/'.$pattern.'/', $file) )
       {
         if ( (isdir($dir.$file) && ($opts & DIR_TO_ARRAY_SHOW_DIRS)) ||
-           (is_file($dir.$file) && ($opts & DIR_TO_ARRAY_SHOW_FILES)) )
+           (Fsw::is_file($dir.$file) && ($opts & DIR_TO_ARRAY_SHOW_FILES)) )
           if ($opts & DIR_TO_ARRAY_FULL_PATH)
             $contents[] = os_path($dir.$file);
           else
@@ -115,7 +207,7 @@ function dir_to_array ($dir, $pattern = '.*', $opts = 7, $recursive = false )
 
 function bookmark_file( $fsp )
 {
-  return SC_LOCATION."config/Bookmarks/".strtoupper(md5("/".ucfirst($fsp))).".dat";
+  return SC_LOCATION.'config/Bookmarks/'.strtoupper(md5('/'.ucfirst($fsp))).'.dat';
 }
 
 /**
@@ -156,9 +248,9 @@ function make_abs_file( $fsp, $dir )
 function paths_to_array( $path_str )
 {
   if ( substr(PHP_OS,0,3)=='WIN' )
-    return explode(';',$path_str);
+    return explode(';', $path_str);
   else
-    return explode(':',$path_str);
+    return explode(':', $path_str);
 }
 
 /**
@@ -183,9 +275,9 @@ function file_ext( $filename )
 
 function file_noext( $filename )
 {
-  $parts = explode( '.' , $filename);
+  $parts = explode( '.', $filename);
   unset($parts[count($parts)-1]);
-  return basename(implode('.',$parts));
+  return basename(implode('.', $parts));
 }
 
 /**
@@ -208,7 +300,7 @@ function file_unique_name( $filename )
     $orig_name = substr($orig_name,0,strlen($orig_name)-strlen($suffix)-1);
 
   while ( file_exists($filename))
-    $filename = $orig_name."_".sprintf('%05s',$n++).".".$orig_ext;
+    $filename = $orig_name.'_'.sprintf('%05s',$n++).'.'.$orig_ext;
 
   return $filename;
 }
@@ -251,13 +343,14 @@ function parent_dir( $dirpath)
 function dir_size($dir, $subdirs = false)
 {
    $totalsize=0;
-   if ($dirstream = @opendir($dir))
+   $dh = @Fsw::opendir($dir);
+   if ($dh !== false)
    {
-     while (false !== ($filename = readdir($dirstream)))
+     while (false !== ($filename = readdir($dh)))
      {
-       if ($filename!="." && $filename!="..")
+       if ($filename != '.' && $filename != '..')
        {
-         if (is_file($dir."/".$filename))
+         if (Fsw::is_file($dir."/".$filename))
              $totalsize += filesize($dir."/".$filename);
 
          if (isdir($dir."/".$filename) && $subdirs)
@@ -265,7 +358,7 @@ function dir_size($dir, $subdirs = false)
        }
      }
    }
-   closedir($dirstream);
+   closedir($dh);
    return $totalsize;
 }
 
@@ -282,13 +375,14 @@ function dir_size($dir, $subdirs = false)
 function find_in_dir($dir, $filename)
 {
   $actual = '';
-  if ($dh = @opendir($dir))
+  $dh = @Fsw::opendir($dir);
+  if ($dh !== false )
   {
     while ( $actual == '' && ($file = readdir($dh)) !== false )
     {
-      if     ( is_string($filename) && strtolower($file) == strtolower($filename))
+      if     ( is_string($filename) && strtolower(encode_utf8($file)) == strtolower($filename))
         $actual = $file;
-      elseif ( is_array($filename) && in_array_ci(strtolower($file),$filename))
+      elseif ( is_array($filename) && in_array_ci(strtolower(encode_utf8($file)),$filename))
         $actual = $file;
     }
     closedir($dh);
@@ -312,7 +406,8 @@ function find_in_dir_all_exts( $dir, $filename_noext )
 {
   $matches = array();
 
-  if ($dh = @opendir($dir))
+  $dh = @Fsw::opendir($dir);
+  if ($dh !== false)
   {
     while ( ($file = readdir($dh)) !== false )
     {
@@ -336,11 +431,12 @@ function find_in_dir_all_exts( $dir, $filename_noext )
 function write_binary_file($filename, $str)
 {
   $success = false;
-  if ( $handle = @fopen($filename, 'wb') )
+  $fh = @Fsw::fopen($filename, 'wb');
+  if ( $fh !== false )
   {
-     if ( fwrite($handle, $str) !== FALSE)
+     if ( fwrite($fh, $str) !== false)
        $success = true;
-     fclose($handle);
+     fclose($fh);
   }
   return $success;
 }
@@ -358,11 +454,12 @@ function array2file( $array, $filename)
 {
   $success = false;
   $str = implode(newline(), $array);
-  if ( $handle = @fopen($filename, 'wt') )
+  $fh = @Fsw::fopen($filename, 'wt');
+  if ( $fh !== false )
   {
-     if ( fwrite($handle, $str) !== FALSE)
+     if ( fwrite($fh, $str) !== false)
        $success = true;
-     fclose($handle);
+     fclose($fh);
   }
   return $success;
 }
@@ -378,7 +475,7 @@ function array2file( $array, $filename)
 function update_ini( $file, $var, $value )
 {
   // Read in the file, and setup variables
-  $contents = @file($file);
+  $contents = @Fsw::file($file);
   $match    = strtolower($var).'=';
   $len      = strlen($match);
   $found    = false;
@@ -420,7 +517,7 @@ function file_icon( $fsp )
 
   if (in_array(file_ext(strtolower($fsp)), explode(',' ,ALBUMART_EXT) ))
     return $fsp;
-  elseif ( file_exists($filetype_icon) )
+  elseif ( Fsw::file_exists($filetype_icon) )
     return $filetype_icon;
   elseif ( in_array($ext,media_exts_radio()) )
     return style_img('ICON_RADIO',true);
@@ -455,15 +552,16 @@ function dir_icon()
 
 function force_rmdir($dir)
 {
-  if ( is_file($dir) )
+  if ( Fsw::is_file($dir) )
   {
     // It's a file - so just delete it!
-    unlink($dir);
+    Fsw::unlink($dir);
   }
   else
   {
     // Recurse sub_directory first, then delete it.
-    if ($dh = @opendir($dir))
+    $dh = @Fsw::opendir($dir);
+    if ($dh !== false)
     {
       while (($file = readdir($dh)) !== false)
       {
@@ -478,7 +576,7 @@ function force_rmdir($dir)
   }
 
   // Final check to see if it all worked.
-  return file_exists($dir);
+  return Fsw::file_exists($dir);
 }
 
 /**
@@ -504,9 +602,9 @@ function force_rmdir($dir)
 
 function file_thumbnail( $fsp )
 {
-  $tn_image  = '';
+  $tn_image = '';
 
-  if (!file_exists($fsp))
+  if (!Fsw::file_exists($fsp))
   {
     send_to_log(3,"Warning : File/Directory doesn't exist in file.php:file_thumbnail",$fsp);
     $tn_image = file_icon('xxx');
@@ -576,7 +674,7 @@ function file_albumart( $fsp, $default_image = true )
     {
       // Search the directory for an image with the same name as that given, but with an image extension
       foreach ( explode(',' ,ALBUMART_EXT) as $type)
-        if ( $return = find_in_dir( dirname($fsp),file_noext($fsp).'.'.$type))
+        if ( ($return = find_in_dir( dirname($fsp),file_noext($fsp).'.'.$type)) !== false )
           break;
 
       // No albumart found for this specific file.. is there albumart for the directory?
@@ -606,7 +704,7 @@ function file_albumart( $fsp, $default_image = true )
  * @param boolean $overwrite - [Optional] Overwrite local file it is exists
  */
 
-function file_download_and_save( $url, $filename, $overwrite = false )
+function file_download_and_save( $url, $filename, $overwrite = false, $modified = false )
 {
   send_to_log(4,'Downloading remote file to the local filesystem',array("remote"=>$url, "local"=>$filename));
   if ( is_remote_file($url))
@@ -619,10 +717,16 @@ function file_download_and_save( $url, $filename, $overwrite = false )
       $img = @file_get_contents(str_replace(' ','%20',$url));
       if ($img !== false)
       {
-        if ($out = @fopen($filename, "wb") )
+        $fh = @fopen($filename, 'wb');
+        if ($fh !== false)
         {
-          @fwrite($out, $img);
-          @fclose($out);
+          @fwrite($fh, $img);
+          @fclose($fh);
+
+          // Set modified date on downloaded file
+          if ( $modified )
+            Fsw::touch($filename, $modified);
+
           return true;
         }
         else
@@ -653,7 +757,7 @@ function file_download_and_save( $url, $filename, $overwrite = false )
 
 function file_save_albumart( $url, $fsp, $film_title )
 {
-  if (!file_exists($fsp))
+  if (!Fsw::file_exists($fsp))
     file_download_and_save($url,$fsp);
 }
 
@@ -757,7 +861,7 @@ function wget_location($system_setting = true)
 
 function wget_version()
 {
-  if ( is_file(wget_location()) )
+  if ( Fsw::is_file(wget_location()) )
   {
     $cmd = wget_location().' --version';
     ob_start();
@@ -779,6 +883,24 @@ function wget_version()
 function system_root()
 {
   return str_replace('\\\\','\\',getenv('SystemRoot'));
+}
+
+/**
+ * Generate Apache 2.2 ETag.
+ *
+ * @param $filename
+ * @return string
+ */
+
+function file_etag($filename)
+{
+  // Inode
+  $ETag = dechex(Fsw::fileinode($filename));
+  // Size
+  $ETag.= "-".dechex(Fsw::filesize($filename));
+  // Modification time in useconds & (2^33-1)
+  $ETag.= "-".dechex(((Fsw::filemtime($filename).str_repeat("0",6)+0) & (8589934591)));
+  return $ETag;
 }
 
 /**

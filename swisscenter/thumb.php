@@ -61,7 +61,7 @@
   $use_cache  = get_sys_pref('CACHE_STYLE_DETAILS','YES');
 
   // Is there a cached version available?
-  if ( $cache_file !== false && file_exists($cache_file) && $use_cache == 'YES' && empty($overname) )
+  if ( $cache_file !== false && Fsw::file_exists($cache_file) && $use_cache == 'YES' && empty($overname) )
   {
     send_to_log(6,"Cached file exists for $filename at ($x x $y)");
     output_cached_file($cache_file, $_REQUEST["type"]);
@@ -74,7 +74,7 @@
     // Load the image from disk
     if (strtolower(file_ext($filename)) == 'sql')
       $image->load_from_database( substr($filename,0,-4) );
-    elseif ( file_exists($filename) || is_remote_file($filename) )
+    elseif ( Fsw::file_exists($filename) || is_remote_file($filename) )
       $image->load_from_file($filename);
     else
       send_to_log(1,'Unable to process image specified : '.$filename);
