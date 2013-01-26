@@ -48,7 +48,7 @@
 
     $cache_file = cache_filename($filename, $x, $y);
 
-    if ( !false &&  $cache_file !== false && file_exists($cache_file) && (time()-filemtime($filename) < 300) )
+    if ( !false &&  $cache_file !== false && Fsw::file_exists($cache_file) && (time()-Fsw::filemtime($filename) < 300) )
     {
       send_to_log(6,"Cached file exists for $filename at ($x x $y)");
       output_cached_file($cache_file, 'jpg');
@@ -60,7 +60,7 @@
       // Load the image from disk
       if (strtolower(file_ext($filename)) == 'sql')
         $image->load_from_database( substr($filename,0,-4) );
-      elseif ( file_exists($filename) )
+      elseif ( Fsw::file_exists($filename) )
         $image->load_from_file($filename);
       else
         send_to_log(1,'Unable to process image specified : '.$filename);
@@ -121,7 +121,7 @@
     {
       $startArray = sscanf( $_SERVER["HTTP_RANGE"], "bytes=%d-" );
       $start      = (empty($startArray[0]) ? 0 : $startArray[0]);
-      $size       = filesize($fsp);
+      $size       = Fsw::filesize($fsp);
 
       send_to_log(5,"Subtitles File  : ".$fsp);
       send_to_log(8,"Subtitles Range : ".$start." to ".($size-1)."/".$size);
@@ -194,7 +194,7 @@
     if ( $_SERVER["REQUEST_METHOD"] == 'GET' )
     {
       // Open the file
-      $fh=fopen($location, 'rb');
+      $fh=Fsw::fopen($location, 'rb');
       fseek($fh, $fstart);
       $fbytessofar = 0;
       $fbytestoget = 1024*16;
@@ -248,7 +248,7 @@
     $location = preg_replace('/(.*)\..*/u','\1'.$req_ext, $location);
     output_subtitles($location);
   }
-  elseif (!is_remote_file($location) && !is_readable($location))
+  elseif (!is_remote_file($location) && !Fsw::is_readable($location))
   {
     // Sanity check - Do we have permissions to read this file?
     send_to_log(1,"Error: SwissCenter does not have permissions to read the file '$location'");
@@ -268,9 +268,9 @@
     if ($tracks[$idx]["LENGTH"] > 0)
       $headers[] = "TimeSeekRange.dlna.org: npt=0-/".$tracks[$idx]["LENGTH"];
 
-    $headers[] = "Content-Type: ".mime_content_type($location);
+    $headers[] = "Content-Type: ".mime_content_type(Fsw::setName($location));
  //   $headers[] = 'ETag: "'.file_etag($location).'"';
-    $headers[] = "Last-Modified: ".gmdate('D, d M Y H:i:s',filemtime($location))." GMT";
+    $headers[] = "Last-Modified: ".gmdate('D, d M Y H:i:s',Fsw::filemtime($location))." GMT";
     $headers[] = "Date: ".gmdate('d M Y H:i:s').' GMT';
 
     // Override Simese no-cache headers

@@ -128,7 +128,7 @@ function precache( $filename, $x, $y, $overwrite = true )
     // Load the image from disk
     if (strtolower(file_ext($filename)) == 'sql')
       $image->load_from_database( substr($filename,0,-4) );
-    elseif ( file_exists($filename) )
+    elseif ( Fsw::file_exists($filename) )
       $image->load_from_file($filename);
     else
       send_to_log(1,'Unable to process image specified : '.$filename);
@@ -340,21 +340,21 @@ class CImage
       $this->image = false;
     }
 
-    if ( is_file($filename) || is_remote_file($filename))
+    if ( Fsw::is_file($filename) || is_remote_file($filename))
     {
       switch (file_ext($filename))
       {
         case 'jpg':
         case 'jpeg':
-          $this->image = ImageCreateFromJpeg($filename);
+          $this->image = ImageCreateFromJpeg(Fsw::setName($filename));
           break;
         case 'png':
-          $this->image = ImageCreateFromPng($filename);
+          $this->image = ImageCreateFromPng(Fsw::setName($filename));
           imageAlphaBlending($this->image, false);
           imageSaveAlpha($this->image, true);
           break;
         case 'gif':
-          $this->image = ImageCreateFromGif($filename);
+          $this->image = ImageCreateFromGif(Fsw::setName($filename));
           break;
         default :
           $this->image = false;
@@ -755,13 +755,13 @@ class CImage
       $fsp = $this->cache_filename;
       if ($fsp !== false )
       {
-      	if ($overwrite || !file_exists($fsp))
-      	{
+        if ($overwrite || !Fsw::file_exists($fsp))
+        {
           ImagePng($this->image, $fsp, floor(get_sys_pref("GEN_PNG_QUALITY",80)/10));
           reduce_cache();
-      	}
-      	else
-      	  touch($fsp);
+        }
+        else
+          Fsw::touch($fsp);
       }
     }
   }
