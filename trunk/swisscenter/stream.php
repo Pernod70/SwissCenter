@@ -154,7 +154,7 @@
   function stream_file($media, $file_id, $location, $headers = array() )
   {
     // Sanity check - file exists
-    if ( !is_file($location) )
+    if ( !Fsw::is_file($location) )
       return;
 
     $startArray  = sscanf( $_SERVER["HTTP_RANGE"], "bytes=%d-%d" );
