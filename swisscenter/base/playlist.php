@@ -463,7 +463,7 @@ function pl_info ()
 }
 
 /**
- * Validates that the specified file (including path) exists in the SwussCenter database.
+ * Validates that the specified file (including path) exists in the SwissCenter database.
  *
  * Returns FALSE on error, or if the file is not valid.
  * Otherwise returns the media file details from the database.
@@ -498,7 +498,7 @@ function load_pl_asx( $fsp )
   send_to_log(6,'Playlist is of type: ASX (Advanced Stream Redirector)');
   $filelist = array();
 
-  if (($playlist = file_get_contents($fsp)) !== false)
+  if (($playlist = Fsw::file_get_contents($fsp)) !== false)
   {
     $xml = new XmlParser($playlist, array(XML_OPTION_CASE_FOLDING => TRUE, XML_OPTION_SKIP_WHITE => TRUE) );
     $asx = $xml->GetData();
@@ -528,7 +528,7 @@ function load_pl_m3u( $fsp )
   send_to_log(6,'Playlist is of type: M3U');
   $filelist = array();
 
-  if (($lines = file($fsp)) !== false)
+  if (($lines = Fsw::file($fsp)) !== false)
   {
     foreach ($lines as $l)
     {
@@ -556,7 +556,7 @@ function load_pl_pls( $fsp )
   send_to_log(6,'Playlist is of type: PLS');
   $filelist = array();
 
-  if (($lines = file($fsp)) !== false)
+  if (($lines = Fsw::file($fsp)) !== false)
   {
     foreach ($lines as $l)
     {
@@ -584,7 +584,7 @@ function load_pl_wpl( $fsp )
   send_to_log(6,'Playlist is of type: WPL (Windows media player)');
   $filelist = array();
 
-  if (($playlist = file_get_contents($fsp)) !== false)
+  if (($playlist = Fsw::file_get_contents($fsp)) !== false)
   {
     $xml = new XmlParser($playlist, array(XML_OPTION_CASE_FOLDING => TRUE, XML_OPTION_SKIP_WHITE => TRUE) );
     $wpl = $xml->GetData();
@@ -614,7 +614,7 @@ function load_pl_xspf( $fsp )
   send_to_log(6,'Playlist is of type: XSPF (XML Shareable Playlist Format)');
   $filelist = array();
 
-  if (($playlist = file_get_contents($fsp)) !== false)
+  if (($playlist = Fsw::file_get_contents($fsp)) !== false)
   {
     $xml = new XmlParser($playlist, array(XML_OPTION_CASE_FOLDING => TRUE, XML_OPTION_SKIP_WHITE => TRUE) );
     $xspf = $xml->GetData();
