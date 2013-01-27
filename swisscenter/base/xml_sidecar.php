@@ -27,7 +27,7 @@
       send_to_log(5, "Unable to obtain video details for XML export for file_id=$file_id");
       return false;
     }
-    elseif ( !is_writable(dirname($filename)) )
+    elseif ( !Fsw::is_writable(dirname($filename)) )
     {
       send_to_log(4, "Unable to write video XML file: $filename");
       return false;
@@ -130,7 +130,7 @@
       }
 
       $xml->Pop('movie');
-      $fsp = fopen($filename, 'wb');
+      $fsp = Fsw::fopen($filename, 'wb');
       if ($fsp)
       {
         fwrite($fsp, $xml->getXml());
@@ -141,7 +141,7 @@
 
   function import_movie_from_xml ( $file_id, $filename )
   {
-    $sidecar = file_get_contents($filename);
+    $sidecar = Fsw::file_get_contents($filename);
     $xml = new XmlParser($sidecar, array(XML_OPTION_CASE_FOLDING => TRUE, XML_OPTION_SKIP_WHITE => TRUE) );
     $movie = $xml->GetData();
 
@@ -244,7 +244,7 @@
       send_to_log(5, "Unable to obtain tv details for XML export for file_id=$file_id");
       return false;
     }
-    elseif ( !is_writable(dirname($filename)) )
+    elseif ( !Fsw::is_writable(dirname($filename)) )
     {
       send_to_log(4, "Unable to write tv XML file: $filename");
       return false;
@@ -338,7 +338,7 @@
       }
 
       $xml->Pop('tv');
-      $fsp = fopen($filename, 'wb');
+      $fsp = Fsw::fopen($filename, 'wb');
       if ($fsp)
       {
         fwrite($fsp, $xml->getXml());
@@ -349,7 +349,7 @@
 
   function import_tv_from_xml ( $file_id, $filename )
   {
-    $sidecar = file_get_contents($filename);
+    $sidecar = Fsw::file_get_contents($filename);
     $xml = new XmlParser($sidecar, array(XML_OPTION_CASE_FOLDING => TRUE, XML_OPTION_SKIP_WHITE => TRUE) );
     $tv = $xml->GetData();
 
