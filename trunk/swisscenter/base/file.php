@@ -71,6 +71,10 @@ class Fsw {
     return is_readable(self::setName($filename));
   }
 
+  static function is_writable ($filename) {
+    return is_writable(self::setName($filename));
+  }
+
   static function opendir ($dirname) {
     return opendir(self::setName($dirname));
   }
