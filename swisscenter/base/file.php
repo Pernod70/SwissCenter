@@ -79,6 +79,10 @@ class Fsw {
     return opendir(self::setName($dirname));
   }
 
+  static function parse_ini_file ($filename, $process_sections = false) {
+    return parse_ini_file(self::setName($dirname), $process_sections);
+  }
+
   static function readdir ($dir_handle) {
     $file=readdir($dir_handle);
     if ($file) {
