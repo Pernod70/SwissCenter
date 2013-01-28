@@ -379,7 +379,7 @@
     if ( isset($tv['TV']['CERTIFICATES']) )
     {
       $cert = $tv['TV']['CERTIFICATES']['CERTIFICATE'];
-      $cert_id = db_value("select cert_id from certificates where scheme='".$cert['SCHEME']." and name='".$cert['VALUE']."'");
+      $cert_id = db_value("select cert_id from certificates where scheme='".$cert['SCHEME']."' and name='".$cert['VALUE']."'");
       db_sqlcommand('update tv set certificate = '.$cert_id.' where file_id = '.$file_id);
     }
 
