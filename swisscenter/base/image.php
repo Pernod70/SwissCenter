@@ -151,15 +151,15 @@ function cache_filename( $filename, $x, $y, $rs_mode = '' )
   if ( defined('STYLE_MODE') && STYLE_MODE == 'DESIGN' )
     return false;
 
-  $cache_dir = get_sys_pref('cache_dir');
+  $cache_dir = get_sys_pref('CACHE_DIR');
   if ($rs_mode == '')
     $rs_mode = get_sys_pref('IMAGE_RESIZING','RESAMPLE');
 
   if (file_ext($filename) != 'sql')
-    $filetime = @filemtime($filename);
+    $filetime = @Fsw::filemtime($filename);
 
   if ($cache_dir != '')
-    return $cache_dir.'/SwissCenter_'.sha1($filename.$filetime).'_x'.$x.'y'.$y.'_'.strtolower($rs_mode).'.png';
+    return $cache_dir.'/SwissCenter_'.sha1(encode_utf8($filename).$filetime).'_x'.$x.'y'.$y.'_'.strtolower($rs_mode).'.png';
   else
     return false;
 }
@@ -171,25 +171,30 @@ function cache_filename( $filename, $x, $y, $rs_mode = '' )
 
 function reduce_cache()
 {
-  $dir = get_sys_pref("cache_dir");
-  $max_size = get_sys_pref("cache_maxsize_mb") * 1048576;
+  $dir = get_sys_pref('CACHE_DIR');
+  $max_size = get_sys_pref('CACHE_MAXSIZE_MB') * 1048576;
   $target_size = $max_size * 0.90; # 90%
 
-  if (file_exists($dir) && $max_size != '' && $max_size > 0 )
+  if (Fsw::file_exists($dir) && $max_size != '' && $max_size > 0 )
   {
     $dir_size = 0;
 
     // Calculate sum of images filesizes, and maintain an array of images.
-    $dirstream = @opendir($dir);
+    $dirstream = @Fsw::opendir($dir);
     if ($dirstream)
     {
       while (false !== ($filename = readdir($dirstream)))
-        if ($filename!="." && $filename!=".." && substr($filename,0,6) == 'SwissC')
-          if (is_file($dir."/".$filename))
+      {
+        // Ensure filename read from filesystem is UTF-8 encoded
+        $filename = encode_utf8($filename);
+
+        if ($filename!='.' && $filename!='..' && substr($filename,0,6) == 'SwissC')
+          if (is_file($dir.'/'.$filename))
           {
-            $dir_size += filesize($dir."/".$filename);
-            $files[filemtime($dir."/".$filename).'_'.filesize($dir.'/'.$filename).'_'.$filename] = $dir.'/'.$filename;
+            $dir_size += Fsw::filesize($dir.'/'.$filename);
+            $files[Fsw::filemtime($dir.'/'.$filename).'_'.Fsw::filesize($dir.'/'.$filename).'_'.$filename] = $dir.'/'.$filename;
           }
+      }
     }
     closedir($dirstream);
 
@@ -215,7 +220,7 @@ function reduce_cache()
 
 function output_cached_file( $filename , $type = '')
 {
-  if ( file_exists($filename) )
+  if ( Fsw::file_exists($filename) )
   {
     if ($type != '')
     {
@@ -228,7 +233,7 @@ function output_cached_file( $filename , $type = '')
     {
       session_write_close();
       header("Content-type: image/png");
-      $fp = fopen($filename,'rb');
+      $fp = Fsw::fopen($filename,'rb');
       fpassthru($fp);
       fclose($fp);
     }
@@ -334,6 +339,9 @@ class CImage
 
   function load_from_file($filename)
   {
+    // Ensure filename is encoded for filesystem functions
+    $filename = Fsw::setName($filename);
+
     if ($this->image !== false)
     {
       imagedestroy($this->image);
@@ -346,15 +354,15 @@ class CImage
       {
         case 'jpg':
         case 'jpeg':
-          $this->image = ImageCreateFromJpeg(Fsw::setName($filename));
+          $this->image = ImageCreateFromJpeg($filename);
           break;
         case 'png':
-          $this->image = ImageCreateFromPng(Fsw::setName($filename));
+          $this->image = ImageCreateFromPng($filename);
           imageAlphaBlending($this->image, false);
           imageSaveAlpha($this->image, true);
           break;
         case 'gif':
-          $this->image = ImageCreateFromGif(Fsw::setName($filename));
+          $this->image = ImageCreateFromGif($filename);
           break;
         default :
           $this->image = false;
@@ -365,7 +373,7 @@ class CImage
       if ($this->image !== false)
       {
         $this->update_sizes();
-        $this->src_fsp  = $filename;
+        $this->src_fsp = $filename;
         $this->cache_filename = cache_filename($this->src_fsp,$this->width,$this->height);
         $this->exif_data = exif($this->src_fsp);
       }
@@ -757,7 +765,7 @@ class CImage
       {
         if ($overwrite || !Fsw::file_exists($fsp))
         {
-          ImagePng($this->image, $fsp, floor(get_sys_pref("GEN_PNG_QUALITY",80)/10));
+          ImagePng($this->image, Fsw::setName($fsp), floor(get_sys_pref("GEN_PNG_QUALITY",80)/10));
           reduce_cache();
         }
         else
