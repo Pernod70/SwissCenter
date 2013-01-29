@@ -80,7 +80,7 @@ class Fsw {
   }
 
   static function parse_ini_file ($filename, $process_sections = false) {
-    return parse_ini_file(self::setName($dirname), $process_sections);
+    return parse_ini_file(self::setName($filename), $process_sections);
   }
 
   static function readdir ($dir_handle) {
@@ -91,6 +91,10 @@ class Fsw {
       $file=self::getName($file);
     }
     return $file;
+  }
+
+  static function rmdir ($dirname) {
+    return rmdir(self::setName($dirname));
   }
 
   static function touch ($filename, $time = null) {
@@ -176,14 +180,16 @@ define ('DIR_TO_ARRAY_FULL_PATH', 4);
 
 function dir_to_array ($dir, $pattern = '.*', $opts = 7, $recursive = false )
 {
-  $dir = os_path($dir,true);
-
+  $dir = encode_utf8(os_path($dir,true));
   $contents = array();
   $dh = @Fsw::opendir($dir);
   if ($dh !== false)
   {
     while (($file = readdir($dh)) !== false)
     {
+      // Ensure filename read from filesystem is UTF-8 encoded
+      $file = encode_utf8($file);
+
       // Does file/folder match pattern?
       if ( preg_match('/'.$pattern.'/', $file) )
       {
@@ -307,7 +313,7 @@ function file_unique_name( $filename )
   if ( strlen($suffix) == 5 && is_numeric($suffix))
     $orig_name = substr($orig_name,0,strlen($orig_name)-strlen($suffix)-1);
 
-  while ( file_exists($filename))
+  while ( Fsw::file_exists($filename))
     $filename = $orig_name.'_'.sprintf('%05s',$n++).'.'.$orig_ext;
 
   return $filename;
@@ -350,12 +356,16 @@ function parent_dir( $dirpath)
 
 function dir_size($dir, $subdirs = false)
 {
-   $totalsize=0;
+   $dir = encode_utf8($dir);
+   $totalsize = 0;
    $dh = @Fsw::opendir($dir);
    if ($dh !== false)
    {
      while (false !== ($filename = readdir($dh)))
      {
+       // Ensure filename read from filesystem is UTF-8 encoded
+       $filename = encode_utf8($filename);
+
        if ($filename != '.' && $filename != '..')
        {
          if (Fsw::is_file($dir."/".$filename))
@@ -382,15 +392,19 @@ function dir_size($dir, $subdirs = false)
  */
 function find_in_dir($dir, $filename)
 {
+  $dir = encode_utf8($dir);
   $actual = '';
   $dh = @Fsw::opendir($dir);
   if ($dh !== false )
   {
     while ( $actual == '' && ($file = readdir($dh)) !== false )
     {
-      if     ( is_string($filename) && strtolower(encode_utf8($file)) == strtolower($filename))
+      // Ensure filename read from filesystem is UTF-8 encoded
+      $file = encode_utf8($file);
+
+      if     ( is_string($filename) && strtolower($file) == strtolower($filename))
         $actual = $file;
-      elseif ( is_array($filename) && in_array_ci(strtolower(encode_utf8($file)),$filename))
+      elseif ( is_array($filename) && in_array_ci(strtolower($file),$filename))
         $actual = $file;
     }
     closedir($dh);
@@ -412,20 +426,23 @@ function find_in_dir($dir, $filename)
 
 function find_in_dir_all_exts( $dir, $filename_noext )
 {
+  $dir = encode_utf8($dir);
   $matches = array();
-
   $dh = @Fsw::opendir($dir);
   if ($dh !== false)
   {
     while ( ($file = readdir($dh)) !== false )
     {
-      if (file_noext(encode_utf8($file)) == $filename_noext)
+      // Ensure filename read from filesystem is UTF-8 encoded
+      $file = encode_utf8($file);
+
+      if (file_noext($file) == $filename_noext)
         $matches[] = os_path($dir,true).$file;
     }
     closedir($dh);
   }
 
-  return encode_utf8($matches);
+  return $matches;
 }
 
 /**
@@ -442,9 +459,9 @@ function write_binary_file($filename, $str)
   $fh = @Fsw::fopen($filename, 'wb');
   if ( $fh !== false )
   {
-     if ( fwrite($fh, $str) !== false)
-       $success = true;
-     fclose($fh);
+    if ( fwrite($fh, $str) !== false)
+      $success = true;
+    fclose($fh);
   }
   return $success;
 }
@@ -465,9 +482,9 @@ function array2file( $array, $filename)
   $fh = @Fsw::fopen($filename, 'wt');
   if ( $fh !== false )
   {
-     if ( fwrite($fh, $str) !== false)
-       $success = true;
-     fclose($fh);
+    if ( fwrite($fh, $str) !== false)
+      $success = true;
+    fclose($fh);
   }
   return $success;
 }
@@ -521,7 +538,7 @@ function update_ini( $file, $var, $value )
 function file_icon( $fsp )
 {
   $ext = strtolower(file_ext($fsp));
-  $filetype_icon =  SC_LOCATION.style_value("location").str_replace('XXX',strtoupper($ext),style_value('ICON_FILE_XXX'));
+  $filetype_icon = SC_LOCATION.style_value("location").str_replace('XXX',strtoupper($ext),style_value('ICON_FILE_XXX'));
 
   if (in_array(file_ext(strtolower($fsp)), explode(',' ,ALBUMART_EXT) ))
     return $fsp;
@@ -579,7 +596,7 @@ function force_rmdir($dir)
         }
       }
       closedir($dh);
-      rmdir($dir);
+      Fsw::rmdir($dir);
     }
   }
 
@@ -717,7 +734,7 @@ function file_download_and_save( $url, $filename, $overwrite = false, $modified 
   send_to_log(4,'Downloading remote file to the local filesystem',array("remote"=>$url, "local"=>$filename));
   if ( is_remote_file($url))
   {
-    if ($overwrite || !file_exists($filename))
+    if ($overwrite || !Fsw::file_exists($filename))
     {
       // Reset the timeout counter for each file downloaded
       set_time_limit(60);
@@ -725,7 +742,7 @@ function file_download_and_save( $url, $filename, $overwrite = false, $modified 
       $img = @file_get_contents(str_replace(' ','%20',$url));
       if ($img !== false)
       {
-        $fh = @fopen($filename, 'wb');
+        $fh = @Fsw::fopen($filename, 'wb');
         if ($fh !== false)
         {
           @fwrite($fh, $img);
