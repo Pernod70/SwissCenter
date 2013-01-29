@@ -898,7 +898,7 @@ class getID3
 
 				// TS - audio/video - MPEG-2 Transport Stream
 				'ts' => array(
-							'pattern'   => '^\x47',
+							'pattern'   => '^(\x47.{187}){10,}',
 							'group'     => 'audio-video',
 							'module'    => 'ts',
 							'mime_type' => 'video/MP2T',
