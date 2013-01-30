@@ -124,7 +124,7 @@ class thumb_list
       for ($col=0; $col < $max_col_this_row ; $col++)
       {
         $cell_no = $row*$this->n_cols+$col+1;
-        $img_src = rawurlencode($this->items[$cell_no-1]["img"]);
+        $img_src = $this->items[$cell_no-1]["img"];
         $img_x   = $this->tn_size["X"];
         $img_y   = $this->tn_size["Y"];
 
