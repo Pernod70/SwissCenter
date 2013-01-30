@@ -23,7 +23,7 @@ require_once( realpath(dirname(__FILE__).'/server.php'));
 function up_link( $url, $focusload = true )
 {
   if (!empty($url))
-    return '<a name="up" href="'.htmlspecialchars($url).'" '.tvid("PGUP").' '.($focusload ? 'ONFOCUSLOAD' : '').'>'.img_gen(SC_LOCATION.style_img("PAGE_UP"),40,20,false,false,'RESIZE').'</a>';
+    return '<a name="up" href="'.$url.'" '.tvid("PGUP").' '.($focusload ? 'ONFOCUSLOAD' : '').'>'.img_gen(SC_LOCATION.style_img("PAGE_UP"),40,20,false,false,'RESIZE').'</a>';
   else
     return '';
 }
@@ -31,7 +31,7 @@ function up_link( $url, $focusload = true )
 function down_link( $url, $focusload = true )
 {
   if (!empty($url))
-    return '<a name="down" href="'.htmlspecialchars($url).'" '.tvid("PGDN").' '.($focusload ? 'ONFOCUSLOAD' : '').'>'.img_gen(SC_LOCATION.style_img("PAGE_DOWN"),40,20,false,false,'RESIZE').'</a>';
+    return '<a name="down" href="'.$url.'" '.tvid("PGDN").' '.($focusload ? 'ONFOCUSLOAD' : '').'>'.img_gen(SC_LOCATION.style_img("PAGE_DOWN"),40,20,false,false,'RESIZE').'</a>';
   else
     return '';
 }
@@ -127,7 +127,7 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
         <meta SYABAS-COMPACT=OFF>
         <meta SYABAS-FULLSCREEN>
         <meta SYABAS-PHOTOTITLE=0>
-        <meta SYABAS-BACKGROUND="'.htmlspecialchars($background_image).'">
+        <meta SYABAS-BACKGROUND="'.$background_image.'">
         <meta SYABAS-KEYOPTION="caps">
         <meta myibox-pip="0,0,0,0,0">
         <meta name="generator" content="lyra-box UI">
@@ -140,7 +140,7 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
         </style>
         </head>
         <body  onLoadSet="'.$focus.'"
-               background="'.  htmlspecialchars($background_image) .'"
+               background="'.  $background_image .'"
                FOCUSCOLOR="'.  $focus_colour.'"
                FOCUSTEXT="'.   style_value("PAGE_FOCUS_TEXT",'#FFFFFF').'"
                text="'.        style_value("PAGE_TEXT_COLOUR",'#FFFFFF').'"
@@ -227,11 +227,11 @@ function img_gen( $filename, $x, $y, $type = false, $stretch = false, $rs_mode =
   if ( strpos($browser,'MSIE ') !== false && preg_replace('/^.*MSIE (.*);.*$/Ui','\1',$browser) < 7)
   {
     // Make IE (<7) use PNG Alpha transparency
-    $filter = 'filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.htmlspecialchars($img_params).'",sizingMethod="crop");';
+    $filter = 'filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.$img_params.'",sizingMethod="crop");';
     return '<img '.$html.' style="'.$filter.'"'.$width.$height.' src="/images/dot.gif" border="0">';
   }
   else
-    return '<img '.$html.$width.$height.' src="'.htmlspecialchars($img_params).'" '.$focus_attr.' border="0">';
+    return '<img '.$html.$width.$height.' src="'.$img_params.'" '.$focus_attr.' border="0">';
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -308,12 +308,12 @@ function page_footer( $back, $buttons = '', $iconbar = 0, $links = true, $text_b
          pc_nav_button(str('PC_LINK_TV')     , '/tv.php').
          pc_nav_button(str('PC_LINK_INTERNET'),'/index.php?submenu=internet').
          pc_nav_button(str('PC_LINK_PHOTOS') , '/photo.php').
-         pc_nav_button(str('PC_LINK_BACK')   , htmlspecialchars($back)).
+         pc_nav_button(str('PC_LINK_BACK')   , $back).
          '</tr></table>';
   }
 
   if ( $links )
-    echo '<a href="'.htmlspecialchars($back).'" '.tvid('BACKSPACE').'></a>
+    echo '<a href="'.$back.'" '.tvid('BACKSPACE').'></a>
           <a href="index.php" '.tvid('HOME').'></a>
           <a href="music.php" '.tvid('MUSIC').'></a>
           <a href="video.php" '.tvid('MOVIE').'></a>
