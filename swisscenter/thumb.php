@@ -54,17 +54,18 @@
   $oy         = ( isset($_REQUEST["oy"]) ? $_REQUEST["oy"] : 0 );
   $ow         = ( isset($_REQUEST["ow"]) ? $_REQUEST["ow"] : 0 );
   $oh         = ( isset($_REQUEST["oh"]) ? $_REQUEST["oh"] : 0 );
-  $rs_mode    = $_REQUEST["rs_mode"];
+  $rs_mode    = ( isset($_REQUEST["rs_mode"]) ? $_REQUEST["rs_mode"] : '' );
   $cache_file = cache_filename($filename, $x, $y, $rs_mode);
   $aspect     = (isset($_REQUEST["stretch"]) ? false : true);
   $fill_size  = (isset($_REQUEST["fill_size"]) ? false : true);
+  $type       = (isset($_REQUEST["type"]) ? $_REQUEST["type"] : '');
   $use_cache  = get_sys_pref('CACHE_STYLE_DETAILS','YES');
 
   // Is there a cached version available?
   if ( $cache_file !== false && Fsw::file_exists($cache_file) && $use_cache == 'YES' && empty($overname) )
   {
     send_to_log(6,"Cached file exists for $filename at ($x x $y)");
-    output_cached_file($cache_file, $_REQUEST["type"]);
+    output_cached_file($cache_file, $type);
   }
   else
   {
@@ -104,8 +105,8 @@
     }
 
     // Output the image to the browser.
-    if (isset($_REQUEST["type"]))
-      $image->output($_REQUEST["type"]);
+    if (!empty($type))
+      $image->output($type);
     else
       $image->output('png');
   }

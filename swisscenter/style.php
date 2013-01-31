@@ -83,17 +83,18 @@
   // Main Code
   // ----------------------------------------------------------------------------------
 
-  if ($_REQUEST["online"] != 'Y')
-    page_header( str('STYLE_CHOOSE'), '');
-  else
-    page_header( str('STYLE_DOWNLOAD'), '');
-
   $styles        = styles_list();
-  $page          = $_REQUEST["page"];
+  $page          = isset($_REQUEST["page"]) ? $_REQUEST["page"] : 0;
   $n_per_page    = 8;
   $start         = $page * ($n_per_page);
   $end           = min( count($styles), $start+$n_per_page);
   $tlist         = new thumb_list();
+  $online        = isset($_REQUEST["online"]) ? $_REQUEST["online"] : 'N';
+
+  if ( $online == 'Y' )
+    page_header( str('STYLE_DOWNLOAD'), '');
+  else
+    page_header( str('STYLE_CHOOSE'), '');
 
   if (count($styles) == 0)
   {
@@ -104,7 +105,7 @@
      // Populate an array with the details that will be displayed
     for ($i=$start; $i<$end; $i++)
     {
-      if ($_REQUEST["online"] == 'Y')
+      if ( $online == 'Y' )
         $tlist->add_item( 'http://update.swisscenter.co.uk/styles/'.$styles[$i].'.jpg' , $styles[$i] , 'href="run_style_download.php?name='.rawurlencode($styles[$i]).'"');
       else
         $tlist->add_item( 'styles/'.$styles[$i].'/folder.jpg' , $styles[$i] , 'href="set_style.php?style='.rawurlencode($styles[$i]).'"');
@@ -112,12 +113,12 @@
 
    // Display a link to the previous page
     if ( $page > 0)
-      $tlist->set_up( 'style.php?online='.$_REQUEST["online"].'&page='.($page-1) );
+      $tlist->set_up( 'style.php?online='.$online.'&page='.($page-1) );
 
     // Display a link to the next page
     if ( $end < count($styles) )
     {
-      $tlist->set_down( 'style.php?online='.$_REQUEST["online"].'&page='.($page+1) );
+      $tlist->set_down( 'style.php?online='.$online.'&page='.($page+1) );
     }
 
     $tlist->set_num_cols(4);
@@ -127,9 +128,9 @@
 
   // Link to the online resources only if the ZIP extension is enabled and we are
   // not already viewing the online styles.
-  if ( internet_available() && $_REQUEST["online"] != 'Y' && (extension_loaded('zip') || is_unix()))
+  if ( internet_available() && $online != 'Y' && (extension_loaded('zip') || is_unix()))
     $buttons[] = array('text'=>str('STYLE_CHECK_ONLINE','SwissCenter.co.uk'), 'url'=>'style.php?online=Y');
-  elseif ( $_REQUEST["online"] == 'Y')
+  elseif ( $online == 'Y')
     $buttons[] = array('text'=>str('STYLE_SHOW_INSTALLED'), 'url'=>'style.php');
 
   page_footer( 'config.php', $buttons );
