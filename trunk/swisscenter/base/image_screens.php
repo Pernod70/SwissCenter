@@ -439,7 +439,7 @@
 
     // Previous track details
     $text_y+=($detail_text_size*1.5);
-    if ( is_array($previous_track))
+    if ( is_array($previous_track) && isset($previous_track[0]) )
     {
       $x = $image->get_text_width('|<< : ',$detail_text_size);
       $prevsong = nvl($previous_track[0]["TITLE"],file_noext($previous_track[0]["FILENAME"])).(!empty($previous_track[0]["ARTIST"]) ? ' - '.$previous_track[0]["ARTIST"] : '');
@@ -449,7 +449,7 @@
 
     // Next track details
     $text_y+=($detail_text_size*1.5);
-    if ( is_array($next_track))
+    if ( is_array($next_track) && isset($next_track[0]) )
     {
       $x = $image->get_text_width('>>| : ',$detail_text_size);
       $nextsong = nvl($next_track[0]["TITLE"],file_noext($next_track[0]["FILENAME"])).(!empty($next_track[0]["ARTIST"]) ? ' - '.$next_track[0]["ARTIST"] : '');
@@ -465,6 +465,7 @@
     }
 
     // return finished image
+    $image->last_modified = time();
     return $image;
   }
 
