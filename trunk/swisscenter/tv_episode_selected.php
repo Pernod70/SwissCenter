@@ -77,7 +77,8 @@
     if (stristr($video_codec, 'mpeg-2') )  { $media_logos .= img_gen(style_img('MEDIA_MPEG',true), 80,40); }
     if (stristr($video_codec, 'divx') )    { $media_logos .= img_gen(style_img('MEDIA_DIVX',true), 80,40); }
     if (stristr($video_codec, 'xvid') )    { $media_logos .= img_gen(style_img('MEDIA_XVID',true), 80,40); }
-    if (stristr($video_codec, 'quick') )   { $media_logos .= img_gen(style_img('MEDIA_MP4V',true), 80,40); }
+    if (stristr($video_codec, 'quick') )   { $media_logos .= img_gen(style_img('MEDIA_AVC',true), 80,40); }
+    if (stristr($audio_codec, 'aac') )     { $media_logos .= img_gen(style_img('MEDIA_AAC',true), 65,40); }
     if (stristr($audio_codec, 'dts') )     { $media_logos .= img_gen(style_img('MEDIA_DTS',true), 65,40); }
     if (stristr($audio_codec, 'mpeg') )    { $media_logos .= img_gen(style_img('MEDIA_MP3',true), 65,40); }
     if (stristr($audio_codec, 'ac3') )     { $media_logos .= img_gen(style_img('MEDIA_DOLBY',true), 65,40); }
@@ -97,7 +98,7 @@
   $predicate     = get_rating_filter().category_select_sql($_REQUEST["cat"], MEDIA_TYPE_TV).filter_get_predicate();
   $select_fields = "file_id, dirname, filename, title, year, length";
   $file_id       = $_REQUEST["file_id"];
-  $view_status   = $_REQUEST["view_status"];
+  $view_status   = isset($_REQUEST["view_status"]) ? $_REQUEST["view_status"] : 'all';
   $this_url      = url_remove_params(current_url(), array('lookup', 'viewed'));
   $cert_img      = '';
 
@@ -204,7 +205,7 @@
   // Column 1: Image
   echo '<table width="100%" height="'.convert_y(650).'" cellpadding="0" cellspacing="10" border="0">
           <tr>
-            <td valign="middle">
+            <td width="'.convert_x(280).'" valign="middle">
               <table '.($theme['SHOW_IMAGE'] ? style_background('PAGE_TEXT_BACKGROUND') : '').' cellpadding="10" cellspacing="0" border="0">
                 <tr>
                   <td><center>'.img_gen($folder_img,280,550,false,false,false,array(),false).'<br>'.$cert_img.'</center></td>
@@ -241,17 +242,17 @@
   // Output ABC buttons
   $buttons = array();
   if ( is_array($prev) )
-    $buttons[0] = array('text'=>str('EP_PREV', $prev['SERIES'].'x'.$prev['EPISODE']), 'url'=> url_add_params('/tv_episode_selected.php', array('file_id'=>$prev['FILE_ID'], 'hist'=>PAGE_HISTORY_REPLACE)) );
+    $buttons[0] = array('text'=>str('EP_PREV', $prev['SERIES'].'x'.$prev['EPISODE']), 'url'=> url_add_params($this_url, array('file_id'=>$prev['FILE_ID'], 'hist'=>PAGE_HISTORY_REPLACE)) );
   if ( is_array($next) )
-    $buttons[1] = array('text'=>str('EP_NEXT', $next['SERIES'].'x'.$next['EPISODE']), 'url'=> url_add_params('/tv_episode_selected.php', array('file_id'=>$next['FILE_ID'], 'hist'=>PAGE_HISTORY_REPLACE)) );
+    $buttons[1] = array('text'=>str('EP_NEXT', $next['SERIES'].'x'.$next['EPISODE']), 'url'=> url_add_params($this_url, array('file_id'=>$next['FILE_ID'], 'hist'=>PAGE_HISTORY_REPLACE)) );
   if ( internet_available() )
-    $buttons[2] = array('text'=>str('LOOKUP_TV'), 'url'=> url_add_params('/tv_episode_selected.php', array('file_id'=>$file_id, 'lookup'=>'Y', 'hist'=>PAGE_HISTORY_REPLACE)) );
+    $buttons[2] = array('text'=>str('LOOKUP_TV'), 'url'=> url_add_params($this_url, array('file_id'=>$file_id, 'lookup'=>'Y', 'hist'=>PAGE_HISTORY_REPLACE)) );
   if ( is_user_admin() )
   {
     if ( viewings_count(MEDIA_TYPE_TV, $data["FILE_ID"]) == 0 )
-      $buttons[3] = array('text'=>str('VIEWED_SET'), 'url'=> url_add_params('/tv_episode_selected.php', array('file_id'=>$file_id, 'viewed'=>1, 'hist'=>PAGE_HISTORY_REPLACE)) );
+      $buttons[3] = array('text'=>str('VIEWED_SET'), 'url'=> url_add_params($this_url, array('file_id'=>$file_id, 'viewed'=>1, 'hist'=>PAGE_HISTORY_REPLACE)) );
     else
-      $buttons[3] = array('text'=>str('VIEWED_RESET'), 'url'=> url_add_params('/tv_episode_selected.php', array('file_id'=>$file_id, 'viewed'=>0, 'hist'=>PAGE_HISTORY_REPLACE)) );
+      $buttons[3] = array('text'=>str('VIEWED_RESET'), 'url'=> url_add_params($this_url, array('file_id'=>$file_id, 'viewed'=>0, 'hist'=>PAGE_HISTORY_REPLACE)) );
   }
 
   // Make sure the "back" button goes to the correct page:

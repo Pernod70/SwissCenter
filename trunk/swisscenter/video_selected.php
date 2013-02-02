@@ -123,7 +123,8 @@
     if (stristr($metadata["VIDEO_CODEC"], 'mpeg-2') )  { $media_logos .= img_gen(style_img('MEDIA_MPEG',true), 80,40); }
     if (stristr($metadata["VIDEO_CODEC"], 'divx') )    { $media_logos .= img_gen(style_img('MEDIA_DIVX',true), 80,40); }
     if (stristr($metadata["VIDEO_CODEC"], 'xvid') )    { $media_logos .= img_gen(style_img('MEDIA_XVID',true), 80,40); }
-    if (stristr($metadata["VIDEO_CODEC"], 'quick') )   { $media_logos .= img_gen(style_img('MEDIA_MP4V',true), 80,40); }
+    if (stristr($metadata["VIDEO_CODEC"], 'quick') )   { $media_logos .= img_gen(style_img('MEDIA_AVC',true), 80,40); }
+    if (stristr($metadata["AUDIO_CODEC"], 'aac') )     { $media_logos .= img_gen(style_img('MEDIA_AAC',true), 65,40); }
     if (stristr($metadata["AUDIO_CODEC"], 'dts') )     { $media_logos .= img_gen(style_img('MEDIA_DTS',true), 65,40); }
     if (stristr($metadata["AUDIO_CODEC"], 'mpeg') )    { $media_logos .= img_gen(style_img('MEDIA_MP3',true), 65,40); }
     if (stristr($metadata["AUDIO_CODEC"], 'ac3') )     { $media_logos .= img_gen(style_img('MEDIA_DOLBY',true), 65,40); }
@@ -221,7 +222,7 @@
     {
       // Read bookmark file
       $bookmark_filename = bookmark_file($data[0]["DIRNAME"].$data[0]["FILENAME"]);
-      if (!support_resume() && file_exists($bookmark_filename))
+      if (!support_resume() && Fsw::file_exists($bookmark_filename))
         $pc = (int)trim(file_get_contents($bookmark_filename));
       else
         $pc = 0;
@@ -266,7 +267,6 @@
     else
       $folder_img = file_albumart($data[0]["DIRNAME"].$data[0]["FILENAME"]);
   }
-
   //
   // There are multiple movies which match the criteria entered by the user. Therefore, we should
   // display the information that is common to all movies, and provide links to refine the search
