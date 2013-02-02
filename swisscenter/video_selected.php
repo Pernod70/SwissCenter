@@ -196,7 +196,7 @@
     $themes = db_toarray('select processed_image, show_banner, show_image from themes where media_type='.MEDIA_TYPE_VIDEO.' and title="'.db_escape_str($data[0]["TITLE"]).'" and use_synopsis=1 and processed_image is not NULL');
     $theme = (count($themes) > 0 ? $themes[mt_rand(0,count($themes)-1)] : '');
 
-    if ( file_exists($theme['PROCESSED_IMAGE']) )
+    if ( Fsw::file_exists($theme['PROCESSED_IMAGE']) )
       $background = $theme['PROCESSED_IMAGE'];
     else
       $background = -1;
@@ -223,7 +223,7 @@
       // Read bookmark file
       $bookmark_filename = bookmark_file($data[0]["DIRNAME"].$data[0]["FILENAME"]);
       if (!support_resume() && Fsw::file_exists($bookmark_filename))
-        $pc = (int)trim(file_get_contents($bookmark_filename));
+        $pc = (int)trim(Fsw::file_get_contents($bookmark_filename));
       else
         $pc = 0;
       $percent_played = ($pc !== 0 && $pc < 99) ? ' ('.$pc.'%)' : '';
@@ -232,7 +232,7 @@
       $menu->add_item( str('PLAY_NOW').$percent_played, play_sql_list(MEDIA_TYPE_VIDEO,"select distinct $select_fields from $sql_table $predicate order by title, filename"));
 
       // Resume playing
-      if ( support_resume() && file_exists( bookmark_file($data[0]["DIRNAME"].$data[0]["FILENAME"])) )
+      if ( support_resume() && Fsw::file_exists( bookmark_file($data[0]["DIRNAME"].$data[0]["FILENAME"])) )
         $menu->add_item( str('RESUME_PLAYING').$percent_played, resume_file(MEDIA_TYPE_VIDEO,$data[0]["FILE_ID"]), true);
 
       // Add to your current playlist
@@ -294,7 +294,7 @@
     if ( $type == 'genre_name' )
     {
       $genre_img = SC_LOCATION.'images/genres/'.$name.'.png';
-      if ( file_exists($genre_img) )
+      if ( Fsw::file_exists($genre_img) )
         $folder_img = $genre_img;
     }
     elseif ( count($data) == 1 )

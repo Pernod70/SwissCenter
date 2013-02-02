@@ -11,8 +11,8 @@
 
   $menu        = new menu();
   $programme   = un_magic_quote($_REQUEST["programme"]);
-  $view_status = $_REQUEST["view_status"];
-  $page        = nvl($_REQUEST["page"],1);
+  $view_status = isset($_REQUEST["view_status"]) ? $_REQUEST["view_status"] : 'all';
+  $page        = isset($_REQUEST["page"]) ? $_REQUEST["page"] : 1;
   $predicate   = get_rating_filter().category_select_sql($_REQUEST["cat"], MEDIA_TYPE_TV).filter_get_predicate();
   $this_url    = url_remove_params(current_url(), array('shuffle', 'viewed'));
 
@@ -77,13 +77,13 @@
   }
 
   // Set background image
-  if ( !empty($theme) && file_exists($theme['PROCESSED_IMAGE']) )
+  if ( !empty($theme) && Fsw::file_exists($theme['PROCESSED_IMAGE']) )
     $background = $theme['PROCESSED_IMAGE'];
   else
-    $background = (file_exists($series_img) ? -1 : MEDIA_TYPE_TV);
+    $background = (Fsw::file_exists($series_img) ? -1 : MEDIA_TYPE_TV);
 
   page_header( $programme,'','<meta SYABAS-PLAYERMODE="video">',1,false,'',$background,
-               ( get_sys_pref('tv_use_banners','YES') == 'YES' && file_exists($banner_img) ? $banner_img : false), 'PAGE_TEXT_BACKGROUND' );
+               ( get_sys_pref('tv_use_banners','YES') == 'YES' && Fsw::file_exists($banner_img) ? $banner_img : false), 'PAGE_TEXT_BACKGROUND' );
 
   // There may only be a single series for the selected programme
   if (count($series) > 1)
@@ -120,7 +120,7 @@
 
   if ($menu->num_items() > 0)
   {
-    if (file_exists($series_img) )
+    if (Fsw::file_exists($series_img) )
     {
       // Column 1: Image
       echo '<table width="100%" cellpadding="0" cellspacing="0" border="0">
