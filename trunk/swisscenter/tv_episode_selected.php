@@ -163,18 +163,18 @@
   }
 
   // Set background image
-  if ( !empty($theme) && file_exists($theme['PROCESSED_IMAGE']) )
+  if ( !empty($theme) && Fsw::file_exists($theme['PROCESSED_IMAGE']) )
     $background = $theme['PROCESSED_IMAGE'];
   else
     $background = -1;
 
   page_header( $data["PROGRAMME"], $data["TITLE"].(empty($data["YEAR"]) ? '' : ' ('.$data["YEAR"].')') ,'<meta SYABAS-PLAYERMODE="video">',1,false,'',$background,
-               ( get_sys_pref('tv_use_banners','YES') == 'YES' && file_exists($banner_img) ? $banner_img : false ), 'PAGE_TEXT_BACKGROUND' );
+               ( get_sys_pref('tv_use_banners','YES') == 'YES' && Fsw::file_exists($banner_img) ? $banner_img : false ), 'PAGE_TEXT_BACKGROUND' );
 
   // Read bookmark file
   $bookmark_filename = bookmark_file($data["DIRNAME"].$data["FILENAME"]);
-  if (!support_resume() && file_exists($bookmark_filename))
-    $pc = (int)trim(file_get_contents($bookmark_filename));
+  if (!support_resume() && Fsw::file_exists($bookmark_filename))
+    $pc = (int)trim(Fsw::file_get_contents($bookmark_filename));
   else
     $pc = 0;
   $percent_played = ($pc !== 0 && $pc < 99) ? ' ('.$pc.'%)' : '';
@@ -183,7 +183,7 @@
   $menu->add_item( str('PLAY_NOW').$percent_played, play_file( MEDIA_TYPE_TV, $data["FILE_ID"]));
 
   // Resume playing
-  if ( support_resume() && file_exists( $bookmark_filename ))
+  if ( support_resume() && Fsw::file_exists( $bookmark_filename ))
     $menu->add_item( str('RESUME_PLAYING').$percent_played, resume_file(MEDIA_TYPE_TV,$file_id), true);
 
   // Add to your current playlist
