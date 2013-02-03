@@ -61,7 +61,7 @@ function search_media_page( $heading, $title, $media_type, $joined_tables, $colu
     page_error(str('DATABASE_ERROR'));
 
   if ($prefix == '')
-    $valid = strtoupper(join(db_col_to_list(" select distinct upper(substring(trim_article($display,'$articles'),".(strlen($search)+1).",1)) display
+    $valid = mb_strtoupper(join(db_col_to_list(" select distinct upper(substring(trim_article($display,'$articles'),".(mb_strlen($search)+1).",1)) display
                                                 from $main_table_sql $joined_tables
                                                where $display !='0' and $restrict_sql and ml.media_type=$media_type
                                             group by $display

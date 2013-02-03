@@ -428,6 +428,9 @@ function page_hist_previous( $ref = 'url' )
 // Actions that should be taken at the start of every page
 //-------------------------------------------------------------------------------------------------
 
+// Set internal character encoding to UTF-8
+mb_internal_encoding('UTF-8');
+
 // Page history tracking parameters
 define('PAGE_HISTORY_ADD',     'add');
 define('PAGE_HISTORY_DELETE',  'delete');
