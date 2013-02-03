@@ -7,8 +7,8 @@ require_once( realpath(dirname(__FILE__).'/search.php'));
 
 function show_picker( $url="", $search, $case = '', $validchars = '' )
   {
-    if ( strlen($validchars)>0 )
-      $keys = trim(strtoupper($validchars));
+    if ( mb_strlen($validchars)>0 )
+      $keys = trim(mb_strtoupper($validchars));
     elseif ($case == '' || $case == 'U')
       $keys = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_,.'-#";
     else
@@ -20,14 +20,14 @@ function show_picker( $url="", $search, $case = '', $validchars = '' )
     $url = url_set_params($url, array('last'=>'KEY_SPC', 'search'=>rawurlencode($search.' ')));
     echo '<td colspan=3 height="'.convert_y(50).'" '.style_background('KEYBOARD_KEY_BACKGROUND').'
            align="center"><a href="'.htmlspecialchars($url).'" style="width:'.convert_x(105).'" name="KEY_SPC">'.font_tags(FONTSIZE_KEYPAD).str('KEYBOARD_SPC').'</font></a></td>';
-    $url = url_set_params($url, array('last'=>'KEY_DEL', 'search'=>rawurlencode(substr($search,0,-1))));
+    $url = url_set_params($url, array('last'=>'KEY_DEL', 'search'=>rawurlencode(mb_substr($search,0,-1))));
     echo '<td colspan=3 height="'.convert_y(50).'" '.style_background('KEYBOARD_KEY_BACKGROUND').'
            align="center"><a href="'.htmlspecialchars($url).'" style="width:'.convert_x(105).'" name="KEY_DEL">'.font_tags(FONTSIZE_KEYPAD).str('KEYBOARD_DEL').'</font></a></td>';
     echo '</tr><tr>';
 
-    for ($n=1; $n<=strlen($keys); $n++)
+    for ($n=1; $n<=mb_strlen($keys); $n++)
     {
-      $this_key = substr($keys,($n-1),1);
+      $this_key = mb_substr($keys,($n-1),1);
       $url = url_set_params($url, array('last'=>'KEY_'.$this_key, 'search'=>rawurlencode($search.$this_key)));
       $link = '<a href="'.htmlspecialchars($url).'" name="KEY_'.$this_key.'">'.font_tags(FONTSIZE_KEYPAD).$this_key.'</font></a>';
 
