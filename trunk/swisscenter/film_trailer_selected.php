@@ -22,7 +22,7 @@
     if ( !empty($synopsis) )
     {
       $text = isset($_REQUEST["show"]) ? $synopsis : shorten($synopsis,$synlen,1,FONTSIZE_BODY);
-      if (strlen($text) != strlen($synopsis))
+      if (mb_strlen($text) != mb_strlen($synopsis))
       {
         $text = $text.' <a href="'.url_add_param( current_url(), 'show', 'synopsis' ).'">'.font_colour_tags('PAGE_TEXT_BOLD_COLOUR',str('MORE')).'</a>';
       }

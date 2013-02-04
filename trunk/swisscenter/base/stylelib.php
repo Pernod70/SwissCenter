@@ -177,14 +177,14 @@ function shorten( $text, $width, $lines = 1, $font_size = FONTSIZE_BODY, $dots =
     for ($lineno = 0; $lineno < $lines; $lineno++)
     {
       $line = shorten($text, $width, 1, $size, false);
-      $text = substr($text,strlen($line));
+      $text = mb_substr($text,mb_strlen($line));
       $short_string .= $line;
     }
   }
   else
   {
     // Single line
-    for ($index = 0; $index < strlen($text); $index++)
+    for ($index = 0; $index < mb_strlen($text); $index++)
     {
       $current_char = $text[$index];
 
@@ -202,15 +202,15 @@ function shorten( $text, $width, $lines = 1, $font_size = FONTSIZE_BODY, $dots =
       else
       {
         // Trims the string back to the last whitespace (max 8 chars will be trimmed)
-        if ( $word_trunc && (strlen($short_string) - strrpos($short_string,' ')) <10)
-          $short_string = substr($short_string,0,strrpos($short_string,' ')+1);
+        if ( $word_trunc && (mb_strlen($short_string) - mb_strrpos($short_string,' ')) <10)
+          $short_string = mb_substr($short_string,0,mb_strrpos($short_string,' ')+1);
 
         break;
       }
     }
   }
 
-  if ($dots && strlen($short_string) < strlen($text))
+  if ($dots && mb_strlen($short_string) < mb_strlen($text))
     $short_string .= "...";
 
   return $short_string;

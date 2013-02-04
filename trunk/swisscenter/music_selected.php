@@ -49,7 +49,7 @@
     // Display Details
     $maxlen = $_SESSION["device"]["browser_x_res"] * 0.625 * max(9-$num_menu_items,1);
     $short = shorten($text,$maxlen,1,FONTSIZE_BODY);
-    if (strlen($short) != strlen($text))
+    if (mb_strlen($short) != mb_strlen($text))
       $short = $short.' <a href="/music_info.php?artist='.rawurldecode($artist).'&album='.rawurldecode($album).'&track='.rawurldecode($track).'">'.font_colour_tags('PAGE_TEXT_BOLD_COLOUR',str('MORE')).'</a>';
 
     echo font_tags(FONTSIZE_BODY).$short.'</font>';

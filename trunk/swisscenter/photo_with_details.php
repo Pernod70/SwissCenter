@@ -17,17 +17,17 @@
   {
     $fudge_factor = 15.2/$font_size;
     $y+=($font_size);
-    
-    while (strlen($text)>0)
+
+    while (mb_strlen($text)>0)
     {
       $output = shorten($text, $width, 1, $fudge_factor, false);
       $image->text($output, $x, $y, $font_colour, $font_size);
-      $text = substr($text,strlen($output));
+      $text = mb_substr($text,mb_strlen($output));
       $y += ($font_size*1.5);
-    }    
+    }
     $y+=($font_size);
   }
-  
+
   # ------------------------------------------------------------------------------------------------
   # Variable declarations and Style parameters which control the positioning, colour and size of all
   # elements of the "Now Playing" image
@@ -36,19 +36,19 @@
   $image     = new CImage();
   $pic       = new CImage();
   $info      = array_pop(db_toarray("select * from photos where file_id=".$_REQUEST["photo_id"]));
- 
+
   $title     = file_noext($info["FILENAME"]);
   $pic_width = 350;
   $text_x    = $pic_width * 1.1;
   $text_y    = 80;
-  
-  $title_text_col                = hexdec(style_value('NOW_TITLE_TEXT_COL','#000000'));
-  $title_text_size               = style_value('NOW_TITLE_TEXT_SIZE','18');
-  $detail_text_col               = hexdec(style_value('NOW_DETAIL_TEXT_COL','#000000'));
-  $detail_text_size              = style_value('NOW_DETAIL_TEXT_SIZE','14');
 
-  $text_width                    = 400;
-  $detail_text_size              = 12;
+  $title_text_col   = hexdec(style_value('NOW_TITLE_TEXT_COL','#000000'));
+  $title_text_size  = style_value('NOW_TITLE_TEXT_SIZE','18');
+  $detail_text_col  = hexdec(style_value('NOW_DETAIL_TEXT_COL','#000000'));
+  $detail_text_size = style_value('NOW_DETAIL_TEXT_SIZE','14');
+
+  $text_width       = 400;
+  $detail_text_size = 12;
 
   # ------------------------------------------------------------------------------------------------
   # Build the "Now Playing" image
@@ -76,15 +76,15 @@
     $image->text(str('EXIF_EXPOSURE'),  $text_x, $text_y, $title_text_col, $detail_text_size);
     wrap($image, $exposure, $text_x+20, $text_y+=($detail_text_size), $text_width, $detail_text_col, $detail_text_size);
   }
-  
+
   // Make & Model
   if (!empty($info["EXIF_MAKE"]) || !empty($info["EXIF_MODEL"]))
   {
     if (strpos( strtolower($info['EXIF_MODEL']),strtolower($info['EXIF_MAKE'])) !== false)
       $make_model = $info["EXIF_MODEL"];
-    else 
+    else
       $make_model = $info["EXIF_MAKE"].' '.$info["EXIF_MODEL"];
-      
+
     $image->text(str('EXIF_MODEL'),  $text_x, $text_y, $title_text_col, $detail_text_size);
     wrap($image, $make_model, $text_x+20, $text_y+=($detail_text_size), $text_width, $detail_text_col, $detail_text_size);
   }

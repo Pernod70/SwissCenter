@@ -74,7 +74,7 @@ class tv_series_picker extends list_picker
   function data_valid_chars( $search_string )
   {
     $articles = get_sys_pref('IGNORE_ARTICLES');
-    $sql = " select distinct upper(substring(trim_article(programme,'$articles'),".(strlen($search_string)).",1))
+    $sql = " select distinct upper(substring(trim_article(programme,'$articles'),".(mb_strlen($search_string)).",1))
                from tv media ".get_rating_join().viewed_join(MEDIA_TYPE_TV)."
               where trim_article(programme,'$articles') like '".db_escape_str($search_string)."'
                    ".get_rating_filter()."
@@ -84,7 +84,7 @@ class tv_series_picker extends list_picker
             having ".viewed_status_predicate( filter_get_name() )."
            order by 1";
 
-    return strtoupper(join(db_col_to_list($sql)));
+    return mb_strtoupper(join(db_col_to_list($sql)));
   }
 
   function display_title()

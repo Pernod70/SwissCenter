@@ -73,7 +73,7 @@ class toma_channel_picker extends list_picker
 
   function data_valid_chars( $search_string )
   {
-    $sql = "select distinct upper(substring( name,".(strlen($search_string)).",1))
+    $sql = "select distinct upper(substring( name,".(mb_strlen($search_string)).",1))
               from toma_channels
              where name like '".db_escape_str($search_string)."'".
                    toma_filter_media_sql().

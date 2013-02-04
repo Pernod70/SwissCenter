@@ -102,8 +102,8 @@ class Fsw {
     return touch(self::setName($filename), $time);
   }
 
-  static function unlink ($dirname) {
-    return unlink(self::setName($dirname));
+  static function unlink ($filename) {
+    return unlink(self::setName($filename));
   }
 }
 
@@ -305,13 +305,13 @@ function file_noext( $filename )
 function file_unique_name( $filename )
 {
   $orig_ext = file_ext($filename);
-  $orig_name = substr($filename,0,strlen($filename)-strlen($orig_ext)-1);
+  $orig_name = mb_substr($filename,0,mb_strlen($filename)-mb_strlen($orig_ext)-1);
   $n = 1;
 
   // If the file already ends with "_nnnnn" then remove it.
   $suffix = array_pop(explode('_',$orig_name));
-  if ( strlen($suffix) == 5 && is_numeric($suffix))
-    $orig_name = substr($orig_name,0,strlen($orig_name)-strlen($suffix)-1);
+  if ( mb_strlen($suffix) == 5 && is_numeric($suffix))
+    $orig_name = mb_substr($orig_name,0,mb_strlen($orig_name)-mb_strlen($suffix)-1);
 
   while ( Fsw::file_exists($filename))
     $filename = $orig_name.'_'.sprintf('%05s',$n++).'.'.$orig_ext;

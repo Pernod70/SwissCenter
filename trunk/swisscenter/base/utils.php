@@ -160,8 +160,8 @@ function strip_title ($title)
 
 function substr_between_strings( &$string, $startstr, $endstr)
 {
-  $start  = ( empty($startstr) ? 0 : strpos($string,$startstr));
-  $end    = strpos($string,$endstr, $start+strlen($startstr));
+  $start  = ( empty($startstr) ? 0 : mb_strpos($string,$startstr));
+  $end    = mb_strpos($string,$endstr, $start+strlen($startstr));
 
   if ($start === false || $end === false)
   {
@@ -169,12 +169,12 @@ function substr_between_strings( &$string, $startstr, $endstr)
   }
   else
   {
-    $text  = strip_tags(substr($string,$start+strlen($startstr),$end-$start-strlen($startstr)));
+    $text  = strip_tags(mb_substr($string,$start+mb_strlen($startstr),$end-$start-mb_strlen($startstr)));
 
-    if (strpos($text,'>') === false)
+    if (mb_strpos($text,'>') === false)
       return ltrim(rtrim($text));
     else
-      return ltrim(rtrim(substr($text,strpos($text,'>')+1)));
+      return ltrim(rtrim(substr($text,mb_strpos($text,'>')+1)));
   }
 }
 
@@ -638,28 +638,6 @@ function set_var( &$var, $value )
     $var = $value;
     return true;
   }
-}
-
-/**
- * Find position of last occurrence of a string in a string.
- * This is similar to the PHP5 function strripos.
- *
- * @param string $string
- * @param string $searchFor
- * @param string $startFrom
- * @return integer
- */
-
-function strrpos_str($string, $searchFor, $startFrom = 0)
-{
-  $addLen = strlen ($searchFor);
-  $endPos = $startFrom - $addLen;
-  while (true)
-  {
-    if (($newPos = strpos ($string, $searchFor, $endPos + $addLen)) === false) break;
-    $endPos = $newPos;
-  }
-  return ($endPos >= 0) ? $endPos : false;
 }
 
 /**
