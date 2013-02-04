@@ -45,7 +45,7 @@
     {
        // Apply search filter before adding items to list
       if (empty($_REQUEST["search"]) || (!empty($_REQUEST["search"]) &&
-               (strpos(strtoupper($key.' '.$text['TEXT'].' '.$_SESSION["language_trans"][$key]['TEXT']),strtoupper(un_magic_quote($_REQUEST["search"])))!==false )) )
+               (mb_strpos(mb_strtoupper($key.' '.$text['TEXT'].' '.$_SESSION["language_trans"][$key]['TEXT']),mb_strtoupper(un_magic_quote($_REQUEST["search"])))!==false )) )
       {
         // Highlight text, Red=Missing, Yellow=Changed, White=Valid
         if ($_SESSION["language_trans"][$key]['TEXT'] == '')
@@ -237,7 +237,7 @@
   {
     return($var['TRANSLATION']['BGCOLOR']=='yellow');
   }
-  
+
   // ----------------------------------------------------------------------------------
   // Add a new language
   // ----------------------------------------------------------------------------------
@@ -246,7 +246,7 @@
   {
     $lang_name = trim($_REQUEST["lang_name"]);
     $lang_id   = trim($_REQUEST["lang_id"]);
-    
+
     if ( empty($lang_name) || empty($lang_id) )
       language_display("!".str('LANG_NEW_FAIL'));
     else
@@ -256,21 +256,23 @@
       foreach (explode("\n",str_replace("\r",null,file_get_contents(SC_LOCATION.'lang/languages.txt'))) as $line)
       {
         $lang = explode(',',$line);
-        if (!is_null($lang[0]) && strlen($lang[0])>0)
+        if (!is_null($lang[0]) && mb_strlen($lang[0])>0)
           $lang_list[$lang[0]] = $lang[1];
       }
-      
+
       // Check if language exists
       if (array_search($lang_id, $lang_list) === false)
       {
         // Add new language to list
         $lang_list[$lang_name] = $lang_id;
-        
+
         // Sort list alphabetically
         asort($lang_list);
-        
+
         // Save new language list
-        @mkdir(SC_LOCATION."lang/".$lang_id);
+        $oldumask = umask(0);
+        @mkdir(SC_LOCATION."lang/".$lang_id,0777);
+        umask($oldumask);
         $lang_file = SC_LOCATION."lang/languages.txt";
         $lang_string = '';
         foreach ($lang_list as $lang_key=>$lang_item)
@@ -289,7 +291,7 @@
         language_display("!".str('LANG_NEW_EXISTS'));
     }
   }
-  
+
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/

@@ -51,7 +51,7 @@ function get_google_artist_image( $artist )
     $oldumask = umask(0);
     $local_folder = SC_LOCATION.'fanart/artists';
     if (!file_exists($local_folder)) { @mkdir($local_folder,0777); }
-    $local_folder = SC_LOCATION.'fanart/artists/'.filename_safe(strtolower($artist));
+    $local_folder = SC_LOCATION.'fanart/artists/'.filename_safe(mb_strtolower($artist));
     if (!file_exists($local_folder)) { @mkdir($local_folder,0777); }
 
     // Collect image URL's from results object
@@ -91,7 +91,7 @@ function get_lastfm_artist_image( $artist )
   $oldumask = umask(0);
   $local_folder = SC_LOCATION.'fanart/artists';
   if (!file_exists($local_folder)) { @mkdir($local_folder,0777); }
-  $local_folder = SC_LOCATION.'fanart/artists/'.filename_safe(strtolower($artist));
+  $local_folder = SC_LOCATION.'fanart/artists/'.filename_safe(mb_strtolower($artist));
   if (!file_exists($local_folder)) { @mkdir($local_folder,0777); }
   umask($oldumask);
 

@@ -18,13 +18,13 @@
     case "genre":
     case "mood":
     case "composer":
-      $title  = str(strtoupper(($column)));
+      $title  = str(mb_strtoupper($column));
       $search = array("display" => $column,
                       "info"    => "count(filename)",
                       "order"   => "trim_article(display,'$articles')");
       break;
     case "year":
-      $title  = str(strtoupper(($column)));
+      $title  = str(mb_strtoupper($column));
       $search = array("display" => $column,
                       "info"    => "count(filename)",
                       "order"   => "display desc");

@@ -96,7 +96,7 @@
       foreach ($actors as $i=>$actor)
       {
         // Random actor image
-        $images = dir_to_array(SC_LOCATION.'fanart/actors/'.filename_safe(strtolower($actor)), '.jpg', 5);
+        $images = dir_to_array(SC_LOCATION.'fanart/actors/'.filename_safe(mb_strtolower($actor)), '.jpg', 5);
         if (empty($images))
         {
           $image = style_img('MISSING_PERSON_ART', true);

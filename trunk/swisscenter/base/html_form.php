@@ -576,7 +576,7 @@ function form_select_table_vals( $id_col )
   $result = array();
   foreach ($_REQUEST as $key => $val)
   {
-    if (strtoupper(substr($key,0,strlen($id_col)+1)) == strtoupper($id_col).':')
+    if (mb_strtoupper(mb_substr($key,0,mb_strlen($id_col)+1)) == mb_strtoupper($id_col).':')
       $result[] = $val;
   }
   return $result;
@@ -596,13 +596,13 @@ function form_select_table_update( $param_name, $formname )
 
   if(!empty($_REQUEST[$formname.'_'.$param_name.'_update']))
   {
-    $result[strtoupper($param_name)] = $_REQUEST[$formname.'_'.$param_name.'_update'];
+    $result[mb_strtoupper($param_name)] = $_REQUEST[$formname.'_'.$param_name.'_update'];
 
     foreach($_REQUEST as $key => $val)
     {
-      if(strtoupper(substr($key, 0, strlen($param_name)+8)) == strtoupper($param_name).'_UPDATE:')
+      if(mb_strtoupper(mb_substr($key, 0, mb_strlen($param_name)+8)) == mb_strtoupper($param_name).'_UPDATE:')
       {
-        $result[substr($key, strlen($param_name)+8)] = $val;
+        $result[mb_substr($key, mb_strlen($param_name)+8)] = $val;
       }
     }
   }

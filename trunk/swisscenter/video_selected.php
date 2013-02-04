@@ -284,7 +284,7 @@
     if ( $type == 'actor_name' || $type == 'director_name' )
     {
       // Random person image
-      $images = dir_to_array(SC_LOCATION.'fanart/actors/'.filename_safe(strtolower($name)), '.jpg', 5);
+      $images = dir_to_array(SC_LOCATION.'fanart/actors/'.filename_safe(mb_strtolower($name)), '.jpg', 5);
       if (!empty($images))
       {
         $folder_img = $images[mt_rand(0,count($images)-1)];
