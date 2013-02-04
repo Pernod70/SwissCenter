@@ -20,13 +20,13 @@
                  <td colspan=3 height="'.convert_y(60).'" align="center"><a href="'.
                      $url.rawurlencode($search." ").'&last=KEY_SPC" name="KEY_SPC">SPACE</a></td>
                  <td colspan=3 height="'.convert_y(60).'" align="center"><a href="'.
-                     $url.rawurlencode(substr($search,0,-1)).'&last=KEY_DEL" name="KEY_DEL">DELETE</a></td>
+                     $url.rawurlencode(mb_substr($search,0,-1)).'&last=KEY_DEL" name="KEY_DEL">DELETE</a></td>
                  </tr>
                  <tr>';
 
-    for ($n=1; $n<=strlen($keys); $n++)
+    for ($n=1; $n<=mb_strlen($keys); $n++)
     {
-      $this_key = substr($keys,($n-1),1);
+      $this_key = mb_substr($keys,($n-1),1);
       echo '<td width="'.convert_x(40).'" height="'.convert_y(60).'" align="center"><a href="'.
             $url.rawurlencode($search.$this_key).'&last=KEY_'.$this_key.'" name="KEY_'.$this_key.'">'.$this_key.'</a></td>';
 

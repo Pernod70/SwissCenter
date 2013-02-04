@@ -30,7 +30,7 @@
     if ( !is_null($synopsis) )
     {
       $text = shorten($synopsis,$synlen,1,FONTSIZE_BODY);
-      if (strlen($text) != strlen($synopsis))
+      if (mb_strlen($text) != mb_strlen($synopsis))
         $text = $text.' <a href="/video_synopsis.php?media_type='.MEDIA_TYPE_VIDEO.'&file_id='.$movie.'">'.font_colour_tags('PAGE_TEXT_BOLD_COLOUR',str('MORE')).'</a>';
     }
     else

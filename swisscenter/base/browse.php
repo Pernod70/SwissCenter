@@ -246,7 +246,7 @@
   function dir_contents_DB (&$dir_list, &$file_list, $sql_table, $dir)
   {
     // Get list of subdirectories
-    $data = db_toarray("select distinct substring(substring(dirname,".(strlen($dir)+1)."),1,instr(substring(dirname,".(strlen($dir)+1)."),'/')-1) dir
+    $data = db_toarray("select distinct substring(substring(dirname,".(mb_strlen($dir)+1)."),1,instr(substring(dirname,".(mb_strlen($dir)+1)."),'/')-1) dir
                         $sql_table and dirname like '".db_escape_str($dir)."%' and dirname!='".db_escape_str($dir)."'");
     if (!empty($data))
       foreach ($data as $row)

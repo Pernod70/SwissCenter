@@ -675,7 +675,7 @@ function process_mp3( $dir, $id, $file)
 function add_photo_album( $dir, $id )
 {
   $media_loc = db_value("select name from media_locations where location_id=$id");
-  $title     = str_replace('/', ':', trim(substr($dir, strlen($media_loc)+1), '/'));
+  $title     = str_replace('/', ':', trim(mb_substr($dir, mb_strlen($media_loc)+1), '/'));
   $row       = array('dirname'      => encode_utf8($dir)
                     ,'title'        => encode_utf8($title)
                     ,'verified'     => 'Y'
@@ -1211,7 +1211,7 @@ function process_tv( $dir, $id, $file)
 
   // Determine the part of the path to process for metadata about the episode.
   $media_loc_dir = db_value("select name from media_locations where location_id=$id");
-  $meta_fsp = substr($data['dirname'],strlen($media_loc_dir)+1).file_noext($data['filename']);
+  $meta_fsp = mb_substr($data['dirname'],mb_strlen($media_loc_dir)+1).file_noext($data['filename']);
 
   $data = array_merge($data, get_tvseries_info($meta_fsp) );
   unset($data['rule']);
