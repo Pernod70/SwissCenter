@@ -186,7 +186,7 @@ function shorten( $text, $width, $lines = 1, $font_size = FONTSIZE_BODY, $dots =
     // Single line
     for ($index = 0; $index < mb_strlen($text); $index++)
     {
-      $current_char = $text[$index];
+      $current_char = mb_substr($text,$index,1);
 
       if(!array_key_exists($current_char, $char_widths))
         $char_len = 176;
