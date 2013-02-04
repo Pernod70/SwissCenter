@@ -425,19 +425,19 @@
 
     if ( get_user_pref("DISPLAY_THUMBS") == "LARGE" )
     {
-      page_header( $heading, substr($dir,0,-1),'',1,false);
+      page_header( $heading, mb_substr($dir,0,-1),'',1,false);
       display_thumbs ($url, $dir, $dir_list, $file_list, $page, $media_type);
       $buttons[] = array('text'=>str('THUMBNAIL_VIEW'), 'url'=>url_add_params($url, array('page'=>floor($page/2),'thumbs'=>'FULL','DIR'=>rawurlencode($dir))) );
     }
     elseif ( get_user_pref("DISPLAY_THUMBS") == "FULL" )
     {
-      page_header( $heading, substr($dir,0,-1),'',1,false);
+      page_header( $heading, mb_substr($dir,0,-1),'',1,false);
       display_thumbs ($url, $dir, $dir_list, $file_list, $page, $media_type);
       $buttons[] = array('text'=>str('COMPACT_VIEW'), 'url'=>url_add_params($url, array('page'=>floor($page/1.5),'thumbs'=>'COMPACT','DIR'=>rawurlencode($dir))) );
     }
     elseif ( get_user_pref("DISPLAY_THUMBS") == "COMPACT" )
     {
-      page_header( $heading, substr($dir,0,-1),'',1,false,style_value("PAGE_FOCUS_IMAGES"));
+      page_header( $heading, mb_substr($dir,0,-1),'',1,false,style_value("PAGE_FOCUS_IMAGES"));
       display_thumbs ($url, $dir, $dir_list, $file_list, $page, $media_type);
       $buttons[] = array('text'=>str('LIST_VIEW'), 'url'=>url_add_params($url, array('page'=>floor($page*1.5),'thumbs'=>'NO','DIR'=>rawurlencode($dir))) );
     }

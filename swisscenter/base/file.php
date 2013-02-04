@@ -402,9 +402,9 @@ function find_in_dir($dir, $filename)
       // Ensure filename read from filesystem is UTF-8 encoded
       $file = encode_utf8($file);
 
-      if     ( is_string($filename) && strtolower($file) == strtolower($filename))
+      if     ( is_string($filename) && mb_strtolower($file) == mb_strtolower($filename))
         $actual = $file;
-      elseif ( is_array($filename) && in_array_ci(strtolower($file),$filename))
+      elseif ( is_array($filename) && in_array_ci(mb_strtolower($file),$filename))
         $actual = $file;
     }
     closedir($dh);

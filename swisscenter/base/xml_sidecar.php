@@ -20,7 +20,7 @@
     if ( strtoupper($details[0]["FILENAME"]) == 'VIDEO_TS.IFO' )
       $filename = rtrim($details[0]["DIRNAME"],'/').".xml";
     else
-      $filename = substr($details[0]["DIRNAME"].$details[0]["FILENAME"],0,strrpos($details[0]["DIRNAME"].$details[0]["FILENAME"],'.')).".xml";
+      $filename = mb_substr($details[0]["DIRNAME"].$details[0]["FILENAME"],0,mb_strrpos($details[0]["DIRNAME"].$details[0]["FILENAME"],'.')).".xml";
 
     if ( empty($details) )
     {
@@ -237,7 +237,7 @@
   function export_tv_to_xml ( $file_id )
   {
     $details  = db_toarray("select * from tv where file_id = $file_id");
-    $filename = substr($details[0]["DIRNAME"].$details[0]["FILENAME"],0,strrpos($details[0]["DIRNAME"].$details[0]["FILENAME"],'.')).".xml";
+    $filename = mb_substr($details[0]["DIRNAME"].$details[0]["FILENAME"],0,mb_strrpos($details[0]["DIRNAME"].$details[0]["FILENAME"],'.')).".xml";
 
     if ( empty($details) )
     {

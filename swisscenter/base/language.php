@@ -37,8 +37,8 @@ function load_lang_strings ( $lang = 'en-gb', $session = 'language' )
       else
       {
         foreach ($matches[1] as $index=>$id)
-          $keys[strtoupper(trim($id))] = array('TEXT'    => $matches[2][$index],
-                                               'VERSION' => $matches[3][$index]);
+          $keys[mb_strtoupper(trim($id))] = array('TEXT'    => $matches[2][$index],
+                                                  'VERSION' => $matches[3][$index]);
 
         send_to_log(6,"Loaded $lang language file into $session");
         if ( isset($_SESSION[$session]) && is_array($_SESSION[$session]))
@@ -135,9 +135,9 @@ function str( $key )
   if (!isset($_SESSION["language"]) )
     load_lang();
 
-  if (!isset($_SESSION["language"][strtoupper($key)]) || $_SESSION["language"][strtoupper($key)]['TEXT'] == '')
+  if (!isset($_SESSION["language"][mb_strtoupper($key)]) || $_SESSION["language"][mb_strtoupper($key)]['TEXT'] == '')
   {
-    $txt = '['.strtoupper($key).']';
+    $txt = '['.mb_strtoupper($key).']';
 
     if ($num_args>1)
       for ($i=1;$i<$num_args;$i++)
@@ -146,12 +146,12 @@ function str( $key )
     // Automatically add any unknown strings to the base language file (DEVELOPERS ONLY)
     if (get_sys_pref('IS_DEVELOPMENT','NO') == 'YES')
     {
-      if (!isset($_SESSION["language_base"][strtoupper($key)]) )
+      if (!isset($_SESSION["language_base"][mb_strtoupper($key)]) )
       {
         $_SESSION["language_base"] = array();
         load_lang_strings("en", "language_base");
-        $_SESSION["language_base"][strtoupper($key)] = array('TEXT'    => '',
-                                                             'VERSION' => swisscenter_version());
+        $_SESSION["language_base"][mb_strtoupper($key)] = array('TEXT'    => '',
+                                                                'VERSION' => swisscenter_version());
         save_lang('en', $_SESSION["language_base"]);
       }
     }
@@ -160,7 +160,7 @@ function str( $key )
   }
   else
   {
-    $string = $_SESSION["language"][strtoupper($key)]['TEXT'];
+    $string = $_SESSION["language"][mb_strtoupper($key)]['TEXT'];
     $txt    = '';
     $i      = 1;
 
@@ -169,20 +169,20 @@ function str( $key )
     $string = preg_replace( array_keys($replace), array_values($replace), $string);
 
     # perform substitutions
-    while ( strpos($string,'%') !== false)
+    while ( mb_strpos($string,'%') !== false)
     {
-    	$pos  = strpos($string,'%');
-    	$txt .= substr($string,0,$pos);
+    	$pos  = mb_strpos($string,'%');
+    	$txt .= mb_substr($string,0,$pos);
 
-    	if ($string[strpos($string,'%')+1] == 's')
+    	if ($string[mb_strpos($string,'%')+1] == 's')
     	{
     	  $txt.= @func_get_arg($i++);
-        $string = substr($string,$pos+2);
+        $string = mb_substr($string,$pos+2);
     	}
     	else
     	{
     	  $txt.='%';
-        $string = substr($string,$pos+1);
+        $string = mb_substr($string,$pos+1);
       }
     }
 
@@ -204,8 +204,8 @@ function lang_wikipedia_search( $search_terms, $back_url = '' )
   if ( empty($lang) )
   {
     $lang = get_sys_pref('DEFAULT_LANGUAGE','en-gb');
-    if ( strpos($lang,'-') !== false)
-      $lang = substr($lang,0,strpos($lang,'-'));
+    if ( mb_strpos($lang,'-') !== false)
+      $lang = mb_substr($lang,0,strpos($lang,'-'));
   }
 
   return '/wikipedia_proxy.php?wiki='.urlencode($lang.'.wikipedia.org').'&url='.urlencode('/w/index.php').'&search='.urlencode($search_terms).'&back_url='.urlencode($back_url);
@@ -234,7 +234,7 @@ function save_lang( $lang, $language )
     if ($lang=='en' || !empty($text['TEXT']))
     {
       $xml->Push('string');
-      $xml->Element('id', strtoupper(trim($id)));
+      $xml->Element('id', mb_strtoupper(trim($id)));
       $xml->Element('text', trim($text['TEXT']));
       $xml->Element('version', $text['VERSION']);
       $xml->Pop('string');
@@ -274,7 +274,7 @@ function language_ini2xml( $lang )
       if ( strlen($line) > 0 && $line[0] != '#')
       {
       	$ex = explode('=',$line,2);
-        $language[strtoupper(trim($ex[0]))] = array('TEXT'=>ltrim($ex[1]), 'VERSION'=>'1.19');
+        $language[mb_strtoupper(trim($ex[0]))] = array('TEXT'=>ltrim($ex[1]), 'VERSION'=>'1.19');
       }
     }
 

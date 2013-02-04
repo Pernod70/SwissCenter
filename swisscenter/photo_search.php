@@ -34,7 +34,7 @@
     case "iptc_province_state":
     case "iptc_suppcategory":
     case "xmp_rating":
-      $title  = str(strtoupper(($column)));
+      $title  = str(mb_strtoupper($column));
       $search = array("display" => $column,
                       "info"    => "count(filename)",
                       "order"   => "display");

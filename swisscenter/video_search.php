@@ -27,13 +27,13 @@
     case "genre":
     case "actor":
     case "director":
-      $title  = str(strtoupper(($column)));
+      $title  = str(mb_strtoupper($column));
       $search = array("display" => $column."_name",
                       "info"    => "count(distinct synopsis)",
                       "order"   => "display");
       break;
     case "certificate":
-      $title  = str(strtoupper(($column)));
+      $title  = str(mb_strtoupper($column));
 //    $search = array("display" => "IFNULL((select name from certificates where rank >= media_cert.rank and scheme = '".get_rating_scheme_name()."' order by rank limit 1),(select name from certificates where rank >= unrated_cert.rank and scheme = '".get_rating_scheme_name()."' order by rank limit 1))",
       $search = array("display" => "IFNULL(media_cert.name,unrated_cert.name)",
                       "info"    => "count(distinct synopsis)",

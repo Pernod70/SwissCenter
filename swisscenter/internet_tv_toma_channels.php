@@ -81,7 +81,7 @@ class toma_channel_picker extends list_picker
                    toma_filter_country_sql($_REQUEST["country"])."
           order by 1";
 
-    return strtoupper(join(db_col_to_list($sql)));
+    return mb_strtoupper(join(db_col_to_list($sql)));
   }
 
   function display_title()

@@ -70,9 +70,9 @@ function make_url_path( $fsp )
     // We order the list by the longest path first to ensure we always match the most specific first.
     foreach ( db_toarray("select name,concat('media/',location_id) dir from media_locations order by length(name) desc") as $dir)
     {
-      $pos = strpos($fsp, $dir["NAME"]);
+      $pos = mb_strpos($fsp, $dir["NAME"]);
       if ( $pos == 0 and $pos !== false)
-        $fsp = $dir["DIR"].substr($fsp, strlen($dir["NAME"]));
+        $fsp = $dir["DIR"].mb_substr($fsp, mb_strlen($dir["NAME"]));
     }
   }
 
@@ -161,7 +161,7 @@ function strip_title ($title)
 function substr_between_strings( &$string, $startstr, $endstr)
 {
   $start  = ( empty($startstr) ? 0 : mb_strpos($string,$startstr));
-  $end    = mb_strpos($string,$endstr, $start+strlen($startstr));
+  $end    = mb_strpos($string,$endstr, $start+mb_strlen($startstr));
 
   if ($start === false || $end === false)
   {
@@ -254,7 +254,7 @@ function str_suffix( $string, $char)
 {
   if (empty($string))
     return '';
- elseif ( $string[strlen($string)-1] == $char)
+ elseif ( $string[mb_strlen($string)-1] == $char)
     return $string;
   else
     return $string.$char;

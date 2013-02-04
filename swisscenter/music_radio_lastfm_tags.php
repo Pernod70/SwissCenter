@@ -34,7 +34,7 @@ class lastfm_tag_picker extends list_picker
 
   function data_valid_chars( $search_string )
   {
-    return strtoupper(join(db_col_to_list(" select distinct upper(substring( tag,".(mb_strlen($search_string)).",1)) from lastfm_tags where tag like '$search_string' order by 1")));
+    return mb_strtoupper(join(db_col_to_list(" select distinct upper(substring( tag,".(mb_strlen($search_string)).",1)) from lastfm_tags where tag like '$search_string' order by 1")));
   }
 
   function display_title()
