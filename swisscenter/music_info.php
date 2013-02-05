@@ -23,24 +23,24 @@
     $image  = isset($data['strArtistThumb'])  ? $data['strArtistThumb']  : null;
     $logo   = isset($data['strArtistLogo'])   ? $data['strArtistLogo']   : null;
     $fanart = isset($data['strArtistFanart']) ? $data['strArtistFanart'] : null;
-    $text   = isset($data['strBiography'])    ? font_tags(FONTSIZE_BODY).$data['strBiography'].'</font>' : null;
+    $text   = isset($data['strBiographyEN'])  ? font_tags(FONTSIZE_BODY).$data['strBiographyEN'].'</font>' : null;
   }
   switch ($display)
   {
     case 'track':
       $data  = tadb_track_getInfo($data['strArtist'], $album, $track);
-      $image = isset($data['strTrackThumb'])  ? $data['strTrackThumb']  : null;
-      $text  = isset($data['strDescription']) ? font_tags(FONTSIZE_BODY).$data['strDescription'].'</font>' : null;
+      $image = isset($data['strTrackThumb'])    ? $data['strTrackThumb']  : null;
+      $text  = isset($data['strDescriptionEN']) ? font_tags(FONTSIZE_BODY).$data['strDescriptionEN'].'</font>' : null;
       break;
     case 'album':
       $data  = tadb_album_getInfo($data['strArtist'], $album);
-      $image = isset($data['strAlbumThumb'])  ? $data['strAlbumThumb']  : null;
-      $text  = isset($data['strDescription']) ? font_tags(FONTSIZE_BODY).$data['strDescription'].'</font>' : null;
+      $image = isset($data['strAlbumThumb'])    ? $data['strAlbumThumb']  : null;
+      $text  = isset($data['strDescriptionEN']) ? font_tags(FONTSIZE_BODY).$data['strDescriptionEN'].'</font>' : null;
       break;
     case 'review':
       $data  = tadb_album_getInfo($data['strArtist'], $album);
-      $image = isset($data['strAlbumThumb'])  ? $data['strAlbumThumb']  : null;
-      $text  = isset($data['strReview'])      ? font_tags(FONTSIZE_BODY).$data['strReview'].'</font>' : null;
+      $image = isset($data['strAlbumThumb']) ? $data['strAlbumThumb']  : null;
+      $text  = isset($data['strReview'])     ? font_tags(FONTSIZE_BODY).$data['strReview'].'</font>' : null;
       break;
     case 'discog':
       $data  = tadb_artist_albums($data['idArtist']);
