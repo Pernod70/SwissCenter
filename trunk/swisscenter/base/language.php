@@ -155,7 +155,6 @@ function str( $key )
         save_lang('en', $_SESSION["language_base"]);
       }
     }
-
     return $txt;
   }
   else
@@ -169,23 +168,21 @@ function str( $key )
     $string = preg_replace( array_keys($replace), array_values($replace), $string);
 
     # perform substitutions
-    while ( mb_strpos($string,'%') !== false)
+    while (($pos=mb_strpos($string,'%')) !== false)
     {
-    	$pos  = mb_strpos($string,'%');
-    	$txt .= mb_substr($string,0,$pos);
+      $txt .= mb_substr($string,0,$pos);
 
-    	if ($string[mb_strpos($string,'%')+1] == 's')
-    	{
-    	  $txt.= @func_get_arg($i++);
+      if (mb_substr($string,$pos+1,1) == 's')
+      {
+        $txt.= @func_get_arg($i++);
         $string = mb_substr($string,$pos+2);
-    	}
-    	else
-    	{
-    	  $txt.='%';
+      }
+      else
+      {
+        $txt.='%';
         $string = mb_substr($string,$pos+1);
       }
     }
-
     return $txt.$string;
   }
 }
@@ -244,9 +241,9 @@ function save_lang( $lang, $language )
   $xml->Pop('languages');
   $xml->Pop('swisscenter');
 
-  if ($fsp = fopen(SC_LOCATION."lang/$lang/$lang.xml", 'wb'))
+  if (($fsp = fopen(SC_LOCATION."lang/$lang/$lang.xml", 'wb')) !== false)
   {
-	  fwrite($fsp, $xml->getXml());
+    fwrite($fsp, $xml->getXml());
     fclose($fsp);
     send_to_log(6,"Saved $lang_file language file");
   }
@@ -273,7 +270,7 @@ function language_ini2xml( $lang )
     {
       if ( strlen($line) > 0 && $line[0] != '#')
       {
-      	$ex = explode('=',$line,2);
+        $ex = explode('=',$line,2);
         $language[mb_strtoupper(trim($ex[0]))] = array('TEXT'=>ltrim($ex[1]), 'VERSION'=>'1.19');
       }
     }
