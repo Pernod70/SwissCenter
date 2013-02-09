@@ -388,39 +388,43 @@
   foreach ($file_ids as $file_id)
     $viewed_count += viewings_count( MEDIA_TYPE_VIDEO, $file_id );
 
+  // Output ABC buttons
+  $buttons = array();
+
   // Buttons for Next and Previous videos
   $order = strtoupper(preg_get('/sort=([a-z]+)/', page_hist_previous('url')));
-  $order = empty($order) ? 'FILENAME' : $order;
-  $prev = db_row("select file_id,title from $sql_table".page_hist_previous('sql').
-                 " and $order < '".db_escape_str($data[0][$order])."'".
-                 " and title != '".db_escape_str($data[0]["TITLE"])."'".
-                 " group by title".
-                 " having ".viewed_status_predicate( filter_get_name() ).
-                 " order by $order desc limit 1");
-  if ( !is_array($prev) ) // Return last video
+  if (!empty($order))
+  {
     $prev = db_row("select file_id,title from $sql_table".page_hist_previous('sql').
+                   " and $order < '".db_escape_str($data[0][$order])."'".
+                   " and title != '".db_escape_str($data[0]["TITLE"])."'".
                    " group by title".
                    " having ".viewed_status_predicate( filter_get_name() ).
                    " order by $order desc limit 1");
+    if ( !is_array($prev) ) // Return last video
+      $prev = db_row("select file_id,title from $sql_table".page_hist_previous('sql').
+                     " group by title".
+                     " having ".viewed_status_predicate( filter_get_name() ).
+                     " order by $order desc limit 1");
 
-  $next = db_row("select file_id, title from $sql_table".page_hist_previous('sql').
-                 " and $order > '".db_escape_str($data[0][$order])."'".
-                 " and title != '".db_escape_str($data[0]["TITLE"])."'".
-                 " group by title".
-                 " having ".viewed_status_predicate( filter_get_name() ).
-                 " order by $order asc limit 1");
-  if ( !is_array($next) ) // Return first video
-    $next = db_row("select file_id,title from $sql_table".page_hist_previous('sql').
+    $next = db_row("select file_id, title from $sql_table".page_hist_previous('sql').
+                   " and $order > '".db_escape_str($data[0][$order])."'".
+                   " and title != '".db_escape_str($data[0]["TITLE"])."'".
                    " group by title".
                    " having ".viewed_status_predicate( filter_get_name() ).
                    " order by $order asc limit 1");
+    if ( !is_array($next) ) // Return first video
+      $next = db_row("select file_id,title from $sql_table".page_hist_previous('sql').
+                     " group by title".
+                     " having ".viewed_status_predicate( filter_get_name() ).
+                     " order by $order asc limit 1");
 
-  // Output ABC buttons
-  $buttons = array();
-  if ( is_array($prev) )
-    $buttons[0] = array('text'=>str('PREVIOUS').': '.$prev["TITLE"], 'url'=> url_add_params($this_url, array('type'=>'title', 'name'=>rawurlencode($prev["TITLE"]), 'hist'=>PAGE_HISTORY_REPLACE)) );
-  if ( is_array($next) )
-    $buttons[1] = array('text'=>str('NEXT').': '.$next["TITLE"], 'url'=> url_add_params($this_url, array('type'=>'title', 'name'=>rawurlencode($next["TITLE"]), 'hist'=>PAGE_HISTORY_REPLACE)) );
+    if ( is_array($prev) )
+      $buttons[0] = array('text'=>str('PREVIOUS').': '.$prev["TITLE"], 'url'=> url_add_params($this_url, array('type'=>'title', 'name'=>rawurlencode($prev["TITLE"]), 'hist'=>PAGE_HISTORY_REPLACE)) );
+    if ( is_array($next) )
+      $buttons[1] = array('text'=>str('NEXT').': '.$next["TITLE"], 'url'=> url_add_params($this_url, array('type'=>'title', 'name'=>rawurlencode($next["TITLE"]), 'hist'=>PAGE_HISTORY_REPLACE)) );
+  }
+
   if (!isset($_SESSION["shuffle"]) || $_SESSION["shuffle"] == 'off')
     $buttons[2] = array('text'=>str('SHUFFLE_ON'), 'url'=> url_set_params($this_url, array('shuffle'=>'on', 'hist'=>PAGE_HISTORY_REPLACE)) );
   else
