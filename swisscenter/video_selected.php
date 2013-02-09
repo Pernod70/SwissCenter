@@ -390,6 +390,7 @@
 
   // Buttons for Next and Previous videos
   $order = strtoupper(preg_get('/sort=([a-z]+)/', page_hist_previous('url')));
+  $order = empty($order) ? 'FILENAME' : $order;
   $prev = db_row("select file_id,title from $sql_table".page_hist_previous('sql').
                  " and $order < '".db_escape_str($data[0][$order])."'".
                  " and title != '".db_escape_str($data[0]["TITLE"])."'".
