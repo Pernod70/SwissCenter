@@ -29,21 +29,21 @@
  }
 
  /**
- * Gets the rss subscription items from the database
- *
- * @param integer $sub_id - subscription id to get (0=All)
- * @param string $order - order of returned items ('asc' or 'desc')
- */
+  * Gets the rss subscription items from the database
+  *
+  * @param integer $sub_id - subscription id to get (0=All)
+  * @param string $order - order of returned items ('asc' or 'desc')
+  */
  function rss_get_subscription_items($sub_id, $order='asc')
  {
    return db_toarray("SELECT * FROM rss_items WHERE subscription_id = $sub_id ORDER BY published_date $order");
  }
 
  /**
- * Update the RSS information in the database
- *
- * @param int $sub_id - subscription id to update (0=All)
- */
+  * Update the RSS information in the database
+  *
+  * @param int $sub_id - subscription id to update (0=All)
+  */
  function rss_update_subscriptions( $sub_id )
  {
    send_to_log(4, "Updating RSS Subscriptions");
@@ -91,14 +91,13 @@
    send_to_log(4,'Finished updating RSS subscriptions');
  }
 
-
  /**
- * Gets the existing item (if any) given an RSS item and subscription id
- *
- * @param int $sub_id - The subscription ID that this item relates to
- * @param object $item - The RSS item
- * @return array - The existing item if any, will be false if there isn't one
- */
+  * Gets the existing item (if any) given an RSS item and subscription id
+  *
+  * @param int $sub_id - The subscription ID that this item relates to
+  * @param object $item - The RSS item
+  * @return array - The existing item if any, will be false if there isn't one
+  */
  function rss_get_existing_item($sub_id, $item)
  {
     // Check to see if the item already exists
@@ -122,17 +121,16 @@
 
     $sql .= " AND subscription_id=$sub_id";
 
-   return db_row($sql);
+    return db_row($sql);
  }
 
-
  /**
- * Updates the subscription with an item. If the item exists it will be updated
- * if not then it will be created. The guid and subscription_id are used as the key.
- *
- * @param integer $sub_id - The ID of the subscription that this item is for
- * @param object $item - The item to update
- */
+  * Updates the subscription with an item. If the item exists it will be updated
+  * if not then it will be created. The guid and subscription_id are used as the key.
+  *
+  * @param integer $sub_id - The ID of the subscription that this item is for
+  * @param object $item - The item to update
+  */
  function rss_update_item($sub_id, $item, $cache)
  {
    send_to_log(4, "Updating item", $item["title"]);
@@ -159,20 +157,17 @@
    {
      if(empty($existing_id))
      {
-       db_insert_row("rss_items", $item_data);
-
-       $existing_id = db_insert_id();
+       $existing_id = db_insert_row("rss_items", $item_data);
      }
      else
      {
        $sql = "UPDATE rss_items SET ".db_array_to_set_list($item_data).
             " WHERE id=$existing_id";
-
        db_sqlcommand($sql);
      }
 
      // Download the linked item if needed
-     if($url = rss_need_linkedfile($sub_id, $existing_item, $item))
+     if(($url = rss_need_linkedfile($sub_id, $existing_item, $item)) !== false)
        rss_fetch_linked_item($existing_id, $url);
    }
 
@@ -189,29 +184,26 @@
    }
  }
 
-
  /**
- * Get the subscription details for the given subscription
- *
- * @param integer $sub_id - The subscription id
- * @return array - The subscription details
- */
+  * Get the subscription details for the given subscription
+  *
+  * @param integer $sub_id - The subscription id
+  * @return array - The subscription details
+  */
  function rss_get_subscription_details($sub_id)
  {
    $sql = "SELECT * FROM rss_subscriptions WHERE id=$sub_id";
-
    return db_row($sql);
  }
 
-
  /**
- * Checks to see if the specified item has a linked file to download
- *
- * @param integer $sub_id - The subscription ID for this subscription
- * @param array $existing_item - The existing item from the db (if any)
- * @param array $new_item - The new RSS item
- * @return string - The url to download from if needed, false if not
- */
+  * Checks to see if the specified item has a linked file to download
+  *
+  * @param integer $sub_id - The subscription ID for this subscription
+  * @param array $existing_item - The existing item from the db (if any)
+  * @param array $new_item - The new RSS item
+  * @return string - The url to download from if needed, false if not
+  */
  function rss_need_linkedfile($sub_id, $existing_item, $new_item)
  {
    $sub = rss_get_subscription_details($sub_id);
@@ -239,15 +231,14 @@
    }
  }
 
-
  /**
- * Fetches a linked item from the given url and stores it on disk
- *
- * @param integer $item_id - The ID of the item that this item is linked to
- * @param string $url - The URL of the linked item
- *
- * @return bool - true if the file was downloaded ok, false if not
- */
+  * Fetches a linked item from the given url and stores it on disk
+  *
+  * @param integer $item_id - The ID of the item that this item is linked to
+  * @param string $url - The URL of the linked item
+  *
+  * @return bool - true if the file was downloaded ok, false if not
+  */
  function rss_fetch_linked_item($item_id, $url)
  {
    $url_details = parse_url($url);
@@ -278,16 +269,15 @@
 
    fclose($fd);
 
-
    return $result;
  }
 
-/**
- * Updates the subscription details.
- *
- * @param integer $sub_id - The ID of the subscription
- * @param object $channel - The subscription details
- */
+ /**
+  * Updates the subscription details.
+  *
+  * @param integer $sub_id - The ID of the subscription
+  * @param object $channel - The subscription details
+  */
  function rss_update_subscription($sub_id, $channel)
  {
    // use itunes image if available
@@ -315,19 +305,19 @@
    $sql = "UPDATE rss_subscriptions SET ".db_array_to_set_list(array("description" => $channel["description"],
                                                                      "image_url"   => $image,
                                                                      "image"       => $img))." WHERE id=$sub_id";
-
    db_sqlcommand($sql);
  }
 
  /**
- * Updates the percentage of a rss feed that has been updated
- *
- * @param integer $sub_id - The subscription ID being updated
- */
+  * Updates the percentage of a rss feed that has been updated
+  *
+  * @param integer $sub_id - The subscription ID being updated
+  */
  function update_rss_progress( $sub_id, $percent )
  {
    db_sqlcommand("update rss_subscriptions set percent_scanned = $percent where id = $sub_id ");
  }
+
  /**************************************************************************************************
                                                End of file
  **************************************************************************************************/
