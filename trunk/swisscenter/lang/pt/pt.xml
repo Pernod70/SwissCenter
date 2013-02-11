@@ -233,11 +233,6 @@
         <version>1.22</version>
       </string>
       <string>
-        <id>BROWSE_DVD</id>
-        <text>Pesquisa de DVD´s</text>
-        <version>1.21.1</version>
-      </string>
-      <string>
         <id>BROWSE_FILESYSTEM</id>
         <text>Pesquisar no sistema de arquivos</text>
         <version>1.19</version>
@@ -420,16 +415,6 @@
       <string>
         <id>CACHE_ERROR_SMALL</id>
         <text>O tamanho de cache indicado é demasiado pequeno</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>CACHE_LANG</id>
-        <text>Colocar em cache os idiomas</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>CACHE_LANG_PROMPT</id>
-        <text>Quando activa, o SwissCenter colocará em memória todos os idiomas. Desactive esta característica se está desenvolvendo novas traduções e necessita de ver as alterações efectuadas imediatamente.</text>
         <version>1.19</version>
       </string>
       <string>
@@ -761,41 +746,6 @@
         <id>DATE_FORMAT_TEST</id>
         <text>Formato Actual: %s</text>
         <version>1.22</version>
-      </string>
-      <string>
-        <id>DAY_1</id>
-        <text>Segunda-feira</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_2</id>
-        <text>Terça-feira</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_3</id>
-        <text>Quarta-feira</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_4</id>
-        <text>Quinta-feira</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_5</id>
-        <text>Sexta-feira</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_6</id>
-        <text>Sábado</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_7</id>
-        <text>Domingo</text>
-        <version>1.19</version>
       </string>
       <string>
         <id>DB_CREATE_DB_ERR</id>
@@ -1860,11 +1810,6 @@
       <string>
         <id>IRADIO_ERROR_PARAM</id>
         <text>Digite um parâmetro de pesquisa</text>
-        <version>1.21.1</version>
-      </string>
-      <string>
-        <id>IRADIO_ERROR_PARAM_NAME</id>
-        <text>Erro num parâmetro de pesquisa</text>
         <version>1.21.1</version>
       </string>
       <string>
@@ -3354,11 +3299,6 @@ A melhor opção mostra os detalhes da faixa com uma barra de progresso e uma im
         <version>1.19</version>
       </string>
       <string>
-        <id>PC_LINK_RADIO</id>
-        <text>Rádio</text>
-        <version>1.19</version>
-      </string>
-      <string>
         <id>PC_LINK_TV</id>
         <text>Programas de TV</text>
         <version>1.19</version>
@@ -3942,23 +3882,8 @@ Se todos os detalhes são adicionados / alterados nesta página, então você es
         <version>1.22</version>
       </string>
       <string>
-        <id>RECENT_MUSIC</id>
-        <text>Música</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>RECENT_PHOTO</id>
-        <text>Fotografias</text>
-        <version>1.22</version>
-      </string>
-      <string>
         <id>RECENT_TRACKS</id>
         <text>Pistas recentes</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>RECENT_VIDEO</id>
-        <text>Video</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4477,11 +4402,6 @@ Se todos os detalhes são adicionados / alterados nesta página, então você es
         <version>1.19</version>
       </string>
       <string>
-        <id>SELECT_OPTION</id>
-        <text>Seleccione uma opção da lista:</text>
-        <version>1.19</version>
-      </string>
-      <string>
         <id>SELECT_RSS_FEED</id>
         <text>Seleccione um feed RSS da seguinte lista:</text>
         <version>1.20.1</version>
@@ -4939,11 +4859,6 @@ Se todos os detalhes são adicionados / alterados nesta página, então você es
       <string>
         <id>THEME_PREVIEW_THUMBS</id>
         <text>Visualização dos temas disponíveis para %s.</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>THEME_SAVED_SUCCESS</id>
-        <text>Tema guardado com sucesso</text>
         <version>1.22</version>
       </string>
       <string>
@@ -5666,11 +5581,6 @@ Se todos os detalhes são adicionados / alterados nesta página, então você es
         <id>VIEW_WEATHER</id>
         <text>Ver estado do tempo</text>
         <version>1.19</version>
-      </string>
-      <string>
-        <id>WATCH_DVD</id>
-        <text>Ver um DVD</text>
-        <version>1.21.1</version>
       </string>
       <string>
         <id>WATCH_INTERNET_TV</id>

@@ -9,20 +9,18 @@
   if (isset($_REQUEST["lang"]))
   {
     set_user_pref('LANGUAGE',$_REQUEST["lang"]);
-    load_lang($_REQUEST["lang"]);
+    $_SESSION["language"] = $_REQUEST["lang"];
     page_inform(2,'index.php',str('LANG_CHANGE'),str('SAVE_SETTINGS_OK'));
   }
   else
   {
     $page = isset($_REQUEST["page"]) ? $_REQUEST["page"] : 0;
     $array = array();
-    foreach (explode("\n",str_replace("\r",null,file_get_contents(SC_LOCATION.'lang/languages.txt'))) as $line)
+    foreach (db_toarray('select ietf_tag, name from translate_languages order by name') as $lang)
     {
-      $lang = explode(',',$line);
-      if ( !empty($lang[0]) )
-        $array[] = array("text"=>$lang[0],
-                         "thumb"=>file_albumart(SC_LOCATION.'images/flags/'.$lang[1].'.xml'),
-                         "url"=>'change_lang.php?lang='.$lang[1]);
+      $array[] = array("text"  => $lang['NAME'],
+                       "thumb" => file_albumart(SC_LOCATION.'images/flags/'.$lang['IETF_TAG'].'.xml'),
+                       "url"   => 'change_lang.php?lang='.$lang['IETF_TAG']);
     }
 
     page_header( str('LANG_CHANGE'), '');

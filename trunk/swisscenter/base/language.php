@@ -9,20 +9,21 @@ require_once( realpath(dirname(__FILE__).'/utils.php'));
 require_once( realpath(dirname(__FILE__).'/../ext/xml/xmlbuilder.php'));
 
 /**
- * This procedure loads the language definitions into the session (and also updates the system
- * preference for the default language).
+ * This procedure loads the specified language definitions into the database.
  *
  * @param string $lang
- * @param string $session
  */
-function load_lang_strings ( $lang = 'en-gb', $session = 'language' )
+function load_lang_xml ( $lang = 'en-GB' )
 {
   $lang_file = SC_LOCATION."lang/$lang/$lang.xml";
-  $keys      = array();
+  $checksum  = md5_file($lang_file);
 
-  if (file_exists($lang_file))
+  /// Proceed only if the language file has changed
+  if (file_exists($lang_file) && $checksum !== get_sys_pref("LANG_CHKSUM_$lang"))
   {
     @set_magic_quotes_runtime(0);
+
+    send_to_log(5,"Updating language translations from: $lang.xml");
 
     // Read and process XML file
     $data = file_get_contents($lang_file);
@@ -33,36 +34,83 @@ function load_lang_strings ( $lang = 'en-gb', $session = 'language' )
       preg_match_all('/<string>.*<id>(.*)<\/id>.*<text>(.*)<\/text>.*<version>(.*)<\/version>.*<\/string>/Uis', htmlspecialchars_decode($data), $matches);
 
       if (count($matches[0]) == 0)
-        send_to_log(2,'Parsing '.$lang_file.' failed to find any language strings!');
+        send_to_log(2,'- Parsing '.$lang_file.' failed to find any language strings!');
       else
       {
-        foreach ($matches[1] as $index=>$id)
-          $keys[mb_strtoupper(trim($id))] = array('TEXT'    => $matches[2][$index],
-                                                  'VERSION' => $matches[3][$index]);
+        // Ensure language exists in database
+        $lang_id = db_value("select lang_id from translate_languages where ietf_tag = '$lang'");
+        if (!$lang_id)
+        {
+          $lang_name = preg_get('/fullname="(.*)"/', htmlspecialchars_decode($data));
+          $lang_id   = db_insert_row('translate_languages', array('ietf_tag'=>$lang, 'name'=>$lang_name));
+        }
 
-        send_to_log(6,"Loaded $lang language file into $session");
-        if ( isset($_SESSION[$session]) && is_array($_SESSION[$session]))
-          $_SESSION[$session] = array_merge( (array)$_SESSION[$session] , (array)$keys );
-        else
-          $_SESSION[$session] = $keys;
+        // When importing base language 'en' mark all translation keys as unverified
+        db_sqlcommand("update translate_keys set verified = '".($lang=='en' ? 'N' : 'Y')."'");
+
+        // Import the translation into database
+        foreach ($matches[1] as $index=>$id)
+        {
+          // Does the key already exist?
+          $key_id = db_value("select key_id from translate_keys where text_id = '".strtoupper(trim($id))."'");
+          if (!$key_id)
+          {
+            // Only add keys when importing base language 'en'
+            if ($lang=='en')
+            {
+              send_to_log(6,'- Adding language key ['.strtoupper(trim($id)).']');
+              $key_id = db_insert_row('translate_keys', array('TEXT_ID'=>strtoupper(trim($id)), 'VERIFIED'=>'Y'));
+            }
+            else
+              send_to_log(2,'- Invalid language key ['.strtoupper(trim($id)).'] ignored in '.basename($lang_file));
+          }
+          else
+          {
+            // Mark existing key as verified
+            db_update_row('translate_keys', $key_id, array('VERIFIED'=>'Y'), 'key_id');
+          }
+          // If the key is valid then insert/update the translation
+          if ($key_id)
+          {
+            if (db_value('select count(text) from translate_text where key_id='.$key_id.' and lang_id='.$lang_id) > 0)
+              db_sqlcommand("update translate_text set text='".db_escape_str($matches[2][$index])."', version='".db_escape_str($matches[3][$index])."' where key_id=$key_id and lang_id=$lang_id");
+            else
+            {
+              if (empty($matches[2][$index]))
+                send_to_log(2,'- Invalid language text for key ['.strtoupper(trim($id)).']');
+              else
+              {
+                send_to_log(6,'- Adding language text for key ['.strtoupper(trim($id)).']');
+                db_insert_row('translate_text', array('KEY_ID'=>$key_id, 'LANG_ID'=>$lang_id, 'TEXT'=>$matches[2][$index] ,'VERSION'=>$matches[3][$index]));
+              }
+            }
+          }
+        }
+
+        // Delete any translation keys that are not verified
+        $keys = db_toarray("select text_id from translate_keys where verified = 'N'");
+        foreach ($keys as $key)
+          send_to_log(6,'- Removed language key ['.$key['TEXT_ID'].']');
+        db_sqlcommand("delete from translate_keys where verified = 'N'");
+
+        send_to_log(6,"Loaded $lang.xml language file into database");
+
+        // Save the checksum for this language.
+        set_sys_pref("LANG_CHKSUM_$lang", $checksum);
       }
     }
     else
-      send_to_log(6,'Unable to read the language file: ',$lang_file);
+      send_to_log(2,'Unable to read the language file: '.$lang_file);
   }
 }
 
-function load_lang ($current_lang = '')
+/**
+ * Determine which language to use.
+ */
+function current_language()
 {
-  // Loading the language strings can sometimes cause a timeout
-  set_user_timeout();
-
- /**
-   * Determine which language to load
-   */
-
   // If the user is logged in then use their preferred language
-  if ($current_lang == '' && ($user_id = get_current_user_id()) !== false)
+  if (($user_id = get_current_user_id()) !== false)
     $current_lang = get_user_pref('LANGUAGE','',$user_id);
 
   // If a language name was not given then try to work out which language to use
@@ -72,53 +120,28 @@ function load_lang ($current_lang = '')
     if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) && !empty($_SERVER['HTTP_ACCEPT_LANGUAGE']))
       $current_lang = array_shift(explode(',',$_SERVER['HTTP_ACCEPT_LANGUAGE']));
     else
-      $current_lang = get_sys_pref('DEFAULT_LANGUAGE','en-gb');
-    }
-
-  /**
-   * Load the language strings
-   */
-
-  $base = 'en';
-  list($lang,$region) = explode('-',$current_lang);
-  $used_cache = false;
-
-  // Optimization - check the timestamp on all the files (base, language, region) and if none
-  //                of them have changed then load the cached language strings.
-
-  $cache_file   = get_sys_pref('cache_dir', SC_LOCATION)."/Lang-$base-$lang-$region.txt";
-  $cache_chksum = get_sys_pref("LANG_CHKSUM_$base-$lang-$region");
-  $checksum     = md5( @filemtime(SC_LOCATION."lang/$base/$base.xml").'/'
-                     . @filemtime(SC_LOCATION."lang/$lang/$lang.xml").'/'
-                     . @filemtime(SC_LOCATION."lang/$lang/$lang-$region.xml"));
-
-  send_to_log(8,"Cached language settings", array("Cache file"=>$cache_file,"Cache Checksum"=>$cache_chksum,"New Checksum"=>$checksum));
-  if ( file_exists($cache_file) && $checksum == get_sys_pref("LANG_CHKSUM_$base-$lang-$region") )
-  {
-    send_to_log(6,"Loading cached language strings",$cache_file);
-    $_SESSION['language'] = unserialize( file_get_contents($cache_file));
-    $used_cache = ( is_array($_SESSION['language']) );
-  }
-
-  if ( $used_cache === false)
-  {
-    $_SESSION['language'] = array();
-
-    // Load the $base, then overlay the $lang and finally the $region.
-    load_lang_strings($base);
-    if ($lang != $base)
-      load_lang_strings($lang);
-    if ( !empty($region) )
-      load_lang_strings($lang.'-'.$region);
-
-    // Create the cache file for this language combination and save the checksum for it.
-    send_to_log(6,"Writing cached language strings",$cache_file);
-    write_binary_file($cache_file, serialize($_SESSION['language']));
-    set_sys_pref("LANG_CHKSUM_$base-$lang-$region", $checksum);
+      $current_lang = get_sys_pref('DEFAULT_LANGUAGE','en-GB');
   }
 
   // Store this as the system default language
   set_sys_pref('DEFAULT_LANGUAGE',$current_lang);
+
+  return $current_lang;
+}
+
+/**
+ * Import all language definitions into the database.
+ */
+function load_translations()
+{
+  // Import all language translations, base 'en' must be first
+  load_lang_xml('en');
+  foreach (explode("\n", str_replace("\r", null, file_get_contents(SC_LOCATION.'lang/languages.txt'))) as $line)
+  {
+    $lang = explode(',',$line);
+    if (!is_null($lang[0]) && strlen($lang[0])>0 && $lang[1]!=='en')
+      load_lang_xml($lang[1]);
+  }
 }
 
 /**
@@ -132,10 +155,17 @@ function str( $key )
 {
   $num_args = @func_num_args();
 
-  if (!isset($_SESSION["language"]) )
-    load_lang();
+  $lang = isset($_SESSION["language"]) ? $_SESSION["language"] : current_language();
+  $base = 'en';
 
-  if (!isset($_SESSION["language"][mb_strtoupper($key)]) || $_SESSION["language"][mb_strtoupper($key)]['TEXT'] == '')
+  $translation = db_row("select t1.text text_base, t2.text text_lang, t3.text text_region
+                         from translate_keys k
+                         left join translate_text t1 on t1.key_id=k.key_id and t1.lang_id=(select lang_id from translate_languages where ietf_tag='$base')
+                         left join translate_text t2 on t2.key_id=k.key_id and t2.lang_id=(select lang_id from translate_languages where ietf_tag='".substr($lang, 0, 2)."')
+                         left join translate_text t3 on t3.key_id=k.key_id and t3.lang_id=(select lang_id from translate_languages where ietf_tag='$lang')
+                         where k.text_id='$key'");
+
+  if (empty($translation['TEXT_BASE']))
   {
     $txt = '['.mb_strtoupper($key).']';
 
@@ -143,23 +173,18 @@ function str( $key )
       for ($i=1;$i<$num_args;$i++)
         $txt.= ' ['.@func_get_arg($i).']';
 
-    // Automatically add any unknown strings to the base language file (DEVELOPERS ONLY)
-    if (get_sys_pref('IS_DEVELOPMENT','NO') == 'YES')
-    {
-      if (!isset($_SESSION["language_base"][mb_strtoupper($key)]) )
-      {
-        $_SESSION["language_base"] = array();
-        load_lang_strings("en", "language_base");
-        $_SESSION["language_base"][mb_strtoupper($key)] = array('TEXT'    => '',
-                                                                'VERSION' => swisscenter_version());
-        save_lang('en', $_SESSION["language_base"]);
-      }
-    }
+    // Automatically add any unknown strings to the database
+    if (!db_value("select key_id from translate_keys where text_id='".strtoupper($key)."'"))
+      db_insert_row('translate_keys', array('TEXT_ID'=>strtoupper($key)));
+
     return $txt;
   }
   else
   {
-    $string = $_SESSION["language"][mb_strtoupper($key)]['TEXT'];
+    $string = $translation['TEXT_BASE'];
+    if (!empty($translation['TEXT_LANG'])) $string = $translation['TEXT_LANG'];
+    if (!empty($translation['TEXT_REGION'])) $string = $translation['TEXT_REGION'];
+
     $txt    = '';
     $i      = 1;
 
@@ -200,11 +225,10 @@ function lang_wikipedia_search( $search_terms, $back_url = '' )
   $lang = get_sys_pref('WIKIPEDIA_LANGUAGE','');
   if ( empty($lang) )
   {
-    $lang = get_sys_pref('DEFAULT_LANGUAGE','en-gb');
+    $lang = get_sys_pref('DEFAULT_LANGUAGE','en-GB');
     if ( mb_strpos($lang,'-') !== false)
       $lang = mb_substr($lang,0,strpos($lang,'-'));
   }
-
   return '/wikipedia_proxy.php?wiki='.urlencode($lang.'.wikipedia.org').'&url='.urlencode('/w/index.php').'&search='.urlencode($search_terms).'&back_url='.urlencode($back_url);
 }
 
@@ -212,28 +236,30 @@ function lang_wikipedia_search( $search_terms, $back_url = '' )
  * Save the language definitions to XML file.
  *
  * @param string $lang
- * @param array  $language
  */
-function save_lang( $lang, $language )
+function save_lang_xml( $lang_tag )
 {
-  $lang_file = SC_LOCATION."lang/$lang/$lang.xml";
+  $lang_file = SC_LOCATION."lang/$lang_tag/$lang_tag.xml";
 
-  // Order the language array by key
-  ksort( $language );
+  $fullname = db_value("select name from translate_languages where ietf_tag='$lang_tag'");
+  $translations = db_toarray("select tk.text_id id, tt.text text, tt.version version
+                              from translate_keys tk
+                              left join translate_text tt on tt.key_id=tk.key_id and tt.lang_id=(select lang_id from translate_languages where ietf_tag='$lang_tag')
+                              order by id");
 
   $xml = new XmlBuilder();
   $xml->Push('swisscenter');
   $xml->Push('languages');
-  $xml->Push('language', array('name'     => $lang,
-                               'fullname' => trim($language['LANGUAGE']['TEXT'])));
-  foreach ($language as $id=>$text)
+  $xml->Push('language', array('name'     => $lang_tag,
+                               'fullname' => $fullname));
+  foreach ($translations as $translation)
   {
-    if ($lang=='en' || !empty($text['TEXT']))
+    if (!empty($translation['TEXT']))
     {
       $xml->Push('string');
-      $xml->Element('id', mb_strtoupper(trim($id)));
-      $xml->Element('text', trim($text['TEXT']));
-      $xml->Element('version', $text['VERSION']);
+      $xml->Element('id', $translation['ID']);
+      $xml->Element('text', $translation['TEXT']);
+      $xml->Element('version', $translation['VERSION']);
       $xml->Pop('string');
     }
   }
@@ -241,43 +267,19 @@ function save_lang( $lang, $language )
   $xml->Pop('languages');
   $xml->Pop('swisscenter');
 
-  if (($fsp = fopen(SC_LOCATION."lang/$lang/$lang.xml", 'wb')) !== false)
+  if (($fsp = fopen($lang_file, 'wb')) !== false)
   {
     fwrite($fsp, $xml->getXml());
     fclose($fsp);
+
+    // Save the checksum for this language.
+    $checksum = md5_file($lang_file);
+    set_sys_pref("LANG_CHKSUM_$lang_tag", $checksum);
+
     send_to_log(6,"Saved $lang_file language file");
   }
   else
     send_to_log(6,"Failed to save language file: $lang_file");
-}
-
-/**
- * Converts language ini file to new xml format.
- *
- * @param string $lang
- */
-function language_ini2xml( $lang )
-{
-  // Where is the SwissCenter installed?
-  define('SC_LOCATION', str_replace('\\','/',realpath(dirname(dirname(__FILE__)))).'/' );
-
-  $lang_file = SC_LOCATION."lang/$lang/$lang.txt";
-  $language  = array();
-
-  if (file_exists($lang_file))
-  {
-    foreach (explode("\n",str_replace("\r",null,file_get_contents($lang_file))) as $line)
-    {
-      if ( strlen($line) > 0 && $line[0] != '#')
-      {
-        $ex = explode('=',$line,2);
-        $language[mb_strtoupper(trim($ex[0]))] = array('TEXT'=>ltrim($ex[1]), 'VERSION'=>'1.19');
-      }
-    }
-
-    // Save the language file in xml
-    save_lang($lang, $language);
-  }
 }
 
 /**************************************************************************************************

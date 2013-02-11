@@ -228,11 +228,6 @@
         <version>1.23.1</version>
       </string>
       <string>
-        <id>BROWSE_BROADCASTER</id>
-        <text>Selecteer een radiostation</text>
-        <version>1.21.1</version>
-      </string>
-      <string>
         <id>BROWSE_CERTIFICATE</id>
         <text>Zoek kijkwijzer leeftijd</text>
         <version>1.19</version>
@@ -261,11 +256,6 @@
         <id>BROWSE_DISCOVERED</id>
         <text>Zoek datum van toevoeging</text>
         <version>1.22</version>
-      </string>
-      <string>
-        <id>BROWSE_DVD</id>
-        <text>Zoek in DVD's</text>
-        <version>1.21</version>
       </string>
       <string>
         <id>BROWSE_EDITORS_PICKS</id>
@@ -483,16 +473,6 @@
         <version>1.19</version>
       </string>
       <string>
-        <id>CACHE_LANG</id>
-        <text>Taalstrings bufferen</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>CACHE_LANG_PROMPT</id>
-        <text>Wanneer geactiveerd zal SwissCenter alle taalstrings bufferen in het geheugen. Zet deze optie uit indien u een vertaling toevoegt en de wijzigingen onmiddelijk wilt zien.</text>
-        <version>1.19</version>
-      </string>
-      <string>
         <id>CACHE_PRECACHE</id>
         <text>Afbeeldingen precachen</text>
         <version>1.19</version>
@@ -600,11 +580,6 @@
       <string>
         <id>CAT_PARENT</id>
         <text>Parent categorie</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>CAT_RECENTLY_ADDED</id>
-        <text>Recent toegevoegd</text>
         <version>1.19</version>
       </string>
       <string>
@@ -836,41 +811,6 @@
         <id>DATE_FORMAT_TEST</id>
         <text>Huidig formaat: %s</text>
         <version>1.22</version>
-      </string>
-      <string>
-        <id>DAY_1</id>
-        <text>Ma</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_2</id>
-        <text>Di</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_3</id>
-        <text>Wo</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_4</id>
-        <text>Do</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_5</id>
-        <text>Vr</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_6</id>
-        <text>Za</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_7</id>
-        <text>Zo</text>
-        <version>1.19</version>
       </string>
       <string>
         <id>DB_CREATE_DB_ERR</id>
@@ -1355,11 +1295,6 @@
       <string>
         <id>FAIL_PHP_VERSION</id>
         <text>Voor SwissCenter is PHP 5.2.6 of hoger vereist; uw PHP-versie (%s) wordt niet ondersteund.</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>FAIL_RADIOTIME_TEST</id>
-        <text>RadioTime parser functioneert mogelijk niet.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2009,11 +1944,6 @@
         <version>1.21.1</version>
       </string>
       <string>
-        <id>IRADIO_BROADCASTER_SELECT</id>
-        <text>Selecteer een radiostation</text>
-        <version>1.21.1</version>
-      </string>
-      <string>
         <id>IRADIO_CACHE_EXPIRE</id>
         <text>Buffer timeout</text>
         <version>1.19</version>
@@ -2076,11 +2006,6 @@
       <string>
         <id>IRADIO_ERROR_PARAM</id>
         <text>Voer een zoekparameter in</text>
-        <version>1.21.1</version>
-      </string>
-      <string>
-        <id>IRADIO_ERROR_PARAM_NAME</id>
-        <text>Foutieve naam zoekparameter</text>
         <version>1.21.1</version>
       </string>
       <string>
@@ -2177,16 +2102,6 @@
         <id>IRADIO_PARAM_TYPE</id>
         <text>Type zoekparameter</text>
         <version>1.21.1</version>
-      </string>
-      <string>
-        <id>IRADIO_RADIOTIME</id>
-        <text>RadioTime</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>IRADIO_RADIOTIME_DESC</id>
-        <text>Luister naar online radio, zoek en vind streaming radio met RadioTime. De beste gids voor elk type radio: conservatief, progressief, publiek, nieuws, sport, religieuze, jazz, klassiek, rock, country, het bedrijfsleven, latin, hip-hop, pop, volwassen hedendaagse, en nog veel meer ...</text>
-        <version>1.22</version>
       </string>
       <string>
         <id>IRADIO_SEARCH</id>
@@ -2520,11 +2435,6 @@
         <id>LENGTH_MM</id>
         <text>mm</text>
         <version>1.19</version>
-      </string>
-      <string>
-        <id>LFM_STATS</id>
-        <text>Last.FM statistieken</text>
-        <version>na</version>
       </string>
       <string>
         <id>LICENSE</id>
@@ -3553,11 +3463,6 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
         <version>1.22</version>
       </string>
       <string>
-        <id>OS_DOWNLOADED</id>
-        <text>Reeds gedownload</text>
-        <version>1.22</version>
-      </string>
-      <string>
         <id>OS_DOWNLOADED_OK</id>
         <text>Ondertitel is gedownload</text>
         <version>1.22</version>
@@ -3585,11 +3490,6 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
       <string>
         <id>OS_UPLOAD</id>
         <text>Upload ondertitels naar OpenSubtitles.org</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>OS_UPLOADER</id>
-        <text>Uploader</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3713,11 +3613,6 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
         <version>1.19</version>
       </string>
       <string>
-        <id>PASS_RADIOTIME_TEST</id>
-        <text>De RadioTime Paser lijkt goed te functioneren</text>
-        <version>1.22</version>
-      </string>
-      <string>
         <id>PASS_SERVER_SCHED</id>
         <text>Het automatisch zoeken naar nieuwe media wordt ondersteund.</text>
         <version>1.19</version>
@@ -3825,11 +3720,6 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
       <string>
         <id>PC_LINK_PHOTOS</id>
         <text>Foto's</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>PC_LINK_RADIO</id>
-        <text>Radio</text>
         <version>1.19</version>
       </string>
       <string>
@@ -4404,21 +4294,6 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
         <version>1.19</version>
       </string>
       <string>
-        <id>RADAR</id>
-        <text>Buienradar</text>
-        <version>na</version>
-      </string>
-      <string>
-        <id>RADIOTIME_LOGIN_HEADINGS</id>
-        <text>Gebruiker, RadioTime gebruikersnaam</text>
-        <version>1.23.1</version>
-      </string>
-      <string>
-        <id>RADIOTIME_MISSING_LOGIN</id>
-        <text>Voer gebruikersnaam in</text>
-        <version>1.23.1</version>
-      </string>
-      <string>
         <id>RANGE</id>
         <text>Bereik</text>
         <version>1.19</version>
@@ -4489,29 +4364,14 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
         <version>1.22</version>
       </string>
       <string>
-        <id>RECENT_MUSIC</id>
-        <text>Muziek</text>
-        <version>1.22</version>
-      </string>
-      <string>
         <id>RECENT_OPTIONS</id>
         <text>Opties voor recente media</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>RECENT_PHOTO</id>
-        <text>Foto's</text>
         <version>1.22</version>
       </string>
       <string>
         <id>RECENT_TRACKS</id>
         <text>Recent gespeelde nummers</text>
         <version>na</version>
-      </string>
-      <string>
-        <id>RECENT_VIDEO</id>
-        <text>Video</text>
-        <version>1.22</version>
       </string>
       <string>
         <id>REFERENCE</id>
@@ -5084,11 +4944,6 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
         <version>1.19</version>
       </string>
       <string>
-        <id>SELECT_OPTION</id>
-        <text>Selecteer een optie uit de lijst:</text>
-        <version>1.19</version>
-      </string>
-      <string>
         <id>SELECT_RSS_FEED</id>
         <text>Selecteer een RSS feed uit de lijst:</text>
         <version>1.20</version>
@@ -5601,11 +5456,6 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
       <string>
         <id>THEME_PREVIEW_THUMBS</id>
         <text>Voorbeelden van beschikbare thema's voor %s.</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>THEME_SAVED_SUCCESS</id>
-        <text>Thema is opgeslagen</text>
         <version>1.22</version>
       </string>
       <string>
@@ -6380,11 +6230,6 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
         <version>1.23.1</version>
       </string>
       <string>
-        <id>WATCH_DVD</id>
-        <text>Bekijk een DVD</text>
-        <version>1.21</version>
-      </string>
-      <string>
         <id>WATCH_INTERNET_TV</id>
         <text>Internet TV</text>
         <version>1.22</version>
@@ -6398,11 +6243,6 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
         <id>WATCH_TV</id>
         <text>TV show</text>
         <version>1.22</version>
-      </string>
-      <string>
-        <id>WEATHER</id>
-        <text>Weerbericht</text>
-        <version>na</version>
       </string>
       <string>
         <id>WEATHER_5DAY</id>

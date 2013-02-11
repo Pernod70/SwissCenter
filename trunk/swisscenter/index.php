@@ -126,6 +126,11 @@
       load_players_config();
 
     /**
+     * Import any updated languages into the database
+     */
+    load_translations();
+
+    /**
      * Automatically load playlist?
      */
 

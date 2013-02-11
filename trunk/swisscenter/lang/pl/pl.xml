@@ -188,41 +188,6 @@
         <version>1.19</version>
       </string>
       <string>
-        <id>DAY_1</id>
-        <text>Pon</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_2</id>
-        <text>Wto</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_3</id>
-        <text>Sro</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_4</id>
-        <text>Czw</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_5</id>
-        <text>Pia</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_6</id>
-        <text>Sob</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_7</id>
-        <text>Nie</text>
-        <version>1.19</version>
-      </string>
-      <string>
         <id>DIRECTOR</id>
         <text>Director</text>
         <version>1.19</version>
@@ -785,11 +750,6 @@
       <string>
         <id>SELECT_ENTIRE_ALBUM</id>
         <text>Select entire album</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>SELECT_OPTION</id>
-        <text>Wybierz dostepna opcje z listy:</text>
         <version>1.19</version>
       </string>
       <string>

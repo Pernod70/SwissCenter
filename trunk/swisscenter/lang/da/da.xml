@@ -343,16 +343,6 @@
         <version>1.19</version>
       </string>
       <string>
-        <id>CACHE_LANG</id>
-        <text>Gem sprog strenge i cachen</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>CACHE_LANG_PROMPT</id>
-        <text>Når denne funktion er aktiveret, vil SwissCenter gemme alle tekststrengene i det valgte sprog i hukommelsen. Slå denne funktion fra, hvis du arbejder på en ny oversættelse og har brug for at se ændringerne med det samme.</text>
-        <version>1.19</version>
-      </string>
-      <string>
         <id>CACHE_PRECACHE</id>
         <text>Cache Billeder på Forhånd</text>
         <version>1.19</version>
@@ -460,11 +450,6 @@
       <string>
         <id>CAT_PARENT</id>
         <text>Øvre Kategori</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>CAT_RECENTLY_ADDED</id>
-        <text>Nyligt tilføjede</text>
         <version>1.19</version>
       </string>
       <string>
@@ -620,41 +605,6 @@
       <string>
         <id>DATE</id>
         <text>Dato</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_1</id>
-        <text>Man</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_2</id>
-        <text>Tir</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_3</id>
-        <text>Ons</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_4</id>
-        <text>Tor</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_5</id>
-        <text>Fre</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_6</id>
-        <text>Lør</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_7</id>
-        <text>Søn</text>
         <version>1.19</version>
       </string>
       <string>
@@ -865,11 +815,6 @@
       <string>
         <id>EXPERT_OPTIONS</id>
         <text>Ekspert Indstillinger</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>EXPERT_PREDS_UPDATED</id>
-        <text>indstilling opdateret</text>
         <version>1.19</version>
       </string>
       <string>
@@ -2243,11 +2188,6 @@
         <version>1.19</version>
       </string>
       <string>
-        <id>PC_LINK_RADIO</id>
-        <text>Radio</text>
-        <version>1.19</version>
-      </string>
-      <string>
         <id>PC_LINK_TV</id>
         <text>TV Serier</text>
         <version>1.19</version>
@@ -2895,11 +2835,6 @@
       <string>
         <id>SELECT_ENTIRE_ALBUM</id>
         <text>Vælg hele albumet</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>SELECT_OPTION</id>
-        <text>Vælg et punkt på menuen herunder:</text>
         <version>1.19</version>
       </string>
       <string>

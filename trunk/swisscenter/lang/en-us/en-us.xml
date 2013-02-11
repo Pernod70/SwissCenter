@@ -52,21 +52,6 @@
         <text>Internet Videos</text>
         <version>1.22</version>
       </string>
-      <string>
-        <id>RECENT_TV</id>
-        <text>TV Series</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>SR_NEXT</id>
-        <text>Next Season</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>SR_PREV</id>
-        <text>Previous Season</text>
-        <version>1.22</version>
-      </string>
     </language>
   </languages>
 </swisscenter>

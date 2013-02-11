@@ -15,7 +15,7 @@ function chksum_files($pre, $dir, &$files)
 {
   if ($dir!='media/' && $dir!='cache/')
   {
-    if ($dh = opendir($pre.$dir))
+    if (($dh = opendir($pre.$dir)) !== false)
     {
       while (($file = readdir($dh)) !== false)
       {
@@ -70,11 +70,13 @@ function set_last_update($release_dir)
     // Create update directory to hold files if it doesn't already exist
     if (!file_exists('updates'))
     {
-      if ( mkdir('updates') === false )
+      $oldumask = umask(0);
+      if ( mkdir('updates',0777) === false )
       {
         send_to_log(1,'ERROR: Unable to create directory.',"Updates");
         $errors += 1;
       }
+      umask($oldumask);
     }
 
     // Download the required files
@@ -137,13 +139,15 @@ function set_last_update($release_dir)
     {
       if (!file_exists($dir["directory"]))
       {
-        if ( mkdir($dir["directory"]) === false )
+        $oldumask = umask(0);
+        if ( mkdir($dir["directory"],0777) === false )
         {
          send_to_log(1,'ERROR: Unable to create directory.',SC_LOCATION.$dir["directory"]);
          $errors += 1;
         }
         else
           send_to_log(4,"'".$dir["directory"]."' directory created : ");
+        umask($oldumask);
       }
     }
   }
@@ -216,12 +220,11 @@ function set_last_update($release_dir)
        send_to_log(4,"No files to update");
        header("Location: /update_outcome.php?status=NONE");
     }
-
   }
 
   // Refresh style and language
   load_style();
-  load_lang();
+  load_translations();
 
   // Update the players config
   load_players_config();

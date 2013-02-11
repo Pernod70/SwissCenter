@@ -238,11 +238,6 @@
         <version>1.22</version>
       </string>
       <string>
-        <id>BROWSE_DVD</id>
-        <text>Mostra il contenuto del/i DVD</text>
-        <version>1.21</version>
-      </string>
-      <string>
         <id>BROWSE_FILESYSTEM</id>
         <text>Sfoglia cartelle</text>
         <version>1.22</version>
@@ -425,16 +420,6 @@
       <string>
         <id>CACHE_ERROR_SMALL</id>
         <text>La dimensione della cache inserita e' troppo piccola</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>CACHE_LANG</id>
-        <text>Cache delle stringhe nella lingua corrente</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>CACHE_LANG_PROMPT</id>
-        <text>Se abilitata, SwissCenter manterra' in memoria tutte le stringhe nella lingua corrente. Disabilitare questa funzionalita' se si sta aggiungendo una traduzione e si ha necessita' di verificare immediatamente i cambiamenti.</text>
         <version>1.19</version>
       </string>
       <string>
@@ -771,41 +756,6 @@
         <id>DATE_FORMAT_TEST</id>
         <text>Formato attuale: %s</text>
         <version>1.22</version>
-      </string>
-      <string>
-        <id>DAY_1</id>
-        <text>Lun</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_2</id>
-        <text>Mar</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_3</id>
-        <text>Mer</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_4</id>
-        <text>Gio</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_5</id>
-        <text>Ven</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_6</id>
-        <text>Sab</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_7</id>
-        <text>Dom</text>
-        <version>1.19</version>
       </string>
       <string>
         <id>DB_CREATE_DB_ERR</id>
@@ -3163,11 +3113,6 @@
         <version>1.22</version>
       </string>
       <string>
-        <id>OS_DOWNLOADED</id>
-        <text>Gia' scaricato</text>
-        <version>1.22</version>
-      </string>
-      <string>
         <id>OS_DOWNLOADED_OK</id>
         <text>Sottotitoli scaricati con successo</text>
         <version>1.22</version>
@@ -3195,11 +3140,6 @@
       <string>
         <id>OS_UPLOAD</id>
         <text>Carica sottotitoli su OpenSubtitles.org</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>OS_UPLOADER</id>
-        <text>Caricare</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3385,11 +3325,6 @@
       <string>
         <id>PC_LINK_PHOTOS</id>
         <text>Foto</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>PC_LINK_RADIO</id>
-        <text>Radio</text>
         <version>1.19</version>
       </string>
       <string>
@@ -3655,16 +3590,6 @@
       <string>
         <id>PLAYER_PAGE_CHARSET</id>
         <text>Caratteri lettore</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>PLAYER_POD_AUDIO_NO_SYNC</id>
-        <text>Audio non sincronizzato</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>PLAYER_POD_AUDIO_SYNC</id>
-        <text>Sincronizzazione audio</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4003,28 +3928,13 @@
         <version>1.22</version>
       </string>
       <string>
-        <id>RECENT_MUSIC</id>
-        <text>Musica recente</text>
-        <version>1.22</version>
-      </string>
-      <string>
         <id>RECENT_OPTIONS</id>
         <text>Opzioni x recenti</text>
         <version>1.22</version>
       </string>
       <string>
-        <id>RECENT_PHOTO</id>
-        <text>Foto recenti</text>
-        <version>1.22</version>
-      </string>
-      <string>
         <id>RECENT_TRACKS</id>
         <text>Canzoni recenti</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>RECENT_VIDEO</id>
-        <text>Video recenti</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4583,11 +4493,6 @@
         <version>1.19</version>
       </string>
       <string>
-        <id>SELECT_OPTION</id>
-        <text>Seleziona una opzione dalla lista:</text>
-        <version>1.19</version>
-      </string>
-      <string>
         <id>SELECT_RSS_FEED</id>
         <text>Seleziona un RSS feed dalla lista</text>
         <version>1.20.1</version>
@@ -5045,11 +4950,6 @@
       <string>
         <id>THEME_PREVIEW_THUMBS</id>
         <text>Anteprima temi disponibili %s.</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>THEME_SAVED_SUCCESS</id>
-        <text>Tema salvato</text>
         <version>1.22</version>
       </string>
       <string>
@@ -5771,11 +5671,6 @@
         <id>VIEW_WEATHER</id>
         <text>Previsioni del tempo</text>
         <version>1.22</version>
-      </string>
-      <string>
-        <id>WATCH_DVD</id>
-        <text>Guarda un DVD</text>
-        <version>1.21</version>
       </string>
       <string>
         <id>WATCH_INTERNET_TV</id>

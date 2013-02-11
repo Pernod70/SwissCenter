@@ -98,7 +98,7 @@ function change_current_user_id($user_id, $pin = null)
     $_SESSION["CURRENT_USER"] = $user_id;
     set_user_timeout();
     load_style();
-    load_lang();
+    $_SESSION["language"] = current_language();
   }
 
   return $ok;

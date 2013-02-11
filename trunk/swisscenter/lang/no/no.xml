@@ -228,11 +228,6 @@
         <version>1.22</version>
       </string>
       <string>
-        <id>BROWSE_DVD</id>
-        <text>Bla i DVD'er</text>
-        <version>1.21</version>
-      </string>
-      <string>
         <id>BROWSE_FILESYSTEM</id>
         <text>Bla i kataloger</text>
         <version>1.19</version>
@@ -415,16 +410,6 @@
       <string>
         <id>CACHE_ERROR_SMALL</id>
         <text>Størrelsen på mellomlagret du spesifiserte er for liten</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>CACHE_LANG</id>
-        <text>Minnebruk for språk tekster</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>CACHE_LANG_PROMPT</id>
-        <text>Når den er aktivert, vil SwissCenter lagre alle språk tekster i minnet. Deaktiver denne funksjonen dersom du legger til en oversettelse og ønsker å se endringene reflektert umiddelbart.</text>
         <version>1.19</version>
       </string>
       <string>
@@ -746,41 +731,6 @@
         <id>DATE_FORMAT_TEST</id>
         <text>Gjeldende format: %s</text>
         <version>1.22</version>
-      </string>
-      <string>
-        <id>DAY_1</id>
-        <text>Man</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_2</id>
-        <text>Tir</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_3</id>
-        <text>Ons</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_4</id>
-        <text>Tor</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_5</id>
-        <text>Fre</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_6</id>
-        <text>Lør</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_7</id>
-        <text>Søn</text>
-        <version>1.19</version>
       </string>
       <string>
         <id>DB_CREATE_DB_ERR</id>
@@ -3110,11 +3060,6 @@ Den utvidede versjonen viser spor detaljer med en progresjons søyle og fan graf
         <version>1.19</version>
       </string>
       <string>
-        <id>PC_LINK_RADIO</id>
-        <text>Radio</text>
-        <version>1.19</version>
-      </string>
-      <string>
         <id>PC_LINK_TV</id>
         <text>TV</text>
         <version>1.19</version>
@@ -3537,21 +3482,6 @@ Den utvidede versjonen viser spor detaljer med en progresjons søyle og fan graf
       <string>
         <id>RECENT_MEDIA</id>
         <text>Nylig lagt til</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>RECENT_MUSIC</id>
-        <text>Musikk</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>RECENT_PHOTO</id>
-        <text>Bilder</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>RECENT_VIDEO</id>
-        <text>Video</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4070,11 +4000,6 @@ Den utvidede versjonen viser spor detaljer med en progresjons søyle og fan graf
         <version>1.19</version>
       </string>
       <string>
-        <id>SELECT_OPTION</id>
-        <text>Velg et alternativ:</text>
-        <version>1.19</version>
-      </string>
-      <string>
         <id>SELECT_RSS_FEED</id>
         <text>Velg RSS kanal fra listen:</text>
         <version>1.20</version>
@@ -4472,11 +4397,6 @@ Den utvidede versjonen viser spor detaljer med en progresjons søyle og fan graf
       <string>
         <id>THEME_PREVIEW_THUMBS</id>
         <text>Forhåndsvisning av tilgjengelige temaer for %s.</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>THEME_SAVED_SUCCESS</id>
-        <text>Tema ble lagret.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -5168,11 +5088,6 @@ Den utvidede versjonen viser spor detaljer med en progresjons søyle og fan graf
         <id>VIEW_WEATHER</id>
         <text>Se på værvarsel</text>
         <version>1.19</version>
-      </string>
-      <string>
-        <id>WATCH_DVD</id>
-        <text>Se på DVD</text>
-        <version>1.21</version>
       </string>
       <string>
         <id>WATCH_INTERNET_TV</id>

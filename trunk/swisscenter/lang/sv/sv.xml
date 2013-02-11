@@ -643,11 +643,6 @@
         <version>1.22</version>
       </string>
       <string>
-        <id>CONFIG_PAGE_CHARSET</id>
-        <text>Windows-1252</text>
-        <version>1.19</version>
-      </string>
-      <string>
         <id>CONFIG_RADIO_OPTIONS</id>
         <text>Internetradio</text>
         <version>1.22</version>
@@ -750,41 +745,6 @@
       <string>
         <id>DATE_FORMAT_TEST</id>
         <text>Nuvarande format: %s</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>DAY_1</id>
-        <text>Mån</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>DAY_2</id>
-        <text>Tis</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>DAY_3</id>
-        <text>Ons</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>DAY_4</id>
-        <text>Tor</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>DAY_5</id>
-        <text>Fre</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>DAY_6</id>
-        <text>Lör</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>DAY_7</id>
-        <text>Sön</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3936,23 +3896,8 @@ Om du lägger till några detaljer på denna sida ombeds du uppge dem på SwissC
         <version>1.22</version>
       </string>
       <string>
-        <id>RECENT_MUSIC</id>
-        <text>Musik</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>RECENT_PHOTO</id>
-        <text>Fotografier</text>
-        <version>1.22</version>
-      </string>
-      <string>
         <id>RECENT_TRACKS</id>
         <text>Nyligen spelade spår</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>RECENT_VIDEO</id>
-        <text>Film</text>
         <version>1.22</version>
       </string>
       <string>
@@ -4928,11 +4873,6 @@ Om du lägger till några detaljer på denna sida ombeds du uppge dem på SwissC
       <string>
         <id>THEME_PREVIEW_THUMBS</id>
         <text>Förhandsgranska tillgängliga teman för %s</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>THEME_SAVED_SUCCESS</id>
-        <text>Temat sparades</text>
         <version>1.22</version>
       </string>
       <string>
