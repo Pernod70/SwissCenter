@@ -44,17 +44,16 @@
       foreach ($stmts as $sql)
       {
         $sql=trim($sql);
-        if (  in_array( strtolower(substr($sql,0,strpos($sql,' '))), array('select','show','desc')) )
+        if ( in_array( strtolower(substr($sql,0,strpos($sql,' '))), array('select','show','desc')) )
         {
           $data = array();
-          $recs    = new db_query( $sql );
-          $success = $recs->db_success();
+          $success = db::getInstance()->query( $sql );
           $heading = array();
 
           if ($success)
           {
             // Fetch data into an array
-            while ($row = $recs->db_fetch_row())
+            while (!is_null($row = db::getInstance()->fetch_array()))
               $data[] = $row;
 
             if (count($data)>0)
@@ -75,10 +74,10 @@
           else
           {
             message('!'.str('DB_SQL_FAIL'));
-            echo $recs->db_get_error();
+            echo db::getInstance()->error;
           }
 
-          $recs->destroy();
+          db::getInstance()->free();
         }
         elseif (!empty($sql))
         {
