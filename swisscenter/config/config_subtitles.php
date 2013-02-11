@@ -233,7 +233,7 @@ function subtitles_download()
           // Save subtitles to file
           $data = db_row("select dirname, filename from movies where file_id=$movie_id");
           $sub_file = $data["DIRNAME"].file_noext($data["FILENAME"]).'.'.$subtitle_id[1];
-          file_put_contents($sub_file, $sub_data);
+          Fsw::file_put_contents($sub_file, $sub_data);
         }
       }
     }

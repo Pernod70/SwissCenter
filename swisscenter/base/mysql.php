@@ -109,6 +109,8 @@ function db_row($sql)
 
   if ($success && !is_null($row = db::getInstance()->fetch_array()))
     $data = $row;
+  else
+    $data = null;
 
   db::getInstance()->free();
   return ($success ? $data : false );

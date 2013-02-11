@@ -44,7 +44,7 @@ class AppleTrailers {
         return false;
       }
     }
-    return json_decode($body, true);;
+    return json_decode($body, true);
   }
 
   /**
