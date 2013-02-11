@@ -267,7 +267,7 @@ function musicip_mixable_percent( $timeouts = 3 )
   {
     for ($i=0; $i < $timeouts; $i++)
     {
-      if ( $html = @file_get_contents( musicip_address().'server' ) )
+      if (($html = @file_get_contents( musicip_address().'server' )) !== false)
       {
         // Page was successfully retrieved
         $html = strip_tags($html);
@@ -306,7 +306,7 @@ function musicip_version( $timeouts = 3 )
   {
     for ($i=0; $i < $timeouts; $i++)
     {
-      if ( $version = @file_get_contents(musicip_address().'api/version') )
+      if (($version = @file_get_contents(musicip_address().'api/version')) !== false)
       {
         $version = preg_get('/Version (\d+\.\d+)/', $version);
         send_to_log(6,'MusicIP version: '.$version);

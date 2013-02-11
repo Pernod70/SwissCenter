@@ -36,7 +36,7 @@
       if ( extension_loaded('zip') && ($fh = zip_open($filename)) !== false)
       {
         // The zip extension is loaded, so we can attempt to use it to extract the files
-        while ($zip_entry = zip_read($fh))
+        while (is_resource($zip_entry = zip_read($fh)))
         {
           $ze_filename = zip_entry_name($zip_entry);
           if (zip_entry_open($fh, $zip_entry, "r"))

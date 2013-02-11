@@ -223,14 +223,23 @@ if ( isset($_REQUEST["action"]) )
         $original_cache = dirname($thumb_cache).'/original/'.basename($thumb_cache);
         if (!file_exists($original_cache))
         {
-          if(!file_exists(dirname($thumb_cache).'/original')) { @mkdir(dirname($thumb_cache).'/original'); }
+          if(!file_exists(dirname($thumb_cache).'/original'))
+          {
+            $oldumask = umask(0);
+            @mkdir(dirname($thumb_cache).'/original',0777);
+            umask($oldumask);
+          }
           file_download_and_save( $original_url, $original_cache, true );
         }
-    	}
+      }
 
-    	// Process the original image
-    	$theme_dir = get_sys_pref('cache_dir').'/themes';
-    	if(!file_exists($theme_dir)) { @mkdir($theme_dir); }
+      // Process the original image
+      $theme_dir = get_sys_pref('cache_dir').'/themes';
+      if (!file_exists($theme_dir))
+      {
+        $oldumask = umask(0);
+        @mkdir($theme_dir,0777);
+      }
       $processed = $theme_dir.'/'.basename($thumb_cache);
 
       // Create a new image

@@ -125,15 +125,16 @@ function get_screen_type()
     // Determine the resolution based on the client type
     if ( is_pc() )
     {
-      store_browser_size(get_sys_pref('PC_SCREEN_SIZE','800x450'));
-      store_browser_scr_size(get_sys_pref('PC_SCREEN_SIZE','800x450'));
-      store_screen_size(get_sys_pref('PC_SCREEN_SIZE','800x450'));
+      $pc_screen_size = get_sys_pref('PC_SCREEN_SIZE','800x450');
+      store_browser_size($pc_screen_size);
+      store_browser_scr_size($pc_screen_size);
+      store_screen_size($pc_screen_size);
     }
     elseif ( get_player_model() >= 400 ) // NMT player
     {
-      store_screen_size( preg_get( "/TV Res([0-9]+x[0-9]+)/i", $_SESSION["device"]["agent_string"]) );
-      store_browser_size( preg_get( "/Browser Res([0-9]+x[0-9]+)/i", $_SESSION["device"]["agent_string"]) );
-      store_browser_scr_size( preg_get( "/;\s*Res([0-9]+x[0-9]+)/i", $_SESSION["device"]["agent_string"]) );
+      store_screen_size( preg_get( '/TV Res([0-9]+x[0-9]+)/i', $_SESSION["device"]["agent_string"]) );
+      store_browser_size( preg_get( '/Browser Res([0-9]+x[0-9]+)/i', $_SESSION["device"]["agent_string"]) );
+      store_browser_scr_size( preg_get( '/;\s*Res([0-9]+x[0-9]+)/i', $_SESSION["device"]["agent_string"]) );
     }
     else
     {
