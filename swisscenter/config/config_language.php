@@ -11,65 +11,57 @@
   {
     // Get important paramters from the URL
     $_SESSION["last_search_page"] = current_url( true );
-    $lang_id = ( !empty($_REQUEST["lang_id"]) ? $_REQUEST["lang_id"] : substr(get_sys_pref('DEFAULT_LANGUAGE','en'),0,2) );
+    if (isset($_REQUEST["lang_tag"]) && !empty($_REQUEST["lang_tag"]))
+      $lang_id = db_value("select lang_id from translate_languages where ietf_tag='".$_REQUEST["lang_tag"]."'");
+    elseif (isset($_REQUEST["lang_id"]) && !empty($_REQUEST["lang_id"]))
+      $lang_id = $_REQUEST["lang_id"];
+    else
+      $lang_id = db_value("select lang_id from translate_languages where ietf_tag='".substr(get_sys_pref('DEFAULT_LANGUAGE','en'),0,2)."'");
 
     if (empty($message) && isset($_REQUEST["message"]))
       $message = urldecode($_REQUEST["message"]);
 
     // Get list of available languages
     $lang_list = array();
-    foreach (explode("\n",str_replace("\r",null,file_get_contents(SC_LOCATION.'lang/languages.txt'))) as $line)
-    {
-      $lang = explode(',',$line);
-      if (!is_null($lang[0]) && strlen($lang[0])>0)
-        $lang_list[$lang[0]] = $lang[1];
-    }
-
-    // Load base language 'en'
-    if (!isset($_SESSION["language_base"]))
-    {
-      $_SESSION["language_base"] = array();
-      load_lang_strings("en", "language_base");
-    }
-
-    // Load selected language, if not already loaded
-    if ($lang_list[$_SESSION["language_trans"]["LANGUAGE"]["TEXT"]] !== $lang_id)
-    {
-      $_SESSION["language_trans"] = array();
-      load_lang_strings($lang_id, "language_trans");
-    }
+    foreach (db_toarray('select lang_id, name from translate_languages order by name') as $lang)
+      $lang_list[$lang['NAME']] = $lang['LANG_ID'];
 
     // Set table contents and background colours, refined by search.
     $text_list = array();
-    foreach ($_SESSION["language_base"] as $key=>$text)
+    $translations = db_toarray("select tk.key_id key_id, tk.text_id id, tb.text base_text, tb.version base_version, tt.text trans_text, tt.version trans_version
+                                from translate_keys tk
+                                left join translate_text tb on tk.key_id=tb.key_id and tb.lang_id=(select lang_id from translate_languages where ietf_tag='en')
+                                left join translate_text tt on tt.key_id=tb.key_id and tt.lang_id=$lang_id
+                                order by id");
+    foreach ($translations as $translation)
     {
        // Apply search filter before adding items to list
       if (empty($_REQUEST["search"]) || (!empty($_REQUEST["search"]) &&
-               (mb_strpos(mb_strtoupper($key.' '.$text['TEXT'].' '.$_SESSION["language_trans"][$key]['TEXT']),mb_strtoupper(un_magic_quote($_REQUEST["search"])))!==false )) )
+               (strpos(strtoupper($translation['ID'].' '.$translation['BASE_TEXT'].' '.$translation['TRANS_TEXT']),strtoupper(un_magic_quote($_REQUEST["search"])))!==false )) )
       {
         // Highlight text, Red=Missing, Yellow=Changed, White=Valid
-        if ($_SESSION["language_trans"][$key]['TEXT'] == '')
-          $text_list[$key] = array("ID"=>$key,
-                                   "ENGLISH"=>$text['TEXT'],
-                                   "TRANSLATION"=>array("TEXT"=>$_SESSION["language_trans"][$key]['TEXT'], "BGCOLOR"=>"red") );
-        elseif ($_SESSION["language_trans"][$key]['VERSION'] < $_SESSION["language_base"][$key]['VERSION'])
-          $text_list[$key] = array("ID"=>$key,
-                                   "ENGLISH"=>$text['TEXT'],
-                                   "TRANSLATION"=>array("TEXT"=>$_SESSION["language_trans"][$key]['TEXT'], "BGCOLOR"=>"yellow") );
+        $key_id = $translation['KEY_ID'];
+        if (empty($translation['TRANS_TEXT']))
+          $text_list[$key_id] = array('ID'          => $translation['ID'],
+                                      'ENGLISH'     => $translation['BASE_TEXT'],
+                                      'TRANSLATION' => array('TEXT'=>$translation['TRANS_TEXT'], 'BGCOLOR'=>"red") );
+        elseif ($translation['TRANS_VERSION'] < $translation['BASE_VERSION'])
+          $text_list[$key_id] = array('ID'          => $translation['ID'],
+                                      'ENGLISH'     => $translation['BASE_TEXT'],
+                                      'TRANSLATION' => array('TEXT'=>$translation['TRANS_TEXT'], 'BGCOLOR'=>"yellow") );
         else
-          $text_list[$key] = array("ID"=>$key,
-                                   "ENGLISH"=>$text['TEXT'],
-                                   "TRANSLATION"=>array("TEXT"=>$_SESSION["language_trans"][$key]['TEXT'], "BGCOLOR"=>"white") );
+          $text_list[$key_id] = array('ID'          => $translation['ID'],
+                                      'ENGLISH'     => $translation['BASE_TEXT'],
+                                      'TRANSLATION' => array('TEXT'=>$translation['TRANS_TEXT'], 'BGCOLOR'=>"white") );
       }
     }
 
     // Apply filter to table contents, then sort.
     switch ($_REQUEST["filter"])
     {
-      case 'MISSING' : $text_list = array_filter($text_list,"missing"); break;
-      case 'CHANGED' : $text_list = array_filter($text_list,"changed"); break;
+      case 'MISSING' : $text_list = array_filter($text_list, 'missing'); break;
+      case 'CHANGED' : $text_list = array_filter($text_list, 'changed'); break;
     }
-    sort($text_list);
     $text_count = count($text_list);
 
     echo '<h1>'.str('LANG_EDITOR').'</h1>';
@@ -117,8 +109,8 @@
               <td valign="top" width="30%">
                 <a href="'.url_set_param($this_url,'edit_id',$key).'">'.strtr(highlight($text["ID"], $_REQUEST["search"]),'_',' ').'</a>
               </td>
-              <td valign="top" width="30%">'.highlight(htmlspecialchars($text["ENGLISH"]), $_REQUEST["search"]).'</td>
-              <td valign="top" width="30%" bgcolor="'.$text["TRANSLATION"]['BGCOLOR'].'">'.highlight(htmlspecialchars($text["TRANSLATION"]['TEXT']), $_REQUEST["search"]).'&nbsp;</td>
+              <td valign="top" width="30%">'.highlight(htmlspecialchars($text['ENGLISH']), $_REQUEST["search"]).'</td>
+              <td valign="top" width="30%" bgcolor="'.$text['TRANSLATION']['BGCOLOR'].'">'.highlight(htmlspecialchars($text['TRANSLATION']['TEXT']), $_REQUEST["search"]).'&nbsp;</td>
             </tr></table>';
 
     if ($text_count>10)
@@ -127,8 +119,15 @@
     // Add delete button (DEVELOPERS ONLY)
     if (get_sys_pref('IS_DEVELOPMENT','NO') == 'YES')
       echo '<p align="center"><input type="submit" value="'.str('LANG_DELETE_BUTTON').'">';
-
     echo '</form>';
+
+    // Add export to XML button
+    form_start('index.php');
+    form_hidden('section','LANGUAGE');
+    form_hidden('action','EXPORT');
+    form_hidden('lang_id',$lang_id);
+    form_submit(str('LANG_EXPORT_XML'),1,'center');
+    form_end();
 
     if (isset($_REQUEST["edit_id"]))
     {
@@ -138,17 +137,17 @@
       form_hidden('section','LANGUAGE');
       form_hidden('action','EDIT');
       $text = $text_list[$_REQUEST["edit_id"]];
-      form_hidden('edit_id',$text["ID"]);
+      form_hidden('edit_id',$_REQUEST["edit_id"]);
       form_hidden('lang_id',$lang_id);
 
       echo '<tr><td colspan="2"><b>'.str('LANG_TEXT_ID').'</b><td></tr>';
       echo '<tr><td><input size="100" name="" value="'.htmlspecialchars($text["ID"]).'" DISABLED></td></tr>';
 
       echo '<tr><td colspan="2"><b>'.str('LANG_TEXT').'</b><td></tr>';
-      echo '<tr><td><textarea rows="5" cols="100" name="" DISABLED>'.htmlspecialchars($text["ENGLISH"]).'</textarea></td></tr>';
+      echo '<tr><td><textarea rows="5" cols="100" name="" DISABLED>'.htmlspecialchars($text['ENGLISH']).'</textarea></td></tr>';
 
       echo '<tr><td colspan="2"><b>'.str('LANG_TRANS').'</b><td></tr>';
-      echo '<tr><td colspan="2"><textarea required rows="5" cols="100" name="translation">'.htmlspecialchars($text["TRANSLATION"]["TEXT"]).'</textarea></td></tr>';
+      echo '<tr><td colspan="2"><textarea required rows="5" cols="100" name="translation">'.htmlspecialchars($text['TRANSLATION']['TEXT']).'</textarea></td></tr>';
 
       form_submit(str('LANG_SAVE_BUTTON'),1);
       form_end();
@@ -161,7 +160,7 @@
       form_hidden('section','LANGUAGE');
       form_hidden('action','NEW');
       form_input('lang_name',str('LANG_NATIVE'),20);
-      form_input('lang_id',str('LANG_ISO639'),10);
+      form_input('lang_tag',str('LANG_ISO639'),10);
       form_label(str('LANG_NEW_PROMPT', '<a href=http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes>ISO&nbsp;639-1</a>',
                                         '<a href=http://en.wikipedia.org/wiki/ISO_3166-1>ISO&nbsp;3166-1</a>'));
       form_submit(str('LANG_NEW_BUTTON'),2);
@@ -179,22 +178,34 @@
     $edit_id = $_REQUEST["edit_id"];
     $lang_id = $_REQUEST["lang_id"];
 
+    // Remove existing text
+    db_sqlcommand("delete from translate_text where key_id=$edit_id and lang_id=$lang_id");
+
     // Save modified text
-    $_SESSION["language_trans"][$edit_id] = array('TEXT'    => un_magic_quote($_REQUEST["translation"]),
-                                                  'VERSION' => swisscenter_version());
+    $success = db_insert_row( 'translate_text', array('KEY_ID'  => $edit_id,
+                                                      'LANG_ID' => $lang_id,
+                                                      'TEXT'    => un_magic_quote($_REQUEST["translation"]),
+                                                      'VERSION' => swisscenter_version()) );
 
-    if ($lang_id == 'en')
-      $_SESSION["language_base"][$edit_id] = array('TEXT'    => un_magic_quote($_REQUEST["translation"]),
-                                                   'VERSION' => swisscenter_version());
-
-    save_lang($lang_id, $_SESSION["language_trans"]);
-    send_to_log(4,'Edited language string '.$edit_id.' => '.un_magic_quote($_REQUEST["translation"]));
-
-    // Reload language
-    load_lang();
+    send_to_log(4,'Edited language string '.db_value("select text_id from translate_keys where key_id=$edit_id").' => '.un_magic_quote($_REQUEST["translation"]));
 
     $redirect_to = url_remove_param($redirect_to, 'edit_id');
     $redirect_to = url_add_param($redirect_to, 'message', str('LANG_UPDATE_OK'));
+    header("Location: $redirect_to");
+  }
+
+  // ----------------------------------------------------------------------------------
+  // Export a translation
+  // ----------------------------------------------------------------------------------
+
+  function language_export()
+  {
+    $redirect_to = $_SESSION["last_search_page"];
+    $lang_tag = db_value("select ietf_tag from translate_languages where lang_id=".$_REQUEST["lang_id"]);
+
+    save_lang_xml($lang_tag);
+
+    $redirect_to = url_add_param($redirect_to, 'message', str('LANG_EXPORT_OK'));
     header("Location: $redirect_to");
   }
 
@@ -213,13 +224,15 @@
       $redirect_to = url_add_param($redirect_to, 'message', "!".str('LANG_ERROR_NO_SELECT'));
     else
     {
-      foreach ($id_list as $id) { unset($_SESSION["language_base"][$id]); }
-      save_lang('en', $_SESSION["language_base"]);
-      send_to_log(4,'Removing language string '.$id);
-      $redirect_to = url_add_param($redirect_to, 'message', str('LANG_DELETE_OK'));
+      foreach ($id_list as $id)
+      {
+        db_sqlcommand("delete from translate_keys where text_id='$id'");
+        send_to_log(4,'Removing language string '.$id);
+      }
+      // Update the en language xml
+      save_lang_xml('en');
 
-      // Reload language
-      load_lang();
+      $redirect_to = url_add_param($redirect_to, 'message', str('LANG_DELETE_OK'));
     }
     header("Location: $redirect_to");
   }
@@ -245,46 +258,30 @@
   function language_new()
   {
     $lang_name = trim($_REQUEST["lang_name"]);
-    $lang_id   = trim($_REQUEST["lang_id"]);
+    $lang_tag  = trim($_REQUEST["lang_tag"]);
 
-    if ( empty($lang_name) || empty($lang_id) )
+    if ( empty($lang_name) || empty($lang_tag) )
       language_display("!".str('LANG_NEW_FAIL'));
     else
     {
-      // Get list of current languages
-      $lang_list = array();
-      foreach (explode("\n",str_replace("\r",null,file_get_contents(SC_LOCATION.'lang/languages.txt'))) as $line)
-      {
-        $lang = explode(',',$line);
-        if (!is_null($lang[0]) && mb_strlen($lang[0])>0)
-          $lang_list[$lang[0]] = $lang[1];
-      }
-
       // Check if language exists
-      if (array_search($lang_id, $lang_list) === false)
+      if (!db_value("select name from translate_languages where ietf_tag='$lang_tag'"))
       {
-        // Add new language to list
-        $lang_list[$lang_name] = $lang_id;
-
-        // Sort list alphabetically
-        asort($lang_list);
+        // Add new language to database
+        db_insert_row('translate_languages', array('IETF_TAG'=>$lang_tag, 'NAME'=>$lang_name));
 
         // Save new language list
-        $oldumask = umask(0);
-        @mkdir(SC_LOCATION."lang/".$lang_id,0777);
-        umask($oldumask);
+        @mkdir(SC_LOCATION."lang/".$lang_tag);
         $lang_file = SC_LOCATION."lang/languages.txt";
         $lang_string = '';
-        foreach ($lang_list as $lang_key=>$lang_item)
-          $lang_string .= $lang_key.",".$lang_item."\r\n";
+        foreach (db_toarray('select ietf_tag, name from translate_languages order by name') as $lang)
+          $lang_string .= $lang['NAME'].",".$lang['IETF_TAG']."\r\n";
         file_put_contents($lang_file, $lang_string);
 
         // Create new language xml
-        $_SESSION["language_trans"] = array();
-        $_SESSION["language_trans"]["LANGUAGE"] = array('TEXT' => $lang_name, 'VERSION' => swisscenter_version());
-        save_lang($lang_id, $_SESSION["language_trans"]);
+        save_lang_xml($lang_tag);
 
-        send_to_log(4,'Created new language: '.$lang_id.', '.$lang_name);
+        send_to_log(4,'Created new language: '.$lang_tag.', '.$lang_name);
         language_display(str('LANG_NEW_OK'));
       }
       else

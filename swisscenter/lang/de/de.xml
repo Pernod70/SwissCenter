@@ -228,11 +228,6 @@
         <version>1.19</version>
       </string>
       <string>
-        <id>BROWSE_BROADCASTER</id>
-        <text>Nach Anbieter</text>
-        <version>1.21.1</version>
-      </string>
-      <string>
         <id>BROWSE_CERTIFICATE</id>
         <text>Nach Zertifikat</text>
         <version>1.19</version>
@@ -261,11 +256,6 @@
         <id>BROWSE_DISCOVERED</id>
         <text>Nach Hinzufügungsdatum</text>
         <version>1.22</version>
-      </string>
-      <string>
-        <id>BROWSE_DVD</id>
-        <text>Nach DVDs</text>
-        <version>1.21.1</version>
       </string>
       <string>
         <id>BROWSE_EDITORS_PICKS</id>
@@ -483,16 +473,6 @@
         <version>1.19</version>
       </string>
       <string>
-        <id>CACHE_LANG</id>
-        <text>Übersetzungen zwischenspeichern</text>
-        <version>1.20</version>
-      </string>
-      <string>
-        <id>CACHE_LANG_PROMPT</id>
-        <text>Wenn aktiviert, wird SwissCenter alle Übersetzungen für den schnelleren Zugriff zwischenspeichern. Deaktivieren Sie diese Funktion, wenn Sie Übersetzungen bearbeiten und die Änderungen sofort sehen wollen.</text>
-        <version>1.19</version>
-      </string>
-      <string>
         <id>CACHE_PRECACHE</id>
         <text>Bilder vorladen</text>
         <version>1.19</version>
@@ -600,11 +580,6 @@
       <string>
         <id>CAT_PARENT</id>
         <text>Übergeordnete Kategorie</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>CAT_RECENTLY_ADDED</id>
-        <text>Zuletzt hinzugefügt</text>
         <version>1.19</version>
       </string>
       <string>
@@ -731,16 +706,6 @@
         <id>CONFIG_MUSICIP</id>
         <text>MusicIP Einstellungen</text>
         <version>1.21.1</version>
-      </string>
-      <string>
-        <id>CONFIG_OVERVIEW</id>
-        <text>Übersicht</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>CONFIG_PAGE_CHARSET</id>
-        <text>Windows-1252</text>
-        <version>1.19</version>
       </string>
       <string>
         <id>CONFIG_RADIO_OPTIONS</id>
@@ -1335,11 +1300,6 @@ Zusatzinformationen</text>
       <string>
         <id>FAIL_PHP_VERSION</id>
         <text>Ihre PHP-Version wird nicht unterstützt (%s). Sie müssen mindestens Version 5.2.6 installiert haben.</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>FAIL_RADIOTIME_TEST</id>
-        <text>RadioTime Parser scheint defekt zu sein.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -1990,11 +1950,6 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.21.1</version>
       </string>
       <string>
-        <id>IRADIO_BROADCASTER_SELECT</id>
-        <text>Einen Anbieter auswählen:</text>
-        <version>1.21.1</version>
-      </string>
-      <string>
         <id>IRADIO_CACHE_EXPIRE</id>
         <text>Stationen puffern (Sek.)</text>
         <version>1.19</version>
@@ -2153,16 +2108,6 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>IRADIO_PARAM_TYPE</id>
         <text>Auswahlkriterium</text>
         <version>1.21.1</version>
-      </string>
-      <string>
-        <id>IRADIO_RADIOTIME</id>
-        <text>RadioTime</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>IRADIO_RADIOTIME_DESC</id>
-        <text>Online-Radio hören, Musik Programme, oder gesprochene Nachrichten finden mit RadioTime. Der beste Führer zu jeder Art von Radio: konservativ, progressiv, öffentlich, News, Religion, Jazz, Klassisch, Rock, Country, Business, Latin, Hip-Hop, Pop, zeitgemäße Musik und vieles mehr.</text>
-        <version>1.22</version>
       </string>
       <string>
         <id>IRADIO_SEARCH</id>
@@ -3022,16 +2967,6 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
-        <id>MISC_FONTWIDTH_MULTIPLIER_ERROR_NOT_NUMBER</id>
-        <text>Der Fontbreiten-Multiplikator muss numerisch sein</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MISC_FONTWIDTH_MULTIPLIER_ERROR_SMALL</id>
-        <text>Der Fontbreiten-Multiplikator ist zu klein</text>
-        <version>1.19</version>
-      </string>
-      <string>
         <id>MISC_FONTWIDTH_NOT_NUMBER</id>
         <text>Der Schriftbreiten-Multiplikator ist keine Zahl</text>
         <version>1.19</version>
@@ -3522,11 +3457,6 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.22</version>
       </string>
       <string>
-        <id>OS_DOWNLOADED</id>
-        <text>Bereits heruntergeladen.</text>
-        <version>1.22</version>
-      </string>
-      <string>
         <id>OS_DOWNLOADED_OK</id>
         <text>Untertitel erfolgreich heruntergeladen.</text>
         <version>1.22</version>
@@ -3554,11 +3484,6 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       <string>
         <id>OS_UPLOAD</id>
         <text>Untertitel zu OpenSubtitles.org &quot;uploaden&quot;</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>OS_UPLOADER</id>
-        <text>Uploader</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3682,11 +3607,6 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
-        <id>PASS_RADIOTIME_TEST</id>
-        <text>RadioTime Parser funktioniert ordnungsgemäß</text>
-        <version>1.22</version>
-      </string>
-      <string>
         <id>PASS_SERVER_SCHED</id>
         <text>Automatische Suche nach neuen Medien wird unterstützt.</text>
         <version>1.19</version>
@@ -3794,11 +3714,6 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       <string>
         <id>PC_LINK_PHOTOS</id>
         <text>Fotos</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>PC_LINK_RADIO</id>
-        <text>Radio</text>
         <version>1.19</version>
       </string>
       <string>
@@ -4374,16 +4289,6 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
         <version>1.19</version>
       </string>
       <string>
-        <id>RADIOTIME_LOGIN_HEADINGS</id>
-        <text>Benutzer, RadioTime Benutzername.</text>
-        <version>1.23.1</version>
-      </string>
-      <string>
-        <id>RADIOTIME_MISSING_LOGIN</id>
-        <text>Bitte Benutzername eingeben.</text>
-        <version>1.23.1</version>
-      </string>
-      <string>
         <id>RANGE</id>
         <text>Bereich</text>
         <version>1.19</version>
@@ -4454,29 +4359,14 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
         <version>1.23.1</version>
       </string>
       <string>
-        <id>RECENT_MUSIC</id>
-        <text>Musik</text>
-        <version>1.21.1</version>
-      </string>
-      <string>
         <id>RECENT_OPTIONS</id>
         <text>Kürzlich hinzugefügt</text>
         <version>1.22</version>
       </string>
       <string>
-        <id>RECENT_PHOTO</id>
-        <text>Fotos</text>
-        <version>1.21.1</version>
-      </string>
-      <string>
         <id>RECENT_TRACKS</id>
         <text>Neueste Musikstücke</text>
         <version>1.22</version>
-      </string>
-      <string>
-        <id>RECENT_VIDEO</id>
-        <text>Filme</text>
-        <version>1.21.1</version>
       </string>
       <string>
         <id>REFERENCE</id>
@@ -5050,11 +4940,6 @@ speichern</text>
         <version>1.19</version>
       </string>
       <string>
-        <id>SELECT_OPTION</id>
-        <text>Bitte wählen Sie eine Option aus der Liste:</text>
-        <version>1.19</version>
-      </string>
-      <string>
         <id>SELECT_RSS_FEED</id>
         <text>Bitte wählen Sie einen RSS-Feed aus der Liste:</text>
         <version>1.20</version>
@@ -5567,11 +5452,6 @@ speichern</text>
       <string>
         <id>THEME_PREVIEW_THUMBS</id>
         <text>Vorschau der vorhandenen Themen für %s.</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>THEME_SAVED_SUCCESS</id>
-        <text>Thema erfolgreich gespeichert</text>
         <version>1.22</version>
       </string>
       <string>
@@ -6343,11 +6223,6 @@ speichern</text>
         <id>VIEW_WEATHER</id>
         <text>Wettervorhersage</text>
         <version>1.23.1</version>
-      </string>
-      <string>
-        <id>WATCH_DVD</id>
-        <text>DVD</text>
-        <version>1.21.1</version>
       </string>
       <string>
         <id>WATCH_INTERNET_TV</id>

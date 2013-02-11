@@ -373,16 +373,6 @@
         <version>1.19</version>
       </string>
       <string>
-        <id>CACHE_LANG</id>
-        <text>Mise en cache des textes de langue</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>CACHE_LANG_PROMPT</id>
-        <text>Activé, SwissCenter mettra en cache tous les textes de langue. Si vous créez de nouvelle traduction, déactivé cette fonction pour voir immédiatement les modifications.</text>
-        <version>1.19</version>
-      </string>
-      <string>
         <id>CACHE_PRECACHE</id>
         <text>Precache des images</text>
         <version>1.19</version>
@@ -491,11 +481,6 @@
         <id>CAT_PARENT</id>
         <text>Catégorie parente</text>
         <version>1.22</version>
-      </string>
-      <string>
-        <id>CAT_RECENTLY_ADDED</id>
-        <text>Récemment ajoutée</text>
-        <version>1.19</version>
       </string>
       <string>
         <id>CAT_UPDATE_OK</id>
@@ -660,41 +645,6 @@
       <string>
         <id>DATE</id>
         <text>Date</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_1</id>
-        <text>Lun</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_2</id>
-        <text>Mar</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_3</id>
-        <text>Mer</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_4</id>
-        <text>Jeu</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_5</id>
-        <text>Ven</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_6</id>
-        <text>Sam</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_7</id>
-        <text>Dim</text>
         <version>1.19</version>
       </string>
       <string>
@@ -970,11 +920,6 @@
       <string>
         <id>EXPERT_OPTIONS</id>
         <text>Options avancées</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>EXPERT_PREDS_UPDATED</id>
-        <text>Preference mise à jour</text>
         <version>1.19</version>
       </string>
       <string>
@@ -3740,11 +3685,6 @@
       <string>
         <id>SELECT_ENTIRE_ALBUM</id>
         <text>Sélectionner l'album</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>SELECT_OPTION</id>
-        <text>Sélectionnez une activité:</text>
         <version>1.19</version>
       </string>
       <string>

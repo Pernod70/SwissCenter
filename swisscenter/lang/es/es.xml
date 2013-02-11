@@ -203,11 +203,6 @@
         <version>1.19</version>
       </string>
       <string>
-        <id>BROWSE_DVD</id>
-        <text>Explorar DVD's</text>
-        <version>1.21.1</version>
-      </string>
-      <string>
         <id>BROWSE_FILESYSTEM</id>
         <text>Explorar en sistema de archivos</text>
         <version>1.19</version>
@@ -370,16 +365,6 @@
       <string>
         <id>CACHE_ERROR_SMALL</id>
         <text>El tamaño de caché especificado es demasiado pequeño</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>CACHE_LANG</id>
-        <text>Cachear cadenas de idioma</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>CACHE_LANG_PROMPT</id>
-        <text>Cuando se activa, SwissCenter cacheará todas las cadenas del idioma en memoria. Desactiva esta característica si estás añadiendo una traducción y necesitas ver los cambios reflejados inmediatamente.</text>
         <version>1.19</version>
       </string>
       <string>
@@ -650,41 +635,6 @@
       <string>
         <id>DATE</id>
         <text>Fecha</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_1</id>
-        <text>Lunes</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_2</id>
-        <text>Martes</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_3</id>
-        <text>Miércoles</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_4</id>
-        <text>Jueves</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_5</id>
-        <text>Viernes</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_6</id>
-        <text>Sábado</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>DAY_7</id>
-        <text>Domingo</text>
         <version>1.19</version>
       </string>
       <string>
@@ -2518,11 +2468,6 @@
         <version>1.19</version>
       </string>
       <string>
-        <id>PC_LINK_RADIO</id>
-        <text>Radio</text>
-        <version>1.19</version>
-      </string>
-      <string>
         <id>PC_LINK_TV</id>
         <text>Shows TV</text>
         <version>1.20.1</version>
@@ -3408,11 +3353,6 @@
         <version>1.19</version>
       </string>
       <string>
-        <id>SELECT_OPTION</id>
-        <text>Selecciona una opción de la lista:</text>
-        <version>1.19</version>
-      </string>
-      <string>
         <id>SELECT_RSS_FEED</id>
         <text>Por favor, elige un marcador RSS de la lista:</text>
         <version>1.20</version>
@@ -4091,11 +4031,6 @@
         <id>VIEW_WEATHER</id>
         <text>Ver el pronostico del tiempo</text>
         <version>1.19</version>
-      </string>
-      <string>
-        <id>WATCH_DVD</id>
-        <text>Ver un DVD</text>
-        <version>1.21.1</version>
       </string>
       <string>
         <id>WATCH_MOVIE</id>

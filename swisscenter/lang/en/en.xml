@@ -2287,6 +2287,16 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>LANG_EXPORT_OK</id>
+        <text>Language exported to XML</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>LANG_EXPORT_XML</id>
+        <text>Export to XML</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>LANG_ISO639</id>
         <text>ISO 639-1 Code</text>
         <version>1.21.1</version>
