@@ -130,6 +130,7 @@ class parserUtil
     $pos = 0;
     //Edit this array if needed. There must be a blank space in front of the strings to make sure that they are not part of other words.
     $array = array (
+      " 3D ",
       " 201",
       " 200",
       " 199",
