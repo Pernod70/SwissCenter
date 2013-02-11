@@ -38,9 +38,6 @@
     form_label(str('FONTWIDTH_MULTIPLIER_PROMPT'));
     form_list_static('pc_screen_size',str('PC_SCREEN_SIZE'), $pc_screen_size_opts, get_sys_pref('PC_SCREEN_SIZE','800x450'), false, false, false);
     form_label(str('PC_SCREEN_SIZE_PROMPT'));
-//    form_input('player_page_charset',str('PLAYER_PAGE_CHARSET'),15,'', get_sys_pref('PLAYER_PAGE_CHARSET','Windows-1252'));
-//    form_input('config_page_charset',str('CONFIG_PAGE_CHARSET'),15,'', get_sys_pref('CONFIG_PAGE_CHARSET','Windows-1252'));
-//    form_label(str('CHARSET_PROMPT'));
     form_input('date_format',str('DATE_FORMAT'),15,'',get_sys_pref('DATE_FORMAT','%d%b%y'));
     form_label(str('DATE_FORMAT_TEST', db_value("select date_format(now(),'".get_sys_pref('DATE_FORMAT','%d%b%y')."')")));
     form_label(str('DATE_FORMAT_PROMPT'));
@@ -60,8 +57,6 @@
 
     $fontwidth_multiplier = array();
     $pc_screen_size       = $_REQUEST["pc_screen_size"];
-//    $player_page_charset  = $_REQUEST["player_page_charset"];
-//    $config_page_charset  = $_REQUEST["config_page_charset"];
     $fontname             = os_path($_REQUEST["fontname"]);
     $date_format          = $_REQUEST["date_format"];
 
@@ -89,8 +84,6 @@
         set_sys_pref('FONTWIDTH_MULTIPLIER_'.$player,$fontwidth_multiplier[$player]);
 
       set_sys_pref('PC_SCREEN_SIZE',$pc_screen_size);
-//      set_sys_pref('PLAYER_PAGE_CHARSET',$player_page_charset);
-//      set_sys_pref('CONFIG_PAGE_CHARSET',$config_page_charset);
       set_sys_pref('DATE_FORMAT',$date_format);
       unset($_SESSION["device"]);
       misc_display(str('SAVE_SETTINGS_OK').$msg);
