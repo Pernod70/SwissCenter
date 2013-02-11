@@ -25,7 +25,11 @@
   {
     // Ensure that on Linux/Unix systems there is a "media" directory present for symbolic links to go in.
     if (!is_windows() && !file_exists(SC_LOCATION.'media'))
-      mkdir(SC_LOCATION.'media');
+    {
+      $oldumask = umask(0);
+      mkdir(SC_LOCATION.'media',0777);
+      umask($oldumask);
+    }
 
     // Retrieve list of Network Shares from NMT
     $share_opts = get_nmt_network_shares();
@@ -168,7 +172,7 @@
     $locs = db_toarray("select location_id, name from media_locations");
     foreach ($locs as $loc)
     {
-      unlink(SC_LOCATION.'media/'.$loc['LOCATION_ID']);
+      if (file_exists(SC_LOCATION.'media/'.$loc['LOCATION_ID'])) unlink(SC_LOCATION.'media/'.$loc['LOCATION_ID']);
       symlink($loc['NAME'],SC_LOCATION.'media/'.$loc['LOCATION_ID']);
     }
     dirs_display(str('MEDIA_LOC_SYMINKS_OK'));
@@ -338,24 +342,24 @@
 
       send_to_log(4,'Adding new media location',$new_row);
 
-      if ( db_insert_row('media_locations', $new_row) === false)
+      $loc_id = db_insert_row('media_locations', $new_row);
+      if ($loc_id === false)
         dirs_display(db_error());
       else
       {
-        if ( is_windows() )
+        if (is_windows())
           restart_swissmonitor();
         else
         {
-          $id = db_value("select location_id from media_locations where name='$dir' and media_type=".$_REQUEST["type"]);
-          unlink(SC_LOCATION.'media/'.$id);
-          symlink($dir,SC_LOCATION.'media/'.$id);
+          unlink(SC_LOCATION.'media/'.$loc_id);
+          symlink($dir,SC_LOCATION.'media/'.$loc_id);
         }
-
-        dirs_display('',str('MEDIA_LOC_ADD_OK'));
 
         // Tell MusicIP to add this location.
         if ( $_REQUEST["type"] == MEDIA_TYPE_MUSIC)
           musicip_server_add_dir($dir);
+
+        dirs_display('',str('MEDIA_LOC_ADD_OK'));
       }
     }
   }
