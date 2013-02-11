@@ -359,6 +359,11 @@
         if ( $_REQUEST["type"] == MEDIA_TYPE_MUSIC)
           musicip_server_add_dir($dir);
 
+        // Assign location to all users
+        $users = db_toarray("select user_id from users");
+        foreach ($users as $user)
+          db_insert_row('user_permissions', array('user_id'=>$user['USER_ID'], 'location_id'=>$loc_id));
+
         dirs_display('',str('MEDIA_LOC_ADD_OK'));
       }
     }
