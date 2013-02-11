@@ -58,7 +58,9 @@
   <directors>
     <director>Jay Roach</director>
   </directors>
-  <language>English</language>
+  <languages>
+    <language>English</language>
+  </languages>
   <runtime>94</runtime>
   <tagline>On July 26th the Secret Will Be Exposed</tagline>
   <year>2002</year>
