@@ -76,7 +76,7 @@
       if ( $isFile )
       {
         // Add new file to database
-        $file_added = process_media_file( $dir.'/', $file, $location["LOCATION_ID"], $location["NETWORK_SHARE"], $table, $file_exts, true );
+        $file_added = process_media_file( Fsw::setName($dir).'/', Fsw::setName($file), $location["LOCATION_ID"], $location["NETWORK_SHARE"], $table, $file_exts, true );
 
         if ( $file_added )
           $response = array("status"  => "OK",
