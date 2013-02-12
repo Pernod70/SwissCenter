@@ -16,6 +16,7 @@ class Fsw {
   static function setName ($file) {
     if (DIRECTORY_SEPARATOR=="\\") {
       $file=decode_utf8($file);
+      $file=str_replace('?', '_', $file);
     }
     return $file;
   }
