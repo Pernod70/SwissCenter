@@ -81,6 +81,7 @@ function check_php_ttf()
   else
   {
     $defaults[] = "/usr/share/fonts/truetype/msttcorefonts/Arial.ttf";
+    $defaults[] = SC_LOCATION."ext/liberation-fonts/LiberationSans-Regular.ttf";
     $defaults[] = 'luxisr';
   }
 
