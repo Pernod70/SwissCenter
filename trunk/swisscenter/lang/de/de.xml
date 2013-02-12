@@ -2290,6 +2290,16 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.23.1</version>
       </string>
       <string>
+        <id>LANG_EXPORT_OK</id>
+        <text>Sprachdatei in XML exportiert</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>LANG_EXPORT_XML</id>
+        <text>XML Export</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>LANG_ISO639</id>
         <text>ISO 639-1 Kennung</text>
         <version>1.21.1</version>
