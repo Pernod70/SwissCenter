@@ -28,7 +28,7 @@
     form_start('index.php');
     form_hidden('section','MISC');
     form_hidden('action','UPDATE');
-    form_input('fontname',str('TTF_FONT'),30,'',get_sys_pref('TTF_FONT'));
+    form_input('fontname',str('TTF_FONT'),30,'',get_sys_pref('TTF_FONT'),true);
     form_label(str('TTF_FONT_PROMPT'));
     echo '<tr><td>'.str('FONTWIDTH_MULTIPLIER').' : &nbsp;<td><tr>';
     form_input('fontwidth_multiplier_100',str('FONTWIDTH_MULTIPLIER_100'),3,'', $fontwidth_multiplier['100']);
