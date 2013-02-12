@@ -55,11 +55,11 @@
      if ($level-- == 4 && ! empty($dict_info) )
      {
        if ($current_section == 'Tracks')
-         process_itunes_track( $dict_info );
+         process_itunes_track($dict_info);
        elseif ($current_section == 'Playlists')
-         process_itunes_playlist( $key_info, $dict_info);
+         process_itunes_playlist($key_info, $dict_info);
        else
-         send_to_log(6,'Unknown iTunes section encountered',$current_section);
+         send_to_log(6,'Unknown iTunes section encountered: '.$current_section);
      }
   }
 
@@ -76,13 +76,15 @@
    * @param string $url
    * @return string
    */
-  function path_from_file_url( $url )
+  function path_from_file_url($url)
   {
     // Only converts URI's using the "file://" system
-    if ( strpos($url,'file://') !== false)
+    if ( strpos($url,'file://') !== false )
     {
       $url = str_replace('\\','/',rawurldecode($url));
+      // Remove file://
       $url = substr($url, strpos($url,'://')+3);
+      // Remove server
       $url = substr($url, strpos($url,'/')+1);
       // If not a local Windows path then make UNC
       if ( strpos($url,':/') === false ) $url = '/'.$url;
@@ -98,28 +100,28 @@
    * @param array $attribs
    * @param array $values
    */
-  function process_itunes_playlist( $attribs, $values )
+  function process_itunes_playlist($attribs, $values)
   {
-    $file  = get_sys_pref("PLAYLISTS", SC_LOCATION.'playlists').'/'.$attribs["Name"].'.m3u';
+    $file  = get_sys_pref("PLAYLISTS", SC_LOCATION.'playlists').'/'.$attribs['Name'].'.m3u';
     $sql   = 'select m.* from mp3s m, itunes_map i where i.swisscenter_id = m.file_id and i.itunes_id = ';
     $items = 0;
 
     $playlist = array('#EXTM3U');
     foreach ($values as $itunes_id)
     {
-      $mp3 = array_pop(db_toarray($sql.$itunes_id));
+      $mp3 = db_row($sql.$itunes_id);
       if (!empty($mp3))
       {
         $items++;
-        $playlist[] = '#EXTINF:'.$mp3["LENGTH"].','.$mp3["TITLE"];
-        $playlist[] = os_path($mp3["DIRNAME"].$mp3["FILENAME"]);
+        $playlist[] = '#EXTINF:'.$mp3['LENGTH'].','.$mp3['TITLE'];
+        $playlist[] = os_path($mp3['DIRNAME'].$mp3['FILENAME']);
       }
     }
 
     if ($items>0)
     {
       array2file($playlist, $file);
-      send_to_log(4,"Writing playlist: ".$file);
+      send_to_log(4,'Writing playlist: '.$file);
     }
   }
 
@@ -128,16 +130,16 @@
    *
    * @param array $values
    */
-  function process_itunes_track( $values)
+  function process_itunes_track( $values )
   {
-    $fsp = path_from_file_url($values["Location"]);
+    $fsp = path_from_file_url($values['Location']);
     $location_id = db_value("select location_id from media_locations where instr('".db_escape_str($fsp)."',name)>0 and media_type=".MEDIA_TYPE_MUSIC);
     $swiss_id = db_value("select file_id from mp3s where dirname='".db_escape_str(dirname($fsp))."/' and filename='".db_escape_str(basename($fsp))."'");
 
     // Perform some sanity checking on the file
-    if (!is_file($fsp) )
+    if ( !Fsw::is_file($fsp) )
       send_to_log(5,'File found in iTunes library cannot be located on disk',$fsp);
-    elseif ( !is_readable($fsp) )
+    elseif ( !Fsw::is_readable($fsp) )
       send_to_log(5,'SwissCenter does not have permissions to read the file found in the iTunes library',$fsp);
     elseif ( !in_array(file_ext($fsp), media_exts_music()) )
       send_to_log(5,'SwissCenter does not support files of type "'.$values["Kind"].'"',$fsp);
@@ -147,7 +149,7 @@
     {
       if ( empty($swiss_id) )
       {
-        process_mp3( dirname($fsp).'/' , $location_id, basename($fsp));
+        process_mp3(dirname($fsp).'/' , $location_id, basename($fsp));
         $swiss_id = db_value("select file_id from mp3s where dirname='".db_escape_str(dirname($fsp))."/' and filename='".db_escape_str(basename($fsp))."'");
       }
 
@@ -167,7 +169,7 @@
    *
    * @param string $filename
    */
-  function parse_itunes_file( $filename )
+  function parse_itunes_file($filename)
   {
     // Initialize global variables
     $current_section = '';
@@ -183,18 +185,19 @@
     db_sqlcommand("delete from itunes_map");
 
     // Create XML parser
-    $xmlparser = xml_parser_create("UTF-8");
+    $xmlparser = xml_parser_create('UTF-8');
     if ($xmlparser !== false)
     {
       xml_set_element_handler($xmlparser, "start_tag_itunes", "end_tag_itunes");
       xml_set_character_data_handler($xmlparser, "tag_contents_itunes");
 
       // Read and process XML file
-      $fp = fopen($filename, "r");
+      $fp = fopen($filename, 'r');
       if ($fp !== false)
       {
-        while (($data = fread($fp, 8192)) !== false)
+        while (!feof($fp))
         {
+          $data = fread($fp, 8192);
           $data = preg_replace('/>\s+/u', '>', $data);
           $data = preg_replace('/\s+</u', '<', $data);
           if (!xml_parse($xmlparser, $data , feof($fp)))
