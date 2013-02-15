@@ -174,8 +174,8 @@ class parserUtil
       " BLU RAY ",
       " HDTV ",
       " HDDVD ",
-      " 1080 ",
-      " 720 ",
+      " 1080P ",
+      " 720P ",
       " NTSC ",
       " PAL ",
       " DVD R ",
@@ -188,9 +188,8 @@ class parserUtil
     $count = count($array);
     for ($i = 0; $i < $count; $i++) {
       $pos = strpos(strtoupper($title.' '), $array[$i]);
-      if ($pos != FALSE) {
+      if ($pos !== false) {
         $title = substr($title, 0, $pos).' ';
-        break;
       }
     }
     return trim($title);
