@@ -145,23 +145,23 @@
 
       $playlist = array();
       $data = array();
-      preg_match('/<title>(.*?)<\/title>/', $response, $data);
+      preg_match('/<title>(.*)<\/title>/U', $response, $data);
       $playlist["title"] = urldecode($data[1]);
       $track = array();
-      preg_match_all('/<track>(.*?)<\/track>/s', $response, $track);
+      preg_match_all('/<track>(.*)<\/track>/Us', $response, $track);
       for ($i = 0; $i<count($track[1]); $i++)
       {
-        preg_match('/<location>(.*?)<\/location>/', $track[1][$i], $data);
+        preg_match('/<location>(.*)<\/location>/U', $track[1][$i], $data);
         $playlist["track"][$i]["location"] = urldecode($data[1]);
-        preg_match('/<title>(.*?)<\/title>/',       $track[1][$i], $data);
+        preg_match('/<title>(.*)<\/title>/U',       $track[1][$i], $data);
         $playlist["track"][$i]["title"]    = urldecode($data[1]);
-        preg_match('/<album>(.*?)<\/album>/',       $track[1][$i], $data);
+        preg_match('/<album>(.*)<\/album>/U',       $track[1][$i], $data);
         $playlist["track"][$i]["album"]    = urldecode($data[1]);
-        preg_match('/<creator>(.*?)<\/creator>/',   $track[1][$i], $data);
-        $playlist["track"][$i]["creator"]  = urldecode($data[1]);
-        preg_match('/<duration>(.*?)<\/duration>/', $track[1][$i], $data);
+        preg_match('/<creator>(.*)<\/creator>/U',   $track[1][$i], $data);
+        $playlist["track"][$i]["artist"]   = urldecode($data[1]);
+        preg_match('/<duration>(.*)<\/duration>/U', $track[1][$i], $data);
         $playlist["track"][$i]["duration"] = urldecode($data[1]);
-        preg_match('/<image>(.*?)<\/image>/',       $track[1][$i], $data);
+        preg_match('/<image>(.*)<\/image>/U',       $track[1][$i], $data);
         $playlist["track"][$i]["image"]    = urldecode($data[1]);
       }
       send_to_log(6,'- Received playlist: ', $playlist);
@@ -295,7 +295,7 @@
           // Find all images of the artist on the page using a regular expression.
           if (preg_match_all('#<img.*src="(.*/serve/.*)" />#Ui',$html,$matches) >0 )
           {
-          	dump($matches);
+            dump($matches);
             for ($i=0; $i<count($matches[1]); $i++)
             {
               // Original or thumbnail image?
@@ -303,8 +303,8 @@
                 $pics[] = $matches[1][$i];
               else
               {
-              	$url_components = explode('/',$matches[1][$i]);
-              	$url_components[ count($url_components)-2] = '_';
+                $url_components = explode('/',$matches[1][$i]);
+                $url_components[ count($url_components)-2] = '_';
                 $pics[] = implode('/',$url_components);
               }
             }
@@ -442,13 +442,13 @@
     function submit( $started_playing, $artist, $track, $album, $length, $track_no )
     {
       $data = 's='.$this->session_id.
-              '&a[0]='.rawurlencode(utf8_encode($artist)).
-              '&t[0]='.rawurlencode(utf8_encode($track)).
+              '&a[0]='.rawurlencode($artist).
+              '&t[0]='.rawurlencode($track).
               '&i[0]='.rawurlencode($started_playing).
               '&o[0]=P'.
               '&r[0]='.
               '&l[0]='.rawurlencode($length).
-              '&b[0]='.rawurlencode(utf8_encode($album)).
+              '&b[0]='.rawurlencode($album).
               '&n[0]='.rawurlencode($track_no).
               '&m[0]=';
 
@@ -487,9 +487,9 @@
     function playing ( $artist, $track, $album, $length, $track_no )
     {
       $data = 's='.$this->session_id.
-              '&a='.rawurlencode(utf8_encode($artist)).
-              '&t='.rawurlencode(utf8_encode($track)).
-              '&b='.rawurlencode(utf8_decode($album)).
+              '&a='.rawurlencode($artist).
+              '&t='.rawurlencode($track).
+              '&b='.rawurlencode($album).
               '&l='.rawurlencode($length).
               '&n='.rawurlencode($track_no).
               '&m=';
@@ -524,9 +524,7 @@
 
   function lastfm_enabled()
   {
-    if (!internet_available())
-      return false;
-    elseif (get_user_pref('LASTFM_USERNAME') == '')
+    if (get_user_pref('LASTFM_USERNAME') == '')
       return false;
     elseif (get_user_pref('LASTFM_PASSWORD') == '')
       return false;
@@ -559,7 +557,7 @@
 
   function lastfm_now_playing ( $artist, $track, $album, $length, $track_no )
   {
-    if (lastfm_enabled())
+    if (internet_available())
     {
       $obj = new scrobble();
       if ($obj->playing( $artist, $track, $album, $length, $track_no ) === false)
@@ -587,19 +585,21 @@
 
   function lastfm_scrobble( $artist, $track, $album, $length, $track_no )
   {
+    $player_id = empty($_SESSION["device"]["mac_addr"]) ? '' : $_SESSION["device"]["mac_addr"];
+
     // Update any unscrobbled tracks with play ended at current time
-    db_sqlcommand("UPDATE lastfm_scrobble_tracks SET play_end = ".gmt_time()." WHERE user_id = ".get_current_user_id()." AND player_id = '".$_SESSION["device"]["mac_addr"]."' AND play_end IS NULL");
+    db_sqlcommand("UPDATE lastfm_scrobble_tracks SET play_end = ".gmt_time()." WHERE user_id = ".get_current_user_id()." AND player_id = '".$player_id."' AND play_end IS NULL");
 
     // Remove tracks that do not meet criteria for scrobbling:
     // The track must have been played for a duration of at least 240 seconds or half the track's total length, whichever comes first.
-    db_sqlcommand("DELETE FROM lastfm_scrobble_tracks WHERE user_id = ".get_current_user_id()." AND player_id = '".$_SESSION["device"]["mac_addr"]."' AND play_end IS NOT NULL AND (play_end-play_start) < LEAST(length/2, 240)");
+    db_sqlcommand("DELETE FROM lastfm_scrobble_tracks WHERE user_id = ".get_current_user_id()." AND player_id = '".$player_id."' AND play_end IS NOT NULL AND (play_end-play_start) < LEAST(length/2, 240)");
 
     // One of the Last.fm rules is that only tracks longer than 30s can be scrobbled.
     if ( $length > 30)
     {
       // Add the current track to the scrobble list
       db_insert_row("lastfm_scrobble_tracks", array("user_id"    => get_current_user_id(),
-                                                    "player_id"  => $_SESSION["device"]["mac_addr"],
+                                                    "player_id"  => $player_id,
                                                     "artist"     => $artist,
                                                     "title"      => $track,
                                                     "album"      => $album,
@@ -608,21 +608,23 @@
                                                     "play_start" => gmt_time()));
     }
 
-    $obj = new scrobble();
-
     // Scrobble all tracks that have finished playing (have a play end time)
-    $scrobble_items = db_toarray("SELECT * FROM lastfm_scrobble_tracks WHERE user_id = ".get_current_user_id()." AND player_id = '".$_SESSION["device"]["mac_addr"]."' AND play_end IS NOT NULL ORDER BY play_start");
-    foreach ($scrobble_items as $item)
+    if (internet_available())
     {
-      if ($obj->submit( $item["PLAY_START"], $item["ARTIST"], $item["TITLE"], $item["ALBUM"], $item["LENGTH"], $item["TRACK"] ) === false)
+      $obj = new scrobble();
+      $scrobble_items = db_toarray("SELECT * FROM lastfm_scrobble_tracks WHERE user_id = ".get_current_user_id()." AND player_id = '".$player_id."' AND play_end IS NOT NULL ORDER BY play_start");
+      foreach ($scrobble_items as $item)
       {
-        // Re-authenticate for next time
-        $obj->handshake( get_user_pref('LASTFM_USERNAME'), get_user_pref('LASTFM_PASSWORD') );
-      }
-      else
-      {
-        // Successfully scrobbled so remove from list
-        db_sqlcommand("DELETE FROM lastfm_scrobble_tracks WHERE scrobble_id = ".$item["SCROBBLE_ID"]);
+        if ($obj->submit( $item["PLAY_START"], $item["ARTIST"], $item["TITLE"], $item["ALBUM"], $item["LENGTH"], $item["TRACK"] ) === false)
+        {
+          // Re-authenticate for next time
+          $obj->handshake( get_user_pref('LASTFM_USERNAME'), get_user_pref('LASTFM_PASSWORD') );
+        }
+        else
+        {
+          // Successfully scrobbled so remove from list
+          db_sqlcommand("DELETE FROM lastfm_scrobble_tracks WHERE scrobble_id = ".$item["SCROBBLE_ID"]);
+        }
       }
     }
   }
