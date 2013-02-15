@@ -50,7 +50,7 @@
   // strip_title -- if TRUE then titles returned from the site are stripped of text in brackets. ie."300 [Blu-ray]" becomes "300".
   // ----------------------------------------------------------------------------------------
 
-  function search_for_movie ( $title, $site_url, $search_url, $success_text, $link_string, $change_word_order = false, $strip_title = false )
+  function search_for_movie( $title, $site_url, $search_url, $success_text, $link_string, $change_word_order = false, $strip_title = false )
   {
     $film_title  = ucwords(strip_title( $title ));
     $accuracy = 0;
@@ -135,7 +135,7 @@
    *
    */
 
-  function extra_get_all_movie_details ()
+  function extra_get_all_movie_details( $cat_id = '' )
   {
     if ( is_movie_check_enabled() )
     {
@@ -148,8 +148,9 @@
                             from movies m, media_locations ml, categories c
                            where m.location_id = ml.location_id
                              and ml.cat_id = c.cat_id
-                             and m.details_available is null
-                             and  c.download_info = 'Y' ");
+                             and m.details_available is null".
+    (empty($cat_id) ? '' : ' and c.cat_id = '.$cat_id).
+                           " and c.download_info = 'Y' ");
 
       // Process each movie
       foreach ($data as $row)
@@ -179,7 +180,7 @@
    *
    */
 
-  function extra_get_all_tv_details ()
+  function extra_get_all_tv_details( $cat_id = '' )
   {
     if ( is_tv_check_enabled() )
     {
@@ -195,8 +196,9 @@
                             from tv t, media_locations ml, categories c
                            where t.location_id = ml.location_id
                              and ml.cat_id = c.cat_id
-                             and t.details_available is null
-                             and  c.download_info = 'Y' ");
+                             and t.details_available is null".
+    (empty($cat_id) ? '' : ' and c.cat_id = '.$cat_id).
+                           " and c.download_info = 'Y' ");
 
       // Process each tv show
       foreach ($data as $row)

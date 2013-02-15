@@ -44,8 +44,18 @@
       $table = db_value('select media_table from media_types where  media_id = '.$location["MEDIA_TYPE"]);
       $types = media_exts( $location["MEDIA_TYPE"] );
       send_to_log(4,'Refreshing '.strtoupper($table).' database');
+
+      // Mark all the files in this location as unverified
+      db_sqlcommand("update $table set verified ='N' where location_id = ".$location["LOCATION_ID"]);
+
       process_media_directory( str_suffix($location["NAME"],'/'), $location["LOCATION_ID"], $location["NETWORK_SHARE"], $table, $types, true, $update );
       send_to_log(4,'Completed refreshing '.strtoupper($table).' database');
+
+      // Delete any files which are not verified
+      $files = db_toarray("select dirname, filename from $table where verified ='N' and location_id = ".$location["LOCATION_ID"]);
+      foreach ($files as $file)
+        send_to_log(4,'Removed  : '.$file['DIRNAME'].$file['FILENAME']);
+      db_sqlcommand("delete from $table where verified ='N' and location_id = ".$location["LOCATION_ID"]);
 
       // Tell MusicIP to rescan this folder
       if ($media_type == MEDIA_TYPE_MUSIC)
@@ -93,13 +103,13 @@
     if ( is_movie_check_enabled() && in_array(MEDIA_TYPE_VIDEO, $media_types) )
     {
       set_sys_pref('MEDIA_SCAN_STATUS',str('MEDIA_SCAN_STATUS_MOVIE'));
-      extra_get_all_movie_details();
+      extra_get_all_movie_details($cat_id);
     }
 
     if ( is_tv_check_enabled() && in_array(MEDIA_TYPE_TV, $media_types) )
     {
       set_sys_pref('MEDIA_SCAN_STATUS',str('MEDIA_SCAN_STATUS_TV'));
-      extra_get_all_tv_details();
+      extra_get_all_tv_details($cat_id);
     }
 
     // Scan the iTunes library for playlists
