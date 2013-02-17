@@ -183,7 +183,7 @@ function set_last_update($release_dir)
       // Rename Files
       foreach($actions as $a)
       {
-        if (file_exist($a["existing"])) unlink($a["existing"]);
+        if (file_exists($a["existing"])) unlink($a["existing"]);
         rename($a["downloaded"],$a["existing"]);
         send_to_log(4,"'".$a["existing"]."' updated");
       }
