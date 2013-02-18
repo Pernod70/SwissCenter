@@ -29,6 +29,6 @@
     // Fix invalid anchor names (eg "module_Zend Optimizer")
     $output = str_replace('module_Zend Optimizer', 'module_Zend_Optimizer', $output);
 
-    echo '<center>'.$output.'</center>'';
+    echo '<center>'.$output.'</center>';
   }
 ?>
