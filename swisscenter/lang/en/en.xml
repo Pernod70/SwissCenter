@@ -3857,6 +3857,16 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <version>1.19</version>
       </string>
       <string>
+        <id>PHP_INFO</id>
+        <text>PHP Information</text>
+        <version>1.24</version>
+      </string>
+      <string>
+        <id>PHP_INFO_DESC</id>
+        <text>This page lists information on the version of PHP installed on this server. It includes details of loaded modules, available variables and default settings. This information may be useful when diagnosing problems.</text>
+        <version>1.24</version>
+      </string>
+      <string>
         <id>PHP_VERSION_TEXT</id>
         <text>You must have at least version 4.3.9 of PHP installed</text>
         <version>1.19</version>

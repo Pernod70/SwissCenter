@@ -132,6 +132,7 @@
 
       $menu->add_menu(str('INFORMATION'));
       $menu->add_item(str('SUPPORT_TITLE')          ,'section=SUPPORT&action=DISPLAY');
+      $menu->add_item(str('PHP_INFO')               ,'section=PHPINFO&action=DISPLAY');
       $menu->add_item(str('PRIVACY_POLICY')         ,'section=PRIVACY&action=DISPLAY');
       $menu->add_item(str('LICENSE')                ,'section=LICENSE&action=DISPLAY');
     }
