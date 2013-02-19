@@ -114,8 +114,8 @@
       </string>
       <string>
         <id>ART_ERROR_FILETYPE</id>
-        <text>Nur Dateinamen mit den Endungen JPG, JPEG, GIF or PNG sind gültig</text>
-        <version>1.19</version>
+        <text>Nur Dateinamen mit den Endungen JPG, JPEG, GIF oder PNG sind gültig</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>ART_ERROR_QUOTE</id>
@@ -384,8 +384,8 @@
       </string>
       <string>
         <id>BROWSE_TEXT</id>
-        <text>SwissCenter kann Ihre Medien auf vielfältige Weise präsentieren. Um die Bedienung so einfach wie möglich zu gestalten, bzw. die Oberfläche an die eigenen Bedürfnisse anzupassen, können Sie verschiedene Anzeige-Optionen deaktivieren. Sollte dabei nur noch eine einzige Option übrig bleiben, wird SwissCenter das entsprechende Menü überspringen und diese Option automatisch auswählen.[b]Es muss jedoch pro Gruppe mindestens [b]eine[/b] Option aktiviert sein.</text>
-        <version>1.19</version>
+        <text>SwissCenter kann Ihre Medien auf vielfältige Weise präsentieren. Um die Bedienung so einfach wie möglich zu gestalten, bzw. die Oberfläche an die eigenen Bedürfnisse anzupassen, können Sie verschiedene Anzeige-Optionen deaktivieren. Sollte dabei nur noch eine einzige Option übrig bleiben, wird SwissCenter das entsprechende Menü überspringen und diese Option automatisch auswählen.[p]Es muss jedoch pro Gruppe mindestens [b]eine[/b] Option aktiviert sein.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>BROWSE_TIMESTAMP</id>
@@ -714,7 +714,7 @@
       </string>
       <string>
         <id>CONFIG_SHOUTCAST_TITLE</id>
-        <text>Shoutcast Optionen</text>
+        <text>SHOUTcast Optionen</text>
         <version>1.23.1</version>
       </string>
       <string>
@@ -1130,8 +1130,8 @@ Dieses Format wird von MySQL und Spezifikationssymbolen definiert. Diese sind:
       </string>
       <string>
         <id>EXPORT_PROMPT</id>
-        <text>Mit einem Klick auf den Button unten werden alle Ihre Einstellungen in eine XML Datei geschrieben. Diese Datei ermöglicht eine Schnellkonfigurierung nach einer Neuinstallation bzw. Neuerstellung der Datenbank.[p][b]Bitte beachten Sie:[/b] Die Details der von Swisscenter erkannten Audio-, Video- und Fotodateien werden hierbei [i]nicht[/i] berücksichtigt - ebensowenig wie die aus dem Internet heruntergeladenen bzw. manuell erfassten Informationen zu diesen Dateien!</text>
-        <version>1.19</version>
+        <text>Mit einem Klick auf den Button unten werden alle Ihre Einstellungen in eine XML Datei geschrieben. Diese Datei ermöglicht eine Schnellkonfigurierung nach einer Neuinstallation bzw. Neuerstellung der Datenbank.[p][b]Bitte beachten Sie:[/b] Die Details der von SwissCenter erkannten Audio-, Video- und Fotodateien werden hierbei [i]nicht[/i] berücksichtigt - ebenso wenig wie die aus dem Internet heruntergeladenen bzw. manuell erfassten Informationen zu diesen Dateien!</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>EXPORT_SETTINGS</id>
@@ -1309,7 +1309,7 @@ Zusatzinformationen</text>
       </string>
       <string>
         <id>FAIL_SHOUTCAST_TEST</id>
-        <text>ShoutCast-Parser scheint defekt zu sein</text>
+        <text>SHOUTcast-Parser scheint defekt zu sein</text>
         <version>1.23.1</version>
       </string>
       <string>
@@ -1319,8 +1319,8 @@ Zusatzinformationen</text>
       </string>
       <string>
         <id>FAIL_SWISSMONITOR_INSTALLED</id>
-        <text>Der SwissMonitor Sevice ist nicht installiert.</text>
-        <version>1.22</version>
+        <text>Der SwissMonitor Service ist nicht installiert.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FAIL_SWISSMONITOR_RUNNING</id>
@@ -1369,8 +1369,8 @@ Zusatzinformationen</text>
       </string>
       <string>
         <id>FANART</id>
-        <text>Fanart</text>
-        <version>1.22</version>
+        <text>Fan Art</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FAVORITES</id>
@@ -1489,10 +1489,10 @@ Zusatzinformationen</text>
       </string>
       <string>
         <id>FLICKR_DESC</id>
-        <text>Flickr %s ist ein Service, um online Bilder und Fotos zu verwalten und mit anderen zu teilen. Flickr ermöglicht die Präsentation von Fotos und zeigt neue Wege der Bildverwaltung - und organisation auf.
+        <text>Flickr %s ist ein Service, um online Bilder und Fotos zu verwalten und mit anderen zu teilen. Flickr ermöglicht die Präsentation von Fotos und zeigt neue Wege der Bildverwaltung und -organisation auf.
 Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Hochladen/Präsentieren von Fotos beginnen.
 [p]SwissCenter ermöglicht das Betrachten der eigenen Fotos sowie der Deiner Kontakte.</text>
-        <version>1.21.1</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>FLICKR_FAVORITES</id>
@@ -1591,7 +1591,10 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>FONTWIDTH_MULTIPLIER_PROMPT</id>
-        <text>Hiermit lässt sich die maximale Anzahl der im SwissCenter-Menü darzustellenden Zeichen pro Zeile einstellen. Der Wert hängt vom gewählten Zeichensatz (Font) ab und sollte zwischen [b]1.0[/b] (default) und [b]2.2[/b] liegen.</text>
+        <text>Hiermit lässt sich die maximale Anzahl der im SwissCenter-Menü darzustellenden Zeichen pro Zeile einstellen. Der Wert hängt vom gewählten Zeichensatz (Font) ab und sollte zwischen [b]1.0[/b] und [b]2.2[/b] liegen. Die Spieler Typen sind wie folgt gruppiert:
+[ul][li]100 - ShowCenter 1000g, etc.[/li]
+[li]200 - ShowCenter 200/250HD, EVA700, etc.[/li]
+[li]400 - Popcorn Hour A-100/A-110/A-200, HDX 1000, etc.[/li][/ul]</text>
         <version>1.23.1</version>
       </string>
       <string>
@@ -1686,7 +1689,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>IMAGEMAGICK_PATH_PROMPT</id>
-        <text>Bitte den vollstädigen Pfad des ImageMagick Installationsverzeichnisses angeben. Unter Windows wird dieser in der Regel erkannt aber bei Linux-Systemen muss er eingegeben werden.</text>
+        <text>Bitte den vollständigen Pfad des ImageMagick Installationsverzeichnisses angeben. Unter Windows wird dieser in der Regel erkannt aber bei Linux-Systemen muss er eingegeben werden.</text>
         <version>1.23.1</version>
       </string>
       <string>
@@ -1706,8 +1709,8 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>IMAGE_LANDSCAPE_CROP_PROMPT</id>
-        <text>In der Voreinstellung zentriert Swisscenter Photos im Qeuerformat und beschneidet die Bildgröße entsprechend dem Format des TV-Bildschirms. Wenn Sie jedoch das Bild in Originalgröße (mit schwarzen Streifen am Bildschirmrand) sehen wollen, deaktivieren Sie diese Option.</text>
-        <version>1.21.1</version>
+        <text>In der Voreinstellung zentriert SwissCenter Fotos im Querformat und beschneidet die Bildgröße entsprechend dem Format des TV-Bildschirms. Wenn Sie jedoch das Bild in Originalgröße (mit schwarzen Streifen am Bildschirmrand) sehen wollen, deaktivieren Sie diese Option.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>IMAGE_RESAMPLE</id>
@@ -1796,8 +1799,8 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>IMP_LOC_CERT_MISSING</id>
-        <text>Konnte den Medien-Speicherort '%s' nicht importieren, da das Zertifikat '%s' (Scheme:%s) nicht existiert.</text>
-        <version>1.19</version>
+        <text>Konnte den Medien-Speicherort '%s' nicht importieren, da das Zertifikat '%s' (Schema:%s) nicht existiert.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>IMP_LOC_TYPE_MISSING</id>
@@ -1806,8 +1809,8 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>IMP_USER_CERT_MISSING</id>
-        <text>Konnte den Benutzer '%s' nicht importieren, da das Zertifikat '%s' (Scheme:%s) nicht exisitiert.</text>
-        <version>1.19</version>
+        <text>Konnte den Benutzer '%s' nicht importieren, da das Zertifikat '%s' (Schema:%s) nicht existiert.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>INFORMATION</id>
@@ -1976,7 +1979,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>IRADIO_COUNTRY_PROMPT</id>
-        <text>Bitte geben Sie ein Land an, nach dem Sie suchen wollen. Nur %s unterstützt die Suche nach Ländern. Bitte besuchen Sie die Webseite um die gültigen Länder zu finden. Bei ShoutCast wird danach gesucht, ob der Name der Station das Land enthält.</text>
+        <text>Bitte geben Sie ein Land an, nach dem Sie suchen wollen. Nur %s unterstützt die Suche nach Ländern. Bitte besuchen Sie die Webseite um die gültigen Länder zu finden. Bei SHOUTcast wird danach gesucht, ob der Name der Station das Land enthält.</text>
         <version>1.23.1</version>
       </string>
       <string>
@@ -2037,7 +2040,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       <string>
         <id>IRADIO_ICECAST_DESC</id>
         <text>IceCast (%s) ist ein Internet Radio Service ähnlich SHOUTcast. Es besteht die Möglichkeit per Genre oder Stationsname zu suchen.</text>
-        <version>1.22</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>IRADIO_LIVE365</id>
@@ -2046,8 +2049,8 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>IRADIO_LIVE365_DESC</id>
-        <text>Live365 (%s) ist ein Radio Netzwerk, das Millionen von Hörern weltweit erreicht, und dabei eine noch größere und breiter gefächerte Vielfalt von qualitativ hochwertiger Musik und Sendungen bietet, als andere Netzwerke. Es bietet über 260 verschiedene Genres, bei über 5000 Sendern und Musik-Trendsettern,  aus über 150 Ländern. Das Netzwerk ist stolz auf eine Armada von Künstlern und Produzenten, die sich vom Atlanta Symphonie Orchester, Pat Metheny, David Navarro, Carlos Santana über kommerzielle und öffentliche Radio Sender, bis hin zu individuellen DJ's mit jeglichem musikalischen Stil, erstreckt.</text>
-        <version>1.22</version>
+        <text>Live365 (%s) ist ein Radio Netzwerk, das Millionen von Hörern weltweit erreicht, und dabei eine noch größere und breiter gefächerte Vielfalt von qualitativ hochwertiger Musik und Sendungen bietet, als andere Netzwerke. Es bietet über 260 verschiedene Genres, bei über 5000 Sendern und Musik-Trendsettern,  aus über 150 Ländern. Das Netzwerk ist stolz auf eine Armada von Künstlern und Produzenten, die sich vom Atlanta Symphonie Orchester, Pat Metheny, David Navarro, Carlos Santana über kommerzielle und öffentliche Radio Sender, bis hin zu individuellen DJs mit jeglichem musikalischen Stil, erstreckt.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>IRADIO_LIVERADIO</id>
@@ -2056,7 +2059,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>IRADIO_LIVERADIO_DESC</id>
-        <text>LiveRadio (%s) ist ein Internet-Radio Service ähnlich ShoutCast. Hier kann nach Medientyp, Stationsname, Land und sogar Stadt gesucht werden - doch das Format (Medientyp) vieler hier gelisteter Stationen ist zu etlichen Hardware-Playern nicht kompatibel. Daher sucht der von SwissCenter verwendete LiveRadio-Parser hier nur nach MP3 Stationen.</text>
+        <text>LiveRadio (%s) ist ein Internet-Radio Service ähnlich SHOUTcast. Hier kann nach Medientyp, Stationsname, Land und sogar Stadt gesucht werden - doch das Format (Medientyp) vieler hier gelisteter Stationen ist zu etlichen Hardware-Playern nicht kompatibel. Daher sucht der von SwissCenter verwendete LiveRadio-Parser hier nur nach MP3 Stationen.</text>
         <version>1.23.1</version>
       </string>
       <string>
@@ -2101,7 +2104,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>IRADIO_PARAM_PROMPT</id>
-        <text>ShoutCast und Live-Radio ermöglichen die Auswahl von Radioprogrammen nach Station, Genre und Land. Hier können Sie die entsprechenden Auswahlkriterien definieren.</text>
+        <text>SHOUTcast und Live-Radio ermöglichen die Auswahl von Radioprogrammen nach Station, Genre und Land. Hier können Sie die entsprechenden Auswahlkriterien definieren.</text>
         <version>1.23.1</version>
       </string>
       <string>
@@ -2121,7 +2124,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>IRADIO_SHOUTCAST_DESC</id>
-        <text>ShoutCast (%s) ist ein Internet-Radio Service. Die Website ermöglicht es, nach Genres oder Stations-Namen zu suchen und liefert zahlreiche Details für jede gefundene Station - inklusive einer Playlist URL. Der von SwissCenter verwendete ShoutCast-Parser parst den HTML-Code der Ergebnisseite, um die Stationsliste in einer auch auf TV-Bildschirmen einfach lesbaren Art darzustellen. Dies kann jedoch fehlschlagen, wenn die Betreiber von ShoutCast die Seitenstruktur ändern.[p]Gelegentlich gibt ShoutCast vor, nichts zu finden. Sollte der Test also fehlschlagen, am besten die Seite nochmals laden, um sicher zu gehen, dass das Problem nicht vielleicht dort liegt.</text>
+        <text>SHOUTcast (%s) ist ein Internet-Radio Service. Die Website ermöglicht es, nach Genres oder Stations-Namen zu suchen und liefert zahlreiche Details für jede gefundene Station - inklusive einer Playlist URL. Der von SwissCenter verwendete SHOUTcast-Parser parst den HTML-Code der Ergebnisseite, um die Stationsliste in einer auch auf TV-Bildschirmen einfach lesbaren Art darzustellen. Dies kann jedoch fehlschlagen, wenn die Betreiber von SHOUTcast die Seitenstruktur ändern.[p]Gelegentlich gibt SHOUTcast vor, nichts zu finden. Sollte der Test also fehlschlagen, am besten die Seite nochmals laden, um sicher zu gehen, dass das Problem nicht vielleicht dort liegt.</text>
         <version>1.23.1</version>
       </string>
       <string>
@@ -2151,8 +2154,8 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>IRADIO_STEAMCAST_DESC</id>
-        <text>StreamCast (%s) ist ein Schritt in Richtung der Ablösung von SHOUTcast und/oder IceCast. Ein kleines Paket führt die Vielseitigkeit von IceCast und die Popularität von SHOUTcast zusammen. StreamCast verwendet das populäre HTTP/ICY Protokoll, um die Medien an Ihre Spieler zu liefern, was bedeutet, daß fast jeder Spieler unterstützt wird.</text>
-        <version>1.22</version>
+        <text>StreamCast (%s) ist ein Schritt in Richtung der Ablösung von SHOUTcast und/oder IceCast. Ein kleines Paket führt die Vielseitigkeit von IceCast und die Popularität von SHOUTcast zusammen. StreamCast verwendet das populäre HTTP/ICY Protokoll, um die Medien an Ihre Spieler zu liefern, was bedeutet, dass fast jeder Spieler unterstützt wird.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>IRADIO_SUBGENRE</id>
@@ -2196,8 +2199,8 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>ITUNES_CONFIG_PROMPT</id>
-        <text>Bitte geben Sie den vollständigen Pfad zur folgenden Datei an: &quot;iTunes Music Library.xml&quot;. Diese Angabe wird benutzt, um Ihre iTunes-Playlist in Swisscenter hinzuzufügen oder zu ersetzen.[p]Beispielsweise kann der Pfad unter Windows XP so aussehen: [em]&quot;C:\Dokumente und Einstellungen\Robert\My Music\iTunes\iTunes Music Library.xml&quot;[/em]</text>
-        <version>1.20</version>
+        <text>Bitte geben Sie den vollständigen Pfad zur folgenden Datei an: &quot;iTunes Music Library.xml&quot;. Diese Angabe wird benutzt, um Ihre iTunes-Playlist in SwissCenter hinzuzufügen oder zu ersetzen.[p]Beispielsweise kann der Pfad unter Windows XP so aussehen: [em]&quot;C:\Dokumente und Einstellungen\Robert\My Music\iTunes\iTunes Music Library.xml&quot;[/em]</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>ITUNES_ERROR_INVALID</id>
@@ -2341,7 +2344,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>LANG_PROMPT</id>
-        <text>Sprachdateien bestehen aus einer Zuordnung zwischen interner ID (z.B. &quot;ADD_PLAYLIST&quot;) und dem tatsächlichen Text, der angezeigt werden soll. Der &lt;Text&gt; kann eine begrenzte Anzahl von Formatierungen (Tags) beinhalten, die durch eckige Klammern gekennzeichnet werden. Die Formatierungen verhalten sich entsprechend ihrer in HTML üblichen Pendants.[p]Die folgenden Tags werden unterstützt: [ul] [li]&amp;#91;br&amp;#93; - Ein Zeilenumbruch[/li] [li]&amp;#91;p&amp;#93;&amp;#91;/p&amp;#93; - Ein neuer Absatz[/li] [li]&amp;#91;b&amp;#93;&amp;#91;/b&amp;#93; - [b]Fettschrift[/b][/li] [li]&amp;#91;i&amp;#93;&amp;#91;/i&amp;#93; - [i]Kursiv[/i][/li] [li]&amp;#91;em&amp;#93;&amp;#91;/em&amp;#93; - [em]Hervorgehoben[/em][/li] [li]&amp;#91;ol&amp;#93;&amp;#91;/ol&amp;#93; - Eine sortierte Liste[/li] [li]&amp;#91;ul&amp;#93;&amp;#91;/ul&amp;#93; - Eine unsortierte Liste[/li] [li]&amp;#91;li&amp;#93;&amp;#91;/li&amp;#93; - Ein Eintrag in einer sorierten oder unsortierten Liste[/li] [/ul]
+        <text>Sprachdateien bestehen aus einer Zuordnung zwischen interner ID (z.B. &quot;ADD_PLAYLIST&quot;) und dem tatsächlichen Text, der angezeigt werden soll. Der &lt;Text&gt; kann eine begrenzte Anzahl von Formatierungen (Tags) beinhalten, die durch eckige Klammern gekennzeichnet werden. Die Formatierungen verhalten sich entsprechend ihrer in HTML üblichen Pendants.[p]Die folgenden Tags werden unterstützt: [ul] [li]&amp;#91;br&amp;#93; - Ein Zeilenumbruch[/li] [li]&amp;#91;p&amp;#93;&amp;#91;/p&amp;#93; - Ein neuer Absatz[/li] [li]&amp;#91;b&amp;#93;&amp;#91;/b&amp;#93; - [b]Fettschrift[/b][/li] [li]&amp;#91;i&amp;#93;&amp;#91;/i&amp;#93; - [i]Kursiv[/i][/li] [li]&amp;#91;em&amp;#93;&amp;#91;/em&amp;#93; - [em]Hervorgehoben[/em][/li] [li]&amp;#91;ol&amp;#93;&amp;#91;/ol&amp;#93; - Eine sortierte Liste[/li] [li]&amp;#91;ul&amp;#93;&amp;#91;/ul&amp;#93; - Eine unsortierte Liste[/li] [li]&amp;#91;li&amp;#93;&amp;#91;/li&amp;#93; - Ein Eintrag in einer sortierten oder unsortierten Liste[/li] [/ul]
 
 [p]In einigen Passagen kann es notwendig sein, dass Textteile durch neuen Text ersetzt werden müssen. Solche Platzhalter werden durch folgende Zeichen gekennzeichnet: '&amp;#37;s'.[br]Im folgenden Beispiel wird die Anzahl der Musikstücke aus der Datenbank ausgelesen und an die Stelle des &amp;#37;s kopiert, so dass bei einer Suche mit vier Treffern das Ergebnis als &quot;4 Titel&quot; angezeigt wird.[br]MANY_TRACKS= &amp;#37;s Titel</text>
         <version>1.23.1</version>
@@ -2398,7 +2401,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>LASTFM_ENABLED_PROMPT</id>
-        <text>Wenn aktiviert, kann Swisscenter zur Last.FM-Webseite verbinden und personalisierte Radiostreams empfangen.</text>
+        <text>Wenn aktiviert, kann SwissCenter zur Last.FM-Webseite verbinden und personalisierte Radiostreams empfangen.</text>
         <version>1.23.1</version>
       </string>
       <string>
@@ -2773,8 +2776,8 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>MEDIA_TYPE_PHOTO</id>
-        <text>Photo</text>
-        <version>1.21.1</version>
+        <text>Foto</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>MEDIA_TYPE_PROMPT</id>
@@ -2888,8 +2891,8 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>MIP_MOODS_INFO</id>
-        <text>Stimmungen sind Playlisten, die als Ursprung für die Lieder dienen, um einen Mix zu generieren. Die Stimmungs-Playliste muß im Unterverzeichnis &quot;Stimmungen&quot; Ihrer MusicIP Mixer Installation gespeichert werden.</text>
-        <version>1.22</version>
+        <text>Stimmungen sind Playlisten, die als Ursprung für die Lieder dienen, um einen Mix zu generieren. Die Stimmungs-Playliste muss im Unterverzeichnis &quot;Stimmungen&quot; Ihrer MusicIP Mixer Installation gespeichert werden.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>MIP_NONE</id>
@@ -2914,7 +2917,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       <string>
         <id>MIP_PORT_PROMPT</id>
         <text>Geben Sie bitte die Portnummer an, unter der der MusicIP Server erreichbar ist. Der Default-Port ist 10002, sofern an der Konfiguration nichts verändert wurde.[p][b]Anmerkung:[/b]  MusicIP muss auf dem selben Rechner installiert sein wie SwissCenter.</text>
-        <version>1.19</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>MIP_RECIPES</id>
@@ -2953,8 +2956,8 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>MIP_STYLE_PROMPT</id>
-        <text>Hiermit lässt sich festlegen, wie genau der Stil der ausgewählten Interpreten übereinstimmen soll. Je größer die Nummer, desto besser die Üereinstimmung - je kleiner die Nummer, desto größer die Vielfalt der ausgewähltenten Interpreten.</text>
-        <version>1.19</version>
+        <text>Hiermit lässt sich festlegen, wie genau der Stil der ausgewählten Interpreten übereinstimmen soll. Je größer die Nummer, desto besser die Übereinstimmung - je kleiner die Nummer, desto größer die Vielfalt der ausgewählten Interpreten.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>MIP_VARIETY</id>
@@ -3228,7 +3231,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>NETWORK_SHARE_PROMPT</id>
-        <text>Das Netzwerk-Verzeichnis wird nur für Medien vom Typ 'DVD Video' verwendet und für alle anderen Medientypen ignoriert. Um DVD Videos wiederzugeben, müssen Sie auf Ihrem Media-Player zunächst ein SMB oder NFS Netzwerk-Verzeichnis einrichten und und dieses mit dem hier angegebenen Speicherort verknüpfen.</text>
+        <text>Das Netzwerk-Verzeichnis wird nur für Medien vom Typ 'DVD Video' verwendet und für alle anderen Medientypen ignoriert. Um DVD Videos wiederzugeben, müssen Sie auf Ihrem Media-Player zunächst ein SMB oder NFS Netzwerk-Verzeichnis einrichten und dieses mit dem hier angegebenen Speicherort verknüpfen.</text>
         <version>1.23.1</version>
       </string>
       <string>
@@ -3313,18 +3316,18 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>NOW_PLAYING_FANART_PROMPT</id>
-        <text>Bitte die Quelle für die Albumbilder auswählen, die für den erweiterten &quot;Aktueller Titel&quot;-Bildschirm verwendet werden sollen. Die Bilder werden für jeden Künstler in [em]swisscenter\fanart\artists\künstlername[/em] gespeichert.[br]&quot;Keine&quot; - es werden keine Albumbilder heruntergeladen. Nur schon existiernde Bilder werden angezeigt.[/b] Google-Bilder werden durchsucht und in Ihren lokalen Bilderordner heruntergeladen.</text>
-        <version>1.22</version>
+        <text>Bitte die Quelle für die Albumbilder auswählen, die für den erweiterten &quot;Aktueller Titel&quot;-Bildschirm verwendet werden sollen. Die Bilder werden für jeden Künstler in [em]swisscenter\fanart\artists\künstlername[/em] gespeichert.[br]&quot;Keine&quot; - es werden keine Albumbilder heruntergeladen. Nur schon existierende Bilder werden angezeigt.[/b] Google-Bilder werden durchsucht und in Ihren lokalen Bilderordner heruntergeladen.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>NOW_PLAYING_FANART_QUALITY</id>
-        <text>Fanart Qualität</text>
-        <version>1.22</version>
+        <text>Fan Art Qualität</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>NOW_PLAYING_FANART_QUALITY_PROMPT</id>
-        <text>Dies ist die minimalste Breite und Höhe der Fanart-Bilder, die von Last.fm heruntergeladen werden. Das Erhöhen dieser Einstellung bewikt, dass Bilder in schlechterer Qualität nicht benutzt werden.</text>
-        <version>1.22</version>
+        <text>Dies ist die minimalste Breite und Höhe der Fanart-Bilder, die von Last.fm heruntergeladen werden. Das Erhöhen dieser Einstellung bewirkt, dass Bilder in schlechterer Qualität nicht benutzt werden.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>NOW_PLAYING_OPTIONS</id>
@@ -3333,8 +3336,8 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>NOW_PLAYING_PROMPT</id>
-        <text>Einige Hardware-Player unterstützen die Anzeige einer Bilddatei während der Wiedergabe eines Musikstücks, wobei sie diese zum jeweiligen Stück explizit anfordern. SwissCenter nutzt diese Tatsache für die Darstellung von Details zum aktuellen Musikstück[p]In den meisten Fällen kann SwissCenter automatisch feststellen, ob Ihr Player dies unterstützt. Sollte es dabei zu Problemen kommen (z.B. kein Bild bei der Wiedergabe einer MP3-Playliste, oder das Bild wird nicht aktualisiert), können Sie die entsprechende Einstellung hier ändern.[p]Die Einstellungen bedeuten dabei: Aktiviert - der Player fordert die Bilddatei selbstätig an. Deaktiviert - Er tut dies nicht automatisch, und SwissCenter teilt ihm daher in der Playliste mit, es in bestimmten Zeitabständen neu zu laden. Automatisch - SwissCenter soll es selbst herausfinden.</text>
-        <version>1.19</version>
+        <text>Einige Hardware-Player unterstützen die Anzeige einer Bilddatei während der Wiedergabe eines Musikstücks, wobei sie diese zum jeweiligen Stück explizit anfordern. SwissCenter nutzt diese Tatsache für die Darstellung von Details zum aktuellen Musikstück[p]In den meisten Fällen kann SwissCenter automatisch feststellen, ob Ihr Player dies unterstützt. Sollte es dabei zu Problemen kommen (z.B. kein Bild bei der Wiedergabe einer MP3-Playliste, oder das Bild wird nicht aktualisiert), können Sie die entsprechende Einstellung hier ändern.[p]Die Einstellungen bedeuten dabei: Aktiviert - der Player fordert die Bilddatei selbständig an. Deaktiviert - Er tut dies nicht automatisch, und SwissCenter teilt ihm daher in der Playliste mit, es in bestimmten Zeitabständen neu zu laden. Automatisch - SwissCenter soll es selbst herausfinden.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>NOW_PLAYING_STYLE</id>
@@ -3623,7 +3626,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>PASS_SHOUTCAST_TEST</id>
-        <text>ShoutCast-Parser funktioniert ordnungsgemäß</text>
+        <text>SHOUTcast-Parser funktioniert ordnungsgemäß</text>
         <version>1.23.1</version>
       </string>
       <string>
@@ -3638,8 +3641,8 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>PASS_SWISSMONITOR_RUNNING</id>
-        <text>Der SwissMonitor-Sevice läuft.</text>
-        <version>1.22</version>
+        <text>Der SwissMonitor-Service läuft.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>PASS_SWISS_CACHE</id>
@@ -3847,6 +3850,16 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
+        <id>PHP_INFO</id>
+        <text>PHP Information</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>PHP_INFO_DESC</id>
+        <text>Diese Seite zeigt Informationen zur installierten PHP Version auf dem Server an. Sie umfasst Details zu den geladenen Modulen, verfügbaren Variablen und Standardeinstellungen. Diese Informationen können bei der Problemdiagnose hilfreich sein.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>PHP_VERSION_TEXT</id>
         <text>Sie müssen mindestens Version 4.3.9 von PHP installiert haben.</text>
         <version>1.23.1</version>
@@ -3989,9 +4002,9 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       <string>
         <id>PLAYER_MESSAGE</id>
         <text>Alle Spieler sollten über ihren Hersteller und Modell über eine Firmware-ID ermittelt werden können. Wenn Ihr Spieler nicht in der Liste aufgeführt ist, sollten Sie diesen unter Angabe von Hersteller und Modell, wie unten auf der Seite 'Gefundene Clients' angezeigt, selbst eintragen.[p]
-Es ist sehr wichtig, das korrekte Chipset für Ihren Spieler auszuwählen, da anhand dieser Angaben SwissCenter herausfindet, welche Eigenschaften Ihr Spieler hat. Die POD-Werte werden benutzt, um dem Spieler Angaben über die Anzeige des &quot;aktueller Titel&quot; Bildschirms zu machen. Sie müssen evtl. experimentell herausfinden, mit welchen Angaben Ihr Spieler am besten zurecht kommt.[p]
+Es ist sehr wichtig, das korrekte Chipsatz für Ihren Spieler auszuwählen, da anhand dieser Angaben SwissCenter herausfindet, welche Eigenschaften Ihr Spieler hat. Die POD-Werte werden benutzt, um dem Spieler Angaben über die Anzeige des &quot;aktueller Titel&quot; Bildschirms zu machen. Sie müssen evtl. experimentell herausfinden, mit welchen Angaben Ihr Spieler am besten zurechtkommt.[p]
 Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten wir Sie bitten, diese im Forum bekannt zu geben, so dass auch andere Benutzer diese Einstellungen u. U. übernehmen können.</text>
-        <version>1.22</version>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>PLAYER_MODEL</id>
@@ -4030,8 +4043,8 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
       </string>
       <string>
         <id>PLAYER_PROMPT</id>
-        <text>Wenn Ihr Spieler nicht aufgeführt ist, sollten Sie diesen manuell, unter Zuhilfenahme der unten eingeblendeten Hersteller- und Modellangaben eintragen. Das korreket Chipset muss ausgewählt werden, da SwissCenter anhand dieser Angaben die Eigenschaften des Spielers herausfindet.</text>
-        <version>1.22</version>
+        <text>Wenn Ihr Spieler nicht aufgeführt ist, sollten Sie diesen manuell, unter Zuhilfenahme der unten eingeblendeten Hersteller- und Modellangaben eintragen. Der korrekte Chipsatz muss ausgewählt werden, da SwissCenter anhand dieser Angaben die Eigenschaften des Spielers bestimmt.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>PLAYER_RESUME</id>
@@ -4100,8 +4113,8 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
       </string>
       <string>
         <id>PLAYLIST_AUTOLOAD_PROMPT</id>
-        <text>Wählen Sie eine Playliste, die beim Start automatisch geladen werden soll. Dies ist nützlich, wenn beim Ansehen Ihrer Photos immer die gleiche Playliste für die Hintergrundmusik verwendet werden soll.</text>
-        <version>1.21.1</version>
+        <text>Wählen Sie eine Playliste, die beim Start automatisch geladen werden soll. Dies ist nützlich, wenn beim Ansehen Ihrer Fotos immer die gleiche Playliste für die Hintergrundmusik verwendet werden soll.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>PLAYLIST_CLEAR</id>
@@ -4505,8 +4518,8 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
       </string>
       <string>
         <id>REFRESH_CLEANUP_PROMPT</id>
-        <text>Bei der Datenbankbereinigung werden verwaiste Einträge gelöscht. Ein Eintrag ist verwaist, wenn Medien in ihrem Verzwichnis nicht mehr gefunden werden oder wenn Einträge für Mitwirkende (Schauspieler/Regisseure) nicht mehr mit einem Medium verknüpft sind. Durch die Bereinigung werden die Suchzeiten bei der Mediensuche verkürzt. Die Funktion sollte genutzt werden, wenn Medien gelöscht wurden.</text>
-        <version>1.21.1</version>
+        <text>Bei der Datenbankbereinigung werden verwaiste Einträge gelöscht. Ein Eintrag ist verwaist, wenn Medien in ihrem Verzeichnis nicht mehr gefunden werden oder wenn Einträge für Mitwirkende (Schauspieler/Regisseure) nicht mehr mit einem Medium verknüpft sind. Durch die Bereinigung werden die Suchzeiten bei der Mediensuche verkürzt. Die Funktion sollte genutzt werden, wenn Medien gelöscht wurden.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>REFRESH_DATABASE</id>
@@ -4545,13 +4558,13 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
       </string>
       <string>
         <id>REFRESH_METADATA</id>
-        <text>Metadata aktualisieren</text>
-        <version>1.19</version>
+        <text>Metadaten aktualisieren</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>REFRESH_METADATA_PROMPT</id>
-        <text>Aktiviere diese Option, um das Aktualisieren der Metadaten zu erzwingen. Dies sollte nur nach einem Swisscenter Update gemacht werden, welches neue Mediafunktionen beinhaltet.</text>
-        <version>1.19</version>
+        <text>Aktiviere diese Option, um das Aktualisieren der Metadaten zu erzwingen. Dies sollte nur nach einem SwissCenter Update gemacht werden, welches neue Mediafunktionen beinhaltet.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>REFRESH_RUNNING</id>
@@ -4560,8 +4573,8 @@ Wenn von Ihnen Details auf dieser Seite hinzugefügt/verändert wurden, möchten
       </string>
       <string>
         <id>RELEASE_DATE</id>
-        <text>Erscheinungs Datum</text>
-        <version>1.22</version>
+        <text>Erscheinungsdatum</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>REMOTE_ACCESS_ERROR</id>
@@ -4851,7 +4864,7 @@ speichern</text>
       </string>
       <string>
         <id>SCHEDULE_MONTH_PROMPT</id>
-        <text>1 = Januar, 2 = Februar, etc</text>
+        <text>1 = Januar, 2 = Februar, etc.</text>
         <version>1.23.1</version>
       </string>
       <string>
@@ -4886,8 +4899,8 @@ speichern</text>
       </string>
       <string>
         <id>SCHEDULE_WEEKDAY_PROMPT</id>
-        <text>1 = Montag, 2 = Dienstag., etc</text>
-        <version>1.19</version>
+        <text>1 = Montag, 2 = Dienstag., etc.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>SEARCH</id>
@@ -5221,8 +5234,8 @@ speichern</text>
       </string>
       <string>
         <id>SUPPORT_CLINTS_TABLE</id>
-        <text>IP-Addresse, Browser-Identifikation</text>
-        <version>1.19</version>
+        <text>IP-Adresse, Browser-Identifikation</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>SUPPORT_DB_CONN_TABLE</id>
@@ -5406,8 +5419,8 @@ speichern</text>
       </string>
       <string>
         <id>TFL_PROMPT</id>
-        <text>Wochenend Linien und Schließungen im Londoner Nahverkehr. Ebenso Verkehrskameras im Großraum London.</text>
-        <version>1.22</version>
+        <text>Wochenend-Linien und Schließungen im Londoner Nahverkehr. Ebenso Verkehrskameras im Großraum London.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>TFL_TUBE_THIS_WEEKEND</id>
@@ -5591,8 +5604,8 @@ speichern</text>
       </string>
       <string>
         <id>TOMA_TV_CHANNELS_OK</id>
-        <text>%s Kanäle erfolgreich aktuallisiert</text>
-        <version>1.22</version>
+        <text>%s Kanäle erfolgreich aktualisiert</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>TOMA_TV_CHANNELS_TIME_FAIL</id>
@@ -5861,8 +5874,8 @@ speichern</text>
       </string>
       <string>
         <id>TV_EXPR_TEST_PROMPT</id>
-        <text>Zum Testen, ob Ihre aktuellen Suchmuster die richtigen Zusatzinformationen liefern, geben Sie bitte einen Dateinamen inclusive Pfad ein. z.B.:[br]C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep End.avi</text>
-        <version>1.21.1</version>
+        <text>Zum Testen, ob Ihre aktuellen Suchmuster die richtigen Zusatzinformationen liefern, geben Sie bitte einen Dateinamen inklusive Pfad ein. z.B.:[br]C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep End.avi</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>TV_EXPR_TEST_SUCCESS</id>
@@ -6451,8 +6464,8 @@ speichern</text>
       </string>
       <string>
         <id>YOUTUBE_HD_PROMPT</id>
-        <text>YouTube Videos können mit einer Standardauflösung von 480x360 angesehen werden. Wenn diese Option auf &quot;Ja&quot;gesetzt ist, werden Streams sofern möglich, mit einer HD-Auflösung von 1280x720 angezeigt. Bei Problemen mit Ihrer Internetgeschwindigkeit, sollte diese Option deaktiviert werden.</text>
-        <version>1.22</version>
+        <text>YouTube Videos können mit einer Standardauflösung von 480x360 angesehen werden. Wenn diese Option auf &quot;Ja&quot; gesetzt ist, werden Streams sofern möglich, mit einer HD-Auflösung von 1280x720 angezeigt. Bei Problemen mit Ihrer Internetgeschwindigkeit, sollte diese Option deaktiviert werden.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>YOUTUBE_PROMPT_GENERAL</id>
