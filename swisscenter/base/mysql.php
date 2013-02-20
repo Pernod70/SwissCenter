@@ -165,6 +165,9 @@ function db_sqlfile($fsp)
   $errors = 0;
   if (($contents = @file($fsp)) !== false)
   {
+    // Replace database constants referenced in patch files
+    $contents = str_replace('{DB_DATABASE}', DB_DATABASE, $contents);
+
     // If the SQL script contains function or procedure definitions then we do not split
     // into separate commands.
     if (preg_match('/.*(function|procedure).*/i', implode(' ',$contents)) > 0)
@@ -172,6 +175,7 @@ function db_sqlfile($fsp)
     else
       $commands = explode(';',implode(' ',$contents));
 
+    // Exceute queries in patch file
     foreach ($commands as $sql)
       if ( strlen(trim($sql)) > 0 )
         if (!db_sqlcommand($sql))
@@ -489,7 +493,7 @@ class db extends mysqli
   public function free()
   {
     while (@parent::next_result()) {
-      if ($this->result = @parent::store_result()) {
+      if (($this->result = @parent::store_result()) !== false) {
         $this->result->free();
       }
     }
