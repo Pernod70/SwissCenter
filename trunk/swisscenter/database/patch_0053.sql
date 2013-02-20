@@ -12,7 +12,7 @@ CALL drop_index_if_exists('photos', 'photos_fsp_u1');
 -- Set default character set and collation
 -- -------------------------------------------------------------------------------------------------
 
-ALTER DATABASE `swiss` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER DATABASE `{DB_DATABASE}` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 -- -------------------------------------------------------------------------------------------------
 -- Update tables to utf8
