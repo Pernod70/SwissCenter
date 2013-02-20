@@ -52,17 +52,17 @@ function load_lang_xml ( $lang = 'en-GB' )
         foreach ($matches[1] as $index=>$id)
         {
           // Does the key already exist?
-          $key_id = db_value("select key_id from translate_keys where text_id = '".strtoupper(trim($id))."'");
+          $key_id = db_value("select key_id from translate_keys where text_id = '".trim($id)."'");
           if (!$key_id)
           {
             // Only add keys when importing base language 'en'
             if ($lang=='en')
             {
-              send_to_log(6,'- Adding language key ['.strtoupper(trim($id)).']');
-              $key_id = db_insert_row('translate_keys', array('TEXT_ID'=>strtoupper(trim($id)), 'VERIFIED'=>'Y'));
+              send_to_log(6,'- Adding language key ['.trim($id).']');
+              $key_id = db_insert_row('translate_keys', array('TEXT_ID'=>trim($id), 'VERIFIED'=>'Y'));
             }
             else
-              send_to_log(2,'- Invalid language key ['.strtoupper(trim($id)).'] ignored in '.basename($lang_file));
+              send_to_log(2,'- Invalid language key ['.trim($id).'] ignored in '.basename($lang_file));
           }
           else
           {
@@ -77,10 +77,10 @@ function load_lang_xml ( $lang = 'en-GB' )
             else
             {
               if (empty($matches[2][$index]))
-                send_to_log(2,'- Invalid language text for key ['.strtoupper(trim($id)).']');
+                send_to_log(2,'- Invalid language text for key ['.trim($id).']');
               else
               {
-                send_to_log(6,'- Adding language text for key ['.strtoupper(trim($id)).']');
+                send_to_log(6,'- Adding language text for key ['.trim($id).']');
                 db_insert_row('translate_text', array('KEY_ID'=>$key_id, 'LANG_ID'=>$lang_id, 'TEXT'=>$matches[2][$index] ,'VERSION'=>$matches[3][$index]));
               }
             }
@@ -114,7 +114,7 @@ function current_language()
     $current_lang = get_user_pref('LANGUAGE','',$user_id);
 
   // If a language name was not given then try to work out which language to use
-  if ($current_lang == '')
+  if (empty($current_lang))
   {
     // Determine language to load from the browser identification (or the last used).
     if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) && !empty($_SERVER['HTTP_ACCEPT_LANGUAGE']))
@@ -154,6 +154,7 @@ function load_translations()
 function str( $key )
 {
   $num_args = @func_num_args();
+  $key = strtoupper($key);
 
   $lang = isset($_SESSION["language"]) ? $_SESSION["language"] : current_language();
   $base = 'en';
@@ -167,15 +168,15 @@ function str( $key )
 
   if (empty($translation['TEXT_BASE']))
   {
-    $txt = '['.mb_strtoupper($key).']';
+    $txt = '['.$key.']';
 
     if ($num_args>1)
       for ($i=1;$i<$num_args;$i++)
         $txt.= ' ['.@func_get_arg($i).']';
 
     // Automatically add any unknown strings to the database
-    if (!db_value("select key_id from translate_keys where text_id='".strtoupper($key)."'"))
-      db_insert_row('translate_keys', array('TEXT_ID'=>strtoupper($key)));
+    if (!db_value("select key_id from translate_keys where text_id='".$key."'"))
+      db_insert_row('translate_keys', array('TEXT_ID'=>$key));
 
     return $txt;
   }
