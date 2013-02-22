@@ -769,11 +769,11 @@ class OpenSubtitles
  */
 function OpenSubtitlesHash($file)
 {
-  if ( !file_exists($file) ) { return '0'; }
+  if ( !Fsw::file_exists($file) ) { return '0'; }
 
   ini_set('magic_quotes_runtime', 0);
 
-  $handle = fopen($file, "rb");
+  $handle = Fsw::fopen($file, "rb");
   $fsize = large_filesize($file);
 
   $hash = array(3 => 0,
