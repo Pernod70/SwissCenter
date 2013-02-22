@@ -28,6 +28,8 @@
     form_start('index.php');
     form_hidden('section','MISC');
     form_hidden('action','UPDATE');
+    form_input('articles',str('ARTICLES'),30,'',get_sys_pref('IGNORE_ARTICLES'),true);
+    form_label(str('ARTICLES_PROMPT'));
     form_input('fontname',str('TTF_FONT'),30,'',get_sys_pref('TTF_FONT'),true);
     form_label(str('TTF_FONT_PROMPT'));
     echo '<tr><td>'.str('FONTWIDTH_MULTIPLIER').' : &nbsp;<td><tr>';
@@ -57,6 +59,7 @@
 
     $fontwidth_multiplier = array();
     $pc_screen_size       = $_REQUEST["pc_screen_size"];
+    $articles             = $_REQUEST["articles"];
     $fontname             = os_path($_REQUEST["fontname"]);
     $date_format          = $_REQUEST["date_format"];
 
@@ -82,6 +85,17 @@
 
       foreach ( $players as $player )
         set_sys_pref('FONTWIDTH_MULTIPLIER_'.$player,$fontwidth_multiplier[$player]);
+
+      // Update the list of articles to be trimmed from media titles
+      set_sys_pref('IGNORE_ARTICLES',$articles);
+      db_sqlcommand("UPDATE `movies` SET `sort_title` = trim_article(`title`,(SELECT `value` FROM `system_prefs` WHERE `name`='IGNORE_ARTICLES'))",false);
+      db_sqlcommand("UPDATE `mp3s` SET `sort_title` = trim_article(`title`,(SELECT `value` FROM `system_prefs` WHERE `name`='IGNORE_ARTICLES'))",false);
+      db_sqlcommand("UPDATE `mp3s` SET `sort_artist` = trim_article(`artist`,(SELECT `value` FROM `system_prefs` WHERE `name`='IGNORE_ARTICLES'))",false);
+      db_sqlcommand("UPDATE `mp3s` SET `sort_album` = trim_article(`album`,(SELECT `value` FROM `system_prefs` WHERE `name`='IGNORE_ARTICLES'))",false);
+      db_sqlcommand("UPDATE `mp3s` SET `sort_band` = trim_article(`band`,(SELECT `value` FROM `system_prefs` WHERE `name`='IGNORE_ARTICLES'))",false);
+      db_sqlcommand("UPDATE `photo_albums` SET `sort_title` = trim_article(`title`,(SELECT `value` FROM `system_prefs` WHERE `name`='IGNORE_ARTICLES'))",false);
+      db_sqlcommand("UPDATE `tv` SET `sort_title` = trim_article(`title`,(SELECT `value` FROM `system_prefs` WHERE `name`='IGNORE_ARTICLES'))",false);
+      db_sqlcommand("UPDATE `tv` SET `sort_programme` = trim_article(`programme`,(SELECT `value` FROM `system_prefs` WHERE `name`='IGNORE_ARTICLES'))",false);
 
       set_sys_pref('PC_SCREEN_SIZE',$pc_screen_size);
       set_sys_pref('DATE_FORMAT',$date_format);

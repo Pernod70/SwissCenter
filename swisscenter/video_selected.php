@@ -68,7 +68,7 @@
       {
         switch ($filter)
         {
-          case 'title'              : $menu->add_item( str('REFINE_TITLE')       ,"video_search.php?sort=title",true); break;
+          case 'title'              : $menu->add_item( str('REFINE_TITLE')       ,"video_search.php?sort=sort_title",true); break;
           case 'year'               : $menu->add_item( str('REFINE_YEAR')        ,"video_search.php?sort=year",true); break;
           case 'certificate'        : $menu->add_item( str('REFINE_CERTIFICATE') ,"video_search.php?sort=certificate",true); break;
           case 'external_rating_pc' : $menu->add_item( str('REFINE_RATING')      ,"video_search.php?sort=rating",true); break;
@@ -392,37 +392,37 @@
   $buttons = array();
 
   // Buttons for Next and Previous videos
-  $order = strtoupper(preg_get('/sort=([a-z]+)/', page_hist_previous('url')));
+  $order = strtoupper(preg_get('/sort=([a-z_]+)/', page_hist_previous('url')));
   if (!empty($order))
   {
-    $prev = db_row("select file_id,title from $sql_table".page_hist_previous('sql').
+    $prev = db_row("select file_id,sort_title from $sql_table".page_hist_previous('sql').
                    " and $order < '".db_escape_str($data[0][$order])."'".
-                   " and title != '".db_escape_str($data[0]["TITLE"])."'".
-                   " group by title".
+                   " and sort_title != '".db_escape_str($data[0]["SORT_TITLE"])."'".
+                   " group by sort_title".
                    " having ".viewed_status_predicate( filter_get_name() ).
                    " order by $order desc limit 1");
     if ( !is_array($prev) ) // Return last video
-      $prev = db_row("select file_id,title from $sql_table".page_hist_previous('sql').
-                     " group by title".
+      $prev = db_row("select file_id,sort_title from $sql_table".page_hist_previous('sql').
+                     " group by sort_title".
                      " having ".viewed_status_predicate( filter_get_name() ).
                      " order by $order desc limit 1");
 
-    $next = db_row("select file_id, title from $sql_table".page_hist_previous('sql').
+    $next = db_row("select file_id, sort_title from $sql_table".page_hist_previous('sql').
                    " and $order > '".db_escape_str($data[0][$order])."'".
-                   " and title != '".db_escape_str($data[0]["TITLE"])."'".
-                   " group by title".
+                   " and sort_title != '".db_escape_str($data[0]["SORT_TITLE"])."'".
+                   " group by sort_title".
                    " having ".viewed_status_predicate( filter_get_name() ).
                    " order by $order asc limit 1");
     if ( !is_array($next) ) // Return first video
-      $next = db_row("select file_id,title from $sql_table".page_hist_previous('sql').
-                     " group by title".
+      $next = db_row("select file_id,sort_title from $sql_table".page_hist_previous('sql').
+                     " group by sort_title".
                      " having ".viewed_status_predicate( filter_get_name() ).
                      " order by $order asc limit 1");
 
     if ( is_array($prev) )
-      $buttons[0] = array('text'=>str('PREVIOUS').': '.$prev["TITLE"], 'url'=> url_add_params($this_url, array('type'=>'title', 'name'=>rawurlencode($prev["TITLE"]), 'hist'=>PAGE_HISTORY_REPLACE)) );
+      $buttons[0] = array('text'=>str('PREVIOUS').': '.$prev["SORT_TITLE"], 'url'=> url_add_params($this_url, array('type'=>'sort_title', 'name'=>rawurlencode($prev["SORT_TITLE"]), 'hist'=>PAGE_HISTORY_REPLACE)) );
     if ( is_array($next) )
-      $buttons[1] = array('text'=>str('NEXT').': '.$next["TITLE"], 'url'=> url_add_params($this_url, array('type'=>'title', 'name'=>rawurlencode($next["TITLE"]), 'hist'=>PAGE_HISTORY_REPLACE)) );
+      $buttons[1] = array('text'=>str('NEXT').': '.$next["SORT_TITLE"], 'url'=> url_add_params($this_url, array('type'=>'sort_title', 'name'=>rawurlencode($next["SORT_TITLE"]), 'hist'=>PAGE_HISTORY_REPLACE)) );
   }
 
   if (!isset($_SESSION["shuffle"]) || $_SESSION["shuffle"] == 'off')

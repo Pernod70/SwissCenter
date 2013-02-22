@@ -29,7 +29,6 @@ function search_media_page( $heading, $title, $media_type, $joined_tables, $colu
   $menu      = new menu();
   $data      = array();
   $predicate = page_hist_current('sql');
-  $articles  = get_sys_pref('IGNORE_ARTICLES');
 
   // Contents and ordering of search menu
   $display = $column["display"];
@@ -39,7 +38,7 @@ function search_media_page( $heading, $title, $media_type, $joined_tables, $colu
   // Variables that form the SQL statement
   $main_table     = get_media_table($media_type);
   $main_table_sql = "$main_table media ";
-  $restrict_sql   = "trim_article($display,'$articles') like '$prefix".db_escape_str(str_replace('_','\_',$search))."%' ".$predicate;
+  $restrict_sql   = "$display like '$prefix".db_escape_str(str_replace('_','\_',$search))."%' ".$predicate;
 
   $viewed_sql     = "select concat( sum(if(v.total_viewings>0,1,0)),':',count(*) ) view_status
                      from $main_table_sql $joined_tables";
@@ -61,7 +60,7 @@ function search_media_page( $heading, $title, $media_type, $joined_tables, $colu
     page_error(str('DATABASE_ERROR'));
 
   if ($prefix == '')
-    $valid = mb_strtoupper(join(db_col_to_list(" select distinct upper(substring(trim_article($display,'$articles'),".(mb_strlen($search)+1).",1)) display
+    $valid = mb_strtoupper(join(db_col_to_list(" select distinct upper(substring($display,".(mb_strlen($search)+1).",1)) display
                                                 from $main_table_sql $joined_tables
                                                where $display !='0' and $restrict_sql and ml.media_type=$media_type
                                             group by $display

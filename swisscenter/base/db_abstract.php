@@ -143,9 +143,11 @@
     foreach ($movies as $movie_id)
     {
       if (count($columns)>0)
-        db_sqlcommand("update movies set ".db_array_to_set_list($columns)." where file_id=".$movie_id,false);
+        db_sqlcommand("UPDATE movies SET ".db_array_to_set_list($columns)." WHERE file_id=$movie_id",false);
+      // Set columns used to sort
+      db_sqlcommand("UPDATE movies SET sort_title=trim_article(title,(SELECT `value` FROM `system_prefs` WHERE `name`='IGNORE_ARTICLES')) WHERE file_id=$movie_id",false);
       // Determine whether any details other than title are available
-      db_sqlcommand("update movies set details_available='".(scdb_movie_details_available($movie_id) ? 'Y' : 'N')."' where file_id=".$movie_id,false);
+      db_sqlcommand("UPDATE movies SET details_available='".(scdb_movie_details_available($movie_id) ? 'Y' : 'N')."' WHERE file_id=$movie_id",false);
     }
   }
 
@@ -287,9 +289,12 @@
     foreach ($tv as $tv_id)
     {
       if (count($columns)>0)
-        db_sqlcommand("update tv set ".db_array_to_set_list($columns)." where file_id=".$tv_id,false);
+        db_sqlcommand("UPDATE tv SET ".db_array_to_set_list($columns)." WHERE file_id=$tv_id",false);
+      // Set columns used to sort
+      db_sqlcommand("UPDATE tv SET sort_title=trim_article(title,(SELECT `value` FROM `system_prefs` WHERE `name`='IGNORE_ARTICLES')) WHERE file_id=$tv_id",false);
+      db_sqlcommand("UPDATE tv SET sort_programme=trim_article(programme,(SELECT `value` FROM `system_prefs` WHERE `name`='IGNORE_ARTICLES')) WHERE file_id=$tv_id",false);
       // Determine whether any details other than title are available
-      db_sqlcommand("update tv set details_available='".(scdb_tv_details_available($tv_id) ? 'Y' : 'N')."' where file_id=".$tv_id,false);
+      db_sqlcommand("UPDATE tv SET details_available='".(scdb_tv_details_available($tv_id) ? 'Y' : 'N')."' WHERE file_id=$tv_id",false);
     }
   }
 

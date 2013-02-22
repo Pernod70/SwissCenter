@@ -20,15 +20,15 @@
 
     $browse = array();
     if (get_sys_pref('browse_music_artist_enabled','YES') == 'YES')
-      $browse[] = array('text'=>str('BROWSE_ARTIST'), 'url'=>"music_search.php?sort=artist");
+      $browse[] = array('text'=>str('BROWSE_ARTIST'), 'url'=>"music_search.php?sort=sort_artist");
     if (get_sys_pref('browse_music_album_artist_enabled','YES') == 'YES')
-      $browse[] = array('text'=>str('BROWSE_ALBUM_ARTIST'), 'url'=>"music_search.php?sort=band");
+      $browse[] = array('text'=>str('BROWSE_ALBUM_ARTIST'), 'url'=>"music_search.php?sort=sort_band");
     if (get_sys_pref('browse_music_composer_enabled','YES') == 'YES')
       $browse[] = array('text'=>str('BROWSE_COMPOSER'), 'url'=>"music_search.php?sort=composer");
     if (get_sys_pref('browse_music_album_enabled','YES') == 'YES')
-      $browse[] = array('text'=>str('BROWSE_ALBUM'), 'url'=>"music_search.php?sort=album");
+      $browse[] = array('text'=>str('BROWSE_ALBUM'), 'url'=>"music_search.php?sort=sort_album");
     if (get_sys_pref('browse_music_track_enabled','YES') == 'YES')
-      $browse[] = array('text'=>str('BROWSE_TRACK'), 'url'=>"music_search.php?sort=title");
+      $browse[] = array('text'=>str('BROWSE_TRACK'), 'url'=>"music_search.php?sort=sort_title");
     if (get_sys_pref('browse_music_genre_enabled','YES') == 'YES')
       $browse[] = array('text'=>str('BROWSE_GENRE'), 'url'=>"music_search.php?sort=genre");
     if (get_sys_pref('browse_music_mood_enabled','YES') == 'YES')

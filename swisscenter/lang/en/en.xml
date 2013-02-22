@@ -88,6 +88,16 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>ARTICLES</id>
+        <text>Ignored articles</text>
+        <version>1.24</version>
+      </string>
+      <string>
+        <id>ARTICLES_PROMPT</id>
+        <text>Specify a comma separated list of words (articles) that prefix titles to be ignored when sorting titles. English users may specify 'a,an,the' which would cause a title such as 'The Dark Knight' to be ordered as 'Dark Knight, The'.</text>
+        <version>1.24</version>
+      </string>
+      <string>
         <id>ARTIST</id>
         <text>Artist</text>
         <version>1.19</version>

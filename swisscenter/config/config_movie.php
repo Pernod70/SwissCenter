@@ -242,7 +242,6 @@ function movie_display( $message = '')
   $page        = (empty($_REQUEST["page"]) ? 1 : $_REQUEST["page"]);
   $start       = ($page-1)*$per_page;
   $where       = '';
-  $articles    = get_sys_pref('IGNORE_ARTICLES');
 
   if (empty($message) && isset($_REQUEST["message"]))
     $message = urldecode($_REQUEST["message"]);
@@ -273,7 +272,7 @@ function movie_display( $message = '')
   }
 
   if (empty($_REQUEST["sort"]) || $_REQUEST["sort"] == 'TITLE')
-    $sort = "trim_article(title,'$articles')";
+    $sort = "sort_title";
   else
     $sort = strtolower($_REQUEST["sort"]).' desc';
 
@@ -771,6 +770,10 @@ function movie_info( $message = "")
                                             (isset($parser_pref[$y]) ? $parser_pref[$y] : 'NoParser'),
                                             false, false, false) .
              '</td>';
+      }
+      else
+      {
+        echo '<input type="hidden" name="parser_'.$y.'_'.ParserConstants :: $allMovieConstants[$i]['ID'].' value="NoParser">';
       }
     }
   }

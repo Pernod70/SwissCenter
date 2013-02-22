@@ -113,10 +113,10 @@
     $menu->add_item( str('SELECT_ENTIRE_ALBUM'),'music_select_album.php?name='.rawurlencode($album_name));
 
   // Or refine the tracks further
-  search_check_filter( $menu, str('REFINE_ARTIST'), 'artist', $sql_table, $predicate, $refine_url );
-  search_check_filter( $menu, str('REFINE_COMPOSER'), 'composer', $sql_table, $predicate, $refine_url );
-  search_check_filter( $menu, str('REFINE_ALBUM'),  'album',  $sql_table, $predicate, $refine_url );
-  search_check_filter( $menu, str('REFINE_TITLE'),  'title',  $sql_table, $predicate, $refine_url );
+  search_check_filter( $menu, str('REFINE_ARTIST'), 'sort_artist', $sql_table, $predicate, $refine_url );
+  search_check_filter( $menu, str('REFINE_COMPOSER'), 'composer',  $sql_table, $predicate, $refine_url );
+  search_check_filter( $menu, str('REFINE_ALBUM'),  'sort_album',  $sql_table, $predicate, $refine_url );
+  search_check_filter( $menu, str('REFINE_TITLE'),  'sort_title',  $sql_table, $predicate, $refine_url );
   search_check_filter( $menu, str('REFINE_GENRE'),  'genre',  $sql_table, $predicate, $refine_url );
   search_check_filter( $menu, str('REFINE_MOOD'),   'mood',   $sql_table, $predicate, $refine_url );
   search_check_filter( $menu, str('REFINE_YEAR'),   'year',   $sql_table, $predicate, $refine_url );

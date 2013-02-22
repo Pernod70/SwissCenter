@@ -7,33 +7,32 @@
 
   $column        = $_REQUEST["sort"];
   $joined_tables = get_rating_join().viewed_join(MEDIA_TYPE_VIDEO);
-  $articles      = get_sys_pref('IGNORE_ARTICLES');
 
   $search = array();
   switch ($column)
   {
-    case "title":
+    case "sort_title":
       $title  = str('TITLE');
-      $search = array("display" => "title",
+      $search = array("display" => "sort_title",
                       "info"    => "year",
-                      "order"   => "trim_article(display,'$articles')");
+                      "order"   => "display");
       break;
     case "year":
       $title  = str('TITLE');
-      $search = array("display" => "title",
+      $search = array("display" => "sort_title",
                       "info"    => "year",
-                      "order"   => "info desc, trim_article(display,'$articles')");
+                      "order"   => "info desc, sort_title");
       break;
     case "genre":
     case "actor":
     case "director":
-      $title  = str(mb_strtoupper($column));
+      $title  = str($column);
       $search = array("display" => $column."_name",
                       "info"    => "count(distinct synopsis)",
                       "order"   => "display");
       break;
     case "certificate":
-      $title  = str(mb_strtoupper($column));
+      $title  = str($column);
 //    $search = array("display" => "IFNULL((select name from certificates where rank >= media_cert.rank and scheme = '".get_rating_scheme_name()."' order by rank limit 1),(select name from certificates where rank >= unrated_cert.rank and scheme = '".get_rating_scheme_name()."' order by rank limit 1))",
       $search = array("display" => "IFNULL(media_cert.name,unrated_cert.name)",
                       "info"    => "count(distinct synopsis)",
@@ -41,19 +40,19 @@
       break;
     case "rating":
       $title  = str('TITLE');
-      $search = array("display" => "title",
+      $search = array("display" => "sort_title",
                       "info"    => "truncate(external_rating_pc/10,1)",
-                      "order"   => "info desc, trim_article(display,'$articles')");
+                      "order"   => "info desc, sort_title");
       break;
     case "discovered":
       $title  = str('TITLE');
-      $search = array("display" => "title",
+      $search = array("display" => "sort_title",
                       "info"    => "date_format(discovered,'".get_sys_pref('DATE_FORMAT','%d%b%y')."')",
                       "order"   => "discovered desc");
       break;
     case "timestamp":
       $title  = str('TITLE');
-      $search = array("display" => "title",
+      $search = array("display" => "sort_title",
                       "info"    => "date_format(timestamp,'".get_sys_pref('DATE_FORMAT','%d%b%y')."')",
                       "order"   => "timestamp desc");
       break;

@@ -17,7 +17,6 @@ function subtitles_display( $message = '')
   $page        = (empty($_REQUEST["page"]) ? 1 : $_REQUEST["page"]);
   $start       = ($page-1)*$per_page;
   $where       = '';
-  $articles    = get_sys_pref('IGNORE_ARTICLES');
   $user_lang   = substr(get_sys_pref('DEFAULT_LANGUAGE','en'),0,2);
   $search_lang = isset($_REQUEST["lang"]) ? $_REQUEST["lang"] : '';
   $method      = isset($_REQUEST["method"]) ? $_REQUEST["method"] : 'hash';
@@ -59,7 +58,7 @@ function subtitles_display( $message = '')
 
   // SQL to fetch matching rows
   $movie_list  = db_toarray("select m.* from movies m, media_locations ml where ml.location_id = m.location_id ".$where.
-                            " order by trim_article(title,'$articles')");
+                            " order by sort_title");
   $movie_count = count($movie_list);
   $movie_list = array_slice($movie_list, $start, $per_page);
 
