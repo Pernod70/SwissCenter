@@ -36,36 +36,34 @@ class tv_series_picker extends list_picker
   function icon($item)
   {
     $viewed_sql = "select concat( sum(if(v.total_viewings>0,1,0)),':',count(*) ) view_status from tv media ".viewed_join(MEDIA_TYPE_TV);
-    $viewed = explode(':',db_value($viewed_sql." where programme='".db_escape_str($item)."'"));
+    $viewed = explode(':',db_value($viewed_sql." where sort_programme='".db_escape_str($item)."'"));
     return viewed_icon($viewed[0], $viewed[1]);
   }
 
   function data_list( $search_string, $start, $end)
   {
-    $articles = get_sys_pref('IGNORE_ARTICLES');
-    $sql = "select programme
+    $sql = "select sort_programme
               from tv media ".get_rating_join().viewed_join(MEDIA_TYPE_TV)."
-             where trim_article(programme,'$articles') like '".db_escape_str($search_string)."'
+             where sort_programme like '".db_escape_str($search_string)."'
                    ".get_rating_filter()."
                    ".category_select_sql($_REQUEST["cat"], MEDIA_TYPE_TV)."
                    ".filter_get_predicate()."
-          group by programme
+          group by sort_programme
             having ".viewed_status_predicate( filter_get_name() )."
-          order by trim_article(programme,'$articles') limit $start,$end";
+          order by sort_programme limit $start,$end";
 
     return db_col_to_list($sql);
   }
 
   function data_count( $search_string )
   {
-    $articles = get_sys_pref('IGNORE_ARTICLES');
-    $sql = "select programme
+    $sql = "select sort_programme
               from tv media ".get_rating_join().viewed_join(MEDIA_TYPE_TV)."
-             where trim_article(programme,'$articles') like '".db_escape_str($search_string)."'
+             where sort_programme like '".db_escape_str($search_string)."'
                    ".get_rating_filter()."
                    ".category_select_sql($_REQUEST["cat"], MEDIA_TYPE_TV)."
                    ".filter_get_predicate()."
-          group by programme
+          group by sort_programme
             having ".viewed_status_predicate( filter_get_name() );
 
     return count(db_col_to_list($sql));
@@ -73,14 +71,13 @@ class tv_series_picker extends list_picker
 
   function data_valid_chars( $search_string )
   {
-    $articles = get_sys_pref('IGNORE_ARTICLES');
-    $sql = " select distinct upper(substring(trim_article(programme,'$articles'),".(mb_strlen($search_string)).",1))
+    $sql = " select distinct upper(substring(sort_programme,".(mb_strlen($search_string)).",1))
                from tv media ".get_rating_join().viewed_join(MEDIA_TYPE_TV)."
-              where trim_article(programme,'$articles') like '".db_escape_str($search_string)."'
+              where sort_programme like '".db_escape_str($search_string)."'
                    ".get_rating_filter()."
                    ".category_select_sql($_REQUEST["cat"], MEDIA_TYPE_TV)."
                    ".filter_get_predicate()."
-          group by programme
+          group by sort_programme
             having ".viewed_status_predicate( filter_get_name() )."
            order by 1";
 

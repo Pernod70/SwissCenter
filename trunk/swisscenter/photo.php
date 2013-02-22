@@ -20,7 +20,7 @@
 
     $browse = array();
     if (get_sys_pref('browse_photo_album_enabled','YES') == 'YES')
-      $browse[] = array('text'=>str('BROWSE_PHOTO_ALBUM'), 'url'=>"photo_search.php?sort=title");
+      $browse[] = array('text'=>str('BROWSE_PHOTO_ALBUM'), 'url'=>"photo_search.php?sort=sort_title");
     if (get_sys_pref('browse_photo_title_enabled','YES') == 'YES')
       $browse[] = array('text'=>str('BROWSE_PHOTO_TITLE'), 'url'=>"photo_search.php?sort=filename");
     if (get_sys_pref('browse_iptc_byline_enabled','YES') == 'YES')

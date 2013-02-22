@@ -11,6 +11,7 @@
 
   $menu        = new menu();
   $programme   = un_magic_quote($_REQUEST["programme"]);
+  $programme   = db_value("select programme from tv where sort_programme='".db_escape_str($programme)."'");
   $view_status = isset($_REQUEST["view_status"]) ? $_REQUEST["view_status"] : 'all';
   $page        = isset($_REQUEST["page"]) ? $_REQUEST["page"] : 1;
   $predicate   = get_rating_filter().category_select_sql($_REQUEST["cat"], MEDIA_TYPE_TV).filter_get_predicate();

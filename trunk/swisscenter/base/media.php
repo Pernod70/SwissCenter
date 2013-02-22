@@ -490,7 +490,7 @@ function process_mp3( $dir, $id, $file)
   $data['filename']     = encode_utf8($file);
   $data['location_id']  = $id;
   $data['title']        = file_noext($data['filename']);
-  $data['size']         = filesize($dir.$file);
+  $data['size']         = $id3['filesize'];
   $data['verified']     = 'Y';
   $data['discovered']   = db_datestr();
   $data['timestamp']    = db_datestr(filemtime($filepath));
@@ -500,7 +500,6 @@ function process_mp3( $dir, $id, $file)
     if (in_array( $id3['fileformat'], media_exts_with_GetID3_support() ))
     {
       // ID3 data successfully obtained, so enter it into the database
-      $data['size']         = $id3['filesize'];
       $data['length']       = floor($id3['playtime_seconds']);
       $data['lengthstring'] = $id3['playtime_string'];
       $data['bitrate']      = floor($id3['bitrate']);
@@ -659,11 +658,19 @@ function process_mp3( $dir, $id, $file)
   {
     // Insert the row into the database
     send_to_log(5,'Adding MP3    : '.$file);
-    $success = db_insert_row( 'mp3s', $data);
+    $success = $file_id = db_insert_row( 'mp3s', $data);
   }
 
   if ( !$success )
     send_to_log(2,'Unable to add/update MP3 to the database');
+  else
+  {
+    // Set columns used to sort
+    db_sqlcommand("UPDATE `mp3s` SET `sort_title` = trim_article(`title`,(SELECT `value` FROM `system_prefs` WHERE `name`='IGNORE_ARTICLES') where file_id=$file_id)");
+    db_sqlcommand("UPDATE `mp3s` SET `sort_artist` = trim_article(`artist`,(SELECT `value` FROM `system_prefs` WHERE `name`='IGNORE_ARTICLES') where file_id=$file_id)");
+    db_sqlcommand("UPDATE `mp3s` SET `sort_album` = trim_article(`album`,(SELECT `value` FROM `system_prefs` WHERE `name`='IGNORE_ARTICLES') where file_id=$file_id)");
+    db_sqlcommand("UPDATE `mp3s` SET `sort_band` = trim_article(`band`,(SELECT `value` FROM `system_prefs` WHERE `name`='IGNORE_ARTICLES') where file_id=$file_id)");
+  }
 }
 
 /**
@@ -677,7 +684,7 @@ function add_photo_album( $dir, $id )
 {
   $media_loc = db_value("select name from media_locations where location_id=$id");
   $title     = str_replace('/', ':', trim(mb_substr($dir, mb_strlen($media_loc)+1), '/'));
-  $row       = array('dirname'      => encode_utf8($dir)
+  $data      = array('dirname'      => encode_utf8($dir)
                     ,'title'        => encode_utf8($title)
                     ,'verified'     => 'Y'
                     ,'discovered'   => db_datestr()
@@ -685,18 +692,20 @@ function add_photo_album( $dir, $id )
                     ,'location_id'  => $id
                     );
 
-  send_to_log(6,'Adding photo album "'.$title.'"');
+  send_to_log(6,'Adding photo album "'.$data['title'].'"');
 
-  $file_id = db_value("select file_id from photo_albums where dirname='".db_escape_str($row['dirname'])."'");
+  $file_id = db_value("select file_id from photo_albums where dirname='".db_escape_str($data['dirname'])."'");
   if ( $file_id )
-  {
-    if ( db_update_row( 'photo_albums', $file_id, $row) === false )
-      send_to_log(1,'Unable to update photo album to the database');
-  }
+    $success = db_update_row( 'photo_albums', $file_id, $data);
+  else
+    $success = $file_id = db_insert_row( 'photo_albums', $data);
+
+  if ( !$success )
+    send_to_log(1,'Unable to add/update photo album to the database');
   else
   {
-    if ( db_insert_row( 'photo_albums', $row) === false )
-      send_to_log(1,'Unable to add photo album to the database');
+    // Set columns used to sort
+    db_sqlcommand("UPDATE `photo_albums` SET `sort_title` = trim_article(`title`,(SELECT `value` FROM `system_prefs` WHERE `name`='IGNORE_ARTICLES') where file_id=$file_id)");
   }
 }
 
@@ -734,7 +743,7 @@ function process_photo( $dir, $id, $file)
   $data['dirname']      = encode_utf8($dir);
   $data['filename']     = encode_utf8($file);
   $data['location_id']  = $id;
-  $data['size']         = filesize($dir.$file);
+  $data['size']         = $id3['filesize'];
   $data['verified']     = 'Y';
   $data['discovered']   = db_datestr();
   $data['timestamp']    = db_datestr(filemtime($filepath));
@@ -794,7 +803,6 @@ function process_photo( $dir, $id, $file)
       }
 
       // File Info successfully obtained, so enter it into the database
-      $data['size']                = $id3['filesize'];
       $data['width']               = $id3['video']['resolution_x'];
       $data['height']              = $id3['video']['resolution_y'];
       $data['date_modified']       = filemtime($filepath);
@@ -948,7 +956,7 @@ function process_movie( $dir, $id, $file )
   $data['dirname']      = encode_utf8($dir);
   $data['filename']     = encode_utf8($file);
   $data['location_id']  = $id;
-  $data['size']         = filesize($dir.$file);
+  $data['size']         = $id3['filesize'];
   $data['verified']     = 'Y';
   $data['discovered']   = db_datestr();
   $data['timestamp']    = db_datestr(filemtime($filepath));
@@ -962,7 +970,6 @@ function process_movie( $dir, $id, $file )
     {
       // Tag data successfully obtained, so record the following information
       getid3_lib::CopyTagsToComments($id3);
-      $data['size']          = $id3['filesize'];
       $data['length']        = $id3['playtime_seconds'];
       $data['lengthstring']  = $id3['playtime_string'];
       $data['audio_channels']= $id3['audio']['channels'];
@@ -1050,7 +1057,7 @@ function process_movie( $dir, $id, $file )
 
     // Insert the row into the database
     send_to_log(5,'Adding Video   : '.$file);
-    $success = db_insert_row( 'movies', $data);
+    $success = $file_id = db_insert_row( 'movies', $data);
   }
 
   if ( $success )
@@ -1077,6 +1084,8 @@ function process_movie( $dir, $id, $file )
       send_to_log(5,'Importing video details: '.$filename);
       import_movie_from_xml($file_id, $filename);
     }
+    // Set columns used to sort
+    db_sqlcommand("UPDATE `movies` SET `sort_title` = trim_article(`title`,(SELECT `value` FROM `system_prefs` WHERE `name`='IGNORE_ARTICLES') where file_id=$file_id)");
   }
   else
     send_to_log(1,'Unable to add/update movie to the database');
@@ -1203,7 +1212,7 @@ function process_tv( $dir, $id, $file)
   $data['filename']     = encode_utf8($file);
   $data['title']        = file_noext($data['filename']);
   $data['location_id']  = $id;
-  $data['size']         = filesize($dir.$file);
+  $data['size']         = $id3['filesize'];
   $data['verified']     = 'Y';
   $data['discovered']   = db_datestr();
   $data['timestamp']    = db_datestr(filemtime($filepath));
@@ -1223,7 +1232,6 @@ function process_tv( $dir, $id, $file)
     {
       // Tag data successfully obtained, so record the following information
       getid3_lib::CopyTagsToComments($id3);
-      $data['size']          = $id3['filesize'];
       $data['length']        = $id3['playtime_seconds'];
       $data['lengthstring']  = $id3['playtime_string'];
       $data['audio_channels']= $id3['audio']['channels'];
@@ -1257,7 +1265,7 @@ function process_tv( $dir, $id, $file)
   {
     // Insert the row into the database
     send_to_log(5,'Adding TV episode    : '.$file);
-    $success = db_insert_row( 'tv', $data);
+    $success = $file_id = db_insert_row( 'tv', $data);
   }
 
   if ( !$success )
@@ -1268,11 +1276,12 @@ function process_tv( $dir, $id, $file)
     $filename = substr($dir.$file,0,strrpos($dir.$file,'.')).'.xml';
     if ( file_exists($filename) )
     {
-      if ( !$file_id )
-        $file_id = db_value("select file_id from tv where dirname='".db_escape_str($data['dirname'])."' and filename='".db_escape_str($data['filename'])."'");
       send_to_log(5,'Importing TV episode details');
       import_tv_from_xml($file_id, $filename);
     }
+    // Set columns used to sort
+    db_sqlcommand("UPDATE `tv` SET `sort_title` = trim_article(`title`,(SELECT `value` FROM `system_prefs` WHERE `name`='IGNORE_ARTICLES') where file_id=$file_id)");
+    db_sqlcommand("UPDATE `tv` SET `sort_programme` = trim_article(`programme`,(SELECT `value` FROM `system_prefs` WHERE `name`='IGNORE_ARTICLES') where file_id=$file_id)");
   }
 }
 

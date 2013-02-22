@@ -7,43 +7,47 @@
 
   $column        = $_REQUEST["sort"];
   $joined_tables = get_rating_join().viewed_join(MEDIA_TYPE_MUSIC);
-  $articles      = get_sys_pref('IGNORE_ARTICLES');
 
   $search = array();
   switch ($column)
   {
-    case "album":
-    case "band":
-    case "artist":
+    case "sort_album":
+    case "sort_band":
+    case "sort_artist":
+      $title  = str(str_replace('sort_','',$column));
+      $search = array("display" => $column,
+                      "info"    => "count(filename)",
+                      "order"   => "display");
+      break;
     case "genre":
     case "mood":
     case "composer":
-      $title  = str(mb_strtoupper($column));
+      $title  = str($column);
       $search = array("display" => $column,
                       "info"    => "count(filename)",
-                      "order"   => "trim_article(display,'$articles')");
+                      "order"   => "display");
       break;
     case "year":
-      $title  = str(mb_strtoupper($column));
+      $title  = str($column);
       $search = array("display" => $column,
                       "info"    => "count(filename)",
                       "order"   => "display desc");
       break;
-    case "title":
+    case "sort_title":
       $title  = str('TRACK_NAME');
-      $search = array("display" => "title",
+      $search = array("display" => "sort_title",
                       "info"    => "year",
-                      "order"   => "trim_article(display,'$articles')");
+                      "order"   => "sort_title");
       break;
     case "discovered":
       $title  = str('TRACK_NAME');
-      $search = array("display" => "title",
+      $search = array("display" => "sort_title",
                       "info"    => "date_format(discovered,'".get_sys_pref('DATE_FORMAT','%d%b%y')."')",
                       "order"   => "discovered desc");
       break;
     case "timestamp":
       $title  = str('TRACK_NAME');
-      $search = array("display" => "title",
+      $search = array("display" => "sort_title",
                       "info"    => "date_format(timestamp,'".get_sys_pref('DATE_FORMAT','%d%b%y')."')",
                       "order"   => "timestamp desc");
       break;

@@ -20,7 +20,7 @@
 
     $browse = array();
     if (get_sys_pref('browse_video_title_enabled','YES') == 'YES')
-      $browse[] = array('text'=>str('BROWSE_TITLE'), 'url'=>"video_search.php?sort=title");
+      $browse[] = array('text'=>str('BROWSE_TITLE'), 'url'=>"video_search.php?sort=sort_title");
     if (get_sys_pref('browse_video_actor_enabled','YES') == 'YES')
       $browse[] = array('text'=>str('BROWSE_ACTOR'), 'url'=>"video_search.php?sort=actor");
     if (get_sys_pref('browse_video_director_enabled','YES') == 'YES')

@@ -119,7 +119,7 @@ function tv_lookup()
 
   // Determine the part of the path to process for metadata about the episode.
   $media_loc   = db_value("select name from media_locations where location_id=".$details["LOCATION_ID"]);
-  $meta_fsp    = substr($details["DIRNAME"],strlen($media_loc)+1).file_noext($details["FILENAME"]);
+  $meta_fsp    = mb_substr($details["DIRNAME"],mb_strlen($media_loc)+1).file_noext($details["FILENAME"]);
   $parsed      = get_tvseries_info( $meta_fsp );
   $details_str = $details["PROGRAMME"].$details["SERIES"].$details["EPISODE"].$details["TITLE"];
   $parsed_str  = $parsed["programme"].$parsed["series"].$parsed["episode"].$parsed["title"];
@@ -253,7 +253,6 @@ function tv_display( $message = '')
   $page        = (empty($_REQUEST["page"]) ? 1 : $_REQUEST["page"]);
   $start       = ($page-1)*$per_page;
   $where       = '';
-  $articles    = get_sys_pref('IGNORE_ARTICLES');
 
   if (empty($message) && isset($_REQUEST["message"]))
     $message = urldecode($_REQUEST["message"]);
@@ -285,7 +284,7 @@ function tv_display( $message = '')
   }
 
   if (empty($_REQUEST["sort"]) || $_REQUEST["sort"] == 'TITLE')
-    $sort = "trim_article(programme,'$articles'), series, episode";
+    $sort = "sort_programme, series, episode";
   else
     $sort = strtolower($_REQUEST["sort"]).' desc';
 
@@ -319,7 +318,7 @@ function tv_display( $message = '')
   form_hidden('action','DISPLAY');
   form_hidden('last_where',$where);
   echo  str('PROGRAMME').' :
-        '.form_list_dynamic_html("prog","select distinct programme id, programme name from tv order by trim_article(programme,'$articles')",un_magic_quote($_REQUEST["prog"]),true,true,str('PROGRAMME_LIST_ALL')).'<br>
+        '.form_list_dynamic_html("prog","select distinct programme id, programme name from tv order by sort_programme",un_magic_quote($_REQUEST["prog"]),true,true,str('PROGRAMME_LIST_ALL')).'<br>
         '.str('FILTER').' :
         '.form_list_static_html("filter",$filter_list,$_REQUEST["filter"],true,true,str('VIEW_ALL')).'&nbsp;
         '.str('SORT').' :
@@ -789,6 +788,10 @@ function tv_info( $message = "")
                                             (isset($parser_pref[$y]) ? $parser_pref[$y] : 'NoParser'),
                                             false, false, false) .
              '</td>';
+      }
+      else
+      {
+        echo '<input type="hidden" name="parser_'.$y.'_'.ParserConstants :: $allTvConstants[$i]['ID'].' value="NoParser">';
       }
     }
   }
