@@ -31,8 +31,8 @@ class tunein extends iradio {
     $this->iradio();
     $this->set_site('opml.radiotime.com');
     $this->set_type(IRADIO_TUNEIN);
-    $this->serial = str_replace(':','',$_SESSION["device"]["mac_addr"]);
     $this->username = get_user_pref('RADIOTIME_USERNAME');
+    $this->serial = md5($_SESSION["device"]["agent_string"]);
     $this->search_baseparams = '?partnerId='.$this->partner_id.'&serial='.$this->serial.'&username='.$this->username.'&render=json&filter=s&locale='.substr(get_sys_pref('DEFAULT_LANGUAGE','en'),0,2);
   }
 
