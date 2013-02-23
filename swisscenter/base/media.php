@@ -666,10 +666,10 @@ function process_mp3( $dir, $id, $file)
   else
   {
     // Set columns used to sort
-    db_sqlcommand("UPDATE `mp3s` SET `sort_title` = trim_article(`title`,(SELECT `value` FROM `system_prefs` WHERE `name`='IGNORE_ARTICLES') where file_id=$file_id)");
-    db_sqlcommand("UPDATE `mp3s` SET `sort_artist` = trim_article(`artist`,(SELECT `value` FROM `system_prefs` WHERE `name`='IGNORE_ARTICLES') where file_id=$file_id)");
-    db_sqlcommand("UPDATE `mp3s` SET `sort_album` = trim_article(`album`,(SELECT `value` FROM `system_prefs` WHERE `name`='IGNORE_ARTICLES') where file_id=$file_id)");
-    db_sqlcommand("UPDATE `mp3s` SET `sort_band` = trim_article(`band`,(SELECT `value` FROM `system_prefs` WHERE `name`='IGNORE_ARTICLES') where file_id=$file_id)");
+    db_sqlcommand("UPDATE `mp3s` SET `sort_title` = trim_article(`title`,(SELECT `value` FROM `system_prefs` WHERE `name`='IGNORE_ARTICLES')) where file_id=$file_id");
+    db_sqlcommand("UPDATE `mp3s` SET `sort_artist` = trim_article(`artist`,(SELECT `value` FROM `system_prefs` WHERE `name`='IGNORE_ARTICLES')) where file_id=$file_id");
+    db_sqlcommand("UPDATE `mp3s` SET `sort_album` = trim_article(`album`,(SELECT `value` FROM `system_prefs` WHERE `name`='IGNORE_ARTICLES')) where file_id=$file_id");
+    db_sqlcommand("UPDATE `mp3s` SET `sort_band` = trim_article(`band`,(SELECT `value` FROM `system_prefs` WHERE `name`='IGNORE_ARTICLES')) where file_id=$file_id");
   }
 }
 
@@ -705,7 +705,7 @@ function add_photo_album( $dir, $id )
   else
   {
     // Set columns used to sort
-    db_sqlcommand("UPDATE `photo_albums` SET `sort_title` = trim_article(`title`,(SELECT `value` FROM `system_prefs` WHERE `name`='IGNORE_ARTICLES') where file_id=$file_id)");
+    db_sqlcommand("UPDATE `photo_albums` SET `sort_title` = trim_article(`title`,(SELECT `value` FROM `system_prefs` WHERE `name`='IGNORE_ARTICLES')) where file_id=$file_id");
   }
 }
 
@@ -1085,7 +1085,7 @@ function process_movie( $dir, $id, $file )
       import_movie_from_xml($file_id, $filename);
     }
     // Set columns used to sort
-    db_sqlcommand("UPDATE `movies` SET `sort_title` = trim_article(`title`,(SELECT `value` FROM `system_prefs` WHERE `name`='IGNORE_ARTICLES') where file_id=$file_id)");
+    db_sqlcommand("UPDATE `movies` SET `sort_title` = trim_article(`title`,(SELECT `value` FROM `system_prefs` WHERE `name`='IGNORE_ARTICLES')) where file_id=$file_id");
   }
   else
     send_to_log(1,'Unable to add/update movie to the database');
@@ -1280,8 +1280,8 @@ function process_tv( $dir, $id, $file)
       import_tv_from_xml($file_id, $filename);
     }
     // Set columns used to sort
-    db_sqlcommand("UPDATE `tv` SET `sort_title` = trim_article(`title`,(SELECT `value` FROM `system_prefs` WHERE `name`='IGNORE_ARTICLES') where file_id=$file_id)");
-    db_sqlcommand("UPDATE `tv` SET `sort_programme` = trim_article(`programme`,(SELECT `value` FROM `system_prefs` WHERE `name`='IGNORE_ARTICLES') where file_id=$file_id)");
+    db_sqlcommand("UPDATE `tv` SET `sort_title` = trim_article(`title`,(SELECT `value` FROM `system_prefs` WHERE `name`='IGNORE_ARTICLES')) where file_id=$file_id");
+    db_sqlcommand("UPDATE `tv` SET `sort_programme` = trim_article(`programme`,(SELECT `value` FROM `system_prefs` WHERE `name`='IGNORE_ARTICLES')) where file_id=$file_id");
   }
 }
 
