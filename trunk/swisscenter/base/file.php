@@ -159,7 +159,7 @@ function large_filesize( $fsp )
 
 function newline()
 {
-  if ( substr(PHP_OS,0,3)=='WIN' )
+  if ( is_windows() )
     return "\r\n";
   else
     return "\n";
@@ -237,7 +237,7 @@ function bookmark_file( $fsp )
 
 function make_abs_file( $fsp, $dir )
 {
-  if ( substr(PHP_OS,0,3)=='WIN' )
+  if ( is_windows() )
   {
     if (substr($fsp,0,2) == '\\\\' || substr($fsp,1,2) == ':\\')
       return $fsp;
@@ -262,7 +262,7 @@ function make_abs_file( $fsp, $dir )
 
 function paths_to_array( $path_str )
 {
-  if ( substr(PHP_OS,0,3)=='WIN' )
+  if ( is_windows() )
     return explode(';', $path_str);
   else
     return explode(':', $path_str);
@@ -678,7 +678,7 @@ function file_albumart( $fsp, $default_image = true )
     $return = find_in_dir($fsp, db_col_to_list("select filename from art_files"));
 
     // No albumart for this folder found... is there albumart for the parent folder?
-    if ($return === false && dirname($fsp) != $fsp)
+    if (empty($return) && dirname($fsp) != $fsp)
       $return = file_albumart(dirname($fsp));
   }
   else
@@ -704,11 +704,11 @@ function file_albumart( $fsp, $default_image = true )
           break;
 
       // No albumart found for this specific file.. is there albumart for the directory?
-      if ($return == '')
+      if (empty($return) && dirname($fsp) != $fsp)
         $return = file_albumart(dirname($fsp));
 
       // OK, give up! Use a standard picture based on the filetype.
-      if ($return == '' && $default_image)
+      if (empty($return) && $default_image)
       {
         if ( in_array(strtolower(file_ext($fsp)), media_exts_movies()) )
           $return = style_img('MISSING_FILM_ART',true,false);
@@ -852,7 +852,7 @@ function normalize_path( $dir )
 
 function bgrun_location()
 {
-  if (is_windows())
+  if ( is_windows() )
     return os_path(SC_LOCATION.'ext/bgrun/bgrun.exe');
   else
     return '';
@@ -870,9 +870,9 @@ function wget_location($system_setting = true)
     return get_sys_pref('WGET_PATH', wget_location(false));
   else
   {
-    if (is_windows())
+    if ( is_windows() )
       return os_path(SC_LOCATION.'ext/wget/wget.exe');
-    elseif (is_synology())
+    elseif ( is_synology() )
       return trim(exec("which wget | grep '^/' | head -1"));
     else
       return trim(shell_exec("which wget | grep '^/' | head -1"));
