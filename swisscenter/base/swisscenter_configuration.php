@@ -9,15 +9,15 @@
 
   class Swisscenter_Configuration
   {
-    var $xml;
-    var $settings_path = '/swisscenter[1]/config[1]';
+    private $xml;
+    private $settings_path = '/swisscenter[1]/config[1]';
 
     /**
      * Constructor
      *
      */
 
-    function Swisscenter_configuration( $fsp = '')
+    public function Swisscenter_configuration( $fsp = '')
     {
       @set_magic_quotes_runtime(0);
       $options = array(XML_OPTION_CASE_FOLDING => TRUE, XML_OPTION_SKIP_WHITE => TRUE);
@@ -35,7 +35,7 @@
      * @return string - returns XML data or FALSE on error.
      */
 
-    function save_to_file( $filename )
+    public function save_to_file( $filename )
     {
       return $this->xml->exportToFile( $filename );
     }
@@ -46,9 +46,43 @@
      * @return string - returns XML data or FALSE on error.
      */
 
-    function get_xml()
+    public function get_xml()
     {
       return $this->xml->exportAsXml();
+    }
+
+    private function iradio_type($iradio_type)
+    {
+      switch ($iradio_type)
+      {
+        case 'SHOUTcast':
+          return IRADIO_SHOUTCAST;
+        case 'LiveRadio':
+          return IRADIO_LIVERADIO;
+        case 'Live365':
+          return IRADIO_LIVE365;
+        case 'IceCast':
+          return IRADIO_ICECAST;
+        case 'Steamcast':
+          return IRADIO_STEAMCAST;
+        case 'TuneIn':
+          return IRADIO_TUNEIN;
+
+        case IRADIO_SHOUTCAST:
+          return 'SHOUTcast';
+        case IRADIO_LIVERADIO:
+          return 'LiveRadio';
+        case IRADIO_LIVE365:
+          return 'Live365';
+        case IRADIO_ICECAST:
+          return 'IceCast';
+        case IRADIO_STEAMCAST:
+          return 'Steamcast';
+        case IRADIO_TUNEIN:
+          return 'TuneIn';
+        default:
+          return '';
+      }
     }
 
     /**
@@ -56,7 +90,7 @@
      *
      */
 
-    function export_sys_prefs()
+    private function export_sys_prefs()
     {
       $xpath = $this->xml->appendChild($this->settings_path,'<system />');
       $data = db_toarray("select * from system_prefs where name not like 'LANG_CHKSUM%' order by name");
@@ -72,7 +106,7 @@
      *
      */
 
-    function export_users()
+    private function export_users()
     {
       $xpath = $this->xml->appendChild($this->settings_path,'<users />');
       $data = db_toarray("select u.user_id, u.name username, c.name certificate, c.scheme, u.pin, u.admin from users u, certificates c where u.maxcert = c.cert_id");
@@ -80,7 +114,7 @@
       {
         foreach ($data as $row)
         {
-          $user_path = $this->xml->appendChild($xpath,'<user name="'.xmlspecialchars($row["USERNAME"].'"/>'));
+          $user_path = $this->xml->appendChild($xpath,'<user name="'.xmlspecialchars($row["USERNAME"]).'"/>');
           $this->xml->appendChild($user_path, '<max_cert scheme="'.xmlspecialchars($row["SCHEME"]).'">'.$row["CERTIFICATE"].'</max_cert>');
           $this->xml->appendChild($user_path, '<pin>'.$row["PIN"].'</pin>');
           $this->xml->appendChild($user_path, '<admin>'.$row["ADMIN"].'</admin>');
@@ -100,7 +134,7 @@
      *
      */
 
-    function export_certificates()
+    private function export_certificates()
     {
      $xpath = $this->xml->appendChild( $this->settings_path,'<certificates />');
      $data = db_toarray("select distinct scheme from certificates");
@@ -128,7 +162,7 @@
      *
      */
 
-    function export_categories()
+    private function export_categories()
     {
       $xpath = $this->xml->appendChild($this->settings_path,'<categories />');
       $data = db_toarray("select c.cat_name, p.cat_name PARENT, c.download_info, c.parent_id from categories c, categories p where c.parent_id=p.cat_id");
@@ -154,7 +188,7 @@
      * @param string $xpath
      */
 
-    function export_artfiles()
+    private function export_artfiles()
     {
       $xpath = $this->xml->appendChild($this->settings_path,'<artfiles />');
       $data = db_toarray("select * from art_files");
@@ -170,7 +204,7 @@
      *
      */
 
-    function export_media_locations()
+    private function export_media_locations()
     {
       $xpath = $this->xml->appendChild($this->settings_path,'<media_locations />');
       $data = db_toarray("select  ml.name, cat.cat_name, c.scheme, c.name certificate, mt.media_name, ml.network_share
@@ -197,7 +231,7 @@
      *
      */
 
-    function export_tv_expressions()
+    private function export_tv_expressions()
     {
       $xpath = $this->xml->appendChild($this->settings_path,'<tv_expressions />');
       $data = db_toarray("select  pos, expression from tv_expressions order by pos");
@@ -217,7 +251,7 @@
      *
      */
 
-    function export_rss_subscriptions()
+    private function export_rss_subscriptions()
     {
       $xpath = $this->xml->appendChild($this->settings_path,'<rss_subscriptions />');
       $data = db_toarray("select rs.*, mt.media_name
@@ -242,7 +276,7 @@
      *
      */
 
-    function export_tvid_prefs()
+    private function export_tvid_prefs()
     {
       $xpath = $this->xml->appendChild($this->settings_path,'<tvid_prefs />');
       $data = db_toarray("select * from tvid_prefs where tvid_custom is not null");
@@ -263,7 +297,7 @@
      *
      */
 
-    function export_iradio_stations()
+    private function export_iradio_stations()
     {
       $xpath = $this->xml->appendChild($this->settings_path,'<iradio_stations />');
       $data = db_toarray("select * from iradio_stations");
@@ -272,7 +306,7 @@
         foreach ($data as $row)
         {
           $loc_xpath = $this->xml->appendChild( $xpath,'<station name="'.xmlspecialchars($row["STATION"]).'" />');
-          $this->xml->appendChild( $loc_xpath, '<type>'.$row["IRADIO_TYPE"].'</type>');
+          $this->xml->appendChild( $loc_xpath, '<type>'.$this->iradio_type($row["IRADIO_TYPE"]).'</type>');
           $this->xml->appendChild( $loc_xpath, '<image>'.xmlspecialchars($row["IMAGE"]).'</image>');
         }
       }
@@ -283,7 +317,7 @@
      *
      */
 
-    function export_iradio_genres()
+    private function export_iradio_genres()
     {
       $xpath = $this->xml->appendChild($this->settings_path,'<iradio_genres />');
       $data = db_toarray("select * from iradio_genres");
@@ -302,7 +336,7 @@
      *
      */
 
-    function export_iradio_countries()
+    private function export_iradio_countries()
     {
       $xpath = $this->xml->appendChild($this->settings_path,'<iradio_countries />');
       $data = db_toarray("select * from iradio_countries");
@@ -320,7 +354,7 @@
      *
      */
 
-    function export_ibookmarks()
+    private function export_ibookmarks()
     {
       $xpath = $this->xml->appendChild($this->settings_path,'<ibookmarks />');
       $data = db_toarray("select iu.*, mt.media_name, cat.cat_name, c.scheme, c.name cert_name
@@ -346,7 +380,7 @@
      *
      */
 
-    function export_all()
+    public function export_all()
     {
       $this->export_sys_prefs();
       $this->export_users();
@@ -368,7 +402,7 @@
      *
      */
 
-    function import_categories()
+    private function import_categories()
     {
       $cat_parent = array();
       foreach ($this->xml->match('/swisscenter[1]/config[1]/categories[1]/category') as $abspath)
@@ -394,17 +428,17 @@
      * @return array - Array of errors
      */
 
-    function import_sys_prefs()
+    private function import_sys_prefs()
     {
       // List of settings that should not be imported
-      $exceptions = array('DATABASE_PATCH', 'LAST_UPDATE', 'DATABASE_VERSION', 'UPDATE_AVAILABLE', 'SVN_REVISION');
+      $exceptions = array('DATABASE_', 'LANG_CHKSUM_', 'LAST_UPDATE', 'SVN_REVISION', 'UPDATE_AVAILABLE');
 
       foreach ($this->xml->match('/swisscenter[1]/config[1]/system[1]/setting') as $abspath)
       {
         $attrib = $this->xml->getAttributes($abspath);
         $value = xmlspecialchars_decode($this->xml->getData($abspath));
 
-        if ( !in_array($attrib["NAME"], $exceptions) )
+        if (preg_match('/^('.implode('|',$exceptions).')/i', $attrib["NAME"]) == 0)
         {
           if (db_value("select count(*) from system_prefs where name = '".$attrib["NAME"]."'") == 0)
             db_insert_row('system_prefs',array("name"=>$attrib["NAME"], "value"=>$value));
@@ -420,7 +454,7 @@
      * @return array - Array of errors
      */
 
-    function import_users()
+    private function import_users()
     {
       $errors = array();
       foreach ($this->xml->match('/swisscenter[1]/config[1]/users[1]/user') as $userpath)
@@ -469,7 +503,7 @@
      *
      */
 
-    function import_certificates()
+    private function import_certificates()
     {
       foreach ($this->xml->match('/swisscenter[1]/config[1]/certificates[1]/scheme') as $schemepath)
       {
@@ -494,7 +528,7 @@
      * @return array - Array of errors
      */
 
-    function import_media_locations()
+    private function import_media_locations()
     {
       $errors = array();
       foreach ($this->xml->match('/swisscenter[1]/config[1]/media_locations[1]/location') as $locpath)
@@ -536,7 +570,7 @@
      * @return array - Array of errors
      */
 
-    function import_artfiles()
+    private function import_artfiles()
     {
       $files = db_col_to_list("select filename from art_files");
       foreach ($this->xml->match('/swisscenter[1]/config[1]/artfiles[1]/filename') as $filepath)
@@ -552,7 +586,7 @@
      *
      */
 
-    function import_tv_expressions()
+    private function import_tv_expressions()
     {
       foreach ($this->xml->match('/swisscenter[1]/config[1]/tv_expressions[1]/expression') as $expressionpath)
       {
@@ -571,7 +605,7 @@
      *
      */
 
-    function import_rss_subscriptions()
+    private function import_rss_subscriptions()
     {
       foreach ($this->xml->match('/swisscenter[1]/config[1]/rss_subscriptions[1]/subscription') as $rsspath)
       {
@@ -592,7 +626,7 @@
      *
      */
 
-    function import_tvid_prefs()
+    private function import_tvid_prefs()
     {
       foreach ($this->xml->match('/swisscenter[1]/config[1]/tvid_prefs[1]/tvid') as $tvidpath)
       {
@@ -600,7 +634,7 @@
         $tvid        = $this->xml->getData($tvidpath.'/tvid[1]');
         $tvid_custom = $this->xml->getData($tvidpath.'/tvid_custom[1]');
 
-        if ($tvid_id = db_value("select tvid_id from tvid_prefs where player_type='$player' and tvid_sc='$tvid'"));
+        if (($tvid_id = db_value("select tvid_id from tvid_prefs where player_type='$player' and tvid_sc='$tvid'")) !== false)
         {
           $data["tvid_custom"] = $tvid_custom;
           db_sqlcommand("update tvid_prefs set tvid_custom='$tvid_custom' where tvid_id=$tvid_id");
@@ -613,13 +647,13 @@
      *
      */
 
-    function import_iradio_stations()
+    private function import_iradio_stations()
     {
       foreach ($this->xml->match('/swisscenter[1]/config[1]/iradio_stations[1]/station') as $iradiopath)
       {
         $attrib  = $this->xml->getAttributes($iradiopath);
         $station = xmlspecialchars_decode($attrib["NAME"]);
-        $type    = $this->xml->getData($iradiopath.'/type[1]');
+        $type    = $this->iradio_type($this->xml->getData($iradiopath.'/type[1]'));
         $image   = xmlspecialchars_decode($this->xml->getData($iradiopath.'/image[1]'));
 
         if (db_value("select count(*) from iradio_stations where station='".db_escape_str($station)."'") == 0)
@@ -632,7 +666,7 @@
      *
      */
 
-    function import_iradio_genres()
+    private function import_iradio_genres()
     {
       foreach ($this->xml->match('/swisscenter[1]/config[1]/iradio_genres[1]/genre') as $iradiopath)
       {
@@ -650,7 +684,7 @@
      *
      */
 
-    function import_iradio_countries()
+    private function import_iradio_countries()
     {
       foreach ($this->xml->match('/swisscenter[1]/config[1]/iradio_countries[1]/country') as $iradiopath)
       {
@@ -667,7 +701,7 @@
      *
      */
 
-    function import_ibookmarks()
+    private function import_ibookmarks()
     {
       $errors = array();
       foreach ($this->xml->match('/swisscenter[1]/config[1]/ibookmarks[1]/bookmark') as $ibookmarkpath)
@@ -701,7 +735,7 @@
      *
      */
 
-    function import_all()
+    public function import_all()
     {
       $this->import_artfiles();
       $this->import_categories();
