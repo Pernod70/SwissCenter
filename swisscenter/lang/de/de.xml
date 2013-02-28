@@ -88,6 +88,16 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>ARTICLES</id>
+        <text>Ignorierte Artikel</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>ARTICLES_PROMPT</id>
+        <text>Definition einer durch Komma getrennte Liste von Wörtern (Artikeln), die Filmtiteln voran stehen und bei einer Suche ignoriert werden sollen. Beispielsweise führt die Definition von 'Der,Die,Das' dazu, dass bei der Sortierung nach Titel der Film 'Die Monster AG' als 'Monster AG, Die' angezeigt wird.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>ARTIST</id>
         <text>Interpret</text>
         <version>1.19</version>
