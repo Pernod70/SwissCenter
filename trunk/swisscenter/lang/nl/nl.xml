@@ -88,6 +88,16 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>ARTICLES</id>
+        <text>Genegeerde lidwoorden</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>ARTICLES_PROMPT</id>
+        <text>Geef een door komma's gescheiden lijst van woorden (doorgaans lidwoorden) aan het begin van een titel die genegeerd moeten worden bij het sorteren van de titels. Gedacht worden aan de Nederlandse lidwoorden 'de,een, het'. Een film als &quot;De Tweeling&quot; wordt gesorteerd als &quot;Tweeling, De&quot;.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>ARTIST</id>
         <text>Artiest</text>
         <version>1.19</version>
@@ -2284,6 +2294,16 @@
         <version>1.20</version>
       </string>
       <string>
+        <id>LANG_EXPORT_OK</id>
+        <text>Taal geëxporteerd naar XML</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>LANG_EXPORT_XML</id>
+        <text>Exporteer naar XML</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>LANG_ISO639</id>
         <text>ISO 639-1 code</text>
         <version>1.21.1</version>
@@ -3843,6 +3863,16 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
         <version>1.19</version>
       </string>
       <string>
+        <id>PHP_INFO</id>
+        <text>PHP informatie</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>PHP_INFO_DESC</id>
+        <text>Deze pagina geeft informatie over de versie van PHP die geïnstalleerd is op de server. Het bevat details over de geladen modules, beschikbare variabelen en standaard instellingen. Deze informatie is bruikbaar bij de diagnose van problemen.</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>PHP_VERSION_TEXT</id>
         <text>Versie 4.3.9 of hoger van PHP moet geïnstalleerd zijn</text>
         <version>1.19</version>
@@ -4292,6 +4322,11 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
         <id>QUICK_PLAY</id>
         <text>Snel afspelen</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>RADAR</id>
+        <text>Buienradar</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>RANGE</id>
@@ -6243,6 +6278,11 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
         <id>WATCH_TV</id>
         <text>TV show</text>
         <version>1.22</version>
+      </string>
+      <string>
+        <id>WEATHER</id>
+        <text>Weerbericht</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>WEATHER_5DAY</id>
