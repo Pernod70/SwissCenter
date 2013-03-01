@@ -32,7 +32,7 @@
     form_start('index.php');
     form_hidden('section','ART');
     form_hidden('action','NEW');
-    form_input('name',str('FILENAME'),50,'',un_magic_quote($_REQUEST['name']));
+    form_input('name',str('FILENAME'),50,'',$_REQUEST['name']);
     form_label(str('ART_FILENAME_PROMPT'));
     form_submit(str('ART_FILES_ADD_BUTTON'),2);
     form_end();
@@ -110,7 +110,7 @@
 
   function art_new()
   {
-    $name = un_magic_quote($_REQUEST["name"]);
+    $name = $_REQUEST["name"];
 
     if (empty($name))
       art_display('',"!".str('ART_ERROR_FILENAME'));

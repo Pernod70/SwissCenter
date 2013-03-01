@@ -37,7 +37,7 @@
     {
        // Apply search filter before adding items to list
       if (empty($_REQUEST["search"]) || (!empty($_REQUEST["search"]) &&
-               (strpos(strtoupper($translation['ID'].' '.$translation['BASE_TEXT'].' '.$translation['TRANS_TEXT']),strtoupper(un_magic_quote($_REQUEST["search"])))!==false )) )
+               (strpos(strtoupper($translation['ID'].' '.$translation['BASE_TEXT'].' '.$translation['TRANS_TEXT']),strtoupper($_REQUEST["search"]))!==false )) )
       {
         // Highlight text, Red=Missing, Yellow=Changed, White=Valid
         $key_id = $translation['KEY_ID'];
@@ -68,7 +68,7 @@
     message($message);
     echo '<p>'.str('LANG_PROMPT');
 
-    $this_url = '?search='.urlencode(un_magic_quote($_REQUEST["search"])).'&lang_id='.$lang_id.'&filter='.$_REQUEST["filter"].'&section=LANGUAGE&action=DISPLAY';
+    $this_url = '?search='.urlencode($_REQUEST["search"]).'&lang_id='.$lang_id.'&filter='.$_REQUEST["filter"].'&section=LANGUAGE&action=DISPLAY';
 
     // Display language selection and filters
     form_start('index.php',50);
@@ -81,7 +81,7 @@
             <a href="'.url_set_param(url_remove_param($this_url,'search'),'filter','MISSING').'"><img align="absbottom" border="0" src="/images/filter_red.gif"></a>
           </td><td width="50%" align="right">
             '.str('SEARCH').' :
-            <input name="search" value="'.htmlspecialchars(un_magic_quote($_REQUEST["search"])).'" size=10>
+            <input name="search" value="'.htmlspecialchars($_REQUEST["search"]).'" size=10>
           </td></tr>';
     form_end();
 
@@ -184,10 +184,10 @@
     // Save modified text
     $success = db_insert_row( 'translate_text', array('KEY_ID'  => $edit_id,
                                                       'LANG_ID' => $lang_id,
-                                                      'TEXT'    => un_magic_quote($_REQUEST["translation"]),
+                                                      'TEXT'    => $_REQUEST["translation"],
                                                       'VERSION' => swisscenter_version()) );
 
-    send_to_log(4,'Edited language string '.db_value("select text_id from translate_keys where key_id=$edit_id").' => '.un_magic_quote($_REQUEST["translation"]));
+    send_to_log(4,'Edited language string '.db_value("select text_id from translate_keys where key_id=$edit_id").' => '.$_REQUEST["translation"]);
 
     $redirect_to = url_remove_param($redirect_to, 'edit_id');
     $redirect_to = url_add_param($redirect_to, 'message', str('LANG_UPDATE_OK'));

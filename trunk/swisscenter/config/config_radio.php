@@ -16,9 +16,9 @@
     $types  = array( str('IRADIO_STATION') => 'iradio_stations',
                      str('IRADIO_COUNTRY') => 'iradio_countries',
                      str('IRADIO_GENRE')   => 'iradio_genres' );
-    $type   = ( isset($_REQUEST["type"]) ? un_magic_quote($_REQUEST["type"]) : '');
-    $param1 = ( isset($_REQUEST["param1"]) ? un_magic_quote($_REQUEST["param1"]) : '');
-    $param2 = ( isset($_REQUEST["param2"]) ? un_magic_quote($_REQUEST["param2"]) : '');
+    $type   = ( isset($_REQUEST["type"]) ? $_REQUEST["type"] : '');
+    $param1 = ( isset($_REQUEST["param1"]) ? $_REQUEST["param1"] : '');
+    $param2 = ( isset($_REQUEST["param2"]) ? $_REQUEST["param2"] : '');
 
     // Form list of radio types
     $iradio_opts = array(array("IRADIO_TYPE"=>IRADIO_SHOUTCAST, "IRADIO_NAME"=>str('IRADIO_SHOUTCAST')),
@@ -138,17 +138,17 @@
     {
       case 'iradio_stations':
         $fields = array('iradio_type'=>$_REQUEST["type"],
-                        'station'=>un_magic_quote($_REQUEST["param1"]),
-                        'image'=>un_magic_quote($_REQUEST["param2"]));
+                        'station'=>$_REQUEST["param1"],
+                        'image'=>$_REQUEST["param2"]);
         break;
 
       case 'iradio_countries':
-        $fields = array('country'=>un_magic_quote($_REQUEST["param1"]));
+        $fields = array('country'=>$_REQUEST["param1"]);
         break;
 
       case 'iradio_genres':
-        $fields = array('genre'=>un_magic_quote($_REQUEST["param1"]),
-                        'subgenre'=>(empty($_REQUEST["param2"]) ? un_magic_quote($_REQUEST["param1"]) : un_magic_quote($_REQUEST["param2"])));
+        $fields = array('genre'=>$_REQUEST["param1"],
+                        'subgenre'=>(empty($_REQUEST["param2"]) ? $_REQUEST["param1"] : $_REQUEST["param2"]));
         break;
     }
 

@@ -27,7 +27,7 @@
 
   function ext_files_update()
   {
-    $wget = rtrim(str_replace('\\','/',un_magic_quote($_REQUEST["wget"])),'/');
+    $wget = rtrim(str_replace('\\','/',$_REQUEST["wget"]),'/');
 
     if ( !is_file($wget) )
       ext_files_display("!".str('WGET_PATH_NOT_FOUND'));

@@ -198,7 +198,7 @@
 
   function swissmonitor_ext_new()
   {
-    $name = un_magic_quote($_REQUEST["name"]);
+    $name = $_REQUEST["name"];
 
     if (empty($name))
       swissmonitor_display("!".str('IGNORE_EXTENSION_ERROR'));
