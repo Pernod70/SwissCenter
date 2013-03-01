@@ -29,10 +29,10 @@ function subtitles_display( $message = '')
     $where .= " and ml.cat_id = ".$_REQUEST["cat_id"];
 
   if (isset($_REQUEST["search"]) && !empty($_REQUEST["search"]) )
-    $where .= " and m.title like '%".db_escape_str(un_magic_quote($_REQUEST["search"]))."%'";
+    $where .= " and m.title like '%".db_escape_str($_REQUEST["search"])."%'";
 
   // If the user has changed category, then shunt them back to page 1.
-  if (un_magic_quote($_REQUEST["last_where"]) != $where)
+  if ($_REQUEST["last_where"] != $where)
   {
     $page = 1;
     $start = 0;
@@ -69,7 +69,7 @@ function subtitles_display( $message = '')
 
   echo '<p>'.str('OS_ABOUT','<a href="http://www.opensubtitles.org/upload" target="_blank">www.opensubtitles.org/upload</a>');
 
-  $this_url = '?last_where='.urlencode($where).'&lang='.$_REQUEST["lang"].'&search='.un_magic_quote($_REQUEST["search"]).'&cat_id='.$_REQUEST["cat_id"].'&method='.$_REQUEST["method"].'&section=SUBTITLES&action=DISPLAY&page=';
+  $this_url = '?last_where='.urlencode($where).'&lang='.$_REQUEST["lang"].'&search='.$_REQUEST["search"].'&cat_id='.$_REQUEST["cat_id"].'&method='.$_REQUEST["method"].'&section=SUBTITLES&action=DISPLAY&page=';
 
   echo '<form enctype="multipart/form-data" action="" method="post">';
   form_hidden('section','SUBTITLES');
@@ -82,7 +82,7 @@ function subtitles_display( $message = '')
          form_list_dynamic_html("cat_id","select distinct c.cat_id,c.cat_name from categories c left join media_locations ml on c.cat_id=ml.cat_id where ml.media_type=".MEDIA_TYPE_VIDEO." order by c.cat_name",$_REQUEST["cat_id"],true,true,str('CATEGORY_LIST_ALL')).
        '</td><td>'.
          str('SEARCH').' : '.
-         '<input name="search" value="'.un_magic_quote($_REQUEST["search"]).'" size=10>'.
+         '<input name="search" value="'.$_REQUEST["search"].'" size=10>'.
        '</td><td>'.
          str('LANG_SELECT').' : '.
          form_list_static_html("lang",$lang_list,$search_lang,false,true,false).
@@ -154,7 +154,7 @@ function subtitles_display( $message = '')
 
     echo '<table class="form_select_tab" width="100%"><tr>
           <td valign="top">'.
-            '<b>'.highlight($movie["TITLE"], un_magic_quote($_REQUEST["search"])).'</b>'.
+            '<b>'.highlight($movie["TITLE"], $_REQUEST["search"]).'</b>'.
             '&nbsp;[<a href="http://www.opensubtitles.org/search/sublanguageid-all/moviebytesize-'.$movie["SIZE"].'/moviehash-'.$moviehash.'" target="_blank">'.$movie["FILENAME"].'</a>]';
 
     // List available subtitles for current file

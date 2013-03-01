@@ -144,7 +144,7 @@ if ( isset($_REQUEST["action"]) )
   {
     case 'message' :
       // Display message
-      $text = un_magic_quote($_REQUEST["text"]);
+      $text = $_REQUEST["text"];
       if (!empty($text))
       {
         if ($text[0] == '!')
@@ -156,7 +156,7 @@ if ( isset($_REQUEST["action"]) )
 
     case 'showthumbs' :
       // Display thumbnails of all fanart for selected title
-      $title = un_magic_quote($_REQUEST["title"]);
+      $title = $_REQUEST["title"];
       refresh_thumbnails( $title );
       break;
 

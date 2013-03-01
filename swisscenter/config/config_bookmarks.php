@@ -52,8 +52,8 @@ function bookmarks_display($delete = '', $new = '', $edit_id = 0)
   form_hidden('section','BOOKMARKS');
   form_hidden('action','NEW');
   form_list_static('type', str('URL_TYPE'),array( str('URL_AUDIO')=>MEDIA_TYPE_RADIO, str('URL_WEB')=>MEDIA_TYPE_WEB, str('URL_VIDEO')=>MEDIA_TYPE_INTERNET_TV), $_REQUEST['type']);
-  form_input('title', str('URL_TITLE'),50,'',un_magic_quote($_REQUEST['title']));
-  form_input('url', str('URL'),50,'',un_magic_quote($_REQUEST['url']));
+  form_input('title', str('URL_TITLE'),50,'',$_REQUEST['title']);
+  form_input('url', str('URL'),50,'',$_REQUEST['url']);
   form_list_dynamic('cat', str('CATEGORY'),"select cat_id,cat_name from categories where cat_id not in (".
                                             implode(',', db_col_to_list('select distinct parent_id from categories')).")
                                             order by cat_name", $_REQUEST['cat']);
@@ -124,7 +124,7 @@ function bookmarks_modify()
 function bookmarks_new()
 {
   // Process the url passed in
-  $url = rtrim(str_replace('\\','/',un_magic_quote($_REQUEST["url"])),'/');
+  $url = rtrim(str_replace('\\','/',$_REQUEST["url"]),'/');
 
   if (empty($_REQUEST["type"]))
     bookmarks_display('',"!".str('URL_ERROR_TYPE'));

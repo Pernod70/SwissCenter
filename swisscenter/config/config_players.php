@@ -68,9 +68,9 @@ function players_display($delete = '', $new = '', $edit_id = 0, $client_id = 0)
   form_start('index.php');
   form_hidden('section','PLAYERS');
   form_hidden('action','NEW');
-  form_input('name',str('PLAYER_NAME'),50,'',un_magic_quote($_REQUEST['name']));
-  form_input('make',str('PLAYER_MAKE'),10,'',un_magic_quote($_REQUEST['make']));
-  form_input('model',str('PLAYER_MODEL'),10,'',un_magic_quote($_REQUEST['model']));
+  form_input('name',str('PLAYER_NAME'),50,'',$_REQUEST['name']);
+  form_input('make',str('PLAYER_MAKE'),10,'',$_REQUEST['make']);
+  form_input('model',str('PLAYER_MODEL'),10,'',$_REQUEST['model']);
   form_list_static('chipset',str('PLAYER_CHIPSET'), array( 'EM8550'=>'EM8550', 'EM8620L'=>'EM8620L', 'SMP8635'=>'SMP8635', 'SMP8643'=>'SMP8643'), $_REQUEST['chipset'], false, false, false);
   form_label(str('PLAYER_PROMPT'));
   form_list_static('resume',str('PLAYER_RESUME'), array( str('YES')=>'YES',str('NO')=>'NO'), $_REQUEST['resume'], false, false, false);
@@ -166,7 +166,7 @@ function players_modify()
 
 function players_new()
 {
-  $name        = un_magic_quote($_REQUEST["name"]);
+  $name        = $_REQUEST["name"];
   $make        = strtoupper($_REQUEST["make"]);
   $model       = $_REQUEST["model"];
   $chipset     = $_REQUEST["chipset"];

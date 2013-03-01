@@ -28,7 +28,7 @@
 
   function imagemagick_update()
   {
-    $path = rtrim(str_replace('\\','/',un_magic_quote($_REQUEST["im_path"])),'/');
+    $path = rtrim(str_replace('\\','/',$_REQUEST["im_path"]),'/');
 
     if ( !file_exists($path) )
       imagemagick_display("!".str('IMAGEMAGICK_PATH_NOT_FOUND'));

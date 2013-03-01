@@ -104,9 +104,9 @@
     form_start('index.php');
     form_hidden('section','DIRS');
     form_hidden('action','NEW');
-    form_input('location',str('LOCATION'),50,'',un_magic_quote($_REQUEST['location']));
+    form_input('location',str('LOCATION'),50,'',$_REQUEST['location']);
     form_label(str('LOCATION_PROMPT'));
-    form_list_static('share',str('NETWORK_SHARE'), $share_list, un_magic_quote($_REQUEST['share']), true);
+    form_list_static('share',str('NETWORK_SHARE'), $share_list, $_REQUEST['share'], true);
     if (count($share_opts)==1)
       form_label(str('NETWORK_SHARE_MSG'));
     else
@@ -230,8 +230,8 @@
     {
       // Update the row given in the database and redisplay the dirs
       // Process the directory passed in
-      $dir = rtrim(str_replace('\\','/',un_magic_quote($update["DIRECTORY"])),'/');
-      $share = rtrim(str_replace('\\','/',un_magic_quote($update["SHARE"])),'/');
+      $dir = rtrim(str_replace('\\','/',$update["DIRECTORY"]),'/');
+      $share = rtrim(str_replace('\\','/',$update["SHARE"]),'/');
       $type_id = $update["TYPE"];
       $cat_id  = $update["CATEGORY"];
       $id      = $update["LOC_ID"];
@@ -314,8 +314,8 @@
   function dirs_new()
   {
     // Process the directory passed in
-    $dir = rtrim(str_replace('\\','/',un_magic_quote($_REQUEST["location"])),'/');
-    $share = rtrim(str_replace('\\','/',un_magic_quote($_REQUEST["share"])),'/');
+    $dir = rtrim(str_replace('\\','/',$_REQUEST["location"]),'/');
+    $share = rtrim(str_replace('\\','/',$_REQUEST["share"]),'/');
 
     if (empty($_REQUEST["type"]))
       dirs_display('',"!".str('MEDIA_LOC_ERROR_TYPE'));

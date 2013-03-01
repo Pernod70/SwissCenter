@@ -10,7 +10,7 @@
   function category_display($del_message = '', $add_message = '', $edit_id = 0)
   {
     $cat           = ( isset($_REQUEST["cat"]) ? $_REQUEST["cat"] : '');
-    $cat_name      = ( isset($_REQUEST["cat_name"]) ? un_magic_quote($_REQUEST["cat_name"]) : '');
+    $cat_name      = ( isset($_REQUEST["cat_name"]) ? $_REQUEST["cat_name"] : '');
     $parent_names  = db_toarray('select cat_id VAL, cat_name NAME from categories order by cat_name');
     $download_opts = array( array("VAL"=>'N',"NAME"=> str('DISABLED') )
                           , array("VAL"=>'Y',"NAME"=> str('ENABLED')  ));
@@ -24,13 +24,13 @@
                                , (CASE c.download_info
                                   WHEN 'Y' THEN '".str('ENABLED')."'
                                   WHEN 'N' THEN '".str('DISABLED')."'
-                                  ELSE 'Unknown' 
+                                  ELSE 'Unknown'
                                   END
                                  ) download_info
                             FROM categories c, categories p
                            WHERE c.parent_id=p.cat_id
                         ORDER BY p.cat_id,Category");
-      
+
       echo "<h1>".str('CATEGORIES')."</h1>";
       message($del_message);
       form_start('index.php', 150, 'cats');
@@ -44,7 +44,7 @@
       if (!$edit_id)
         form_submit(str('CAT_DEL_BUTTON'), 1, 'center');
       form_end();
-      
+
       echo "<p><h1>".str('CAT_ADD_TITLE')."</h1>";
       message($add_message);
       form_start('index.php',200);
@@ -59,32 +59,32 @@
         form_list_static('dl_info',str('CAT_DOWNLOAD'),array( str('ENABLED')=>'Y',str('DISABLED')=>'N'),'Y');
         form_label(str('CAT_DOWNLOAD_PROMPT'));
       }
-      else 
+      else
       {
         form_hidden('dl_info', 'N');
       }
-      
+
       form_submit(str('CAT_ADD_BUTTON'), 2, 'left');
       form_end();
     }
   }
-  
+
   // ----------------------------------------------------------------------------------
   // Adds a new category
   // ----------------------------------------------------------------------------------
 
   function category_add()
   {
-    $cat     = rtrim(un_magic_quote($_REQUEST["cat_name"]));
+    $cat       = rtrim($_REQUEST["cat_name"]);
     $parent_id = (is_numeric($_REQUEST["parent_id"]) ? $_REQUEST["parent_id"] : 0);
-    $dl_info = rtrim(un_magic_quote($_REQUEST["dl_info"]));
-    
+    $dl_info   = rtrim($_REQUEST["dl_info"]);
+
     if(empty($cat))
       category_display('', '!'.str('CAT_ERROR_NAME'));
     else
     {
       $exists = db_value("select count(*) from categories where cat_name='" . db_escape_str($cat) . "'");
-      
+
       if($exists != 0)
         category_display('', '!'.str('CAT_ERROR_EXISTS'));
       else
@@ -97,11 +97,11 @@
           $cat_id = db_value("select cat_id from categories where cat_name='" . db_escape_str($cat) . "'");
           db_sqlcommand("update media_locations set cat_id=$cat_id where cat_id=$parent_id");
           category_display('', str('CAT_ADDED_OK'));
-        }    
+        }
       }
     }
   }
-  
+
   // ----------------------------------------------------------------------------------
   // Modifies/deletes an existing category
   // ----------------------------------------------------------------------------------
@@ -112,7 +112,7 @@
     $edit_id = form_select_table_edit('cat_ids', 'cats');
     $update_data = form_select_table_update('cat_ids', 'cats');
     $default_cat = db_value('select cat_name from categories where cat_id=1');
-    
+
     if(!empty($edit_id))
     {
       category_display('', '', $edit_id);
@@ -123,7 +123,7 @@
       $parent_id     = $update_data["CATEGORY_PARENT"];
       $download_info = db_escape_str($update_data["DOWNLOAD_INFO"]);
       $id = $update_data["CAT_IDS"];
-        
+
       if(empty($category_name))
         category_display("!".str('CAT_ERROR_NAME'));
       else
@@ -159,13 +159,13 @@
         else
           $message = "!".str('CAT_ERROR_DELETE',$default_cat);
       }
-  
+
       category_display($message);
     }
     else
       category_display();
   }
-  
+
 /**************************************************************************************************
                                                End of file
  **************************************************************************************************/

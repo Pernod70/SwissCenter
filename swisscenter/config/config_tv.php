@@ -194,7 +194,7 @@ function tv_display_list($tv_list)
     echo '<table class="form_select_tab" width="100%"><tr>
           <td valign="top" width="4%"><input type="checkbox" name="tv[]" value="'.$tv["FILE_ID"].'"></input></td>
           <td valign="top" width="24%">
-             <a href="?section=tv&action=display_info&tv_id='.$tv["FILE_ID"].'">'.highlight($tv["PROGRAMME"], un_magic_quote($_REQUEST["search"])).' - '.highlight($tv["TITLE"], un_magic_quote($_REQUEST["search"])).'</a><br>'.
+             <a href="?section=tv&action=display_info&tv_id='.$tv["FILE_ID"].'">'.highlight($tv["PROGRAMME"], $_REQUEST["search"]).' - '.highlight($tv["TITLE"], $_REQUEST["search"]).'</a><br>'.
              str('SERIES').' : '.nvl($tv["SERIES"]).'<br>'.
              str('EPISODE').' : '.nvl($tv["EPISODE"]).'<br>'.
              str('YEAR').' : '.nvl($tv["YEAR"]).'<br>'.
@@ -263,10 +263,10 @@ function tv_display( $message = '')
 
   // Extra filters on the media (for categories and search).
   if (!empty($_REQUEST["prog"]) )
-    $where .= "and t.programme = '".db_escape_str(un_magic_quote($_REQUEST["prog"]))."' ";
+    $where .= "and t.programme = '".db_escape_str($_REQUEST["prog"])."' ";
 
   if (!empty($_REQUEST["search"]) )
-    $where .= "and (t.programme like '%".db_escape_str(un_magic_quote($_REQUEST[search]))."%' or t.title like '%".db_escape_str(un_magic_quote($_REQUEST[search]))."%') ";
+    $where .= "and (t.programme like '%".db_escape_str($_REQUEST[search])."%' or t.title like '%".db_escape_str($_REQUEST[search])."%') ";
 
   if (!empty($_REQUEST["filter"]) )
   {
@@ -289,7 +289,7 @@ function tv_display( $message = '')
     $sort = strtolower($_REQUEST["sort"]).' desc';
 
   // If the user has changed category, then shunt them back to page 1.
-  if (un_magic_quote($_REQUEST["last_where"]) != $where)
+  if ($_REQUEST["last_where"] != $where)
   {
     $page = 1;
     $start = 0;
@@ -304,7 +304,7 @@ function tv_display( $message = '')
   echo '<h1>'.str('TV_DETAILS').'  ('.str('PAGE',$page).')</h1>';
   message($message);
 
-  $this_url = '?last_where='.urlencode($where).'&filter='.$_REQUEST["filter"].'&search='.un_magic_quote($_REQUEST["search"]).'&prog='.un_magic_quote($_REQUEST["prog"]).'&sort='.$_REQUEST["sort"].'&section=TV&action=DISPLAY&page=';
+  $this_url = '?last_where='.urlencode($where).'&filter='.$_REQUEST["filter"].'&search='.$_REQUEST["search"].'&prog='.$_REQUEST["prog"].'&sort='.$_REQUEST["sort"].'&section=TV&action=DISPLAY&page=';
   $filter_list = array( str('FILTER_MISSING_DETAILS')=>"NODETAILS"   , str('FILTER_MISSING_PROGRAMME')=>"NOPROG"
                       , str('FILTER_MISSING_SERIES')=>"NOSERIES"     , str('FILTER_MISSING_EPISODE')=>"NOEPISODE"
                       , str('FILTER_MISSING_SYNOPSIS')=>"NOSYNOPSIS" , str('FILTER_MISSING_CERT')=>"NOCERT"
@@ -318,7 +318,7 @@ function tv_display( $message = '')
   form_hidden('action','DISPLAY');
   form_hidden('last_where',$where);
   echo  str('PROGRAMME').' :
-        '.form_list_dynamic_html("prog","select distinct programme id, programme name from tv order by sort_programme",un_magic_quote($_REQUEST["prog"]),true,true,str('PROGRAMME_LIST_ALL')).'<br>
+        '.form_list_dynamic_html("prog","select distinct programme id, programme name from tv order by sort_programme",$_REQUEST["prog"],true,true,str('PROGRAMME_LIST_ALL')).'<br>
         '.str('FILTER').' :
         '.form_list_static_html("filter",$filter_list,$_REQUEST["filter"],true,true,str('VIEW_ALL')).'&nbsp;
         '.str('SORT').' :
@@ -329,7 +329,7 @@ function tv_display( $message = '')
         <img align="absbottom" border="0" src="/images/select_none.gif" onclick=\'handleClick("tv[]", false)\'>
         </td><td width="50%" align="right">
         '.str('SEARCH').' :
-        <input name="search" value="'.un_magic_quote($_REQUEST["search"]).'" size=10>
+        <input name="search" value="'.$_REQUEST["search"].'" size=10>
         </td></tr></table>
         </form>';
 
@@ -629,36 +629,36 @@ function tv_update_multiple()
   {
     db_sqlcommand("delete from actors_in_tv where tv_id in (".implode(',',$tv_list).")");
     if (count($_REQUEST["actors"]) >0)
-      scdb_add_tv_actors($tv_list,un_magic_quote($_REQUEST["actors"]));
+      scdb_add_tv_actors($tv_list,$_REQUEST["actors"]);
     if (!empty($_REQUEST["actor_new"]))
-      scdb_add_tv_actors($tv_list, explode(',',un_magic_quote($_REQUEST["actor_new"])));
+      scdb_add_tv_actors($tv_list, explode(',',$_REQUEST["actor_new"]));
   }
 
   if ($_REQUEST["update_directors"] == 'yes')
   {
     db_sqlcommand("delete from directors_of_tv where tv_id in (".implode(',',$tv_list).")");
     if (count($_REQUEST["directors"]) >0)
-      scdb_add_tv_directors($tv_list,un_magic_quote($_REQUEST["directors"]));
+      scdb_add_tv_directors($tv_list,$_REQUEST["directors"]);
     if (!empty($_REQUEST["director_new"]))
-      scdb_add_tv_directors($tv_list, explode(',',un_magic_quote($_REQUEST["director_new"])));
+      scdb_add_tv_directors($tv_list, explode(',',$_REQUEST["director_new"]));
   }
 
   if ($_REQUEST["update_genres"] == 'yes')
   {
     db_sqlcommand("delete from genres_of_tv where tv_id in (".implode(',',$tv_list).")");
     if (count($_REQUEST["genres"]) >0)
-      scdb_add_tv_genres($tv_list,un_magic_quote($_REQUEST["genres"]));
+      scdb_add_tv_genres($tv_list,$_REQUEST["genres"]);
     if (!empty($_REQUEST["genre_new"]))
-      scdb_add_tv_genres($tv_list, explode(',',un_magic_quote($_REQUEST["genre_new"])));
+      scdb_add_tv_genres($tv_list, explode(',',$_REQUEST["genre_new"]));
   }
 
   if ($_REQUEST["update_languages"] == 'yes')
   {
     db_sqlcommand("delete from languages_of_tv where tv_id in (".implode(',',$tv_list).")");
     if (count($_REQUEST["languages"]) >0)
-      scdb_add_tv_languages($tv_list,un_magic_quote($_REQUEST["languages"]));
+      scdb_add_tv_languages($tv_list,$_REQUEST["languages"]);
     if (!empty($_REQUEST["language_new"]))
-      scdb_add_tv_languages($tv_list, explode(',',un_magic_quote($_REQUEST["language_new"])));
+      scdb_add_tv_languages($tv_list, explode(',',$_REQUEST["language_new"]));
   }
 
   // Update the TV attributes

@@ -37,8 +37,8 @@
     form_start('index.php');
     form_hidden('section','TV_EXPR');
     form_hidden('action','NEW');
-    form_input('pos',str('PRIORITY'),5,'',un_magic_quote($_REQUEST['pos']));
-    form_input('expr',str('EXPRESSION'),50,'',un_magic_quote($_REQUEST['expr']));
+    form_input('pos',str('PRIORITY'),5,'',$_REQUEST['pos']);
+    form_input('expr',str('EXPRESSION'),50,'',$_REQUEST['expr']);
     form_submit(str('TV_EXPR_ADD_BUTTON'),2);
     form_end();
 
@@ -46,7 +46,7 @@
     form_start('index.php', 150, 'conn');
     form_hidden('section', 'TV_EXPR');
     form_hidden('action', 'TEST');
-    form_input('filename',str('FILENAME'),80,'',un_magic_quote($_REQUEST['filename']));
+    form_input('filename',str('FILENAME'),80,'',$_REQUEST['filename']);
     form_label(str('TV_EXPR_TEST_PROMPT'));
     form_submit(str('TV_EXPR_TEST_BUTTON'), 2);
     form_end();
@@ -90,7 +90,7 @@
     {
       $oldpos = $update_data["POS"];
       $pos    = $update_data["PRIORITY"];
-      $expr   = un_magic_quote($update_data["EXPRESSION"]);
+      $expr   = $update_data["EXPRESSION"];
       if ( !is_numeric($pos) || empty($expr) )
         tv_expr_display("!".str('TV_EXPR_ERROR_MISSING'));
       elseif ( @preg_match(tv_expand_pattern($expr),'') === false )
@@ -127,7 +127,7 @@
   function tv_expr_new()
   {
     $pos  = $_REQUEST["pos"];
-    $expr = un_magic_quote($_REQUEST["expr"]);
+    $expr = $_REQUEST["expr"];
 
     if ( !is_numeric($pos) || empty($expr) )
       tv_expr_display("!".str('TV_EXPR_ERROR_MISSING'));
@@ -154,7 +154,7 @@
 
   function tv_expr_test()
   {
-    $fsp  = un_magic_quote($_REQUEST["filename"]);
+    $fsp  = $_REQUEST["filename"];
     $meta_fsp = dirname($fsp).'/'.file_noext($fsp);
     $data = get_tvseries_info($meta_fsp);
 

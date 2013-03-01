@@ -10,7 +10,7 @@
 
   function expert_runsql()
   {
-    $sql = un_magic_quote($_REQUEST["sql"]);
+    $sql = $_REQUEST["sql"];
     $tabs = array();
 
     echo "<h1>".str('EXPERT_EDIT_DB')."</h1>";

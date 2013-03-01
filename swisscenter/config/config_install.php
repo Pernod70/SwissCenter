@@ -54,7 +54,7 @@
     define('DB_PASSWORD', (!empty($_REQUEST["password"]) ? $_REQUEST["password"] : 'swisscenter'));
     define('DB_DATABASE', (!empty($_REQUEST["dbname"])   ? $_REQUEST["dbname"]   : 'swiss'));
 
-    $pass=un_magic_quote($_REQUEST["root_password"]);
+    $pass = $_REQUEST["root_password"];
     $db_stat = test_db(DB_HOST,'root',$pass,DB_DATABASE);
 
     if ($db_stat == 'OK')
