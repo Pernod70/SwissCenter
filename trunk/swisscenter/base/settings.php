@@ -73,6 +73,16 @@ setlocale(LC_ALL, 'en_US.UTF8');
 date_default_timezone_set(@date_default_timezone_get());
 
 #-------------------------------------------------------------------------------------------------
+# Undo magic quotes, if necessary
+#-------------------------------------------------------------------------------------------------
+
+if (get_magic_quotes_gpc()) {
+  $_GET = un_magic_quote($_GET);
+  $_POST = un_magic_quote($_POST);
+  $_REQUEST = un_magic_quote($_REQUEST);
+}
+
+#-------------------------------------------------------------------------------------------------
 # Record the details of the client accessing the system.
 #-------------------------------------------------------------------------------------------------
 
