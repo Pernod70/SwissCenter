@@ -5,7 +5,7 @@
 
   require_once( realpath(dirname(__FILE__).'/base/page.php'));
 
-  $name = un_magic_quote($_REQUEST["name"]);
+  $name = $_REQUEST["name"];
 
   // Remove SQL 'like' filter from history
   $history = array("url" => '/music_selected.php?type=album&name='.rawurlencode($name),

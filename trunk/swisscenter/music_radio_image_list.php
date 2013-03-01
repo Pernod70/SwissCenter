@@ -13,16 +13,16 @@
   send_to_log(1,"Playlist Requested : ".current_url()." by client (".client_ip().")");
 
   $server  = server_address();
-  $source  = un_magic_quote($_REQUEST["src"]);
-  $stream  = un_magic_quote($_REQUEST["url"]);
-  $station = un_magic_quote($_REQUEST["st"]);
-  $image   = un_magic_quote($_REQUEST["img"]);
+  $source  = $_REQUEST["src"];
+  $stream  = $_REQUEST["url"];
+  $station = $_REQUEST["st"];
+  $image   = $_REQUEST["img"];
 
   // Determine type of radio stream being played
   if ( $source == IRADIO_LIVE365 )
   {
     // Determine broadcaster for Live365 station
-    $broadcaster = preg_get('/play\/(.*)&/U', un_magic_quote($_REQUEST["url"]));
+    $broadcaster = preg_get('/play\/(.*)&/U', $_REQUEST["url"]);
 
     $url = $server."music_radio_image.php?".current_session()."&live365=".$broadcaster.
                    "&st=".urlencode($station)."&x=.jpg";
@@ -39,7 +39,7 @@
       send_to_log(6,'Attempting to obtain SHOUTcast server details from playlist');
       while ( $i < 3 && empty($info) )
       {
-        if ( ($info = file_get_contents(un_magic_quote($_REQUEST["url"]))) == false )
+        if ( ($info = file_get_contents($_REQUEST["url"])) == false )
           send_to_log(6,'- Attempt '.$i.': Failed to download playlist');
         elseif ( preg_match('/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}):(\d{1,5})/', $info, $IP_Port) == 0 )
           send_to_log(6,'- Failed to find SHOUTcast server in playlist:', $info);

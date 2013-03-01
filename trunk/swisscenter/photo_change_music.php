@@ -12,8 +12,8 @@
   {
     if ($_REQUEST["music"] == 'iradio')
     {
-      $playlist_url = un_magic_quote(rawurldecode($_REQUEST["url"]));
-      $station_name = un_magic_quote(rawurldecode($_REQUEST["title"]));
+      $playlist_url = rawurldecode($_REQUEST["url"]);
+      $station_name = rawurldecode($_REQUEST["title"]);
       $_SESSION['background_music'] = preg_get('/(gen_playlist_iradio.*ext=\.pls)/U', play_internet_radio(0, $playlist_url, $station_name));
     }
     else

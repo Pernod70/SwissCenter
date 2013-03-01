@@ -419,7 +419,7 @@
     // Page settings
     $url         = url_remove_params(current_url(),array('page','thumbs','hist'));
     $page        = ( !isset($_REQUEST["page"]) ? 0 : $_REQUEST["page"]);
-    $dir         = ( empty($_REQUEST["DIR"]) ? '' : un_magic_quote(rawurldecode($_REQUEST["DIR"])));
+    $dir         = ( empty($_REQUEST["DIR"]) ? '' : rawurldecode($_REQUEST["DIR"]));
     $buttons     = array();
     $total_pages = ceil( ( count($dir_list)+count($file_list) ) / items_per_page() );
 
@@ -472,7 +472,7 @@
   function browse_fs($heading, $media_dirs, $back_url, $filetypes, $media_type = 0)
   {
     // Check page parameters, and if not set then assign default values.
-    $dir             = ( empty($_REQUEST["DIR"]) ? '' : un_magic_quote(rawurldecode($_REQUEST["DIR"])));
+    $dir             = ( empty($_REQUEST["DIR"]) ? '' : rawurldecode($_REQUEST["DIR"]));
     $media_locations = ( is_array($media_dirs) ? $media_dirs : array($media_dirs));
     $dir_list        = array();
     $file_list       = array();
@@ -496,7 +496,7 @@
     // Check page parameters, and if not set then assign default values.
     $dir_list        = array();
     $file_list       = array();
-    $dir             = ( empty($_REQUEST["DIR"]) ? '' : un_magic_quote(rawurldecode($_REQUEST["DIR"])));
+    $dir             = ( empty($_REQUEST["DIR"]) ? '' : rawurldecode($_REQUEST["DIR"]));
     $media_locations = db_toarray("select * from media_locations where media_type=".$media_type);
 
     // Get list of files/dirs from the database

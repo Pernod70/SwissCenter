@@ -42,7 +42,7 @@
   if (get_player_make()!=='NGR' || $_SESSION["now_playing"]!==$playing[0] )
   {
     $_SESSION["now_playing"] = $playing[0];
-    $playing[0]["STATION"]   = un_magic_quote($_REQUEST["st"]);
+    $playing[0]["STATION"]   = $_REQUEST["st"];
 
     // Send any pending output (inc headers) and stop timeouts or user aborts killing the script
     ob_end_flush();
@@ -71,7 +71,7 @@
     if ( !isset($playing[0]["ALBUMART"]) )
     {
       // No artist image so do we have a station image defined?
-      $logo = un_magic_quote($_REQUEST["img"]);
+      $logo = $_REQUEST["img"];
       if ( !empty($logo) )
       {
         $playing[0]["ALBUMART"] = $logo;

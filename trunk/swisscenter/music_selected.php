@@ -61,8 +61,8 @@
 
   $menu       = new menu();
   $info       = new infotab();
-  $type       = un_magic_quote($_REQUEST["type"]);
-  $name       = un_magic_quote(rawurldecode($_REQUEST["name"]));
+  $type       = $_REQUEST["type"];
+  $name       = rawurldecode($_REQUEST["name"]);
   $sql_table  = 'mp3s media'.get_rating_join().viewed_join(MEDIA_TYPE_MUSIC).' where 1=1 ';
   $predicate  = search_process_passed_params();
   $playtime   = db_value("select sum(length) from $sql_table $predicate");

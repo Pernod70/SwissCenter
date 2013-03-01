@@ -7,7 +7,7 @@
   require_once( realpath(dirname(__FILE__).'/base/playlist.php'));
 
   // Get the file details from the database and add to the session playlist
-  if ( build_pl(un_magic_quote($_REQUEST["sql"])) === false)
+  if ( build_pl($_REQUEST["sql"]) === false)
     page_error(str('DATABASE_ERROR'));
   else
   {

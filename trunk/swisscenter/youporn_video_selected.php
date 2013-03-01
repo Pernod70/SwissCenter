@@ -30,8 +30,8 @@ function star_rating( $rating )
    Main page output
  *************************************************************************************************/
 
-  $url   = un_magic_quote(rawurldecode($_REQUEST["url"]));
-  $image = un_magic_quote(rawurldecode($_REQUEST["img"]));
+  $url   = rawurldecode($_REQUEST["url"]);
+  $image = rawurldecode($_REQUEST["img"]);
 
   // Get information about a video.
   $youporn = new YouPorn();

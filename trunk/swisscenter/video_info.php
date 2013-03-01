@@ -11,8 +11,8 @@
 
   if ( isset($_REQUEST["image"]) )
   {
-    $actor = un_magic_quote(rawurldecode($_REQUEST["actor"]));
-    $image = un_magic_quote(rawurldecode($_REQUEST["image"]));
+    $actor = rawurldecode($_REQUEST["actor"]);
+    $image = rawurldecode($_REQUEST["image"]);
 
     page_header( $actor );
 

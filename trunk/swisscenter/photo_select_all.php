@@ -10,7 +10,7 @@
   require_once( realpath(dirname(__FILE__).'/base/categories.php'));
 
   $post_sql = $sql.$_SESSION["history"][0]["sql"];
-  $dir   = un_magic_quote(rawurldecode($_REQUEST["dir"]));
+  $dir   = rawurldecode($_REQUEST["dir"]);
   $spec  = "select * from photos media ".get_rating_join()."where dirname like '#MEDIA_LOC#/$dir%' order by filename".$post_sql;
   $data  = pl_tracklist('dir', $spec);
   $count = count($data);

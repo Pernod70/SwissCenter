@@ -16,9 +16,9 @@
   $this_url = current_url();
 
   // Get artist, album, and track details
-  $artist  = isset($_REQUEST["artist"]) ? un_magic_quote(rawurldecode($_REQUEST["artist"])) : false;
-  $album   = isset($_REQUEST["album"]) ? un_magic_quote(rawurldecode($_REQUEST["album"])) : false;
-  $track   = isset($_REQUEST["track"]) ? un_magic_quote(rawurldecode($_REQUEST["track"])) : false;
+  $artist  = isset($_REQUEST["artist"]) ? rawurldecode($_REQUEST["artist"]) : false;
+  $album   = isset($_REQUEST["album"]) ? rawurldecode($_REQUEST["album"]) : false;
+  $track   = isset($_REQUEST["track"]) ? rawurldecode($_REQUEST["track"]) : false;
 
   // Get data from TheAudioDB
   $data   = tadb_artist_getInfo($artist);

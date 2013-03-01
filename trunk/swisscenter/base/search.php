@@ -22,7 +22,7 @@ function search_media_page( $heading, $title, $media_type, $joined_tables, $colu
 
   // Get important paramters from the URL
   $this_url  = current_url();
-  $search    = ( isset($_REQUEST["search"]) ? un_magic_quote(rawurldecode($_REQUEST["search"])) : '');
+  $search    = ( isset($_REQUEST["search"]) ? rawurldecode($_REQUEST["search"]) : '');
   $prefix    = ( isset($_REQUEST["any"]) ? $_REQUEST["any"] : '');
   $page      = ( empty($_REQUEST["page"]) ? 0 : $_REQUEST["page"]);
   $focus     = ( empty($_REQUEST["last"]) ? '1' : $_REQUEST["last"] );
@@ -123,8 +123,8 @@ function search_media_page( $heading, $title, $media_type, $joined_tables, $colu
 
 function search_process_passed_params()
 {
-  $name      = un_magic_quote(rawurldecode($_REQUEST["name"]));
-  $type      = un_magic_quote($_REQUEST["type"]);
+  $name      = rawurldecode($_REQUEST["name"]);
+  $type      = $_REQUEST["type"];
   $predicate = page_hist_current('sql');
 
   // If no $type is specified, then $name contains a pure SQL predicate to add.

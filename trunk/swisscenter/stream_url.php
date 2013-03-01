@@ -152,7 +152,7 @@
       // A YouTube id has been provided so we need to determine the actual location of the video file.
       if (!isset($_SESSION["stream_id"]) || ($_SESSION["stream_id"] !== $_REQUEST["youtube_id"]))
       {
-        $videoId  = un_magic_quote(rawurldecode($_REQUEST["youtube_id"]));
+        $videoId  = rawurldecode($_REQUEST["youtube_id"]);
 
         // Get the YouTube video page to parse
         $youtube_url = 'http://www.youtube.com/watch?v='.$videoId;
@@ -281,7 +281,7 @@
 //    }
     else
     {
-      $_SESSION["stream_url"] = un_magic_quote(rawurldecode($_REQUEST["url"]));
+      $_SESSION["stream_url"] = rawurldecode($_REQUEST["url"]);
       $_SESSION["stream_filename"] = basename($_SESSION["stream_url"]);
     }
 
@@ -293,7 +293,7 @@
       if (isset($_REQUEST["user_agent"]))
       {
         // Set User-Agent to use when requesting remote file
-        $user_agent = isset($_REQUEST["user_agent"]) ? un_magic_quote(rawurldecode($_REQUEST["user_agent"])) : 'Mozilla/5.0';
+        $user_agent = isset($_REQUEST["user_agent"]) ? rawurldecode($_REQUEST["user_agent"]) : 'Mozilla/5.0';
         ini_set('user_agent', $user_agent);
 
         stream_remote_file($_SESSION["stream_url"], $_SESSION["stream_filename"], $user_agent);

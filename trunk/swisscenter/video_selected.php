@@ -168,8 +168,8 @@
   $num_rows      = count($file_ids);
   $this_url      = url_remove_params(current_url(), array('shuffle', 'viewed'));
   $cert_img      = '';
-  $name          = un_magic_quote(rawurldecode($_REQUEST["name"]));
-  $type          = un_magic_quote($_REQUEST["type"]);
+  $name          = rawurldecode($_REQUEST["name"]);
+  $type          = $_REQUEST["type"];
 
   // Clean the current url in the history
   page_hist_current_update($this_url, $predicate);
