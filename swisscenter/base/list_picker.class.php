@@ -23,7 +23,7 @@ class list_picker
     $this->back_url = '';
     $this->menu = new menu();
     $this->prefix = (isset($_REQUEST["any"]) ? $_REQUEST["any"] : '');
-    $this->search = (isset($_REQUEST["search"]) ? un_magic_quote(rawurldecode($_REQUEST["search"])) : '');
+    $this->search = (isset($_REQUEST["search"]) ? rawurldecode($_REQUEST["search"]) : '');
     $this->page   = (empty($_REQUEST["page"]) ? 0 : $_REQUEST["page"]);
     $this->focus  = (empty($_REQUEST["last"]) ? '1' : $_REQUEST["last"] );
   }

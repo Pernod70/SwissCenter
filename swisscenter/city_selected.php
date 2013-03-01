@@ -8,7 +8,7 @@
   require_once( realpath(dirname(__FILE__).'/base/utils.php'));
   require_once( realpath(dirname(__FILE__).'/resources/info/weather.php'));
 
-  $city    = un_magic_quote($_REQUEST["name"]);
+  $city    = $_REQUEST["name"];
   $matches = get_matching_cities($city);
 
   if (count($matches) == 0)

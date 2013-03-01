@@ -10,15 +10,12 @@
   require_once( realpath(dirname(__FILE__).'/base/filter.php'));
 
   $menu        = new menu();
-  $programme   = un_magic_quote($_REQUEST["programme"]);
+  $programme   = $_REQUEST["programme"];
   $programme   = db_value("select programme from tv where sort_programme='".db_escape_str($programme)."'");
   $view_status = isset($_REQUEST["view_status"]) ? $_REQUEST["view_status"] : 'all';
   $page        = isset($_REQUEST["page"]) ? $_REQUEST["page"] : 1;
   $predicate   = get_rating_filter().category_select_sql($_REQUEST["cat"], MEDIA_TYPE_TV).filter_get_predicate();
   $this_url    = url_remove_params(current_url(), array('shuffle', 'viewed'));
-
-  // Clean the current url in the history
-  page_hist_current_update($this_url, $predicate);
 
   $min_viewed_series = db_value("select min(series)
                                    from tv media ".get_rating_join().viewed_join(MEDIA_TYPE_TV)."
@@ -31,6 +28,9 @@
                              order by 1");
 
   $current_series = (in_array($_REQUEST["series"], $series) ? $_REQUEST["series"] : nvl($min_viewed_series,$series[0]) );
+
+  // Clean the current url in the history
+  page_hist_current_update(url_add_param($this_url, 'series', $current_series), $predicate);
 
   $episodes_sql = "select *
                      from tv media ".get_rating_join().viewed_join(MEDIA_TYPE_TV)."
