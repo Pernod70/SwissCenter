@@ -223,7 +223,7 @@ class menu
     if ( style_is_colour($bg_style))
       return ' bgcolor="'.style_value($bg_style).'" ';
     elseif ( style_is_image($bg_style))
-      return ' background="/thumb.php?src='.rawurlencode(style_img($bg_style,true)).'&x='.convert_x($width+4).'&y='.convert_y($height+10).'&stretch=Y" ';
+      return ' background="thumb.php?src='.rawurlencode(style_img($bg_style,true)).'&x='.convert_x($width+4).'&y='.convert_y($height+10).'&stretch=Y" ';
     else
       return '';
   }

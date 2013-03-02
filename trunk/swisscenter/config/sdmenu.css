@@ -10,14 +10,14 @@ div.sdmenu
 
 div.sdmenu div 
 {
-	background: url(/images/title.png);
+	background: url(../images/title.png);
 	overflow: hidden;
         cursor: pointer;
 }
 
 div.sdmenu div:first-child 
 {
-	background: url(/images/title.png);
+	background: url(../images/title.png);
 }
 
 div.sdmenu div.collapsed 
@@ -31,20 +31,20 @@ div.sdmenu div span
 	padding: 5px 15px;
 	font-weight: bold;
 	color: white;
-	background: url(/images/expanded.gif) no-repeat 2px center;
+	background: url(../images/expanded.gif) no-repeat 2px center;
 	cursor: default;
 	border-bottom: 1px solid #ddd;
 }
 
 div.sdmenu div.collapsed span 
 {
-	background-image: url(/images/collapsed.gif);
+	background-image: url(../images/collapsed.gif);
 }
 
 div.sdmenu div a 
 {
 	padding: 5px 15px;
-	background: url(/images/item.png);
+	background: url(../images/item.png);
 	display: block;
 	border-bottom: 1px solid #ddd;
 	color: #000;
@@ -53,6 +53,6 @@ div.sdmenu div a
 
 div.sdmenu div a.current 
 {
-	background : url(/images/current.png);
+	background : url(../images/current.png);
 }
 
