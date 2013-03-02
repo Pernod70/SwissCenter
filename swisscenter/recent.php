@@ -28,7 +28,7 @@ function redirect_to_browse( $media_type )
     case 'ADDED_OR_CREATED':
       filter_set(str('RECENTLY_ADDED_OR_CREATED'), " and (media.discovered > ('".db_datestr()."' - interval $num_days day) or ".
                                                         " media.timestamp > ('".db_datestr()."' - interval $num_days day))" );
-      $sort = ($media_type == MEDIA_TYPE_MUSIC ? 'album' : 'title');
+      $sort = ($media_type == MEDIA_TYPE_MUSIC ? 'sort_album' : 'sort_title');
       break;
   }
 
