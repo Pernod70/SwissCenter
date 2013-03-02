@@ -103,16 +103,16 @@ function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth
   if ($banner)
   {
     if (is_screen_ntsc())
-      $background_image = '/thumb.php?type=jpg&stretch=Y&x='.convert_x(1000, BROWSER_SCREEN_COORDS).'&y='.convert_y(1000, BROWSER_SCREEN_COORDS).'&src='.rawurlencode($page_background).
+      $background_image = 'thumb.php?type=jpg&stretch=Y&x='.convert_x(1000, BROWSER_SCREEN_COORDS).'&y='.convert_y(1000, BROWSER_SCREEN_COORDS).'&src='.rawurlencode($page_background).
                           '&overlay='.rawurlencode($banner).'&ox='.(convert_x(500, BROWSER_SCREEN_COORDS)-convert_y(50, BROWSER_SCREEN_COORDS)*5.4).'&oy='.convert_y(40, BROWSER_SCREEN_COORDS).
                           '&ow='.(convert_y(100, BROWSER_SCREEN_COORDS)*5.4).'&oh='.convert_y(100, BROWSER_SCREEN_COORDS);
     else
-      $background_image = '/thumb.php?type=jpg&stretch=Y&x='.convert_x(1000, BROWSER_SCREEN_COORDS).'&y='.convert_y(1000, BROWSER_SCREEN_COORDS).'&src='.rawurlencode($page_background).
+      $background_image = 'thumb.php?type=jpg&stretch=Y&x='.convert_x(1000, BROWSER_SCREEN_COORDS).'&y='.convert_y(1000, BROWSER_SCREEN_COORDS).'&src='.rawurlencode($page_background).
                           '&overlay='.rawurlencode($banner).'&ox='.(convert_x(500, BROWSER_SCREEN_COORDS)-convert_y(65, BROWSER_SCREEN_COORDS)*5.4).'&oy='.convert_y(40, BROWSER_SCREEN_COORDS).
                           '&ow='.(convert_y(130, BROWSER_SCREEN_COORDS)*5.4).'&oh='.convert_y(130, BROWSER_SCREEN_COORDS);
   }
   else
-    $background_image = '/thumb.php?type=jpg&stretch=Y&x='.convert_x(1000, BROWSER_SCREEN_COORDS).'&y='.convert_y(1000, BROWSER_SCREEN_COORDS).'&src='.rawurlencode($page_background);
+    $background_image = 'thumb.php?type=jpg&stretch=Y&x='.convert_x(1000, BROWSER_SCREEN_COORDS).'&y='.convert_y(1000, BROWSER_SCREEN_COORDS).'&src='.rawurlencode($page_background);
 
   // Check length of background image URL, some players don't like it being too long
   if ( strlen($background_image)>256 )
@@ -194,15 +194,15 @@ function img_gen( $filename, $x, $y, $type = false, $stretch = false, $rs_mode =
   // Build the paramters for the thumb.php script. Also set the onFocusSrc attribute if an image is provided.
   if (is_array($filename))
   {
-    $img_params = '/thumb.php?src='.rawurlencode($filename[0]).'&x='.convert_x($x).'&y='.convert_y($y);
+    $img_params = 'thumb.php?src='.rawurlencode($filename[0]).'&x='.convert_x($x).'&y='.convert_y($y);
     if (!empty($filename[1]))
-      $focus_attr = 'onfocussrc="/thumb.php?src='.rawurlencode($filename[1]).'&x='.convert_x($x).'&y='.convert_y($y).'"';
+      $focus_attr = 'onfocussrc="thumb.php?src='.rawurlencode($filename[1]).'&x='.convert_x($x).'&y='.convert_y($y).'"';
     else
       $focus_attr = '';
   }
   else
   {
-    $img_params = '/thumb.php?src='.rawurlencode($filename).'&x='.convert_x($x).'&y='.convert_y($y);
+    $img_params = 'thumb.php?src='.rawurlencode($filename).'&x='.convert_x($x).'&y='.convert_y($y);
     $focus_attr = '';
   }
 
@@ -301,13 +301,13 @@ function page_footer( $back, $buttons = '', $iconbar = 0, $links = true, $text_b
   if ( is_pc() )
   {
     echo '<table style="position:absolute; top:'.convert_y(1000).'; left:0; " width="'.convert_x(1000).'" cellspacing="10" cellpadding="0"><tr>'.
-         pc_nav_button(str('PC_LINK_HOME')   , '/index.php').
-         pc_nav_button(str('PC_LINK_CONFIG') , '/config/index.php').
-         pc_nav_button(str('PC_LINK_MUSIC')  , '/music.php').
-         pc_nav_button(str('PC_LINK_MOVIES') , '/video.php').
-         pc_nav_button(str('PC_LINK_TV')     , '/tv.php').
-         pc_nav_button(str('PC_LINK_INTERNET'),'/index.php?submenu=internet').
-         pc_nav_button(str('PC_LINK_PHOTOS') , '/photo.php').
+         pc_nav_button(str('PC_LINK_HOME')   , 'index.php').
+         pc_nav_button(str('PC_LINK_CONFIG') , 'config/index.php').
+         pc_nav_button(str('PC_LINK_MUSIC')  , 'music.php').
+         pc_nav_button(str('PC_LINK_MOVIES') , 'video.php').
+         pc_nav_button(str('PC_LINK_TV')     , 'tv.php').
+         pc_nav_button(str('PC_LINK_INTERNET'),'index.php?submenu=internet').
+         pc_nav_button(str('PC_LINK_PHOTOS') , 'photo.php').
          pc_nav_button(str('PC_LINK_BACK')   , $back).
          '</tr></table>';
   }
@@ -447,7 +447,7 @@ if ( strpos($current_url, '/index.php') !== false )
 else
 {
   // Common page parameters that can be ignored when checking for page history replacement
-  $page_params = array('page', 'any', 'last', 'search', 'thumbs');
+  $page_params = array('page', 'any', 'last', 'search', 'thumbs', 'series');
 
   // Determine whether to add, replace, or delete page from history
   if (url_remove_params($current_url, $page_params) == url_remove_params(page_hist_current('url'), $page_params))

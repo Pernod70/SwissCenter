@@ -55,13 +55,13 @@ html>body .fd-slider-bar
         left:0;
         width:20px;
         height:20px;
-        background:transparent url(/images/slider.png) no-repeat 0px 0px !important;
+        background:transparent url(../images/slider.png) no-repeat 0px 0px !important;
         -moz-user-select:none;
         }
 
 .fd-slider-hover
         {
-        background:transparent url(/images/slider-hover.png) no-repeat 0px 0px !important;
+        background:transparent url(../images/slider-hover.png) no-repeat 0px 0px !important;
         }
 
 div.slider_200px

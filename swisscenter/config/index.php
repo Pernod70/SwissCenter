@@ -196,7 +196,7 @@
 
   apply_database_patches();
 
-  $page_title = '<a href="/"><img border=0 align="right" hspace=8 src="/images/close.gif"></a>'.str('CONFIG_TITLE');
+  $page_title = '<a href="../index.php"><img border=0 align="right" hspace=8 src="../images/close.gif"></a>'.str('CONFIG_TITLE');
   include("config_template.php");
 
 /**************************************************************************************************

@@ -69,7 +69,7 @@
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>
       <td width="180" valign="top" bgcolor="#eeeeee">
-      <img src="/images/dot.gif" width="170" height="1">
+      <img src="../images/dot.gif" width="170" height="1">
       &nbsp;<br/>
        <?php display_menu(); ?>
       &nbsp;<br/>

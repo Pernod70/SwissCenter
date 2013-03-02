@@ -227,7 +227,7 @@ function style_background ( $name )
     return ' bgcolor="'.style_value($name).'" ';
   elseif ( style_is_image($name))
   {
-    return ' style="background-repeat: repeat;" background="/thumb.php?src='.rawurlencode(style_img($name,true)).'" ';
+    return ' style="background-repeat: repeat;" background="thumb.php?src='.rawurlencode(style_img($name,true)).'" ';
   }
   else
     return '';

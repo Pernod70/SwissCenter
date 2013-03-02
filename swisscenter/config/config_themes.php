@@ -79,7 +79,7 @@ function refresh_picturegui( $file_id, $opts, $media_type )
   echo "<td width=460 height=260 ><center><div id=image>" ;
 
   if ( $file_id != 'wait' )
-    echo "<img src='".server_address()."config/config_themes.php?action=image&file_id=".$file_id."&flip=".$opts["flip"]."&greyscale=".$opts["greyscale"]."&x=450&y=252'>";
+    echo "<img src='config_themes.php?action=image&file_id=".$file_id."&flip=".$opts["flip"]."&greyscale=".$opts["greyscale"]."&x=450&y=252'>";
   else
     echo "<img src='".style_img('ANIM_AJAX',true)."'>";
 
@@ -121,13 +121,12 @@ function refresh_thumbnails( $title )
   echo '<p>'.str('THEME_PREVIEW_THUMBS','<b>'.htmlentities($title).'</b>').'</p>';
   echo '<table><tr>';
 
-  $server = server_address();
   $data = db_toarray("select * from themes where title='".db_escape_str($title)."'");
   foreach ($data as $i=>$theme)
   {
     // Start new row
     if ( $i % 3 == 0 && $i > 0 ) { echo "</tr><tr>"; }
-    echo "<td><img ".(($theme['USE_SYNOPSIS'] || $theme['USE_SERIES']) ? 'style="border:5px solid green"' : '')." src='".$server."config/config_themes.php?action=image&file_id=".$theme['FILE_ID']."&x=300&y=168'
+    echo "<td><img ".(($theme['USE_SYNOPSIS'] || $theme['USE_SERIES']) ? 'style="border:5px solid green"' : '')." src='config_themes.php?action=image&file_id=".$theme['FILE_ID']."&x=300&y=168'
             onclick=\"window.media_type=".$theme['MEDIA_TYPE']."; window.flip=".$theme['FLIP_IMAGE']."; window.greyscale=".$theme['GREYSCALE'].";window.use_series=".$theme['USE_SERIES']."; window.use_synopsis=".$theme['USE_SYNOPSIS']."; window.show_banner=".$theme['SHOW_BANNER']."; window.show_image=".$theme['SHOW_IMAGE']."; set_message(''); set_image('".$theme['FILE_ID']."')\">
           </td>\n";
   }
