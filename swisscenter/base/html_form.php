@@ -535,11 +535,11 @@ function form_select_table ( $param, $table_contents, $table_headings, $table_pa
       if($editable)
       {
         if(empty($edit))
-          echo '<td align="center" width="60"><a href="javascript:edit_'.$formname.'(\''.$row[strtoupper($id_col)].'\');"><img alt="Edit" title="Edit" src="/images/ico_edit.gif" border="0"></a></td>';
+          echo '<td align="center" width="60"><a href="javascript:edit_'.$formname.'(\''.$row[strtoupper($id_col)].'\');"><img alt="Edit" title="Edit" src="../images/ico_edit.gif" border="0"></a></td>';
         else if($row[strtoupper($id_col)] == $edit)
         {
-          echo '<td align="center" width="60"><a href="javascript:update_'.$formname.'(\''.$row[strtoupper($id_col)].'\');"><img alt="Ok" title="Ok" src="/images/ico_tick.gif" border="0"></a>';
-          echo '&nbsp;<a href="javascript:cancel_'.$formname.'();"><img alt="Cancel" title="Cancel" src="/images/ico_cross.gif" border="0"></a></td>';
+          echo '<td align="center" width="60"><a href="javascript:update_'.$formname.'(\''.$row[strtoupper($id_col)].'\');"><img alt="Ok" title="Ok" src="../images/ico_tick.gif" border="0"></a>';
+          echo '&nbsp;<a href="javascript:cancel_'.$formname.'();"><img alt="Cancel" title="Cancel" src="../images/ico_cross.gif" border="0"></a></td>';
         }
         else
           echo '<td>&nbsp;</td>';

@@ -323,10 +323,10 @@ function tv_display( $message = '')
         '.form_list_static_html("filter",$filter_list,$_REQUEST["filter"],true,true,str('VIEW_ALL')).'&nbsp;
         '.str('SORT').' :
         '.form_list_static_html("sort",$sort_list,$_REQUEST["sort"],false,true,false).'&nbsp;
-        <a href="'.url_set_param($this_url,'list','LIST').'"><img align="absbottom" border="0"  src="/images/details.gif"></a>
-        <a href="'.url_set_param($this_url,'list','THUMBS').'"><img align="absbottom" border="0" src="/images/thumbs.gif"></a>
-        <img align="absbottom" border="0" src="/images/select_all.gif" onclick=\'handleClick("tv[]", true)\'>
-        <img align="absbottom" border="0" src="/images/select_none.gif" onclick=\'handleClick("tv[]", false)\'>
+        <a href="'.url_set_param($this_url,'list','LIST').'"><img align="absbottom" border="0"  src="../images/details.gif"></a>
+        <a href="'.url_set_param($this_url,'list','THUMBS').'"><img align="absbottom" border="0" src="../images/thumbs.gif"></a>
+        <img align="absbottom" border="0" src="../images/select_all.gif" onclick=\'handleClick("tv[]", true)\'>
+        <img align="absbottom" border="0" src="../images/select_none.gif" onclick=\'handleClick("tv[]", false)\'>
         </td><td width="50%" align="right">
         '.str('SEARCH').' :
         <input name="search" value="'.$_REQUEST["search"].'" size=10>

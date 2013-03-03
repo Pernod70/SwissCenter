@@ -20,7 +20,7 @@
                       order by u.name");
 
     echo '<table width="100%"><tr>
-          <td width=100% align="center"><a href="http://www.live365.com/" target="_blank"><img src="/images/logos/youandlive365.gif" height="60" width="468" border="1" alt="Join the Radio Revolution. Click Here for Live365"></a></td>
+          <td width=100% align="center"><a href="http://www.live365.com/" target="_blank"><img src="../images/logos/youandlive365.gif" height="60" width="468" border="1" alt="Join the Radio Revolution. Click Here for Live365"></a></td>
         </tr></table>';
     message($live365_msg);
 

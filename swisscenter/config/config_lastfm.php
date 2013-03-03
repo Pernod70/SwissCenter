@@ -26,7 +26,7 @@
 
     echo '<p><h1>'.str('CONFIG_LASTFM_TITLE').'</h1><p>';
     echo '<b>'.str('LASTFM_WHATIS').'</b>';
-    echo '<p><a href="http://www.last.fm/" target="_blank"><img src="/images/logos/lastfm.gif" align="right" hspace="20" vspace="16" border=0></a>'.str('LASTFM_ABOUT');
+    echo '<p><a href="http://www.last.fm/" target="_blank"><img src="../images/logos/lastfm.gif" align="right" hspace="20" vspace="16" border=0></a>'.str('LASTFM_ABOUT');
 
     message($lastfm_msg);
 
