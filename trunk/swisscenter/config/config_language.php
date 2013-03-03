@@ -76,9 +76,9 @@
     form_hidden('action','DISPLAY');
     echo  '<tr><td>'.str('LANG_SELECT').' :
             '.form_list_static_html('lang_id',$lang_list,$lang_id,false,true,true).'&nbsp;
-            <a href="'.url_set_param(url_remove_param($this_url,'search'),'filter','ALL').'"><img align="absbottom" border="0"  src="/images/filter.gif"></a>
-            <a href="'.url_set_param(url_remove_param($this_url,'search'),'filter','CHANGED').'"><img align="absbottom" border="0" src="/images/filter_yellow.gif"></a>
-            <a href="'.url_set_param(url_remove_param($this_url,'search'),'filter','MISSING').'"><img align="absbottom" border="0" src="/images/filter_red.gif"></a>
+            <a href="'.url_set_param(url_remove_param($this_url,'search'),'filter','ALL').'"><img align="absbottom" border="0"  src="../images/filter.gif"></a>
+            <a href="'.url_set_param(url_remove_param($this_url,'search'),'filter','CHANGED').'"><img align="absbottom" border="0" src="../images/filter_yellow.gif"></a>
+            <a href="'.url_set_param(url_remove_param($this_url,'search'),'filter','MISSING').'"><img align="absbottom" border="0" src="../images/filter_red.gif"></a>
           </td><td width="50%" align="right">
             '.str('SEARCH').' :
             <input name="search" value="'.htmlspecialchars($_REQUEST["search"]).'" size=10>

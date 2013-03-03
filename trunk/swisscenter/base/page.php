@@ -216,9 +216,9 @@ function img_gen( $filename, $x, $y, $type = false, $stretch = false, $rs_mode =
     $img_params .='&rs_mode='.$rs_mode;
 
   if ($fill_size == false)
-  {
     $img_params .='&fill_size=N';
-  }
+
+  $rel_url = (stripos(current_url(), 'config/') !== false) ? '../' : '';
 
   // If width or height are not specified then do not use to define img size
   $width  = empty($x) ? '' : ' width="'.convert_x($x).'"';
@@ -227,11 +227,11 @@ function img_gen( $filename, $x, $y, $type = false, $stretch = false, $rs_mode =
   if ( strpos($browser,'MSIE ') !== false && preg_replace('/^.*MSIE (.*);.*$/Ui','\1',$browser) < 7)
   {
     // Make IE (<7) use PNG Alpha transparency
-    $filter = 'filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.$img_params.'",sizingMethod="crop");';
-    return '<img '.$html.' style="'.$filter.'"'.$width.$height.' src="/images/dot.gif" border="0">';
+    $filter = 'filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.$rel_url.$img_params.'",sizingMethod="crop");';
+    return '<img '.$html.' style="'.$filter.'"'.$width.$height.' src="'.$rel_url.'images/dot.gif" border="0">';
   }
   else
-    return '<img '.$html.$width.$height.' src="'.$img_params.'" '.$focus_attr.' border="0">';
+    return '<img '.$html.$width.$height.' src="'.$rel_url.$img_params.'" '.$focus_attr.' border="0">';
 }
 
 //-------------------------------------------------------------------------------------------------

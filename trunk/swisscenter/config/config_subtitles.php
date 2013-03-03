@@ -164,7 +164,7 @@ function subtitles_display( $message = '')
       {
         echo '<br><input type="radio" name="subtitle['.$movie["FILE_ID"].']" value="'.implode(',', array($sub["IDSubtitleFile"], file_ext($sub["SubFileName"]))).'"></input>';
         // Language with flag
-        echo '<img src="/images/flags/icons/'.$sub["ISO639"].'.gif">['.$sub["LanguageName"].'] ';
+        echo '<img src="../images/flags/icons/'.$sub["ISO639"].'.gif">['.$sub["LanguageName"].'] ';
         // Subtitle filename (with link to OpenSubtitles.org download page)
         echo '<a href="'.$sub["SubtitlesLink"].'" target="_blank">'.$sub["SubFileName"].'</a> ';
         // Rating
