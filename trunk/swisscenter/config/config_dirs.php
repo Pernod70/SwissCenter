@@ -172,7 +172,7 @@
     $locs = db_toarray("select location_id, name from media_locations");
     foreach ($locs as $loc)
     {
-      if (file_exists(SC_LOCATION.'media/'.$loc['LOCATION_ID'])) unlink(SC_LOCATION.'media/'.$loc['LOCATION_ID']);
+      @unlink(SC_LOCATION.'media/'.$loc['LOCATION_ID']);
       symlink($loc['NAME'],SC_LOCATION.'media/'.$loc['LOCATION_ID']);
     }
     dirs_display(str('MEDIA_LOC_SYMINKS_OK'));
@@ -194,19 +194,21 @@
       // Delete the selected directories
       foreach ($selected as $id)
       {
-        db_sqlcommand("delete from media_art using mp3s m, media_art ma where m.art_sha1 = ma.art_sha1 and m.location_id=$id");
-        db_sqlcommand("delete from media_art using movies m, media_art ma where m.art_sha1 = ma.art_sha1 and m.location_id=$id");
+        db_sqlcommand("delete from media_art using mp3s, media_art where mp3s.art_sha1 = media_art.art_sha1 and mp3s.location_id=$id");
+        db_sqlcommand("delete from media_art using movies, media_art where movies.art_sha1 = media_art.art_sha1 and movies.location_id=$id");
         db_sqlcommand("delete from media_locations where location_id=$id");
         db_sqlcommand("delete from mp3s where location_id=$id");
         db_sqlcommand("delete from movies where location_id=$id");
         db_sqlcommand("delete from photos where location_id=$id");
         db_sqlcommand("delete from tv where location_id=$id");
 
-        if ( is_windows() )
-          restart_swissmonitor();
-        else
-          unlink(SC_LOCATION.'media/'.$id);
+        if ( is_unix() )
+          @unlink(SC_LOCATION.'media/'.$id);
       }
+
+      // Restart SwissMonitor service to force refresh locations to monitor
+      if ( is_windows() )
+        restart_swissmonitor();
 
       dirs_display(str('MEDIA_LOC_DEL_OK'));
     }
@@ -292,7 +294,7 @@
         }
         else
         {
-          unlink(SC_LOCATION.'media/'.$id);
+          @unlink(SC_LOCATION.'media/'.$id);
           symlink($dir,SC_LOCATION.'media/'.$id);
         }
 
@@ -347,11 +349,13 @@
         dirs_display(db_error());
       else
       {
-        if (is_windows())
+        if ( is_windows() )
+        {
           restart_swissmonitor();
+        }
         else
         {
-          unlink(SC_LOCATION.'media/'.$loc_id);
+          @unlink(SC_LOCATION.'media/'.$loc_id);
           symlink($dir,SC_LOCATION.'media/'.$loc_id);
         }
 
