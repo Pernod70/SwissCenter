@@ -76,7 +76,7 @@ class test_summary
       echo '<p><table border=1 noshade width="90%" cellspacing=0 cellpadding=8 bgcolor="#ffffff">
             <tr>
               <td width="100%"><b>'.$section["heading"].'</b></td>
-              <td width="40" valign=top align=center><img src="/images/'.($failures ? $this->fail_img : $this->pass_img).'"></td>
+              <td width="40" valign=top align=center><img src="../images/'.($failures ? $this->fail_img : $this->pass_img).'"></td>
             </tr>';
 
       if ( $failures )
@@ -137,6 +137,11 @@ function check_display()
     $core_tests->add_test( $swiss, check_not_root_install(), str("PASS_SWISS_ROOT_INS"), str("ROOT_INSTALL_TEXT"));
 
   $core_tests->add_test( $swiss, check_database_patch(), str("PASS_DATABASE_PATCH", get_sys_pref('database_patch')), str("FAIL_DATABASE_PATCH", get_sys_pref('database_patch')) );
+  $core_tests->add_test( $swiss, check_swiss_write_rootdir(), str("PASS_SWISS_RW_FILES"), str("MISSING_PERMS_TEXT"));
+  $core_tests->add_test( $swiss, check_swiss_ini_file(), str("PASS_SWISS_INI"), str("FAIL_SWISS_INI"));
+  $core_tests->add_test( $swiss, check_swiss_write_cache_dir(), str("PASS_SWISS_CACHE"), str("FAIL_SWISS_CACHE", get_sys_pref('cache_dir')) );
+  $core_tests->add_test( $swiss, check_swiss_write_playlist_dir(), str("PASS_SWISS_PLAYLIST"), str("FAIL_SWISS_PLAYLIST", get_sys_pref('playlists')) );
+  $core_tests->add_test( $swiss, check_swiss_write_log_dir(), str("PASS_SWISS_LOG"), str("FAIL_SWISS_LOG", logfile_location()) );
 
   # ----------------------
   # PHP Tests
@@ -187,7 +192,7 @@ function check_display()
 
   $wget = $component_tests->add_section("Wget ".wget_version(),1);
 
-  $component_tests->add_test( $wget, is_file(wget_location()), str('PASS_WGET_TEST'),str('FAIL_WGET_TEST','<a href="'.server_address().'config/index.php?section=EXT_FILES&action=DISPLAY">'.str('EXTERNAL_FILES').'</a>').'<p>'.str('WGET_DESC'),FALSE);
+  $component_tests->add_test( $wget, is_file(wget_location()), str('PASS_WGET_TEST'),str('FAIL_WGET_TEST','<a href="index.php?section=EXT_FILES&action=DISPLAY">'.str('EXTERNAL_FILES').'</a>').'<p>'.str('WGET_DESC'),FALSE);
 
   # ----------------------
   # Music IP
