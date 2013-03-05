@@ -1248,16 +1248,6 @@
         <version>1.19</version>
       </string>
       <string>
-        <id>FAIL_MYSQL_CHARSET</id>
-        <text>The default charset of your MySQL server is not 'latin1', this will cause encoding issues. Reconfigure your MySQL server with [i]character-set-server=latin1[/i], and recreate the database.</text>
-        <version>1.23.1</version>
-      </string>
-      <string>
-        <id>FAIL_MYSQL_COLLATION</id>
-        <text>The default collation of your MySQL server is not 'latin1_swedish_ci', this will cause encoding issues. Reconfigure your MySQL server with [i]collation-server=latin1_swedish_ci[/i], and recreate the database.</text>
-        <version>1.23.1</version>
-      </string>
-      <string>
         <id>FAIL_MYSQL_CONNECT</id>
         <text>Unable to connect to the MySQL server.</text>
         <version>1.19</version>
@@ -1271,11 +1261,6 @@
         <id>FAIL_MYSQL_VERSION</id>
         <text>Your version of MySQL is not supported. You must have at least version 5.0 of MySQL installed</text>
         <version>1.22</version>
-      </string>
-      <string>
-        <id>FAIL_PHP_CLI</id>
-        <text>You have no command line version of PHP installed. SwissCenter will be unable to search for new media files.</text>
-        <version>1.19</version>
       </string>
       <string>
         <id>FAIL_PHP_EXTRA_MODS</id>
@@ -1345,11 +1330,6 @@
       <string>
         <id>FAIL_SWISS_INI</id>
         <text>Unable to locate the 'swisscenter.ini' file. [br]Have you created a SwissCenter database yet?</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>FAIL_SWISS_LOCS</id>
-        <text>No media locations have been defined.</text>
         <version>1.19</version>
       </string>
       <string>
@@ -2222,6 +2202,11 @@
         <version>1.22</version>
       </string>
       <string>
+        <id>JAMENDO</id>
+        <text>Jamendo</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>JUST_ADDED</id>
         <text>Just Added</text>
         <version>1.22</version>
@@ -3016,43 +3001,8 @@
         <version>1.22</version>
       </string>
       <string>
-        <id>MISSING_DB_TEXT</id>
-        <text>Please use the Configuration Utility to create a database.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MISSING_DB_TITLE</id>
-        <text>You have not created a database.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MISSING_INI_TEXT</id>
-        <text>Please use the Configuration Utility to create a configuration file.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MISSING_INI_TITLE</id>
-        <text>Your SwissCenter configuration file is missing.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MISSING_MEDIA_TEXT</id>
-        <text>Please use the Configuration Utility to add some media locations.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MISSING_MEDIA_TITLE</id>
-        <text>You have no media locations defined.</text>
-        <version>1.19</version>
-      </string>
-      <string>
         <id>MISSING_PERMS_TEXT</id>
         <text>The directory where you have installed SwissCenter is not readable/writeable by the webserver user.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MISSING_PERMS_TITLE</id>
-        <text>Installation incorrent</text>
         <version>1.19</version>
       </string>
       <string>
@@ -3068,21 +3018,6 @@
       <string>
         <id>MISSING_SETUP_SQL</id>
         <text>The &quot;Setup.sql&quot; file in the SwissCenter directory is missing.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MODULE_MISSING_LINUX</id>
-        <text>The %s module is not loaded - you may need to recompile PHP with the relevant option selected.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MODULE_MISSING_TITLE</id>
-        <text>Required PHP module missing</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MODULE_MISSING_WINDOWS</id>
-        <text>The %s module is not loaded - please modify your php.ini file to enable it.</text>
         <version>1.19</version>
       </string>
       <string>
@@ -3582,16 +3517,6 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <version>1.19</version>
       </string>
       <string>
-        <id>PASS_MYSQL_CHARSET</id>
-        <text>MySQL server is using 'latin1' charset.</text>
-        <version>1.23.1</version>
-      </string>
-      <string>
-        <id>PASS_MYSQL_COLLATION</id>
-        <text>MySQL server is using 'latin1_swedish_ci' collation.</text>
-        <version>1.23.1</version>
-      </string>
-      <string>
         <id>PASS_MYSQL_CONNECT</id>
         <text>Successfully connected to the MySQL server.</text>
         <version>1.19</version>
@@ -3607,11 +3532,6 @@ The enhanced option shows track details with a progress bar and a fanart image a
         <version>1.19</version>
       </string>
       <string>
-        <id>PASS_PHP_CLI</id>
-        <text>A command line version of PHP has been detected.</text>
-        <version>1.19</version>
-      </string>
-      <string>
         <id>PASS_PHP_EXTRA_MODS</id>
         <text>All suggested PHP modules are available.</text>
         <version>1.19</version>
@@ -3619,11 +3539,6 @@ The enhanced option shows track details with a progress bar and a fanart image a
       <string>
         <id>PASS_PHP_FONTS</id>
         <text>Successfully located a TrueType Font for generating &quot;Now Playing&quot; images.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>PASS_PHP_INI</id>
-        <text>Successfully located the 'php.ini' file.</text>
         <version>1.19</version>
       </string>
       <string>
@@ -3674,11 +3589,6 @@ The enhanced option shows track details with a progress bar and a fanart image a
       <string>
         <id>PASS_SWISS_INI</id>
         <text>Successfully located the 'swisscenter.ini' file.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>PASS_SWISS_LOCS</id>
-        <text>Media locations have been defined.</text>
         <version>1.19</version>
       </string>
       <string>
