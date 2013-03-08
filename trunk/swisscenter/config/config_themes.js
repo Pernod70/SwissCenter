@@ -30,7 +30,7 @@ set_message = function(message) {
       if (req.status == 200) {
         document.getElementById('message').innerHTML = req.responseText;
       } else {
-        alert('Loading Error: ['+req.status+'] ' +req.statusText);
+        alert('Loading Error: ['+req.status+'] '+req.statusText);
       }
     }
   }
@@ -45,7 +45,7 @@ set_image = function(file_id) {
       if (req.status == 200) {
         document.getElementById('picturegui').innerHTML = req.responseText;
       } else {
-        alert('Loading Error: ['+req.status+'] ' +req.statusText);
+        alert('Loading Error: ['+req.status+'] '+req.statusText);
       }
     }
   }
@@ -53,7 +53,7 @@ set_image = function(file_id) {
     file_id = window.file_id;
   }
   else if ( file_id != 'wait' ) {
-    window.file_id  =file_id;
+    window.file_id = file_id;
   }
   req.open('GET','config_themes.php?action=thumbgui&file_id='+file_id+'&media_type='+window.media_type+'&flip='+window.flip+'&greyscale='+window.greyscale+'&use_synopsis='+window.use_synopsis+'&use_series='+window.use_series+'&show_banner='+window.show_banner+'&show_image='+window.show_image,true);
   req.send(null);
@@ -66,12 +66,12 @@ show_thumbs = function (title) {
       if (req.status == 200) {
         document.getElementById('thumbnails').innerHTML = req.responseText;
       } else {
-        alert('Loading Error: ['+req.status+'] ' +req.statusText);
+        alert('Loading Error: ['+req.status+'] '+req.statusText);
       }
     }
   }
   window.title = title;
-  req.open('GET','config_themes.php?action=showthumbs&title='+escape(title),true);
+  req.open('GET','config_themes.php?action=showthumbs&title='+encodeURI(title),true);
   req.send(null);
 }
 
@@ -111,7 +111,7 @@ save_theme_settings = function() {
         set_image('no_change');
         show_thumbs(window.title);
       } else {
-        alert('Loading Error: ['+req.status+'] ' +req.statusText);
+        alert('Loading Error: ['+req.status+'] '+req.statusText);
       }
     }
   }

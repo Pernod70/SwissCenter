@@ -59,7 +59,7 @@ function themes_display()
 
 function refresh_picturegui( $file_id, $opts, $media_type )
 {
-  header('Content-type: text/html; '.charset());
+  header('Content-type: text/html; charset=utf-8');
 
   if ( $file_id != 'wait' )
   {
@@ -116,9 +116,9 @@ function refresh_picturegui( $file_id, $opts, $media_type )
 
 function refresh_thumbnails( $title )
 {
-  header('Content-type: text/html; '.charset());
+  header('Content-type: text/html; charset=utf-8');
 
-  echo '<p>'.str('THEME_PREVIEW_THUMBS','<b>'.htmlentities($title).'</b>').'</p>';
+  echo '<p>'.str('THEME_PREVIEW_THUMBS','<b>'.$title.'</b>').'</p>';
   echo '<table><tr>';
 
   $data = db_toarray("select * from themes where title='".db_escape_str($title)."'");
