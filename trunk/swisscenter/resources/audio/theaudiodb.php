@@ -261,6 +261,12 @@ function tadb_artist_getInfo($artist)
       if ($id !== false)
         $result = $data['artists'][$id];
     }
+    // Use local language biography if available
+    $lang = strtoupper(substr(get_sys_pref('DEFAULT_LANGUAGE','en'),0,2));
+    if (isset($result['strBiography'.$lang]) && !empty($result['strBiography'.$lang]))
+      $result['strBiography'] = $result['strBiography'.$lang];
+    else
+      $result['strBiography'] = $result['strBiographyEN'];
   }
   return $result;
 }
@@ -304,6 +310,12 @@ function tadb_album_getInfo($artist, $album)
         $result = $data['album'][$id];
       else
         $result = $data['album'][0];
+      // Use local language description if available
+      $lang = strtoupper(substr(get_sys_pref('DEFAULT_LANGUAGE','en'),0,2));
+      if (isset($result['strDescription'.$lang]) && !empty($result['strDescription'.$lang]))
+        $result['strDescription'] = $result['strDescription'.$lang];
+      else
+        $result['strDescription'] = $result['strDescriptionEN'];
     }
   }
   return $result;
@@ -327,6 +339,12 @@ function tadb_track_getInfo($artist, $album, $track)
         $result = $data['track'][$id];
       else
         $result = $data['track'][0];
+      // Use local language description if available
+      $lang = strtoupper(substr(get_sys_pref('DEFAULT_LANGUAGE','en'),0,2));
+      if (isset($result['strDescription'.$lang]) && !empty($result['strDescription'.$lang]))
+        $result['strDescription'] = $result['strDescription'.$lang];
+      else
+        $result['strDescription'] = $result['strDescriptionEN'];
     }
   }
   return $result;
