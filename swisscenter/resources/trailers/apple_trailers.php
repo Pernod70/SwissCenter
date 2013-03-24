@@ -29,7 +29,7 @@ class AppleTrailers {
     $request = APPLE_TRAILERS_URL.'/trailers/home/feeds/'.$feed.'.json';
 
     //Sends a request to Apple
-    send_to_log(6,'Apple feed request', $request);
+    send_to_log(6,'Apple feed request:', $request);
 
     if (!($body = $this->cache->getCached($request))) {
       if (($body = file_get_contents($request)) !== false) {
@@ -58,11 +58,14 @@ class AppleTrailers {
     // Remove anything within brackets from query
     $query = preg_replace('/\(.*?\)/', '', $query);
 
+    // Apple site search doesn't handle accented characters so trim titles at first offending character
+    $query = iconv('UTF-8', 'ASCII', encode_utf8($query));
+
     // Form the request URL
     $request = APPLE_TRAILERS_URL.'/trailers/home/scripts/quickfind.php?callback=searchCallback&q='.rawurlencode($query);
 
     //Sends a request to Apple
-    send_to_log(6,'Apple feed request', $request);
+    send_to_log(6,'Apple feed request:', $request);
 
     if (!($body = $this->cache->getCached($request))) {
       if (($body = file_get_contents($request)) !== false) {
@@ -273,7 +276,7 @@ function get_trailer_urls($trailer_xml)
     // Parse the iTunes XML
     send_to_log(6,'Parsing iTunes trailer.xml',$trailer_xml);
     preg_match_all('/<key>songName<\/key><string>(.*?)<\/string>.*?<key>previewURL<\/key><string>(.*?)<\/string>/', $xml, $trailer_urls);
-    send_to_log(8,'Found the following trailers',$trailer_urls);
+    send_to_log(8,'Found the following trailers',$trailer_urls[2]);
   }
   else
   {

@@ -102,15 +102,14 @@ class parserUtil
   }
 
   function get_alt_title_number($title) {
-    // Check for decimal number in title
-    $number_in_title = preg_get('/([0-9])/', $title);
-    if ( $number_in_title )
+    if ( preg_get('/([0-9])/', $title) ) {
+      // Check for decimal number in title
       $title_alt = preg_replace('/[0-9]/', self :: convertRomanNumeral($number_in_title, true), $title);
-    else {
+    } elseif ( preg_get('/(VIII|VII|VI|IV|III|II|IX|X|V|I)/U', $title) ) {
       // Check for roman numeral in title
-      $roman_in_title = preg_get('/(VIII|VII|VI|IV|III|II|IX|X|V|I)/U', $title);
-      if ( $roman_in_title )
-        $title_alt = preg_replace('/(VIII|VII|VI|IV|III|II|IX|X|V|I)/U', self :: convertRomanNumeral($roman_in_title, false), $title);
+      $title_alt = preg_replace('/(VIII|VII|VI|IV|III|II|IX|X|V|I)/U', self :: convertRomanNumeral($roman_in_title, false), $title);
+    } else {
+      $title_alt = $title;
     }
 
     if ( $title !== $title_alt ) {

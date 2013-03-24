@@ -32,7 +32,7 @@ class FilmTrailer {
   private function request($request)
   {
     //Sends a request to FilmTrailer.com
-    send_to_log(6,'FilmTrailer feed request',$request);
+    send_to_log(6,'FilmTrailer feed request:',$request);
     if (!($this->response = $this->cache->getCached($request))) {
       if (($this->response = file_get_contents($request)) !== false) {
         $this->cache->cache($request, $this->response);
@@ -141,20 +141,30 @@ class FilmTrailer {
   function quickFind ($query)
   {
     // Get the film ID list
-    $this->request('http://uk.listing.playnetworks.net/listing.php');
+    $request = "http://$this->region_code.listing.playnetworks.net/listing.php?product_type=$this->product_type";
 
-    // Search the film ID list for matches
-    $matches = array();
-    $query = (empty($query) ? '.*' : '[\w]*'.$query.'[\w]*');
-    preg_match_all('/<tr><td><a href="javascript: get_player\(this,\'([0-9]+)_([0-9]+)_([0-9]+)\'\);">\d+<\/a>[\s\d\(\)]+<\/td><td><a href="javascript: get_player\(this,\'[0-9_]+\'\);">('.$query.')<\/a>/Usi', $this->response, $matches);
+    //Sends a request to FilmTrailer.com
+    send_to_log(6,'FilmTrailer feed request:',$request);
+    if (!($trailers = $this->cache->getCached($request))) {
+      if (($html = file_get_contents($request)) !== false) {
+        // Search the film ID list for matches
+        $matches = array();
+        $query = (empty($query) ? '.*' : '[\w]*'.$query.'[\w]*');
+        preg_match_all('/<tr><td><a href="javascript: get_player\(this,\'([0-9]+)_([0-9]+)_([0-9]+)\'\);">\d+<\/a>[\s\d\(\)]+<\/td><td><a href="javascript: get_player\(this,\'[0-9_]+\'\);">('.$query.')<\/a>/Usi', $html, $matches);
 
-    // Remove duplicate movies, caused by having multiple trailers
-    $trailers = array();
-    for ($i=0; $i<count($matches[0]); $i++)
-    {
-      $trailers[$matches[2][$i]]["title"]      = $matches[4][$i];
-      $trailers[$matches[2][$i]]["film_id"]    = $matches[2][$i];
-      $trailers[$matches[2][$i]]["trailers"][] = array('clip_id' => $matches[1][$i], 'type_id' => $matches[3][$i]);
+        // Remove duplicate movies, caused by having multiple trailers
+        $trailers = array();
+        for ($i=0; $i<count($matches[0]); $i++)
+        {
+          $trailers[$matches[2][$i]]["title"]      = $matches[4][$i];
+          $trailers[$matches[2][$i]]["film_id"]    = $matches[2][$i];
+          $trailers[$matches[2][$i]]["trailers"][] = array('clip_id' => $matches[1][$i], 'type_id' => $matches[3][$i]);
+        }
+        $this->cache->cache($request, $trailers);
+      } else {
+        send_to_log(2,"There has been a problem sending your command to the server.", $request);
+        return false;
+      }
     }
     return $trailers;
   }
@@ -165,7 +175,7 @@ class FilmTrailer {
   *
   * @param string $filename
   */
-  function parse_filmtrailer_xml($xml) {
+  function parse_filmtrailer_xml($string) {
     global $movietrailer;
 
     // Create XML parser
@@ -176,9 +186,9 @@ class FilmTrailer {
       xml_set_character_data_handler($xmlparser, 'tag_contents_movietrailer');
 
       // Process XML file
-      $xml = preg_replace('/>\s+/u', '>', $xml);
-      $xml = preg_replace('/\s+</u', '<', $xml);
-      if (!xml_parse($xmlparser, $xml)) {
+      $string = preg_replace('/>\s+/u', '>', $string);
+      $string = preg_replace('/\s+</u', '<', $string);
+      if (!xml_parse($xmlparser, $string)) {
         send_to_log(8, 'XML parse error: ' . xml_error_string(xml_get_error_code($xmlparser)) . xml_get_current_line_number($xmlparser));
         $result = false;
       }

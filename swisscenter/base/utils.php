@@ -160,8 +160,8 @@ function strip_title ($title)
 
 function substr_between_strings( &$string, $startstr, $endstr)
 {
-  $start  = ( empty($startstr) ? 0 : mb_strpos($string,$startstr));
-  $end    = mb_strpos($string,$endstr, $start+mb_strlen($startstr));
+  $start  = (empty($startstr) ? 0 : mb_strpos($string, $startstr));
+  $end    = mb_strpos($string, $endstr, $start+mb_strlen($startstr));
 
   if ($start === false || $end === false)
   {
@@ -169,7 +169,7 @@ function substr_between_strings( &$string, $startstr, $endstr)
   }
   else
   {
-    $text  = strip_tags(mb_substr($string,$start+mb_strlen($startstr),$end-$start-mb_strlen($startstr)));
+    $text = strip_tags(mb_substr($string, $start+mb_strlen($startstr)+1, $end-$start-mb_strlen($startstr)));
 
     if (mb_strpos($text,'>') === false)
       return ltrim(rtrim($text));
@@ -226,7 +226,7 @@ function syscall($command)
 {
   $result = false;
 
-  if ($proc = popen("($command)","r"))
+  if (($proc = popen("($command)","r")) !== false)
   {
     while (!feof($proc))
       $result .= fgets($proc, 1000);
@@ -439,7 +439,7 @@ function array_sort( &$array, $key )
     asort ($sort_values);
     reset ($sort_values);
 
-    while (list ($arr_key, $arr_val) = each ($sort_values))
+    while ((list($arr_key, $arr_val) = each ($sort_values)) !== false)
       $sorted_arr[] = $array[$arr_key];
 
     $array = $sorted_arr;
@@ -747,21 +747,15 @@ if(!function_exists('mime_content_type')) {
 
 function unicode_decode($str)
 {
-  return preg_replace('/\%u([0-9a-f]{4})/e', "unicode_value(\\1)", $str);
+  return preg_replace("/\%u([0-9A-F]{4})/ie", "iconv('utf-16', 'utf-8', hex2str(\"$1\"))", $str);
 }
 
-function unicode_value($code)
+function hex2str($hex)
 {
-  $value=hexdec($code);
-  if($value<0x0080)
-    return chr($value);
-  elseif($value<0x0800)
-    return chr((($value&0x07c0)>>6)|0xc0)
-          .chr(($value&0x3f)|0x80);
-  else
-    return chr((($value&0xf000)>>12)|0xe0)
-          .chr((($value&0x0fc0)>>6)|0x80)
-          .chr(($value&0x3f)|0x80);
+  $r = '';
+  for ($i = 0; $i < strlen($hex) - 1; $i += 2)
+    $r .= chr(hexdec($hex[$i] . $hex[$i + 1]));
+  return $r;
 }
 
 /**

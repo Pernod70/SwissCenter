@@ -54,12 +54,20 @@ class wwwOFDBde extends Parser implements ParserInterface {
     send_to_log(4, "Searching for details about " . $this->title . " online at " . $this->site_url);
     $results = google_api_search('allintitle:-review+'.$this->title, "ofdb.de");
 
+    // Check for year in title
+    $year = preg_get('/\(\d{4}\)/', $this->title);
+
+    // Adjust results to improve possible matches
+    foreach ($results as $i=>$result) {
+      // Remove site 'OFDb - '
+      $results[$i]->titleNoFormatting = trim(preg_replace('/OFDb \- /', '', $result->titleNoFormatting));
+      // Remove year '(2012)'
+      if (empty($year))
+        $results[$i]->titleNoFormatting = trim(preg_replace('/\(\d{4}\)/', '', $result->titleNoFormatting));
+    }
+
     // Change the word order
-    $title = $this->title;
-    if ( substr($this->title,0,4) == 'The ' ) $title = substr($this->title,4).', The';
-    if ( substr($this->title,0,4) == 'Der ' ) $title = substr($this->title,4).', Der';
-    if ( substr($this->title,0,4) == 'Die ' ) $title = substr($this->title,4).', Die';
-    if ( substr($this->title,0,4) == 'Das ' ) $title = substr($this->title,4).', Das';
+    $title = db_value("select trim_article('$this->title', 'the,der,die,das,les')");
 
     $this->accuracy = 0;
 
@@ -67,7 +75,7 @@ class wwwOFDBde extends Parser implements ParserInterface {
       send_to_log(4, "No Match found.");
       $html = false;
     } else {
-      $best_match = google_best_match('OFDb - ' . $title, $results, $this->accuracy);
+      $best_match = google_best_match($title, $results, $this->accuracy);
 
       if ($best_match === false)
         $html = false;

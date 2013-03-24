@@ -42,13 +42,19 @@ class wwwFILMUPit extends Parser implements ParserInterface {
     send_to_log(4, "Searching for details about " . $this->title . " online at " . $this->site_url);
     $results = google_api_search("Scheda: " . $this->title, "filmup.leonardo.it");
 
+    // Adjust results to improve possible matches
+    foreach ($results as $i=>$result) {
+      // Remove site 'FilmUP - Scheda: '
+      $results[$i]->titleNoFormatting = trim(preg_replace('/FilmUP \- Scheda\: /', '', $result->titleNoFormatting));
+    }
+
     $this->accuracy = 0;
 
     if (count($results) == 0) {
       send_to_log(4, "No Match found.");
       $html = false;
     } else {
-      $best_match = google_best_match('FilmUP - Scheda: ' . $this->title, $results, $this->accuracy);
+      $best_match = google_best_match($this->title, $results, $this->accuracy);
 
       if ($best_match === false)
         $html = false;

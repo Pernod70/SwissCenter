@@ -281,7 +281,7 @@
   function google_api_search_best( $title, $query, $site = '', $enc = 'utf8')
   {
     $accuracy   = 0;
-    $result_set = google_api_search( $query, $site, $enc);
+    $result_set = google_api_search($query, $site, $enc);
     $match      = google_best_match($title, $result_set, $accuracy);
 
     if ($match !== false)
