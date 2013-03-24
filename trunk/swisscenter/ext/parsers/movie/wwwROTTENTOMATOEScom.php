@@ -179,6 +179,9 @@ class wwwROTTENTOMATOEScom extends Parser implements ParserInterface {
    * @return integer
    */
   function get_rotten_id($title, $year = '', $imdbtt = '') {
+    // Transliterate the title
+    $title = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', encode_utf8($title));
+
     // Use IMDb id (if provided), otherwise submit a search
     if (!empty ($imdbtt))
       $url = 'http://api.rottentomatoes.com/api/public/v1.0/movie_alias.json?apikey='.ROTTEN_API_KEY.'&type=imdb&id='.preg_get('/(\d+)/',$imdbtt);

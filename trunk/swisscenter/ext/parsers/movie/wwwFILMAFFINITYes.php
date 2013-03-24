@@ -38,7 +38,7 @@ class wwwFILMAFFINITYes extends Parser implements ParserInterface {
 
   protected function populatePage($search_params) {
     if (isset($search_params['TITLE']) && !empty($search_params['TITLE']))
-      $this->title = $search_params['TITLE'];
+      $this->title = decode_utf8($search_params['TITLE']);
 
     // Get page from filmaffinity.com
     send_to_log(4, "Searching for details about " . $this->title . " online at " . $this->site_url);
@@ -56,7 +56,6 @@ class wwwFILMAFFINITYes extends Parser implements ParserInterface {
       // Is the text that signifies a successful search present within the HTML?
       if (strpos(strtolower($html),strtolower('Resultados por título')) !== false) {
         preg_match_all ('/<b><a.*href="(.*\/es\/film\d+\.html[^"]*)"[^>]*>(.*)<\/a>/Ui', $html, $matches);
-//        $matches = get_urls_from_html($html, '\/es\/film\d+\.html');
         $index = best_match($this->title, $matches[2], $this->accuracy);
 
         if ($index === false)

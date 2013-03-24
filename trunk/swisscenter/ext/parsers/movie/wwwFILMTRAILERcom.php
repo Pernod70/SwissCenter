@@ -40,7 +40,7 @@ class wwwFILMTRAILERcom extends Parser implements ParserInterface {
 
   protected function populatePage($search_params) {
     if (isset($search_params['TITLE']) && !empty($search_params['TITLE']))
-      $this->title = $search_params['TITLE'];
+      $this->title = decode_utf8($search_params['TITLE']);
 
     // Perform search for matching titles
     send_to_log(4, "Searching for details about ".$this->title." online at ".$this->site_url);
@@ -139,7 +139,8 @@ class wwwFILMTRAILERcom extends Parser implements ParserInterface {
     $results = $this->page;
     if (isset($results[0]["CLIPS"])) {
       $trailer = array_pop($results[0]["CLIPS"][1]["FILES"]);
-      $trailer = $trailer["URL"];
+      list($path, $query) = explode("?", $trailer["URL"]);
+      $trailer = $path;
     }
     if (isset($trailer) && !empty($trailer)) {
       $this->setProperty(TRAILER, $trailer);

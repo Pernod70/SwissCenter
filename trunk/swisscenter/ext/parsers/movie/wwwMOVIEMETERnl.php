@@ -65,10 +65,8 @@ class wwwMOVIEMETERnl extends Parser implements ParserInterface {
     }
 
     // Change the word order
-    if ( substr($this->title,0,4)=='The ' ) $this->title = substr($this->title,4).', The';
-    if ( substr($this->title,0,4)=='Der ' ) $this->title = substr($this->title,4).', Der';
-    if ( substr($this->title,0,4)=='Die ' ) $this->title = substr($this->title,4).', Die';
-    if ( substr($this->title,0,4)=='Das ' ) $this->title = substr($this->title,4).', Das';
+    $this->title = db_value("select trim_article('$this->title', 'the,der,die,das,les')");
+    $this->title = decode_utf8($this->title );
 
     // Get search results
     send_to_log(4,"Searching for details about ".$this->title." online at '$this->site_url'");

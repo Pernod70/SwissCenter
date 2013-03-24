@@ -25,7 +25,7 @@ function check_parsers_display()
     $parsers = get_parsers_list('movie');
     foreach ($parsers as $parserclass) {
       set_time_limit(30);
-      $parser = new $parserclass(1, '../cache/Sherlock Holmes.avi', array('TITLE' => 'Sherlock Holmes'));
+      $parser = new $parserclass(1, '../cache/Les Misérables.avi', array('TITLE' => 'Les Misérables'));
       $fails = array();
       foreach ($parser->supportedProperties as $property) {
         $result = $parser->parseProperty($property);
