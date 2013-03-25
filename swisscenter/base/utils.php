@@ -160,8 +160,8 @@ function strip_title ($title)
 
 function substr_between_strings( &$string, $startstr, $endstr)
 {
-  $start  = (empty($startstr) ? 0 : mb_strpos($string, $startstr));
-  $end    = mb_strpos($string, $endstr, $start+mb_strlen($startstr));
+  $start = (empty($startstr) ? 0 : strpos($string, $startstr));
+  $end   = strpos($string, $endstr, $start+strlen($startstr));
 
   if ($start === false || $end === false)
   {
@@ -169,12 +169,12 @@ function substr_between_strings( &$string, $startstr, $endstr)
   }
   else
   {
-    $text = strip_tags(mb_substr($string, $start+mb_strlen($startstr)+1, $end-$start-mb_strlen($startstr)));
+    $text = strip_tags(substr($string, $start+strlen($startstr), $end-$start-strlen($startstr)));
 
-    if (mb_strpos($text,'>') === false)
+    if (strpos($text,'>') === false)
       return ltrim(rtrim($text));
     else
-      return ltrim(rtrim(substr($text,mb_strpos($text,'>')+1)));
+      return ltrim(rtrim(substr($text, strpos($text,'>')+1)));
   }
 }
 
