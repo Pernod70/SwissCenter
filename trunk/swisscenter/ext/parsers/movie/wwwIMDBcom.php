@@ -307,12 +307,28 @@ class wwwIMDBcom extends Parser implements ParserInterface {
       $certificate = trim(substr($cert, strpos($cert, ':') + 1)) . ' ';
       $certlist[$country] = substr($certificate, 0, strpos($certificate, ' '));
     }
-    if (get_rating_scheme_name() == 'BBFC')
-      $rating = (isset ($certlist["UK"]) ? $certlist["UK"] : $certlist["USA"]);
-    elseif (get_rating_scheme_name() == 'MPAA')
-      $rating = (isset ($certlist["USA"]) ? $certlist["USA"] : $certlist["UK"]);
-    elseif (get_rating_scheme_name() == 'Kijkwijzer')
-      $rating = (isset ($certlist["Netherlands"]) ? $certlist["Netherlands"] : (isset ($certlist["USA"]) ? $certlist["USA"] : $certlist["UK"]));
+    switch (get_rating_scheme_name())
+    {
+      case 'FSK':
+        if (isset($certlist["Germany"])) {
+          $rating = 'FSK '.$certlist["Germany"];
+          break;
+        }
+      case 'Kijkwijzer':
+        if (isset($certlist["Netherlands"])) {
+          $rating = $certlist["Netherlands"];
+          break;
+        }
+      case 'BBFC':
+        if (isset($certlist["UK"])) {
+          $rating = $certlist["UK"];
+          break;
+        }
+      default:
+        if (isset($certlist["USA"])) {
+          $rating = $certlist["USA"];
+        }
+    }
     if(isset($rating) && !empty($rating)){
       $this->setProperty(CERTIFICATE, $rating);
       return $rating;
