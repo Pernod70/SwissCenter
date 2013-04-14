@@ -6,9 +6,6 @@
    relating to movies that the user has added to their database. It typically collects
    information such as genre, year of release, synopsis, directors and actors.
 
-   Version history:
-   26-May-2008: v1.0:     First public release
-
  *************************************************************************************************/
 
 class wwwFILMAFFINITYes extends Parser implements ParserInterface {
@@ -27,6 +24,7 @@ class wwwFILMAFFINITYes extends Parser implements ParserInterface {
     DIRECTORS,
     YEAR,
     POSTER,
+    EXTERNAL_RATING_PC,
     MATCH_PC,
   );
 
@@ -55,7 +53,7 @@ class wwwFILMAFFINITYes extends Parser implements ParserInterface {
     } else {
       // Is the text that signifies a successful search present within the HTML?
       if (strpos(strtolower($html),strtolower('Resultados por título')) !== false) {
-        preg_match_all ('/<b><a.*href="(.*\/es\/film\d+\.html[^"]*)"[^>]*>(.*)<\/a>/Ui', $html, $matches);
+        preg_match_all ('/<a class="mc-title" href="(.*\/es\/film\d+\.html[^"]*)"[^>]*>(.*)<\/a>/Ui', $html, $matches);
         $index = best_match($this->title, $matches[2], $this->accuracy);
 
         if ($index === false)
@@ -91,7 +89,7 @@ class wwwFILMAFFINITYes extends Parser implements ParserInterface {
   }
   protected function parseSynopsis() {
     $html = $this->page;
-    $synopsis = substr_between_strings($html,'SINOPSIS','(FILMAFFINITY)');
+    $synopsis = substr_between_strings($html,'Sinopsis','(FILMAFFINITY)');
     if (isset($synopsis) && !empty($synopsis)) {
       $this->setProperty(SYNOPSIS, $synopsis);
       return $synopsis;
@@ -99,7 +97,7 @@ class wwwFILMAFFINITYes extends Parser implements ParserInterface {
   }
   protected function parseActors() {
     $html = $this->page;
-    $start = strpos($html,"REPARTO");
+    $start = strpos($html,"Reparto");
     if ($start !== false) {
       $end = strpos($html, "</tr>", $start +1);
       if ($end !== false) {
@@ -115,7 +113,7 @@ class wwwFILMAFFINITYes extends Parser implements ParserInterface {
   }
   protected function parseDirectors() {
     $html = $this->page;
-    $start = strpos($html,"DIRECTOR");
+    $start = strpos($html,"Director");
     if ($start !== false) {
       $end = strpos($html, "</tr>", $start +1);
       if ($end !== false) {
@@ -144,6 +142,15 @@ class wwwFILMAFFINITYes extends Parser implements ParserInterface {
     if (url_exists($poster)) {
       $this->setProperty(POSTER, $poster);
       return $poster;
+    }
+  }
+  protected function parseExternalRatingPc() {
+    $html = $this->page;
+    $user_rating = preg_get('/<div id="movie-rat-avg">(.*)<\/div>/Usm', $html);
+    if (!empty ($user_rating)) {
+      $user_rating = intval(str_replace(',', '.', $user_rating) * 10);
+      $this->setProperty(EXTERNAL_RATING_PC, $user_rating);
+      return $user_rating;
     }
   }
   protected function parseMatchPc() {
