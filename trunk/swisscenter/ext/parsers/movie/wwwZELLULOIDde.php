@@ -6,15 +6,6 @@
    relating to movies that the user has added to their database. It typically collects
    information such as genre, year of release, synopsis, directors and actors.
 
-   NOTE: This parser for Zelluloid.de is _NOT_ an official part of SWISScenter, and is not supported by the
-   SWISScenter developers. Nigel (Pernod)
-
-   Version history:
-   28-Jan-2009: v0.1:     First internal release
-   30-Jan-2009: v0.2:     First public release
-   17-Feb-2009: v0.3:     using google api, just like the new ofdb parser
-   19-Feb-2009: v0.4:	    Added FSK certificate
-
  *************************************************************************************************/
 
 class wwwZELLULOIDde extends Parser implements ParserInterface {
@@ -24,7 +15,6 @@ class wwwZELLULOIDde extends Parser implements ParserInterface {
   }
 
   protected $site_url = 'http://www.zelluloid.de/';
-  protected $search_url = 'http://www.zelluloid.de/suche/index.php3?qstring=#####';
 
   public $supportedProperties = array (
     SYNOPSIS,
@@ -48,54 +38,38 @@ class wwwZELLULOIDde extends Parser implements ParserInterface {
     if (isset($search_params['TITLE']) && !empty($search_params['TITLE']))
       $this->title = $search_params['TITLE'];
 
-    // Get page from zelluloid.de
+    // Get search results from google.
     send_to_log(4, "Searching for details about " . $this->title . " online at " . $this->site_url);
-    $search_title = str_replace('%20','+',urlencode($this->title));
-    $url_load = str_replace('#####', $search_title, $this->search_url);
+    $results = google_api_search('allintitle:'.$this->title, "zelluloid.de");
 
-    send_to_log(6,'Fetching information from: '.$url_load);
-    $html = file_get_contents( $url_load );
+    // Adjust results to improve possible matches
+    foreach ($results as $i=>$result) {
+      // Remove site ' | zelluloid.de'
+      $results[$i]->titleNoFormatting = trim(preg_replace('/ \| zelluloid.de/', '', $result->titleNoFormatting));
+    }
 
     $this->accuracy = 0;
 
-    if ($html === false) {
-      send_to_log(2,'Failed to access the URL.');
-    } else {
-      // Is the text that signifies a successful search present within the HTML?
-      if (strpos(strtolower($html),strtolower('Der Suchbegriff erzielte')) == false) {
-        // Direct hit
-        $this->accuracy = 100;
-      } else {
-        // Get search results from google.
-        $results = google_api_search('allintitle:'.$this->title, "zelluloid.de");
+    if (count($results)==0)
+    {
+      send_to_log(4,"No Match found.");
+      $html = false;
+    }
+    else
+    {
+      $best_match = google_best_match($this->title, $results, $this->accuracy);
 
-        // Adjust results to improve possible matches
-        foreach ($results as $i=>$result) {
-          // Remove site ' | zelluloid.de'
-          $results[$i]->titleNoFormatting = trim(preg_replace('/ \| zelluloid.de/', '', $result->titleNoFormatting));
-        }
-
-        if (count($results)==0)
+      if ($best_match === false)
+        $html = false;
+      else
+      {
+        $zelluloid_url = urldecode($best_match->url);
+        if (strpos($zelluloid_url,'index.php3')==false)
         {
-          send_to_log(4,"No Match found.");
-          $html = false;
+          $zelluloid_url = str_replace('details.php3','index.php3',$zelluloid_url);
         }
-        else
-        {
-          $best_match = google_best_match($this->title, $results, $this->accuracy);
-          if ($best_match === false)
-            $html = false;
-          else
-          {
-            $zelluloid_url = urldecode($best_match->url);
-            if (strpos($zelluloid_url,'index.php3')==false)
-            {
-              $zelluloid_url = str_replace('details.php3','index.php3',$zelluloid_url);
-            }
-            send_to_log(6,'Fetching information from: '.$zelluloid_url);
-            $html = file_get_contents( $zelluloid_url );
-          }
-        }
+        send_to_log(6,'Fetching information from: '.$zelluloid_url);
+        $html = file_get_contents( $zelluloid_url );
       }
     }
     if ($html !== false) {
