@@ -59,7 +59,7 @@ set_image = function(file_id) {
   req.send(null);
 }
 
-show_thumbs = function (title) {
+show_thumbs = function (title, media_type) {
   var req = initXMLHttpClient();
   req.onreadystatechange = function() {
     if (req.readyState == 4) {
@@ -71,7 +71,7 @@ show_thumbs = function (title) {
     }
   }
   window.title = title;
-  req.open('GET','config_themes.php?action=showthumbs&title='+encodeURI(title),true);
+  req.open('GET','config_themes.php?action=showthumbs&title='+encodeURI(title)+'&media_type='+media_type,true);
   req.send(null);
 }
 
@@ -85,7 +85,7 @@ select_title = function (title, media_type) {
   window.show_banner = 0;
   window.show_image = 0;
   set_image('not_selected');
-  show_thumbs(title);
+  show_thumbs(title, media_type);
 }
 
 config_inverse = function(value) {
@@ -109,7 +109,7 @@ save_theme_settings = function() {
       if (req.status == 200) {
         set_message('THEME_APPLY_OK');
         set_image('no_change');
-        show_thumbs(window.title);
+        show_thumbs(window.title, window.media_type);
       } else {
         alert('Loading Error: ['+req.status+'] '+req.statusText);
       }

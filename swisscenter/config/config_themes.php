@@ -21,10 +21,10 @@ function themes_display()
             var result;
             switch(value) {
             case "'.MEDIA_TYPE_VIDEO.'":
-              result=\''.form_list_dynamic_html(MEDIA_TYPE_VIDEO, "select distinct th.title id, m.sort_title name from themes th left join movies m on m.title=th.title where th.media_type=".MEDIA_TYPE_VIDEO." order by m.sort_title",'',true,true,'','select_title(this.value,'.MEDIA_TYPE_VIDEO.');').'\';
+              result=\''.form_list_dynamic_html(MEDIA_TYPE_VIDEO, "select distinct th.title id, m.sort_title name from themes th right join movies m on m.title=th.title where th.media_type=".MEDIA_TYPE_VIDEO." order by m.sort_title",'',true,true,'','select_title(this.value,'.MEDIA_TYPE_VIDEO.');').'\';
               break;
             default:
-              result=\''.form_list_dynamic_html(MEDIA_TYPE_TV, "select distinct th.title id, t.sort_programme name from themes th left join tv t on t.programme=th.title where th.media_type=".MEDIA_TYPE_TV." order by t.sort_programme",'',true,true,'','select_title(this.value,'.MEDIA_TYPE_TV.');').'\';
+              result=\''.form_list_dynamic_html(MEDIA_TYPE_TV, "select distinct th.title id, t.sort_programme name from themes th right join tv t on t.programme=th.title where th.media_type=".MEDIA_TYPE_TV." order by t.sort_programme",'',true,true,'','select_title(this.value,'.MEDIA_TYPE_TV.');').'\';
               break;
             }
             document.getElementById("titlelookup").innerHTML=result;
@@ -46,7 +46,7 @@ function themes_display()
   echo '<p>'.str('THEMES_PROMPT');
   echo '<table cellspacing="4"><tr>';
   echo '  <td>'.str('MEDIA_TYPE').' : </td><td>'.form_list_static_html('media_type',$media_type_list,'',true,true,false,'select_type(this.value);').'</td>';
-  echo '  <td>'.str('TITLE').' : </td><td><div id="titlelookup">'.form_list_dynamic_html('title_list',"select distinct th.title id, t.sort_programme name from themes th left join tv t on t.programme=th.title where th.media_type=".MEDIA_TYPE_TV." order by t.sort_programme",'',true,true,'','select_title(this.value,'.MEDIA_TYPE_TV.');').'</div></td>';
+  echo '  <td>'.str('TITLE').' : </td><td><div id="titlelookup">'.form_list_dynamic_html('title_list',"select distinct th.title id, t.sort_programme name from themes th right join tv t on t.programme=th.title where th.media_type=".MEDIA_TYPE_TV." order by t.sort_programme",'',true,true,'','select_title(this.value,'.MEDIA_TYPE_TV.');').'</div></td>';
   echo '</tr></table>';
   echo '<table>';
   echo '<tr><td width=900 ><div id="picturegui"></div></td></tr>';
@@ -114,14 +114,14 @@ function refresh_picturegui( $file_id, $opts, $media_type )
   echo "</table>" ;
 }
 
-function refresh_thumbnails( $title )
+function refresh_thumbnails( $title, $media_type )
 {
   header('Content-type: text/html; charset=utf-8');
 
   echo '<p>'.str('THEME_PREVIEW_THUMBS','<b>'.$title.'</b>').'</p>';
   echo '<table><tr>';
 
-  $data = db_toarray("select * from themes where title='".db_escape_str($title)."'");
+  $data = db_toarray("select * from themes where media_type=".$media_type." and title='".db_escape_str($title)."'");
   foreach ($data as $i=>$theme)
   {
     // Start new row
@@ -155,8 +155,9 @@ if ( isset($_REQUEST["action"]) )
 
     case 'showthumbs' :
       // Display thumbnails of all fanart for selected title
-      $title = $_REQUEST["title"];
-      refresh_thumbnails( $title );
+      $title        = $_REQUEST["title"];
+      $media_type   = $_REQUEST["media_type"];
+      refresh_thumbnails( $title, $media_type );
       break;
 
     case 'thumbgui' :
