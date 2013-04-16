@@ -117,13 +117,14 @@ class VideoBash {
     send_to_log(6,'VideoBash request', $url);
     if (!($details = $this->cache->getCached($url))) {
       if (($body = $this->request($url)) !== false) {
-        $details = array('title'       => preg_get('/<title>(.*) - Funny/U', $body),
+        $details = array('title'       => preg_get('/property="og:title" content="(.*)"/U', $body),
                          'rating'      => preg_get('/id="thumbs_percent" itemprop="average">(.*)%<\/div>/U', $body),
-                         'description' => preg_get('/"description" content="(.*) - Watch Funny Videos, Clips,Jokes and Pranks from around the world. Videobash has a huge selection of free funny pictures,viral videos, and entertainment!/U', $body),
+                         'description' => preg_get('/property="og:description" content="(.*)"/U', $body),
                          'viewed'      => preg_get('/<div class="realviews float-left"><strong>(.*)<\/strong>/U', $body),
                          'date'        => preg_get('/<span class="time-upload">on(.*)<\/span>/U', $body),
-                         'image'       => preg_get('/"imageContent".*src="(.*jpg)"/U', $body),
-                         'video_url'   => preg_get('/.*false&video_url=.*(.*.mp4)/U', $body));
+                         'image'       => preg_get('/property="og:image" content="(.*jpg)"/U', $body),
+                         'video_url'   => preg_get('/file=" \+ \'http:\/\/\' \+ \'(.*)\';/U', $body));
+        $details['video_url'] = 'http://'.rawurlencode($details['video_url']);
         $details = json_encode($details);
         $this->cache->cache($url, $details);
       } else {
