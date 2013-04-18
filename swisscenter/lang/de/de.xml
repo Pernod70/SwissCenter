@@ -89,12 +89,12 @@
       </string>
       <string>
         <id>ARTICLES</id>
-        <text>Ignorierte Artikel</text>
+        <text>Ignorierte Wörter (Artikel)</text>
         <version>1.23.1</version>
       </string>
       <string>
         <id>ARTICLES_PROMPT</id>
-        <text>Definition einer durch Komma getrennte Liste von Wörtern (Artikeln), die Filmtiteln voran stehen und bei einer Suche ignoriert werden sollen. Beispielsweise führt die Definition von 'Der,Die,Das' dazu, dass bei der Sortierung nach Titel der Film 'Die Monster AG' als 'Monster AG, Die' angezeigt wird.</text>
+        <text>Definition einer durch Komma getrennte Liste von Wörtern (z.B. Artikel), die Filmtiteln voran stehen und bei einer Suche ignoriert werden sollen. Beispielsweise führt die Definition von 'Der,Die,Das' dazu, dass bei der Sortierung nach Titel der Film 'Die Monster AG' als 'Monster AG, Die' angezeigt wird.</text>
         <version>1.23.1</version>
       </string>
       <string>
@@ -1253,16 +1253,6 @@ Zusatzinformationen</text>
         <version>1.19</version>
       </string>
       <string>
-        <id>FAIL_MYSQL_CHARSET</id>
-        <text>Der Standard Zeichensatz Ihres MySQL Servers ist nicht 'Latin1'. Dies führt zu Verschlüsselungsproblemen. Konfigurieren Sie den MySQL Server erneut mit [i]character-set-server=latin1[/i] und erstellen Sie die Datenbank neu.</text>
-        <version>1.23.1</version>
-      </string>
-      <string>
-        <id>FAIL_MYSQL_COLLATION</id>
-        <text>Der Standard Kollation Ihres MySQL Servers ist nicht 'Latin1_Swedish_ci'. Dies führt zu Verschlüsselungsproblemen. Konfigurieren Sie den MySQL Server erneut mit [i]collation-server=latin1_swedish_ci[/i] und erstellen Sie die Datenbank neu.</text>
-        <version>1.23.1</version>
-      </string>
-      <string>
         <id>FAIL_MYSQL_CONNECT</id>
         <text>Konnte keine Verbindung zum MySQL Server herstellen.</text>
         <version>1.19</version>
@@ -1275,11 +1265,6 @@ Zusatzinformationen</text>
       <string>
         <id>FAIL_MYSQL_VERSION</id>
         <text>Ihre MySQL-Version wird nicht unterstützt. Sie müssen mindestens Version 5.0 installiert haben.</text>
-        <version>1.23.1</version>
-      </string>
-      <string>
-        <id>FAIL_PHP_CLI</id>
-        <text>Sie haben keine Kommandozeilen-Version von PHP (php-cli) installiert. SwissCenter ist daher nicht in der Lage nach neuen Medien-Dateien zu suchen.</text>
         <version>1.23.1</version>
       </string>
       <string>
@@ -1351,11 +1336,6 @@ Zusatzinformationen</text>
         <id>FAIL_SWISS_INI</id>
         <text>Kann die Datei 'swisscenter.ini' nicht finden. [br]Haben Sie schon eine SwissCenter Datenbank angelegt?</text>
         <version>1.19</version>
-      </string>
-      <string>
-        <id>FAIL_SWISS_LOCS</id>
-        <text>Es wurden keine Speicherorte für Medien definiert.</text>
-        <version>1.20</version>
       </string>
       <string>
         <id>FAIL_SWISS_LOG</id>
@@ -2228,6 +2208,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.23.1</version>
       </string>
       <string>
+        <id>JAMENDO</id>
+        <text>Jamendo</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>JUST_ADDED</id>
         <text>Neu hinzugefügt</text>
         <version>1.22</version>
@@ -2695,6 +2680,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.23.1</version>
       </string>
       <string>
+        <id>MEDIA_LOC_SYMINKS_OK</id>
+        <text>Die symbolischen Links wurden erstellt</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>MEDIA_LOC_SYMLINKS</id>
         <text>Alle symbolischen Links neu erstellen</text>
         <version>1.23.1</version>
@@ -3010,43 +3000,8 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.22</version>
       </string>
       <string>
-        <id>MISSING_DB_TEXT</id>
-        <text>Bitte benutzen Sie das Konfigurations-Utility, um eine Datenbank zu erstellen.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MISSING_DB_TITLE</id>
-        <text>Sie haben keine Datenbank erstellt.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MISSING_INI_TEXT</id>
-        <text>Bitte benutzen Sie das Konfigurations-Utility, um eine Konfigurationsdatei zu erstellen.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MISSING_INI_TITLE</id>
-        <text>Ihre SwissCenter-Konfigurationsdatei fehlt.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MISSING_MEDIA_TEXT</id>
-        <text>Bitte benutzen Sie das Konfigurations-Utility, um Medienordner zu erstellen.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MISSING_MEDIA_TITLE</id>
-        <text>Sie haben keine Medienordner erstellt.</text>
-        <version>1.19</version>
-      </string>
-      <string>
         <id>MISSING_PERMS_TEXT</id>
         <text>Das Verzeichnis, in dem Sie SwissCenter installiert haben, ist vom Webserver-Benutzer nicht lesbar bzw. änderbar.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MISSING_PERMS_TITLE</id>
-        <text>Installation nicht korrekt</text>
         <version>1.19</version>
       </string>
       <string>
@@ -3062,21 +3017,6 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       <string>
         <id>MISSING_SETUP_SQL</id>
         <text>Die Datei &quot;Setup.sql&quot; im SwissCenter-Verzeichnis fehlt.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MODULE_MISSING_LINUX</id>
-        <text>Das Modul %s ist nicht geladen - Sie müssen möglicherweise PHP mit der benötigten Option neu kompilieren.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MODULE_MISSING_TITLE</id>
-        <text>Ein benötigtes PHP-Modul fehlt</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MODULE_MISSING_WINDOWS</id>
-        <text>Das Modul %s ist nicht geladen - bitte passen Sie die Datei php.ini an, um es zu aktivieren.</text>
         <version>1.19</version>
       </string>
       <string>
@@ -3575,16 +3515,6 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
-        <id>PASS_MYSQL_CHARSET</id>
-        <text>MySQL Server benutzt den 'Latin1' Zeichensatz.</text>
-        <version>1.23.1</version>
-      </string>
-      <string>
-        <id>PASS_MYSQL_COLLATION</id>
-        <text>MySQL Server benutzt die 'Latin1_Swedisch_ci' Kollation.</text>
-        <version>1.23.1</version>
-      </string>
-      <string>
         <id>PASS_MYSQL_CONNECT</id>
         <text>Verbindung mit dem MySQL Server erfolgreich hergestellt.</text>
         <version>1.19</version>
@@ -3600,11 +3530,6 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.19</version>
       </string>
       <string>
-        <id>PASS_PHP_CLI</id>
-        <text>Kommandozeilen-Version von PHP (php-cli) wurde gefunden.</text>
-        <version>1.19</version>
-      </string>
-      <string>
         <id>PASS_PHP_EXTRA_MODS</id>
         <text>Alle empfohlenen PHP Module sind verfügbar.</text>
         <version>1.19</version>
@@ -3612,11 +3537,6 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       <string>
         <id>PASS_PHP_FONTS</id>
         <text>Ein TrueType Font für die Erstellung der &quot;Aktueller Titel&quot; Bilder wurde erfolgreich lokalisiert.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>PASS_PHP_INI</id>
-        <text>Die Datei 'php.ini' wurde erfolgreich lokalisiert.</text>
         <version>1.19</version>
       </string>
       <string>
@@ -3667,11 +3587,6 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       <string>
         <id>PASS_SWISS_INI</id>
         <text>Datei 'swisscenter.ini' erfolgreich lokalisiert.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>PASS_SWISS_LOCS</id>
-        <text>Medien-Speicherorte wurden definiert.</text>
         <version>1.19</version>
       </string>
       <string>
