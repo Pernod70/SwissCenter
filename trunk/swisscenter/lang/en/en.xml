@@ -2691,6 +2691,11 @@
         <version>1.23.1</version>
       </string>
       <string>
+        <id>MEDIA_LOC_SYMLINKS_OK</id>
+        <text>Symbolic links have been recreated</text>
+        <version>1.24</version>
+      </string>
+      <string>
         <id>MEDIA_LOC_UPDATE_OK</id>
         <text>Updated media location information</text>
         <version>1.19</version>
@@ -3037,8 +3042,8 @@
       </string>
       <string>
         <id>MOST_POPULAR</id>
-        <text>Most Popular</text>
-        <version>1.22</version>
+        <text>Most popular</text>
+        <version>1.24</version>
       </string>
       <string>
         <id>MOST_RECENT</id>
