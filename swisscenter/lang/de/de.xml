@@ -2680,13 +2680,13 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <version>1.23.1</version>
       </string>
       <string>
-        <id>MEDIA_LOC_SYMINKS_OK</id>
-        <text>Die symbolischen Links wurden erstellt</text>
+        <id>MEDIA_LOC_SYMLINKS</id>
+        <text>Alle symbolischen Links neu erstellen</text>
         <version>1.23.1</version>
       </string>
       <string>
-        <id>MEDIA_LOC_SYMLINKS</id>
-        <text>Alle symbolischen Links neu erstellen</text>
+        <id>MEDIA_LOC_SYMLINKS_OK</id>
+        <text>Die symbolischen Links wurden erstellt</text>
         <version>1.23.1</version>
       </string>
       <string>
