@@ -175,7 +175,7 @@
       @unlink(SC_LOCATION.'media/'.$loc['LOCATION_ID']);
       symlink($loc['NAME'],SC_LOCATION.'media/'.$loc['LOCATION_ID']);
     }
-    dirs_display(str('MEDIA_LOC_SYMINKS_OK'));
+    dirs_display(str('MEDIA_LOC_SYMLINKS_OK'));
   }
 
   // ----------------------------------------------------------------------------------
