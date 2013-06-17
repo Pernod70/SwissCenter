@@ -230,7 +230,7 @@ function lang_wikipedia_search( $search_terms, $back_url = '' )
     if ( mb_strpos($lang,'-') !== false)
       $lang = mb_substr($lang,0,strpos($lang,'-'));
   }
-  return '/wikipedia_proxy.php?wiki='.urlencode($lang.'.wikipedia.org').'&url='.urlencode('/w/index.php').'&search='.urlencode($search_terms).'&back_url='.urlencode($back_url);
+  return '/wikipedia_proxy.php?wiki='.urlencode($lang.'.wikipedia.org').'&page='.urlencode($search_terms).'&back_url='.urlencode($back_url);
 }
 
 /**
