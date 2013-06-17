@@ -23,7 +23,7 @@
     elseif ( $matches[1][0] == '#')
       return'<a href="'.current_url().$matches[1].'"><font color="'.$color.'">'.$matches[2].'</font></a>';
     else
-      return '<a href="/wikipedia_proxy.php?wiki='.urlencode($wiki).'&url='.urlencode($matches[1]).'&back_url='.urlencode($back_url).'"><font color="'.$color.'">'.$matches[2].'</font></a>';
+      return '<a href="/wikipedia_proxy.php?wiki='.urlencode($wiki).'&page='.urlencode($matches[1]).'&back_url='.urlencode($back_url).'"><font color="'.$color.'">'.$matches[2].'</font></a>';
   }
 
 //-------------------------------------------------------------------------------------------------
@@ -33,9 +33,9 @@
   // Get the page parameters, decode them and assign to variables.
   $back_url = isset($_REQUEST["back_url"]) ? $_REQUEST["back_url"] : page_hist_previous();
   $wiki = urldecode($_REQUEST["wiki"]);
-  $url  = urldecode($_REQUEST["url"]);
-  if (isset($_REQUEST["search"]))
-    $url .= '?search='.urlencode(urldecode($_REQUEST["search"]));
+  $page = isset($_REQUEST["page"]) ? urldecode($_REQUEST["page"]) : '';
+  $page = str_replace('/wiki/', '', $page);
+  $url  = '/w/api.php?format=json&action=parse&page='.urlencode($page).'&redirects';
 
   // Fake the browser type and download (file_get_contents only supports HTTP/1.0 not HTTP/1.1)
   ini_set('user_agent','Mozilla/5.0');
@@ -49,13 +49,11 @@
   }
   else
   {
-    // Determine the page title
-    preg_match('~<title>(.*?) - .*?</title>~s',$html,$title);
+    // Decode the json response
+    $data = json_decode($html, true);
 
-    // Strip the unwanted information from the top and bottom of the file
-    $content_start = strpos($html,'<!-- bodycontent -->');
-    $content_end   = strpos($html,'<!-- /bodycontent -->');
-    $html          = substr($html, $content_start, $content_end-$content_start);
+    // Get page html
+    $html = $data['parse']['text']['*'];
 
     // Search for all links and process them
     $start = 0;
@@ -67,14 +65,11 @@
       $start     = $pos + strlen($link);
     }
 
-    // Remove hidden structures
-    $html = preg_replace('~<tr class="hiddenStructure">.*?</tr>~s','',$html);
-
     // Remove [edit] prompts
     $html = str_replace('[edit]','',$html);
 
     // Output the page
-    page_header('Wikipedia : '.$title[1]);
+    page_header('Wikipedia : '.$data['parse']['title']);
 
     if (is_hardware_player())
       echo $html;
