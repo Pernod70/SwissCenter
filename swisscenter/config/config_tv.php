@@ -26,7 +26,7 @@ function tv_display_info( $message = '' )
   // Display tv shows that will be affected.
   echo '<h1>'.$details["PROGRAMME"].(empty($details["TITLE"]) ? '' : ' - '.$details["TITLE"]).'</h1><center>
          ( <a href="'.$_SESSION["last_search_page"].'">'.str('RETURN_TO_LIST').'</a>
-         | <a href="?section=TV&action=UPDATE_FORM_SINGLE&tv[]='.$tv_id.'">'.str('DETAILS_EDIT').'</a>
+         | <a href="?section=TV&action=UPDATE_FORM&tv='.$tv_id.'">'.str('DETAILS_EDIT').'</a>
          ) </center>';
         message($message);
   echo '<table class="form_select_tab" width="100%" cellspacing="4">
@@ -192,7 +192,7 @@ function tv_display_list($tv_list)
     $cert      = db_value("select name from certificates where cert_id=".nvl($tv["CERTIFICATE"],-1));
 
     echo '<table class="form_select_tab" width="100%"><tr>
-          <td valign="top" width="4%"><input type="checkbox" name="tv[]" value="'.$tv["FILE_ID"].'"></input></td>
+          <td valign="top" width="4%"><input type="checkbox" name="tv[]" value="'.$tv["FILE_ID"].'"></td>
           <td valign="top" width="24%">
              <a href="?section=tv&action=display_info&tv_id='.$tv["FILE_ID"].'">'.highlight($tv["PROGRAMME"], $_REQUEST["search"]).' - '.highlight($tv["TITLE"], $_REQUEST["search"]).'</a><br>'.
              str('SERIES').' : '.nvl($tv["SERIES"]).'<br>'.
@@ -228,7 +228,7 @@ function tv_display_thumbs($tv_list)
 
     $img_url     = img_gen(file_albumart($tv["DIRNAME"].$tv["FILENAME"]) ,130,400,false,false,false,array('hspace'=>0,'vspace'=>4) );
     $edit_url    = '?section=tv&action=display_info&tv_id='.$tv["FILE_ID"];
-    $thumb_html .= '<td valign="top"><input type="checkbox" name="tv[]" value="'.$tv["FILE_ID"].'"></input></td>
+    $thumb_html .= '<td valign="top"><input type="checkbox" name="tv[]" value="'.$tv["FILE_ID"].'"></td>
                     <td valign="middle"><a href="'.$edit_url.'">'.$img_url.'</a></td>';
     $title_html .= '<td width="25%" colspan="2" align="center" valign="middle"><a href="'.$edit_url.'">'.highlight($tv["PROGRAMME"], $_REQUEST["search"]).' - '.highlight($tv["TITLE"], $_REQUEST["search"]).(empty($tv["EPISODE"]) ? '' : ' '.str('EPISODE_SUFFIX',$tv["EPISODE"])).'</a></td>';
   }
@@ -399,23 +399,26 @@ function tv_clear_details()
 
 function tv_update_form()
 {
-  $tv_list = $_REQUEST["tv"];
-  if (count($tv_list) == 0)
-    tv_display("!".str('MOVIE_ERROR_NO_SELECT'));
-  elseif (count($tv_list) == 1)
-    tv_update_form_single();
-  else
-    tv_update_form_multiple($tv_list);
+  $tv_list = is_array($_REQUEST["tv"]) ? $_REQUEST["tv"] : array($_REQUEST["tv"]);
+  switch (count($tv_list)) {
+    case 0:
+      tv_display("!".str('MOVIE_ERROR_NO_SELECT'));
+      break;
+    case 1:
+      tv_update_form_single($tv_list[0]);
+      break;
+    default:
+      tv_update_form_multiple($tv_list);
+  }
 }
 
 // ----------------------------------------------------------------------------------
 // Displays a form for updating a single tv episode
 // ----------------------------------------------------------------------------------
 
-function tv_update_form_single()
+function tv_update_form_single( $tv_id )
 {
   // Get actor/director/genre lists
-  $tv_id       = $_REQUEST["tv"][0];
   $details     = db_row("select * from tv where file_id=".$tv_id);
   $actors      = db_toarray("select actor_name name, actor_id id from actors order by 1");
   $directors   = db_toarray("select director_name name, director_id id from directors order by 1");
