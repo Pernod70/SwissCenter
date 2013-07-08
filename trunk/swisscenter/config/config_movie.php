@@ -26,7 +26,7 @@ function movie_display_info( $message = '' )
   // Display movies that will be affected.
   echo '<h1>'.$details["TITLE"].'</h1><center>
          ( <a href="'.$_SESSION["last_search_page"].'">'.str('RETURN_TO_LIST').'</a>
-         | <a href="?section=MOVIE&action=UPDATE_FORM_SINGLE&movie[]='.$movie_id.'">'.str('DETAILS_EDIT').'</a>
+         | <a href="?section=MOVIE&action=UPDATE_FORM&movie='.$movie_id.'">'.str('DETAILS_EDIT').'</a>
          ) </center>';
         message($message);
   echo '<table class="form_select_tab" width="100%" cellspacing=4><tr>
@@ -177,7 +177,7 @@ function movie_display_list($movie_list)
     $cert      = db_value("select name from certificates where cert_id=".nvl($movie["CERTIFICATE"],-1));
 
     echo '<table class="form_select_tab" width="100%"><tr>
-          <td valign="top" width="4%"><input type="checkbox" name="movie[]" value="'.$movie["FILE_ID"].'"></input></td>
+          <td valign="top" width="4%"><input type="checkbox" name="movie[]" value="'.$movie["FILE_ID"].'"></td>
           <td valign="top" width="24%">
              <a href="?section=movie&action=display_info&movie_id='.$movie["FILE_ID"].'">'.highlight($movie["TITLE"], $_REQUEST["search"]).'</a><br>'.
              str('IMDB_ID').' : '.nvl($movie["IMDB_ID"]).'<br>'.
@@ -217,7 +217,7 @@ function movie_display_thumbs($movie_list)
 
     $img_url     = img_gen(file_albumart($filename) ,130,400,false,false,false,array('hspace'=>0,'vspace'=>4) );
     $edit_url    = '?section=movie&action=display_info&movie_id='.$movie["FILE_ID"];
-    $thumb_html .= '<td valign="top"><input type="checkbox" name="movie[]" value="'.$movie["FILE_ID"].'"></input></td>
+    $thumb_html .= '<td valign="top"><input type="checkbox" name="movie[]" value="'.$movie["FILE_ID"].'"></td>
                     <td valign="middle"><a href="'.$edit_url.'">'.$img_url.'</a></td>';
     $title_html .= '<td width="25%" colspan="2" align="center" valign="middle"><a href="'.$edit_url.'">'.highlight($movie["TITLE"], $_REQUEST["search"]).'</a></td>';
   }
@@ -387,23 +387,26 @@ function movie_clear_details()
 
 function movie_update_form()
 {
-  $movie_list = $_REQUEST["movie"];
-  if (count($movie_list) == 0)
-    movie_display("!".str('MOVIE_ERROR_NO_SELECT'));
-  elseif (count($movie_list) == 1)
-    movie_update_form_single();
-  else
-    movie_update_form_multiple($movie_list);
+  $movie_list = is_array($_REQUEST["movie"]) ? $_REQUEST["movie"] : array($_REQUEST["movie"]);
+  switch (count($movie_list)) {
+    case 0:
+      movie_display("!".str('MOVIE_ERROR_NO_SELECT'));
+      break;
+    case 1:
+      movie_update_form_single($movie_list[0]);
+      break;
+    default:
+      movie_update_form_multiple($movie_list);
+  }
 }
 
 // ----------------------------------------------------------------------------------
 // Displays a form for updating a single movie
 // ----------------------------------------------------------------------------------
 
-function movie_update_form_single()
+function movie_update_form_single( $movie_id )
 {
   // Get actor/director/genre lists
-  $movie_id    = $_REQUEST["movie"][0];
   $details     = db_row("select * from movies where file_id=".$movie_id);
   $actors      = db_toarray("select actor_name name, actor_id id from actors order by 1");
   $directors   = db_toarray("select director_name name, director_id id from directors order by 1");
