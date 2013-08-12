@@ -10,7 +10,7 @@
 
 class wwwIMDBcom extends Parser implements ParserInterface {
   protected $site_url = 'http://www.imdb.com/';
-  protected $search_url = 'http://www.imdb.com/find?s=tt&q=';
+  protected $search_url = 'http://www.imdb.com/find?s=tt&ttype=ft&ref_=fn_ft&q=';
 
   protected $match_plot = 'Plot';
   protected $match_genre = 'Genre';
@@ -92,7 +92,7 @@ class wwwIMDBcom extends Parser implements ParserInterface {
         }
         $html = substr($html, strpos($html, "Titles"));
         $matches = get_urls_from_html($html, '\/title\/tt\d+\/');
-        $index = ParserUtil :: most_likely_match($this->title, $matches[2], $this->accuracy, $year);
+        $index = ParserUtil :: most_likely_match($temp_title, $matches[2], $this->accuracy, $year);
 
         // If we are sure that we found a good result, then get the file details.
         if ($this->accuracy > 75) {
