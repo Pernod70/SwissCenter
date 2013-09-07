@@ -15,6 +15,8 @@
   $album   = isset($_REQUEST["album"]) ? rawurldecode($_REQUEST["album"]) : false;
   $track   = isset($_REQUEST["track"]) ? rawurldecode($_REQUEST["track"]) : false;
   $display = isset($_REQUEST["display"]) ? rawurldecode($_REQUEST["display"]) : 'artist';
+  $current = isset($_REQUEST["tab"]) ? $_REQUEST["tab"] : 'ALL';
+  $tabs    = array('ALL', 'ALBUMS', 'SINGLES');
 
   // Get data from TheAudioDB
   if (!empty($artist))
@@ -47,12 +49,19 @@
       $text = '<table width="100%">';
       foreach ($data as $item)
       {
-        if (db_value("select 'YES' from mp3s where (artist='".db_escape_str($artist)."' or band='".db_escape_str($artist)."') and album like '".db_escape_str($item['strAlbum'])."' group by album") == 'YES')
-          $text .= '<tr><td><a href="music_selected.php?type=album&name='.rawurlencode($item['strAlbum']).'">'.font_tags(FONTSIZE_BODY,'PAGE_TEXT_BOLD_COLOUR').$item['strAlbum'].'</font></a></td><td align="right">'.font_tags(FONTSIZE_BODY).$item['intYearReleased'].'</font></td></tr>';
-        else
-          $text .= '<tr><td>'.font_tags(FONTSIZE_BODY).$item['strAlbum'].'</font></td><td align="right">'.font_tags(FONTSIZE_BODY).$item['intYearReleased'].'</font></td></tr>';
+        if ($current == 'ALL' || ($current == 'ALBUMS' && $item['strReleaseFormat'] !== 'Single') || ($current == 'SINGLES' && $item['strReleaseFormat'] == 'Single'))
+        {
+          if (db_value("select 'YES' from mp3s where (artist='".db_escape_str($artist)."' or band='".db_escape_str($artist)."') and album like '".db_escape_str($item['strAlbum'])."' group by album") == 'YES')
+            $text .= '<tr><td><a href="music_selected.php?type=album&name='.rawurlencode($item['strAlbum']).'">'.font_tags(FONTSIZE_BODY,'PAGE_TEXT_BOLD_COLOUR').$item['strAlbum'].'</font></a></td><td align="right">'.font_tags(FONTSIZE_BODY).$item['intYearReleased'].'</font></td></tr>';
+          else
+            $text .= '<tr><td>'.font_tags(FONTSIZE_BODY).$item['strAlbum'].'</font></td><td align="right">'.font_tags(FONTSIZE_BODY).$item['intYearReleased'].'</font></td></tr>';
+        }
       }
       $text .= '</table>';
+      $tab_strip = '';
+      foreach ($tabs as $key=>$tab)
+        $tab_strip .= ($key > 0 ? ' | ' : '').'<a href="'.url_add_params('music_info.php', array('display'=>'discog', 'artist'=>urlencode($artist), 'album'=>urlencode($album), 'track'=>urlencode($track), 'tab'=>$tab, 'hist'=>PAGE_HISTORY_REPLACE)).'">'.
+                      ($tab == $current ? font_tags(FONTSIZE_BODY, style_value("PAGE_TITLE_COLOUR",'#FFFFFF')).str($tab) : font_tags(FONTSIZE_BODY).str($tab)).'</font></a>';
       break;
   }
 
@@ -63,6 +72,9 @@
     $image = style_img('NOW_NO_ALBUMART',true);
 
   page_header( $artist, '', '', 1, false, '', $fanart, $logo, 'PAGE_TEXT_BACKGROUND' );
+
+  if ($display == 'discog')
+    echo '<center>'.font_tags(FONTSIZE_BODY).$tab_strip.'</center>';
 
   // Column 1: Image
   echo '<table width="100%" height="'.convert_y(650).'" cellpadding="0" cellspacing="0" border="0">
