@@ -48,6 +48,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>ALBUMS</id>
+        <text>Albums</text>
+        <version>1.24</version>
+      </string>
+      <string>
         <id>ALBUM_INFO</id>
         <text>Album info</text>
         <version>1.23.1</version>
@@ -56,6 +61,11 @@
         <id>ALBUM_REVIEW</id>
         <text>Album review</text>
         <version>1.23.1</version>
+      </string>
+      <string>
+        <id>ALL</id>
+        <text>All</text>
+        <version>1.24</version>
       </string>
       <string>
         <id>ALL_CATEGORIES</id>
@@ -5012,6 +5022,11 @@ If any details are added/changed on this page then you are requested to submit t
         <id>SIMESE_SCHED_PROMPT</id>
         <text>You may schedule automatic refreshes of the SwissCenter database by right clicking on the Simese icon in the taskbar and selecting [i]Update Media Scheduler[/i].</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>SINGLES</id>
+        <text>Singles</text>
+        <version>1.24</version>
       </string>
       <string>
         <id>SLIDESHOW</id>
