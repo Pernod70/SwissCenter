@@ -27,7 +27,7 @@ class MetroLyrics {
   function getLyrics ($artist, $title)
   {
     // Form the request URL
-    $request = METROLYRICS_URL.'/widgets/winamp/winamp.php?artist='.rawurlencode($artist).'&title='.rawurlencode($title);
+    $request = METROLYRICS_URL.'/external/winamp/get/'.rawurlencode($artist).'/'.rawurlencode($title);
 
     //Sends a request to MetroLyrics
     send_to_log(6,'MetroLyrics request:', $request);
