@@ -11,17 +11,17 @@
 
   function get_os_type()
   {
-    if ( substr(PHP_OS,0,3)=='WIN' )
+    if ( stripos(PHP_OS, 'WIN') === 0 )
       return 'WINDOWS';
     else
       return 'UNIX';
   }
 
   function is_windows()
-  { return get_os_type() == "WINDOWS"; }
+  { return get_os_type() == 'WINDOWS'; }
 
   function is_unix()
-  { return get_os_type() == "UNIX"; }
+  { return get_os_type() == 'UNIX'; }
 
   function is_synology()
   {
@@ -138,7 +138,7 @@
       else
       {
         // Otherwise, return a hardcoded failsafe.
-        $_SESSION["GD Version"] =  0;
+        $_SESSION["GD Version"] = 0;
       }
     }
 
@@ -152,7 +152,7 @@
 
   function current_url( $post_vars = false)
   {
-    $host   = $_SERVER["HTTP_HOST"];
+    $host = $_SERVER["HTTP_HOST"];
 
     if(is_server_apache() || is_server_iis())
       $url = "http://".$host.$_SERVER["REQUEST_URI"];
@@ -295,11 +295,11 @@
     // - HTTP_USER_AGENT'] contains '000000' (invalid id from media player when requesting playlists)
     // - PHP_SELF contains 'media_search' (server requested a media search)
     // - PHP_SELF contains 'media_monitor' (SwissMonitor updating database)
-    if (test_db() == 'OK' && !isset($_SESSION["device"]) && strpos($_SERVER['HTTP_USER_AGENT'],'internal dummy connection') === false
-                                                         && strpos($_SERVER['HTTP_USER_AGENT'],'000000') === false
-                                                         && strpos($_SERVER['HTTP_USER_AGENT'],'Wget') === false
-                                                         && strpos($_SERVER['PHP_SELF'],'media_search') === false
-                                                         && strpos($_SERVER['PHP_SELF'],'media_monitor') === false)
+    if (test_db() == 'OK' && strpos($_SERVER['HTTP_USER_AGENT'],'internal dummy connection') === false
+                          && strpos($_SERVER['HTTP_USER_AGENT'],'000000') === false
+                          && strpos($_SERVER['HTTP_USER_AGENT'],'Wget') === false
+                          && strpos($_SERVER['PHP_SELF'],'media_search') === false
+                          && strpos($_SERVER['PHP_SELF'],'media_monitor') === false)
     {
       $matches = array();
       preg_match('#.*syabas/([^ ]*) .*#i',$_SERVER['HTTP_USER_AGENT'],$matches);
@@ -315,28 +315,10 @@
 
       if (strlen($_SESSION["device"]["ip_address"]) > 0 )
       {
-        $_SESSION["device"]["mac_addr"] = get_mac_addr($_SESSION["device"]["ip_address"]);
-    	  db_sqlcommand("delete from clients where ip_address='".$_SESSION["device"]["ip_address"]."' or mac_addr='".$_SESSION["device"]["mac_addr"]."'");
-    	  db_insert_row('clients',$_SESSION["device"]);
+        db_sqlcommand("delete from clients where ip_address='".$_SESSION["device"]["ip_address"]."'");
+        db_insert_row('clients',$_SESSION["device"]);
       }
     }
-  }
-
-  // ----------------------------------------------------------------------------------
-  // Get the MAC address of a client on the LAN.
-  // ----------------------------------------------------------------------------------
-
-  function get_mac_addr($ip)
-  {
-    exec("arp -a ".$ip, $output);
-    foreach($output as $line)
-    {
-      if (preg_match("/[0-9A-F]{2}[-:][0-9A-F]{2}[-:][0-9A-F]{2}[-:][0-9A-F]{2}[-:][0-9A-F]{2}[-:][0-9A-F]{2}/i", $line, $matches))
-      {
-        $mac = $matches[0];
-      }
-    }
-    return str_replace('-',':',$mac);
   }
 
 /**************************************************************************************************
