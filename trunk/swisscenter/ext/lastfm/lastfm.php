@@ -585,7 +585,8 @@
 
   function lastfm_scrobble( $artist, $track, $album, $length, $track_no )
   {
-    $player_id = empty($_SESSION["device"]["mac_addr"]) ? '' : $_SESSION["device"]["mac_addr"];
+    // An identifier for the current media player
+    $player_id = md5($_SESSION["device"]["ip_address"].$_SESSION["device"]["agent_string"]);
 
     // Update any unscrobbled tracks with play ended at current time
     db_sqlcommand("UPDATE lastfm_scrobble_tracks SET play_end = ".gmt_time()." WHERE user_id = ".get_current_user_id()." AND player_id = '".$player_id."' AND play_end IS NULL");
