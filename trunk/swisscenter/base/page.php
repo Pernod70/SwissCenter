@@ -46,7 +46,7 @@ function charset()
 // "main" area.
 //-------------------------------------------------------------------------------------------------
 
-function page_header( $title, $tagline = "",  $meta = "", $focus="1", $skip_auth = false, $focus_colour = '', $background = -1, $banner = false, $text_background = '' )
+function page_header( $title, $tagline = "", $meta = "", $focus="1", $skip_auth = false, $focus_colour = '', $background = -1, $banner = false, $text_background = '' )
 {
   // Check if the user has been selected and prompt for logon if needed
   if(!$skip_auth && !is_user_selected())
@@ -474,8 +474,7 @@ else
 }
 
 // Log details of the page request
-send_to_log(1,"------------------------------------------------------------------------------");
-send_to_log(1,"Page Requested : ".$current_url." by client (".client_ip().")");
+send_to_log(0,"Page: ".$_SERVER["REQUEST_METHOD"]." ".current_url()." by client (".client_ip().")");
 
 // If in design mode, then we want to force loading of styles and/or language strings.
 if ( get_sys_pref('CACHE_STYLE_DETAILS','YES') == 'NO' )

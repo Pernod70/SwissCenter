@@ -15,8 +15,7 @@
   require_once( realpath(dirname(__FILE__).'/ext/lastfm/lastfm.php'));
 
   // Log details of the stream request
-  send_to_log(1,"------------------------------------------------------------------------------");
-  send_to_log(1,"Stream Requested : ".$_SERVER["REQUEST_METHOD"]." ".current_url()." by client (".client_ip().")");
+  send_to_log(0,"Stream: ".$_SERVER["REQUEST_METHOD"]." ".current_url()." by client (".client_ip().")");
 
 /**
  * Outputs the image file to the browser.

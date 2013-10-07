@@ -9,8 +9,7 @@
   require_once( realpath(dirname(__FILE__).'/base/utils.php'));
 
   // Log details of the playlist request
-  send_to_log(1,"------------------------------------------------------------------------------");
-  send_to_log(1,"Playlist Requested : ".current_url()." by client (".client_ip().")");
+  send_to_log(0,"Playlist: ".$_SERVER["REQUEST_METHOD"]." ".current_url()." by client (".client_ip().")");
 
   $url = $_REQUEST["url"];
   $type = $_REQUEST["mt"];
@@ -43,7 +42,7 @@
     $playlist[] = $url;
   send_to_log(6,'Playlist from internet radio URL: '.$url,$playlist);
 
-  // RadioTime playlists contain further playlists (m3u or pls), these need parsing
+  // TuneIn Radio playlists contain further playlists (m3u or pls), these need parsing
   $playlist_streams = array();
   foreach ($playlist as $url)
   {
@@ -64,6 +63,9 @@
     }
   }
   send_to_log(6,'Playlist after further processing',$playlist_streams);
+
+  // Store the first stream in $_SESSION to be used by Now Playing screen
+  $_SESSION["iradio_stream"] = $playlist_streams[0];
 
   // Pass the playlist back to the player as a PLS playlist
   send_to_log(7,'Generating list of radio streams to send to the networked media player.');
