@@ -65,6 +65,7 @@ function subtitles_display( $message = '')
   echo '<table width="100%"><tr>
           <td width=100% align="center"><a href="http://www.opensubtitles.org/search/sublanguageid-auto" target="_blank" title="Subtitles database - OpenSubtitles.org"><img src="http://www.opensubtitles.org/gfx/banners/banner_1_468x60.jpg" alt="Subtitles database - OpenSubtitles.org" width="468" height="60" hspace="20" vspace="16" border="0"></a></td>
         </tr></table>';
+
   message($message);
 
   echo '<p>'.str('OS_ABOUT','<a href="http://www.opensubtitles.org/upload" target="_blank">www.opensubtitles.org/upload</a>');
@@ -88,8 +89,8 @@ function subtitles_display( $message = '')
          form_list_static_html("lang",$lang_list,$search_lang,false,true,false).
        '</td></tr>'.
        '<tr><td colspan="3">'.
-         '<input type="radio" name="method" value="hash" '.($method=='hash' ? 'checked' : '').'>'.str('OS_SEARCH_HASH').'</input>'.
-         '<input type="radio" name="method" value="title" '.($method=='title' ? 'checked' : '').'>'.str('OS_SEARCH_TITLE').'</input></td>'.
+         '<input type="radio" name="method" value="hash" '.($method=='hash' ? 'checked' : '').'>'.str('OS_SEARCH_HASH').
+         '<input type="radio" name="method" value="title" '.($method=='title' ? 'checked' : '').'>'.str('OS_SEARCH_TITLE').
        '</td></tr>'.
        '</table></form>';
 
@@ -162,7 +163,7 @@ function subtitles_display( $message = '')
     {
       foreach ($subs["data"] as $sub)
       {
-        echo '<br><input type="radio" name="subtitle['.$movie["FILE_ID"].']" value="'.implode(',', array($sub["IDSubtitleFile"], file_ext($sub["SubFileName"]))).'"></input>';
+        echo '<br><input type="radio" name="subtitle['.$movie["FILE_ID"].']" value="'.implode(',', array($sub["IDSubtitleFile"], file_ext($sub["SubFileName"]))).'">';
         // Language with flag
         echo '<img src="../images/flags/icons/'.$sub["ISO639"].'.gif">['.$sub["LanguageName"].'] ';
         // Subtitle filename (with link to OpenSubtitles.org download page)
@@ -182,7 +183,7 @@ function subtitles_display( $message = '')
       }
     }
 
-    echo '<br><input type="radio" name="subtitle['.$movie["FILE_ID"].']" value="0"></input>'.str('OS_NO_SUBTITLES');
+    echo '<br><input type="radio" name="subtitle['.$movie["FILE_ID"].']" value="0">'.str('OS_NO_SUBTITLES');
 
     echo '</td>
           </tr></table>';
