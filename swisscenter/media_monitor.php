@@ -12,8 +12,7 @@
   require_once( realpath(dirname(__FILE__).'/video_obtain_info.php'));
 
   // Log details of the page request
-  send_to_log(1,"------------------------------------------------------------------------------");
-  send_to_log(1,"Page Requested : ".current_url()." by client (".client_ip().")");
+  send_to_log(0,"Page: ".$_SERVER["REQUEST_METHOD"]." ".current_url()." by client (".client_ip().")");
 
   $type        = $_REQUEST["Type"];
   $path        = str_replace('\\','/',rawurldecode($_REQUEST["Path"]));

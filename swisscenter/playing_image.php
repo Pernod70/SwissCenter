@@ -8,8 +8,7 @@
   require_once( realpath(dirname(__FILE__).'/base/playlist.php'));
 
   // Log details of the image request
-  send_to_log(1,"------------------------------------------------------------------------------");
-  send_to_log(1,"Image Requested : ".$_SERVER["REQUEST_METHOD"]." ".current_url()." by client (".client_ip().")");
+  send_to_log(0,"Image: ".$_SERVER["REQUEST_METHOD"]." ".current_url()." by client (".client_ip().")");
 
   // Send headers only if HEAD request
   if ( $_SERVER["REQUEST_METHOD"] == 'HEAD' )

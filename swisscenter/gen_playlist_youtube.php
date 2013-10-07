@@ -10,8 +10,7 @@
   require_once( realpath(dirname(__FILE__).'/base/file.php'));
 
   // Log details of the playlist request
-  send_to_log(1,"------------------------------------------------------------------------------");
-  send_to_log(1,"Playlist Requested : ".current_url()." by client (".client_ip().")");
+  send_to_log(0,"Playlist: ".$_SERVER["REQUEST_METHOD"]." ".current_url()." by client (".client_ip().")");
 
   // Generate the playlist based on the values passed as part of the request
   $seed       = $_REQUEST["seed"];

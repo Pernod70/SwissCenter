@@ -14,8 +14,7 @@
   require_once( realpath(dirname(__FILE__).'/itunes_import.php'));
 
   // Log details of the page request
-  send_to_log(1,"------------------------------------------------------------------------------");
-  send_to_log(1,"Page Requested : ".current_url()." by client (".client_ip().")");
+  send_to_log(0,"Page: ".$_SERVER["REQUEST_METHOD"]." ".current_url()." by client (".client_ip().")");
 
   set_time_limit(86400);
   ini_set('memory_limit',-1);

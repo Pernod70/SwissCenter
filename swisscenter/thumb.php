@@ -32,8 +32,7 @@
   require_once( realpath(dirname(__FILE__).'/base/image.php'));
 
   // Log details of the page request
-  send_to_log(1,"------------------------------------------------------------------------------");
-  send_to_log(1,"Image Requested : ".$_SERVER["REQUEST_METHOD"]." ".current_url()." by client (".client_ip().")");
+  send_to_log(0,"Image: ".$_SERVER["REQUEST_METHOD"]." ".current_url()." by client (".client_ip().")");
 
   // Parameters to the script. Need to do more extensive checking on them!
   $filename   = rawurldecode($_REQUEST["src"]);
