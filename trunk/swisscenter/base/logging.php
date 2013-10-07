@@ -22,6 +22,9 @@ function logfile_location()
  * NOTE: If the log has become more than 1Mb in size then it is archived and a new log is
  *       started. Only one generation of logs is archived (so current log and old log only)
  *
+ * REQUESTS
+ * 0 - Information on critical errors only.
+ *
  * ERRORS
  * 1 - Information on critical errors only.
  * 2 - Information on all errors
@@ -29,7 +32,7 @@ function logfile_location()
  *
  * EVENTS
  * 4 - Information on important events (new mp3s, etc)
- * 5 - ALl events
+ * 5 - All events
  *
  * DEBUGGING INFORMATION
  * 6 - System modifications -  Files being created, system prefs, updating swisscenter, etc
@@ -54,7 +57,33 @@ function send_to_log($level, $item, $var = '')
 
     if ( $log !== false )
     {
-      $time = '['.date('Y.m.d H:i:s').'] ';
+      $time = '['.date('Y.m.d H:i:s').']';
+
+      switch ($level)
+      {
+        case 0:
+          $level .= '[request] ';
+          break;
+        case 1:
+          $level .= '[critical] ';
+          break;
+        case 2:
+        case 3:
+          $level .= '[error] ';
+          break;
+        case 4:
+        case 5:
+          $level .= '[event] ';
+          break;
+        case 6:
+        case 7:
+        case 8:
+          $level .= '[debug] ';
+          break;
+        default:
+          $level .= ' ';
+          break;
+      }
 
       // If the file > 1Mb then archive it and start a new log.
       if (@filesize($log) > 1048576)
@@ -67,12 +96,21 @@ function send_to_log($level, $item, $var = '')
       $handle = fopen($log, 'a');
       if ($handle !== false)
       {
-        @fwrite($handle, $time.$item.newline());
+        if ($level[0] == 0)
+        {
+          @fwrite($handle, $time.$level.str_repeat('-', strlen($item)).newline());
+          @fwrite($handle, $time.$level.$item.newline());
+          @fwrite($handle, $time.$level.str_repeat('-', strlen($item)).newline());
+        }
+        else
+        {
+          @fwrite($handle, $time.$level.$item.newline());
+        }
         if (!empty($var))
         {
           $out = explode("\n",print_r(str_replace("\r",'',$var),true));
           foreach ($out as $line)
-            @fwrite($handle,$time.$line.newline());
+            @fwrite($handle,$time.$level.$line.newline());
         }
         fclose($handle);
       }
