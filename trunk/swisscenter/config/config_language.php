@@ -105,7 +105,7 @@
     // Display table
     foreach ($text_list as $key=>$text)
       echo '<table class="form_select_tab" width="100%"><tr>
-              <td valign="top" width="4%"><input type="checkbox" name="text_id[]" value="'.$text["ID"].'"></input></td>
+              <td valign="top" width="4%"><input type="checkbox" name="text_id[]" value="'.$text["ID"].'"></td>
               <td valign="top" width="30%">
                 <a href="'.url_set_param($this_url,'edit_id',$key).'">'.strtr(highlight($text["ID"], $_REQUEST["search"]),'_',' ').'</a>
               </td>
