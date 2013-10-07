@@ -47,8 +47,8 @@
 
   function playlists_update()
   {
-    $dir = rtrim(str_replace('\\','/',$_REQUEST["location"]),'/');
-    $itunes_library = rtrim(str_replace('\\','/',$_REQUEST["itunes"]),'/');
+    $dir = normalize_path($_REQUEST["location"]);
+    $itunes_library = normalize_path($_REQUEST["itunes"]);
     $autoload = $_REQUEST["autoload"];
     $max_playlist_size = $_REQUEST["size"];
 
