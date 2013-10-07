@@ -18,14 +18,18 @@
     $html = file_get_contents('http://ftvgirls.com/updates.html');
 
     $matches = array();
-    preg_match_all('/<img border="0" src="(mod.*)".*<a href="(mod.*)">(.*)<\/a><\/font>/Us',$html,$matches);
+    preg_match_all('/<div class="ModelContainer">.*'.
+                    '<div class="ModelName"><h2>(.*)<\/h2><\/div>.*'.
+                    '<div class="ModelPhoto">.*'.
+                    '<a href="(.*.html)"><img class="ModelPhotoWide" src="(http:\/\/.*.jpg)".*'.
+                    '<\/div><!-- Model -->/Ums',$html,$matches);
 
     $items = array();
     for ($i=0; $i<=count($matches[0])-1; $i++)
     {
-      $items[] = array("text"  => trim(html_entity_decode($matches[3][$i])),
+      $items[] = array("text"  => trim(html_entity_decode($matches[1][$i])),
                        "url"   => url_add_param('ftvgirls_selected.php', 'id', urlencode($matches[2][$i])),
-                       "thumb" => 'http://ftvgirls.com/'.$matches[1][$i]);
+                       "thumb" => $matches[3][$i]);
     }
     return $items;
   }
@@ -41,13 +45,13 @@
     $html = file_get_contents('http://ftvgirls.com/super.html');
 
     $matches = array();
-    preg_match_all('/src="(super2.*)"/U',$html,$matches);
+    preg_match_all('/src="(.*images\/super.*.jpg)"/U',$html,$matches);
 
     $items = array();
     for ($i=0; $i<=count($matches[0])-1; $i++)
     {
-      if ($matches[1][$i] !== 'super2/menu.jpg')
-        $items[] = array("FILENAME" => 'http://ftvgirls.com/'.$matches[1][$i],
+      if ($matches[1][$i] !== 'super/menu.jpg')
+        $items[] = array("FILENAME" => $matches[1][$i],
                          "TITLE"    => file_noext(basename($matches[1][$i])));
     }
     return $items;
