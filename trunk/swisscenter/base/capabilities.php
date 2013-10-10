@@ -268,7 +268,7 @@ function get_required_modules_list()
 
 function get_suggested_modules_list()
 {
-  return explode(',','zip');
+  return explode(',','openssl,zip');
 }
 
 #-------------------------------------------------------------------------------------------------
@@ -487,7 +487,7 @@ function save_players_config()
   $xml->Pop('players');
   $xml->Pop('swisscenter');
 
-  if ($fsp = fopen($players_file, 'wb'))
+  if (($fsp = fopen($players_file, 'wb')) !== false)
   {
     fwrite($fsp, $xml->getXml());
     fclose($fsp);
