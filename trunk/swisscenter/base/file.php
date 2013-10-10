@@ -329,7 +329,11 @@ function file_unique_name( $filename )
 
 function is_remote_file( $filename )
 {
-  return ( strtolower(substr($filename,0,7)) == 'http://' );
+  $filename = strtolower($filename);
+  if (substr($filename,0,7) == 'http://' || substr($filename,0,8) == 'https://')
+    return true;
+  else
+    return false;
 }
 
 /**
