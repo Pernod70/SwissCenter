@@ -48,6 +48,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>ALBUMS</id>
+        <text>Alben</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>ALBUM_INFO</id>
         <text>Album Info</text>
         <version>1.23.1</version>
@@ -55,6 +60,11 @@
       <string>
         <id>ALBUM_REVIEW</id>
         <text>Album Kritik</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
+        <id>ALL</id>
+        <text>Alle</text>
         <version>1.23.1</version>
       </string>
       <string>
@@ -1177,14 +1187,14 @@ speichern</text>
       </string>
       <string>
         <id>EXTRA_EXPORT_DETAILS</id>
-        <text>Alle Zusatzinformationen, wie Inhaltsangabe, Mitwirkende usw. können in eine XML-Datei exportiert werden. Diese kann dann für den Re-Import verwendet werden, wenn eine neue Datenbank erzeugt wird. Dafür muss zuvor die Option &quot;XML Dateien erstellen&quot; aktiviert werden.</text>
-        <version>1.21.1</version>
+        <text>Alle Zusatzinformationen, wie Inhaltsangabe, Mitwirkende usw. können in XML-Dateien exportiert werden. Diese können dann für den Re-Import verwendet werden, wenn eine neue Datenbank erzeugt wird. Dafür muss zuvor die Option &quot;XML Dateien erstellen&quot; aktiviert sein.</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>EXTRA_EXPORT_GO</id>
         <text>Exportiere alle Zusatzinformationen
-in eine XML-Datei</text>
-        <version>1.22</version>
+in XML-Dateien</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>EXTRA_EXPORT_TITLE</id>
@@ -5006,6 +5016,11 @@ speichern</text>
         <id>SIMESE_SCHED_PROMPT</id>
         <text>Sie können automatische Aktualisierungen der SwissCenter-Datenbank planen, indem Sie das Simese-Symbol in der Taskleiste mit der rechten Maustaste anklicken und [i]Update Media Scheduler[/i] auswählen.</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>SINGLES</id>
+        <text>Singles</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>SLIDESHOW</id>
