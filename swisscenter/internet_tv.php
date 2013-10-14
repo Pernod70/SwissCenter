@@ -6,11 +6,15 @@
   require_once( realpath(dirname(__FILE__).'/base/page.php'));
   require_once( realpath(dirname(__FILE__).'/base/users.php'));
 
+  $trakt = db_row("select u.user_id, u.name, un.value username, pw.value password
+                   from users u join user_prefs un on (un.user_id = u.user_id and un.name = 'TRAKT_USERNAME')
+                                join user_prefs pw on (pw.user_id = u.user_id and pw.name = 'TRAKT_PASSWORD')
+                   where u.user_id=".get_current_user_id());
+
   // Display the page
   page_header(str('WATCH_INTERNET_TV'), '','',1,false,'',MEDIA_TYPE_INTERNET_TV);
 
   $menu = new menu();
-//  $menu->add_item( str('SHOUTCAST_TV'), 'shoutcast_tv.php' );
 
   // Options only available on PCH
   if ( is_pc() || get_player_model() > 400 )
@@ -19,6 +23,8 @@
     $menu->add_item( str('APPLE_TRAILERS'), 'apple_trailer.php' );
     $menu->add_item( str('VIDEOBASH'), 'videobash_menu.php' );
   }
+  if ($trakt)
+    $menu->add_item( str('TRAKT'), 'trakt.php' );
   $menu->add_item( str('FILM_TRAILERS'), 'film_trailer.php' );
   $menu->add_item( str('TOMA_INTERNET_TV'), 'internet_tv_toma.php' );
 
