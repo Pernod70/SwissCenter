@@ -33,10 +33,10 @@ set_message = function(message) {
         alert('Loading Error: ['+req.status+'] '+req.statusText);
       }
     }
-  }
+  };
   req.open('GET','config_themes.php?action=message&text='+message,true);
   req.send(null);
-}
+};
 
 set_image = function(file_id) {
   var req = initXMLHttpClient();
@@ -48,7 +48,7 @@ set_image = function(file_id) {
         alert('Loading Error: ['+req.status+'] '+req.statusText);
       }
     }
-  }
+  };
   if ( file_id == 'no_change' ) {
     file_id = window.file_id;
   }
@@ -57,7 +57,7 @@ set_image = function(file_id) {
   }
   req.open('GET','config_themes.php?action=thumbgui&file_id='+file_id+'&media_type='+window.media_type+'&flip='+window.flip+'&greyscale='+window.greyscale+'&use_synopsis='+window.use_synopsis+'&use_series='+window.use_series+'&show_banner='+window.show_banner+'&show_image='+window.show_image,true);
   req.send(null);
-}
+};
 
 show_thumbs = function (title, media_type) {
   var req = initXMLHttpClient();
@@ -69,11 +69,11 @@ show_thumbs = function (title, media_type) {
         alert('Loading Error: ['+req.status+'] '+req.statusText);
       }
     }
-  }
+  };
   window.title = title;
-  req.open('GET','config_themes.php?action=showthumbs&title='+encodeURI(title)+'&media_type='+media_type,true);
+  req.open('GET','config_themes.php?action=showthumbs&title='+encodeURIComponent(title)+'&media_type='+media_type,true);
   req.send(null);
-}
+};
 
 select_title = function (title, media_type) {
   set_message('');
@@ -86,21 +86,21 @@ select_title = function (title, media_type) {
   window.show_image = 0;
   set_image('not_selected');
   show_thumbs(title, media_type);
-}
+};
 
 config_inverse = function(value) {
-  if (value == 1) { return 0 } else { return 1 }
-}
+  if (value == 1) { return 0; } else { return 1; }
+};
 
 config_gui_flip = function() {
   window.flip = config_inverse(window.flip);
   set_image('no_change');
-}
+};
 
 config_gui_greyscale = function() {
   window.greyscale = config_inverse(window.greyscale);
   set_image('no_change');
-}
+};
 
 save_theme_settings = function() {
   var req = initXMLHttpClient();
@@ -114,8 +114,8 @@ save_theme_settings = function() {
         alert('Loading Error: ['+req.status+'] '+req.statusText);
       }
     }
-  }
+  };
   set_image("wait");
   req.open('GET','config_themes.php?action=apply&file_id='+window.file_id+'&flip='+window.flip+'&greyscale='+window.greyscale+'&use_synopsis='+window.use_synopsis+'&use_series='+window.use_series+'&show_banner='+window.show_banner+'&show_image='+window.show_image,true);
   req.send(null);
-}
+};
