@@ -295,7 +295,8 @@
     // - HTTP_USER_AGENT'] contains '000000' (invalid id from media player when requesting playlists)
     // - PHP_SELF contains 'media_search' (server requested a media search)
     // - PHP_SELF contains 'media_monitor' (SwissMonitor updating database)
-    if (test_db() == 'OK' && strpos($_SERVER['HTTP_USER_AGENT'],'internal dummy connection') === false
+    if (test_db() == 'OK' && !isset($_SESSION["device"])
+                          && strpos($_SERVER['HTTP_USER_AGENT'],'internal dummy connection') === false
                           && strpos($_SERVER['HTTP_USER_AGENT'],'000000') === false
                           && strpos($_SERVER['HTTP_USER_AGENT'],'Wget') === false
                           && strpos($_SERVER['PHP_SELF'],'media_search') === false
@@ -305,8 +306,8 @@
       preg_match('#.*syabas/([^ ]*) .*#i',$_SERVER['HTTP_USER_AGENT'],$matches);
       $_SESSION["device"]["last_seen"]  = db_datestr();
       $_SESSION["device"]["user_id"]    = get_current_user_id();
-      $_SESSION["device"]["ip_address"] = str_replace('\\','/',$_SERVER["REMOTE_ADDR"]);
-      $_SESSION["device"]["port"] = $_SERVER['SERVER_PORT'];
+      $_SESSION["device"]["ip_address"] = str_replace('\\','/',$_SERVER['REMOTE_ADDR']);
+      $_SESSION["device"]["port"]       = $_SERVER['SERVER_PORT'];
       if (!empty($matches))
         $_SESSION["device"]["box_id"] = $matches[1];
 
