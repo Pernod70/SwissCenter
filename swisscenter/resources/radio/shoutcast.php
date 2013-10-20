@@ -19,8 +19,8 @@ require_once( realpath(dirname(__FILE__)."/iradio.php"));
 class shoutcast extends iradio {
   protected $service = 'shoutcast';
 
-  private $api_key = 'pe1DPxlnBcQpX78Y';
-//private $api_key = 'fa1jo93O_raeF0v9'; // Winamp
+//  private $api_key = 'pe1DPxlnBcQpX78Y';
+  private $api_key = 'fa1jo93O_raeF0v9'; // Winamp
 
   /** Initializing the class
    * @constructor shoutcast
@@ -85,6 +85,37 @@ class shoutcast extends iradio {
   function restrict_mediatype($mtype='audio/mpeg') {
     send_to_log(6,'IRadio: Restricting to stations in '.$mtype.' format');
     $this->mediatype = $mtype;
+  }
+
+  /** Get the genre list
+   * @class shoutcast
+   * @method get_genres
+   * @return array genres (genre[main][sub])
+   */
+  function get_genres() {
+    send_to_log(6,'IRadio: Complete genre list was requested.');
+    if (empty($this->genre)) {
+      $genres = $this->read_cache('genres');
+      if ($genres !== FALSE) {
+        $this->genre = $genres;
+      } else {
+        $uri = 'http://'.$this->iradiosite.'/genre/secondary'.$this->search_baseparams.'&parentid=0&f=json';
+        $this->openpage($uri);
+        # Genres
+        $genres = json_decode($this->page, true);
+        if ($genres['response']['statusCode'] == 200) {
+          foreach ($genres['response']['data']['genrelist']['genre'] as $parent) {
+            $this->genre[$parent['name']][$parent['name']] = array("text" => $parent['name'], "id" => $parent['name']);
+            send_to_log(8,'IRadio: Got genre '.$parent['name'].' with value '.$parent['id']);
+            foreach ($parent['genrelist']['genre'] as $child) {
+              $this->genre[$parent['name']][$child['name']] = array("text" => $child['name'], "id" => $child['name']);
+              send_to_log(8,'IRadio: Got genre '.$child['name'].' with value '.$child['id']);
+            }
+            $this->write_cache('genres',$this->genre);
+          }
+        }
+      }
+    }
   }
 
   /** Searching for a genre
