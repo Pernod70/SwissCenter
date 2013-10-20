@@ -3266,13 +3266,13 @@
         <version>1.22</version>
       </string>
       <string>
-        <id>NOW_PLAYING_FANART_GOOGLE</id>
-        <text>Google Images</text>
-        <version>1.22</version>
+        <id>NOW_PLAYING_FANART_DISCOGS</id>
+        <text>Discogs</text>
+        <version>1.24</version>
       </string>
       <string>
-        <id>NOW_PLAYING_FANART_LASTFM</id>
-        <text>Last.fm</text>
+        <id>NOW_PLAYING_FANART_GOOGLE</id>
+        <text>Google Images</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3282,8 +3282,8 @@
       </string>
       <string>
         <id>NOW_PLAYING_FANART_PROMPT</id>
-        <text>Select the source of the fanart images to be used on the enhanced 'Now Playing' screen. Fanart images are stored for each artist in [em]swisscenter\fanart\artists\depeche mode[/em].[br][b]None[/b] - no fanart will be downloaded. Only existing images in your fanart folder will be used.[br][b]Google Images[/b] - fanart will be searched for at Google Images and downloaded locally to your fanart folder..[br][b]Last.fm[/b] (recommended) - artist images will be downloaded to your fanart folder from Last.fm.</text>
-        <version>1.22</version>
+        <text>Select the source of the fanart images to be used on the enhanced 'Now Playing' screen. Fanart images are stored for each artist in [em]swisscenter\fanart\artists\depeche mode[/em].[br][b]None[/b] - no fanart will be downloaded. Only existing images in your fanart folder will be used.[br][b]Google Images[/b] - fanart will be searched for at Google Images and downloaded locally to your fanart folder..[br][b]Discogs[/b] (recommended) - artist images will be downloaded to your fanart folder from Discogs.</text>
+        <version>1.24</version>
       </string>
       <string>
         <id>NOW_PLAYING_FANART_QUALITY</id>
