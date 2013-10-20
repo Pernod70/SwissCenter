@@ -211,20 +211,6 @@ function lastfm_album_getInfo($artist, $album)
 }
 
 /**
- * Get Images for this artist in a variety of sizes.
- *
- * @param string $artist
- * @param integer $page
- * @param integer $limit
- * @return array
- */
-function lastfm_artist_getImages($artist, $page=1, $limit=50)
-{
-  $lastfm = new lastfmapi();
-  return $lastfm->getFeed('method=artist.getImages&artist='.urlencode($artist).'&page='.$page.'&limit='.$limit);
-}
-
-/**
  * Get the metadata for an artist on Last.fm. Includes biography.
  *
  * @param string $artist

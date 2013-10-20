@@ -323,13 +323,14 @@
     send_to_log(8,'Next track:',$next_track);
 
     // Background image
-    switch ( internet_available() ? get_sys_pref('NOW_PLAYING_FANART','LASTFM') : false )
+    switch ( internet_available() ? get_sys_pref('NOW_PLAYING_FANART','DISCOGS') : false )
     {
       case 'GOOGLE':
         $fanart_img = get_google_artist_image( $current_track["ARTIST"] );
         break;
+      case 'DISCOGS':
       case 'LASTFM':
-        $fanart_img = get_lastfm_artist_image( $current_track["ARTIST"] );
+        $fanart_img = get_discogs_artist_image( $current_track["ARTIST"] );
         break;
       default:
         $fanart_img = false;
