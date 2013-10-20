@@ -126,6 +126,8 @@
 
       if(empty($category_name))
         category_display("!".str('CAT_ERROR_NAME'));
+      elseif ($parent_id == $id)
+        category_display("!".str('CAT_ERROR_PARENT'));
       else
       {
         db_sqlcommand("update categories

@@ -593,6 +593,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>CAT_ERROR_PARENT</id>
+        <text>Invalid parent category</text>
+        <version>1.24</version>
+      </string>
+      <string>
         <id>CAT_LIST_ALL</id>
         <text>All categories</text>
         <version>1.19</version>
