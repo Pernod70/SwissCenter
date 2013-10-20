@@ -2417,8 +2417,8 @@
       </string>
       <string>
         <id>LASTFM_LOGIN_HEADINGS</id>
-        <text>User,Last.fm[br]Username,Last.fm[br]Password,Scrobble?,Images?</text>
-        <version>1.22</version>
+        <text>User,Last.fm[br]Username,Last.fm[br]Password,Scrobble?</text>
+        <version>1.24</version>
       </string>
       <string>
         <id>LASTFM_MISSING_LOGIN</id>
