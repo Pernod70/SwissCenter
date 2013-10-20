@@ -1248,16 +1248,6 @@
         <version>1.19</version>
       </string>
       <string>
-        <id>FAIL_MYSQL_CHARSET</id>
-        <text>De standaard tekenset van de MySQL server is niet 'latin1'; dit leidt tot coderingsproblemen. Configureer de MySQL server met [i]character-set-server=latin1[/i], en recreëer de database opnieuw.</text>
-        <version>1.23.1</version>
-      </string>
-      <string>
-        <id>FAIL_MYSQL_COLLATION</id>
-        <text>De standaard collatie van de MySQL server is niet 'latin1_swedish_ci'; dit leidt tot coderingsproblemen. Configureer de MySQL server opnieuw met [i]collation-server=latin1_swedish_ci[/i], en recreëer de database.</text>
-        <version>1.23.1</version>
-      </string>
-      <string>
         <id>FAIL_MYSQL_CONNECT</id>
         <text>De verbinding met de MySQL-server is mislukt.</text>
         <version>1.20</version>
@@ -1271,11 +1261,6 @@
         <id>FAIL_MYSQL_VERSION</id>
         <text>Voor SwissCenter is MySQL 5.0 of hoger vereist; uw MySQL-versie wordt niet ondersteund.</text>
         <version>1.22</version>
-      </string>
-      <string>
-        <id>FAIL_PHP_CLI</id>
-        <text>Een CLI-versie van PHP werd niet gevonden. SwissCenter kan geen nieuwe mediabestanden zoeken.</text>
-        <version>1.19</version>
       </string>
       <string>
         <id>FAIL_PHP_EXTRA_MODS</id>
@@ -1346,11 +1331,6 @@
         <id>FAIL_SWISS_INI</id>
         <text>Het 'swisscenter.ini'-bestand is niet gevonden. [br]Heeft u de SwissCenter-databank al aangemaakt ?</text>
         <version>1.20</version>
-      </string>
-      <string>
-        <id>FAIL_SWISS_LOCS</id>
-        <text>Er zijn geen medialocaties gedefinieerd.</text>
-        <version>1.22</version>
       </string>
       <string>
         <id>FAIL_SWISS_LOG</id>
@@ -2418,7 +2398,7 @@
       </string>
       <string>
         <id>LASTFM_LOGIN_HEADINGS</id>
-        <text>Gebruiker,LastFM[br]Gebruikersnaam,LastFM[br]Wachtwoord,Scrobble?,Afbeeldingen?</text>
+        <text>Gebruiker,LastFM[br]Gebruikersnaam,LastFM[br]Wachtwoord,Scrobble?</text>
         <version>1.23.1</version>
       </string>
       <string>
@@ -3012,44 +2992,9 @@
         <version>1.22</version>
       </string>
       <string>
-        <id>MISSING_DB_TEXT</id>
-        <text>Gebruik het configuratie hulpprogramma om een databank te maken.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MISSING_DB_TITLE</id>
-        <text>De databank is nog niet aangemaakt.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MISSING_INI_TEXT</id>
-        <text>Gebruik het configuratie hulpprogramma om het configuratiebestand te maken.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MISSING_INI_TITLE</id>
-        <text>Het SwissCenter configuratiebestand is niet aanwezig.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MISSING_MEDIA_TEXT</id>
-        <text>Gebruik het configuratie hulpprogramma om medialocaties toe te voegen.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MISSING_MEDIA_TITLE</id>
-        <text>Er zijn geen medialocaties gedefinieerd.</text>
-        <version>1.19</version>
-      </string>
-      <string>
         <id>MISSING_PERMS_TEXT</id>
         <text>De map waarin het SwissCenter programma is geïnstalleerd is niet lees- of schrijfbaar voor de server.</text>
         <version>1.22</version>
-      </string>
-      <string>
-        <id>MISSING_PERMS_TITLE</id>
-        <text>Installatie is niet correct.</text>
-        <version>1.19</version>
       </string>
       <string>
         <id>MISSING_SCHED_TEXT</id>
@@ -3064,21 +3009,6 @@
       <string>
         <id>MISSING_SETUP_SQL</id>
         <text>Het &quot;setup.sql&quot; bestand in de SwissCenter map is niet aanwezig</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MODULE_MISSING_LINUX</id>
-        <text>De %s module is niet geladen. Hercompileer PHP met de juiste opties.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MODULE_MISSING_TITLE</id>
-        <text>Vereiste PHP module is niet aanwezig.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MODULE_MISSING_WINDOWS</id>
-        <text>De %s module is niet geladen. Pas het php.ini bestand aan.</text>
         <version>1.19</version>
       </string>
       <string>
@@ -3314,11 +3244,6 @@
       <string>
         <id>NOW_PLAYING_FANART_GOOGLE</id>
         <text>Google afbeeldingen</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>NOW_PLAYING_FANART_LASTFM</id>
-        <text>Last.FM</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3578,16 +3503,6 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
         <version>1.19</version>
       </string>
       <string>
-        <id>PASS_MYSQL_CHARSET</id>
-        <text>De MySQl server gebruikt de 'latin1' tekenset.</text>
-        <version>1.23.1</version>
-      </string>
-      <string>
-        <id>PASS_MYSQL_COLLATION</id>
-        <text>De MySQL server gebruikt de 'latin1_swedish_ci' collatie.</text>
-        <version>1.23.1</version>
-      </string>
-      <string>
         <id>PASS_MYSQL_CONNECT</id>
         <text>Verbinding met MySQL-server geslaagd.</text>
         <version>1.19</version>
@@ -3603,11 +3518,6 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
         <version>1.19</version>
       </string>
       <string>
-        <id>PASS_PHP_CLI</id>
-        <text>Een CLI-versie van PHP is gevonden.</text>
-        <version>1.19</version>
-      </string>
-      <string>
         <id>PASS_PHP_EXTRA_MODS</id>
         <text>Alle aanbevolen PHP-modules zijn beschikbaar.</text>
         <version>1.19</version>
@@ -3616,11 +3526,6 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
         <id>PASS_PHP_FONTS</id>
         <text>TrueType lettertype voor het genereren van &quot;SPEELT NU&quot; informatie gevonden.</text>
         <version>1.21.1</version>
-      </string>
-      <string>
-        <id>PASS_PHP_INI</id>
-        <text>Het 'php.ini'-bestand is gevonden.</text>
-        <version>1.19</version>
       </string>
       <string>
         <id>PASS_PHP_REQ_MODS</id>
@@ -3671,11 +3576,6 @@ Het verbeterde scherm geeft dezelfde informatie samen met een voortgangsbalk en 
         <id>PASS_SWISS_INI</id>
         <text>Het 'swisscenter.ini'-bestand is gevonden.</text>
         <version>1.19</version>
-      </string>
-      <string>
-        <id>PASS_SWISS_LOCS</id>
-        <text>De medialocaties zijn gedefinieerd.</text>
-        <version>1.22</version>
       </string>
       <string>
         <id>PASS_SWISS_LOG</id>
@@ -4322,11 +4222,6 @@ Het is van belang dat u de juiste chipset voor uw speler selecteert, omdat deze 
         <id>QUICK_PLAY</id>
         <text>Snel afspelen</text>
         <version>1.19</version>
-      </string>
-      <string>
-        <id>RADAR</id>
-        <text>Buienradar</text>
-        <version>1.23.1</version>
       </string>
       <string>
         <id>RANGE</id>
@@ -6278,11 +6173,6 @@ bijvoorbeeld: C:/Media/TV/Robot Chicken/Series 1/Robot Chicken.S01E01.The Deep E
         <id>WATCH_TV</id>
         <text>TV show</text>
         <version>1.22</version>
-      </string>
-      <string>
-        <id>WEATHER</id>
-        <text>Weerbericht</text>
-        <version>1.23.1</version>
       </string>
       <string>
         <id>WEATHER_5DAY</id>

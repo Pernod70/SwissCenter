@@ -898,11 +898,6 @@
         <version>1.19</version>
       </string>
       <string>
-        <id>FAIL_PHP_CLI</id>
-        <text>Din PHP Version understøtter ikke kommando linjer. SwissCenter vil ikke være i stand til automatisk at søge efter nye medier.</text>
-        <version>1.19</version>
-      </string>
-      <string>
         <id>FAIL_PHP_EXTRA_MODS</id>
         <text>Ikke alle anbefalede PHP moduler er tilgængelige. Nogle ikke-kritiske funktioner er derfor blevet deaktiveret. (anbefalede moduler er: [b]%s[/b]).</text>
         <version>1.19</version>
@@ -945,11 +940,6 @@
       <string>
         <id>FAIL_SWISS_INI</id>
         <text>Kan ikke finde filen 'SwissCenter.ini'. [br]Har du oprettet databasen endnu?</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>FAIL_SWISS_LOCS</id>
-        <text>Der er ikke defineret nogle medielokationer.</text>
         <version>1.19</version>
       </string>
       <string>
@@ -1364,7 +1354,7 @@
       </string>
       <string>
         <id>LASTFM_LOGIN_HEADINGS</id>
-        <text>Bruger,LastFM[br]Brugernavn,LastFM[br]Password,Scrobble?,Billeder?</text>
+        <text>Bruger,LastFM[br]Brugernavn,LastFM[br]Password,Scrobble?</text>
         <version>1.19</version>
       </string>
       <string>
@@ -1798,43 +1788,8 @@
         <version>1.19</version>
       </string>
       <string>
-        <id>MISSING_DB_TEXT</id>
-        <text>Brug konfigurations siden til at oprette databasen</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MISSING_DB_TITLE</id>
-        <text>Du har ikke oprettet en database</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MISSING_INI_TEXT</id>
-        <text>Brug konfigurations siden til at oprettet en konfigurations fil</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MISSING_INI_TITLE</id>
-        <text>Din SwissCenter konfigurations fil mangler.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MISSING_MEDIA_TEXT</id>
-        <text>Brug konfigurations siden til at tilføje medie lokationer.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MISSING_MEDIA_TITLE</id>
-        <text>Du har ikke defineret nogen medie lokationer.</text>
-        <version>1.19</version>
-      </string>
-      <string>
         <id>MISSING_PERMS_TEXT</id>
         <text>Det bibliotek, hvor du har installeret SwissCenter, er ikke læs-/skrivbar for web-server brugeren.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MISSING_PERMS_TITLE</id>
-        <text>Installation forkert</text>
         <version>1.19</version>
       </string>
       <string>
@@ -1850,21 +1805,6 @@
       <string>
         <id>MISSING_SETUP_SQL</id>
         <text>Filen &quot;Setup.sql&quot; mangler i dit SwissCenter bibliotek.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MODULE_MISSING_LINUX</id>
-        <text>Modulet %s er ikke indlæst - du er måske nødt til at recompile PHP med den relevante valgmulighed valgt.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MODULE_MISSING_TITLE</id>
-        <text>Krævet PHP modul mangler</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MODULE_MISSING_WINDOWS</id>
-        <text>Modulet %s er ikke indlæst - ret din php.ini fil for at aktivere det.</text>
         <version>1.19</version>
       </string>
       <string>
@@ -2093,11 +2033,6 @@
         <version>1.19</version>
       </string>
       <string>
-        <id>PASS_PHP_CLI</id>
-        <text>En kommando linje version af PHP er blevet fundet.</text>
-        <version>1.19</version>
-      </string>
-      <string>
         <id>PASS_PHP_EXTRA_MODS</id>
         <text>Alle anbefalede PHP moduler er tilgængelige.</text>
         <version>1.19</version>
@@ -2105,11 +2040,6 @@
       <string>
         <id>PASS_PHP_FONTS</id>
         <text>Der er fundet en Truetype Font som kan bruges til at generere &quot;Du Lytter Til...&quot; billederne.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>PASS_PHP_INI</id>
-        <text>Filen 'php.ini' er blevet fundet.</text>
         <version>1.19</version>
       </string>
       <string>
@@ -2135,11 +2065,6 @@
       <string>
         <id>PASS_SWISS_INI</id>
         <text>Filen 'SwissCenter.ini' er blevet fundet.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>PASS_SWISS_LOCS</id>
-        <text>Medie lokationer er blevet fundet.</text>
         <version>1.19</version>
       </string>
       <string>

@@ -1128,11 +1128,6 @@
         <version>1.22</version>
       </string>
       <string>
-        <id>FAIL_PHP_CLI</id>
-        <text>Du har ingen kommando linje versjon av PHP installert. SwissCenter vil ikke kunne søke etter nye mediafiler.</text>
-        <version>1.19</version>
-      </string>
-      <string>
         <id>FAIL_PHP_EXTRA_MODS</id>
         <text>Ikke alle anbefalte PHP moduler er tilgjengelige. Noen ikke-kritiske funksjoner har blitt deaktivert (anbefalte moduler er: [b]%s[/b]).</text>
         <version>1.19</version>
@@ -1190,11 +1185,6 @@
       <string>
         <id>FAIL_SWISS_INI</id>
         <text>Kan ikke lokalisere &quot;swisscenter.ini&quot; filen. [br]Har du laget en SwissCenter database?</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>FAIL_SWISS_LOCS</id>
-        <text>Ingen media kataloger har blitt spesifisert.</text>
         <version>1.19</version>
       </string>
       <string>
@@ -2030,7 +2020,7 @@
       </string>
       <string>
         <id>LASTFM_LOGIN_HEADINGS</id>
-        <text>Bruker,Last.fm[br]Brukernavn,Last.fm[br]Passord,Scrobble?,Bilder?</text>
+        <text>Bruker,Last.fm[br]Brukernavn,Last.fm[br]Passord,Scrobble?</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2534,43 +2524,8 @@
         <version>1.19</version>
       </string>
       <string>
-        <id>MISSING_DB_TEXT</id>
-        <text>Bruk konfigurasjons programmet for å opprette en database.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MISSING_DB_TITLE</id>
-        <text>Du har ikke opprettet en database.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MISSING_INI_TEXT</id>
-        <text>Bruk konfigurasjons programmet for å opprette en konfigurasjons fil.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MISSING_INI_TITLE</id>
-        <text>Din SwissCenter konfigurasjons fil mangler.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MISSING_MEDIA_TEXT</id>
-        <text>Bruk konfigurasjons programmet for å legge til media kataloger.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MISSING_MEDIA_TITLE</id>
-        <text>Du har ikke definert noen media kataloger.</text>
-        <version>1.19</version>
-      </string>
-      <string>
         <id>MISSING_PERMS_TEXT</id>
         <text>Katalogen hvor du installerte SwissCenter er ikke lesbar/skrivbar for &quot;webserver&quot; brukeren.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MISSING_PERMS_TITLE</id>
-        <text>Installasjonen er ikke korrekt</text>
         <version>1.19</version>
       </string>
       <string>
@@ -2586,21 +2541,6 @@
       <string>
         <id>MISSING_SETUP_SQL</id>
         <text>Filen &quot;Setup.sql&quot; mangler i SwissCenter katalogen.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MODULE_MISSING_LINUX</id>
-        <text>%s modulen er ikke lastet - bygg PHP på nytt med de nødvendige opsjoner valgt.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MODULE_MISSING_TITLE</id>
-        <text>En kritisk PHP modul mangler</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MODULE_MISSING_WINDOWS</id>
-        <text>%s modulen er ikke lastet - modifiser &quot;php.ini&quot; filen for å aktivere den.</text>
         <version>1.19</version>
       </string>
       <string>
@@ -2799,11 +2739,6 @@
         <version>1.22</version>
       </string>
       <string>
-        <id>NOW_PLAYING_FANART_LASTFM</id>
-        <text>Last.fm</text>
-        <version>1.22</version>
-      </string>
-      <string>
         <id>NOW_PLAYING_FANART_NONE</id>
         <text>Ingen</text>
         <version>1.22</version>
@@ -2940,11 +2875,6 @@ Den utvidede versjonen viser spor detaljer med en progresjons søyle og fan graf
         <version>1.19</version>
       </string>
       <string>
-        <id>PASS_PHP_CLI</id>
-        <text>En kommando linje versjon av PHP er funnet.</text>
-        <version>1.19</version>
-      </string>
-      <string>
         <id>PASS_PHP_EXTRA_MODS</id>
         <text>Alle anbefalte PHP moduler er tilgjengelige.</text>
         <version>1.19</version>
@@ -2952,11 +2882,6 @@ Den utvidede versjonen viser spor detaljer med en progresjons søyle og fan graf
       <string>
         <id>PASS_PHP_FONTS</id>
         <text>En TrueType font for generering av &quot;Spilles av nå&quot; bilder er tilgjengelig.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>PASS_PHP_INI</id>
-        <text>Filen &quot;php.ini&quot; ble funnet.</text>
         <version>1.19</version>
       </string>
       <string>
@@ -2997,11 +2922,6 @@ Den utvidede versjonen viser spor detaljer med en progresjons søyle og fan graf
       <string>
         <id>PASS_SWISS_INI</id>
         <text>Filen &quot;swisscenter.ini&quot; ble funnet.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>PASS_SWISS_LOCS</id>
-        <text>En eller flere media kataloger har blitt spesfisert.</text>
         <version>1.19</version>
       </string>
       <string>

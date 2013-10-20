@@ -2411,7 +2411,7 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       </string>
       <string>
         <id>LASTFM_LOGIN_HEADINGS</id>
-        <text>Benutzer,Last.FM[br]Username,Last.FM[br]Passwort,Scrobbeln?,Bilder?</text>
+        <text>Benutzer,Last.FM[br]Username,Last.FM[br]Passwort,Scrobbeln?</text>
         <version>1.23.1</version>
       </string>
       <string>
@@ -3262,11 +3262,6 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
       <string>
         <id>NOW_PLAYING_FANART_GOOGLE</id>
         <text>Google Bilder</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>NOW_PLAYING_FANART_LASTFM</id>
-        <text>Last.FM</text>
         <version>1.22</version>
       </string>
       <string>
