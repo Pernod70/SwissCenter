@@ -62,8 +62,8 @@
     }
     if ( !isset($playing[0]["ALBUMART"]) && !empty($playing[0]["ARTIST"]) )
     {
-      // Get an artist image from Last.fm
-      $image = get_lastfm_artist_image($playing[0]["ARTIST"]);
+      // Get an artist image from Discogs
+      $image = get_discogs_artist_image($playing[0]["ARTIST"]);
       if ( $image )
         $playing[0]["ALBUMART"] = $image;
     }
@@ -89,7 +89,7 @@
       }
     }
 
-    $photos = get_lastfm_artist_images( $playing[0]["ARTIST"], 'large' );
+    $photos = get_discogs_artist_images( $playing[0]["ARTIST"], 'thumb' );
     $image = now_playing_image($playing[0], array_slice($playing, 1), '', '', $photos);
     $image->output('jpeg');
   }

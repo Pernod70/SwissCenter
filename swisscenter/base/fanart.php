@@ -4,7 +4,7 @@
  *************************************************************************************************/
 
 require_once( realpath(dirname(__FILE__).'/cache_api_request.php'));
-require_once( realpath(dirname(__FILE__).'/../ext/lastfm/datafeeds.php'));
+require_once( realpath(dirname(__FILE__).'/../resources/audio/discogs.php'));
 
 /**
  * Searches for and downloads an artist image from Google Images.
@@ -76,12 +76,12 @@ function get_google_artist_image( $artist )
 }
 
 /**
- * Searches for and downloads an artist image from Last.FM.
+ * Searches for and downloads a random artist image from Discogs.
  *
  * @param string $artist
  * @return string - path to downloaded image, or false if failed.
  */
-function get_lastfm_artist_image( $artist )
+function get_discogs_artist_image( $artist )
 {
   // Return if no artist provided
   if (empty($artist))
@@ -96,7 +96,7 @@ function get_lastfm_artist_image( $artist )
   umask($oldumask);
 
   // Filter original images that meet our minimum size requirements
-  $image_urls = get_lastfm_artist_images( $artist, 'original', get_sys_pref('NOW_PLAYING_FANART_QUALITY',0) );
+  $image_urls = get_discogs_artist_images( $artist, 'original', get_sys_pref('NOW_PLAYING_FANART_QUALITY',0) );
 
   if ( !empty($image_urls) )
   {
@@ -116,54 +116,53 @@ function get_lastfm_artist_image( $artist )
 }
 
 /**
- * Returns an array of artist images from Last.FM.
+ * Returns an array of artist images from Discogs.
  *
  * @param string $artist
- * @param string $size - original, small, medium, large
+ * @param string $size - original, thumb
  * @param integer $min_size - minimum size limit
  * @return array - image URL's.
  */
-function get_lastfm_artist_images( $artist, $size = 'original', $min_size = 0 )
+function get_discogs_artist_images( $artist, $size = 'original', $min_size = 0 )
 {
   // Return if no artist provided
   if (empty($artist))
     return false;
 
-  send_to_log(6,'Querying Last.fm Images for artist: '.$artist);
+  send_to_log(6,'Querying Discogs Images for artist: '.$artist);
 
-  $images = lastfm_artist_getImages($artist);
-  if ( $images )
+  $discogs = new Discogs();
+  $results = $discogs->search($artist, 'artist');
+
+  // Search results for best match
+  $titles = array ();
+  foreach ($results['results'] as $index => $result)
+    $titles[$index] = $result['title'];
+  $index = best_match($artist, $titles, $accuracy);
+
+  if ($index !== false)
   {
-    // Number of pages available
-    $pages = $images["images"]["@attr"]["totalPages"];
-    if ($pages == 0)
+    $artist = $discogs->artist($results['results'][$index]['id']);
+
+    // Number of images available
+    if (count($artist['images']) == 0)
     {
-      send_to_log(2,'No artist images available at Last.fm');
+      send_to_log(2,'No artist images available at Discogs');
       return false;
     }
 
-    // Choose random page
-    $page = mt_rand(1, $pages);
-    if ($page > 1)
-      $images = lastfm_artist_getImages($artist, $page);
-
-    // Manage the array of images if only a single image is returned
-    if (!array_key_exists(0, $images["images"]["image"]))
-      $images["images"]["image"] = array(0=>$images["images"]["image"]);
-
     // Filter original images that meet our minimum size requirements
     $image_urls = array();
-    foreach ($images["images"]["image"] as $image)
+    foreach ($artist['images'] as $image)
     {
-      // Find the URL of the original image
-      foreach ($image["sizes"]["size"] as $img_size)
+      if ($size == 'thumb' || ($image['width'] >= $min_size && $image['height'] >= $min_size))
       {
-        if ($img_size["name"] == $size && $img_size["width"] >= $min_size && $img_size["height"] >= $min_size)
-        {
-          $image_urls[] = array( "remote" => $img_size["#text"],
-                                 "local"  => basename($image["url"]).'.'.file_ext($img_size["#text"]) );
-          break;
-        }
+        if ($size == 'original')
+          $image_urls[] = array( "remote" => $image['uri'],
+                                 "local"  => basename($image['uri']) );
+        else
+          $image_urls[] = array( "remote" => $image['uri150'],
+                                 "local"  => basename($image['uri']) );
       }
     }
 
@@ -179,7 +178,7 @@ function get_lastfm_artist_images( $artist, $size = 'original', $min_size = 0 )
   }
   else
   {
-    send_to_log(2,'Failed to get response from Last.fm artist.getImages');
+    send_to_log(2,'Failed to find artist at Discogs');
     return false;
   }
 }
