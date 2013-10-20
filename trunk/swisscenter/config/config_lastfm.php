@@ -17,11 +17,9 @@
     $option_vals  = array( str('ENABLED')=>'YES',str('DISABLED')=>'NO');
     $data = db_toarray("select u.user_id, u.name, un.value username, pw.value password
                              , ( CASE sc.value  WHEN 'NO' THEN '".str('NO')."' WHEN 'YES' THEN '".str('YES')."' ELSE '".str('NO')."' END) scrobble
-                             , ( CASE im.value  WHEN 'NO' THEN '".str('NO')."' WHEN 'YES' THEN '".str('YES')."' ELSE '".str('NO')."' END) images
                           from users u left outer join user_prefs un on (un.user_id = u.user_id and un.name = 'LASTFM_USERNAME')
                                        left outer join user_prefs pw on (pw.user_id = u.user_id and pw.name = 'LASTFM_PASSWORD')
                                        left outer join user_prefs sc on (sc.user_id = u.user_id and sc.name = 'LASTFM_SCROBBLE')
-                                       left outer join user_prefs im on (im.user_id = u.user_id and im.name = 'LASTFM_IMAGES')
                       order by u.name");
 
     echo '<p><h1>'.str('CONFIG_LASTFM_TITLE').'</h1><p>';
@@ -42,7 +40,6 @@
                             , "USERNAME"=>""
                             , "PASSWORD"=>"*"
                             , "SCROBBLE"=>array( array("VAL"=>'NO',"NAME"=>str('NO')),array("VAL"=>'YES',"NAME"=>str('YES')))
-                            , "IMAGES"=>array( array("VAL"=>'NO',"NAME"=>str('NO')),array("VAL"=>'YES',"NAME"=>str('YES')))
                             )
                      , $lastfm_edit_id
                      , "lastfm_auth");
@@ -85,7 +82,6 @@
       $username = $update_data["USERNAME"];
       $password = $update_data["PASSWORD"];
       $scrobble = $update_data["SCROBBLE"];
-      $download = $update_data["IMAGES"];
 
       if (empty($username) || empty($password))
         lastfm_display("!".str('LASTFM_MISSING_LOGIN'));
@@ -98,7 +94,6 @@
         set_user_pref('LASTFM_USERNAME',$username, $user_id);
         set_user_pref('LASTFM_PASSWORD',$password, $user_id);
         set_user_pref('LASTFM_SCROBBLE',$scrobble, $user_id);
-        set_user_pref('LASTFM_IMAGES'  ,$download, $user_id);
         lastfm_display(str('SAVE_SETTINGS_OK'));
       }
     }
