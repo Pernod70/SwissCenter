@@ -1163,11 +1163,6 @@
         <version>1.19</version>
       </string>
       <string>
-        <id>FAIL_PHP_CLI</id>
-        <text>Não tem instalado uma versão de linha de comandos de PHP. O SwissCenter não pode pesquisar novos arquivos.</text>
-        <version>1.19</version>
-      </string>
-      <string>
         <id>FAIL_PHP_EXTRA_MODS</id>
         <text>Não estão disponíveis todos os módulos PHP recomendados. Algumas características não críticas foram desactivadas (os módulos recomendados são: %s).</text>
         <version>1.19</version>
@@ -1230,11 +1225,6 @@
       <string>
         <id>FAIL_SWISS_INI</id>
         <text>Não se consegue localizar o arquivo 'swisscenter.ini'. [br]Já criou uma  base de dados?</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>FAIL_SWISS_LOCS</id>
-        <text>Ainda não foram definidas as localizações dos arquivos multimédia.</text>
         <version>1.19</version>
       </string>
       <string>
@@ -2149,7 +2139,7 @@
       </string>
       <string>
         <id>LASTFM_LOGIN_HEADINGS</id>
-        <text>Usuário, Nome de usuário da LastFM, Palavra-passe da LastFM,Scrobble?,Imagens?</text>
+        <text>Usuário, Nome de usuário da LastFM, Palavra-passe da LastFM,Scrobble?</text>
         <version>1.19</version>
       </string>
       <string>
@@ -2663,43 +2653,8 @@
         <version>1.22</version>
       </string>
       <string>
-        <id>MISSING_DB_TEXT</id>
-        <text>utilizar ferramenta de configuração para criar base de dados.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MISSING_DB_TITLE</id>
-        <text>Não tem uma base de dados criada.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MISSING_INI_TEXT</id>
-        <text>utilizar ferramenta de configuração para configurar um arquivo.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MISSING_INI_TITLE</id>
-        <text>Falta arquivo de configuração do SwissCenter.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MISSING_MEDIA_TEXT</id>
-        <text>utilizar ferramenta de configuração para adicionar directorias de arquivos multimédia.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MISSING_MEDIA_TITLE</id>
-        <text>Não há directorias especificadas de arquivos multimédia.</text>
-        <version>1.19</version>
-      </string>
-      <string>
         <id>MISSING_PERMS_TEXT</id>
         <text>A directoria onde está instalado o SwissCenter não está acessível pelo servidor de web.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MISSING_PERMS_TITLE</id>
-        <text>Instalação incorrecta</text>
         <version>1.19</version>
       </string>
       <string>
@@ -2715,21 +2670,6 @@
       <string>
         <id>MISSING_SETUP_SQL</id>
         <text>Falta o arquivo &quot;Setup.sql&quot; na directoria do SwissCenter.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MODULE_MISSING_LINUX</id>
-        <text>O módulo %s não está carregado - necessita recompilar o PHP com a acção seleccionada.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MODULE_MISSING_TITLE</id>
-        <text>Falta o módulo PHP requerido</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>MODULE_MISSING_WINDOWS</id>
-        <text>O módulo %s não está carregado - modifique o arquivo php.ini para permitir.</text>
         <version>1.19</version>
       </string>
       <string>
@@ -2930,11 +2870,6 @@
       <string>
         <id>NOW_PLAYING_FANART_GOOGLE</id>
         <text>Imagens Google</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>NOW_PLAYING_FANART_LASTFM</id>
-        <text>Last.fm</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3174,11 +3109,6 @@ A melhor opção mostra os detalhes da faixa com uma barra de progresso e uma im
         <version>1.19</version>
       </string>
       <string>
-        <id>PASS_PHP_CLI</id>
-        <text>Uma versão da linha de comandos do PHP foi detectada.</text>
-        <version>1.19</version>
-      </string>
-      <string>
         <id>PASS_PHP_EXTRA_MODS</id>
         <text>Todos os módulos PHP sugeridos estão disponíveis.</text>
         <version>1.19</version>
@@ -3186,11 +3116,6 @@ A melhor opção mostra os detalhes da faixa com uma barra de progresso e uma im
       <string>
         <id>PASS_PHP_FONTS</id>
         <text>Localizada um tipo de letra TrueType para gerar as imagens da &quot;Reprodução em curso&quot;.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>PASS_PHP_INI</id>
-        <text>Arquivo 'php.ini' localizado com êxito.</text>
         <version>1.19</version>
       </string>
       <string>
@@ -3236,11 +3161,6 @@ A melhor opção mostra os detalhes da faixa com uma barra de progresso e uma im
       <string>
         <id>PASS_SWISS_INI</id>
         <text>Localizado com êxito o arquivo 'swisscenter.ini'.</text>
-        <version>1.19</version>
-      </string>
-      <string>
-        <id>PASS_SWISS_LOCS</id>
-        <text>A localização dos arquivos foi definida.</text>
         <version>1.19</version>
       </string>
       <string>

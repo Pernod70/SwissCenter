@@ -1163,11 +1163,6 @@
         <version>1.22</version>
       </string>
       <string>
-        <id>FAIL_PHP_CLI</id>
-        <text>Du har ingen kommandolinje-version av PHP installerad. SwissCenter kommer inte kunna söka efter nya mediafiler.</text>
-        <version>1.22</version>
-      </string>
-      <string>
         <id>FAIL_PHP_EXTRA_MODS</id>
         <text>Alla rekommenderade PHP-moduler är inte tillgängliga. På grund av detta har några icke-kritiska funktioner inaktiverats (rekommenderade moduler är: [b]%s[/b]).</text>
         <version>1.22</version>
@@ -1230,11 +1225,6 @@
       <string>
         <id>FAIL_SWISS_INI</id>
         <text>Kan inte hitta 'swisscenter.ini'. [br]Har du skapat en SwissCenter-databas?</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>FAIL_SWISS_LOCS</id>
-        <text>Inga mediaplatser har definierats.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2164,7 +2154,7 @@
       </string>
       <string>
         <id>LASTFM_LOGIN_HEADINGS</id>
-        <text>Användare,LastFM[br]Användarnamn,LastFM[br]Lösenord,Scrobble?,Bilder?</text>
+        <text>Användare,LastFM[br]Användarnamn,LastFM[br]Lösenord,Scrobble?</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2678,43 +2668,8 @@
         <version>1.22</version>
       </string>
       <string>
-        <id>MISSING_DB_TEXT</id>
-        <text>Använd Konfigurationsverktyget för att skapa en databas.</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>MISSING_DB_TITLE</id>
-        <text>Du har inte skapat någon databas.</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>MISSING_INI_TEXT</id>
-        <text>Använd Konfigurationsverktyget för att skapa en konfigurationsfil.</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>MISSING_INI_TITLE</id>
-        <text>Din SwissCenter-konfigurationsfil saknas.</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>MISSING_MEDIA_TEXT</id>
-        <text>Använd Konfigurationsverktyget för att lägga till några mediaplatser.</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>MISSING_MEDIA_TITLE</id>
-        <text>Du har inte definierat några mediaplatser.</text>
-        <version>1.22</version>
-      </string>
-      <string>
         <id>MISSING_PERMS_TEXT</id>
         <text>Webbserver-användaren saknar läs/skriv-rättigheter till mappen där du har installerat SwissCenter.</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>MISSING_PERMS_TITLE</id>
-        <text>Installationen är felaktig</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2730,21 +2685,6 @@
       <string>
         <id>MISSING_SETUP_SQL</id>
         <text>Filen &quot;Setup.sql&quot; saknas i SwissCenter-mappen.</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>MODULE_MISSING_LINUX</id>
-        <text>Modulen %s är inte laddad - du kan behöva kompilera om PHP med relevanta val aktiverade.</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>MODULE_MISSING_TITLE</id>
-        <text>En kritisk PHP-modul saknas</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>MODULE_MISSING_WINDOWS</id>
-        <text>Modulen %s är inte laddad - vänligen aktivera den i php.ini.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -2945,11 +2885,6 @@
       <string>
         <id>NOW_PLAYING_FANART_GOOGLE</id>
         <text>Google bilder</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>NOW_PLAYING_FANART_LASTFM</id>
-        <text>Last.FM</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3189,11 +3124,6 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
         <version>1.22</version>
       </string>
       <string>
-        <id>PASS_PHP_CLI</id>
-        <text>En kommandolinje-version av PHP har hittats.</text>
-        <version>1.22</version>
-      </string>
-      <string>
         <id>PASS_PHP_EXTRA_MODS</id>
         <text>Alla rekommenderade PHP-moduler är tillgängliga.</text>
         <version>1.22</version>
@@ -3201,11 +3131,6 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       <string>
         <id>PASS_PHP_FONTS</id>
         <text>Hittade ett TrueType-typsnitt att använda till att generera &quot;Nu spelas&quot;-bilder.</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>PASS_PHP_INI</id>
-        <text>Hittade 'php.ini'.</text>
         <version>1.22</version>
       </string>
       <string>
@@ -3251,11 +3176,6 @@ Den förbättrade versionen visar spårinformation med en förloppsindikator och
       <string>
         <id>PASS_SWISS_INI</id>
         <text>Hittade 'swisscenter.ini'.</text>
-        <version>1.22</version>
-      </string>
-      <string>
-        <id>PASS_SWISS_LOCS</id>
-        <text>Mediaplatser har definierats.</text>
         <version>1.22</version>
       </string>
       <string>
