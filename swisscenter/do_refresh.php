@@ -18,7 +18,7 @@
     $menu        = new menu();
     $status      = get_sys_pref('MEDIA_SCAN_STATUS',str('MEDIA_SCAN_STATUS_COMPLETE'));
     $overall     = db_value("select avg(percent_scanned) from media_locations");
-    $refresh_url = '/do_refresh.php?type=show';
+    $refresh_url = 'do_refresh.php?type=show';
 
     // Stop refreshing if the search is complete
     if ($status != str('MEDIA_SCAN_STATUS_COMPLETE'))
@@ -90,9 +90,9 @@
   {
     $menu = new menu();
     page_header( str('SETUP_SEARCH_NEW_MEDIA'));
-    $menu->add_item(str('SETUP_SEARCH_ALL'),'/do_refresh.php?type=all');
-    $menu->add_item(str('SETUP_SEARCH_TYPE'),'/do_refresh.php?type=media_type',true);
-    $menu->add_item(str('SETUP_SEARCH_CATEGORY'),'/do_refresh.php?type=category',true);
+    $menu->add_item(str('SETUP_SEARCH_ALL'),'do_refresh.php?type=all');
+    $menu->add_item(str('SETUP_SEARCH_TYPE'),'do_refresh.php?type=media_type',true);
+    $menu->add_item(str('SETUP_SEARCH_CATEGORY'),'do_refresh.php?type=category',true);
     echo '<p>';
     $menu->display();
     page_footer( 'config.php' );
@@ -110,10 +110,10 @@
     echo '<center>'.font_tags(FONTSIZE_BODY).str('SELECT_CATEGORY').'</center><p>';
     foreach (db_toarray("select * from categories order by cat_name") as $cat)
     {
-      $menu->add_item($cat["CAT_NAME"],'/do_refresh.php?type=category&spec='.$cat["CAT_ID"]);
+      $menu->add_item($cat["CAT_NAME"],'do_refresh.php?type=category&spec='.$cat["CAT_ID"]);
     }
     $menu->display_page( nvl($_REQUEST["page"],1) );
-    page_footer( '/do_refresh.php' );
+    page_footer( 'do_refresh.php' );
   }
 
   /**
@@ -126,12 +126,12 @@
     $menu = new menu();
     page_header( str('SETUP_SEARCH_NEW_MEDIA'));
     echo '<center>'.font_tags(FONTSIZE_BODY).str('SETUP_SEARCH_TYPE_TITLE').'</center><p>';
-    $menu->add_item( str('MUSIC') ,'/do_refresh.php?type=media_type&spec='.MEDIA_TYPE_MUSIC);
-    $menu->add_item( str('PHOTOS') ,'/do_refresh.php?type=media_type&spec='.MEDIA_TYPE_PHOTO);
-    $menu->add_item( str('TVSERIES') ,'/do_refresh.php?type=media_type&spec='.MEDIA_TYPE_TV);
-    $menu->add_item( str('VIDEO') ,'/do_refresh.php?type=media_type&spec='.MEDIA_TYPE_VIDEO);
+    $menu->add_item( str('MUSIC') ,'do_refresh.php?type=media_type&spec='.MEDIA_TYPE_MUSIC);
+    $menu->add_item( str('PHOTOS') ,'do_refresh.php?type=media_type&spec='.MEDIA_TYPE_PHOTO);
+    $menu->add_item( str('TVSERIES') ,'do_refresh.php?type=media_type&spec='.MEDIA_TYPE_TV);
+    $menu->add_item( str('VIDEO') ,'do_refresh.php?type=media_type&spec='.MEDIA_TYPE_VIDEO);
     $menu->display();
-    page_footer( '/do_refresh.php' );
+    page_footer( 'do_refresh.php' );
   }
 
   /**
