@@ -193,9 +193,10 @@
   {
     send_to_log(8,'Device details (in the session)',$_SESSION["device"]);
     $server = $_SERVER['SERVER_NAME'];
+    $root   = str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
     $override = get_sys_pref('SERVER_PORT');
 
-    if (strpos($server,':') === false)
+    if (strpos($server,':') === false && $_SERVER['SERVER_PORT'] !== 80)
     {
       if (!empty($override))
         $server = $server.':'.$override;
@@ -205,7 +206,7 @@
         $server = $server.':'.$_SERVER['SERVER_PORT'];
     }
 
-    return 'http://'.$server.'/';
+    return 'http://'.$server.$root;
   }
 
   // ----------------------------------------------------------------------------------
