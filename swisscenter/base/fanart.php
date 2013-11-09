@@ -4,6 +4,7 @@
  *************************************************************************************************/
 
 require_once( realpath(dirname(__FILE__).'/cache_api_request.php'));
+require_once( realpath(dirname(__FILE__).'/../ext/lastfm/datafeeds.php'));
 require_once( realpath(dirname(__FILE__).'/../resources/audio/discogs.php'));
 
 /**
