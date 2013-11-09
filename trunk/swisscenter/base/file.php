@@ -14,7 +14,7 @@ class Fsw {
    * Returns the filename for use with filesystem functions
    */
   static function setName ($file) {
-    if (DIRECTORY_SEPARATOR=="\\") {
+    if (!is_remote_file($file) && DIRECTORY_SEPARATOR=="\\") {
       $file=decode_utf8($file);
       $file=str_replace('?', '_', $file);
     }
