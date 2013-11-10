@@ -193,7 +193,10 @@
   {
     send_to_log(8,'Device details (in the session)',$_SESSION["device"]);
     $server = $_SERVER['SERVER_NAME'];
-    $root   = str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
+    $root   = str_replace(os_path('base/server.php'), '', __FILE__);
+    $root   = substr($root, strpos(__FILE__, basename($_SERVER['DOCUMENT_ROOT'])));
+    $root   = substr($root, strpos($root, DIRECTORY_SEPARATOR));
+    $root   = str_replace(DIRECTORY_SEPARATOR, '/', $root);
     $override = get_sys_pref('SERVER_PORT');
 
     if (strpos($server,':') === false && $_SERVER['SERVER_PORT'] !== 80)
