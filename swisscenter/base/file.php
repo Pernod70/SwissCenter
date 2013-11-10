@@ -799,10 +799,7 @@ function file_save_albumart( $url, $fsp, $film_title )
 
 function path_delim()
 {
-  if ( is_windows() )
-    return '\\';
- else
-    return '/';
+  return DIRECTORY_SEPARATOR;
 }
 
 /**
@@ -816,22 +813,11 @@ function path_delim()
 
 function os_path( $dir, $addslash=false )
 {
-  if ( is_windows() )
-  {
-    $delim1 = '/';
-    $delim2 = '\\';
-  }
-  else
-  {
-    $delim1 = '\\';
-    $delim2 = '/';
-  }
-
-  $dir = str_replace($delim1, $delim2, $dir);
-  $dir = rtrim($dir, $delim2);
+  $dir = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $dir);
+  $dir = rtrim($dir, DIRECTORY_SEPARATOR);
 
   if ($addslash)
-    $dir = $dir.path_delim();
+    $dir = $dir.DIRECTORY_SEPARATOR;
 
   return $dir;
 }
