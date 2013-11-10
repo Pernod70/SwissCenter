@@ -8,7 +8,7 @@
   $name = $_REQUEST["name"];
 
   // Remove SQL 'like' filter from history
-  $history = array("url" => '/music_selected.php?type=album&name='.rawurlencode($name),
+  $history = array("url" => 'music_selected.php?type=album&name='.rawurlencode($name),
                    "sql" => preg_replace('/ and [a-z_]+ like \'.*?\'/', '', page_hist_previous('sql')));
 
   page_hist_current_update($history["url"], $history["sql"]);

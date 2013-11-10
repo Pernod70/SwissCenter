@@ -21,7 +21,7 @@
     // Build up a menu of subscription items that the user can select from.
     foreach ($items as $item)
     {
-      $menu->add_item( $item["TITLE"], url_add_params('/rss_item_selected.php',array('item_id'=>$item["ID"],
+      $menu->add_item( $item["TITLE"], url_add_params('rss_item_selected.php',array('item_id'=>$item["ID"],
                                                                                      'sub_id'=>$sub_id)));
     }
 

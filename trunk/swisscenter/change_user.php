@@ -73,7 +73,7 @@
       if ($last !== false)
         page_inform(2,"index.php",str('USER_CHANGE'),str('USER_CHANGED'));
       else
-        header('Location: index.php');
+        header('Location: '.server_address().'index.php');
     }
     else
       page_inform(2,"index.php",str('USER_CHANGE'),str('PIN_INCORRECT'));
