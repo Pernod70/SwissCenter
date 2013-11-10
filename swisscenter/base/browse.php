@@ -458,7 +458,7 @@
       $buttons[] = array('text'=>str('SELECT_ALL'), 'url'=>  output_link( '%/'.$dir) );
 
     // Link to scan/refresh the directory
-    $buttons[] = array('text'=>str('REFRESH_DIR_BUTTON'), 'url' => '/media_dir_refresh.php?media_type='.$media_type.'&dir='.urlencode($dir) );
+    $buttons[] = array('text'=>str('REFRESH_DIR_BUTTON'), 'url' => 'media_dir_refresh.php?media_type='.$media_type.'&dir='.urlencode($dir) );
 
     // Output ABC buttons if appropriate
     page_footer( page_hist_previous(), $buttons );

@@ -30,7 +30,7 @@ class tv_series_picker extends list_picker
 
   function link_url($item)
   {
-    return url_add_params('/tv_selected.php',array("programme"=>urlencode($item),"cat"=>$_REQUEST["cat"]));
+    return url_add_params('tv_selected.php',array("programme"=>urlencode($item),"cat"=>$_REQUEST["cat"]));
   }
 
   function icon($item)

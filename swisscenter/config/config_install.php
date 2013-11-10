@@ -88,7 +88,7 @@
         set_sys_pref('CACHE_MAXSIZE_MB','100');
 
         // Display the config page
-        header('Location: index.php');
+        header('Location: '.server_address().'config/index.php');
       }
       else
       {

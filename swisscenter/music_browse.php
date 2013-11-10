@@ -11,7 +11,7 @@
 
   function output_link( $file )
   {
-    return '/music_selected.php?name='.rawurlencode(" concat(media.dirname,media.filename) like '".db_escape_str($file)."%'");
+    return 'music_selected.php?name='.rawurlencode(" concat(media.dirname,media.filename) like '".db_escape_str($file)."%'");
   }
 
   $sql = 'from mp3s media'.get_rating_join().'where 1=1';

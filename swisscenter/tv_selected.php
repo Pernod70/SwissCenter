@@ -116,7 +116,7 @@
     $viewed_count += viewings_count( MEDIA_TYPE_TV, $ep["FILE_ID"] );
     $viewed = viewed_icon(viewings_count( MEDIA_TYPE_TV, $ep["FILE_ID"]));
     $episode_info = (empty($ep["EPISODE"]) && empty($ep["SERIES"])) ? '' : $ep["SERIES"].'x'.$ep["EPISODE"];
-    $menu->add_info_item( empty($ep["TITLE"]) ? '?' : $ep["TITLE"], $episode_info, url_add_params('/tv_episode_selected.php', array("file_id"=>$ep["FILE_ID"],"cat"=>$_REQUEST["cat"],"view_status"=>$view_status)), false, $viewed);
+    $menu->add_info_item( empty($ep["TITLE"]) ? '?' : $ep["TITLE"], $episode_info, url_add_params('tv_episode_selected.php', array("file_id"=>$ep["FILE_ID"],"cat"=>$_REQUEST["cat"],"view_status"=>$view_status)), false, $viewed);
   }
 
   if ($menu->num_items() > 0)

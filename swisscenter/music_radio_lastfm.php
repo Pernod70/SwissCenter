@@ -14,8 +14,8 @@
   $personal_menu = new menu();
 
   // General LastFM radio stations
-  $general_menu->add_item( str('LISTEN_LASTFM_TAGS')           , '/music_radio_lastfm_tags.php' );
-  $general_menu->add_item( str('LISTEN_LASTFM_ARTISTS')        , '/music_radio_lastfm_artists.php' );
+  $general_menu->add_item( str('LISTEN_LASTFM_TAGS')           , 'music_radio_lastfm_tags.php' );
+  $general_menu->add_item( str('LISTEN_LASTFM_ARTISTS')        , 'music_radio_lastfm_artists.php' );
 
   // Stations that are generated based on the user's personal profile/listening habits
   $personal_menu->add_item( str('LISTEN_LASTFM_MY_STATION')    , play_lastfm( LASTFM_USER, 'personal') );

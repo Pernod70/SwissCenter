@@ -97,7 +97,7 @@ require_once( realpath(dirname(__FILE__).'/../base/media.php'));
     media_refresh_now();
 
     // Show progress
-    header('Location: /config/index.php?section=MEDIA&action=PROGRESS&type='.$_REQUEST["scan_type"]);
+    header('Location: '.server_address().'config/index.php?section=MEDIA&action=PROGRESS&type='.$_REQUEST["scan_type"]);
   }
 
   /**
