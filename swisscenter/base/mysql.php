@@ -175,7 +175,7 @@ function db_sqlfile($fsp)
     else
       $commands = explode(';',implode(' ',$contents));
 
-    // Exceute queries in patch file
+    // Execute queries in patch file
     foreach ($commands as $sql)
       if ( strlen(trim($sql)) > 0 )
         if (!db_sqlcommand($sql))

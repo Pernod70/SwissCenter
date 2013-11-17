@@ -213,7 +213,7 @@ CREATE TABLE movies (
   KEY title    (title(50))
 ) ENGINE=MyISAM;
 
-CREATE UNIQUE INDEX movies_fsp_u1 ON movies (dirname(250),filename(250));
+CREATE UNIQUE INDEX movies_fsp_u1 ON movies (dirname(100),filename(100));
 
 -- -------------------------------------------------------------------------------------------------
 -- Table structure for table `actors`
@@ -324,7 +324,7 @@ CREATE TABLE mp3s (
   KEY filename (dirname(255))
 ) ENGINE=MyISAM;
 
-CREATE UNIQUE INDEX mp3s_fsp_u1   ON mp3s   (dirname(250),filename(250));
+CREATE UNIQUE INDEX mp3s_fsp_u1   ON mp3s   (dirname(100),filename(100));
 
 -- -------------------------------------------------------------------------------------------------
 -- Table structure for table `mp3_albumart`
@@ -379,7 +379,7 @@ CREATE TABLE photos (
   KEY filename (dirname(255))
 ) ENGINE=MyISAM;
 
-CREATE UNIQUE INDEX photos_fsp_u1 ON photos (dirname(250),filename(250));
+CREATE UNIQUE INDEX photos_fsp_u1 ON photos (dirname(100),filename(100));
 
 -- -------------------------------------------------------------------------------------------------
 -- Create table to hold photo "albums" information.

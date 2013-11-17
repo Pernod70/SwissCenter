@@ -28,7 +28,7 @@ CREATE TABLE tv (
   KEY title    (title(50))
 ) ENGINE=MyISAM;
 
-CREATE UNIQUE INDEX tv_fsp_u1 ON movies (dirname(250),filename(250));
+CREATE UNIQUE INDEX tv_fsp_u1 ON tv (dirname(100),filename(100));
 
 -- -------------------------------------------------------------------------------------------------
 -- Add the "TV Series" media type to the media_types table
