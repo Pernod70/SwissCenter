@@ -75,9 +75,15 @@
       // Open the setup.sql file
       if ( file_exists('../database/setup.sql') )
       {
+        // Enable stored function creators
+        db_root_sqlcommand($pass,'SET @@global.log_bin_trust_function_creators = 1');
+
         // Run the setup file and all database update files
         db_sqlfile('../database/setup.sql');
         apply_database_patches();
+
+        // Disable stored function creators
+        db_root_sqlcommand($pass,'SET @@global.log_bin_trust_function_creators = 0');
 
         // Write an ini file with the database parameters in it
         write_ini ( DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE );
