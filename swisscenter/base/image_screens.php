@@ -330,7 +330,7 @@
         break;
       case 'DISCOGS':
       case 'LASTFM':
-        $fanart_img = get_discogs_artist_image( $current_track["ARTIST_SORT"] );
+        $fanart_img = get_discogs_artist_image( $current_track["SORT_ARTIST"] );
         break;
       default:
         $fanart_img = false;
