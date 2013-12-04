@@ -38,8 +38,8 @@
       if ($idx >= $max_size)
         break;
 
-      send_to_log(7,' - '.$url."&idx=$idx&type=.jpg");
-      echo "$timeout|$transition| |$url&idx=$idx&type=.jpg|\n";
+      send_to_log(7,' - '.$url."&idx=$idx&id=".$row["FILE_ID"]."&type=.jpg");
+      echo "$timeout|$transition| |$url&idx=$idx&id=".$row["FILE_ID"]."&type=.jpg|\n";
       $idx++;
     }
   }
