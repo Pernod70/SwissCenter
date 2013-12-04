@@ -45,13 +45,13 @@ function internet_available()
     }
 
     // Return the status of the internet connection
-    return (get_sys_pref('INTERNET_AVAILABLE', 'NO') == 'YES') ? true : false;
+    return (get_sys_pref('INTERNET_AVAILABLE', 'NO') === 'YES');
   }
   else
   {
     // Don't attempt to determine whether the connection is available, just return the
     // setting specified by the user.
-    return ( $check_type == 'YES' ? true : false );
+    return ($check_type === 'YES');
   }
 }
 
