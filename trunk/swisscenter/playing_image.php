@@ -57,7 +57,7 @@
     }
     else
     {
-      $photos = internet_available() ? get_discogs_artist_images( $tracks[$idx]["ARTIST_SORT"], 'thumb' ) : '';
+      $photos = internet_available() ? get_discogs_artist_images( $tracks[$idx]["SORT_ARTIST"], 'thumb' ) : '';
       $image = now_playing_image( $tracks[$idx], $prev_info, $next_info, ($idx+1).' / '.count($tracks), $photos );
     }
 
