@@ -96,7 +96,7 @@
       $url = $server.make_url_path($row["DIRNAME"].$row["FILENAME"]);
     }
     else
-      $url = $server.'stream.php?'.current_session().'&tracklist='.$tracklist.'&media_type='.$media_type.'&idx='.$item_count.'&ext=.'.file_ext($row["FILENAME"]);
+      $url = $server.'stream.php?'.current_session().'&tracklist='.$tracklist.'&media_type='.$media_type.'&idx='.$item_count.'&id='.$file_id.'&ext=.'.file_ext($row["FILENAME"]);
 
 
     // Build up the playlist row to send to the player, including the title of the movie (for the on-screen display)

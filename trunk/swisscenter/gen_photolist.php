@@ -67,7 +67,7 @@
       else
         $title = rtrim($data[$i]["TITLE"]);
 
-      $url = $server."stream.php?".current_session()."&media_type=2&idx=$i&ext=.jpg";
+      $url = $server.'stream.php?'.current_session().'&media_type=2&idx='.$i.'&id='.$data[$i]["FILE_ID"].'&ext=.jpg';
       echo  "$delay|$effect|$title|$url|\n";
 
       send_to_log(7,' - '.$url);
