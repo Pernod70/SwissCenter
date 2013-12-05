@@ -593,6 +593,11 @@
         <version>1.19</version>
       </string>
       <string>
+        <id>CAT_ERROR_PARENT</id>
+        <text>Übergeordnete Kategorie ist ungültig</text>
+        <version>1.23.1</version>
+      </string>
+      <string>
         <id>CAT_LIST_ALL</id>
         <text>Alle Kategorien</text>
         <version>1.22</version>
@@ -3258,6 +3263,11 @@ Die Basis-Mitgliedschaft bei Flickr ist kostenlos und man kann sofort mit dem Ho
         <id>NOW_PLAYING_FANART</id>
         <text>Albumbilder herunterladen</text>
         <version>1.22</version>
+      </string>
+      <string>
+        <id>NOW_PLAYING_FANART_DISCOGS</id>
+        <text>Discogs</text>
+        <version>1.23.1</version>
       </string>
       <string>
         <id>NOW_PLAYING_FANART_GOOGLE</id>
