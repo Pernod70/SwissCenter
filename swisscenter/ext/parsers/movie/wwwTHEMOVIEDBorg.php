@@ -246,7 +246,7 @@ protected function parseLanguages() {
     if (isset($moviematches['backdrops']) && !empty($moviematches['backdrops'])) {
       $fanart = array();
       foreach ($moviematches['backdrops'] as $image) {
-        if (empty($image['iso_639_1']) || $image['iso_639_1'] == substr(get_sys_pref('DEFAULT_LANGUAGE','en'),0,2)) {
+        if (empty($image['iso_639_1']) || $image['iso_639_1'] == 'xx' || $image['iso_639_1'] == substr(get_sys_pref('DEFAULT_LANGUAGE','en'),0,2)) {
           $id = file_noext(basename($image['file_path']));
           $fanart[$id]['id'] = $id;
           $fanart[$id]['resolution'] = $image['width'].'x'.$image['height'];
