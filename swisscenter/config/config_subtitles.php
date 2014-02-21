@@ -6,7 +6,7 @@
 require_once( realpath(dirname(__FILE__).'/../resources/subtitles/opensubtitles.php'));
 
 /**
- * Displays available subtitles for selected movies
+ * Displays available subtitles for selected videos
  *
  * @param string $message
  */
@@ -20,6 +20,8 @@ function subtitles_display( $message = '')
   $user_lang   = substr(get_sys_pref('DEFAULT_LANGUAGE','en'),0,2);
   $search_lang = isset($_REQUEST["lang"]) ? $_REQUEST["lang"] : '';
   $method      = isset($_REQUEST["method"]) ? $_REQUEST["method"] : 'hash';
+  $media_type  = isset($_REQUEST["media_type"]) ? $_REQUEST["media_type"] : MEDIA_TYPE_VIDEO;
+  $media_table = db_value("select media_table from media_types where media_id=$media_type");
 
   if (empty($message) && isset($_REQUEST["message"]))
     $message = urldecode($_REQUEST["message"]);
@@ -29,13 +31,28 @@ function subtitles_display( $message = '')
     $where .= " and ml.cat_id = ".$_REQUEST["cat_id"];
 
   if (isset($_REQUEST["search"]) && !empty($_REQUEST["search"]) )
-    $where .= " and m.title like '%".db_escape_str($_REQUEST["search"])."%'";
+  {
+    if ($media_type == MEDIA_TYPE_VIDEO)
+      $where .= " and m.title like '%".db_escape_str($_REQUEST["search"])."%'";
+    else
+      $where .= " and (m.title like '%".db_escape_str($_REQUEST["search"])."%' or m.programme like '%".db_escape_str($_REQUEST["search"])."%')";
+  }
 
   // If the user has changed category, then shunt them back to page 1.
   if ($_REQUEST["last_where"] != $where)
   {
     $page = 1;
     $start = 0;
+  }
+
+  // Form list of media types
+  $media_type_opts = db_toarray("select media_id, media_name from media_types where media_id in (".MEDIA_TYPE_TV.",".MEDIA_TYPE_VIDEO.") order by 2");
+
+  // Use language translation for MEDIA_NAME
+  for ($i = 0; $i<count($media_type_opts); $i++)
+  {
+    $media_type_opts[$i]["MEDIA_NAME"] = str('MEDIA_TYPE_'.strtoupper($media_type_opts[$i]["MEDIA_NAME"]));
+    $media_type_list[$media_type_opts[$i]["MEDIA_NAME"]] = $media_type_opts[$i]["MEDIA_ID"];
   }
 
   // Initialise the OpenSubtitles API
@@ -57,10 +74,11 @@ function subtitles_display( $message = '')
   }
 
   // SQL to fetch matching rows
-  $movie_list  = db_toarray("select m.* from movies m, media_locations ml where ml.location_id = m.location_id ".$where.
-                            " order by sort_title");
-  $movie_count = count($movie_list);
-  $movie_list = array_slice($movie_list, $start, $per_page);
+  $sort = ($media_type == MEDIA_TYPE_VIDEO) ? 'sort_title' : 'sort_programme, series, episode';
+  $video_list  = db_toarray("select m.* from $media_table m, media_locations ml where ml.location_id = m.location_id ".$where.
+                            " order by $sort");
+  $video_count = count($video_list);
+  $video_list = array_slice($video_list, $start, $per_page);
 
   echo '<table width="100%"><tr>
           <td width=100% align="center"><a href="http://www.opensubtitles.org/search/sublanguageid-auto" target="_blank" title="Subtitles database - OpenSubtitles.org"><img src="http://www.opensubtitles.org/gfx/banners/banner_1_468x60.jpg" alt="Subtitles database - OpenSubtitles.org" width="468" height="60" hspace="20" vspace="16" border="0"></a></td>
@@ -70,7 +88,7 @@ function subtitles_display( $message = '')
 
   echo '<p>'.str('OS_ABOUT','<a href="http://www.opensubtitles.org/upload" target="_blank">www.opensubtitles.org/upload</a>');
 
-  $this_url = '?last_where='.urlencode($where).'&lang='.$_REQUEST["lang"].'&search='.$_REQUEST["search"].'&cat_id='.$_REQUEST["cat_id"].'&method='.$_REQUEST["method"].'&section=SUBTITLES&action=DISPLAY&page=';
+  $this_url = '?last_where='.urlencode($where).'&lang='.$_REQUEST["lang"].'&search='.$_REQUEST["search"].'&cat_id='.$_REQUEST["cat_id"].'&media_type='.$_REQUEST["media_type"].'&method='.$_REQUEST["method"].'&section=SUBTITLES&action=DISPLAY&page=';
 
   echo '<form enctype="multipart/form-data" action="" method="post">';
   form_hidden('section','SUBTITLES');
@@ -79,8 +97,11 @@ function subtitles_display( $message = '')
 
   echo '<table width="100%">'.
        '<tr><td>'.
+         str('MEDIA_TYPE').' : '.
+         form_list_static_html("media_type",$media_type_list,$media_type,false,true,false).
+       '</td><td>'.
          str('CATEGORY').' : '.
-         form_list_dynamic_html("cat_id","select distinct c.cat_id,c.cat_name from categories c left join media_locations ml on c.cat_id=ml.cat_id where ml.media_type=".MEDIA_TYPE_VIDEO." order by c.cat_name",$_REQUEST["cat_id"],true,true,str('CATEGORY_LIST_ALL')).
+         form_list_dynamic_html("cat_id","select distinct c.cat_id,c.cat_name from categories c left join media_locations ml on c.cat_id=ml.cat_id where ml.media_type=".$media_type." order by c.cat_name",$_REQUEST["cat_id"],true,true,str('CATEGORY_LIST_ALL')).
        '</td><td>'.
          str('SEARCH').' : '.
          '<input name="search" value="'.$_REQUEST["search"].'" size=10>'.
@@ -94,7 +115,7 @@ function subtitles_display( $message = '')
        '</td></tr>'.
        '</table></form>';
 
-  paginate($this_url,$movie_count,$per_page,$page);
+  paginate($this_url,$video_count,$per_page,$page);
 
   echo '<form enctype="multipart/form-data" action="" method="post">';
   form_hidden('section','SUBTITLES');
@@ -111,27 +132,27 @@ function subtitles_display( $message = '')
           '<tr><th> '.str('Title').' </th></tr>'.
         '</table>';
 
-  foreach ($movie_list as $movie)
+  foreach ($video_list as $video)
   {
     // Rest timeout for each video
     set_time_limit(30);
 
     // Get the hash of current file
-    if ( empty($movie["OS_HASH"]) )
+    if ( empty($video["OS_HASH"]) )
     {
-      $moviehash = OpenSubtitlesHash($movie["DIRNAME"].$movie["FILENAME"]);
-      $success = db_update_row( 'movies', $movie["FILE_ID"], array('os_hash' => $moviehash) );
+      $videohash = OpenSubtitlesHash($video["DIRNAME"].$video["FILENAME"]);
+      $success = db_update_row( $media_table, $video["FILE_ID"], array('os_hash' => $videohash) );
     }
     else
     {
-      $moviehash = $movie["OS_HASH"];
+      $videohash = $video["OS_HASH"];
     }
 
     // Search for subtitles for current movie
     if ($method == 'hash')
       $search = array( array('sublanguageid' => $search_lang,
-                             'moviehash'     => $moviehash,
-                             'moviebytesize' => $movie["SIZE"],
+                             'moviehash'     => $videohash,
+                             'moviebytesize' => $video["SIZE"],
                              'imdbid'        => '',
                              'query'         => '') );
     else
@@ -139,31 +160,32 @@ function subtitles_display( $message = '')
                              'moviehash'     => '',
                              'moviebytesize' => '',
                              'imdbid'        => '',
-                             'query'         => $movie["TITLE"]) );
+                             'query'         => $video["TITLE"]) );
     $subs = $os->SearchSubtitles($search);
 
     // Search the directory for a file with the same name as that given, but with a subtitle extension
     $subsize = 0;
     $subhash = '';
     foreach (media_ext_subtitles() as $type)
-      if (($sub_file = find_in_dir( $movie["DIRNAME"],file_noext($movie["FILENAME"]).'.'.$type )) !== false )
+      if (($sub_file = find_in_dir( $video["DIRNAME"],file_noext($video["FILENAME"]).'.'.$type )) !== false )
       {
         $subsize = filesize($sub_file);
         $subhash = md5_file($sub_file);
         break;
       }
 
+    $title = ($media_type == MEDIA_TYPE_VIDEO) ? $video["TITLE"] : $video["PROGRAMME"].' - '.$video["TITLE"];
     echo '<table class="form_select_tab" width="100%"><tr>
           <td valign="top">'.
-            '<b>'.highlight($movie["TITLE"], $_REQUEST["search"]).'</b>'.
-            '&nbsp;[<a href="http://www.opensubtitles.org/search/sublanguageid-all/moviebytesize-'.$movie["SIZE"].'/moviehash-'.$moviehash.'" target="_blank">'.$movie["FILENAME"].'</a>]';
+            '<b>'.highlight($title, $_REQUEST["search"]).'</b>'.
+            '&nbsp;[<a href="http://www.opensubtitles.org/search/sublanguageid-all/moviebytesize-'.$video["SIZE"].'/moviehash-'.$videohash.'" target="_blank">'.$video["FILENAME"].'</a>]';
 
     // List available subtitles for current file
     if (is_array($subs["data"]))
     {
       foreach ($subs["data"] as $sub)
       {
-        echo '<br><input type="radio" name="subtitle['.$movie["FILE_ID"].']" value="'.implode(',', array($sub["IDSubtitleFile"], file_ext($sub["SubFileName"]))).'">';
+        echo '<br><input type="radio" name="subtitle['.$video["FILE_ID"].']" value="'.implode(',', array($sub["IDSubtitleFile"], file_ext($sub["SubFileName"]))).'">';
         // Language with flag
         echo '<img src="../images/flags/icons/'.$sub["ISO639"].'.gif">['.$sub["LanguageName"].'] ';
         // Subtitle filename (with link to OpenSubtitles.org download page)
@@ -183,13 +205,13 @@ function subtitles_display( $message = '')
       }
     }
 
-    echo '<br><input type="radio" name="subtitle['.$movie["FILE_ID"].']" value="0">'.str('OS_NO_SUBTITLES');
+    echo '<br><input type="radio" name="subtitle['.$video["FILE_ID"].']" value="0">'.str('OS_NO_SUBTITLES');
 
     echo '</td>
           </tr></table>';
   }
 
-  paginate($this_url,$movie_count,$per_page,$page);
+  paginate($this_url,$video_count,$per_page,$page);
 
   echo '<p><table width="100%"><tr><td align="center">
         <input type="Submit" name="subaction" value="'.str('OS_DOWNLOAD').'"> &nbsp;
@@ -203,14 +225,16 @@ function subtitles_display( $message = '')
  */
 function subtitles_download()
 {
-  $subtitle = $_REQUEST["subtitle"];
+  $subtitle    = $_REQUEST["subtitle"];
+  $media_type  = isset($_REQUEST["media_type"]) ? $_REQUEST["media_type"] : MEDIA_TYPE_VIDEO;
+  $media_table = db_value("select media_table from media_types where media_id=$media_type");
 
   // Initialise the OpenSubtitles API
   $os = new OpenSubtitles('', '');
 
   if ($os->token)
   {
-    foreach ($subtitle as $movie_id=>$subtitle_id)
+    foreach ($subtitle as $video_id=>$subtitle_id)
     {
       $subtitle_id = explode(',', $subtitle_id);
       if ( !empty($subtitle_id[0]) )
@@ -231,7 +255,7 @@ function subtitles_download()
           $sub_data = @gzinflate(substr($sub_data,10)); // Ignore gz header
 
           // Save subtitles to file
-          $data = db_row("select dirname, filename from movies where file_id=$movie_id");
+          $data = db_row("select dirname, filename from $media_table where file_id=$video_id");
           $sub_file = $data["DIRNAME"].file_noext($data["FILENAME"]).'.'.$subtitle_id[1];
           Fsw::file_put_contents($sub_file, $sub_data);
         }
