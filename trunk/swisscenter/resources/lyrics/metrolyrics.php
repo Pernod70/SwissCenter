@@ -34,7 +34,7 @@ class MetroLyrics {
 
     if (!($lyrics = $this->cache->getCached($request))) {
       if (($body = file_get_contents($request)) !== false) {
-        $lyrics = preg_get('/<div id="lyrics-body">(.*)<\/div>/Usm', $body);
+        $lyrics = preg_get('/<div class="lyrics-body">(.*)<\/div>/Usm', $body);
         $lyrics = html_entity_decode($lyrics);
         if (!empty($lyrics))
           $this->cache->cache($request, $lyrics);
