@@ -114,11 +114,11 @@ class Discogs
   private function getContext()
   {
     return stream_context_create(array(
-        'http'=>array(
-          'method' => 'GET',
-          'header' =>
-            'Accept-Encoding: x-gzip, deflate\r\n' .
-            'User-Agent: ' . $this->user_agent . "\r\n"
+        "http"=>array(
+          "method" => "GET",
+          "header" =>
+            "Accept-Encoding: x-gzip, deflate\r\n" .
+            "User-Agent: " . $this->user_agent . "\r\n"
         )));
   }
 
@@ -126,12 +126,13 @@ class Discogs
   {
     if ($result === false)
     {
-      throw new Exception('could not retrieve response');
+      send_to_log(2, 'Failed to retrieve response from Discogs');
     }
+    $result = str_replace('http://api.discogs.com/image/', 'http://s.pixogs.com/image/', $result);
     $data = json_decode($result, true);
     if(is_null($data))
     {
-      throw new Exception('could not decode response');
+      send_to_log(2, 'Failed to decode response from Discogs');
     }
     return $data;
   }
