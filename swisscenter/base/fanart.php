@@ -135,11 +135,18 @@ function get_discogs_artist_images( $artist, $size = 'original', $min_size = 0 )
   $discogs = new Discogs();
   $results = $discogs->search($artist, 'artist');
 
-  // Search results for best match
-  $titles = array ();
-  foreach ($results['results'] as $index => $result)
-    $titles[$index] = $result['title'];
-  $index = best_match($artist, $titles, $accuracy);
+  if ($results)
+  {
+    // Search results for best match
+    $titles = array ();
+    foreach ($results['results'] as $index => $result)
+      $titles[$index] = $result['title'];
+    $index = best_match($artist, $titles, $accuracy);
+  }
+  else
+  {
+    $index = false;
+  }
 
   if ($index !== false)
   {
