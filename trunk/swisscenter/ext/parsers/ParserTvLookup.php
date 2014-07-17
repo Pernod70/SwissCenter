@@ -77,7 +77,7 @@ function ParserTvLookup($tv_id, $filename, $search_params) {
   }
 
   // Download poster
-  if (!empty($poster) && file_albumart($filename, false) == '') {
+  if (!empty($poster) && file_albumart($filename, false, false) == '') {
     file_save_albumart($poster, dirname($filename) . '/' . file_noext($filename) . '.' . file_ext($poster), '');
   }
 

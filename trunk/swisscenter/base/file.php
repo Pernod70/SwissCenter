@@ -664,7 +664,7 @@ function file_thumbnail( $fsp )
  * @return string:path
  */
 
-function file_albumart( $fsp, $default_image = true )
+function file_albumart( $fsp, $default_image = true, $folder_image = true )
 {
   if (empty($fsp))
   {
@@ -678,12 +678,14 @@ function file_albumart( $fsp, $default_image = true )
 //  }
   elseif ( isdir($fsp) )
   {
+  	$return = '';
     // Is there an image file with the same name as those listed in the configuration page?
-    $return = find_in_dir($fsp, db_col_to_list("select filename from art_files"));
+    if ($folder_image)
+      $return = find_in_dir($fsp, db_col_to_list("select filename from art_files"));  
 
     // No albumart for this folder found... is there albumart for the parent folder?
     if (empty($return) && dirname($fsp) != $fsp)
-      $return = file_albumart(dirname($fsp));
+      $return = file_albumart(dirname($fsp), $default_image, $folder_image);
   }
   else
   {
@@ -709,7 +711,7 @@ function file_albumart( $fsp, $default_image = true )
 
       // No albumart found for this specific file.. is there albumart for the directory?
       if (empty($return) && dirname($fsp) != $fsp)
-        $return = file_albumart(dirname($fsp));
+        $return = file_albumart(dirname($fsp), $default_image, $folder_image);
 
       // OK, give up! Use a standard picture based on the filetype.
       if (empty($return) && $default_image)
@@ -721,7 +723,6 @@ function file_albumart( $fsp, $default_image = true )
       }
     }
   }
-
   return $return;
 }
 
