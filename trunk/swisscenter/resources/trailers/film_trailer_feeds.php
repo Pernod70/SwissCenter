@@ -6,7 +6,7 @@
 require_once( realpath(dirname(__FILE__).'/../../base/cache_api_request.php'));
 
 define('FILMTRAILER_URL','http://www.services.filmtrailer.com');
-define('FILMTRAILER_CHANNEL_USER_ID', '41100914-1'); // Unique ID for SwissCenter
+define('FILMTRAILER_CHANNEL_USER_ID', '441100914-1'); // Unique ID for SwissCenter
 define('FILMTRAILER_FILE_TYPE', 'mp4');              // flv, mp4, mov, wmv
 define('FILMTRAILER_FILE_SIZE', 'xxlarge');          // small, medium, large, xlarge, xxlarge
 
