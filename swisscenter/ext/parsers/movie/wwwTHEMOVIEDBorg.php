@@ -8,12 +8,6 @@
 
    Please help themoviedb.org website by contributing information and artwork if possible.
 
-   Version history:
-   01-Feb-2009: v1.0:     First public release
-   29-May-2009: v2.0:     Updated to use API 2.1
-   29-Jul-2010: v2.1:     Use JSON instead of XML
-   20-Dec-2011: v3.0:     Updated to use API 3
-
  *************************************************************************************************/
 
 // API key registered to SwissCenter project
@@ -78,7 +72,7 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
       if (!isset($this->configuration))
         $this->configuration = $this->get_configuration();
       // Parse the movie details
-      $url = 'http://api.themoviedb.org/3/movie/'.$moviedb_id.'?api_key='.TMDB_API_KEY.'&append_to_response=casts,releases,trailers&language='.substr(get_sys_pref('DEFAULT_LANGUAGE','en'),0,2);
+      $url = 'http://api.themoviedb.org/3/movie/'.$moviedb_id.'?api_key='.TMDB_API_KEY.'&append_to_response=credits,releases,videos&language='.substr(get_sys_pref('DEFAULT_LANGUAGE','en'),0,2);
       $opts = array('http'=>array('method'=>"GET",
                                   'header'=>"Accept: application/json\r\n"));
       $context = stream_context_create($opts);
@@ -131,9 +125,9 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
   }
   protected function parseActors() {
     $moviematches = $this->page;
-    if (isset($moviematches['casts']['cast']) && !empty($moviematches['casts']['cast'])) {
+    if (isset($moviematches['credits']['cast']) && !empty($moviematches['credits']['cast'])) {
       $names = array();
-      foreach ($moviematches['casts']['cast'] as $person)
+      foreach ($moviematches['credits']['cast'] as $person)
         $names[] = $person['name'];
       $this->setProperty(ACTORS, $names);
       return $names;
@@ -141,9 +135,9 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
   }
   protected function parseActorImages() {
     $moviematches = $this->page;
-    if (isset($moviematches['casts']['cast']) && !empty($moviematches['casts']['cast'])) {
+    if (isset($moviematches['credits']['cast']) && !empty($moviematches['credits']['cast'])) {
       $names = array();
-      foreach ($moviematches['casts']['cast'] as $person)
+      foreach ($moviematches['credits']['cast'] as $person)
         if (!empty($person['profile_path']))
           $names[] = array('ID'    => $person['id'],
                            'IMAGE' => $this->configuration['images']['base_url'].'original'.$person['profile_path'],
@@ -154,9 +148,9 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
   }
   protected function parseDirectors() {
     $moviematches = $this->page;
-    if (isset($moviematches['casts']['crew']) && !empty($moviematches['casts']['crew'])) {
+    if (isset($moviematches['credits']['crew']) && !empty($moviematches['credits']['crew'])) {
       $names = array();
-      foreach ($moviematches['casts']['crew'] as $person)
+      foreach ($moviematches['credits']['crew'] as $person)
         if ( $person['job'] == 'Director' )
           $names[] = $person['name'];
       $this->setProperty(DIRECTORS, $names);
@@ -229,8 +223,8 @@ protected function parseLanguages() {
   }
   protected function parseTrailer() {
     $moviematches = $this->page;
-    if (isset($moviematches['trailers']['youtube']) && !empty($moviematches['trailers']['youtube'])) {
-      $trailer = 'http://www.youtube.com/watch?v='.$moviematches['trailers']['youtube'][0]['source'];
+    if (isset($moviematches['videos']['results']) && !empty($moviematches['videos']['results'])) {
+      $trailer = 'http://www.youtube.com/watch?v='.$moviematches['videos']['results'][0]['key'];
       $this->setProperty(TRAILER, $trailer);
       return $trailer;
     }
