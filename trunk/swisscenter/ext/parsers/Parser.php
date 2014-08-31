@@ -13,6 +13,7 @@ abstract class Parser
   protected $series;
   protected $episode;
   protected $year;
+  protected $imdb_id;
   protected $populatePageCalledOnce;
   protected $page;
 
@@ -28,6 +29,7 @@ abstract class Parser
     unset ($this->series);
     unset ($this->episode);
     unset ($this->year);
+    unset ($this->imdb_id);
     unset ($this->populatePageCalledOnce);
     unset ($this->page);
     self :: $properties = NULL;
@@ -82,6 +84,8 @@ abstract class Parser
       $this->episode = $search_params['EPISODE'];
     if (isset($search_params['YEAR']) && is_numeric($search_params['YEAR']))
       $this->year = $search_params['YEAR'];
+    if (isset($search_params['IMDB_ID']) && is_numeric($search_params['IMDB_ID']))
+      $this->imdb_id = $search_params['IMDB_ID'];
   }
 
   public function getProperty($propertyName) {
@@ -221,11 +225,11 @@ abstract class Parser
     }
 
     foreach ($searchList as $parameters) {
-      send_to_log(6, "Using search parameters: " . $parameters["title"]." ".$parameters["year"]);
+      send_to_log(6, "Using search parameters: " . $parameters["title"]." ".$parameters["year"]." ".$parameters["imdb_id"]);
       //Don't search for title if it's a typically generic moviefolder name and folder names are to be used.
       if (!(ParserUtil :: is_standard_moviefolder_name($parameters["title"]) && $use_foldersearch && $parameters["title"] == $moviefolder_name)) {
-        $this->populatePage( array('TITLE' => $parameters["title"],
-                                   'YEAR'  => $parameters["year"]) );
+        $this->populatePage( array('TITLE'   => $parameters["title"],
+                                   'YEAR'    => $parameters["year"]) );
         if ($this->accuracy >= 75) {
           send_to_log(8, "Success for string: " . $parameters["title"]." ".$parameters["year"]);
           return true;
@@ -243,11 +247,14 @@ abstract class Parser
    * @return string
    */
   protected function checkForIMDBTT($details) {
-    if (preg_match("/\[(tt\d+)\]/", $details["FILENAME"], $imdbtt) != 0) {
+    if (!empty($details["IMDB_ID"])) {
+      return 'tt'.str_pad($details["IMDB_ID"],7,'0',STR_PAD_LEFT);
+    }
+    elseif (preg_match('/\[(tt\d+)\]/', $details["FILENAME"], $imdbtt) != 0) {
       // Filename includes an explicit IMDb title such as '[tt0076759]', use that to find the movie
       return $imdbtt[1];
     }
-    elseif (preg_match("/\[(tt\d+)\]/", $details["TITLE"], $imdbtt) != 0) {
+    elseif (preg_match('/\[(tt\d+)\]/', $details["TITLE"], $imdbtt) != 0) {
       // Film title includes an explicit IMDb title such as '[tt0076759]', use that to find the movie
       return $imdbtt[1];
     }

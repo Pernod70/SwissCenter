@@ -8,7 +8,7 @@
 
  *************************************************************************************************/
 
-class wwwIMDBcom extends Parser implements ParserInterface {
+class movie_wwwIMDBcom extends Parser implements ParserInterface {
   protected $site_url = 'http://www.imdb.com/';
   protected $search_url = 'http://www.imdb.com/find?s=tt&ttype=ft&ref_=fn_ft&q=';
 

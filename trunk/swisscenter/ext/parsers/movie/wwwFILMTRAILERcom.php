@@ -10,7 +10,7 @@
 
 require_once (SC_LOCATION.'/resources/trailers/film_trailer_feeds.php');
 
-class wwwFILMTRAILERcom extends Parser implements ParserInterface {
+class movie_wwwFILMTRAILERcom extends Parser implements ParserInterface {
 
   protected $site_url = 'http://www.filmtrailer.com';
 

@@ -18,7 +18,7 @@ function ParserTvLookup($tv_id, $filename, $search_params) {
     for ($x = 0; $x < $retrycount; $x++) {
       if (isset($parser_pref[$x]) && !empty($parser_pref[$x]) && $parser_pref[$x] !== 'NoParser') {
         // Create instance of parser
-        $parserclass = $parser_pref[$x];
+        $parserclass = 'tv_'.$parser_pref[$x];
         if (!isset ($oneInstancePerParserArray[$parserclass])) {
           $parser = new $parserclass ($tv_id, $filename, $search_params);
           $oneInstancePerParserArray[$parserclass] = $parser;
@@ -128,23 +128,22 @@ function ParserTvLookup($tv_id, $filename, $search_params) {
 
   // Download programme fanart thumbnails
   $fanart = $parser->getProperty(FANART);
-  if (isset($fanart['FANART'])) {
+  if (isset($fanart)) {
     $programme = db_value("select programme from tv where file_id=$tv_id");
-    foreach ($fanart['FANART'] as $thumb) {
+    foreach ($fanart as $thumb) {
       // Reset the timeout counter for each image downloaded
       set_time_limit(30);
-      $thumb_cache = $cache_dir.'/fanart/'.basename($thumb['THUMBNAIL']);
+      $thumb_cache = $cache_dir.'/fanart/'.basename($thumb['thumbnail']);
       if (!file_exists($thumb_cache))
-        file_save_albumart( $thumb['THUMBNAIL'], $thumb_cache, '');
+        file_save_albumart( $thumb['thumbnail'], $thumb_cache, '');
 
       // Insert information into database
       $data = array( "title"        => $programme
                    , "media_type"   => MEDIA_TYPE_TV
                    , "thumb_cache"  => os_path($thumb_cache)
-                   , "original_url" => $thumb['ORIGINAL']
-                   , "resolution"   => $thumb['RESOLUTION']
-                   , "colors"       => $thumb['COLORS'] );
-      $file_id = db_value("select file_id from themes where title='".db_escape_str($programme)."' and original_url='".db_escape_str($thumb['ORIGINAL'])."'");
+                   , "original_url" => $thumb['original']
+                   , "resolution"   => $thumb['resolution'] );
+      $file_id = db_value("select file_id from themes where title='".db_escape_str($programme)."' and original_url='".db_escape_str($thumb['original'])."'");
       if ( $file_id )
         db_update_row( "themes", $file_id, $data);
       else

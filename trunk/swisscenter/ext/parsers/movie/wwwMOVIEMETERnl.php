@@ -17,7 +17,7 @@ require_once( SC_LOCATION."/ext/xmlrpc/xmlrpc.inc" );
 // API key registered to SwissCenter project
 define('MOVIEMETER_API_KEY', 'wfdk9v1w8dxycgw0g9w9xdq3qt3nu2td');
 
-class wwwMOVIEMETERnl extends Parser implements ParserInterface {
+class movie_wwwMOVIEMETERnl extends Parser implements ParserInterface {
 
   public $supportedProperties = array (
     IMDBTT,

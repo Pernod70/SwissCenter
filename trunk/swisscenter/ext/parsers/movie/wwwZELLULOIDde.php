@@ -8,7 +8,7 @@
 
  *************************************************************************************************/
 
-class wwwZELLULOIDde extends Parser implements ParserInterface {
+class movie_wwwZELLULOIDde extends Parser implements ParserInterface {
 
   public static function getName() {
     return "www.zelluloid.de";

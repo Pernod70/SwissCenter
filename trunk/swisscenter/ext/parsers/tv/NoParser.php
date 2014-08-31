@@ -6,7 +6,7 @@
 /**
  * Class to represent blank option in select boxes and in database
  */
-class movie_NoParser extends Parser implements ParserInterface
+class tv_NoParser extends Parser implements ParserInterface
 {
   public $supportedProperties = array ();
 
