@@ -13,7 +13,7 @@
 // API key registered to SwissCenter project
 define('TMDB_API_KEY', '2548980e43e9c7d08b705a2e57e9afe3');
 
-class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
+class movie_wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
 
   public $supportedProperties = array (
     IMDBTT,
@@ -42,7 +42,7 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
     return "www.themoviedb.org";
   }
 
-  protected $site_url = 'http://themoviedb.org/';
+  protected $site_url = 'https://themoviedb.org/';
   protected $configuration;
 
   /**
@@ -86,7 +86,7 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
       send_to_log(6, "[tmdb] GET: $url");
       $images = json_decode( file_get_contents($url, false, $context), true );
       $moviematches = array_merge($moviematches, $images);
-      send_to_log(6, "[tmdb]", $moviematches);
+      send_to_log(8, "[tmdb]", $moviematches);
       $this->page = $moviematches;
       $this->accuracy = 100;
       if ( isset ($imdbtt) && !empty($imdbtt)) {
@@ -141,7 +141,8 @@ class wwwTHEMOVIEDBorg extends Parser implements ParserInterface {
         if (!empty($person['profile_path']))
           $names[] = array('ID'    => $person['id'],
                            'IMAGE' => $this->configuration['images']['base_url'].'original'.$person['profile_path'],
-                           'NAME'  => $person['name']);
+                           'NAME'  => $person['name'],
+                           'ROLE'  => $person['character']);
       $this->setProperty(ACTOR_IMAGES, $names);
       return $names;
     }

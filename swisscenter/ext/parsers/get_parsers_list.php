@@ -18,7 +18,8 @@ function get_parsers_list($type)
     if ( is_parser($file) )
     {
       $name = file_noext($file);
-      $parser = new $name;
+      $parserclass = $type.'_'.$name;
+      $parser = new $parserclass;
       $parser_list[$parser->getName()] = $name;
     }
   }

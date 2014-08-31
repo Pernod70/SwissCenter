@@ -10,7 +10,7 @@
 
 require_once (SC_LOCATION.'/resources/trailers/apple_trailers.php');
 
-class wwwAPPLEcom extends Parser implements ParserInterface {
+class movie_wwwAPPLEcom extends Parser implements ParserInterface {
 
   protected $site_url = 'http://www.apple.com/trailers';
 

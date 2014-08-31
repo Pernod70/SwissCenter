@@ -19,7 +19,7 @@
 
  *************************************************************************************************/
 
-class wwwOFDBde extends Parser implements ParserInterface {
+class movie_wwwOFDBde extends Parser implements ParserInterface {
 
   public static function getName() {
     return "www.OFDb.de";

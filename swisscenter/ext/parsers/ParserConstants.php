@@ -65,6 +65,7 @@ abstract class ParserConstants {
     array('ID'=>'LANGUAGES',          'TEXT'=>'SPOKEN_LANGUAGE',  'DEFAULT'=>'NoParser'),
     array('ID'=>'CERTIFICATE',        'TEXT'=>'CERTIFICATE',      'DEFAULT'=>'NoParser'),
     array('ID'=>'EXTERNAL_RATING_PC', 'TEXT'=>'RATING',           'DEFAULT'=>'wwwTHETVDBcom'),
+    array('ID'=>'TRAILER',            'TEXT'=>'TRAILER_LOCATION', 'DEFAULT'=>'NoParser'),
     array('ID'=>'POSTER',             'TEXT'=>'POSTER',           'DEFAULT'=>'wwwTHETVDBcom'),
     array('ID'=>'FANART',             'TEXT'=>'FANART',           'DEFAULT'=>'wwwTHETVDBcom'),
     array('ID'=>'BANNERS',            'TEXT'=>'BANNERS',          'DEFAULT'=>'wwwTHETVDBcom')

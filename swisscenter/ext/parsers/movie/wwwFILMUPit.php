@@ -8,7 +8,7 @@
 
  *************************************************************************************************/
 
-class wwwFILMUPit extends Parser implements ParserInterface {
+class movie_wwwFILMUPit extends Parser implements ParserInterface {
 
   public static function getName() {
     return "www.FilmUP.it";

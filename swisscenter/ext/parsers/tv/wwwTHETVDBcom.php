@@ -23,7 +23,7 @@ require_once( realpath(dirname(__FILE__).'/../../xml/xmlparser.php'));
 // API key registered to SwissCenter project
 define('TVDB_API_KEY', 'FA3F6F720A61DE71');
 
-class wwwTHETVDBcom extends Parser implements ParserInterface {
+class tv_wwwTHETVDBcom extends Parser implements ParserInterface {
 
   public $supportedProperties = array (
     IMDBTT,
@@ -154,6 +154,7 @@ class wwwTHETVDBcom extends Parser implements ParserInterface {
         $series = file_get_contents($series_cache);
         $xml = new XmlParser($series, array(XML_OPTION_CASE_FOLDING => TRUE, XML_OPTION_SKIP_WHITE => TRUE) );
         $tvdb_series = $xml->GetData();
+
         if ( !isset($tvdb_series['DATA']['EPISODE'][0]) )
           $tvdb_series['DATA']['EPISODE'] = array($tvdb_series['DATA']['EPISODE']);
 
@@ -332,12 +333,10 @@ class wwwTHETVDBcom extends Parser implements ParserInterface {
           // Filter fanart images only
           if ($image['BANNERTYPE']['VALUE'] == 'fanart') {
             // Add mirror path to images
-            $fanart['FANART'][$id]['ORIGINAL']   = $this->bannermirror.'/banners/'.$image['BANNERPATH']['VALUE'];
-            $fanart['FANART'][$id]['VIGNETTE']   = $this->bannermirror.'/banners/'.$image['VIGNETTEPATH']['VALUE'];
-            $fanart['FANART'][$id]['THUMBNAIL']  = $this->bannermirror.'/banners/'.$image['THUMBNAILPATH']['VALUE'];
-            $fanart['FANART'][$id]['ID']         = $image['ID']['VALUE'];
-            $fanart['FANART'][$id]['RESOLUTION'] = $image['BANNERTYPE2']['VALUE'];
-            $fanart['FANART'][$id]['COLORS']     = $image['COLORS']['VALUE'];
+            $fanart[$id]['original']   = $this->bannermirror.'/banners/'.$image['BANNERPATH']['VALUE'];
+            $fanart[$id]['thumbnail']  = $this->bannermirror.'/banners/'.$image['THUMBNAILPATH']['VALUE'];
+            $fanart[$id]['id']         = $image['ID']['VALUE'];
+            $fanart[$id]['resolution'] = $image['BANNERTYPE2']['VALUE'];
           }
         }
       }

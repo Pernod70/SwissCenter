@@ -8,7 +8,7 @@
 
  *************************************************************************************************/
 
-class wwwFILMAFFINITYes extends Parser implements ParserInterface {
+class movie_wwwFILMAFFINITYes extends Parser implements ParserInterface {
 
   public static function getName() {
     return "www.FilmAffinity.es";

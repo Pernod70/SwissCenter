@@ -11,7 +11,7 @@
 // API key registered to SwissCenter project
 define('ROTTEN_API_KEY', 'pancugh3tam5dsuppxqrhme2');
 
-class wwwROTTENTOMATOEScom extends Parser implements ParserInterface {
+class movie_wwwROTTENTOMATOEScom extends Parser implements ParserInterface {
 
   public $supportedProperties = array (
     IMDBTT,
