@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema targetNamespace="http://www.swisscenter.co.uk" elementFormDefault="qualified" xmlns="http://tempuri.org/XMLSchema.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:sc="http://www.swisscenter.co.uk">
+<xs:schema targetNamespace="http://www.swisscenter.co.uk" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:sc="http://www.swisscenter.co.uk">
   <!-- Type definitions -->
   <!-- Actor information -->
   <xs:complexType name="actors">
@@ -15,7 +15,6 @@
   </xs:group>
   <xs:complexType name="actor">
     <xs:sequence>
-      <!--<xs:element name="characters" type="sc:characters" minOccurs="0" maxOccurs="1" />-->
       <xs:element name="name" type="xs:token" minOccurs="1" maxOccurs="1" />
       <xs:group ref="sc:characterGroup" minOccurs="0"/>
     </xs:sequence>
@@ -84,9 +83,12 @@
         <xs:element name="tagline" type="xs:string" minOccurs="0" maxOccurs="1" />
         <xs:element name="year" type="xs:integer" minOccurs="0" maxOccurs="1" />
         <xs:element name="rating" type="xs:decimal" minOccurs="0" maxOccurs="1" />
-        <xs:element name="trailer" type="xs:token" minOccurs="0" maxOccurs="1" />
+        <xs:element name="trailer" type="xs:anyURI" minOccurs="0" maxOccurs="1" />
         <xs:element name="runtime" type="xs:positiveInteger" minOccurs="0" maxOccurs="1" />
+        <xs:element name="imdb_id" type="xs:integer" minOccurs="0" maxOccurs="1" />
+        <xs:element name="tmdb_id" type="xs:integer" minOccurs="0" maxOccurs="1" />
         <xs:element name="viewed" type="sc:users" minOccurs="0" maxOccurs="1" />
+        <xs:element name="image" type="xs:token" minOccurs="0" maxOccurs="1" />
       </xs:all>
     </xs:complexType>
   </xs:element>
