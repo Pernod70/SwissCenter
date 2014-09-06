@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<movie xmlns="http://www.swisscenter.co.uk"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.swisscenter.co.uk movies.xsd">
+<?xml-stylesheet type="text/xsl" href="movies.xsl"?>
+<sc.movie xmlns:sc="http://www.swisscenter.co.uk" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.swisscenter.co.uk http://www.swisscenter.co.uk/XMLSchema/movies.xsd">
   <title>Austin Powers in Goldmember</title>
   <synopsis>
     He's found his mojo, baby, and now Austin Powers (Mike Myers) is back again in this shagadelic
@@ -64,4 +62,6 @@
   <runtime>94</runtime>
   <tagline>On July 26th the Secret Will Be Exposed</tagline>
   <year>2002</year>
-</movie>
+  <trailer>http://www.youtube.com/watch?v=XROEPkzyCRg</trailer>
+  <image>sample_movie.jpg</image>
+</sc.movie>

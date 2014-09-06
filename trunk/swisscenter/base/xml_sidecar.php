@@ -36,8 +36,8 @@
     {
       send_to_log(5, 'Saving movie XML:', $filename);
 
-      $xml = new XmlBuilder();
-      $xml->Push('movie', array('xmlns'=>'http://www.swisscenter.co.uk', 'xmlns:xsi'=>'http://www.w3.org/2001/XMLSchema-instance', 'xsi:schemaLocation'=>'http://www.swisscenter.co.uk movies.xsd'));
+      $xml = new XmlBuilder('utf-8', '  ', 'movies.xsl');
+      $xml->Push('sc.movie', array('xmlns:sc'=>'http://www.swisscenter.co.uk', 'xmlns:xsi'=>'http://www.w3.org/2001/XMLSchema-instance', 'xsi:schemaLocation'=>'http://www.swisscenter.co.uk http://www.swisscenter.co.uk/XMLSchema/movies.xsd'));
 
       // Title
       $xml->Element('title', $details[0]["TITLE"]);
@@ -129,7 +129,10 @@
         $xml->Pop('viewed');
       }
 
-      $xml->Pop('movie');
+      // Image
+      $xml->Element('image', file_albumart($details[0]["DIRNAME"].$details[0]["FILENAME"]));
+
+      $xml->Pop('sc.movie');
       $fsp = Fsw::fopen($filename, 'wb');
       if ($fsp)
       {
@@ -253,8 +256,8 @@
     {
       send_to_log(5, 'Saving tv XML:', $filename);
 
-      $xml = new XmlBuilder();
-      $xml->Push('tv', array('xmlns'=>'http://www.swisscenter.co.uk', 'xmlns:xsi'=>'http://www.w3.org/2001/XMLSchema-instance', 'xsi:schemaLocation'=>'http://www.swisscenter.co.uk tv.xsd'));
+      $xml = new XmlBuilder('utf-8', '  ', 'tv.xsl');
+      $xml->Push('sc.tv', array('xmlns:sc'=>'http://www.swisscenter.co.uk', 'xmlns:xsi'=>'http://www.w3.org/2001/XMLSchema-instance', 'xsi:schemaLocation'=>'http://www.swisscenter.co.uk http://www.swisscenter.co.uk/XMLSchema/tv.xsd'));
       $xml->Element('programme', $details[0]["PROGRAMME"]);
       $xml->Element('series', $details[0]["SERIES"]);
       $xml->Element('episode', $details[0]["EPISODE"]);
@@ -337,7 +340,10 @@
         $xml->Pop('viewed');
       }
 
-      $xml->Pop('tv');
+      // Image
+      $xml->Element('image', file_albumart($details[0]["DIRNAME"].$details[0]["FILENAME"]));
+
+      $xml->Pop('sc.tv');
       $fsp = Fsw::fopen($filename, 'wb');
       if ($fsp)
       {
