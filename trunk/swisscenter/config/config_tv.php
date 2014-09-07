@@ -772,12 +772,13 @@ function tv_info( $message = "")
     for ($y = 0; $y < $retrycount; $y++)
     {
       // Add no parser option
-      $supported_parsers[NoParser :: getName()] = 'NoParser';
+      $supported_parsers[tv_NoParser :: getName()] = 'NoParser';
 
       // Determine all parsers that support this property
       foreach ($parsers as $parser)
       {
-        $tvparser = new $parser();
+        $parserclass = 'tv_'.$parser;
+        $tvparser = new $parserclass();
         if ($tvparser->isSupportedProperty(ParserConstants :: $allTvConstants[$i]['ID']))
           $supported_parsers[$tvparser->getName()] = $parser;
       }

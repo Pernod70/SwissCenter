@@ -23,8 +23,9 @@ function check_parsers_display()
   {
     $movie_parsers = $parser_tests->add_section("Movie Parsers",1);
     $parsers = get_parsers_list('movie');
-    foreach ($parsers as $parserclass) {
+    foreach ($parsers as $parser) {
       set_time_limit(30);
+      $parserclass = 'movie_'.$parser;
       $parser = new $parserclass(1, '../cache/Les Misérables.avi', array('TITLE' => 'Les Misérables'));
       $fails = array();
       foreach ($parser->supportedProperties as $property) {
@@ -35,8 +36,8 @@ function check_parsers_display()
         }
       }
       if (count($fails) > 0) {
-      	for ($i = 0; $i<count($fails); $i++)
-  		    $parser_tests->add_test( $movie_parsers, false, $fails[$i]["parser"].'.'.$fails[$i]["property"], $fails[$i]["parser"].'.'.$fails[$i]["property"],FALSE);
+        for ($i = 0; $i<count($fails); $i++)
+          $parser_tests->add_test( $movie_parsers, false, $fails[$i]["parser"].'.'.$fails[$i]["property"], $fails[$i]["parser"].'.'.$fails[$i]["property"],FALSE);
       } else {
         $parser_tests->add_test( $movie_parsers, true, $parser->getName(), $parser->getName(),FALSE);
       }
@@ -52,8 +53,9 @@ function check_parsers_display()
   {
     $tv_parsers = $parser_tests->add_section("TV Parsers",2);
     $parsers = get_parsers_list('tv');
-    foreach ($parsers as $parserclass) {
+    foreach ($parsers as $parser) {
       set_time_limit(30);
+      $parserclass = 'tv_'.$parser;
       $parser = new $parserclass(1, '../cache/Lost.S01E01.Test.avi', array('PROGRAMME' => 'Lost',
                                                                            'SERIES'    => 6,
                                                                            'EPISODE'   => 1,
@@ -67,8 +69,8 @@ function check_parsers_display()
         }
       }
       if (count($fails) > 0) {
-      	for ($i = 0; $i<count($fails); $i++)
-  		    $parser_tests->add_test( $tv_parsers, false, $fails[$i]["parser"].'.'.$fails[$i]["property"], $fails[$i]["parser"].'.'.$fails[$i]["property"],FALSE);
+        for ($i = 0; $i<count($fails); $i++)
+          $parser_tests->add_test( $tv_parsers, false, $fails[$i]["parser"].'.'.$fails[$i]["property"], $fails[$i]["parser"].'.'.$fails[$i]["property"],FALSE);
       } else {
         $parser_tests->add_test( $tv_parsers, true, $parser->getName(), $parser->getName(),FALSE);
       }
