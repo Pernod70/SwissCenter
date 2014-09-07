@@ -754,12 +754,13 @@ function movie_info( $message = "")
     for ($y = 0; $y < $retrycount; $y++)
     {
       // Add no parser option
-      $supported_parsers[NoParser :: getName()] = 'NoParser';
+      $supported_parsers[movie_NoParser :: getName()] = 'NoParser';
 
       // Determine all parsers that support this property
       foreach ($parsers as $parser)
       {
-        $movieparser = new $parser();
+        $parserclass = 'movie_'.$parser;
+        $movieparser = new $parserclass();
         if ($movieparser->isSupportedProperty(ParserConstants :: $allMovieConstants[$i]['ID']))
           $supported_parsers[$movieparser->getName()] = $parser;
       }
