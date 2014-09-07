@@ -32,7 +32,7 @@
       $this->encoding = $encoding;
       $this->xml = '<?xml version="1.0" encoding="'.$encoding.'"?>'."\n";
       if (!empty($stylesheet))
-        $this->xml = '<?xml-stylesheet type="text/xsl" href="'.$stylesheet.'"?>'."\n";
+        $this->xml .= '<?xml-stylesheet type="text/xsl" href="'.$stylesheet.'"?>'."\n";
     }
 
     function _indent() {
