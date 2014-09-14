@@ -128,7 +128,7 @@ class Discogs
     {
       send_to_log(2, 'Failed to retrieve response from Discogs');
     }
-    $result = str_replace('http://api.discogs.com/image/', 'http://s.pixogs.com/image/', $result);
+    $result = str_replace('http://api.discogs.com/images/', 'http://s.pixogs.com/image/', $result);
     $data = json_decode($result, true);
     if(is_null($data))
     {
