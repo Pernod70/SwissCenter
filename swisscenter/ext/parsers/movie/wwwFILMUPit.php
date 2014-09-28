@@ -15,6 +15,7 @@ class movie_wwwFILMUPit extends Parser implements ParserInterface {
   }
 
   protected $site_url = 'http://filmup.leonardo.it/';
+  protected $search_url = 'http://filmup.leonardo.it/cgi-bin/search.cgi?q=#####&ul=%25%2Fsc_%25';
 
   public $supportedProperties = array (
     ACTORS,
@@ -38,30 +39,33 @@ class movie_wwwFILMUPit extends Parser implements ParserInterface {
     if (isset($search_params['TITLE']) && !empty($search_params['TITLE']))
       $this->title = $search_params['TITLE'];
 
-    // Get search results from google.
+    // Get page from filmup.it
     send_to_log(4, "Searching for details about " . $this->title . " online at " . $this->site_url);
-    $results = google_api_search("Scheda: " . $this->title, "filmup.leonardo.it");
+    $search_title = str_replace('%20','+',urlencode(decode_utf8($this->title)));
+    $url_load = str_replace('#####', $search_title, $this->search_url);
 
-    // Adjust results to improve possible matches
-    foreach ($results as $i=>$result) {
-      // Remove site 'FilmUP - Scheda: '
-      $results[$i]->titleNoFormatting = trim(preg_replace('/FilmUP \- Scheda\: /', '', $result->titleNoFormatting));
-    }
+    send_to_log(6,'Fetching information from: '.$url_load);
+    $html = file_get_contents( $url_load );
 
     $this->accuracy = 0;
 
-    if (count($results) == 0) {
-      send_to_log(4, "No Match found.");
-      $html = false;
+    if ($html === false) {
+      send_to_log(2,'Failed to access the URL.');
     } else {
-      $best_match = google_best_match($this->title, $results, $this->accuracy);
+      // Is the text that signifies a successful search present within the HTML?
+      if (strpos(strtolower($html),strtolower('Risultati')) !== false) {
+        $html = preg_get('/<\/table>\W<DL>(.*)<\/DL>\W<table/Usi', $html);
+        $html = strip_tags($html, '<a>');
+        preg_match_all('/<a class="filmup" href="(.*)" TARGET="_blank">.*FilmUP - Scheda: (.*)<\/a>/Us', $html, $matches);
+        $index = best_match($this->title, $matches[2], $this->accuracy);
 
-      if ($best_match === false)
-        $html = false;
-      else {
-        $filmup_url = $best_match->url;
-        send_to_log(6, 'Fetching information from: ' . $filmup_url);
-        $html = file_get_contents($filmup_url);
+        if ($index === false)
+          $html = false;
+        else {
+          $film_url = add_site_to_url($matches[1][$index], $this->site_url);
+          send_to_log(6,'Fetching information from: '.$film_url);
+          $html = file_get_contents( $film_url );
+        }
       }
     }
     if ($html !== false) {
