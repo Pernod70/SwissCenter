@@ -6,17 +6,6 @@
    relating to movies that the user has added to their database. It typically collects
    information such as genre, year of release, synopsis, directors and actors.
 
-   Version history:
-   15-Oct-2007: v1.0:     First public release
-   10-Jan-2008: v1.1:     Added image download, and removed 'more' from synopsis.
-   11-Jan-2008: v1.2:     Fixed bug with search, and now gets full synopsis.
-   01-Feb-2008: v1.3:     Improved accuracy of search results.
-   05-Apr-2008: v1.4:     Fixed image and synopsis due to site changes. Page is now UTF8 encoded.
-   28-Jun-2008: v1.5:     Removed year ie.(2007) when matching titles, also changed word order.
-   29-Sep-2008: Mod alpha Trying to improve Match Quality (KMan Mod)
-   17-Feb-2009: Mod 0.2   Changed to use the google api, just the original parser
-   19-Feb-2009: Mod 0.3   EXTERNAL_RATING_PC field added
-
  *************************************************************************************************/
 
 class movie_wwwOFDBde extends Parser implements ParserInterface {
@@ -26,6 +15,18 @@ class movie_wwwOFDBde extends Parser implements ParserInterface {
   }
 
   protected $site_url = 'http://www.ofdb.de/';
+
+  // See OFDb Scraper at https://github.com/andig/videodb/blob/master/engines/ofdbscraper.php
+  protected $search_url = 'http://www.ofdb.de/view.php?page=suchergebnis&SText=#####&Kat=All';
+
+  // OFDb Gateway URL's as documented at http://www.ofdbgw.org/
+  protected $searchgw_url = 'http://ofdbgw.org/search_json/#####';
+  protected $moviegw_url = 'http://ofdbgw.org/movie_json/#####';
+  protected $imdbgw_url = 'http://ofdbgw.org/imdb2ofdb_json/#####';
+  protected $searchpersongw_url = 'http://ofdbgw.org/searchperson_json/#####';
+  protected $persongw_url = 'http://ofdbgw.org/person_json/#####';
+
+  protected $use_gateway = false;
 
   public $supportedProperties = array (
     IMDBTT,
@@ -50,72 +51,48 @@ class movie_wwwOFDBde extends Parser implements ParserInterface {
     if (isset($search_params['TITLE']) && !empty($search_params['TITLE']))
       $this->title = $search_params['TITLE'];
 
-    // Get search results from google.
-    send_to_log(4, "Searching for details about " . $this->title . " online at " . $this->site_url);
-    $results = google_api_search('allintitle:-review+'.$this->title, "ofdb.de");
-
-    // Check for year in title
-    $year = preg_get('/\(\d{4}\)/', $this->title);
-
-    // Adjust results to improve possible matches
-    foreach ($results as $i=>$result) {
-      // Remove site 'OFDb - '
-      $results[$i]->titleNoFormatting = trim(preg_replace('/OFDb \- /', '', $result->titleNoFormatting));
-      // Remove year '(2012)'
-      if (empty($year))
-        $results[$i]->titleNoFormatting = trim(preg_replace('/\(\d{4}\)/', '', $result->titleNoFormatting));
-    }
-
     // Change the word order
-    $title = db_value("select trim_article('$this->title', 'the,der,die,das,les')");
+    $this->title = db_value("select trim_article('$this->title', 'the,der,die,das,les')");
 
-    $this->accuracy = 0;
-
-    if (count($results) == 0) {
-      send_to_log(4, "No Match found.");
-      $html = false;
-    } else {
-      $best_match = google_best_match($title, $results, $this->accuracy);
-
-      if ($best_match === false)
-        $html = false;
-    }
-
-    if ($html === false)
+    // Get page from ofdb.de
+    if ($this->use_gateway)
     {
+      send_to_log(4, "Searching for details about " . $this->title . " online at " . $this->site_url);
+      $search_title = str_replace('%20','+',urlencode($this->title));
+      $url_load = str_replace('#####', $this->title, $this->searchgw_url);
+
+      send_to_log(6,'Fetching information from: '.$url_load);
+      $result = json_decode(file_get_contents( $url_load ), true);
+    } else {
+      send_to_log(4, "Searching for details about " . $this->title . " online at " . $this->site_url);
+      $search_title = str_replace('%20','+',urlencode($this->title));
+      $url_load = str_replace('#####', $search_title, $this->search_url);
+
+      send_to_log(6,'Fetching information from: '.$url_load);
+      $result = file_get_contents( $url_load );
+
       $this->accuracy = 0;
 
-      // Get search results from google.
-      send_to_log(4, "Searching for details about " . $this->title . " online at " . $this->site_url);
-      $results = google_api_search($this->title, "ofdb.de");
-
-      if (count($results)==0) {
-        send_to_log(4,"No Match found.");
-        $html = false;
+      if ($result === false) {
+        send_to_log(2,'Failed to access the URL.');
       } else {
-        $best_match = google_best_match('OFDb - ' . $title, $results, $this->accuracy);
+        // Is the text that signifies a successful search present within the HTML?
+        if (strpos(strtolower($result),strtolower('OFDb - Suchergebnis')) !== false) {
+          preg_match_all('/<br>[0-9]+\.\s*<a href="(film\/[0-9]+,[^"]*)" onmouseover="[^"]*"[^>]*>([^<]*)<font.*?\/font> \(([\/\-0-9]+)\)<\/a>/', $result, $matches);
+          $index = best_match($this->title, $matches[2], $this->accuracy);
 
-        if ($best_match === false)
-          $html = false;
+          if ($index === false)
+            $result = false;
+          else {
+            $film_url = add_site_to_url($matches[1][$index], $this->site_url);
+            send_to_log(6,'Fetching information from: '.$film_url);
+            $result = file_get_contents( $film_url );
+          }
+        }
       }
     }
-
-    if ($best_match === false)
-        $html = false;
-    else {
-      $ofdb_url = $best_match->url;
-
-      if (strpos($ofdb_url,'film') == false && strpos($ofdb_url,'fid') !== false)
-      {
-        $ofdb_url = str_replace('fassung','film',$ofdb_url);
-        $ofdb_url = str_replace('inhalt','film',$ofdb_url);
-        $ofdb_url = str_replace('review','film',$ofdb_url);
-      }
-      send_to_log(6,'Fetching information from: '.$ofdb_url);
-      $html = file_get_contents( $ofdb_url );
-    }
-    if ($html !== false) {
-      $this->page = $html;
+    if ($result !== false) {
+      $this->page = $result;
       return true;
     } else {
       return false;
@@ -128,129 +105,188 @@ class movie_wwwOFDBde extends Parser implements ParserInterface {
    */
 
   protected function parseIMDBTT() {
-    $html = $this->page;
-    $imdbtt = preg_get('#imdb.com/Title\?(.*)"#Ui', $html);
+    if ($this->use_gateway) {
+      $json = $this->page;
+      send_to_log(2, $json);
+      $imdbtt = $json['ofdbgw']['resultat']['imdbid'];
+    } else {
+      $html = $this->page;
+      $imdbtt = preg_get('#imdb.com/Title\?(.*)"#Ui', $html);
+    }
     if (isset($imdbtt) && !empty($imdbtt)) {
       $this->setProperty(IMDBTT, 'tt'.$imdbtt);
       return 'tt'.$imdbtt;
     }
   }
   protected function parseTitle() {
-    $html = $this->page;
-    $title = substr_between_strings($html,'<title>','</title>');
-    $title = trim(preg_replace(array('/OFDb -/', '/\(\d{4}\)/'), '', $title));
+    if ($this->use_gateway) {
+      $json = $this->page;
+      $title = $json['ofdbgw']['resultat']['titel'];
+    } else {
+      $html = $this->page;
+      $title = substr_between_strings($html,'<title>','</title>');
+      $title = trim(preg_replace(array('/OFDb -/', '/\(\d{4}\)/'), '', $title));
+    }
     if (isset($title) && !empty($title)) {
       $this->setProperty(TITLE, $title);
       return $title;
     }
   }
   protected function parseSynopsis() {
-    $html = $this->page;
-    $start = strpos($html,"Inhalt:");
-    if ($start !== false) {
-      $end = strpos($html, "</tr>", $start + 1);
-      if ($end !== false) {
-        $html_synopsis = substr($html, $start, $end - $start);
-        $matches = get_urls_from_html($html_synopsis, "plot");
-        if (isset($matches[1]) && !empty($matches[1])) {
-          send_to_log(6,'Fetching information from: '.$this->site_url.$matches[1][0]);
-          $html = file_get_contents( $this->site_url.$matches[1][0] );
-          $synopsis = substr_between_strings($html,'</b><br><br>','</p>');
-          $this->setProperty(SYNOPSIS, $synopsis);
-          return $synopsis;
+    if ($this->use_gateway) {
+      $json = $this->page;
+      $synopsis = $json['ofdbgw']['resultat']['beschreibung'];
+    } else {
+      $html = $this->page;
+      $start = strpos($html,"Inhalt:");
+      if ($start !== false) {
+        $end = strpos($html, "</tr>", $start + 1);
+        if ($end !== false) {
+          $html_synopsis = substr($html, $start, $end - $start);
+          $matches = get_urls_from_html($html_synopsis, "plot");
+          if (isset($matches[1]) && !empty($matches[1])) {
+            send_to_log(6,'Fetching information from: '.$this->site_url.$matches[1][0]);
+            $html = file_get_contents( $this->site_url.$matches[1][0] );
+            $synopsis = substr_between_strings($html,'</b><br><br>','</p>');
+          }
         }
       }
+    }
+    if (isset($synopsis) && !empty($synopsis)) {
+      $this->setProperty(SYNOPSIS, $synopsis);
+      return $synopsis;
     }
   }
   protected function parseYear() {
-    $html = $this->page;
-    $start = strpos($html,"Erscheinungsjahr:");
-    if ($start !== false) {
-      $end = strpos($html,"</tr>", $start + 1);
-      if ($end !== false) {
-        $html_year = substr($html, $start, $end - $start);
-        $matches = get_urls_from_html($html_year,"Jahr");
-        if(isset($matches[2]) && !empty($matches[2])){
-          $this->setProperty(YEAR, $matches[2][0]);
-          return $matches[2][0];
+    if ($this->use_gateway) {
+      $json = $this->page;
+      $year = $json['ofdbgw']['resultat']['jahr'];
+    } else {
+      $html = $this->page;
+      $start = strpos($html,"Erscheinungsjahr:");
+      if ($start !== false) {
+        $end = strpos($html,"</tr>", $start + 1);
+        if ($end !== false) {
+          $html_year = substr($html, $start, $end - $start);
+          $matches = get_urls_from_html($html_year,"Jahr");
+          if(isset($matches[2]) && !empty($matches[2])){
+            $year = $matches[2][0];
+          }
         }
       }
+    }
+    if (isset($year) && !empty($year)) {
+      $this->setProperty(YEAR, $year);
+      return $year;
     }
   }
   protected function parseActors() {
-    $html = $this->page;
-    $start = strpos($html,"Darsteller:");
-    if ($start !== false) {
-      $end = strpos($html, "</tr>", $start + 1);
-      if ($end !== false) {
-        $html_actors = substr($html, $start, $end - $start);
-        $matches = get_urls_from_html($html_actors, "Name");
-        if(isset($matches[2]) && !empty($matches[2])){
-          $matches[2] = array_map("trim", $matches[2]);
-          $this->setProperty(ACTORS, $matches[2]);
-          return $matches[2];
+    if ($this->use_gateway) {
+      $json = $this->page;
+      $actors = array();
+      foreach ($json['ofdbgw']['resultat']['besetzung'] as $actor)
+        $actors[] = $actor['name'];
+    } else {
+      $html = $this->page;
+      $start = strpos($html,"Darsteller:");
+      if ($start !== false) {
+        $end = strpos($html, "</tr>", $start + 1);
+        if ($end !== false) {
+          $html_actors = substr($html, $start, $end - $start);
+          $matches = get_urls_from_html($html_actors, "Name");
+          if(isset($matches[2]) && !empty($matches[2])){
+            $actors = array_map("trim", $matches[2]);
+          }
         }
       }
+    }
+    if (isset($actors) && !empty($actors)) {
+      $this->setProperty(ACTORS, $actors);
+      return $actors;
     }
   }
   protected function parseDirectors() {
-    $html = $this->page;
-    $start = strpos($html,"Regie:");
-    if ($start !== false) {
-      $end = strpos($html, "</tr>", $start + 1);
-      if ($end !== false) {
-        $html_directed = substr($html, $start, $end - $start);
-        $matches = get_urls_from_html($html_directed, "Name");
-        if (isset($matches[2]) && !empty($matches[2])) {
-          $matches[2] = array_map("trim", $matches[2]);
-          $this->setProperty(DIRECTORS, $matches[2]);
-          return $matches[2];
+    if ($this->use_gateway) {
+      $json = $this->page;
+      $directors = array($json['ofdbgw']['resultat']['regie']['name']);
+    } else {
+      $html = $this->page;
+      $start = strpos($html,"Regie:");
+      if ($start !== false) {
+        $end = strpos($html, "</tr>", $start + 1);
+        if ($end !== false) {
+          $html_directed = substr($html, $start, $end - $start);
+          $matches = get_urls_from_html($html_directed, "Name");
+          if (isset($matches[2]) && !empty($matches[2])) {
+            $directors = array_map("trim", $matches[2]);
+          }
         }
       }
+    }
+    if (isset($directors) && !empty($directors)) {
+      $this->setProperty(DIRECTORS, $directors);
+      return $directors;
     }
   }
   protected function parseGenres() {
-    $html = $this->page;
-    $start = strpos($html,"Genre(s):");
-    if ($start !== false) {
-      $end = strpos($html, "</tr>", $start + 1);
-      if ($end !== false) {
-        $html_genres = substr($html, $start, $end - $start);
-        $matches = get_urls_from_html($html_genres, "genre");
-        if (isset($matches[2]) && !empty($matches[2])) {
-          $matches[2] = array_map("trim", $matches[2]);
-          $this->setProperty(GENRES, $matches[2]);
-          return $matches[2];
+    if ($this->use_gateway) {
+      $json = $this->page;
+      $genres = $json['ofdbgw']['resultat']['genre'];
+    } else {
+      $html = $this->page;
+      $start = strpos($html,"Genre(s):");
+      if ($start !== false) {
+        $end = strpos($html, "</tr>", $start + 1);
+        if ($end !== false) {
+          $html_genres = substr($html, $start, $end - $start);
+          $matches = get_urls_from_html($html_genres, "genre");
+          if (isset($matches[2]) && !empty($matches[2])) {
+            $genres = array_map("trim", $matches[2]);
+          }
         }
       }
     }
+    if (isset($genres) && !empty($genres)) {
+      $this->setProperty(GENRES, $genres);
+      return $genres;
+    }
   }
   protected function parseExternalRatingPc() {
-    $html = $this->page;
-    $start = strpos($html,"Note:");
-    if ($start !== false) {
-      $end = strpos($html, "&nbsp;", $start + 1);
-      if ($end !== false) {
-        $matches = array();
-        if (preg_match('/(\d+\.\d+)/', substr($html,$start,$end-$start), $matches) != 0)
-          $extrating = intval($matches[1]*10);
-        elseif (preg_match('/(\d+)/', substr($html,$start,$end-$start), $matches) != 0)
-          $extrating = intval($matches[1]*10);
-        else
-          $extrating = 0;
-        $this->setProperty(EXTERNAL_RATING_PC, $extrating);
-        return $extrating;
+    if ($this->use_gateway) {
+      $json = $this->page;
+      $extrating = $json['ofdbgw']['resultat']['bewertung']['note']*10;
+    } else {
+      $html = $this->page;
+      $start = strpos($html,"Note:");
+      if ($start !== false) {
+        $end = strpos($html, "&nbsp;", $start + 1);
+        if ($end !== false) {
+          $matches = array();
+          if (preg_match('/(\d+\.\d+)/', substr($html,$start,$end-$start), $matches) != 0)
+            $extrating = intval($matches[1]*10);
+          elseif (preg_match('/(\d+)/', substr($html,$start,$end-$start), $matches) != 0)
+            $extrating = intval($matches[1]*10);
+          else
+            $extrating = 0;
+        }
       }
+    }
+    if (isset($extrating) && !empty($extrating)) {
+      $this->setProperty(EXTERNAL_RATING_PC, $extrating);
+      return $extrating;
     }
   }
   protected function parsePoster() {
-    $html = $this->page;
-    $img_addr = get_html_tag_attrib($html,'img', 'img.ofdb.de/film/', 'src');
-    if ($img_addr !== false) {
-      if (url_exists($img_addr)) {
-        $this->setProperty(POSTER, $img_addr);
-        return $img_addr;
-      }
+    if ($this->use_gateway) {
+      $json = $this->page;
+      $img_addr = $json['ofdbgw']['resultat']['bild'];
+    } else {
+      $html = $this->page;
+      $img_addr = get_html_tag_attrib($html,'img', 'img.ofdb.de/film/', 'src');
+    }
+    if (isset($img_addr) && !empty($img_addr) && url_exists($img_addr)) {
+      $this->setProperty(POSTER, $img_addr);
+      return $img_addr;
     }
   }
   protected function parseMatchPc() {
