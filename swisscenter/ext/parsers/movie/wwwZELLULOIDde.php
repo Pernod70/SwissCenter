@@ -15,6 +15,7 @@ class movie_wwwZELLULOIDde extends Parser implements ParserInterface {
   }
 
   protected $site_url = 'http://www.zelluloid.de/';
+  protected $search_url = 'http://www.zelluloid.de/suche/index.php3?qstring=#####&x=0&y=0';
 
   public $supportedProperties = array (
     SYNOPSIS,
@@ -38,38 +39,31 @@ class movie_wwwZELLULOIDde extends Parser implements ParserInterface {
     if (isset($search_params['TITLE']) && !empty($search_params['TITLE']))
       $this->title = $search_params['TITLE'];
 
-    // Get search results from google.
+    // Get page from zelluloid.de
     send_to_log(4, "Searching for details about " . $this->title . " online at " . $this->site_url);
-    $results = google_api_search('allintitle:'.$this->title, "zelluloid.de");
+    $search_title = str_replace('%20','+',urlencode($this->title));
+    $url_load = str_replace('#####', $search_title, $this->search_url);
 
-    // Adjust results to improve possible matches
-    foreach ($results as $i=>$result) {
-      // Remove site ' | zelluloid.de'
-      $results[$i]->titleNoFormatting = trim(preg_replace('/ \| zelluloid.de/', '', $result->titleNoFormatting));
-    }
+    send_to_log(6,'Fetching information from: '.$url_load);
+    $html = file_get_contents( $url_load );
 
     $this->accuracy = 0;
 
-    if (count($results)==0)
-    {
-      send_to_log(4,"No Match found.");
-      $html = false;
-    }
-    else
-    {
-      $best_match = google_best_match($this->title, $results, $this->accuracy);
+    if ($html === false) {
+      send_to_log(2,'Failed to access the URL.');
+    } else {
+      // Is the text that signifies a successful search present within the HTML?
+      if (strpos(strtolower($html),strtolower('Der Suchbegriff erzielte')) !== false) {
+        preg_match_all('/<TD><B><a href="hit.php3.*movie-(\d+)-.*" class="normLight">(.*)<\/B> <nobr>/Ui', $html, $matches);
+        $index = best_match($this->title, $matches[2], $this->accuracy);
 
-      if ($best_match === false)
-        $html = false;
-      else
-      {
-        $zelluloid_url = urldecode($best_match->url);
-        if (strpos($zelluloid_url,'index.php3')==false)
-        {
-          $zelluloid_url = str_replace('details.php3','index.php3',$zelluloid_url);
+        if ($index === false)
+          $html = false;
+        else {
+          $film_url = add_site_to_url('filme/index.php3?id='.$matches[1][$index], $this->site_url);
+          send_to_log(6,'Fetching information from: '.$film_url);
+          $html = file_get_contents( $film_url );
         }
-        send_to_log(6,'Fetching information from: '.$zelluloid_url);
-        $html = file_get_contents( $zelluloid_url );
       }
     }
     if ($html !== false) {
