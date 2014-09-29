@@ -720,7 +720,7 @@ function tv_info( $message = "")
       for ($x = 0; $x < $retrycount; $x++)
       {
         if ( isset($_REQUEST['parser_' . $x . '_' . ParserConstants :: $allTvConstants[$i]['ID']]) )
-        $parser_pref[] = $_REQUEST['parser_' . $x . '_' . ParserConstants :: $allTvConstants[$i]['ID']];
+          $parser_pref[] = trim($_REQUEST['parser_' . $x . '_' . ParserConstants :: $allTvConstants[$i]['ID']], 'tv_');
       }
       set_sys_pref('tv_parser_' . ParserConstants :: $allTvConstants[$i]['ID'], implode(',', $parser_pref));
     }
@@ -775,12 +775,11 @@ function tv_info( $message = "")
       $supported_parsers[tv_NoParser :: getName()] = 'NoParser';
 
       // Determine all parsers that support this property
-      foreach ($parsers as $parser)
+      foreach ($parsers as $parserclass)
       {
-        $parserclass = 'tv_'.$parser;
         $tvparser = new $parserclass();
         if ($tvparser->isSupportedProperty(ParserConstants :: $allTvConstants[$i]['ID']))
-          $supported_parsers[$tvparser->getName()] = $parser;
+          $supported_parsers[$tvparser->getName()] = $parserclass;
       }
 
       // Display parsers for this property
@@ -789,7 +788,7 @@ function tv_info( $message = "")
         echo (($y == 0) ? ('<td>' . form_prompt(str(ParserConstants :: $allTvConstants[$i]['TEXT']), true) . '</td>' ) : '');
         echo '<td>' . form_list_static_html('parser_' . $y . '_' . ParserConstants :: $allTvConstants[$i]['ID'],
                                             $supported_parsers,
-                                            (isset($parser_pref[$y]) ? $parser_pref[$y] : 'NoParser'),
+                                            (isset($parser_pref[$y]) ? 'tv_'.$parser_pref[$y] : 'tv_NoParser'),
                                             false, false, false) .
              '</td>';
       }

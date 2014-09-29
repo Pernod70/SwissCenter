@@ -200,7 +200,7 @@ class movie_wwwIMDBcom extends Parser implements ParserInterface {
   protected function parseActors() {
     $html = $this->page;
     $start = strpos($html, "<table class=\"cast\">");
-    if (get_sys_pref(get_class($this).'_FULL_CAST', $this->settings[FULL_CAST]["default"]) == 'YES')
+    if (get_sys_pref(str_replace('movie_', '', get_class($this)).'_FULL_CAST', $this->settings[FULL_CAST]["default"]) == 'YES')
       $end = strpos($html, "</table>", $start + 1);
     else
       $end = (strpos($html, "<small>", $start + 1) !== false ? strpos($html, "<small>", $start + 1) : strpos($html, "</table>", $start + 1));
@@ -221,7 +221,7 @@ class movie_wwwIMDBcom extends Parser implements ParserInterface {
   protected function parseActorImages() {
     $html = $this->page;
     $start = strpos($html, "<table class=\"cast\">");
-    if (get_sys_pref(get_class($this).'_FULL_CAST', $this->settings[FULL_CAST]["default"]) == 'YES')
+    if (get_sys_pref(str_replace('movie_', '', get_class($this)).'_FULL_CAST', $this->settings[FULL_CAST]["default"]) == 'YES')
       $end = strpos($html, "</table>", $start + 1);
     else
       $end = strpos($html, "<small>", $start + 1);

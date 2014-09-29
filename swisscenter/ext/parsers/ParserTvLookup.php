@@ -18,7 +18,7 @@ function ParserTvLookup($tv_id, $filename, $search_params) {
     for ($x = 0; $x < $retrycount; $x++) {
       if (isset($parser_pref[$x]) && !empty($parser_pref[$x]) && $parser_pref[$x] !== 'NoParser') {
         // Create instance of parser
-        $parserclass = 'tv_'.$parser_pref[$x];
+        $parserclass = $parser_pref[$x];
         if (!isset ($oneInstancePerParserArray[$parserclass])) {
           $parser = new $parserclass ($tv_id, $filename, $search_params);
           $oneInstancePerParserArray[$parserclass] = $parser;

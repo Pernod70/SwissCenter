@@ -296,7 +296,7 @@ protected function parseLanguages() {
         // There are multiple matches found... process them
         $matches = array ();
         $matches_id = array ();
-        $adult_results = (get_sys_pref(get_class($this).'_ADULT_RESULTS', $this->settings[ADULT_RESULTS]["default"]) === 'YES');
+        $adult_results = (get_sys_pref(str_replace('movie_', '', get_class($this)).'_ADULT_RESULTS', $this->settings[ADULT_RESULTS]["default"]) === 'YES');
         foreach ($moviematches['results'] as $movie) {
           // Filter out adult results if not required
           if ($adult_results || !$movie['adult']) {

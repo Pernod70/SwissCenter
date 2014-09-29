@@ -108,7 +108,7 @@ function make_network_share_path( $fsp, $share_local, $share_nmt )
   // Create NMT file path of shared file.
   $path = 'file:///opt/sybhttpd/localhost.drives/'.$share_nmt.$fsp;
 
-  return rawurlencode(utf8_encode($path));
+  return rawurlencode(encode_utf8($path));
 }
 
 // ----------------------------------------------------------------------------------
@@ -721,7 +721,7 @@ if(!function_exists('mime_content_type')) {
       'mpe' => 'video/mpeg',
       'mpeg' => 'video/mpeg',
       'mpg' => 'video/mpeg',
-      'vob' => 'video/mpeg',
+      'vob' => 'video/x-ms-vob',
       'wmv' => 'video/x-ms-wmv',
       'qt' => 'video/quicktime',
       'mov' => 'video/quicktime',
@@ -801,7 +801,7 @@ function url_exists($url)
                                 'ignore_errors' => 1));
   $body = file_get_contents($url, NULL, stream_context_create($opts));
   sscanf($http_response_header[0], 'HTTP/%*d.%*d %d', $code);
-  return $code === 200;
+  return $code === 200 || $code === 403;
 }
 
 /**
