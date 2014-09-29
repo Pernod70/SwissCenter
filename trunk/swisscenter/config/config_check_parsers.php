@@ -23,9 +23,8 @@ function check_parsers_display()
   {
     $movie_parsers = $parser_tests->add_section("Movie Parsers",1);
     $parsers = get_parsers_list('movie');
-    foreach ($parsers as $parser) {
+    foreach ($parsers as $parserclass) {
       set_time_limit(30);
-      $parserclass = 'movie_'.$parser;
       $parser = new $parserclass(1, '../cache/Les Misérables.avi', array('TITLE' => 'Les Misérables'));
       $fails = array();
       foreach ($parser->supportedProperties as $property) {
@@ -53,9 +52,8 @@ function check_parsers_display()
   {
     $tv_parsers = $parser_tests->add_section("TV Parsers",2);
     $parsers = get_parsers_list('tv');
-    foreach ($parsers as $parser) {
+    foreach ($parsers as $parserclass) {
       set_time_limit(30);
-      $parserclass = 'tv_'.$parser;
       $parser = new $parserclass(1, '../cache/Lost.S01E01.Test.avi', array('PROGRAMME' => 'Lost',
                                                                            'SERIES'    => 6,
                                                                            'EPISODE'   => 1,

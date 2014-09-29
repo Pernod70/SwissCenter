@@ -20,7 +20,7 @@ function ParserMovieLookup($movie_id, $filename, $search_params) {
     for ($x = 0; $x < $retrycount; $x++) {
       if (isset($parser_pref[$x]) && !empty($parser_pref[$x]) && $parser_pref[$x] !== 'NoParser') {
         // Create instance of parser
-        $parserclass = 'movie_'.$parser_pref[$x];
+        $parserclass = $parser_pref[$x];
         if (!isset ($oneInstancePerParserArray[$parserclass])) {
           $parser = new $parserclass ($movie_id, $filename, $search_params, $use_smartsearch, $use_foldersearch);
           $oneInstancePerParserArray[$parserclass] = $parser;

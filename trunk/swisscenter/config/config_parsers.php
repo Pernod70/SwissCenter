@@ -32,6 +32,9 @@ function parsers_display( $message = "")
   {
     $parser = new $parserClass();
 
+    // Parser settings are not stored with 'movie_' and 'tv_' prefixes
+    $parserClass = str_replace(array('movie_', 'tv_'), '', $parserClass);
+
     // Does this parser have settings?
     if (isset($parser->settings) && !empty($parser->settings))
     {
@@ -68,6 +71,9 @@ function parsers_update()
   foreach ($parsers as $name=>$parserClass)
   {
     $parser = new $parserClass();
+
+    // Parser settings are not stored with 'movie_' and 'tv_' prefixes
+    $parserClass = str_replace(array('movie_', 'tv_'), '', $parserClass);
 
     // Does this parser have settings?
     if (isset($parser->settings))

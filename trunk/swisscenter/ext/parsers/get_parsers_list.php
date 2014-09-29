@@ -20,7 +20,7 @@ function get_parsers_list($type)
       $name = file_noext($file);
       $parserclass = $type.'_'.$name;
       $parser = new $parserclass;
-      $parser_list[$parser->getName()] = $name;
+      $parser_list[$parser->getName()] = $parserclass;
     }
     else
     {

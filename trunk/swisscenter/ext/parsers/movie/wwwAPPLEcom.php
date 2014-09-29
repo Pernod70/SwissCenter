@@ -142,7 +142,7 @@ class movie_wwwAPPLEcom extends Parser implements ParserInterface {
         break;
     }
     $trailer_urls = get_trailer_urls($trailer_xmls[1][$key]);
-    $file_size = get_sys_pref(get_class($this).'_TRAILER_SIZE', $this->settings[TRAILER_SIZE]["default"]);
+    $file_size = get_sys_pref(str_replace('movie_', '', get_class($this)).'_TRAILER_SIZE', $this->settings[TRAILER_SIZE]["default"]);
     // Take the highest resolution trailer
     $trailer = array_pop($trailer_urls[2]);
     // Now search for preferred resolution

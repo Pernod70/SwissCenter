@@ -704,7 +704,7 @@ function movie_info( $message = "")
       for ($x = 0; $x < $retrycount; $x++)
       {
         if ( isset($_REQUEST['parser_' . $x . '_' . ParserConstants :: $allMovieConstants[$i]['ID']]) )
-        $parser_pref[] = $_REQUEST['parser_' . $x . '_' . ParserConstants :: $allMovieConstants[$i]['ID']];
+          $parser_pref[] = trim($_REQUEST['parser_' . $x . '_' . ParserConstants :: $allMovieConstants[$i]['ID']], 'movie_');
       }
       set_sys_pref('movie_parser_' . ParserConstants :: $allMovieConstants[$i]['ID'], implode(',', $parser_pref));
     }
@@ -757,12 +757,11 @@ function movie_info( $message = "")
       $supported_parsers[movie_NoParser :: getName()] = 'NoParser';
 
       // Determine all parsers that support this property
-      foreach ($parsers as $parser)
+      foreach ($parsers as $parserclass)
       {
-        $parserclass = 'movie_'.$parser;
         $movieparser = new $parserclass();
         if ($movieparser->isSupportedProperty(ParserConstants :: $allMovieConstants[$i]['ID']))
-          $supported_parsers[$movieparser->getName()] = $parser;
+          $supported_parsers[$movieparser->getName()] = $parserclass;
       }
 
       // Display parsers for this property
@@ -771,7 +770,7 @@ function movie_info( $message = "")
         echo (($y == 0) ? ('<td>' . form_prompt(str(ParserConstants :: $allMovieConstants[$i]['TEXT']), true) . '</td>' ) : '');
         echo '<td>' . form_list_static_html('parser_' . $y . '_' . ParserConstants :: $allMovieConstants[$i]['ID'],
                                             $supported_parsers,
-                                            (isset($parser_pref[$y]) ? $parser_pref[$y] : 'NoParser'),
+                                            (isset($parser_pref[$y]) ? 'movie_'.$parser_pref[$y] : 'movie_NoParser'),
                                             false, false, false) .
              '</td>';
       }
