@@ -681,7 +681,7 @@ function file_albumart( $fsp, $default_image = true, $folder_image = true )
   	$return = '';
     // Is there an image file with the same name as those listed in the configuration page?
     if ($folder_image)
-      $return = find_in_dir($fsp, db_col_to_list("select filename from art_files"));  
+      $return = find_in_dir($fsp, db_col_to_list("select filename from art_files"));
 
     // No albumart for this folder found... is there albumart for the parent folder?
     if (empty($return) && dirname($fsp) != $fsp)
@@ -745,7 +745,10 @@ function file_download_and_save( $url, $filename, $overwrite = false, $modified 
       // Reset the timeout counter for each file downloaded
       set_time_limit(60);
 
-      $img = @file_get_contents(str_replace(' ','%20',$url));
+      $opts = array('http' => array('method'     => "GET",
+                                    'user_agent' => "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)"));
+      $context = stream_context_create($opts);
+      $img = @file_get_contents(str_replace(' ','%20',$url), NULL, $context);
       if ($img !== false)
       {
         $fh = @Fsw::fopen($filename, 'wb');
@@ -761,7 +764,7 @@ function file_download_and_save( $url, $filename, $overwrite = false, $modified 
           return true;
         }
         else
-          send_to_log(4,'Error : Unable to create Local file.');
+          send_to_log(4,'Error : Unable to create local file.');
       }
       else
         send_to_log(4,'Error : Unable to download remote file.');
