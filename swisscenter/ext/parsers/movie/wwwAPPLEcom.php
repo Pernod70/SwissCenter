@@ -53,7 +53,7 @@ class movie_wwwAPPLEcom extends Parser implements ParserInterface {
     } else {
       $trailer_titles = array ();
       foreach ($trailers as $index => $trailer)
-        $trailer_titles[$index] = $trailer["title"];
+        $trailer_titles[$index] = html_entity_decode($trailer["title"], ENT_COMPAT, 'UTF-8');
 
       // There are multiple matches found... process them
       $index = best_match($this->title, $trailer_titles, $this->accuracy);
@@ -75,7 +75,7 @@ class movie_wwwAPPLEcom extends Parser implements ParserInterface {
 
   protected function parseTitle() {
     $trailers = $this->page;
-    $title = $trailers["title"];
+    $title = html_entity_decode($trailers["title"], ENT_COMPAT, 'UTF-8');
     if (isset($title) && !empty($title)) {
       $this->setProperty(TITLE, $title);
       return $title;
