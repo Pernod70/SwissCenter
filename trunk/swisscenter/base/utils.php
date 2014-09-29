@@ -796,8 +796,12 @@ function decode_utf8($data)
  */
 function url_exists($url)
 {
-  $hdrs = @get_headers($url);
-  return is_array($hdrs) ? preg_match('/^HTTP\\/\\d+\\.\\d+\\s+2\\d\\d\\s+.*$/',$hdrs[0]) : false;
+  $opts = array('http' => array('method' => "HEAD",
+                                'user_agent' => "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)",
+                                'ignore_errors' => 1));
+  $body = file_get_contents($url, NULL, stream_context_create($opts));
+  sscanf($http_response_header[0], 'HTTP/%*d.%*d %d', $code);
+  return $code === 200;
 }
 
 /**
@@ -850,6 +854,8 @@ function GetRemoteLastModified( $uri )
 function best_match ( $needle, $haystack, &$accuracy )
 {
   $best_match = array("id" => 0, "chars" => 0, "pc" => 0);
+
+  $haystack = encode_utf8($haystack);
 
   foreach ($haystack as $i=>$item)
   {
