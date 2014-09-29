@@ -15,7 +15,7 @@ class movie_wwwFILMUPit extends Parser implements ParserInterface {
   }
 
   protected $site_url = 'http://filmup.leonardo.it/';
-  protected $search_url = 'http://filmup.leonardo.it/cgi-bin/search.cgi?q=#####&ul=%25%2Fsc_%25';
+  protected $search_url = 'http://filmup.leonardo.it/cgi-bin/search.cgi?q=#####&ul=%25%2Fsc_%25&m=all&wf=0020&wm=wrd&sy=1';
 
   public $supportedProperties = array (
     ACTORS,
@@ -56,7 +56,8 @@ class movie_wwwFILMUPit extends Parser implements ParserInterface {
       if (strpos(strtolower($html),strtolower('Risultati')) !== false) {
         $html = preg_get('/<\/table>\W<DL>(.*)<\/DL>\W<table/Usi', $html);
         $html = strip_tags($html, '<a>');
-        preg_match_all('/<a class="filmup" href="(.*)" TARGET="_blank">.*FilmUP - Scheda: (.*)<\/a>/Us', $html, $matches);
+        preg_match_all('/<a class="filmup" href="(.*\/sc_.*)" TARGET="_blank">.*FilmUP - Scheda: (.*)<\/a>/Us', $html, $matches);
+        send_to_log(2,'matches',$matches);
         $index = best_match($this->title, $matches[2], $this->accuracy);
 
         if ($index === false)
