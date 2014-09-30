@@ -76,13 +76,6 @@
       else
         $menu->add_item( str('RSS_FEEDS') ,'rss_feeds.php',true);
 
-    // Only display the Tfl options if an internet connection is active, the user has enabled Tfl support.
-    if (internet_available() && get_sys_pref('tfl_enabled','YES') == 'YES')
-      if ($image_menu)
-        $menu->add_image_item( str('TFL') ,style_img('MENU_INTERNET_TFL',true),style_img('MENU_INTERNET_TFL_ON',true,false),'tfl.php');
-      else
-        $menu->add_item( str('TFL') ,'tfl.php',true);
-
     // Only display the weather options if an internet connection is active and the user has enabled weather support
     if (internet_available() && get_sys_pref('weather_enabled','YES') == 'YES')
       if ($image_menu)
@@ -214,7 +207,7 @@
 
     // Only display the Internet options if an internet connection is active and internet options are enabled.
     if (internet_available() && (get_sys_pref('weather_enabled','YES') == 'YES' || get_sys_pref('radio_enabled','YES') == 'YES'
-          ||  get_sys_pref('flickr_enabled','YES') == 'YES' || get_sys_pref('internet_tv_enabled','YES') == 'YES' || get_sys_pref('tfl_enabled','YES') == 'YES'
+          ||  get_sys_pref('flickr_enabled','YES') == 'YES' || get_sys_pref('internet_tv_enabled','YES') == 'YES'
           || (get_sys_pref('web_enabled','YES') == 'YES' && db_value("select 'YES' from media_locations where media_type=".MEDIA_TYPE_WEB." limit 1") == 'YES')
           || (get_sys_pref('rss_enabled','YES') == 'YES' && db_value("select 'YES' from rss_subscriptions limit 1") == 'YES')) )
       if ($image_menu)
