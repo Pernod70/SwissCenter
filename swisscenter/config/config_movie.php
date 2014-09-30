@@ -704,7 +704,7 @@ function movie_info( $message = "")
       for ($x = 0; $x < $retrycount; $x++)
       {
         if ( isset($_REQUEST['parser_' . $x . '_' . ParserConstants :: $allMovieConstants[$i]['ID']]) )
-          $parser_pref[] = trim($_REQUEST['parser_' . $x . '_' . ParserConstants :: $allMovieConstants[$i]['ID']], 'movie_');
+          $parser_pref[] = str_replace('movie_', '', $_REQUEST['parser_' . $x . '_' . ParserConstants :: $allMovieConstants[$i]['ID']]);
       }
       set_sys_pref('movie_parser_' . ParserConstants :: $allMovieConstants[$i]['ID'], implode(',', $parser_pref));
     }
