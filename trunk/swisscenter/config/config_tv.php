@@ -720,7 +720,7 @@ function tv_info( $message = "")
       for ($x = 0; $x < $retrycount; $x++)
       {
         if ( isset($_REQUEST['parser_' . $x . '_' . ParserConstants :: $allTvConstants[$i]['ID']]) )
-          $parser_pref[] = trim($_REQUEST['parser_' . $x . '_' . ParserConstants :: $allTvConstants[$i]['ID']], 'tv_');
+          $parser_pref[] = str_replace('tv_', '', $_REQUEST['parser_' . $x . '_' . ParserConstants :: $allTvConstants[$i]['ID']]);
       }
       set_sys_pref('tv_parser_' . ParserConstants :: $allTvConstants[$i]['ID'], implode(',', $parser_pref));
     }
