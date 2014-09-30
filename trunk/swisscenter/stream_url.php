@@ -6,7 +6,6 @@
   require_once( realpath(dirname(__FILE__).'/base/session.php'));
   require_once( realpath(dirname(__FILE__).'/base/server.php'));
   require_once( realpath(dirname(__FILE__).'/base/utils.php'));
-//  require_once( realpath(dirname(__FILE__).'/ext/vlc/Vlc.php'));
 
   // Log details of the stream request
   send_to_log(0,"Stream: ".$_SERVER["REQUEST_METHOD"]." ".current_url()." by client (".client_ip().")");
@@ -257,27 +256,6 @@
         }
       }
     }
-//    elseif (isset($_REQUEST["use_vlc"]))
-//    {
-//      $stream_url = $_REQUEST["url"];
-//
-//      $vlc_path = get_sys_pref('VLC_PATH');
-//      $adm_port = get_sys_pref('VLC_ADMIN_PORT',8088);
-//      $stream   = get_sys_pref('VLC_STREAM_PORT',1234);
-//      $vcodec   = get_sys_pref('VLC_VIDEO_CODEC','mp2v');
-//      $vb       = get_sys_pref('VLC_VIDEO_BITRATE',800);
-//      $acodec   = get_sys_pref('VLC_AUDIO_CODEC','mp3');
-//      $ab       = get_sys_pref('VLC_AUDIO_BITRATE',128);
-//      $channels = get_sys_pref('VLC_AUDIO_CHANNELS',2);
-//
-//      $vlc = new Vlc($vlc_path, $adm_port);
-//      $vlc->setStreamPort($stream);
-//      $vlc->setAudioCodec($acodec, $ab, $channels);
-//      $vlc->setVideoCodec($vcodec, $vb);
-//      $vlc->start($stream_url, $mux, $vidcodec, $vb, $acodec, $ab, $channels);
-//
-//      $_SESSION["stream_url"] = 'http://127.0.0.1:'.$stream;
-//    }
     else
     {
       $_SESSION["stream_url"] = rawurldecode($_REQUEST["url"]);
