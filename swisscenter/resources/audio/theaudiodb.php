@@ -23,7 +23,7 @@ class TheAudioDB {
   }
 
   /**
-   * Send the request to get the HTML page contents.
+   * Send the API request.
    *
    * @param $url
    * @return string
