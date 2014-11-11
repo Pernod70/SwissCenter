@@ -32,6 +32,7 @@
  *
  */
 
+define('TRAKT_API_KEY', '06b7ffd2c033a3801e1f3f7139b56bb5'); // Unique key for SwissCenter
 
 /**
  * Generate and return a slug for a given ``$phrase``.
@@ -39,10 +40,10 @@
 function slugify($phrase)
 {
     $result = strtolower($phrase);
-    $result = preg_replace("/[^a-z0-9\s-]/", "", $result);
-    $result = trim(preg_replace("/[\s-]+/", " ", $result));
-    $result = preg_replace("/\s/", "-", $result);
-    
+    $result = preg_replace('/[^a-z0-9\s-]/', '', $result);
+    $result = trim(preg_replace('/[\s-]+/', ' ', $result));
+    $result = preg_replace('/\s/', '-', $result);
+
     return $result;
 }
 
@@ -52,9 +53,9 @@ class Trakt
     public  $errUrl = '';
     public  $errNum = 0;
     public  $errMsg = '';
-    
+
     public  $trackHost = "https://api.trakt.tv";
-    
+
     private $urls = array(
         /**
          * Account methods
@@ -65,7 +66,7 @@ class Trakt
         "/account/test/" => array(
             array("name" => "json", "method" => "post")
         ),
-    
+
         /**
          * Activity methods
          */
@@ -108,7 +109,7 @@ class Trakt
             array("name" => "actions",   "optional" => true),
             array("name" => "timestamp", "optional" => true)
         ),
-        
+
         /**
          * Calendar methods
          */
@@ -120,7 +121,7 @@ class Trakt
             array("name" => "date", "optional" => true),
             array("name" => "days", "optional" => true)
         ),
-        
+
         /**
          * Friends methods
          */
@@ -142,16 +143,15 @@ class Trakt
         "/friends/requests/" => array(
             array("name" => "json", "method" => "post")
         ),
-        
+
         /**
          * Genres methods
          */
         "/genres/movies.json/" => null,
         "/genres/shows.json/"  => null,
-        
+
         /**
          * Lists methods
-         *    TODO: Add these
          */
         "/lists/add/" => array(
             array("name" => "json", "method" => "post")
@@ -168,7 +168,7 @@ class Trakt
         "/lists/update/" => array(
             array("name" => "json", "method" => "post")
         ),
-        
+
         /**
          * Movie methods
          */
@@ -218,25 +218,35 @@ class Trakt
         "/movie/watchlist/" => array(
             array("name" => "json", "method" => "post")
         ),
-        
+
         /**
          * Movies methods
          */
         "/movies/trending.json/" => null,
-        
+        "/movies/updated.json/" => null,
+
         /**
          * Rate methods
          */
         "/rate/episode/" => array(
             array("name" => "json", "method" => "post")
         ),
+        "/rate/episodes/" => array(
+            array("name" => "json", "method" => "post")
+        ),
         "/rate/movie/" => array(
+            array("name" => "json", "method" => "post")
+        ),
+        "/rate/movies/" => array(
             array("name" => "json", "method" => "post")
         ),
         "/rate/show/" => array(
             array("name" => "json", "method" => "post")
         ),
-        
+        "/rate/shows/" => array(
+            array("name" => "json", "method" => "post")
+        ),
+
         /**
          * Recommendations methods
          */
@@ -252,7 +262,7 @@ class Trakt
         "/recommendations/shows/dismiss/" => array(
             array("name" => "json", "method" => "post")
         ),
-        
+
         /**
          * Search methods
          */
@@ -274,6 +284,11 @@ class Trakt
         ),
 
         /**
+         * Server methods
+         */
+        "/server/time.json/" => null,
+
+        /**
          * Shout methods
          */
         "/shout/episode/" => array(
@@ -285,7 +300,7 @@ class Trakt
         "/shout/show/" => array(
             array("name" => "json", "method" => "post")
         ),
-        
+
         /**
          * Show methods
          */
@@ -379,12 +394,13 @@ class Trakt
         "/show/watchlist/" => array(
             array("name" => "json", "method" => "post")
         ),
-        
+
         /**
          * Shows methods
          */
         "/shows/trending.json/" => null,
-        
+        "/shows/updated.json/" => null,
+
         /**
          * User methods
          */
@@ -392,10 +408,6 @@ class Trakt
             array("name" => "username"),
             array("name" => "date", "optional" => true),
             array("name" => "days", "optional" => true)
-        ),
-        "/user/friends.json/" => array(
-            array("name" => "username"),
-            array("name" => "extended",  "optional" => true)
         ),
         "/user/library/movies/all.json/" => array(
             array("name" => "username"),
@@ -405,11 +417,7 @@ class Trakt
             array("name" => "username"),
             array("name" => "extended",  "optional" => true)
         ),
-        "/user/library/movies/hated.json/" => array(
-            array("name" => "username"),
-            array("name" => "extended",  "optional" => true)
-        ),
-        "/user/library/movies/loved.json/" => array(
+        "/user/library/movies/watched.json/" => array(
             array("name" => "username"),
             array("name" => "extended",  "optional" => true)
         ),
@@ -418,14 +426,6 @@ class Trakt
             array("name" => "extended",  "optional" => true)
         ),
         "/user/library/shows/collection.json/" => array(
-            array("name" => "username"),
-            array("name" => "extended",  "optional" => true)
-        ),
-        "/user/library/shows/hated.json/" => array(
-            array("name" => "username"),
-            array("name" => "extended",  "optional" => true)
-        ),
-        "/user/library/shows/loved.json/" => array(
             array("name" => "username"),
             array("name" => "extended",  "optional" => true)
         ),
@@ -456,14 +456,14 @@ class Trakt
             array("name" => "username")
         )
     );
-    
-    function Trakt($apiKey, $debug=false)
+
+    function Trakt($debug=false)
     {
-        $this->apiKey = $apiKey;
+        $this->apiKey = TRAKT_API_KEY;
         $this->debug = $debug;
         $this->clearAuth();
     }
-    
+
     public function __call($method, $arguments)
     {
         $methodUrl = $this->getMethodUrl($method);
@@ -471,20 +471,20 @@ class Trakt
             // Try post instead
             $methodUrl = $this->getMethodUrl($method, "");
         }
-        
+
         if (array_key_exists($methodUrl, $this->urls)) {
             $url = $this->buildUrl($methodUrl);
             $post = null;
-            
-            foreach($arguments as $index => $arg) {            
+
+            foreach($arguments as $index => $arg) {
                 if (array_key_exists($index, $this->urls[$methodUrl])) {
                     $opts = $this->urls[$methodUrl][$index];
-                    
+
                     if (array_key_exists("method", $opts) && $opts["method"] == "post") {
                         $post = $arg;
                         break;
                     }
-                    
+
                     // Determine how to represent this field
                     $data = $arg;
                     if (array_key_exists("convert", $opts)) {
@@ -492,27 +492,27 @@ class Trakt
                     } else if (array_key_exists("optional", $opts) && $arg === true) {
                         $data = $opts["name"];
                     }
-                    
+
                     $url .= $data."/";
                 }
             }
             $url = rtrim($url, "/");
-            
+
             if ($this->debug) {
                 printf("URL: %s\n", $url);
             }
-            
+
             return $this->getUrl($url, $post);
         }
         return false;
     }
-    
+
     public function clearAuth()
     {
         $this->username = null;
         $this->password = null;
     }
-    
+
     /**
      * Sets authentication for all subsequent API calls.  If ``$isHash``
      * is ``true``, then the ``$password`` is expected to be a valid
@@ -522,12 +522,12 @@ class Trakt
     {
         $this->username = $username;
         $this->password = $password;
-        
+
         if (!$isHash) {
             $this->password = sha1($password);
         }
     }
-    
+
     /**
      * Given a string like "showSeason", returns "/show/season.json/"
      */
@@ -536,7 +536,7 @@ class Trakt
         $func = create_function('$c', 'return "/" . strtolower($c[1]);');
         return "/".preg_replace_callback('/([A-Z])/', $func, $method).$format."/";
     }
-    
+
     /**
      * Builds and returns the URL for the given ``$method``.  This method
      * basically just adds in the API Key.
@@ -545,7 +545,7 @@ class Trakt
     {
         return $this->trackHost.$methodUrl.$this->apiKey."/";
     }
-    
+
     /**
      * Query the ``$url`` and convert the JSON into an associative array.
      * If error are encountered, ``false`` is returned instead.
@@ -553,19 +553,19 @@ class Trakt
     private function getUrl($url, $post=null)
     {
         $ch = curl_init();
-        
+
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
         curl_setopt($ch, CURLOPT_TIMEOUT, 40);
-        curl_setopt($ch, CURLOPT_FAILONERROR, false); //trakt sends a 401 with 
+        curl_setopt($ch, CURLOPT_FAILONERROR, false); //trakt sends a 401 with
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-        
+
         if ($this->username && $this->password) {
             curl_setopt($ch, CURLOPT_USERPWD, $this->username.":".$this->password);
         }
-        
+
         if ($post) {
             $data = json_encode($post);
             if ($this->debug) {
@@ -574,15 +574,15 @@ class Trakt
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         }
-        
+
         $buffer = curl_exec($ch);
-        
+
         $this->errUrl = $url;
         $this->errNum = curl_errno($ch);
         $this->errMsg = curl_error($ch);
-        
+
         curl_close($ch);
-        
+
         //check for errors connecting to site
         if ($this->errNum && $this->errNum != 0)
         {
