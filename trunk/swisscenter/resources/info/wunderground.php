@@ -74,7 +74,7 @@ class Wunderground {
         return false;
       }
     }
-    return json_decode($response, true);;
+    return json_decode($response, true);
   }
 
   public function wunderground_home()
