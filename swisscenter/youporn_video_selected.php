@@ -50,8 +50,7 @@ function star_rating( $rating )
             <td valign=top width="'.convert_x(280).'" align="left">'.img_gen($image,280,550).'</td>
             <td width="'.convert_x(20).'"></td>
             <td valign="top">'.
-              font_tags(FONTSIZE_BODY).str('RUNNING_TIME').': '.$details["duration"].'</font>
-              <p>'.font_tags(FONTSIZE_BODY).str('DATE').': '.$details["date"].'</font>
+              font_tags(FONTSIZE_BODY).str('DATE').': '.$details["date"].'</font>
               <p>'.font_tags(FONTSIZE_BODY).str('VIEWED').': '.$details["viewed"].'</font>';
               $menu->display(1, 480);
   echo     '</td>
