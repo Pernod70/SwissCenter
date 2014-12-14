@@ -49,7 +49,7 @@ class YouPorn {
     send_to_log(6,'YouPorn request', $request);
     if (!($items = $this->cache->getCached($request))) {
       if (($body = $this->request($request)) !== false) {
-        preg_match_all('/<a href="\/watch\/.*">.*data-thumbnail="(.*jpg).*".*<a class="videoTitle" href="(\/watch\/.*)">(.*)<\/a>/Ums',$body,$items);
+        preg_match_all('/<a href="(\/watch\/.*)">.*data-thumbnail="(.*jpg).*".*<p class="videoTitle" title="(.*)">(.*)<\/p>/Ums',$body,$items);
         $items = json_encode($items);
         $this->cache->cache($request, $items);
       } else {
@@ -99,13 +99,11 @@ class YouPorn {
     if (!($details = $this->cache->getCached($request))) {
       if (($body = $this->request($request)) !== false) {
         $details = array('title'     => preg_get('/<title>(.*) - Free/U', $body),
-                         'duration'  => preg_get('/<dt>Duration:<\/dt>\s<dd>(.*)<\/dd>/U', $body),
-                         'rating'    => preg_get('/<span class="rating up">(.*)%.*<\/span>/Usm', $body),
-                         'viewed'    => preg_get('/<dt>Views:<\/dt>\s<dd>(.*)<\/dd>/U', $body),
-                         'date'      => preg_get('/<dt>Date:<\/dt>\s<dd>(.*)<\/dd>/U', $body),
+                         'rating'    => preg_get('/<div class="rating-percentage">(.*)%.*<\/div>/Usm', $body),
+                         'viewed'    => preg_get("/<div id='stats-views'><i class='watch-icon icon-views'><\/i>(.*)<\/div>/U", $body),
+                         'date'      => preg_get("/<div id='stats-date'><i class='watch-icon icon-date'><\/i>(.*)<\/div>/U", $body),
                          'mpg_url'   => html_entity_decode(preg_get('/<a href="(.*.download.youporn.*)">\sMPG/U', $body)),
                          'mp4_url'   => html_entity_decode(preg_get('/<a href="(.*.download.youporn.*)">\sMP4/U', $body)));
-        send_to_log(2,'details',$details);
         $details = json_encode($details);
         $this->cache->cache($request, $details);
       } else {

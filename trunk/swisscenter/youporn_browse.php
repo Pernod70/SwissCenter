@@ -41,8 +41,8 @@
     // Add entries from selected feed
     foreach ($items[3] as $idx=>$item)
     {
-      $url = url_add_params('youporn_video_selected.php', array('url'=>rawurlencode($items[2][$idx]), 'img'=>rawurlencode($items[1][$idx])));
-      $entry_list[] = array('thumb' => $items[1][$idx],
+      $url = url_add_params('youporn_video_selected.php', array('url'=>rawurlencode($items[1][$idx]), 'img'=>rawurlencode($items[2][$idx])));
+      $entry_list[] = array('thumb' => $items[2][$idx],
                             'text'  => $item,
                             'url'   => $url);
     }
@@ -79,13 +79,13 @@
         $buttons[] = array('text' => str('YESTERDAY'), 'url'=>url_add_params($this_url, array('time'=>'yesterday', 'hist'=>PAGE_HISTORY_REPLACE)));
       elseif ( $time == 'yesterday' )
         $buttons[] = array('text' => str('THIS_WEEK'), 'url'=>url_add_params($this_url, array('time'=>'week', 'hist'=>PAGE_HISTORY_REPLACE)));
-      elseif ( $time == 'this_week' || $time == '' )
+      elseif ( $time == 'week' || $time == '' )
         $buttons[] = array('text' => str('THIS_MONTH'), 'url'=>url_add_params($this_url, array('time'=>'month', 'hist'=>PAGE_HISTORY_REPLACE)));
-      elseif ( $time == 'this_month' )
+      elseif ( $time == 'month' )
         $buttons[] = array('text' => str('THIS_YEAR'), 'url'=>url_add_params($this_url, array('time'=>'year', 'hist'=>PAGE_HISTORY_REPLACE)));
-      elseif ( $time == 'this_year' )
+      elseif ( $time == 'year' )
         $buttons[] = array('text' => str('ALL_TIME'), 'url'=>url_add_params($this_url, array('time'=>'all', 'hist'=>PAGE_HISTORY_REPLACE)));
-      elseif ( $time == 'all_time' )
+      elseif ( $time == 'all' )
         $buttons[] = array('text' => str('TODAY'), 'url'=>url_add_params($this_url, array('time'=>'today', 'hist'=>PAGE_HISTORY_REPLACE)));
     }
 
