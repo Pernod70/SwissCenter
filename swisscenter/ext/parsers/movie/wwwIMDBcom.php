@@ -88,7 +88,7 @@ class movie_wwwIMDBcom extends Parser implements ParserInterface {
 
         if ((preg_match('/\((\d{4})\)/', $details["TITLE"], $title_year) != 0) || (preg_match('/\((\d{4})\)/', $temp_title, $title_year) != 0)) {
           send_to_log(8, "Found year in the title: " . $title_year[0]);
-          $html = preg_replace('/<\/a>\s+\((\d{4}).*\)/Ui', ' ($1)</a>', $html);
+          $html = preg_replace('/<\/a>[ \(\)IV]*\((\d{4})\)/Ui', ' ($1)</a>', $html);
         }
         $html = substr($html, strpos($html, "Titles"));
         $matches = get_urls_from_html($html, '\/title\/tt\d+\/');
