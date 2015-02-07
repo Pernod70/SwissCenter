@@ -134,7 +134,7 @@ function subtitles_display( $message = '')
 
   foreach ($video_list as $video)
   {
-    // Rest timeout for each video
+    // Reset timeout for each video
     set_time_limit(30);
 
     // Get the hash of current file
@@ -198,9 +198,9 @@ function subtitles_display( $message = '')
         else
         {
           // Uploader
-          echo '['.str('UPLOADER').':'.($sub["UserNickName"] == '' ? 'Anonymous' : $sub["UserNickName"]).'] ';
+          echo '['.str('UPLOADER').':'.($sub["UserNickName"] == '' ? 'Anonymous' : encode_utf8($sub["UserNickName"])).'] ';
           // Uploader comment
-          echo $sub["SubAuthorComment"] == '' ? '' : '['.str('COMMENT').':'.$sub["SubAuthorComment"].'] ';
+          echo $sub["SubAuthorComment"] == '' ? '' : '['.str('COMMENT').':'.encode_utf8($sub["SubAuthorComment"]).'] ';
         }
       }
     }
