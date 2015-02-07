@@ -6,13 +6,7 @@
    relating to movies that the user has added to their database. It typically collects
    information such as title, genre, year of release, synopsis, directors and actors.
 
-   Version history:
-   20-May-2009: v1.0:     First public release
-   14-Mar-2010: v2.0:     Utsi's parser format
-
  *************************************************************************************************/
-
-require_once( SC_LOCATION."/ext/xmlrpc/xmlrpc.inc" );
 
 // API key registered to SwissCenter project
 define('MOVIEMETER_API_KEY', 'wfdk9v1w8dxycgw0g9w9xdq3qt3nu2td');
@@ -35,38 +29,11 @@ class movie_wwwMOVIEMETERnl extends Parser implements ParserInterface {
     return "www.MovieMeter.nl";
   }
 
-  private $cache_dir;
-  private $xmlparser;
-  private $client;
-  private $session_key;
   protected $site_url = 'http://www.moviemeter.nl/';
 
   function populatePage($search_params) {
     if (isset ($search_params['TITLE']) && !empty($search_params['TITLE']))
       $this->title = $search_params['TITLE'];
-
-    send_to_log(8,"Start xmlrpc client.");
-    // Start xmlrpc client
-    $this->client = new xmlrpc_client("http://www.moviemeter.nl/ws");
-    $this->client->return_type = 'phpvals';
-
-    // Start session and retrieve sessionkey
-    $message = new xmlrpcmsg("api.startSession", array(new xmlrpcval(MOVIEMETER_API_KEY, "string")));
-    $resp = $this->client->send($message);
-
-    if ($resp->faultCode())
-    {
-      send_to_log(3,"xmlrpc error:", $resp->faultString());
-    }
-    else
-    {
-      $session_info = $resp->value();
-      $this->session_key = $session_info['session_key'];
-    }
-
-    // Change the word order
-    $this->title = db_value("select trim_article('$this->title', 'the,der,die,das,les')");
-    $this->title = decode_utf8($this->title );
 
     // Get search results
     send_to_log(4,"Searching for details about ".$this->title." online at '$this->site_url'");
@@ -77,38 +44,24 @@ class movie_wwwMOVIEMETERnl extends Parser implements ParserInterface {
       $imdbtt = $this->checkForIMDBTT($details);
     }
 
-    $filmid = $this->getMovieMeter_Id(htmlspecialchars($this->title, ENT_QUOTES), $imdbtt);
-
-    $this->accuracy = 0;
-
-    if ( $filmid == -1 )
-    {
-      send_to_log(4,"No Match found.");
-    }
-    else
-    {
-      send_to_log(8, "Found MovieMeter Id: ".$filmid);
-      // Retrieve movie details
-      $message = new xmlrpcmsg("film.retrieveDetails", array(new xmlrpcval($this->session_key, "string"), new xmlrpcval($filmid, "int")));
-      $resp = $this->client->send($message);
-
-      if ($resp->faultCode())
-      {
-        send_to_log(3,"xmlrpc error:", $resp->faultString());
-      }
-      else
-      {
-        $results = $this->page = $resp->value();
-        $this->accuracy = 100;
-        send_to_log(4,"Found details for '".$results["title"]."'");
-        if ( isset ($imdbtt) && !empty($imdbtt)){
-          if ($this->selfTestIsOK())
-            return true;
-          else {
-            send_to_log(4, "Calling populatePage a second time with IMDb ID: " . $imdbtt);
-            $this->populatePage(array('TITLE'         => $this->title,
-                                      'IGNORE_IMDBTT' => true));
-          }
+    $filmid = $this->getMovieMeter_Id($this->title, $imdbtt);
+    if ($filmid) {
+      // Parse the movie details
+      $url = 'http://www.moviemeter.nl/api/film/'.$filmid.'&api_key='.MOVIEMETER_API_KEY;
+      $opts = array('http'=>array('method'=>"GET",
+                                  'header'=>"Accept: application/json\r\n"));
+      $context = stream_context_create($opts);
+      send_to_log(6, "[moviemeter] GET: $url");
+      $moviematches = json_decode( file_get_contents($url, false, $context), true );
+      $this->page = $moviematches;
+      $this->accuracy = 100;
+      if ( isset ($imdbtt) && !empty($imdbtt)) {
+        if ($this->selfTestIsOK())
+          return true;
+        else {
+          send_to_log(4, "Calling populatePage a second time with IMDb ID: " . $imdbtt);
+          $this->populatePage(array('TITLE'         => $this->title,
+                                    'IGNORE_IMDBTT' => true));
         }
       }
     }
@@ -128,13 +81,13 @@ class movie_wwwMOVIEMETERnl extends Parser implements ParserInterface {
     $results = $this->page;
     $imdbtt = $results["imdb"];
     if (isset($imdbtt) && !empty($imdbtt)) {
-      $this->setProperty(IMDBTT, 'tt'.$imdbtt);
-      return 'tt'.$imdbtt;
+      $this->setProperty(IMDBTT, $imdbtt);
+      return $imdbtt;
     }
   }
   protected function parseTitle() {
     $results = $this->page;
-    $title = $results["title"];
+    $title = $results["display_title"];
     if (isset($title)&& !empty($title)) {
       $this->setProperty(TITLE, $title);
       return $title;
@@ -162,7 +115,7 @@ class movie_wwwMOVIEMETERnl extends Parser implements ParserInterface {
     $results = $this->page;
     $directors = array();
     foreach ($results["directors"] as $director)
-      $directors[] = $director["name"];
+      $directors[] = $director;
     if (isset($directors)&& !empty($directors)) {
       $this->setProperty(DIRECTORS, $directors);
       return $directors;
@@ -192,12 +145,10 @@ class movie_wwwMOVIEMETERnl extends Parser implements ParserInterface {
   }
   protected function parsePoster() {
     $results = $this->page;
-    if (!empty($results["thumbnail"])) {
-      $poster = $results["thumbnail"];
-      if (url_exists($poster)) {
-        $this->setProperty(POSTER, $poster);
-        return $poster;
-      }
+    if (!empty($results["posters"]["large"])) {
+      $poster = $results["posters"]["large"];
+      $this->setProperty(POSTER, $poster);
+      return $poster;
     }
   }
 
@@ -210,54 +161,51 @@ class movie_wwwMOVIEMETERnl extends Parser implements ParserInterface {
    */
   function getMovieMeter_Id($title, $imdbtt = '')
   {
+    // Use IMDb id (if provided), otherwise submit a search
     if (!empty ($imdbtt))
-    {
-      // Filename includes an explicit IMDb title such as '[tt0076759]', use that to find the movie
-      $message = new xmlrpcmsg("film.retrieveByImdb", array(new xmlrpcval($this->session_key, "string"), new xmlrpcval($imdbtt, "string")));
-      $resp = $this->client->send($message);
-
-      if ($resp->faultCode())
-      {
-        send_to_log(3,"xmlrpc error:", $resp->faultString());
-      }
-      else
-      {
-        return $resp->value();
-      }
-    }
-    elseif (preg_match('/\[(tt\d+)\]/', $title, $imdbtt) != 0)
-    {
-      // Film title includes an explicit IMDb title such as '[tt0076759]', use that to find the movie
-      $message = new xmlrpcmsg("film.retrieveByImdb", array(new xmlrpcval($this->session_key, "string"), new xmlrpcval($imdbtt[1], "string")));
-      $resp = $this->client->send($message);
-
-      if ($resp->faultCode())
-      {
-        send_to_log(3,"xmlrpc error:", $resp->faultString());
-      }
-      else
-      {
-        return $resp->value();
-      }
-    }
+      $url = 'http://www.moviemeter.nl/api/film/'.$imdbtt.'&api_key='.MOVIEMETER_API_KEY;
     else
-    {
-    // User moviemeter's internal search to get a list a possible matches
-    $message = new xmlrpcmsg("film.search", array(new xmlrpcval($this->session_key, "string"), new xmlrpcval($title, "string")));
-    $resp = $this->client->send($message);
+      $url = 'http://www.moviemeter.nl/api/film/?q='.urlencode($title).'&api_key='.MOVIEMETER_API_KEY;
 
-      if ($resp->faultCode())
-      {
-        send_to_log(3,"xmlrpc error:", $resp->faultString());
+    send_to_log(6, "[moviemeter] GET: $url");
+    $opts = array('http'=>array('method'=>"GET",
+                                'header'=>"Accept: application/json\r\n"));
+    $context = stream_context_create($opts);
+
+    // Parse the JSON results and determine best match for title
+    $moviematches = json_decode( file_get_contents($url, false, $context), true );
+
+    // Find best match for required title
+    if (count($moviematches) > 0) {
+      if (!empty ($imdbtt)) {
+        // Found IMDb id
+        $this->accuracy = 100;
+        $index = 0;
+        send_to_log(4, "Matched IMDb Id:", $moviematches['title']);
+        return $moviematches['id'];
+      } else {
+        // There are multiple matches found... process them
+        $matches = array ();
+        $matches_id = array ();
+        foreach ($moviematches as $movie) {
+          $matches[] = $movie['title'];
+          $matches_id[] = $movie['id'];
+          if ($movie['alternative_title'] !== $movie['title']) {
+            $matches[] = $movie['alternative_title'];
+            $matches_id[] = $movie['id'];
+          }
+        }
+        $index = best_match($title, $matches, $this->accuracy);
       }
+      // If we are sure that we found a good result, then get the file details.
+      if ($this->accuracy > 75)
+        return $matches_id[$index];
       else
-      {
-        $results = $resp->value();
-        if ( count($results) > 0 )
-          return $results[0]["filmId"];
-      }
+        return false;
+    } else {
+      send_to_log(4, "No Match found.");
+      return false;
     }
-    return false;
   }
 }
 ?>
