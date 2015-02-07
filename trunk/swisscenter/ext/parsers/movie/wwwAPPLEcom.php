@@ -163,10 +163,8 @@ class movie_wwwAPPLEcom extends Parser implements ParserInterface {
     $trailers = $this->page;
     if (!empty ($trailers["poster"])) {
       $poster = $trailers["poster"];
-      if (url_exists($poster)) {
-        $this->setProperty(POSTER, $poster);
-        return $poster;
-      }
+      $this->setProperty(POSTER, $poster);
+      return $poster;
     }
   }
   protected function parseMatchPc() {

@@ -150,10 +150,8 @@ class movie_wwwFILMTRAILERcom extends Parser implements ParserInterface {
   protected function parsePoster() {
     $results = $this->page;
     $poster = isset($results[0]["PICTURES"][3]) ? $results[0]["PICTURES"][3]["URL"] : $results[0]["PICTURES"][1]["URL"];
-    if (url_exists($poster)) {
-      $this->setProperty(POSTER, $poster);
-      return $poster;
-    }
+    $this->setProperty(POSTER, $poster);
+    return $poster;
   }
   protected function parseMatchPc() {
     $this->setProperty(MATCH_PC, $this->accuracy);
