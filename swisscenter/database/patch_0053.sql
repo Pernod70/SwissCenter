@@ -311,10 +311,10 @@ ALTER TABLE `viewings` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 -- Add unique indexes to media tables
 -- -------------------------------------------------------------------------------------------------
 
-ALTER TABLE `movies` ADD UNIQUE `movies_fsp_u1` (`dirname`(160), `filename`(160));
-ALTER TABLE `tv` ADD UNIQUE `tv_fsp_u1` (`dirname`(160), `filename`(160));
-ALTER TABLE `mp3s` ADD UNIQUE `mp3s_fsp_u1` (`dirname`(160), `filename`(160));
-ALTER TABLE `photos` ADD UNIQUE `photos_fsp_u1` (`dirname`(160), `filename`(160));
+ALTER TABLE `movies` ADD UNIQUE `movies_fsp_u1` (`dirname`(100), `filename`(100));
+ALTER TABLE `tv` ADD UNIQUE `tv_fsp_u1` (`dirname`(100), `filename`(100));
+ALTER TABLE `mp3s` ADD UNIQUE `mp3s_fsp_u1` (`dirname`(100), `filename`(100));
+ALTER TABLE `photos` ADD UNIQUE `photos_fsp_u1` (`dirname`(100), `filename`(100));
 
 -- -------------------------------------------------------------------------------------------------
 -- Fix other indexes
