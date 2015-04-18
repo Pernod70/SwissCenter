@@ -14,6 +14,7 @@
   $artist  = isset($_REQUEST["artist"]) ? rawurldecode($_REQUEST["artist"]) : false;
   $album   = isset($_REQUEST["album"]) ? rawurldecode($_REQUEST["album"]) : false;
   $track   = isset($_REQUEST["track"]) ? rawurldecode($_REQUEST["track"]) : false;
+  $cover   = isset($_REQUEST["cover"]) ? rawurldecode($_REQUEST["cover"]) : 'front';
   $display = isset($_REQUEST["display"]) ? rawurldecode($_REQUEST["display"]) : 'artist';
   $current = isset($_REQUEST["tab"]) ? $_REQUEST["tab"] : 'ALL';
   $tabs    = array('ALL', 'ALBUMS', 'SINGLES');
@@ -36,7 +37,21 @@
       break;
     case 'album':
       $data  = tadb_album_getInfo($data['strArtist'], $album);
-      $image = isset($data['strAlbumThumb'])  ? $data['strAlbumThumb']  : null;
+      switch ($cover)
+      {
+        case 'back':
+          $image = isset($data['strAlbumThumbBack']) ? $data['strAlbumThumbBack'] : $data['strAlbumThumb'];
+          $next_cover = 'cdart';
+          break;
+        case 'cdart':
+          $image = isset($data['strAlbumCDart']) ? $data['strAlbumCDart'] : $data['strAlbumThumb'];
+          $next_cover = 'front';
+          break;
+        default:
+          $image = isset($data['strAlbumThumb']) ? $data['strAlbumThumb'] : null;
+          $next_cover = 'back';
+          break;
+      }
       $text  = isset($data['strDescription']) ? font_tags(FONTSIZE_BODY).$data['strDescription'].'</font>' : null;
       break;
     case 'review':
@@ -82,7 +97,7 @@
   echo '    <td width="'.convert_x(280).'" valign="middle">
               <table '.style_background('PAGE_TEXT_BACKGROUND').' cellpadding="10" cellspacing="0" border="0">
                 <tr>
-                  <td>'.img_gen($image,280,450,false,false,false,array(),false).'</td>
+                  <td><a href="'.url_add_params(current_url(), array('cover'=>$next_cover, 'hist'=>PAGE_HISTORY_REPLACE)).'">'.img_gen($image,280,450,false,false,false,array(),false).'</a></td>
                 </tr>
               </table>
             </td>';
