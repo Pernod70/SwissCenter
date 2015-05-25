@@ -133,7 +133,7 @@ function search_process_passed_params()
   else
   {
     // Remove any existing predicate before appending the new one.
-    $predicate = preg_replace("/ and $type like '.*'/", '', $predicate);
+    $predicate = preg_replace(array("/ and $type like '.*'/", "/ and sort_$type like '.*'/"), '', $predicate);
     $predicate .= " and $type like '".db_escape_str(str_replace('_','\_',$name))."'";
   }
 
