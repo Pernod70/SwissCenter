@@ -40,16 +40,13 @@
       switch ($cover)
       {
         case 'back':
-          $image = isset($data['strAlbumThumbBack']) ? $data['strAlbumThumbBack'] : $data['strAlbumThumb'];
-          $next_cover = 'cdart';
+          $image = $data['strAlbumThumbBack'];
           break;
         case 'cdart':
-          $image = isset($data['strAlbumCDart']) ? $data['strAlbumCDart'] : $data['strAlbumThumb'];
-          $next_cover = 'front';
+          $image = $data['strAlbumCDart'];
           break;
         default:
-          $image = isset($data['strAlbumThumb']) ? $data['strAlbumThumb'] : null;
-          $next_cover = 'back';
+          $image = $data['strAlbumThumb'];
           break;
       }
       $text  = isset($data['strDescription']) ? font_tags(FONTSIZE_BODY).$data['strDescription'].'</font>' : null;
@@ -86,6 +83,16 @@
   if (empty($image))
     $image = style_img('NOW_NO_ALBUMART',true);
 
+  // Tabs for cover art
+  $tabs = array();
+  if (!empty($data['strAlbumThumb'])) array_push($tabs, 'front');
+  if (!empty($data['strAlbumThumbBack'])) array_push($tabs, 'back');
+  if (!empty($data['strAlbumCDart'])) array_push($tabs, 'cdart');
+  $tab_strip = '';
+  foreach ($tabs as $key=>$tab)
+    $tab_strip .= ($key > 0 ? ' | ' : '').'<a href="'.url_add_params(current_url(), array('cover'=>$tab, 'hist'=>PAGE_HISTORY_REPLACE)).'">'.
+                  ($tab == $cover ? font_tags(FONTSIZE_BODY, style_value("PAGE_TITLE_COLOUR",'#FFFFFF')).str($tab) : font_tags(FONTSIZE_BODY).str($tab)).'</font></a>';
+
   page_header( $artist, '', '', 1, false, '', $fanart, $logo, 'PAGE_TEXT_BACKGROUND' );
 
   if ($display == 'discog')
@@ -97,7 +104,7 @@
   echo '    <td width="'.convert_x(280).'" valign="middle">
               <table '.style_background('PAGE_TEXT_BACKGROUND').' cellpadding="10" cellspacing="0" border="0">
                 <tr>
-                  <td><a href="'.url_add_params(current_url(), array('cover'=>$next_cover, 'hist'=>PAGE_HISTORY_REPLACE)).'">'.img_gen($image,280,450,false,false,false,array(),false).'</a></td>
+                  <td>'.img_gen($image,280,450,false,false,false,array(),false).'<br><center>'.$tab_strip.'</center></td>
                 </tr>
               </table>
             </td>';
