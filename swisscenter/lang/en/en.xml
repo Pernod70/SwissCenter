@@ -208,6 +208,11 @@
         <version>1.23</version>
       </string>
       <string>
+        <id>BACK</id>
+        <text>Back</text>
+        <version>1.24</version>
+      </string>
+      <string>
         <id>BACKSPACE</id>
         <text>Previous Page</text>
         <version>1.19</version>
@@ -611,6 +616,11 @@
         <id>CAT_UPDATE_OK</id>
         <text>Category information updated</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>CDART</id>
+        <text>CD Art</text>
+        <version>1.24</version>
       </string>
       <string>
         <id>CERTIFICATE</id>
@@ -1595,6 +1605,11 @@
 [li]200 - ShowCenter 200/250HD, EVA700, etc.[/li]
 [li]400 - Popcorn Hour A-100/A-110/A-200, HDX 1000, etc.[/li][/ul]</text>
         <version>1.22</version>
+      </string>
+      <string>
+        <id>FRONT</id>
+        <text>Front</text>
+        <version>1.24</version>
       </string>
       <string>
         <id>FTV_GIRLS</id>
@@ -5494,6 +5509,11 @@ If any details are added/changed on this page then you are requested to submit t
         <version>1.19</version>
       </string>
       <string>
+        <id>TMDB_ID</id>
+        <text>TMDB ID</text>
+        <version>1.24</version>
+      </string>
+      <string>
         <id>TODAY</id>
         <text>Today</text>
         <version>1.22</version>
@@ -5747,6 +5767,11 @@ If any details are added/changed on this page then you are requested to submit t
         <id>TVID_RESET_DEFAULT</id>
         <text>Reset TVID codes to default</text>
         <version>1.19</version>
+      </string>
+      <string>
+        <id>TVRAGE_ID</id>
+        <text>TVRage ID</text>
+        <version>1.24</version>
       </string>
       <string>
         <id>TVSERIES</id>
