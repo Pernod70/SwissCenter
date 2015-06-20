@@ -102,14 +102,14 @@ class parserUtil
   }
 
   function get_alt_title_number($title) {
-    $number_in_title = preg_get('/([0-9])/', $title);
-    $roman_in_title = preg_get('/(VIII|VII|VI|IV|III|II|IX|X|V|I)/U', $title);
+    $number_in_title = preg_get('/ ([0-9]+)/', $title);
+    $roman_in_title = preg_get('/ (VIII|VII|VI|IV|III|II|IX|X|V|I)/U', $title);
     if ( $number_in_title ) {
       // Check for decimal number in title
-      $title_alt = preg_replace('/[0-9]/', self :: convertRomanNumeral($number_in_title, true), $title);
+      $title_alt = preg_replace('/ [0-9]+/', self :: convertRomanNumeral($number_in_title, true), $title);
     } elseif ( $roman_in_title ) {
       // Check for roman numeral in title
-      $title_alt = preg_replace('/(VIII|VII|VI|IV|III|II|IX|X|V|I)/U', self :: convertRomanNumeral($roman_in_title, false), $title);
+      $title_alt = preg_replace('/ (VIII|VII|VI|IV|III|II|IX|X|V|I)/U', self :: convertRomanNumeral($roman_in_title, false), $title);
     } else {
       $title_alt = $title;
     }
@@ -184,7 +184,8 @@ class parserUtil
       " XVID ",
       " X264 ",
       " H264 ",
-      " TR EN "
+      " TR EN ",
+      " XXX "
     );
     $count = count($array);
     for ($i = 0; $i < $count; $i++) {
@@ -323,13 +324,12 @@ class parserUtil
    * @return string
    */
   function my_ucwords($str) {
-    $str = strtoupper($str);
     $all_uppercase = 'Ii|Iii|Iv|Vi|Vii|Viii|Ix|Xi|Xii';
-    $all_lowercase = 'A|And|As|By|In|Of|Or|To|The|On';
+    $all_lowercase = 'A|And|As|By|In|Of|Or|To|The|On|Und';
     $suffixes = "'S";
 
     // Captialize all first letters
-    $str = preg_replace('/\\b(\\w)/e', 'strtoupper("$1")', strtolower($str));
+    $str = mb_convert_case($str, MB_CASE_TITLE);
 
     // Capitalize acronymns and initialisms e.g. PHP
     $str = preg_replace("/\\b($all_uppercase)\\b/e", 'strtoupper("$1")', $str);
