@@ -11,6 +11,9 @@
   require_once( realpath(dirname(__FILE__).'/base/xml_sidecar.php'));
   require_once( realpath(dirname(__FILE__).'/video_obtain_info.php'));
 
+  // Set internal character encoding to UTF-8
+  mb_internal_encoding('UTF-8');
+
   // Log details of the page request
   send_to_log(0,"Page: ".$_SERVER["REQUEST_METHOD"]." ".current_url()." by client (".client_ip().")");
 
