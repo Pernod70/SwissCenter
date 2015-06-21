@@ -43,14 +43,14 @@ class parserUtil
 
     foreach ($haystack as $i=>$item)
     {
-      $chars = similar_text(strtolower(trim($title_and_year)),strtolower(trim($item)),$pc);
+      $chars = similar_text(mb_strtolower(trim($title_and_year)),mb_strtolower(trim($item)),$pc);
 
       if (($chars > $best_match["chars"] && $pc >= $best_match["pc"]) || $pc > $best_match["pc"])
         $best_match = array ( "id" => $i, "chars" => $chars, "pc" => $pc );
 
       if ( $title_and_year_alt !== $title_and_year )
       {
-        $chars = similar_text(strtolower(trim($title_and_year_alt)),strtolower(trim($item)),$pc_alt);
+        $chars = similar_text(mb_strtolower(trim($title_and_year_alt)),mb_strtolower(trim($item)),$pc_alt);
 
         if (($chars > $best_match["chars"] && $pc_alt >= $best_match["pc"]) || $pc_alt > $best_match["pc"])
           $best_match = array ( "id" => $i, "chars" => $chars, "pc" => $pc_alt );
@@ -189,7 +189,7 @@ class parserUtil
     );
     $count = count($array);
     for ($i = 0; $i < $count; $i++) {
-      $pos = strpos(strtoupper($title.' '), $array[$i]);
+      $pos = strpos(mb_strtoupper($title.' '), $array[$i]);
       if ($pos !== false) {
         $title = substr($title, 0, $pos).' ';
       }
@@ -230,7 +230,7 @@ class parserUtil
    * @return string
    */
   function get_moviefolder_name($filename) {
-    $moviefolder_name = strtoupper(dirname($filename));
+    $moviefolder_name = mb_strtoupper(dirname($filename));
     //Check if this is a CD# folder. If so, go to parent folder
     if (substr($moviefolder_name, strlen($moviefolder_name) - 4, 3) == "/CD") {
       send_to_log(8, "This is a CD folder " . $moviefolder_name . " Getting parent folder..");
@@ -257,8 +257,8 @@ class parserUtil
     $search = array (
       '/\(.*\)/',
       '/\[.*]/',
-      '/\s[^\w&$]/',
-      '/[^\w&$]\s/',
+//      '/\s[^\w&$]/',
+//      '/[^\w&$]\s/',
       '/\sCD[^\w].*/i',
       '/ +$/',
       '/_/',
@@ -268,8 +268,8 @@ class parserUtil
     $replace = array (
       ' ',
       ' ',
-      ' ',
-      ' ',
+//      ' ',
+//      ' ',
       ' ',
       '',
       ' ',
@@ -286,7 +286,7 @@ class parserUtil
    * @return boolean
    */
   function is_sample_folder($filename) {
-    $moviefolder_name = strtoupper(dirname($filename));
+    $moviefolder_name = mb_strtoupper(dirname($filename));
     return (substr($moviefolder_name, strlen($moviefolder_name) - 7, 7) == "/SAMPLE");
   }
 
@@ -329,17 +329,17 @@ class parserUtil
     $suffixes = "'S";
 
     // Captialize all first letters
-    $str = mb_convert_case($str, MB_CASE_TITLE);
+    $str = mb_convert_case(mb_strtolower($str), MB_CASE_TITLE);
 
     // Capitalize acronymns and initialisms e.g. PHP
-    $str = preg_replace("/\\b($all_uppercase)\\b/e", 'strtoupper("$1")', $str);
+    $str = preg_replace("/\\b($all_uppercase)\\b/e", 'mb_strtoupper("$1")', $str);
 
     // Decapitalize short words e.g. and
     // First and last word will not be changed to lower case (i.e. titles)
-    $str = preg_replace("/(?<=\\W)($all_lowercase)(?=\\W)/e", 'strtolower("$1")', $str);
+    $str = preg_replace("/(?<=\\W)($all_lowercase)(?=\\W)/e", 'mb_strtolower("$1")', $str);
 
     // Decapitalize suffixes, and strip slashes added by 'e' modifier.
-    $str = preg_replace("/(\\w)($suffixes)\\b/e", '"$1".strtolower("$2")', $str);
+    $str = preg_replace("/(\\w)($suffixes)\\b/e", '"$1".mb_strtolower("$2")', $str);
     $str = stripslashes($str);
 
     return $str;
