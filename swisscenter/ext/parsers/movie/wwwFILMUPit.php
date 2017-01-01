@@ -138,7 +138,7 @@ class movie_wwwFILMUPit extends Parser implements ParserInterface {
     $opinioni_uid = preg_get('/opinioni\/op.php\?uid=(\d+)"/', $html);
     if (!empty ($opinioni_uid)) {
       $html = file_get_contents($this->site_url . 'opinioni/op.php?uid=' . $opinioni_uid);
-      $user_rating = preg_get('/Media Voto:.*<b>(.*)<\/b>/Uism', $html);
+      $user_rating = preg_get('/Media Voto: (\d+)/Uism', $html);
       $rating = (empty ($user_rating) ? '' : $user_rating * 10);
       if (!empty($rating)) {
         $this->setProperty(EXTERNAL_RATING_PC, $rating);
