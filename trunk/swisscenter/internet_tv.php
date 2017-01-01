@@ -25,8 +25,6 @@
   }
   if ($trakt)
     $menu->add_item( str('TRAKT'), 'trakt.php' );
-  $menu->add_item( str('FILM_TRAILERS'), 'film_trailer.php' );
-  $menu->add_item( str('TOMA_INTERNET_TV'), 'internet_tv_toma.php' );
 
   // Adult restricted options
   if (get_current_user_rank() >= 100)
