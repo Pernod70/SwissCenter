@@ -47,7 +47,7 @@ class movie_wwwMOVIEMETERnl extends Parser implements ParserInterface {
     $filmid = $this->getMovieMeter_Id($this->title, $imdbtt);
     if ($filmid) {
       // Parse the movie details
-      $url = 'http://www.moviemeter.nl/api/film/'.$filmid.'&api_key='.MOVIEMETER_API_KEY;
+      $url = 'http://www.moviemeter.nl/api/film/'.$filmid.'?api_key='.MOVIEMETER_API_KEY;
       $opts = array('http'=>array('method'=>"GET",
                                   'header'=>"Accept: application/json\r\n"));
       $context = stream_context_create($opts);
@@ -163,7 +163,7 @@ class movie_wwwMOVIEMETERnl extends Parser implements ParserInterface {
   {
     // Use IMDb id (if provided), otherwise submit a search
     if (!empty ($imdbtt))
-      $url = 'http://www.moviemeter.nl/api/film/'.$imdbtt.'&api_key='.MOVIEMETER_API_KEY;
+      $url = 'http://www.moviemeter.nl/api/film/'.$imdb_id.'?api_key='.MOVIEMETER_API_KEY;
     else
       $url = 'http://www.moviemeter.nl/api/film/?q='.urlencode($title).'&api_key='.MOVIEMETER_API_KEY;
 
